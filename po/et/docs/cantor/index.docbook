@@ -1,0 +1,1044 @@
+<?xml version="1.0" ?>
+<!DOCTYPE book PUBLIC "-//KDE//DTD DocBook XML V4.5-Based Variant V1.1//EN" "dtd/kdedbx45.dtd" [
+
+  <!ENTITY kappname "&cantor;">
+  <!ENTITY package "kdeedu">
+  <!ENTITY latex "L<superscript
+>A</superscript
+>T<subscript
+>E</subscript
+>X">
+  <!ENTITY % addindex "IGNORE">
+  <!ENTITY % Estonian  "INCLUDE">
+]>
+<book id="cantor" lang="&language;">
+
+<bookinfo>
+<title
+>&cantor;i käsiraamat</title>
+
+<authorgroup>
+<author
+><personname
+> <firstname
+>Alexander</firstname
+> <surname
+>Rieder</surname
+> </personname
+> <email
+>alexanderrieder@gmail.com</email
+> </author>
+<othercredit role="translator"
+><firstname
+>Marek</firstname
+><surname
+>Laane</surname
+><affiliation
+><address
+><email
+>bald@smail.ee</email
+></address
+></affiliation
+><contrib
+>Tõlge eesti keelde</contrib
+></othercredit
+> 
+</authorgroup>
+
+<copyright>
+<year
+>2009</year>
+<holder
+>Alexander Rieder</holder>
+</copyright>
+<legalnotice
+>&FDLNotice;</legalnotice>
+
+<date
+>2014-05-09</date>
+<releaseinfo
+>0.5 (&kde; 4.14)</releaseinfo>
+
+<abstract>
+<para
+>&cantor; on rakendus, mille eesmärk on pakkuda kena töölehevaadet teistele vaba takrvara matemaatikaprogrammidele. </para>
+</abstract>
+
+<keywordset>
+<keyword
+>KDE</keyword>
+<keyword
+>kdeedu</keyword>
+<keyword
+>matemaatika</keyword>
+<keyword
+>matemaatika</keyword>
+<keyword
+>Cantor</keyword>
+<keyword
+>Sage</keyword>
+<keyword
+>Python</keyword>
+<keyword
+>Lua</keyword>
+<keyword
+>Scilab</keyword>
+<keyword
+>R</keyword>
+<keyword
+>Maxima</keyword>
+</keywordset>
+
+</bookinfo>
+
+<chapter id="introduction">
+<title
+>Sissejuhatus</title>
+
+<para
+>&cantor; on rakendus, mis võimaldab kasutada oma lemmik-matemaatikarakendust kenas ja &kde;-ga lõimitud tööleheliideses. Mitmed dialoogid aitavad toime tulla levinumate ülesannetega ning töölehti on võimalik teistega jagada. </para>
+</chapter>
+
+<chapter id="using-kapp">
+<title
+>&cantor;i kasutamine</title>
+
+<para
+>Pilt: <screenshot>
+<screeninfo
+>&cantor;i pilt</screeninfo>
+	<mediaobject>
+	  <imageobject>
+	    <imagedata fileref="screenshot.png" format="PNG"/>
+	  </imageobject>
+	  <textobject>
+	    <phrase
+>Pilt</phrase>
+	  </textobject>
+	</mediaobject>
+</screenshot>
+</para>
+
+
+<sect1 id="kapp-features">
+<title
+>&cantor;i omadused</title>
+<itemizedlist>
+  <listitem
+><para
+>Selgesti mõistetav töölehevaade avaldiste hindamiseks.</para
+></listitem>
+  <listitem
+><para
+>Töölehel näeb tulemusi graafiku kujul.</para
+></listitem>
+  <listitem
+><para
+>Lihtne pluginapõhine struktuur võimaldab lisada uusi taustaprogramme.</para
+></listitem>
+  <listitem
+><para
+>Uue kraami hankimise võimalus lubab alla laadida näidistöölehti (ja ka üles laadida).</para
+></listitem>
+  <listitem
+><para
+>Matemaatikavalemite kasutamine &latex;i abil.</para
+></listitem>
+  <listitem
+><para
+>Taustaprogrammiteadlik süntaksi esiletõstmine.</para
+></listitem>
+  <listitem
+><para
+>Pluginapõhised abidialoogid levinumate ülesannete täitmiseks, näiteks funktsiooni integreerimiseks või maatriksi sisestamiseks.</para
+></listitem>
+</itemizedlist>
+</sect1>
+
+<sect1 id="backends">
+<title
+>&cantor;i taustaprogrammid</title>
+<para
+>&cantor; võimaldab kasutada mitut taustaprogrammi. Sinu valik sõltub sellest, mida soovid saavutada. </para>
+<para
+>Praegu on saadaval järgmised taustaprogrammid: <variablelist>
+    <varlistentry>
+      <term
+>Sage:</term>
+      <listitem>
+	<para
+>Sage on vaba ja avatud lähtekoodiga matemaatikatarkvara süsteem, mida levitatakse GPL litsentsi alusel. See ühendab paljude olemasolevate avatud lähtekoodiga pakettide võimsuse ühtse Pythonil põhineva liidese taha. Täpsemalt kõneleb sellest <ulink url="http://sagemath.org"
+>http://sagemath.org</ulink
+>. </para>
+	</listitem>
+    </varlistentry>
+    <varlistentry>
+      <term
+>Maxima:</term>
+      <listitem>
+	<para
+>Maxima on sümbol- ja arvavaldiste igakülgse kasutamise süsteem, kaasa arvatud diferentsiaalarvutus, integraalarvutus. Taylori read, Laplace'i teisendused, tavalised diferentsiaalvõrrandid, lineaarvõrrandite süsteemid, polünoomid ning hulgad, loendid, vektorid, maatriksid ja tensorid. Maxima tagab äärmiselt täpsed arvulised tulemused, kasutades selleks täpseid murde ning muutuva täpsusega täis- ja murdarve. Maxima võib esitada funktsioone ja andmeid kahe- ja kolmemõõtmeliste joonistena. Täpsemalt kõneleb sellest <ulink url="http://maxima.sourceforge.net"
+>http://maxima.sourceforge.net</ulink
+>. </para>
+      </listitem>
+    </varlistentry>
+    <varlistentry>
+      <term
+>R:</term>
+      <listitem>
+	<para
+>R on statistiliste arvutuste ja graafika keel ja keskkond, sarnanedes S keelele ja keskkonnale. See pakub ohtralt statistika- (lineaarsed ja mittelineaarsed mudelid, klassikalised statistikatestid, aegridade analüüs, liigitamine, klasterdamine...) ja graafikameetodeid ning on äärmiselt hõlpsalt laiendatav. S keel on sageli statistikauuringute lemmiktööriist, R aga avatud lähtekoodiga tee neis osalemiseks. Täpsemalt kõneleb sellest <ulink url="http://www.r-project.org"
+>http://www.r-project.org</ulink
+>. </para>
+      </listitem>
+    </varlistentry>
+    <varlistentry>
+      <term
+>&kalgebra;:</term>
+      <listitem>
+	<para
+>&kalgebra; on MathML-põhine graafikute arvutaja, mis kuulub &kde; õpirakenduste projekti koosseisu. Täpsemat teavet annab veebilehekülg <ulink url="http://edu.kde.org/kalgebra/"
+>http://edu.kde.org/kalgebra/</ulink
+>. </para>
+      </listitem>
+    </varlistentry>
+    <varlistentry>
+      <term
+>Qalculate!:</term>
+      <listitem>
+  <para
+>Qalculate! ei ole tavalist odavat taskukalkulaatorit matkiv tarkvara. Qalculate! püüab ära kasutada tänapäeva arvutite suurepärast liidest, võimsust ja paindlikkust. Qalculate! keskmes seisab avaldis. Matemaatilise avaldise kõigi arvude eraldi sisestamise asemel võib kirjutada kohe terve avaldise ja seda hiljem muuta. Avaldiste tõlgendamine käib paindlikult ja vigu sallivalt, nii et kui teed midagi valesti, siis annab Qalculate! sellest sulle ka teada. Ühese lahenduseta avaldisi ei peeta ometi veaks. Qalculate! lihtsustab nii palju kui suudab ning annab tulemuseks avaldise. Lisaks arvudele ja tehtemärkidele võib avaldis sisaldada suvalises kombinatsioonis muutujaid, ühikuid ja funktsioone. Rohkem teavet annab veebilehekülg <ulink url="http://qalculate.sourceforge.net/"
+>http://qalculate.sourceforge.net/</ulink
+>. </para>
+  </listitem>
+    </varlistentry>
+    <varlistentry>
+      <term
+>Python2:</term>
+      <listitem>
+  <para
+>Python on märkimisväärselt võimas dünaamiline programmeerimiskeel, mida kasutatakse väga paljude rakenduste juures. Teadusprogrammeerimiseks on saadaval mitu Pythoni paketti. </para>
+  <para
+>Pythonit levitatakse vastavalt Pythoni tarkvara sihtasutuse litsentsile (ühildub GPL-iga). Rohkem teavet annab <ulink url="http://www.python.org/"
+>ametlik veebilehekülg</ulink
+>. </para>
+  <note>
+    <para
+>Taustaprogramm lisab &cantor;i peamenüüsse ühe täiendava menüü: <guimenu
+>Pakett</guimenu
+>. Selle menüü ainuke kirje on <menuchoice
+><guimenu
+>Pakett</guimenu
+><guimenuitem
+>Impordi pakett</guimenuitem
+></menuchoice
+>. Selle abil saab importida Pythoni pakette töölehele. </para>
+  </note>
+  <warning>
+    <para
+>See taustaprogramm toetab ainult Python 2. </para>
+  </warning>
+  </listitem>
+    </varlistentry>
+    <varlistentry>
+      <term
+>Scilab:</term>
+      <listitem>
+  <para
+>Scilab on vabatarkvaraline platvormist sõltumatu arvutamistarkvara ning kõrgtaseme arvutamisele orienteeritud programmeerimiskeel. </para>
+  <para
+>Scilabi levitatakse vastavalt CeCILL litsentsile (ühildub GPL-iga). Rohkem teavet annab veebilehekülg <ulink url="http://www.scilab.org/"
+>http://www.scilab.org/</ulink
+>. </para>
+  <warning>
+    <para
+>Taustaprogrammi kasutamiseks peab süsteemi olema paigaldatud Scilabi versioon 5.5 või uuem. </para>
+  </warning>
+  </listitem>
+    </varlistentry>
+    <varlistentry>
+      <term
+>Octave:</term>
+      <listitem>
+  <para
+>&GNU; Octave on peamiselt arvutamiseks mõeldud kõrgkeel. See pakub mugava käsurealiidese lineaarsete ja mittelineaarsete ülesannete lahendamiseks ja muudeks arvutustoiminguteks, pruukides selleks keelt, mis on valdavalt ühilduv <ulink url="http://www.mathworks.com/products/matlab/"
+>MATLAB-iga</ulink
+>. Täpsemalt kõneleb sellest veebilehekülg <ulink url="http://www.gnu.org/software/octave/"
+>http://www.gnu.org/software/octave/</ulink
+>. </para>
+      </listitem>
+    </varlistentry>
+    <varlistentry>
+      <term
+>Lua:</term>
+      <listitem>
+  <para
+>Lua on kiire ja kerge skriptikeel lihtsa protseduurilise süntaksiga. Luas on mitu matemaatikale ja teadusele orienteeritud teeki. </para>
+  <para
+>Rohkem teavet annab veebilehekülg <ulink url="http://www.lua.org/"
+>http://www.lua.org/</ulink
+>. </para>
+  <para
+>See taustaprogramm toetab <ulink url="http://luajit.org/"
+>luajit 2</ulink
+>. </para>
+      </listitem>
+    </varlistentry>
+  </variablelist>
+</para>
+</sect1>
+
+<sect1 id="workspace">
+<title
+>&cantor;i töötsoon</title>
+<para>
+<screenshot>
+  <screeninfo
+>&cantor;i töötsoon</screeninfo>
+  <mediaobject>
+    <imageobject>
+      <imagedata fileref="screenshot.png" format="PNG"/>
+    </imageobject>
+    <textobject>
+      <phrase
+>&cantor;i töötsoon</phrase>
+    </textobject>
+  </mediaobject>
+</screenshot>
+</para>
+<para
+>&cantor;i töötsoon koosneb kolmest osast: <orderedlist>
+    <listitem
+><para
+>Kaardiriba, kus saab liikuda avatud töölehtede vahel.</para
+></listitem>
+    <listitem
+><para
+>Abipaneel, kus näeb käskude kohta teavet, kui sisestada "? käsk".</para
+></listitem>
+    <listitem
+><para
+>Muutujate haldamise paneel, kus näeb kõiki aktiivse töölehe saadaolevaid muutujaid. Abi ja muutujate haldamise paneele näidatakse &cantor;i akna külgribal eraldi kaartidel. Muutujate haldurit saab kasutada ainult Maxima (kui see on sisse lülitatud <menuchoice
+><guimenu
+>Seadistused</guimenu
+><guimenuitem
+>&cantor;i seadistamine...</guimenuitem
+></menuchoice
+> <guilabel
+>Maxima</guilabel
+> leheküljel), &kalgebra; Octave'i, Python 2, Qualculate'i ja Scilabi taustaprogrammide puhul.</para
+></listitem>
+    <listitem
+><para
+>Tööleht ise.</para
+></listitem>
+  </orderedlist>
+</para>
+<sect2 id="worksheet">
+<title
+>Tööleht</title>
+<para
+>Tööleht on &cantor;i põhiline tööpiirkond. Selle abil saab sisestada avaldisi, lasta taustaprogrammil sooritada arvutusi ning vaadata tulemusi. Käsud, mida tööleht tunnistab, sõltuvad kasutatavast taustaprogrammist, mistõttu tuleb omandada vajaliku taustaprogrammi süntaks (selle juures on suureks abiks nupp Näita abi). Kui tead käsku, aga vajad täpsemat teavet, võid kirjutada "? <replaceable
+>käsk</replaceable
+>" ning töölehest paremal ilmubki nähtavale kontekstiabi. Kui soovid näha mõningaid näidistöölehti, vali menüüst <guimenu
+>Fail</guimenu
+> käsk <guimenuitem
+>Laadi alla näidistöölehti</guimenuitem
+> ning laadi alla töölehti, mida teised kasutajad on avalikuks teinud. </para>
+<para
+>Kõigi töölehe käsukirjete kontrollimiseks saab kasutada töölehe paremas osas leiduvaid juhtnuppe, mida näidatakse, kui viia hiirekursor kirjevälja kohale. Kõigi kirjete korral on kolm põhitoimingut: <guilabel
+>Hinda kirjet</guilabel
+> kirje arvutamise tulemuste uuendamiseks, <guilabel
+>Lohista kirjet</guilabel
+> kirje liigutamiseks töölehel teise kohta ning <guilabel
+>Eemalda kirje</guilabel
+> kirje eemaldamiseks aktiivselt töölehelt. </para>
+<para
+>Töölehe kirjete fondi ja joondamise seadistusi saab muuta töölehe kohal asuva tööriistariba vahendusel. </para>
+<sect3 id="worksheet-settings">
+  <title
+>Seadistused</title>
+  <para
+>Menüü <guimenu
+>Seadistused</guimenu
+> võimaldab muuta mõningaid aktiivse töölehe välimuse seadistusi. </para>
+  <variablelist>
+    <varlistentry>
+      <term
+>Matemaatikavalemite kasutamine &latex;i abil</term>
+      <listitem>
+	<para
+>See muudab viisi, kuidas näidatakse tulemusi. Sisselülitamise korral saadetakse tulemus läbi &latex;i süsteemi, mis tagab visuaalselt kenad valemid. Näiteks <quote
+>3*x^2*sqrt(2)*x+2/3</quote
+> asemel näeb <inlinemediaobject>
+	      <imageobject>
+		<imagedata fileref="latex_formula.png" format="PNG"/>
+	      </imageobject>
+	      <textobject
+><phrase
+>3*x^2*sqrt(2)*x+2/3</phrase
+></textobject>
+	  </inlinemediaobject>
+	</para>
+      </listitem>
+    </varlistentry>
+    <varlistentry>
+      <term
+>Süntaksi esiletõstmine</term>
+      <listitem>
+	<para
+>Süntaksi esiletõstmine suurendab koodi loetavust, tõstes eri värviga esile võtmesõnad või kokkukuuluvad sulud. </para>
+      </listitem>
+    </varlistentry>
+    <varlistentry>
+      <term
+>Lõpetamine</term>
+      <listitem>
+	<para
+>Selle sisselülitamisel näitab &cantor; parajasti sisestatava käsu võimalikke kujusid, kui vajutad TAB-klahvi. Kui on ainult üks valik, sisestatakse see sinu eest. </para>
+      </listitem>
+    </varlistentry>
+  <varlistentry>
+    <term
+>Reanumbrid</term>
+    <listitem>
+      <para
+>See määrab, kas erinevate avaldiste ees on näha numbrid. Nii saab meeles hoida vanemaid tulemusi - Maximas käib see näiteks käsu <quote
+>%O1</quote
+> abil. </para>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term
+>Töölehe animeerimine</term>
+    <listitem>
+      <para
+>Selle abil saab määrata, kas töölehe muutuste esiletõstmiseks kasutatakse mitmesuguseid animatsioone või mitte. </para>
+    </listitem>
+  </varlistentry>
+  </variablelist>
+</sect3>
+</sect2>
+</sect1>
+<!--
+<sect1 id="assistant-dlgs">
+<title
+>The assistant dialogs</title>
+TODO add screenshots and descriptions of each assistant
+</sect1>
+-->
+</chapter>
+<chapter id="commands">
+<title
+>Käskude seletused</title>
+
+<sect1 id="kapp-mainwindow">
+<title
+>&cantor;i peaaken</title>
+
+<para
+>&cantor; kasutab tavapäraseid &kde; menüü kirjeid, millest kõneleb lähemalt &kde; põhialuste käsiraamatu <ulink url="help:/fundamentals/ui.html#menus"
+>menüüd</ulink
+> käsitlev osa. </para>
+
+<para
+>&cantor;i täiendavad või spetsiaalsed menüükirjed: </para>
+
+<sect2 id="file-menu">
+<title
+>Menüü Fail</title>
+<para>
+<variablelist>
+<varlistentry>
+<term
+><menuchoice
+><shortcut
+> <keycombo action="simul"
+>&Ctrl;<keycap
+>N</keycap
+></keycombo
+> </shortcut
+> <guimenu
+>Fail</guimenu
+> <guimenuitem
+>Uus</guimenuitem
+> </menuchoice
+></term>
+<listitem
+><para
+><action
+>Uue töölehe loomine vaikimisi taustaprogrammiga.</action
+></para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><menuchoice
+><guimenu
+>Fail</guimenu
+> <guisubmenu
+>Uus</guisubmenu
+> <guimenuitem
+><replaceable
+>taustaprogramm</replaceable
+></guimenuitem
+> </menuchoice
+></term>
+<listitem
+><para
+><action
+>Uue töölehe loomine valitud taustaprogrammiga.</action
+></para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><menuchoice
+><guimenu
+>Fail</guimenu
+> <guimenuitem
+>Laadi alla näidistöölehti</guimenuitem
+> </menuchoice
+></term>
+<listitem
+><para
+><action
+>Avab dialoogi näidiste allalaadimiseks, mida on teised &cantor;i kasutajad üles laadinud <ulink url="http://userbase.kde.org/Special:MyLanguage/Glossary#Get_Hot_New_Stuff"
+>GetHotNewStuffi</ulink
+> abil.</action
+></para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><menuchoice
+><guimenu
+>Fail</guimenu
+> <guimenuitem
+>Ava näidis</guimenuitem
+> </menuchoice
+></term>
+<listitem
+><para
+><action
+>Avab dialoogi laaditava näidise valimiseks.</action
+> Näidised tuleb eelnevalt alla laadida menüükäsuga <menuchoice
+><guimenu
+>Fail</guimenu
+> <guimenuitem
+>Laadi alla näidistöölehti</guimenuitem
+></menuchoice
+></para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><menuchoice
+><guimenu
+>Fail</guimenu
+> <guimenuitem
+>Salvesta lihttekstina</guimenuitem
+> </menuchoice
+></term>
+<listitem
+><para
+><action
+>Salvestab aktiivse töölehe lihttekstidokumendina.</action
+></para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><menuchoice
+><guimenu
+>Fail</guimenu
+> <guimenuitem
+>Ekspordi LaTeXina</guimenuitem
+> </menuchoice
+></term>
+<listitem
+><para
+><action
+>Salvestab aktiivse töölehe &latex;i dokumendina.</action
+></para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><menuchoice
+><guimenu
+>Fail</guimenu
+> <guimenuitem
+>Avalda tööleht</guimenuitem
+> </menuchoice
+></term>
+<listitem
+><para
+><action
+>Avab dialoogi sinu aktiivse töölehe avaldamiseks ja selle muutmiseks kättesaadavaks teistele &cantor;i kasutajatele <ulink url="http://userbase.kde.org/Special:MyLanguage/Glossary#Get_Hot_New_Stuff"
+>GetHotNewStuffi</ulink
+> abil.</action
+></para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><menuchoice
+><guimenu
+>Fail</guimenu
+> <guimenuitem
+>Käivita skript</guimenuitem
+> </menuchoice
+></term>
+<listitem
+><para
+><action
+>Laadib ja käivitab aktiivse taustaprogrammi skripte.</action
+></para
+></listitem>
+</varlistentry>
+</variablelist>
+</para>
+
+</sect2>
+
+<sect2 id="view-menu">
+<title
+>Menüü Vaade</title>
+<para>
+<variablelist>
+<varlistentry>
+<term
+><menuchoice
+><shortcut
+> <keycombo action="simul"
+>&Ctrl;<keycap
+>+</keycap
+></keycombo
+> </shortcut
+> <guimenu
+>Vaade</guimenu
+> <guimenuitem
+>Suurenda</guimenuitem
+> </menuchoice
+></term>
+<listitem
+><para
+><action
+>Suurendab</action
+> aktiivset töölehte 10% võrra.</para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><menuchoice
+><shortcut
+> <keycombo action="simul"
+>&Ctrl;<keycap
+>-</keycap
+></keycombo
+> </shortcut
+> <guimenu
+>Vaade</guimenu
+> <guimenuitem
+>Vähenda</guimenuitem
+> </menuchoice
+></term>
+<listitem
+><para
+><action
+>Vähendab</action
+> aktiivset töölehte 10% võrra.</para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><menuchoice
+><guimenu
+>Vaade</guimenu
+> <guimenuitem
+>Näita skriptiredaktorit</guimenuitem
+> </menuchoice
+></term>
+<listitem
+><para
+><action
+>Avab aktiivse taustaprogrammi skripti redaktori.</action
+></para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><menuchoice
+><guimenu
+>Vaade</guimenu
+> <guisubmenu
+>Paneelid</guisubmenu
+> <guimenuitem
+>Abi</guimenuitem
+> </menuchoice
+></term>
+<listitem
+><para
+><action
+>Lülitab</action
+> <guilabel
+>Abi</guilabel
+> kaardi näitamise külgribal sisse või välja.</para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><menuchoice
+><guimenu
+>Vaade</guimenu
+> <guisubmenu
+>Paneelid</guisubmenu
+> <guimenuitem
+>Muutujate haldur</guimenuitem
+> </menuchoice
+></term>
+<listitem
+><para
+><action
+>Lülitab</action
+> <guilabel
+>muutujate halduri</guilabel
+> kaardi näitamise külgribal sisse või välja.</para
+></listitem>
+</varlistentry>
+</variablelist>
+</para>
+</sect2>
+
+<sect2 id="worsheet-menu">
+<title
+>Menüü Tööleht</title>
+<para>
+<variablelist>
+<varlistentry>
+<term
+><menuchoice
+><guimenu
+>Tööleht</guimenu
+> <guimenuitem
+>Hinda töölehte</guimenuitem
+> </menuchoice
+></term>
+<listitem
+><para
+><action
+>Käivitab</action
+> terve töölehe hindamise.</para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><menuchoice
+><shortcut
+> <keycombo action="simul"
+>&Shift;<keycap
+>Return</keycap
+></keycombo
+> </shortcut
+> <guimenu
+>Tööleht</guimenu
+> <guimenuitem
+>Hinda kirjet</guimenuitem
+> </menuchoice
+></term>
+<listitem
+><para
+><action
+>Käivitab</action
+> aktiivse kirje hindamise.</para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><menuchoice
+><shortcut
+> <keycombo action="simul"
+>&Ctrl;<keycap
+>Return</keycap
+></keycombo
+> </shortcut
+> <guimenu
+>Tööleht</guimenu
+> <guimenuitem
+>Lisa käsukirje</guimenuitem
+> </menuchoice
+></term>
+<listitem
+><para
+><action
+>Lisab uue käsukirje kursori asukohta.</action
+></para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><menuchoice
+><guimenu
+>Tööleht</guimenu
+> <guimenuitem
+>Lisa tekstikirje</guimenuitem
+> </menuchoice
+></term>
+<listitem
+><para
+><action
+>Lisab uue tekstikirje kursori asukohta.</action
+></para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><menuchoice
+><guimenu
+>Tööleht</guimenu
+> <guimenuitem
+>Lisa pilt</guimenuitem
+> </menuchoice
+></term>
+<listitem
+><para
+><action
+>Lisab pildimalli kursori asukohta.</action
+> Sul tuleb klõpsata mallil &HPNga;, et panna paika pildi üksikasjad.</para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><menuchoice
+><guimenu
+>Tööleht</guimenu
+> <guimenuitem
+>Lisa leheküljevahetus</guimenuitem
+> </menuchoice
+></term>
+<listitem
+><para
+><action
+>Lisab leheküljevahetuse kursori asukohta.</action
+></para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><menuchoice
+><shortcut
+> <keycombo action="simul"
+>&Shift;<keycap
+>Del</keycap
+></keycombo
+> </shortcut
+> <guimenu
+>Tööleht</guimenu
+> <guimenuitem
+>Eemalda aktiivne kirje</guimenuitem
+> </menuchoice
+></term>
+<listitem
+><para
+><action
+>Eemaldab</action
+> aktiivse kirje töölehelt.</para
+></listitem>
+</varlistentry>
+</variablelist>
+</para>
+</sect2>
+
+<sect2 id="settings-menu">
+<title
+>Menüü Seadistused</title>
+<para
+>See menüü sisaldab tavapäraseid &kde; menüü <guimenu
+>Seadistused</guimenu
+> kirjeid ning kirjeid, mida tutvustab <link linkend="worksheet-settings"
+>seadistuste osa</link
+>. </para>
+</sect2>
+
+<sect2 id="help-menu">
+<title
+>Menüü Abi</title>
+&help.menu.documentation; </sect2>
+
+</sect1>
+</chapter>
+
+<chapter id="developers">
+<title
+>&cantor; arendajatele</title>
+
+<para
+>&cantor;it saab hõlpsasti laiendata pluginate abil. Kirjutada saab järgmisi asju <variablelist>
+  <varlistentry>
+    <term
+>Taustaprogrammid:</term>
+    <listitem>
+      <para
+>Uus taustaprogramm võimaldab kasutada &cantor;i liidest mõne teise programmiga. </para>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term
+>Abilised:</term>
+    <listitem>
+      <para
+>Abilised pakuvad dialooge levinumate ülesannete automatiseerimiseks (näiteks maatriksi sisestamine või skripti käivitamine). </para>
+    </listitem>
+  </varlistentry>
+</variablelist>
+</para>
+<para
+>Praegu puuduvad spetsiaalsed arendajate õppematerjalid ja API dokumentatsioon, nii et kui soovid pluginat kirjutada, tuleb endal lähtekoodi uurida. Kõik liiede definitsioonid asuvad kataloogis <filename role="directory"
+>lib</filename
+>. Teostuse näidisteks on &cantor;iga kaasas olevad pluginad. </para>
+
+</chapter>
+
+<chapter id="faq">
+<title
+>Küsimused ja vastused</title>
+&reporting.bugs; &updating.documentation; <qandaset id="faqlist">
+<qandaentry>
+  <question
+><para
+>Menüükirje <guimenuitem
+>Matemaatikavalemite kasutamine LaTeXi abil</guimenuitem
+> puudub</para
+></question>
+  <answer
+><para
+>Kõik taustaprogrammid ei toeta kõiki võimalusi. Praeguses versioonis on &latex;i väljund toetatud Maxima, Qalculate! ja Sage taustaprogrammis.</para
+></answer>
+</qandaentry>
+<qandaentry>
+  <question
+><para
+>Paigaldasin Sage/Maxima, aga vastavat taustaprogrammi pole näha.</para
+></question>
+  <answer>
+    <para
+>Asi võib olla selles, et &cantor; ei osanud seda üles leida. Ava dialoog <menuchoice
+><guimenu
+>Seadistused</guimenu
+><guimenuitem
+>&kappname; seadistamine...</guimenuitem
+></menuchoice
+> ja muuda vajaliku rakenduse <guilabel
+>asukoht</guilabel
+>a. </para>
+  </answer>
+</qandaentry>
+<qandaentry>
+  <question
+><para
+>Miks nii imelik nimi - mis on sellel pistmist matemaatikaga?</para
+></question>
+  <answer
+><para
+>&cantor; on saanud nime saksa matemaatiku <ulink url="http://en.wikipedia.org/wiki/Georg_Cantor"
+>Georg Cantori</ulink
+> järgi, kes oli hulgateooria looja.</para
+></answer>
+</qandaentry>
+</qandaset>
+</chapter>
+
+<chapter id="credits">
+
+<title
+>Autorid ja litsents</title>
+
+<para
+>&cantor; </para>
+<para
+>Rakenduse autoriõigus 2009-2011: Alexander Rieder <email
+>alexanderrieder@gmail.com</email
+> </para>
+
+<para
+>Dokumentatsiooni autoriõigus &copy; 2009-2011: Alexander Rieder <email
+>alexanderrieder@gmail.com</email
+> </para>
+
+<para
+>Tõlge eesti keelde: Marek Laane <email
+>bald@smail.ee</email
+></para
+> 
+&underFDL; &underGPL; </chapter>
+
+<appendix id="installation">
+<title
+>Paigaldamine</title>
+
+<sect1 id="getting-kapp">
+<title
+>&cantor;i hankimine</title>
+&install.intro.documentation; </sect1>
+
+<sect1 id="requirements">
+<title
+>Nõuded</title>
+
+<para
+>&cantor;i edukaks kasutamiseks on vajalik &kde; 4. Kui soovid ladumissüsteemi kasutada, peavad paigaldatud olema &latex; ja LibSpectre. Kindla taustaprogrammi kasutamiseks peab paigaldatud olema vastav matemaatikapakett. </para>
+
+<!--
+<para>
+All required libraries as well as &cantor; itself can be found
+on <ulink url="ftp://ftp.kapp.org"
+>The &cantor; home page</ulink
+>.
+</para>
+-->
+
+
+<!-- For a list of updates, you may refer to the application web site
+or the ChangeLog file, or ... -->
+<!--
+<para>
+You can find a list of changes at <ulink
+url="http://apps.kde.org/kapp"
+>http://apps.kde.org/kapp</ulink
+>.
+</para>
+-->
+</sect1>
+
+<sect1 id="compilation">
+<title
+>Kompileerimine ja paigaldamine</title>
+&install.compile.documentation; </sect1>
+
+<sect1 id="configuration">
+<title
+>Seadistamine</title>
+
+<para
+>Sõltuvalt süsteemist võib olla vajalik muuta &cantor;i kasutatavate taustaprogrammide asukohta. </para>
+
+</sect1>
+
+</appendix>
+
+&documentation.index;
+</book>
+
+<!--
+Local Variables:
+mode: xml
+sgml-minimize-attributes:nil
+sgml-general-insert-case:lower
+sgml-indent-step:0
+sgml-indent-data:nil
+End:
+
+vim:tabstop=2:shiftwidth=2:expandtab
+kate: space-indent on; indent-width 2; tab-width 2; indent-mode none;
+-->

@@ -1,0 +1,5250 @@
+# Copyright (C) YEAR This_file_is_part_of_KDE
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Alexander Potashev <aspotashev@gmail.com>, 2009, 2010, 2011, 2012, 2014, 2015, 2016, 2017, 2018, 2019.
+# Yury G. Kudryashov <urkud.urkud@gmail.com>, 2009, 2012.
+# Alexey Subach <alexey.subach@gmail.com>, 2011.
+# Yuri Efremov <yur.arh@gmail.com>, 2013.
+# Alexander Yavorsky <kekcuha@gmail.com>, 2020.
+# Olesya Gerasimenko <translation-team@basealt.ru>, 2021, 2022.
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"Report-Msgid-Bugs-To: https://bugs.kde.org\n"
+"POT-Creation-Date: 2022-08-07 00:40+0000\n"
+"PO-Revision-Date: 2022-09-06 11:33+0300\n"
+"Last-Translator: Olesya Gerasimenko <translation-team@basealt.ru>\n"
+"Language-Team: Basealt Translation Team\n"
+"Language: ru\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Lokalize 22.04.3\n"
+"Plural-Forms: nplurals=4; plural=n==1 ? 3 : n%10==1 && n%100!=11 ? 0 : n"
+"%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
+"X-Environment: kde\n"
+"X-Accelerator-Marker: &\n"
+"X-Text-Markup: kde4\n"
+
+#, kde-format
+msgctxt "NAME OF TRANSLATORS"
+msgid "Your names"
+msgstr "Александр Поташев,Алексей Субач,Олеся Герасименко"
+
+#, kde-format
+msgctxt "EMAIL OF TRANSLATORS"
+msgid "Your emails"
+msgstr ""
+"aspotashev@gmail.com,alexey.subach@gmail.com,translation-team@basealt.ru"
+
+#: animationresultitem.cpp:38
+#, kde-format
+msgid "Pause"
+msgstr "Приостановить"
+
+#: animationresultitem.cpp:41
+#, kde-format
+msgid "Start"
+msgstr "Запустить"
+
+#: animationresultitem.cpp:45
+#, kde-format
+msgid "Stop"
+msgstr "Остановить"
+
+#: animationresultitem.cpp:113
+#, kde-format
+msgid "Save animation result"
+msgstr "Сохранить результат анимации"
+
+#: animationresultitem.cpp:113
+#, kde-format
+msgid "Animations (*.gif)"
+msgstr "Анимация (*.gif)"
+
+#: assistants/advancedplot/advancedplotassistant.cpp:30
+#, kde-format
+msgid "Advanced Plotting"
+msgstr "Построить график..."
+
+#. i18n: ectx: property (text), widget (QLabel, label_2)
+#: assistants/advancedplot/advancedplotdialog.ui:24
+#: backends/qalculate/plotassistant/qalculateplotassistant.cpp:24
+#, kde-format
+msgid "Plot"
+msgstr "График"
+
+#. i18n: ectx: property (text), widget (QLabel, label_3)
+#. i18n: ectx: property (text), widget (QLabel, label)
+#: assistants/advancedplot/advancedplotdialog.ui:33
+#: assistants/differentiate/differentiatedlg.ui:19
+#: assistants/integrate/integratedlg.ui:19 assistants/plot2d/plot2ddlg.ui:19
+#: assistants/plot3d/plot3ddlg.ui:17
+#, kde-format
+msgid "Expression:"
+msgstr "Выражение:"
+
+#. i18n: ectx: property (text), widget (QLabel, label)
+#: assistants/advancedplot/advancedplotdialog.ui:45
+#, kde-format
+msgid "Additional options:"
+msgstr "Дополнительные параметры:"
+
+#. i18n: ectx: Menu (Plot)
+#: assistants/advancedplot/cantor_advancedplot_assistant.rc:4
+#: assistants/plot2d/cantor_plot2d_assistant.rc:4
+#: assistants/plot3d/cantor_plot3d_assistant.rc:4
+#: backends/qalculate/plotassistant/cantor_qalculateplotassistant.rc:4
+#, kde-format
+msgid "&Plot"
+msgstr "&График"
+
+#. i18n: ectx: property (title), widget (QGroupBox, directiveContainer)
+#: assistants/advancedplot/directivecontainer.ui:14
+#, kde-format
+msgid "Option active"
+msgstr "Использовать эти параметры"
+
+#. i18n: ectx: Menu (calculate)
+#: assistants/differentiate/cantor_differentiate_assistant.rc:4
+#: assistants/integrate/cantor_integrate_assistant.rc:4
+#: assistants/solve/cantor_solve_assistant.rc:4
+#, kde-format
+msgid "&Calculate"
+msgstr "&Алгебра"
+
+#: assistants/differentiate/differentiateassistant.cpp:29
+#, kde-format
+msgid "Differentiate"
+msgstr "Найти &производную"
+
+#. i18n: ectx: property (text), widget (QLabel, label_2)
+#: assistants/differentiate/differentiatedlg.ui:29
+#: assistants/integrate/integratedlg.ui:29
+#, kde-format
+msgid "Variable:"
+msgstr "Переменная:"
+
+#. i18n: ectx: property (text), widget (KLineEdit, variable)
+#. i18n: ectx: property (text), widget (KLineEdit, xVarEdit)
+#: assistants/differentiate/differentiatedlg.ui:36
+#: assistants/integrate/integratedlg.ui:36
+#: backends/qalculate/plotassistant/qalculateplotdialog.ui:123
+#, kde-format
+msgid "x"
+msgstr "x"
+
+#. i18n: ectx: property (text), widget (QLabel, label_3)
+#: assistants/differentiate/differentiatedlg.ui:47
+#, kde-format
+msgid "Times: "
+msgstr "Порядок производной:"
+
+#. i18n: ectx: Menu (import_package)
+#: assistants/importpackage/cantor_import_package_assistant.rc:4
+#, kde-format
+msgid "&Package"
+msgstr "П&акет"
+
+#: assistants/importpackage/importpackageassistant.cpp:29
+#, kde-format
+msgid "Import Package"
+msgstr "Импорт пакета..."
+
+#. i18n: ectx: property (text), widget (QLabel, label)
+#: assistants/importpackage/importpackagedlg.ui:17
+#, kde-format
+msgid "Package:"
+msgstr "Пакет:"
+
+#: assistants/integrate/integrateassistant.cpp:29
+#, kde-format
+msgid "Integrate"
+msgstr "Найти &интеграл"
+
+#. i18n: ectx: property (text), widget (QLabel, label_3)
+#: assistants/integrate/integratedlg.ui:49
+#, kde-format
+msgid "Lower limit:"
+msgstr "Нижний предел:"
+
+#. i18n: ectx: property (text), widget (QLabel, label_4)
+#: assistants/integrate/integratedlg.ui:63
+#, kde-format
+msgid "Upper limit:"
+msgstr "Верхний предел:"
+
+#. i18n: ectx: property (text), widget (QCheckBox, isDefinite)
+#: assistants/integrate/integratedlg.ui:77
+#, kde-format
+msgid "definite integral"
+msgstr "определённый интеграл"
+
+#. i18n: ectx: Menu (linear_algebra)
+#: assistants/linearalgebra/creatematrix/cantor_create_matrix_assistant.rc:4
+#: assistants/linearalgebra/eigenvalues/cantor_eigenvalues_assistant.rc:4
+#: assistants/linearalgebra/eigenvectors/cantor_eigenvectors_assistant.rc:4
+#: assistants/linearalgebra/invertmatrix/cantor_invert_matrix_assistant.rc:4
+#, kde-format
+msgid "&Linear Algebra"
+msgstr "&Линейная алгебра"
+
+#: assistants/linearalgebra/creatematrix/creatematrixassistant.cpp:26
+#, kde-format
+msgid "Create Matrix"
+msgstr "Ввести &матрицу"
+
+#. i18n: ectx: property (text), widget (QLabel, label_2)
+#: assistants/linearalgebra/creatematrix/creatematrixdlg.ui:19
+#, kde-format
+msgid "Columns:"
+msgstr "Столбцов:"
+
+#. i18n: ectx: property (text), widget (QLabel, label)
+#: assistants/linearalgebra/creatematrix/creatematrixdlg.ui:37
+#, kde-format
+msgid "Rows:"
+msgstr "Строк:"
+
+#: assistants/linearalgebra/eigenvalues/eigenvaluesassistant.cpp:28
+#, kde-format
+msgid "Compute Eigenvalues"
+msgstr "Найти собственные &значения"
+
+#. i18n: ectx: property (text), widget (QLabel, label)
+#: assistants/linearalgebra/eigenvalues/eigenvaluesdlg.ui:17
+#: assistants/linearalgebra/eigenvectors/eigenvectorsdlg.ui:17
+#: assistants/linearalgebra/invertmatrix/invertmatrixdlg.ui:17
+#, kde-format
+msgid "Matrix:"
+msgstr "Матрица:"
+
+#: assistants/linearalgebra/eigenvectors/eigenvectorsassistant.cpp:28
+#, kde-format
+msgid "Compute Eigenvectors"
+msgstr "Найти собственные &векторы"
+
+#: assistants/linearalgebra/invertmatrix/invertmatrixassistant.cpp:28
+#, kde-format
+msgid "Invert Matrix"
+msgstr "Найти &обратную матрицу"
+
+#: assistants/plot2d/plot2dassistant.cpp:28
+#, kde-format
+msgid "Plot 2D"
+msgstr "График функции"
+
+#. i18n: ectx: property (title), widget (QGroupBox, groupBox)
+#: assistants/plot2d/plot2ddlg.ui:31
+#, kde-format
+msgid "Variable"
+msgstr "Переменная"
+
+#. i18n: ectx: property (text), widget (QLabel, label_2)
+#. i18n: ectx: property (text), widget (QLabel, label_5)
+#: assistants/plot2d/plot2ddlg.ui:43 assistants/plot3d/plot3ddlg.ui:41
+#: assistants/plot3d/plot3ddlg.ui:86
+#, kde-format
+msgid "Name"
+msgstr "Название"
+
+#. i18n: ectx: property (text), widget (QLabel, label_3)
+#. i18n: ectx: property (text), widget (QLabel, label_6)
+#: assistants/plot2d/plot2ddlg.ui:53 assistants/plot3d/plot3ddlg.ui:51
+#: assistants/plot3d/plot3ddlg.ui:96
+#, kde-format
+msgid "Minimum:"
+msgstr "Минимум:"
+
+#. i18n: ectx: property (text), widget (QLabel, label_4)
+#. i18n: ectx: property (text), widget (QLabel, label_7)
+#: assistants/plot2d/plot2ddlg.ui:63 assistants/plot3d/plot3ddlg.ui:61
+#: assistants/plot3d/plot3ddlg.ui:106
+#, kde-format
+msgid "Maximum:"
+msgstr "Максимум:"
+
+#: assistants/plot3d/plot3dassistant.cpp:28
+#, kde-format
+msgid "Plot 3D"
+msgstr "Поверхность, задаваемая функцией"
+
+#. i18n: ectx: property (title), widget (QGroupBox, groupBox)
+#: assistants/plot3d/plot3ddlg.ui:29
+#, kde-format
+msgid "1st Variable"
+msgstr "Первый аргумент функции"
+
+#. i18n: ectx: property (title), widget (QGroupBox, groupBox_2)
+#: assistants/plot3d/plot3ddlg.ui:74
+#, kde-format
+msgid "2nd Variable"
+msgstr "Второй аргумент функции"
+
+#: assistants/runscript/runscriptassistant.cpp:28
+#: scripteditor/scripteditorwidget.cpp:39
+#, kde-format
+msgid "Run Script"
+msgstr "Запустить сценарий"
+
+#: assistants/solve/solveassistant.cpp:28
+#, kde-format
+msgid "Solve equations"
+msgstr "Решить &уравнения"
+
+#. i18n: ectx: property (text), widget (QLabel, label)
+#: assistants/solve/solvedlg.ui:19
+#, kde-format
+msgid "Equations:"
+msgstr "Уравнения:"
+
+#. i18n: ectx: property (text), widget (QLabel, label_2)
+#: assistants/solve/solvedlg.ui:33
+#, kde-format
+msgid "Variables:"
+msgstr "Неизвестные:"
+
+#: backendchoosedialog.cpp:64
+#, kde-format
+msgid "Select the Backend"
+msgstr "Выбор базовой системы"
+
+#: backendchoosedialog.cpp:110
+#, kde-format
+msgid "<h1>%1</h1><div><b>Recommended version:</b> %2</div>"
+msgstr "<h1>%1</h1><div><b>Рекомендуемая версия:</b> %2</div>"
+
+#: backendchoosedialog.cpp:113
+#, kde-format
+msgid ""
+"<hr><div>%1</div><br><div>See <a href=\"%2\">%2</a> for more information.</"
+"div>"
+msgstr ""
+"<hr><div>%1</div><br><div>Подробные сведения: <a href=\"%2\">%2</a>.</div>"
+
+#: backendchoosedialog.cpp:125
+#, kde-format
+msgid ""
+"<hr><div><b><font color='#e50000'>Some requirements are not fulfilled: </"
+"font></b>%1</div>"
+msgstr ""
+"<hr><div><b><font color='#e50000'>Выполнены не все требования: </font></b>"
+"%1</div>"
+
+#. i18n: ectx: property (text), widget (QCheckBox, makeDefault)
+#: backendchooser.ui:37
+#, kde-format
+msgid "Make this the default backend"
+msgstr "Использовать по умолчанию эту систему компьютерной алгебры"
+
+#: backends/julia/juliabackend.cpp:57
+#, kde-format
+msgid ""
+"<b>Julia</b> is a high-level, high-performance dynamic programming language "
+"for technical computing, with syntax that is familiar to users of other "
+"technical computing environments. It provides a sophisticated compiler, "
+"distributed parallel execution, numerical accuracy, and an extensive "
+"mathematical function library."
+msgstr ""
+"<b>Julia</b> — высокоуровневый высокопроизводительный язык программирования "
+"с динамической типизацией, созданный для технических вычислений. Синтаксис "
+"языка схож с синтаксисом других сред технических вычислений. Этот язык "
+"предоставляет сложный компилятор, поддержку распределённых вычислений, "
+"численную точность и обширную библиотеку математических функций."
+
+#: backends/julia/juliabackend.cpp:70
+#, kde-format
+msgctxt ""
+"The url to the documentation of Julia, please check if there is a translated "
+"version and use the correct url"
+msgid "https://docs.julialang.org/en/latest/"
+msgstr "https://docs.julialang.org/en/latest/"
+
+#: backends/julia/juliabackend.cpp:86
+#, kde-format
+msgid ""
+"The path to Julia specified in the application settings must point directly "
+"to the executable. Symlinks are not allowed. Please provide the correct path "
+"in the application settings and try again."
+msgstr ""
+"Путь, который задан в параметрах приложения, должен указывать "
+"непосредственно на исполняемый файл Julia. Символические ссылки использовать "
+"нельзя. Укажите корректный путь в параметрах приложения и попробуйте снова."
+
+#: backends/julia/juliabackend.cpp:101 backends/julia/juliabackend.cpp:113
+#, kde-format
+msgid ""
+"Сantor couldn’t determine the version of Julia for %1. Please specify the "
+"correct path to Julia executable (no symlinks allowed) and try again."
+msgstr ""
+"Сantor не удалось определить версию Julia для %1. Укажите корректный путь к "
+"исполняемому файлу (символические ссылки использовать нельзя) и попробуйте "
+"снова."
+
+#: backends/julia/juliabackend.cpp:126
+#, kde-format
+msgid ""
+"You are trying to use Cantor with Julia v%1.%2.%3. This version of Cantor "
+"was compiled with the support of Julia v%4.%5.%6. Please point to this "
+"version of Julia or recompile Cantor using the version %1.%2.%3."
+msgstr ""
+"Попытка использовать Cantor с Julia v%1.%2.%3. Эта версия Cantor "
+"скомпилирована с поддержкой Julia v%4.%5.%6. Укажите путь к этой версии "
+"Julia или скомпилируйте Cantor с поддержкой версии %1.%2.%3."
+
+#. i18n: ectx: label, entry (replPath), group (JuliaBackend)
+#: backends/julia/juliabackend.kcfg:10
+#, kde-format
+msgid "Path to the Julia native REPL"
+msgstr "Путь к программе командной строки Julia"
+
+#. i18n: ectx: label, entry (variableManagement), group (JuliaBackend)
+#. i18n: ectx: label, entry (variableManagement), group (PythonBackend)
+#. i18n: ectx: label, entry (variableManagement), group (RBackend)
+#. i18n: ectx: label, entry (variableManagement), group (MaximaBackend)
+#: backends/julia/juliabackend.kcfg:16 backends/maxima/maximabackend.kcfg:26
+#: backends/python/pythonbackend.kcfg:14 backends/R/rserver/rserver.kcfg:16
+#, kde-format
+msgid "Enable Variable Management"
+msgstr "Включить управление переменными"
+
+#. i18n: ectx: label, entry (integratePlots), group (JuliaBackend)
+#. i18n: ectx: label, entry (integratePlots), group (PythonBackend)
+#. i18n: ectx: label, entry (integratePlots), group (RBackend)
+#. i18n: ectx: label, entry (integratePlots), group (ScilabBackend)
+#. i18n: ectx: label, entry (integratePlots), group (MaximaBackend)
+#: backends/julia/juliabackend.kcfg:20 backends/maxima/maximabackend.kcfg:22
+#: backends/python/pythonbackend.kcfg:10 backends/R/rserver/rserver.kcfg:12
+#: backends/scilab/scilabbackend.kcfg:22
+#, kde-format
+msgid "Integrate Plots into the Worksheet"
+msgstr "Встраивать графики в документ"
+
+#. i18n: ectx: label, entry (plotExtenstionGraphicPackage), group (JuliaBackend)
+#. i18n: ectx: label, entry (plotExtenstionGraphicPackage), group (PythonBackend)
+#: backends/julia/juliabackend.kcfg:37 backends/python/pythonbackend.kcfg:28
+#, kde-format
+msgid "Graphical package for the Plot-Assistant"
+msgstr "Графический пакет для вспомогательного средства построения графиков"
+
+#: backends/julia/juliaextensions.cpp:246
+#, kde-format
+msgid "# Sorry, but Gadfly don't support 3d plots"
+msgstr "# Gadfly не поддерживает построение поверхностей на графике"
+
+#: backends/julia/juliaextensions.cpp:263
+#, kde-format
+msgid "Julia script file (*.jl)"
+msgstr "Сценарии Julia (*.jl)"
+
+#: backends/julia/juliasession.cpp:111 backends/julia/juliasession.cpp:120
+#: backends/maxima/maximasession.cpp:265 cantor_part.cpp:963
+#: lib/session.cpp:311 lib/session.cpp:313 worksheet.cpp:1193
+#: worksheet.cpp:1221 worksheet.cpp:1236 worksheet.cpp:1252 worksheet.cpp:1296
+#: worksheet.cpp:1308
+#, kde-format
+msgid "Error - Cantor"
+msgstr "Ошибка — Cantor"
+
+#: backends/julia/juliasession.cpp:111
+#, kde-format
+msgid ""
+"Julia session can't login due internal julia problem with missing internal "
+"file - \"%1\""
+msgstr ""
+"Невозможно войти в сеанс Julia из-за внутренней ошибки julia (не найден "
+"внутренний файл — «%1»)"
+
+#: backends/julia/juliasession.cpp:120
+#, kde-format
+msgid "Julia session can't login due unknown internal problem"
+msgstr "Невозможно войти в сеанс Julia из-за неизвестной внутренней ошибки"
+
+#: backends/julia/juliasession.cpp:246
+#, kde-format
+msgid "Julia process stopped working."
+msgstr "Процесс Julia прекратил работу."
+
+#: backends/julia/juliasession.cpp:249
+#, kde-format
+msgid "Failed to start Julia process."
+msgstr "Не удалось запустить процесс Julia."
+
+#: backends/julia/juliasession.cpp:252
+#, kde-format
+msgid "Communication with Julia process failed for unknown reasons."
+msgstr "Не удалось связаться с процессом Julia. Причина ошибки неизвестна."
+
+#: backends/julia/juliasession.cpp:322
+#, kde-format
+msgid ""
+"For Julia only GR (https://gr-framework.org/), a framework for visualization "
+"applications, is supported at the moment. This package has to be installed "
+"first, if not done yet. For this, run Pkg.install(\"GR\") in Cantor or in "
+"Julia REPL. Note, this operation can take some time and it's better to "
+"perform it in Julia REPL that is able to show the current progress of the "
+"package installation."
+msgstr ""
+"Для системы Julia в настоящее время поддерживается только среда для "
+"приложений визуализации GR (https://gr-framework.org/). Сначала необходимо "
+"установить соответствующий пакет (если он ещё не установлен). Чтобы это "
+"сделать, выполните команду Pkg.install(\"GR\") в Cantor или в командной "
+"строке Julia. Обратите внимание, что на выполнение этой операции потребуется "
+"некоторое время, поэтому рекомендуется выполнить команду в командной строке "
+"Julia — это позволит отслеживать ход выполнения установки пакета."
+
+#. i18n: ectx: attribute (title), widget (QWidget, tabGeneral)
+#. i18n: ectx: attribute (title), widget (QWidget, tab_3)
+#: backends/julia/settings.ui:21 backends/lua/settings.ui:21
+#: backends/maxima/settings.ui:21 backends/octave/settings.ui:21
+#: backends/python/settings.ui:21 backends/qalculate/settings.ui:21
+#: backends/R/settings.ui:21 backends/sage/settings.ui:21
+#: backends/scilab/settings.ui:21 cantor.cpp:632
+#, kde-format
+msgid "General"
+msgstr "Общие"
+
+#. i18n: ectx: property (text), widget (QLabel, label)
+#: backends/julia/settings.ui:27 backends/maxima/settings.ui:61
+#: backends/octave/settings.ui:106 backends/sage/settings.ui:63
+#: backends/scilab/settings.ui:27
+#, kde-format
+msgid "Executable:"
+msgstr "Исполняемый файл:"
+
+#. i18n: ectx: property (text), widget (QLabel, lPlotIntegration)
+#: backends/julia/settings.ui:37 backends/maxima/settings.ui:37
+#: backends/octave/settings.ui:73 backends/python/settings.ui:47
+#: backends/R/settings.ui:53 backends/scilab/settings.ui:37
+#, kde-format
+msgid "Plot Integration:"
+msgstr "Встраивание графиков:"
+
+#. i18n: ectx: property (toolTip), widget (QCheckBox, kcfg_integratePlots)
+#: backends/julia/settings.ui:44 backends/maxima/settings.ui:27
+#: backends/octave/settings.ui:96 backends/python/settings.ui:64
+#: backends/R/settings.ui:33 backends/scilab/settings.ui:44
+#, kde-format
+msgid ""
+"If enabled, plots will be shown inside of the worksheet. Otherwise, plots "
+"will be shown in an external window."
+msgstr ""
+"Если параметр включён, графики будут отображаться внутри рабочего "
+"пространства. Если нет, они будут появляться во внешнем окне."
+
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_allowLatex)
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_integratePlots)
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_variableManagement)
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_indicateInfiniteSeries)
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_useAllPrefixes)
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_negativeExponents)
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_postConversion)
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_inlinePlot)
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_coloredPlot)
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_plotGrid)
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_plotBorder)
+#: backends/julia/settings.ui:47 backends/julia/settings.ui:64
+#: backends/maxima/settings.ui:30 backends/maxima/settings.ui:47
+#: backends/octave/settings.ui:56 backends/octave/settings.ui:99
+#: backends/python/settings.ui:67 backends/python/settings.ui:77
+#: backends/qalculate/settings.ui:125 backends/qalculate/settings.ui:142
+#: backends/qalculate/settings.ui:159 backends/qalculate/settings.ui:202
+#: backends/qalculate/settings.ui:308 backends/qalculate/settings.ui:315
+#: backends/qalculate/settings.ui:322 backends/qalculate/settings.ui:339
+#: backends/R/settings.ui:36 backends/R/settings.ui:46
+#: backends/sage/settings.ui:37 backends/scilab/settings.ui:47
+#: commandentry.cpp:349
+#, kde-format
+msgid "Enabled"
+msgstr "Включено"
+
+#. i18n: ectx: property (text), widget (QLabel, lVariableManagement)
+#: backends/julia/settings.ui:54 backends/maxima/settings.ui:54
+#: backends/octave/settings.ui:66 backends/python/settings.ui:27
+#: backends/R/settings.ui:76
+#, kde-format
+msgid "Variable Management:"
+msgstr "Управление переменными:"
+
+#. i18n: ectx: property (toolTip), widget (QCheckBox, kcfg_variableManagement)
+#: backends/julia/settings.ui:61 backends/maxima/settings.ui:44
+#: backends/octave/settings.ui:53 backends/python/settings.ui:74
+#: backends/R/settings.ui:43
+#, kde-format
+msgid ""
+"Monitor the creation and destruction of variables and show the existing "
+"variables in the variable panel."
+msgstr ""
+"Отслеживать создание и уничтожение переменных и показывать существующие "
+"переменные на панели переменных."
+
+#. i18n: ectx: property (text), widget (QLabel, label2)
+#. i18n: ectx: property (text), widget (QLabel, label_2)
+#: backends/julia/settings.ui:71 backends/octave/settings.ui:27
+#, kde-format
+msgid "Internal Plot Format:"
+msgstr "Формат встроенных графиков:"
+
+#. i18n: ectx: property (toolTip), widget (QComboBox, kcfg_inlinePlotFormat)
+#: backends/julia/settings.ui:78
+#, kde-format
+msgid "Inner format of plots, if plots embedding is enabled."
+msgstr "Внутренний формат графиков, если включено их внедрение."
+
+#. i18n: ectx: property (toolTip), widget (QLabel, label3)
+#. i18n: ectx: property (toolTip), widget (KComboBox, kcfg_plotExtenstionGraphicPackage)
+#. i18n: ectx: property (toolTip), widget (QLabel, label4)
+#: backends/julia/settings.ui:95 backends/julia/settings.ui:111
+#: backends/python/settings.ui:54 backends/python/settings.ui:90
+#, kde-format
+msgid "Graphic package to be used in the Plot Assistant"
+msgstr ""
+"Графический пакет для использования вспомогательным средством построения "
+"графиков"
+
+#. i18n: ectx: property (text), widget (QLabel, label3)
+#. i18n: ectx: property (text), widget (QLabel, label4)
+#: backends/julia/settings.ui:98 backends/python/settings.ui:57
+#, kde-format
+msgid "Package for Plot Assistant"
+msgstr "Пакет для вспомогательного средства построения графиков"
+
+#. i18n: ectx: property (text), item, widget (KComboBox, kcfg_plotExtenstionGraphicPackage)
+#: backends/julia/settings.ui:115 backends/python/settings.ui:109
+#, kde-format
+msgid "GR"
+msgstr "GR"
+
+#. i18n: ectx: property (text), item, widget (KComboBox, kcfg_plotExtenstionGraphicPackage)
+#: backends/julia/settings.ui:120
+#, kde-format
+msgid "Plots"
+msgstr "Plots"
+
+#. i18n: ectx: property (text), item, widget (KComboBox, kcfg_plotExtenstionGraphicPackage)
+#: backends/julia/settings.ui:125
+#, kde-format
+msgid "PyPlot"
+msgstr "PyPlot"
+
+#. i18n: ectx: property (text), item, widget (KComboBox, kcfg_plotExtenstionGraphicPackage)
+#: backends/julia/settings.ui:130
+#, kde-format
+msgid "Gadfly"
+msgstr "Gadfly"
+
+#. i18n: ectx: attribute (title), widget (QWidget, tabAutorun)
+#. i18n: ectx: attribute (title), widget (QWidget, tabAutoran)
+#: backends/julia/settings.ui:152 backends/lua/settings.ui:51
+#: backends/maxima/settings.ui:85 backends/octave/settings.ui:114
+#: backends/python/settings.ui:123 backends/qalculate/settings.ui:556
+#: backends/R/settings.ui:84 backends/sage/settings.ui:71
+#: backends/scilab/settings.ui:68
+#, kde-format
+msgid "Autorun"
+msgstr "Автозапуск"
+
+#. i18n: ectx: property (text), widget (QLabel, lAutorun)
+#. i18n: ectx: property (title), widget (QGroupBox, groupBox)
+#. i18n: ectx: property (text), widget (QLabel, label_2)
+#: backends/julia/settings.ui:158 backends/kalgebra/settings.ui:20
+#: backends/lua/settings.ui:57 backends/maxima/settings.ui:91
+#: backends/octave/settings.ui:120 backends/python/settings.ui:129
+#: backends/qalculate/settings.ui:562 backends/R/settings.ui:90
+#: backends/sage/settings.ui:77 backends/scilab/settings.ui:74
+#, kde-format
+msgid "Commands to autorun"
+msgstr "Автоматически запускаемые команды"
+
+#. i18n: ectx: attribute (title), widget (QWidget, tabDocumentation)
+#: backends/julia/settings.ui:172 backends/lua/settings.ui:71
+#: backends/maxima/settings.ui:105 backends/octave/settings.ui:134
+#: backends/python/settings.ui:143 backends/qalculate/settings.ui:575
+#: backends/R/settings.ui:104 backends/sage/settings.ui:91
+#: backends/scilab/settings.ui:88
+#, kde-format
+msgid "Documentation"
+msgstr "Документация"
+
+#: backends/kalgebra/kalgebrabackend.cpp:56
+#, kde-format
+msgctxt ""
+"The url to the documentation of KAlgebra, please check if there is a "
+"translated version and use the correct url"
+msgid "https://docs.kde.org/?application=kalgebra"
+msgstr "https://docs.kde.org/?application=kalgebra"
+
+#. i18n: ectx: label, entry (autorunScripts), group (SageBackend)
+#. i18n: ectx: label, entry (autorunScripts), group (KAlgebraBackend)
+#. i18n: ectx: label, entry (autorunScripts), group (PythonBackend)
+#. i18n: ectx: label, entry (autorunScripts), group (RBackend)
+#. i18n: ectx: label, entry (autorunScripts), group (LuaBackend)
+#. i18n: ectx: label, entry (autorunScripts), group (ScilabBackend)
+#. i18n: ectx: label, entry (autorunScripts), group (MaximaBackend)
+#. i18n: ectx: label, entry (autorunScripts), group (QalculateBackend)
+#: backends/kalgebra/kalgebrabackend.kcfg:9 backends/lua/luabackend.kcfg:14
+#: backends/maxima/maximabackend.kcfg:30 backends/python/pythonbackend.kcfg:18
+#: backends/qalculate/qalculatebackend.kcfg:130
+#: backends/R/rserver/rserver.kcfg:20 backends/sage/sagebackend.kcfg:18
+#: backends/scilab/scilabbackend.kcfg:26
+#, kde-format
+msgid "List of scripts to autorun at the beginning of session"
+msgstr "Список сценариев, которые запускаются в начале сеанса"
+
+#: backends/kalgebra/kalgebraexpression.cpp:44
+#, kde-format
+msgid "Error: %1"
+msgstr "Ошибка: %1"
+
+#: backends/kalgebra/kalgebrasyntaxhelpobject.cpp:27
+#, kde-format
+msgid "<p><b>%1:</b> %2</p>"
+msgstr "<p><b>%1:</b> %2</p>"
+
+#. i18n: ectx: property (toolTip), widget (QGroupBox, groupBox)
+#: backends/kalgebra/settings.ui:17
+#, kde-format
+msgid ""
+"This autorun commands, which will run on start new worksheet. They can be "
+"useful for loading needed modules, changing environment, etc."
+msgstr ""
+"Команды для автоматического выполнения при открытии нового документа. Они "
+"могут быть полезны для загрузки необходимых модулей, смены среды и так далее."
+
+#: backends/lua/luabackend.cpp:52
+#, kde-format
+msgctxt "Lua official documentation"
+msgid "https://www.lua.org/docs.html"
+msgstr "https://www.lua.org/docs.html"
+
+#: backends/lua/luabackend.cpp:57
+#, kde-format
+msgid ""
+"<b>Lua</b> is a fast and lightweight scripting language, with a simple "
+"procedural syntax. There are several libraries in Lua aimed at math and "
+"science."
+msgstr ""
+"<b>Lua</b> — быстрый и легковесный язык сценариев с простым процедурным "
+"синтаксисом. Существует множество математических и научных библиотек для Lua."
+
+#. i18n: ectx: label, entry (Path), group (LuaBackend)
+#: backends/lua/luabackend.kcfg:10
+#, kde-format
+msgid "Path to luajit command"
+msgstr "Путь к команде luajit"
+
+#: backends/lua/luaextensions.cpp:20
+#, kde-format
+msgid "Lua script file (*.lua)"
+msgstr "Сценарии Lua (*.lua)"
+
+#. i18n: ectx: property (text), widget (QLabel, label)
+#: backends/lua/settings.ui:27
+#, kde-format
+msgid "Path to luajit:"
+msgstr "Путь к luajit:"
+
+#: backends/maxima/maximabackend.cpp:72
+#, kde-format
+msgctxt ""
+"the url to the documentation of Maxima, please check if there is a "
+"translated version and use the correct url"
+msgid "http://maxima.sourceforge.net/docs/manual/en/maxima.html"
+msgstr "http://maxima.sourceforge.net/docs/manual/en/maxima.html"
+
+#: backends/maxima/maximabackend.cpp:79
+#, kde-format
+msgid ""
+"<h1>Maxima's Help System</h1><h2>Function <i>apropos</i></h2>Searches for "
+"Maxima names which have name appearing anywhere within them; <i>name</i> "
+"must be a string or symbol. Thus, <i>apropos(exp)</i> returns a list of all "
+"the flags and functions which have exp as part of their name, such as "
+"<i>expand</i>, <i>exp</i>, and <i>exponentialize</i>. So, if you can only "
+"remember part of the name of a Maxima command or variable, you can use this "
+"command to find the rest of the name. Similarly, you can type "
+"<i>apropos(tr_)</i> to find a list of many of the switches relating to the "
+"translator, most of which begin with <i>tr_</i>.<br><br><i>apropos(\"\")</i> "
+"returns a list with all Maxima names.<br><br><i>apropos</i> returns the "
+"empty list [], if no name is found.<br><br><h2>Function <i>describe</i></"
+"h2><i>describe(string)</i> is equivalent to describe(string, exact)."
+"<br><br><i>describe(string, exact)</i> finds an item with title equal (case-"
+"insensitive) to string, if there is any such item."
+"<br><br><i>describe(string, inexact)</i> finds all documented items which "
+"contain string in their titles. If there is more than one such item, Maxima "
+"asks the user to select an item or items to display.<br><br><i>? foo</i> "
+"(with a space between <i>?</i> and <i>foo</i>) is equivalent to "
+"<i>describe(\"foo\", exact)</i>, and <i>?? foo</i> is equivalent to "
+"<i>describe(\"foo\", inexact)</i>.<br><br><i>describe(, inexact)</i> yields "
+"a list of all topics documented in the on-line manual.<br><br><i>describe</"
+"i> quotes its argument. <i>describe</i> returns <i>true</i> if some "
+"documentation is found, otherwise <i>false</i>.<br><h2>Function <i>example</"
+"i></h2><i>example(topic)</i> displays some examples of <i>topic</i>, which "
+"is a symbol or a string. To get examples for operators like <i>if</i>, "
+"<i>do</i>, or <i>lambda</i> the argument must be a string, e.g. "
+"<i>example(\"do\")</i>. <i>example</i> is not case sensitive. Most topics "
+"are function names.<br><br><i>example()</i> returns the list of all "
+"recognized topics.<br><br>The name of the file containing the examples is "
+"given by the global option variable <i>manual_demo</i>, which defaults to <i>"
+"\"manual.demo\"</i>.<br><br><i>example</i> quotes its argument. <i>example</"
+"i> returns <i>done</i> unless no examples are found or there is no argument, "
+"in which case <i>example</i> returns the list of all recognized topics."
+msgstr ""
+"<h1>Справочная система Maxima</h1><h2>Функция <i>apropos</i></h2>Выполняет "
+"поиск названий Maxima, содержащих «name»; <i>name</i> должно быть строкой "
+"или символом. Следовательно, <i>apropos(exp)</i> возвращает список всех "
+"флагов и функций, название которых содержит «exp» (например, <i>expand</i>, "
+"<i>exp</i> и <i>exponentialize</i>). Поэтому, если удаётся вспомнить только "
+"часть названия команды или переменной Maxima, возможно использовать эту "
+"команду, чтобы найти оставшуюся часть названия. Также возможно ввести "
+"<i>apropos(tr_)</i> для получения списка многих связанных с транслятором "
+"переключателей, большинство из которых начинается с <i>tr_</i>."
+"<br><br><i>apropos(\"\")</i> возвращает список всех названий Maxima."
+"<br><br><i>apropos</i> возвращает пустой список [], если названий не найдено."
+"<br><br><h2>Функция <i>describe</i></h2><i>describe(string)</i> является "
+"эквивалентом describe(string, exact).<br><br><i>describe(string, exact)</i> "
+"находит запись с заголовком, который соответствует строке (без учёта "
+"регистра), если такая запись имеется.<br><br><i>describe(string, inexact)</"
+"i> находит все документированные записи, которые содержат указанную строку в "
+"своих заголовках. Если таких записей несколько, программа Maxima предложит "
+"пользователю выбрать одну или несколько записей для отображения.<br><br><i>? "
+"foo</i> (с пробелом между <i>?</i> и <i>foo</i>) является эквивалентом "
+"<i>describe(\"foo\", exact)</i>, а <i>?? foo</i> — эквивалентом "
+"<i>describe(\"foo\", inexact)</i>.<br><br><i>describe(, inexact)</i> "
+"предоставляет список всех тем, документированных в интернет-руководстве."
+"<br><br><i>describe</i> заключает в кавычки аргумент. <i>describe</i> "
+"возвращает <i>true</i>, если найдена какая-либо документация, в ином случае "
+"— <i>false</i>.<br><h2>Функция <i>example</i></h2><i>example(topic)</i> "
+"отображает примеры с ключевым словом <i>topic</i>, которое является символом "
+"или строкой. Чтобы получить примеры для таких операторов, как <i>if</i>, "
+"<i>do</i> или <i>lambda</i>, аргумент должен быть строкой, например: "
+"<i>example(\"do\")</i>. <i>example</i> не учитывает регистр. Большинство тем "
+"являются названиями функций.<br><br><i>example()</i> возвращает список всех "
+"распознанных тем.<br><br>Название файла, содержащего примеры, указывается "
+"глобальной переменной параметра <i>manual_demo</i>, которая по умолчанию "
+"принимает значение <i>\"manual.demo\"</i>.<br><br><i>example</i> заключает "
+"аргумент в кавычки. <i>example</i> возвращает <i>done</i>, когда найдены "
+"примеры или имеется аргумент. В ином случае <i>example</i> возвращает список "
+"всех распознанных тем."
+
+#: backends/maxima/maximabackend.cpp:111
+#, kde-format
+msgid ""
+"<b>Maxima</b> is a system for the manipulation of symbolic and numerical "
+"expressions, including differentiation, integration, Taylor series, Laplace "
+"transforms, ordinary differential equations, systems of linear equations, "
+"polynomials, and sets, lists, vectors, matrices, and tensors. Maxima yields "
+"high precision numeric results by using exact fractions, arbitrary precision "
+"integers, and variable precision floating point numbers. Maxima can plot "
+"functions and data in two and three dimensions."
+msgstr ""
+"<b>Maxima</b> — это система обработки символьных и численных выражений, "
+"включая дифференцирование, интегрирование, ряды Тейлора, преобразования "
+"Лапласа, обыкновенные дифференциальные уравнения, системы линейных "
+"уравнений, многочлены и множества, списки, векторы, матрицы и тензоры. "
+"Maxima получает численные результаты высокой точности, используя точные "
+"дроби, целые числа произвольной длины и действительные числа переменной "
+"точности. Maxima позволяет строить двумерные и трёхмерные графики функций и "
+"данных."
+
+#. i18n: ectx: label, entry (Path), group (MaximaBackend)
+#: backends/maxima/maximabackend.kcfg:10
+#, kde-format
+msgid "Path to the Maxima executable"
+msgstr "Путь к исполняемому файлу Maxima"
+
+#: backends/maxima/maximaexpression.cpp:104
+#, kde-format
+msgid "Error: Too many */"
+msgstr "Ошибка: слишком много */"
+
+#: backends/maxima/maximaexpression.cpp:117
+#, kde-format
+msgid "Error: Too many /*"
+msgstr "Ошибка: слишком много /*"
+
+#: backends/maxima/maximaexpression.cpp:123
+#, kde-format
+msgid "Error: expected \" before ;"
+msgstr "Ошибка: ожидалась кавычка \" до ;"
+
+#: backends/maxima/maximaexpression.cpp:406
+#, kde-format
+msgid "Waiting for the plot result"
+msgstr "Ожидание результата графика"
+
+#: backends/maxima/maximaextensions.cpp:31
+#, kde-format
+msgid "Maxima batch file (*.mac)"
+msgstr "Пакетные файлы Maxima (*.mac)"
+
+#: backends/maxima/maximasession.cpp:184
+#, kde-format
+msgid "Failed to start Maxima"
+msgstr "Не удалось запустить систему Maxima"
+
+#: backends/maxima/maximasession.cpp:251
+#, kde-format
+msgid "Maxima crashed. restarting..."
+msgstr "Система Maxima аварийно завершилась. Перезапуск..."
+
+#: backends/maxima/maximasession.cpp:265
+#, kde-format
+msgid "Maxima crashed twice within a short time. Stopping to try starting"
+msgstr ""
+"Приложение Maxima завершилось с ошибкой дважды за короткий промежуток "
+"времени. Попытки запуска прекращены."
+
+# http://xgu.ru/wiki/GNU_Octave -- ссылки на информацию об Octave (в том числе на русском языке).
+# http://ru.wikibooks.org/wiki/GNU_Octave -- зачатки русского перевода документации.
+#: backends/octave/octavebackend.cpp:62
+#, kde-format
+msgctxt ""
+"the url to the documentation of Octave, please check if there is a "
+"translated version and use the correct url"
+msgid "https://octave.org/doc/interpreter/"
+msgstr "https://octave.org/doc/interpreter/"
+
+#: backends/octave/octavebackend.cpp:67
+#, kde-format
+msgid ""
+"<b>GNU Octave</b> is a high-level language, primarily intended for numerical "
+"computations. <br/>It provides a convenient command line interface for "
+"solving linear and nonlinear problems numerically, and for performing other "
+"numerical experiments using a language that is mostly compatible with Matlab."
+msgstr ""
+"<b>GNU Octave</b> — это высокоуровневый язык программирования, "
+"предназначенный в основном для численных расчётов. <br/>GNU Octave "
+"предоставляет удобный интерфейс командной строки для численного решения "
+"линейных и нелинейных задач и выполнения других видов численных расчётов с "
+"использованием языка, по большей части совместимого с MATLAB."
+
+#: backends/octave/octaveextensions.cpp:34
+#, kde-format
+msgid "Octave script file (*.m)"
+msgstr "Сценарии Octave (*.m)"
+
+#: backends/octave/octavesession.cpp:272 backends/sage/sageexpression.cpp:58
+#, kde-format
+msgid "Syntax Error"
+msgstr "Синтаксическая ошибка"
+
+#: backends/octave/octavesession.cpp:409
+#, kde-format
+msgid "Plot integration test failed."
+msgstr "Сбой проверки встраивания графика."
+
+#: backends/octave/octavesession.cpp:413
+#, kde-format
+msgid "The integration of plots will be disabled."
+msgstr "Встраивание графиков будет отключено."
+
+#: backends/octave/octavesession.cpp:414 backends/sage/sagesession.cpp:238
+#: backends/sage/sagesession.cpp:271 backends/sage/sagesession.cpp:337
+#: backends/sage/sagesession.cpp:348 cantor.cpp:216 cantor.cpp:218
+#: cantor.cpp:336 cantor.cpp:343 lib/session.cpp:381 main.cpp:66 main.cpp:130
+#: markdownentry.cpp:797 textentry.cpp:553 worksheet.cpp:1275
+#, kde-format
+msgid "Cantor"
+msgstr "Cantor"
+
+#: backends/octave/octavesession.cpp:435
+#, kde-format
+msgid ""
+"The plot integration doesn't work because Cantor found, that Octave can't "
+"create plots, because there are no graphical backends for it: this "
+"conclusion was made on the basis of empty output from "
+"available_graphics_toolkits() function. Looks like you should install some "
+"additional OS packages, like gnuplot, fltk or qt for possibility to create "
+"plots."
+msgstr ""
+"Встраивание графиков не работает — программа Cantor обнаружила, что Octave "
+"не может создавать графики по причине отсутствия графических систем: этот "
+"вывод основывается на пустом выводе функции available_graphics_toolkits(). "
+"Рекомендуется установить дополнительные пакеты ОС (например, gnuplot, fltk "
+"или qt), чтобы получить возможность создавать графики."
+
+#: backends/python/pythonbackend.cpp:67
+#, kde-format
+msgctxt "The url to the documentation Python"
+msgid "https://docs.python.org/3/"
+msgstr "https://docs.python.org/3/"
+
+#: backends/python/pythonbackend.cpp:72
+#, kde-format
+msgid ""
+"<b>Python</b> is a remarkably powerful dynamic programming language that is "
+"used in a wide variety of application domains. There are several Python "
+"packages to scientific programming."
+msgstr ""
+"<b>Python</b> — исключительно мощный язык программирования, используемый для "
+"широкого круга приложений. Существует несколько пакетов для языка Python, "
+"предназначенных для научных расчётов."
+
+#: backends/python/pythonextensions.cpp:285
+#, kde-format
+msgid "# Sorry, but Bokeh doesn't support 3d plotting"
+msgstr "# Bokeh не поддерживает построение поверхностей на графике"
+
+#: backends/python/pythonextensions.cpp:301
+#, kde-format
+msgid "Python script file (*.py)"
+msgstr "Сценарии Python (*.py)"
+
+#: backends/python/pythonsession.cpp:274
+#, kde-format
+msgid "Cantor Python server stopped working."
+msgstr "Python-сервер Cantor прекратил работу."
+
+#: backends/python/pythonsession.cpp:278
+#, kde-format
+msgid "Failed to start Cantor python server."
+msgstr "Не удалось запустить Python-сервер Cantor."
+
+#: backends/python/pythonsession.cpp:282
+#, kde-format
+msgid "Communication with Cantor python server failed for unknown reasons."
+msgstr ""
+"Не удалось связаться с Python-сервером Cantor. Причина ошибки неизвестна."
+
+#: backends/python/pythonsession.cpp:308
+#, kde-format
+msgid ""
+"For using integrated graphics with Matplotlib package, you need to install "
+"\"matplotlib\" python package first."
+msgstr ""
+"Чтобы встраивать изображения с помощью Matplotlib, необходимо сначала "
+"установить пакет «matplotlib» на языке Python."
+
+#: backends/python/pythonsession.cpp:314
+#, kde-format
+msgid ""
+"For using integrated graphic with Plot.ly, you need to install \"plotly\" "
+"python package and special Plot.ly-compatible \"orca\" executable. See "
+"\"Static Image Export\" article in Plot.ly documentation for details."
+msgstr ""
+"Чтобы встраивать изображения с помощью Plot.ly, необходимо сначала "
+"установить пакет «plotly» на языке Python и специальный совместимый с Plot."
+"ly исполняемый файл «orca». Подробные сведения доступны в документации Plot."
+"ly, в статье «Static Image Export» («Экспорт статических изображений»)."
+
+#. i18n: ectx: property (text), item, widget (KComboBox, kcfg_plotExtenstionGraphicPackage)
+#: backends/python/settings.ui:94
+#, kde-format
+msgid "matplotlib"
+msgstr "matplotlib"
+
+#. i18n: ectx: property (text), item, widget (KComboBox, kcfg_plotExtenstionGraphicPackage)
+#: backends/python/settings.ui:99
+#, kde-format
+msgid "pylab"
+msgstr "pylab"
+
+#. i18n: ectx: property (text), item, widget (KComboBox, kcfg_plotExtenstionGraphicPackage)
+#: backends/python/settings.ui:104
+#, kde-format
+msgid "plot.ly"
+msgstr "plot.ly"
+
+#. i18n: ectx: property (text), item, widget (KComboBox, kcfg_plotExtenstionGraphicPackage)
+#: backends/python/settings.ui:114
+#, kde-format
+msgid "bokeh"
+msgstr "bokeh"
+
+#. i18n: ectx: property (windowTitle), widget (QWidget, QalculatePlotAssistantBase)
+#: backends/qalculate/plotassistant/qalculateplotdialog.ui:14
+#, kde-format
+msgid "Cantor - Plot Dialog"
+msgstr "Cantor — Диалог графика"
+
+#. i18n: ectx: attribute (title), widget (QWidget, tab)
+#: backends/qalculate/plotassistant/qalculateplotdialog.ui:24
+#, kde-format
+msgid "Functions"
+msgstr "Функции"
+
+#. i18n: ectx: property (text), widget (QTableWidget, functionTable)
+#: backends/qalculate/plotassistant/qalculateplotdialog.ui:40
+#, kde-format
+msgid "Title"
+msgstr "Заголовок"
+
+#. i18n: ectx: property (text), widget (QTableWidget, functionTable)
+#: backends/qalculate/plotassistant/qalculateplotdialog.ui:45
+#, kde-format
+msgid "Expression"
+msgstr "Выражение"
+
+#. i18n: ectx: property (text), widget (QPushButton, addButton)
+#: backends/qalculate/plotassistant/qalculateplotdialog.ui:72
+#, kde-format
+msgid "Add"
+msgstr "Добавить"
+
+#. i18n: ectx: property (text), widget (QPushButton, removeButton)
+#: backends/qalculate/plotassistant/qalculateplotdialog.ui:82
+#: worksheetentry.cpp:437
+#, kde-format
+msgid "Remove"
+msgstr "Удалить"
+
+#. i18n: ectx: property (text), widget (QPushButton, clearButton)
+#: backends/qalculate/plotassistant/qalculateplotdialog.ui:92
+#, kde-format
+msgid "Clear List"
+msgstr "Очистить список"
+
+#. i18n: ectx: property (text), widget (QLabel, label_3)
+#: backends/qalculate/plotassistant/qalculateplotdialog.ui:107
+#, kde-format
+msgid "X variable"
+msgstr "Переменная x"
+
+#. i18n: ectx: property (text), widget (QLabel, label_4)
+#: backends/qalculate/plotassistant/qalculateplotdialog.ui:134
+#, kde-format
+msgid "Style"
+msgstr "Стиль"
+
+#. i18n: ectx: property (text), item, widget (KComboBox, styleBox)
+#. i18n: ectx: property (text), item, widget (KComboBox, kcfg_plotStyle)
+#: backends/qalculate/plotassistant/qalculateplotdialog.ui:145
+#: backends/qalculate/settings.ui:420
+#, kde-format
+msgid "Lines"
+msgstr "Линии"
+
+#. i18n: ectx: property (text), item, widget (KComboBox, styleBox)
+#. i18n: ectx: property (text), item, widget (KComboBox, kcfg_plotStyle)
+#: backends/qalculate/plotassistant/qalculateplotdialog.ui:150
+#: backends/qalculate/settings.ui:425
+#, kde-format
+msgid "Points"
+msgstr "Кресты"
+
+#. i18n: ectx: property (text), item, widget (KComboBox, styleBox)
+#. i18n: ectx: property (text), item, widget (KComboBox, kcfg_plotStyle)
+#: backends/qalculate/plotassistant/qalculateplotdialog.ui:155
+#: backends/qalculate/settings.ui:430
+#, kde-format
+msgid "Points and Lines"
+msgstr "Кресты и линии"
+
+#. i18n: ectx: property (text), item, widget (KComboBox, styleBox)
+#. i18n: ectx: property (text), item, widget (KComboBox, kcfg_plotStyle)
+#: backends/qalculate/plotassistant/qalculateplotdialog.ui:160
+#: backends/qalculate/settings.ui:435
+#, kde-format
+msgid "Boxes"
+msgstr "Квадраты"
+
+#. i18n: ectx: property (text), item, widget (KComboBox, styleBox)
+#. i18n: ectx: property (text), item, widget (KComboBox, kcfg_plotStyle)
+#: backends/qalculate/plotassistant/qalculateplotdialog.ui:165
+#: backends/qalculate/settings.ui:440
+#, kde-format
+msgid "Histogram"
+msgstr "Гистограмма"
+
+#. i18n: ectx: property (text), item, widget (KComboBox, styleBox)
+#: backends/qalculate/plotassistant/qalculateplotdialog.ui:170
+#, kde-format
+msgid "Steps"
+msgstr "Шаги"
+
+#. i18n: ectx: property (text), item, widget (KComboBox, styleBox)
+#. i18n: ectx: property (text), item, widget (KComboBox, kcfg_plotStyle)
+#: backends/qalculate/plotassistant/qalculateplotdialog.ui:175
+#: backends/qalculate/settings.ui:450
+#, kde-format
+msgid "Candlesticks"
+msgstr "График «Японские свечи»"
+
+#. i18n: ectx: property (text), item, widget (KComboBox, styleBox)
+#. i18n: ectx: property (text), item, widget (KComboBox, kcfg_plotStyle)
+#: backends/qalculate/plotassistant/qalculateplotdialog.ui:180
+#: backends/qalculate/settings.ui:455
+#, kde-format
+msgid "Dots"
+msgstr "Точки"
+
+#. i18n: ectx: property (text), widget (QLabel, label_5)
+#: backends/qalculate/plotassistant/qalculateplotdialog.ui:192
+#, kde-format
+msgid "Smoothing"
+msgstr "Сглаживание"
+
+#. i18n: ectx: property (text), item, widget (KComboBox, smoothingBox)
+#. i18n: ectx: property (text), item, widget (KComboBox, kcfg_minExp)
+#. i18n: ectx: property (text), item, widget (KComboBox, kcfg_angleUnit)
+#. i18n: ectx: property (text), item, widget (KComboBox, kcfg_structuring)
+#. i18n: ectx: property (text), item, widget (KComboBox, kcfg_plotSmoothing)
+#: backends/qalculate/plotassistant/qalculateplotdialog.ui:203
+#: backends/qalculate/settings.ui:92 backends/qalculate/settings.ui:210
+#: backends/qalculate/settings.ui:244 backends/qalculate/settings.ui:391
+#, kde-format
+msgid "None"
+msgstr "Нет"
+
+#. i18n: ectx: property (text), item, widget (KComboBox, smoothingBox)
+#. i18n: ectx: property (text), item, widget (KComboBox, kcfg_plotSmoothing)
+#: backends/qalculate/plotassistant/qalculateplotdialog.ui:208
+#: backends/qalculate/settings.ui:396
+#, kde-format
+msgid "Monotonic"
+msgstr "С сохранением монотонности"
+
+#. i18n: ectx: property (text), item, widget (KComboBox, smoothingBox)
+#: backends/qalculate/plotassistant/qalculateplotdialog.ui:213
+#, kde-format
+msgid "Natural Cubic Splines"
+msgstr "Натуральные кубические сплайны"
+
+#. i18n: ectx: property (text), item, widget (KComboBox, smoothingBox)
+#. i18n: ectx: property (text), item, widget (KComboBox, kcfg_plotSmoothing)
+#: backends/qalculate/plotassistant/qalculateplotdialog.ui:218
+#: backends/qalculate/settings.ui:406
+#, kde-format
+msgid "Bezier"
+msgstr "Кривая Безье"
+
+#. i18n: ectx: property (text), item, widget (KComboBox, smoothingBox)
+#. i18n: ectx: property (text), item, widget (KComboBox, kcfg_plotSmoothing)
+#: backends/qalculate/plotassistant/qalculateplotdialog.ui:223
+#: backends/qalculate/settings.ui:411
+#, kde-format
+msgid "Bezier (monotonic)"
+msgstr "Кривая Безье (монотонная)"
+
+#. i18n: ectx: property (title), widget (QGroupBox, groupBox)
+#: backends/qalculate/plotassistant/qalculateplotdialog.ui:233
+#, kde-format
+msgid "Function Range"
+msgstr "Диапазон значений функции"
+
+#. i18n: ectx: property (text), widget (QLabel, label)
+#: backends/qalculate/plotassistant/qalculateplotdialog.ui:239
+#, kde-format
+msgid "X range"
+msgstr "Диапазон по оси x"
+
+#. i18n: ectx: property (text), widget (KLineEdit, xMinEdit)
+#: backends/qalculate/plotassistant/qalculateplotdialog.ui:254
+#, kde-format
+msgid "0"
+msgstr "0"
+
+#. i18n: ectx: property (text), widget (QLabel, label_2)
+#: backends/qalculate/plotassistant/qalculateplotdialog.ui:261
+#, kde-format
+msgid "-"
+msgstr "-"
+
+#. i18n: ectx: property (text), widget (KLineEdit, xMaxEdit)
+#: backends/qalculate/plotassistant/qalculateplotdialog.ui:274
+#, kde-format
+msgid "10"
+msgstr "10"
+
+#. i18n: ectx: property (text), widget (QRadioButton, stepsButton)
+#: backends/qalculate/plotassistant/qalculateplotdialog.ui:283
+#, kde-format
+msgid "Sa&mpling rate"
+msgstr "&Частота точек"
+
+#. i18n: ectx: property (text), widget (QRadioButton, stepButton)
+#: backends/qalculate/plotassistant/qalculateplotdialog.ui:293
+#, kde-format
+msgid "Step si&ze"
+msgstr "Р&азмер шага"
+
+#. i18n: ectx: attribute (title), widget (QWidget, tab_4)
+#: backends/qalculate/plotassistant/qalculateplotdialog.ui:324
+#, kde-format
+msgid "Options"
+msgstr "Параметры"
+
+#. i18n: ectx: property (text), widget (QLabel, label_19)
+#: backends/qalculate/plotassistant/qalculateplotdialog.ui:332
+#, kde-format
+msgid "Plot title"
+msgstr "Заголовок графика"
+
+#. i18n: ectx: property (text), widget (QLabel, label_20)
+#: backends/qalculate/plotassistant/qalculateplotdialog.ui:353
+#, kde-format
+msgid "X-axis label"
+msgstr "Метка оси X"
+
+#. i18n: ectx: property (text), widget (QLabel, label_21)
+#: backends/qalculate/plotassistant/qalculateplotdialog.ui:374
+#, kde-format
+msgid "Y-axis label"
+msgstr "Метка оси Y"
+
+#. i18n: ectx: property (text), widget (QLabel, label_22)
+#: backends/qalculate/plotassistant/qalculateplotdialog.ui:395
+#, kde-format
+msgid "Legend position"
+msgstr "Расположение легенды"
+
+#. i18n: ectx: property (text), item, widget (KComboBox, legendBox)
+#. i18n: ectx: property (text), item, widget (KComboBox, kcfg_plotLegend)
+#: backends/qalculate/plotassistant/qalculateplotdialog.ui:403
+#: backends/qalculate/settings.ui:474
+#, kde-format
+msgid "Hide legend"
+msgstr "Скрыть легенду"
+
+#. i18n: ectx: property (text), item, widget (KComboBox, legendBox)
+#. i18n: ectx: property (text), item, widget (KComboBox, kcfg_plotLegend)
+#: backends/qalculate/plotassistant/qalculateplotdialog.ui:408
+#: backends/qalculate/settings.ui:479
+#, kde-format
+msgid "Top-left"
+msgstr "Верхний левый угол"
+
+#. i18n: ectx: property (text), item, widget (KComboBox, legendBox)
+#. i18n: ectx: property (text), item, widget (KComboBox, kcfg_plotLegend)
+#: backends/qalculate/plotassistant/qalculateplotdialog.ui:413
+#: backends/qalculate/settings.ui:484
+#, kde-format
+msgid "Top-right"
+msgstr "Верхний правый угол"
+
+#. i18n: ectx: property (text), item, widget (KComboBox, legendBox)
+#. i18n: ectx: property (text), item, widget (KComboBox, kcfg_plotLegend)
+#: backends/qalculate/plotassistant/qalculateplotdialog.ui:418
+#: backends/qalculate/settings.ui:489
+#, kde-format
+msgid "Bottom-left"
+msgstr "Нижний левый угол"
+
+#. i18n: ectx: property (text), item, widget (KComboBox, legendBox)
+#. i18n: ectx: property (text), item, widget (KComboBox, kcfg_plotLegend)
+#: backends/qalculate/plotassistant/qalculateplotdialog.ui:423
+#: backends/qalculate/settings.ui:494
+#, kde-format
+msgid "Bottom-right"
+msgstr "Нижний правый угол"
+
+#. i18n: ectx: property (text), item, widget (KComboBox, legendBox)
+#. i18n: ectx: property (text), item, widget (KComboBox, kcfg_plotLegend)
+#: backends/qalculate/plotassistant/qalculateplotdialog.ui:428
+#: backends/qalculate/settings.ui:499
+#, kde-format
+msgid "Below"
+msgstr "Снизу"
+
+#. i18n: ectx: property (text), item, widget (KComboBox, legendBox)
+#. i18n: ectx: property (text), item, widget (KComboBox, kcfg_plotLegend)
+#: backends/qalculate/plotassistant/qalculateplotdialog.ui:433
+#: backends/qalculate/settings.ui:504
+#, kde-format
+msgid "Outside"
+msgstr "Снаружи"
+
+#. i18n: ectx: property (text), widget (QCheckBox, gridCheckBox)
+#: backends/qalculate/plotassistant/qalculateplotdialog.ui:445
+#, kde-format
+msgid "Display Grid"
+msgstr "Показывать сетку"
+
+#. i18n: ectx: property (text), widget (QCheckBox, borderCheckBox)
+#: backends/qalculate/plotassistant/qalculateplotdialog.ui:452
+#, kde-format
+msgid "Display full border"
+msgstr "Показывать полный край"
+
+#. i18n: ectx: property (text), widget (QCheckBox, colorCheckBox)
+#: backends/qalculate/plotassistant/qalculateplotdialog.ui:463
+#, kde-format
+msgid "Use Colors"
+msgstr "Использовать цвета"
+
+#. i18n: ectx: property (text), widget (QCheckBox, inlineCheckBox)
+#: backends/qalculate/plotassistant/qalculateplotdialog.ui:470
+#, kde-format
+msgid "Display inline"
+msgstr "Показывать внутри"
+
+#. i18n: ectx: property (text), widget (QCheckBox, xLogCheckBox)
+#: backends/qalculate/plotassistant/qalculateplotdialog.ui:481
+#, kde-format
+msgid "Logarithmic x scale"
+msgstr "Логарифмическая шкала оси x"
+
+#. i18n: ectx: property (text), widget (QCheckBox, yLogCheckBox)
+#: backends/qalculate/plotassistant/qalculateplotdialog.ui:502
+#, kde-format
+msgid "Logarithmic y scale"
+msgstr "Логарифмическая шкала оси y"
+
+#. i18n: ectx: property (title), widget (QGroupBox, groupBox_3)
+#: backends/qalculate/plotassistant/qalculateplotdialog.ui:521
+#, kde-format
+msgid "File Options"
+msgstr "Параметры файла"
+
+#. i18n: ectx: property (text), widget (QCheckBox, saveCheckBox)
+#: backends/qalculate/plotassistant/qalculateplotdialog.ui:527
+#, kde-format
+msgid "Save plot to file"
+msgstr "Сохранить график в файл"
+
+#. i18n: ectx: property (text), widget (QLabel, label_23)
+#: backends/qalculate/plotassistant/qalculateplotdialog.ui:547
+#, kde-format
+msgid "File type"
+msgstr "Тип файла"
+
+#. i18n: ectx: property (text), item, widget (KComboBox, saveFileBox)
+#: backends/qalculate/plotassistant/qalculateplotdialog.ui:555
+#, kde-format
+msgid "Detect from filename"
+msgstr "Определить из имени файла"
+
+#. i18n: ectx: property (text), item, widget (KComboBox, saveFileBox)
+#: backends/qalculate/plotassistant/qalculateplotdialog.ui:560
+#, kde-format
+msgid "PNG"
+msgstr "PNG"
+
+#. i18n: ectx: property (text), item, widget (KComboBox, saveFileBox)
+#: backends/qalculate/plotassistant/qalculateplotdialog.ui:565
+#, kde-format
+msgid "PS"
+msgstr "PS"
+
+#. i18n: ectx: property (text), item, widget (KComboBox, saveFileBox)
+#: backends/qalculate/plotassistant/qalculateplotdialog.ui:570
+#, kde-format
+msgid "EPS"
+msgstr "EPS"
+
+#. i18n: ectx: property (text), item, widget (KComboBox, saveFileBox)
+#: backends/qalculate/plotassistant/qalculateplotdialog.ui:575
+#: worksheet.cpp:1820 worksheet.cpp:1846 worksheet.cpp:1866 worksheet.cpp:1884
+#, kde-format
+msgid "LaTeX"
+msgstr "LaTeX"
+
+#. i18n: ectx: property (text), item, widget (KComboBox, saveFileBox)
+#: backends/qalculate/plotassistant/qalculateplotdialog.ui:580
+#, kde-format
+msgid "SVG"
+msgstr "SVG"
+
+#. i18n: ectx: property (text), item, widget (KComboBox, saveFileBox)
+#: backends/qalculate/plotassistant/qalculateplotdialog.ui:585
+#, kde-format
+msgid "FIG"
+msgstr "FIG"
+
+#: backends/qalculate/qalculatebackend.cpp:51
+#, kde-format
+msgid ""
+"<b>Qalculate!</b> is not your regular software replication of the cheapest "
+"available calculator. Qalculate! aims to make full use of the superior "
+"interface, power and flexibility of modern computers. The center of "
+"attention in Qalculate! is the expression entry. Instead of entering each "
+"number in a mathematical expression separately, you can directly write the "
+"whole expression and later modify it. The interpretation of expressions is "
+"flexible and fault tolerant, and if you nevertheless do something wrong, "
+"Qalculate! will tell you so. Not fully solvable expressions are however not "
+"errors. Qalculate! will simplify as far as it can and answer with an "
+"expression. In addition to numbers and arithmetic operators, an expression "
+"may contain any combination of variables, units, and functions."
+msgstr ""
+"<b>Qalculate!</b> — это не просто программная копия обычного калькулятора. "
+"Программа Qalculate! нацелена на использование превосходного интерфейса, "
+"мощности и гибкости современных компьютеров в полной мере. Основное внимание "
+"в Qalculate! уделяется работе с выражениями. Возможно не вводить каждое "
+"число в математическом выражении отдельно, а написать целое выражение и "
+"затем изменять его. Преобразование выражений гибкое и устойчивое к ошибкам, "
+"так что если что-то всё же будет сделано неправильно, программа Qalculate! "
+"сообщит об этом. Выражения, которые нельзя полностью сократить, не приводят "
+"к ошибкам. Qalculate! упростит их настолько, насколько это возможно и выдаст "
+"ответ в виде выражения. В дополнение к числам и арифметическим операторам, "
+"выражение может содержать любые комбинации переменных, единиц измерения и "
+"функций."
+
+#. i18n: ectx: label, entry (postConversion), group (QalculateBackend)
+#: backends/qalculate/qalculatebackend.kcfg:9
+#, kde-format
+msgid ""
+"If and how units will be automatically converted. If true, convert to the "
+"best suited SI units (the least amount of units)."
+msgstr ""
+"Как будут автоматически преобразовываться единицы измерения. Если да, "
+"значения будут автоматически приводиться к самым подходящим единицам "
+"измерения системы СИ."
+
+#. i18n: ectx: label, entry (angleUnit), group (QalculateBackend)
+#: backends/qalculate/qalculatebackend.kcfg:13
+#, kde-format
+msgid "Default angle unit for trigonometric functions."
+msgstr "Единица измерения углов по умолчанию для тригонометрических функций."
+
+#. i18n: ectx: label, entry (base), group (QalculateBackend)
+#: backends/qalculate/qalculatebackend.kcfg:23
+#, kde-format
+msgid "Base of parsed and evaluated numbers."
+msgstr "Основание системы счисления чисел результата."
+
+#. i18n: ectx: label, entry (structuring), group (QalculateBackend)
+#: backends/qalculate/qalculatebackend.kcfg:32
+#, kde-format
+msgid "If the evaluation result will be simplified or factorized."
+msgstr "Будет ли результат вычисления упрощён или разложен на множители."
+
+#. i18n: ectx: label, entry (fractionFormat), group (QalculateBackend)
+#: backends/qalculate/qalculatebackend.kcfg:42
+#, kde-format
+msgid ""
+"If rational numbers will be displayed with decimals, as a fraction, or "
+"something in between."
+msgstr ""
+"Будут ли рациональные числа показаны как десятичная дроби, правильные или "
+"неправильные дроби."
+
+#. i18n: ectx: label, entry (indicateInfiniteSeries), group (QalculateBackend)
+#: backends/qalculate/qalculatebackend.kcfg:46
+#, kde-format
+msgid ""
+"Show that the digit series of a number continues forever with three dots, "
+"instead of rounding (ex. 2/3 displays as 0.666666... instead of 0.666667)."
+msgstr ""
+"Бесконечная дробная часть числа будет продолжена многоточием вместо "
+"округления (пример: 2/3 отображается как 0.666666... вместо 0.666667)."
+
+#. i18n: ectx: label, entry (useAllPrefixes), group (QalculateBackend)
+#: backends/qalculate/qalculatebackend.kcfg:50
+#, kde-format
+msgid ""
+"Use all decimal SI prefixes. If false, prefixes which is not a multiple of "
+"thousand (centi, deci, deca, hecto) will not be used automatically."
+msgstr ""
+"Использовать все десятичные префиксы СИ. Если нет, префиксы, которые не "
+"являются степенью тысячи, не будут использоваться автоматически."
+
+#. i18n: ectx: label, entry (negativeExponents), group (QalculateBackend)
+#: backends/qalculate/qalculatebackend.kcfg:54
+#, kde-format
+msgid ""
+"If true, negative exponents will be used instead of division (ex. 5/x^2 "
+"becomes 5*x^-2)."
+msgstr ""
+"Если да, отрицательные степени появятся вместо деления (например, 5/x^2 "
+"станет 5*x^-2)."
+
+#. i18n: ectx: label, entry (minExp), group (QalculateBackend)
+#: backends/qalculate/qalculatebackend.kcfg:64
+#, kde-format
+msgid "Numerical display."
+msgstr "Формат записи числа."
+
+#. i18n: ectx: label, entry (inlinePlot), group (QalculateBackend)
+#: backends/qalculate/qalculatebackend.kcfg:68
+#, kde-format
+msgid ""
+"If true, plots will be displayed inside the worksheet. If not they appear in "
+"a separate window."
+msgstr ""
+"Если да, графики будут отображаться внутри рабочего пространства. Если нет, "
+"они будут появляться в отдельном окне."
+
+#. i18n: ectx: label, entry (coloredPlot), group (QalculateBackend)
+#: backends/qalculate/qalculatebackend.kcfg:72
+#, kde-format
+msgid "Whether colors should be used in plots."
+msgstr "Должны ли разные цвета быть использованы при построении графиков."
+
+#. i18n: ectx: label, entry (plotGrid), group (QalculateBackend)
+#: backends/qalculate/qalculatebackend.kcfg:76
+#, kde-format
+msgid "Whether a grid should be plotted."
+msgstr "Должна ли сетка быть нанесена на график."
+
+#. i18n: ectx: label, entry (plotBorder), group (QalculateBackend)
+#: backends/qalculate/qalculatebackend.kcfg:80
+#, kde-format
+msgid "Whether full borders should be drawn around the plot."
+msgstr "Должны ли быть нарисованы вокруг графика полные границы."
+
+#. i18n: ectx: label, entry (plotLineWidth), group (QalculateBackend)
+#: backends/qalculate/qalculatebackend.kcfg:84
+#, kde-format
+msgid "Width of lines, in pixels."
+msgstr "Толщина линий, в пикселах."
+
+#. i18n: ectx: label, entry (plotSteps), group (QalculateBackend)
+#: backends/qalculate/qalculatebackend.kcfg:88
+#, kde-format
+msgid "Number of interpolation steps to be used in plotting."
+msgstr "Количество шагов интерполяции, используемых при построении графиков."
+
+#. i18n: ectx: label, entry (plotSmoothing), group (QalculateBackend)
+#: backends/qalculate/qalculatebackend.kcfg:99
+#, kde-format
+msgid "Smoothing mode in plots."
+msgstr "Режим сглаживания графиков."
+
+#. i18n: ectx: label, entry (plotStyle), group (QalculateBackend)
+#: backends/qalculate/qalculatebackend.kcfg:113
+#, kde-format
+msgid "Style of plots."
+msgstr "Стиль графиков."
+
+#. i18n: ectx: label, entry (plotLegend), group (QalculateBackend)
+#: backends/qalculate/qalculatebackend.kcfg:126
+#, kde-format
+msgid "Legend position in plots."
+msgstr "Расположение легенды на графиках."
+
+#: backends/qalculate/qalculateexpression.cpp:142
+#, kde-format
+msgid "Qalculate reports it cannot print. Is gnuplot installed?"
+msgstr "Не может быть напечатано. Установлен ли пакет gnuplot?"
+
+#: backends/qalculate/qalculateexpression.cpp:163
+#, kde-format
+msgid "missing %1"
+msgstr "пропущен %1"
+
+#: backends/qalculate/qalculateexpression.cpp:253
+#, kde-format
+msgid "%1 must be a number."
+msgstr "%1 должно быть числом."
+
+#: backends/qalculate/qalculateexpression.cpp:254
+#, kde-format
+msgid "%1 must be a integer."
+msgstr "%1 должно быть целым числом."
+
+#: backends/qalculate/qalculateexpression.cpp:255
+#, kde-format
+msgid "%1 must be a boolean."
+msgstr "%1 должно быть логическим (булевым) значением."
+
+#: backends/qalculate/qalculateexpression.cpp:256
+#, kde-format
+msgid "invalid option for %1: %2"
+msgstr "недопустимый параметр для %1: %2"
+
+#: backends/qalculate/qalculateexpression.cpp:583
+#, kde-format
+msgid "found multiple expressions in one plot command (%1 and %2)."
+msgstr "найдено несколько выражений в одной команде графика (%1 и %2)."
+
+#: backends/qalculate/qalculateexpression.cpp:682
+#: backends/qalculate/qalculateexpression.cpp:790
+#: backends/qalculate/qalculatehighlighter.cpp:29
+#, kde-format
+msgid "ERROR"
+msgstr "Ошибка"
+
+#: backends/qalculate/qalculateexpression.cpp:684
+#: backends/qalculate/qalculateexpression.cpp:792
+#: backends/qalculate/qalculatehighlighter.cpp:29
+#, kde-format
+msgid "WARNING"
+msgstr "Предупреждение"
+
+#: backends/qalculate/qalculatesyntaxhelpobject.cpp:46
+#, kde-format
+msgid "No function, variable or unit with specified name exist."
+msgstr ""
+"Не существует функции, переменной или единицы измерения с заданным именем."
+
+#: backends/qalculate/qalculatesyntaxhelpobject.cpp:53
+#, kde-format
+msgid "Function: %1"
+msgstr "Функция: %1"
+
+#: backends/qalculate/qalculatesyntaxhelpobject.cpp:138
+#, kde-format
+msgid "Plotting interface"
+msgstr "Внешний вид графика"
+
+#: backends/qalculate/qalculatesyntaxhelpobject.cpp:139
+#, kde-format
+msgid "Plots one or more functions either inline or in a separate window."
+msgstr ""
+"Рисовать график одной или нескольких функций подряд или в отдельных окнах."
+
+#: backends/qalculate/qalculatesyntaxhelpobject.cpp:140
+#, kde-format
+msgid "expression"
+msgstr "выражение"
+
+#: backends/qalculate/qalculatesyntaxhelpobject.cpp:141
+#, kde-format
+msgid "option"
+msgstr "параметр"
+
+#: backends/qalculate/qalculatesyntaxhelpobject.cpp:142
+#, kde-format
+msgid "value"
+msgstr "значение"
+
+#: backends/qalculate/qalculatesyntaxhelpobject.cpp:146
+#, kde-format
+msgid "integer"
+msgstr "целое число"
+
+#: backends/qalculate/qalculatesyntaxhelpobject.cpp:147
+#, kde-format
+msgid "boolean"
+msgstr "логический"
+
+#: backends/qalculate/qalculatesyntaxhelpobject.cpp:148
+#, kde-format
+msgid "number"
+msgstr "число"
+
+#: backends/qalculate/qalculatesyntaxhelpobject.cpp:149
+#, kde-format
+msgid "default: %1"
+msgstr "по умолчанию: %1"
+
+#: backends/qalculate/qalculatesyntaxhelpobject.cpp:209
+#, kde-format
+msgid "The function's name"
+msgstr "Имя функции"
+
+#: backends/qalculate/qalculatesyntaxhelpobject.cpp:211
+#, kde-format
+msgid "Title label"
+msgstr "Заголовок"
+
+#: backends/qalculate/qalculatesyntaxhelpobject.cpp:212
+#, kde-format
+msgid "x-axis label"
+msgstr "метка оси x"
+
+#: backends/qalculate/qalculatesyntaxhelpobject.cpp:213
+#, kde-format
+msgid "y-axis label"
+msgstr "метка оси y"
+
+#: backends/qalculate/qalculatesyntaxhelpobject.cpp:214
+#, kde-format
+msgid ""
+"Image to save plot to. If empty shows plot in a window on the screen. If "
+"inline=true the image is shown regardless of this option."
+msgstr ""
+"Изображение для сохранения графика. Если пусто, показать график на экране. "
+"Если inline=true, изображение покажется независимо от значения этого "
+"параметра."
+
+#: backends/qalculate/qalculatesyntaxhelpobject.cpp:215
+#, kde-format
+msgid "The image type to save as. One of auto, png, ps, eps, latex, svg, fig."
+msgstr ""
+"Расширение изображения для сохранения. Возможные значения: auto "
+"(автоматически), png, ps, eps, latex, svg, fig."
+
+#: backends/qalculate/qalculatesyntaxhelpobject.cpp:216
+#, kde-format
+msgid "Set to true for colored plot, false for monochrome."
+msgstr ""
+"Установите в «true» для раскрашивания графика, «false» — для чёрно-белого "
+"изображения."
+
+#: backends/qalculate/qalculatesyntaxhelpobject.cpp:217
+#, kde-format
+msgid "Minimum x-axis value."
+msgstr "Минимальное значение по оси x."
+
+#: backends/qalculate/qalculatesyntaxhelpobject.cpp:218
+#, kde-format
+msgid "Maximum x-axis value."
+msgstr "Максимальное значение по оси x."
+
+#: backends/qalculate/qalculatesyntaxhelpobject.cpp:219
+#, kde-format
+msgid "If a logarithmic scale shall be used for the x-axis."
+msgstr "Будет ли логарифмическая шкала использована для оси x."
+
+#: backends/qalculate/qalculatesyntaxhelpobject.cpp:220
+#, kde-format
+msgid "If a logarithmic scale shall be used for the y-axis."
+msgstr "Будет ли логарифмическая шкала использована для оси y."
+
+#: backends/qalculate/qalculatesyntaxhelpobject.cpp:221
+#, kde-format
+msgid "Logarithmic base for the x-axis."
+msgstr "Основание логарифма для шкалы x."
+
+#: backends/qalculate/qalculatesyntaxhelpobject.cpp:222
+#, kde-format
+msgid "Logarithmic base for the y-axis."
+msgstr "Основание логарифма для шкалы y."
+
+#: backends/qalculate/qalculatesyntaxhelpobject.cpp:223
+#, kde-format
+msgid "If a grid shall be shown in the plot."
+msgstr "Будет ли показана сетка на графике."
+
+#: backends/qalculate/qalculatesyntaxhelpobject.cpp:224
+#, kde-format
+msgid ""
+"If the plot shall be surrounded by borders on all sides (not just axis)."
+msgstr ""
+"Будет ли график окружён полями со всех сторон (не только со стороны осей)."
+
+#: backends/qalculate/qalculatesyntaxhelpobject.cpp:225
+#, kde-format
+msgid "Width of lines."
+msgstr "Толщина линий."
+
+#: backends/qalculate/qalculatesyntaxhelpobject.cpp:226
+#, kde-format
+msgid ""
+"Where the plot legend shall be placed. One of none, top_left, top_right, "
+"bottom_left, bottom_right, below, outside"
+msgstr ""
+"Где будет расположена легенда графика. Возможные значения: none (нигде), "
+"top_left (слева вверху), top_right (справа вверху), bottom_left (снизу "
+"слева), bottom_right (снизу справа), below (ниже), outside (снаружи)."
+
+# BUGME: unique -> monotonic --aspotashev
+#: backends/qalculate/qalculatesyntaxhelpobject.cpp:227
+#, kde-format
+msgid "Plot smoothing. One of none, unique, csplines, bezier, sbezier"
+msgstr ""
+"Сглаживание графика. Возможные значения: none (без сглаживания), monotonic "
+"(с сохранением монотонности), csplines (натуральные кубические сплайны), "
+"bezier (кривая Безье), sbezier (монотонная кривая Безье)."
+
+#: backends/qalculate/qalculatesyntaxhelpobject.cpp:228
+#, kde-format
+msgid ""
+"Plot style. One of lines, points, points_lines, boxes, histogram, steps, "
+"candlesticks, dots"
+msgstr ""
+"Стиль графика. Возможные значения: lines (линии), points (кресты), "
+"points_lines (кресты и линии), boxes (квадраты), histogram (гистограмма), "
+"steps (шаги), candlesticks («Японские свечи»), dots (точки)."
+
+#: backends/qalculate/qalculatesyntaxhelpobject.cpp:229
+#, kde-format
+msgid "Use scale on second x-axis."
+msgstr "Использовать вторую ось x."
+
+#: backends/qalculate/qalculatesyntaxhelpobject.cpp:230
+#, kde-format
+msgid "Use scale on second y-axis."
+msgstr "Использовать вторую ось y."
+
+#: backends/qalculate/qalculatesyntaxhelpobject.cpp:231
+#, kde-format
+msgid "If the plot is to be drawn inline, instead of in a new window."
+msgstr ""
+"Будут ли графики нарисованы внутри документа, вместо открытия нового окна."
+
+#: backends/qalculate/qalculatesyntaxhelpobject.cpp:232
+#, kde-format
+msgid "Distance between two interpolation points. See also steps."
+msgstr ""
+"Расстояние между двумя точками интерполяции. Также обратите внимание на "
+"количество шагов интерполяции."
+
+#: backends/qalculate/qalculatesyntaxhelpobject.cpp:233
+#, kde-format
+msgid "Number of interpolation points. See also step."
+msgstr ""
+"Количество точек интерполяции. Также обратите внимание на количество шагов "
+"интерполяции."
+
+#: backends/qalculate/qalculatesyntaxhelpobject.cpp:234
+#, kde-format
+msgid "The name of the x variable. This must be an unknown variable"
+msgstr "Имя переменной x. Должно быть неизвестной переменной."
+
+#: backends/qalculate/qalculatesyntaxhelpobject.cpp:243
+#, kde-format
+msgid "Save variables to a file"
+msgstr "Сохранить значения переменных в файл"
+
+#: backends/qalculate/qalculatesyntaxhelpobject.cpp:244
+#, kde-format
+msgid ""
+"Save all currently defined variables to a file. They can be reloaded with %1."
+msgstr ""
+"Сохранить все определённые на данный момент переменные в файл. Они могут "
+"быть позже загружены из этого файла командой %1."
+
+#: backends/qalculate/qalculatesyntaxhelpobject.cpp:245
+#: backends/qalculate/qalculatesyntaxhelpobject.cpp:254
+#, kde-format
+msgid "file"
+msgstr "файл"
+
+#: backends/qalculate/qalculatesyntaxhelpobject.cpp:246
+#, kde-format
+msgid "file: the file to save to"
+msgstr "файл: файл для сохранения"
+
+#: backends/qalculate/qalculatesyntaxhelpobject.cpp:252
+#, kde-format
+msgid "Load variables from a file"
+msgstr "Загрузить переменные из файла"
+
+#: backends/qalculate/qalculatesyntaxhelpobject.cpp:253
+#, kde-format
+msgid "Load variables from a file that has previously been created by %1."
+msgstr "Загрузить переменные из файла, который был ранее создан командой %1."
+
+#: backends/qalculate/qalculatesyntaxhelpobject.cpp:255
+#, kde-format
+msgid "file: the file to load"
+msgstr "файл: файл для загрузки"
+
+#. i18n: ectx: property (text), widget (QLabel, label)
+#: backends/qalculate/settings.ui:27
+#, kde-format
+msgid "Number base:"
+msgstr "Система счисления:"
+
+#. i18n: ectx: property (text), widget (QLabel, label_5)
+#: backends/qalculate/settings.ui:47
+#, kde-format
+msgid "Fraction format:"
+msgstr "Формат дробей:"
+
+#. i18n: ectx: property (text), item, widget (KComboBox, kcfg_fractionFormat)
+#: backends/qalculate/settings.ui:58
+#, kde-format
+msgid "Decimal"
+msgstr "Десятичный"
+
+#. i18n: ectx: property (text), item, widget (KComboBox, kcfg_fractionFormat)
+#: backends/qalculate/settings.ui:63
+#, kde-format
+msgid "Exact"
+msgstr "Точный"
+
+#. i18n: ectx: property (text), item, widget (KComboBox, kcfg_fractionFormat)
+#: backends/qalculate/settings.ui:68
+#, kde-format
+msgid "Fractional"
+msgstr "Дробный"
+
+#. i18n: ectx: property (text), item, widget (KComboBox, kcfg_fractionFormat)
+#: backends/qalculate/settings.ui:73
+#, kde-format
+msgid "Combined"
+msgstr "Правильные дроби"
+
+#. i18n: ectx: property (text), widget (QLabel, label_9)
+#: backends/qalculate/settings.ui:81
+#, kde-format
+msgid "Numerical display:"
+msgstr "Формат записи числа:"
+
+#. i18n: ectx: property (text), item, widget (KComboBox, kcfg_minExp)
+#: backends/qalculate/settings.ui:97
+#, kde-format
+msgid "Pure"
+msgstr "Полный"
+
+#. i18n: ectx: property (text), item, widget (KComboBox, kcfg_minExp)
+#: backends/qalculate/settings.ui:102
+#, kde-format
+msgid "Scientific"
+msgstr "Инженерный"
+
+#. i18n: ectx: property (text), item, widget (KComboBox, kcfg_minExp)
+#: backends/qalculate/settings.ui:107
+#, kde-format
+msgid "Precision"
+msgstr "Точный"
+
+#. i18n: ectx: property (text), widget (QLabel, label_6)
+#: backends/qalculate/settings.ui:115
+#, kde-format
+msgid "Indicate infinite series:"
+msgstr "Указывать на бесконечный ряд:"
+
+#. i18n: ectx: property (text), widget (QLabel, label_7)
+#: backends/qalculate/settings.ui:132
+#, kde-format
+msgid "Use all SI prefixes:"
+msgstr "Использовать все префиксы СИ:"
+
+#. i18n: ectx: property (text), widget (QLabel, label_8)
+#: backends/qalculate/settings.ui:149
+#, kde-format
+msgid "Use negative exponents:"
+msgstr "Использовать отрицательные степени:"
+
+#. i18n: ectx: attribute (title), widget (QWidget, tab_2)
+#: backends/qalculate/settings.ui:180 worksheetentry.cpp:414
+#, kde-format
+msgid "Evaluate"
+msgstr "Выполнить"
+
+#. i18n: ectx: property (text), widget (QLabel, label_2)
+#: backends/qalculate/settings.ui:186
+#, kde-format
+msgid "Convert to best SI units:"
+msgstr "Преобразовывать к наиболее подходящим единицам СИ:"
+
+#. i18n: ectx: property (text), item, widget (KComboBox, kcfg_angleUnit)
+#: backends/qalculate/settings.ui:215
+#, kde-format
+msgid "Radians"
+msgstr "радианы"
+
+#. i18n: ectx: property (text), item, widget (KComboBox, kcfg_angleUnit)
+#: backends/qalculate/settings.ui:220
+#, kde-format
+msgid "Degrees"
+msgstr "градусы"
+
+#. i18n: ectx: property (text), item, widget (KComboBox, kcfg_angleUnit)
+#: backends/qalculate/settings.ui:225
+#, kde-format
+msgid "Gradians"
+msgstr "грады"
+
+#. i18n: ectx: property (text), widget (QLabel, label_4)
+#: backends/qalculate/settings.ui:233
+#, kde-format
+msgid "Structuring Mode:"
+msgstr "Упрощение формул:"
+
+#. i18n: ectx: property (text), item, widget (KComboBox, kcfg_structuring)
+#: backends/qalculate/settings.ui:249
+#, kde-format
+msgid "Simplify"
+msgstr "упрощение"
+
+#. i18n: ectx: property (text), item, widget (KComboBox, kcfg_structuring)
+#: backends/qalculate/settings.ui:254
+#, kde-format
+msgid "Factorize"
+msgstr "разложение на множители"
+
+#. i18n: ectx: property (text), widget (QLabel, label_3)
+#: backends/qalculate/settings.ui:275
+#, kde-format
+msgid "Angle unit:"
+msgstr "Единица измерения углов:"
+
+#. i18n: ectx: attribute (title), widget (QWidget, tab)
+#: backends/qalculate/settings.ui:286
+#, kde-format
+msgid "Plotting"
+msgstr "Построение графиков"
+
+#. i18n: ectx: property (text), widget (QLabel, label_10)
+#: backends/qalculate/settings.ui:292
+#, kde-format
+msgid "Display plots inline:"
+msgstr "Показывать графики внутри документа:"
+
+#. i18n: ectx: property (text), widget (QLabel, label_12)
+#: backends/qalculate/settings.ui:329
+#, kde-format
+msgid "Show full borders:"
+msgstr "Показывать полные границы:"
+
+#. i18n: ectx: property (text), widget (QLabel, label_17)
+#: backends/qalculate/settings.ui:346
+#, kde-format
+msgid "Width of lines:"
+msgstr "Толщина линий:"
+
+#. i18n: ectx: property (text), widget (QLabel, label_18)
+#: backends/qalculate/settings.ui:363
+#, kde-format
+msgid "Sampling rate:"
+msgstr "Частота точек:"
+
+#. i18n: ectx: property (text), widget (QLabel, label_13)
+#: backends/qalculate/settings.ui:380
+#, kde-format
+msgid "Smoothing Mode:"
+msgstr "Режим сглаживания:"
+
+#. i18n: ectx: property (text), item, widget (KComboBox, kcfg_plotSmoothing)
+#: backends/qalculate/settings.ui:401
+#, kde-format
+msgid "Natural cubic Splines"
+msgstr "Натуральные кубические сплайны"
+
+#. i18n: ectx: property (text), item, widget (KComboBox, kcfg_plotStyle)
+#: backends/qalculate/settings.ui:445
+#, kde-format
+msgctxt "Plot Style"
+msgid "Steps"
+msgstr "Шаги"
+
+#. i18n: ectx: property (text), widget (QLabel, label_16)
+#: backends/qalculate/settings.ui:463
+#, kde-format
+msgid "Legend Position:"
+msgstr "Расположение легенды:"
+
+#. i18n: ectx: property (text), widget (QLabel, label_15)
+#: backends/qalculate/settings.ui:525
+#, kde-format
+msgid "Colored Plots:"
+msgstr "Цветные графики:"
+
+#. i18n: ectx: property (text), widget (QLabel, label_11)
+#: backends/qalculate/settings.ui:535
+#, kde-format
+msgid "Show grid:"
+msgstr "Показывать сетку:"
+
+#. i18n: ectx: property (text), widget (QLabel, label_14)
+#: backends/qalculate/settings.ui:545
+#, kde-format
+msgid "Plot Style:"
+msgstr "Стиль графика:"
+
+#: backends/qthelpconfig.cpp:45
+#, kde-format
+msgctxt "@title:window"
+msgid "Modify Entry"
+msgstr "Изменение записи"
+
+#: backends/qthelpconfig.cpp:47
+#, kde-format
+msgctxt "@title:window"
+msgid "Add New Entry"
+msgstr "Добавление новой записи"
+
+#: backends/qthelpconfig.cpp:64
+#, kde-format
+msgid "Name cannot be empty."
+msgstr "Имя не может быть пустым."
+
+#: backends/qthelpconfig.cpp:84
+#, kde-format
+msgid "Add local documentation"
+msgstr "Добавить локальную документацию"
+
+#: backends/qthelpconfig.cpp:100
+#, kde-format
+msgctxt "@action:button Allow user to get some API documentation with GHNS"
+msgid "Get New Documentation"
+msgstr "Получить другую документацию"
+
+#: backends/qthelpconfig.cpp:103
+#, kde-format
+msgid "Download additional documentations"
+msgstr "Загрузить дополнительную документацию"
+
+#: backends/qthelpconfig.cpp:171
+#, kde-format
+msgid "Qt Compressed Help file is not valid."
+msgstr "Некорректный сжатый файл справки Qt."
+
+#: backends/qthelpconfig.cpp:180
+#, kde-format
+msgid "Documentation already imported"
+msgstr "Документация уже была импортирована"
+
+#: backends/qthelpconfig.cpp:270
+#, kde-format
+msgctxt "@info:tooltip"
+msgid "Modify"
+msgstr "Изменить"
+
+#: backends/qthelpconfig.cpp:275
+#, kde-format
+msgctxt "@info:tooltip"
+msgid "Delete"
+msgstr "Удалить"
+
+#: backends/qthelpconfig.cpp:283
+#, kde-format
+msgctxt "@info:tooltip"
+msgid "Please uninstall this via GHNS."
+msgstr "Удалите это с помощью средства получения новых данных."
+
+#. i18n: ectx: property (text), widget (QLabel, label)
+#: backends/qthelpconfig.ui:20
+#, kde-format
+msgid "Install Additional Documentation Files"
+msgstr "Установка дополнительных файлов документации"
+
+#. i18n: ectx: property (text), widget (QTreeWidget, qchTable)
+#: backends/qthelpconfig.ui:49 lib/defaultvariablemodel.cpp:67
+#, kde-format
+msgctxt "@title:column"
+msgid "Name"
+msgstr "Имя"
+
+#. i18n: ectx: property (text), widget (QTreeWidget, qchTable)
+#: backends/qthelpconfig.ui:54
+#, kde-format
+msgctxt "@title:column"
+msgid "Path"
+msgstr "Путь"
+
+#. i18n: ectx: property (text), widget (QPushButton, addButton)
+#: backends/qthelpconfig.ui:79
+#, kde-format
+msgctxt "@action:button"
+msgid "Add"
+msgstr "Добавить"
+
+#. i18n: ectx: property (text), widget (QLabel, lIcon)
+#: backends/qthelpconfigeditdialog.ui:17
+#, kde-format
+msgctxt "@label:chooser"
+msgid "Icon:"
+msgstr "Значок:"
+
+#. i18n: ectx: property (toolTip), widget (KIconButton, qchIcon)
+#: backends/qthelpconfigeditdialog.ui:24
+#, kde-format
+msgctxt "@info:tooltip"
+msgid "Select an icon"
+msgstr "Выберите значок"
+
+#. i18n: ectx: property (text), widget (QLabel, lName)
+#: backends/qthelpconfigeditdialog.ui:37
+#, kde-format
+msgctxt "@label:textbox"
+msgid "Name:"
+msgstr "Имя:"
+
+#. i18n: ectx: property (toolTip), widget (QLineEdit, qchName)
+#: backends/qthelpconfigeditdialog.ui:44
+#, kde-format
+msgctxt "@info:tooltip"
+msgid "Enter a name"
+msgstr "Укажите имя"
+
+#. i18n: ectx: property (placeholderText), widget (QLineEdit, qchName)
+#: backends/qthelpconfigeditdialog.ui:47
+#, kde-format
+msgctxt "@info:placeholder"
+msgid "Select a name..."
+msgstr "Выберите имя…"
+
+#. i18n: ectx: property (text), widget (QLabel, lPath)
+#: backends/qthelpconfigeditdialog.ui:54
+#, kde-format
+msgctxt "@label:textbox"
+msgid "Path:"
+msgstr "Путь:"
+
+#. i18n: ectx: property (toolTip), widget (KUrlRequester, qchRequester)
+#: backends/qthelpconfigeditdialog.ui:67
+#, kde-format
+msgctxt "@info:tooltip"
+msgid "Select a Qt Help file..."
+msgstr "Выберите файл справки Qt…"
+
+#. i18n: ectx: property (placeholderText), widget (KUrlRequester, qchRequester)
+#: backends/qthelpconfigeditdialog.ui:73
+#, kde-format
+msgctxt "@info:placeholder"
+msgid "Select a Qt Help file..."
+msgstr "Выберите файл справки Qt…"
+
+#: backends/R/rbackend.cpp:81
+#, kde-format
+msgctxt ""
+"the url to the documentation of R, please check if there is a translated "
+"version and use the correct url"
+msgid "https://cran.r-project.org/manuals.html"
+msgstr "https://cran.r-project.org/manuals.html"
+
+#: backends/R/rbackend.cpp:88
+#, kde-format
+msgid ""
+"<h1>R' Help System: <i>help()</i> and <i>?</i>:</h1><br>The <i>help()</i> "
+"function and <i>?</i> help operator in R provide access to the documentation "
+"pages for R functions, data sets, and other objects, both for packages in "
+"the standard R distribution and for contributed packages.<br><br>To access "
+"documentation for the standard <i>lm</i> (linear model) function, for "
+"example, enter the command <b><i>help(lm)</i></b> or <i>help(\"lm\")</i>, or "
+"<i>?lm</i> or <i>?\"lm\"</i> (i.e., the quotes are optional).<br><br>To "
+"access help for a function in a package that’s not currently loaded, specify "
+"in addition the name of the package: For example, to obtain documentation "
+"for the <i>rlm()</i> (robust linear model) function in the MASS package, "
+"<i>help(rlm, package=\"MASS\")</i>.<br><br>Standard names in R consist of "
+"upper- and lower-case letters, numerals (0-9), underscores (_), and periods "
+"(.), and must begin with a letter or a period. To obtain help for an object "
+"with a non-standard name (such as the help operator <i>?</i>), the name must "
+"be quoted: for example, <i>help('?')</i> or <i>?\"?\"</i>.<br><br>You may "
+"also use the <i>help()</i> function to access information about a package in "
+"your library — for example, <i>help(package=\"MASS\")</i> — which displays "
+"an index of available help pages for the package along with some other "
+"information.<br><br>Help pages for functions usually include a section with "
+"executable examples illustrating how the functions work. You can execute "
+"these examples in the current R session via the <i>example()</i> command: e."
+"g., <i>example(lm)</i>."
+msgstr ""
+"<h1>Справочная система R: <i>help()</i> и <i>?</i>:</h1><br>Функция "
+"<i>help()</i> и оператор справки <i>?</i> в R предоставляют доступ к "
+"страницам документации по функциям, наборам данных и другим объектам R, как "
+"для пакетов в стандартном дистрибутиве R, так и для дополнительных пакетов."
+"<br><br>Чтобы получить доступ, например, к документации по стандартной "
+"функции <i>lm</i> (линейная модель), следует ввести команду <b><i>help(lm)</"
+"i></b> или <i>help(\"lm\")</i>, или <i>?lm</i>, или <i>?\"lm\"</i> (то есть "
+"кавычки необязательны).<br><br>Чтобы получить доступ к справке по функции в "
+"пакете, который в настоящее время не загружен, дополнительно укажите "
+"название этого пакета: например, для получения документации по функции "
+"<i>rlm()</i> (надёжная линейная модель) в пакете MASS следует указать "
+"<i>help(rlm, package=\"MASS\")</i>.<br><br>Стандартные названия в R состоят "
+"из букв в верхнем и нижнем регистрах, цифр (0-9), символов подчёркивания (_) "
+"и точек (.) и должны начинаться с буквы или точки. Для получения справки по "
+"объекту с нестандартным названием (например, по оператору справки <i>?</i>) "
+"это название необходимо заключить в кавычки: <i>help('?')</i> или <i>?\"?\"</"
+"i>.<br><br>Функцию <i>help()</i> также возможно использовать для получения "
+"доступа к информации о пакете из библиотеки; например, при вводе "
+"<i>help(package=\"MASS\")</i> отобразится перечень доступных справочных "
+"страниц для пакета, а также ряд других сведений.<br><br>Справочные страницы "
+"для функций обычно содержат раздел с исполняемыми примерами, иллюстрирующими "
+"работу функций. Эти примеры возможно выполнять в текущем сеансе R с помощью "
+"команды <i>example()</i>: например, <i>example(lm)</i>."
+
+#: backends/R/rbackend.cpp:99
+#, kde-format
+msgid ""
+"<b>R</b> is a language and environment for statistical computing and "
+"graphics, similar to the S language and environment. <br/>It provides a wide "
+"variety of statistical (linear and nonlinear modelling, classical "
+"statistical tests, time-series analysis, classification, clustering, ...) "
+"and graphical techniques, and is highly extensible. The S language is often "
+"the vehicle of choice for research in statistical methodology, and R "
+"provides an Open Source route to participation in that activity."
+msgstr ""
+"<b>R</b> — это язык программирования и среда для статистических вычислений и "
+"графики, похожие на язык программирования и среду разработки S. <br/>Этот "
+"язык предоставляет широкий выбор статистических (линейное и нелинейное "
+"моделирование, классические статистические тесты, анализ временных рядов, "
+"классификация, кластеризация, ...) и графических инструментов. Кроме того, "
+"он легко расширяем. Язык программирования S используется повсеместно для "
+"статистических исследований, а язык R — альтернативный вариант с открытым "
+"кодом."
+
+#: backends/R/rexpression.cpp:107 backends/R/rexpression.cpp:108
+#, kde-format
+msgid "Error opening file %1"
+msgstr "Ошибка открытия файла %1"
+
+#: backends/R/rextensions.cpp:22
+#, kde-format
+msgid "R script file (*.R)"
+msgstr "Сценарии R (*.R)"
+
+#: backends/R/rserver/rserver.cpp:362
+#, kde-format
+msgid "Error Parsing Command"
+msgstr "Ошибка при анализе выражения"
+
+#. i18n: ectx: label, entry (localDoc), group (RBackend)
+#: backends/R/rserver/rserver.kcfg:9
+#, kde-format
+msgid "Url to the local R documentation"
+msgstr "URL-адрес локальной документации R"
+
+#: backends/R/rsettingswidget.cpp:24
+#, kde-format
+msgid "Double click to open file selection dialog"
+msgstr "Сделайте двойной щелчок мышью для добавления файлов"
+
+#: backends/R/rsettingswidget.cpp:44
+#, kde-format
+msgid "*.R *.r|R source files (*.R, *.r)"
+msgstr "*.R *.r|Сценарии R (*.R, *.r)"
+
+#: backends/sage/sagebackend.cpp:79
+#, kde-format
+msgctxt ""
+"the url to the documentation of Sage, please check if there is a translated "
+"version and use the correct url"
+msgid "https://doc.sagemath.org/html/en/reference/index.html"
+msgstr "https://doc.sagemath.org/html/en/reference/index.html"
+
+#: backends/sage/sagebackend.cpp:84
+#, kde-format
+msgid ""
+"<b>Sage</b> is a free open-source mathematics software system licensed under "
+"the GPL. <br/>It combines the power of many existing open-source packages "
+"into a common Python-based interface."
+msgstr ""
+"<b>Sage</b> — это бесплатная математическая программа с открытым исходным "
+"кодом, распространяемая на условиях лицензии GPL. <br/>Она использует мощь "
+"многих существующих пакетов с открытым исходным кодом, предоставляя к ним "
+"общий интерфейс на языке Python."
+
+#. i18n: ectx: label, entry (Path), group (SageBackend)
+#: backends/sage/sagebackend.kcfg:10
+#, kde-format
+msgid "Path to the Sage executable"
+msgstr "Путь к исполняемому файлу Sage"
+
+#. i18n: ectx: label, entry (allowLatex), group (SageBackend)
+#: backends/sage/sagebackend.kcfg:14
+#, kde-format
+msgid "Enable LaTeX typesetting for Sage backend"
+msgstr "Показывать результаты системы Sage с помощью LaTeX"
+
+#: backends/sage/sageexpression.cpp:233 backends/sage/sageexpression.cpp:235
+#, kde-format
+msgid "Result of %1"
+msgstr "Результат операции %1"
+
+#: backends/sage/sageexpression.cpp:242
+#, kde-format
+msgid ""
+"%1\n"
+"The last output was: \n"
+" %2"
+msgstr ""
+"%1\n"
+"Последний вывод был: \n"
+" %2"
+
+#: backends/sage/sageextensions.cpp:32
+#, kde-format
+msgid "Python script file (*.py);;Sage script file (*.sage)"
+msgstr "Сценарии Python (*.py);;Сценарии Sage (*.sage)"
+
+#: backends/sage/sagesession.cpp:236
+#, kde-format
+msgid ""
+"Sage version %1.%2 is unsupported. Please update your installation to the "
+"supported versions to make it work with Cantor."
+msgstr ""
+"Версия Sage %1.%2 не поддерживается. Обновите установку до поддерживаемой "
+"версии, чтобы обеспечить работу в Cantor."
+
+#: backends/sage/sagesession.cpp:270
+#, kde-format
+msgid ""
+"Failed to determine the version of Sage. Please check your installation and "
+"the output of 'sage -v'."
+msgstr ""
+"Не удалось определить версию Sage. Проверьте установку и вывод «sage -v»."
+
+#: backends/sage/sagesession.cpp:333
+#, kde-format
+msgid "The Sage process crashed while evaluating this expression"
+msgstr "Процесс Sage аварийно завершился при вычислении этого выражения"
+
+#: backends/sage/sagesession.cpp:337
+#, kde-format
+msgid "The Sage process crashed"
+msgstr "Процесс Sage аварийно завершился"
+
+#: backends/sage/sagesession.cpp:344
+#, kde-format
+msgid "The Sage process exited while evaluating this expression"
+msgstr "Процесс Sage завершился при вычислении этого выражения"
+
+#: backends/sage/sagesession.cpp:348
+#, kde-format
+msgid "The Sage process exited"
+msgstr "Процесс Sage завершился"
+
+#: backends/sage/sagesession.cpp:358
+#, kde-format
+msgid "Failed to start Sage"
+msgstr "Не удалось запустить систему Sage"
+
+#. i18n: ectx: property (text), widget (QLabel, label_2)
+#: backends/sage/settings.ui:27
+#, kde-format
+msgid "LaTeX typesetting:"
+msgstr "LaTeX:"
+
+#. i18n: ectx: property (toolTip), widget (QCheckBox, kcfg_allowLatex)
+#: backends/sage/settings.ui:34
+#, kde-format
+msgid ""
+"Sage LaTeX output not always correct, so latex typesetting can be disabled "
+"for better experience"
+msgstr ""
+"Показ результатов системы Sage с помощью LaTeX не всегда работает корректно, "
+"поэтому при необходимости эту опцию возможно отключить"
+
+# BUGME: are docs available in Russian? --aspotashev
+#: backends/scilab/scilabbackend.cpp:68
+#, kde-format
+msgctxt ""
+"The url to the documentation of Scilab, please check if there is a "
+"translated version and use the correct url"
+msgid "https://www.scilab.org/support/documentation"
+msgstr "https://www.scilab.org/support/documentation"
+
+#: backends/scilab/scilabbackend.cpp:73
+#, kde-format
+msgid ""
+"<b>Scilab</b> is a free software, cross-platform numerical computational "
+"package and a high-level, numerically oriented programming language.Scilab "
+"is distributed under CeCILL license (GPL compatible)."
+msgstr ""
+"<b>Scilab</b> — это свободное программное обеспечение, кроссплатформенная "
+"вычислительная система и высокоуровневый численно-ориентированный язык "
+"программирования. Scilab распространяется под лицензией CeCILL (совместима с "
+"GPL)."
+
+#. i18n: ectx: label, entry (Path), group (ScilabBackend)
+#: backends/scilab/scilabbackend.kcfg:10
+#, kde-format
+msgid "Path to the Scilab executable"
+msgstr "Путь к исполняемому файлу Scilab"
+
+#: backends/scilab/scilabextensions.cpp:23
+#, kde-format
+msgid ";;Scilab script file (*.sce);;Scilab function file (*.sci)"
+msgstr ";;Сценарии Scilab (*.sce);;Файлы функций Scilab (*.sci)"
+
+#: cantor.cpp:104
+#, kde-format
+msgid "The file %1 is already opened."
+msgstr "Файл «%1» уже открыт."
+
+#: cantor.cpp:104 cantor.cpp:228
+#, kde-format
+msgid "Open file"
+msgstr "Открытие файла"
+
+#: cantor.cpp:146
+#, kde-format
+msgid "Download Examples"
+msgstr "Загрузить примеры"
+
+#: cantor.cpp:149
+#, kde-format
+msgid "&Open Example"
+msgstr "Открыть &пример..."
+
+#: cantor.cpp:154
+#, kde-format
+msgid "Go to previous worksheet"
+msgstr "Перейти к предыдущему документу"
+
+#: cantor.cpp:166
+#, kde-format
+msgid "Go to next worksheet"
+msgstr "Перейти к следующему документу"
+
+#: cantor.cpp:227
+#, kde-format
+msgid ""
+"All supported files (*.cws *ipynb);;Cantor Worksheet (*.cws);;Jupyter "
+"Notebook (*.ipynb)"
+msgstr ""
+"Все поддерживаемые файлы (*.cws *ipynb);;Документы Cantor (*.cws);;Jupyter "
+"Notebook (*.ipynb)"
+
+#: cantor.cpp:295
+#, kde-format
+msgid ""
+"<h1>No Backend Found</h1>\n"
+"<div>You could try:\n"
+"  <ul>    <li>Changing the settings in the config dialog;</li>    "
+"<li>Installing packages for the following program:</li>     %2   </ul> </"
+"div> "
+msgid_plural ""
+"<h1>No Backend Found</h1>\n"
+"<div>You could try:\n"
+"  <ul>    <li>Changing the settings in the config dialog;</li>    "
+"<li>Installing packages for one of the following programs:</li>     %2   </"
+"ul> </div> "
+msgstr[0] ""
+"<h1>Не обнаружено ни одной поддерживаемой системы компьютерной алгебры</h1>\n"
+"<div>Возможно:\n"
+"<ul><li>Изменить параметры настройки в диалоге конфигурации;</li> "
+"<li>Установить пакеты, содержащие одну из следующих программ:</li> %2 </ul></"
+"div>"
+msgstr[1] ""
+"<h1>Не обнаружено ни одной базовой системы</h1>\n"
+"<div>Вы можете попробовать:\n"
+"<ul><li>Изменить настройки в диалоге конфигурации;</li> <li>Установить "
+"пакеты, содержащие одну из следующих программ:</li> %2 </ul></div>"
+msgstr[2] ""
+"<h1>Не обнаружено ни одной базовой системы</h1>\n"
+"<div>Вы можете попробовать:\n"
+"<ul><li>Изменить настройки в диалоге конфигурации;</li> <li>Установить "
+"пакеты, содержащие одну из следующих программ:</li> %2 </ul></div>"
+msgstr[3] ""
+"<h1>Не обнаружено ни одной базовой системы</h1>\n"
+"<div>Вы можете попробовать:\n"
+"<ul><li>Изменить настройки в диалоге конфигурации;</li> <li>Установить "
+"пакеты, содержащие следующую программу:</li> %2 </ul></div>"
+
+#: cantor.cpp:315
+#, kde-format
+msgid "Error"
+msgstr "Ошибка"
+
+#: cantor.cpp:336
+#, kde-format
+msgid "Backend %1 is not installed"
+msgstr "Базовая система %1 не установлена"
+
+#: cantor.cpp:343
+#, kde-format
+msgid ""
+"%1 backend installed, but inactive. Please check installation and Cantor "
+"settings"
+msgstr ""
+"Базовая система %1 установлена, но не активна. Проверьте установку и "
+"параметры Cantor"
+
+#: cantor.cpp:370
+#, kde-format
+msgid "Session %1"
+msgstr "Сеанс %1"
+
+#: cantor.cpp:391
+#, kde-format
+msgid "Failed to find the Cantor Part with error %1"
+msgstr "Не удалось найти компонент Cantor, ошибка %1."
+
+#: cantor.cpp:438 cantor_part.cpp:621
+#, kde-format
+msgid "Calculating..."
+msgstr "Вычисление..."
+
+#: cantor.cpp:441 cantor_part.cpp:632 cantor_part.cpp:695
+#, kde-format
+msgid "Ready"
+msgstr "Готово"
+
+#: cantor.cpp:485
+#, kde-format
+msgid "Changed"
+msgstr "изменён"
+
+# BUGME: broken English --aspotashev
+#: cantor.cpp:569
+#, kde-format
+msgid "Multiple unsaved Worksheets are opened. Do you want to close them?"
+msgstr ""
+"Несколько открытых документов не были сохранены. Выйти из Cantor и закрыть "
+"все документы?"
+
+#: cantor.cpp:570
+#, kde-format
+msgid "Close Cantor"
+msgstr "Выход из Cantor"
+
+#: cantor.cpp:586
+#, kde-format
+msgid "The current project has been modified. Do you want to save it?"
+msgstr "Проект был изменён. Сохранить изменения?"
+
+#: cantor.cpp:587
+#, kde-format
+msgid "Save Project"
+msgstr "Сохранение проекта"
+
+#: cantor.cpp:633
+#, kde-format
+msgid "Formatting"
+msgstr "Форматирование"
+
+#. i18n: ectx: label, entry (DefaultBackend), group (Cantor)
+#: cantor.kcfg:12
+#, kde-format
+msgid "The Backend that is used by default"
+msgstr "Базовая система по умолчанию"
+
+#. i18n: ectx: label, entry (TypesetDefault), group (Cantor)
+#: cantor.kcfg:16
+#, kde-format
+msgid "Do Typesetting by default"
+msgstr "По умолчанию показывать результаты с помощью LaTeX"
+
+#. i18n: ectx: label, entry (HighlightDefault), group (Cantor)
+#: cantor.kcfg:20
+#, kde-format
+msgid "Do Syntax Highlighting by default"
+msgstr "Использовать подсветку синтаксиса по умолчанию"
+
+#. i18n: ectx: label, entry (CompletionDefault), group (Cantor)
+#: cantor.kcfg:24
+#, kde-format
+msgid "Enable Completions by default"
+msgstr "Использовать автодополнение по умолчанию"
+
+#. i18n: ectx: label, entry (ExpressionNumberingDefault), group (Cantor)
+#: cantor.kcfg:28
+#, kde-format
+msgid "Enable Numbering of Expressions by default"
+msgstr "По умолчанию показывать номера строк"
+
+#. i18n: ectx: label, entry (AnimationDefault), group (Cantor)
+#: cantor.kcfg:32
+#, kde-format
+msgid "Animate changes in the Worksheet by default"
+msgstr "По умолчанию включать анимацию в документе"
+
+#. i18n: ectx: label, entry (EmbeddedMathDefault), group (Cantor)
+#: cantor.kcfg:36
+#, kde-format
+msgid ""
+"Enable rendering math expressions inside $$..$$ in Text and Markdown entries "
+"by default (needs pdflatex installed)"
+msgstr ""
+"По умолчанию включить обработку математических выражений внутри $$..$$ во "
+"фрагментах текста и записях Markdown (должен быть установлен пакет pdflatex)"
+
+#. i18n: ectx: label, entry (AutoEval), group (Cantor)
+#: cantor.kcfg:40
+#, kde-format
+msgid "Automatically reevaluate the entries below the current"
+msgstr "Автоматически пересчитывать все выражения ниже текущего"
+
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_WarnAboutSessionRestart)
+#. i18n: ectx: label, entry (WarnAboutSessionRestart), group (Cantor)
+#: cantor.kcfg:44 settings.ui:181
+#, kde-format
+msgid "Ask for confirmation when restarting the backend"
+msgstr "Запрашивать подтверждение при перезапуске базовой системы"
+
+#. i18n: ectx: label, entry (StoreTextEntryFormatting), group (Cantor)
+#: cantor.kcfg:48
+#, kde-format
+msgid ""
+"Save rich text formatting of TextEntry, when save Worksheet in Jupyter "
+"notebook format"
+msgstr ""
+"Сохранять форматирование текста при сохранении документа в формате Jupyter "
+"Notebook"
+
+#. i18n: ectx: label, entry (UseOldCantorEntriesIndent), group (Cantor)
+#: cantor.kcfg:52
+#, kde-format
+msgid "Use old style Cantor entries placement style"
+msgstr "Использовать старый стиль размещения записей Cantor"
+
+#. i18n: ectx: label, entry (ShowMathRenderError), group (Cantor)
+#: cantor.kcfg:56
+#, kde-format
+msgid "Show embedded math render error"
+msgstr "Показать ошибку обработки внедрённых математических символов"
+
+#. i18n: ectx: label, entry (VisibleLinesLimit), group (Cantor)
+#: cantor.kcfg:60
+#, kde-format
+msgid "Limit of visible lines for text result"
+msgstr "Предельное количество отображаемых строк текстового результата"
+
+#. i18n: ectx: label, entry (ChapterFontFamily), group (Cantor)
+#: cantor.kcfg:64
+#, kde-format
+msgid "Hierarchy font for chapter"
+msgstr "Шрифт иерархии для главы"
+
+#. i18n: ectx: label, entry (ChapterFontSize), group (Cantor)
+#: cantor.kcfg:68
+#, kde-format
+msgid "Hierarchy font size for chapter"
+msgstr "Размер шрифта иерархии для главы"
+
+#. i18n: ectx: label, entry (ChapterFontItalic), group (Cantor)
+#: cantor.kcfg:72
+#, kde-format
+msgid "Hierarchy font italic for chapter"
+msgstr "Шрифт иерархии (курсив) для главы"
+
+#. i18n: ectx: label, entry (ChapterFontBold), group (Cantor)
+#: cantor.kcfg:76
+#, kde-format
+msgid "Hierarchy font bold for chapter"
+msgstr "Шрифт иерархии (полужирный) для главы"
+
+#. i18n: ectx: label, entry (SubchapterFontFamily), group (Cantor)
+#: cantor.kcfg:80
+#, kde-format
+msgid "Hierarchy font for subchapter"
+msgstr "Шрифт иерархии для подглавы"
+
+#. i18n: ectx: label, entry (SubchapterFontSize), group (Cantor)
+#: cantor.kcfg:84
+#, kde-format
+msgid "Hierarchy font size for subchapter"
+msgstr "Размер шрифта иерархии для подглавы"
+
+#. i18n: ectx: label, entry (SubchapterFontItalic), group (Cantor)
+#: cantor.kcfg:88
+#, kde-format
+msgid "Hierarchy font italic for subchapter"
+msgstr "Шрифт иерархии (курсив) для подглавы"
+
+#. i18n: ectx: label, entry (SubchapterFontBold), group (Cantor)
+#: cantor.kcfg:92
+#, kde-format
+msgid "Hierarchy font bold for subchapter"
+msgstr "Шрифт иерархии (полужирный) для подглавы"
+
+#. i18n: ectx: label, entry (SectionFontFamily), group (Cantor)
+#. i18n: ectx: label, entry (SectionFontSize), group (Cantor)
+#: cantor.kcfg:96 cantor.kcfg:100
+#, kde-format
+msgid "Hierarchy font for section"
+msgstr "Шрифт иерархии для раздела"
+
+#. i18n: ectx: label, entry (SectionFontItalic), group (Cantor)
+#: cantor.kcfg:104
+#, kde-format
+msgid "Hierarchy font italic for section"
+msgstr "Шрифт иерархии (курсив) для раздела"
+
+#. i18n: ectx: label, entry (SectionFontBold), group (Cantor)
+#: cantor.kcfg:108
+#, kde-format
+msgid "Hierarchy font bold for section"
+msgstr "Шрифт иерархии (полужирный) для раздела"
+
+#. i18n: ectx: label, entry (SubsectionFontFamily), group (Cantor)
+#. i18n: ectx: label, entry (SubsectionFontSize), group (Cantor)
+#: cantor.kcfg:112 cantor.kcfg:116
+#, kde-format
+msgid "Hierarchy font for subsection"
+msgstr "Шрифт иерархии для подраздела"
+
+#. i18n: ectx: label, entry (SubsectionFontItalic), group (Cantor)
+#: cantor.kcfg:120
+#, kde-format
+msgid "Hierarchy font italic for subsection"
+msgstr "Шрифт иерархии (курсив) для подраздела"
+
+#. i18n: ectx: label, entry (SubsectionFontBold), group (Cantor)
+#: cantor.kcfg:124
+#, kde-format
+msgid "Hierarchy font bold for subsection"
+msgstr "Шрифт иерархии (полужирный) для подраздела"
+
+#. i18n: ectx: label, entry (ParagraphFontFamily), group (Cantor)
+#. i18n: ectx: label, entry (ParagraphFontSize), group (Cantor)
+#: cantor.kcfg:128 cantor.kcfg:132
+#, kde-format
+msgid "Hierarchy font for paragraph"
+msgstr "Шрифт иерархии для параграфа"
+
+#. i18n: ectx: label, entry (ParagraphFontItalic), group (Cantor)
+#: cantor.kcfg:136
+#, kde-format
+msgid "Hierarchy font italic for paragraph"
+msgstr "Шрифт иерархии (курсив) для параграфа"
+
+#. i18n: ectx: label, entry (ParagraphFontBold), group (Cantor)
+#: cantor.kcfg:140
+#, kde-format
+msgid "Hierarchy font bold for paragraph"
+msgstr "Шрифт иерархии (полужирный) для параграфа"
+
+#. i18n: ectx: label, entry (SubparagraphFontFamily), group (Cantor)
+#. i18n: ectx: label, entry (SubparagraphFontSize), group (Cantor)
+#: cantor.kcfg:144 cantor.kcfg:148
+#, kde-format
+msgid "Hierarchy font for subparagraph"
+msgstr "Шрифт иерархии для подпараграфа"
+
+#. i18n: ectx: label, entry (SubparagraphFontItalic), group (Cantor)
+#: cantor.kcfg:152
+#, kde-format
+msgid "Hierarchy font italic for subparagraph"
+msgstr "Шрифт иерархии (курсив) для подпараграфа"
+
+#. i18n: ectx: label, entry (SubparagraphFontBold), group (Cantor)
+#: cantor.kcfg:156
+#, kde-format
+msgid "Hierarchy font bold for subparagraph"
+msgstr "Шрифт иерархии (полужирный) для подпараграфа"
+
+#: cantor_part.cpp:139
+#, kde-format
+msgid "Save Plain Text"
+msgstr "Сохранить в виде обычного текста"
+
+# BUGME: add ellipsis ("...") --aspotashev
+#: cantor_part.cpp:181 cantor_part.cpp:532
+#, kde-format
+msgid "Export to LaTeX"
+msgstr "Экспорт в LaTeX..."
+
+#: cantor_part.cpp:197 cantor_part.cpp:628 worksheet.cpp:1904
+#, kde-format
+msgid "Evaluate Worksheet"
+msgstr "Посчитать все выражения"
+
+#: cantor_part.cpp:205 worksheet.cpp:1912
+#, kde-format
+msgid "Zoom"
+msgstr "Масштаб"
+
+#: cantor_part.cpp:220
+#, kde-format
+msgid "Typeset using LaTeX"
+msgstr "Показывать результаты с помощью LaTeX"
+
+#: cantor_part.cpp:225
+#, kde-format
+msgid "Syntax Highlighting"
+msgstr "Подсветка синтаксиса"
+
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_CompletionDefault)
+#: cantor_part.cpp:230 settings.ui:105
+#, kde-format
+msgid "Completion"
+msgstr "Автодополнение"
+
+#: cantor_part.cpp:235
+#, kde-format
+msgid "Line Numbers"
+msgstr "Показывать номера строк"
+
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_AnimationDefault)
+#: cantor_part.cpp:240 settings.ui:125
+#, fuzzy, kde-format
+msgid "Animations"
+msgstr "Остановить анимацию"
+
+#: cantor_part.cpp:247
+#, kde-format
+msgid "Embedded Math"
+msgstr "Внедрённые математические символы"
+
+#: cantor_part.cpp:253
+#, kde-format
+msgid "Restart Backend"
+msgstr "Перезапустить базовую систему"
+
+#: cantor_part.cpp:260 worksheetentry.cpp:854
+#, kde-format
+msgid "Evaluate Entry"
+msgstr "Посчитать выражение"
+
+#: cantor_part.cpp:266
+#, kde-format
+msgid "Insert Command Entry"
+msgstr "Вставить выражение"
+
+#: cantor_part.cpp:272
+#, kde-format
+msgid "Insert Text Entry"
+msgstr "Вставить фрагмент текста"
+
+#: cantor_part.cpp:278
+#, kde-format
+msgid "Insert Markdown Entry"
+msgstr "Вставить запись Markdown"
+
+#: cantor_part.cpp:285
+#, kde-format
+msgid "Insert LaTeX Entry"
+msgstr "Вставить фрагмент кода LaTeX"
+
+#: cantor_part.cpp:291
+#, kde-format
+msgid "Insert Page Break"
+msgstr "Вставить разрыв страницы ниже"
+
+#: cantor_part.cpp:296 markdownentry.cpp:63
+#, kde-format
+msgid "Insert Image"
+msgstr "Вставить изображение ниже"
+
+#: cantor_part.cpp:301
+#, kde-format
+msgid "Collapse All Results"
+msgstr "Свернуть все результаты"
+
+#: cantor_part.cpp:306
+#, kde-format
+msgid "Expand All Results"
+msgstr "Развернуть все результаты"
+
+#: cantor_part.cpp:311
+#, kde-format
+msgid "Remove All Results"
+msgstr "Удалить все результаты"
+
+#: cantor_part.cpp:316
+#, kde-format
+msgid "Remove current Entry"
+msgstr "Удалить текущее выражение"
+
+#. i18n("Publish Worksheet"), collection);
+#. publishWorksheet->setIcon(QIcon::fromTheme(QLatin1String("get-hot-new-stuff")));
+#. collection->addAction(QLatin1String("file_publish_worksheet"), publishWorksheet);
+#. connect(publishWorksheet, &QAction::triggered, this, SLOT(publishWorksheet()));
+#.
+#: cantor_part.cpp:332
+#, kde-format
+msgid "Show Script Editor"
+msgstr "Редактор сценариев"
+
+#: cantor_part.cpp:337
+#, kde-format
+msgid "Show Completion"
+msgstr "Показать варианты автодополнения"
+
+#: cantor_part.cpp:404
+#, kde-format
+msgid "CantorPart"
+msgstr "CantorPart"
+
+#: cantor_part.cpp:406
+#, kde-format
+msgid "(C) 2009-2015 Alexander Rieder"
+msgstr "© Alexander Rieder, 2009-2015"
+
+#: cantor_part.cpp:410 main.cpp:81
+#, kde-format
+msgid "Alexander Rieder"
+msgstr "Alexander Rieder"
+
+#: cantor_part.cpp:462
+#, kde-format
+msgid "Cantor Worksheet (*.cws)"
+msgstr "Документы Cantor (*.cws)"
+
+#: cantor_part.cpp:463
+#, kde-format
+msgid "Jupyter Notebook (*.ipynb)"
+msgstr "Jupyter Notebook (*.ipynb)"
+
+#: cantor_part.cpp:479
+#, kde-format
+msgid "Save as"
+msgstr "Сохранение в файл"
+
+#: cantor_part.cpp:525 panelplugins/variablemgr/variablemanagerwidget.cpp:168
+#, kde-format
+msgid "Save"
+msgstr "Сохранить"
+
+#: cantor_part.cpp:577
+#, kde-format
+msgid ""
+"All the available calculation results will be lost. Do you really want to "
+"restart %1?"
+msgstr ""
+"Все доступные результаты расчётов будут потеряны. Действительно "
+"перезапустить %1? "
+
+#: cantor_part.cpp:578
+#, kde-format
+msgid "Restart %1?"
+msgstr "Перезапустить %1?"
+
+#: cantor_part.cpp:618 worksheet.cpp:1907
+#, kde-format
+msgid "Interrupt"
+msgstr "&Прервать"
+
+#: cantor_part.cpp:644
+#, kde-format
+msgid "Session Error: %1"
+msgstr "Ошибка в сеансе: %1"
+
+#: cantor_part.cpp:685
+#, kde-format
+msgid "Initialization complete"
+msgstr "Инициализация завершена"
+
+#: cantor_part.cpp:690
+#, kde-format
+msgid "Initializing..."
+msgstr "Инициализация..."
+
+#: cantor_part.cpp:748
+#, kde-format
+msgid "[read-only]"
+msgstr "[только чтение]"
+
+#: cantor_part.cpp:883
+#, kde-format
+msgid "Do you want to upload current Worksheet to public web server?"
+msgstr "Опубликовать текущий документ на общедоступном веб-сервере?"
+
+#: cantor_part.cpp:884
+#, kde-format
+msgid "Question - Cantor"
+msgstr "Вопрос — Cantor"
+
+#: cantor_part.cpp:890
+#, kde-format
+msgid "The Worksheet is not saved. You should save it before uploading."
+msgstr "Документ не сохранён. Перед публикацией его необходимо сохранить."
+
+#: cantor_part.cpp:891
+#, kde-format
+msgid "Warning - Cantor"
+msgstr "Предупреждение — Cantor"
+
+#: cantor_part.cpp:963
+#, kde-format
+msgid "This backend does not support scripts."
+msgstr "Эта базовая система не поддерживает сценариев."
+
+#. i18n: ectx: Menu (edit)
+#: cantor_part.rc:14 cantor_shell.rc:19
+#, kde-format
+msgid "&Edit"
+msgstr "&Правка"
+
+#. i18n: ectx: Menu (view)
+#: cantor_part.rc:27 cantor_shell.rc:22
+#, kde-format
+msgid "&View"
+msgstr "&Вид"
+
+#. i18n: ectx: Menu (worksheet)
+#: cantor_part.rc:33
+#, kde-format
+msgid "&Worksheet"
+msgstr "&Документ"
+
+#. i18n: ectx: Menu (settings)
+#: cantor_part.rc:50
+#, kde-format
+msgid "Settings"
+msgstr "Настройка"
+
+#. i18n: ectx: Menu (file)
+#: cantor_shell.rc:4
+#, kde-format
+msgid "&File"
+msgstr "&Файл"
+
+#. i18n: ectx: Menu (file_new_menu)
+#: cantor_shell.rc:6
+#, kde-format
+msgid "&New"
+msgstr "&Создать"
+
+#. i18n: ectx: Menu (panels)
+#: cantor_shell.rc:24
+#, kde-format
+msgid "Panels"
+msgstr "Панели"
+
+#. i18n: ectx: Menu (settings)
+#: cantor_shell.rc:29
+#, kde-format
+msgid "&Settings"
+msgstr "&Настройка"
+
+#: commandentry.cpp:120
+#, kde-format
+msgid "Background Color"
+msgstr "Цвет фона"
+
+#: commandentry.cpp:129 commandentry.cpp:156 horizontalruleentry.cpp:328
+#, kde-format
+msgid "Default"
+msgstr "По умолчанию"
+
+#: commandentry.cpp:151
+#, kde-format
+msgid "Text Color"
+msgstr "Цвет текста"
+
+#: commandentry.cpp:176
+#, kde-format
+msgid "Font"
+msgstr "Шрифт"
+
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_ChapterFontBold)
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_SubchapterFontBold)
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_SectionFontBold)
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_SubsectionFontBold)
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_ParagraphFontBold)
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_SubparagraphFontBold)
+#: commandentry.cpp:179 formating.ui:81 formating.ui:140 formating.ui:199
+#: formating.ui:258 formating.ui:317 formating.ui:376
+#, kde-format
+msgid "Bold"
+msgstr "Полужирный"
+
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_ChapterFontItalic)
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_SubchapterFontItalic)
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_SectionFontItalic)
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_SubsectionFontItalic)
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_ParagraphFontItalic)
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_SubparagraphFontItalic)
+#: commandentry.cpp:186 formating.ui:88 formating.ui:147 formating.ui:206
+#: formating.ui:265 formating.ui:324 formating.ui:383
+#, kde-format
+msgid "Italic"
+msgstr "Курсив"
+
+#: commandentry.cpp:194
+#, kde-format
+msgid "Increase Size"
+msgstr "Увеличить размер"
+
+#: commandentry.cpp:198
+#, kde-format
+msgid "Decrease Size"
+msgstr "Уменьшить размер"
+
+#: commandentry.cpp:203
+#, kde-format
+msgid "Select"
+msgstr "Выбрать"
+
+#: commandentry.cpp:207
+#, kde-format
+msgid "Reset to Default"
+msgstr "Вернуться к параметрам по умолчанию"
+
+#: commandentry.cpp:336
+#, kde-format
+msgid "Show Results"
+msgstr "Показать результаты"
+
+#: commandentry.cpp:338
+#, kde-format
+msgid "Hide Results"
+msgstr "Скрыть результаты"
+
+#: commandentry.cpp:343 worksheet.cpp:1897
+#, kde-format
+msgid "Show Help"
+msgstr "Показать документацию"
+
+#: commandentry.cpp:356
+#, kde-format
+msgid "Appearance"
+msgstr "Внешний вид"
+
+#: commandentry.cpp:597 commandentry.cpp:992
+#, kde-format
+msgid "Interrupted"
+msgstr "Вычисление выражения прервано"
+
+# BUGME: not visible in the UI? --aspotashev
+#. i18n: ectx: property (windowTitle), widget (QWidget, StandardSearchBar)
+#. i18n: ectx: property (windowTitle), widget (QWidget, ExtendedSearchBar)
+#: extendedsearchbar.ui:14 standardsearchbar.ui:14
+#, kde-format
+msgid "SearchBar"
+msgstr "Строка поиска"
+
+#. i18n: ectx: property (text), widget (QToolButton, close)
+#. i18n: ectx: property (text), widget (QToolButton, openExtended)
+#. i18n: ectx: property (text), widget (QToolButton, openStandard)
+#. i18n: ectx: property (text), widget (QToolButton, addFlag)
+#. i18n: ectx: property (text), widget (QToolButton, removeFlag)
+#: extendedsearchbar.ui:22 extendedsearchbar.ui:77 extendedsearchbar.ui:159
+#: extendedsearchbar.ui:166 standardsearchbar.ui:22 standardsearchbar.ui:85
+#, kde-format
+msgid "..."
+msgstr "..."
+
+#. i18n: ectx: property (text), widget (QLabel, label)
+#: extendedsearchbar.ui:47
+#: panelplugins/documentationpanel/documentationpanelwidget.cpp:126
+#, kde-format
+msgid "Find:"
+msgstr "Искать:"
+
+#. i18n: ectx: property (text), widget (QPushButton, next)
+#: extendedsearchbar.ui:61 standardsearchbar.ui:48
+#, kde-format
+msgid "&Next"
+msgstr "&Следующее"
+
+#. i18n: ectx: property (text), widget (QPushButton, previous)
+#: extendedsearchbar.ui:68 standardsearchbar.ui:55
+#, kde-format
+msgid "&Previous"
+msgstr "&Предыдущее"
+
+#. i18n: ectx: property (text), widget (QLabel, label_2)
+#: extendedsearchbar.ui:102
+#, kde-format
+msgid "Replace:"
+msgstr "Заменить на:"
+
+#. i18n: ectx: property (text), widget (QPushButton, replace)
+#: extendedsearchbar.ui:116
+#, kde-format
+msgid "&Replace"
+msgstr "&Заменить"
+
+#. i18n: ectx: property (text), widget (QPushButton, replaceAll)
+#: extendedsearchbar.ui:123
+#, kde-format
+msgid "Replace &All"
+msgstr "Заменить &все"
+
+#. i18n: ectx: property (text), widget (QLabel, label_3)
+#: extendedsearchbar.ui:139
+#, kde-format
+msgid "Search in:"
+msgstr "Искать в:"
+
+#. i18n: ectx: property (text), widget (QToolButton, matchCase)
+#. i18n: ectx: property (text), widget (QCheckBox, matchCase)
+#: extendedsearchbar.ui:173 standardsearchbar.ui:62
+#, kde-format
+msgid "&Match case"
+msgstr "С &учётом регистра"
+
+#. i18n: ectx: property (title), widget (QGroupBox, groupBox)
+#: formating.ui:27
+#, kde-format
+msgid "Hierarchy Fonts"
+msgstr "Шрифты иерархии"
+
+#. i18n: ectx: attribute (title), widget (QWidget, ChapterTab)
+#: formating.ui:37
+#, kde-format
+msgid "Chapter Font"
+msgstr "Шрифт главы"
+
+#. i18n: ectx: property (text), widget (QLabel, label_2)
+#. i18n: ectx: property (text), widget (QLabel, label_4)
+#. i18n: ectx: property (text), widget (QLabel, label_7)
+#. i18n: ectx: property (text), widget (QLabel, label_8)
+#. i18n: ectx: property (text), widget (QLabel, label_11)
+#. i18n: ectx: property (text), widget (QLabel, label_13)
+#: formating.ui:45 formating.ui:104 formating.ui:163 formating.ui:222
+#: formating.ui:281 formating.ui:340
+#, kde-format
+msgid "Font Family:"
+msgstr "Гарнитура шрифта:"
+
+#. i18n: ectx: property (text), widget (QLabel, label_3)
+#. i18n: ectx: property (text), widget (QLabel, label_5)
+#. i18n: ectx: property (text), widget (QLabel, label_6)
+#. i18n: ectx: property (text), widget (QLabel, label_9)
+#. i18n: ectx: property (text), widget (QLabel, label_10)
+#. i18n: ectx: property (text), widget (QLabel, label_12)
+#: formating.ui:59 formating.ui:118 formating.ui:177 formating.ui:236
+#: formating.ui:295 formating.ui:354
+#, kde-format
+msgid "Font Size:"
+msgstr "Размер шрифта:"
+
+#. i18n: ectx: attribute (title), widget (QWidget, SubchapterTab)
+#: formating.ui:96
+#, kde-format
+msgid "Subchapter Font"
+msgstr "Шрифт подглавы"
+
+#. i18n: ectx: attribute (title), widget (QWidget, SectionTab)
+#: formating.ui:155
+#, kde-format
+msgid "Section Font"
+msgstr "Шрифт раздела"
+
+#. i18n: ectx: attribute (title), widget (QWidget, SubsectionTab)
+#: formating.ui:214
+#, kde-format
+msgid "Subsection Font"
+msgstr "Шрифт подраздела"
+
+#. i18n: ectx: attribute (title), widget (QWidget, ParagraphTab)
+#: formating.ui:273
+#, kde-format
+msgid "Paragraph Font"
+msgstr "Шрифт параграфа"
+
+#. i18n: ectx: attribute (title), widget (QWidget, SubparagraphTab)
+#: formating.ui:332
+#, kde-format
+msgid "Subparagraph Font"
+msgstr "Шрифт подпараграфа"
+
+#: hierarchyentry.cpp:22
+#, kde-format
+msgid "Chapter"
+msgstr "Глава"
+
+#: hierarchyentry.cpp:22
+#, kde-format
+msgid "Subchapter"
+msgstr "Подглава"
+
+#: hierarchyentry.cpp:22
+#, kde-format
+msgid "Section"
+msgstr "Раздел"
+
+#: hierarchyentry.cpp:22
+#, kde-format
+msgid "Subsection"
+msgstr "Подраздел"
+
+#: hierarchyentry.cpp:22
+#, kde-format
+msgid "Paragraph"
+msgstr "Параграф"
+
+#: hierarchyentry.cpp:22
+#, kde-format
+msgid "Subparagraph"
+msgstr "Подпараграф"
+
+#: hierarchyentry.cpp:48
+#, kde-format
+msgid "Set Hierarchy Level"
+msgstr "Установить уровень иерархии"
+
+#: horizontalruleentry.cpp:20
+#, kde-format
+msgid "Solid Line Style"
+msgstr "Сплошная линия"
+
+#: horizontalruleentry.cpp:20
+#, kde-format
+msgid "Dash Line Style"
+msgstr "Пунктирная линия"
+
+#: horizontalruleentry.cpp:20
+#, kde-format
+msgid "Dot Line Style"
+msgstr "Точечная линия"
+
+#: horizontalruleentry.cpp:20
+#, kde-format
+msgid "Dash Dot Line Style"
+msgstr "Линия «пунктир-точка»"
+
+#: horizontalruleentry.cpp:20
+#, kde-format
+msgid "Dash Dot Dot Line Style"
+msgstr "Линия «пунктир-точка-точка»"
+
+#: horizontalruleentry.cpp:297
+#, kde-format
+msgid "Line Thickness"
+msgstr "Толщина линии"
+
+#: horizontalruleentry.cpp:299
+#, kde-format
+msgid "Thin"
+msgstr "Тонкая"
+
+#: horizontalruleentry.cpp:303
+#, kde-format
+msgid "Medium"
+msgstr "Средняя"
+
+#: horizontalruleentry.cpp:307
+#, kde-format
+msgid "Thick"
+msgstr "Толстая"
+
+#: horizontalruleentry.cpp:320
+#, kde-format
+msgid "Line Color"
+msgstr "Цвет линии"
+
+#: horizontalruleentry.cpp:351
+#, kde-format
+msgid "Line Style"
+msgstr "Стиль линии"
+
+#: imageentry.cpp:47 imageentry.cpp:371
+#, kde-format
+msgid "Configure Image"
+msgstr "Настроить изображение"
+
+#: imageentry.cpp:256
+#, kde-format
+msgid "Double click here to configure image settings"
+msgstr ""
+"Сделайте здесь двойной щелчок мышью для настройки параметров изображения"
+
+#: imageentry.cpp:288
+#, kde-format
+msgid "Cannot load image %1"
+msgstr "Не удалось загрузить изображение %1"
+
+#: imageresultitem.cpp:97
+#, kde-format
+msgid "Save image result"
+msgstr "Сохранить изображение-результат"
+
+#: imageresultitem.cpp:99 imagesettingsdialog.cpp:153 markdownentry.cpp:775
+#, kde-format
+msgid "Images (%1)"
+msgstr "Изображения (%1)"
+
+#. i18n: ectx: property (windowTitle), widget (QWidget, ImageSettingsBase)
+#: imagesettings.ui:14
+#, kde-format
+msgid "Image Settings"
+msgstr "Параметры изображения"
+
+#. i18n: ectx: property (text), widget (QPushButton, openDialogButton)
+#: imagesettings.ui:29
+#, kde-format
+msgid "Open"
+msgstr "Открыть"
+
+#. i18n: ectx: property (title), widget (QGroupBox, groupBox)
+#: imagesettings.ui:38
+#, kde-format
+msgid "Display Size"
+msgstr "Размер на экране"
+
+#. i18n: ectx: property (text), widget (QLabel, label)
+#. i18n: ectx: property (text), widget (QLabel, label_5)
+#: imagesettings.ui:47 imagesettings.ui:101
+#, kde-format
+msgid "Width"
+msgstr "Ширина"
+
+#. i18n: ectx: property (text), widget (QLabel, label_2)
+#. i18n: ectx: property (text), widget (QLabel, label_6)
+#: imagesettings.ui:60 imagesettings.ui:114
+#, kde-format
+msgid "Height"
+msgstr "Высота"
+
+#. i18n: ectx: property (title), widget (QGroupBox, gbPreview)
+#: imagesettings.ui:76
+#, kde-format
+msgid "Preview"
+msgstr "Предварительный просмотр"
+
+#. i18n: ectx: property (title), widget (QGroupBox, groupBox_2)
+#: imagesettings.ui:88
+#, kde-format
+msgid "Print Size"
+msgstr "Размер на печати"
+
+#. i18n: ectx: property (text), widget (QCheckBox, useDisplaySize)
+#: imagesettings.ui:94
+#, kde-format
+msgid "Use Display Size"
+msgstr "Использовать размер на экране"
+
+#: imagesettingsdialog.cpp:23
+#, kde-format
+msgctxt "@title:window"
+msgid "Image Settings"
+msgstr "Параметры изображения"
+
+#: imagesettingsdialog.cpp:40
+#, kde-format
+msgid "(auto)"
+msgstr "(автоматически)"
+
+#: imagesettingsdialog.cpp:40
+#, kde-format
+msgid "px"
+msgstr "пикс."
+
+#: imagesettingsdialog.cpp:40
+#, kde-format
+msgid "%"
+msgstr "%"
+
+#: imagesettingsdialog.cpp:151 markdownentry.cpp:773
+#, kde-format
+msgid "Open image file"
+msgstr "Выбор файла изображения"
+
+#: latexentry.cpp:61 textentry.cpp:111
+#, kde-format
+msgid "Show LaTeX code"
+msgstr "Показать код LaTeX"
+
+#: lib/backend.cpp:183
+#, kde-format
+msgid ""
+"No path for the %1 executable specified. Please provide the correct path in "
+"the application settings and try again."
+msgstr ""
+"Не указан путь к исполняемому файлу %1. Укажите корректный путь в параметрах "
+"приложения и попробуйте снова."
+
+#: lib/backend.cpp:193
+#, kde-format
+msgid ""
+"The specified file '%1' for the %2 executable doesn't exist. Please provide "
+"the correct path in the application settings and try again."
+msgstr ""
+"Файл «%1», указанный в качестве исполняемого файла %2, не существует. "
+"Укажите корректный путь в параметрах приложения и попробуйте снова."
+
+#: lib/backend.cpp:202
+#, kde-format
+msgid ""
+"The specified file '%1' doesn't point to an executable. Please provide the "
+"correct path in the application settings and try again."
+msgstr ""
+"Путь к файлу «%1» не указывает на исполняемый файл. Укажите корректный путь "
+"в параметрах приложения и попробуйте снова."
+
+#: lib/backend.cpp:221
+#, kde-format
+msgid ""
+"The program %1 didn't finish the execution after %2 milliseconds during the "
+"plot integration test."
+msgstr ""
+"Программа %1 не завершила работу через %2 мс при проверке встраивания "
+"графика."
+
+#: lib/backend.cpp:230
+#, kde-format
+msgid "Failed to open the file %1 during the plot integration test."
+msgstr "Не удалось открыть файл %1 при проверке встраивания графика."
+
+#: lib/backend.cpp:238
+#, kde-format
+msgid "Failed to parse the result during the plot integration test."
+msgstr "Не удалось обработать результат при проверке встраивания графика."
+
+#. i18n: ectx: label, entry (latexCommand), group (Cantor)
+#: lib/cantor_libs.kcfg:10
+#, kde-format
+msgid "Path to the latex executable"
+msgstr "Путь к исполняемому файлу latex"
+
+#. i18n: ectx: label, entry (dvipsCommand), group (Cantor)
+#: lib/cantor_libs.kcfg:14
+#, kde-format
+msgid "Path to the dvips executable"
+msgstr "Путь к исполняемому файлу dvips"
+
+#: lib/defaultvariablemodel.cpp:70
+#, kde-format
+msgctxt "@title:column"
+msgid "Value"
+msgstr "Значение"
+
+#: lib/defaultvariablemodel.cpp:102
+#, kde-format
+msgid "<%1 bytes>"
+msgstr "<%1 байт>"
+
+#: lib/defaultvariablemodel.cpp:104
+#, kde-format
+msgid "<too big variable>"
+msgstr "<слишком большая переменная>"
+
+#. i18n: ectx: property (text), widget (QLabel, label)
+#: lib/directives/axisrange.ui:19
+#, kde-format
+msgid "From:"
+msgstr "От:"
+
+#. i18n: ectx: property (text), widget (QLabel, label_2)
+#: lib/directives/axisrange.ui:40
+#, kde-format
+msgid "To:"
+msgstr "До:"
+
+#: lib/directives/plotdirectives.cpp:19
+#, kde-format
+msgid "Main title"
+msgstr "Заголовок"
+
+#: lib/directives/plotdirectives.cpp:30
+#, kde-format
+msgid "Abscissa scale"
+msgstr "Ось абсцисс"
+
+#: lib/directives/plotdirectives.cpp:41
+#, kde-format
+msgid "Ordinate scale"
+msgstr "Ось ординат"
+
+#. i18n: ectx: property (text), widget (QLabel, label)
+#: lib/directives/plottitle.ui:19
+#, kde-format
+msgid "Plot title:"
+msgstr "Заголовок графика:"
+
+#: lib/mimeresult.cpp:33
+#, kde-format
+msgid "This is unsupported Jupyter content of types ('%1')"
+msgstr "Неподдерживаемое содержимое типов Jupyter («%1»)"
+
+#: lib/session.cpp:311
+#, kde-format
+msgid "%1 process has died unexpectedly. All calculation results are lost."
+msgstr "Процесс %1 неожиданно завершился. Все результаты расчётов потеряны."
+
+#: lib/session.cpp:313
+#, kde-format
+msgid ""
+"%1 process has died unexpectedly with message \"%2\". All calculation "
+"results are lost."
+msgstr ""
+"Процесс %1 неожиданно завершился с сообщением «%2». Все результаты расчётов "
+"потеряны."
+
+#: lib/session.cpp:379
+#, kde-format
+msgid ""
+"You choose support for %1 graphic package, but the support can't be "
+"activated due to the missing requirements, so integration for this package "
+"will be disabled. %2"
+msgstr ""
+"Выбрана поддержка графического пакета %1, но её невозможно активировать, так "
+"соблюдены не все требования. Встраивание с помощью этого пакета будет "
+"отключено. %2"
+
+#: main.cpp:72
+#, kde-format
+msgid "KDE Frontend to mathematical applications"
+msgstr "Оболочка к системам компьютерной алгебры для KDE"
+
+#: main.cpp:74
+#, kde-format
+msgid "(C) 2016 Filipe Saraiva<br/>(C) 2009-2015 Alexander Rieder"
+msgstr "© Alexander Rieder, 2009-2015<br/> © Filipe Saraiva, 2016"
+
+#: main.cpp:78
+#, kde-format
+msgid "Filipe Saraiva"
+msgstr "Filipe Saraiva"
+
+#: main.cpp:78
+#, kde-format
+msgid "Maintainer<br/>Qt5/KF5 port, Scilab and Python backends"
+msgstr "Сопровождающий, перенос на Qt5/KF5, поддержка Scilab и Python"
+
+#: main.cpp:79
+#, kde-format
+msgid "Nikita Sirgienko"
+msgstr "Nikita Sirgienko"
+
+#: main.cpp:79 main.cpp:80
+#, kde-format
+msgctxt "@info:credit"
+msgid "Developer"
+msgstr "Разработчик"
+
+#: main.cpp:80
+#, kde-format
+msgid "Alexander Semke"
+msgstr "Alexander Semke"
+
+#: main.cpp:81
+#, kde-format
+msgid "Original author<br/>Maintainer (2009 - 2015)"
+msgstr "Первоначальный автор, прежний сопровождающий (в 2009-2015 годах)"
+
+#: main.cpp:82
+#, kde-format
+msgid "Aleix Pol Gonzalez"
+msgstr "Aleix Pol Gonzalez"
+
+#: main.cpp:82
+#, kde-format
+msgid "KAlgebra backend"
+msgstr "Поддержка KAlgebra"
+
+#: main.cpp:83
+#, kde-format
+msgid "Miha Čančula"
+msgstr "Miha Čančula"
+
+#: main.cpp:83
+#, kde-format
+msgid "Octave backend"
+msgstr "Поддержка Octave"
+
+#: main.cpp:84
+#, kde-format
+msgid "Martin Küttler"
+msgstr "Martin Küttler"
+
+#: main.cpp:84
+#, kde-format
+msgid "Interface"
+msgstr "Интерфейс"
+
+#: main.cpp:86 main.cpp:87
+#, kde-format
+msgid "Cantor icon"
+msgstr "Значок Cantor"
+
+#: main.cpp:92
+#, kde-format
+msgid "Use  backend <backend>"
+msgstr "Использовать систему компьютерной алгебры <backend>"
+
+#: main.cpp:95
+#, kde-format
+msgid "Documents to open."
+msgstr "Открываемые документы."
+
+#: main.cpp:130
+#, kde-format
+msgid "Couldn't open the file %1"
+msgstr "Не удалось открыть файл %1."
+
+#: markdownentry.cpp:70
+#, kde-format
+msgid "Enter Edit Mode"
+msgstr "Перейти в режим редактирования"
+
+#: markdownentry.cpp:78
+#, kde-format
+msgid "Clear Attachments"
+msgstr "Удалить вложения"
+
+#: markdownentry.cpp:587
+#, kde-format
+msgid "Cantor Math Error"
+msgstr "Ошибка обработки математических символов Cantor"
+
+#: markdownentry.cpp:796
+#, kde-format
+msgid "Failed to read the image \"%1\". Error \"%2\""
+msgstr "Не удалось выполнить чтение изображения «%1». Ошибка «%2»"
+
+#: pagebreakentry.cpp:28
+#, kde-format
+msgid "--- Page Break ---"
+msgstr "--- Разрыв страницы ---"
+
+#: panelplugins/documentationpanel/documentationpanelwidget.cpp:51
+#, kde-format
+msgctxt "@button go to contents page"
+msgid "Go to the contents"
+msgstr "Перейти к содержанию"
+
+#: panelplugins/documentationpanel/documentationpanelwidget.cpp:58
+#, kde-format
+msgctxt "@info:placeholder"
+msgid "Search through keywords..."
+msgstr "Найти по ключевым словам…"
+
+#: panelplugins/documentationpanel/documentationpanelwidget.cpp:69
+#, kde-format
+msgctxt "@info:tooltip"
+msgid "Find in text of current documentation page"
+msgstr "Поиск в тексте текущей страницы документации"
+
+#: panelplugins/documentationpanel/documentationpanelwidget.cpp:75
+#, kde-format
+msgctxt "@info:tooltip"
+msgid "Reset zoom level to 100%"
+msgstr "Вернуть уровень масштабирования к 100%"
+
+#: panelplugins/documentationpanel/documentationpanelwidget.cpp:123
+#, kde-format
+msgctxt "@info:tooltip"
+msgid "Close"
+msgstr "Закрыть"
+
+#: panelplugins/documentationpanel/documentationpanelwidget.cpp:133
+#, kde-format
+msgctxt "@info:tooltip"
+msgid "Jump to next match"
+msgstr "Перейти к следующему вхождению"
+
+#: panelplugins/documentationpanel/documentationpanelwidget.cpp:137
+#, kde-format
+msgctxt "@info:tooltip"
+msgid "Jump to previous match"
+msgstr "Перейти к предыдущему вхождению"
+
+#: panelplugins/documentationpanel/documentationpanelwidget.cpp:141
+#, kde-format
+msgctxt "@info:tooltip"
+msgid "Match case sensitively"
+msgstr "С учётом регистра"
+
+#: panelplugins/documentationpanel/documentationpanelwidget.cpp:408
+#, kde-format
+msgid "The file has been downloaded successfully at Downloads."
+msgstr "Файл успешно сохранён в папку «Загрузки»."
+
+#: panelplugins/documentationpanel/documentationpanelwidget.cpp:408
+#, kde-format
+msgid "Download Successful"
+msgstr "Успешная загрузка"
+
+#: panelplugins/filebrowserpanel/filebrowserpanelplugin.cpp:137
+#, kde-format
+msgid "Cantor files"
+msgstr "Файлы Cantor"
+
+#: panelplugins/filebrowserpanel/filebrowserpanelplugin.cpp:138
+#, kde-format
+msgid "Jupyter files"
+msgstr "Файлы Jupyter"
+
+#: panelplugins/filebrowserpanel/filebrowserpanelplugin.cpp:139
+#, kde-format
+msgid "All supported files"
+msgstr "Все поддерживаемые файлы"
+
+#: panelplugins/filebrowserpanel/filebrowserpanelplugin.cpp:140
+#, kde-format
+msgid "All files"
+msgstr "Все файлы"
+
+#. i18n: ectx: property (text), widget (QLabel, label)
+#: panelplugins/variablemgr/newvardlg.ui:17
+#, kde-format
+msgid "Name:"
+msgstr "Имя:"
+
+#. i18n: ectx: property (text), widget (QLabel, label_2)
+#: panelplugins/variablemgr/newvardlg.ui:27
+#, kde-format
+msgid "Value:"
+msgstr "Значение:"
+
+#: panelplugins/variablemgr/variablemanagerwidget.cpp:45
+#: panelplugins/variablemgr/variablemanagerwidget.cpp:197
+#, kde-format
+msgid "Add New Variable"
+msgstr "Добавить новую переменную"
+
+#: panelplugins/variablemgr/variablemanagerwidget.cpp:51
+#, kde-format
+msgid "Load Variables"
+msgstr "Загрузить переменные из файла"
+
+#: panelplugins/variablemgr/variablemanagerwidget.cpp:57
+#, kde-format
+msgid "Save Variables"
+msgstr "Сохранить переменные"
+
+#: panelplugins/variablemgr/variablemanagerwidget.cpp:63
+#: panelplugins/variablemgr/variablemanagerwidget.cpp:140
+#, kde-format
+msgid "Remove Variables"
+msgstr "Удалить переменные"
+
+# BUGME: not visible in the UI? --aspotashev
+#: panelplugins/variablemgr/variablemanagerwidget.cpp:73
+#, kde-format
+msgid "Search/Filter"
+msgstr "Поиск/Фильтр"
+
+#: panelplugins/variablemgr/variablemanagerwidget.cpp:84
+#, kde-format
+msgid "Case Sensitive"
+msgstr "С учётом регистра"
+
+#: panelplugins/variablemgr/variablemanagerwidget.cpp:88
+#, kde-format
+msgid "Match Complete Word"
+msgstr "Только полные слова"
+
+#: panelplugins/variablemgr/variablemanagerwidget.cpp:139
+#, kde-format
+msgid "Are you sure you want to remove all variables?"
+msgstr "Удалить все переменные?"
+
+#: panelplugins/variablemgr/variablemanagerwidget.cpp:182
+#, kde-format
+msgid "Load file"
+msgstr "Загрузка файла"
+
+#: resultitem.cpp:59
+#, kde-format
+msgid "Save result"
+msgstr "&Сохранить результат в файл"
+
+#: resultitem.cpp:60
+#, kde-format
+msgid "Remove result"
+msgstr "Удалить результат"
+
+#: scripteditor/scripteditorwidget.cpp:44
+#, kde-format
+msgid ""
+"A KDE text-editor component could not be found;\n"
+"please check your KDE installation."
+msgstr ""
+"Компонент редактирования текста не найден в KDE.\n"
+"Проверьте установку KDE."
+
+#: scripteditor/scripteditorwidget.cpp:139
+#, kde-format
+msgid "Script Editor"
+msgstr "Редактор сценариев"
+
+#: scripteditor/scripteditorwidget.cpp:142
+#, kde-format
+msgid "Script Editor - %1"
+msgstr "%1 — Редактор сценариев"
+
+#: searchbar.cpp:130 searchbar.cpp:178
+#, kde-format
+msgid "Not found"
+msgstr "Не найдено"
+
+#: searchbar.cpp:133
+#, kde-format
+msgid "Reached beginning"
+msgstr "Достигнуто начало документа"
+
+#: searchbar.cpp:181
+#, kde-format
+msgid "Reached end"
+msgstr "Достигнут конец документа"
+
+#: searchbar.cpp:238
+#, kde-format
+msgid "Replaced %1 instance"
+msgid_plural "Replaced %1 instances"
+msgstr[0] "Заменено %1 вхождение"
+msgstr[1] "Заменены %1 вхождения"
+msgstr[2] "Заменены %1 вхождений"
+msgstr[3] "Заменено %1 вхождение"
+
+#: searchbar.cpp:333 searchbar.cpp:362
+#, kde-format
+msgid "Commands"
+msgstr "Выражения"
+
+#: searchbar.cpp:333 searchbar.cpp:362
+#, kde-format
+msgid "Results"
+msgstr "Результаты"
+
+#: searchbar.cpp:333 searchbar.cpp:362
+#, kde-format
+msgid "Errors"
+msgstr "Ошибки"
+
+#: searchbar.cpp:334 searchbar.cpp:363 worksheet.cpp:1812 worksheet.cpp:1841
+#: worksheet.cpp:1861 worksheet.cpp:1879
+#, kde-format
+msgid "Text"
+msgstr "Текст"
+
+#: searchbar.cpp:334 searchbar.cpp:363
+#, kde-format
+msgid "LaTeX Code"
+msgstr "Код LaTeX"
+
+#. i18n: ectx: property (text), widget (QLabel, label_2)
+#: settings.ui:23
+#, fuzzy, kde-format
+msgid "Startup:"
+msgstr "Запустить"
+
+#. i18n: ectx: property (toolTip), widget (QLabel, label)
+#. i18n: ectx: property (toolTip), widget (KComboBox, kcfg_DefaultBackend)
+#: settings.ui:30 settings.ui:293
+#, kde-format
+msgid ""
+"Create a new worksheet for the selected backend system. If none is selected, "
+"the user is asked about which system to use on startup."
+msgstr ""
+
+#. i18n: ectx: property (text), widget (QLabel, label)
+#: settings.ui:33
+#, kde-format
+msgid "Default Backend:"
+msgstr "Система по умолчанию:"
+
+#. i18n: ectx: property (text), widget (QLabel, label_3)
+#: settings.ui:75
+#, fuzzy, kde-format
+msgid "Worksheet:"
+msgstr "&Документ"
+
+#. i18n: ectx: property (toolTip), widget (QCheckBox, kcfg_TypesetDefault)
+#: settings.ui:82
+#, fuzzy, kde-format
+#| msgid "Enable LaTeX typesetting for Sage backend"
+msgid ""
+"Enable LaTeX typesetting for the results of the calculations, if supported "
+"by the backend system"
+msgstr "Показывать результаты системы Sage с помощью LaTeX"
+
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_TypesetDefault)
+#: settings.ui:85
+#, fuzzy, kde-format
+msgid "LaTeX typesetting"
+msgstr "LaTeX:"
+
+#. i18n: ectx: property (toolTip), widget (QCheckBox, kcfg_HighlightDefault)
+#: settings.ui:92
+#, fuzzy, kde-format
+msgid "Enable syntax highlighting"
+msgstr "Включить подсветку синтаксиса"
+
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_HighlightDefault)
+#: settings.ui:95
+#, fuzzy, kde-format
+msgid "Syntax highlighting"
+msgstr "Подсветка синтаксиса"
+
+#. i18n: ectx: property (toolTip), widget (QCheckBox, kcfg_CompletionDefault)
+#: settings.ui:102
+#, fuzzy, kde-format
+msgid "Enable syntax completion"
+msgstr "Включить автодополнение"
+
+#. i18n: ectx: property (toolTip), widget (QCheckBox, kcfg_ExpressionNumberingDefault)
+#: settings.ui:112
+#, fuzzy, kde-format
+msgid "Show line numbers"
+msgstr "Показывать номера строк"
+
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_ExpressionNumberingDefault)
+#: settings.ui:115
+#, fuzzy, kde-format
+msgid "Line numbers"
+msgstr "Показывать номера строк"
+
+#. i18n: ectx: property (toolTip), widget (QCheckBox, kcfg_AnimationDefault)
+#: settings.ui:122
+#, fuzzy, kde-format
+msgid "Enable animation effects in the worksheet"
+msgstr "Встраивать графики в документ"
+
+#. i18n: ectx: property (toolTip), widget (QCheckBox, kcfg_UseOldCantorEntriesIndent)
+#: settings.ui:132
+#, kde-format
+msgid ""
+"If enabled, text entries are aligned at the worksheet border and not at the "
+"prompt border"
+msgstr ""
+
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_UseOldCantorEntriesIndent)
+#: settings.ui:135
+#, kde-format
+msgid "Don't indent text entries"
+msgstr ""
+
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_StoreTextEntryFormatting)
+#: settings.ui:142
+#, fuzzy, kde-format
+msgid ""
+"Use rich text format for text entries when saving in Jupyter Notebook Format"
+msgstr ""
+"Сохранять форматирование текста при сохранении документа в формате Jupyter "
+"Notebook"
+
+#. i18n: ectx: property (text), widget (QLabel, label_4)
+#: settings.ui:171
+#, fuzzy, kde-format
+msgid "Evaluation:"
+msgstr "Уравнения:"
+
+#. i18n: ectx: property (toolTip), widget (QCheckBox, kcfg_WarnAboutSessionRestart)
+#: settings.ui:178
+#, fuzzy, kde-format
+msgid ""
+"If enabled, the user will be asked for confirmation prior to restarting the "
+"backend system"
+msgstr "Запрашивать подтверждение при перезапуске базовой системы"
+
+#. i18n: ectx: property (toolTip), widget (QCheckBox, kcfg_AutoEval)
+#: settings.ui:188
+#, kde-format
+msgid ""
+"If enabled, all entries below the current one will be evaluated automatically"
+msgstr ""
+
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_AutoEval)
+#: settings.ui:191
+#, fuzzy, kde-format
+msgid "Reevaluate entries automatically"
+msgstr "Автоматически пересчитывать выражения"
+
+#. i18n: ectx: property (text), widget (QLabel, VisibleLinesLimit_label)
+#: settings.ui:201
+#, fuzzy, kde-format
+msgid "Number of rows in the result (0 for unlimited):"
+msgstr ""
+"Максимальное количество отображаемых строк результата («0» — без ограничений)"
+
+#. i18n: ectx: property (toolTip), widget (QSpinBox, kcfg_VisibleLinesLimit)
+#: settings.ui:221
+#, kde-format
+msgid ""
+"Maximal number of visible rows in the result of a command entry. Use 0 to "
+"work without limitations."
+msgstr ""
+"Максимальное количество отображаемых строк результата выражения. Значение "
+"«0» означает отсутствие ограничений."
+
+#. i18n: ectx: property (text), widget (QLabel, label_5)
+#: settings.ui:256
+#, fuzzy, kde-format
+msgid "Markdown:"
+msgstr "Markdown"
+
+#. i18n: ectx: property (toolTip), widget (QCheckBox, kcfg_EmbeddedMathDefault)
+#: settings.ui:263
+#, fuzzy, kde-format
+msgid ""
+"Enable LaTeX typesetting for mathematical expressions in Markdown entries"
+msgstr "Показывать результаты системы Sage с помощью LaTeX"
+
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_EmbeddedMathDefault)
+#: settings.ui:266
+#, kde-format
+msgid "Mathematical expressions via LaTeX"
+msgstr ""
+
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_ShowMathRenderError)
+#: settings.ui:273
+#, kde-format
+msgid "Notify about render failures for mathematical expressions"
+msgstr ""
+
+#. i18n: ectx: property (placeholderText), widget (KLineEdit, pattern)
+#: standardsearchbar.ui:35
+#, kde-format
+msgid "Find…"
+msgstr "Найти…"
+
+#: textentry.cpp:55
+#, kde-format
+msgid "Raw Cell Targets"
+msgstr "Цели — ячейки Raw"
+
+#: textentry.cpp:62
+#, kde-format
+msgid "Add custom target"
+msgstr "Добавить пользовательскую цель"
+
+#: textentry.cpp:76
+#, kde-format
+msgid "Convert to Text Entry"
+msgstr "Преобразовать во фрагмент текста"
+
+#: textentry.cpp:81
+#, kde-format
+msgid "Convert to Raw Cell"
+msgstr "Преобразовать в ячейку Raw"
+
+#: textentry.cpp:553
+#, kde-format
+msgid "Target MIME type:"
+msgstr "Тип MIME цели:"
+
+#: textresultitem.cpp:59
+#, kde-format
+msgid "Copy result"
+msgstr "Копировать результат"
+
+#: textresultitem.cpp:68
+#, kde-format
+msgid "Show Rendered"
+msgstr "Показать выражение"
+
+#: textresultitem.cpp:70
+#, kde-format
+msgid "Show Code"
+msgstr "Показать код LaTeX"
+
+#: textresultitem.cpp:78 textresultitem.cpp:91
+#, kde-format
+msgid "Show HTML Code"
+msgstr "Показать код HTML"
+
+#: textresultitem.cpp:80 textresultitem.cpp:86
+#, kde-format
+msgid "Show Plain Alternative"
+msgstr "Показать обычный текст"
+
+#: textresultitem.cpp:84
+#, kde-format
+msgid "Show Html"
+msgstr "Показать HTML"
+
+#: textresultitem.cpp:90
+#, kde-format
+msgid "Show HTML"
+msgstr "Показать HTML"
+
+#: textresultitem.cpp:161
+#, kde-format
+msgid "Cannot render Eps file. You may need additional packages"
+msgstr ""
+"Не удалось интерпретировать файл Eps. Возможно, нужны дополнительные пакеты"
+
+#: textresultitem.cpp:213
+#, kde-format
+msgid "Save text result"
+msgstr "Сохранить текстовый результат"
+
+#: textresultitem.cpp:213
+#, kde-format
+msgid "Text Files (*.txt)"
+msgstr "Текстовые файлы (*.txt)"
+
+#: worksheet.cpp:1192
+#, kde-format
+msgid "Cannot write file %1."
+msgstr "Не удалось записать в файл %1."
+
+#: worksheet.cpp:1220 worksheet.cpp:1235
+#, kde-format
+msgid "Cannot write file."
+msgstr "Не удалось записать в файл."
+
+#: worksheet.cpp:1252 worksheet.cpp:1296
+#, kde-format
+msgid "Error saving file %1"
+msgstr "Ошибка при сохранении файла %1"
+
+#: worksheet.cpp:1275
+#, kde-format
+msgid ""
+"In read-only mode Cantor couldn't guarantee, that the export will be valid "
+"for %1"
+msgstr ""
+"В режиме только для чтения программа Cantor не может обеспечить корректность "
+"экспорта для %1"
+
+#: worksheet.cpp:1308
+#, kde-format
+msgid "Error loading latex.xsl stylesheet"
+msgstr "Не удалось загрузить таблицу стилей LaTeX XSL"
+
+#: worksheet.cpp:1327
+#, kde-format
+msgid "Couldn't open the file %1."
+msgstr "Не удалось открыть файл %1."
+
+#: worksheet.cpp:1327 worksheet.cpp:1350 worksheet.cpp:1370 worksheet.cpp:1387
+#: worksheet.cpp:1419 worksheet.cpp:1430 worksheet.cpp:1539 worksheet.cpp:1554
+#: worksheet.cpp:1596 worksheet.cpp:1607 worksheet.cpp:1727 worksheet.cpp:1729
+#, kde-format
+msgid "Open File"
+msgstr "Открыть файл"
+
+#: worksheet.cpp:1350
+#, kde-format
+msgid "Couldn't open the selected file for reading."
+msgstr "Не удалось открыть выбранный файл для чтения."
+
+#: worksheet.cpp:1370
+#, kde-format
+msgid "The selected file is not a valid Cantor or Jupyter project file."
+msgstr ""
+"Выбранный файл не является корректным файлом проекта Cantor или Jupyter."
+
+#: worksheet.cpp:1387
+#, kde-format
+msgid "The selected file is not a valid Cantor project file."
+msgstr "Выбранный файл не является корректным файлом проекта Cantor."
+
+#: worksheet.cpp:1409
+#, kde-format
+msgid ""
+"This worksheet was created using Python2 which is not supported anymore. "
+"Python3 will be used."
+msgstr ""
+"Этот документ был создан с помощью Python 2, который больше не "
+"поддерживается. Будет использован Python 3."
+
+#: worksheet.cpp:1410 worksheet.cpp:1578
+#, kde-format
+msgid "Python2 not supported anymore"
+msgstr "Python 2 больше не поддерживается"
+
+#: worksheet.cpp:1419 worksheet.cpp:1595
+#, kde-format
+msgid ""
+"%1 backend was not found. Editing and executing entries is not possible."
+msgstr ""
+"Базовая система %1 не найдена. Редактирование и вычисление выражений "
+"невозможны."
+
+#: worksheet.cpp:1428 worksheet.cpp:1605
+#, kde-format
+msgid ""
+"There are some problems with the %1 backend,\n"
+"please check your configuration or install the needed packages.\n"
+"You will only be able to view this worksheet."
+msgstr ""
+"В работе базовой системы %1 возникли проблемы,\n"
+"данный документ доступен только для просмотра.\n"
+"Пожалуйста, проверьте параметры настройки и установите необходимые пакеты."
+
+#: worksheet.cpp:1538
+#, kde-format
+msgid ""
+"Jupyter notebooks with versions lower than 4.5 (detected version %1.%2) are "
+"not supported."
+msgstr ""
+"Файлы Jupyter Notebook версий ниже 4.5 (обнаружена версия %1.%2) не "
+"поддерживаются."
+
+#: worksheet.cpp:1553
+#, kde-format
+msgid ""
+"Jupyter notebooks with versions higher than 4.5 (detected version %1.%2) are "
+"not supported."
+msgstr ""
+"Файлы Jupyter Notebook версий выше 4.5 (обнаружена версия %1.%2) не "
+"поддерживаются."
+
+#: worksheet.cpp:1577
+#, kde-format
+msgid ""
+"This notebook was created using Python2 which is not supported anymore. "
+"Python3 will be used."
+msgstr ""
+"Этот файл Jupyter Notebook был создан с помощью Python 2, который больше не "
+"поддерживается. Будет использован Python 3."
+
+#: worksheet.cpp:1645
+#, kde-format
+msgid "an object with keys: %1"
+msgstr "объект с ключами: %1"
+
+#: worksheet.cpp:1647
+#, kde-format
+msgid "non object JSON value"
+msgstr "не-объектное значение JSON"
+
+#: worksheet.cpp:1650
+#, kde-format
+msgid "found incorrect data (%1) that is not Jupyter cell"
+msgstr "найдены некорректные данные (%1) — они не являются ячейкой Jupyter"
+
+#: worksheet.cpp:1727
+#, kde-format
+msgid "The file is not valid Jupyter notebook"
+msgstr "Недопустимый файл Jupyter Notebook"
+
+#: worksheet.cpp:1729
+#, kde-format
+msgid "Invalid Jupyter notebook scheme: %1"
+msgstr "Недопустимая схема Jupyter Notebook: %1"
+
+#: worksheet.cpp:1804
+#, kde-format
+msgid "Convert To"
+msgstr "Преобразовать в"
+
+#: worksheet.cpp:1809 worksheet.cpp:1840 worksheet.cpp:1860 worksheet.cpp:1878
+#, kde-format
+msgid "Command"
+msgstr "Команда"
+
+#: worksheet.cpp:1816 worksheet.cpp:1843 worksheet.cpp:1863 worksheet.cpp:1881
+#, kde-format
+msgid "Markdown"
+msgstr "Markdown"
+
+#: worksheet.cpp:1823 worksheet.cpp:1848 worksheet.cpp:1868 worksheet.cpp:1886
+#, kde-format
+msgid "Image"
+msgstr "Изображение"
+
+#: worksheet.cpp:1826 worksheet.cpp:1851 worksheet.cpp:1871 worksheet.cpp:1889
+#, kde-format
+msgid "Page Break"
+msgstr "Разрыв страницы"
+
+#: worksheet.cpp:1829 worksheet.cpp:1850 worksheet.cpp:1870 worksheet.cpp:1888
+#, kde-format
+msgid "Horizontal Line"
+msgstr "Горизонтальная линия"
+
+#: worksheet.cpp:1832 worksheet.cpp:1853 worksheet.cpp:1873 worksheet.cpp:1891
+#, kde-format
+msgid "Hierarchy Entry"
+msgstr "Запись иерархии"
+
+#: worksheet.cpp:1835
+#, kde-format
+msgid "Insert After"
+msgstr "Вставить ниже"
+
+#: worksheet.cpp:1856
+#, kde-format
+msgid "Insert Before"
+msgstr "Вставить выше"
+
+#: worksheet.cpp:1875
+#, kde-format
+msgid "Insert"
+msgstr "Вставить"
+
+#: worksheet.cpp:1916
+#, kde-format
+msgid "Zoom In"
+msgstr "Увеличить масштаб"
+
+#: worksheet.cpp:1919
+#, kde-format
+msgid "Zoom Out"
+msgstr "Уменьшить масштаб"
+
+#: worksheet.cpp:1923
+#, kde-format
+msgid "Original Size"
+msgstr "Исходный размер"
+
+#: worksheet.cpp:1931
+#, kde-format
+msgid "Move Entries Up"
+msgstr "Переместить записи выше"
+
+#: worksheet.cpp:1932
+#, kde-format
+msgid "Move Entries Down"
+msgstr "Переместить записи ниже"
+
+#: worksheet.cpp:1933
+#, kde-format
+msgid "Evaluate Entries"
+msgstr "Посчитать выражения"
+
+#: worksheet.cpp:1934
+#, kde-format
+msgid "Remove Entries"
+msgstr "Удалить записи"
+
+#: worksheet.cpp:1947
+#, kde-format
+msgid "Collapse Command Entry Results"
+msgstr "Свернуть результаты выражений"
+
+#: worksheet.cpp:1948
+#, kde-format
+msgid "Expand Command Entry Results"
+msgstr "Развернуть результаты выражений"
+
+#: worksheet.cpp:1949
+#, kde-format
+msgid "Remove Command Entry Results"
+msgstr "Удалить результаты выражений"
+
+#: worksheet.cpp:1950
+#, kde-format
+msgid "Exclude Command Entry From Execution"
+msgstr "Исключить выражение из выполнения"
+
+#: worksheet.cpp:1951
+#, kde-format
+msgid "Add Command Entry To Execution"
+msgstr "Добавить выражение для выполнения"
+
+#: worksheet.cpp:2059
+#, kde-format
+msgctxt "@action"
+msgid "Text &Color..."
+msgstr "&Цвет текста..."
+
+#: worksheet.cpp:2060
+#, kde-format
+msgctxt "@label text color"
+msgid "Color"
+msgstr "Цвет"
+
+#: worksheet.cpp:2067
+#, kde-format
+msgctxt "@action"
+msgid "Text &Highlight..."
+msgstr "Подсветка текста..."
+
+#: worksheet.cpp:2073
+#, kde-format
+msgctxt "@action"
+msgid "&Font"
+msgstr "&Шрифт"
+
+#: worksheet.cpp:2082
+#, kde-format
+msgctxt "@action"
+msgid "Font &Size"
+msgstr "&Размер шрифта"
+
+#: worksheet.cpp:2088
+#, kde-format
+msgctxt "@action boldify selected text"
+msgid "&Bold"
+msgstr "Полу&жирный"
+
+#: worksheet.cpp:2099
+#, kde-format
+msgctxt "@action italicize selected text"
+msgid "&Italic"
+msgstr "К&урсив"
+
+#: worksheet.cpp:2111
+#, kde-format
+msgctxt "@action underline selected text"
+msgid "&Underline"
+msgstr "Под&чёркнутый"
+
+#: worksheet.cpp:2122
+#, kde-format
+msgctxt "@action"
+msgid "&Strike Out"
+msgstr "П&еречёркнутый"
+
+#: worksheet.cpp:2133
+#, kde-format
+msgctxt "@action"
+msgid "Align &Left"
+msgstr "По &левому краю"
+
+#: worksheet.cpp:2136
+#, kde-format
+msgctxt "@label left justify"
+msgid "Left"
+msgstr "Слева"
+
+#: worksheet.cpp:2143
+#, kde-format
+msgctxt "@action"
+msgid "Align &Center"
+msgstr "Выравнивание по &центру"
+
+#: worksheet.cpp:2146
+#, kde-format
+msgctxt "@label center justify"
+msgid "Center"
+msgstr "По центру"
+
+#: worksheet.cpp:2153
+#, kde-format
+msgctxt "@action"
+msgid "Align &Right"
+msgstr "По &правому краю"
+
+#: worksheet.cpp:2156
+#, kde-format
+msgctxt "@label right justify"
+msgid "Right"
+msgstr "Справа"
+
+#: worksheet.cpp:2163
+#, kde-format
+msgctxt "@action"
+msgid "&Justify"
+msgstr "Выравнивание по &ширине"
+
+#: worksheet.cpp:2166
+#, kde-format
+msgctxt "@label justify fill"
+msgid "Justify"
+msgstr "По ширине"
+
+#: worksheet.cpp:2860
+#, kde-format
+msgid ""
+"This action will remove all results without the possibility of cancellation. "
+"Are you sure?"
+msgstr ""
+"Это действие приведёт к удалению всех результатов, и его будет невозможно "
+"отменить. Продолжить?"
+
+#: worksheet.cpp:2861
+#, kde-format
+msgid "Remove all results"
+msgstr "Удалить все результаты"
+
+#: worksheetentry.cpp:67
+#, kde-format
+msgid "White"
+msgstr "Белый"
+
+#: worksheetentry.cpp:67
+#, kde-format
+msgid "Black"
+msgstr "Чёрный"
+
+#: worksheetentry.cpp:68
+#, kde-format
+msgid "Dark Red"
+msgstr "Тёмно-красный"
+
+#: worksheetentry.cpp:68
+#, kde-format
+msgid "Red"
+msgstr "Красный"
+
+#: worksheetentry.cpp:68
+#, kde-format
+msgid "Light Red"
+msgstr "Розовый"
+
+#: worksheetentry.cpp:69
+#, kde-format
+msgid "Dark Green"
+msgstr "Тёмно-зелёный"
+
+#: worksheetentry.cpp:69
+#, kde-format
+msgid "Green"
+msgstr "Зелёный"
+
+#: worksheetentry.cpp:69
+#, kde-format
+msgid "Light Green"
+msgstr "Салатовый"
+
+#: worksheetentry.cpp:70
+#, kde-format
+msgid "Dark Blue"
+msgstr "Тёмно-синий"
+
+#: worksheetentry.cpp:70
+#, kde-format
+msgid "Blue"
+msgstr "Синий"
+
+#: worksheetentry.cpp:70
+#, kde-format
+msgid "Light Blue"
+msgstr "Голубой"
+
+#: worksheetentry.cpp:71
+#, kde-format
+msgid "Dark Yellow"
+msgstr "Тёмно-жёлтый"
+
+#: worksheetentry.cpp:71
+#, kde-format
+msgid "Yellow"
+msgstr "Жёлтый"
+
+#: worksheetentry.cpp:71
+#, kde-format
+msgid "Light Yellow"
+msgstr "Кремовый"
+
+#: worksheetentry.cpp:72
+#, kde-format
+msgid "Dark Cyan"
+msgstr "Тёмно-бирюзовый"
+
+#: worksheetentry.cpp:72
+#, kde-format
+msgid "Cyan"
+msgstr "Бирюзовый"
+
+#: worksheetentry.cpp:72
+#, kde-format
+msgid "Light Cyan"
+msgstr "Аквамариновый"
+
+#: worksheetentry.cpp:73
+#, kde-format
+msgid "Dark Magenta"
+msgstr "Тёмно-пурпурный"
+
+#: worksheetentry.cpp:73
+#, kde-format
+msgid "Magenta"
+msgstr "Пурпурный"
+
+#: worksheetentry.cpp:73
+#, kde-format
+msgid "Light Magenta"
+msgstr "Лавандовый"
+
+#: worksheetentry.cpp:74
+#, kde-format
+msgid "Dark Orange"
+msgstr "Ржавый"
+
+#: worksheetentry.cpp:74
+#, kde-format
+msgid "Orange"
+msgstr "Оранжевый"
+
+#: worksheetentry.cpp:74
+#, kde-format
+msgid "Light Orange"
+msgstr "Рыжий"
+
+#: worksheetentry.cpp:75
+#, kde-format
+msgid "Dark Grey"
+msgstr "Тёмно-серый"
+
+#: worksheetentry.cpp:75
+#, kde-format
+msgid "Grey"
+msgstr "Серый"
+
+#: worksheetentry.cpp:75
+#, kde-format
+msgid "Light Grey"
+msgstr "Светло-серый"
+
+#: worksheetentry.cpp:421
+#, kde-format
+msgid "Move Up"
+msgstr "Выше"
+
+#: worksheetentry.cpp:429
+#, kde-format
+msgid "Move Down"
+msgstr "Ниже"
+
+#: worksheetentry.cpp:717
+#, kde-format
+msgid "Do you really want to remove this entry?"
+msgstr "Удалить эту запись?"
+
+#: worksheetentry.cpp:717 worksheetentry.cpp:845
+#, kde-format
+msgid "Remove Entry"
+msgstr "Удалить запись"
+
+#: worksheetentry.cpp:850
+#, kde-format
+msgid "Drag Entry"
+msgstr "Перетащить запись"
+
+#~ msgid "Animate Worksheet"
+#~ msgstr "Включить анимацию в документе"
+
+#~ msgid ""
+#~ "On startup, if a default backend is set, create a worksheet for it "
+#~ "instead of showing the backend chooser dialog."
+#~ msgstr ""
+#~ "Если указана система по умолчанию, создавать при запуске документ для "
+#~ "неё, а не показывать диалог выбора системы."
+
+#~ msgid ""
+#~ "When enabled, Cantor will automatically evaluate every entry below the "
+#~ "current one."
+#~ msgstr "Автоматически пересчитывать все выражения ниже текущего."
+
+#~ msgid "Defaults"
+#~ msgstr "По умолчанию"
+
+#~ msgid ""
+#~ "This is initial value for the session \"Typeset using LaTeX\" option, "
+#~ "which response for allowing rendering some backend output as latex, if "
+#~ "supported. For example, Maxima outputs will be rendered via latex, if the "
+#~ "option is enabled."
+#~ msgstr ""
+#~ "Это начальное значение параметра сеанса «Показывать результаты с помощью "
+#~ "LaTeX», который отвечает за включение обработки вывода системы с помощью "
+#~ "LaTeX, если такая функция поддерживается. Например, вывод Maxima будет "
+#~ "обработан с помощью LaTeX, если этот параметр включён."
+
+#~ msgid "Enable LaTeX Typesetting (works only if latex is installed)"
+#~ msgstr ""
+#~ "Включить показ результатов с помощью LaTeX (должен быть установлен пакет "
+#~ "latex)"
+
+#~ msgid ""
+#~ "This is initial value for the session \"Syntax Highlighting\" option, "
+#~ "which response for syntax highlighting inside command entries."
+#~ msgstr ""
+#~ "Это начальное значение параметра сеанса «Подсветка синтаксиса», который "
+#~ "отвечает за подсветку синтаксиса в выражениях."
+
+#~ msgid ""
+#~ "This is initial value for the session \"Completion\" option, which "
+#~ "response for code autocompletion."
+#~ msgstr ""
+#~ "Это начальное значение параметра сеанса «Автодополнение», который "
+#~ "отвечает за автодополнение кода."
+
+#~ msgid ""
+#~ "This is initial value for the session \"Line numbers\" option, which "
+#~ "response for presence of command entries execution numbers."
+#~ msgstr ""
+#~ "Это начальное значение параметра сеанса «Показывать номера строк», "
+#~ "который отвечает за наличие номеров выполнения выражений."
+
+#~ msgid "Enable Line Numbers"
+#~ msgstr "Показывать номера строк"
+
+#~ msgid ""
+#~ "This is initial value for the session \"Animate Worksheet\" option, which "
+#~ "response for presence of worksheet animation."
+#~ msgstr ""
+#~ "Это начальное значение параметра сеанса «Включить анимацию в документе», "
+#~ "который отвечает за наличие анимации в документе."
+
+#~ msgid "Enable Worksheet Animations"
+#~ msgstr "Включать анимацию в документах"
+
+#~ msgid ""
+#~ "This is initial value for the session \"Embedded Math\" option, which "
+#~ "response for enabling of rendering math expressions in text and markdown "
+#~ "entries."
+#~ msgstr ""
+#~ "Это начальное значение параметра сеанса «Внедрённые математические "
+#~ "символы», который отвечает за включение обработки математических "
+#~ "выражений во фрагментах текста и записях Markdown."
+
+#~ msgid "Enable Embedded Math (works only if pdflatex is installed)"
+#~ msgstr ""
+#~ "Включить внедрённые математические символы (должен быть установлен пакет "
+#~ "pdflatex)"
+
+#~ msgid ""
+#~ "If disabled, then warning about restart won't appear on pressing of "
+#~ "restart button."
+#~ msgstr ""
+#~ "Если этот параметр отключён, при нажатии кнопки перезапуска не будет "
+#~ "появляться соответствующее предупреждение."
+
+#~ msgid ""
+#~ "If enabled, then on any math render error will appear an information "
+#~ "window with error description."
+#~ msgstr ""
+#~ "если параметр включён, при ошибке обработки математических символов будет "
+#~ "появляться информационное окно с описанием ошибки."
+
+#~ msgid "Show message about error on render failure of embedded math"
+#~ msgstr ""
+#~ "Показать сообщение об ошибке при сбое обработки внедрённых математических "
+#~ "символов"
+
+#~ msgid ""
+#~ "if enabled, then old Cantor entries indent style (all entries left "
+#~ "aligned) will be used."
+#~ msgstr ""
+#~ "если параметр включён, будет использоваться старый стиль отступов записей "
+#~ "Cantor (выравнивание всех записей по левому краю)."
+
+#~ msgid "Use old Cantor entries indent style"
+#~ msgstr "Использовать старый стиль отступов записей Cantor"
+
+#~ msgid "Jupyter"
+#~ msgstr "Jupyter"
+
+#~ msgid ""
+#~ "If enable, then Cantor will store rich formatting of text entries on "
+#~ "saving to Jupyter notebook format."
+#~ msgstr ""
+#~ "Если параметр включён, Cantor будет сохранять форматирование текста при "
+#~ "сохранении документа в формате Jupyter Notebook."
+
+#~ msgid ""
+#~ "Graphical package, for which will be enable support for embedding plots"
+#~ msgstr ""
+#~ "Графический пакет, который обеспечивает поддержку внедрения графиков"
+
+#~ msgid ""
+#~ "Graphic package, which code will be used for plotting via \"Plot\" Cantor "
+#~ "menu."
+#~ msgstr ""
+#~ "Графический пакет, код которого будет использоваться для построения "
+#~ "графиков с помощью меню «График» Cantor."
+
+#~ msgid "Matplotlib (with seaborn, ggplot support too)"
+#~ msgstr "Matplotlib (с поддержкой seaborn, ggplot)"
+
+#~ msgid "Plot.ly"
+#~ msgstr "Plot.ly"
+
+#~ msgid "All supported"
+#~ msgstr "Все поддерживаемые"
+
+#~ msgid ""
+#~ "Graphic package, used for plotting. When integrated plots option is "
+#~ "enabled, then plots from the package will be integrated to worksheet"
+#~ msgstr ""
+#~ "Графический пакет, который используется для построения графиков. Если "
+#~ "встраивание графиков включено, графики из пакета будут встраиваться в "
+#~ "документ."
+
+#~ msgid "Graphic Package: "
+#~ msgstr "Графический пакет: "
+
+#~ msgid "<h1>Cantor</h1>The KDE way to do Mathematics"
+#~ msgstr "<h1>Cantor</h1>Математический центр KDE"
+
+#~ msgid "Url to the local Maxima documentation"
+#~ msgstr "URL-адрес локальной документации Maxima"
+
+#~ msgid ""
+#~ "If empty, the \"Show help\" action will show the default online "
+#~ "documentation. Otherwise, the specified URL will be opened."
+#~ msgstr ""
+#~ "Если поле оставлено пустым, при выборе действия «Показать документацию» "
+#~ "будет показана сетевая документация по умолчанию. В ином случае будет "
+#~ "выполнен переход по указанному в поле URL-адресу."
+
+#, fuzzy
+#~ msgid "Documentation:"
+#~ msgstr "Открываемые документы."
+
+#~ msgid "Url to the local Python documentation"
+#~ msgstr "URL-адрес локальной документации Python"
+
+#~ msgid "Url to the local Octave documentation"
+#~ msgstr "URL-адрес локальной документации Octave"
+
+#~ msgid "Show %1 Help"
+#~ msgstr "Открыть документацию по %1"
+
+#~ msgid "Path to Julia:"
+#~ msgstr "Путь к программе Julia:"
+
+#~ msgid "Integrate Plots in Worksheet"
+#~ msgstr "Встраивать графики в документ"
+
+#~ msgid ""
+#~ "Commands to automatically run on start. They can be useful for loading "
+#~ "needed modules, changing environment, etc."
+#~ msgstr ""
+#~ "Команды для автоматического выполнения при запуске. Они могут быть "
+#~ "полезны для загрузки необходимых модулей, смены среды и так далее."
+
+#~ msgid "Clear Variables"
+#~ msgstr "Очистить список переменных"
+
+#~ msgid "Exclude from Execution"
+#~ msgstr "Исключить из выполнения"
+
+#~ msgid "Add to Execution"
+#~ msgstr "Добавить для выполнения"
+
+#~ msgid "Right click here to insert image"
+#~ msgstr "Нажмите правой кнопкой для вставки изображения"
+
+#~ msgid "Choose Image"
+#~ msgstr "Выбор изображения"
+
+#~ msgid "Images (*.png *.bmp *.jpg *.svg)"
+#~ msgstr "Изображения (*.png *.bmp *.jpg *.svg)"
+
+#~ msgid "Confirmation - Cantor"
+#~ msgstr "Подтверждение — Cantor"
+
+#~ msgid "Text Entry"
+#~ msgstr "Фрагмент текста"
+
+#~ msgid "LaTeX Entry"
+#~ msgstr "Фрагмент кода LaTeX"
+
+#~ msgid "Insert Entry Before"
+#~ msgstr "Вставить запись выше"
+
+#~ msgid "Insert Horizontal Line"
+#~ msgstr "Вставить горизонтальную линию"
+
+#, fuzzy
+#~ msgid "Insert Hierarchy Entry"
+#~ msgstr "Вставить фрагмент текста"
+
+#~ msgid ""
+#~ "Path to scilab-adv-cli command (Warning: Scilab version must better or "
+#~ "equal than 5.4 version)"
+#~ msgstr ""
+#~ "Путь к исполняемому файлу scilab-adv-cli. Предупреждение: версия Scilab "
+#~ "должна быть 5.4 или новее."
+
+#~ msgid "Insert Image Attachment"
+#~ msgstr "Вставить изображение как вложение"
+
+#~ msgid "Insert Latex Entry"
+#~ msgstr "Вставить фрагмент кода LaTeX ниже"
+
+#~ msgid "Path to Cantor python server executable"
+#~ msgstr "Путь к исполняемому файлу Python-сервера Cantor"
+
+#~ msgid ""
+#~ "Path to directory, which contains Cantor plugins (cantorpart and all "
+#~ "backends)"
+#~ msgstr ""
+#~ "Путь к каталогу, который содержит модули Cantor (cantorpart и все базовые "
+#~ "системы)"
+
+#~ msgid "Paths (advance settings)"
+#~ msgstr "Пути (расширенные параметры)"
+
+#~ msgid "Path to Cantor plugin directory:"
+#~ msgstr "Путь к каталогу модулей Cantor:"
+
+#~ msgid ""
+#~ "Path to directory, which contains Cantor backend plugins. This is "
+#~ "important setting - with wrong path Cantor can't create any worksheets."
+#~ msgstr ""
+#~ "Путь к каталогу, который содержит модули базовых систем Cantor. Это "
+#~ "важный параметр — если путь указан неверно, создавать документы с помощью "
+#~ "Cantor будет невозможно."
+
+#~ msgid "Inline Plots Intermediate Format:"
+#~ msgstr "Промежуточный формат графиков внутри документа:"
+
+#~ msgid "Preferred package for the \"Plot\" menu: "
+#~ msgstr "Предпочитаемый пакет для меню «График»:"
+
+#~ msgid "Path to Maxima:"
+#~ msgstr "Путь к программе Maxima:"
+
+#~ msgid "Path to Cantor Python Server:"
+#~ msgstr "Путь к Python-серверу Cantor:"
+
+#~ msgid "Path to Sage:"
+#~ msgstr "Путь к программе Sage:"
+
+#~ msgid "Path to scilab-adv-cli command:"
+#~ msgstr "Путь к команде scilab-adv-cli:"
+
+#~ msgid "Let Cantor follow the creation/destruction of variables"
+#~ msgstr "Разрешить Cantor следить за созданием и уничтожением переменных"
+
+#, fuzzy
+#~ msgid "Integrate Plots in Worksheet (start a new session when changed)"
+#~ msgstr "Встраивать графики в документ"
+
+#~ msgid "Path to the Octave executable"
+#~ msgstr "Путь к исполняемому файлу Octave"
+
+#~ msgid "Path to Octave:"
+#~ msgstr "Путь к программе Octave:"
+
+#~ msgid "Unnamed"
+#~ msgstr "Безымянный"
+
+#, fuzzy
+#~ msgctxt "The url to the documentation Python 2"
+#~ msgid "https://docs.python.org/2/"
+#~ msgstr "http://docs.python.org/2/"
+
+#, fuzzy
+#~ msgid ""
+#~ "<b>Python</b> is a remarkably powerful dynamic programming language that "
+#~ "is used in a wide variety of application domains. There are several "
+#~ "Python packages to scientific programming. This backend supports Python 3."
+#~ msgstr ""
+#~ "<p>Python — исключительно мощный язык программирования, используемый для "
+#~ "широкого круга приложений. Существует несколько пакетов для языка Python, "
+#~ "предназначенных для научных расчётов.</p><p>Этот модуль поддержки Python "
+#~ "работает только с Python 3.</p>"
+
+#~ msgctxt ""
+#~ "the url to the documentation of R, please check if there is a translated "
+#~ "version and use the correct url"
+#~ msgid "http://rwiki.sciviews.org/doku.php?id=rdoc:rdoc"
+#~ msgstr "http://rwiki.sciviews.org/doku.php?id=rdoc:rdoc"
+
+#~ msgid "Choose the Backend to use:"
+#~ msgstr "Выберите базовую систему компьютерной алгебры:"
+
+#~ msgid ""
+#~ "The backend with which this file was generated is not installed. It needs "
+#~ "%1"
+#~ msgstr ""
+#~ "Базовая система, при помощи которой был создан этот файл, не установлена. "
+#~ "Требуется %1"
+
+#~ msgid "Publish Worksheet"
+#~ msgstr "О&публиковать документ"
+
+#~ msgid "Waiting for Image..."
+#~ msgstr "Ожидание изображения..."
+
+#~ msgid "%1: %2"
+#~ msgstr "%1: %2"
+
+#~ msgid "cannot open file %1: Unknown MimeType"
+#~ msgstr "Не удалось открыть файл %1: неизвестный тип MIME"
+
+#~ msgid "*.tex|LaTeX Document"
+#~ msgstr "*.tex|Документы LaTeX"
+
+#~ msgid "*.cws|Cantor Worksheet"
+#~ msgstr "Документы Cantor (*.cws)"
+
+#~ msgid "Server for the Cantor R Backend"
+#~ msgstr "Сервер для базовой системы R для Cantor"
+
+#~ msgid "R Server"
+#~ msgstr "Сервер R"
+
+#~ msgid "(C) 2009 Alexander Rieder"
+#~ msgstr "© Alexander Rieder, 2009"
+
+# BUGME: note that "saveVariables" should not be translated in the context --aspotashev
+#~ msgid "Usage: saveVariables file"
+#~ msgstr "Использование: saveVariables [файл]"
+
+#~ msgid "Saving failed."
+#~ msgstr "При сохранении произошла ошибка."
+
+# BUGME: add context: loadVariables shouldn't be translated --aspotashev
+#~ msgid "Usage: loadVariables file"
+#~ msgstr "Использование: loadVariables [файл]"
+
+#~ msgid "Loading failed."
+#~ msgstr "При загрузке произошла ошибка."
+
+#~ msgid "(C) 2009-2013 Alexander Rieder"
+#~ msgstr "© Alexander Rieder, 2009-2013"
+
+#~ msgid "Path to python command"
+#~ msgstr "Путь к команде python"
+
+#~ msgid "Cantor Server for R"
+#~ msgstr "Сервер R для Cantor"
+
+#, fuzzy
+#~ msgid "Path to python2 command:"
+#~ msgstr "Путь к команде scilab-adv-cli:"
+
+#~ msgid " Enable Variable Management"
+#~ msgstr " Включить управление переменными"
+
+#~ msgid "Could not start the server."
+#~ msgstr "Не удалось запустить сервер."
+
+#~ msgid "Start Animation"
+#~ msgstr "Запустить анимацию"
+
+#~ msgid "Restart Animation"
+#~ msgstr "Перезапустить анимацию"
+
+#~ msgid "Append Latex Entry"
+#~ msgstr "Добавить фрагмент кода LaTeX"
+
+#~ msgid "Append Image"
+#~ msgstr "Добавить изображение"
+
+#~ msgid "Append Page Break"
+#~ msgstr "Добавить разрыв страницы"
+
+#~ msgid "Other"
+#~ msgstr "Другое"
+
+#~ msgid "And %1 more..."
+#~ msgstr "И ещё %1..."
+
+#~ msgid "Main Toolbar"
+#~ msgstr "Основная панель инструментов"
+
+#~ msgid "Popup"
+#~ msgstr "Во всплывающем меню"
+
+#~ msgid "The style used for Completion"
+#~ msgstr "Режим автодополнения"
+
+#~ msgid "Insert Command Entry Before"
+#~ msgstr "Вставить выражение выше"
+
+#~ msgid "Command Entry Before"
+#~ msgstr "Выражение выше"
+
+# BUGME: shouldn't be translatable (not user visible)
+#~ msgid "GroupBox"
+#~ msgstr "GroupBox"
+
+#~ msgid "This test requires a functioning %1 backend"
+#~ msgstr ""
+#~ "Для запуска этого теста требуется поддержка системы компьютерной алгебры "
+#~ "%1"
+
+#~ msgid "Help"
+#~ msgstr "Справка"
+
+#~ msgid "Show Help Panel"
+#~ msgstr "Панель справки"
+
+#~ msgid "Error uploading File %1"
+#~ msgstr "Ошибка при публикации файла %1"

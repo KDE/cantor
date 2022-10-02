@@ -1,0 +1,1576 @@
+<?xml version="1.0" ?>
+<!DOCTYPE book PUBLIC "-//KDE//DTD DocBook XML V4.5-Based Variant V1.1//EN" "dtd/kdedbx45.dtd" [
+
+  <!ENTITY latex "L<superscript
+>A</superscript
+>T<subscript
+>E</subscript
+>X">
+  <!ENTITY % addindex "IGNORE">
+  <!ENTITY % Ukrainian "INCLUDE">
+]>
+<book id="cantor" lang="&language;">
+
+<bookinfo>
+<title
+>Підручник з &cantor;</title>
+
+<authorgroup>
+<author
+><personname
+> <firstname
+>Alexander</firstname
+> <surname
+>Rieder</surname
+> </personname
+> <email
+>alexanderrieder@gmail.com</email
+> </author>
+<othercredit role="translator"
+><firstname
+>Юрій</firstname
+><surname
+>Чорноіван</surname
+><affiliation
+><address
+><email
+>yurchor@ukr.net</email
+></address
+></affiliation
+><contrib
+>Переклад українською</contrib
+></othercredit
+> 
+</authorgroup>
+
+<copyright>
+<year
+>2009</year>
+<holder
+>Alexander Rieder</holder>
+</copyright>
+<legalnotice
+>&FDLNotice;</legalnotice>
+
+<date
+>16 грудня 2020 року</date>
+<releaseinfo
+>Програми 20.12</releaseinfo>
+
+<abstract>
+<para
+>&cantor; — програма-оболонка, за допомогою якої ви можете працювати на зручних робочих аркушах з математичними пакунками вільного програмного забезпечення. </para>
+</abstract>
+
+<keywordset>
+<keyword
+>KDE</keyword>
+<keyword
+>kdeedu</keyword>
+<keyword
+>математика</keyword>
+<keyword
+>математика</keyword>
+<keyword
+>Cantor</keyword>
+<keyword
+>Julia</keyword>
+<keyword
+>Lua</keyword>
+<keyword
+>Maxima</keyword>
+<keyword
+>Octave</keyword>
+<keyword
+>Python</keyword>
+<keyword
+>Qalculate</keyword>
+<keyword
+>R</keyword>
+<keyword
+>Sage</keyword>
+<keyword
+>Scilab</keyword>
+</keywordset>
+
+</bookinfo>
+
+<chapter id="introduction">
+<title
+>Вступ</title>
+
+<para
+>&cantor; — це програма, за допомогою якої ви зможете користуватися вашими улюбленими математичними програмами, не полишаючи зручного інтегрованого з &kde; інтерфейсу робочого аркуша. У програмі передбачено допоміжні діалогові вікна, призначені для виконання типових завдань, та можливість оприлюднення ваших робочих аркушів. </para>
+</chapter>
+
+<chapter id="using-kapp">
+<title
+>Користування &cantor;</title>
+
+<para
+>Знімок вікна: <screenshot>
+<screeninfo
+>Ось знімок вікна &cantor;</screeninfo>
+	<mediaobject>
+	  <imageobject>
+	    <imagedata fileref="screenshot.png" format="PNG"/>
+	  </imageobject>
+	  <textobject>
+	    <phrase
+>Знімок вікна</phrase>
+	  </textobject>
+	</mediaobject>
+</screenshot>
+</para>
+
+
+<sect1 id="kapp-features">
+<title
+>Можливості &cantor;</title>
+<itemizedlist>
+  <listitem
+><para
+>Робочий аркуш для виконання обчислень.</para
+></listitem>
+  <listitem
+><para
+>Перегляд результатів креслення на робочому аркуші.</para
+></listitem>
+  <listitem
+><para
+>Проста заснована на додатках побудова, що спрощує додавання різних модулів обробки даних</para
+></listitem>
+  <listitem
+><para
+>Інтеграція з системою отримання нових матеріалів для вивантаження і отримання прикладів робочих аркушів</para
+></listitem>
+  <listitem
+><para
+>Показ математичних формул за допомогою &latex;.</para
+></listitem>
+  <listitem
+><para
+>Прив’язане до модуля обробки даних підсвічування синтаксису.</para
+></listitem>
+  <listitem
+><para
+>Засновані на додатках допоміжні діалогові вікна для виконання типових дій (зокрема інтегрування функції або введення матриці).</para
+></listitem>
+</itemizedlist>
+</sect1>
+
+<sect1 id="backends">
+<title
+>Модулі обробки &cantor;</title>
+<para
+>У &cantor; передбачено декілька можливих модулів обробки даних, якими ви можете скористатися. Вибір модуля залежить від завдань, які ви бажаєте виконати. </para>
+<para
+>У поточній версії програми підтримуються такі модулі: <variablelist>
+    <varlistentry>
+      <term
+>Sage:</term>
+      <listitem>
+	<para
+>Sage — це вільна система математичного програмного забезпечення з відкритим кодом, випущена за умов дотримання GPL. У ній поєднується потужність багатьох пакунків з відкритим програмним кодом та загальний заснований на Python інтерфейс. Докладніше про систему можна дізнатися за адресою <ulink url="https://sagemath.org"
+>https://sagemath.org</ulink
+>. </para>
+	</listitem>
+    </varlistentry>
+    <varlistentry>
+      <term
+>Maxima:</term>
+      <listitem>
+	<para
+>Maxima — це система для роботи з символічними і числовими виразами, зокрема диференціювання, інтегрування, розкладу у ряди Тейлора, виконання перетворення Лапласа, розв’язання звичайних диференціальних рівнянь, роботи з поліномами, множинами, списками, векторами, матрицями і тензорами. За допомогою Maxima можна отримувати результати з високою точністю, оскільки програма використовує точні дроби і виконує обчислення з довільною визначеною точністю. Maxima здатна креслити графіки функцій та графічно відображати дані у двох та трьох вимірах. Докладніше про програму можна дізнатися за адресою <ulink url="http://maxima.sourceforge.net"
+>http://maxima.sourceforge.net</ulink
+>. </para>
+      </listitem>
+    </varlistentry>
+    <varlistentry>
+      <term
+>R:</term>
+      <listitem>
+	<para
+>R — це мова і середовище для статистичних обчислень та побудови графіків, подібна до мови і середовища S. У середовищі реалізовано широкий спектр статистичних та графічних методик (лінійне і нелінійне моделювання, класичні статистичні перевірки, аналіз часових послідовностей, класифікацію, групування тощо). Можливості середовища досить просто розширити. Мова S часто є основним рушієм у статистичних дослідженнях, R надає вам змогу виконувати подібні дослідження за допомогою вільного програмного забезпечення. Докладніше про мову і середовище можна дізнатися за адресою <ulink url="https://www.r-project.org"
+>https://www.r-project.org</ulink
+>. </para>
+      </listitem>
+    </varlistentry>
+    <varlistentry>
+      <term
+>Julia:</term>
+      <listitem>
+	<para
+>Julia — високорівнева високошвидкісна динамічна мова для виконання інженерних обчислень. Синтаксис мови подібний до синтаксису інших середовищ для виконання технічних обчислень. Передбачено гнучкий компілятор, виконання паралельних обчислень, визначення точності представлення чисел та бібліотеку із широким спектр математичних функцій. Докладнішу інформацію можна знайти на <ulink url="https://docs.julialang.org/en/"
+>сторінці документації з Julia</ulink
+>. </para>
+      </listitem>
+    </varlistentry>
+    <varlistentry>
+      <term
+>&kalgebra;:</term>
+      <listitem>
+	<para
+>&kalgebra; — це заснований на MathML калькулятор-інструмент побудови графіків, який є частиною освітнього модуля &kde;. Докладніше про програму можна дізнатися за адресою <ulink url="https://edu.kde.org/kalgebra/"
+>https://edu.kde.org/kalgebra/</ulink
+>. </para>
+      </listitem>
+    </varlistentry>
+    <varlistentry>
+      <term
+>Qalculate!:</term>
+      <listitem>
+  <para
+>Qalculate! — це не звичайна програмна реалізація найдешевшого з калькуляторів. Qalculate! намагається повністю використати чудовий інтерфейс, потужність та гнучкість сучасних комп’ютерів. Основну увагу у Qalculate! приділено зручності введення даних. Замість введення кожного числа у математичному виразі окремо ви можете безпосередньо вписати цілий вираз і пізніше внести до нього зміни. Обробка виразів є доволі гнучкою і поблажливою до помилок. Якщо ви введете щось неправильно, Qalculate! повідомить вам про це. Якщо звести вираз до числового результату не вдасться, програма не поверне повідомлення про помилку. Qalculate! максимально спростить вираз і повідомить вам відповідь. Окрім чисел та арифметичних операторів, у виразах можуть міститися будь-які комбінації змінних, одиниць та функцій. Докладніше про програму можна дізнатися за адресою <ulink url="https://qalculate.github.io/"
+>https://qalculate.github.io/</ulink
+>. </para>
+  </listitem>
+    </varlistentry>
+    <varlistentry>
+      <term
+>Python2 і Python3:</term>
+      <listitem>
+  <para
+>Python є доволі потужною мовою динамічного програмування, яка використовується у багатьох комплектах програм. Існує декілька пакунків Python для наукового програмування. </para>
+  <para
+>Python поширюється за умов дотримання ліцензії Python Software Foundation (сумісної з GPL). Докладніше про мову програмування можна дізнатися з <ulink url="https://www.python.org/"
+>офіційного сайта</ulink
+>. </para>
+  <note>
+    <para
+>Цим модулем додається пункт основного меню &cantor; <guimenu
+>Пакунок</guimenu
+>. Єдиним пунктом цього меню є <menuchoice
+><guimenu
+>Пакунок</guimenu
+><guimenuitem
+>Імпортувати пакунок</guimenuitem
+></menuchoice
+>. За допомогою цього пункту можна імпортувати до робочого простору вказаний вами пакунок Python. </para>
+  </note>
+    </listitem>
+    </varlistentry>
+    <varlistentry>
+      <term
+>Scilab:</term>
+      <listitem>
+  <para
+>Scilab є вільним програмним забезпеченням, працює на багатьох платформах. Це програмне забезпечення призначено для виконання обчислень і керується високорівневою мовою програмування. </para>
+  <para
+>Scilab поширюється за умов дотримання ліцензії CeCILL (сумісної з GPL). Докладніше про програму можна дізнатися за адресою <ulink url="https://www.scilab.org/"
+>https://www.scilab.org/</ulink
+>. </para>
+  <warning>
+    <para
+>У вашій системі має бути встановлено Scilab версії 5.5 або новішої, щоб цим модулем можна було користуватися. </para>
+  </warning>
+  </listitem>
+    </varlistentry>
+    <varlistentry>
+      <term
+>Octave:</term>
+      <listitem>
+  <para
+>&GNU; Octave — високорівнева оболонка мови програмування, основним призначенням якої є обчислення. У оболонці передбачено зручний інтерфейс командного рядка для числового розв’язання лінійних і нелінійних задач, проведення інших числових експериментів. Мова програмування має високий рівень сумісності з мовою <ulink url="https://www.mathworks.com/products/matlab.html"
+>MATLAB</ulink
+>. Докладніше про цю мову програмування можна дізнатися з <ulink url="https://www.gnu.org/software/octave/"
+>цієї сторінки</ulink
+>. </para>
+      </listitem>
+    </varlistentry>
+    <varlistentry>
+      <term
+>Lua:</term>
+      <listitem>
+  <para
+>Lua — проста і невибаглива до ресурсів скриптова мова програмування з простим процедурним синтаксисом. Для Lua створено декілька бібліотек для математичного і наукового програмування. </para>
+  <para
+>Докладніші відомості можна знайти на <ulink url="https://www.lua.org/"
+>цій сторінці</ulink
+>. </para>
+  <para
+>У цьому модулі реалізовано підтримку <ulink url="https://luajit.org/"
+>luajit 2</ulink
+>. </para>
+      </listitem>
+    </varlistentry>
+  </variablelist>
+</para>
+</sect1>
+
+<sect1 id="workspace">
+<title
+>Робочий простір &cantor;</title>
+<para>
+<screenshot>
+  <screeninfo
+>Знімок робочого простору &cantor;</screeninfo>
+  <mediaobject>
+    <imageobject>
+      <imagedata fileref="screenshot.png" format="PNG"/>
+    </imageobject>
+    <textobject>
+      <phrase
+>Знімок робочого простору &cantor;</phrase>
+    </textobject>
+  </mediaobject>
+</screenshot>
+</para>
+<para
+>Інтерфейс робочого аркуша &cantor; складається з трьох частин: <orderedlist>
+    <listitem
+><para
+>Панелі вкладок, за допомогою якої ви зможете перемикатися між робочими аркушами.</para
+></listitem>
+    <listitem
+><para
+>Панелі довідки, де може бути показано довідку щодо певної команди, якщо ви введете команду <userinput
+>?? <replaceable
+>команда</replaceable
+></userinput
+>, <userinput
+>describe(<replaceable
+>команда</replaceable
+>)</userinput
+> або <userinput
+>example(<replaceable
+>команда</replaceable
+>)</userinput
+> (модуль <application
+>Maxima</application
+>).</para
+></listitem>
+    <listitem
+><para
+>Панель керування змінними, на якій буде показано список всіх доступних змінних поточного робочого аркуша. Панелі довідки та керування змінними буде показано як вкладки на бічній панелі вікна &cantor;. Керуванням змінними можна скористатися, лише якщо використовується один з таких модулів: Maxima (якщо увімкнено на сторінці <guilabel
+>Maxima</guilabel
+> вікна <menuchoice
+><guimenu
+>Параметри</guimenu
+><guimenuitem
+>Налаштувати &cantor;...</guimenuitem
+></menuchoice
+>), &kalgebra;, Octave, Python2, Python3, Qalculate та Scilab.</para
+></listitem>
+    <listitem
+><para
+>Сам робочий аркуш.</para
+></listitem>
+  </orderedlist>
+</para>
+<sect2 id="worksheet">
+<title
+>Робочий аркуш</title>
+<para
+>Робочий аркуш — це основна область для роботи у &cantor;. Тут ви вводитимете вирази, тут виконуватиме обчислення модуль обробки даних, тут він показуватиме вам результати. Перелік команд, які можна буде використати на робочому аркуші, залежатиме від вибраного модуля, отже вам слід ознайомитися з відповідною документацією (натискання кнопки <guibutton
+>Показати довідку</guibutton
+> відкриє відповідну сторінку довідки). Якщо ви знаєте назву команди, але потребуєте додаткової інформації щодо неї, ви можете ввести команду «? <replaceable
+>команда</replaceable
+>», щоб переглянути у правій частині робочого аркуша контекстну довідку. Якщо ви бажаєте переглянути приклади робочих аркушів, ви можете скористатися пунктом меню <menuchoice
+><guimenu
+>Файл</guimenu
+> <guimenuitem
+>Отримати приклади робочих аркушів</guimenuitem
+></menuchoice
+> і отримати створені іншими користувачами робочі аркуші. </para>
+<para
+>Для керування записами команд на робочому аркуші ви можете скористатися кнопками, які буде показано у правій частині робочого аркуша після наведення вказівника миші на поле запису. Для кожного з записів передбачено три основні дії: <guilabel
+>Обчислити запис</guilabel
+> для оновлення результату обчислень для запису, <guilabel
+>Перетягнути запис</guilabel
+> для пересування запису до іншого місця поточного робочого аркуша та <guilabel
+>Вилучити запис</guilabel
+> для вилучення запису з поточного робочого аркуша. </para>
+<para
+>Змінити параметри шрифту та вирівнювання записів робочого аркуша можна за допомогою панелі інструментів, розташованої над робочим аркушем. </para>
+<sect3 id="worksheet-settings">
+  <title
+>Параметри</title>
+  <para
+>За допомогою меню <guimenu
+>Параметри</guimenu
+> ви можете змінити деякі з параметрів вигляду вашого поточного робочого аркуша. </para>
+  <variablelist>
+    <varlistentry>
+      <term
+>Показ з використанням LaTeX</term>
+      <listitem>
+	<para
+>За допомогою цього пункту можна змінити спосіб, у який вам буде показано результати. Якщо пункт буде позначено, результат буде показано за допомогою системи &latex;, тобто формули набудуть приємнішого вигляду. Наприклад, вираз <quote
+>3*x^2*sqrt(2)*x+2/3</quote
+> буде показано як <inlinemediaobject>
+	      <imageobject>
+		<imagedata fileref="latex_formula.png" format="PNG"/>
+	      </imageobject>
+	      <textobject
+><phrase
+>3*x^2*sqrt(2)*x+2/3</phrase
+></textobject>
+	  </inlinemediaobject>
+	</para>
+      </listitem>
+    </varlistentry>
+    <varlistentry>
+      <term
+>Підсвічування синтаксису</term>
+      <listitem>
+	<para
+>Підсвічування синтаксису спрощує роботу з кодом. Програма підсвічуватиме ключові слова або відповідні дужки вказаним вами кольорами. </para>
+      </listitem>
+    </varlistentry>
+    <varlistentry>
+      <term
+>Доповнення</term>
+      <listitem>
+	<para
+>Якщо буде позначено це пункт, &cantor; показуватиме можливі варіанти завершення команди, яку ви вводите після натискання клавіші Tab. Якщо можливим буде лише один варіант, програма просто завершить введення вашої команди. </para>
+      </listitem>
+    </varlistentry>
+  <varlistentry>
+    <term
+>Номери рядків</term>
+    <listitem>
+      <para
+>За допомогою цього пункту можна визначити, чи буде показано перед кожним з виразів його номер, отже, наприклад, у Maxima ви зможете вказувати попередні результати за допомогою команди <quote
+>%O1</quote
+>. </para>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term
+>Анімувати робочий аркуш</term>
+    <listitem>
+      <para
+>За допомогою цього пункту можна вмикати або вимикати анімаційний супровід змін на робочому аркуші. </para>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term
+>Вбудовані формули</term>
+    <listitem>
+      <para
+>За допомогою цього параметра можна визначити, чи буде увімкнено обробку математичних формул <literal
+>$$..$$</literal
+> у текстових записах та записах розмітки (має бути встановлено <application
+>pdflatex</application
+>). </para>
+    </listitem>
+  </varlistentry>
+  </variablelist>
+</sect3>
+</sect2>
+</sect1>
+<sect1 id="assistant-dlgs">
+<title
+>Допоміжні діалогові вікна</title>
+<para
+>У &cantor; передбачено декілька допоміжних діалогових вікон для полегшення виконання деяких простих операцій. </para>
+<para
+>Доступ до цих діалогових вікон можна отримати за допомогою пунктів головного меню програми. У кожного із модулів обробки власний набір допоміжних діалогових вікон. </para>
+<sect2 id="create-matrix-dlg">
+<title
+>Діалогове вікно створення матриці</title>
+<screenshot>
+  <screeninfo
+>Знімок діалогового вікна створення матриці у &cantor;</screeninfo>
+  <mediaobject>
+    <imageobject>
+      <imagedata fileref="create-dlg.png" format="PNG"/>
+    </imageobject>
+    <textobject>
+      <phrase
+>Знімок діалогового вікна створення матриці у &cantor;</phrase>
+    </textobject>
+  </mediaobject>
+</screenshot>
+<para
+>За допомогою цього діалогового вікна можна вводити матриці. Ви можете визначити розмірності матриці і ввести її елементи. </para>
+<para
+>Під час введення даних можна швидко пересуватися між комірками за допомогою натискання клавіші &Tab;. </para>
+</sect2>
+<sect2 id="compute-invert-dlg">
+<title
+>Діалогове вікно дій з матрицею</title>
+<screenshot>
+  <screeninfo
+>Знімок діалогового вікна введення матриці &cantor;</screeninfo>
+  <mediaobject>
+    <imageobject>
+      <imagedata fileref="matrix-dlg.png" format="PNG"/>
+    </imageobject>
+    <textobject>
+      <phrase
+>Знімок діалогового вікна введення матриці &cantor;</phrase>
+    </textobject>
+  </mediaobject>
+</screenshot>
+<para
+>За допомогою цього діалогового вікна можна ввести назву матриці для обчислення її власних векторів, власних значень або оберненої матриці. Типове значення (<userinput
+>%</userinput
+>) використовується для позначення попереднього результату обчислень або введення. </para>
+</sect2>
+<sect2 id="calculate-derivative-dlg">
+<title
+>Діалогове вікно диференціювання</title>
+<screenshot>
+  <screeninfo
+>Знімок діалогового вікна диференціювання &cantor;</screeninfo>
+  <mediaobject>
+    <imageobject>
+      <imagedata fileref="differentiate-dlg.png" format="PNG"/>
+    </imageobject>
+    <textobject>
+      <phrase
+>Знімок діалогового вікна диференціювання &cantor;</phrase>
+    </textobject>
+  </mediaobject>
+</screenshot>
+<para
+>За допомогою цього діалогового вікна можна ввести вираз для функції, яку слід продиференціювати, її змінну та порядок похідної. </para>
+</sect2>
+<sect2 id="calculate-integral-dlg">
+<title
+>Діалогове вікно інтегрування</title>
+<screenshot>
+  <screeninfo
+>Знімок діалогового вікна інтегрування &cantor;</screeninfo>
+  <mediaobject>
+    <imageobject>
+      <imagedata fileref="integrate-dlg.png" format="PNG"/>
+    </imageobject>
+    <textobject>
+      <phrase
+>Знімок діалогового вікна інтегрування &cantor;</phrase>
+    </textobject>
+  </mediaobject>
+</screenshot>
+<para
+>За допомогою цього діалогового вікна можна ввести вираз для функції, яку слід проінтегрувати, її змінну та межі інтегрування (для визначеного інтеграла). </para>
+</sect2>
+<sect2 id="calculate-solve-dlg">
+<title
+>Діалогове вікно розв’язування рівнянь</title>
+<screenshot>
+  <screeninfo
+>Знімок діалогового вікна розв’язування рівнянь &cantor;</screeninfo>
+  <mediaobject>
+    <imageobject>
+      <imagedata fileref="solve-equations-dlg.png" format="PNG"/>
+    </imageobject>
+    <textobject>
+      <phrase
+>Знімок діалогового вікна розв’язування рівнянь &cantor;</phrase>
+    </textobject>
+  </mediaobject>
+</screenshot>
+<para
+>За допомогою цього діалогового вікна можна вводити рівняння для розв’язування (кожне з рівнянь у окремому рядку) та змінні, значення яких слід визначити (відокремлені комами). </para>
+</sect2>
+<sect2 id="package-import-dlg">
+<title
+>Діалогове вікно імпортування пакунків</title>
+<screenshot>
+  <screeninfo
+>Знімок діалогового вікна імпортування пакунків &cantor;</screeninfo>
+  <mediaobject>
+    <imageobject>
+      <imagedata fileref="import-dlg.png" format="PNG"/>
+    </imageobject>
+    <textobject>
+      <phrase
+>Знімок діалогового вікна імпортування пакунків &cantor;</phrase>
+    </textobject>
+  </mediaobject>
+</screenshot>
+<para
+>За допомогою цього діалогового вікна можна ввести назву пакунка, який слід імпортувати (наприклад, <userinput
+>numpy</userinput
+> для Python). </para>
+</sect2>
+<sect2 id="plot-dlg">
+<title
+>Діалогове вікно креслення</title>
+<screenshot>
+  <screeninfo
+>Знімок діалогового вікна креслення &cantor; (вкладка «Функції»)</screeninfo>
+  <mediaobject>
+    <imageobject>
+      <imagedata fileref="plot-dlg1.png" format="PNG"/>
+    </imageobject>
+    <textobject>
+      <phrase
+>Знімок діалогового вікна креслення &cantor; (вкладка «Функції»)</phrase>
+    </textobject>
+  </mediaobject>
+</screenshot>
+<para
+>Параметри у цьому діалоговому вікні поділено на дві групи за вкладками. За допомогою вкладки <guilabel
+>Функції</guilabel
+> можна вводити функції, графіки яких слід накреслити. </para>
+<para
+>Щоб ввести нову функцію, натисніть кнопку <guibutton
+>Додати</guibutton
+>. Двічі клацніть на комірці <guilabel
+>Заголовок</guilabel
+> і введіть заголовок, потім двічі клацніть на комірці <guilabel
+>Вираз</guilabel
+> і введіть вираз функціональної залежності. </para>
+<screenshot>
+  <screeninfo
+>Знімок діалогового вікна креслення &cantor; (вкладка «Параметри»)</screeninfo>
+  <mediaobject>
+    <imageobject>
+      <imagedata fileref="plot-dlg2.png" format="PNG"/>
+    </imageobject>
+    <textobject>
+      <phrase
+>Знімок діалогового вікна креслення &cantor; (вкладка «Параметри»)</phrase>
+    </textobject>
+  </mediaobject>
+</screenshot>
+<para
+>За допомогою вкладки <guilabel
+>Параметри</guilabel
+> можна визначити параметри креслення та умовних позначень. Ви можете налаштувати майже усі параметри креслення, щоб отримати потрібний вам вигляд. </para>
+</sect2>
+<sect2 id="plot2d-dlg">
+<title
+>Діалогове вікно двовимірного креслення</title>
+<screenshot>
+  <screeninfo
+>Знімок діалогового вікна плоского креслення &cantor;</screeninfo>
+  <mediaobject>
+    <imageobject>
+      <imagedata fileref="plot2d-dlg.png" format="PNG"/>
+    </imageobject>
+    <textobject>
+      <phrase
+>Знімок діалогового вікна плоского креслення &cantor;</phrase>
+    </textobject>
+  </mediaobject>
+</screenshot>
+<para
+>За допомогою цього діалогового вікна можна ввести вираз для функції, її змінну та вказати межі зміни цієї змінної. </para>
+</sect2>
+<sect2 id="plot3d-dlg">
+<title
+>Діалогове вікно тривимірного креслення</title>
+<screenshot>
+  <screeninfo
+>Знімок діалогового вікна просторового креслення &cantor;</screeninfo>
+  <mediaobject>
+    <imageobject>
+      <imagedata fileref="plot3d-dlg.png" format="PNG"/>
+    </imageobject>
+    <textobject>
+      <phrase
+>Знімок діалогового вікна просторового креслення &cantor;</phrase>
+    </textobject>
+  </mediaobject>
+</screenshot>
+<para
+>За допомогою цього діалогового вікна можна ввести вираз для функції, її змінні та межі зміни кожної зі змінних. </para>
+</sect2>
+</sect1>
+</chapter>
+
+<chapter id="commands">
+<title
+>Довідка щодо команд</title>
+
+<sect1 id="kapp-mainwindow">
+<title
+>Головне вікно &cantor;</title>
+
+<para
+>У &cantor; передбачено типові пункти меню &kde;. Ознайомитися з їхнім призначенням можна за допомогою розділу, присвяченого <ulink url="help:/fundamentals/menus.html"
+>меню</ulink
+> підручника з основ роботи у &kde;. </para>
+
+<para
+>Нижче наведено список додаткових або спеціальних пунктів меню &cantor;. Будь ласка, зауважте, що деякі меню буде показано лише для модулів, у яких реалізовано відповідні можливості. </para>
+
+<sect2 id="file-menu">
+<title
+>Меню «Файл»</title>
+<para>
+<variablelist>
+<varlistentry>
+<term
+><menuchoice
+><shortcut
+> <keycombo
+>&Ctrl;<keycap
+>N</keycap
+></keycombo
+> </shortcut
+> <guimenu
+>Файл</guimenu
+> <guimenuitem
+>Новий аркуш</guimenuitem
+> </menuchoice
+></term>
+<listitem
+><para
+><action
+>Створює робочий аркуш з типовим модулем обробки команд.</action
+></para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><menuchoice
+><guimenu
+>Файл</guimenu
+> <guisubmenu
+>Новий аркуш</guisubmenu
+> <guimenuitem
+><replaceable
+>Модуль</replaceable
+></guimenuitem
+> </menuchoice
+></term>
+<listitem
+><para
+><action
+>Створює робочий аркуш з вказаним модулем обробки команд.</action
+></para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><menuchoice
+><shortcut
+> <keycombo action="simul"
+>&Ctrl;<keycap
+>O</keycap
+></keycombo
+> </shortcut
+> <guimenu
+>Файл</guimenu
+> <guimenuitem
+>Відкрити...</guimenuitem
+> </menuchoice
+></term>
+<listitem
+><para
+><action
+>Відкрити підтримуваний новий робочий аркуш за допомогою діалогового вікна роботи з файлами.</action
+></para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><menuchoice
+><guimenu
+>Файл</guimenu
+> <guisubmenu
+>Відкрити недавні</guisubmenu
+> </menuchoice
+></term>
+<listitem
+><para
+><action
+>Вибрати робочий аркуш зі списку нещодавно використаних файлів.</action
+></para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><menuchoice
+><guimenu
+>Файл</guimenu
+> <guimenuitem
+>Отримати приклади робочих аркушів</guimenuitem
+> </menuchoice
+></term>
+<listitem
+><para
+><action
+>Відкриває діалогове вікно для отримання прикладів, вивантажених іншими користувачами &cantor; за допомогою <ulink url="https://userbase.kde.org/Special:MyLanguage/Glossary#Get_Hot_New_Stuff"
+>можливості отримання нових даних</ulink
+>.</action
+></para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><menuchoice
+><guimenu
+>Файл</guimenu
+> <guimenuitem
+>Відкрити приклад</guimenuitem
+> </menuchoice
+></term>
+<listitem
+><para
+><action
+>Відкриває діалогове вікно вибору прикладу для завантаження.</action
+> Цей приклад має бути попередньо отримано за допомогою пункту меню <menuchoice
+><guimenu
+>Файл</guimenu
+> <guimenuitem
+>Отримати приклади робочих аркушів</guimenuitem
+></menuchoice
+>.</para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><menuchoice
+><guimenu
+>Файл</guimenu
+> <guimenuitem
+>Зберегти як простий текст</guimenuitem
+> </menuchoice
+></term>
+<listitem
+><para
+><action
+>Надає користувачеві змогу зберегти поточний робочий аркуш як простий текстовий документ.</action
+></para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><menuchoice
+><guimenu
+>Файл</guimenu
+> <guimenuitem
+>Експортувати до LaTeX</guimenuitem
+> </menuchoice
+></term>
+<listitem
+><para
+><action
+>Надає користувачеві змогу зберегти поточний робочий аркуш як документ &latex;.</action
+></para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><menuchoice
+><guimenu
+>Файл</guimenu
+> <guimenuitem
+>Оприлюднити робочий аркуш</guimenuitem
+> </menuchoice
+></term>
+<listitem
+><para
+><action
+>Відкриває діалогове вікно оприлюднення вашого поточного робочого аркуша. За допомогою цього пункту ви можете надати ваш аркуш іншими користувачам &cantor; з використанням можливості <ulink url="https://userbase.kde.org/Special:MyLanguage/Glossary#Get_Hot_New_Stuff"
+>отримання нових даних</ulink
+>.</action
+></para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><menuchoice
+><guimenu
+>Файл</guimenu
+> <guimenuitem
+>Виконати скрипт</guimenuitem
+> </menuchoice
+></term>
+<listitem
+><para
+><action
+>Надає змогу завантажити і виконати пакетні скрипти для поточного сервера виконання команд.</action
+></para
+></listitem>
+</varlistentry>
+</variablelist>
+</para>
+
+</sect2>
+
+<sect2 id="view-menu">
+<title
+>Меню «Перегляд»</title>
+<para>
+<variablelist>
+<varlistentry>
+<term
+><menuchoice
+><guimenu
+>Перегляд</guimenu
+> <guisubmenu
+>Панелі</guisubmenu
+></menuchoice
+></term>
+<listitem
+><para
+>Надає вам змогу увімкнути або вимкнути показ певних вкладок на бічній панелі. Можливі варіанти: <variablelist>
+  <varlistentry>
+  <term
+><guimenuitem
+>Навігація файлами</guimenuitem
+></term>
+  <listitem
+><para
+><action
+>Вмикає або вимикає</action
+> видимість вкладки бічної панелі <guilabel
+>Навігація файлами</guilabel
+>.</para
+></listitem>
+  </varlistentry>
+
+  <varlistentry>
+  <term
+><guimenuitem
+>Довідка</guimenuitem
+></term>
+  <listitem
+><para
+><action
+>Вмикає або вимикає</action
+> видимість вкладки бічної панелі <guilabel
+>Довідка</guilabel
+>.</para
+></listitem>
+  </varlistentry>
+
+  <varlistentry>
+  <term
+><guimenuitem
+>Керування змінними</guimenuitem
+></term>
+  <listitem
+><para
+><action
+>Вмикає або вимикає</action
+> видимість вкладки бічної панелі <guilabel
+>Керування змінними</guilabel
+>.</para
+></listitem>
+  </varlistentry>
+</variablelist
+></para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><menuchoice
+><shortcut
+> <keycombo action="simul"
+>&Ctrl;<keycap
+>+</keycap
+></keycombo
+> </shortcut
+> <guimenu
+>Перегляд</guimenu
+> <guimenuitem
+>Збільшити</guimenuitem
+> </menuchoice
+></term>
+<listitem
+><para
+><action
+>Збільшує масштаб</action
+> поточного робочого аркуша на 10%.</para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><menuchoice
+><shortcut
+> <keycombo action="simul"
+>&Ctrl;<keycap
+>-</keycap
+></keycombo
+> </shortcut
+> <guimenu
+>Перегляд</guimenu
+> <guimenuitem
+>Зменшити</guimenuitem
+> </menuchoice
+></term>
+<listitem
+><para
+><action
+>Зменшує масштаб</action
+> поточного робочого аркуша на 10%.</para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><menuchoice
+><guimenu
+>Перегляд</guimenu
+> <guimenuitem
+>Відкрити редактор скриптів</guimenuitem
+> </menuchoice
+></term>
+<listitem
+><para
+><action
+>Відкриває вікно редактора пакетних скриптів для поточного сервера обробки команд.</action
+></para
+></listitem>
+</varlistentry>
+</variablelist>
+</para>
+</sect2>
+
+<sect2 id="worsheet-menu">
+<title
+>Меню «Аркуш»</title>
+<para>
+<variablelist>
+<varlistentry>
+<term
+><menuchoice
+><shortcut
+> <keycombo action="simul"
+>&Ctrl;<keycap
+>E</keycap
+></keycombo
+> </shortcut
+> <guimenu
+>Аркуш</guimenu
+> <guimenuitem
+>Виконати обчислення на аркуші</guimenuitem
+> </menuchoice
+></term>
+<listitem
+><para
+><action
+>Виконує</action
+> обчислення за всіма командами робочого аркуша.</para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><menuchoice
+><shortcut
+> <keycombo action="simul"
+>&Shift;&Enter;</keycombo
+> </shortcut
+> <guimenu
+>Аркуш</guimenu
+> <guimenuitem
+>Обчислити запис</guimenuitem
+> </menuchoice
+></term>
+<listitem
+><para
+><action
+>Виконує</action
+> обчислення за поточним записом команди.</para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><menuchoice
+><shortcut
+> <keycombo action="simul"
+>&Ctrl;&Enter;</keycombo
+> </shortcut
+> <guimenu
+>Аркуш</guimenu
+> <guimenuitem
+>Вставити запис команди</guimenuitem
+> </menuchoice
+></term>
+<listitem
+><para
+><action
+>Вставляє нову команду під поточним розташуванням курсора.</action
+></para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><menuchoice
+><guimenu
+>Аркуш</guimenu
+> <guimenuitem
+>Вставити текстовий запис</guimenuitem
+> </menuchoice
+></term>
+<listitem
+><para
+><action
+>Вставляє новий текстовий запис під поточним розташуванням курсора.</action
+></para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><menuchoice
+><guimenu
+>Аркуш</guimenu
+> <guimenuitem
+>Вставити запис Markdown</guimenuitem
+> </menuchoice
+></term>
+<listitem
+><para
+><action
+>Вставляє новий запис Markdown під поточним розташуванням курсора.</action
+></para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><menuchoice
+><guimenu
+>Аркуш</guimenu
+> <guimenuitem
+>Вставити запис LaTeX</guimenuitem
+> </menuchoice
+></term>
+<listitem
+><para
+><action
+>Вставляє новий запис LaTeX під поточним розташуванням курсора.</action
+></para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><menuchoice
+><guimenu
+>Аркуш</guimenu
+> <guimenuitem
+>Вставити зображення</guimenuitem
+> </menuchoice
+></term>
+<listitem
+><para
+><action
+>Додає у документ зображення під поточним розташуванням курсора.</action
+></para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><menuchoice
+><guimenu
+>Аркуш</guimenu
+> <guimenuitem
+>Вставити розрив сторінки</guimenuitem
+> </menuchoice
+></term>
+<listitem
+><para
+><action
+>Додає у документ розрив сторінки під поточним розташуванням курсора.</action
+></para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><menuchoice
+><guimenu
+>Аркуш</guimenu
+> <guimenuitem
+>Згорнути усі результати</guimenuitem
+> </menuchoice
+></term>
+<listitem
+><para
+><action
+>Згорнути усі результати введення команд.</action
+></para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><menuchoice
+><guimenu
+>Аркуш</guimenu
+> <guimenuitem
+>Розгорнути усі результати</guimenuitem
+> </menuchoice
+></term>
+<listitem
+><para
+><action
+>Розгорнути усі результати введення команд.</action
+></para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><menuchoice
+><guimenu
+>Аркуш</guimenu
+> <guimenuitem
+>Вилучити усі результати</guimenuitem
+> </menuchoice
+></term>
+<listitem
+><para
+><action
+>Вилучити усі результати введення команд.</action
+></para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><menuchoice
+><shortcut
+> <keycombo action="simul"
+>&Shift;&Del;</keycombo
+> </shortcut
+> <guimenu
+>Аркуш</guimenu
+> <guimenuitem
+>Вилучити поточний запис</guimenuitem
+> </menuchoice
+></term>
+<listitem
+><para
+><action
+>Вилучає</action
+> поточний запис з робочого аркуша.</para
+></listitem>
+</varlistentry>
+</variablelist>
+</para>
+</sect2>
+
+<sect2 id="linear-algebra-menu">
+<title
+>Меню «Лінійна алгебра»</title>
+<para>
+<variablelist>
+<varlistentry>
+<term
+><menuchoice
+><guimenu
+>Лінійна алгебра</guimenu
+> <guimenuitem
+>Створити матрицю</guimenuitem
+> </menuchoice
+></term>
+<listitem
+><para
+><action
+>Відкриває</action
+> <link linkend="create-matrix-dlg"
+>допоміжне діалогове вікно створення матриці</link
+>.</para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><menuchoice
+><guimenu
+>Лінійна алгебра</guimenu
+> <guimenuitem
+>Обчислити власні значення</guimenuitem
+> </menuchoice
+></term>
+<listitem
+><para
+><action
+>Відкриває</action
+> <link linkend="compute-invert-dlg"
+>допоміжне діалогове вікно введення назви матриці</link
+> для обчислення власних значень та кратностей власних значень у відповідному порядку. </para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><menuchoice
+><guimenu
+>Лінійна алгебра</guimenu
+> <guimenuitem
+>Обчислити власні вектори</guimenuitem
+> </menuchoice
+></term>
+<listitem
+><para
+><action
+>Відкриває</action
+> <link linkend="compute-invert-dlg"
+>допоміжне діалогове вікно введення назви матриці</link
+> для обчислення власних значень, кратностей власних значень та власних векторів у відповідному порядку. </para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><menuchoice
+><guimenu
+>Лінійна алгебра</guimenu
+> <guimenuitem
+>Знайти обернену матрицю</guimenuitem
+> </menuchoice
+></term>
+<listitem
+><para
+><action
+>Відкриває</action
+> <link linkend="compute-invert-dlg"
+>допоміжне діалогове вікно введення назви матриці</link
+> для знаходження оберненої до неї матриці. </para
+></listitem>
+</varlistentry>
+</variablelist>
+</para>
+</sect2>
+
+<sect2 id="calculate-menu">
+<title
+>Меню «Обчислення»</title>
+<para>
+<variablelist>
+<varlistentry>
+<term
+><menuchoice
+><guimenu
+>Обчислення</guimenu
+> <guimenuitem
+>Продиференціювати</guimenuitem
+> </menuchoice
+></term>
+<listitem
+><para
+><action
+>Відкриває</action
+> <link linkend="calculate-derivative-dlg"
+>діалогове вікно параметрів диференціювання</link
+>. </para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><menuchoice
+><guimenu
+>Обчислення</guimenu
+> <guimenuitem
+>Інтегрувати</guimenuitem
+> </menuchoice
+></term>
+<listitem
+><para
+><action
+>Відкриває</action
+> <link linkend="calculate-integral-dlg"
+>діалогове вікно параметрів інтегрування</link
+>. </para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><menuchoice
+><guimenu
+>Обчислення</guimenu
+> <guimenuitem
+>Розв’язати рівняння</guimenuitem
+> </menuchoice
+></term>
+<listitem
+><para
+><action
+>Відкриває</action
+> <link linkend="calculate-solve-dlg"
+>діалогове вікно введення параметрів</link
+> для розв’язування лінійних і нелінійних рівнянь. </para
+></listitem>
+</varlistentry>
+</variablelist>
+</para>
+</sect2>
+
+<sect2 id="package-menu">
+<title
+>Меню «Пакунок»</title>
+<para>
+<variablelist>
+<varlistentry>
+<term
+><menuchoice
+><guimenu
+>Пакунок</guimenu
+> <guimenuitem
+>Імпортувати пакунок</guimenuitem
+> </menuchoice
+></term>
+<listitem
+><para
+><action
+>Відкриває</action
+> <link linkend="package-import-dlg"
+>діалогове вікно імпортування пакунків</link
+>. </para
+></listitem>
+</varlistentry>
+</variablelist>
+</para>
+</sect2>
+
+<sect2 id="plot-menu">
+<title
+>Меню «Креслення»</title>
+<para>
+<variablelist>
+<varlistentry>
+<term
+><menuchoice
+><guimenu
+>Креслення</guimenu
+> <guimenuitem
+>Креслення</guimenuitem
+> </menuchoice
+></term>
+<listitem
+><para
+><action
+>Відкриває</action
+> <link linkend="plot-dlg"
+>діалогове вікно параметрів креслення</link
+>. </para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><menuchoice
+><guimenu
+>Креслення</guimenu
+> <guimenuitem
+>Двовимірний графік</guimenuitem
+> </menuchoice
+></term>
+<listitem
+><para
+><action
+>Відкриває</action
+> <link linkend="plot2d-dlg"
+>діалогове вікно параметрів креслення</link
+>. </para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><menuchoice
+><guimenu
+>Креслення</guimenu
+> <guimenuitem
+>Тривимірний графік</guimenuitem
+> </menuchoice
+></term>
+<listitem
+><para
+><action
+>Відкриває</action
+> <link linkend="plot3d-dlg"
+>діалогове вікно параметрів креслення</link
+>. </para
+></listitem>
+</varlistentry>
+</variablelist>
+</para>
+</sect2>
+
+<sect2 id="settings-help-menu">
+<title
+>Меню «Параметри» і «Довідка»</title>
+<para
+>У &cantor; передбачено типові для &kde; пункти меню <guimenu
+>Параметри</guimenu
+> і <guimenu
+>Довідка</guimenu
+>. Щоб дізнатися більше, ознайомтеся з розділами щодо <ulink url="help:/fundamentals/menus.html#menus-settings"
+>меню «Параметри»</ulink
+> та <ulink url="help:/fundamentals/menus.html#menus-help"
+>меню «Довідка»</ulink
+> підручника з основ роботи у &kde;. </para>
+
+</sect2>
+
+</sect1>
+</chapter>
+
+<chapter id="faq">
+<title
+>Запитання і відповіді</title>
+
+<qandaset id="faqlist">
+<qandaentry>
+  <question
+><para
+>У меню програми немає пункту <guimenuitem
+>Показ з використанням LaTeX</guimenuitem
+></para
+></question>
+  <answer
+><para
+>Не всі сервери підтримують подібний спосіб показу. У поточній версії передбачено підтримку виведення зображень &latex; для серверів Maxima, Qalculate! та Sage.</para
+></answer>
+</qandaentry>
+<qandaentry>
+  <question
+><para
+>Мною було встановлено Sage/Maxima або іншу підтримувану комп’ютерну алгебру, але відповідного пункту у програмі так і не з’явилося.</para
+></question>
+  <answer>
+    <para
+>Можливо, &cantor; не вдалося правильно визначити адреси файлів програм. Відкрийте діалогове вікно <menuchoice
+><guimenu
+>Параметри</guimenu
+><guimenuitem
+>Налаштувати &cantor;...</guimenuitem
+></menuchoice
+> і належним чином змініть шлях до відповідної програми на сторінці модуля. </para>
+  </answer>
+</qandaentry>
+<qandaentry>
+  <question
+><para
+>Що за незрозуміла назва? Що спільного вона має з математикою?</para
+></question>
+  <answer
+><para
+>&cantor; названо на честь німецького математика <ulink url="https://uk.wikipedia.org/wiki/Георг_Кантор"
+>Георга Кантора</ulink
+>, творця теорії множин.</para
+></answer>
+</qandaentry>
+</qandaset>
+</chapter>
+
+<chapter id="credits">
+
+<title
+>Подяки і ліцензія</title>
+
+<para
+>&cantor; </para>
+<para
+>Авторські права на програму належать Alexander Rieder <email
+>alexanderrieder@gmail.com</email
+>, 2009–2011. </para>
+
+<para
+>Авторські права на документацію належать Alexander Rieder <email
+>alexanderrieder@gmail.com</email
+>, 2009–2011. </para>
+
+<para
+>Переклад українською: Юрій Чорноіван <email
+>yurchor@ukr.net</email
+></para
+> 
+&underFDL; &underGPL; </chapter>
+
+&documentation.index;
+</book>
+
+<!--
+Local Variables:
+mode: xml
+sgml-minimize-attributes:nil
+sgml-general-insert-case:lower
+sgml-indent-step:0
+sgml-indent-data:nil
+End:
+
+vim:tabstop=2:shiftwidth=2:expandtab
+kate: space-indent on; indent-width 2; tab-width 2; indent-mode none;
+-->

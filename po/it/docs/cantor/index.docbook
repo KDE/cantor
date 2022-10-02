@@ -1,0 +1,1577 @@
+<?xml version="1.0" ?>
+<!DOCTYPE book PUBLIC "-//KDE//DTD DocBook XML V4.5-Based Variant V1.1//EN" "dtd/kdedbx45.dtd" [
+
+  <!ENTITY latex "L<superscript
+>A</superscript
+>T<subscript
+>E</subscript
+>X">
+  <!ENTITY % addindex "IGNORE">
+  <!ENTITY % Italian "INCLUDE">
+]>
+<book id="cantor" lang="&language;">
+
+<bookinfo>
+<title
+>Manuale di &cantor;</title>
+
+<authorgroup>
+<author
+><personname
+> <firstname
+>Alexander</firstname
+> <surname
+>Rieder</surname
+> </personname
+> <email
+>alexanderrieder@gmail.com</email
+> </author>
+<othercredit role="translator"
+><firstname
+>Pino</firstname
+><surname
+>Toscano</surname
+><affiliation
+><address
+><email
+>toscano.pino@tiscali.it</email
+></address
+></affiliation
+><contrib
+>Traduzione italiana</contrib
+></othercredit
+> 
+</authorgroup>
+
+<copyright>
+<year
+>2009</year>
+<holder
+>Alexander Rieder</holder>
+</copyright>
+<legalnotice
+>&FDLNotice;</legalnotice>
+
+<date
+>16/12/2020</date>
+<releaseinfo
+>Applications 20.12</releaseinfo>
+
+<abstract>
+<para
+>&cantor; mira a fornire una comoda interfaccia a fogli di lavoro per altri software matematici. </para>
+</abstract>
+
+<keywordset>
+<keyword
+>KDE</keyword>
+<keyword
+>kdeedu</keyword>
+<keyword
+>matematica</keyword>
+<keyword
+>matematica</keyword>
+<keyword
+>Cantor</keyword>
+<keyword
+>Julia</keyword>
+<keyword
+>Lua</keyword>
+<keyword
+>Maxima</keyword>
+<keyword
+>Octave</keyword>
+<keyword
+>Python</keyword>
+<keyword
+>Qalculate</keyword>
+<keyword
+>R</keyword>
+<keyword
+>Sage</keyword>
+<keyword
+>Scilab</keyword>
+</keywordset>
+
+</bookinfo>
+
+<chapter id="introduction">
+<title
+>Introduzione</title>
+
+<para
+>&cantor; è un'applicazione che ti permette di usare le tue applicazioni matematiche preferite da una elegante interfaccia a fogli di lavoro integrata in &kde;. Fornisce assistenti per aiutare con le operazioni comuni e ti permette di condividere i tuoi fogli di lavoro con altre persone. </para>
+</chapter>
+
+<chapter id="using-kapp">
+<title
+>Uso di &cantor;</title>
+
+<para
+>Immagine: <screenshot>
+<screeninfo
+>Ecco un'immagine di &cantor;</screeninfo>
+	<mediaobject>
+	  <imageobject>
+	    <imagedata fileref="screenshot.png" format="PNG"/>
+	  </imageobject>
+	  <textobject>
+	    <phrase
+>Immagine</phrase>
+	  </textobject>
+	</mediaobject>
+</screenshot>
+</para>
+
+
+<sect1 id="kapp-features">
+<title
+>Funzioni di &cantor;</title>
+<itemizedlist>
+  <listitem
+><para
+>Intuitiva vista a fogli di lavoro per la valutazione di espressioni.</para
+></listitem>
+  <listitem
+><para
+>Risultati del disegno di grafici mostrati nel foglio di lavoro.</para
+></listitem>
+  <listitem
+><para
+>Semplice struttura ad estensioni che permette di aggiungere vari motori.</para
+></listitem>
+  <listitem
+><para
+>Integrazione con il sistema «Scarica le novità» di &kde; che permette di scaricare o inviare fogli di lavoro.</para
+></listitem>
+  <listitem
+><para
+>Scrittura di formule matematiche usando &latex;.</para
+></listitem>
+  <listitem
+><para
+>Evidenziazione della sintassi specifica per il motore.</para
+></listitem>
+  <listitem
+><para
+>Estensioni per assistenti per aiutare con operazioni comuni, ad esempio l'integrazione di una funzione o l'inserimento di una matrice.</para
+></listitem>
+</itemizedlist>
+</sect1>
+
+<sect1 id="backends">
+<title
+>I motori di &cantor;</title>
+<para
+>&cantor; offre diversi motori da usare. La scelta del motore dipende dagli obiettivi da realizzare. </para>
+<para
+>Al momento, sono disponibili i seguenti motori: <variablelist>
+    <varlistentry>
+      <term
+>Sage:</term>
+      <listitem>
+	<para
+>Sage è un software matematico libero open source rilasciato secondo i termini della licenza GPL. Combina la potenza di molti pacchetti open source in un'unica interfaccia basata su Python. Per maggiori informazioni, consulta <ulink url="https://sagemath.org"
+>https://sagemath.org</ulink
+> </para>
+	</listitem>
+    </varlistentry>
+    <varlistentry>
+      <term
+>Maxima:</term>
+      <listitem>
+	<para
+>Maxima è un sistema per la manipolazione di espressioni simboliche e numeriche, includendo differenziazione, integrazione, serie di Taylor, trasformate di Laplace, equazioni differenziali ordinarie, sistemi di equazioni lineari, polinomi, e di insiemi, liste, vettori, matrici e tensori. Maxima ottiene risultati numeri ad alta precisione usando frazioni esatta, numeri interi di precisione arbitraria e numeri in virgola mobile a precisione variabile. Maxima può disegnare il grafico di funzioni e dati in due e tre dimensioni. Per maggiori informazioni, consulta <ulink url="http://maxima.sourceforge.net"
+>http://maxima.sourceforge.net</ulink
+> </para>
+      </listitem>
+    </varlistentry>
+    <varlistentry>
+      <term
+>R:</term>
+      <listitem>
+	<para
+>R è un linguaggio di programmazione e un ambiente per l'analisi e il disegno statistico, simile al linguaggio di programmazione e ambiente S. Dispone di un'ampia varietà di tecniche statistiche (modellazione lineare e non lineare, classici test di statistica, analisi di serie storiche, classificazione, clustering, ...) e di disegno; inoltre è altamente estensibile. Spesso il linguaggio S è scelto per le ricerche statistiche, e R fornisce un modo open source per prendere parte a quella attività. Per maggiori informazioni, consulta <ulink url="https://www.r-project.org"
+>https://www.r-project.org</ulink
+> </para>
+      </listitem>
+    </varlistentry>
+    <varlistentry>
+      <term
+>Julia:</term>
+      <listitem>
+	<para
+>Julia è un linguaggio di programmazione dinamico di alto livello ed elevate prestazioni per il calcolo tecnico, con una sintassi familiare agli utenti di altri ambienti simili. Fornisce un compilatore avanzato, un'esecuzione parallela e distribuita, un'accuratezza numerica e una completa libreria di funzioni matematiche. Per maggiori informazioni, consulta la <ulink url="https://docs.julialang.org/en/"
+>documentazione di Julia</ulink
+>. </para>
+      </listitem>
+    </varlistentry>
+    <varlistentry>
+      <term
+>&kalgebra;:</term>
+      <listitem>
+	<para
+>KAlgebra è una calcolatrice grafica basata su MathML, fornita come parte del progetto «&kde; Education». Per maggiori informazioni, consulta <ulink url="https://edu.kde.org/kalgebra/"
+>https://edu.kde.org/kalgebra/</ulink
+>. </para>
+      </listitem>
+    </varlistentry>
+    <varlistentry>
+      <term
+>Qalculate!:</term>
+      <listitem>
+  <para
+>Qalculate! non è la replica del software normalmente disponibile nelle calcolatrici economiche. Qalculate! mira a fare un uso completo dell'interfaccia, della potenza e della flessibilità superiori dei computer moderni. Il centro dell'attenzione in Qalculate! è l'inserimento delle espressioni. Invece di inserire ogni numero separatamente in un'espressione matematica, puoi scrivere direttamente l'espressione intera e modificarla in seguito. La valutazione delle espressioni è flessibile e tollera gli errori, e anche nel caso di errore Qalculate! lo segnalerà. Tuttavia, le espressioni che non possono essere risolte correttamente non sono errori. Qalculate! semplificherà il più possibile e risponderà con un'espressione. In aggiunta a numeri e operatori aritmetici, un'espressione può contenere una qualsiasi combinazione di variabili, unità e funzioni. Per ulteriori informazioni vedi <ulink url="https://qalculate.github.io/"
+>https://qalculate.github.io/</ulink
+>. </para>
+  </listitem>
+    </varlistentry>
+    <varlistentry>
+      <term
+>Python2 e Python3:</term>
+      <listitem>
+  <para
+>Python è un linguaggio di programmazione dinamico abbastanza potente usato in vari ambiti scientifici. Ci sono diversi pacchetti scientifici per Python. </para>
+  <para
+>Python è distribuito secondo i termini della licenza Python Software Foundation (compatibile con la licenza GPL). Per maggiori informazioni, consulta <ulink url="https://www.python.org/"
+>il sito ufficiale</ulink
+>. </para>
+  <note>
+    <para
+>Questo motore aggiunge un nuovo elemento al menu principale di &cantor;, <guimenu
+>Pacchetto</guimenu
+>. L'unica voce in questo menu è <menuchoice
+><guimenu
+>Pacchetto</guimenu
+><guimenuitem
+>Importa pacchetto</guimenuitem
+></menuchoice
+>. Questa voce può essere usata per importare i pacchetti di Python nel foglio di lavoro. </para>
+  </note>
+    </listitem>
+    </varlistentry>
+    <varlistentry>
+      <term
+>Scilab:</term>
+      <listitem>
+  <para
+>Scilab è un pacchetto di software libero multi-piattaforma per il calcolo numerico e un linguaggio di programmazione di alto livello orientato numericamente. </para>
+  <para
+>Scilab è distribuito secondo i termini della licenza CeCILL (compatibile con la licenza GPL). Per maggiori informazioni, consulta <ulink url="https://www.scilab.org/"
+>https://www.scilab.org/</ulink
+>. </para>
+  <warning>
+    <para
+>Per usare questo motore hai bisogno di Scilab versione 5.5 o successiva installato </para>
+  </warning>
+  </listitem>
+    </varlistentry>
+    <varlistentry>
+      <term
+>Octave:</term>
+      <listitem>
+  <para
+>&GNU; Octave è un linguaggio di alto livello, orientato principalmente al calcolo numerico. Fornisce una conveniente interfaccia a riga di comando per risolvere in modo numerico problemi lineari e non lineari, e per effettuare altri esperimenti numerici usando un linguaggio molto compatibile con <ulink url="https://www.mathworks.com/products/matlab.html"
+>MATLAB</ulink
+>. Per maggiori informazioni, consulta <ulink url="https://www.gnu.org/software/octave/"
+>https://www.gnu.org/software/octave/</ulink
+>. </para>
+      </listitem>
+    </varlistentry>
+    <varlistentry>
+      <term
+>Lua:</term>
+      <listitem>
+  <para
+>Lua è un linguaggio leggero per script, con una semplice sintassi procedurale. Ci sono diverse librerie matematiche e scientifiche in Lua. </para>
+  <para
+>Per maggiori informazioni, consulta <ulink url="https://www.lua.org/"
+>https://www.lua.org/</ulink
+>. </para>
+  <para
+>Questo motore supporta <ulink url="https://luajit.org/"
+>luajit 2</ulink
+>. </para>
+      </listitem>
+    </varlistentry>
+  </variablelist>
+</para>
+</sect1>
+
+<sect1 id="workspace">
+<title
+>Il foglio di lavoro di &cantor;</title>
+<para>
+<screenshot>
+  <screeninfo
+>Immagine del foglio di lavoro di &cantor;</screeninfo>
+  <mediaobject>
+    <imageobject>
+      <imagedata fileref="screenshot.png" format="PNG"/>
+    </imageobject>
+    <textobject>
+      <phrase
+>Immagine del foglio di lavoro di &cantor;</phrase>
+    </textobject>
+  </mediaobject>
+</screenshot>
+</para>
+<para
+>L'interfaccia di un foglio di lavoro di &cantor; consiste in tre parti: <orderedlist>
+    <listitem
+><para
+>la barra delle schede, che puoi usare per cambiare il foglio di lavoro aperto.</para
+></listitem>
+    <listitem
+><para
+>Un pannello di aiuto, dove viene mostrata la guida di un comando specifico se inserisci <userinput
+>?? <replaceable
+>comando</replaceable
+></userinput
+>, <userinput
+>describe(<replaceable
+>comando</replaceable
+>)</userinput
+> oppure<userinput
+>example(<replaceable
+>comando</replaceable
+>)</userinput
+> (motore <application
+>Maxima</application
+>).</para
+></listitem>
+    <listitem
+><para
+>Un pannello «Gestore variabili» dove puoi vedere la lista di tutte le variabili disponibili nel foglio di lavoro corrente. I pannelli «Aiuto» e «Gestore Variabili» sono mostrati come schede nella barra laterale della finestra di &cantor;. Il gestore delle variabili può essere usato per i motore Maxima (se abilitato nella pagina <guilabel
+>Maxima</guilabel
+> in <menuchoice
+><guimenu
+>Impostazioni</guimenu
+><guimenuitem
+>Configura &cantor;...</guimenuitem
+></menuchoice
+>), &kalgebra;, Octave, Python2, Python3, Qalculate e Scilab.</para
+></listitem>
+    <listitem
+><para
+>il foglio di lavoro.</para
+></listitem>
+  </orderedlist>
+</para>
+<sect2 id="worksheet">
+<title
+>Il foglio di lavoro</title>
+<para
+>Il foglio di lavoro è l'area principale usata per lavorare in &cantor;. Usando i fogli di lavoro puoi inserire espressioni, permettere ai motori di effettuare calcoli e osservare i risultati. I comandi accettati dai fogli di lavoro dipendono dal motore usato, quindi dovresti imparare la sintassi corretta a seconda del motore (il pulsante <guibutton
+>Mostra aiuto</guibutton
+> te la mostra direttamente). Se conosci un comando, ma hai bisogno di informazioni aggiuntive, puoi scrivere «? <replaceable
+>comando</replaceable
+>», facendo così apparire l'aiuto contestuale a destra del foglio di lavoro. Se vuoi vedere alcuni fogli di lavoro d'esempio, puoi andare in <menuchoice
+><guimenu
+>File</guimenu
+><guimenuitem
+>Scarica foglio di lavoro di esempio</guimenuitem
+></menuchoice
+> e scaricare quindi i fogli di lavoro che altri utenti hanno pubblicato. </para>
+<para
+>Per controllare ciascuna voce di comando nel foglio di lavoro puoi usare i pulsanti di controllo mostrati a destra del foglio di lavoro, passando con il cursore sopra il campo della voce. Ci sono tre azioni di base per ciascuna voce: <guilabel
+>Vàluta voce</guilabel
+> per aggiornare il risultato dei calcoli per la voce, <guilabel
+>Trascina voce</guilabel
+> per spostare la voce in un'altra posizione all'interno del foglio di lavoro, e <guilabel
+>Rimuovi voce</guilabel
+> per rimuovere la voce dal foglio di lavoro. </para>
+<para
+>Le impostazioni dei caratteri e l'allineamento delle voci del foglio di lavoro possono essere modificati usando una barra posta sopra il foglio di lavoro. </para>
+<sect3 id="worksheet-settings">
+  <title
+>Impostazioni</title>
+  <para
+>Il menu <guimenu
+>Impostazioni</guimenu
+> ti permette di modificare alcune impostazioni dell'aspetto del foglio di lavoro corrente. </para>
+  <variablelist>
+    <varlistentry>
+      <term
+>Scrittura usando LaTeX</term>
+      <listitem>
+	<para
+>Questa impostazione cambia il modo in cui i risultati sono mostrati. Se abilitata, i risultati sono passati al sistema &latex;, producendo formule eleganti. Ad esempio, <quote
+>3*x^2*sqrt(2)*x+2/3</quote
+> diventa <inlinemediaobject>
+	      <imageobject>
+		<imagedata fileref="latex_formula.png" format="PNG"/>
+	      </imageobject>
+	      <textobject
+><phrase
+>3*x^2*sqrt(2)*x+2/3</phrase
+></textobject>
+	  </inlinemediaobject>
+	</para>
+      </listitem>
+    </varlistentry>
+    <varlistentry>
+      <term
+>Evidenziazione della sintassi</term>
+      <listitem>
+	<para
+>L'evidenziazione della sintassi aumenta la leggibilità del codice, evidenziando con vari colori le parole chiave o le parentesi corrispondenti. </para>
+      </listitem>
+    </varlistentry>
+    <varlistentry>
+      <term
+>Completamento delle parole</term>
+      <listitem>
+	<para
+>Quando questa opzione è abilitata, premendo il tasto Tab &cantor; mostrerà i possibili completamenti per il comando che stai scrivendo. Se c'è solo una scelta possibile, il resto del comando sarà inserito automaticamente. </para>
+      </listitem>
+    </varlistentry>
+  <varlistentry>
+    <term
+>Numeri di riga</term>
+    <listitem>
+      <para
+>Questa impostazione controlla se ci dovrebbe essere un numero prima di ogni espressione. Ciò permette di richiamare i risultati più vecchi &mdash; ad esempio, in Maxima ciò viene fatto con il comando <quote
+>%O1</quote
+>. </para>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term
+>Anima foglio di lavoro</term>
+    <listitem>
+      <para
+>Questa impostazione decide se usare diverse animazioni per evidenziare le modifiche ad un foglio di lavoro. </para>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term
+>Formule matematiche</term>
+    <listitem>
+      <para
+>Questa impostazione controlla la resa delle espressioni matematiche in <literal
+>$$..$$</literal
+> nelle voci di testo e  &Markdown;. È abilitata per impostazione predefinita (richiede che <application
+>pdflatex</application
+> sia installata). </para>
+    </listitem>
+  </varlistentry>
+  </variablelist>
+</sect3>
+</sect2>
+</sect1>
+<sect1 id="assistant-dlgs">
+<title
+>Le finestra degli assistenti</title>
+<para
+>Ci sono diverse finestre implementate in &cantor; per semplificare alcune operazioni di base. </para>
+<para
+>È possibile accedere a queste finestre usando le voci nel menu principale. Ciascun motore ha finestre proprie. </para>
+<sect2 id="create-matrix-dlg">
+<title
+>La finestra «Crea matrice»</title>
+<screenshot>
+  <screeninfo
+>Immagine della finestra di creazione matrici di &cantor;</screeninfo>
+  <mediaobject>
+    <imageobject>
+      <imagedata fileref="create-dlg.png" format="PNG"/>
+    </imageobject>
+    <textobject>
+      <phrase
+>Immagine della finestra di creazione matrici di &cantor;</phrase>
+    </textobject>
+  </mediaobject>
+</screenshot>
+<para
+>Questa finestra può essere usata per inserire matrici. Puoi definire la dimensione di una matrice e i suoi elementi. </para>
+<para
+>È possibile navigare velocemente tra le varie celle durante l'inserimento usando il tasto &Tab;. </para>
+</sect2>
+<sect2 id="compute-invert-dlg">
+<title
+>La finestra delle operazioni sulle matrici</title>
+<screenshot>
+  <screeninfo
+>Immagine della finestra di inserimento matrici &cantor;</screeninfo>
+  <mediaobject>
+    <imageobject>
+      <imagedata fileref="matrix-dlg.png" format="PNG"/>
+    </imageobject>
+    <textobject>
+      <phrase
+>Immagine della finestra di inserimento matrici &cantor;</phrase>
+    </textobject>
+  </mediaobject>
+</screenshot>
+<para
+>Questa finestra permette di inserire il nome della matrice per calcolarne gli autovettori, gli autovalori, o per invertirla. Il valore predefinito (<userinput
+>%</userinput
+>) rappresenta il risultato del precedente calcolo o inserimento. </para>
+</sect2>
+<sect2 id="calculate-derivative-dlg">
+<title
+>Finestra di differenziazione</title>
+<screenshot>
+  <screeninfo
+>Immagine della finestra di differenziazione di &cantor;</screeninfo>
+  <mediaobject>
+    <imageobject>
+      <imagedata fileref="differentiate-dlg.png" format="PNG"/>
+    </imageobject>
+    <textobject>
+      <phrase
+>Immagine della finestra di differenziazione di &cantor;</phrase>
+    </textobject>
+  </mediaobject>
+</screenshot>
+<para
+>Questa finestra permette di inserire l'espressione della funzione da differenziare, il nome della variabile e l'ordine della derivata. </para>
+</sect2>
+<sect2 id="calculate-integral-dlg">
+<title
+>Finestra di integrazione</title>
+<screenshot>
+  <screeninfo
+>Immagine della finestra di integrazione di &cantor;</screeninfo>
+  <mediaobject>
+    <imageobject>
+      <imagedata fileref="integrate-dlg.png" format="PNG"/>
+    </imageobject>
+    <textobject>
+      <phrase
+>Immagine della finestra di integrazione di &cantor;</phrase>
+    </textobject>
+  </mediaobject>
+</screenshot>
+<para
+>Questa finestra permette di inserire l'espressione della funzione da integrare, il nome della variabile e i limiti dell'integrata (per l'integrale definito). </para>
+</sect2>
+<sect2 id="calculate-solve-dlg">
+<title
+>Finestra risolvi equazioni</title>
+<screenshot>
+  <screeninfo
+>Immagine della finestra di risoluzione equazioni di &cantor;</screeninfo>
+  <mediaobject>
+    <imageobject>
+      <imagedata fileref="solve-equations-dlg.png" format="PNG"/>
+    </imageobject>
+    <textobject>
+      <phrase
+>Immagine della finestra di risoluzione equazioni di &cantor;</phrase>
+    </textobject>
+  </mediaobject>
+</screenshot>
+<para
+>Questa finestra permette di inserire equazioni da risolvere (ciascuna equazione in una riga) e le variabili da determinare (separate da virgola). </para>
+</sect2>
+<sect2 id="package-import-dlg">
+<title
+>Finestra di importazione del pacchetto</title>
+<screenshot>
+  <screeninfo
+>Immagine della finestra di importazione dei pacchetti di &cantor;</screeninfo>
+  <mediaobject>
+    <imageobject>
+      <imagedata fileref="import-dlg.png" format="PNG"/>
+    </imageobject>
+    <textobject>
+      <phrase
+>Immagine della finestra di importazione dei pacchetti di &cantor;</phrase>
+    </textobject>
+  </mediaobject>
+</screenshot>
+<para
+>Questa finestra permette di inserire il nome del pacchetto da importare (&eg; <userinput
+>numpy</userinput
+> per Python). </para>
+</sect2>
+<sect2 id="plot-dlg">
+<title
+>Finestra del grafico</title>
+<screenshot>
+  <screeninfo
+>Immagine della finestra del grafico di &cantor; (scheda «Funzioni»)</screeninfo>
+  <mediaobject>
+    <imageobject>
+      <imagedata fileref="plot-dlg1.png" format="PNG"/>
+    </imageobject>
+    <textobject>
+      <phrase
+>Immagine della finestra del grafico di &cantor; (scheda «Funzioni»)</phrase>
+    </textobject>
+  </mediaobject>
+</screenshot>
+<para
+>Le opzioni di questa finestra sono separate in due gruppi di schede. La scheda <guilabel
+>Funzioni</guilabel
+> permette di inserire le funzioni da disegnare. </para>
+<para
+>Per inserire una nuova funzione, premi <guibutton
+>Aggiungi</guibutton
+>. Fai doppio clic sulla cella <guilabel
+>Titolo</guilabel
+> e inserisci il titolo, quindi fai doppio clic sulla cella <guilabel
+>Espressione</guilabel
+> e inserisci l'espressione della funzione. </para>
+<screenshot>
+  <screeninfo
+>Immagine della finestra del grafico di &cantor; (scheda «Opzioni»)</screeninfo>
+  <mediaobject>
+    <imageobject>
+      <imagedata fileref="plot-dlg2.png" format="PNG"/>
+    </imageobject>
+    <textobject>
+      <phrase
+>Immagine della finestra del grafico di &cantor; (scheda «Opzioni»)</phrase>
+    </textobject>
+  </mediaobject>
+</screenshot>
+<para
+>La scheda <guilabel
+>Opzioni</guilabel
+> è usata per definire le opzioni di grafici e legende. Puoi regolare quasi tutte le opzioni dei grafici per avere l'aspetto gradevole che desideri. </para>
+</sect2>
+<sect2 id="plot2d-dlg">
+<title
+>Finestra grafico 2D</title>
+<screenshot>
+  <screeninfo
+>Immagine della finestra del grafico 2D di &cantor;</screeninfo>
+  <mediaobject>
+    <imageobject>
+      <imagedata fileref="plot2d-dlg.png" format="PNG"/>
+    </imageobject>
+    <textobject>
+      <phrase
+>Immagine della finestra del grafico 2D di &cantor;</phrase>
+    </textobject>
+  </mediaobject>
+</screenshot>
+<para
+>Questa finestra permette di inserire l'espressione della funzione, la sua variabile e i limiti della variabile. </para>
+</sect2>
+<sect2 id="plot3d-dlg">
+<title
+>Finestra grafico 3D</title>
+<screenshot>
+  <screeninfo
+>Immagine della finestra del grafico 3D di &cantor;</screeninfo>
+  <mediaobject>
+    <imageobject>
+      <imagedata fileref="plot3d-dlg.png" format="PNG"/>
+    </imageobject>
+    <textobject>
+      <phrase
+>Immagine della finestra del grafico 3D di &cantor;</phrase>
+    </textobject>
+  </mediaobject>
+</screenshot>
+<para
+>Questa finestra permette di inserire l'espressione della funzione, le sue variabili e i limiti delle variabili. </para>
+</sect2>
+</sect1>
+</chapter>
+
+<chapter id="commands">
+<title
+>Guida ai comandi</title>
+
+<sect1 id="kapp-mainwindow">
+<title
+>La finestra principale di &cantor;</title>
+
+<para
+>&cantor; ha le voci di menu comuni di &kde;; per maggiori informazioni, consulta il capitolo <ulink url="help:/fundamentals/menus.html"
+>Menu</ulink
+> dei «Fondamentali di &kde;». </para>
+
+<para
+>Segue la lista delle voci di menu aggiuntive o speciali in &cantor;. Nota che alcuni menu sono mostrati solo per i motore che li implementano. </para>
+
+<sect2 id="file-menu">
+<title
+>Il menu File</title>
+<para>
+<variablelist>
+<varlistentry>
+<term
+><menuchoice
+><shortcut
+> <keycombo action="simul"
+>&Ctrl;<keycap
+>N</keycap
+></keycombo
+> </shortcut
+> <guimenu
+>File</guimenu
+> <guimenuitem
+>Nuovo</guimenuitem
+> </menuchoice
+></term>
+<listitem
+><para
+><action
+>Crea un nuovo foglio di lavoro con il motore predefinito.</action
+></para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><menuchoice
+><guimenu
+>File</guimenu
+> <guisubmenu
+>Nuovo</guisubmenu
+> <guimenuitem
+><replaceable
+>Motore</replaceable
+></guimenuitem
+> </menuchoice
+></term>
+<listitem
+><para
+><action
+>Crea un nuovo foglio di lavoro con il motore scelto.</action
+></para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><menuchoice
+><shortcut
+> <keycombo action="simul"
+>&Ctrl;<keycap
+>O</keycap
+></keycombo
+> </shortcut
+> <guimenu
+>File</guimenu
+> <guimenuitem
+>Apri...</guimenuitem
+> </menuchoice
+></term>
+<listitem
+><para
+><action
+>Apre con la finestra dei file un nuovo foglio di lavoro supportato.</action
+></para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><menuchoice
+><guimenu
+>File</guimenu
+> <guisubmenu
+>Apri recenti</guisubmenu
+> </menuchoice
+></term>
+<listitem
+><para
+><action
+>Scegli un foglio di lavoro da un elenco di file usati di recente.</action
+></para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><menuchoice
+><guimenu
+>File</guimenu
+> <guimenuitem
+>Scarica fogli di lavoro d'esempio</guimenuitem
+> </menuchoice
+></term>
+<listitem
+><para
+><action
+>Apre la finestra per scaricare esempi inviati da altri utenti di &cantor; usando <ulink url="https://userbase.kde.org/Special:MyLanguage/Glossary#Get_Hot_New_Stuff"
+>GetHotNewStuff</ulink
+>.</action
+></para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><menuchoice
+><guimenu
+>File</guimenu
+> <guimenuitem
+>Apri esempio</guimenuitem
+> </menuchoice
+></term>
+<listitem
+><para
+><action
+>Apre la finestra per caricare un esempio.</action
+> Gli esempi devono essere prima scaricati usando <menuchoice
+><guimenu
+>File</guimenu
+> <guimenuitem
+>Scarica fogli di lavoro d'esempio</guimenuitem
+></menuchoice
+>.</para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><menuchoice
+><guimenu
+>File</guimenu
+> <guimenuitem
+>Salva come testo semplice</guimenuitem
+> </menuchoice
+></term>
+<listitem
+><para
+><action
+>Permette di salvare il foglio di lavoro corrente come documento di testo semplice.</action
+></para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><menuchoice
+><guimenu
+>File</guimenu
+> <guimenuitem
+>Esporta come LaTeX</guimenuitem
+> </menuchoice
+></term>
+<listitem
+><para
+><action
+>Permette di salvare il foglio di lavoro corrente come documento &latex;.</action
+></para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><menuchoice
+><guimenu
+>File</guimenu
+> <guimenuitem
+>Pubblica foglio di lavoro</guimenuitem
+> </menuchoice
+></term>
+<listitem
+><para
+><action
+>Apre la finestra per pubblicare il tuo foglio di lavoro corrente e renderlo disponibile ad altri utenti di &cantor; per mezzo di <ulink url="https://userbase.kde.org/Special:MyLanguage/Glossary#Get_Hot_New_Stuff"
+>GetHotNewStuff</ulink
+>.</action
+></para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><menuchoice
+><guimenu
+>File</guimenu
+> <guimenuitem
+>Avvia script</guimenuitem
+> </menuchoice
+></term>
+<listitem
+><para
+><action
+>Permette di caricare ed eseguire script con il motore corrente.</action
+></para
+></listitem>
+</varlistentry>
+</variablelist>
+</para>
+
+</sect2>
+
+<sect2 id="view-menu">
+<title
+>Il menu Visualizza</title>
+<para>
+<variablelist>
+<varlistentry>
+<term
+><menuchoice
+><guimenu
+>Visualizza</guimenu
+><guisubmenu
+>Pannelli</guisubmenu
+></menuchoice
+></term>
+<listitem
+><para
+>Ti permette di visualizzare o di nascondere alcune schede nella barra laterale. Le scelte sono: <variablelist>
+  <varlistentry>
+  <term
+><guimenuitem
+>Navigatore dei file</guimenuitem
+></term>
+  <listitem
+><para
+><action
+>Mostra o nasconde</action
+> la scheda <guilabel
+>Navigatore dei file</guilabel
+> nella barra laterale.</para
+></listitem>
+  </varlistentry>
+
+  <varlistentry>
+  <term
+><guimenuitem
+>Aiuto</guimenuitem
+></term>
+  <listitem
+><para
+><action
+>Mostra o nasconde</action
+> la scheda <guilabel
+>Aiuto</guilabel
+> nella barra laterale.</para
+></listitem>
+  </varlistentry>
+
+  <varlistentry>
+  <term
+><guimenuitem
+>Gestore variabili</guimenuitem
+></term>
+  <listitem
+><para
+><action
+>Mostra o nasconde</action
+> la scheda <guilabel
+>Gestore variabili</guilabel
+> nella barra laterale.</para
+></listitem>
+  </varlistentry>
+</variablelist
+></para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><menuchoice
+><shortcut
+> <keycombo action="simul"
+>&Ctrl;<keycap
+>+</keycap
+></keycombo
+> </shortcut
+> <guimenu
+>Visualizza</guimenu
+> <guimenuitem
+>Ingrandisci</guimenuitem
+> </menuchoice
+></term>
+<listitem
+><para
+><action
+>Ingrandisce</action
+> il foglio di lavoro corrente del 10%.</para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><menuchoice
+><shortcut
+> <keycombo action="simul"
+>&Ctrl;<keycap
+>-</keycap
+></keycombo
+> </shortcut
+> <guimenu
+>Visualizza</guimenu
+> <guimenuitem
+>Riduci</guimenuitem
+> </menuchoice
+></term>
+<listitem
+><para
+><action
+>Riduce</action
+> il foglio di lavoro corrente 10%.</para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><menuchoice
+><guimenu
+>Visualizza</guimenu
+> <guimenuitem
+>Mostra editor degli script</guimenuitem
+> </menuchoice
+></term>
+<listitem
+><para
+><action
+>Apre la finestra per la modifica degli script per il motore corrente.</action
+></para
+></listitem>
+</varlistentry>
+</variablelist>
+</para>
+</sect2>
+
+<sect2 id="worsheet-menu">
+<title
+>Il menu Foglio di lavoro</title>
+<para>
+<variablelist>
+<varlistentry>
+<term
+><menuchoice
+><shortcut
+> <keycombo action="simul"
+>&Ctrl;<keycap
+>E</keycap
+></keycombo
+> </shortcut
+> <guimenu
+>Foglio di lavoro</guimenu
+> <guimenuitem
+>Vàluta foglio di lavoro</guimenuitem
+> </menuchoice
+></term>
+<listitem
+><para
+><action
+>Avvia</action
+> la valutazione dell'intero foglio di lavoro.</para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><menuchoice
+><shortcut
+> <keycombo action="simul"
+>&Shift;&Enter;</keycombo
+> </shortcut
+> <guimenu
+>Foglio di lavoro</guimenu
+> <guimenuitem
+>Vàluta voce</guimenuitem
+> </menuchoice
+></term>
+<listitem
+><para
+><action
+>Avvia</action
+> la valutazione della voce corrente.</para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><menuchoice
+><shortcut
+> <keycombo action="simul"
+>&Ctrl;&Enter;</keycombo
+> </shortcut
+> <guimenu
+>Foglio di lavoro</guimenu
+> <guimenuitem
+>Inserisci voce di comando</guimenuitem
+> </menuchoice
+></term>
+<listitem
+><para
+><action
+>Inserisce una nuova voce di comando sotto la posizione corrente del cursore.</action
+></para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><menuchoice
+><guimenu
+>Foglio di lavoro</guimenu
+> <guimenuitem
+>Inserisci voce di testo</guimenuitem
+> </menuchoice
+></term>
+<listitem
+><para
+><action
+>Inserisce una nuova voce di testo sotto la posizione corrente del cursore.</action
+></para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><menuchoice
+><guimenu
+>Foglio di lavoro</guimenu
+> <guimenuitem
+>Inserisci voce di Markdown</guimenuitem
+> </menuchoice
+></term>
+<listitem
+><para
+><action
+>Inserisce una nuova voce di &Markdown; sotto la posizione corrente del cursore</action
+>.</para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><menuchoice
+><guimenu
+>Worksheet</guimenu
+> <guimenuitem
+>Inserisci voce di LaTeX</guimenuitem
+> </menuchoice
+></term>
+<listitem
+><para
+><action
+>Inserisce una nuova voce di &latex; sotto la posizione corrente del cursore</action
+>.</para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><menuchoice
+><guimenu
+>Foglio di lavoro</guimenu
+> <guimenuitem
+>Inserisci immagine</guimenuitem
+> </menuchoice
+></term>
+<listitem
+><para
+><action
+>Inserisce un'immagine sotto la posizione corrente del cursore.</action
+></para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><menuchoice
+><guimenu
+>Foglio di lavoro</guimenu
+> <guimenuitem
+>Inserisci interruzione di pagina</guimenuitem
+> </menuchoice
+></term>
+<listitem
+><para
+><action
+>Inserisce un'interruzione di pagina sotto la posizione corrente del cursore.</action
+></para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><menuchoice
+><guimenu
+>Foglio di lavoro</guimenu
+> <guimenuitem
+>Collassa tutti i risultati</guimenuitem
+> </menuchoice
+></term>
+<listitem
+><para
+><action
+>Collassa tutti i risultati della voce di comando.</action
+></para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><menuchoice
+><guimenu
+>Foglio di lavoro</guimenu
+> <guimenuitem
+>Espandi tutti i risultati</guimenuitem
+> </menuchoice
+></term>
+<listitem
+><para
+><action
+>Espandi tutti i risultati della voce di comando.</action
+></para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><menuchoice
+><guimenu
+>Foglio di lavoro</guimenu
+> <guimenuitem
+>Rimuovi tutti i risultati</guimenuitem
+> </menuchoice
+></term>
+<listitem
+><para
+><action
+>Rimuovi tutti i risultati della voce di comando.</action
+></para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><menuchoice
+><shortcut
+> <keycombo action="simul"
+>&Shift;&Del;</keycombo
+> </shortcut
+> <guimenu
+>Foglio di lavoro</guimenu
+> <guimenuitem
+>Rimuovi la voce corrente</guimenuitem
+> </menuchoice
+></term>
+<listitem
+><para
+><action
+>Rimuove</action
+> la voce corrente dal foglio di lavoro.</para
+></listitem>
+</varlistentry>
+</variablelist>
+</para>
+</sect2>
+
+<sect2 id="linear-algebra-menu">
+<title
+>Il menu Algebra lineare</title>
+<para>
+<variablelist>
+<varlistentry>
+<term
+><menuchoice
+><guimenu
+>Algebra lineare</guimenu
+> <guimenuitem
+>Crea matrice</guimenuitem
+> </menuchoice
+></term>
+<listitem
+><para
+><action
+>Apre</action
+> la <link linkend="create-matrix-dlg"
+>finestra di creazione delle matrici</link
+>.</para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><menuchoice
+><guimenu
+>Algebra lineare</guimenu
+> <guimenuitem
+>Calcola autovalori</guimenuitem
+> </menuchoice
+></term>
+<listitem
+><para
+><action
+>Apre</action
+> la <link linkend="compute-invert-dlg"
+>finestra dell'assistente all'inserimento del nome della matrice</link
+> per calcolare i suoi autovalori e la dimensione della molteplicità nell'ordine corrispondente. </para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><menuchoice
+><guimenu
+>Algebra lineare</guimenu
+> <guimenuitem
+>Calcola autovettori</guimenuitem
+> </menuchoice
+></term>
+<listitem
+><para
+><action
+>Apre</action
+> la <link linkend="compute-invert-dlg"
+>finestra dell'assistente all'inserimento del nome della matrice</link
+> per calcolare i suoi autovalori e la dimensione della molteplicità degli autovalori e degli autovettori nell'ordine corrispondente. </para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><menuchoice
+><guimenu
+>Algebra lineare</guimenu
+> <guimenuitem
+>Inverti matrice</guimenuitem
+> </menuchoice
+></term>
+<listitem
+><para
+><action
+>Apre</action
+> la <link linkend="compute-invert-dlg"
+>finestra di dialogo di inserimento del nome della matrice</link
+> per trovare l'inversa di una matrice. </para
+></listitem>
+</varlistentry>
+</variablelist>
+</para>
+</sect2>
+
+<sect2 id="calculate-menu">
+<title
+>Il menu Calcola</title>
+<para>
+<variablelist>
+<varlistentry>
+<term
+><menuchoice
+><guimenu
+>Calcola</guimenu
+> <guimenuitem
+>Calcola differenziale</guimenuitem
+> </menuchoice
+></term>
+<listitem
+><para
+><action
+>Apre</action
+> la <link linkend="calculate-derivative-dlg"
+>finestra dei parametri del differenziale</link
+>. </para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><menuchoice
+><guimenu
+>Calcola</guimenu
+> <guimenuitem
+>Integra</guimenuitem
+> </menuchoice
+></term>
+<listitem
+><para
+><action
+>Apre</action
+> la <link linkend="calculate-integral-dlg"
+>la finestra dei parametri dell'integrata</link
+>. </para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><menuchoice
+><guimenu
+>Calcola</guimenu
+> <guimenuitem
+>Risolvi equazioni</guimenuitem
+> </menuchoice
+></term>
+<listitem
+><para
+><action
+>Apre</action
+> la <link linkend="calculate-solve-dlg"
+>finestra di dialogo di inserimento parametri</link
+> per risolvere equazioni lineari e non lineari. </para
+></listitem>
+</varlistentry>
+</variablelist>
+</para>
+</sect2>
+
+<sect2 id="package-menu">
+<title
+>Il menu Pacchetto</title>
+<para>
+<variablelist>
+<varlistentry>
+<term
+><menuchoice
+><guimenu
+>Pacchetto</guimenu
+> <guimenuitem
+>Importa pacchetto</guimenuitem
+> </menuchoice
+></term>
+<listitem
+><para
+><action
+>Apre</action
+> la <link linkend="package-import-dlg"
+>finestra di importazione dei pacchetti</link
+>. </para
+></listitem>
+</varlistentry>
+</variablelist>
+</para>
+</sect2>
+
+<sect2 id="plot-menu">
+<title
+>Il menu Grafico</title>
+<para>
+<variablelist>
+<varlistentry>
+<term
+><menuchoice
+><guimenu
+>Grafico</guimenu
+> <guimenuitem
+>Grafico</guimenuitem
+> </menuchoice
+></term>
+<listitem
+><para
+><action
+>Apre</action
+> la <link linkend="plot-dlg"
+>finestra dei parametri del grafico</link
+>. </para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><menuchoice
+><guimenu
+>Grafico</guimenu
+> <guimenuitem
+>Grafico 2D</guimenuitem
+> </menuchoice
+></term>
+<listitem
+><para
+><action
+>Apre</action
+> la <link linkend="plot2d-dlg"
+>finestra dei parametri del grafico</link
+>. </para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><menuchoice
+><guimenu
+>Grafico</guimenu
+> <guimenuitem
+>Grafico 3D</guimenuitem
+> </menuchoice
+></term>
+<listitem
+><para
+><action
+>Apre</action
+> la <link linkend="plot3d-dlg"
+>finestra dei parametri del grafico</link
+>. </para
+></listitem>
+</varlistentry>
+</variablelist>
+</para>
+</sect2>
+
+<sect2 id="settings-help-menu">
+<title
+>I menu Impostazioni e Aiuto</title>
+<para
+>&cantor; ha le voci di menu <guimenu
+>Impostazioni</guimenu
+> e <guimenu
+>Aiuto</guimenu
+> comuni di &kde;; per maggiori informazioni, consulta le sezioni sul <ulink url="help:/fundamentals/menus.html#menus-settings"
+>menu Impostazioni</ulink
+> e sul <ulink url="help:/fundamentals/menus.html#menus-help"
+>menu Aiuto</ulink
+> dei «Fondamentali di &kde;». </para>
+
+</sect2>
+
+</sect1>
+</chapter>
+
+<chapter id="faq">
+<title
+>Domande e risposte</title>
+
+<qandaset id="faqlist">
+<qandaentry>
+  <question
+><para
+>La voce di menu <guimenuitem
+>Scrittura usando LaTeX</guimenuitem
+> non è disponibile</para
+></question>
+  <answer
+><para
+>Non tutti i motore supportano tutte le opzioni. Nella versione corrente, &latex; è disponibile solo con i motore Maxima, Qalculate! e Sage.</para
+></answer>
+</qandaentry>
+<qandaentry>
+  <question
+><para
+>Ho installato Sage/Maxima o un altro CAS supportato, ma il motore corrispondente non appare.</para
+></question>
+  <answer>
+    <para
+>Una possibile spiegazione è che &cantor; non ne ha trovato la posizione. Vai nella finestra <menuchoice
+><guimenu
+>Impostazioni</guimenu
+><guimenuitem
+>Configura &cantor;...</guimenuitem
+></menuchoice
+> e modifica il <guilabel
+>Percorso</guilabel
+> dell'applicazione nella scheda del motore. </para>
+  </answer>
+</qandaentry>
+<qandaentry>
+  <question
+><para
+>Che nome strano – cosa ha che fare con la matematica?</para
+></question>
+  <answer
+><para
+>&cantor; è chiamato così in onore del matematico tedesco <ulink url="https://it.wikipedia.org/wiki/Georg_Cantor"
+>Georg Cantor</ulink
+>, il creatore della teoria degli insiemi.</para
+></answer>
+</qandaentry>
+</qandaset>
+</chapter>
+
+<chapter id="credits">
+
+<title
+>Riconoscimenti e licenza</title>
+
+<para
+>&cantor; </para>
+<para
+>Copyright del programma 2009-2011 Alexander Rieder <email
+>alexanderrieder@gmail.com</email
+> </para>
+
+<para
+>Copyright della documentazione &copy; 2009-2011 Alexander Rieder <email
+>alexanderrieder@gmail.com</email
+> </para>
+
+<para
+>Traduzione italiana di Pino Toscano <email
+>toscano.pino@tiscali.it</email
+></para
+> &underFDL; &underGPL; </chapter>
+
+&documentation.index;
+</book>
+
+<!--
+Local Variables:
+mode: xml
+sgml-minimize-attributes:nil
+sgml-general-insert-case:lower
+sgml-indent-step:0
+sgml-indent-data:nil
+End:
+
+vim:tabstop=2:shiftwidth=2:expandtab
+kate: space-indent on; indent-width 2; tab-width 2; indent-mode none;
+-->

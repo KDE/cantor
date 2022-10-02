@@ -1,0 +1,573 @@
+<?xml version="1.0" ?>
+<!DOCTYPE book PUBLIC "-//KDE//DTD DocBook XML V4.5-Based Variant V1.1//EN" 
+"dtd/kdedbx45.dtd" [
+
+  <!ENTITY kappname "&cantor;">
+  <!ENTITY package "kdeedu">
+  <!ENTITY % addindex "IGNORE">
+  <!ENTITY % Galician  "INCLUDE"
+> 
+]>
+<book lang="&language;">
+
+<bookinfo>
+<title
+>Manual do &cantor;</title>
+
+<authorgroup>
+<author
+><personname
+> <firstname
+>Alexander</firstname
+> <surname
+>Rieder</surname
+> </personname
+> <email
+>alexanderrieder@gmail.com</email
+> </author>
+<othercredit role="translator"
+><firstname
+>Xosé</firstname
+><surname
+>Calvo</surname
+><affiliation
+><address
+><email
+></email
+></address
+></affiliation
+><contrib
+>Tradutor do proxecto Trasno</contrib
+></othercredit
+> 
+</authorgroup>
+
+<copyright>
+<year
+>2009</year>
+<holder
+>Alexander Rieder</holder>
+</copyright>
+<legalnotice
+>&FDLNotice;</legalnotice>
+
+<date
+>2009-08-26</date>
+<releaseinfo
+>0.1</releaseinfo>
+
+<abstract>
+<para
+>O &cantor; é un aplicativo que pretende fornecer unha agradábel vista de ficha para outros paquetes de software libre relacionados coas matemáticas. </para>
+</abstract>
+
+<keywordset>
+<keyword
+>KDE</keyword>
+<keyword
+>kdeedu</keyword>
+<keyword
+>matemáticas</keyword>
+<keyword
+>matemáticas</keyword>
+<keyword
+>Cantor</keyword>
+<keyword
+>Sage</keyword>
+<keyword
+>R</keyword>
+<keyword
+>Maxima</keyword>
+</keywordset>
+
+</bookinfo>
+
+<chapter id="introduction">
+<title
+>Introdución</title>
+
+<para
+>O &cantor; é un aplicativo que permite empregar os aplicativos de matemáticas favoritos desde unha interface elegante integrada no &kde; en forma de ficha. Fornece diálogos que axudan nas tarefas frecuentes e permite compartir as fichas con outras persoas. </para>
+</chapter>
+
+<chapter id="using-kapp">
+<title
+>Uso do &cantor;</title>
+
+<para
+>Captura de pantalla: <screenshot>
+<screeninfo
+>Velaquí unha captura do &cantor;</screeninfo>
+	<mediaobject>
+	  <imageobject>
+	    <imagedata fileref="screenshot.png" format="PNG"/>
+	  </imageobject>
+	  <imageobject>
+	    <imagedata fileref="screenshot.eps" format="EPS"/>
+	  </imageobject>
+	  <textobject>
+	    <phrase
+>Captura de pantalla</phrase>
+	  </textobject>
+	</mediaobject>
+</screenshot>
+</para>
+
+
+<sect1 id="kapp-features">
+<title
+>Características do &cantor;</title>
+<itemizedlist>
+  <listitem
+><para
+>Vista en ficha intuitiva para avaliar expresións.</para
+></listitem>
+  <listitem
+><para
+>Resultados da representación de gráficas dentro da ficha.</para
+></listitem>
+  <listitem
+><para
+>Estrutura doada baseada en engadidos que permite engadir infraestruturas diversas.</para
+></listitem>
+  <listitem
+><para
+>Integración de Obter Novidades, que permite descargar (ou enviar) fichas de exemplo.</para
+></listitem>
+  <listitem
+><para
+>Mathematical formula typesetting using LaTeX.</para
+></listitem>
+  <listitem
+><para
+>Realce da sintaxe consciente da infraestrutura.</para
+></listitem>
+  <listitem
+><para
+>Diálogos de axuda baseados en engadidos que axudan coas tarefas máis frecuentes, como integrar unha munción ou encher unha matriz.</para
+></listitem>
+</itemizedlist>
+</sect1>
+
+<sect1 id="backends">
+<title
+>As infraestruturas do &cantor;</title>
+<para
+>O &cantor; ofrece varias posibilidades de infraestrutura que usar. A escolla depende do que se precise atinxir. </para>
+<para
+>As infraestruturas dispoñíbeis nesta altura son: <variablelist>
+    <varlistentry>
+      <term
+>Sage:</term>
+      <listitem>
+	<para
+>Sage é un sistema de software matemático de código aberto publicado coa licenza GPL.Combina a potencia de moitos paquetes de código aberto existentes nunha interface común baseada en Python. Vexa <ulink url="http://sagemath.org"
+>http://sagemath.org</ulink
+> para máis información. </para>
+	</listitem>
+    </varlistentry>
+    <varlistentry>
+      <term
+>Maxima:</term>
+      <listitem>
+	<para
+>Maxima é un sistema para a manipulación de expresións simbólicas e numéricas, incluídas diferenciais, integrais, series de Taylor, transformadas de Laplace, ecuacións diferenciais ordinarias, sistemas de ecuacións lineais, polinomiais, conxuntos, listas, vectores, matrices e tensores. Maxima achega resultados numéricos de gran precisión mediante o uso de fraccións exactas, enteiros de precisión arbitraria e números de vírgula flotante de precisión variábel. Maxima pode representar as funcións e os datos en dúas e tres dimensións. Vexa <ulink url="http://maxima.sourceforge.net"
+>http://maxima.sourceforge.net</ulink
+> para máis información. </para>
+      </listitem>
+    </varlistentry>
+    <varlistentry>
+      <term
+>R:</term>
+      <listitem>
+	<para
+>R é unha linguaxe e un contorno de computación e gráficos estatísticos semellante á linguaxe e contorno S. Fornece unha ampla variedade de técnicas estatísticas (modelado lineal e non lineal, probas de estatística clásicas, análise de series temporais, clasificación, clustering,...) e gráficas, e é moi extensíbel. A linguaxe S é con frecuencia o vehículo preferido na investigación en metodoloxía estatística e R fornece un roteiro de Código Aberto para participar nesa actividade. Vexa <ulink url="http://www.r-project.org"
+>http://www.r-project.org</ulink
+> para máis información. </para>
+      </listitem>
+    </varlistentry>
+    <varlistentry>
+      <term
+>KAlgebra:</term>
+      <listitem>
+	<para
+>KAlgebra é unha calculadora gráfica baseada no MathML que se inclúe co Proxecto Educativo do KDE. Vexa <ulink url="http://edu.kde.org/kalgebra/"
+>http://edu.kde.org/kalgebra/</ulink
+> para máis información. </para>
+      </listitem>
+    </varlistentry>
+  </variablelist>
+</para>
+</sect1>
+
+<sect1 id="workspace">
+<title
+>O espazo de traballo do &cantor;</title>
+<para>
+<screenshot>
+  <screeninfo
+>Captura de pantalla do espazo de traballo do &cantor;</screeninfo>
+  <mediaobject>
+    <imageobject>
+      <imagedata fileref="screenshot.png" format="PNG"/>
+    </imageobject>
+    <imageobject>
+      <imagedata fileref="screenshot.eps" format="EPS"/>
+    </imageobject>
+    <textobject>
+      <phrase
+>Captura de pantalla do espazo de traballo do &cantor;</phrase>
+    </textobject>
+  </mediaobject>
+</screenshot>
+</para>
+<para
+>A interface da ficha do &cantor; consiste en tres partes: <orderedlist>
+    <listitem
+><para
+>A barra de lapelas, na que se pode alternar entre as fichas abertas;</para
+></listitem>
+    <listitem
+><para
+>Un panel de axuda que mostra axuda para unha orde determinada cando se introduce a orde "?";</para
+></listitem>
+    <listitem
+><para
+>A ficha en si.</para
+></listitem>
+  </orderedlist>
+</para>
+<sect2 id="worksheet">
+<title
+>A ficha</title>
+<para
+>A ficha é a área de traballo básica do &cantor;. Nela pódense introducir expresións, permitir que a infraestrutura realice os cálculos e ver os resultados. As ordes que acepta a folla de traballo dependen da infraestrutura escollida, polo que hai que aprender a sintaxe correspondente a cada infraestrutura (o menú Mostrar a axuda leva alí directamente). Se sabes a orde mais precisas axuda adicional, podes escribir a orde "?" e a axuda de contexto aparece á dereita da ficha. Se quixeres ver algunhas fichas de exemplo, podes ir a <guimenuitem
+>Descargar fichas de exemplo</guimenuitem
+> no menú <guimenu
+>Ficheiro</guimenu
+> e descargar ficheiros que outras persoas publicasen. </para>
+<sect3 id="worksheet-settings">
+  <title
+>Configuración</title>
+  <para
+>O menú <guimenu
+>Configuración</guimenu
+> permite mudar algunhas opcións da aparencia da ficha na que esteas a traballar. </para>
+  <variablelist>
+    <varlistentry>
+      <term
+>Typesetting using LaTeX</term>
+      <listitem>
+	<para
+>This setting changes the way results are presented to you. If enabled, it passes the result through the LaTeX system, to produce visually appealing formulas. For example, <quote
+>3*x^2*sqrt(2)*x+2/3</quote
+> becomes <inlinemediaobject>
+	      <imageobject>
+		<imagedata fileref="latex_formula.png" format="PNG"/>
+	      </imageobject>
+	      <imageobject>
+		<imagedata fileref="latex_formula.eps" format="EPS"/>
+	      </imageobject>
+	      <textobject
+><phrase
+>3*x^2*sqrt(2)*x+2/3</phrase
+></textobject>
+	  </inlinemediaobject>
+	</para>
+      </listitem>
+    </varlistentry>
+    <varlistentry>
+      <term
+>Realce da sintaxe</term>
+      <listitem>
+	<para
+>Syntax Highlighting increases the readability of code, by highlighting Keywords, or matching brackets in different colors. </para>
+      </listitem>
+    </varlistentry>
+    <varlistentry>
+      <term
+>Completado</term>
+      <listitem>
+	<para
+>Cando se activa isto, o &cantor; mostra as posíbeis maneiras de completar a orde que estás a escribir se premes a tecla TAB. Se só fica unha escolla, insire automaticamente o resto da orde. </para>
+      </listitem>
+    </varlistentry>
+  <varlistentry>
+    <term
+>Números de liña</term>
+    <listitem>
+      <para
+>Esta opción controla se as diferentes expresións teñen un número diante. Isto permite reutilizar resultados previos - no Maxima, por exemplo, isto faise coa orde <quote
+>%01</quote
+>. </para>
+    </listitem>
+  </varlistentry>
+  </variablelist>
+</sect3>
+</sect2>
+</sect1>
+<!--
+<sect1 id="assistant-dlgs">
+<title
+>The assistant dialogs</title>
+TODO add screenshots and descriptions of each assistant
+</sect1>
+-->
+</chapter>
+<chapter id="commands">
+<title
+>Referencia das ordes</title>
+
+<sect1 id="kapp-mainwindow">
+<title
+>A xanela principal do &cantor;</title>
+
+<sect2 id="file-menu">
+<title
+>The <guimenu
+>File</guimenu
+> Menu</title>
+<para>
+<variablelist>
+<varlistentry>
+<term
+><menuchoice
+><shortcut
+> <keycombo action="simul"
+>&Ctrl;<keycap
+>N</keycap
+></keycombo
+> </shortcut
+> <guimenu
+>Ficheiro</guimenu
+> <guimenuitem
+>Novo</guimenuitem
+> </menuchoice
+></term>
+<listitem
+><para
+><action
+>Creates a new document</action
+></para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><menuchoice
+><shortcut
+> <keycombo action="simul"
+>&Ctrl;<keycap
+>S</keycap
+></keycombo
+> </shortcut
+> <guimenu
+>Ficheiro</guimenu
+> <guimenuitem
+>Gardar</guimenuitem
+> </menuchoice
+></term>
+<listitem
+><para
+><action
+>Saves the document</action
+></para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><menuchoice
+><shortcut
+> <keycombo action="simul"
+>&Ctrl;<keycap
+>Q</keycap
+></keycombo
+> </shortcut
+> <guimenu
+>Ficheiro</guimenu
+> <guimenuitem
+>Saír</guimenuitem
+> </menuchoice
+></term>
+<listitem
+><para
+><action
+>Sae</action
+> do &cantor;</para
+></listitem>
+</varlistentry>
+</variablelist>
+</para>
+
+</sect2>
+
+<sect2 id="help-menu">
+<title
+>The <guimenu
+>Help</guimenu
+> Menu</title>
+&help.menu.documentation; </sect2>
+
+</sect1>
+</chapter>
+
+<chapter id="developers">
+<title
+>Guía do desenvolvedor de &cantor;</title>
+
+<para
+>O &cantor; pódese estender facilmente con engadidos. Pódense escribir <variablelist>
+  <varlistentry>
+    <term
+>Infraestruturas:</term>
+    <listitem>
+      <para
+>Unha infraestrutura nova permite empregar a interface do &cantor; cun programa novo. </para>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term
+>Asistentes:</term>
+    <listitem>
+      <para
+>Os asistentes fornecen diálogos que permiten automatizar operacións frecuentes (como encher unha matriz ou executar un script). </para>
+    </listitem>
+  </varlistentry>
+</variablelist>
+</para>
+<para
+>At present, there are no special developer tutorials or API documentation, so if you want to write a plugin you will have to read through the sources. All interface definitions are in the lib directory. For some example implementations, look at the plugins shipped with &cantor;. </para>
+
+</chapter>
+
+<chapter id="faq">
+<title
+>Preguntas e respostas</title>
+&reporting.bugs; &updating.documentation; <qandaset id="faqlist">
+<qandaentry>
+  <question
+><para
+>O elemento do menú <guimenuitem
+>Composición mediante LaTeX</guimenuitem
+> non está dispoñíbel</para
+></question>
+  <answer
+><para
+>Not every Backend supports every option.</para
+></answer>
+</qandaentry>
+<qandaentry>
+  <question
+><para
+>Instalei Sage/Maxima, mais non aparece a infraestrutura.</para
+></question>
+  <answer>
+    <para
+>One possible explanation is that &cantor; did not correctly detect the location. Go to the Settings dialog and change the Path to the appropriate application. </para>
+  </answer>
+</qandaentry>
+<qandaentry>
+  <question
+><para
+>Vaia nome máis raro - que ten que ver coas matemáticas?</para
+></question>
+  <answer
+><para
+>Cantor is named after the German mathematician Georg Cantor, the creator of set theory.</para
+></answer>
+</qandaentry>
+</qandaset>
+</chapter>
+
+<chapter id="credits">
+
+<title
+>Créditos e licenza</title>
+
+<para
+>&cantor; </para>
+<para
+>Program copyright 2009 Alexander Rieder <email
+>alexanderrieder@gmail.com</email
+> </para>
+
+<para
+>Documentation Copyright &copy; 2009 Alexander Rieder <email
+>alexanderrieder@gmail.com</email
+> </para>
+
+<para
+>Xosé<email
+>xosecalvo@gmail.com</email
+></para
+> 
+&underFDL; &underGPL; </chapter>
+
+<appendix id="installation">
+<title
+>Instalación</title>
+
+<sect1 id="getting-kapp">
+<title
+>Como obter o &cantor;</title>
+&install.intro.documentation; </sect1>
+
+<sect1 id="requirements">
+<title
+>Requisitos</title>
+
+<para
+>In order to successfully use &cantor;, you need &kde; 4. If you want support for type-setting to be enabled, you need to install LaTeX and LibSpectre. To use the different Backends, the appropriate math package is required. </para>
+
+<!--
+<para>
+All required libraries as well as &cantor; itself can be found
+on <ulink url="ftp://ftp.kapp.org"
+>The &cantor; home page</ulink
+>.
+</para>
+-->
+
+
+<!-- For a list of updates, you may refer to the application web site
+or the ChangeLog file, or ... -->
+<!--
+<para>
+You can find a list of changes at <ulink
+url="http://apps.kde.org/kapp"
+>http://apps.kde.org/kapp</ulink
+>.
+</para>
+-->
+</sect1>
+
+<sect1 id="compilation">
+<title
+>Compilación e instalación</title>
+&install.compile.documentation; </sect1>
+
+<sect1 id="configuration">
+<title
+>Configuración</title>
+
+<para
+>Dependendo do sistema pode haber que axustar as rutas aos diferentes aplicativos empregados polo &cantor;. </para>
+
+</sect1>
+
+</appendix>
+
+&documentation.index;
+</book>
+
+<!--
+Local Variables:
+mode: xml
+sgml-minimize-attributes:nil
+sgml-general-insert-case:lower
+sgml-indent-step:0
+sgml-indent-data:nil
+End:
+
+vim:tabstop=2:shiftwidth=2:expandtab
+kate: space-indent on; indent-width 2; tab-width 2; indent-mode none;
+-->

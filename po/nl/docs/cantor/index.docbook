@@ -1,0 +1,1559 @@
+<?xml version="1.0" ?>
+<!DOCTYPE book PUBLIC "-//KDE//DTD DocBook XML V4.5-Based Variant V1.1//EN" "dtd/kdedbx45.dtd" [
+
+  <!ENTITY latex "L<superscript
+>A</superscript
+>T<subscript
+>E</subscript
+>X">
+  <!ENTITY % addindex "IGNORE">
+  <!ENTITY % Dutch "INCLUDE">
+]>
+<book id="cantor" lang="&language;">
+
+<bookinfo>
+<title
+>Handbook van &cantor;</title>
+
+<authorgroup>
+<author
+><personname
+> <firstname
+>Alexander</firstname
+> <surname
+>Rieder</surname
+> </personname
+> <email
+>alexanderrieder@gmail.com</email
+> </author>
+&Jaap.Woldringh; 
+</authorgroup>
+
+<copyright>
+<year
+>2009</year>
+<holder
+>Alexander Rieder</holder>
+</copyright>
+<legalnotice
+>&FDLNotice;</legalnotice>
+
+<date
+>2020-12-16</date>
+<releaseinfo
+>Applicaties 20.12</releaseinfo>
+
+<abstract>
+<para
+>De toepassing &cantor; heeft als doel een goed werkblad aan te bieden voor andere wiskundige Free Software-pakketten. </para>
+</abstract>
+
+<keywordset>
+<keyword
+>KDE</keyword>
+<keyword
+>kdeedu</keyword>
+<keyword
+>wiskunde</keyword>
+<keyword
+>wiskunde</keyword>
+<keyword
+>Cantor</keyword>
+<keyword
+>Julia</keyword>
+<keyword
+>Lua</keyword>
+<keyword
+>Maxima</keyword>
+<keyword
+>Octave</keyword>
+<keyword
+>Python</keyword>
+<keyword
+>Qalculate</keyword>
+<keyword
+>R</keyword>
+<keyword
+>Sage</keyword>
+<keyword
+>Scilab</keyword>
+</keywordset>
+
+</bookinfo>
+
+<chapter id="introduction">
+<title
+>Inleiding</title>
+
+<para
+>Met de toepassing &cantor; kunt u uw favoriete wiskundige programma's gebruiken in een mooie werkblad-omgeving die in &kde; is geïntegreerd. Er zijn dialogen die u helpen bij veel voorkomende taken, en het maakt het u mogelijk uw werkblad met anderen te delen. </para>
+</chapter>
+
+<chapter id="using-kapp">
+<title
+>Het gebruik van &cantor;</title>
+
+<para
+>Schermafdruk: <screenshot>
+<screeninfo
+>Hier is een schermafdruk van &cantor;</screeninfo>
+	<mediaobject>
+	  <imageobject>
+	    <imagedata fileref="screenshot.png" format="PNG"/>
+	  </imageobject>
+	  <textobject>
+	    <phrase
+>Schermafdruk</phrase>
+	  </textobject>
+	</mediaobject>
+</screenshot>
+</para>
+
+
+<sect1 id="kapp-features">
+<title
+>Eigenschappen van &cantor;</title>
+<itemizedlist>
+  <listitem
+><para
+>Intuïtief werkblad voor het berekenen van expressies.</para
+></listitem>
+  <listitem
+><para
+>Geplotte grafieken worden in het werkblad getoond.</para
+></listitem>
+  <listitem
+><para
+>Eenvoudige pluginstructuur waardoor verschillende backends kunnen worden toegevoegd.</para
+></listitem>
+  <listitem
+><para
+>Integratie voor GHNS (Vers van de pers), waardoor u voorbeeldwerkbladen kunt downloaden (of uploaden).</para
+></listitem>
+  <listitem
+><para
+>Weergeven van wiskundige formules met &latex;.</para
+></listitem>
+  <listitem
+><para
+>Backendafhankelijke syntaxis-accentuering</para
+></listitem>
+  <listitem
+><para
+>Pluginafhankelijke hulpdialogen die u bij veel voorkomende taken helpen, zoals het integreren van een functie, of het invoeren van een matrix.</para
+></listitem>
+</itemizedlist>
+</sect1>
+
+<sect1 id="backends">
+<title
+>De backends van &cantor;</title>
+<para
+>&cantor; laat u uit diverse backends kiezen, die u ermee wilt gebruiken. De keus is afhankelijk van wat u wilt doen. </para>
+<para
+>Momenteel zijn de volgende backends beschikbaar: <variablelist>
+    <varlistentry>
+      <term
+>Sage:</term>
+      <listitem>
+	<para
+>Sage is een vrij open-source wiskundig softwaresysteem, met een GPL-licentie. Het combineert de mogelijkheden van veel bestaande open-sourcepakketten, binnen een algemene interface op basis van Python. Zie <ulink url="https://sagemath.org"
+>https://sagemath.org</ulink
+> voor verdere informatie. </para>
+	</listitem>
+    </varlistentry>
+    <varlistentry>
+      <term
+>Maxima:</term>
+      <listitem>
+	<para
+>Maxima is een systeem voor het hanteren van symbolische en numerieke expressies, waaronder differentiëren, integreren, Taylorreeksen, Laplace transformaties, gewone differentiaalvergelijkingen, systemen van lineaire vergelijkingen, veeltermen, verzamelingen, lijsten, vectoren, matrices, en tensoren. Maxima geeft numerieke antwoorden met een grote nauwkeurigheid, door het gebruik van exacte breuken, gehele getallen van een willekeurig grote nauwkeurigheid, en decimale getallen met een variabele nauwkeurigheid. Maxima kan functies en gegevens plotten in twee en drie dimensies. See <ulink url="http://maxima.sourceforge.net"
+>http://maxima.sourceforge.net</ulink
+> voor meer informatie. </para>
+      </listitem>
+    </varlistentry>
+    <varlistentry>
+      <term
+>R:</term>
+      <listitem>
+	<para
+>R is een taal en omgeving voor statistische berekeningen en grafieken, te vergelijken met die van S. Het levert een grote verscheidenheid aan statistische (lineaire en niet- lineaire modellen, klassieke statistische tests, analyse van tijdreeksen, klassificeren, clusteranalyse, ...) en grafische technieken, en kan heel goed worden uitgebreid. De S-taal wordt vaak gebruikt voor onderzoek in statistische methoden, en R is de open-source mogelijkheid hiervoor.  Zie <ulink url="https://www.r-project.org"
+>https://www.r-project.org</ulink
+> voor meer informatie. </para>
+      </listitem>
+    </varlistentry>
+    <varlistentry>
+      <term
+>Julia:</term>
+      <listitem>
+	<para
+>Julia is een zeer krachtige dynamische programmeertaal van hoog niveau voor technische berekeningen. De syntax is bekend voor wie ervaring heeft met andere technische omgevingen. De compiler is geavanceerd, kent een verdeelde parallelle verwerking, en is numeriek  nauwkeurig, Er is een uitvoerige wiskundige bibliotheek aanwezig. Meer informatie vindt u op <ulink url="https://docs.julialang.org/en/"
+>Julia documentation</ulink
+>. </para>
+      </listitem>
+    </varlistentry>
+    <varlistentry>
+      <term
+>&kalgebra;:</term>
+      <listitem>
+	<para
+>&kalgebra; is een grafische rekenmachine, op basis van MathML, die wordt meegeleverd in het Education project van &kde;. Zie <ulink url="https://docs.julialang.org/en/latest/"
+>Julia documentation</ulink
+> voor meer informatie. </para>
+      </listitem>
+    </varlistentry>
+    <varlistentry>
+      <term
+>Qalculate!:</term>
+      <listitem>
+  <para
+>Qalculate! is niet echt een gewone softwareversie van de goedkoopste rekenmachine. Het doel van Qalculate! is volledig gebruik te maken van de uitstekende interface, rekenkracht en toepasbaarheid van moderne computers. Hierbij staat in Qalculate! het invoeren van expressies centraal. In plaats van dat elk getal in een wiskundige expressie (uitdrukking) apart wordt ingevoerd, kunt u de expressie direct in zijn geheel invoeren, en die later aanpassen. Het interpreteren van de expressies is flexibel en fouten worden niet direct afgestraft. Als u niettemin toch iets verkeerds doet, laat Qalculate! u dit weten. Niet helemaal oplosbare expressies echter worden niet als fout beoordeeld. Qalculate zal expressies zo veel mogelijk vereenvoudigen. Naast getallen en wiskundige bewerkingen kan in een expressie elke combinatie van variabelen, eenheden en functies voorkomen. Zie ook <ulink url="https://qalculate.github.io/"
+>https://qalculate.github.io/</ulink
+> voor meer informatie. </para>
+  </listitem>
+    </varlistentry>
+    <varlistentry>
+      <term
+>Python2 and Python3:</term>
+      <listitem>
+  <para
+>Python is een opvallend krachtige dynamische programmeertaal die op veel gebieden wordt toegepast. Er zijn diverse pakketten voor beschikbaar voor wetenschappelijk programmeren. </para>
+  <para
+>Python wordt uitgegeven onder de licentie van de Python Software Foundation (GPL compatibel). Zie de <ulink url="https://www.python.org/"
+>officiële website</ulink
+> voor verdere informatie. </para>
+  <note>
+    <para
+>Door deze backend bevat het hoofdmenu van  &cantor; een extra ingang, namelijk <guimenu
+>Pakket</guimenu
+>. In dit menu kunt u alleen <menuchoice
+><guimenu
+>Pakket</guimenu
+><guimenuitem
+>Pakket importeren</guimenuitem
+></menuchoice
+> kiezen. U kunt hiermee Pythonpakketten in het werkblad importeren. </para>
+  </note>
+    </listitem>
+    </varlistentry>
+    <varlistentry>
+      <term
+>Scilab:</term>
+      <listitem>
+  <para
+>Scilab is vrije en cross-platform software voor numerieke berekeningen, en een hogere numeriek georiënteerde programmeertaal. </para>
+  <para
+>Scilab wordt uitgegeven onder de CeCILL licentie (overeenkomend met GPL). Zie <ulink url="https://www.scilab.org/"
+>http://www.scilab.org/</ulink
+> voor meer  informatie. </para>
+  <warning>
+    <para
+>Om van deze backend gebruik te kunnen maken, moet de geïnstalleerde versie van Scilab 5.5 of hoger zijn. </para>
+  </warning>
+  </listitem>
+    </varlistentry>
+    <varlistentry>
+      <term
+>Octave:</term>
+      <listitem>
+  <para
+>&GNU; Octave is een hogere programmeertaal, speciaal geschikt voor numerieke berekeningen. Het bevat een gemakkelijk te gebruiken interface voor de opdrachtregel, voor het numeriek oplossen van lineaire en niet-lineaire berekeningen, en voor het uitvoeren van andere numerieke experimenten op een manier die het meest lijkt op die van <ulink url="http://www.mathworks.com/products/matlab/"
+>MATLAB</ulink
+>. Zie <ulink url="https://www.mathworks.com/products/matlab.html"
+>MATLAB</ulink
+>. Zie <ulink url="https://www.gnu.org/software/octave/"
+>https://www.gnu.org/software/octave/</ulink
+> voor meer informatie. </para>
+      </listitem>
+    </varlistentry>
+    <varlistentry>
+      <term
+>Lua:</term>
+      <listitem>
+  <para
+>Lua is een snelle kleine scripttaal, met een eenvoudige procedurele syntaxis. Er zijn verschillende wis- en natuurkundige bibliotheken voor Lua beschikbaar. </para>
+  <para
+>Zie <ulink url="http://www.lua.org/"
+>https://www.lua.org/</ulink
+> voor meer  informatie. </para>
+  <para
+>Deze backend ondersteunt <ulink url="https://luajit.org/"
+>luajit 2</ulink
+>. </para>
+      </listitem>
+    </varlistentry>
+  </variablelist>
+</para>
+</sect1>
+
+<sect1 id="workspace">
+<title
+>De werkruimte van &cantor;</title>
+<para>
+<screenshot>
+  <screeninfo
+>Schermafbeelding van de werkruimte van &cantor;</screeninfo>
+  <mediaobject>
+    <imageobject>
+      <imagedata fileref="screenshot.png" format="PNG"/>
+    </imageobject>
+    <textobject>
+      <phrase
+>Schermafbeelding van de werkruimte van &cantor;</phrase>
+    </textobject>
+  </mediaobject>
+</screenshot>
+</para>
+<para
+>De werkblad-interface van &cantor; heeft drie gedeelten: <orderedlist>
+    <listitem
+><para
+>Een tabbladbalk, waarin u tussen de open werkbladen kunt schakelen.</para
+></listitem>
+    <listitem
+><para
+>Een help paneel, met hierin hulp voor een bepaalde opdracht na invoeren van de <userinput
+>??- <replaceable
+>opdracht</replaceable
+></userinput
+>, <userinput
+>beschrijf-(<replaceable
+>opdracht</replaceable
+>)</userinput
+> of <userinput
+>voorbeeld-(<replaceable
+>opdracht</replaceable
+>)</userinput
+> (<application
+>Maxima</application
+> backend).</para
+></listitem>
+    <listitem
+><para
+>Een paneel Variabelenbeheer waarin u de lijst van alle beschikbare variabelen in het huidige werkblad kunt zien. De panelen Help en Variabelenbeheer worden als tabbladen in een zijvak van een &cantor;-venster getoond. Variabelenbeheer kan alleen gebruikt worden voor de backends van Maxima (indien ingeschakeld op pagina <menuchoice
+><guimenu
+>Instellingen</guimenu
+><guimenuitem
+>&cantor; instellen...</guimenuitem
+></menuchoice
+> <guilabel
+>Maxima</guilabel
+>), &kalgebra;, Octave, Python2, Python3, Qalculate, en Scilab.</para
+></listitem>
+    <listitem
+><para
+>Het werkblad zelf.</para
+></listitem>
+  </orderedlist>
+</para>
+<sect2 id="worksheet">
+<title
+>Het werkblad</title>
+<para
+>Het werkblad is het basisgebied waarin u in &cantor; werkt. U kunt hierin expressies invoeren, de backend berekeningen laten doen, en de antwoorden bekijken. De opdrachten die u kunt geven hangen af van de gebruikte backend, dus moet u daarvan de syntaxis kennen (de knop <guibutton
+>Help tonen</guibutton
+> voert u daar rechtstreeks naar toe). Indien u de (naam van de) opdracht kent, maar er meer over wilt weten, kunt u "? <replaceable
+>opdracht</replaceable
+>" intoetsen, waarna u rechts van het werkblad informatie hierover krijgt. Als u een aantal voorbeelden wilt zien van werkbladen, kunt u die ophalen met  <guimenuitem
+>Voorbeeldwerkbladen ophalen</guimenuitem
+> in het menu <guimenu
+>Bestand</guimenu
+>, en zo werkbladen ophalen van andere gebruikers. </para>
+<para
+>Om elk opdrachtitem van het werkblad te besturen kunt u de besturingsknoppen in het rechter gedeelte van het werkblad gebruiken door met de muiscursor over het itemveld te bewegen. Er zijn drie basis acties voor elk item: <guilabel
+>Evalueer item</guilabel
+> om het resultaat van berekeningen voor het item bij te werken, <guilabel
+>Item verslepen</guilabel
+> om het item te verplaatsen naar de andere plaats van het huidige werkblad en <guilabel
+>Item verwijderen</guilabel
+> om het item uit het huidige werkblad te verwijderen. </para>
+<para
+>Instellingen voor lettertypes en uitlijning van items in het werkblad kunnen worden gewijzigd met een werkbalk boven het werkblad. </para>
+<sect3 id="worksheet-settings">
+  <title
+>Instellingen</title>
+  <para
+>In het menu <guimenu
+>Instellingen</guimenu
+> kunt u enkele instellingen van het uiterlijk van het huidige werkblad wijzigen. </para>
+  <variablelist>
+    <varlistentry>
+      <term
+>Zetwerk maken met LaTeX</term>
+      <listitem>
+	<para
+>Met deze instelling wordt de weergave van expressies gewijzigd. Indien actief, wordt die door &latex; in een visueel aantrekkelijke vorm gegoten. Bijvoorbeeld, <quote
+>3*x^2*sqrt(2)*x+2/3</quote
+> wordt <inlinemediaobject>
+	      <imageobject>
+		<imagedata fileref="latex_formula.png" format="PNG"/>
+	      </imageobject>
+	      <textobject
+><phrase
+>3*x^2*sqrt(2)*x+2/3</phrase
+></textobject>
+	  </inlinemediaobject>
+	</para>
+      </listitem>
+    </varlistentry>
+    <varlistentry>
+      <term
+>Syntaxisaccentuering</term>
+      <listitem>
+	<para
+>Door syntaxisaccentuering wordt de leesbaarheid van (programma)code verbeterd, door de sleutelwoorden (keywords) en bij elkaar passende haakjes in verschillende kleuren weer te geven. </para>
+      </listitem>
+    </varlistentry>
+    <varlistentry>
+      <term
+>Tab-voltooiing</term>
+      <listitem>
+	<para
+>Wanneer deze actief is, toont &cantor; de mogelijke voltooiingen van de opdracht die u aan het intypen bent, wanneer u op de tab-toets drukt. Wanneer er maar één mogelijkheid overblijft, wordt de rest van de opdracht voor u aangevuld. </para>
+      </listitem>
+    </varlistentry>
+  <varlistentry>
+    <term
+>Regelnummers</term>
+    <listitem>
+      <para
+>Met deze instelling regelt u het geven van nummers aan de verschillende expressies. Hierdoor kunt u vorige antwoorden weer terughalen - in Maxima, bijvoorbeeld, doet u dit met de opdracht <quote
+>%O1</quote
+>.  </para>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term
+>Werkblad animeren</term>
+    <listitem>
+      <para
+>Deze instelling bestuurt of de verschillende animaties zullen worden gebruikt om wijzigingen op een werkblad te accentueren. </para>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term
+>Wiskunde ingebed</term>
+    <listitem>
+      <para
+>Hiermee regelt u of wiskundige uitdrukkingen tussen <literal
+>$$..$$</literal
+> in Tekst en &Markdown;- invoer standaard wordt aangezet (heeft <application
+>pdflatex</application
+> nodig). </para>
+    </listitem>
+  </varlistentry>
+  </variablelist>
+</sect3>
+</sect2>
+</sect1>
+<sect1 id="assistant-dlgs">
+<title
+>De hulpdialogen</title>
+<para
+>Er zijn verschillende dialogen beschikbaar in &cantor; om het uitvoeren van wat basisbewerkingen te vereenvoudigen. </para>
+<para
+>Deze dialogen zijn beschikbaar in het hoofdmenu. Elke backend kent zijn eigen hulpdialogen. </para>
+<sect2 id="create-matrix-dlg">
+<title
+>De dialoog aanmaken matrix</title>
+<screenshot>
+  <screeninfo
+>Schermafbeelding dialoog in &cantor; voor aanmaken matrix</screeninfo>
+  <mediaobject>
+    <imageobject>
+      <imagedata fileref="create-dlg.png" format="PNG"/>
+    </imageobject>
+    <textobject>
+      <phrase
+>Schermafbeelding dialoog in &cantor; voor aanmaken matrix</phrase>
+    </textobject>
+  </mediaobject>
+</screenshot>
+<para
+>In deze dialoog kunnen matrices worden ingevoerd. Dimensies en elementen van een matrix kunnen worden opgegeven. </para>
+<para
+>Tijdens de invoer kan snel tussen de cellen worden genavigeerd met behulp van de &Tab;-toets. </para>
+</sect2>
+<sect2 id="compute-invert-dlg">
+<title
+>Dialoog voor matrixbewerkingen</title>
+<screenshot>
+  <screeninfo
+>Schermafbeelding dialoog in &cantor; voor invoeren matrix</screeninfo>
+  <mediaobject>
+    <imageobject>
+      <imagedata fileref="matrix-dlg.png" format="PNG"/>
+    </imageobject>
+    <textobject>
+      <phrase
+>Schermafbeelding dialoog in &cantor; voor invoeren matrix</phrase>
+    </textobject>
+  </mediaobject>
+</screenshot>
+<para
+>In deze dialoog kan de naam worden ingevoerd van de matrix waarvan de eigenvectoren, eigenwaarden of inverse matrix moeten worden berekend. De standaard waarde  (<userinput
+>%</userinput
+>) wordt gebruikt voor verwijzing naar de vorige berekening of invoer. </para>
+</sect2>
+<sect2 id="calculate-derivative-dlg">
+<title
+>Differentiatie dialoog </title>
+<screenshot>
+  <screeninfo
+>Schermafbeelding differentiatie dialoog van &cantor;</screeninfo>
+  <mediaobject>
+    <imageobject>
+      <imagedata fileref="differentiate-dlg.png" format="PNG"/>
+    </imageobject>
+    <textobject>
+      <phrase
+>Schermafbeelding differentiatie dialoog van &cantor;</phrase>
+    </textobject>
+  </mediaobject>
+</screenshot>
+<para
+>In deze dialoog kan de te differentiëren functie worden ingevoerd, de naam van de variabele en de orde van de afgeleide. </para>
+</sect2>
+<sect2 id="calculate-integral-dlg">
+<title
+>Integratie dialoog</title>
+<screenshot>
+  <screeninfo
+>Schermafbeelding integratie dialoog van &cantor;</screeninfo>
+  <mediaobject>
+    <imageobject>
+      <imagedata fileref="integrate-dlg.png" format="PNG"/>
+    </imageobject>
+    <textobject>
+      <phrase
+>Schermafbeelding integratie dialoog van &cantor;</phrase>
+    </textobject>
+  </mediaobject>
+</screenshot>
+<para
+>In deze dialoog kan de te integreren functie worden ingevoerd, de naam van de variabele en de de integratiegrenzen voor een bepaalde integraal. </para>
+</sect2>
+<sect2 id="calculate-solve-dlg">
+<title
+>Dialoog voor oplossen vergelijkingen</title>
+<screenshot>
+  <screeninfo
+>Schermafbeelding van &cantor; voor oplossen vergelijkingen</screeninfo>
+  <mediaobject>
+    <imageobject>
+      <imagedata fileref="solve-equations-dlg.png" format="PNG"/>
+    </imageobject>
+    <textobject>
+      <phrase
+>Schermafbeelding van &cantor; voor oplossen vergelijkingen</phrase>
+    </textobject>
+  </mediaobject>
+</screenshot>
+<para
+>In deze dialoog kunnen de op te lossen vergelijkingen worden ingevoerd (elke vergelijking op een aparte regel), en de te berekenen variabelen (door komma's gescheiden). </para>
+</sect2>
+<sect2 id="package-import-dlg">
+<title
+>Dialoog importeren pakketten</title>
+<screenshot>
+  <screeninfo
+>Schermafbeelding van &cantor; dialoog importeren pakketten</screeninfo>
+  <mediaobject>
+    <imageobject>
+      <imagedata fileref="import-dlg.png" format="PNG"/>
+    </imageobject>
+    <textobject>
+      <phrase
+>Schermafbeelding van &cantor; dialoog importeren pakketten</phrase>
+    </textobject>
+  </mediaobject>
+</screenshot>
+<para
+>In deze dialoog kan de naam van het te importeren pakket worden ingevoerd (&eg; <userinput
+>numpy</userinput
+> voor Python). </para>
+</sect2>
+<sect2 id="plot-dlg">
+<title
+>Plot dialoog</title>
+<screenshot>
+  <screeninfo
+>Schermafbeelding van &cantor; voor plot dialoog (tabblad Functies)</screeninfo>
+  <mediaobject>
+    <imageobject>
+      <imagedata fileref="plot-dlg1.png" format="PNG"/>
+    </imageobject>
+    <textobject>
+      <phrase
+>Schermafbeelding van &cantor; voor plot dialoog (tabblad Functies)</phrase>
+    </textobject>
+  </mediaobject>
+</screenshot>
+<para
+>De opties in deze dialoog worden over twee tabbladen verdeeld. In het tabblad <guilabel
+>Functies</guilabel
+> kunnen de te plotten functies worden ingevoerd. </para>
+<para
+>Een nieuwe functie wordt ingevoerd door op de knop <guibutton
+>Toevoegen</guibutton
+> te klikken. Dubbelklik op de cel <guilabel
+>Naam</guilabel
+>, en voer de naam in, dubbelklik op de cel <guilabel
+>Expressie</guilabel
+> en voer de expressie in van de functie. </para>
+<screenshot>
+  <screeninfo
+>Schermafbeelding van &cantor; voor plot dialoog (tabblad Opties)</screeninfo>
+  <mediaobject>
+    <imageobject>
+      <imagedata fileref="plot-dlg2.png" format="PNG"/>
+    </imageobject>
+    <textobject>
+      <phrase
+>Schermafbeelding van &cantor; voor plot dialoog (tabblad Opties)</phrase>
+    </textobject>
+  </mediaobject>
+</screenshot>
+<para
+>In het tabblad <guilabel
+>Opties</guilabel
+> kunnen de opties worden ingevoerd voor  plotten en legenda. U kunt bijna elke plotoptie zo aanpassen dat er een mooie plot ontstaat. </para>
+</sect2>
+<sect2 id="plot2d-dlg">
+<title
+>Dialoog 2D plot</title>
+<screenshot>
+  <screeninfo
+>Schermafbeelding van &cantor; voor dialoog 2D plot</screeninfo>
+  <mediaobject>
+    <imageobject>
+      <imagedata fileref="plot2d-dlg.png" format="PNG"/>
+    </imageobject>
+    <textobject>
+      <phrase
+>Schermafbeelding van &cantor; voor dialoog 2D plot</phrase>
+    </textobject>
+  </mediaobject>
+</screenshot>
+<para
+>In deze dialoog kan de expressie van de functie worden ingevoerd, de variabele, en de grenzen van de variabele. </para>
+</sect2>
+<sect2 id="plot3d-dlg">
+<title
+>3D plot dialoog</title>
+<screenshot>
+  <screeninfo
+>Schermafbeelding van &cantor; voor dialoog 3D plot</screeninfo>
+  <mediaobject>
+    <imageobject>
+      <imagedata fileref="plot3d-dlg.png" format="PNG"/>
+    </imageobject>
+    <textobject>
+      <phrase
+>Schermafbeelding van &cantor; voor dialoog 3D plot</phrase>
+    </textobject>
+  </mediaobject>
+</screenshot>
+<para
+>In deze dialoog kan de expressie van de functie worden ingevoerd, de variabele, en de grenzen van de variabele. </para>
+</sect2>
+</sect1>
+</chapter>
+
+<chapter id="commands">
+<title
+>Overzicht van de opdrachten</title>
+
+<sect1 id="kapp-mainwindow">
+<title
+>Het hoofdvenster van &cantor;</title>
+
+<para
+>&cantor; heeft de gemeenschappelijke menu-items van &kde;, voor meer informatie lees het hoofdstuk <ulink url="help:/fundamentals/menus.html"
+> Menu</ulink
+> basishoofdstuk van &kde; . </para>
+
+<para
+>Hieronder is de lijst van aanvullende of speciale menu-onderdelen in &cantor;. Let u er wel op dat sommige menu's alleen zichtbaar zijn voor backends die daarvan gebruik maken. </para>
+
+<sect2 id="file-menu">
+<title
+>Het menu Bestand</title>
+<para>
+<variablelist>
+<varlistentry>
+<term
+><menuchoice
+><shortcut
+> <keycombo action="simul"
+>&Ctrl;<keycap
+>N</keycap
+></keycombo
+> </shortcut
+> <guimenu
+>Bestand</guimenu
+> <guimenuitem
+>Nieuw</guimenuitem
+> </menuchoice
+></term>
+<listitem
+><para
+><action
+>Maakt een nieuw werkblad aan met de standaard backend.</action
+></para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><menuchoice
+><guimenu
+>Bestand</guimenu
+> <guisubmenu
+>Nieuw</guisubmenu
+> <guimenuitem
+><replaceable
+>Backend</replaceable
+></guimenuitem
+> </menuchoice
+></term>
+<listitem
+><para
+><action
+>Maakt een nieuw werkblad aan met de gekozen backend.</action
+></para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><menuchoice
+><shortcut
+> <keycombo action="simul"
+>&Ctrl;<keycap
+>O</keycap
+></keycombo
+> </shortcut
+> <guimenu
+>Bestand</guimenu
+> <guimenuitem
+>Openen...</guimenuitem
+> </menuchoice
+></term>
+<listitem
+><para
+><action
+>Een nieuw werkblad openen met de bestandsdialoog.</action
+></para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><menuchoice
+><guimenu
+>Bestand</guimenu
+> <guimenuitem
+>Recent openen</guimenuitem
+> </menuchoice
+></term>
+<listitem
+><para
+><action
+> Kies een werkblad in een lijst van recent gebruikte bestanden.</action
+></para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><menuchoice
+><guimenu
+>Bestand</guimenu
+> <guimenuitem
+>Voorbeeldwerkbladen downloaden</guimenuitem
+> </menuchoice
+></term>
+<listitem
+><para
+><action
+>Opent de dialoog voor het downloaden van voorbeelden die door andere gebruikers van &cantor; ter beschikking zijn gesteld, met  <ulink url="https://userbase.kde.org/Special:MyLanguage/Glossary#Get_Hot_New_Stuff"
+>Interessante zaken ophalen</ulink
+>.</action
+></para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><menuchoice
+><guimenu
+>Bestand</guimenu
+> <guimenuitem
+>Voorbeeld openen</guimenuitem
+> </menuchoice
+></term>
+<listitem
+><para
+><action
+>Opent de dialoog voor het inlezen van een voorbeeld.</action
+> De voorbeelden  moeten eerst worden gedownload met <menuchoice
+><guimenu
+>Bestand</guimenu
+> <guimenuitem
+>Voorbeeldwerkbladen downloaden</guimenuitem
+></menuchoice
+> beforehand.</para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><menuchoice
+><guimenu
+>Bestand</guimenu
+> <guimenuitem
+>Opslaan als platte tekst...</guimenuitem
+> </menuchoice
+></term>
+<listitem
+><para
+><action
+>Hiermee kunt het huidige werkblad als platte tekst opslaan.</action
+></para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><menuchoice
+><guimenu
+>Bestand</guimenu
+> <guimenuitem
+>Naar LaTeX exporteren</guimenuitem
+> </menuchoice
+></term>
+<listitem
+><para
+><action
+>Hiermee kunt het huidige werkblad als een &latex;-document opslaan.</action
+></para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><menuchoice
+><guimenu
+>Bestand</guimenu
+> <guimenuitem
+>Werkblad publiceren</guimenuitem
+> </menuchoice
+></term>
+<listitem
+><para
+><action
+>Opent de dialoog voor het publiceren van uw huidige werkblad, zodat het beschikbaar wordt voor andere gebruikers van &cantor;, met <ulink url="https://userbase.kde.org/Special:MyLanguage/Glossary#Get_Hot_New_Stuff"
+>Interessante zaken ophalen</ulink
+>.</action
+></para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><menuchoice
+><guimenu
+>Bestand</guimenu
+> <guimenuitem
+>Script uitvoeren</guimenuitem
+> </menuchoice
+></term>
+<listitem
+><para
+><action
+>Hiermee kunt u de scripts inlezen en uitvoeren voor de huidige backend.</action
+></para
+></listitem>
+</varlistentry>
+</variablelist>
+</para>
+
+</sect2>
+
+<sect2 id="view-menu">
+<title
+>Het menu Beeld</title>
+<para>
+<variablelist>
+<varlistentry>
+<term
+><menuchoice
+><guimenu
+>Beeld</guimenu
+><guisubmenu
+>Panelen</guisubmenu
+></menuchoice
+></term>
+<listitem
+><para
+>Hiermee kunt u de zichtbaarheid schakelen van enkele tabbladen in het zijvak. U kunt kiezen uit: <variablelist>
+  <varlistentry>
+  <term
+><guimenuitem
+>Bestanden</guimenuitem
+></term>
+  <listitem
+><para
+><action
+>Omschakelen</action
+> van het tonen van het tabblad <guilabel
+>Bestanden</guilabel
+> in het zijvak.</para
+></listitem>
+  </varlistentry>
+
+  <varlistentry>
+  <term
+><guimenuitem
+>Help</guimenuitem
+></term>
+  <listitem
+><para
+><action
+>Omschakelen</action
+> van het tonen van het tabblad <guilabel
+>Help</guilabel
+> in het zijvak.</para
+></listitem>
+  </varlistentry>
+
+  <varlistentry>
+  <term
+><guimenuitem
+>Beheer variabelen</guimenuitem
+></term>
+  <listitem
+><para
+><action
+>Omschakelen</action
+> van het tonen van het tabblad <guilabel
+>Beheerder van variabelen</guilabel
+> in het zijvak.</para
+></listitem>
+  </varlistentry>
+</variablelist
+></para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><menuchoice
+><shortcut
+> <keycombo action="simul"
+>&Ctrl;<keycap
+>+</keycap
+></keycombo
+> </shortcut
+> <guimenu
+>Beeld</guimenu
+> <guimenuitem
+>Inzoomen</guimenuitem
+> </menuchoice
+></term>
+<listitem
+><para
+>Op het huidige werkblad 10% <action
+>inzoomen</action
+>.</para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><menuchoice
+><shortcut
+> <keycombo action="simul"
+>&Ctrl;<keycap
+>-</keycap
+></keycombo
+> </shortcut
+> <guimenu
+>Beeld</guimenu
+> <guimenuitem
+>Uitzoomen</guimenuitem
+> </menuchoice
+></term>
+<listitem
+><para
+>Op het huidige werkblad 10% <action
+>uitzoomen</action
+>.</para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><menuchoice
+><guimenu
+>Beeld</guimenu
+> <guimenuitem
+>Scriptbewerker tonen</guimenuitem
+> </menuchoice
+></term>
+<listitem
+><para
+><action
+>Opent het venster voor het bewerken van scripts voor de huidige backend.</action
+></para
+></listitem>
+</varlistentry>
+</variablelist>
+</para>
+</sect2>
+
+<sect2 id="worsheet-menu">
+<title
+>Het menu Werkblad</title>
+<para>
+<variablelist>
+<varlistentry>
+<term
+><menuchoice
+><shortcut
+> <keycombo action="simul"
+>&Ctrl;<keycap
+>E</keycap
+></keycombo
+> </shortcut
+> <guimenu
+>Werkblad</guimenu
+> <guimenuitem
+>Werkblad berekenen</guimenuitem
+> </menuchoice
+></term>
+<listitem
+><para
+><action
+>Activeert</action
+> het doorrekenen van het gehele werkblad.</para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><menuchoice
+><shortcut
+> <keycombo action="simul"
+>&Shift;&Enter;</keycombo
+> </shortcut
+> <guimenu
+>Werkblad</guimenu
+> <guimenuitem
+>Invoer berekenen</guimenuitem
+> </menuchoice
+></term>
+<listitem
+><para
+><action
+>Start</action
+> het berekenen van de huiduge invoer.</para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><menuchoice
+><shortcut
+> <keycombo action="simul"
+>&Ctrl;&Enter;</keycombo
+> </shortcut
+> <guimenu
+>Werkblad</guimenu
+> <guimenuitem
+>Opdracht invoegen</guimenuitem
+> </menuchoice
+></term>
+<listitem
+><para
+><action
+>Voegt een nieuwe opdracht toe onder de huidige positie van de muisaanwijzer.</action
+></para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><menuchoice
+><guimenu
+>Werkblad</guimenu
+> <guimenuitem
+>Tekstinvoer invoegen</guimenuitem
+> </menuchoice
+></term>
+<listitem
+><para
+><action
+>Voegt een nieuwe tekstinvoer toe onder de huidige positie van de muisaanwijzer.</action
+></para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><menuchoice
+><guimenu
+>Werkblad</guimenu
+> <guimenuitem
+>Markdown-invoer invoegen</guimenuitem
+> </menuchoice
+></term>
+<listitem
+><para
+><action
+>Voegt &Markdown;-invoer in onder de huidige positie van de muisaanwijzer.</action
+>.</para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><menuchoice
+><guimenu
+>Werkblad</guimenu
+> <guimenuitem
+>LaTeX-invoer invoegen</guimenuitem
+> </menuchoice
+></term>
+<listitem
+><para
+><action
+>Voegt Latex-invoer in onder de huidige positie van de muisaanwijzer.</action
+>.</para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><menuchoice
+><guimenu
+>Werkblad</guimenu
+> <guimenuitem
+>Afbeelding invoegen</guimenuitem
+> </menuchoice
+></term>
+<listitem
+><para
+><action
+>Voegt een afbeelding in onder de huidige positie van de muisaanwijzer.</action
+></para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><menuchoice
+><guimenu
+>Worksheet</guimenu
+> <guimenuitem
+>Insert Pagina-einde</guimenuitem
+> </menuchoice
+></term>
+<listitem
+><para
+><action
+>Voegt een pagina-einde in onder de huidige positie van de muisaanwijzer.</action
+></para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><menuchoice
+><guimenu
+>Werkblad</guimenu
+> <guimenuitem
+>Alle antwoorden inklappen</guimenuitem
+> </menuchoice
+></term>
+<listitem
+><para
+><action
+>Alle antwoorden inklappen van ingevoerde opdracht.</action
+></para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><menuchoice
+><guimenu
+>Werkblad</guimenu
+> <guimenuitem
+>Alle antwoorden uitklappen</guimenuitem
+> </menuchoice
+></term>
+<listitem
+><para
+><action
+>Alle antwoorden uitklappen van ingevoerde opdracht.</action
+></para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><menuchoice
+><guimenu
+>Werkblad</guimenu
+> <guimenuitem
+>Alle antwoorden verwijderen</guimenuitem
+> </menuchoice
+></term>
+<listitem
+><para
+><action
+>Alle antwoorden verwijderen van ingevoerde opdracht.</action
+></para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><menuchoice
+><shortcut
+> <keycombo action="simul"
+>&Shift;&Del;</keycombo
+> </shortcut
+> <guimenu
+>Werkblad</guimenu
+> <guimenuitem
+>Huidige invoer verwijderen</guimenuitem
+> </menuchoice
+></term>
+<listitem
+><para
+><action
+>Wist</action
+> de huidige invoer in het werkblad.</para
+></listitem>
+</varlistentry>
+</variablelist>
+</para>
+</sect2>
+
+<sect2 id="linear-algebra-menu">
+<title
+>Het menu Lineaire algebra</title>
+<para>
+<variablelist>
+<varlistentry>
+<term
+><menuchoice
+><guimenu
+>Lineaire algebra</guimenu
+> <guimenuitem
+>Matrix aanmaken</guimenuitem
+> </menuchoice
+></term>
+<listitem
+><para
+><action
+>Opent</action
+> de <link linkend="create-matrix-dlg"
+>dialoog matrix aanmaken</link
+>.</para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><menuchoice
+><guimenu
+>Lineaire algebra</guimenu
+> <guimenuitem
+>Eigenwaarden berekenen</guimenuitem
+> </menuchoice
+></term>
+<listitem
+><para
+><action
+>Opent</action
+> de <link linkend="compute-invert-dlg"
+>dialoog invoeren naam matrix</link
+> voor de berekening van de eigenwaarden en dimensies van de meervoudigheden van de eigenwaarden, in de juiste volgorde. </para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><menuchoice
+><guimenu
+>Lineaire algebra</guimenu
+> <guimenuitem
+>Eigenvectoren berekenen</guimenuitem
+> </menuchoice
+></term>
+<listitem
+><para
+><action
+>Opent</action
+> de <link linkend="compute-invert-dlg"
+>dialoog invoeren naam matrix</link
+> voor de berekening van de eigenwaarden en dimensies van de meervoudigheden van de eigenwaarden, en eigenvectoren in de juiste volgorde. </para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><menuchoice
+><guimenu
+>Linaire algebra</guimenu
+> <guimenuitem
+>Inverse matrix</guimenuitem
+> </menuchoice
+></term>
+<listitem
+><para
+><action
+>Opent</action
+> de <link linkend="compute-invert-dlg"
+>dialoog invoeren naam matrix</link
+> voor de berekening van de inverse van de matrix. </para
+></listitem>
+</varlistentry>
+</variablelist>
+</para>
+</sect2>
+
+<sect2 id="calculate-menu">
+<title
+>Het menu Bereken</title>
+<para>
+<variablelist>
+<varlistentry>
+<term
+><menuchoice
+><guimenu
+>Bereken</guimenu
+> <guimenuitem
+>Differentëren</guimenuitem
+> </menuchoice
+></term>
+<listitem
+><para
+><action
+>Opent</action
+> de <link linkend="calculate-derivative-dlg"
+>dialoog differentiatie parameters</link
+>. </para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><menuchoice
+><guimenu
+>Bereken</guimenu
+> <guimenuitem
+>Integratie</guimenuitem
+> </menuchoice
+></term>
+<listitem
+><para
+><action
+>Opent</action
+> de <link linkend="calculate-derivative-dlg"
+>dialoog integratie parameters</link
+>. </para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><menuchoice
+><guimenu
+>Bereken</guimenu
+> <guimenuitem
+>Vergelijkingen oplossen</guimenuitem
+> </menuchoice
+></term>
+<listitem
+><para
+><action
+>Opent</action
+> de <link linkend="calculate-derivative-dlg"
+>dialoog invoeren parameters</link
+> voor het oplossen van lineaire en niet-lineaire vergelijkingen. </para
+></listitem>
+</varlistentry>
+</variablelist>
+</para>
+</sect2>
+
+<sect2 id="package-menu">
+<title
+>Het menu Pakketten</title>
+<para>
+<variablelist>
+<varlistentry>
+<term
+><menuchoice
+><guimenu
+>Pakketten</guimenu
+> <guimenuitem
+>Pakket importeren</guimenuitem
+> </menuchoice
+></term>
+<listitem
+><para
+><action
+>Opent</action
+> de <link linkend="package-import-dlg"
+>dialoog pakket importeren</link
+>. </para
+></listitem>
+</varlistentry>
+</variablelist>
+</para>
+</sect2>
+
+<sect2 id="plot-menu">
+<title
+>Het menu Plot</title>
+<para>
+<variablelist>
+<varlistentry>
+<term
+><menuchoice
+><guimenu
+>Plot</guimenu
+> <guimenuitem
+>Plot</guimenuitem
+> </menuchoice
+></term>
+<listitem
+><para
+><action
+>Opent</action
+> the <link linkend="plot-dlg"
+>dialoog plotparameters </link
+>. </para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><menuchoice
+><guimenu
+>Plot</guimenu
+> <guimenuitem
+>Plot 2D</guimenuitem
+> </menuchoice
+></term>
+<listitem
+><para
+><action
+>Opent</action
+> de <link linkend="plot2d-dlg"
+>dialoog plotparameters</link
+>. </para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><menuchoice
+><guimenu
+>Plot</guimenu
+> <guimenuitem
+>Plot 3D</guimenuitem
+> </menuchoice
+></term>
+<listitem
+><para
+><action
+>Opent</action
+> de <link linkend="plot3d-dlg"
+>dialoog plotparameters</link
+>. </para
+></listitem>
+</varlistentry>
+</variablelist>
+</para>
+</sect2>
+
+<sect2 id="settings-help-menu">
+<title
+>De menu's Instellingen en Help</title>
+<para
+>&cantor; heeft de gewone  menu's van &kde;-  voor <guimenu
+>Instellingen</guimenu
+> en <guimenu
+>Help</guimenu
+>. Voor meer informatie lees de secties over het  <ulink url="help:/fundamentals/menus.html#menus-settings"
+>Instellingenmenu</ulink
+> en het <ulink url="help:/fundamentals/menus.html#menus-help"
+>Helpmenu</ulink
+> in de basis van &kde;. </para>
+
+</sect2>
+
+</sect1>
+</chapter>
+
+<chapter id="faq">
+<title
+>Vragen en antwoorden</title>
+
+<qandaset id="faqlist">
+<qandaentry>
+  <question
+><para
+>Het menu <guimenuitem
+>Weergeven met LaTeX</guimenuitem
+> is niet beschikbaar</para
+></question>
+  <answer
+><para
+>Niet elke backend ondersteunt elke optie. De huidige versie ondersteunt &latex;-uitvoer voor de backends Maxima, Qualculate! en Sage.</para
+></answer>
+</qandaentry>
+<qandaentry>
+  <question
+><para
+>Ik heb Sage/Maxima geïnstalleerd, of andere ondersteunde CAS, maar zie de bijbehorende backend niet. (CAS: Computer Algebra Systeem)</para
+></question>
+  <answer>
+    <para
+>Een mogelijke verklaring is dat &cantor; de juiste locatie niet kan detecteren. Ga naar de dialoog <menuchoice
+><guimenu
+>Instellingen</guimenu
+><guimenuitem
+> &cantor; instellen...</guimenuitem
+></menuchoice
+> en wijzig het <guilabel
+>Pad</guilabel
+> naar de juiste backend-pagina van de toepassing. </para>
+  </answer>
+</qandaentry>
+<qandaentry>
+  <question
+><para
+>Wat een rare naam is dit - wat heeft die nu met wiskunde te maken?</para
+></question>
+  <answer
+><para
+>&cantor; is genoemd naar de Duitse wiskundige <ulink url="https://en.wikipedia.org/wiki/Georg_Cantor"
+>Georg Cantor</ulink
+>, de bedenker van de verzamelingentheorie.</para
+></answer>
+</qandaentry>
+</qandaset>
+</chapter>
+
+<chapter id="credits">
+
+<title
+>Dankbetuiging en licentie</title>
+
+<para
+>&cantor; </para>
+<para
+>Programma copyright 2009-2011 Alexander Rieder <email
+>alexanderrieder@gmail.com</email
+> </para>
+
+<para
+>Documentatie Copyright &copy; 2009-2011 Alexander Rieder <email
+>alexanderrieder@gmail.com</email
+> </para>
+
+&meld.fouten;&vertaling.freek;&vertaling.jaap; &underFDL; &underGPL; </chapter>
+
+&documentation.index;
+</book>
+
+<!--
+Local Variables:
+mode: xml
+sgml-minimize-attributes:nil
+sgml-general-insert-case:lower
+sgml-indent-step:0
+sgml-indent-data:nil
+End:
+
+vim:tabstop=2:shiftwidth=2:expandtab
+kate: space-indent on; indent-width 2; tab-width 2; indent-mode none;
+-->

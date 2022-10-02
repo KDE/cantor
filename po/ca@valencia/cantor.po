@@ -1,0 +1,4807 @@
+# Translation of cantor.po to Catalan (Valencian)
+# Copyright (C) 2009-2022 This_file_is_part_of_KDE
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Orestes Mas <orestes@tsc.upc.edu>, 2009, 2010, 2011, 2012.
+# Josep M. Ferrer <txemaq@gmail.com>, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022.
+# Antoni Bella Pérez <antonibella5@yahoo.com>, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022.
+msgid ""
+msgstr ""
+"Project-Id-Version: cantor\n"
+"Report-Msgid-Bugs-To: https://bugs.kde.org\n"
+"POT-Creation-Date: 2022-08-07 00:40+0000\n"
+"PO-Revision-Date: 2022-08-07 12:01+0200\n"
+"Last-Translator: Josep M. Ferrer <txemaq@gmail.com>\n"
+"Language-Team: Catalan <kde-i18n-ca@kde.org>\n"
+"Language: ca@valencia\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Lokalize 20.12.0\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Accelerator-Marker: &\n"
+
+#, kde-format
+msgctxt "NAME OF TRANSLATORS"
+msgid "Your names"
+msgstr "Orestes Mas Casals"
+
+#, kde-format
+msgctxt "EMAIL OF TRANSLATORS"
+msgid "Your emails"
+msgstr "orestes@tsc.upc.edu"
+
+#: animationresultitem.cpp:38
+#, kde-format
+msgid "Pause"
+msgstr "Pausa"
+
+#: animationresultitem.cpp:41
+#, kde-format
+msgid "Start"
+msgstr "Inicia"
+
+#: animationresultitem.cpp:45
+#, kde-format
+msgid "Stop"
+msgstr "Para"
+
+#: animationresultitem.cpp:113
+#, kde-format
+msgid "Save animation result"
+msgstr "Guarda l'animació resultant"
+
+#: animationresultitem.cpp:113
+#, kde-format
+msgid "Animations (*.gif)"
+msgstr "Animacions (*.gif)"
+
+#: assistants/advancedplot/advancedplotassistant.cpp:30
+#, kde-format
+msgid "Advanced Plotting"
+msgstr "Gràfiques avançades"
+
+#. i18n: ectx: property (text), widget (QLabel, label_2)
+#: assistants/advancedplot/advancedplotdialog.ui:24
+#: backends/qalculate/plotassistant/qalculateplotassistant.cpp:24
+#, kde-format
+msgid "Plot"
+msgstr "Gràfica"
+
+#. i18n: ectx: property (text), widget (QLabel, label_3)
+#. i18n: ectx: property (text), widget (QLabel, label)
+#: assistants/advancedplot/advancedplotdialog.ui:33
+#: assistants/differentiate/differentiatedlg.ui:19
+#: assistants/integrate/integratedlg.ui:19 assistants/plot2d/plot2ddlg.ui:19
+#: assistants/plot3d/plot3ddlg.ui:17
+#, kde-format
+msgid "Expression:"
+msgstr "Expressió:"
+
+#. i18n: ectx: property (text), widget (QLabel, label)
+#: assistants/advancedplot/advancedplotdialog.ui:45
+#, kde-format
+msgid "Additional options:"
+msgstr "Opcions addicionals:"
+
+#. i18n: ectx: Menu (Plot)
+#: assistants/advancedplot/cantor_advancedplot_assistant.rc:4
+#: assistants/plot2d/cantor_plot2d_assistant.rc:4
+#: assistants/plot3d/cantor_plot3d_assistant.rc:4
+#: backends/qalculate/plotassistant/cantor_qalculateplotassistant.rc:4
+#, kde-format
+msgid "&Plot"
+msgstr "&Gràfiques"
+
+#. i18n: ectx: property (title), widget (QGroupBox, directiveContainer)
+#: assistants/advancedplot/directivecontainer.ui:14
+#, kde-format
+msgid "Option active"
+msgstr "Opció activa"
+
+#. i18n: ectx: Menu (calculate)
+#: assistants/differentiate/cantor_differentiate_assistant.rc:4
+#: assistants/integrate/cantor_integrate_assistant.rc:4
+#: assistants/solve/cantor_solve_assistant.rc:4
+#, kde-format
+msgid "&Calculate"
+msgstr "&Calcula"
+
+#: assistants/differentiate/differentiateassistant.cpp:29
+#, kde-format
+msgid "Differentiate"
+msgstr "Deriva"
+
+#. i18n: ectx: property (text), widget (QLabel, label_2)
+#: assistants/differentiate/differentiatedlg.ui:29
+#: assistants/integrate/integratedlg.ui:29
+#, kde-format
+msgid "Variable:"
+msgstr "Variable:"
+
+#. i18n: ectx: property (text), widget (KLineEdit, variable)
+#. i18n: ectx: property (text), widget (KLineEdit, xVarEdit)
+#: assistants/differentiate/differentiatedlg.ui:36
+#: assistants/integrate/integratedlg.ui:36
+#: backends/qalculate/plotassistant/qalculateplotdialog.ui:123
+#, kde-format
+msgid "x"
+msgstr "x"
+
+#. i18n: ectx: property (text), widget (QLabel, label_3)
+#: assistants/differentiate/differentiatedlg.ui:47
+#, kde-format
+msgid "Times: "
+msgstr "Vegades:"
+
+#. i18n: ectx: Menu (import_package)
+#: assistants/importpackage/cantor_import_package_assistant.rc:4
+#, kde-format
+msgid "&Package"
+msgstr "&Paquet"
+
+#: assistants/importpackage/importpackageassistant.cpp:29
+#, kde-format
+msgid "Import Package"
+msgstr "Importa un paquet"
+
+#. i18n: ectx: property (text), widget (QLabel, label)
+#: assistants/importpackage/importpackagedlg.ui:17
+#, kde-format
+msgid "Package:"
+msgstr "Paquet:"
+
+#: assistants/integrate/integrateassistant.cpp:29
+#, kde-format
+msgid "Integrate"
+msgstr "Integra"
+
+#. i18n: ectx: property (text), widget (QLabel, label_3)
+#: assistants/integrate/integratedlg.ui:49
+#, kde-format
+msgid "Lower limit:"
+msgstr "Límit inferior:"
+
+#. i18n: ectx: property (text), widget (QLabel, label_4)
+#: assistants/integrate/integratedlg.ui:63
+#, kde-format
+msgid "Upper limit:"
+msgstr "Límit superior:"
+
+#. i18n: ectx: property (text), widget (QCheckBox, isDefinite)
+#: assistants/integrate/integratedlg.ui:77
+#, kde-format
+msgid "definite integral"
+msgstr "Integral definida"
+
+#. i18n: ectx: Menu (linear_algebra)
+#: assistants/linearalgebra/creatematrix/cantor_create_matrix_assistant.rc:4
+#: assistants/linearalgebra/eigenvalues/cantor_eigenvalues_assistant.rc:4
+#: assistants/linearalgebra/eigenvectors/cantor_eigenvectors_assistant.rc:4
+#: assistants/linearalgebra/invertmatrix/cantor_invert_matrix_assistant.rc:4
+#, kde-format
+msgid "&Linear Algebra"
+msgstr "À&lgebra lineal"
+
+#: assistants/linearalgebra/creatematrix/creatematrixassistant.cpp:26
+#, kde-format
+msgid "Create Matrix"
+msgstr "Crea una matriu"
+
+#. i18n: ectx: property (text), widget (QLabel, label_2)
+#: assistants/linearalgebra/creatematrix/creatematrixdlg.ui:19
+#, kde-format
+msgid "Columns:"
+msgstr "Columnes:"
+
+#. i18n: ectx: property (text), widget (QLabel, label)
+#: assistants/linearalgebra/creatematrix/creatematrixdlg.ui:37
+#, kde-format
+msgid "Rows:"
+msgstr "Files:"
+
+#: assistants/linearalgebra/eigenvalues/eigenvaluesassistant.cpp:28
+#, kde-format
+msgid "Compute Eigenvalues"
+msgstr "Calcula els autovalors"
+
+#. i18n: ectx: property (text), widget (QLabel, label)
+#: assistants/linearalgebra/eigenvalues/eigenvaluesdlg.ui:17
+#: assistants/linearalgebra/eigenvectors/eigenvectorsdlg.ui:17
+#: assistants/linearalgebra/invertmatrix/invertmatrixdlg.ui:17
+#, kde-format
+msgid "Matrix:"
+msgstr "Matriu:"
+
+#: assistants/linearalgebra/eigenvectors/eigenvectorsassistant.cpp:28
+#, kde-format
+msgid "Compute Eigenvectors"
+msgstr "Calcula els autovectors"
+
+#: assistants/linearalgebra/invertmatrix/invertmatrixassistant.cpp:28
+#, kde-format
+msgid "Invert Matrix"
+msgstr "Invertix la matriu"
+
+#: assistants/plot2d/plot2dassistant.cpp:28
+#, kde-format
+msgid "Plot 2D"
+msgstr "Gràfica en 2D"
+
+#. i18n: ectx: property (title), widget (QGroupBox, groupBox)
+#: assistants/plot2d/plot2ddlg.ui:31
+#, kde-format
+msgid "Variable"
+msgstr "Variable"
+
+#. i18n: ectx: property (text), widget (QLabel, label_2)
+#. i18n: ectx: property (text), widget (QLabel, label_5)
+#: assistants/plot2d/plot2ddlg.ui:43 assistants/plot3d/plot3ddlg.ui:41
+#: assistants/plot3d/plot3ddlg.ui:86
+#, kde-format
+msgid "Name"
+msgstr "Nom"
+
+#. i18n: ectx: property (text), widget (QLabel, label_3)
+#. i18n: ectx: property (text), widget (QLabel, label_6)
+#: assistants/plot2d/plot2ddlg.ui:53 assistants/plot3d/plot3ddlg.ui:51
+#: assistants/plot3d/plot3ddlg.ui:96
+#, kde-format
+msgid "Minimum:"
+msgstr "Mínim:"
+
+#. i18n: ectx: property (text), widget (QLabel, label_4)
+#. i18n: ectx: property (text), widget (QLabel, label_7)
+#: assistants/plot2d/plot2ddlg.ui:63 assistants/plot3d/plot3ddlg.ui:61
+#: assistants/plot3d/plot3ddlg.ui:106
+#, kde-format
+msgid "Maximum:"
+msgstr "Màxim:"
+
+#: assistants/plot3d/plot3dassistant.cpp:28
+#, kde-format
+msgid "Plot 3D"
+msgstr "Gràfica en 3D"
+
+#. i18n: ectx: property (title), widget (QGroupBox, groupBox)
+#: assistants/plot3d/plot3ddlg.ui:29
+#, kde-format
+msgid "1st Variable"
+msgstr "1a. variable"
+
+#. i18n: ectx: property (title), widget (QGroupBox, groupBox_2)
+#: assistants/plot3d/plot3ddlg.ui:74
+#, kde-format
+msgid "2nd Variable"
+msgstr "2a. variable"
+
+#: assistants/runscript/runscriptassistant.cpp:28
+#: scripteditor/scripteditorwidget.cpp:39
+#, kde-format
+msgid "Run Script"
+msgstr "Executa un script"
+
+#: assistants/solve/solveassistant.cpp:28
+#, kde-format
+msgid "Solve equations"
+msgstr "Resol les equacions"
+
+#. i18n: ectx: property (text), widget (QLabel, label)
+#: assistants/solve/solvedlg.ui:19
+#, kde-format
+msgid "Equations:"
+msgstr "Equacions:"
+
+#. i18n: ectx: property (text), widget (QLabel, label_2)
+#: assistants/solve/solvedlg.ui:33
+#, kde-format
+msgid "Variables:"
+msgstr "Variables:"
+
+#: backendchoosedialog.cpp:64
+#, kde-format
+msgid "Select the Backend"
+msgstr "Seleccioneu el dorsal"
+
+#: backendchoosedialog.cpp:110
+#, kde-format
+msgid "<h1>%1</h1><div><b>Recommended version:</b> %2</div>"
+msgstr "<h1>%1</h1><div><b>Versió recomanada:</b> %2</div>"
+
+#: backendchoosedialog.cpp:113
+#, kde-format
+msgid ""
+"<hr><div>%1</div><br><div>See <a href=\"%2\">%2</a> for more information.</"
+"div>"
+msgstr ""
+"<hr><div>%1</div><br><div>Vegeu <a href=\"%2\">%2</a> per a més informació.</"
+"div>"
+
+#: backendchoosedialog.cpp:125
+#, kde-format
+msgid ""
+"<hr><div><b><font color='#e50000'>Some requirements are not fulfilled: </"
+"font></b>%1</div>"
+msgstr ""
+"<hr><div><b><font color='#e50000'>No es complixen completament diversos "
+"requisits: </font></b>%1</div>"
+
+#. i18n: ectx: property (text), widget (QCheckBox, makeDefault)
+#: backendchooser.ui:37
+#, kde-format
+msgid "Make this the default backend"
+msgstr "Fes-lo el dorsal predeterminat"
+
+#: backends/julia/juliabackend.cpp:57
+#, kde-format
+msgid ""
+"<b>Julia</b> is a high-level, high-performance dynamic programming language "
+"for technical computing, with syntax that is familiar to users of other "
+"technical computing environments. It provides a sophisticated compiler, "
+"distributed parallel execution, numerical accuracy, and an extensive "
+"mathematical function library."
+msgstr ""
+"<b>Julia</b> és un llenguatge de programació d'alt nivell i rendiment per a "
+"la computació tècnica, amb una sintaxi que és familiar per als usuaris "
+"d'altres entorns de computació tècnica. Proporciona un compilador "
+"sofisticat, execució en paral·lel distribuïda, precisió numèrica i una "
+"extensa biblioteca de funcions matemàtiques."
+
+#: backends/julia/juliabackend.cpp:70
+#, kde-format
+msgctxt ""
+"The url to the documentation of Julia, please check if there is a translated "
+"version and use the correct url"
+msgid "https://docs.julialang.org/en/latest/"
+msgstr "https://docs.julialang.org/en/latest/"
+
+#: backends/julia/juliabackend.cpp:86
+#, kde-format
+msgid ""
+"The path to Julia specified in the application settings must point directly "
+"to the executable. Symlinks are not allowed. Please provide the correct path "
+"in the application settings and try again."
+msgstr ""
+"El camí a Julia especificat en la configuració de l'aplicació cal que apunte "
+"directament a l'executable. No es permeten els enllaços simbòlics. "
+"Proporcioneu el camí correcte cap a la configuració de l'aplicació i torneu-"
+"ho a intentar."
+
+#: backends/julia/juliabackend.cpp:101 backends/julia/juliabackend.cpp:113
+#, kde-format
+msgid ""
+"Сantor couldn’t determine the version of Julia for %1. Please specify the "
+"correct path to Julia executable (no symlinks allowed) and try again."
+msgstr ""
+"El Сantor no ha pogut determinar la versió de Julia per a %1. Especifiqueu "
+"el camí correcte cap a l'executable de Julia (no es permeten enllaços "
+"simbòlics) i torneu-ho a provar."
+
+#: backends/julia/juliabackend.cpp:126
+#, kde-format
+msgid ""
+"You are trying to use Cantor with Julia v%1.%2.%3. This version of Cantor "
+"was compiled with the support of Julia v%4.%5.%6. Please point to this "
+"version of Julia or recompile Cantor using the version %1.%2.%3."
+msgstr ""
+"Esteu intentant utilitzar Cantor amb Julia v%1.%2.%3. Esta versió de Cantor "
+"es va compilar amb Julia v%4.%5.%6. Apunteu a esta versió de Julia o "
+"recompileu Cantor utilitzant la versió %1.%2.%3."
+
+#. i18n: ectx: label, entry (replPath), group (JuliaBackend)
+#: backends/julia/juliabackend.kcfg:10
+#, kde-format
+msgid "Path to the Julia native REPL"
+msgstr "Camí a Julia natiu REPL"
+
+#. i18n: ectx: label, entry (variableManagement), group (JuliaBackend)
+#. i18n: ectx: label, entry (variableManagement), group (PythonBackend)
+#. i18n: ectx: label, entry (variableManagement), group (RBackend)
+#. i18n: ectx: label, entry (variableManagement), group (MaximaBackend)
+#: backends/julia/juliabackend.kcfg:16 backends/maxima/maximabackend.kcfg:26
+#: backends/python/pythonbackend.kcfg:14 backends/R/rserver/rserver.kcfg:16
+#, kde-format
+msgid "Enable Variable Management"
+msgstr "Habilita la gestió de les variables"
+
+#. i18n: ectx: label, entry (integratePlots), group (JuliaBackend)
+#. i18n: ectx: label, entry (integratePlots), group (PythonBackend)
+#. i18n: ectx: label, entry (integratePlots), group (RBackend)
+#. i18n: ectx: label, entry (integratePlots), group (ScilabBackend)
+#. i18n: ectx: label, entry (integratePlots), group (MaximaBackend)
+#: backends/julia/juliabackend.kcfg:20 backends/maxima/maximabackend.kcfg:22
+#: backends/python/pythonbackend.kcfg:10 backends/R/rserver/rserver.kcfg:12
+#: backends/scilab/scilabbackend.kcfg:22
+#, kde-format
+msgid "Integrate Plots into the Worksheet"
+msgstr "Integra les gràfiques en el full de treball"
+
+#. i18n: ectx: label, entry (plotExtenstionGraphicPackage), group (JuliaBackend)
+#. i18n: ectx: label, entry (plotExtenstionGraphicPackage), group (PythonBackend)
+#: backends/julia/juliabackend.kcfg:37 backends/python/pythonbackend.kcfg:28
+#, kde-format
+msgid "Graphical package for the Plot-Assistant"
+msgstr "Paquet gràfic per a l'assistent «Plot»"
+
+#: backends/julia/juliaextensions.cpp:246
+#, kde-format
+msgid "# Sorry, but Gadfly don't support 3d plots"
+msgstr "# El Gadfly no admet les gràfiques en 3D"
+
+#: backends/julia/juliaextensions.cpp:263
+#, kde-format
+msgid "Julia script file (*.jl)"
+msgstr "Fitxer de script de Julia (*.jl)"
+
+#: backends/julia/juliasession.cpp:111 backends/julia/juliasession.cpp:120
+#: backends/maxima/maximasession.cpp:265 cantor_part.cpp:963
+#: lib/session.cpp:311 lib/session.cpp:313 worksheet.cpp:1193
+#: worksheet.cpp:1221 worksheet.cpp:1236 worksheet.cpp:1252 worksheet.cpp:1296
+#: worksheet.cpp:1308
+#, kde-format
+msgid "Error - Cantor"
+msgstr "Error - Cantor"
+
+#: backends/julia/juliasession.cpp:111
+#, kde-format
+msgid ""
+"Julia session can't login due internal julia problem with missing internal "
+"file - \"%1\""
+msgstr ""
+"No s'ha pogut iniciar la sessió amb Julia per un problema intern de «julia», "
+"ja que falta el fitxer intern - «%1»"
+
+#: backends/julia/juliasession.cpp:120
+#, kde-format
+msgid "Julia session can't login due unknown internal problem"
+msgstr ""
+"No s'ha pogut iniciar la sessió amb Julia per un problema intern desconegut"
+
+#: backends/julia/juliasession.cpp:246
+#, kde-format
+msgid "Julia process stopped working."
+msgstr "El procés de Julia ha parat el seu funcionament."
+
+#: backends/julia/juliasession.cpp:249
+#, kde-format
+msgid "Failed to start Julia process."
+msgstr "No s'ha pogut iniciar el procés de Julia."
+
+#: backends/julia/juliasession.cpp:252
+#, kde-format
+msgid "Communication with Julia process failed for unknown reasons."
+msgstr ""
+"Ha fallat la comunicació amb el procés de Julia per motius desconeguts."
+
+#: backends/julia/juliasession.cpp:322
+#, kde-format
+msgid ""
+"For Julia only GR (https://gr-framework.org/), a framework for visualization "
+"applications, is supported at the moment. This package has to be installed "
+"first, if not done yet. For this, run Pkg.install(\"GR\") in Cantor or in "
+"Julia REPL. Note, this operation can take some time and it's better to "
+"perform it in Julia REPL that is able to show the current progress of the "
+"package installation."
+msgstr ""
+"Actualment està implementat el GR per a Julia (https://gr-framework.org/), "
+"un entorn de treball d'aplicacions de visualització. Primer cal instal·lar "
+"este paquet, si encara no s'ha fet. Per açò, executeu Pkg.install(\"GR\") a "
+"Cantor o en un REPL de Julia. Cal tindre en compte que esta operació pot "
+"tardar una estona i és millor portar-la a terme al REPL de Julia que pot "
+"mostrar el progrés actual de la instal·lació del paquet."
+
+#. i18n: ectx: attribute (title), widget (QWidget, tabGeneral)
+#. i18n: ectx: attribute (title), widget (QWidget, tab_3)
+#: backends/julia/settings.ui:21 backends/lua/settings.ui:21
+#: backends/maxima/settings.ui:21 backends/octave/settings.ui:21
+#: backends/python/settings.ui:21 backends/qalculate/settings.ui:21
+#: backends/R/settings.ui:21 backends/sage/settings.ui:21
+#: backends/scilab/settings.ui:21 cantor.cpp:632
+#, kde-format
+msgid "General"
+msgstr "General"
+
+#. i18n: ectx: property (text), widget (QLabel, label)
+#: backends/julia/settings.ui:27 backends/maxima/settings.ui:61
+#: backends/octave/settings.ui:106 backends/sage/settings.ui:63
+#: backends/scilab/settings.ui:27
+#, kde-format
+msgid "Executable:"
+msgstr "Executable:"
+
+#. i18n: ectx: property (text), widget (QLabel, lPlotIntegration)
+#: backends/julia/settings.ui:37 backends/maxima/settings.ui:37
+#: backends/octave/settings.ui:73 backends/python/settings.ui:47
+#: backends/R/settings.ui:53 backends/scilab/settings.ui:37
+#, kde-format
+msgid "Plot Integration:"
+msgstr "Integració de les gràfiques:"
+
+#. i18n: ectx: property (toolTip), widget (QCheckBox, kcfg_integratePlots)
+#: backends/julia/settings.ui:44 backends/maxima/settings.ui:27
+#: backends/octave/settings.ui:96 backends/python/settings.ui:64
+#: backends/R/settings.ui:33 backends/scilab/settings.ui:44
+#, kde-format
+msgid ""
+"If enabled, plots will be shown inside of the worksheet. Otherwise, plots "
+"will be shown in an external window."
+msgstr ""
+"Si està activada, les gràfiques es mostraran dins del full de treball. "
+"Altrament apareixeran en una finestra externa."
+
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_allowLatex)
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_integratePlots)
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_variableManagement)
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_indicateInfiniteSeries)
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_useAllPrefixes)
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_negativeExponents)
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_postConversion)
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_inlinePlot)
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_coloredPlot)
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_plotGrid)
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_plotBorder)
+#: backends/julia/settings.ui:47 backends/julia/settings.ui:64
+#: backends/maxima/settings.ui:30 backends/maxima/settings.ui:47
+#: backends/octave/settings.ui:56 backends/octave/settings.ui:99
+#: backends/python/settings.ui:67 backends/python/settings.ui:77
+#: backends/qalculate/settings.ui:125 backends/qalculate/settings.ui:142
+#: backends/qalculate/settings.ui:159 backends/qalculate/settings.ui:202
+#: backends/qalculate/settings.ui:308 backends/qalculate/settings.ui:315
+#: backends/qalculate/settings.ui:322 backends/qalculate/settings.ui:339
+#: backends/R/settings.ui:36 backends/R/settings.ui:46
+#: backends/sage/settings.ui:37 backends/scilab/settings.ui:47
+#: commandentry.cpp:349
+#, kde-format
+msgid "Enabled"
+msgstr "Habilitat"
+
+#. i18n: ectx: property (text), widget (QLabel, lVariableManagement)
+#: backends/julia/settings.ui:54 backends/maxima/settings.ui:54
+#: backends/octave/settings.ui:66 backends/python/settings.ui:27
+#: backends/R/settings.ui:76
+#, kde-format
+msgid "Variable Management:"
+msgstr "Gestió de les variables:"
+
+#. i18n: ectx: property (toolTip), widget (QCheckBox, kcfg_variableManagement)
+#: backends/julia/settings.ui:61 backends/maxima/settings.ui:44
+#: backends/octave/settings.ui:53 backends/python/settings.ui:74
+#: backends/R/settings.ui:43
+#, kde-format
+msgid ""
+"Monitor the creation and destruction of variables and show the existing "
+"variables in the variable panel."
+msgstr ""
+"Controla la creació i destrucció de les variables i mostra les variables "
+"existents en el quadro de variables."
+
+#. i18n: ectx: property (text), widget (QLabel, label2)
+#. i18n: ectx: property (text), widget (QLabel, label_2)
+#: backends/julia/settings.ui:71 backends/octave/settings.ui:27
+#, kde-format
+msgid "Internal Plot Format:"
+msgstr "Format intern de les gràfiques:"
+
+#. i18n: ectx: property (toolTip), widget (QComboBox, kcfg_inlinePlotFormat)
+#: backends/julia/settings.ui:78
+#, kde-format
+msgid "Inner format of plots, if plots embedding is enabled."
+msgstr ""
+"Format intern de les gràfiques, si s'ha activat la incrustació de les "
+"gràfiques."
+
+#. i18n: ectx: property (toolTip), widget (QLabel, label3)
+#. i18n: ectx: property (toolTip), widget (KComboBox, kcfg_plotExtenstionGraphicPackage)
+#. i18n: ectx: property (toolTip), widget (QLabel, label4)
+#: backends/julia/settings.ui:95 backends/julia/settings.ui:111
+#: backends/python/settings.ui:54 backends/python/settings.ui:90
+#, kde-format
+msgid "Graphic package to be used in the Plot Assistant"
+msgstr "Paquet gràfic que s'utilitzarà en l'assistent «Plot»"
+
+#. i18n: ectx: property (text), widget (QLabel, label3)
+#. i18n: ectx: property (text), widget (QLabel, label4)
+#: backends/julia/settings.ui:98 backends/python/settings.ui:57
+#, kde-format
+msgid "Package for Plot Assistant"
+msgstr "Paquet per a l'assistent «Plot»"
+
+#. i18n: ectx: property (text), item, widget (KComboBox, kcfg_plotExtenstionGraphicPackage)
+#: backends/julia/settings.ui:115 backends/python/settings.ui:109
+#, kde-format
+msgid "GR"
+msgstr "GR"
+
+#. i18n: ectx: property (text), item, widget (KComboBox, kcfg_plotExtenstionGraphicPackage)
+#: backends/julia/settings.ui:120
+#, kde-format
+msgid "Plots"
+msgstr "Plots"
+
+#. i18n: ectx: property (text), item, widget (KComboBox, kcfg_plotExtenstionGraphicPackage)
+#: backends/julia/settings.ui:125
+#, kde-format
+msgid "PyPlot"
+msgstr "PyPlot"
+
+#. i18n: ectx: property (text), item, widget (KComboBox, kcfg_plotExtenstionGraphicPackage)
+#: backends/julia/settings.ui:130
+#, kde-format
+msgid "Gadfly"
+msgstr "Gadfly"
+
+#. i18n: ectx: attribute (title), widget (QWidget, tabAutorun)
+#. i18n: ectx: attribute (title), widget (QWidget, tabAutoran)
+#: backends/julia/settings.ui:152 backends/lua/settings.ui:51
+#: backends/maxima/settings.ui:85 backends/octave/settings.ui:114
+#: backends/python/settings.ui:123 backends/qalculate/settings.ui:556
+#: backends/R/settings.ui:84 backends/sage/settings.ui:71
+#: backends/scilab/settings.ui:68
+#, kde-format
+msgid "Autorun"
+msgstr "Executa automàticament"
+
+#. i18n: ectx: property (text), widget (QLabel, lAutorun)
+#. i18n: ectx: property (title), widget (QGroupBox, groupBox)
+#. i18n: ectx: property (text), widget (QLabel, label_2)
+#: backends/julia/settings.ui:158 backends/kalgebra/settings.ui:20
+#: backends/lua/settings.ui:57 backends/maxima/settings.ui:91
+#: backends/octave/settings.ui:120 backends/python/settings.ui:129
+#: backends/qalculate/settings.ui:562 backends/R/settings.ui:90
+#: backends/sage/settings.ui:77 backends/scilab/settings.ui:74
+#, kde-format
+msgid "Commands to autorun"
+msgstr "Ordres que s'han d'executar automàticament"
+
+#. i18n: ectx: attribute (title), widget (QWidget, tabDocumentation)
+#: backends/julia/settings.ui:172 backends/lua/settings.ui:71
+#: backends/maxima/settings.ui:105 backends/octave/settings.ui:134
+#: backends/python/settings.ui:143 backends/qalculate/settings.ui:575
+#: backends/R/settings.ui:104 backends/sage/settings.ui:91
+#: backends/scilab/settings.ui:88
+#, kde-format
+msgid "Documentation"
+msgstr "Documentació"
+
+#: backends/kalgebra/kalgebrabackend.cpp:56
+#, kde-format
+msgctxt ""
+"The url to the documentation of KAlgebra, please check if there is a "
+"translated version and use the correct url"
+msgid "https://docs.kde.org/?application=kalgebra"
+msgstr "https://docs.kde.org/?application=kalgebra&language=ca"
+
+#. i18n: ectx: label, entry (autorunScripts), group (SageBackend)
+#. i18n: ectx: label, entry (autorunScripts), group (KAlgebraBackend)
+#. i18n: ectx: label, entry (autorunScripts), group (PythonBackend)
+#. i18n: ectx: label, entry (autorunScripts), group (RBackend)
+#. i18n: ectx: label, entry (autorunScripts), group (LuaBackend)
+#. i18n: ectx: label, entry (autorunScripts), group (ScilabBackend)
+#. i18n: ectx: label, entry (autorunScripts), group (MaximaBackend)
+#. i18n: ectx: label, entry (autorunScripts), group (QalculateBackend)
+#: backends/kalgebra/kalgebrabackend.kcfg:9 backends/lua/luabackend.kcfg:14
+#: backends/maxima/maximabackend.kcfg:30 backends/python/pythonbackend.kcfg:18
+#: backends/qalculate/qalculatebackend.kcfg:130
+#: backends/R/rserver/rserver.kcfg:20 backends/sage/sagebackend.kcfg:18
+#: backends/scilab/scilabbackend.kcfg:26
+#, kde-format
+msgid "List of scripts to autorun at the beginning of session"
+msgstr ""
+"Llista de scripts que s'han d'executar automàticament al començament de la "
+"sessió"
+
+#: backends/kalgebra/kalgebraexpression.cpp:44
+#, kde-format
+msgid "Error: %1"
+msgstr "S'ha produït un error: %1"
+
+#: backends/kalgebra/kalgebrasyntaxhelpobject.cpp:27
+#, kde-format
+msgid "<p><b>%1:</b> %2</p>"
+msgstr "<p><b>%1:</b> %2</p>"
+
+#. i18n: ectx: property (toolTip), widget (QGroupBox, groupBox)
+#: backends/kalgebra/settings.ui:17
+#, kde-format
+msgid ""
+"This autorun commands, which will run on start new worksheet. They can be "
+"useful for loading needed modules, changing environment, etc."
+msgstr ""
+"Açò executa ordres automàticament, que s'executaran en iniciar un full de "
+"treball nou. Poden ser útils per a carregar els mòduls necessaris, canviar "
+"l'entorn, etc."
+
+#: backends/lua/luabackend.cpp:52
+#, kde-format
+msgctxt "Lua official documentation"
+msgid "https://www.lua.org/docs.html"
+msgstr "https://www.lua.org/docs.html"
+
+#: backends/lua/luabackend.cpp:57
+#, kde-format
+msgid ""
+"<b>Lua</b> is a fast and lightweight scripting language, with a simple "
+"procedural syntax. There are several libraries in Lua aimed at math and "
+"science."
+msgstr ""
+"<b>Lua</b> és un llenguatge ràpid i lleuger de creació de scripts, amb una "
+"sintaxi senzilla de procediment. Hi ha diverses biblioteques en Lua "
+"dirigides a les matemàtiques i la ciència."
+
+#. i18n: ectx: label, entry (Path), group (LuaBackend)
+#: backends/lua/luabackend.kcfg:10
+#, kde-format
+msgid "Path to luajit command"
+msgstr "Camí cap a l'ordre «luajit»"
+
+#: backends/lua/luaextensions.cpp:20
+#, kde-format
+msgid "Lua script file (*.lua)"
+msgstr "Fitxer de script de Lua (*.lua)"
+
+#. i18n: ectx: property (text), widget (QLabel, label)
+#: backends/lua/settings.ui:27
+#, kde-format
+msgid "Path to luajit:"
+msgstr "Camí a «luajit»:"
+
+#: backends/maxima/maximabackend.cpp:72
+#, kde-format
+msgctxt ""
+"the url to the documentation of Maxima, please check if there is a "
+"translated version and use the correct url"
+msgid "http://maxima.sourceforge.net/docs/manual/en/maxima.html"
+msgstr "http://maxima.sourceforge.net/docs/manual/en/maxima.html"
+
+# skip-rule: barb-igual
+#: backends/maxima/maximabackend.cpp:79
+#, kde-format
+msgid ""
+"<h1>Maxima's Help System</h1><h2>Function <i>apropos</i></h2>Searches for "
+"Maxima names which have name appearing anywhere within them; <i>name</i> "
+"must be a string or symbol. Thus, <i>apropos(exp)</i> returns a list of all "
+"the flags and functions which have exp as part of their name, such as "
+"<i>expand</i>, <i>exp</i>, and <i>exponentialize</i>. So, if you can only "
+"remember part of the name of a Maxima command or variable, you can use this "
+"command to find the rest of the name. Similarly, you can type "
+"<i>apropos(tr_)</i> to find a list of many of the switches relating to the "
+"translator, most of which begin with <i>tr_</i>.<br><br><i>apropos(\"\")</i> "
+"returns a list with all Maxima names.<br><br><i>apropos</i> returns the "
+"empty list [], if no name is found.<br><br><h2>Function <i>describe</i></"
+"h2><i>describe(string)</i> is equivalent to describe(string, exact)."
+"<br><br><i>describe(string, exact)</i> finds an item with title equal (case-"
+"insensitive) to string, if there is any such item."
+"<br><br><i>describe(string, inexact)</i> finds all documented items which "
+"contain string in their titles. If there is more than one such item, Maxima "
+"asks the user to select an item or items to display.<br><br><i>? foo</i> "
+"(with a space between <i>?</i> and <i>foo</i>) is equivalent to "
+"<i>describe(\"foo\", exact)</i>, and <i>?? foo</i> is equivalent to "
+"<i>describe(\"foo\", inexact)</i>.<br><br><i>describe(, inexact)</i> yields "
+"a list of all topics documented in the on-line manual.<br><br><i>describe</"
+"i> quotes its argument. <i>describe</i> returns <i>true</i> if some "
+"documentation is found, otherwise <i>false</i>.<br><h2>Function <i>example</"
+"i></h2><i>example(topic)</i> displays some examples of <i>topic</i>, which "
+"is a symbol or a string. To get examples for operators like <i>if</i>, "
+"<i>do</i>, or <i>lambda</i> the argument must be a string, e.g. "
+"<i>example(\"do\")</i>. <i>example</i> is not case sensitive. Most topics "
+"are function names.<br><br><i>example()</i> returns the list of all "
+"recognized topics.<br><br>The name of the file containing the examples is "
+"given by the global option variable <i>manual_demo</i>, which defaults to <i>"
+"\"manual.demo\"</i>.<br><br><i>example</i> quotes its argument. <i>example</"
+"i> returns <i>done</i> unless no examples are found or there is no argument, "
+"in which case <i>example</i> returns the list of all recognized topics."
+msgstr ""
+"<h1>Sistema d'ajuda de Maxima</h1><h2>Funció <i>acostes</i></h2>Busca noms "
+"de Maxima que apareixen a qualsevol lloc dins d'ells; <i>name</i> ha de ser "
+"una cadena o símbol. Així, <i>acostes(exp)</i> retorna una llista de tots "
+"els indicadors i funcions que tenen «exp» com a part del seu nom, com ara "
+"<i>expand</i>, <i>exp</i>, i <i>exponentialize</i>. Així, si només es pot "
+"recordar part del nom d'una ordre o variable de Maxima, es pot utilitzar "
+"esta ordre per a trobar la resta del nom. De la mateixa manera, podeu "
+"escriure <i>acostes(tr_)</i> per a trobar una llista de molts dels "
+"commutadors relacionats amb el traductor, la majoria dels quals comencen per "
+"<i>tr_</i>.<br><br><i>acostes(\"\")</i> retorna una llista amb tots els noms "
+"de Maxima.<br><br></i>acostes</i> retorna la llista buida [], si no es troba "
+"cap nom.<br><br><h2>Funció <i>describe</i></h2><i>describe(cadena)</i> és "
+"equivalent a «describe(cadena, exact)», troba un element amb el títol igual "
+"(sense distingir entre minúscules i majúscules) a la cadena, si hi ha algun "
+"d'estos elements.<br><br><i>describe(cadena, inexact)</i> busca tots els "
+"elements documentats que contenen la cadena en els seus títols. Si hi ha més "
+"d'un d'estos elements, Maxima demana a l'usuari que seleccione un element o "
+"elements que s'han de mostrar.<br><br><i>? foo</i> (amb un espai entre <i>?</"
+"i> i <i>foo</i>) és equivalent a <i>describe(\"foo\", exact)</i>, i <i>?? "
+"foo</i> és equivalent a <i>describe(\"foo\", inexact)</i>."
+"<br><br><i>describe(, inexact)</i> dona una llista de tots els temes "
+"documentats en el manual en línia.<br><br><i>describe</i> cita el seu "
+"argument. <i>describe</i> retorna <i>cert</i> si es troba alguna "
+"documentació, altrament <i>fals</i>.<br><h2>Funció <i>example</i></"
+"h2><i>example(tema)</i> mostra alguns exemples de <i>tema</i>, que és un "
+"símbol o una cadena. Per a obtindre exemples d'operadors com <i>if</i>, "
+"<i>do</i>, o <i>lambda</i> l'argument ha de ser una cadena, per exemple "
+"<i>example(\"do\")</i>. <i>example</i> no distingix entre majúscules i "
+"minúscules. La majoria dels temes són noms de funcions.<br><br><i>example()</"
+"i> retorna la llista de tots els temes reconeguts.<br><br>El nom del fitxer "
+"que conté els exemples ve donat per la variable d'opció global "
+"<i>manual_demo</i>, que de manera predeterminada és <i>\"manual.demo\"</i>."
+"<br><br><i>example</i> cita el seu argument. <i>example</i> retorna <i>fet</"
+"i> llevat que no es troben exemples o que no hi haja cap argument, en este "
+"cas <i>example</i> retorna la llista de tots els temes reconeguts."
+
+#: backends/maxima/maximabackend.cpp:111
+#, kde-format
+msgid ""
+"<b>Maxima</b> is a system for the manipulation of symbolic and numerical "
+"expressions, including differentiation, integration, Taylor series, Laplace "
+"transforms, ordinary differential equations, systems of linear equations, "
+"polynomials, and sets, lists, vectors, matrices, and tensors. Maxima yields "
+"high precision numeric results by using exact fractions, arbitrary precision "
+"integers, and variable precision floating point numbers. Maxima can plot "
+"functions and data in two and three dimensions."
+msgstr ""
+"<b>Maxima</b> és un sistema per a la manipulació d'expressions simbòliques i "
+"numèriques, incloent-hi la derivació, integració, sèries de Taylor, "
+"transformades de Laplace, equacions diferencials ordinàries, sistemes "
+"d'equacions lineals, polinomis, conjunts, llistes, vectors, matrius i "
+"tensors. Maxima aconseguix resultats numèrics d'alta precisió gràcies a la "
+"utilització de fraccions exactes, enters de precisió arbitrària i nombres de "
+"coma flotant de precisió variable. Maxima pot fer gràfiques de funcions i "
+"dades en dues i tres dimensions."
+
+#. i18n: ectx: label, entry (Path), group (MaximaBackend)
+#: backends/maxima/maximabackend.kcfg:10
+#, kde-format
+msgid "Path to the Maxima executable"
+msgstr "Camí cap a l'executable «maxima»"
+
+#: backends/maxima/maximaexpression.cpp:104
+#, kde-format
+msgid "Error: Too many */"
+msgstr "S'ha produït un error: Massa */"
+
+#: backends/maxima/maximaexpression.cpp:117
+#, kde-format
+msgid "Error: Too many /*"
+msgstr "S'ha produït un error: Massa /*"
+
+# skip-rule: t-sp_pc
+#: backends/maxima/maximaexpression.cpp:123
+#, kde-format
+msgid "Error: expected \" before ;"
+msgstr "S'ha produït un error: s'esperava \" abans de ;"
+
+#: backends/maxima/maximaexpression.cpp:406
+#, kde-format
+msgid "Waiting for the plot result"
+msgstr "S'està esperant el resultat de la gràfica"
+
+#: backends/maxima/maximaextensions.cpp:31
+#, kde-format
+msgid "Maxima batch file (*.mac)"
+msgstr "Fitxer de procés per lots de Maxima (*.mac)"
+
+#: backends/maxima/maximasession.cpp:184
+#, kde-format
+msgid "Failed to start Maxima"
+msgstr "No s'ha pogut iniciar Maxima"
+
+#: backends/maxima/maximasession.cpp:251
+#, kde-format
+msgid "Maxima crashed. restarting..."
+msgstr "Maxima ha fallat. S'està reiniciant..."
+
+#: backends/maxima/maximasession.cpp:265
+#, kde-format
+msgid "Maxima crashed twice within a short time. Stopping to try starting"
+msgstr ""
+"Maxima ha fallat dues vegades en poc temps. Es deixarà de reintentar "
+"l'iniciada"
+
+#: backends/octave/octavebackend.cpp:62
+#, kde-format
+msgctxt ""
+"the url to the documentation of Octave, please check if there is a "
+"translated version and use the correct url"
+msgid "https://octave.org/doc/interpreter/"
+msgstr "https://octave.org/doc/interpreter/"
+
+#: backends/octave/octavebackend.cpp:67
+#, kde-format
+msgid ""
+"<b>GNU Octave</b> is a high-level language, primarily intended for numerical "
+"computations. <br/>It provides a convenient command line interface for "
+"solving linear and nonlinear problems numerically, and for performing other "
+"numerical experiments using a language that is mostly compatible with Matlab."
+msgstr ""
+"<b>Octave de la GNU</b> és un llenguatge d'alt nivell orientat principalment "
+"al càlcul numèric. <br/>Oferix una línia d'ordres útil per a resoldre "
+"problemes lineals i no lineals numèricament, i per a efectuar altres "
+"experiments numèrics emprant un llenguatge que és altament compatible amb "
+"Matlab."
+
+#: backends/octave/octaveextensions.cpp:34
+#, kde-format
+msgid "Octave script file (*.m)"
+msgstr "Fitxer script d'Octave (*.m)"
+
+#: backends/octave/octavesession.cpp:272 backends/sage/sageexpression.cpp:58
+#, kde-format
+msgid "Syntax Error"
+msgstr "S'ha produït un error de sintaxi"
+
+#: backends/octave/octavesession.cpp:409
+#, kde-format
+msgid "Plot integration test failed."
+msgstr "Ha fallat la prova d'integració de les gràfiques."
+
+#: backends/octave/octavesession.cpp:413
+#, kde-format
+msgid "The integration of plots will be disabled."
+msgstr "Es desactivarà la integració de les gràfiques."
+
+#: backends/octave/octavesession.cpp:414 backends/sage/sagesession.cpp:238
+#: backends/sage/sagesession.cpp:271 backends/sage/sagesession.cpp:337
+#: backends/sage/sagesession.cpp:348 cantor.cpp:216 cantor.cpp:218
+#: cantor.cpp:336 cantor.cpp:343 lib/session.cpp:381 main.cpp:66 main.cpp:130
+#: markdownentry.cpp:797 textentry.cpp:553 worksheet.cpp:1275
+#, kde-format
+msgid "Cantor"
+msgstr "Cantor"
+
+#: backends/octave/octavesession.cpp:435
+#, kde-format
+msgid ""
+"The plot integration doesn't work because Cantor found, that Octave can't "
+"create plots, because there are no graphical backends for it: this "
+"conclusion was made on the basis of empty output from "
+"available_graphics_toolkits() function. Looks like you should install some "
+"additional OS packages, like gnuplot, fltk or qt for possibility to create "
+"plots."
+msgstr ""
+"La integració de les gràfiques no funciona perquè Cantor ha detectat que "
+"Octave no pot crear gràfiques, ja que no hi ha cap dorsal gràfic per a ell: "
+"s'ha arribat a esta conclusió per l'eixida buida de la funció "
+"«available_graphics_toolkits()». Pareix que cal instal·lar paquets "
+"addicionals del SO, com «gnuplot», «fltk» o «qt» per a la possibilitat de "
+"crear gràfiques."
+
+#: backends/python/pythonbackend.cpp:67
+#, kde-format
+msgctxt "The url to the documentation Python"
+msgid "https://docs.python.org/3/"
+msgstr "https://docs.python.org/3/"
+
+#: backends/python/pythonbackend.cpp:72
+#, kde-format
+msgid ""
+"<b>Python</b> is a remarkably powerful dynamic programming language that is "
+"used in a wide variety of application domains. There are several Python "
+"packages to scientific programming."
+msgstr ""
+"<b>Python</b> és un llenguatge de programació dinàmic especialment potent "
+"que s'utilitza en una gran varietat de dominis d'aplicació. Hi ha diversos "
+"paquets de Python per a la programació científica."
+
+#: backends/python/pythonextensions.cpp:285
+#, kde-format
+msgid "# Sorry, but Bokeh doesn't support 3d plotting"
+msgstr "# El Bokeh no admet les gràfiques en 3D"
+
+#: backends/python/pythonextensions.cpp:301
+#, kde-format
+msgid "Python script file (*.py)"
+msgstr "Fitxer de script en Python (*.py)"
+
+#: backends/python/pythonsession.cpp:274
+#, kde-format
+msgid "Cantor Python server stopped working."
+msgstr "El servidor de Python de Cantor ha parat el seu funcionament."
+
+#: backends/python/pythonsession.cpp:278
+#, kde-format
+msgid "Failed to start Cantor python server."
+msgstr "No s'ha pogut iniciar el servidor de Python de Cantor."
+
+#: backends/python/pythonsession.cpp:282
+#, kde-format
+msgid "Communication with Cantor python server failed for unknown reasons."
+msgstr ""
+"Ha fallat la comunicació amb el servidor de Python de Cantor per motius "
+"desconeguts."
+
+#: backends/python/pythonsession.cpp:308
+#, kde-format
+msgid ""
+"For using integrated graphics with Matplotlib package, you need to install "
+"\"matplotlib\" python package first."
+msgstr ""
+"Per a utilitzar els gràfics integrats amb el paquet Matplotlib, primer cal "
+"instal·lar el paquet de Python «matplotlib»."
+
+#: backends/python/pythonsession.cpp:314
+#, kde-format
+msgid ""
+"For using integrated graphic with Plot.ly, you need to install \"plotly\" "
+"python package and special Plot.ly-compatible \"orca\" executable. See "
+"\"Static Image Export\" article in Plot.ly documentation for details."
+msgstr ""
+"Per a utilitzar els gràfics integrats amb el Plot.ly cal instal·lar el "
+"paquet de Python «plotly» i un executable especial de l'«orca» compatible "
+"amb el Plot.ly. Vegeu l'article «Static Image Export» en la documentació del "
+"Plot.ly per als detalls."
+
+#. i18n: ectx: property (text), item, widget (KComboBox, kcfg_plotExtenstionGraphicPackage)
+#: backends/python/settings.ui:94
+#, kde-format
+msgid "matplotlib"
+msgstr "matplotlib"
+
+#. i18n: ectx: property (text), item, widget (KComboBox, kcfg_plotExtenstionGraphicPackage)
+#: backends/python/settings.ui:99
+#, kde-format
+msgid "pylab"
+msgstr "pylab"
+
+#. i18n: ectx: property (text), item, widget (KComboBox, kcfg_plotExtenstionGraphicPackage)
+#: backends/python/settings.ui:104
+#, kde-format
+msgid "plot.ly"
+msgstr "plot.ly"
+
+#. i18n: ectx: property (text), item, widget (KComboBox, kcfg_plotExtenstionGraphicPackage)
+#: backends/python/settings.ui:114
+#, kde-format
+msgid "bokeh"
+msgstr "bokeh"
+
+#. i18n: ectx: property (windowTitle), widget (QWidget, QalculatePlotAssistantBase)
+#: backends/qalculate/plotassistant/qalculateplotdialog.ui:14
+#, kde-format
+msgid "Cantor - Plot Dialog"
+msgstr "Cantor - diàleg de les gràfiques"
+
+#. i18n: ectx: attribute (title), widget (QWidget, tab)
+#: backends/qalculate/plotassistant/qalculateplotdialog.ui:24
+#, kde-format
+msgid "Functions"
+msgstr "Funcions"
+
+#. i18n: ectx: property (text), widget (QTableWidget, functionTable)
+#: backends/qalculate/plotassistant/qalculateplotdialog.ui:40
+#, kde-format
+msgid "Title"
+msgstr "Títol"
+
+#. i18n: ectx: property (text), widget (QTableWidget, functionTable)
+#: backends/qalculate/plotassistant/qalculateplotdialog.ui:45
+#, kde-format
+msgid "Expression"
+msgstr "Expressió"
+
+#. i18n: ectx: property (text), widget (QPushButton, addButton)
+#: backends/qalculate/plotassistant/qalculateplotdialog.ui:72
+#, kde-format
+msgid "Add"
+msgstr "Afig"
+
+#. i18n: ectx: property (text), widget (QPushButton, removeButton)
+#: backends/qalculate/plotassistant/qalculateplotdialog.ui:82
+#: worksheetentry.cpp:437
+#, kde-format
+msgid "Remove"
+msgstr "Elimina"
+
+#. i18n: ectx: property (text), widget (QPushButton, clearButton)
+#: backends/qalculate/plotassistant/qalculateplotdialog.ui:92
+#, kde-format
+msgid "Clear List"
+msgstr "Neteja la llista"
+
+#. i18n: ectx: property (text), widget (QLabel, label_3)
+#: backends/qalculate/plotassistant/qalculateplotdialog.ui:107
+#, kde-format
+msgid "X variable"
+msgstr "Variable X"
+
+#. i18n: ectx: property (text), widget (QLabel, label_4)
+#: backends/qalculate/plotassistant/qalculateplotdialog.ui:134
+#, kde-format
+msgid "Style"
+msgstr "Estil"
+
+#. i18n: ectx: property (text), item, widget (KComboBox, styleBox)
+#. i18n: ectx: property (text), item, widget (KComboBox, kcfg_plotStyle)
+#: backends/qalculate/plotassistant/qalculateplotdialog.ui:145
+#: backends/qalculate/settings.ui:420
+#, kde-format
+msgid "Lines"
+msgstr "Línies"
+
+#. i18n: ectx: property (text), item, widget (KComboBox, styleBox)
+#. i18n: ectx: property (text), item, widget (KComboBox, kcfg_plotStyle)
+#: backends/qalculate/plotassistant/qalculateplotdialog.ui:150
+#: backends/qalculate/settings.ui:425
+#, kde-format
+msgid "Points"
+msgstr "Punts"
+
+#. i18n: ectx: property (text), item, widget (KComboBox, styleBox)
+#. i18n: ectx: property (text), item, widget (KComboBox, kcfg_plotStyle)
+#: backends/qalculate/plotassistant/qalculateplotdialog.ui:155
+#: backends/qalculate/settings.ui:430
+#, kde-format
+msgid "Points and Lines"
+msgstr "Punts i línies"
+
+#. i18n: ectx: property (text), item, widget (KComboBox, styleBox)
+#. i18n: ectx: property (text), item, widget (KComboBox, kcfg_plotStyle)
+#: backends/qalculate/plotassistant/qalculateplotdialog.ui:160
+#: backends/qalculate/settings.ui:435
+#, kde-format
+msgid "Boxes"
+msgstr "Quadros"
+
+#. i18n: ectx: property (text), item, widget (KComboBox, styleBox)
+#. i18n: ectx: property (text), item, widget (KComboBox, kcfg_plotStyle)
+#: backends/qalculate/plotassistant/qalculateplotdialog.ui:165
+#: backends/qalculate/settings.ui:440
+#, kde-format
+msgid "Histogram"
+msgstr "Histograma"
+
+#. i18n: ectx: property (text), item, widget (KComboBox, styleBox)
+#: backends/qalculate/plotassistant/qalculateplotdialog.ui:170
+#, kde-format
+msgid "Steps"
+msgstr "Passos"
+
+#. i18n: ectx: property (text), item, widget (KComboBox, styleBox)
+#. i18n: ectx: property (text), item, widget (KComboBox, kcfg_plotStyle)
+#: backends/qalculate/plotassistant/qalculateplotdialog.ui:175
+#: backends/qalculate/settings.ui:450
+#, kde-format
+msgid "Candlesticks"
+msgstr "Espelmes"
+
+#. i18n: ectx: property (text), item, widget (KComboBox, styleBox)
+#. i18n: ectx: property (text), item, widget (KComboBox, kcfg_plotStyle)
+#: backends/qalculate/plotassistant/qalculateplotdialog.ui:180
+#: backends/qalculate/settings.ui:455
+#, kde-format
+msgid "Dots"
+msgstr "Punts"
+
+#. i18n: ectx: property (text), widget (QLabel, label_5)
+#: backends/qalculate/plotassistant/qalculateplotdialog.ui:192
+#, kde-format
+msgid "Smoothing"
+msgstr "Suavitzat"
+
+#. i18n: ectx: property (text), item, widget (KComboBox, smoothingBox)
+#. i18n: ectx: property (text), item, widget (KComboBox, kcfg_minExp)
+#. i18n: ectx: property (text), item, widget (KComboBox, kcfg_angleUnit)
+#. i18n: ectx: property (text), item, widget (KComboBox, kcfg_structuring)
+#. i18n: ectx: property (text), item, widget (KComboBox, kcfg_plotSmoothing)
+#: backends/qalculate/plotassistant/qalculateplotdialog.ui:203
+#: backends/qalculate/settings.ui:92 backends/qalculate/settings.ui:210
+#: backends/qalculate/settings.ui:244 backends/qalculate/settings.ui:391
+#, kde-format
+msgid "None"
+msgstr "Cap"
+
+#. i18n: ectx: property (text), item, widget (KComboBox, smoothingBox)
+#. i18n: ectx: property (text), item, widget (KComboBox, kcfg_plotSmoothing)
+#: backends/qalculate/plotassistant/qalculateplotdialog.ui:208
+#: backends/qalculate/settings.ui:396
+#, kde-format
+msgid "Monotonic"
+msgstr "Monòtona"
+
+#. i18n: ectx: property (text), item, widget (KComboBox, smoothingBox)
+#: backends/qalculate/plotassistant/qalculateplotdialog.ui:213
+#, kde-format
+msgid "Natural Cubic Splines"
+msgstr "Splines cúbics naturals"
+
+#. i18n: ectx: property (text), item, widget (KComboBox, smoothingBox)
+#. i18n: ectx: property (text), item, widget (KComboBox, kcfg_plotSmoothing)
+#: backends/qalculate/plotassistant/qalculateplotdialog.ui:218
+#: backends/qalculate/settings.ui:406
+#, kde-format
+msgid "Bezier"
+msgstr "Bézier"
+
+#. i18n: ectx: property (text), item, widget (KComboBox, smoothingBox)
+#. i18n: ectx: property (text), item, widget (KComboBox, kcfg_plotSmoothing)
+#: backends/qalculate/plotassistant/qalculateplotdialog.ui:223
+#: backends/qalculate/settings.ui:411
+#, kde-format
+msgid "Bezier (monotonic)"
+msgstr "Bézier (monòtona)"
+
+#. i18n: ectx: property (title), widget (QGroupBox, groupBox)
+#: backends/qalculate/plotassistant/qalculateplotdialog.ui:233
+#, kde-format
+msgid "Function Range"
+msgstr "Interval de la funció"
+
+#. i18n: ectx: property (text), widget (QLabel, label)
+#: backends/qalculate/plotassistant/qalculateplotdialog.ui:239
+#, kde-format
+msgid "X range"
+msgstr "Interval X"
+
+#. i18n: ectx: property (text), widget (KLineEdit, xMinEdit)
+#: backends/qalculate/plotassistant/qalculateplotdialog.ui:254
+#, kde-format
+msgid "0"
+msgstr "0"
+
+#. i18n: ectx: property (text), widget (QLabel, label_2)
+#: backends/qalculate/plotassistant/qalculateplotdialog.ui:261
+#, kde-format
+msgid "-"
+msgstr "-"
+
+#. i18n: ectx: property (text), widget (KLineEdit, xMaxEdit)
+#: backends/qalculate/plotassistant/qalculateplotdialog.ui:274
+#, kde-format
+msgid "10"
+msgstr "10"
+
+#. i18n: ectx: property (text), widget (QRadioButton, stepsButton)
+#: backends/qalculate/plotassistant/qalculateplotdialog.ui:283
+#, kde-format
+msgid "Sa&mpling rate"
+msgstr "Freqüència del &mostratge"
+
+#. i18n: ectx: property (text), widget (QRadioButton, stepButton)
+#: backends/qalculate/plotassistant/qalculateplotdialog.ui:293
+#, kde-format
+msgid "Step si&ze"
+msgstr "Mida del pa&s"
+
+#. i18n: ectx: attribute (title), widget (QWidget, tab_4)
+#: backends/qalculate/plotassistant/qalculateplotdialog.ui:324
+#, kde-format
+msgid "Options"
+msgstr "Opcions"
+
+#. i18n: ectx: property (text), widget (QLabel, label_19)
+#: backends/qalculate/plotassistant/qalculateplotdialog.ui:332
+#, kde-format
+msgid "Plot title"
+msgstr "Títol de la gràfica"
+
+#. i18n: ectx: property (text), widget (QLabel, label_20)
+#: backends/qalculate/plotassistant/qalculateplotdialog.ui:353
+#, kde-format
+msgid "X-axis label"
+msgstr "Etiqueta de l'eix X"
+
+#. i18n: ectx: property (text), widget (QLabel, label_21)
+#: backends/qalculate/plotassistant/qalculateplotdialog.ui:374
+#, kde-format
+msgid "Y-axis label"
+msgstr "Etiqueta de l'eix Y"
+
+#. i18n: ectx: property (text), widget (QLabel, label_22)
+#: backends/qalculate/plotassistant/qalculateplotdialog.ui:395
+#, kde-format
+msgid "Legend position"
+msgstr "Posició de la llegenda"
+
+#. i18n: ectx: property (text), item, widget (KComboBox, legendBox)
+#. i18n: ectx: property (text), item, widget (KComboBox, kcfg_plotLegend)
+#: backends/qalculate/plotassistant/qalculateplotdialog.ui:403
+#: backends/qalculate/settings.ui:474
+#, kde-format
+msgid "Hide legend"
+msgstr "Oculta la llegenda"
+
+#. i18n: ectx: property (text), item, widget (KComboBox, legendBox)
+#. i18n: ectx: property (text), item, widget (KComboBox, kcfg_plotLegend)
+#: backends/qalculate/plotassistant/qalculateplotdialog.ui:408
+#: backends/qalculate/settings.ui:479
+#, kde-format
+msgid "Top-left"
+msgstr "Superior esquerra"
+
+#. i18n: ectx: property (text), item, widget (KComboBox, legendBox)
+#. i18n: ectx: property (text), item, widget (KComboBox, kcfg_plotLegend)
+#: backends/qalculate/plotassistant/qalculateplotdialog.ui:413
+#: backends/qalculate/settings.ui:484
+#, kde-format
+msgid "Top-right"
+msgstr "Superior dreta"
+
+#. i18n: ectx: property (text), item, widget (KComboBox, legendBox)
+#. i18n: ectx: property (text), item, widget (KComboBox, kcfg_plotLegend)
+#: backends/qalculate/plotassistant/qalculateplotdialog.ui:418
+#: backends/qalculate/settings.ui:489
+#, kde-format
+msgid "Bottom-left"
+msgstr "Inferior esquerra"
+
+#. i18n: ectx: property (text), item, widget (KComboBox, legendBox)
+#. i18n: ectx: property (text), item, widget (KComboBox, kcfg_plotLegend)
+#: backends/qalculate/plotassistant/qalculateplotdialog.ui:423
+#: backends/qalculate/settings.ui:494
+#, kde-format
+msgid "Bottom-right"
+msgstr "Inferior dreta"
+
+#. i18n: ectx: property (text), item, widget (KComboBox, legendBox)
+#. i18n: ectx: property (text), item, widget (KComboBox, kcfg_plotLegend)
+#: backends/qalculate/plotassistant/qalculateplotdialog.ui:428
+#: backends/qalculate/settings.ui:499
+#, kde-format
+msgid "Below"
+msgstr "Davall"
+
+#. i18n: ectx: property (text), item, widget (KComboBox, legendBox)
+#. i18n: ectx: property (text), item, widget (KComboBox, kcfg_plotLegend)
+#: backends/qalculate/plotassistant/qalculateplotdialog.ui:433
+#: backends/qalculate/settings.ui:504
+#, kde-format
+msgid "Outside"
+msgstr "Exterior"
+
+#. i18n: ectx: property (text), widget (QCheckBox, gridCheckBox)
+#: backends/qalculate/plotassistant/qalculateplotdialog.ui:445
+#, kde-format
+msgid "Display Grid"
+msgstr "Mostra la graella"
+
+#. i18n: ectx: property (text), widget (QCheckBox, borderCheckBox)
+#: backends/qalculate/plotassistant/qalculateplotdialog.ui:452
+#, kde-format
+msgid "Display full border"
+msgstr "Mostra la vora completa"
+
+#. i18n: ectx: property (text), widget (QCheckBox, colorCheckBox)
+#: backends/qalculate/plotassistant/qalculateplotdialog.ui:463
+#, kde-format
+msgid "Use Colors"
+msgstr "Utilitza colors"
+
+#. i18n: ectx: property (text), widget (QCheckBox, inlineCheckBox)
+#: backends/qalculate/plotassistant/qalculateplotdialog.ui:470
+#, kde-format
+msgid "Display inline"
+msgstr "Mostra inclosa"
+
+#. i18n: ectx: property (text), widget (QCheckBox, xLogCheckBox)
+#: backends/qalculate/plotassistant/qalculateplotdialog.ui:481
+#, kde-format
+msgid "Logarithmic x scale"
+msgstr "Escala X logarítmica"
+
+#. i18n: ectx: property (text), widget (QCheckBox, yLogCheckBox)
+#: backends/qalculate/plotassistant/qalculateplotdialog.ui:502
+#, kde-format
+msgid "Logarithmic y scale"
+msgstr "Escala Y logarítmica"
+
+#. i18n: ectx: property (title), widget (QGroupBox, groupBox_3)
+#: backends/qalculate/plotassistant/qalculateplotdialog.ui:521
+#, kde-format
+msgid "File Options"
+msgstr "Opcions de fitxer"
+
+#. i18n: ectx: property (text), widget (QCheckBox, saveCheckBox)
+#: backends/qalculate/plotassistant/qalculateplotdialog.ui:527
+#, kde-format
+msgid "Save plot to file"
+msgstr "Guarda la gràfica a un fitxer"
+
+#. i18n: ectx: property (text), widget (QLabel, label_23)
+#: backends/qalculate/plotassistant/qalculateplotdialog.ui:547
+#, kde-format
+msgid "File type"
+msgstr "Tipus de fitxer"
+
+#. i18n: ectx: property (text), item, widget (KComboBox, saveFileBox)
+#: backends/qalculate/plotassistant/qalculateplotdialog.ui:555
+#, kde-format
+msgid "Detect from filename"
+msgstr "Detecta'l pel nom de fitxer"
+
+#. i18n: ectx: property (text), item, widget (KComboBox, saveFileBox)
+#: backends/qalculate/plotassistant/qalculateplotdialog.ui:560
+#, kde-format
+msgid "PNG"
+msgstr "PNG"
+
+#. i18n: ectx: property (text), item, widget (KComboBox, saveFileBox)
+#: backends/qalculate/plotassistant/qalculateplotdialog.ui:565
+#, kde-format
+msgid "PS"
+msgstr "PS"
+
+#. i18n: ectx: property (text), item, widget (KComboBox, saveFileBox)
+#: backends/qalculate/plotassistant/qalculateplotdialog.ui:570
+#, kde-format
+msgid "EPS"
+msgstr "EPS"
+
+#. i18n: ectx: property (text), item, widget (KComboBox, saveFileBox)
+#: backends/qalculate/plotassistant/qalculateplotdialog.ui:575
+#: worksheet.cpp:1820 worksheet.cpp:1846 worksheet.cpp:1866 worksheet.cpp:1884
+#, kde-format
+msgid "LaTeX"
+msgstr "LaTeX"
+
+#. i18n: ectx: property (text), item, widget (KComboBox, saveFileBox)
+#: backends/qalculate/plotassistant/qalculateplotdialog.ui:580
+#, kde-format
+msgid "SVG"
+msgstr "SVG"
+
+#. i18n: ectx: property (text), item, widget (KComboBox, saveFileBox)
+#: backends/qalculate/plotassistant/qalculateplotdialog.ui:585
+#, kde-format
+msgid "FIG"
+msgstr "FIG"
+
+# skip-rule: t-ad_maj
+#: backends/qalculate/qalculatebackend.cpp:51
+#, kde-format
+msgid ""
+"<b>Qalculate!</b> is not your regular software replication of the cheapest "
+"available calculator. Qalculate! aims to make full use of the superior "
+"interface, power and flexibility of modern computers. The center of "
+"attention in Qalculate! is the expression entry. Instead of entering each "
+"number in a mathematical expression separately, you can directly write the "
+"whole expression and later modify it. The interpretation of expressions is "
+"flexible and fault tolerant, and if you nevertheless do something wrong, "
+"Qalculate! will tell you so. Not fully solvable expressions are however not "
+"errors. Qalculate! will simplify as far as it can and answer with an "
+"expression. In addition to numbers and arithmetic operators, an expression "
+"may contain any combination of variables, units, and functions."
+msgstr ""
+"<b>Qalculate!</b> no és un programa que imita el funcionament de la "
+"calculadora més barata. Qalculate! pretén traure profit de la potència, "
+"flexibilitat i superior interfície dels ordinadors moderns. El centre "
+"d'atenció de Qalculate! és la introducció d'expressions. En lloc d'introduir "
+"cada nombre d'una expressió matemàtica per separat, podeu escriure "
+"directament l'expressió completa i modificar-la més avant. La interpretació "
+"de les expressions és flexible i tolerant a fallades, i si mai vos "
+"equivoqueu Qalculate! vos ho farà saber. Tanmateix, les expressions no "
+"resolubles totalment es consideren errors. Qalculate! les simplificarà tant "
+"com puga i respondrà amb una expressió. A més de nombres i operadors "
+"aritmètics, una expressió pot contindre qualsevol combinació de variables, "
+"unitats i funcions."
+
+#. i18n: ectx: label, entry (postConversion), group (QalculateBackend)
+#: backends/qalculate/qalculatebackend.kcfg:9
+#, kde-format
+msgid ""
+"If and how units will be automatically converted. If true, convert to the "
+"best suited SI units (the least amount of units)."
+msgstr ""
+"Si cal convertir les unitats automàticament, i com. Si és cert, convertix-"
+"les a les unitats del SI més adients (el mínim nombre d'unitats)."
+
+#. i18n: ectx: label, entry (angleUnit), group (QalculateBackend)
+#: backends/qalculate/qalculatebackend.kcfg:13
+#, kde-format
+msgid "Default angle unit for trigonometric functions."
+msgstr "Unitats angulars predeterminades en les funcions trigonomètriques."
+
+#. i18n: ectx: label, entry (base), group (QalculateBackend)
+#: backends/qalculate/qalculatebackend.kcfg:23
+#, kde-format
+msgid "Base of parsed and evaluated numbers."
+msgstr "La base dels nombres interpretats i avaluats."
+
+#. i18n: ectx: label, entry (structuring), group (QalculateBackend)
+#: backends/qalculate/qalculatebackend.kcfg:32
+#, kde-format
+msgid "If the evaluation result will be simplified or factorized."
+msgstr ""
+"Especifica si el resultat de l'avaluació se simplificarà o factoritzarà."
+
+#. i18n: ectx: label, entry (fractionFormat), group (QalculateBackend)
+#: backends/qalculate/qalculatebackend.kcfg:42
+#, kde-format
+msgid ""
+"If rational numbers will be displayed with decimals, as a fraction, or "
+"something in between."
+msgstr ""
+"Especifica si els nombres racionals es mostraran amb decimals, com a "
+"fracció, o alguna cosa intermedi."
+
+#. i18n: ectx: label, entry (indicateInfiniteSeries), group (QalculateBackend)
+#: backends/qalculate/qalculatebackend.kcfg:46
+#, kde-format
+msgid ""
+"Show that the digit series of a number continues forever with three dots, "
+"instead of rounding (ex. 2/3 displays as 0.666666... instead of 0.666667)."
+msgstr ""
+"Mostra que la sèrie de dígits d'un número continua indefinidament emprant "
+"tres punts en lloc d'arredonir-lo (p. ex.: 2/3 es mostra com 0,666666... en "
+"lloc de 0,666667)."
+
+#. i18n: ectx: label, entry (useAllPrefixes), group (QalculateBackend)
+#: backends/qalculate/qalculatebackend.kcfg:50
+#, kde-format
+msgid ""
+"Use all decimal SI prefixes. If false, prefixes which is not a multiple of "
+"thousand (centi, deci, deca, hecto) will not be used automatically."
+msgstr ""
+"Utilitza tots els prefixos decimals del SI. Si és fals, NO s'empraran "
+"prefixos de forma automàtica si estos no són múltiples de mil (centi, deci, "
+"deca, hecto)."
+
+#. i18n: ectx: label, entry (negativeExponents), group (QalculateBackend)
+#: backends/qalculate/qalculatebackend.kcfg:54
+#, kde-format
+msgid ""
+"If true, negative exponents will be used instead of division (ex. 5/x^2 "
+"becomes 5*x^-2)."
+msgstr ""
+"Si és cert, s'utilitzaran exponents negatius en lloc de quocients (p. ex.: 5/"
+"x^2 esdevindrà 5*x^-2)."
+
+#. i18n: ectx: label, entry (minExp), group (QalculateBackend)
+#: backends/qalculate/qalculatebackend.kcfg:64
+#, kde-format
+msgid "Numerical display."
+msgstr "Presentació numèrica."
+
+#. i18n: ectx: label, entry (inlinePlot), group (QalculateBackend)
+#: backends/qalculate/qalculatebackend.kcfg:68
+#, kde-format
+msgid ""
+"If true, plots will be displayed inside the worksheet. If not they appear in "
+"a separate window."
+msgstr ""
+"Si és cert, les gràfiques es mostraran dins del full de treball. Altrament "
+"apareixeran en una finestra separada."
+
+#. i18n: ectx: label, entry (coloredPlot), group (QalculateBackend)
+#: backends/qalculate/qalculatebackend.kcfg:72
+#, kde-format
+msgid "Whether colors should be used in plots."
+msgstr "Si s'han d'utilitzar o no colors a les gràfiques."
+
+# skip-rule: t-sc-plot
+#. i18n: ectx: label, entry (plotGrid), group (QalculateBackend)
+#: backends/qalculate/qalculatebackend.kcfg:76
+#, kde-format
+msgid "Whether a grid should be plotted."
+msgstr "Si s'ha de dibuixar o no una graella."
+
+# skip-rule: t-sc-plot
+#. i18n: ectx: label, entry (plotBorder), group (QalculateBackend)
+#: backends/qalculate/qalculatebackend.kcfg:80
+#, kde-format
+msgid "Whether full borders should be drawn around the plot."
+msgstr "Si s'han de dibuixar o no totes les vores al voltant de la gràfica."
+
+#. i18n: ectx: label, entry (plotLineWidth), group (QalculateBackend)
+#: backends/qalculate/qalculatebackend.kcfg:84
+#, kde-format
+msgid "Width of lines, in pixels."
+msgstr "Amplària de les línies, en píxels."
+
+#. i18n: ectx: label, entry (plotSteps), group (QalculateBackend)
+#: backends/qalculate/qalculatebackend.kcfg:88
+#, kde-format
+msgid "Number of interpolation steps to be used in plotting."
+msgstr ""
+"Nombre de passos d'interpolació que s'utilitzaran en fer les gràfiques."
+
+#. i18n: ectx: label, entry (plotSmoothing), group (QalculateBackend)
+#: backends/qalculate/qalculatebackend.kcfg:99
+#, kde-format
+msgid "Smoothing mode in plots."
+msgstr "Mode de suavitzat de les gràfiques."
+
+#. i18n: ectx: label, entry (plotStyle), group (QalculateBackend)
+#: backends/qalculate/qalculatebackend.kcfg:113
+#, kde-format
+msgid "Style of plots."
+msgstr "Estil de les gràfiques."
+
+#. i18n: ectx: label, entry (plotLegend), group (QalculateBackend)
+#: backends/qalculate/qalculatebackend.kcfg:126
+#, kde-format
+msgid "Legend position in plots."
+msgstr "Posició de la llegenda a les gràfiques."
+
+#: backends/qalculate/qalculateexpression.cpp:142
+#, kde-format
+msgid "Qalculate reports it cannot print. Is gnuplot installed?"
+msgstr "Qalculate informa que no pot imprimir. Teniu instal·lat gnuplot?"
+
+#: backends/qalculate/qalculateexpression.cpp:163
+#, kde-format
+msgid "missing %1"
+msgstr "falta %1"
+
+#: backends/qalculate/qalculateexpression.cpp:253
+#, kde-format
+msgid "%1 must be a number."
+msgstr "%1 ha de ser un nombre."
+
+#: backends/qalculate/qalculateexpression.cpp:254
+#, kde-format
+msgid "%1 must be a integer."
+msgstr "%1 ha de ser un enter."
+
+#: backends/qalculate/qalculateexpression.cpp:255
+#, kde-format
+msgid "%1 must be a boolean."
+msgstr "%1 ha de ser un booleà."
+
+#: backends/qalculate/qalculateexpression.cpp:256
+#, kde-format
+msgid "invalid option for %1: %2"
+msgstr "Opció no vàlida per a %1: %2"
+
+#: backends/qalculate/qalculateexpression.cpp:583
+#, kde-format
+msgid "found multiple expressions in one plot command (%1 and %2)."
+msgstr "s'han trobat múltiples expressions en una ordre plot (%1 i %2)."
+
+#: backends/qalculate/qalculateexpression.cpp:682
+#: backends/qalculate/qalculateexpression.cpp:790
+#: backends/qalculate/qalculatehighlighter.cpp:29
+#, kde-format
+msgid "ERROR"
+msgstr "ERROR"
+
+#: backends/qalculate/qalculateexpression.cpp:684
+#: backends/qalculate/qalculateexpression.cpp:792
+#: backends/qalculate/qalculatehighlighter.cpp:29
+#, kde-format
+msgid "WARNING"
+msgstr "AVÍS"
+
+#: backends/qalculate/qalculatesyntaxhelpobject.cpp:46
+#, kde-format
+msgid "No function, variable or unit with specified name exist."
+msgstr "No existix cap funció, variable o unitat amb este nom."
+
+#: backends/qalculate/qalculatesyntaxhelpobject.cpp:53
+#, kde-format
+msgid "Function: %1"
+msgstr "Funció: %1"
+
+#: backends/qalculate/qalculatesyntaxhelpobject.cpp:138
+#, kde-format
+msgid "Plotting interface"
+msgstr "Interfície de creació de gràfiques"
+
+# skip-rule: t-sc-plot
+#: backends/qalculate/qalculatesyntaxhelpobject.cpp:139
+#, kde-format
+msgid "Plots one or more functions either inline or in a separate window."
+msgstr ""
+"Dibuixa la gràfica d'una o més funcions, incloses o bé en una finestra "
+"separada."
+
+#: backends/qalculate/qalculatesyntaxhelpobject.cpp:140
+#, kde-format
+msgid "expression"
+msgstr "expressió"
+
+#: backends/qalculate/qalculatesyntaxhelpobject.cpp:141
+#, kde-format
+msgid "option"
+msgstr "opció"
+
+#: backends/qalculate/qalculatesyntaxhelpobject.cpp:142
+#, kde-format
+msgid "value"
+msgstr "valor"
+
+#: backends/qalculate/qalculatesyntaxhelpobject.cpp:146
+#, kde-format
+msgid "integer"
+msgstr "enter"
+
+#: backends/qalculate/qalculatesyntaxhelpobject.cpp:147
+#, kde-format
+msgid "boolean"
+msgstr "booleà"
+
+#: backends/qalculate/qalculatesyntaxhelpobject.cpp:148
+#, kde-format
+msgid "number"
+msgstr "nombre"
+
+#: backends/qalculate/qalculatesyntaxhelpobject.cpp:149
+#, kde-format
+msgid "default: %1"
+msgstr "predeterminat: %1"
+
+#: backends/qalculate/qalculatesyntaxhelpobject.cpp:209
+#, kde-format
+msgid "The function's name"
+msgstr "El nom de la funció"
+
+#: backends/qalculate/qalculatesyntaxhelpobject.cpp:211
+#, kde-format
+msgid "Title label"
+msgstr "Etiqueta del títol"
+
+#: backends/qalculate/qalculatesyntaxhelpobject.cpp:212
+#, kde-format
+msgid "x-axis label"
+msgstr "Etiqueta de l'eix X"
+
+#: backends/qalculate/qalculatesyntaxhelpobject.cpp:213
+#, kde-format
+msgid "y-axis label"
+msgstr "Etiqueta de l'eix Y"
+
+#: backends/qalculate/qalculatesyntaxhelpobject.cpp:214
+#, kde-format
+msgid ""
+"Image to save plot to. If empty shows plot in a window on the screen. If "
+"inline=true the image is shown regardless of this option."
+msgstr ""
+"Imatge on guardar la gràfica. Si ho deixeu buit, mostrarà la gràfica en una "
+"finestra de la pantalla. Si «inline=true» es mostrarà la imatge sense tindre "
+"en compte esta opció."
+
+#: backends/qalculate/qalculatesyntaxhelpobject.cpp:215
+#, kde-format
+msgid "The image type to save as. One of auto, png, ps, eps, latex, svg, fig."
+msgstr ""
+"El tipus d'imatge a guardar. Pot ser «auto», «png», «ps», «eps», «latex», "
+"«svg» o «fig»."
+
+#: backends/qalculate/qalculatesyntaxhelpobject.cpp:216
+#, kde-format
+msgid "Set to true for colored plot, false for monochrome."
+msgstr ""
+"Establit a «vertader» per a les gràfiques en color, i a «fals» per a les "
+"monocromàtiques."
+
+#: backends/qalculate/qalculatesyntaxhelpobject.cpp:217
+#, kde-format
+msgid "Minimum x-axis value."
+msgstr "Valor mínim de l'eix X."
+
+#: backends/qalculate/qalculatesyntaxhelpobject.cpp:218
+#, kde-format
+msgid "Maximum x-axis value."
+msgstr "Valor màxim de l'eix X."
+
+#: backends/qalculate/qalculatesyntaxhelpobject.cpp:219
+#, kde-format
+msgid "If a logarithmic scale shall be used for the x-axis."
+msgstr "Si cal emprar o no una escala logarítmica per a l'eix X."
+
+#: backends/qalculate/qalculatesyntaxhelpobject.cpp:220
+#, kde-format
+msgid "If a logarithmic scale shall be used for the y-axis."
+msgstr "Si cal emprar o no una escala logarítmica per a l'eix Y."
+
+#: backends/qalculate/qalculatesyntaxhelpobject.cpp:221
+#, kde-format
+msgid "Logarithmic base for the x-axis."
+msgstr "Base logarítmica per a l'eix X."
+
+#: backends/qalculate/qalculatesyntaxhelpobject.cpp:222
+#, kde-format
+msgid "Logarithmic base for the y-axis."
+msgstr "Base logarítmica per a l'eix Y."
+
+#: backends/qalculate/qalculatesyntaxhelpobject.cpp:223
+#, kde-format
+msgid "If a grid shall be shown in the plot."
+msgstr "Si s'ha de mostrar o no la graella de coordenades."
+
+#: backends/qalculate/qalculatesyntaxhelpobject.cpp:224
+#, kde-format
+msgid ""
+"If the plot shall be surrounded by borders on all sides (not just axis)."
+msgstr ""
+"Si la gràfica ha d'estar totalment envoltada per vores (no només els eixos)."
+
+#: backends/qalculate/qalculatesyntaxhelpobject.cpp:225
+#, kde-format
+msgid "Width of lines."
+msgstr "Amplària de les línies."
+
+#: backends/qalculate/qalculatesyntaxhelpobject.cpp:226
+#, kde-format
+msgid ""
+"Where the plot legend shall be placed. One of none, top_left, top_right, "
+"bottom_left, bottom_right, below, outside"
+msgstr ""
+"On s'ha d'ubicar la llegenda de la gràfica. Ha de ser Cap, Superior "
+"esquerra, superior dreta, Inferior esquerra, Inferior dreta, Davall o "
+"Exterior"
+
+#: backends/qalculate/qalculatesyntaxhelpobject.cpp:227
+#, kde-format
+msgid "Plot smoothing. One of none, unique, csplines, bezier, sbezier"
+msgstr ""
+"Suavitzat de la gràfica. Ha de ser «Cap», «Únic», «Csplines», «Bézier» o "
+"«Sbézier»"
+
+#: backends/qalculate/qalculatesyntaxhelpobject.cpp:228
+#, kde-format
+msgid ""
+"Plot style. One of lines, points, points_lines, boxes, histogram, steps, "
+"candlesticks, dots"
+msgstr ""
+"L'estil de la gràfica. Pot ser «línies», «rodones», «línies i punts», "
+"«quadros», «histograma», «escala», «espelmes» o «punts»"
+
+#: backends/qalculate/qalculatesyntaxhelpobject.cpp:229
+#, kde-format
+msgid "Use scale on second x-axis."
+msgstr "Utilitza una escala a l'eix X secundari."
+
+#: backends/qalculate/qalculatesyntaxhelpobject.cpp:230
+#, kde-format
+msgid "Use scale on second y-axis."
+msgstr "Utilitza una escala a l'eix Y secundari."
+
+#: backends/qalculate/qalculatesyntaxhelpobject.cpp:231
+#, kde-format
+msgid "If the plot is to be drawn inline, instead of in a new window."
+msgstr ""
+"Si la gràfica s'ha de visualitzar inclosa, en lloc d'una finestra nova."
+
+#: backends/qalculate/qalculatesyntaxhelpobject.cpp:232
+#, kde-format
+msgid "Distance between two interpolation points. See also steps."
+msgstr "Distància entre dos punts d'interpolació. Vegeu també «escala»."
+
+#: backends/qalculate/qalculatesyntaxhelpobject.cpp:233
+#, kde-format
+msgid "Number of interpolation points. See also step."
+msgstr "Nombre de punts d'interpolació. Vegeu també «escala»."
+
+#: backends/qalculate/qalculatesyntaxhelpobject.cpp:234
+#, kde-format
+msgid "The name of the x variable. This must be an unknown variable"
+msgstr "El nom de la variable X. Cal que siga una variable desconeguda"
+
+#: backends/qalculate/qalculatesyntaxhelpobject.cpp:243
+#, kde-format
+msgid "Save variables to a file"
+msgstr "Guarda les variables a un fitxer"
+
+#: backends/qalculate/qalculatesyntaxhelpobject.cpp:244
+#, kde-format
+msgid ""
+"Save all currently defined variables to a file. They can be reloaded with %1."
+msgstr ""
+"Guarda totes les variables definides actualment en un fitxer. Podeu carregar-"
+"lo més avant amb %1."
+
+#: backends/qalculate/qalculatesyntaxhelpobject.cpp:245
+#: backends/qalculate/qalculatesyntaxhelpobject.cpp:254
+#, kde-format
+msgid "file"
+msgstr "fitxer"
+
+#: backends/qalculate/qalculatesyntaxhelpobject.cpp:246
+#, kde-format
+msgid "file: the file to save to"
+msgstr "fitxer: el fitxer on s'ha de guardar"
+
+#: backends/qalculate/qalculatesyntaxhelpobject.cpp:252
+#, kde-format
+msgid "Load variables from a file"
+msgstr "Carrega les variables des d'un fitxer"
+
+#: backends/qalculate/qalculatesyntaxhelpobject.cpp:253
+#, kde-format
+msgid "Load variables from a file that has previously been created by %1."
+msgstr ""
+"Carrega les variables des d'un fitxer que ha creat prèviament l'usuari %1."
+
+#: backends/qalculate/qalculatesyntaxhelpobject.cpp:255
+#, kde-format
+msgid "file: the file to load"
+msgstr "fitxer: el fitxer que s'ha de carregar"
+
+#. i18n: ectx: property (text), widget (QLabel, label)
+#: backends/qalculate/settings.ui:27
+#, kde-format
+msgid "Number base:"
+msgstr "Base numèrica:"
+
+#. i18n: ectx: property (text), widget (QLabel, label_5)
+#: backends/qalculate/settings.ui:47
+#, kde-format
+msgid "Fraction format:"
+msgstr "Format de les fraccions:"
+
+#. i18n: ectx: property (text), item, widget (KComboBox, kcfg_fractionFormat)
+#: backends/qalculate/settings.ui:58
+#, kde-format
+msgid "Decimal"
+msgstr "Decimal"
+
+#. i18n: ectx: property (text), item, widget (KComboBox, kcfg_fractionFormat)
+#: backends/qalculate/settings.ui:63
+#, kde-format
+msgid "Exact"
+msgstr "Exacte"
+
+#. i18n: ectx: property (text), item, widget (KComboBox, kcfg_fractionFormat)
+#: backends/qalculate/settings.ui:68
+#, kde-format
+msgid "Fractional"
+msgstr "Fraccionari"
+
+#. i18n: ectx: property (text), item, widget (KComboBox, kcfg_fractionFormat)
+#: backends/qalculate/settings.ui:73
+#, kde-format
+msgid "Combined"
+msgstr "Combinat"
+
+#. i18n: ectx: property (text), widget (QLabel, label_9)
+#: backends/qalculate/settings.ui:81
+#, kde-format
+msgid "Numerical display:"
+msgstr "Presentació numèrica:"
+
+#. i18n: ectx: property (text), item, widget (KComboBox, kcfg_minExp)
+#: backends/qalculate/settings.ui:97
+#, kde-format
+msgid "Pure"
+msgstr "Pur"
+
+#. i18n: ectx: property (text), item, widget (KComboBox, kcfg_minExp)
+#: backends/qalculate/settings.ui:102
+#, kde-format
+msgid "Scientific"
+msgstr "Científic"
+
+#. i18n: ectx: property (text), item, widget (KComboBox, kcfg_minExp)
+#: backends/qalculate/settings.ui:107
+#, kde-format
+msgid "Precision"
+msgstr "Precisió"
+
+#. i18n: ectx: property (text), widget (QLabel, label_6)
+#: backends/qalculate/settings.ui:115
+#, kde-format
+msgid "Indicate infinite series:"
+msgstr "Indica les sèries infinites:"
+
+#. i18n: ectx: property (text), widget (QLabel, label_7)
+#: backends/qalculate/settings.ui:132
+#, kde-format
+msgid "Use all SI prefixes:"
+msgstr "Utilitza tots els prefixos del SI:"
+
+#. i18n: ectx: property (text), widget (QLabel, label_8)
+#: backends/qalculate/settings.ui:149
+#, kde-format
+msgid "Use negative exponents:"
+msgstr "Utilitza exponents negatius:"
+
+#. i18n: ectx: attribute (title), widget (QWidget, tab_2)
+#: backends/qalculate/settings.ui:180 worksheetentry.cpp:414
+#, kde-format
+msgid "Evaluate"
+msgstr "Avalua"
+
+#. i18n: ectx: property (text), widget (QLabel, label_2)
+#: backends/qalculate/settings.ui:186
+#, kde-format
+msgid "Convert to best SI units:"
+msgstr "Convertix a les millors unitats del SI:"
+
+#. i18n: ectx: property (text), item, widget (KComboBox, kcfg_angleUnit)
+#: backends/qalculate/settings.ui:215
+#, kde-format
+msgid "Radians"
+msgstr "Radians"
+
+#. i18n: ectx: property (text), item, widget (KComboBox, kcfg_angleUnit)
+#: backends/qalculate/settings.ui:220
+#, kde-format
+msgid "Degrees"
+msgstr "Graus"
+
+#. i18n: ectx: property (text), item, widget (KComboBox, kcfg_angleUnit)
+#: backends/qalculate/settings.ui:225
+#, kde-format
+msgid "Gradians"
+msgstr "Graus centesimals"
+
+#. i18n: ectx: property (text), widget (QLabel, label_4)
+#: backends/qalculate/settings.ui:233
+#, kde-format
+msgid "Structuring Mode:"
+msgstr "Mode d'estructuració:"
+
+#. i18n: ectx: property (text), item, widget (KComboBox, kcfg_structuring)
+#: backends/qalculate/settings.ui:249
+#, kde-format
+msgid "Simplify"
+msgstr "Simplifica"
+
+#. i18n: ectx: property (text), item, widget (KComboBox, kcfg_structuring)
+#: backends/qalculate/settings.ui:254
+#, kde-format
+msgid "Factorize"
+msgstr "Factoritza"
+
+#. i18n: ectx: property (text), widget (QLabel, label_3)
+#: backends/qalculate/settings.ui:275
+#, kde-format
+msgid "Angle unit:"
+msgstr "Unitat dels angles:"
+
+#. i18n: ectx: attribute (title), widget (QWidget, tab)
+#: backends/qalculate/settings.ui:286
+#, kde-format
+msgid "Plotting"
+msgstr "Gràfica"
+
+#. i18n: ectx: property (text), widget (QLabel, label_10)
+#: backends/qalculate/settings.ui:292
+#, kde-format
+msgid "Display plots inline:"
+msgstr "Mostra les gràfiques incloses:"
+
+#. i18n: ectx: property (text), widget (QLabel, label_12)
+#: backends/qalculate/settings.ui:329
+#, kde-format
+msgid "Show full borders:"
+msgstr "Mostra les vores completes:"
+
+#. i18n: ectx: property (text), widget (QLabel, label_17)
+#: backends/qalculate/settings.ui:346
+#, kde-format
+msgid "Width of lines:"
+msgstr "Amplària de les línies:"
+
+#. i18n: ectx: property (text), widget (QLabel, label_18)
+#: backends/qalculate/settings.ui:363
+#, kde-format
+msgid "Sampling rate:"
+msgstr "Freqüència de mostratge:"
+
+#. i18n: ectx: property (text), widget (QLabel, label_13)
+#: backends/qalculate/settings.ui:380
+#, kde-format
+msgid "Smoothing Mode:"
+msgstr "Mode de suavitzat:"
+
+#. i18n: ectx: property (text), item, widget (KComboBox, kcfg_plotSmoothing)
+#: backends/qalculate/settings.ui:401
+#, kde-format
+msgid "Natural cubic Splines"
+msgstr "Splines cúbics naturals"
+
+#. i18n: ectx: property (text), item, widget (KComboBox, kcfg_plotStyle)
+#: backends/qalculate/settings.ui:445
+#, kde-format
+msgctxt "Plot Style"
+msgid "Steps"
+msgstr "Passos"
+
+#. i18n: ectx: property (text), widget (QLabel, label_16)
+#: backends/qalculate/settings.ui:463
+#, kde-format
+msgid "Legend Position:"
+msgstr "Posició de la llegenda:"
+
+#. i18n: ectx: property (text), widget (QLabel, label_15)
+#: backends/qalculate/settings.ui:525
+#, kde-format
+msgid "Colored Plots:"
+msgstr "Gràfiques acolorides:"
+
+#. i18n: ectx: property (text), widget (QLabel, label_11)
+#: backends/qalculate/settings.ui:535
+#, kde-format
+msgid "Show grid:"
+msgstr "Mostra la graella:"
+
+#. i18n: ectx: property (text), widget (QLabel, label_14)
+#: backends/qalculate/settings.ui:545
+#, kde-format
+msgid "Plot Style:"
+msgstr "Estil de la gràfica:"
+
+#: backends/qthelpconfig.cpp:45
+#, kde-format
+msgctxt "@title:window"
+msgid "Modify Entry"
+msgstr "Modifiqueu l'entrada"
+
+#: backends/qthelpconfig.cpp:47
+#, kde-format
+msgctxt "@title:window"
+msgid "Add New Entry"
+msgstr "Afig una entrada nova"
+
+#: backends/qthelpconfig.cpp:64
+#, kde-format
+msgid "Name cannot be empty."
+msgstr "El nom no pot estar buit."
+
+#: backends/qthelpconfig.cpp:84
+#, kde-format
+msgid "Add local documentation"
+msgstr "Afig una documentació local"
+
+#: backends/qthelpconfig.cpp:100
+#, kde-format
+msgctxt "@action:button Allow user to get some API documentation with GHNS"
+msgid "Get New Documentation"
+msgstr "Obtín la documentació nova"
+
+#: backends/qthelpconfig.cpp:103
+#, kde-format
+msgid "Download additional documentations"
+msgstr "Baixa documentacions addicionals"
+
+#: backends/qthelpconfig.cpp:171
+#, kde-format
+msgid "Qt Compressed Help file is not valid."
+msgstr "El fitxer d'ajuda comprimida de les Qt no és vàlid."
+
+#: backends/qthelpconfig.cpp:180
+#, kde-format
+msgid "Documentation already imported"
+msgstr "Ja s'ha importat la documentació"
+
+#: backends/qthelpconfig.cpp:270
+#, kde-format
+msgctxt "@info:tooltip"
+msgid "Modify"
+msgstr "Modifica"
+
+#: backends/qthelpconfig.cpp:275
+#, kde-format
+msgctxt "@info:tooltip"
+msgid "Delete"
+msgstr "Suprimix"
+
+#: backends/qthelpconfig.cpp:283
+#, kde-format
+msgctxt "@info:tooltip"
+msgid "Please uninstall this via GHNS."
+msgstr "Desinstal·leu-ho via GHNS."
+
+#. i18n: ectx: property (text), widget (QLabel, label)
+#: backends/qthelpconfig.ui:20
+#, kde-format
+msgid "Install Additional Documentation Files"
+msgstr "Instal·la fitxers de documentació addicional"
+
+#. i18n: ectx: property (text), widget (QTreeWidget, qchTable)
+#: backends/qthelpconfig.ui:49 lib/defaultvariablemodel.cpp:67
+#, kde-format
+msgctxt "@title:column"
+msgid "Name"
+msgstr "Nom"
+
+#. i18n: ectx: property (text), widget (QTreeWidget, qchTable)
+#: backends/qthelpconfig.ui:54
+#, kde-format
+msgctxt "@title:column"
+msgid "Path"
+msgstr "Camí"
+
+#. i18n: ectx: property (text), widget (QPushButton, addButton)
+#: backends/qthelpconfig.ui:79
+#, kde-format
+msgctxt "@action:button"
+msgid "Add"
+msgstr "Afig"
+
+#. i18n: ectx: property (text), widget (QLabel, lIcon)
+#: backends/qthelpconfigeditdialog.ui:17
+#, kde-format
+msgctxt "@label:chooser"
+msgid "Icon:"
+msgstr "Icona:"
+
+#. i18n: ectx: property (toolTip), widget (KIconButton, qchIcon)
+#: backends/qthelpconfigeditdialog.ui:24
+#, kde-format
+msgctxt "@info:tooltip"
+msgid "Select an icon"
+msgstr "Seleccioneu una icona"
+
+#. i18n: ectx: property (text), widget (QLabel, lName)
+#: backends/qthelpconfigeditdialog.ui:37
+#, kde-format
+msgctxt "@label:textbox"
+msgid "Name:"
+msgstr "Nom:"
+
+#. i18n: ectx: property (toolTip), widget (QLineEdit, qchName)
+#: backends/qthelpconfigeditdialog.ui:44
+#, kde-format
+msgctxt "@info:tooltip"
+msgid "Enter a name"
+msgstr "Introduïu un nom"
+
+#. i18n: ectx: property (placeholderText), widget (QLineEdit, qchName)
+#: backends/qthelpconfigeditdialog.ui:47
+#, kde-format
+msgctxt "@info:placeholder"
+msgid "Select a name..."
+msgstr "Seleccioneu un nom..."
+
+#. i18n: ectx: property (text), widget (QLabel, lPath)
+#: backends/qthelpconfigeditdialog.ui:54
+#, kde-format
+msgctxt "@label:textbox"
+msgid "Path:"
+msgstr "Camí:"
+
+#. i18n: ectx: property (toolTip), widget (KUrlRequester, qchRequester)
+#: backends/qthelpconfigeditdialog.ui:67
+#, kde-format
+msgctxt "@info:tooltip"
+msgid "Select a Qt Help file..."
+msgstr "Seleccioneu un fitxer d'ajuda de les Qt..."
+
+#. i18n: ectx: property (placeholderText), widget (KUrlRequester, qchRequester)
+#: backends/qthelpconfigeditdialog.ui:73
+#, kde-format
+msgctxt "@info:placeholder"
+msgid "Select a Qt Help file..."
+msgstr "Seleccioneu un fitxer d'ajuda de les Qt..."
+
+#: backends/R/rbackend.cpp:81
+#, kde-format
+msgctxt ""
+"the url to the documentation of R, please check if there is a translated "
+"version and use the correct url"
+msgid "https://cran.r-project.org/manuals.html"
+msgstr "https://cran.r-project.org/manuals.html"
+
+# skip-rule: t-sp_in, t-pu_desp
+#: backends/R/rbackend.cpp:88
+#, kde-format
+msgid ""
+"<h1>R' Help System: <i>help()</i> and <i>?</i>:</h1><br>The <i>help()</i> "
+"function and <i>?</i> help operator in R provide access to the documentation "
+"pages for R functions, data sets, and other objects, both for packages in "
+"the standard R distribution and for contributed packages.<br><br>To access "
+"documentation for the standard <i>lm</i> (linear model) function, for "
+"example, enter the command <b><i>help(lm)</i></b> or <i>help(\"lm\")</i>, or "
+"<i>?lm</i> or <i>?\"lm\"</i> (i.e., the quotes are optional).<br><br>To "
+"access help for a function in a package that’s not currently loaded, specify "
+"in addition the name of the package: For example, to obtain documentation "
+"for the <i>rlm()</i> (robust linear model) function in the MASS package, "
+"<i>help(rlm, package=\"MASS\")</i>.<br><br>Standard names in R consist of "
+"upper- and lower-case letters, numerals (0-9), underscores (_), and periods "
+"(.), and must begin with a letter or a period. To obtain help for an object "
+"with a non-standard name (such as the help operator <i>?</i>), the name must "
+"be quoted: for example, <i>help('?')</i> or <i>?\"?\"</i>.<br><br>You may "
+"also use the <i>help()</i> function to access information about a package in "
+"your library — for example, <i>help(package=\"MASS\")</i> — which displays "
+"an index of available help pages for the package along with some other "
+"information.<br><br>Help pages for functions usually include a section with "
+"executable examples illustrating how the functions work. You can execute "
+"these examples in the current R session via the <i>example()</i> command: e."
+"g., <i>example(lm)</i>."
+msgstr ""
+"<h1>Sistema d'ajuda d'R: <i>help()</i> i <i>?</i>:</h1><br>La funció "
+"<i>help()</i> i l'operador d'ajuda <i>?</i> d'R proporciona accés a les "
+"pàgines de documentació de les funcions R, conjunts de dades, i altres "
+"objectes, tant per als paquets de la distribució R estàndard com per als "
+"paquets de col·laboracions.<br><br>Per accedir a la documentació de la "
+"funció <i>lm</b> (model lineal), per exemple, teclegeu l'ordre "
+"<b><i>help(lm)</i></b> o <i>help(\"lm\")</i>, o <i>?lm</i> o <i>?\"lm\"</i> "
+"(és a dir, les cometes són opcionals).<br><br>. Per accedir a l'ajuda d'una "
+"funció en un paquet que no està carregada actualment, especifiqueu, a més, "
+"el nom del paquet: per exemple, per obtindre la documentació de la funció "
+"<i>rlm()</i> (model lineal robust) del paquet MASS, </i>help(rlm, package="
+"\"MASS\")</i>.<br><br>Els noms estàndards d'R consistixen en lletres en "
+"majúscules i minúscules, nombres (0-9), guions baixos (_), i punts (.), i "
+"han de començar amb una lletra o un punt. Per a obtindre ajuda per a un "
+"objecte amb un nom no estàndard (com l'operador d'ajuda <i>?</i>), cal posar "
+"el nom entre cometes: per exemple, <i>help('?')</i>o <i>?\"?\"</i>."
+"<br><br>També podeu utilitzar la funció <i>help()</i> per accedir a "
+"informació sobre un paquet en la vostra biblioteca: per exemple, "
+"<i>help(package=\"MASS\")</i>, que mostra un índex de pàgines d'ajuda "
+"disponibles per al paquet juntament amb una altra informació.<br><br>Les "
+"pàgines d'ajuda per a funcions normalment inclouen una secció amb exemples "
+"executables que il·lustren com funcionen les funcions. Podeu executar estos "
+"exemples en la sessió R actual a través de l'ordre <i>example()</i>: p. ex., "
+"<i>exemple(lm)</i>."
+
+#: backends/R/rbackend.cpp:99
+#, kde-format
+msgid ""
+"<b>R</b> is a language and environment for statistical computing and "
+"graphics, similar to the S language and environment. <br/>It provides a wide "
+"variety of statistical (linear and nonlinear modelling, classical "
+"statistical tests, time-series analysis, classification, clustering, ...) "
+"and graphical techniques, and is highly extensible. The S language is often "
+"the vehicle of choice for research in statistical methodology, and R "
+"provides an Open Source route to participation in that activity."
+msgstr ""
+"<b>R</b> és un llenguatge i un entorn per a computació i gràfiques "
+"estadístiques, similar al llenguatge i entorn «S». <br/>Oferix una àmplia "
+"varietat de tècniques estadístiques (modelatge lineal i no lineal, tests "
+"estadístics clàssics, anàlisi de sèries temporals, classificació, "
+"clustering...) i gràfiques, i és altament extensible. El llenguatge S és "
+"sovint el vehicle escollit per a la recerca en metodologia estadística, i R "
+"oferix una via de codi obert per a participar en esta activitat."
+
+#: backends/R/rexpression.cpp:107 backends/R/rexpression.cpp:108
+#, kde-format
+msgid "Error opening file %1"
+msgstr "S'ha produït un error en obrir el fitxer %1"
+
+#: backends/R/rextensions.cpp:22
+#, kde-format
+msgid "R script file (*.R)"
+msgstr "Fitxer de script d'R (*.R)"
+
+#: backends/R/rserver/rserver.cpp:362
+#, kde-format
+msgid "Error Parsing Command"
+msgstr "S'ha produït un error en analitzar l'ordre"
+
+#. i18n: ectx: label, entry (localDoc), group (RBackend)
+#: backends/R/rserver/rserver.kcfg:9
+#, kde-format
+msgid "Url to the local R documentation"
+msgstr "URL cap a la documentació local d'R"
+
+#: backends/R/rsettingswidget.cpp:24
+#, kde-format
+msgid "Double click to open file selection dialog"
+msgstr "Feu doble clic per a obrir el diàleg de selecció de fitxer"
+
+#: backends/R/rsettingswidget.cpp:44
+#, kde-format
+msgid "*.R *.r|R source files (*.R, *.r)"
+msgstr "*.R *.r|Fitxers font en R (*.R, *.r)"
+
+#: backends/sage/sagebackend.cpp:79
+#, kde-format
+msgctxt ""
+"the url to the documentation of Sage, please check if there is a translated "
+"version and use the correct url"
+msgid "https://doc.sagemath.org/html/en/reference/index.html"
+msgstr "https://doc.sagemath.org/html/en/reference/index.html"
+
+#: backends/sage/sagebackend.cpp:84
+#, kde-format
+msgid ""
+"<b>Sage</b> is a free open-source mathematics software system licensed under "
+"the GPL. <br/>It combines the power of many existing open-source packages "
+"into a common Python-based interface."
+msgstr ""
+"<b>Sage</b> és un programari matemàtic lliure davall la llicència GPL. <br/"
+">Combina la potència de la munió d'aplicacions de codi obert existents amb "
+"una interfície comuna basada en Python."
+
+#. i18n: ectx: label, entry (Path), group (SageBackend)
+#: backends/sage/sagebackend.kcfg:10
+#, kde-format
+msgid "Path to the Sage executable"
+msgstr "Camí cap a l'executable «sage»"
+
+#. i18n: ectx: label, entry (allowLatex), group (SageBackend)
+#: backends/sage/sagebackend.kcfg:14
+#, kde-format
+msgid "Enable LaTeX typesetting for Sage backend"
+msgstr "Habilita la composició tipogràfica de LaTeX per al dorsal Sage"
+
+#: backends/sage/sageexpression.cpp:233 backends/sage/sageexpression.cpp:235
+#, kde-format
+msgid "Result of %1"
+msgstr "Resultat de %1"
+
+#: backends/sage/sageexpression.cpp:242
+#, kde-format
+msgid ""
+"%1\n"
+"The last output was: \n"
+" %2"
+msgstr ""
+"%1\n"
+"L'última eixida ha sigut: \n"
+" %2"
+
+#: backends/sage/sageextensions.cpp:32
+#, kde-format
+msgid "Python script file (*.py);;Sage script file (*.sage)"
+msgstr "Fitxer de script en Python (*.py);;Fitxer de script de Sage (*.sage)"
+
+#: backends/sage/sagesession.cpp:236
+#, kde-format
+msgid ""
+"Sage version %1.%2 is unsupported. Please update your installation to the "
+"supported versions to make it work with Cantor."
+msgstr ""
+"No s'admet la versió %1.%2 de Sage. Actualitzeu la instal·lació a les "
+"versions acceptades per a fer que funcione amb Cantor."
+
+#: backends/sage/sagesession.cpp:270
+#, kde-format
+msgid ""
+"Failed to determine the version of Sage. Please check your installation and "
+"the output of 'sage -v'."
+msgstr ""
+"No s'ha pogut determinar la versió de Sage. Comproveu la instal·lació i "
+"l'eixida de «sage -v»."
+
+#: backends/sage/sagesession.cpp:333
+#, kde-format
+msgid "The Sage process crashed while evaluating this expression"
+msgstr "El procés Sage ha fallat mentre s'avaluava esta expressió"
+
+#: backends/sage/sagesession.cpp:337
+#, kde-format
+msgid "The Sage process crashed"
+msgstr "El procés Sage ha fallat"
+
+#: backends/sage/sagesession.cpp:344
+#, kde-format
+msgid "The Sage process exited while evaluating this expression"
+msgstr "El procés Sage ha fallat mentre s'avaluava esta expressió"
+
+#: backends/sage/sagesession.cpp:348
+#, kde-format
+msgid "The Sage process exited"
+msgstr "El procés Sage ha fallat"
+
+#: backends/sage/sagesession.cpp:358
+#, kde-format
+msgid "Failed to start Sage"
+msgstr "No s'ha pogut iniciar Sage"
+
+#. i18n: ectx: property (text), widget (QLabel, label_2)
+#: backends/sage/settings.ui:27
+#, kde-format
+msgid "LaTeX typesetting:"
+msgstr "Composició tipogràfica de LaTeX:"
+
+#. i18n: ectx: property (toolTip), widget (QCheckBox, kcfg_allowLatex)
+#: backends/sage/settings.ui:34
+#, kde-format
+msgid ""
+"Sage LaTeX output not always correct, so latex typesetting can be disabled "
+"for better experience"
+msgstr ""
+"L'eixida en LaTeX de Sage no sempre és correcta i, per tant, la composició "
+"tipogràfica de LaTeX es pot desactivar per a millorar l'experiència"
+
+#: backends/scilab/scilabbackend.cpp:68
+#, kde-format
+msgctxt ""
+"The url to the documentation of Scilab, please check if there is a "
+"translated version and use the correct url"
+msgid "https://www.scilab.org/support/documentation"
+msgstr "https://www.scilab.org/support/documentation"
+
+#: backends/scilab/scilabbackend.cpp:73
+#, kde-format
+msgid ""
+"<b>Scilab</b> is a free software, cross-platform numerical computational "
+"package and a high-level, numerically oriented programming language.Scilab "
+"is distributed under CeCILL license (GPL compatible)."
+msgstr ""
+"<b>Scilab</b> és un programari lliure multiplataforma de càlcul numèric, i "
+"un llenguatge de programació d'alt nivell orientat a la manipulació de "
+"nombres. Scilab es distribuïx davall una llicència CeCILL (compatible amb la "
+"GPL)."
+
+#. i18n: ectx: label, entry (Path), group (ScilabBackend)
+#: backends/scilab/scilabbackend.kcfg:10
+#, kde-format
+msgid "Path to the Scilab executable"
+msgstr "Camí cap a l'executable «scilab»"
+
+#: backends/scilab/scilabextensions.cpp:23
+#, kde-format
+msgid ";;Scilab script file (*.sce);;Scilab function file (*.sci)"
+msgstr ""
+"::Fitxer de script de Scilab (*.sce);;Fitxer de funció de Scilab (*.sci)"
+
+#: cantor.cpp:104
+#, kde-format
+msgid "The file %1 is already opened."
+msgstr "El fitxer %1 ja es troba obert."
+
+#: cantor.cpp:104 cantor.cpp:228
+#, kde-format
+msgid "Open file"
+msgstr "Obri un fitxer"
+
+#: cantor.cpp:146
+#, kde-format
+msgid "Download Examples"
+msgstr "Descarrega exemples"
+
+#: cantor.cpp:149
+#, kde-format
+msgid "&Open Example"
+msgstr "&Obri un exemple"
+
+#: cantor.cpp:154
+#, kde-format
+msgid "Go to previous worksheet"
+msgstr "Ves al full de treball anterior"
+
+#: cantor.cpp:166
+#, kde-format
+msgid "Go to next worksheet"
+msgstr "Ves al full de treball següent"
+
+#: cantor.cpp:227
+#, kde-format
+msgid ""
+"All supported files (*.cws *ipynb);;Cantor Worksheet (*.cws);;Jupyter "
+"Notebook (*.ipynb)"
+msgstr ""
+"Tots els fitxers admesos (*.cws *ipynb);;Full de treball de Cantor (*.cws);;"
+"Bloc de notes de Jupyter (*.ipynb)"
+
+#: cantor.cpp:295
+#, kde-format
+msgid ""
+"<h1>No Backend Found</h1>\n"
+"<div>You could try:\n"
+"  <ul>    <li>Changing the settings in the config dialog;</li>    "
+"<li>Installing packages for the following program:</li>     %2   </ul> </"
+"div> "
+msgid_plural ""
+"<h1>No Backend Found</h1>\n"
+"<div>You could try:\n"
+"  <ul>    <li>Changing the settings in the config dialog;</li>    "
+"<li>Installing packages for one of the following programs:</li>     %2   </"
+"ul> </div> "
+msgstr[0] ""
+"<h1>No s'ha trobat cap dorsal</h1>\n"
+"<div>Podeu intentar de:\n"
+"  <ul>    <li>Canviar la configuració en el diàleg de configuració;</li>    "
+"<li>Instal·lar els paquets del programa següent:</li>     %2   </ul> </div> "
+msgstr[1] ""
+"<h1>No s'ha trobat cap dorsal</h1>\n"
+"<div>Podeu intentar de:\n"
+"  <ul>    <li>Canviar la configuració en el diàleg de configuració;</li>    "
+"<li>Instal·lar els paquets d'algun dels programes següents:</li>     %2   </"
+"ul> </div> "
+
+#: cantor.cpp:315
+#, kde-format
+msgid "Error"
+msgstr "S'ha produït un error"
+
+#: cantor.cpp:336
+#, kde-format
+msgid "Backend %1 is not installed"
+msgstr "El dorsal %1 no està instal·lat"
+
+#: cantor.cpp:343
+#, kde-format
+msgid ""
+"%1 backend installed, but inactive. Please check installation and Cantor "
+"settings"
+msgstr ""
+"S'ha instal·lat el dorsal %1, però és inactiu. Comproveu la instal·lació i "
+"la configuració de Cantor"
+
+#: cantor.cpp:370
+#, kde-format
+msgid "Session %1"
+msgstr "Sessió %1"
+
+#: cantor.cpp:391
+#, kde-format
+msgid "Failed to find the Cantor Part with error %1"
+msgstr "No s'ha pogut buscar la Part de Cantor amb l'error %1"
+
+#: cantor.cpp:438 cantor_part.cpp:621
+#, kde-format
+msgid "Calculating..."
+msgstr "S'està calculant..."
+
+#: cantor.cpp:441 cantor_part.cpp:632 cantor_part.cpp:695
+#, kde-format
+msgid "Ready"
+msgstr "Preparat"
+
+#: cantor.cpp:485
+#, kde-format
+msgid "Changed"
+msgstr "Canviat"
+
+#: cantor.cpp:569
+#, kde-format
+msgid "Multiple unsaved Worksheets are opened. Do you want to close them?"
+msgstr ""
+"Hi ha múltiples fulls de treball oberts sense guardar. Els voleu tancar?"
+
+#: cantor.cpp:570
+#, kde-format
+msgid "Close Cantor"
+msgstr "Tanca Cantor"
+
+#: cantor.cpp:586
+#, kde-format
+msgid "The current project has been modified. Do you want to save it?"
+msgstr "El projecte actual s'ha modificat. Voleu guardar-lo?"
+
+#: cantor.cpp:587
+#, kde-format
+msgid "Save Project"
+msgstr "Guarda el projecte"
+
+#: cantor.cpp:633
+#, kde-format
+msgid "Formatting"
+msgstr "S'està donant format"
+
+#. i18n: ectx: label, entry (DefaultBackend), group (Cantor)
+#: cantor.kcfg:12
+#, kde-format
+msgid "The Backend that is used by default"
+msgstr "El dorsal que s'utilitzarà de manera predeterminada"
+
+#. i18n: ectx: label, entry (TypesetDefault), group (Cantor)
+#: cantor.kcfg:16
+#, kde-format
+msgid "Do Typesetting by default"
+msgstr "Fes com a predeterminada la composició tipogràfica"
+
+#. i18n: ectx: label, entry (HighlightDefault), group (Cantor)
+#: cantor.kcfg:20
+#, kde-format
+msgid "Do Syntax Highlighting by default"
+msgstr "Fes com a predeterminat el ressaltat de la sintaxi"
+
+#. i18n: ectx: label, entry (CompletionDefault), group (Cantor)
+#: cantor.kcfg:24
+#, kde-format
+msgid "Enable Completions by default"
+msgstr "Habilita de manera predeterminada la compleció"
+
+#. i18n: ectx: label, entry (ExpressionNumberingDefault), group (Cantor)
+#: cantor.kcfg:28
+#, kde-format
+msgid "Enable Numbering of Expressions by default"
+msgstr "Habilita de manera predeterminada la numeració de les expressions"
+
+#. i18n: ectx: label, entry (AnimationDefault), group (Cantor)
+#: cantor.kcfg:32
+#, kde-format
+msgid "Animate changes in the Worksheet by default"
+msgstr "Anima per defecte els canvis en el full de treball"
+
+#. i18n: ectx: label, entry (EmbeddedMathDefault), group (Cantor)
+#: cantor.kcfg:36
+#, kde-format
+msgid ""
+"Enable rendering math expressions inside $$..$$ in Text and Markdown entries "
+"by default (needs pdflatex installed)"
+msgstr ""
+"Habilita de manera predeterminada l'anàlisi d'expressions matemàtiques dins "
+"de $$..$$ en entrades de Text i Markdown (cal que «pdflatex» estiga "
+"instal·lat)"
+
+#. i18n: ectx: label, entry (AutoEval), group (Cantor)
+#: cantor.kcfg:40
+#, kde-format
+msgid "Automatically reevaluate the entries below the current"
+msgstr "Torna a avaluar automàticament les entrades davall de l'actual"
+
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_WarnAboutSessionRestart)
+#. i18n: ectx: label, entry (WarnAboutSessionRestart), group (Cantor)
+#: cantor.kcfg:44 settings.ui:181
+#, kde-format
+msgid "Ask for confirmation when restarting the backend"
+msgstr "Demana confirmació en reiniciar el dorsal"
+
+#. i18n: ectx: label, entry (StoreTextEntryFormatting), group (Cantor)
+#: cantor.kcfg:48
+#, kde-format
+msgid ""
+"Save rich text formatting of TextEntry, when save Worksheet in Jupyter "
+"notebook format"
+msgstr ""
+"Guarda el format de text enriquit de les entrades de text, en guardar el "
+"full de treball en el format bloc de notes de Jupyter"
+
+#. i18n: ectx: label, entry (UseOldCantorEntriesIndent), group (Cantor)
+#: cantor.kcfg:52
+#, kde-format
+msgid "Use old style Cantor entries placement style"
+msgstr "Utilitza l'estil antic de Cantor d'emplaçament de les entrades"
+
+#. i18n: ectx: label, entry (ShowMathRenderError), group (Cantor)
+#: cantor.kcfg:56
+#, kde-format
+msgid "Show embedded math render error"
+msgstr "Mostra els errors d'anàlisi d'expressions matemàtiques incrustades"
+
+#. i18n: ectx: label, entry (VisibleLinesLimit), group (Cantor)
+#: cantor.kcfg:60
+#, kde-format
+msgid "Limit of visible lines for text result"
+msgstr "Límit de línies visibles per al text dels resultats"
+
+#. i18n: ectx: label, entry (ChapterFontFamily), group (Cantor)
+#: cantor.kcfg:64
+#, kde-format
+msgid "Hierarchy font for chapter"
+msgstr "Tipus de lletra de jerarquia per al capítol"
+
+#. i18n: ectx: label, entry (ChapterFontSize), group (Cantor)
+#: cantor.kcfg:68
+#, kde-format
+msgid "Hierarchy font size for chapter"
+msgstr "Mida del tipus de lletra de jerarquia per al capítol"
+
+#. i18n: ectx: label, entry (ChapterFontItalic), group (Cantor)
+#: cantor.kcfg:72
+#, kde-format
+msgid "Hierarchy font italic for chapter"
+msgstr "Cursiva del tipus de lletra de jerarquia per al capítol"
+
+#. i18n: ectx: label, entry (ChapterFontBold), group (Cantor)
+#: cantor.kcfg:76
+#, kde-format
+msgid "Hierarchy font bold for chapter"
+msgstr "Negreta del tipus de lletra de jerarquia per al capítol"
+
+#. i18n: ectx: label, entry (SubchapterFontFamily), group (Cantor)
+#: cantor.kcfg:80
+#, kde-format
+msgid "Hierarchy font for subchapter"
+msgstr "Tipus de lletra de jerarquia per al subcapítol"
+
+#. i18n: ectx: label, entry (SubchapterFontSize), group (Cantor)
+#: cantor.kcfg:84
+#, kde-format
+msgid "Hierarchy font size for subchapter"
+msgstr "Mida del tipus de lletra de jerarquia per al subcapítol"
+
+#. i18n: ectx: label, entry (SubchapterFontItalic), group (Cantor)
+#: cantor.kcfg:88
+#, kde-format
+msgid "Hierarchy font italic for subchapter"
+msgstr "Cursiva del tipus de lletra de jerarquia per al subcapítol"
+
+#. i18n: ectx: label, entry (SubchapterFontBold), group (Cantor)
+#: cantor.kcfg:92
+#, kde-format
+msgid "Hierarchy font bold for subchapter"
+msgstr "Negreta del tipus de lletra de jerarquia per al subcapítol"
+
+#. i18n: ectx: label, entry (SectionFontFamily), group (Cantor)
+#. i18n: ectx: label, entry (SectionFontSize), group (Cantor)
+#: cantor.kcfg:96 cantor.kcfg:100
+#, kde-format
+msgid "Hierarchy font for section"
+msgstr "Tipus de lletra de jerarquia per a la secció"
+
+#. i18n: ectx: label, entry (SectionFontItalic), group (Cantor)
+#: cantor.kcfg:104
+#, kde-format
+msgid "Hierarchy font italic for section"
+msgstr "Cursiva del tipus de lletra de jerarquia per a la secció"
+
+#. i18n: ectx: label, entry (SectionFontBold), group (Cantor)
+#: cantor.kcfg:108
+#, kde-format
+msgid "Hierarchy font bold for section"
+msgstr "Negreta del tipus de lletra de jerarquia per a la secció"
+
+#. i18n: ectx: label, entry (SubsectionFontFamily), group (Cantor)
+#. i18n: ectx: label, entry (SubsectionFontSize), group (Cantor)
+#: cantor.kcfg:112 cantor.kcfg:116
+#, kde-format
+msgid "Hierarchy font for subsection"
+msgstr "Tipus de lletra de jerarquia per a la subsecció"
+
+#. i18n: ectx: label, entry (SubsectionFontItalic), group (Cantor)
+#: cantor.kcfg:120
+#, kde-format
+msgid "Hierarchy font italic for subsection"
+msgstr "Cursiva del tipus de lletra de jerarquia per a la subsecció"
+
+#. i18n: ectx: label, entry (SubsectionFontBold), group (Cantor)
+#: cantor.kcfg:124
+#, kde-format
+msgid "Hierarchy font bold for subsection"
+msgstr "Negreta del tipus de lletra de jerarquia per a la subsecció"
+
+#. i18n: ectx: label, entry (ParagraphFontFamily), group (Cantor)
+#. i18n: ectx: label, entry (ParagraphFontSize), group (Cantor)
+#: cantor.kcfg:128 cantor.kcfg:132
+#, kde-format
+msgid "Hierarchy font for paragraph"
+msgstr "Tipus de lletra de jerarquia per al paràgraf"
+
+#. i18n: ectx: label, entry (ParagraphFontItalic), group (Cantor)
+#: cantor.kcfg:136
+#, kde-format
+msgid "Hierarchy font italic for paragraph"
+msgstr "Cursiva del tipus de lletra de jerarquia per al paràgraf"
+
+#. i18n: ectx: label, entry (ParagraphFontBold), group (Cantor)
+#: cantor.kcfg:140
+#, kde-format
+msgid "Hierarchy font bold for paragraph"
+msgstr "Negreta del tipus de lletra de jerarquia per al paràgraf"
+
+#. i18n: ectx: label, entry (SubparagraphFontFamily), group (Cantor)
+#. i18n: ectx: label, entry (SubparagraphFontSize), group (Cantor)
+#: cantor.kcfg:144 cantor.kcfg:148
+#, kde-format
+msgid "Hierarchy font for subparagraph"
+msgstr "Tipus de lletra de jerarquia per al subparàgraf"
+
+#. i18n: ectx: label, entry (SubparagraphFontItalic), group (Cantor)
+#: cantor.kcfg:152
+#, kde-format
+msgid "Hierarchy font italic for subparagraph"
+msgstr "Cursiva del tipus de lletra de jerarquia per al subparàgraf"
+
+#. i18n: ectx: label, entry (SubparagraphFontBold), group (Cantor)
+#: cantor.kcfg:156
+#, kde-format
+msgid "Hierarchy font bold for subparagraph"
+msgstr "Negreta del tipus de lletra de jerarquia per al subparàgraf"
+
+#: cantor_part.cpp:139
+#, kde-format
+msgid "Save Plain Text"
+msgstr "Anomena i guarda text net"
+
+#: cantor_part.cpp:181 cantor_part.cpp:532
+#, kde-format
+msgid "Export to LaTeX"
+msgstr "Exporta a LaTeX"
+
+#: cantor_part.cpp:197 cantor_part.cpp:628 worksheet.cpp:1904
+#, kde-format
+msgid "Evaluate Worksheet"
+msgstr "Avalua el full de treball"
+
+#: cantor_part.cpp:205 worksheet.cpp:1912
+#, kde-format
+msgid "Zoom"
+msgstr "Zoom"
+
+#: cantor_part.cpp:220
+#, kde-format
+msgid "Typeset using LaTeX"
+msgstr "Compon emprant LaTeX"
+
+#: cantor_part.cpp:225
+#, kde-format
+msgid "Syntax Highlighting"
+msgstr "Ressaltat de la sintaxi"
+
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_CompletionDefault)
+#: cantor_part.cpp:230 settings.ui:105
+#, kde-format
+msgid "Completion"
+msgstr "Compleció"
+
+#: cantor_part.cpp:235
+#, kde-format
+msgid "Line Numbers"
+msgstr "Números de les línies"
+
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_AnimationDefault)
+#: cantor_part.cpp:240 settings.ui:125
+#, kde-format
+msgid "Animations"
+msgstr "Animacions"
+
+#: cantor_part.cpp:247
+#, kde-format
+msgid "Embedded Math"
+msgstr "Matemàtiques incrustades"
+
+#: cantor_part.cpp:253
+#, kde-format
+msgid "Restart Backend"
+msgstr "Reinicialitza el dorsal"
+
+#: cantor_part.cpp:260 worksheetentry.cpp:854
+#, kde-format
+msgid "Evaluate Entry"
+msgstr "Avalua l'entrada"
+
+#: cantor_part.cpp:266
+#, kde-format
+msgid "Insert Command Entry"
+msgstr "Inserix una entrada d'ordre"
+
+#: cantor_part.cpp:272
+#, kde-format
+msgid "Insert Text Entry"
+msgstr "Inserix una entrada de text"
+
+#: cantor_part.cpp:278
+#, kde-format
+msgid "Insert Markdown Entry"
+msgstr "Inserix una entrada de Markdown"
+
+#: cantor_part.cpp:285
+#, kde-format
+msgid "Insert LaTeX Entry"
+msgstr "Inserix una entrada de LaTeX"
+
+#: cantor_part.cpp:291
+#, kde-format
+msgid "Insert Page Break"
+msgstr "Inserix un salt de pàgina"
+
+#: cantor_part.cpp:296 markdownentry.cpp:63
+#, kde-format
+msgid "Insert Image"
+msgstr "Inserix una imatge"
+
+#: cantor_part.cpp:301
+#, kde-format
+msgid "Collapse All Results"
+msgstr "Reduïx tots els resultats"
+
+#: cantor_part.cpp:306
+#, kde-format
+msgid "Expand All Results"
+msgstr "Expandix tots els resultats"
+
+#: cantor_part.cpp:311
+#, kde-format
+msgid "Remove All Results"
+msgstr "Elimina tots els resultats"
+
+#: cantor_part.cpp:316
+#, kde-format
+msgid "Remove current Entry"
+msgstr "Elimina l'entrada actual"
+
+#. i18n("Publish Worksheet"), collection);
+#. publishWorksheet->setIcon(QIcon::fromTheme(QLatin1String("get-hot-new-stuff")));
+#. collection->addAction(QLatin1String("file_publish_worksheet"), publishWorksheet);
+#. connect(publishWorksheet, &QAction::triggered, this, SLOT(publishWorksheet()));
+#.
+#: cantor_part.cpp:332
+#, kde-format
+msgid "Show Script Editor"
+msgstr "Mostra l'editor de scripts"
+
+#: cantor_part.cpp:337
+#, kde-format
+msgid "Show Completion"
+msgstr "Mostra la compleció"
+
+#: cantor_part.cpp:404
+#, kde-format
+msgid "CantorPart"
+msgstr "CantorPart"
+
+#: cantor_part.cpp:406
+#, kde-format
+msgid "(C) 2009-2015 Alexander Rieder"
+msgstr "(C) 2009-2015 Alexander Rieder"
+
+#: cantor_part.cpp:410 main.cpp:81
+#, kde-format
+msgid "Alexander Rieder"
+msgstr "Alexander Rieder"
+
+#: cantor_part.cpp:462
+#, kde-format
+msgid "Cantor Worksheet (*.cws)"
+msgstr "Full de treball de Cantor (*.cws)"
+
+#: cantor_part.cpp:463
+#, kde-format
+msgid "Jupyter Notebook (*.ipynb)"
+msgstr "Bloc de notes de Jupyter (*.ipynb)"
+
+#: cantor_part.cpp:479
+#, kde-format
+msgid "Save as"
+msgstr "Anomena i guarda"
+
+#: cantor_part.cpp:525 panelplugins/variablemgr/variablemanagerwidget.cpp:168
+#, kde-format
+msgid "Save"
+msgstr "Guarda"
+
+#: cantor_part.cpp:577
+#, kde-format
+msgid ""
+"All the available calculation results will be lost. Do you really want to "
+"restart %1?"
+msgstr ""
+"Es perdran totes els resultats disponibles dels càlculs. Segur que voleu "
+"reiniciar %1?"
+
+#: cantor_part.cpp:578
+#, kde-format
+msgid "Restart %1?"
+msgstr "Voleu reiniciar %1?"
+
+#: cantor_part.cpp:618 worksheet.cpp:1907
+#, kde-format
+msgid "Interrupt"
+msgstr "Interrupció"
+
+#: cantor_part.cpp:644
+#, kde-format
+msgid "Session Error: %1"
+msgstr "S'ha produït un error de sessió: %1"
+
+#: cantor_part.cpp:685
+#, kde-format
+msgid "Initialization complete"
+msgstr "Inicialització completa"
+
+#: cantor_part.cpp:690
+#, kde-format
+msgid "Initializing..."
+msgstr "S'està inicialitzant..."
+
+#: cantor_part.cpp:748
+#, kde-format
+msgid "[read-only]"
+msgstr "[només de lectura]"
+
+#: cantor_part.cpp:883
+#, kde-format
+msgid "Do you want to upload current Worksheet to public web server?"
+msgstr "Voleu pujar el full de treball actual a un servidor web públic?"
+
+#: cantor_part.cpp:884
+#, kde-format
+msgid "Question - Cantor"
+msgstr "Pregunta - Cantor"
+
+#: cantor_part.cpp:890
+#, kde-format
+msgid "The Worksheet is not saved. You should save it before uploading."
+msgstr ""
+"El full de treball no s'ha guardat. Hauríeu de guardar-lo abans de pujar-lo."
+
+#: cantor_part.cpp:891
+#, kde-format
+msgid "Warning - Cantor"
+msgstr "Avís - Cantor"
+
+#: cantor_part.cpp:963
+#, kde-format
+msgid "This backend does not support scripts."
+msgstr "Este dorsal no admet scripts."
+
+#. i18n: ectx: Menu (edit)
+#: cantor_part.rc:14 cantor_shell.rc:19
+#, kde-format
+msgid "&Edit"
+msgstr "&Edita"
+
+#. i18n: ectx: Menu (view)
+#: cantor_part.rc:27 cantor_shell.rc:22
+#, kde-format
+msgid "&View"
+msgstr "&Visualitza"
+
+#. i18n: ectx: Menu (worksheet)
+#: cantor_part.rc:33
+#, kde-format
+msgid "&Worksheet"
+msgstr "&Full de treball"
+
+#. i18n: ectx: Menu (settings)
+#: cantor_part.rc:50
+#, kde-format
+msgid "Settings"
+msgstr "Configuració"
+
+#. i18n: ectx: Menu (file)
+#: cantor_shell.rc:4
+#, kde-format
+msgid "&File"
+msgstr "&Fitxer"
+
+#. i18n: ectx: Menu (file_new_menu)
+#: cantor_shell.rc:6
+#, kde-format
+msgid "&New"
+msgstr "&Nou"
+
+#. i18n: ectx: Menu (panels)
+#: cantor_shell.rc:24
+#, kde-format
+msgid "Panels"
+msgstr "Quadros"
+
+#. i18n: ectx: Menu (settings)
+#: cantor_shell.rc:29
+#, kde-format
+msgid "&Settings"
+msgstr "&Configuració"
+
+#: commandentry.cpp:120
+#, kde-format
+msgid "Background Color"
+msgstr "Color del fons"
+
+#: commandentry.cpp:129 commandentry.cpp:156 horizontalruleentry.cpp:328
+#, kde-format
+msgid "Default"
+msgstr "Predeterminat"
+
+#: commandentry.cpp:151
+#, kde-format
+msgid "Text Color"
+msgstr "Color del text"
+
+#: commandentry.cpp:176
+#, kde-format
+msgid "Font"
+msgstr "Tipus de lletra"
+
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_ChapterFontBold)
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_SubchapterFontBold)
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_SectionFontBold)
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_SubsectionFontBold)
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_ParagraphFontBold)
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_SubparagraphFontBold)
+#: commandentry.cpp:179 formating.ui:81 formating.ui:140 formating.ui:199
+#: formating.ui:258 formating.ui:317 formating.ui:376
+#, kde-format
+msgid "Bold"
+msgstr "Negreta"
+
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_ChapterFontItalic)
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_SubchapterFontItalic)
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_SectionFontItalic)
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_SubsectionFontItalic)
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_ParagraphFontItalic)
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_SubparagraphFontItalic)
+#: commandentry.cpp:186 formating.ui:88 formating.ui:147 formating.ui:206
+#: formating.ui:265 formating.ui:324 formating.ui:383
+#, kde-format
+msgid "Italic"
+msgstr "Cursiva"
+
+#: commandentry.cpp:194
+#, kde-format
+msgid "Increase Size"
+msgstr "Augmenta la mida"
+
+#: commandentry.cpp:198
+#, kde-format
+msgid "Decrease Size"
+msgstr "Disminuïx la mida"
+
+#: commandentry.cpp:203
+#, kde-format
+msgid "Select"
+msgstr "Selecciona"
+
+#: commandentry.cpp:207
+#, kde-format
+msgid "Reset to Default"
+msgstr "Restablix als valors predeterminats"
+
+#: commandentry.cpp:336
+#, kde-format
+msgid "Show Results"
+msgstr "Mostra els resultats"
+
+#: commandentry.cpp:338
+#, kde-format
+msgid "Hide Results"
+msgstr "Oculta els resultats"
+
+#: commandentry.cpp:343 worksheet.cpp:1897
+#, kde-format
+msgid "Show Help"
+msgstr "Mostra l'ajuda"
+
+#: commandentry.cpp:356
+#, kde-format
+msgid "Appearance"
+msgstr "Aparença"
+
+#: commandentry.cpp:597 commandentry.cpp:992
+#, kde-format
+msgid "Interrupted"
+msgstr "S'ha interromput"
+
+#. i18n: ectx: property (windowTitle), widget (QWidget, StandardSearchBar)
+#. i18n: ectx: property (windowTitle), widget (QWidget, ExtendedSearchBar)
+#: extendedsearchbar.ui:14 standardsearchbar.ui:14
+#, kde-format
+msgid "SearchBar"
+msgstr "Barra de busques"
+
+#. i18n: ectx: property (text), widget (QToolButton, close)
+#. i18n: ectx: property (text), widget (QToolButton, openExtended)
+#. i18n: ectx: property (text), widget (QToolButton, openStandard)
+#. i18n: ectx: property (text), widget (QToolButton, addFlag)
+#. i18n: ectx: property (text), widget (QToolButton, removeFlag)
+#: extendedsearchbar.ui:22 extendedsearchbar.ui:77 extendedsearchbar.ui:159
+#: extendedsearchbar.ui:166 standardsearchbar.ui:22 standardsearchbar.ui:85
+#, kde-format
+msgid "..."
+msgstr "..."
+
+#. i18n: ectx: property (text), widget (QLabel, label)
+#: extendedsearchbar.ui:47
+#: panelplugins/documentationpanel/documentationpanelwidget.cpp:126
+#, kde-format
+msgid "Find:"
+msgstr "Busca:"
+
+#. i18n: ectx: property (text), widget (QPushButton, next)
+#: extendedsearchbar.ui:61 standardsearchbar.ui:48
+#, kde-format
+msgid "&Next"
+msgstr "&Següent"
+
+#. i18n: ectx: property (text), widget (QPushButton, previous)
+#: extendedsearchbar.ui:68 standardsearchbar.ui:55
+#, kde-format
+msgid "&Previous"
+msgstr "&Anterior"
+
+#. i18n: ectx: property (text), widget (QLabel, label_2)
+#: extendedsearchbar.ui:102
+#, kde-format
+msgid "Replace:"
+msgstr "Substituïx:"
+
+#. i18n: ectx: property (text), widget (QPushButton, replace)
+#: extendedsearchbar.ui:116
+#, kde-format
+msgid "&Replace"
+msgstr "&Substituïx"
+
+#. i18n: ectx: property (text), widget (QPushButton, replaceAll)
+#: extendedsearchbar.ui:123
+#, kde-format
+msgid "Replace &All"
+msgstr "Substituïx-ho &tot"
+
+#. i18n: ectx: property (text), widget (QLabel, label_3)
+#: extendedsearchbar.ui:139
+#, kde-format
+msgid "Search in:"
+msgstr "Busca a:"
+
+#. i18n: ectx: property (text), widget (QToolButton, matchCase)
+#. i18n: ectx: property (text), widget (QCheckBox, matchCase)
+#: extendedsearchbar.ui:173 standardsearchbar.ui:62
+#, kde-format
+msgid "&Match case"
+msgstr "Fes coincidir les &majúscules"
+
+#. i18n: ectx: property (title), widget (QGroupBox, groupBox)
+#: formating.ui:27
+#, kde-format
+msgid "Hierarchy Fonts"
+msgstr "Tipus de lletra de jerarquia"
+
+#. i18n: ectx: attribute (title), widget (QWidget, ChapterTab)
+#: formating.ui:37
+#, kde-format
+msgid "Chapter Font"
+msgstr "Tipus de lletra de capítol"
+
+#. i18n: ectx: property (text), widget (QLabel, label_2)
+#. i18n: ectx: property (text), widget (QLabel, label_4)
+#. i18n: ectx: property (text), widget (QLabel, label_7)
+#. i18n: ectx: property (text), widget (QLabel, label_8)
+#. i18n: ectx: property (text), widget (QLabel, label_11)
+#. i18n: ectx: property (text), widget (QLabel, label_13)
+#: formating.ui:45 formating.ui:104 formating.ui:163 formating.ui:222
+#: formating.ui:281 formating.ui:340
+#, kde-format
+msgid "Font Family:"
+msgstr "Família del tipus de lletra:"
+
+#. i18n: ectx: property (text), widget (QLabel, label_3)
+#. i18n: ectx: property (text), widget (QLabel, label_5)
+#. i18n: ectx: property (text), widget (QLabel, label_6)
+#. i18n: ectx: property (text), widget (QLabel, label_9)
+#. i18n: ectx: property (text), widget (QLabel, label_10)
+#. i18n: ectx: property (text), widget (QLabel, label_12)
+#: formating.ui:59 formating.ui:118 formating.ui:177 formating.ui:236
+#: formating.ui:295 formating.ui:354
+#, kde-format
+msgid "Font Size:"
+msgstr "Mida del tipus de lletra:"
+
+#. i18n: ectx: attribute (title), widget (QWidget, SubchapterTab)
+#: formating.ui:96
+#, kde-format
+msgid "Subchapter Font"
+msgstr "Tipus de lletra de subcapítol"
+
+#. i18n: ectx: attribute (title), widget (QWidget, SectionTab)
+#: formating.ui:155
+#, kde-format
+msgid "Section Font"
+msgstr "Tipus de lletra de secció"
+
+#. i18n: ectx: attribute (title), widget (QWidget, SubsectionTab)
+#: formating.ui:214
+#, kde-format
+msgid "Subsection Font"
+msgstr "Tipus de lletra de subsecció"
+
+#. i18n: ectx: attribute (title), widget (QWidget, ParagraphTab)
+#: formating.ui:273
+#, kde-format
+msgid "Paragraph Font"
+msgstr "Tipus de lletra de paràgraf"
+
+#. i18n: ectx: attribute (title), widget (QWidget, SubparagraphTab)
+#: formating.ui:332
+#, kde-format
+msgid "Subparagraph Font"
+msgstr "Tipus de lletra de subparàgraf"
+
+#: hierarchyentry.cpp:22
+#, kde-format
+msgid "Chapter"
+msgstr "Capítol"
+
+#: hierarchyentry.cpp:22
+#, kde-format
+msgid "Subchapter"
+msgstr "Subcapítol"
+
+#: hierarchyentry.cpp:22
+#, kde-format
+msgid "Section"
+msgstr "Secció"
+
+#: hierarchyentry.cpp:22
+#, kde-format
+msgid "Subsection"
+msgstr "Subsecció"
+
+#: hierarchyentry.cpp:22
+#, kde-format
+msgid "Paragraph"
+msgstr "Paràgraf"
+
+#: hierarchyentry.cpp:22
+#, kde-format
+msgid "Subparagraph"
+msgstr "Subparàgraf"
+
+#: hierarchyentry.cpp:48
+#, kde-format
+msgid "Set Hierarchy Level"
+msgstr "Establix el nivell de jerarquia"
+
+#: horizontalruleentry.cpp:20
+#, kde-format
+msgid "Solid Line Style"
+msgstr "Estil de línia sòlid"
+
+#: horizontalruleentry.cpp:20
+#, kde-format
+msgid "Dash Line Style"
+msgstr "Estil de línia de guions"
+
+#: horizontalruleentry.cpp:20
+#, kde-format
+msgid "Dot Line Style"
+msgstr "Estil de línia de punts"
+
+#: horizontalruleentry.cpp:20
+#, kde-format
+msgid "Dash Dot Line Style"
+msgstr "Estil de línia de guió punt"
+
+#: horizontalruleentry.cpp:20
+#, kde-format
+msgid "Dash Dot Dot Line Style"
+msgstr "Estil de línia de guió punt punt"
+
+#: horizontalruleentry.cpp:297
+#, kde-format
+msgid "Line Thickness"
+msgstr "Gruix de la línia"
+
+#: horizontalruleentry.cpp:299
+#, kde-format
+msgid "Thin"
+msgstr "Prima"
+
+#: horizontalruleentry.cpp:303
+#, kde-format
+msgid "Medium"
+msgstr "Mitjana"
+
+#: horizontalruleentry.cpp:307
+#, kde-format
+msgid "Thick"
+msgstr "Gruixuda"
+
+#: horizontalruleentry.cpp:320
+#, kde-format
+msgid "Line Color"
+msgstr "Color de la línia"
+
+#: horizontalruleentry.cpp:351
+#, kde-format
+msgid "Line Style"
+msgstr "Estil de la línia"
+
+#: imageentry.cpp:47 imageentry.cpp:371
+#, kde-format
+msgid "Configure Image"
+msgstr "Configura la imatge"
+
+#: imageentry.cpp:256
+#, kde-format
+msgid "Double click here to configure image settings"
+msgstr "Feu doble clic ací per a configurar les opcions de la imatge"
+
+#: imageentry.cpp:288
+#, kde-format
+msgid "Cannot load image %1"
+msgstr "No s'ha pogut carregar la imatge %1"
+
+#: imageresultitem.cpp:97
+#, kde-format
+msgid "Save image result"
+msgstr "Guarda la imatge resultant"
+
+#: imageresultitem.cpp:99 imagesettingsdialog.cpp:153 markdownentry.cpp:775
+#, kde-format
+msgid "Images (%1)"
+msgstr "Imatges (%1)"
+
+#. i18n: ectx: property (windowTitle), widget (QWidget, ImageSettingsBase)
+#: imagesettings.ui:14
+#, kde-format
+msgid "Image Settings"
+msgstr "Paràmetres d'imatge"
+
+#. i18n: ectx: property (text), widget (QPushButton, openDialogButton)
+#: imagesettings.ui:29
+#, kde-format
+msgid "Open"
+msgstr "Obri"
+
+#. i18n: ectx: property (title), widget (QGroupBox, groupBox)
+#: imagesettings.ui:38
+#, kde-format
+msgid "Display Size"
+msgstr "Mida de la visualització"
+
+#. i18n: ectx: property (text), widget (QLabel, label)
+#. i18n: ectx: property (text), widget (QLabel, label_5)
+#: imagesettings.ui:47 imagesettings.ui:101
+#, kde-format
+msgid "Width"
+msgstr "Amplària"
+
+#. i18n: ectx: property (text), widget (QLabel, label_2)
+#. i18n: ectx: property (text), widget (QLabel, label_6)
+#: imagesettings.ui:60 imagesettings.ui:114
+#, kde-format
+msgid "Height"
+msgstr "Alçària"
+
+#. i18n: ectx: property (title), widget (QGroupBox, gbPreview)
+#: imagesettings.ui:76
+#, kde-format
+msgid "Preview"
+msgstr "Vista prèvia"
+
+#. i18n: ectx: property (title), widget (QGroupBox, groupBox_2)
+#: imagesettings.ui:88
+#, kde-format
+msgid "Print Size"
+msgstr "Mida d'impressió"
+
+#. i18n: ectx: property (text), widget (QCheckBox, useDisplaySize)
+#: imagesettings.ui:94
+#, kde-format
+msgid "Use Display Size"
+msgstr "Utilitza la mida de la visualització"
+
+#: imagesettingsdialog.cpp:23
+#, kde-format
+msgctxt "@title:window"
+msgid "Image Settings"
+msgstr "Configureu la imatge"
+
+#: imagesettingsdialog.cpp:40
+#, kde-format
+msgid "(auto)"
+msgstr "(auto)"
+
+#: imagesettingsdialog.cpp:40
+#, kde-format
+msgid "px"
+msgstr " px"
+
+#: imagesettingsdialog.cpp:40
+#, kde-format
+msgid "%"
+msgstr "%"
+
+#: imagesettingsdialog.cpp:151 markdownentry.cpp:773
+#, kde-format
+msgid "Open image file"
+msgstr "Obri un fitxer d'imatge"
+
+#: latexentry.cpp:61 textentry.cpp:111
+#, kde-format
+msgid "Show LaTeX code"
+msgstr "Mostra el codi en LaTeX"
+
+#: lib/backend.cpp:183
+#, kde-format
+msgid ""
+"No path for the %1 executable specified. Please provide the correct path in "
+"the application settings and try again."
+msgstr ""
+"No s'ha especificat cap camí cap a l'executable «%1». Proporcioneu el camí "
+"correcte cap a la configuració de l'aplicació i torneu-ho a intentar."
+
+#: lib/backend.cpp:193
+#, kde-format
+msgid ""
+"The specified file '%1' for the %2 executable doesn't exist. Please provide "
+"the correct path in the application settings and try again."
+msgstr ""
+"El fitxer «%1» especificat com a executable de %2 no existix. Proporcioneu "
+"el camí correcte cap a la configuració de l'aplicació i torneu-ho a intentar."
+
+#: lib/backend.cpp:202
+#, kde-format
+msgid ""
+"The specified file '%1' doesn't point to an executable. Please provide the "
+"correct path in the application settings and try again."
+msgstr ""
+"El fitxer «%1» especificat no apunta a cap executable. Proporcioneu el camí "
+"correcte cap a la configuració de l'aplicació i torneu-ho a intentar."
+
+#: lib/backend.cpp:221
+#, kde-format
+msgid ""
+"The program %1 didn't finish the execution after %2 milliseconds during the "
+"plot integration test."
+msgstr ""
+"El programa %1 no ha finalitzat l'execució després de %2 mil·lisegons durant "
+"la prova d'integració de les gràfiques."
+
+#: lib/backend.cpp:230
+#, kde-format
+msgid "Failed to open the file %1 during the plot integration test."
+msgstr ""
+"No s'ha pogut obrir el fitxer %1 durant la prova d'integració de les "
+"gràfiques."
+
+#: lib/backend.cpp:238
+#, kde-format
+msgid "Failed to parse the result during the plot integration test."
+msgstr ""
+"No s'ha pogut analitzar el resultat durant la prova d'integració de les "
+"gràfiques."
+
+#. i18n: ectx: label, entry (latexCommand), group (Cantor)
+#: lib/cantor_libs.kcfg:10
+#, kde-format
+msgid "Path to the latex executable"
+msgstr "Camí cap a l'executable «latex»"
+
+#. i18n: ectx: label, entry (dvipsCommand), group (Cantor)
+#: lib/cantor_libs.kcfg:14
+#, kde-format
+msgid "Path to the dvips executable"
+msgstr "Camí cap a l'executable «dvips»"
+
+#: lib/defaultvariablemodel.cpp:70
+#, kde-format
+msgctxt "@title:column"
+msgid "Value"
+msgstr "Valor"
+
+#: lib/defaultvariablemodel.cpp:102
+#, kde-format
+msgid "<%1 bytes>"
+msgstr "<%1 bytes>"
+
+#: lib/defaultvariablemodel.cpp:104
+#, kde-format
+msgid "<too big variable>"
+msgstr "<variable massa gran>"
+
+#. i18n: ectx: property (text), widget (QLabel, label)
+#: lib/directives/axisrange.ui:19
+#, kde-format
+msgid "From:"
+msgstr "Des de:"
+
+#. i18n: ectx: property (text), widget (QLabel, label_2)
+#: lib/directives/axisrange.ui:40
+#, kde-format
+msgid "To:"
+msgstr "Fins a:"
+
+#: lib/directives/plotdirectives.cpp:19
+#, kde-format
+msgid "Main title"
+msgstr "Títol principal"
+
+#: lib/directives/plotdirectives.cpp:30
+#, kde-format
+msgid "Abscissa scale"
+msgstr "Escala d'abscisses"
+
+#: lib/directives/plotdirectives.cpp:41
+#, kde-format
+msgid "Ordinate scale"
+msgstr "Escala d'ordenades"
+
+#. i18n: ectx: property (text), widget (QLabel, label)
+#: lib/directives/plottitle.ui:19
+#, kde-format
+msgid "Plot title:"
+msgstr "Títol de la gràfica:"
+
+#: lib/mimeresult.cpp:33
+#, kde-format
+msgid "This is unsupported Jupyter content of types ('%1')"
+msgstr "Este és un contingut no admés per Jupyter de tipus («%1»)"
+
+#: lib/session.cpp:311
+#, kde-format
+msgid "%1 process has died unexpectedly. All calculation results are lost."
+msgstr "El procés %1 ha mort inesperadament. S'han perdut tots els càlculs."
+
+#: lib/session.cpp:313
+#, kde-format
+msgid ""
+"%1 process has died unexpectedly with message \"%2\". All calculation "
+"results are lost."
+msgstr ""
+"El procés %1 ha mort inesperadament amb el missatge «%2». S'han perdut tots "
+"els càlculs."
+
+#: lib/session.cpp:379
+#, kde-format
+msgid ""
+"You choose support for %1 graphic package, but the support can't be "
+"activated due to the missing requirements, so integration for this package "
+"will be disabled. %2"
+msgstr ""
+"Heu triat el funcionament per al paquet gràfic %1, però el funcionament no "
+"es pot activar a causa de requisits que falten i, per tant, s'ha desactivat "
+"la integració per a este paquet. %2"
+
+#: main.cpp:72
+#, kde-format
+msgid "KDE Frontend to mathematical applications"
+msgstr "Frontal de KDE per a aplicacions matemàtiques"
+
+#: main.cpp:74
+#, kde-format
+msgid "(C) 2016 Filipe Saraiva<br/>(C) 2009-2015 Alexander Rieder"
+msgstr "(C) 2016 Filipe Saraiva<br/>(C) 2009-2015 Alexander Rieder"
+
+#: main.cpp:78
+#, kde-format
+msgid "Filipe Saraiva"
+msgstr "Filipe Saraiva"
+
+#: main.cpp:78
+#, kde-format
+msgid "Maintainer<br/>Qt5/KF5 port, Scilab and Python backends"
+msgstr "Mantenidor<br/>Adaptació a les Qt5/KF5, dorsals de Scilab i Python"
+
+#: main.cpp:79
+#, kde-format
+msgid "Nikita Sirgienko"
+msgstr "Nikita Sirgienko"
+
+#: main.cpp:79 main.cpp:80
+#, kde-format
+msgctxt "@info:credit"
+msgid "Developer"
+msgstr "Desenvolupador"
+
+#: main.cpp:80
+#, kde-format
+msgid "Alexander Semke"
+msgstr "Alexander Semke"
+
+#: main.cpp:81
+#, kde-format
+msgid "Original author<br/>Maintainer (2009 - 2015)"
+msgstr "Autor original<br/>Mantenidor (2009 - 2015)"
+
+#: main.cpp:82
+#, kde-format
+msgid "Aleix Pol Gonzalez"
+msgstr "Aleix Pol Gonzalez"
+
+#: main.cpp:82
+#, kde-format
+msgid "KAlgebra backend"
+msgstr "Dorsal de KAlgebra"
+
+#: main.cpp:83
+#, kde-format
+msgid "Miha Čančula"
+msgstr "Miha Čančula"
+
+#: main.cpp:83
+#, kde-format
+msgid "Octave backend"
+msgstr "Dorsal d'Octave"
+
+#: main.cpp:84
+#, kde-format
+msgid "Martin Küttler"
+msgstr "Martin Küttler"
+
+#: main.cpp:84
+#, kde-format
+msgid "Interface"
+msgstr "Interfície"
+
+#: main.cpp:86 main.cpp:87
+#, kde-format
+msgid "Cantor icon"
+msgstr "Icona de Cantor"
+
+#: main.cpp:92
+#, kde-format
+msgid "Use  backend <backend>"
+msgstr "Utilitza el dorsal <dorsal>"
+
+#: main.cpp:95
+#, kde-format
+msgid "Documents to open."
+msgstr "Documents que cal obrir."
+
+#: main.cpp:130
+#, kde-format
+msgid "Couldn't open the file %1"
+msgstr "No s'ha pogut obrir el fitxer %1"
+
+#: markdownentry.cpp:70
+#, kde-format
+msgid "Enter Edit Mode"
+msgstr "Entra en el mode d'edició"
+
+#: markdownentry.cpp:78
+#, kde-format
+msgid "Clear Attachments"
+msgstr "Neteja els adjunts"
+
+#: markdownentry.cpp:587
+#, kde-format
+msgid "Cantor Math Error"
+msgstr "Error matemàtic de Cantor"
+
+#: markdownentry.cpp:796
+#, kde-format
+msgid "Failed to read the image \"%1\". Error \"%2\""
+msgstr "No s'ha pogut llegir la imatge «%1». Error «%2»"
+
+#: pagebreakentry.cpp:28
+#, kde-format
+msgid "--- Page Break ---"
+msgstr "--- Salt de pàgina ---"
+
+#: panelplugins/documentationpanel/documentationpanelwidget.cpp:51
+#, kde-format
+msgctxt "@button go to contents page"
+msgid "Go to the contents"
+msgstr "Ves al contingut"
+
+#: panelplugins/documentationpanel/documentationpanelwidget.cpp:58
+#, kde-format
+msgctxt "@info:placeholder"
+msgid "Search through keywords..."
+msgstr "Busca mitjançant les paraules clau..."
+
+#: panelplugins/documentationpanel/documentationpanelwidget.cpp:69
+#, kde-format
+msgctxt "@info:tooltip"
+msgid "Find in text of current documentation page"
+msgstr "Busca al text de la pàgina de documentació actual"
+
+#: panelplugins/documentationpanel/documentationpanelwidget.cpp:75
+#, kde-format
+msgctxt "@info:tooltip"
+msgid "Reset zoom level to 100%"
+msgstr "Restablix el nivell de zoom al 100%"
+
+#: panelplugins/documentationpanel/documentationpanelwidget.cpp:123
+#, kde-format
+msgctxt "@info:tooltip"
+msgid "Close"
+msgstr "Tanca"
+
+#: panelplugins/documentationpanel/documentationpanelwidget.cpp:133
+#, kde-format
+msgctxt "@info:tooltip"
+msgid "Jump to next match"
+msgstr "Salta a la coincidència següent"
+
+#: panelplugins/documentationpanel/documentationpanelwidget.cpp:137
+#, kde-format
+msgctxt "@info:tooltip"
+msgid "Jump to previous match"
+msgstr "Salta a la coincidència anterior"
+
+#: panelplugins/documentationpanel/documentationpanelwidget.cpp:141
+#, kde-format
+msgctxt "@info:tooltip"
+msgid "Match case sensitively"
+msgstr "Coincidència distingint entre majúscules i minúscules"
+
+#: panelplugins/documentationpanel/documentationpanelwidget.cpp:408
+#, kde-format
+msgid "The file has been downloaded successfully at Downloads."
+msgstr "El fitxer s'ha baixat correctament a Baixades."
+
+#: panelplugins/documentationpanel/documentationpanelwidget.cpp:408
+#, kde-format
+msgid "Download Successful"
+msgstr "La baixada s'ha fet correctament"
+
+#: panelplugins/filebrowserpanel/filebrowserpanelplugin.cpp:137
+#, kde-format
+msgid "Cantor files"
+msgstr "Fitxers de Cantor"
+
+#: panelplugins/filebrowserpanel/filebrowserpanelplugin.cpp:138
+#, kde-format
+msgid "Jupyter files"
+msgstr "Fitxers de Jupyter"
+
+#: panelplugins/filebrowserpanel/filebrowserpanelplugin.cpp:139
+#, kde-format
+msgid "All supported files"
+msgstr "Tots els fitxers admesos"
+
+#: panelplugins/filebrowserpanel/filebrowserpanelplugin.cpp:140
+#, kde-format
+msgid "All files"
+msgstr "Tots els fitxers"
+
+#. i18n: ectx: property (text), widget (QLabel, label)
+#: panelplugins/variablemgr/newvardlg.ui:17
+#, kde-format
+msgid "Name:"
+msgstr "Nom:"
+
+#. i18n: ectx: property (text), widget (QLabel, label_2)
+#: panelplugins/variablemgr/newvardlg.ui:27
+#, kde-format
+msgid "Value:"
+msgstr "Valor:"
+
+#: panelplugins/variablemgr/variablemanagerwidget.cpp:45
+#: panelplugins/variablemgr/variablemanagerwidget.cpp:197
+#, kde-format
+msgid "Add New Variable"
+msgstr "Afig una variable nova"
+
+#: panelplugins/variablemgr/variablemanagerwidget.cpp:51
+#, kde-format
+msgid "Load Variables"
+msgstr "Carrega les variables"
+
+#: panelplugins/variablemgr/variablemanagerwidget.cpp:57
+#, kde-format
+msgid "Save Variables"
+msgstr "Guarda les variables"
+
+#: panelplugins/variablemgr/variablemanagerwidget.cpp:63
+#: panelplugins/variablemgr/variablemanagerwidget.cpp:140
+#, kde-format
+msgid "Remove Variables"
+msgstr "Elimina les variables"
+
+#: panelplugins/variablemgr/variablemanagerwidget.cpp:73
+#, kde-format
+msgid "Search/Filter"
+msgstr "Busca/Filtra"
+
+#: panelplugins/variablemgr/variablemanagerwidget.cpp:84
+#, kde-format
+msgid "Case Sensitive"
+msgstr "Distingix entre majúscules i minúscules"
+
+#: panelplugins/variablemgr/variablemanagerwidget.cpp:88
+#, kde-format
+msgid "Match Complete Word"
+msgstr "Coincidix tota la paraula"
+
+#: panelplugins/variablemgr/variablemanagerwidget.cpp:139
+#, kde-format
+msgid "Are you sure you want to remove all variables?"
+msgstr "Esteu segur/a que voleu eliminar totes les variables?"
+
+#: panelplugins/variablemgr/variablemanagerwidget.cpp:182
+#, kde-format
+msgid "Load file"
+msgstr "Carrega un fitxer"
+
+#: resultitem.cpp:59
+#, kde-format
+msgid "Save result"
+msgstr "Guarda el resultat"
+
+#: resultitem.cpp:60
+#, kde-format
+msgid "Remove result"
+msgstr "Elimina el resultat"
+
+#: scripteditor/scripteditorwidget.cpp:44
+#, kde-format
+msgid ""
+"A KDE text-editor component could not be found;\n"
+"please check your KDE installation."
+msgstr ""
+"No s'ha trobat cap component d'edició de text de KDE;\n"
+"comproveu la instal·lació de KDE."
+
+#: scripteditor/scripteditorwidget.cpp:139
+#, kde-format
+msgid "Script Editor"
+msgstr "Editor de scripts"
+
+#: scripteditor/scripteditorwidget.cpp:142
+#, kde-format
+msgid "Script Editor - %1"
+msgstr "Editor de scripts - %1"
+
+#: searchbar.cpp:130 searchbar.cpp:178
+#, kde-format
+msgid "Not found"
+msgstr "No s'ha trobat"
+
+#: searchbar.cpp:133
+#, kde-format
+msgid "Reached beginning"
+msgstr "S'ha arribat al principi"
+
+#: searchbar.cpp:181
+#, kde-format
+msgid "Reached end"
+msgstr "S'ha arribat al final"
+
+#: searchbar.cpp:238
+#, kde-format
+msgid "Replaced %1 instance"
+msgid_plural "Replaced %1 instances"
+msgstr[0] "S'ha substituït %1 instància"
+msgstr[1] "S'han substituït %1 instàncies"
+
+#: searchbar.cpp:333 searchbar.cpp:362
+#, kde-format
+msgid "Commands"
+msgstr "Ordres"
+
+#: searchbar.cpp:333 searchbar.cpp:362
+#, kde-format
+msgid "Results"
+msgstr "Resultats"
+
+#: searchbar.cpp:333 searchbar.cpp:362
+#, kde-format
+msgid "Errors"
+msgstr "Errors"
+
+#: searchbar.cpp:334 searchbar.cpp:363 worksheet.cpp:1812 worksheet.cpp:1841
+#: worksheet.cpp:1861 worksheet.cpp:1879
+#, kde-format
+msgid "Text"
+msgstr "Text"
+
+#: searchbar.cpp:334 searchbar.cpp:363
+#, kde-format
+msgid "LaTeX Code"
+msgstr "Codi en LaTeX"
+
+#. i18n: ectx: property (text), widget (QLabel, label_2)
+#: settings.ui:23
+#, kde-format
+msgid "Startup:"
+msgstr "En iniciar:"
+
+#. i18n: ectx: property (toolTip), widget (QLabel, label)
+#. i18n: ectx: property (toolTip), widget (KComboBox, kcfg_DefaultBackend)
+#: settings.ui:30 settings.ui:293
+#, kde-format
+msgid ""
+"Create a new worksheet for the selected backend system. If none is selected, "
+"the user is asked about which system to use on startup."
+msgstr ""
+"Crea un full de treball nou per al sistema del dorsal seleccionat. Si no "
+"se'n selecciona cap, es demana a l'usuari sobre quin sistema utilitzar en "
+"iniciar."
+
+#. i18n: ectx: property (text), widget (QLabel, label)
+#: settings.ui:33
+#, kde-format
+msgid "Default Backend:"
+msgstr "Dorsal predeterminat:"
+
+#. i18n: ectx: property (text), widget (QLabel, label_3)
+#: settings.ui:75
+#, kde-format
+msgid "Worksheet:"
+msgstr "Full de treball:"
+
+#. i18n: ectx: property (toolTip), widget (QCheckBox, kcfg_TypesetDefault)
+#: settings.ui:82
+#, kde-format
+msgid ""
+"Enable LaTeX typesetting for the results of the calculations, if supported "
+"by the backend system"
+msgstr ""
+"Activa la composició tipogràfica de LaTeX per als resultats dels càlculs, si "
+"ho permet el sistema del dorsal"
+
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_TypesetDefault)
+#: settings.ui:85
+#, kde-format
+msgid "LaTeX typesetting"
+msgstr "Composició tipogràfica de LaTeX"
+
+#. i18n: ectx: property (toolTip), widget (QCheckBox, kcfg_HighlightDefault)
+#: settings.ui:92
+#, kde-format
+msgid "Enable syntax highlighting"
+msgstr "Activa el ressaltat de la sintaxi"
+
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_HighlightDefault)
+#: settings.ui:95
+#, kde-format
+msgid "Syntax highlighting"
+msgstr "Ressaltat de la sintaxi"
+
+#. i18n: ectx: property (toolTip), widget (QCheckBox, kcfg_CompletionDefault)
+#: settings.ui:102
+#, kde-format
+msgid "Enable syntax completion"
+msgstr "Activa la compleció de la sintaxi"
+
+#. i18n: ectx: property (toolTip), widget (QCheckBox, kcfg_ExpressionNumberingDefault)
+#: settings.ui:112
+#, kde-format
+msgid "Show line numbers"
+msgstr "Mostra els números de les línies"
+
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_ExpressionNumberingDefault)
+#: settings.ui:115
+#, kde-format
+msgid "Line numbers"
+msgstr "Números de les línies"
+
+#. i18n: ectx: property (toolTip), widget (QCheckBox, kcfg_AnimationDefault)
+#: settings.ui:122
+#, kde-format
+msgid "Enable animation effects in the worksheet"
+msgstr "Activa les animacions del full de treball"
+
+#. i18n: ectx: property (toolTip), widget (QCheckBox, kcfg_UseOldCantorEntriesIndent)
+#: settings.ui:132
+#, kde-format
+msgid ""
+"If enabled, text entries are aligned at the worksheet border and not at the "
+"prompt border"
+msgstr ""
+"Si està activada, les entrades de text s'alinearan amb la vora del full de "
+"treball i no amb la vora de l'indicador"
+
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_UseOldCantorEntriesIndent)
+#: settings.ui:135
+#, kde-format
+msgid "Don't indent text entries"
+msgstr "No sagnes les entrades de text"
+
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_StoreTextEntryFormatting)
+#: settings.ui:142
+#, kde-format
+msgid ""
+"Use rich text format for text entries when saving in Jupyter Notebook Format"
+msgstr ""
+"Utilitza el format de text enriquit a les entrades de text en guardar en el "
+"format bloc de notes de Jupyter"
+
+#. i18n: ectx: property (text), widget (QLabel, label_4)
+#: settings.ui:171
+#, kde-format
+msgid "Evaluation:"
+msgstr "Avaluació:"
+
+#. i18n: ectx: property (toolTip), widget (QCheckBox, kcfg_WarnAboutSessionRestart)
+#: settings.ui:178
+#, kde-format
+msgid ""
+"If enabled, the user will be asked for confirmation prior to restarting the "
+"backend system"
+msgstr ""
+"Si s'activa, es demanarà confirmació a l'usuari abans de reiniciar el "
+"sistema del dorsal"
+
+#. i18n: ectx: property (toolTip), widget (QCheckBox, kcfg_AutoEval)
+#: settings.ui:188
+#, kde-format
+msgid ""
+"If enabled, all entries below the current one will be evaluated automatically"
+msgstr ""
+"Si s'activa, totes les entrades davall de l'actual s'avaluaran automàticament"
+
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_AutoEval)
+#: settings.ui:191
+#, kde-format
+msgid "Reevaluate entries automatically"
+msgstr "Torna a avaluar automàticament les entrades"
+
+#. i18n: ectx: property (text), widget (QLabel, VisibleLinesLimit_label)
+#: settings.ui:201
+#, kde-format
+msgid "Number of rows in the result (0 for unlimited):"
+msgstr "Nombre de files en el resultat (0 sense límit):"
+
+#. i18n: ectx: property (toolTip), widget (QSpinBox, kcfg_VisibleLinesLimit)
+#: settings.ui:221
+#, kde-format
+msgid ""
+"Maximal number of visible rows in the result of a command entry. Use 0 to "
+"work without limitations."
+msgstr ""
+"Nombre màxim de files visibles en el resultat d'una entrada d'ordre. "
+"Utilitzeu 0 per a treballar sense limitacions."
+
+#. i18n: ectx: property (text), widget (QLabel, label_5)
+#: settings.ui:256
+#, kde-format
+msgid "Markdown:"
+msgstr "Markdown:"
+
+#. i18n: ectx: property (toolTip), widget (QCheckBox, kcfg_EmbeddedMathDefault)
+#: settings.ui:263
+#, kde-format
+msgid ""
+"Enable LaTeX typesetting for mathematical expressions in Markdown entries"
+msgstr ""
+"Activa la composició tipogràfica de LaTeX per a les expressions matemàtiques "
+"en les entrades de Markdown"
+
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_EmbeddedMathDefault)
+#: settings.ui:266
+#, kde-format
+msgid "Mathematical expressions via LaTeX"
+msgstr "Expressions matemàtiques via LaTeX"
+
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_ShowMathRenderError)
+#: settings.ui:273
+#, kde-format
+msgid "Notify about render failures for mathematical expressions"
+msgstr ""
+"Notifica quan fallen les representacions de les expressions matemàtiques"
+
+#. i18n: ectx: property (placeholderText), widget (KLineEdit, pattern)
+#: standardsearchbar.ui:35
+#, kde-format
+msgid "Find…"
+msgstr "Busca…"
+
+#: textentry.cpp:55
+#, kde-format
+msgid "Raw Cell Targets"
+msgstr "Objectius de cel·les en brut"
+
+#: textentry.cpp:62
+#, kde-format
+msgid "Add custom target"
+msgstr "Afig un objectiu personalitzat"
+
+#: textentry.cpp:76
+#, kde-format
+msgid "Convert to Text Entry"
+msgstr "Convertix a una entrada de text"
+
+#: textentry.cpp:81
+#, kde-format
+msgid "Convert to Raw Cell"
+msgstr "Convertix a cel·la en brut"
+
+#: textentry.cpp:553
+#, kde-format
+msgid "Target MIME type:"
+msgstr "Tipus MIME de l'objectiu:"
+
+#: textresultitem.cpp:59
+#, kde-format
+msgid "Copy result"
+msgstr "Copia el resultat"
+
+#: textresultitem.cpp:68
+#, kde-format
+msgid "Show Rendered"
+msgstr "Mostra renderitzat"
+
+#: textresultitem.cpp:70
+#, kde-format
+msgid "Show Code"
+msgstr "Mostra el codi"
+
+#: textresultitem.cpp:78 textresultitem.cpp:91
+#, kde-format
+msgid "Show HTML Code"
+msgstr "Mostra el codi HTML"
+
+#: textresultitem.cpp:80 textresultitem.cpp:86
+#, kde-format
+msgid "Show Plain Alternative"
+msgstr "Mostra una alternativa en clar"
+
+#: textresultitem.cpp:84
+#, kde-format
+msgid "Show Html"
+msgstr "Mostra l'HTML"
+
+#: textresultitem.cpp:90
+#, kde-format
+msgid "Show HTML"
+msgstr "Mostra l'HTML"
+
+#: textresultitem.cpp:161
+#, kde-format
+msgid "Cannot render Eps file. You may need additional packages"
+msgstr ""
+"No s'ha pogut renderitzar el fitxer EPS. Potser necessiteu programes "
+"addicionals"
+
+#: textresultitem.cpp:213
+#, kde-format
+msgid "Save text result"
+msgstr "Guarda el text resultant"
+
+#: textresultitem.cpp:213
+#, kde-format
+msgid "Text Files (*.txt)"
+msgstr "Fitxers de text (*.txt)"
+
+#: worksheet.cpp:1192
+#, kde-format
+msgid "Cannot write file %1."
+msgstr "No s'ha pogut escriure en el fitxer %1."
+
+#: worksheet.cpp:1220 worksheet.cpp:1235
+#, kde-format
+msgid "Cannot write file."
+msgstr "No s'ha pogut escriure en el fitxer."
+
+#: worksheet.cpp:1252 worksheet.cpp:1296
+#, kde-format
+msgid "Error saving file %1"
+msgstr "S'ha produït un error en guardar el fitxer %1"
+
+#: worksheet.cpp:1275
+#, kde-format
+msgid ""
+"In read-only mode Cantor couldn't guarantee, that the export will be valid "
+"for %1"
+msgstr ""
+"En mode de només lectura Cantor no pot garantir que l'exportació siga vàlida "
+"per a %1"
+
+#: worksheet.cpp:1308
+#, kde-format
+msgid "Error loading latex.xsl stylesheet"
+msgstr "S'ha produït un error en carregar el full d'estil latex.xsl"
+
+#: worksheet.cpp:1327
+#, kde-format
+msgid "Couldn't open the file %1."
+msgstr "No s'ha pogut obrir el fitxer %1."
+
+#: worksheet.cpp:1327 worksheet.cpp:1350 worksheet.cpp:1370 worksheet.cpp:1387
+#: worksheet.cpp:1419 worksheet.cpp:1430 worksheet.cpp:1539 worksheet.cpp:1554
+#: worksheet.cpp:1596 worksheet.cpp:1607 worksheet.cpp:1727 worksheet.cpp:1729
+#, kde-format
+msgid "Open File"
+msgstr "Obri un fitxer"
+
+#: worksheet.cpp:1350
+#, kde-format
+msgid "Couldn't open the selected file for reading."
+msgstr "No s'ha pogut obrir per a lectura el fitxer seleccionat."
+
+#: worksheet.cpp:1370
+#, kde-format
+msgid "The selected file is not a valid Cantor or Jupyter project file."
+msgstr ""
+"El fitxer seleccionat no és cap fitxer vàlid de projecte Cantor o Jupyter."
+
+#: worksheet.cpp:1387
+#, kde-format
+msgid "The selected file is not a valid Cantor project file."
+msgstr "El fitxer seleccionat no és cap fitxer vàlid de projecte Cantor."
+
+#: worksheet.cpp:1409
+#, kde-format
+msgid ""
+"This worksheet was created using Python2 which is not supported anymore. "
+"Python3 will be used."
+msgstr ""
+"Este full de treball es va crear utilitzant Python2 que ja no es troba "
+"acceptat. S'utilitzarà Python3."
+
+#: worksheet.cpp:1410 worksheet.cpp:1578
+#, kde-format
+msgid "Python2 not supported anymore"
+msgstr "Python2 ja no es troba acceptat"
+
+#: worksheet.cpp:1419 worksheet.cpp:1595
+#, kde-format
+msgid ""
+"%1 backend was not found. Editing and executing entries is not possible."
+msgstr ""
+"No s'ha trobat el dorsal %1. No és possible l'edició ni l'execució "
+"d'entrades."
+
+#: worksheet.cpp:1428 worksheet.cpp:1605
+#, kde-format
+msgid ""
+"There are some problems with the %1 backend,\n"
+"please check your configuration or install the needed packages.\n"
+"You will only be able to view this worksheet."
+msgstr ""
+"Hi ha alguns problemes amb el dorsal %1.\n"
+"Comproveu la vostra configuració o bé instal·leu els paquets necessaris.\n"
+"Només podreu visualitzar este full de treball."
+
+#: worksheet.cpp:1538
+#, kde-format
+msgid ""
+"Jupyter notebooks with versions lower than 4.5 (detected version %1.%2) are "
+"not supported."
+msgstr ""
+"Cantor no admet blocs de notes de Jupyter amb una versió inferior a 4.5 "
+"(s'ha detectat %1.%2)."
+
+#: worksheet.cpp:1553
+#, kde-format
+msgid ""
+"Jupyter notebooks with versions higher than 4.5 (detected version %1.%2) are "
+"not supported."
+msgstr ""
+"Cantor no admet blocs de notes de Jupyter amb una versió superior a 4.5 "
+"(s'ha detectat %1.%2)."
+
+#: worksheet.cpp:1577
+#, kde-format
+msgid ""
+"This notebook was created using Python2 which is not supported anymore. "
+"Python3 will be used."
+msgstr ""
+"Este bloc de notes es va crear utilitzant Python2 que ja no es troba "
+"acceptat. S'utilitzarà Python3."
+
+#: worksheet.cpp:1645
+#, kde-format
+msgid "an object with keys: %1"
+msgstr "un objecte amb claus: %1"
+
+#: worksheet.cpp:1647
+#, kde-format
+msgid "non object JSON value"
+msgstr "no és un valor JSON d'objecte"
+
+#: worksheet.cpp:1650
+#, kde-format
+msgid "found incorrect data (%1) that is not Jupyter cell"
+msgstr "s'han trobat dades incorrectes (%1) que no és una cel·la de Jupyter"
+
+#: worksheet.cpp:1727
+#, kde-format
+msgid "The file is not valid Jupyter notebook"
+msgstr "El fitxer no és un bloc de notes vàlid de Jupyter"
+
+#: worksheet.cpp:1729
+#, kde-format
+msgid "Invalid Jupyter notebook scheme: %1"
+msgstr "Esquema de bloc de notes de Jupyter no vàlid: %1"
+
+#: worksheet.cpp:1804
+#, kde-format
+msgid "Convert To"
+msgstr "Convertix a"
+
+#: worksheet.cpp:1809 worksheet.cpp:1840 worksheet.cpp:1860 worksheet.cpp:1878
+#, kde-format
+msgid "Command"
+msgstr "Ordre"
+
+#: worksheet.cpp:1816 worksheet.cpp:1843 worksheet.cpp:1863 worksheet.cpp:1881
+#, kde-format
+msgid "Markdown"
+msgstr "Markdown"
+
+#: worksheet.cpp:1823 worksheet.cpp:1848 worksheet.cpp:1868 worksheet.cpp:1886
+#, kde-format
+msgid "Image"
+msgstr "Imatge"
+
+#: worksheet.cpp:1826 worksheet.cpp:1851 worksheet.cpp:1871 worksheet.cpp:1889
+#, kde-format
+msgid "Page Break"
+msgstr "Salt de pàgina"
+
+#: worksheet.cpp:1829 worksheet.cpp:1850 worksheet.cpp:1870 worksheet.cpp:1888
+#, kde-format
+msgid "Horizontal Line"
+msgstr "Línia horitzontal"
+
+#: worksheet.cpp:1832 worksheet.cpp:1853 worksheet.cpp:1873 worksheet.cpp:1891
+#, kde-format
+msgid "Hierarchy Entry"
+msgstr "Entrada de jerarquia"
+
+#: worksheet.cpp:1835
+#, kde-format
+msgid "Insert After"
+msgstr "Inserix després"
+
+#: worksheet.cpp:1856
+#, kde-format
+msgid "Insert Before"
+msgstr "Inserix abans"
+
+#: worksheet.cpp:1875
+#, kde-format
+msgid "Insert"
+msgstr "Inserix"
+
+#: worksheet.cpp:1916
+#, kde-format
+msgid "Zoom In"
+msgstr "Acosta"
+
+#: worksheet.cpp:1919
+#, kde-format
+msgid "Zoom Out"
+msgstr "Allunya"
+
+#: worksheet.cpp:1923
+#, kde-format
+msgid "Original Size"
+msgstr "Mida original"
+
+#: worksheet.cpp:1931
+#, kde-format
+msgid "Move Entries Up"
+msgstr "Mou amunt les entrades"
+
+#: worksheet.cpp:1932
+#, kde-format
+msgid "Move Entries Down"
+msgstr "Mou avall les entrades"
+
+#: worksheet.cpp:1933
+#, kde-format
+msgid "Evaluate Entries"
+msgstr "Avalua les entrades"
+
+#: worksheet.cpp:1934
+#, kde-format
+msgid "Remove Entries"
+msgstr "Elimina entrades"
+
+#: worksheet.cpp:1947
+#, kde-format
+msgid "Collapse Command Entry Results"
+msgstr "Reduïx els resultats de l'entrada d'ordres"
+
+#: worksheet.cpp:1948
+#, kde-format
+msgid "Expand Command Entry Results"
+msgstr "Expandix els resultats de l'entrada d'ordres"
+
+#: worksheet.cpp:1949
+#, kde-format
+msgid "Remove Command Entry Results"
+msgstr "Elimina els resultats de l'entrada d'ordres"
+
+#: worksheet.cpp:1950
+#, kde-format
+msgid "Exclude Command Entry From Execution"
+msgstr "Exclou l'entrada d'ordres de l'execució"
+
+#: worksheet.cpp:1951
+#, kde-format
+msgid "Add Command Entry To Execution"
+msgstr "Afig una entrada d'ordre a l'execució"
+
+#: worksheet.cpp:2059
+#, kde-format
+msgctxt "@action"
+msgid "Text &Color..."
+msgstr "&Color del text..."
+
+#: worksheet.cpp:2060
+#, kde-format
+msgctxt "@label text color"
+msgid "Color"
+msgstr "Color"
+
+#: worksheet.cpp:2067
+#, kde-format
+msgctxt "@action"
+msgid "Text &Highlight..."
+msgstr "&Ressaltat de text..."
+
+#: worksheet.cpp:2073
+#, kde-format
+msgctxt "@action"
+msgid "&Font"
+msgstr "&Tipus de lletra"
+
+#: worksheet.cpp:2082
+#, kde-format
+msgctxt "@action"
+msgid "Font &Size"
+msgstr "&Mida del tipus de lletra"
+
+#: worksheet.cpp:2088
+#, kde-format
+msgctxt "@action boldify selected text"
+msgid "&Bold"
+msgstr "&Negreta"
+
+#: worksheet.cpp:2099
+#, kde-format
+msgctxt "@action italicize selected text"
+msgid "&Italic"
+msgstr "&Cursiva"
+
+#: worksheet.cpp:2111
+#, kde-format
+msgctxt "@action underline selected text"
+msgid "&Underline"
+msgstr "&Subratllat"
+
+#: worksheet.cpp:2122
+#, kde-format
+msgctxt "@action"
+msgid "&Strike Out"
+msgstr "&Barrat"
+
+#: worksheet.cpp:2133
+#, kde-format
+msgctxt "@action"
+msgid "Align &Left"
+msgstr "Alinea a l'es&querra"
+
+#: worksheet.cpp:2136
+#, kde-format
+msgctxt "@label left justify"
+msgid "Left"
+msgstr "Esquerra"
+
+#: worksheet.cpp:2143
+#, kde-format
+msgctxt "@action"
+msgid "Align &Center"
+msgstr "Alinea al &centre"
+
+#: worksheet.cpp:2146
+#, kde-format
+msgctxt "@label center justify"
+msgid "Center"
+msgstr "Centre"
+
+#: worksheet.cpp:2153
+#, kde-format
+msgctxt "@action"
+msgid "Align &Right"
+msgstr "Alinea a la &dreta"
+
+#: worksheet.cpp:2156
+#, kde-format
+msgctxt "@label right justify"
+msgid "Right"
+msgstr "Dreta"
+
+#: worksheet.cpp:2163
+#, kde-format
+msgctxt "@action"
+msgid "&Justify"
+msgstr "&Justifica"
+
+#: worksheet.cpp:2166
+#, kde-format
+msgctxt "@label justify fill"
+msgid "Justify"
+msgstr "Justifica"
+
+#: worksheet.cpp:2860
+#, kde-format
+msgid ""
+"This action will remove all results without the possibility of cancellation. "
+"Are you sure?"
+msgstr ""
+"Esta acció eliminarà tots els resultats sense la possibilitat de cancel·lar. "
+"Esteu segur?"
+
+#: worksheet.cpp:2861
+#, kde-format
+msgid "Remove all results"
+msgstr "Elimina tots els resultats"
+
+#: worksheetentry.cpp:67
+#, kde-format
+msgid "White"
+msgstr "Blanc"
+
+#: worksheetentry.cpp:67
+#, kde-format
+msgid "Black"
+msgstr "Negre"
+
+#: worksheetentry.cpp:68
+#, kde-format
+msgid "Dark Red"
+msgstr "Roig fosc"
+
+#: worksheetentry.cpp:68
+#, kde-format
+msgid "Red"
+msgstr "Roig"
+
+#: worksheetentry.cpp:68
+#, kde-format
+msgid "Light Red"
+msgstr "Roig clar"
+
+#: worksheetentry.cpp:69
+#, kde-format
+msgid "Dark Green"
+msgstr "Verd fosc"
+
+#: worksheetentry.cpp:69
+#, kde-format
+msgid "Green"
+msgstr "Verd"
+
+#: worksheetentry.cpp:69
+#, kde-format
+msgid "Light Green"
+msgstr "Verd clar"
+
+#: worksheetentry.cpp:70
+#, kde-format
+msgid "Dark Blue"
+msgstr "Blau fosc"
+
+#: worksheetentry.cpp:70
+#, kde-format
+msgid "Blue"
+msgstr "Blau"
+
+#: worksheetentry.cpp:70
+#, kde-format
+msgid "Light Blue"
+msgstr "Blau clar"
+
+#: worksheetentry.cpp:71
+#, kde-format
+msgid "Dark Yellow"
+msgstr "Groc fosc"
+
+#: worksheetentry.cpp:71
+#, kde-format
+msgid "Yellow"
+msgstr "Groc"
+
+#: worksheetentry.cpp:71
+#, kde-format
+msgid "Light Yellow"
+msgstr "Groc clar"
+
+#: worksheetentry.cpp:72
+#, kde-format
+msgid "Dark Cyan"
+msgstr "Cian fosc"
+
+#: worksheetentry.cpp:72
+#, kde-format
+msgid "Cyan"
+msgstr "Cian"
+
+#: worksheetentry.cpp:72
+#, kde-format
+msgid "Light Cyan"
+msgstr "Cian clar"
+
+#: worksheetentry.cpp:73
+#, kde-format
+msgid "Dark Magenta"
+msgstr "Magenta fosc"
+
+#: worksheetentry.cpp:73
+#, kde-format
+msgid "Magenta"
+msgstr "Magenta"
+
+#: worksheetentry.cpp:73
+#, kde-format
+msgid "Light Magenta"
+msgstr "Magenta clar"
+
+#: worksheetentry.cpp:74
+#, kde-format
+msgid "Dark Orange"
+msgstr "Taronja fosc"
+
+#: worksheetentry.cpp:74
+#, kde-format
+msgid "Orange"
+msgstr "Taronja"
+
+#: worksheetentry.cpp:74
+#, kde-format
+msgid "Light Orange"
+msgstr "Taronja clar"
+
+#: worksheetentry.cpp:75
+#, kde-format
+msgid "Dark Grey"
+msgstr "Gris fosc"
+
+#: worksheetentry.cpp:75
+#, kde-format
+msgid "Grey"
+msgstr "Gris"
+
+#: worksheetentry.cpp:75
+#, kde-format
+msgid "Light Grey"
+msgstr "Gris clar"
+
+#: worksheetentry.cpp:421
+#, kde-format
+msgid "Move Up"
+msgstr "Mou amunt"
+
+#: worksheetentry.cpp:429
+#, kde-format
+msgid "Move Down"
+msgstr "Mou avall"
+
+#: worksheetentry.cpp:717
+#, kde-format
+msgid "Do you really want to remove this entry?"
+msgstr "Esteu segur/a que voleu eliminar esta entrada?"
+
+#: worksheetentry.cpp:717 worksheetentry.cpp:845
+#, kde-format
+msgid "Remove Entry"
+msgstr "Elimina l'entrada"
+
+#: worksheetentry.cpp:850
+#, kde-format
+msgid "Drag Entry"
+msgstr "Arrossega l'entrada"

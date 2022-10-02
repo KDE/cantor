@@ -1,0 +1,1044 @@
+<?xml version="1.0" ?>
+<!DOCTYPE book PUBLIC "-//KDE//DTD DocBook XML V4.5-Based Variant V1.1//EN" "dtd/kdedbx45.dtd" [
+
+  <!ENTITY kappname "&cantor;">
+  <!ENTITY package "kdeedu">
+  <!ENTITY latex "L<superscript
+>A</superscript
+>T<subscript
+>E</subscript
+>X">
+  <!ENTITY % addindex "IGNORE">
+  <!ENTITY % Brazilian-Portuguese "INCLUDE">
+]>
+<book id="cantor" lang="&language;">
+
+<bookinfo>
+<title
+>Manual do &cantor;</title>
+
+<authorgroup>
+<author
+><personname
+> <firstname
+>Alexander</firstname
+> <surname
+>Rieder</surname
+> </personname
+> <email
+>alexanderrieder@gmail.com</email
+> </author>
+<othercredit role="translator"
+><firstname
+>Marcus</firstname
+> <surname
+>Gama</surname
+><affiliation
+><address
+> <email
+>marcus.gama@gmail.com</email
+></address
+></affiliation
+><contrib
+>Tradução</contrib
+></othercredit
+> 
+</authorgroup>
+
+<copyright>
+<year
+>2009</year>
+<holder
+>Alexander Rieder</holder>
+</copyright>
+<legalnotice
+>&FDLNotice;</legalnotice>
+
+<date
+>09/05/2014</date>
+<releaseinfo
+>0.5 (&kde; 4.14)</releaseinfo>
+
+<abstract>
+<para
+>O &cantor; é uma aplicação que pretende fornecer uma área de trabalho agradável para outros pacotes matemáticos de 'Software' Livre. </para>
+</abstract>
+
+<keywordset>
+<keyword
+>KDE</keyword>
+<keyword
+>kdeedu</keyword>
+<keyword
+>Matemática</keyword>
+<keyword
+>matemática</keyword>
+<keyword
+>Cantor</keyword>
+<keyword
+>Sage</keyword>
+<keyword
+>Python</keyword>
+<keyword
+>Lua</keyword>
+<keyword
+>Scilab</keyword>
+<keyword
+>R</keyword>
+<keyword
+>Maxima</keyword>
+</keywordset>
+
+</bookinfo>
+
+<chapter id="introduction">
+<title
+>Introdução</title>
+
+<para
+>O &cantor; é uma aplicação que lhe permite usar as suas aplicações matemáticas favoritas dentro de uma interface de área de trabalho agradável e integrada no &kde;. Ele oferece janelas de assistência para as tarefas mais comuns e permite-lhe compartilhar as suas folhas de cálculo com os outros. </para>
+</chapter>
+
+<chapter id="using-kapp">
+<title
+>Usando o &cantor;</title>
+
+<para
+>Captura de tela: <screenshot>
+<screeninfo
+>Aqui está uma captura de tela do &cantor;</screeninfo>
+	<mediaobject>
+	  <imageobject>
+	    <imagedata fileref="screenshot.png" format="PNG"/>
+	  </imageobject>
+	  <textobject>
+	    <phrase
+>Captura de tela</phrase>
+	  </textobject>
+	</mediaobject>
+</screenshot>
+</para>
+
+
+<sect1 id="kapp-features">
+<title
+>Recursos do &cantor;</title>
+<itemizedlist>
+  <listitem
+><para
+>Uma área de trabalho agradável para avaliar expressões.</para
+></listitem>
+  <listitem
+><para
+>Área para visualizar os gráficos dos resultados na área de trabalho.</para
+></listitem>
+  <listitem
+><para
+>Uma estrutura simples e baseada em 'plugins' para adicionar diferentes infraestruturas.</para
+></listitem>
+  <listitem
+><para
+>Integração do GetHotNewStuff para obter folhas de cálculo de exemplo (ou enviá-las.)</para
+></listitem>
+  <listitem
+><para
+>Formatação das fórmulas matemáticas com o &latex;.</para
+></listitem>
+  <listitem
+><para
+>Realce de sintaxe ciente da infraestrutura.</para
+></listitem>
+  <listitem
+><para
+>Janelas de assistência baseadas em 'plugins' para as tarefas mais comuns, como a integração de uma função ou a inserção de uma matriz.</para
+></listitem>
+</itemizedlist>
+</sect1>
+
+<sect1 id="backends">
+<title
+>As infraestruturas do &cantor;</title>
+<para
+>O &cantor; oferece diversas opções para a infraestrutura que você poderá usar à vontade. A sua escolha deverá depender da tarefa que pretende efetuar. </para>
+<para
+>Atualmente, estão disponíveis as seguintes infraestruturas: <variablelist>
+    <varlistentry>
+      <term
+>Sage:</term>
+      <listitem>
+	<para
+>O Sage é um sistema de 'software' matemático livre e 'open-source', licenciado sob a GPL. Combina o poder de muitos pacotes 'open-source' existentes com uma interface comum e baseada em Python. Veja mais informações em <ulink url="http://sagemath.org"
+>http://sagemath.org</ulink
+>. </para>
+	</listitem>
+    </varlistentry>
+    <varlistentry>
+      <term
+>Maxima:</term>
+      <listitem>
+	<para
+>O Maxima é um sistema para a manipulação de expressões simbólicas e numéricas, incluindo a derivação, a integração, as séries de Taylor, as transformadas de Laplace, as equações diferenciais ordinárias, os sistemas de equações lineares, os polinômios e os conjuntos, listas, vetores, matrizes e tensores. O Maxima oferece resultados numéricos de alta precisão, usando frações exatas, inteiros de precisão arbitrária e números de vírgula flutuante de precisão variável. O Maxima pode desenhar gráficos das funções e de dados em duas e três dimensões. Veja o <ulink url="http://maxima.sourceforge.net"
+>http://maxima.sourceforge.net</ulink
+> para obter mais informações. </para>
+      </listitem>
+    </varlistentry>
+    <varlistentry>
+      <term
+>R:</term>
+      <listitem>
+	<para
+>O R é uma linguagem e um ambiente para a computação e gráficos estatísticos, de forma semelhante à da linguagem e ambiente S. Oferece uma grande variedade de técnicas gráficas e estatísticas (modelação linear e não-linear, testes estatísticos clássicos, análises de séries temporais, classificação, agrupamentos, ...), sendo também altamente extensível. A linguagem S é normalmente o veículo de escolha para a investigação de metodologias estatísticas, sendo que o R oferece uma rota 'open-source' para participar nessa atividade. Veja mais informações em <ulink url="http://www.r-project.org"
+>http://www.r-project.org</ulink
+>. </para>
+      </listitem>
+    </varlistentry>
+    <varlistentry>
+      <term
+>&kalgebra;:</term>
+      <listitem>
+	<para
+>O &kalgebra; é uma calculadora gráfica, baseada NO MathML, que vem com o Projeto Educacional do &kde;. Consulte mais informações em <ulink url="http://edu.kde.org/kalgebra/"
+>http://edu.kde.org/kalgebra/</ulink
+>. </para>
+      </listitem>
+    </varlistentry>
+    <varlistentry>
+      <term
+>Qalculate!:</term>
+      <listitem>
+  <para
+>O Qalculate! não é uma réplica em 'software' da sua calculadora barata normal. O Qalculate! tenta tirar partido da interface superior, das potencialidades e da flexibilidade dos computadores modernos. O foco de atenção no Qalculate! é a introdução da expressão. Em vez de introduzir cada número numa expressão matemática separada, poderá introduzir diretamente a expressão inteira e depois modificá-la. A interpretação das expressões é flexível e tolerante a erros e, caso ainda faça algo de errado, o Qalculate! irá informar o erro. Nem todas as expressões solúveis são de fato erros. O Qalculate! irá simplificar ao máximo e responder com uma expressão. Além dos números e operações aritméticas, uma expressão poderá conter uma combinação arbitrária de variáveis, unidades e funções. Veja mais informações em <ulink url="http://qalculate.sourceforge.net/"
+>http://qalculate.sourceforge.net/</ulink
+>. </para>
+  </listitem>
+    </varlistentry>
+    <varlistentry>
+      <term
+>Python2:</term>
+      <listitem>
+  <para
+>Python é uma linguagem de programação extremamente poderosa que é usada em uma grande variedade de domínios de aplicativos. Existem diversos pacotes do Python para a programação científica. </para>
+  <para
+>O Python é distribuído sob a licença Python Software Foundation (compatível com a GPL). Consulte mais informações na <ulink url="http://www.python.org/"
+>página Web</ulink
+>. </para>
+  <note>
+    <para
+>Esta infraestrutura acrescenta um item adicional ao menu principal do &cantor;, chamado <guimenu
+>Pacote</guimenu
+>. O único item deste menu é o <menuchoice
+><guimenu
+>Pacote</guimenu
+><guimenuitem
+>Importar pacote</guimenuitem
+></menuchoice
+>. Este item pode ser usado para importar pacotes de Python para a área de trabalho. </para>
+  </note>
+  <warning>
+    <para
+>Esta infraestrutura tem suporte apenas ao Python 2. </para>
+  </warning>
+  </listitem>
+    </varlistentry>
+    <varlistentry>
+      <term
+>Scilab:</term>
+      <listitem>
+  <para
+>O Scilab é um pacote de computação numérica livre e multiplataforma, assim como uma linguagem de programação numérica. </para>
+  <para
+>O Scilab é distribuído sob a licença CeCILL (compatível com a GPL). Consulte mais informações em <ulink url="http://www.scilab.org/"
+>http://www.scilab.org/</ulink
+>. </para>
+  <warning>
+    <para
+>Você precisa ter instalado o Scilab na versão 5.5 ou superior no seu sistema para usar esta infraestrutura. </para>
+  </warning>
+  </listitem>
+    </varlistentry>
+    <varlistentry>
+      <term
+>Octave:</term>
+      <listitem>
+  <para
+>O &GNU; Octave é uma linguagem de alto-nível, destinada principalmente para cálculos numéricos. Ela oferece uma interface conveniente por linha de comando para resolver problemas lineares e não-lineares de forma numérica e para fazer outras experiências matemáticas, usando uma linguagem que é compatível de um modo geral com o <ulink url="http://www.mathworks.com/products/matlab/"
+>MATLAB</ulink
+>. Para mais informações, veja em <ulink url="http://www.gnu.org/software/octave/"
+>http://www.gnu.org/software/octave/</ulink
+>. </para>
+      </listitem>
+    </varlistentry>
+    <varlistentry>
+      <term
+>Lua:</term>
+      <listitem>
+  <para
+>Lua é uma linguagem de programação rápida e leve, com uma sintaxe procedimental simples. Essa linguagem disponibiliza diversas bibliotecas destinadas à matemática e à ciência. </para>
+  <para
+>Consulte a página <ulink url="http://www.lua.org/"
+>http://www.lua.org/</ulink
+> para obter mais informações. </para>
+  <para
+>Esta infraestrutura tem suporte à <ulink url="http://luajit.org/"
+>luajit 2</ulink
+>. </para>
+      </listitem>
+    </varlistentry>
+  </variablelist>
+</para>
+</sect1>
+
+<sect1 id="workspace">
+<title
+>O Espaço de Trabalho do &cantor;</title>
+<para>
+<screenshot>
+  <screeninfo
+>Imagem do Espaço de Trabalho do &cantor;</screeninfo>
+  <mediaobject>
+    <imageobject>
+      <imagedata fileref="screenshot.png" format="PNG"/>
+    </imageobject>
+    <textobject>
+      <phrase
+>Imagem do Espaço de Trabalho do &cantor;</phrase>
+    </textobject>
+  </mediaobject>
+</screenshot>
+</para>
+<para
+>A interface da folha de cálculo do &cantor; consiste de três partes: <orderedlist>
+    <listitem
+><para
+>A barra de páginas, onde você poderá circular entre as folhas de cálculo abertas.</para
+></listitem>
+    <listitem
+><para
+>Um painel de ajuda, onde você poderá obter ajuda sobre um determinado comando com a sintaxe "? comando".</para
+></listitem>
+    <listitem
+><para
+>Um painel de Gerenciamento de Variáveis, onde você poderá ver uma lista com todas as variáveis disponíveis na folha de trabalho atual. Os painéis de Ajuda e de Gerenciamento de Variáveis são apresentados como páginas na barra lateral de uma janela do &cantor;. O gerenciador de variáveis poderá ser usado apenas para as infraestruturas do Maxima (se estiver ativo na página <menuchoice
+><guimenu
+>Configurações</guimenu
+><guimenuitem
+>Configurar o &cantor;...</guimenuitem
+></menuchoice
+> <guilabel
+>Maxima</guilabel
+>), &kalgebra;, Octave, Python2, Qalculate e Scilab.</para
+></listitem>
+    <listitem
+><para
+>A folha de cálculo em si.</para
+></listitem>
+  </orderedlist>
+</para>
+<sect2 id="worksheet">
+<title
+>A Folha de Cálculo</title>
+<para
+>A folha de cálculo é a área básica para trabalhar com o &cantor;. Nela, você poderá introduzir as expressões, deixar que a infraestrutura faça os seus cálculos e olhar para os resultados. Os comandos que as folhas de cálculo aceitam dependem da infraestrutura escolhida, sendo que você deverá aprender a sintaxe apropriada (o botão Mostrar a Ajuda o leva diretamente para a documentação). Se souber o comando, mas precisar de informações adicionais, você poderá escrever "? <replaceable
+>comando</replaceable
+>", para que apareça uma ajuda de contexto à direita da área de trabalho. Se você quiser ver folhas de exemplo, poderá ir à opção <guimenuitem
+>Obter Folhas de Exemplo</guimenuitem
+> no menu <guimenu
+>Arquivo</guimenu
+> e obter as folhas que outros usuários tiverem publicado. </para>
+<para
+>Para controlar cada elemento de comando na folha de trabalho, você poderá usar os botões de controle que aparecem à direita da folha de trabalho, ao passar o cursor do mouse sobre o campo de um elemento. Existem três ações básicas para cada elemento: <guilabel
+>Avaliar o elemento</guilabel
+>, para atualizar o resultado do cálculo do elemento, <guilabel
+>Arrastar o elemento</guilabel
+> para passar o elemento para outro local da folha de trabalho atual e <guilabel
+>Remover o elemento</guilabel
+> para retirar o elemento da folha de trabalho atual. </para>
+<para
+>As definições do tipo de fonte e alinhamento das folhas de trabalho poderão ser alterados com a barra de ferramentas acima da folha de trabalho. </para>
+<sect3 id="worksheet-settings">
+  <title
+>Configurações</title>
+  <para
+>O menu de <guimenu
+>Configurações</guimenu
+> permite-lhe alterar algumas opções da aparência da sua folha de cálculo atual. </para>
+  <variablelist>
+    <varlistentry>
+      <term
+>Formatação com o &latex;</term>
+      <listitem>
+	<para
+>Esta opção muda a forma como os resultados são apresentados a si. Se estiver ativada, irá passar o resultado pelo sistema &latex;, de modo a produzir fórmulas apelativas visualmente. Por exemplo, o <quote
+>3*x^2*sqrt(2)*x+2/3</quote
+> transforma-se em <inlinemediaobject>
+	      <imageobject>
+		<imagedata fileref="latex_formula.png" format="PNG"/>
+	      </imageobject>
+	      <textobject
+><phrase
+>3*x^2*sqrt(2)*x+2/3</phrase
+></textobject>
+	  </inlinemediaobject>
+	</para>
+      </listitem>
+    </varlistentry>
+    <varlistentry>
+      <term
+>Realce de Sintaxe</term>
+      <listitem>
+	<para
+>O realce de sintaxe aumenta a legibilidade do código, realçando as palavras-chave ou os parênteses correspondentes com cores diferentes. </para>
+      </listitem>
+    </varlistentry>
+    <varlistentry>
+      <term
+>Completação</term>
+      <listitem>
+	<para
+>Quando esta opção estiver ativa, o &cantor; mostrará completações possíveis para o comando que estiver digitando no momento, ao usar a tecla Tab. Se só existir uma escolha possível, ele irá inserir o resto do comando para você. </para>
+      </listitem>
+    </varlistentry>
+  <varlistentry>
+    <term
+>Números de Linha</term>
+    <listitem>
+      <para
+>Esta opção controla se as diferentes expressões deverão ter um número à frente, de modo que, se possível, possa por exemplo no Maxima voltar a invocar os resultados mais antigos com o comando <quote
+>%O1</quote
+>. </para>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term
+>Animar a Folha de Cálculo</term>
+    <listitem>
+      <para
+>Esta definição controla se as diferentes animações serão usadas para realçar as alterações de uma folha de cálculo. </para>
+    </listitem>
+  </varlistentry>
+  </variablelist>
+</sect3>
+</sect2>
+</sect1>
+<!--
+<sect1 id="assistant-dlgs">
+<title
+>The assistant dialogs</title>
+TODO add screenshots and descriptions of each assistant
+</sect1>
+-->
+</chapter>
+<chapter id="commands">
+<title
+>Referência de comandos</title>
+
+<sect1 id="kapp-mainwindow">
+<title
+>A janela principal do &cantor;</title>
+
+<para
+>O &cantor; tem os itens de menu comuns no &kde;. Para mais informações, leia o item <ulink url="help:/fundamentals/ui.html#menus"
+>Menu</ulink
+> no capítulo Fundamentos do &kde;. </para>
+
+<para
+>Itens de menu adicionais ou especiais no &cantor;: </para>
+
+<sect2 id="file-menu">
+<title
+>Menu Arquivo</title>
+<para>
+<variablelist>
+<varlistentry>
+<term
+><menuchoice
+><shortcut
+> <keycombo action="simul"
+>&Ctrl;<keycap
+>N</keycap
+></keycombo
+> </shortcut
+> <guimenu
+>Arquivo</guimenu
+> <guimenuitem
+>Novo</guimenuitem
+> </menuchoice
+></term>
+<listitem
+><para
+><action
+>Cria uma nova folha de trabalho com a infraestrutura padrão.</action
+></para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><menuchoice
+><guimenu
+>Arquivo</guimenu
+> <guisubmenu
+>Novo</guisubmenu
+> <guimenuitem
+><replaceable
+>Infraestrutura</replaceable
+></guimenuitem
+> </menuchoice
+></term>
+<listitem
+><para
+><action
+>Cria uma nova folha de trabalho com a infraestrutura escolhida.</action
+></para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><menuchoice
+><guimenu
+>Arquivo</guimenu
+> <guimenuitem
+>Obter uma folha de exemplo</guimenuitem
+> </menuchoice
+></term>
+<listitem
+><para
+><action
+>Abre a janela para obter exemplos enviados por outros usuários do &cantor; com o <ulink url="http://userbase.kde.org/Special:MyLanguage/Glossary#Get_Hot_New_Stuff"
+>GetHotNewStuff</ulink
+>.</action
+></para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><menuchoice
+><guimenu
+>Arquivo</guimenu
+> <guimenuitem
+>Abrir um exemplo</guimenuitem
+> </menuchoice
+></term>
+<listitem
+><para
+><action
+>Abre a janela para escolher um exemplo a carregar.</action
+> Os exemplos deverão ser transferidos com a opção <menuchoice
+><guimenu
+>Arquivo</guimenu
+> <guimenuitem
+>Obter uma folha de trabalho de exemplo</guimenuitem
+></menuchoice
+> de antemão.</para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><menuchoice
+><guimenu
+>Arquivo</guimenu
+> <guimenuitem
+>Salvar texto simples...</guimenuitem
+> </menuchoice
+></term>
+<listitem
+><para
+><action
+>Permite salvar a folha de trabalho atual como um documento em texto simples.</action
+></para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><menuchoice
+><guimenu
+>Arquivo</guimenu
+> <guimenuitem
+>Exportar para LaTeX</guimenuitem
+> </menuchoice
+></term>
+<listitem
+><para
+><action
+>Permite salvar a folha de trabalho atual como um documento em &latex;.</action
+></para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><menuchoice
+><guimenu
+>Arquivo</guimenu
+> <guimenuitem
+>Publicar a folha de trabalho</guimenuitem
+> </menuchoice
+></term>
+<listitem
+><para
+><action
+>Abre a janela para publicar a sua folha de trabalho atual e disponibilizá-la para os outros usuários do &cantor; através do <ulink url="http://userbase.kde.org/Special:MyLanguage/Glossary#Get_Hot_New_Stuff"
+>GetHotNewStuff</ulink
+>.</action
+></para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><menuchoice
+><guimenu
+>Arquivo</guimenu
+> <guimenuitem
+>Executar o programa</guimenuitem
+> </menuchoice
+></term>
+<listitem
+><para
+><action
+>Permite carregar e executar os programas em lote da infraestrutura atual.</action
+></para
+></listitem>
+</varlistentry>
+</variablelist>
+</para>
+
+</sect2>
+
+<sect2 id="view-menu">
+<title
+>O menu Exibir</title>
+<para>
+<variablelist>
+<varlistentry>
+<term
+><menuchoice
+><shortcut
+> <keycombo action="simul"
+>&Ctrl;<keycap
+>+</keycap
+></keycombo
+> </shortcut
+> <guimenu
+>Exibir</guimenu
+> <guimenuitem
+>Ampliar</guimenuitem
+> </menuchoice
+></term>
+<listitem
+><para
+><action
+>Amplia</action
+> a folha de trabalho atual em 10%.</para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><menuchoice
+><shortcut
+> <keycombo action="simul"
+>&Ctrl;<keycap
+>-</keycap
+></keycombo
+> </shortcut
+> <guimenu
+>Exibir</guimenu
+> <guimenuitem
+>Reduzir</guimenuitem
+> </menuchoice
+></term>
+<listitem
+><para
+><action
+>Reduz</action
+> a folha de trabalho atual em 10%.</para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><menuchoice
+><guimenu
+>Exibir</guimenu
+> <guimenuitem
+>Mostrar o Editor de Programas</guimenuitem
+> </menuchoice
+></term>
+<listitem
+><para
+><action
+>Abre a janela de edição de programas em lote para a infraestrutura atual.</action
+></para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><menuchoice
+><guimenu
+>Exibir</guimenu
+> <guisubmenu
+>Painéis</guisubmenu
+> <guimenuitem
+>Ajuda</guimenuitem
+> </menuchoice
+></term>
+<listitem
+><para
+><action
+>Ativa ou desativa</action
+> a visibilidade da aba de <guilabel
+>Ajuda</guilabel
+> na barra lateral.</para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><menuchoice
+><guimenu
+>Exibir</guimenu
+> <guisubmenu
+>Painéis</guisubmenu
+> <guimenuitem
+>Gerenciador de variáveis</guimenuitem
+> </menuchoice
+></term>
+<listitem
+><para
+><action
+>Ativa ou desativa</action
+> a visibilidade da aba do <guilabel
+>Gerenciador de variáveis</guilabel
+> na barra lateral.</para
+></listitem>
+</varlistentry>
+</variablelist>
+</para>
+</sect2>
+
+<sect2 id="worsheet-menu">
+<title
+>O menu Folha de Trabalho</title>
+<para>
+<variablelist>
+<varlistentry>
+<term
+><menuchoice
+><guimenu
+>Folha de trabalho</guimenu
+> <guimenuitem
+>Avaliar a folha de trabalho</guimenuitem
+> </menuchoice
+></term>
+<listitem
+><para
+><action
+>Dispara</action
+> a avaliação de toda a folha de trabalho.</para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><menuchoice
+><shortcut
+> <keycombo action="simul"
+>&Shift;<keycap
+>Return</keycap
+></keycombo
+> </shortcut
+> <guimenu
+>Folha de trabalho</guimenu
+> <guimenuitem
+>Avaliar o item</guimenuitem
+> </menuchoice
+></term>
+<listitem
+><para
+><action
+>Dispara</action
+> a avaliação do item atual.</para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><menuchoice
+><shortcut
+> <keycombo action="simul"
+>&Ctrl;<keycap
+>Return</keycap
+></keycombo
+> </shortcut
+> <guimenu
+>Folha de trabalho</guimenu
+> <guimenuitem
+>Inserir um item de comando</guimenuitem
+> </menuchoice
+></term>
+<listitem
+><para
+><action
+>Insere um novo item de comando abaixo da posição atual do cursor.</action
+></para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><menuchoice
+><guimenu
+>Folha de trabalho</guimenu
+> <guimenuitem
+>Inserir um item de texto</guimenuitem
+> </menuchoice
+></term>
+<listitem
+><para
+><action
+>Insere um novo item de texto abaixo da posição atual do cursor.</action
+></para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><menuchoice
+><guimenu
+>Folha de trabalho</guimenu
+> <guimenuitem
+>Inserir uma imagem</guimenuitem
+> </menuchoice
+></term>
+<listitem
+><para
+><action
+>Insere o modelo de imagem abaixo da posição atual do cursor.</action
+> Você terá que clicar com o &RMB; no modelo para configurar os detalhes da imagem.</para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><menuchoice
+><guimenu
+>Folha de trabalho</guimenu
+> <guimenuitem
+>Inserir uma quebra de página</guimenuitem
+> </menuchoice
+></term>
+<listitem
+><para
+><action
+>Insere uma quebra de página abaixo da posição atual do cursor.</action
+></para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><menuchoice
+><shortcut
+> <keycombo action="simul"
+>&Shift;<keycap
+>Del</keycap
+></keycombo
+> </shortcut
+> <guimenu
+>Folha de trabalho</guimenu
+> <guimenuitem
+>Remover o item atual</guimenuitem
+> </menuchoice
+></term>
+<listitem
+><para
+><action
+>Remove</action
+> o item atual da folha de trabalho.</para
+></listitem>
+</varlistentry>
+</variablelist>
+</para>
+</sect2>
+
+<sect2 id="settings-menu">
+<title
+>O menu Configurações</title>
+<para
+>Este menu contém os itens de <guimenu
+>Configuração</guimenu
+> normais do &kde;, assim como os itens descritos na <link linkend="worksheet-settings"
+>seção de Configuração</link
+>. </para>
+</sect2>
+
+<sect2 id="help-menu">
+<title
+>O menu Ajuda</title>
+&help.menu.documentation; </sect2>
+
+</sect1>
+</chapter>
+
+<chapter id="developers">
+<title
+>Guia de Programação do &cantor;</title>
+
+<para
+>O &cantor; é facilmente extensível com 'plugins'. Você poderá criar <variablelist>
+  <varlistentry>
+    <term
+>Infraestruturas:</term>
+    <listitem>
+      <para
+>Uma nova infraestrutura permite-lhe usar a interface do &cantor; com um programa diferente. </para>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term
+>Assistentes:</term>
+    <listitem>
+      <para
+>Os assistentes são janelas que automatizam as tarefas mais comuns (como a inserção de uma matriz ou a execução de um programa.) </para>
+    </listitem>
+  </varlistentry>
+</variablelist>
+</para>
+<para
+>Atualmente, não existe nenhum tutorial de desenvolvimento ou documentação da API; por isso, se precisar criar um plugin, você terá que consultar o código. Todas as definições da interface estão na pasta <filename role="directory"
+>lib</filename
+>. Para as implementações de exemplo, veja alguns dos plugins que vêm com o &cantor;. </para>
+
+</chapter>
+
+<chapter id="faq">
+<title
+>Perguntas e respostas</title>
+&reporting.bugs; &updating.documentation; <qandaset id="faqlist">
+<qandaentry>
+  <question
+><para
+>O Item do Menu <guimenuitem
+>Formatação com o LaTeX</guimenuitem
+> não está disponível</para
+></question>
+  <answer
+><para
+>Nem todas as infraestruturas tem suporte a todas as opções. A versão atual tem suporte ao resultado em &latex; para as infraestruturas Maxima, Qalculate! e Sage.</para
+></answer>
+</qandaentry>
+<qandaentry>
+  <question
+><para
+>Instalei o Sage/Maxima, mas a infraestrutura apropriada não aparece.</para
+></question>
+  <answer>
+    <para
+>Talvez o &cantor; não tenha detectado a localização corretamente. Vá à janela em <menuchoice
+><guimenu
+>Configurações</guimenu
+><guimenuitem
+>Configurar o &kappname;...</guimenuitem
+></menuchoice
+> e mude a <guilabel
+>Localização</guilabel
+> do aplicativo apropriado. </para>
+  </answer>
+</qandaentry>
+<qandaentry>
+  <question
+><para
+>Que nome mais esquisito - o que ele tem a ver com matemática?</para
+></question>
+  <answer
+><para
+>&cantor; vem do matemático Alemão <ulink url="http://en.wikipedia.org/wiki/Georg_Cantor"
+>Georg Cantor</ulink
+>, o criador da teoria dos conjuntos.</para
+></answer>
+</qandaentry>
+</qandaset>
+</chapter>
+
+<chapter id="credits">
+
+<title
+>Créditos e licença</title>
+
+<para
+>&cantor; </para>
+<para
+>Direitos autorais do programa 2009-2011 Alexander Rieder <email
+>alexanderrieder@gmail.com</email
+> </para>
+
+<para
+>Direitos autorais da documentação &copy; 2009-2011 Alexander Rieder <email
+>alexanderrieder@gmail.com</email
+> </para>
+
+<para
+>Tradução de Marcus Gama <email
+>marcus.gama@gmail.com</email
+></para
+> 
+&underFDL; &underGPL; </chapter>
+
+<appendix id="installation">
+<title
+>Instalação</title>
+
+<sect1 id="getting-kapp">
+<title
+>Como obter o &cantor;</title>
+&install.intro.documentation; </sect1>
+
+<sect1 id="requirements">
+<title
+>Requisitos</title>
+
+<para
+>Para poder usar com sucesso o &cantor;, você precisa do &kde; 4. Se quiser suporte para a formatação dos dados, precisa do &latex; e da LibSpectre. Para usar as diferentes infraestruturas, é necessário o pacote matemático apropriado. </para>
+
+<!--
+<para>
+All required libraries as well as &cantor; itself can be found
+on <ulink url="ftp://ftp.kapp.org"
+>The &cantor; home page</ulink
+>.
+</para>
+-->
+
+
+<!-- For a list of updates, you may refer to the application web site
+or the ChangeLog file, or ... -->
+<!--
+<para>
+You can find a list of changes at <ulink
+url="http://apps.kde.org/kapp"
+>http://apps.kde.org/kapp</ulink
+>.
+</para>
+-->
+</sect1>
+
+<sect1 id="compilation">
+<title
+>Compilação e instalação</title>
+&install.compile.documentation; </sect1>
+
+<sect1 id="configuration">
+<title
+>Configuração</title>
+
+<para
+>Dependendo do seu sistema, você poderá ter que ajustar as localizações para as diferentes aplicações usadas pelo &cantor;. </para>
+
+</sect1>
+
+</appendix>
+
+&documentation.index;
+</book>
+
+<!--
+Local Variables:
+mode: xml
+sgml-minimize-attributes:nil
+sgml-general-insert-case:lower
+sgml-indent-step:0
+sgml-indent-data:nil
+End:
+
+vim:tabstop=2:shiftwidth=2:expandtab
+kate: space-indent on; indent-width 2; tab-width 2; indent-mode none;
+-->

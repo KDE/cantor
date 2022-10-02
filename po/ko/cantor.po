@@ -1,0 +1,4955 @@
+# Copyright (C) YEAR This_file_is_part_of_KDE
+# This file is distributed under the same license as the PACKAGE package.
+# Shinjo Park <kde@peremen.name>, 2011, 2015, 2020, 2021, 2022.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"Report-Msgid-Bugs-To: https://bugs.kde.org\n"
+"POT-Creation-Date: 2022-08-07 00:40+0000\n"
+"PO-Revision-Date: 2022-05-07 01:59+0200\n"
+"Last-Translator: Shinjo Park <kde@peremen.name>\n"
+"Language-Team: Korean <kde-kr@kde.org>\n"
+"Language: ko\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"X-Generator: Lokalize 21.12.3\n"
+
+#, kde-format
+msgctxt "NAME OF TRANSLATORS"
+msgid "Your names"
+msgstr "박신조"
+
+#, kde-format
+msgctxt "EMAIL OF TRANSLATORS"
+msgid "Your emails"
+msgstr "kde@peremen.name"
+
+#: animationresultitem.cpp:38
+#, kde-format
+msgid "Pause"
+msgstr "일시 정지"
+
+#: animationresultitem.cpp:41
+#, kde-format
+msgid "Start"
+msgstr "시작"
+
+#: animationresultitem.cpp:45
+#, kde-format
+msgid "Stop"
+msgstr "정지"
+
+#: animationresultitem.cpp:113
+#, fuzzy, kde-format
+#| msgid "Save result"
+msgid "Save animation result"
+msgstr "결과 저장"
+
+#: animationresultitem.cpp:113
+#, kde-format
+msgid "Animations (*.gif)"
+msgstr ""
+
+#: assistants/advancedplot/advancedplotassistant.cpp:30
+#, kde-format
+msgid "Advanced Plotting"
+msgstr "고급 그래프 그리기"
+
+#. i18n: ectx: property (text), widget (QLabel, label_2)
+#: assistants/advancedplot/advancedplotdialog.ui:24
+#: backends/qalculate/plotassistant/qalculateplotassistant.cpp:24
+#, kde-format
+msgid "Plot"
+msgstr "플롯"
+
+#. i18n: ectx: property (text), widget (QLabel, label_3)
+#. i18n: ectx: property (text), widget (QLabel, label)
+#: assistants/advancedplot/advancedplotdialog.ui:33
+#: assistants/differentiate/differentiatedlg.ui:19
+#: assistants/integrate/integratedlg.ui:19 assistants/plot2d/plot2ddlg.ui:19
+#: assistants/plot3d/plot3ddlg.ui:17
+#, kde-format
+msgid "Expression:"
+msgstr "수식:"
+
+#. i18n: ectx: property (text), widget (QLabel, label)
+#: assistants/advancedplot/advancedplotdialog.ui:45
+#, kde-format
+msgid "Additional options:"
+msgstr "추가 옵션:"
+
+#. i18n: ectx: Menu (Plot)
+#: assistants/advancedplot/cantor_advancedplot_assistant.rc:4
+#: assistants/plot2d/cantor_plot2d_assistant.rc:4
+#: assistants/plot3d/cantor_plot3d_assistant.rc:4
+#: backends/qalculate/plotassistant/cantor_qalculateplotassistant.rc:4
+#, kde-format
+msgid "&Plot"
+msgstr "플롯(&P)"
+
+#. i18n: ectx: property (title), widget (QGroupBox, directiveContainer)
+#: assistants/advancedplot/directivecontainer.ui:14
+#, kde-format
+msgid "Option active"
+msgstr "옵션 활성화됨"
+
+#. i18n: ectx: Menu (calculate)
+#: assistants/differentiate/cantor_differentiate_assistant.rc:4
+#: assistants/integrate/cantor_integrate_assistant.rc:4
+#: assistants/solve/cantor_solve_assistant.rc:4
+#, kde-format
+msgid "&Calculate"
+msgstr "계산(&C)"
+
+#: assistants/differentiate/differentiateassistant.cpp:29
+#, kde-format
+msgid "Differentiate"
+msgstr "미분"
+
+#. i18n: ectx: property (text), widget (QLabel, label_2)
+#: assistants/differentiate/differentiatedlg.ui:29
+#: assistants/integrate/integratedlg.ui:29
+#, kde-format
+msgid "Variable:"
+msgstr "변수:"
+
+#. i18n: ectx: property (text), widget (KLineEdit, variable)
+#. i18n: ectx: property (text), widget (KLineEdit, xVarEdit)
+#: assistants/differentiate/differentiatedlg.ui:36
+#: assistants/integrate/integratedlg.ui:36
+#: backends/qalculate/plotassistant/qalculateplotdialog.ui:123
+#, kde-format
+msgid "x"
+msgstr "x"
+
+#. i18n: ectx: property (text), widget (QLabel, label_3)
+#: assistants/differentiate/differentiatedlg.ui:47
+#, kde-format
+msgid "Times: "
+msgstr "횟수: "
+
+#. i18n: ectx: Menu (import_package)
+#: assistants/importpackage/cantor_import_package_assistant.rc:4
+#, kde-format
+msgid "&Package"
+msgstr "패키지(&P)"
+
+#: assistants/importpackage/importpackageassistant.cpp:29
+#, kde-format
+msgid "Import Package"
+msgstr "패키지 가져오기"
+
+#. i18n: ectx: property (text), widget (QLabel, label)
+#: assistants/importpackage/importpackagedlg.ui:17
+#, kde-format
+msgid "Package:"
+msgstr "패키지:"
+
+#: assistants/integrate/integrateassistant.cpp:29
+#, kde-format
+msgid "Integrate"
+msgstr "적분"
+
+#. i18n: ectx: property (text), widget (QLabel, label_3)
+#: assistants/integrate/integratedlg.ui:49
+#, kde-format
+msgid "Lower limit:"
+msgstr "최솟값:"
+
+#. i18n: ectx: property (text), widget (QLabel, label_4)
+#: assistants/integrate/integratedlg.ui:63
+#, kde-format
+msgid "Upper limit:"
+msgstr "최댓값:"
+
+#. i18n: ectx: property (text), widget (QCheckBox, isDefinite)
+#: assistants/integrate/integratedlg.ui:77
+#, kde-format
+msgid "definite integral"
+msgstr "정적분"
+
+#. i18n: ectx: Menu (linear_algebra)
+#: assistants/linearalgebra/creatematrix/cantor_create_matrix_assistant.rc:4
+#: assistants/linearalgebra/eigenvalues/cantor_eigenvalues_assistant.rc:4
+#: assistants/linearalgebra/eigenvectors/cantor_eigenvectors_assistant.rc:4
+#: assistants/linearalgebra/invertmatrix/cantor_invert_matrix_assistant.rc:4
+#, kde-format
+msgid "&Linear Algebra"
+msgstr "선형 대수(&L)"
+
+#: assistants/linearalgebra/creatematrix/creatematrixassistant.cpp:26
+#, kde-format
+msgid "Create Matrix"
+msgstr "행렬 생성"
+
+#. i18n: ectx: property (text), widget (QLabel, label_2)
+#: assistants/linearalgebra/creatematrix/creatematrixdlg.ui:19
+#, kde-format
+msgid "Columns:"
+msgstr "열:"
+
+#. i18n: ectx: property (text), widget (QLabel, label)
+#: assistants/linearalgebra/creatematrix/creatematrixdlg.ui:37
+#, kde-format
+msgid "Rows:"
+msgstr "행:"
+
+#: assistants/linearalgebra/eigenvalues/eigenvaluesassistant.cpp:28
+#, kde-format
+msgid "Compute Eigenvalues"
+msgstr "고윳값 계산"
+
+#. i18n: ectx: property (text), widget (QLabel, label)
+#: assistants/linearalgebra/eigenvalues/eigenvaluesdlg.ui:17
+#: assistants/linearalgebra/eigenvectors/eigenvectorsdlg.ui:17
+#: assistants/linearalgebra/invertmatrix/invertmatrixdlg.ui:17
+#, kde-format
+msgid "Matrix:"
+msgstr "행렬:"
+
+#: assistants/linearalgebra/eigenvectors/eigenvectorsassistant.cpp:28
+#, kde-format
+msgid "Compute Eigenvectors"
+msgstr "고유벡터 계산"
+
+#: assistants/linearalgebra/invertmatrix/invertmatrixassistant.cpp:28
+#, kde-format
+msgid "Invert Matrix"
+msgstr "역행렬 계산"
+
+#: assistants/plot2d/plot2dassistant.cpp:28
+#, kde-format
+msgid "Plot 2D"
+msgstr "2차원 플롯"
+
+#. i18n: ectx: property (title), widget (QGroupBox, groupBox)
+#: assistants/plot2d/plot2ddlg.ui:31
+#, kde-format
+msgid "Variable"
+msgstr "변수"
+
+#. i18n: ectx: property (text), widget (QLabel, label_2)
+#. i18n: ectx: property (text), widget (QLabel, label_5)
+#: assistants/plot2d/plot2ddlg.ui:43 assistants/plot3d/plot3ddlg.ui:41
+#: assistants/plot3d/plot3ddlg.ui:86
+#, kde-format
+msgid "Name"
+msgstr "이름"
+
+#. i18n: ectx: property (text), widget (QLabel, label_3)
+#. i18n: ectx: property (text), widget (QLabel, label_6)
+#: assistants/plot2d/plot2ddlg.ui:53 assistants/plot3d/plot3ddlg.ui:51
+#: assistants/plot3d/plot3ddlg.ui:96
+#, kde-format
+msgid "Minimum:"
+msgstr "최솟값:"
+
+#. i18n: ectx: property (text), widget (QLabel, label_4)
+#. i18n: ectx: property (text), widget (QLabel, label_7)
+#: assistants/plot2d/plot2ddlg.ui:63 assistants/plot3d/plot3ddlg.ui:61
+#: assistants/plot3d/plot3ddlg.ui:106
+#, kde-format
+msgid "Maximum:"
+msgstr "최댓값:"
+
+#: assistants/plot3d/plot3dassistant.cpp:28
+#, kde-format
+msgid "Plot 3D"
+msgstr "3차원 플롯"
+
+#. i18n: ectx: property (title), widget (QGroupBox, groupBox)
+#: assistants/plot3d/plot3ddlg.ui:29
+#, kde-format
+msgid "1st Variable"
+msgstr "1번째 변수"
+
+#. i18n: ectx: property (title), widget (QGroupBox, groupBox_2)
+#: assistants/plot3d/plot3ddlg.ui:74
+#, kde-format
+msgid "2nd Variable"
+msgstr "2번째 변수"
+
+#: assistants/runscript/runscriptassistant.cpp:28
+#: scripteditor/scripteditorwidget.cpp:39
+#, kde-format
+msgid "Run Script"
+msgstr "스크립트 실행"
+
+#: assistants/solve/solveassistant.cpp:28
+#, kde-format
+msgid "Solve equations"
+msgstr "수식 풀기"
+
+#. i18n: ectx: property (text), widget (QLabel, label)
+#: assistants/solve/solvedlg.ui:19
+#, kde-format
+msgid "Equations:"
+msgstr "수식:"
+
+#. i18n: ectx: property (text), widget (QLabel, label_2)
+#: assistants/solve/solvedlg.ui:33
+#, kde-format
+msgid "Variables:"
+msgstr "변수:"
+
+#: backendchoosedialog.cpp:64
+#, kde-format
+msgid "Select the Backend"
+msgstr "백엔드 선택"
+
+#: backendchoosedialog.cpp:110
+#, kde-format
+msgid "<h1>%1</h1><div><b>Recommended version:</b> %2</div>"
+msgstr "<h1>%1</h1><div><b>추천 버전:</b> %2</div>"
+
+#: backendchoosedialog.cpp:113
+#, kde-format
+msgid ""
+"<hr><div>%1</div><br><div>See <a href=\"%2\">%2</a> for more information.</"
+"div>"
+msgstr ""
+"<hr><div>%1</div><br><div>더 많은 정보를 보려면 <a href=\"%2\">%2</a>을(를) "
+"참조하십시오.</div>"
+
+#: backendchoosedialog.cpp:125
+#, kde-format
+msgid ""
+"<hr><div><b><font color='#e50000'>Some requirements are not fulfilled: </"
+"font></b>%1</div>"
+msgstr ""
+"<hr><div><b><font color='#e50000'>일부 조건을 만족하지 않았습니다: </font></"
+"b>%1</div>"
+
+#. i18n: ectx: property (text), widget (QCheckBox, makeDefault)
+#: backendchooser.ui:37
+#, kde-format
+msgid "Make this the default backend"
+msgstr "기본 백엔드로 사용"
+
+#: backends/julia/juliabackend.cpp:57
+#, kde-format
+msgid ""
+"<b>Julia</b> is a high-level, high-performance dynamic programming language "
+"for technical computing, with syntax that is familiar to users of other "
+"technical computing environments. It provides a sophisticated compiler, "
+"distributed parallel execution, numerical accuracy, and an extensive "
+"mathematical function library."
+msgstr ""
+"<b>Julia</b>는 기술 컴퓨팅을 위한 고수준 고성능 동적 프로그래밍 언어이며, 다"
+"른 기술 컴퓨팅 환경과 비슷한 문법을 사용합니다. 고급 컴파일러, 분산 병렬 실"
+"행, 수치 정확성, 다양한 수학 함수 라이브러리를 제공합니다."
+
+#: backends/julia/juliabackend.cpp:70
+#, kde-format
+msgctxt ""
+"The url to the documentation of Julia, please check if there is a translated "
+"version and use the correct url"
+msgid "https://docs.julialang.org/en/latest/"
+msgstr "https://docs.julialang.org/en/latest/"
+
+#: backends/julia/juliabackend.cpp:86
+#, kde-format
+msgid ""
+"The path to Julia specified in the application settings must point directly "
+"to the executable. Symlinks are not allowed. Please provide the correct path "
+"in the application settings and try again."
+msgstr ""
+"프로그램 설정에서 지정한 Julia 경로는 실행 파일을 가리켜야 합니다. 심볼릭 링"
+"크는 사용할 수 없습니다. 프로그램 설정에서 올바른 경로를 지정하고 다시 시도하"
+"십시오."
+
+#: backends/julia/juliabackend.cpp:101 backends/julia/juliabackend.cpp:113
+#, kde-format
+msgid ""
+"Сantor couldn’t determine the version of Julia for %1. Please specify the "
+"correct path to Julia executable (no symlinks allowed) and try again."
+msgstr ""
+"Cantor에서 %1의 Julia 버전을 알 수 없습니다. 올바른 Julia 실행 파일 경로를 지"
+"정한 다음(심볼릭 링크 사용 불가능) 다시 시도하십시오."
+
+#: backends/julia/juliabackend.cpp:126
+#, kde-format
+msgid ""
+"You are trying to use Cantor with Julia v%1.%2.%3. This version of Cantor "
+"was compiled with the support of Julia v%4.%5.%6. Please point to this "
+"version of Julia or recompile Cantor using the version %1.%2.%3."
+msgstr ""
+"Cantor와 Julia v%1.%2.%3을(를) 사용하려고 하고 있습니다. 이 버전의 Cantor는 "
+"Julia v%4.%5.%6을(를) 지원하도록 컴파일되었습니다. 이 버전의 Julia를 지정하거"
+"나 Cantor를 Julia v%1.%2.%3을(를) 사용하여 다시 컴파일하십시오."
+
+#. i18n: ectx: label, entry (replPath), group (JuliaBackend)
+#: backends/julia/juliabackend.kcfg:10
+#, kde-format
+msgid "Path to the Julia native REPL"
+msgstr "Julia 네이티브 REPL 경로"
+
+#. i18n: ectx: label, entry (variableManagement), group (JuliaBackend)
+#. i18n: ectx: label, entry (variableManagement), group (PythonBackend)
+#. i18n: ectx: label, entry (variableManagement), group (RBackend)
+#. i18n: ectx: label, entry (variableManagement), group (MaximaBackend)
+#: backends/julia/juliabackend.kcfg:16 backends/maxima/maximabackend.kcfg:26
+#: backends/python/pythonbackend.kcfg:14 backends/R/rserver/rserver.kcfg:16
+#, kde-format
+msgid "Enable Variable Management"
+msgstr "변수 관리 활성화"
+
+#. i18n: ectx: label, entry (integratePlots), group (JuliaBackend)
+#. i18n: ectx: label, entry (integratePlots), group (PythonBackend)
+#. i18n: ectx: label, entry (integratePlots), group (RBackend)
+#. i18n: ectx: label, entry (integratePlots), group (ScilabBackend)
+#. i18n: ectx: label, entry (integratePlots), group (MaximaBackend)
+#: backends/julia/juliabackend.kcfg:20 backends/maxima/maximabackend.kcfg:22
+#: backends/python/pythonbackend.kcfg:10 backends/R/rserver/rserver.kcfg:12
+#: backends/scilab/scilabbackend.kcfg:22
+#, kde-format
+msgid "Integrate Plots into the Worksheet"
+msgstr "워크시트에 플롯 통합"
+
+#. i18n: ectx: label, entry (plotExtenstionGraphicPackage), group (JuliaBackend)
+#. i18n: ectx: label, entry (plotExtenstionGraphicPackage), group (PythonBackend)
+#: backends/julia/juliabackend.kcfg:37 backends/python/pythonbackend.kcfg:28
+#, kde-format
+msgid "Graphical package for the Plot-Assistant"
+msgstr "플롯 도우미용 그래픽 패키지"
+
+#: backends/julia/juliaextensions.cpp:246
+#, kde-format
+msgid "# Sorry, but Gadfly don't support 3d plots"
+msgstr "# 죄송합니다. Gadfly에서는 3D 플롯을 지원하지 않습니다"
+
+#: backends/julia/juliaextensions.cpp:263
+#, kde-format
+msgid "Julia script file (*.jl)"
+msgstr "Julia 스크립트 파일 (*.jl)"
+
+#: backends/julia/juliasession.cpp:111 backends/julia/juliasession.cpp:120
+#: backends/maxima/maximasession.cpp:265 cantor_part.cpp:963
+#: lib/session.cpp:311 lib/session.cpp:313 worksheet.cpp:1193
+#: worksheet.cpp:1221 worksheet.cpp:1236 worksheet.cpp:1252 worksheet.cpp:1296
+#: worksheet.cpp:1308
+#, kde-format
+msgid "Error - Cantor"
+msgstr "오류 - Cantor"
+
+#: backends/julia/juliasession.cpp:111
+#, kde-format
+msgid ""
+"Julia session can't login due internal julia problem with missing internal "
+"file - \"%1\""
+msgstr ""
+"Julia 세션에 로그인할 수 없습니다. 다음 내부 파일이 없어서 Julia 내부 오류가 "
+"발생했습니다 - \"%1\""
+
+#: backends/julia/juliasession.cpp:120
+#, kde-format
+msgid "Julia session can't login due unknown internal problem"
+msgstr "알 수 없는 내부 오류로 Julia 세션에 로그인할 수 없음"
+
+#: backends/julia/juliasession.cpp:246
+#, kde-format
+msgid "Julia process stopped working."
+msgstr "Julia 프로세스가 중단되었습니다."
+
+#: backends/julia/juliasession.cpp:249
+#, kde-format
+msgid "Failed to start Julia process."
+msgstr "Julia 프로세스를 시작할 수 없습니다."
+
+#: backends/julia/juliasession.cpp:252
+#, kde-format
+msgid "Communication with Julia process failed for unknown reasons."
+msgstr "알 수 없는 이유로 Julia 프로세스와 통신할 수 없습니다."
+
+#: backends/julia/juliasession.cpp:322
+#, kde-format
+msgid ""
+"For Julia only GR (https://gr-framework.org/), a framework for visualization "
+"applications, is supported at the moment. This package has to be installed "
+"first, if not done yet. For this, run Pkg.install(\"GR\") in Cantor or in "
+"Julia REPL. Note, this operation can take some time and it's better to "
+"perform it in Julia REPL that is able to show the current progress of the "
+"package installation."
+msgstr ""
+"Julia에서는 현재 프로그램 시각화 프레임워크 GR(https://gr-framework.org/)만 "
+"지원합니다. 이 패키지를 설치하지 않았다면 설치하십시오. Cantor나 Julia REPL에"
+"서 Pkg.install(\"GR\") 명령을 내리면 됩니다. 이 작업은 시간이 걸릴 수 있으므"
+"로 패키지 설치 진행 상태를 표시할 수 있는 Julia REPL에서 수행하기를 추천합니"
+"다."
+
+#. i18n: ectx: attribute (title), widget (QWidget, tabGeneral)
+#. i18n: ectx: attribute (title), widget (QWidget, tab_3)
+#: backends/julia/settings.ui:21 backends/lua/settings.ui:21
+#: backends/maxima/settings.ui:21 backends/octave/settings.ui:21
+#: backends/python/settings.ui:21 backends/qalculate/settings.ui:21
+#: backends/R/settings.ui:21 backends/sage/settings.ui:21
+#: backends/scilab/settings.ui:21 cantor.cpp:632
+#, kde-format
+msgid "General"
+msgstr "일반"
+
+#. i18n: ectx: property (text), widget (QLabel, label)
+#: backends/julia/settings.ui:27 backends/maxima/settings.ui:61
+#: backends/octave/settings.ui:106 backends/sage/settings.ui:63
+#: backends/scilab/settings.ui:27
+#, kde-format
+msgid "Executable:"
+msgstr "실행 파일:"
+
+#. i18n: ectx: property (text), widget (QLabel, lPlotIntegration)
+#: backends/julia/settings.ui:37 backends/maxima/settings.ui:37
+#: backends/octave/settings.ui:73 backends/python/settings.ui:47
+#: backends/R/settings.ui:53 backends/scilab/settings.ui:37
+#, kde-format
+msgid "Plot Integration:"
+msgstr "플롯 통합:"
+
+#. i18n: ectx: property (toolTip), widget (QCheckBox, kcfg_integratePlots)
+#: backends/julia/settings.ui:44 backends/maxima/settings.ui:27
+#: backends/octave/settings.ui:96 backends/python/settings.ui:64
+#: backends/R/settings.ui:33 backends/scilab/settings.ui:44
+#, kde-format
+msgid ""
+"If enabled, plots will be shown inside of the worksheet. Otherwise, plots "
+"will be shown in an external window."
+msgstr ""
+"이 옵션을 사용하면 플롯을 워크시트 내부에 표시합니다. 이 옵션을 사용하지 않으"
+"면 플롯을 외부 창으로 표시합니다."
+
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_allowLatex)
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_integratePlots)
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_variableManagement)
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_indicateInfiniteSeries)
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_useAllPrefixes)
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_negativeExponents)
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_postConversion)
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_inlinePlot)
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_coloredPlot)
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_plotGrid)
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_plotBorder)
+#: backends/julia/settings.ui:47 backends/julia/settings.ui:64
+#: backends/maxima/settings.ui:30 backends/maxima/settings.ui:47
+#: backends/octave/settings.ui:56 backends/octave/settings.ui:99
+#: backends/python/settings.ui:67 backends/python/settings.ui:77
+#: backends/qalculate/settings.ui:125 backends/qalculate/settings.ui:142
+#: backends/qalculate/settings.ui:159 backends/qalculate/settings.ui:202
+#: backends/qalculate/settings.ui:308 backends/qalculate/settings.ui:315
+#: backends/qalculate/settings.ui:322 backends/qalculate/settings.ui:339
+#: backends/R/settings.ui:36 backends/R/settings.ui:46
+#: backends/sage/settings.ui:37 backends/scilab/settings.ui:47
+#: commandentry.cpp:349
+#, kde-format
+msgid "Enabled"
+msgstr "사용함"
+
+#. i18n: ectx: property (text), widget (QLabel, lVariableManagement)
+#: backends/julia/settings.ui:54 backends/maxima/settings.ui:54
+#: backends/octave/settings.ui:66 backends/python/settings.ui:27
+#: backends/R/settings.ui:76
+#, kde-format
+msgid "Variable Management:"
+msgstr "변수 관리:"
+
+#. i18n: ectx: property (toolTip), widget (QCheckBox, kcfg_variableManagement)
+#: backends/julia/settings.ui:61 backends/maxima/settings.ui:44
+#: backends/octave/settings.ui:53 backends/python/settings.ui:74
+#: backends/R/settings.ui:43
+#, kde-format
+msgid ""
+"Monitor the creation and destruction of variables and show the existing "
+"variables in the variable panel."
+msgstr "변수의 생성과 해제를 감시하고 기존 변수를 변수 패널에 표시합니다."
+
+#. i18n: ectx: property (text), widget (QLabel, label2)
+#. i18n: ectx: property (text), widget (QLabel, label_2)
+#: backends/julia/settings.ui:71 backends/octave/settings.ui:27
+#, kde-format
+msgid "Internal Plot Format:"
+msgstr "내부 플롯 형식:"
+
+#. i18n: ectx: property (toolTip), widget (QComboBox, kcfg_inlinePlotFormat)
+#: backends/julia/settings.ui:78
+#, kde-format
+msgid "Inner format of plots, if plots embedding is enabled."
+msgstr "플롯 임베드가 활성화되었을 때 사용할 내부 플롯 형식입니다."
+
+#. i18n: ectx: property (toolTip), widget (QLabel, label3)
+#. i18n: ectx: property (toolTip), widget (KComboBox, kcfg_plotExtenstionGraphicPackage)
+#. i18n: ectx: property (toolTip), widget (QLabel, label4)
+#: backends/julia/settings.ui:95 backends/julia/settings.ui:111
+#: backends/python/settings.ui:54 backends/python/settings.ui:90
+#, kde-format
+msgid "Graphic package to be used in the Plot Assistant"
+msgstr "플롯 도우미에서 사용할 그래픽 패키지"
+
+#. i18n: ectx: property (text), widget (QLabel, label3)
+#. i18n: ectx: property (text), widget (QLabel, label4)
+#: backends/julia/settings.ui:98 backends/python/settings.ui:57
+#, kde-format
+msgid "Package for Plot Assistant"
+msgstr "플롯 도우미용 패키지"
+
+#. i18n: ectx: property (text), item, widget (KComboBox, kcfg_plotExtenstionGraphicPackage)
+#: backends/julia/settings.ui:115 backends/python/settings.ui:109
+#, kde-format
+msgid "GR"
+msgstr "GR"
+
+#. i18n: ectx: property (text), item, widget (KComboBox, kcfg_plotExtenstionGraphicPackage)
+#: backends/julia/settings.ui:120
+#, kde-format
+msgid "Plots"
+msgstr "플롯"
+
+#. i18n: ectx: property (text), item, widget (KComboBox, kcfg_plotExtenstionGraphicPackage)
+#: backends/julia/settings.ui:125
+#, kde-format
+msgid "PyPlot"
+msgstr "PyPlot"
+
+#. i18n: ectx: property (text), item, widget (KComboBox, kcfg_plotExtenstionGraphicPackage)
+#: backends/julia/settings.ui:130
+#, kde-format
+msgid "Gadfly"
+msgstr "Gadfly"
+
+#. i18n: ectx: attribute (title), widget (QWidget, tabAutorun)
+#. i18n: ectx: attribute (title), widget (QWidget, tabAutoran)
+#: backends/julia/settings.ui:152 backends/lua/settings.ui:51
+#: backends/maxima/settings.ui:85 backends/octave/settings.ui:114
+#: backends/python/settings.ui:123 backends/qalculate/settings.ui:556
+#: backends/R/settings.ui:84 backends/sage/settings.ui:71
+#: backends/scilab/settings.ui:68
+#, kde-format
+msgid "Autorun"
+msgstr "자동 실행"
+
+#. i18n: ectx: property (text), widget (QLabel, lAutorun)
+#. i18n: ectx: property (title), widget (QGroupBox, groupBox)
+#. i18n: ectx: property (text), widget (QLabel, label_2)
+#: backends/julia/settings.ui:158 backends/kalgebra/settings.ui:20
+#: backends/lua/settings.ui:57 backends/maxima/settings.ui:91
+#: backends/octave/settings.ui:120 backends/python/settings.ui:129
+#: backends/qalculate/settings.ui:562 backends/R/settings.ui:90
+#: backends/sage/settings.ui:77 backends/scilab/settings.ui:74
+#, kde-format
+msgid "Commands to autorun"
+msgstr "자동 실행할 명령"
+
+#. i18n: ectx: attribute (title), widget (QWidget, tabDocumentation)
+#: backends/julia/settings.ui:172 backends/lua/settings.ui:71
+#: backends/maxima/settings.ui:105 backends/octave/settings.ui:134
+#: backends/python/settings.ui:143 backends/qalculate/settings.ui:575
+#: backends/R/settings.ui:104 backends/sage/settings.ui:91
+#: backends/scilab/settings.ui:88
+#, kde-format
+msgid "Documentation"
+msgstr "문서"
+
+#: backends/kalgebra/kalgebrabackend.cpp:56
+#, kde-format
+msgctxt ""
+"The url to the documentation of KAlgebra, please check if there is a "
+"translated version and use the correct url"
+msgid "https://docs.kde.org/?application=kalgebra"
+msgstr "https://docs.kde.org/?application=kalgebra"
+
+#. i18n: ectx: label, entry (autorunScripts), group (SageBackend)
+#. i18n: ectx: label, entry (autorunScripts), group (KAlgebraBackend)
+#. i18n: ectx: label, entry (autorunScripts), group (PythonBackend)
+#. i18n: ectx: label, entry (autorunScripts), group (RBackend)
+#. i18n: ectx: label, entry (autorunScripts), group (LuaBackend)
+#. i18n: ectx: label, entry (autorunScripts), group (ScilabBackend)
+#. i18n: ectx: label, entry (autorunScripts), group (MaximaBackend)
+#. i18n: ectx: label, entry (autorunScripts), group (QalculateBackend)
+#: backends/kalgebra/kalgebrabackend.kcfg:9 backends/lua/luabackend.kcfg:14
+#: backends/maxima/maximabackend.kcfg:30 backends/python/pythonbackend.kcfg:18
+#: backends/qalculate/qalculatebackend.kcfg:130
+#: backends/R/rserver/rserver.kcfg:20 backends/sage/sagebackend.kcfg:18
+#: backends/scilab/scilabbackend.kcfg:26
+#, kde-format
+msgid "List of scripts to autorun at the beginning of session"
+msgstr "세션을 시작할 때 자동으로 실행할 스크립트 목록"
+
+#: backends/kalgebra/kalgebraexpression.cpp:44
+#, kde-format
+msgid "Error: %1"
+msgstr "오류: %1"
+
+#: backends/kalgebra/kalgebrasyntaxhelpobject.cpp:27
+#, kde-format
+msgid "<p><b>%1:</b> %2</p>"
+msgstr "<p><b>%1:</b> %2</p>"
+
+#. i18n: ectx: property (toolTip), widget (QGroupBox, groupBox)
+#: backends/kalgebra/settings.ui:17
+#, kde-format
+msgid ""
+"This autorun commands, which will run on start new worksheet. They can be "
+"useful for loading needed modules, changing environment, etc."
+msgstr ""
+"이 명령은 새 워크시트를 시작할 때 자동으로 실행합니다. 필요한 모듈을 불러오거"
+"나 환경을 변경하는 등에 유용합니다."
+
+#: backends/lua/luabackend.cpp:52
+#, kde-format
+msgctxt "Lua official documentation"
+msgid "https://www.lua.org/docs.html"
+msgstr "https://www.lua.org/docs.html"
+
+#: backends/lua/luabackend.cpp:57
+#, kde-format
+msgid ""
+"<b>Lua</b> is a fast and lightweight scripting language, with a simple "
+"procedural syntax. There are several libraries in Lua aimed at math and "
+"science."
+msgstr ""
+"<b>Lua</b>는 간단한 절차적 문법을 가지고 있는 빠르고 가벼운 스크립트 언어입니"
+"다. Lua에는 수학과 과학 라이브러리가 있습니다."
+
+#. i18n: ectx: label, entry (Path), group (LuaBackend)
+#: backends/lua/luabackend.kcfg:10
+#, kde-format
+msgid "Path to luajit command"
+msgstr "luajit 명령 경로"
+
+#: backends/lua/luaextensions.cpp:20
+#, kde-format
+msgid "Lua script file (*.lua)"
+msgstr "Lua 스크립트 파일 (*.lua)"
+
+#. i18n: ectx: property (text), widget (QLabel, label)
+#: backends/lua/settings.ui:27
+#, kde-format
+msgid "Path to luajit:"
+msgstr "luajit 경로:"
+
+#: backends/maxima/maximabackend.cpp:72
+#, kde-format
+msgctxt ""
+"the url to the documentation of Maxima, please check if there is a "
+"translated version and use the correct url"
+msgid "http://maxima.sourceforge.net/docs/manual/en/maxima.html"
+msgstr "http://maxima.sourceforge.net/docs/manual/en/maxima.html"
+
+#: backends/maxima/maximabackend.cpp:79
+#, kde-format
+msgid ""
+"<h1>Maxima's Help System</h1><h2>Function <i>apropos</i></h2>Searches for "
+"Maxima names which have name appearing anywhere within them; <i>name</i> "
+"must be a string or symbol. Thus, <i>apropos(exp)</i> returns a list of all "
+"the flags and functions which have exp as part of their name, such as "
+"<i>expand</i>, <i>exp</i>, and <i>exponentialize</i>. So, if you can only "
+"remember part of the name of a Maxima command or variable, you can use this "
+"command to find the rest of the name. Similarly, you can type "
+"<i>apropos(tr_)</i> to find a list of many of the switches relating to the "
+"translator, most of which begin with <i>tr_</i>.<br><br><i>apropos(\"\")</i> "
+"returns a list with all Maxima names.<br><br><i>apropos</i> returns the "
+"empty list [], if no name is found.<br><br><h2>Function <i>describe</i></"
+"h2><i>describe(string)</i> is equivalent to describe(string, exact)."
+"<br><br><i>describe(string, exact)</i> finds an item with title equal (case-"
+"insensitive) to string, if there is any such item."
+"<br><br><i>describe(string, inexact)</i> finds all documented items which "
+"contain string in their titles. If there is more than one such item, Maxima "
+"asks the user to select an item or items to display.<br><br><i>? foo</i> "
+"(with a space between <i>?</i> and <i>foo</i>) is equivalent to "
+"<i>describe(\"foo\", exact)</i>, and <i>?? foo</i> is equivalent to "
+"<i>describe(\"foo\", inexact)</i>.<br><br><i>describe(, inexact)</i> yields "
+"a list of all topics documented in the on-line manual.<br><br><i>describe</"
+"i> quotes its argument. <i>describe</i> returns <i>true</i> if some "
+"documentation is found, otherwise <i>false</i>.<br><h2>Function <i>example</"
+"i></h2><i>example(topic)</i> displays some examples of <i>topic</i>, which "
+"is a symbol or a string. To get examples for operators like <i>if</i>, "
+"<i>do</i>, or <i>lambda</i> the argument must be a string, e.g. "
+"<i>example(\"do\")</i>. <i>example</i> is not case sensitive. Most topics "
+"are function names.<br><br><i>example()</i> returns the list of all "
+"recognized topics.<br><br>The name of the file containing the examples is "
+"given by the global option variable <i>manual_demo</i>, which defaults to <i>"
+"\"manual.demo\"</i>.<br><br><i>example</i> quotes its argument. <i>example</"
+"i> returns <i>done</i> unless no examples are found or there is no argument, "
+"in which case <i>example</i> returns the list of all recognized topics."
+msgstr ""
+
+#: backends/maxima/maximabackend.cpp:111
+#, kde-format
+msgid ""
+"<b>Maxima</b> is a system for the manipulation of symbolic and numerical "
+"expressions, including differentiation, integration, Taylor series, Laplace "
+"transforms, ordinary differential equations, systems of linear equations, "
+"polynomials, and sets, lists, vectors, matrices, and tensors. Maxima yields "
+"high precision numeric results by using exact fractions, arbitrary precision "
+"integers, and variable precision floating point numbers. Maxima can plot "
+"functions and data in two and three dimensions."
+msgstr ""
+"<b>Maxima</b>는 미분, 적분, 테일러 급수, 라플라스 변환, 미분 방정식, 선형 방"
+"정식의 계, 다항식, 집합, 목록, 행렬, 텐서를 지원하는 기호 및 수치 수식 처리 "
+"시스템입니다. Maxima는 정확한 분수, 고정밀 정수, 가변 정밀도 부동 소수점을 사"
+"용하여 정밀도 높은 결과를 반환합니다. Maxima는 데이터와 함수를 2차원과 3차원"
+"으로 플롯할 수 있습니다."
+
+#. i18n: ectx: label, entry (Path), group (MaximaBackend)
+#: backends/maxima/maximabackend.kcfg:10
+#, kde-format
+msgid "Path to the Maxima executable"
+msgstr "Maxima 실행 파일 경로"
+
+#: backends/maxima/maximaexpression.cpp:104
+#, kde-format
+msgid "Error: Too many */"
+msgstr "오류: */ 문자열이 너무 많음"
+
+#: backends/maxima/maximaexpression.cpp:117
+#, kde-format
+msgid "Error: Too many /*"
+msgstr "오류: /* 문자열이 너무 많음"
+
+#: backends/maxima/maximaexpression.cpp:123
+#, kde-format
+msgid "Error: expected \" before ;"
+msgstr "오류: ; 앞에 \"가 와야 함"
+
+#: backends/maxima/maximaexpression.cpp:406
+#, kde-format
+msgid "Waiting for the plot result"
+msgstr "플롯 결과 대기 중"
+
+#: backends/maxima/maximaextensions.cpp:31
+#, kde-format
+msgid "Maxima batch file (*.mac)"
+msgstr "Maxima 배치 파일 (*.mac)"
+
+#: backends/maxima/maximasession.cpp:184
+#, kde-format
+msgid "Failed to start Maxima"
+msgstr "Maxima를 시작할 수 없음"
+
+#: backends/maxima/maximasession.cpp:251
+#, kde-format
+msgid "Maxima crashed. restarting..."
+msgstr "Maxima가 충돌함. 다시 시작하는 중..."
+
+#: backends/maxima/maximasession.cpp:265
+#, kde-format
+msgid "Maxima crashed twice within a short time. Stopping to try starting"
+msgstr "Maxima가 짧은 시간 동안 두 번 충돌했습니다. 재시작을 중단합니다"
+
+#: backends/octave/octavebackend.cpp:62
+#, kde-format
+msgctxt ""
+"the url to the documentation of Octave, please check if there is a "
+"translated version and use the correct url"
+msgid "https://octave.org/doc/interpreter/"
+msgstr "https://octave.org/doc/interpreter/"
+
+#: backends/octave/octavebackend.cpp:67
+#, kde-format
+msgid ""
+"<b>GNU Octave</b> is a high-level language, primarily intended for numerical "
+"computations. <br/>It provides a convenient command line interface for "
+"solving linear and nonlinear problems numerically, and for performing other "
+"numerical experiments using a language that is mostly compatible with Matlab."
+msgstr ""
+"<b>GNU Octave</b>는 수치 계산용 고급 언어입니다.<br/>선형 및 비선형 문제를 수"
+"치 계산으로 푸는 명령행 인터페이스를 제공하며, 다른 수치 계산은 Matlab과 호환"
+"되는 언어를 사용합니다."
+
+#: backends/octave/octaveextensions.cpp:34
+#, kde-format
+msgid "Octave script file (*.m)"
+msgstr "Octave 스크립트 파일 (*.m)"
+
+#: backends/octave/octavesession.cpp:272 backends/sage/sageexpression.cpp:58
+#, kde-format
+msgid "Syntax Error"
+msgstr "구문 오류"
+
+#: backends/octave/octavesession.cpp:409
+#, kde-format
+msgid "Plot integration test failed."
+msgstr "플롯 통합 시험이 실패했습니다."
+
+#: backends/octave/octavesession.cpp:413
+#, kde-format
+msgid "The integration of plots will be disabled."
+msgstr "플롯 통합이 비활성화됩니다."
+
+#: backends/octave/octavesession.cpp:414 backends/sage/sagesession.cpp:238
+#: backends/sage/sagesession.cpp:271 backends/sage/sagesession.cpp:337
+#: backends/sage/sagesession.cpp:348 cantor.cpp:216 cantor.cpp:218
+#: cantor.cpp:336 cantor.cpp:343 lib/session.cpp:381 main.cpp:66 main.cpp:130
+#: markdownentry.cpp:797 textentry.cpp:553 worksheet.cpp:1275
+#, kde-format
+msgid "Cantor"
+msgstr "Cantor"
+
+#: backends/octave/octavesession.cpp:435
+#, kde-format
+msgid ""
+"The plot integration doesn't work because Cantor found, that Octave can't "
+"create plots, because there are no graphical backends for it: this "
+"conclusion was made on the basis of empty output from "
+"available_graphics_toolkits() function. Looks like you should install some "
+"additional OS packages, like gnuplot, fltk or qt for possibility to create "
+"plots."
+msgstr ""
+"Cantor에서 Octave의 플롯 그래픽 백엔드가 설치되어 있지 않기 때문에 플롯을 생"
+"성할 수 없다고 판단했습니다. available_graphics_toolkits() 함수에서 빈 출력"
+"을 반환했습니다. 플롯을 생성하려면 gnuplot, fltk, qt 등 추가 OS 패키지를 설치"
+"해야 할 수도 있습니다."
+
+#: backends/python/pythonbackend.cpp:67
+#, kde-format
+msgctxt "The url to the documentation Python"
+msgid "https://docs.python.org/3/"
+msgstr "https://docs.python.org/3/"
+
+#: backends/python/pythonbackend.cpp:72
+#, kde-format
+msgid ""
+"<b>Python</b> is a remarkably powerful dynamic programming language that is "
+"used in a wide variety of application domains. There are several Python "
+"packages to scientific programming."
+msgstr ""
+"<b>Python</b>은 다양한 영역에서 사용되는 강력한 동적 프로그래밍 언어입니다. "
+"과학 프로그래밍에 사용되는 여러 Python 패키지가 있습니다."
+
+#: backends/python/pythonextensions.cpp:285
+#, kde-format
+msgid "# Sorry, but Bokeh doesn't support 3d plotting"
+msgstr "# 죄송합니다. Bokeh에서는 3D 플롯을 지원하지 않습니다"
+
+#: backends/python/pythonextensions.cpp:301
+#, kde-format
+msgid "Python script file (*.py)"
+msgstr "Python 스크립트 파일 (*.py)"
+
+#: backends/python/pythonsession.cpp:274
+#, kde-format
+msgid "Cantor Python server stopped working."
+msgstr "Cantor Python 서버가 중단되었습니다."
+
+#: backends/python/pythonsession.cpp:278
+#, kde-format
+msgid "Failed to start Cantor python server."
+msgstr "Cantor Python 서버를 시작할 수 없습니다."
+
+#: backends/python/pythonsession.cpp:282
+#, kde-format
+msgid "Communication with Cantor python server failed for unknown reasons."
+msgstr "알 수 없는 이유로 Cantor Python 서버 프로세스와 통신할 수 없습니다."
+
+#: backends/python/pythonsession.cpp:308
+#, kde-format
+msgid ""
+"For using integrated graphics with Matplotlib package, you need to install "
+"\"matplotlib\" python package first."
+msgstr ""
+"Matplotlib 패키지의 내장 그래픽을 사용하려면 \"matplotlib\" Python 패키지를 "
+"먼저 설치하십시오."
+
+#: backends/python/pythonsession.cpp:314
+#, kde-format
+msgid ""
+"For using integrated graphic with Plot.ly, you need to install \"plotly\" "
+"python package and special Plot.ly-compatible \"orca\" executable. See "
+"\"Static Image Export\" article in Plot.ly documentation for details."
+msgstr ""
+"Plot.ly 내장 그래픽을 사용하려면 \"plotly\" Python 패키지와 Plot.ly와 호환되"
+"는 \"orca\" 실행 파일을 설치하십시오. Plot.ly 문서의 \"Static Image Export\" "
+"부분을 참조하십시오."
+
+#. i18n: ectx: property (text), item, widget (KComboBox, kcfg_plotExtenstionGraphicPackage)
+#: backends/python/settings.ui:94
+#, kde-format
+msgid "matplotlib"
+msgstr "matplotlib"
+
+#. i18n: ectx: property (text), item, widget (KComboBox, kcfg_plotExtenstionGraphicPackage)
+#: backends/python/settings.ui:99
+#, kde-format
+msgid "pylab"
+msgstr "pylab"
+
+#. i18n: ectx: property (text), item, widget (KComboBox, kcfg_plotExtenstionGraphicPackage)
+#: backends/python/settings.ui:104
+#, kde-format
+msgid "plot.ly"
+msgstr "plot.ly"
+
+#. i18n: ectx: property (text), item, widget (KComboBox, kcfg_plotExtenstionGraphicPackage)
+#: backends/python/settings.ui:114
+#, kde-format
+msgid "bokeh"
+msgstr "bokeh"
+
+#. i18n: ectx: property (windowTitle), widget (QWidget, QalculatePlotAssistantBase)
+#: backends/qalculate/plotassistant/qalculateplotdialog.ui:14
+#, kde-format
+msgid "Cantor - Plot Dialog"
+msgstr "Cantor - 플롯 대화 상자"
+
+#. i18n: ectx: attribute (title), widget (QWidget, tab)
+#: backends/qalculate/plotassistant/qalculateplotdialog.ui:24
+#, kde-format
+msgid "Functions"
+msgstr "함수"
+
+#. i18n: ectx: property (text), widget (QTableWidget, functionTable)
+#: backends/qalculate/plotassistant/qalculateplotdialog.ui:40
+#, kde-format
+msgid "Title"
+msgstr "제목"
+
+#. i18n: ectx: property (text), widget (QTableWidget, functionTable)
+#: backends/qalculate/plotassistant/qalculateplotdialog.ui:45
+#, kde-format
+msgid "Expression"
+msgstr "수식"
+
+#. i18n: ectx: property (text), widget (QPushButton, addButton)
+#: backends/qalculate/plotassistant/qalculateplotdialog.ui:72
+#, kde-format
+msgid "Add"
+msgstr "추가"
+
+#. i18n: ectx: property (text), widget (QPushButton, removeButton)
+#: backends/qalculate/plotassistant/qalculateplotdialog.ui:82
+#: worksheetentry.cpp:437
+#, kde-format
+msgid "Remove"
+msgstr "삭제"
+
+#. i18n: ectx: property (text), widget (QPushButton, clearButton)
+#: backends/qalculate/plotassistant/qalculateplotdialog.ui:92
+#, kde-format
+msgid "Clear List"
+msgstr "목록 비우기"
+
+#. i18n: ectx: property (text), widget (QLabel, label_3)
+#: backends/qalculate/plotassistant/qalculateplotdialog.ui:107
+#, kde-format
+msgid "X variable"
+msgstr "X 변수"
+
+#. i18n: ectx: property (text), widget (QLabel, label_4)
+#: backends/qalculate/plotassistant/qalculateplotdialog.ui:134
+#, kde-format
+msgid "Style"
+msgstr "스타일"
+
+#. i18n: ectx: property (text), item, widget (KComboBox, styleBox)
+#. i18n: ectx: property (text), item, widget (KComboBox, kcfg_plotStyle)
+#: backends/qalculate/plotassistant/qalculateplotdialog.ui:145
+#: backends/qalculate/settings.ui:420
+#, kde-format
+msgid "Lines"
+msgstr "선"
+
+#. i18n: ectx: property (text), item, widget (KComboBox, styleBox)
+#. i18n: ectx: property (text), item, widget (KComboBox, kcfg_plotStyle)
+#: backends/qalculate/plotassistant/qalculateplotdialog.ui:150
+#: backends/qalculate/settings.ui:425
+#, kde-format
+msgid "Points"
+msgstr "점"
+
+#. i18n: ectx: property (text), item, widget (KComboBox, styleBox)
+#. i18n: ectx: property (text), item, widget (KComboBox, kcfg_plotStyle)
+#: backends/qalculate/plotassistant/qalculateplotdialog.ui:155
+#: backends/qalculate/settings.ui:430
+#, kde-format
+msgid "Points and Lines"
+msgstr "점과 선"
+
+#. i18n: ectx: property (text), item, widget (KComboBox, styleBox)
+#. i18n: ectx: property (text), item, widget (KComboBox, kcfg_plotStyle)
+#: backends/qalculate/plotassistant/qalculateplotdialog.ui:160
+#: backends/qalculate/settings.ui:435
+#, kde-format
+msgid "Boxes"
+msgstr "상자"
+
+#. i18n: ectx: property (text), item, widget (KComboBox, styleBox)
+#. i18n: ectx: property (text), item, widget (KComboBox, kcfg_plotStyle)
+#: backends/qalculate/plotassistant/qalculateplotdialog.ui:165
+#: backends/qalculate/settings.ui:440
+#, kde-format
+msgid "Histogram"
+msgstr "히스토그램"
+
+#. i18n: ectx: property (text), item, widget (KComboBox, styleBox)
+#: backends/qalculate/plotassistant/qalculateplotdialog.ui:170
+#, kde-format
+msgid "Steps"
+msgstr "단계"
+
+#. i18n: ectx: property (text), item, widget (KComboBox, styleBox)
+#. i18n: ectx: property (text), item, widget (KComboBox, kcfg_plotStyle)
+#: backends/qalculate/plotassistant/qalculateplotdialog.ui:175
+#: backends/qalculate/settings.ui:450
+#, kde-format
+msgid "Candlesticks"
+msgstr "캔들스틱"
+
+#. i18n: ectx: property (text), item, widget (KComboBox, styleBox)
+#. i18n: ectx: property (text), item, widget (KComboBox, kcfg_plotStyle)
+#: backends/qalculate/plotassistant/qalculateplotdialog.ui:180
+#: backends/qalculate/settings.ui:455
+#, kde-format
+msgid "Dots"
+msgstr "도트"
+
+#. i18n: ectx: property (text), widget (QLabel, label_5)
+#: backends/qalculate/plotassistant/qalculateplotdialog.ui:192
+#, kde-format
+msgid "Smoothing"
+msgstr "부드럽게"
+
+#. i18n: ectx: property (text), item, widget (KComboBox, smoothingBox)
+#. i18n: ectx: property (text), item, widget (KComboBox, kcfg_minExp)
+#. i18n: ectx: property (text), item, widget (KComboBox, kcfg_angleUnit)
+#. i18n: ectx: property (text), item, widget (KComboBox, kcfg_structuring)
+#. i18n: ectx: property (text), item, widget (KComboBox, kcfg_plotSmoothing)
+#: backends/qalculate/plotassistant/qalculateplotdialog.ui:203
+#: backends/qalculate/settings.ui:92 backends/qalculate/settings.ui:210
+#: backends/qalculate/settings.ui:244 backends/qalculate/settings.ui:391
+#, kde-format
+msgid "None"
+msgstr "없음"
+
+#. i18n: ectx: property (text), item, widget (KComboBox, smoothingBox)
+#. i18n: ectx: property (text), item, widget (KComboBox, kcfg_plotSmoothing)
+#: backends/qalculate/plotassistant/qalculateplotdialog.ui:208
+#: backends/qalculate/settings.ui:396
+#, kde-format
+msgid "Monotonic"
+msgstr "단조"
+
+#. i18n: ectx: property (text), item, widget (KComboBox, smoothingBox)
+#: backends/qalculate/plotassistant/qalculateplotdialog.ui:213
+#, kde-format
+msgid "Natural Cubic Splines"
+msgstr "자연 3차 스플라인"
+
+#. i18n: ectx: property (text), item, widget (KComboBox, smoothingBox)
+#. i18n: ectx: property (text), item, widget (KComboBox, kcfg_plotSmoothing)
+#: backends/qalculate/plotassistant/qalculateplotdialog.ui:218
+#: backends/qalculate/settings.ui:406
+#, kde-format
+msgid "Bezier"
+msgstr "베지어"
+
+#. i18n: ectx: property (text), item, widget (KComboBox, smoothingBox)
+#. i18n: ectx: property (text), item, widget (KComboBox, kcfg_plotSmoothing)
+#: backends/qalculate/plotassistant/qalculateplotdialog.ui:223
+#: backends/qalculate/settings.ui:411
+#, kde-format
+msgid "Bezier (monotonic)"
+msgstr "베지어(단조)"
+
+#. i18n: ectx: property (title), widget (QGroupBox, groupBox)
+#: backends/qalculate/plotassistant/qalculateplotdialog.ui:233
+#, kde-format
+msgid "Function Range"
+msgstr "함수 범위"
+
+#. i18n: ectx: property (text), widget (QLabel, label)
+#: backends/qalculate/plotassistant/qalculateplotdialog.ui:239
+#, kde-format
+msgid "X range"
+msgstr "X 범위"
+
+#. i18n: ectx: property (text), widget (KLineEdit, xMinEdit)
+#: backends/qalculate/plotassistant/qalculateplotdialog.ui:254
+#, kde-format
+msgid "0"
+msgstr "0"
+
+#. i18n: ectx: property (text), widget (QLabel, label_2)
+#: backends/qalculate/plotassistant/qalculateplotdialog.ui:261
+#, kde-format
+msgid "-"
+msgstr "-"
+
+#. i18n: ectx: property (text), widget (KLineEdit, xMaxEdit)
+#: backends/qalculate/plotassistant/qalculateplotdialog.ui:274
+#, kde-format
+msgid "10"
+msgstr "10"
+
+#. i18n: ectx: property (text), widget (QRadioButton, stepsButton)
+#: backends/qalculate/plotassistant/qalculateplotdialog.ui:283
+#, kde-format
+msgid "Sa&mpling rate"
+msgstr "샘플링 레이트(&M)"
+
+#. i18n: ectx: property (text), widget (QRadioButton, stepButton)
+#: backends/qalculate/plotassistant/qalculateplotdialog.ui:293
+#, kde-format
+msgid "Step si&ze"
+msgstr "단계 크기(&Z)"
+
+#. i18n: ectx: attribute (title), widget (QWidget, tab_4)
+#: backends/qalculate/plotassistant/qalculateplotdialog.ui:324
+#, kde-format
+msgid "Options"
+msgstr "옵션"
+
+#. i18n: ectx: property (text), widget (QLabel, label_19)
+#: backends/qalculate/plotassistant/qalculateplotdialog.ui:332
+#, kde-format
+msgid "Plot title"
+msgstr "플롯 제목"
+
+#. i18n: ectx: property (text), widget (QLabel, label_20)
+#: backends/qalculate/plotassistant/qalculateplotdialog.ui:353
+#, kde-format
+msgid "X-axis label"
+msgstr "X축 이름표"
+
+#. i18n: ectx: property (text), widget (QLabel, label_21)
+#: backends/qalculate/plotassistant/qalculateplotdialog.ui:374
+#, kde-format
+msgid "Y-axis label"
+msgstr "Y축 이름표"
+
+#. i18n: ectx: property (text), widget (QLabel, label_22)
+#: backends/qalculate/plotassistant/qalculateplotdialog.ui:395
+#, kde-format
+msgid "Legend position"
+msgstr "범례 위치"
+
+#. i18n: ectx: property (text), item, widget (KComboBox, legendBox)
+#. i18n: ectx: property (text), item, widget (KComboBox, kcfg_plotLegend)
+#: backends/qalculate/plotassistant/qalculateplotdialog.ui:403
+#: backends/qalculate/settings.ui:474
+#, kde-format
+msgid "Hide legend"
+msgstr "범례 숨기기"
+
+#. i18n: ectx: property (text), item, widget (KComboBox, legendBox)
+#. i18n: ectx: property (text), item, widget (KComboBox, kcfg_plotLegend)
+#: backends/qalculate/plotassistant/qalculateplotdialog.ui:408
+#: backends/qalculate/settings.ui:479
+#, kde-format
+msgid "Top-left"
+msgstr "왼쪽 위"
+
+#. i18n: ectx: property (text), item, widget (KComboBox, legendBox)
+#. i18n: ectx: property (text), item, widget (KComboBox, kcfg_plotLegend)
+#: backends/qalculate/plotassistant/qalculateplotdialog.ui:413
+#: backends/qalculate/settings.ui:484
+#, kde-format
+msgid "Top-right"
+msgstr "오른쪽 위"
+
+#. i18n: ectx: property (text), item, widget (KComboBox, legendBox)
+#. i18n: ectx: property (text), item, widget (KComboBox, kcfg_plotLegend)
+#: backends/qalculate/plotassistant/qalculateplotdialog.ui:418
+#: backends/qalculate/settings.ui:489
+#, kde-format
+msgid "Bottom-left"
+msgstr "왼쪽 아래"
+
+#. i18n: ectx: property (text), item, widget (KComboBox, legendBox)
+#. i18n: ectx: property (text), item, widget (KComboBox, kcfg_plotLegend)
+#: backends/qalculate/plotassistant/qalculateplotdialog.ui:423
+#: backends/qalculate/settings.ui:494
+#, kde-format
+msgid "Bottom-right"
+msgstr "오른쪽 아래"
+
+#. i18n: ectx: property (text), item, widget (KComboBox, legendBox)
+#. i18n: ectx: property (text), item, widget (KComboBox, kcfg_plotLegend)
+#: backends/qalculate/plotassistant/qalculateplotdialog.ui:428
+#: backends/qalculate/settings.ui:499
+#, kde-format
+msgid "Below"
+msgstr "아래"
+
+#. i18n: ectx: property (text), item, widget (KComboBox, legendBox)
+#. i18n: ectx: property (text), item, widget (KComboBox, kcfg_plotLegend)
+#: backends/qalculate/plotassistant/qalculateplotdialog.ui:433
+#: backends/qalculate/settings.ui:504
+#, kde-format
+msgid "Outside"
+msgstr "외부"
+
+#. i18n: ectx: property (text), widget (QCheckBox, gridCheckBox)
+#: backends/qalculate/plotassistant/qalculateplotdialog.ui:445
+#, kde-format
+msgid "Display Grid"
+msgstr "격자 표시"
+
+#. i18n: ectx: property (text), widget (QCheckBox, borderCheckBox)
+#: backends/qalculate/plotassistant/qalculateplotdialog.ui:452
+#, kde-format
+msgid "Display full border"
+msgstr "전체 경계 표시"
+
+#. i18n: ectx: property (text), widget (QCheckBox, colorCheckBox)
+#: backends/qalculate/plotassistant/qalculateplotdialog.ui:463
+#, kde-format
+msgid "Use Colors"
+msgstr "색상 사용"
+
+#. i18n: ectx: property (text), widget (QCheckBox, inlineCheckBox)
+#: backends/qalculate/plotassistant/qalculateplotdialog.ui:470
+#, kde-format
+msgid "Display inline"
+msgstr "인라인으로 표시"
+
+#. i18n: ectx: property (text), widget (QCheckBox, xLogCheckBox)
+#: backends/qalculate/plotassistant/qalculateplotdialog.ui:481
+#, kde-format
+msgid "Logarithmic x scale"
+msgstr "로그 단위 X축"
+
+#. i18n: ectx: property (text), widget (QCheckBox, yLogCheckBox)
+#: backends/qalculate/plotassistant/qalculateplotdialog.ui:502
+#, kde-format
+msgid "Logarithmic y scale"
+msgstr "로그 단위 Y축"
+
+#. i18n: ectx: property (title), widget (QGroupBox, groupBox_3)
+#: backends/qalculate/plotassistant/qalculateplotdialog.ui:521
+#, kde-format
+msgid "File Options"
+msgstr "파일 옵션"
+
+#. i18n: ectx: property (text), widget (QCheckBox, saveCheckBox)
+#: backends/qalculate/plotassistant/qalculateplotdialog.ui:527
+#, kde-format
+msgid "Save plot to file"
+msgstr "플롯을 파일로 저장"
+
+#. i18n: ectx: property (text), widget (QLabel, label_23)
+#: backends/qalculate/plotassistant/qalculateplotdialog.ui:547
+#, kde-format
+msgid "File type"
+msgstr "파일 형식"
+
+#. i18n: ectx: property (text), item, widget (KComboBox, saveFileBox)
+#: backends/qalculate/plotassistant/qalculateplotdialog.ui:555
+#, kde-format
+msgid "Detect from filename"
+msgstr "파일 이름에서 감지"
+
+#. i18n: ectx: property (text), item, widget (KComboBox, saveFileBox)
+#: backends/qalculate/plotassistant/qalculateplotdialog.ui:560
+#, kde-format
+msgid "PNG"
+msgstr "PNG"
+
+#. i18n: ectx: property (text), item, widget (KComboBox, saveFileBox)
+#: backends/qalculate/plotassistant/qalculateplotdialog.ui:565
+#, kde-format
+msgid "PS"
+msgstr "PS"
+
+#. i18n: ectx: property (text), item, widget (KComboBox, saveFileBox)
+#: backends/qalculate/plotassistant/qalculateplotdialog.ui:570
+#, kde-format
+msgid "EPS"
+msgstr "EPS"
+
+#. i18n: ectx: property (text), item, widget (KComboBox, saveFileBox)
+#: backends/qalculate/plotassistant/qalculateplotdialog.ui:575
+#: worksheet.cpp:1820 worksheet.cpp:1846 worksheet.cpp:1866 worksheet.cpp:1884
+#, kde-format
+msgid "LaTeX"
+msgstr "LaTeX"
+
+#. i18n: ectx: property (text), item, widget (KComboBox, saveFileBox)
+#: backends/qalculate/plotassistant/qalculateplotdialog.ui:580
+#, kde-format
+msgid "SVG"
+msgstr "SVG"
+
+#. i18n: ectx: property (text), item, widget (KComboBox, saveFileBox)
+#: backends/qalculate/plotassistant/qalculateplotdialog.ui:585
+#, kde-format
+msgid "FIG"
+msgstr "FIG"
+
+#: backends/qalculate/qalculatebackend.cpp:51
+#, kde-format
+msgid ""
+"<b>Qalculate!</b> is not your regular software replication of the cheapest "
+"available calculator. Qalculate! aims to make full use of the superior "
+"interface, power and flexibility of modern computers. The center of "
+"attention in Qalculate! is the expression entry. Instead of entering each "
+"number in a mathematical expression separately, you can directly write the "
+"whole expression and later modify it. The interpretation of expressions is "
+"flexible and fault tolerant, and if you nevertheless do something wrong, "
+"Qalculate! will tell you so. Not fully solvable expressions are however not "
+"errors. Qalculate! will simplify as far as it can and answer with an "
+"expression. In addition to numbers and arithmetic operators, an expression "
+"may contain any combination of variables, units, and functions."
+msgstr ""
+"<b>Qalculate!</b>는 단순히 저렴한 탁상용 계산기를 대체하는 소프트웨어가 아닙"
+"니다. Qalculate!는 현대적인 컴퓨터의 인터페이스, 성능, 유연함을 완전히 사용하"
+"는 것을 목표로 합니다. Qalculate! 기능의 중심점은 수식 입력입니다. 모든 숫자"
+"를 개별적으로 수식으로 입력하지 않고, 전체 수식을 입력한 다음 나중에 수정할 "
+"수도 있습니다. 수식 처리는 유연하고 오류를 받아들일 수 있어서, 무언가를 잘못 "
+"입력했다면 Qalculate!에서 알려 줍니다. 완전히 해결할 수 없는 수식은 오류로 취"
+"급되지 않습니다. Qalculate!는 해당 수식을 최대한 간략화한 다음 다른 수식으로 "
+"대답합니다. 수식에는 숫자와 수학 연산자 외에도 변수, 단위, 함수를 자유롭게 사"
+"용할 수 있습니다."
+
+#. i18n: ectx: label, entry (postConversion), group (QalculateBackend)
+#: backends/qalculate/qalculatebackend.kcfg:9
+#, kde-format
+msgid ""
+"If and how units will be automatically converted. If true, convert to the "
+"best suited SI units (the least amount of units)."
+msgstr ""
+"단위 자동 변환 사용 여부와 방식입니다. 이 옵션을 사용하면 최적 SI 단위(값이 "
+"가장 작은 단위)로 변환합니다."
+
+#. i18n: ectx: label, entry (angleUnit), group (QalculateBackend)
+#: backends/qalculate/qalculatebackend.kcfg:13
+#, kde-format
+msgid "Default angle unit for trigonometric functions."
+msgstr "삼각 함수에 사용할 기본 각도 단위입니다."
+
+#. i18n: ectx: label, entry (base), group (QalculateBackend)
+#: backends/qalculate/qalculatebackend.kcfg:23
+#, kde-format
+msgid "Base of parsed and evaluated numbers."
+msgstr "해석하고 계산한 숫자의 진수입니다."
+
+#. i18n: ectx: label, entry (structuring), group (QalculateBackend)
+#: backends/qalculate/qalculatebackend.kcfg:32
+#, kde-format
+msgid "If the evaluation result will be simplified or factorized."
+msgstr "계산 결과를 간략화하거나 인수분해할지 여부입니다."
+
+#. i18n: ectx: label, entry (fractionFormat), group (QalculateBackend)
+#: backends/qalculate/qalculatebackend.kcfg:42
+#, kde-format
+msgid ""
+"If rational numbers will be displayed with decimals, as a fraction, or "
+"something in between."
+msgstr "유리수를 소수, 분수, 그 사이의 무언가로 표시할지 여부입니다."
+
+#. i18n: ectx: label, entry (indicateInfiniteSeries), group (QalculateBackend)
+#: backends/qalculate/qalculatebackend.kcfg:46
+#, kde-format
+msgid ""
+"Show that the digit series of a number continues forever with three dots, "
+"instead of rounding (ex. 2/3 displays as 0.666666... instead of 0.666667)."
+msgstr ""
+"이 옵션을 사용하면 순환소수의 연속되는 자릿수를 반올림하지 않고 점 세 개로 표"
+"시합니다(예: 2/3을 0.666667이 아닌 0.666666...으로 표시함)."
+
+#. i18n: ectx: label, entry (useAllPrefixes), group (QalculateBackend)
+#: backends/qalculate/qalculatebackend.kcfg:50
+#, kde-format
+msgid ""
+"Use all decimal SI prefixes. If false, prefixes which is not a multiple of "
+"thousand (centi, deci, deca, hecto) will not be used automatically."
+msgstr ""
+"이 옵션을 사용하면 모든 십진 SI 접두사를 사용합니다. 이 옵션을 사용하지 않으"
+"면 1000의 배수가 아닌 접두사(센티, 데시, 데카, 헥토)를 자동으로 사용하지 않습"
+"니다."
+
+#. i18n: ectx: label, entry (negativeExponents), group (QalculateBackend)
+#: backends/qalculate/qalculatebackend.kcfg:54
+#, kde-format
+msgid ""
+"If true, negative exponents will be used instead of division (ex. 5/x^2 "
+"becomes 5*x^-2)."
+msgstr ""
+"이 옵션을 사용하면 나눗셈 대신 음수 제곱수를 사용합니다(예: 5/x^2 대신 "
+"5*x^-2 사용)."
+
+#. i18n: ectx: label, entry (minExp), group (QalculateBackend)
+#: backends/qalculate/qalculatebackend.kcfg:64
+#, kde-format
+msgid "Numerical display."
+msgstr "숫자 디스플레이입니다."
+
+#. i18n: ectx: label, entry (inlinePlot), group (QalculateBackend)
+#: backends/qalculate/qalculatebackend.kcfg:68
+#, kde-format
+msgid ""
+"If true, plots will be displayed inside the worksheet. If not they appear in "
+"a separate window."
+msgstr ""
+"이 옵션을 사용하면 워크시트 내에 플롯을 표시합니다. 이 옵션을 사용하지 않으"
+"면 별도의 창으로 플롯을 표시합니다."
+
+#. i18n: ectx: label, entry (coloredPlot), group (QalculateBackend)
+#: backends/qalculate/qalculatebackend.kcfg:72
+#, kde-format
+msgid "Whether colors should be used in plots."
+msgstr "플롯에 색상을 사용할지 여부입니다."
+
+#. i18n: ectx: label, entry (plotGrid), group (QalculateBackend)
+#: backends/qalculate/qalculatebackend.kcfg:76
+#, kde-format
+msgid "Whether a grid should be plotted."
+msgstr "격자를 플롯에 포함할지 여부입니다."
+
+#. i18n: ectx: label, entry (plotBorder), group (QalculateBackend)
+#: backends/qalculate/qalculatebackend.kcfg:80
+#, kde-format
+msgid "Whether full borders should be drawn around the plot."
+msgstr "플롯 주위에 전체 테두리를 그릴지 여부입니다."
+
+#. i18n: ectx: label, entry (plotLineWidth), group (QalculateBackend)
+#: backends/qalculate/qalculatebackend.kcfg:84
+#, kde-format
+msgid "Width of lines, in pixels."
+msgstr "픽셀 단위 선 굵기입니다."
+
+#. i18n: ectx: label, entry (plotSteps), group (QalculateBackend)
+#: backends/qalculate/qalculatebackend.kcfg:88
+#, kde-format
+msgid "Number of interpolation steps to be used in plotting."
+msgstr "플롯 시 사용할 보간 단계 수입니다."
+
+#. i18n: ectx: label, entry (plotSmoothing), group (QalculateBackend)
+#: backends/qalculate/qalculatebackend.kcfg:99
+#, kde-format
+msgid "Smoothing mode in plots."
+msgstr "플롯에서의 부드럽게 표시 모드입니다."
+
+#. i18n: ectx: label, entry (plotStyle), group (QalculateBackend)
+#: backends/qalculate/qalculatebackend.kcfg:113
+#, kde-format
+msgid "Style of plots."
+msgstr "플롯 스타일입니다."
+
+#. i18n: ectx: label, entry (plotLegend), group (QalculateBackend)
+#: backends/qalculate/qalculatebackend.kcfg:126
+#, kde-format
+msgid "Legend position in plots."
+msgstr "플롯에 범례를 표시할 위치입니다."
+
+#: backends/qalculate/qalculateexpression.cpp:142
+#, kde-format
+msgid "Qalculate reports it cannot print. Is gnuplot installed?"
+msgstr ""
+"Qalculate에서 출력할 수 없다고 보고했습니다. gnuplot이 설치되어 있습니까?"
+
+#: backends/qalculate/qalculateexpression.cpp:163
+#, kde-format
+msgid "missing %1"
+msgstr "%1 없음"
+
+#: backends/qalculate/qalculateexpression.cpp:253
+#, kde-format
+msgid "%1 must be a number."
+msgstr "%1이(가) 숫자여야 합니다."
+
+#: backends/qalculate/qalculateexpression.cpp:254
+#, kde-format
+msgid "%1 must be a integer."
+msgstr "%1이(가) 정수여야 합니다."
+
+#: backends/qalculate/qalculateexpression.cpp:255
+#, kde-format
+msgid "%1 must be a boolean."
+msgstr "%1이(가) 이진 값이어야 합니다."
+
+#: backends/qalculate/qalculateexpression.cpp:256
+#, kde-format
+msgid "invalid option for %1: %2"
+msgstr "%1의 옵션 잘못됨: %2"
+
+#: backends/qalculate/qalculateexpression.cpp:583
+#, kde-format
+msgid "found multiple expressions in one plot command (%1 and %2)."
+msgstr "플롯 명령 한 개에서 여러 수식을 찾았습니다(%1, %2)."
+
+#: backends/qalculate/qalculateexpression.cpp:682
+#: backends/qalculate/qalculateexpression.cpp:790
+#: backends/qalculate/qalculatehighlighter.cpp:29
+#, kde-format
+msgid "ERROR"
+msgstr "오류"
+
+#: backends/qalculate/qalculateexpression.cpp:684
+#: backends/qalculate/qalculateexpression.cpp:792
+#: backends/qalculate/qalculatehighlighter.cpp:29
+#, kde-format
+msgid "WARNING"
+msgstr "경고"
+
+#: backends/qalculate/qalculatesyntaxhelpobject.cpp:46
+#, kde-format
+msgid "No function, variable or unit with specified name exist."
+msgstr "지정한 이름의 함수, 변수, 단위가 없습니다."
+
+#: backends/qalculate/qalculatesyntaxhelpobject.cpp:53
+#, kde-format
+msgid "Function: %1"
+msgstr "함수: %1"
+
+#: backends/qalculate/qalculatesyntaxhelpobject.cpp:138
+#, kde-format
+msgid "Plotting interface"
+msgstr "플롯 인터페이스"
+
+#: backends/qalculate/qalculatesyntaxhelpobject.cpp:139
+#, kde-format
+msgid "Plots one or more functions either inline or in a separate window."
+msgstr "함수를 인라인이나 별도의 창으로 플롯합니다."
+
+#: backends/qalculate/qalculatesyntaxhelpobject.cpp:140
+#, kde-format
+msgid "expression"
+msgstr "수식"
+
+#: backends/qalculate/qalculatesyntaxhelpobject.cpp:141
+#, kde-format
+msgid "option"
+msgstr "옵션"
+
+#: backends/qalculate/qalculatesyntaxhelpobject.cpp:142
+#, kde-format
+msgid "value"
+msgstr "값"
+
+#: backends/qalculate/qalculatesyntaxhelpobject.cpp:146
+#, kde-format
+msgid "integer"
+msgstr "정수"
+
+#: backends/qalculate/qalculatesyntaxhelpobject.cpp:147
+#, kde-format
+msgid "boolean"
+msgstr "이진 값"
+
+#: backends/qalculate/qalculatesyntaxhelpobject.cpp:148
+#, kde-format
+msgid "number"
+msgstr "숫자"
+
+#: backends/qalculate/qalculatesyntaxhelpobject.cpp:149
+#, kde-format
+msgid "default: %1"
+msgstr "기본값: %1"
+
+#: backends/qalculate/qalculatesyntaxhelpobject.cpp:209
+#, kde-format
+msgid "The function's name"
+msgstr "함수 이름"
+
+#: backends/qalculate/qalculatesyntaxhelpobject.cpp:211
+#, kde-format
+msgid "Title label"
+msgstr "제목 이름표"
+
+#: backends/qalculate/qalculatesyntaxhelpobject.cpp:212
+#, kde-format
+msgid "x-axis label"
+msgstr "X축 이름표"
+
+#: backends/qalculate/qalculatesyntaxhelpobject.cpp:213
+#, kde-format
+msgid "y-axis label"
+msgstr "Y축 이름표"
+
+#: backends/qalculate/qalculatesyntaxhelpobject.cpp:214
+#, kde-format
+msgid ""
+"Image to save plot to. If empty shows plot in a window on the screen. If "
+"inline=true the image is shown regardless of this option."
+msgstr ""
+"플롯을 저장할 그림 파일입니다. 비워 두면 화면에 플롯을 표시합니다. "
+"inline=true이면 이 옵션과 관계 없이 이미지를 표시합니다."
+
+#: backends/qalculate/qalculatesyntaxhelpobject.cpp:215
+#, kde-format
+msgid "The image type to save as. One of auto, png, ps, eps, latex, svg, fig."
+msgstr ""
+"저장할 그림 형식입니다. auto, png, ps, eps, latex, svg, fig 중에서 지정해야 "
+"합니다."
+
+#: backends/qalculate/qalculatesyntaxhelpobject.cpp:216
+#, kde-format
+msgid "Set to true for colored plot, false for monochrome."
+msgstr "플롯에 색상을 사용하려면 true, 단색 플롯은 false입니다."
+
+#: backends/qalculate/qalculatesyntaxhelpobject.cpp:217
+#, kde-format
+msgid "Minimum x-axis value."
+msgstr "최소 X축 값입니다."
+
+#: backends/qalculate/qalculatesyntaxhelpobject.cpp:218
+#, kde-format
+msgid "Maximum x-axis value."
+msgstr "최대 X축 값입니다."
+
+#: backends/qalculate/qalculatesyntaxhelpobject.cpp:219
+#, kde-format
+msgid "If a logarithmic scale shall be used for the x-axis."
+msgstr "X축에 로그 단위 눈금을 사용할지 여부입니다."
+
+#: backends/qalculate/qalculatesyntaxhelpobject.cpp:220
+#, kde-format
+msgid "If a logarithmic scale shall be used for the y-axis."
+msgstr "Y축에 로그 단위 눈금을 사용할지 여부입니다."
+
+#: backends/qalculate/qalculatesyntaxhelpobject.cpp:221
+#, kde-format
+msgid "Logarithmic base for the x-axis."
+msgstr "X축의 로그 밑입니다."
+
+#: backends/qalculate/qalculatesyntaxhelpobject.cpp:222
+#, kde-format
+msgid "Logarithmic base for the y-axis."
+msgstr "Y축의 로그 밑입니다."
+
+#: backends/qalculate/qalculatesyntaxhelpobject.cpp:223
+#, kde-format
+msgid "If a grid shall be shown in the plot."
+msgstr "플롯에 격자를 표시할지 여부입니다."
+
+#: backends/qalculate/qalculatesyntaxhelpobject.cpp:224
+#, kde-format
+msgid ""
+"If the plot shall be surrounded by borders on all sides (not just axis)."
+msgstr "플롯의 모든 변에 테두리를 표시할지 여부입니다(축 외에도)."
+
+#: backends/qalculate/qalculatesyntaxhelpobject.cpp:225
+#, kde-format
+msgid "Width of lines."
+msgstr "선 굵기입니다."
+
+#: backends/qalculate/qalculatesyntaxhelpobject.cpp:226
+#, kde-format
+msgid ""
+"Where the plot legend shall be placed. One of none, top_left, top_right, "
+"bottom_left, bottom_right, below, outside"
+msgstr ""
+"플롯 범례를 표시할 위치입니다. none, top_left, top_right, bottom_left, "
+"bottom_right, below, outside 중 하나여야 합니다"
+
+#: backends/qalculate/qalculatesyntaxhelpobject.cpp:227
+#, kde-format
+msgid "Plot smoothing. One of none, unique, csplines, bezier, sbezier"
+msgstr ""
+"플롯을 부드럽게 합니다. none, unique, csplines, bezier, sbezier 중 하나여야 "
+"합니다"
+
+#: backends/qalculate/qalculatesyntaxhelpobject.cpp:228
+#, kde-format
+msgid ""
+"Plot style. One of lines, points, points_lines, boxes, histogram, steps, "
+"candlesticks, dots"
+msgstr ""
+"플롯 스타일입니다. lines, points, points_lines, boxes, histogram, steps, "
+"candlesticks, dots 중 하나여야 합니다"
+
+#: backends/qalculate/qalculatesyntaxhelpobject.cpp:229
+#, kde-format
+msgid "Use scale on second x-axis."
+msgstr "두 번째 X축의 축척입니다."
+
+#: backends/qalculate/qalculatesyntaxhelpobject.cpp:230
+#, kde-format
+msgid "Use scale on second y-axis."
+msgstr "두 번째 Y축의 축척입니다."
+
+#: backends/qalculate/qalculatesyntaxhelpobject.cpp:231
+#, kde-format
+msgid "If the plot is to be drawn inline, instead of in a new window."
+msgstr "플롯을 새 창이 아닌 인라인으로 표시할지 여부입니다."
+
+#: backends/qalculate/qalculatesyntaxhelpobject.cpp:232
+#, kde-format
+msgid "Distance between two interpolation points. See also steps."
+msgstr "두 보간 지점간 거리입니다. 단계 설정도 참조하십시오."
+
+#: backends/qalculate/qalculatesyntaxhelpobject.cpp:233
+#, kde-format
+msgid "Number of interpolation points. See also step."
+msgstr "보간 지점의 개수입니다. 단계 설정도 참조하십시오."
+
+#: backends/qalculate/qalculatesyntaxhelpobject.cpp:234
+#, kde-format
+msgid "The name of the x variable. This must be an unknown variable"
+msgstr "X 변수의 이름입니다. 알 수 없는 변수여야 합니다"
+
+#: backends/qalculate/qalculatesyntaxhelpobject.cpp:243
+#, kde-format
+msgid "Save variables to a file"
+msgstr "파일로 변수 저장"
+
+#: backends/qalculate/qalculatesyntaxhelpobject.cpp:244
+#, kde-format
+msgid ""
+"Save all currently defined variables to a file. They can be reloaded with %1."
+msgstr ""
+"현재 정의된 모든 변수를 파일로 저장합니다. %1(으)로 다시 불러올 수 있습니다."
+
+#: backends/qalculate/qalculatesyntaxhelpobject.cpp:245
+#: backends/qalculate/qalculatesyntaxhelpobject.cpp:254
+#, kde-format
+msgid "file"
+msgstr "file"
+
+#: backends/qalculate/qalculatesyntaxhelpobject.cpp:246
+#, kde-format
+msgid "file: the file to save to"
+msgstr "file: 저장할 파일"
+
+#: backends/qalculate/qalculatesyntaxhelpobject.cpp:252
+#, kde-format
+msgid "Load variables from a file"
+msgstr "파일에서 변수 불러오기"
+
+#: backends/qalculate/qalculatesyntaxhelpobject.cpp:253
+#, kde-format
+msgid "Load variables from a file that has previously been created by %1."
+msgstr "%1에서 이전에 만든 파일에서 변수를 불러옵니다."
+
+#: backends/qalculate/qalculatesyntaxhelpobject.cpp:255
+#, kde-format
+msgid "file: the file to load"
+msgstr "file: 불러올 파일"
+
+#. i18n: ectx: property (text), widget (QLabel, label)
+#: backends/qalculate/settings.ui:27
+#, kde-format
+msgid "Number base:"
+msgstr "숫자 진수:"
+
+#. i18n: ectx: property (text), widget (QLabel, label_5)
+#: backends/qalculate/settings.ui:47
+#, kde-format
+msgid "Fraction format:"
+msgstr "분수 형식:"
+
+#. i18n: ectx: property (text), item, widget (KComboBox, kcfg_fractionFormat)
+#: backends/qalculate/settings.ui:58
+#, kde-format
+msgid "Decimal"
+msgstr "10진수"
+
+#. i18n: ectx: property (text), item, widget (KComboBox, kcfg_fractionFormat)
+#: backends/qalculate/settings.ui:63
+#, kde-format
+msgid "Exact"
+msgstr "정확함"
+
+#. i18n: ectx: property (text), item, widget (KComboBox, kcfg_fractionFormat)
+#: backends/qalculate/settings.ui:68
+#, kde-format
+msgid "Fractional"
+msgstr "분수"
+
+#. i18n: ectx: property (text), item, widget (KComboBox, kcfg_fractionFormat)
+#: backends/qalculate/settings.ui:73
+#, kde-format
+msgid "Combined"
+msgstr "대분수"
+
+#. i18n: ectx: property (text), widget (QLabel, label_9)
+#: backends/qalculate/settings.ui:81
+#, kde-format
+msgid "Numerical display:"
+msgstr "숫자 표시:"
+
+#. i18n: ectx: property (text), item, widget (KComboBox, kcfg_minExp)
+#: backends/qalculate/settings.ui:97
+#, kde-format
+msgid "Pure"
+msgstr "순수"
+
+#. i18n: ectx: property (text), item, widget (KComboBox, kcfg_minExp)
+#: backends/qalculate/settings.ui:102
+#, kde-format
+msgid "Scientific"
+msgstr "과학"
+
+#. i18n: ectx: property (text), item, widget (KComboBox, kcfg_minExp)
+#: backends/qalculate/settings.ui:107
+#, kde-format
+msgid "Precision"
+msgstr "정밀"
+
+#. i18n: ectx: property (text), widget (QLabel, label_6)
+#: backends/qalculate/settings.ui:115
+#, kde-format
+msgid "Indicate infinite series:"
+msgstr "무한 급수 표시:"
+
+#. i18n: ectx: property (text), widget (QLabel, label_7)
+#: backends/qalculate/settings.ui:132
+#, kde-format
+msgid "Use all SI prefixes:"
+msgstr "모든 SI 접두사 사용:"
+
+#. i18n: ectx: property (text), widget (QLabel, label_8)
+#: backends/qalculate/settings.ui:149
+#, kde-format
+msgid "Use negative exponents:"
+msgstr "음의 제곱수 사용:"
+
+#. i18n: ectx: attribute (title), widget (QWidget, tab_2)
+#: backends/qalculate/settings.ui:180 worksheetentry.cpp:414
+#, kde-format
+msgid "Evaluate"
+msgstr "계산"
+
+#. i18n: ectx: property (text), widget (QLabel, label_2)
+#: backends/qalculate/settings.ui:186
+#, kde-format
+msgid "Convert to best SI units:"
+msgstr "최적 SI 단위로 변환:"
+
+#. i18n: ectx: property (text), item, widget (KComboBox, kcfg_angleUnit)
+#: backends/qalculate/settings.ui:215
+#, kde-format
+msgid "Radians"
+msgstr "라디안"
+
+#. i18n: ectx: property (text), item, widget (KComboBox, kcfg_angleUnit)
+#: backends/qalculate/settings.ui:220
+#, kde-format
+msgid "Degrees"
+msgstr "도"
+
+#. i18n: ectx: property (text), item, widget (KComboBox, kcfg_angleUnit)
+#: backends/qalculate/settings.ui:225
+#, kde-format
+msgid "Gradians"
+msgstr "그라디안"
+
+#. i18n: ectx: property (text), widget (QLabel, label_4)
+#: backends/qalculate/settings.ui:233
+#, kde-format
+msgid "Structuring Mode:"
+msgstr "구조화 모드:"
+
+#. i18n: ectx: property (text), item, widget (KComboBox, kcfg_structuring)
+#: backends/qalculate/settings.ui:249
+#, kde-format
+msgid "Simplify"
+msgstr "간략하게"
+
+#. i18n: ectx: property (text), item, widget (KComboBox, kcfg_structuring)
+#: backends/qalculate/settings.ui:254
+#, kde-format
+msgid "Factorize"
+msgstr "인수분해"
+
+#. i18n: ectx: property (text), widget (QLabel, label_3)
+#: backends/qalculate/settings.ui:275
+#, kde-format
+msgid "Angle unit:"
+msgstr "각도 단위:"
+
+#. i18n: ectx: attribute (title), widget (QWidget, tab)
+#: backends/qalculate/settings.ui:286
+#, kde-format
+msgid "Plotting"
+msgstr "플롯"
+
+#. i18n: ectx: property (text), widget (QLabel, label_10)
+#: backends/qalculate/settings.ui:292
+#, kde-format
+msgid "Display plots inline:"
+msgstr "인라인으로 플롯 표시:"
+
+#. i18n: ectx: property (text), widget (QLabel, label_12)
+#: backends/qalculate/settings.ui:329
+#, kde-format
+msgid "Show full borders:"
+msgstr "전체 테두리 표시:"
+
+#. i18n: ectx: property (text), widget (QLabel, label_17)
+#: backends/qalculate/settings.ui:346
+#, kde-format
+msgid "Width of lines:"
+msgstr "선 굵기:"
+
+#. i18n: ectx: property (text), widget (QLabel, label_18)
+#: backends/qalculate/settings.ui:363
+#, kde-format
+msgid "Sampling rate:"
+msgstr "샘플링 레이트:"
+
+#. i18n: ectx: property (text), widget (QLabel, label_13)
+#: backends/qalculate/settings.ui:380
+#, kde-format
+msgid "Smoothing Mode:"
+msgstr "부드럽게 표시 모드:"
+
+#. i18n: ectx: property (text), item, widget (KComboBox, kcfg_plotSmoothing)
+#: backends/qalculate/settings.ui:401
+#, kde-format
+msgid "Natural cubic Splines"
+msgstr "자연 3차 스플라인"
+
+#. i18n: ectx: property (text), item, widget (KComboBox, kcfg_plotStyle)
+#: backends/qalculate/settings.ui:445
+#, kde-format
+msgctxt "Plot Style"
+msgid "Steps"
+msgstr "단계"
+
+#. i18n: ectx: property (text), widget (QLabel, label_16)
+#: backends/qalculate/settings.ui:463
+#, kde-format
+msgid "Legend Position:"
+msgstr "범례 위치:"
+
+#. i18n: ectx: property (text), widget (QLabel, label_15)
+#: backends/qalculate/settings.ui:525
+#, kde-format
+msgid "Colored Plots:"
+msgstr "플롯에 색상 사용:"
+
+#. i18n: ectx: property (text), widget (QLabel, label_11)
+#: backends/qalculate/settings.ui:535
+#, kde-format
+msgid "Show grid:"
+msgstr "격자 표시:"
+
+#. i18n: ectx: property (text), widget (QLabel, label_14)
+#: backends/qalculate/settings.ui:545
+#, kde-format
+msgid "Plot Style:"
+msgstr "플롯 스타일:"
+
+#: backends/qthelpconfig.cpp:45
+#, kde-format
+msgctxt "@title:window"
+msgid "Modify Entry"
+msgstr "항목 수정"
+
+#: backends/qthelpconfig.cpp:47
+#, kde-format
+msgctxt "@title:window"
+msgid "Add New Entry"
+msgstr "새 항목 추가"
+
+#: backends/qthelpconfig.cpp:64
+#, kde-format
+msgid "Name cannot be empty."
+msgstr "이름을 비워둘 수 없습니다."
+
+#: backends/qthelpconfig.cpp:84
+#, kde-format
+msgid "Add local documentation"
+msgstr "로컬 문서 추가"
+
+#: backends/qthelpconfig.cpp:100
+#, kde-format
+msgctxt "@action:button Allow user to get some API documentation with GHNS"
+msgid "Get New Documentation"
+msgstr "새 문서 가져오기"
+
+#: backends/qthelpconfig.cpp:103
+#, kde-format
+msgid "Download additional documentations"
+msgstr "추가 문서 다운로드"
+
+#: backends/qthelpconfig.cpp:171
+#, kde-format
+msgid "Qt Compressed Help file is not valid."
+msgstr "Qt 압축된 도움말 파일이 잘못되었습니다."
+
+#: backends/qthelpconfig.cpp:180
+#, kde-format
+msgid "Documentation already imported"
+msgstr "문서를 이미 가져옴"
+
+#: backends/qthelpconfig.cpp:270
+#, kde-format
+msgctxt "@info:tooltip"
+msgid "Modify"
+msgstr "수정"
+
+#: backends/qthelpconfig.cpp:275
+#, kde-format
+msgctxt "@info:tooltip"
+msgid "Delete"
+msgstr "삭제"
+
+#: backends/qthelpconfig.cpp:283
+#, kde-format
+msgctxt "@info:tooltip"
+msgid "Please uninstall this via GHNS."
+msgstr "GHNS로 삭제하십시오."
+
+#. i18n: ectx: property (text), widget (QLabel, label)
+#: backends/qthelpconfig.ui:20
+#, kde-format
+msgid "Install Additional Documentation Files"
+msgstr "추가 문서 파일 설치"
+
+#. i18n: ectx: property (text), widget (QTreeWidget, qchTable)
+#: backends/qthelpconfig.ui:49 lib/defaultvariablemodel.cpp:67
+#, kde-format
+msgctxt "@title:column"
+msgid "Name"
+msgstr "이름"
+
+#. i18n: ectx: property (text), widget (QTreeWidget, qchTable)
+#: backends/qthelpconfig.ui:54
+#, kde-format
+msgctxt "@title:column"
+msgid "Path"
+msgstr "경로"
+
+#. i18n: ectx: property (text), widget (QPushButton, addButton)
+#: backends/qthelpconfig.ui:79
+#, kde-format
+msgctxt "@action:button"
+msgid "Add"
+msgstr "추가"
+
+#. i18n: ectx: property (text), widget (QLabel, lIcon)
+#: backends/qthelpconfigeditdialog.ui:17
+#, kde-format
+msgctxt "@label:chooser"
+msgid "Icon:"
+msgstr "아이콘:"
+
+#. i18n: ectx: property (toolTip), widget (KIconButton, qchIcon)
+#: backends/qthelpconfigeditdialog.ui:24
+#, kde-format
+msgctxt "@info:tooltip"
+msgid "Select an icon"
+msgstr "아이콘 선택"
+
+#. i18n: ectx: property (text), widget (QLabel, lName)
+#: backends/qthelpconfigeditdialog.ui:37
+#, kde-format
+msgctxt "@label:textbox"
+msgid "Name:"
+msgstr "이름:"
+
+#. i18n: ectx: property (toolTip), widget (QLineEdit, qchName)
+#: backends/qthelpconfigeditdialog.ui:44
+#, kde-format
+msgctxt "@info:tooltip"
+msgid "Enter a name"
+msgstr "이름 입력"
+
+#. i18n: ectx: property (placeholderText), widget (QLineEdit, qchName)
+#: backends/qthelpconfigeditdialog.ui:47
+#, kde-format
+msgctxt "@info:placeholder"
+msgid "Select a name..."
+msgstr "이름 선택..."
+
+#. i18n: ectx: property (text), widget (QLabel, lPath)
+#: backends/qthelpconfigeditdialog.ui:54
+#, kde-format
+msgctxt "@label:textbox"
+msgid "Path:"
+msgstr "경로:"
+
+#. i18n: ectx: property (toolTip), widget (KUrlRequester, qchRequester)
+#: backends/qthelpconfigeditdialog.ui:67
+#, kde-format
+msgctxt "@info:tooltip"
+msgid "Select a Qt Help file..."
+msgstr "Qt 도움말 파일 선택..."
+
+#. i18n: ectx: property (placeholderText), widget (KUrlRequester, qchRequester)
+#: backends/qthelpconfigeditdialog.ui:73
+#, kde-format
+msgctxt "@info:placeholder"
+msgid "Select a Qt Help file..."
+msgstr "Qt 도움말 파일 선택..."
+
+#: backends/R/rbackend.cpp:81
+#, kde-format
+msgctxt ""
+"the url to the documentation of R, please check if there is a translated "
+"version and use the correct url"
+msgid "https://cran.r-project.org/manuals.html"
+msgstr "https://cran.r-project.org/manuals.html"
+
+#: backends/R/rbackend.cpp:88
+#, kde-format
+msgid ""
+"<h1>R' Help System: <i>help()</i> and <i>?</i>:</h1><br>The <i>help()</i> "
+"function and <i>?</i> help operator in R provide access to the documentation "
+"pages for R functions, data sets, and other objects, both for packages in "
+"the standard R distribution and for contributed packages.<br><br>To access "
+"documentation for the standard <i>lm</i> (linear model) function, for "
+"example, enter the command <b><i>help(lm)</i></b> or <i>help(\"lm\")</i>, or "
+"<i>?lm</i> or <i>?\"lm\"</i> (i.e., the quotes are optional).<br><br>To "
+"access help for a function in a package that’s not currently loaded, specify "
+"in addition the name of the package: For example, to obtain documentation "
+"for the <i>rlm()</i> (robust linear model) function in the MASS package, "
+"<i>help(rlm, package=\"MASS\")</i>.<br><br>Standard names in R consist of "
+"upper- and lower-case letters, numerals (0-9), underscores (_), and periods "
+"(.), and must begin with a letter or a period. To obtain help for an object "
+"with a non-standard name (such as the help operator <i>?</i>), the name must "
+"be quoted: for example, <i>help('?')</i> or <i>?\"?\"</i>.<br><br>You may "
+"also use the <i>help()</i> function to access information about a package in "
+"your library — for example, <i>help(package=\"MASS\")</i> — which displays "
+"an index of available help pages for the package along with some other "
+"information.<br><br>Help pages for functions usually include a section with "
+"executable examples illustrating how the functions work. You can execute "
+"these examples in the current R session via the <i>example()</i> command: e."
+"g., <i>example(lm)</i>."
+msgstr ""
+
+#: backends/R/rbackend.cpp:99
+#, kde-format
+msgid ""
+"<b>R</b> is a language and environment for statistical computing and "
+"graphics, similar to the S language and environment. <br/>It provides a wide "
+"variety of statistical (linear and nonlinear modelling, classical "
+"statistical tests, time-series analysis, classification, clustering, ...) "
+"and graphical techniques, and is highly extensible. The S language is often "
+"the vehicle of choice for research in statistical methodology, and R "
+"provides an Open Source route to participation in that activity."
+msgstr ""
+"<b>R</b>은 통계 계산과 그래픽용 언어 환경으로 S 언어 및 환경과 유사합니다. "
+"<br/>다양한 통계(선형 및 비선형 모델링, 고전 통계학적 시험, 시계열 분석, 분"
+"류, 군집, ...) 및 그래픽 기능을 제공하며, 여러 단계로 확장할 수 있습니다. S "
+"언어는 통계 계산에 자주 사용되며, R은 오픈 소스로 이러한 기능을 제공합니다."
+
+#: backends/R/rexpression.cpp:107 backends/R/rexpression.cpp:108
+#, kde-format
+msgid "Error opening file %1"
+msgstr "파일 %1 열기 오류"
+
+#: backends/R/rextensions.cpp:22
+#, kde-format
+msgid "R script file (*.R)"
+msgstr "R 스크립트 파일 (*.R)"
+
+#: backends/R/rserver/rserver.cpp:362
+#, kde-format
+msgid "Error Parsing Command"
+msgstr "명령 처리 중 오류 발생"
+
+#. i18n: ectx: label, entry (localDoc), group (RBackend)
+#: backends/R/rserver/rserver.kcfg:9
+#, kde-format
+msgid "Url to the local R documentation"
+msgstr "로컬 R 문서의 URL"
+
+#: backends/R/rsettingswidget.cpp:24
+#, kde-format
+msgid "Double click to open file selection dialog"
+msgstr "파일 선택 대화 상자를 열려면 두 번 클릭하십시오"
+
+#: backends/R/rsettingswidget.cpp:44
+#, kde-format
+msgid "*.R *.r|R source files (*.R, *.r)"
+msgstr "*.R *.r|R 소스 파일 (*.R, *.r)"
+
+#: backends/sage/sagebackend.cpp:79
+#, kde-format
+msgctxt ""
+"the url to the documentation of Sage, please check if there is a translated "
+"version and use the correct url"
+msgid "https://doc.sagemath.org/html/en/reference/index.html"
+msgstr "https://doc.sagemath.org/html/en/reference/index.html"
+
+#: backends/sage/sagebackend.cpp:84
+#, kde-format
+msgid ""
+"<b>Sage</b> is a free open-source mathematics software system licensed under "
+"the GPL. <br/>It combines the power of many existing open-source packages "
+"into a common Python-based interface."
+msgstr ""
+"<b>Sage</b>는 GPL로 배포되는 오픈소스 수학 소프트웨어 시스템입니다.<br/>많은 "
+"오픈 소스 패키지의 능력을 Python 인터페이스를 기반으로 결합합니다."
+
+#. i18n: ectx: label, entry (Path), group (SageBackend)
+#: backends/sage/sagebackend.kcfg:10
+#, kde-format
+msgid "Path to the Sage executable"
+msgstr "Sage 실행 파일 경로"
+
+#. i18n: ectx: label, entry (allowLatex), group (SageBackend)
+#: backends/sage/sagebackend.kcfg:14
+#, kde-format
+msgid "Enable LaTeX typesetting for Sage backend"
+msgstr "Sage 백엔드의 LaTeX 조판 사용"
+
+#: backends/sage/sageexpression.cpp:233 backends/sage/sageexpression.cpp:235
+#, kde-format
+msgid "Result of %1"
+msgstr "%1의 결과"
+
+#: backends/sage/sageexpression.cpp:242
+#, kde-format
+msgid ""
+"%1\n"
+"The last output was: \n"
+" %2"
+msgstr ""
+"%1\n"
+"마지막 출력:\n"
+"%2"
+
+#: backends/sage/sageextensions.cpp:32
+#, kde-format
+msgid "Python script file (*.py);;Sage script file (*.sage)"
+msgstr "Python 스크립트 파일 (*.py);;Sage 스크립트 파일 (*.sage)"
+
+#: backends/sage/sagesession.cpp:236
+#, kde-format
+msgid ""
+"Sage version %1.%2 is unsupported. Please update your installation to the "
+"supported versions to make it work with Cantor."
+msgstr ""
+"Sage 버전 %1.%2은(는) 지원하지 않습니다. Cantor에서 사용하려면 지원하는 버전"
+"으로 업그레이드하십시오."
+
+#: backends/sage/sagesession.cpp:270
+#, kde-format
+msgid ""
+"Failed to determine the version of Sage. Please check your installation and "
+"the output of 'sage -v'."
+msgstr ""
+"Sage의 버전을 알 수 없습니다. 설치 상태와 'sage -v' 명령의 출력을 확인하십시"
+"오."
+
+#: backends/sage/sagesession.cpp:333
+#, kde-format
+msgid "The Sage process crashed while evaluating this expression"
+msgstr "이 수식을 처리하는 중 Sage 프로세스가 충돌함"
+
+#: backends/sage/sagesession.cpp:337
+#, kde-format
+msgid "The Sage process crashed"
+msgstr "Sage 프로세스가 충돌함"
+
+#: backends/sage/sagesession.cpp:344
+#, kde-format
+msgid "The Sage process exited while evaluating this expression"
+msgstr "이 수식을 처리하는 중 Sage 프로세스가 종료됨"
+
+#: backends/sage/sagesession.cpp:348
+#, kde-format
+msgid "The Sage process exited"
+msgstr "Sage 프로세스 종료됨"
+
+#: backends/sage/sagesession.cpp:358
+#, kde-format
+msgid "Failed to start Sage"
+msgstr "Sage를 시작할 수 없음"
+
+#. i18n: ectx: property (text), widget (QLabel, label_2)
+#: backends/sage/settings.ui:27
+#, kde-format
+msgid "LaTeX typesetting:"
+msgstr "LaTeX 조판:"
+
+#. i18n: ectx: property (toolTip), widget (QCheckBox, kcfg_allowLatex)
+#: backends/sage/settings.ui:34
+#, kde-format
+msgid ""
+"Sage LaTeX output not always correct, so latex typesetting can be disabled "
+"for better experience"
+msgstr ""
+"Sage의 LaTeX 출력은 올바르지 않을 수도 있으므로 더 나은 사용자 경험을 위해서 "
+"LaTeX 조판을 비활성화할 수도 있습니다"
+
+#: backends/scilab/scilabbackend.cpp:68
+#, kde-format
+msgctxt ""
+"The url to the documentation of Scilab, please check if there is a "
+"translated version and use the correct url"
+msgid "https://www.scilab.org/support/documentation"
+msgstr "https://www.scilab.org/support/documentation"
+
+#: backends/scilab/scilabbackend.cpp:73
+#, kde-format
+msgid ""
+"<b>Scilab</b> is a free software, cross-platform numerical computational "
+"package and a high-level, numerically oriented programming language.Scilab "
+"is distributed under CeCILL license (GPL compatible)."
+msgstr ""
+"<b>Scilab</b>은 자유 소프트웨어, 크로스 플랫폼 수치 계산 패키지이자 고수준 수"
+"치 지향 프로그래밍 언어입니다. Scilab은 GPL과 호환되는 CeCILL 라이선스로 배포"
+"됩니다."
+
+#. i18n: ectx: label, entry (Path), group (ScilabBackend)
+#: backends/scilab/scilabbackend.kcfg:10
+#, kde-format
+msgid "Path to the Scilab executable"
+msgstr "Scilab 실행 파일 경로"
+
+#: backends/scilab/scilabextensions.cpp:23
+#, kde-format
+msgid ";;Scilab script file (*.sce);;Scilab function file (*.sci)"
+msgstr ";;Scilab 스크립트 파일 (*.sce);;Scilab 함수 파일 (*.sci)"
+
+#: cantor.cpp:104
+#, kde-format
+msgid "The file %1 is already opened."
+msgstr "파일 %1이(가) 이미 열려 있습니다."
+
+#: cantor.cpp:104 cantor.cpp:228
+#, kde-format
+msgid "Open file"
+msgstr "파일 열기"
+
+#: cantor.cpp:146
+#, kde-format
+msgid "Download Examples"
+msgstr "예제 다운로드"
+
+#: cantor.cpp:149
+#, kde-format
+msgid "&Open Example"
+msgstr "예제 열기(&O)"
+
+#: cantor.cpp:154
+#, kde-format
+msgid "Go to previous worksheet"
+msgstr "이전 워크시트로 이동"
+
+#: cantor.cpp:166
+#, kde-format
+msgid "Go to next worksheet"
+msgstr "다음 워크시트로 이동"
+
+#: cantor.cpp:227
+#, kde-format
+msgid ""
+"All supported files (*.cws *ipynb);;Cantor Worksheet (*.cws);;Jupyter "
+"Notebook (*.ipynb)"
+msgstr ""
+"모든 지원하는 파일 (*.cws *ipynb);;Cantor 워크시트 (*.cws);;Jupyter 노트북 "
+"(*.ipynb)"
+
+#: cantor.cpp:295
+#, kde-format
+msgid ""
+"<h1>No Backend Found</h1>\n"
+"<div>You could try:\n"
+"  <ul>    <li>Changing the settings in the config dialog;</li>    "
+"<li>Installing packages for the following program:</li>     %2   </ul> </"
+"div> "
+msgid_plural ""
+"<h1>No Backend Found</h1>\n"
+"<div>You could try:\n"
+"  <ul>    <li>Changing the settings in the config dialog;</li>    "
+"<li>Installing packages for one of the following programs:</li>     %2   </"
+"ul> </div> "
+msgstr[0] ""
+"<h1>백엔드를 찾을 수 없음</h1>\n"
+"<div>다음을 시도해 보십시오:\n"
+"  <ul><li>설정 대화 상자의 설정 변경</li> <li>다음 중 하나 이상의 패키지 설"
+"치:</li> %2 </ul></div>"
+
+#: cantor.cpp:315
+#, kde-format
+msgid "Error"
+msgstr "오류"
+
+#: cantor.cpp:336
+#, kde-format
+msgid "Backend %1 is not installed"
+msgstr "%1 백엔드가 설치되지 않음"
+
+#: cantor.cpp:343
+#, kde-format
+msgid ""
+"%1 backend installed, but inactive. Please check installation and Cantor "
+"settings"
+msgstr ""
+"%1 백엔드가 설치되었지만 비활성화되어 있습니다. 설치 상태와 Cantor 설정을 확"
+"인하십시오"
+
+#: cantor.cpp:370
+#, kde-format
+msgid "Session %1"
+msgstr "세션 %1"
+
+#: cantor.cpp:391
+#, kde-format
+msgid "Failed to find the Cantor Part with error %1"
+msgstr "Cantor 부분을 찾을 수 없습니다. 오류 %1"
+
+#: cantor.cpp:438 cantor_part.cpp:621
+#, kde-format
+msgid "Calculating..."
+msgstr "계산 중..."
+
+#: cantor.cpp:441 cantor_part.cpp:632 cantor_part.cpp:695
+#, kde-format
+msgid "Ready"
+msgstr "준비"
+
+#: cantor.cpp:485
+#, kde-format
+msgid "Changed"
+msgstr "변경됨"
+
+#: cantor.cpp:569
+#, kde-format
+msgid "Multiple unsaved Worksheets are opened. Do you want to close them?"
+msgstr "저장하지 않은 워크시트가 열려 있습니다. 닫으시겠습니까?"
+
+#: cantor.cpp:570
+#, kde-format
+msgid "Close Cantor"
+msgstr "Cantor 닫기"
+
+#: cantor.cpp:586
+#, kde-format
+msgid "The current project has been modified. Do you want to save it?"
+msgstr "현재 프로젝트가 수정되었습니다. 저장하시겠습니까?"
+
+#: cantor.cpp:587
+#, kde-format
+msgid "Save Project"
+msgstr "프로젝트 저장"
+
+#: cantor.cpp:633
+#, kde-format
+msgid "Formatting"
+msgstr "서식"
+
+#. i18n: ectx: label, entry (DefaultBackend), group (Cantor)
+#: cantor.kcfg:12
+#, kde-format
+msgid "The Backend that is used by default"
+msgstr "기본으로 사용할 백엔드"
+
+#. i18n: ectx: label, entry (TypesetDefault), group (Cantor)
+#: cantor.kcfg:16
+#, kde-format
+msgid "Do Typesetting by default"
+msgstr "기본으로 조판 사용"
+
+#. i18n: ectx: label, entry (HighlightDefault), group (Cantor)
+#: cantor.kcfg:20
+#, kde-format
+msgid "Do Syntax Highlighting by default"
+msgstr "기본으로 구문 강조"
+
+#. i18n: ectx: label, entry (CompletionDefault), group (Cantor)
+#: cantor.kcfg:24
+#, kde-format
+msgid "Enable Completions by default"
+msgstr "기본으로 자동 완성 사용"
+
+#. i18n: ectx: label, entry (ExpressionNumberingDefault), group (Cantor)
+#: cantor.kcfg:28
+#, kde-format
+msgid "Enable Numbering of Expressions by default"
+msgstr "기본으로 식에 번호 붙이기"
+
+#. i18n: ectx: label, entry (AnimationDefault), group (Cantor)
+#: cantor.kcfg:32
+#, kde-format
+msgid "Animate changes in the Worksheet by default"
+msgstr "기본으로 워크시트 변경 애니메이션 사용"
+
+#. i18n: ectx: label, entry (EmbeddedMathDefault), group (Cantor)
+#: cantor.kcfg:36
+#, kde-format
+msgid ""
+"Enable rendering math expressions inside $$..$$ in Text and Markdown entries "
+"by default (needs pdflatex installed)"
+msgstr ""
+"기본으로 텍스트와 Markdown에서 $$..$$ 안에 있는 수식을 수학적으로 표시"
+"(pdflatex 필요)"
+
+#. i18n: ectx: label, entry (AutoEval), group (Cantor)
+#: cantor.kcfg:40
+#, kde-format
+msgid "Automatically reevaluate the entries below the current"
+msgstr "자동으로 아래에 있는 식 다시 계산"
+
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_WarnAboutSessionRestart)
+#. i18n: ectx: label, entry (WarnAboutSessionRestart), group (Cantor)
+#: cantor.kcfg:44 settings.ui:181
+#, kde-format
+msgid "Ask for confirmation when restarting the backend"
+msgstr "백엔드를 다시 시작할 때 사용자에게 묻기"
+
+#. i18n: ectx: label, entry (StoreTextEntryFormatting), group (Cantor)
+#: cantor.kcfg:48
+#, kde-format
+msgid ""
+"Save rich text formatting of TextEntry, when save Worksheet in Jupyter "
+"notebook format"
+msgstr "Jupyter 노트북 형식으로 워크시트를 저장할 때 텍스트 항목의 서식 저장"
+
+#. i18n: ectx: label, entry (UseOldCantorEntriesIndent), group (Cantor)
+#: cantor.kcfg:52
+#, kde-format
+msgid "Use old style Cantor entries placement style"
+msgstr "이전 Cantor 항목 배치 스타일 사용"
+
+#. i18n: ectx: label, entry (ShowMathRenderError), group (Cantor)
+#: cantor.kcfg:56
+#, kde-format
+msgid "Show embedded math render error"
+msgstr "임베드된 수식 렌더 오류 표시"
+
+#. i18n: ectx: label, entry (VisibleLinesLimit), group (Cantor)
+#: cantor.kcfg:60
+#, kde-format
+msgid "Limit of visible lines for text result"
+msgstr "텍스트 결과를 표시할 최대 줄 수"
+
+#. i18n: ectx: label, entry (ChapterFontFamily), group (Cantor)
+#: cantor.kcfg:64
+#, kde-format
+msgid "Hierarchy font for chapter"
+msgstr "장 계층 구조 글꼴"
+
+#. i18n: ectx: label, entry (ChapterFontSize), group (Cantor)
+#: cantor.kcfg:68
+#, kde-format
+msgid "Hierarchy font size for chapter"
+msgstr "장 계층 구조 글꼴 크기"
+
+#. i18n: ectx: label, entry (ChapterFontItalic), group (Cantor)
+#: cantor.kcfg:72
+#, kde-format
+msgid "Hierarchy font italic for chapter"
+msgstr "장 계층 구조 글꼴 이탤릭"
+
+#. i18n: ectx: label, entry (ChapterFontBold), group (Cantor)
+#: cantor.kcfg:76
+#, kde-format
+msgid "Hierarchy font bold for chapter"
+msgstr "장 계층 구조 글꼴 굵게"
+
+#. i18n: ectx: label, entry (SubchapterFontFamily), group (Cantor)
+#: cantor.kcfg:80
+#, kde-format
+msgid "Hierarchy font for subchapter"
+msgstr "하위 장 계층 구조 글꼴"
+
+#. i18n: ectx: label, entry (SubchapterFontSize), group (Cantor)
+#: cantor.kcfg:84
+#, kde-format
+msgid "Hierarchy font size for subchapter"
+msgstr "하위 장 계층 구조 글꼴 크기"
+
+#. i18n: ectx: label, entry (SubchapterFontItalic), group (Cantor)
+#: cantor.kcfg:88
+#, kde-format
+msgid "Hierarchy font italic for subchapter"
+msgstr "하위 장 계층 구조 글꼴 이탤릭"
+
+#. i18n: ectx: label, entry (SubchapterFontBold), group (Cantor)
+#: cantor.kcfg:92
+#, kde-format
+msgid "Hierarchy font bold for subchapter"
+msgstr "하위 장 계층 구조 글꼴 굵게"
+
+#. i18n: ectx: label, entry (SectionFontFamily), group (Cantor)
+#. i18n: ectx: label, entry (SectionFontSize), group (Cantor)
+#: cantor.kcfg:96 cantor.kcfg:100
+#, kde-format
+msgid "Hierarchy font for section"
+msgstr "절 계층 구조 글꼴"
+
+#. i18n: ectx: label, entry (SectionFontItalic), group (Cantor)
+#: cantor.kcfg:104
+#, kde-format
+msgid "Hierarchy font italic for section"
+msgstr "절 계층 구조 글꼴 이탤릭"
+
+#. i18n: ectx: label, entry (SectionFontBold), group (Cantor)
+#: cantor.kcfg:108
+#, kde-format
+msgid "Hierarchy font bold for section"
+msgstr "절 계층 구조 글꼴 굵게"
+
+#. i18n: ectx: label, entry (SubsectionFontFamily), group (Cantor)
+#. i18n: ectx: label, entry (SubsectionFontSize), group (Cantor)
+#: cantor.kcfg:112 cantor.kcfg:116
+#, kde-format
+msgid "Hierarchy font for subsection"
+msgstr "하위 절 계층 구조 글꼴"
+
+#. i18n: ectx: label, entry (SubsectionFontItalic), group (Cantor)
+#: cantor.kcfg:120
+#, kde-format
+msgid "Hierarchy font italic for subsection"
+msgstr "하위 절 계층 구조 글꼴 이탤릭"
+
+#. i18n: ectx: label, entry (SubsectionFontBold), group (Cantor)
+#: cantor.kcfg:124
+#, kde-format
+msgid "Hierarchy font bold for subsection"
+msgstr "하위 절 계층 구조 글꼴 굵게"
+
+#. i18n: ectx: label, entry (ParagraphFontFamily), group (Cantor)
+#. i18n: ectx: label, entry (ParagraphFontSize), group (Cantor)
+#: cantor.kcfg:128 cantor.kcfg:132
+#, kde-format
+msgid "Hierarchy font for paragraph"
+msgstr "문단 계층 구조 글꼴"
+
+#. i18n: ectx: label, entry (ParagraphFontItalic), group (Cantor)
+#: cantor.kcfg:136
+#, kde-format
+msgid "Hierarchy font italic for paragraph"
+msgstr "문단 계층 구조 글꼴 이탤릭"
+
+#. i18n: ectx: label, entry (ParagraphFontBold), group (Cantor)
+#: cantor.kcfg:140
+#, kde-format
+msgid "Hierarchy font bold for paragraph"
+msgstr "문단 계층 구조 글꼴 굵게"
+
+#. i18n: ectx: label, entry (SubparagraphFontFamily), group (Cantor)
+#. i18n: ectx: label, entry (SubparagraphFontSize), group (Cantor)
+#: cantor.kcfg:144 cantor.kcfg:148
+#, kde-format
+msgid "Hierarchy font for subparagraph"
+msgstr "하위 문단 계층 구조 글꼴"
+
+#. i18n: ectx: label, entry (SubparagraphFontItalic), group (Cantor)
+#: cantor.kcfg:152
+#, kde-format
+msgid "Hierarchy font italic for subparagraph"
+msgstr "하위 문단 계층 구조 글꼴 이탤릭"
+
+#. i18n: ectx: label, entry (SubparagraphFontBold), group (Cantor)
+#: cantor.kcfg:156
+#, kde-format
+msgid "Hierarchy font bold for subparagraph"
+msgstr "하위 문단 계층 구조 글꼴 굵게"
+
+#: cantor_part.cpp:139
+#, kde-format
+msgid "Save Plain Text"
+msgstr "일반 텍스트로 저장"
+
+#: cantor_part.cpp:181 cantor_part.cpp:532
+#, kde-format
+msgid "Export to LaTeX"
+msgstr "LaTeX으로 내보내기"
+
+#: cantor_part.cpp:197 cantor_part.cpp:628 worksheet.cpp:1904
+#, kde-format
+msgid "Evaluate Worksheet"
+msgstr "워크시트 계산"
+
+#: cantor_part.cpp:205 worksheet.cpp:1912
+#, kde-format
+msgid "Zoom"
+msgstr "확대/축소"
+
+#: cantor_part.cpp:220
+#, kde-format
+msgid "Typeset using LaTeX"
+msgstr "LaTeX으로 조판"
+
+#: cantor_part.cpp:225
+#, kde-format
+msgid "Syntax Highlighting"
+msgstr "구문 강조"
+
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_CompletionDefault)
+#: cantor_part.cpp:230 settings.ui:105
+#, kde-format
+msgid "Completion"
+msgstr "자동 완성"
+
+#: cantor_part.cpp:235
+#, kde-format
+msgid "Line Numbers"
+msgstr "줄 번호"
+
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_AnimationDefault)
+#: cantor_part.cpp:240 settings.ui:125
+#, fuzzy, kde-format
+#| msgid "Functions"
+msgid "Animations"
+msgstr "함수"
+
+#: cantor_part.cpp:247
+#, kde-format
+msgid "Embedded Math"
+msgstr "임베드된 수식"
+
+#: cantor_part.cpp:253
+#, kde-format
+msgid "Restart Backend"
+msgstr "백엔드 다시 시작"
+
+#: cantor_part.cpp:260 worksheetentry.cpp:854
+#, kde-format
+msgid "Evaluate Entry"
+msgstr "항목 계산"
+
+#: cantor_part.cpp:266
+#, kde-format
+msgid "Insert Command Entry"
+msgstr "명령 항목 삽입"
+
+#: cantor_part.cpp:272
+#, kde-format
+msgid "Insert Text Entry"
+msgstr "텍스트 항목 삽입"
+
+#: cantor_part.cpp:278
+#, kde-format
+msgid "Insert Markdown Entry"
+msgstr "Markdown 항목 삽입"
+
+#: cantor_part.cpp:285
+#, kde-format
+msgid "Insert LaTeX Entry"
+msgstr "LaTeX 항목 삽입"
+
+#: cantor_part.cpp:291
+#, kde-format
+msgid "Insert Page Break"
+msgstr "쪽 나누기 삽입"
+
+#: cantor_part.cpp:296 markdownentry.cpp:63
+#, kde-format
+msgid "Insert Image"
+msgstr "그림 삽입"
+
+#: cantor_part.cpp:301
+#, kde-format
+msgid "Collapse All Results"
+msgstr "모든 결과 접기"
+
+#: cantor_part.cpp:306
+#, kde-format
+msgid "Expand All Results"
+msgstr "모든 결과 펴기"
+
+#: cantor_part.cpp:311
+#, kde-format
+msgid "Remove All Results"
+msgstr "모든 결과 삭제"
+
+#: cantor_part.cpp:316
+#, kde-format
+msgid "Remove current Entry"
+msgstr "현재 항목 삭제"
+
+#. i18n("Publish Worksheet"), collection);
+#. publishWorksheet->setIcon(QIcon::fromTheme(QLatin1String("get-hot-new-stuff")));
+#. collection->addAction(QLatin1String("file_publish_worksheet"), publishWorksheet);
+#. connect(publishWorksheet, &QAction::triggered, this, SLOT(publishWorksheet()));
+#.
+#: cantor_part.cpp:332
+#, kde-format
+msgid "Show Script Editor"
+msgstr "스크립트 편집기 표시"
+
+#: cantor_part.cpp:337
+#, kde-format
+msgid "Show Completion"
+msgstr "자동 완성 표시"
+
+#: cantor_part.cpp:404
+#, kde-format
+msgid "CantorPart"
+msgstr "CantorPart"
+
+#: cantor_part.cpp:406
+#, kde-format
+msgid "(C) 2009-2015 Alexander Rieder"
+msgstr "(C) 2009-2015 Alexander Rieder"
+
+#: cantor_part.cpp:410 main.cpp:81
+#, kde-format
+msgid "Alexander Rieder"
+msgstr "Alexander Rieder"
+
+#: cantor_part.cpp:462
+#, kde-format
+msgid "Cantor Worksheet (*.cws)"
+msgstr "Cantor 워크시트 (*.cws)"
+
+#: cantor_part.cpp:463
+#, kde-format
+msgid "Jupyter Notebook (*.ipynb)"
+msgstr "Jupyter 노트북 (*.ipynb)"
+
+#: cantor_part.cpp:479
+#, kde-format
+msgid "Save as"
+msgstr "다른 이름으로 저장"
+
+#: cantor_part.cpp:525 panelplugins/variablemgr/variablemanagerwidget.cpp:168
+#, kde-format
+msgid "Save"
+msgstr "저장"
+
+#: cantor_part.cpp:577
+#, kde-format
+msgid ""
+"All the available calculation results will be lost. Do you really want to "
+"restart %1?"
+msgstr "모든 계산 결과가 손실됩니다. %1을(를) 다시 시작하시겠습니까?"
+
+#: cantor_part.cpp:578
+#, kde-format
+msgid "Restart %1?"
+msgstr "%1을(를) 다시 시작하시겠습니까?"
+
+#: cantor_part.cpp:618 worksheet.cpp:1907
+#, kde-format
+msgid "Interrupt"
+msgstr "중지"
+
+#: cantor_part.cpp:644
+#, kde-format
+msgid "Session Error: %1"
+msgstr "세션 오류: %1"
+
+#: cantor_part.cpp:685
+#, kde-format
+msgid "Initialization complete"
+msgstr "초기화 완료"
+
+#: cantor_part.cpp:690
+#, kde-format
+msgid "Initializing..."
+msgstr "초기화 중..."
+
+#: cantor_part.cpp:748
+#, kde-format
+msgid "[read-only]"
+msgstr "[읽기 전용]"
+
+#: cantor_part.cpp:883
+#, kde-format
+msgid "Do you want to upload current Worksheet to public web server?"
+msgstr "현재 워크시트를 공개 웹 서버에 업로드하시겠습니까?"
+
+#: cantor_part.cpp:884
+#, kde-format
+msgid "Question - Cantor"
+msgstr "질문 - Cantor"
+
+#: cantor_part.cpp:890
+#, kde-format
+msgid "The Worksheet is not saved. You should save it before uploading."
+msgstr "이 워크시트를 업로드하기 전에 저장해야 합니다."
+
+#: cantor_part.cpp:891
+#, kde-format
+msgid "Warning - Cantor"
+msgstr "경고 - Cantor"
+
+#: cantor_part.cpp:963
+#, kde-format
+msgid "This backend does not support scripts."
+msgstr "이 백엔드는 스크립트를 지원하지 않습니다."
+
+#. i18n: ectx: Menu (edit)
+#: cantor_part.rc:14 cantor_shell.rc:19
+#, kde-format
+msgid "&Edit"
+msgstr "편집(&E)"
+
+#. i18n: ectx: Menu (view)
+#: cantor_part.rc:27 cantor_shell.rc:22
+#, kde-format
+msgid "&View"
+msgstr "보기(&V)"
+
+#. i18n: ectx: Menu (worksheet)
+#: cantor_part.rc:33
+#, kde-format
+msgid "&Worksheet"
+msgstr "워크시트(&W)"
+
+#. i18n: ectx: Menu (settings)
+#: cantor_part.rc:50
+#, fuzzy, kde-format
+#| msgid "&Settings"
+msgid "Settings"
+msgstr "설정(&S)"
+
+#. i18n: ectx: Menu (file)
+#: cantor_shell.rc:4
+#, kde-format
+msgid "&File"
+msgstr "파일(&F)"
+
+#. i18n: ectx: Menu (file_new_menu)
+#: cantor_shell.rc:6
+#, kde-format
+msgid "&New"
+msgstr "새로 만들기(&N)"
+
+#. i18n: ectx: Menu (panels)
+#: cantor_shell.rc:24
+#, kde-format
+msgid "Panels"
+msgstr "패널"
+
+#. i18n: ectx: Menu (settings)
+#: cantor_shell.rc:29
+#, kde-format
+msgid "&Settings"
+msgstr "설정(&S)"
+
+#: commandentry.cpp:120
+#, kde-format
+msgid "Background Color"
+msgstr "배경색"
+
+#: commandentry.cpp:129 commandentry.cpp:156 horizontalruleentry.cpp:328
+#, kde-format
+msgid "Default"
+msgstr "기본값"
+
+#: commandentry.cpp:151
+#, kde-format
+msgid "Text Color"
+msgstr "글자색"
+
+#: commandentry.cpp:176
+#, kde-format
+msgid "Font"
+msgstr "글꼴"
+
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_ChapterFontBold)
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_SubchapterFontBold)
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_SectionFontBold)
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_SubsectionFontBold)
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_ParagraphFontBold)
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_SubparagraphFontBold)
+#: commandentry.cpp:179 formating.ui:81 formating.ui:140 formating.ui:199
+#: formating.ui:258 formating.ui:317 formating.ui:376
+#, kde-format
+msgid "Bold"
+msgstr "굵게"
+
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_ChapterFontItalic)
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_SubchapterFontItalic)
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_SectionFontItalic)
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_SubsectionFontItalic)
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_ParagraphFontItalic)
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_SubparagraphFontItalic)
+#: commandentry.cpp:186 formating.ui:88 formating.ui:147 formating.ui:206
+#: formating.ui:265 formating.ui:324 formating.ui:383
+#, kde-format
+msgid "Italic"
+msgstr "이탤릭"
+
+#: commandentry.cpp:194
+#, kde-format
+msgid "Increase Size"
+msgstr "글꼴 크기 증가"
+
+#: commandentry.cpp:198
+#, kde-format
+msgid "Decrease Size"
+msgstr "글꼴 크기 감소"
+
+#: commandentry.cpp:203
+#, kde-format
+msgid "Select"
+msgstr "선택"
+
+#: commandentry.cpp:207
+#, kde-format
+msgid "Reset to Default"
+msgstr "기본값으로 초기화"
+
+#: commandentry.cpp:336
+#, kde-format
+msgid "Show Results"
+msgstr "결과 표시"
+
+#: commandentry.cpp:338
+#, kde-format
+msgid "Hide Results"
+msgstr "결과 숨기기"
+
+#: commandentry.cpp:343 worksheet.cpp:1897
+#, kde-format
+msgid "Show Help"
+msgstr "도움말 표시"
+
+#: commandentry.cpp:356
+#, kde-format
+msgid "Appearance"
+msgstr "모양"
+
+#: commandentry.cpp:597 commandentry.cpp:992
+#, kde-format
+msgid "Interrupted"
+msgstr "중지됨"
+
+#. i18n: ectx: property (windowTitle), widget (QWidget, StandardSearchBar)
+#. i18n: ectx: property (windowTitle), widget (QWidget, ExtendedSearchBar)
+#: extendedsearchbar.ui:14 standardsearchbar.ui:14
+#, kde-format
+msgid "SearchBar"
+msgstr "검색 표시줄"
+
+#. i18n: ectx: property (text), widget (QToolButton, close)
+#. i18n: ectx: property (text), widget (QToolButton, openExtended)
+#. i18n: ectx: property (text), widget (QToolButton, openStandard)
+#. i18n: ectx: property (text), widget (QToolButton, addFlag)
+#. i18n: ectx: property (text), widget (QToolButton, removeFlag)
+#: extendedsearchbar.ui:22 extendedsearchbar.ui:77 extendedsearchbar.ui:159
+#: extendedsearchbar.ui:166 standardsearchbar.ui:22 standardsearchbar.ui:85
+#, kde-format
+msgid "..."
+msgstr "..."
+
+#. i18n: ectx: property (text), widget (QLabel, label)
+#: extendedsearchbar.ui:47
+#: panelplugins/documentationpanel/documentationpanelwidget.cpp:126
+#, kde-format
+msgid "Find:"
+msgstr "찾기:"
+
+#. i18n: ectx: property (text), widget (QPushButton, next)
+#: extendedsearchbar.ui:61 standardsearchbar.ui:48
+#, kde-format
+msgid "&Next"
+msgstr "다음(&N)"
+
+#. i18n: ectx: property (text), widget (QPushButton, previous)
+#: extendedsearchbar.ui:68 standardsearchbar.ui:55
+#, kde-format
+msgid "&Previous"
+msgstr "이전(&P)"
+
+#. i18n: ectx: property (text), widget (QLabel, label_2)
+#: extendedsearchbar.ui:102
+#, kde-format
+msgid "Replace:"
+msgstr "바꾸기:"
+
+#. i18n: ectx: property (text), widget (QPushButton, replace)
+#: extendedsearchbar.ui:116
+#, kde-format
+msgid "&Replace"
+msgstr "바꾸기(&R)"
+
+#. i18n: ectx: property (text), widget (QPushButton, replaceAll)
+#: extendedsearchbar.ui:123
+#, kde-format
+msgid "Replace &All"
+msgstr "모두 바꾸기(&A)"
+
+#. i18n: ectx: property (text), widget (QLabel, label_3)
+#: extendedsearchbar.ui:139
+#, kde-format
+msgid "Search in:"
+msgstr "다음에서 찾기:"
+
+#. i18n: ectx: property (text), widget (QToolButton, matchCase)
+#. i18n: ectx: property (text), widget (QCheckBox, matchCase)
+#: extendedsearchbar.ui:173 standardsearchbar.ui:62
+#, kde-format
+msgid "&Match case"
+msgstr "대소문자 구별(&M)"
+
+#. i18n: ectx: property (title), widget (QGroupBox, groupBox)
+#: formating.ui:27
+#, kde-format
+msgid "Hierarchy Fonts"
+msgstr "계층 구조 글꼴"
+
+#. i18n: ectx: attribute (title), widget (QWidget, ChapterTab)
+#: formating.ui:37
+#, kde-format
+msgid "Chapter Font"
+msgstr "장 글꼴"
+
+#. i18n: ectx: property (text), widget (QLabel, label_2)
+#. i18n: ectx: property (text), widget (QLabel, label_4)
+#. i18n: ectx: property (text), widget (QLabel, label_7)
+#. i18n: ectx: property (text), widget (QLabel, label_8)
+#. i18n: ectx: property (text), widget (QLabel, label_11)
+#. i18n: ectx: property (text), widget (QLabel, label_13)
+#: formating.ui:45 formating.ui:104 formating.ui:163 formating.ui:222
+#: formating.ui:281 formating.ui:340
+#, kde-format
+msgid "Font Family:"
+msgstr "글꼴 종류:"
+
+#. i18n: ectx: property (text), widget (QLabel, label_3)
+#. i18n: ectx: property (text), widget (QLabel, label_5)
+#. i18n: ectx: property (text), widget (QLabel, label_6)
+#. i18n: ectx: property (text), widget (QLabel, label_9)
+#. i18n: ectx: property (text), widget (QLabel, label_10)
+#. i18n: ectx: property (text), widget (QLabel, label_12)
+#: formating.ui:59 formating.ui:118 formating.ui:177 formating.ui:236
+#: formating.ui:295 formating.ui:354
+#, kde-format
+msgid "Font Size:"
+msgstr "글꼴 크기:"
+
+#. i18n: ectx: attribute (title), widget (QWidget, SubchapterTab)
+#: formating.ui:96
+#, kde-format
+msgid "Subchapter Font"
+msgstr "하위 장 글꼴"
+
+#. i18n: ectx: attribute (title), widget (QWidget, SectionTab)
+#: formating.ui:155
+#, kde-format
+msgid "Section Font"
+msgstr "절 글꼴"
+
+#. i18n: ectx: attribute (title), widget (QWidget, SubsectionTab)
+#: formating.ui:214
+#, kde-format
+msgid "Subsection Font"
+msgstr "하위 절 글꼴"
+
+#. i18n: ectx: attribute (title), widget (QWidget, ParagraphTab)
+#: formating.ui:273
+#, kde-format
+msgid "Paragraph Font"
+msgstr "문단 글꼴"
+
+#. i18n: ectx: attribute (title), widget (QWidget, SubparagraphTab)
+#: formating.ui:332
+#, kde-format
+msgid "Subparagraph Font"
+msgstr "하위 문단 글꼴"
+
+#: hierarchyentry.cpp:22
+#, kde-format
+msgid "Chapter"
+msgstr "장"
+
+#: hierarchyentry.cpp:22
+#, kde-format
+msgid "Subchapter"
+msgstr "하위 장"
+
+#: hierarchyentry.cpp:22
+#, kde-format
+msgid "Section"
+msgstr "절"
+
+#: hierarchyentry.cpp:22
+#, kde-format
+msgid "Subsection"
+msgstr "하위 절"
+
+#: hierarchyentry.cpp:22
+#, kde-format
+msgid "Paragraph"
+msgstr "문단"
+
+#: hierarchyentry.cpp:22
+#, kde-format
+msgid "Subparagraph"
+msgstr "하위 문단"
+
+#: hierarchyentry.cpp:48
+#, kde-format
+msgid "Set Hierarchy Level"
+msgstr "계층 구조 단계 설정"
+
+#: horizontalruleentry.cpp:20
+#, kde-format
+msgid "Solid Line Style"
+msgstr "단색 선 스타일"
+
+#: horizontalruleentry.cpp:20
+#, kde-format
+msgid "Dash Line Style"
+msgstr "대시 선 스타일"
+
+#: horizontalruleentry.cpp:20
+#, kde-format
+msgid "Dot Line Style"
+msgstr "점 선 스타일"
+
+#: horizontalruleentry.cpp:20
+#, kde-format
+msgid "Dash Dot Line Style"
+msgstr "대시 점 선 스타일"
+
+#: horizontalruleentry.cpp:20
+#, kde-format
+msgid "Dash Dot Dot Line Style"
+msgstr "대시 점 점 선 스타일"
+
+#: horizontalruleentry.cpp:297
+#, kde-format
+msgid "Line Thickness"
+msgstr "선 두께"
+
+#: horizontalruleentry.cpp:299
+#, kde-format
+msgid "Thin"
+msgstr "얇게"
+
+#: horizontalruleentry.cpp:303
+#, kde-format
+msgid "Medium"
+msgstr "중간"
+
+#: horizontalruleentry.cpp:307
+#, kde-format
+msgid "Thick"
+msgstr "두껍게"
+
+#: horizontalruleentry.cpp:320
+#, kde-format
+msgid "Line Color"
+msgstr "선 색상"
+
+#: horizontalruleentry.cpp:351
+#, kde-format
+msgid "Line Style"
+msgstr "선 스타일"
+
+#: imageentry.cpp:47 imageentry.cpp:371
+#, kde-format
+msgid "Configure Image"
+msgstr "그림 설정"
+
+#: imageentry.cpp:256
+#, kde-format
+msgid "Double click here to configure image settings"
+msgstr "그림 설정을 변경하려면 두 번 클릭하십시오"
+
+#: imageentry.cpp:288
+#, kde-format
+msgid "Cannot load image %1"
+msgstr "%1 그림을 불러올 수 없음"
+
+#: imageresultitem.cpp:97
+#, fuzzy, kde-format
+#| msgid "Save result"
+msgid "Save image result"
+msgstr "결과 저장"
+
+#: imageresultitem.cpp:99 imagesettingsdialog.cpp:153 markdownentry.cpp:775
+#, kde-format
+msgid "Images (%1)"
+msgstr "그림 (%1)"
+
+#. i18n: ectx: property (windowTitle), widget (QWidget, ImageSettingsBase)
+#: imagesettings.ui:14
+#, kde-format
+msgid "Image Settings"
+msgstr "그림 설정"
+
+#. i18n: ectx: property (text), widget (QPushButton, openDialogButton)
+#: imagesettings.ui:29
+#, kde-format
+msgid "Open"
+msgstr "열기"
+
+#. i18n: ectx: property (title), widget (QGroupBox, groupBox)
+#: imagesettings.ui:38
+#, kde-format
+msgid "Display Size"
+msgstr "표시 크기"
+
+#. i18n: ectx: property (text), widget (QLabel, label)
+#. i18n: ectx: property (text), widget (QLabel, label_5)
+#: imagesettings.ui:47 imagesettings.ui:101
+#, kde-format
+msgid "Width"
+msgstr "너비"
+
+#. i18n: ectx: property (text), widget (QLabel, label_2)
+#. i18n: ectx: property (text), widget (QLabel, label_6)
+#: imagesettings.ui:60 imagesettings.ui:114
+#, kde-format
+msgid "Height"
+msgstr "높이"
+
+#. i18n: ectx: property (title), widget (QGroupBox, gbPreview)
+#: imagesettings.ui:76
+#, kde-format
+msgid "Preview"
+msgstr "미리 보기"
+
+#. i18n: ectx: property (title), widget (QGroupBox, groupBox_2)
+#: imagesettings.ui:88
+#, kde-format
+msgid "Print Size"
+msgstr "인쇄 크기"
+
+#. i18n: ectx: property (text), widget (QCheckBox, useDisplaySize)
+#: imagesettings.ui:94
+#, kde-format
+msgid "Use Display Size"
+msgstr "표시 크기 사용"
+
+#: imagesettingsdialog.cpp:23
+#, kde-format
+msgctxt "@title:window"
+msgid "Image Settings"
+msgstr "그림 설정"
+
+#: imagesettingsdialog.cpp:40
+#, kde-format
+msgid "(auto)"
+msgstr "(자동)"
+
+#: imagesettingsdialog.cpp:40
+#, kde-format
+msgid "px"
+msgstr "픽셀"
+
+#: imagesettingsdialog.cpp:40
+#, kde-format
+msgid "%"
+msgstr "%"
+
+#: imagesettingsdialog.cpp:151 markdownentry.cpp:773
+#, kde-format
+msgid "Open image file"
+msgstr "그림 파일 열기"
+
+#: latexentry.cpp:61 textentry.cpp:111
+#, kde-format
+msgid "Show LaTeX code"
+msgstr "LaTeX 코드 표시"
+
+#: lib/backend.cpp:183
+#, kde-format
+msgid ""
+"No path for the %1 executable specified. Please provide the correct path in "
+"the application settings and try again."
+msgstr ""
+"%1 실행 파일 경로를 지정하지 않았습니다. 프로그램 설정에서 올바른 경로를 지정"
+"하고 다시 시도하십시오."
+
+#: lib/backend.cpp:193
+#, kde-format
+msgid ""
+"The specified file '%1' for the %2 executable doesn't exist. Please provide "
+"the correct path in the application settings and try again."
+msgstr ""
+"%2 실행 파일의 경로 '%1'이(가) 없습니다. 프로그램 설정에서 올바른 경로를 지정"
+"하고 다시 시도하십시오."
+
+#: lib/backend.cpp:202
+#, kde-format
+msgid ""
+"The specified file '%1' doesn't point to an executable. Please provide the "
+"correct path in the application settings and try again."
+msgstr ""
+"지정한 파일 '%1'이(가) 실행 파일을 가리키지 않습니다. 프로그램 설정에서 올바"
+"른 경로를 지정하고 다시 시도하십시오."
+
+#: lib/backend.cpp:221
+#, kde-format
+msgid ""
+"The program %1 didn't finish the execution after %2 milliseconds during the "
+"plot integration test."
+msgstr ""
+"플롯 통합 시험 중 %1 프로그램이 %2밀리초 이후 실행을 종료하지 않았습니다."
+
+#: lib/backend.cpp:230
+#, kde-format
+msgid "Failed to open the file %1 during the plot integration test."
+msgstr "플롯 통합 시험 중 %1 파일을 열 수 없습니다."
+
+#: lib/backend.cpp:238
+#, kde-format
+msgid "Failed to parse the result during the plot integration test."
+msgstr "플롯 통합 시험 중 시험 결과를 처리할 수 없습니다."
+
+#. i18n: ectx: label, entry (latexCommand), group (Cantor)
+#: lib/cantor_libs.kcfg:10
+#, kde-format
+msgid "Path to the latex executable"
+msgstr "latex 실행 파일 경로"
+
+#. i18n: ectx: label, entry (dvipsCommand), group (Cantor)
+#: lib/cantor_libs.kcfg:14
+#, kde-format
+msgid "Path to the dvips executable"
+msgstr "dvips 실행 파일 경로"
+
+#: lib/defaultvariablemodel.cpp:70
+#, kde-format
+msgctxt "@title:column"
+msgid "Value"
+msgstr "값"
+
+#: lib/defaultvariablemodel.cpp:102
+#, kde-format
+msgid "<%1 bytes>"
+msgstr "<%1바이트>"
+
+#: lib/defaultvariablemodel.cpp:104
+#, kde-format
+msgid "<too big variable>"
+msgstr "<너무 큰 변수>"
+
+#. i18n: ectx: property (text), widget (QLabel, label)
+#: lib/directives/axisrange.ui:19
+#, kde-format
+msgid "From:"
+msgstr "시작:"
+
+#. i18n: ectx: property (text), widget (QLabel, label_2)
+#: lib/directives/axisrange.ui:40
+#, kde-format
+msgid "To:"
+msgstr "끝:"
+
+#: lib/directives/plotdirectives.cpp:19
+#, kde-format
+msgid "Main title"
+msgstr "주 제목"
+
+#: lib/directives/plotdirectives.cpp:30
+#, kde-format
+msgid "Abscissa scale"
+msgstr "가로축"
+
+#: lib/directives/plotdirectives.cpp:41
+#, kde-format
+msgid "Ordinate scale"
+msgstr "세로축"
+
+#. i18n: ectx: property (text), widget (QLabel, label)
+#: lib/directives/plottitle.ui:19
+#, kde-format
+msgid "Plot title:"
+msgstr "그래프 제목:"
+
+#: lib/mimeresult.cpp:33
+#, kde-format
+msgid "This is unsupported Jupyter content of types ('%1')"
+msgstr "지원하지 않는 Jupyter 내용 형식('%1')"
+
+#: lib/session.cpp:311
+#, kde-format
+msgid "%1 process has died unexpectedly. All calculation results are lost."
+msgstr ""
+"%1 프로세스가 예상하지 못하게 종료되었습니다. 모든 계산 결과가 손실됩니다."
+
+#: lib/session.cpp:313
+#, kde-format
+msgid ""
+"%1 process has died unexpectedly with message \"%2\". All calculation "
+"results are lost."
+msgstr ""
+"%1 프로세스가 예상하지 못하게 종료되면서 메시지 \"%2\"을(를) 반환했습니다. 모"
+"든 계산 결과가 손실됩니다."
+
+#: lib/session.cpp:379
+#, kde-format
+msgid ""
+"You choose support for %1 graphic package, but the support can't be "
+"activated due to the missing requirements, so integration for this package "
+"will be disabled. %2"
+msgstr ""
+"%1 그래픽 패키지 지원을 선택했지만 필요한 항목이 없어서 지원을 활성화할 수 없"
+"습니다. 이 패키지 통합이 비활성화됩니다. %2"
+
+#: main.cpp:72
+#, kde-format
+msgid "KDE Frontend to mathematical applications"
+msgstr "KDE 수학 프로그램 프론트엔드"
+
+#: main.cpp:74
+#, kde-format
+msgid "(C) 2016 Filipe Saraiva<br/>(C) 2009-2015 Alexander Rieder"
+msgstr "(C) 2016 Filipe Saraiva<br/>(C) 2009-2015 Alexander Rieder"
+
+#: main.cpp:78
+#, kde-format
+msgid "Filipe Saraiva"
+msgstr "Filipe Saraiva"
+
+#: main.cpp:78
+#, kde-format
+msgid "Maintainer<br/>Qt5/KF5 port, Scilab and Python backends"
+msgstr "관리자<br />Qt5/KF5 이식, Scilab 및 Python 백엔드"
+
+#: main.cpp:79
+#, kde-format
+msgid "Nikita Sirgienko"
+msgstr "Nikita Sirgienko"
+
+#: main.cpp:79 main.cpp:80
+#, kde-format
+msgctxt "@info:credit"
+msgid "Developer"
+msgstr "개발자"
+
+#: main.cpp:80
+#, kde-format
+msgid "Alexander Semke"
+msgstr "Alexander Semke"
+
+#: main.cpp:81
+#, kde-format
+msgid "Original author<br/>Maintainer (2009 - 2015)"
+msgstr "원 작성자<br/>관리자(2009년-2015년)"
+
+#: main.cpp:82
+#, kde-format
+msgid "Aleix Pol Gonzalez"
+msgstr "Aleix Pol Gonzalez"
+
+#: main.cpp:82
+#, kde-format
+msgid "KAlgebra backend"
+msgstr "KAlgebra 백엔드"
+
+#: main.cpp:83
+#, kde-format
+msgid "Miha Čančula"
+msgstr "Miha Čančula"
+
+#: main.cpp:83
+#, kde-format
+msgid "Octave backend"
+msgstr "Octave 백엔드"
+
+#: main.cpp:84
+#, kde-format
+msgid "Martin Küttler"
+msgstr "Martin Küttler"
+
+#: main.cpp:84
+#, kde-format
+msgid "Interface"
+msgstr "인터페이스"
+
+#: main.cpp:86 main.cpp:87
+#, kde-format
+msgid "Cantor icon"
+msgstr "Cantor 아이콘"
+
+#: main.cpp:92
+#, kde-format
+msgid "Use  backend <backend>"
+msgstr "<backend> 백엔드 사용"
+
+#: main.cpp:95
+#, kde-format
+msgid "Documents to open."
+msgstr "열 문서입니다."
+
+#: main.cpp:130
+#, kde-format
+msgid "Couldn't open the file %1"
+msgstr "%1 파일을 열 수 없음"
+
+#: markdownentry.cpp:70
+#, kde-format
+msgid "Enter Edit Mode"
+msgstr "편집 모드 진입"
+
+#: markdownentry.cpp:78
+#, kde-format
+msgid "Clear Attachments"
+msgstr "첨부 파일 지우기"
+
+#: markdownentry.cpp:587
+#, kde-format
+msgid "Cantor Math Error"
+msgstr "Cantor 수학 오류"
+
+#: markdownentry.cpp:796
+#, kde-format
+msgid "Failed to read the image \"%1\". Error \"%2\""
+msgstr "\"%1\" 그림을 읽을 수 없습니다. 오류 \"%2\""
+
+#: pagebreakentry.cpp:28
+#, kde-format
+msgid "--- Page Break ---"
+msgstr "--- 쪽 나누기 ---"
+
+#: panelplugins/documentationpanel/documentationpanelwidget.cpp:51
+#, kde-format
+msgctxt "@button go to contents page"
+msgid "Go to the contents"
+msgstr "내용으로 이동"
+
+#: panelplugins/documentationpanel/documentationpanelwidget.cpp:58
+#, kde-format
+msgctxt "@info:placeholder"
+msgid "Search through keywords..."
+msgstr "키워드로 검색..."
+
+#: panelplugins/documentationpanel/documentationpanelwidget.cpp:69
+#, kde-format
+msgctxt "@info:tooltip"
+msgid "Find in text of current documentation page"
+msgstr "현재 문서 페이지의 텍스트에서 찾기"
+
+#: panelplugins/documentationpanel/documentationpanelwidget.cpp:75
+#, kde-format
+msgctxt "@info:tooltip"
+msgid "Reset zoom level to 100%"
+msgstr "확대/축소를 100%로 초기화"
+
+#: panelplugins/documentationpanel/documentationpanelwidget.cpp:123
+#, kde-format
+msgctxt "@info:tooltip"
+msgid "Close"
+msgstr "닫기"
+
+#: panelplugins/documentationpanel/documentationpanelwidget.cpp:133
+#, kde-format
+msgctxt "@info:tooltip"
+msgid "Jump to next match"
+msgstr "다음 일치로 이동"
+
+#: panelplugins/documentationpanel/documentationpanelwidget.cpp:137
+#, kde-format
+msgctxt "@info:tooltip"
+msgid "Jump to previous match"
+msgstr "이전 일치로 이동"
+
+#: panelplugins/documentationpanel/documentationpanelwidget.cpp:141
+#, kde-format
+msgctxt "@info:tooltip"
+msgid "Match case sensitively"
+msgstr "대소문자 구분"
+
+#: panelplugins/documentationpanel/documentationpanelwidget.cpp:408
+#, kde-format
+msgid "The file has been downloaded successfully at Downloads."
+msgstr "파일을 다운로드 경로에 성공적으로 다운로드했습니다."
+
+#: panelplugins/documentationpanel/documentationpanelwidget.cpp:408
+#, kde-format
+msgid "Download Successful"
+msgstr "다운로드 성공"
+
+#: panelplugins/filebrowserpanel/filebrowserpanelplugin.cpp:137
+#, kde-format
+msgid "Cantor files"
+msgstr "Cantor 파일"
+
+#: panelplugins/filebrowserpanel/filebrowserpanelplugin.cpp:138
+#, kde-format
+msgid "Jupyter files"
+msgstr "Jupyter 파일"
+
+#: panelplugins/filebrowserpanel/filebrowserpanelplugin.cpp:139
+#, kde-format
+msgid "All supported files"
+msgstr "모든 지원하는 파일"
+
+#: panelplugins/filebrowserpanel/filebrowserpanelplugin.cpp:140
+#, kde-format
+msgid "All files"
+msgstr "모든 파일"
+
+#. i18n: ectx: property (text), widget (QLabel, label)
+#: panelplugins/variablemgr/newvardlg.ui:17
+#, kde-format
+msgid "Name:"
+msgstr "이름:"
+
+#. i18n: ectx: property (text), widget (QLabel, label_2)
+#: panelplugins/variablemgr/newvardlg.ui:27
+#, kde-format
+msgid "Value:"
+msgstr "값:"
+
+#: panelplugins/variablemgr/variablemanagerwidget.cpp:45
+#: panelplugins/variablemgr/variablemanagerwidget.cpp:197
+#, kde-format
+msgid "Add New Variable"
+msgstr "새 변수 추가"
+
+#: panelplugins/variablemgr/variablemanagerwidget.cpp:51
+#, kde-format
+msgid "Load Variables"
+msgstr "변수 불러오기"
+
+#: panelplugins/variablemgr/variablemanagerwidget.cpp:57
+#, kde-format
+msgid "Save Variables"
+msgstr "변수 저장"
+
+#: panelplugins/variablemgr/variablemanagerwidget.cpp:63
+#: panelplugins/variablemgr/variablemanagerwidget.cpp:140
+#, kde-format
+msgid "Remove Variables"
+msgstr "변수 삭제"
+
+#: panelplugins/variablemgr/variablemanagerwidget.cpp:73
+#, kde-format
+msgid "Search/Filter"
+msgstr "검색/필터"
+
+#: panelplugins/variablemgr/variablemanagerwidget.cpp:84
+#, kde-format
+msgid "Case Sensitive"
+msgstr "대소문자 구분"
+
+#: panelplugins/variablemgr/variablemanagerwidget.cpp:88
+#, kde-format
+msgid "Match Complete Word"
+msgstr "단어 단위로 일치"
+
+#: panelplugins/variablemgr/variablemanagerwidget.cpp:139
+#, kde-format
+msgid "Are you sure you want to remove all variables?"
+msgstr "모든 변수를 삭제하시겠습니까?"
+
+#: panelplugins/variablemgr/variablemanagerwidget.cpp:182
+#, kde-format
+msgid "Load file"
+msgstr "파일 불러오기"
+
+#: resultitem.cpp:59
+#, kde-format
+msgid "Save result"
+msgstr "결과 저장"
+
+#: resultitem.cpp:60
+#, kde-format
+msgid "Remove result"
+msgstr "결과 삭제"
+
+#: scripteditor/scripteditorwidget.cpp:44
+#, kde-format
+msgid ""
+"A KDE text-editor component could not be found;\n"
+"please check your KDE installation."
+msgstr ""
+"KDE 텍스트 편집기 구성 요소를 찾을 수 없습니다.\n"
+"설치 상태를 확인하십시오."
+
+#: scripteditor/scripteditorwidget.cpp:139
+#, kde-format
+msgid "Script Editor"
+msgstr "스크립트 편집기"
+
+#: scripteditor/scripteditorwidget.cpp:142
+#, kde-format
+msgid "Script Editor - %1"
+msgstr "스크립트 편집기 - %1"
+
+#: searchbar.cpp:130 searchbar.cpp:178
+#, kde-format
+msgid "Not found"
+msgstr "찾을 수 없음"
+
+#: searchbar.cpp:133
+#, kde-format
+msgid "Reached beginning"
+msgstr "처음에 도달함"
+
+#: searchbar.cpp:181
+#, kde-format
+msgid "Reached end"
+msgstr "끝에 도달함"
+
+#: searchbar.cpp:238
+#, kde-format
+msgid "Replaced %1 instance"
+msgid_plural "Replaced %1 instances"
+msgstr[0] "%1개 바뀜"
+
+#: searchbar.cpp:333 searchbar.cpp:362
+#, kde-format
+msgid "Commands"
+msgstr "명령"
+
+#: searchbar.cpp:333 searchbar.cpp:362
+#, kde-format
+msgid "Results"
+msgstr "결과"
+
+#: searchbar.cpp:333 searchbar.cpp:362
+#, kde-format
+msgid "Errors"
+msgstr "오류"
+
+#: searchbar.cpp:334 searchbar.cpp:363 worksheet.cpp:1812 worksheet.cpp:1841
+#: worksheet.cpp:1861 worksheet.cpp:1879
+#, kde-format
+msgid "Text"
+msgstr "텍스트"
+
+#: searchbar.cpp:334 searchbar.cpp:363
+#, kde-format
+msgid "LaTeX Code"
+msgstr "LaTeX 코드"
+
+#. i18n: ectx: property (text), widget (QLabel, label_2)
+#: settings.ui:23
+#, fuzzy, kde-format
+#| msgid "Start"
+msgid "Startup:"
+msgstr "시작"
+
+#. i18n: ectx: property (toolTip), widget (QLabel, label)
+#. i18n: ectx: property (toolTip), widget (KComboBox, kcfg_DefaultBackend)
+#: settings.ui:30 settings.ui:293
+#, kde-format
+msgid ""
+"Create a new worksheet for the selected backend system. If none is selected, "
+"the user is asked about which system to use on startup."
+msgstr ""
+
+#. i18n: ectx: property (text), widget (QLabel, label)
+#: settings.ui:33
+#, kde-format
+msgid "Default Backend:"
+msgstr "기본 백엔드:"
+
+#. i18n: ectx: property (text), widget (QLabel, label_3)
+#: settings.ui:75
+#, fuzzy, kde-format
+#| msgid "&Worksheet"
+msgid "Worksheet:"
+msgstr "워크시트(&W)"
+
+#. i18n: ectx: property (toolTip), widget (QCheckBox, kcfg_TypesetDefault)
+#: settings.ui:82
+#, fuzzy, kde-format
+#| msgid "Enable LaTeX typesetting for Sage backend"
+msgid ""
+"Enable LaTeX typesetting for the results of the calculations, if supported "
+"by the backend system"
+msgstr "Sage 백엔드의 LaTeX 조판 사용"
+
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_TypesetDefault)
+#: settings.ui:85
+#, fuzzy, kde-format
+#| msgid "LaTeX typesetting:"
+msgid "LaTeX typesetting"
+msgstr "LaTeX 조판:"
+
+#. i18n: ectx: property (toolTip), widget (QCheckBox, kcfg_HighlightDefault)
+#: settings.ui:92
+#, fuzzy, kde-format
+#| msgid "Enable Syntax Highlighting"
+msgid "Enable syntax highlighting"
+msgstr "구문 강조 활성화"
+
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_HighlightDefault)
+#: settings.ui:95
+#, fuzzy, kde-format
+#| msgid "Syntax Highlighting"
+msgid "Syntax highlighting"
+msgstr "구문 강조"
+
+#. i18n: ectx: property (toolTip), widget (QCheckBox, kcfg_CompletionDefault)
+#: settings.ui:102
+#, fuzzy, kde-format
+#| msgid "Enable Completion"
+msgid "Enable syntax completion"
+msgstr "자동 완성 활성화"
+
+#. i18n: ectx: property (toolTip), widget (QCheckBox, kcfg_ExpressionNumberingDefault)
+#: settings.ui:112
+#, fuzzy, kde-format
+#| msgid "Line Numbers"
+msgid "Show line numbers"
+msgstr "줄 번호"
+
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_ExpressionNumberingDefault)
+#: settings.ui:115
+#, fuzzy, kde-format
+#| msgid "Line Numbers"
+msgid "Line numbers"
+msgstr "줄 번호"
+
+#. i18n: ectx: property (toolTip), widget (QCheckBox, kcfg_AnimationDefault)
+#: settings.ui:122
+#, fuzzy, kde-format
+#| msgid "Integrate Plots into the Worksheet"
+msgid "Enable animation effects in the worksheet"
+msgstr "워크시트에 플롯 통합"
+
+#. i18n: ectx: property (toolTip), widget (QCheckBox, kcfg_UseOldCantorEntriesIndent)
+#: settings.ui:132
+#, kde-format
+msgid ""
+"If enabled, text entries are aligned at the worksheet border and not at the "
+"prompt border"
+msgstr ""
+
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_UseOldCantorEntriesIndent)
+#: settings.ui:135
+#, kde-format
+msgid "Don't indent text entries"
+msgstr ""
+
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_StoreTextEntryFormatting)
+#: settings.ui:142
+#, fuzzy, kde-format
+#| msgid ""
+#| "Save rich text formatting of TextEntry, when save Worksheet in Jupyter "
+#| "notebook format"
+msgid ""
+"Use rich text format for text entries when saving in Jupyter Notebook Format"
+msgstr "Jupyter 노트북 형식으로 워크시트를 저장할 때 텍스트 항목의 서식 저장"
+
+#. i18n: ectx: property (text), widget (QLabel, label_4)
+#: settings.ui:171
+#, fuzzy, kde-format
+#| msgid "Equations:"
+msgid "Evaluation:"
+msgstr "수식:"
+
+#. i18n: ectx: property (toolTip), widget (QCheckBox, kcfg_WarnAboutSessionRestart)
+#: settings.ui:178
+#, fuzzy, kde-format
+#| msgid "Ask for confirmation when restarting the backend"
+msgid ""
+"If enabled, the user will be asked for confirmation prior to restarting the "
+"backend system"
+msgstr "백엔드를 다시 시작할 때 사용자에게 묻기"
+
+#. i18n: ectx: property (toolTip), widget (QCheckBox, kcfg_AutoEval)
+#: settings.ui:188
+#, kde-format
+msgid ""
+"If enabled, all entries below the current one will be evaluated automatically"
+msgstr ""
+
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_AutoEval)
+#: settings.ui:191
+#, fuzzy, kde-format
+#| msgid "Reevaluate Entries automatically"
+msgid "Reevaluate entries automatically"
+msgstr "자동으로 항목 다시 계산"
+
+#. i18n: ectx: property (text), widget (QLabel, VisibleLinesLimit_label)
+#: settings.ui:201
+#, fuzzy, kde-format
+#| msgid "Maximal number of result visible rows (0 for unlimited):"
+msgid "Number of rows in the result (0 for unlimited):"
+msgstr "최대로 표시할 결과 행 개수(0은 무제한):"
+
+#. i18n: ectx: property (toolTip), widget (QSpinBox, kcfg_VisibleLinesLimit)
+#: settings.ui:221
+#, kde-format
+msgid ""
+"Maximal number of visible rows in the result of a command entry. Use 0 to "
+"work without limitations."
+msgstr "명령 항목 결과를 표시할 행 개수입니다. 0으로 지정하면 모두 표시합니다."
+
+#. i18n: ectx: property (text), widget (QLabel, label_5)
+#: settings.ui:256
+#, fuzzy, kde-format
+#| msgid "Markdown"
+msgid "Markdown:"
+msgstr "Markdown"
+
+#. i18n: ectx: property (toolTip), widget (QCheckBox, kcfg_EmbeddedMathDefault)
+#: settings.ui:263
+#, fuzzy, kde-format
+#| msgid "Enable LaTeX typesetting for Sage backend"
+msgid ""
+"Enable LaTeX typesetting for mathematical expressions in Markdown entries"
+msgstr "Sage 백엔드의 LaTeX 조판 사용"
+
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_EmbeddedMathDefault)
+#: settings.ui:266
+#, kde-format
+msgid "Mathematical expressions via LaTeX"
+msgstr ""
+
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_ShowMathRenderError)
+#: settings.ui:273
+#, kde-format
+msgid "Notify about render failures for mathematical expressions"
+msgstr ""
+
+#. i18n: ectx: property (placeholderText), widget (KLineEdit, pattern)
+#: standardsearchbar.ui:35
+#, kde-format
+msgid "Find…"
+msgstr "찾기…"
+
+#: textentry.cpp:55
+#, kde-format
+msgid "Raw Cell Targets"
+msgstr "원본 셀 대상"
+
+#: textentry.cpp:62
+#, kde-format
+msgid "Add custom target"
+msgstr "사용자 정의 대상 추가"
+
+#: textentry.cpp:76
+#, kde-format
+msgid "Convert to Text Entry"
+msgstr "텍스트 항목으로 변환"
+
+#: textentry.cpp:81
+#, kde-format
+msgid "Convert to Raw Cell"
+msgstr "원본 셀로 변환"
+
+#: textentry.cpp:553
+#, kde-format
+msgid "Target MIME type:"
+msgstr "대상 MIME 형식:"
+
+#: textresultitem.cpp:59
+#, kde-format
+msgid "Copy result"
+msgstr "결과 복사"
+
+#: textresultitem.cpp:68
+#, kde-format
+msgid "Show Rendered"
+msgstr "렌더링 결과 표시"
+
+#: textresultitem.cpp:70
+#, kde-format
+msgid "Show Code"
+msgstr "코드 표시"
+
+#: textresultitem.cpp:78 textresultitem.cpp:91
+#, kde-format
+msgid "Show HTML Code"
+msgstr "HTML 코드 표시"
+
+#: textresultitem.cpp:80 textresultitem.cpp:86
+#, kde-format
+msgid "Show Plain Alternative"
+msgstr "일반 대체 텍스트 표시"
+
+#: textresultitem.cpp:84
+#, kde-format
+msgid "Show Html"
+msgstr "HTML 표시"
+
+#: textresultitem.cpp:90
+#, kde-format
+msgid "Show HTML"
+msgstr "HTML 표시"
+
+#: textresultitem.cpp:161
+#, kde-format
+msgid "Cannot render Eps file. You may need additional packages"
+msgstr "EPS 파일을 렌더할 수 없습니다. 추가 패키지가 필요합니다"
+
+#: textresultitem.cpp:213
+#, fuzzy, kde-format
+#| msgid "Save result"
+msgid "Save text result"
+msgstr "결과 저장"
+
+#: textresultitem.cpp:213
+#, kde-format
+msgid "Text Files (*.txt)"
+msgstr ""
+
+#: worksheet.cpp:1192
+#, kde-format
+msgid "Cannot write file %1."
+msgstr "파일 %1에 쓸 수 없습니다."
+
+#: worksheet.cpp:1220 worksheet.cpp:1235
+#, kde-format
+msgid "Cannot write file."
+msgstr "파일에 쓸 수 없습니다."
+
+#: worksheet.cpp:1252 worksheet.cpp:1296
+#, kde-format
+msgid "Error saving file %1"
+msgstr "파일 %1 저장 오류"
+
+#: worksheet.cpp:1275
+#, kde-format
+msgid ""
+"In read-only mode Cantor couldn't guarantee, that the export will be valid "
+"for %1"
+msgstr ""
+"읽기 전용 모드에서는 Cantor에서 %1 내보내기가 올바른지 보장할 수 없습니다."
+
+#: worksheet.cpp:1308
+#, kde-format
+msgid "Error loading latex.xsl stylesheet"
+msgstr "latex.xsl 스타일시트를 불러올 수 없음"
+
+#: worksheet.cpp:1327
+#, kde-format
+msgid "Couldn't open the file %1."
+msgstr "%1 파일을 열 수 없습니다."
+
+#: worksheet.cpp:1327 worksheet.cpp:1350 worksheet.cpp:1370 worksheet.cpp:1387
+#: worksheet.cpp:1419 worksheet.cpp:1430 worksheet.cpp:1539 worksheet.cpp:1554
+#: worksheet.cpp:1596 worksheet.cpp:1607 worksheet.cpp:1727 worksheet.cpp:1729
+#, kde-format
+msgid "Open File"
+msgstr "파일 열기"
+
+#: worksheet.cpp:1350
+#, kde-format
+msgid "Couldn't open the selected file for reading."
+msgstr "선택한 파일에서 읽으려고 열 수 없습니다."
+
+#: worksheet.cpp:1370
+#, kde-format
+msgid "The selected file is not a valid Cantor or Jupyter project file."
+msgstr "선택한 파일은 올바른 Cantor나 Jupyter 프로젝트 파일이 아닙니다."
+
+#: worksheet.cpp:1387
+#, kde-format
+msgid "The selected file is not a valid Cantor project file."
+msgstr "선택한 파일은 올바른 Cantor 프로젝트 파일이 아닙니다."
+
+#: worksheet.cpp:1409
+#, kde-format
+msgid ""
+"This worksheet was created using Python2 which is not supported anymore. "
+"Python3 will be used."
+msgstr ""
+"이 워크시트는 더 이상 지원하지 않는 Python 2에서 생성되었습니다. Python 3을 "
+"사용합니다."
+
+#: worksheet.cpp:1410 worksheet.cpp:1578
+#, kde-format
+msgid "Python2 not supported anymore"
+msgstr "Python 2 지원 중단됨"
+
+#: worksheet.cpp:1419 worksheet.cpp:1595
+#, kde-format
+msgid ""
+"%1 backend was not found. Editing and executing entries is not possible."
+msgstr "%1 백엔드를 찾을 수 없습니다. 항목 편집과 실행이 불가능합니다."
+
+#: worksheet.cpp:1428 worksheet.cpp:1605
+#, kde-format
+msgid ""
+"There are some problems with the %1 backend,\n"
+"please check your configuration or install the needed packages.\n"
+"You will only be able to view this worksheet."
+msgstr ""
+"%1 백엔드에 문제가 있습니다.\n"
+"설정을 확인하고 필요한 패키지를 설치하십시오.\n"
+"이 워크시트를 볼 수만 있습니다."
+
+#: worksheet.cpp:1538
+#, kde-format
+msgid ""
+"Jupyter notebooks with versions lower than 4.5 (detected version %1.%2) are "
+"not supported."
+msgstr "Jupyter 노트북 버전 4.5 미만(감지된 버전 %1.%2)은 지원하지 않습니다."
+
+#: worksheet.cpp:1553
+#, kde-format
+msgid ""
+"Jupyter notebooks with versions higher than 4.5 (detected version %1.%2) are "
+"not supported."
+msgstr "Jupyter 노트북 버전 4.5 초과(감지된 버전 %1.%2)는 지원하지 않습니다."
+
+#: worksheet.cpp:1577
+#, kde-format
+msgid ""
+"This notebook was created using Python2 which is not supported anymore. "
+"Python3 will be used."
+msgstr ""
+"이 노트북은 더 이상 지원하지 않는 Python 2에서 생성되었습니다. Python 3을 사"
+"용합니다."
+
+#: worksheet.cpp:1645
+#, kde-format
+msgid "an object with keys: %1"
+msgstr "다음 키가 있는 객체: %1"
+
+#: worksheet.cpp:1647
+#, kde-format
+msgid "non object JSON value"
+msgstr "객체가 아닌 JSON 값"
+
+#: worksheet.cpp:1650
+#, kde-format
+msgid "found incorrect data (%1) that is not Jupyter cell"
+msgstr "Jupyter 셀이 아닌 잘못된 데이터(%1) 발견함"
+
+#: worksheet.cpp:1727
+#, kde-format
+msgid "The file is not valid Jupyter notebook"
+msgstr "파일이 올바른 Jupyter 노트북이 아님"
+
+#: worksheet.cpp:1729
+#, kde-format
+msgid "Invalid Jupyter notebook scheme: %1"
+msgstr "잘못된 Jupyter 노트북 스키마: %1"
+
+#: worksheet.cpp:1804
+#, kde-format
+msgid "Convert To"
+msgstr "다음으로 변환"
+
+#: worksheet.cpp:1809 worksheet.cpp:1840 worksheet.cpp:1860 worksheet.cpp:1878
+#, kde-format
+msgid "Command"
+msgstr "명령"
+
+#: worksheet.cpp:1816 worksheet.cpp:1843 worksheet.cpp:1863 worksheet.cpp:1881
+#, kde-format
+msgid "Markdown"
+msgstr "Markdown"
+
+#: worksheet.cpp:1823 worksheet.cpp:1848 worksheet.cpp:1868 worksheet.cpp:1886
+#, kde-format
+msgid "Image"
+msgstr "그림"
+
+#: worksheet.cpp:1826 worksheet.cpp:1851 worksheet.cpp:1871 worksheet.cpp:1889
+#, kde-format
+msgid "Page Break"
+msgstr "쪽 나누기"
+
+#: worksheet.cpp:1829 worksheet.cpp:1850 worksheet.cpp:1870 worksheet.cpp:1888
+#, kde-format
+msgid "Horizontal Line"
+msgstr "수평선"
+
+#: worksheet.cpp:1832 worksheet.cpp:1853 worksheet.cpp:1873 worksheet.cpp:1891
+#, kde-format
+msgid "Hierarchy Entry"
+msgstr "계층 항목"
+
+#: worksheet.cpp:1835
+#, kde-format
+msgid "Insert After"
+msgstr "이후에 삽입"
+
+#: worksheet.cpp:1856
+#, kde-format
+msgid "Insert Before"
+msgstr "이전에 삽입"
+
+#: worksheet.cpp:1875
+#, kde-format
+msgid "Insert"
+msgstr "삽입"
+
+#: worksheet.cpp:1916
+#, kde-format
+msgid "Zoom In"
+msgstr "확대"
+
+#: worksheet.cpp:1919
+#, kde-format
+msgid "Zoom Out"
+msgstr "축소"
+
+#: worksheet.cpp:1923
+#, kde-format
+msgid "Original Size"
+msgstr "원래 크기"
+
+#: worksheet.cpp:1931
+#, kde-format
+msgid "Move Entries Up"
+msgstr "항목 위로 이동"
+
+#: worksheet.cpp:1932
+#, kde-format
+msgid "Move Entries Down"
+msgstr "항목 아래로 이동"
+
+#: worksheet.cpp:1933
+#, kde-format
+msgid "Evaluate Entries"
+msgstr "항목 계산"
+
+#: worksheet.cpp:1934
+#, kde-format
+msgid "Remove Entries"
+msgstr "항목 삭제"
+
+#: worksheet.cpp:1947
+#, kde-format
+msgid "Collapse Command Entry Results"
+msgstr "명령 항목 결과 접기"
+
+#: worksheet.cpp:1948
+#, kde-format
+msgid "Expand Command Entry Results"
+msgstr "명령 항목 결과 펴기"
+
+#: worksheet.cpp:1949
+#, kde-format
+msgid "Remove Command Entry Results"
+msgstr "명령 항목 결과 삭제"
+
+#: worksheet.cpp:1950
+#, kde-format
+msgid "Exclude Command Entry From Execution"
+msgstr "명령 항목을 실행에서 제외"
+
+#: worksheet.cpp:1951
+#, kde-format
+msgid "Add Command Entry To Execution"
+msgstr "명령 항목을 실행에 추가"
+
+#: worksheet.cpp:2059
+#, kde-format
+msgctxt "@action"
+msgid "Text &Color..."
+msgstr "글자색(&C)..."
+
+#: worksheet.cpp:2060
+#, kde-format
+msgctxt "@label text color"
+msgid "Color"
+msgstr "색상"
+
+#: worksheet.cpp:2067
+#, kde-format
+msgctxt "@action"
+msgid "Text &Highlight..."
+msgstr "텍스트 구문 강조(&H)..."
+
+#: worksheet.cpp:2073
+#, kde-format
+msgctxt "@action"
+msgid "&Font"
+msgstr "글꼴(&F)"
+
+#: worksheet.cpp:2082
+#, kde-format
+msgctxt "@action"
+msgid "Font &Size"
+msgstr "글꼴 크기(&S)"
+
+#: worksheet.cpp:2088
+#, kde-format
+msgctxt "@action boldify selected text"
+msgid "&Bold"
+msgstr "굵게(&B)"
+
+#: worksheet.cpp:2099
+#, kde-format
+msgctxt "@action italicize selected text"
+msgid "&Italic"
+msgstr "이탤릭(&I)"
+
+#: worksheet.cpp:2111
+#, kde-format
+msgctxt "@action underline selected text"
+msgid "&Underline"
+msgstr "밑줄(&U)"
+
+#: worksheet.cpp:2122
+#, kde-format
+msgctxt "@action"
+msgid "&Strike Out"
+msgstr "취소선(&S)"
+
+#: worksheet.cpp:2133
+#, kde-format
+msgctxt "@action"
+msgid "Align &Left"
+msgstr "왼쪽 정렬(&L)"
+
+#: worksheet.cpp:2136
+#, kde-format
+msgctxt "@label left justify"
+msgid "Left"
+msgstr "왼쪽"
+
+#: worksheet.cpp:2143
+#, kde-format
+msgctxt "@action"
+msgid "Align &Center"
+msgstr "가운데 정렬(&C)"
+
+#: worksheet.cpp:2146
+#, kde-format
+msgctxt "@label center justify"
+msgid "Center"
+msgstr "가운데"
+
+#: worksheet.cpp:2153
+#, kde-format
+msgctxt "@action"
+msgid "Align &Right"
+msgstr "오른쪽 정렬(&R)"
+
+#: worksheet.cpp:2156
+#, kde-format
+msgctxt "@label right justify"
+msgid "Right"
+msgstr "오른쪽"
+
+#: worksheet.cpp:2163
+#, kde-format
+msgctxt "@action"
+msgid "&Justify"
+msgstr "양쪽 정렬(&J)"
+
+#: worksheet.cpp:2166
+#, kde-format
+msgctxt "@label justify fill"
+msgid "Justify"
+msgstr "맞춤"
+
+#: worksheet.cpp:2860
+#, kde-format
+msgid ""
+"This action will remove all results without the possibility of cancellation. "
+"Are you sure?"
+msgstr ""
+"이 동작은 모든 결과를 삭제하며 실행 취소할 수 없습니다. 계속 진행하시겠습니"
+"까?"
+
+#: worksheet.cpp:2861
+#, kde-format
+msgid "Remove all results"
+msgstr "모든 결과 삭제"
+
+#: worksheetentry.cpp:67
+#, kde-format
+msgid "White"
+msgstr "흰색"
+
+#: worksheetentry.cpp:67
+#, kde-format
+msgid "Black"
+msgstr "검은색"
+
+#: worksheetentry.cpp:68
+#, kde-format
+msgid "Dark Red"
+msgstr "어두운 빨간색"
+
+#: worksheetentry.cpp:68
+#, kde-format
+msgid "Red"
+msgstr "빨간색"
+
+#: worksheetentry.cpp:68
+#, kde-format
+msgid "Light Red"
+msgstr "밝은 빨간색"
+
+#: worksheetentry.cpp:69
+#, kde-format
+msgid "Dark Green"
+msgstr "어두운 녹색"
+
+#: worksheetentry.cpp:69
+#, kde-format
+msgid "Green"
+msgstr "녹색"
+
+#: worksheetentry.cpp:69
+#, kde-format
+msgid "Light Green"
+msgstr "밝은 녹색"
+
+#: worksheetentry.cpp:70
+#, kde-format
+msgid "Dark Blue"
+msgstr "진한 파란색"
+
+#: worksheetentry.cpp:70
+#, kde-format
+msgid "Blue"
+msgstr "파란색"
+
+#: worksheetentry.cpp:70
+#, kde-format
+msgid "Light Blue"
+msgstr "밝은 파란색"
+
+#: worksheetentry.cpp:71
+#, kde-format
+msgid "Dark Yellow"
+msgstr "어두운 노란색"
+
+#: worksheetentry.cpp:71
+#, kde-format
+msgid "Yellow"
+msgstr "노란색"
+
+#: worksheetentry.cpp:71
+#, kde-format
+msgid "Light Yellow"
+msgstr "밝은 노란색"
+
+#: worksheetentry.cpp:72
+#, kde-format
+msgid "Dark Cyan"
+msgstr "어두운 청록색"
+
+#: worksheetentry.cpp:72
+#, kde-format
+msgid "Cyan"
+msgstr "청록색"
+
+#: worksheetentry.cpp:72
+#, kde-format
+msgid "Light Cyan"
+msgstr "밝은 청록색"
+
+#: worksheetentry.cpp:73
+#, kde-format
+msgid "Dark Magenta"
+msgstr "어두운 자홍색"
+
+#: worksheetentry.cpp:73
+#, kde-format
+msgid "Magenta"
+msgstr "자홍색"
+
+#: worksheetentry.cpp:73
+#, kde-format
+msgid "Light Magenta"
+msgstr "밝은 자홍색"
+
+#: worksheetentry.cpp:74
+#, kde-format
+msgid "Dark Orange"
+msgstr "어두운 주황색"
+
+#: worksheetentry.cpp:74
+#, kde-format
+msgid "Orange"
+msgstr "주황색"
+
+#: worksheetentry.cpp:74
+#, kde-format
+msgid "Light Orange"
+msgstr "밝은 주황색"
+
+#: worksheetentry.cpp:75
+#, kde-format
+msgid "Dark Grey"
+msgstr "어두운 회색"
+
+#: worksheetentry.cpp:75
+#, kde-format
+msgid "Grey"
+msgstr "회색"
+
+#: worksheetentry.cpp:75
+#, kde-format
+msgid "Light Grey"
+msgstr "밝은 회색"
+
+#: worksheetentry.cpp:421
+#, kde-format
+msgid "Move Up"
+msgstr "위로 이동"
+
+#: worksheetentry.cpp:429
+#, kde-format
+msgid "Move Down"
+msgstr "아래로 이동"
+
+#: worksheetentry.cpp:717
+#, kde-format
+msgid "Do you really want to remove this entry?"
+msgstr "이 항목을 삭제하시겠습니까?"
+
+#: worksheetentry.cpp:717 worksheetentry.cpp:845
+#, kde-format
+msgid "Remove Entry"
+msgstr "항목 삭제"
+
+#: worksheetentry.cpp:850
+#, kde-format
+msgid "Drag Entry"
+msgstr "항목 드래그"
+
+#~ msgid "Animate Worksheet"
+#~ msgstr "워크시트 애니메이션"
+
+#~ msgid ""
+#~ "On startup, if a default backend is set, create a worksheet for it "
+#~ "instead of showing the backend chooser dialog."
+#~ msgstr ""
+#~ "기본 백엔드가 설정되어 있으면 해당 워크시트를 생성하며, 그렇지 않으면 백엔"
+#~ "드 선택 대화 상자를 표시합니다."
+
+#~ msgid ""
+#~ "When enabled, Cantor will automatically evaluate every entry below the "
+#~ "current one."
+#~ msgstr ""
+#~ "이 옵션을 사용하면 Cantor에서는 현재 항목 아래의 항목을 자동으로 계산합니"
+#~ "다."
+
+#~ msgid "Defaults"
+#~ msgstr "기본값"
+
+#~ msgid ""
+#~ "This is initial value for the session \"Typeset using LaTeX\" option, "
+#~ "which response for allowing rendering some backend output as latex, if "
+#~ "supported. For example, Maxima outputs will be rendered via latex, if the "
+#~ "option is enabled."
+#~ msgstr ""
+#~ "세션의 \"LaTeX으로 조판\" 설정의 초기 값입니다. 지원하는 경우 일부 백엔드 "
+#~ "출력을 LaTeX으로 렌더합니다. 예를 들어 Maxima 출력은 이 옵션을 사용하면 "
+#~ "LaTeX으로 렌더합니다."
+
+#~ msgid "Enable LaTeX Typesetting (works only if latex is installed)"
+#~ msgstr "LaTeX 조판 활성화(latex가 설치되어 있는 경우에만 가능)"
+
+#~ msgid ""
+#~ "This is initial value for the session \"Syntax Highlighting\" option, "
+#~ "which response for syntax highlighting inside command entries."
+#~ msgstr ""
+#~ "세션의 \"구문 강조\" 설정의 초기 값입니다. 명령 항목의 구문 강조를 제어합"
+#~ "니다."
+
+#~ msgid ""
+#~ "This is initial value for the session \"Completion\" option, which "
+#~ "response for code autocompletion."
+#~ msgstr ""
+#~ "세션의 \"자동 완성\" 설정의 초기 값입니다. 코드 자동 완성을 제어합니다."
+
+#~ msgid ""
+#~ "This is initial value for the session \"Line numbers\" option, which "
+#~ "response for presence of command entries execution numbers."
+#~ msgstr ""
+#~ "세션의 \"줄 번호\" 설정의 초기 값입니다. 명령 항목의 실행 번호 표시를 제어"
+#~ "합니다."
+
+#~ msgid "Enable Line Numbers"
+#~ msgstr "줄 번호 표시"
+
+#~ msgid ""
+#~ "This is initial value for the session \"Animate Worksheet\" option, which "
+#~ "response for presence of worksheet animation."
+#~ msgstr ""
+#~ "세션의 \"워크시트 애니메이션\" 설정의 초기 값입니다. 워크시트의 애니메이"
+#~ "션 표시 여부를 제어합니다."
+
+#~ msgid "Enable Worksheet Animations"
+#~ msgstr "워크시트 애니메이션 활성화"
+
+#~ msgid ""
+#~ "This is initial value for the session \"Embedded Math\" option, which "
+#~ "response for enabling of rendering math expressions in text and markdown "
+#~ "entries."
+#~ msgstr ""
+#~ "세션의 \"임베드된 수식\" 설정의 초기 값입니다. 텍스트와 Markdown 항목의 수"
+#~ "식 렌더링을 제어합니다."
+
+#~ msgid "Enable Embedded Math (works only if pdflatex is installed)"
+#~ msgstr "임베드된 수식 활성화(pdflatex가 설치되어 있는 경우에만 가능)"
+
+#~ msgid ""
+#~ "If disabled, then warning about restart won't appear on pressing of "
+#~ "restart button."
+#~ msgstr ""
+#~ "이 옵션을 사용하지 않으면 다시 시작 단추를 눌렀을 때 다시 시작 경고를 표시"
+#~ "하지 않습니다."
+
+#~ msgid ""
+#~ "If enabled, then on any math render error will appear an information "
+#~ "window with error description."
+#~ msgstr ""
+#~ "이 옵션을 사용하면 수식 렌더 오류를 정보 창에 오류 설명과 함께 표시합니다."
+
+#~ msgid "Show message about error on render failure of embedded math"
+#~ msgstr "임베드된 수식 렌더 실패 오류 메시지 표시"
+
+#~ msgid ""
+#~ "if enabled, then old Cantor entries indent style (all entries left "
+#~ "aligned) will be used."
+#~ msgstr ""
+#~ "이 옵션을 사용하면 이전 Cantor 항목 들여쓰기 스타일(모든 항목 왼쪽 정렬)"
+#~ "을 사용합니다."
+
+#~ msgid "Use old Cantor entries indent style"
+#~ msgstr "이전 Cantor 항목 들여쓰기 스타일 사용"
+
+#~ msgid "Jupyter"
+#~ msgstr "Jupyter"
+
+#~ msgid ""
+#~ "If enable, then Cantor will store rich formatting of text entries on "
+#~ "saving to Jupyter notebook format."
+#~ msgstr ""
+#~ "이 옵션을 사용하면 Cantor에서 Jupyter 노트북 형식으로 저장할 때 텍스트 서"
+#~ "식을 저장합니다."
+
+#~ msgid ""
+#~ "Graphical package, for which will be enable support for embedding plots"
+#~ msgstr "플롯 내장 지원에 필요한 그래픽 패키지"
+
+#~ msgid ""
+#~ "Graphic package, which code will be used for plotting via \"Plot\" Cantor "
+#~ "menu."
+#~ msgstr ""
+#~ "Cantor의 \"플롯\" 메뉴에서 사용할 코드가 들어 있는 그래픽 패키지입니다."
+
+#~ msgid "Matplotlib (with seaborn, ggplot support too)"
+#~ msgstr "Matplotlib(seaborn 사용, ggplot 지원 포함)"
+
+#~ msgid "Plot.ly"
+#~ msgstr "Plot.ly"
+
+#~ msgid "All supported"
+#~ msgstr "모든 지원하는 패키지"
+
+#~ msgid ""
+#~ "Graphic package, used for plotting. When integrated plots option is "
+#~ "enabled, then plots from the package will be integrated to worksheet"
+#~ msgstr ""
+#~ "플롯할 때 사용할 그래픽 패키지입니다. 내장 플롯 옵션을 활성화했을 때 해당 "
+#~ "패키지의 플롯을 워크시트에 통합합니다"
+
+#~ msgid "Graphic Package: "
+#~ msgstr "그래픽 패키지:"
+
+#~ msgid "<h1>Cantor</h1>The KDE way to do Mathematics"
+#~ msgstr "<h1>Cantor</h1>KDE 수학 도구"
+
+#~ msgid "Url to the local Maxima documentation"
+#~ msgstr "로컬 Maxima 문서 경로"
+
+#~ msgid ""
+#~ "If empty, the \"Show help\" action will show the default online "
+#~ "documentation. Otherwise, the specified URL will be opened."
+#~ msgstr ""
+#~ "비어 있으면 \"도움말 표시\" 동작을 실행했을 때 기본 온라인 문서를 표시합니"
+#~ "다. 그렇지 않으면 지정한 URL을 엽니다."
+
+#~ msgid "Documentation:"
+#~ msgstr "문서:"
+
+#~ msgid "Url to the local Python documentation"
+#~ msgstr "로컬 Python 문서 경로"
+
+#~ msgid "Url to the local Octave documentation"
+#~ msgstr "로컬 Octave 문서 URL"
+
+#~ msgid "Show %1 Help"
+#~ msgstr "%1 도움말 표시"
+
+#~ msgid "Path to Julia:"
+#~ msgstr "Julia 경로:"
+
+#~ msgid "Integrate Plots in Worksheet"
+#~ msgstr "워크시트에 플롯 통합"
+
+#~ msgid ""
+#~ "Commands to automatically run on start. They can be useful for loading "
+#~ "needed modules, changing environment, etc."
+#~ msgstr ""
+#~ "시작할 때 자동으로 실행할 명령입니다. 필요한 모듈을 불러오거나 환경을 변경"
+#~ "하는 등에 유용합니다."
+
+#~ msgid "Clear Variables"
+#~ msgstr "변수 삭제"
+
+#~ msgid "Confirmation - Cantor"
+#~ msgstr "확인 - Cantor"
+
+#~ msgid "Text Entry"
+#~ msgstr "텍스트 항목"
+
+#, fuzzy
+#~| msgid "Text Entry"
+#~ msgid "LaTeX Entry"
+#~ msgstr "텍스트 항목"
+
+#, fuzzy
+#~| msgid "Insert Text Entry"
+#~ msgid "Insert Hierarchy Entry"
+#~ msgstr "텍스트 항목 삽입"
+
+#, fuzzy
+#~| msgid "Insert Text Entry"
+#~ msgid "Insert Latex Entry"
+#~ msgstr "텍스트 항목 삽입"
+
+#, fuzzy
+#~| msgid "Path to the Octave executable"
+#~ msgid "Path to Cantor python server executable"
+#~ msgstr "Octave 실행 파일의 경로"
+
+#~ msgid "Path to Maxima:"
+#~ msgstr "Maxima 경로:"
+
+#, fuzzy
+#~| msgid "Failed to start Sage"
+#~ msgid "Path to Cantor Python Server:"
+#~ msgstr "Sage를 시작할 수 없음"
+
+#~ msgid "Path to Sage:"
+#~ msgstr "Sage 경로:"
+
+#, fuzzy
+#~| msgid "Integrate Plots in Worksheet"
+#~ msgid "Integrate Plots in Worksheet (start a new session when changed)"
+#~ msgstr "워크시트에 그래프 통합하기"
+
+#~ msgid "Path to the Octave executable"
+#~ msgstr "Octave 실행 파일의 경로"
+
+#~ msgid "Path to Octave:"
+#~ msgstr "Octave 경로:"
+
+#~ msgid "Unnamed"
+#~ msgstr "이름 없음"
+
+#~ msgctxt ""
+#~ "the url to the documentation of R, please check if there is a translated "
+#~ "version and use the correct url"
+#~ msgid "http://rwiki.sciviews.org/doku.php?id=rdoc:rdoc"
+#~ msgstr "http://rwiki.sciviews.org/doku.php?id=rdoc:rdoc"
+
+#~ msgid "Choose the Backend to use:"
+#~ msgstr "사용할 백엔드 선택:"
+
+#~ msgid ""
+#~ "The backend with which this file was generated is not installed. It needs "
+#~ "%1"
+#~ msgstr ""
+#~ "이 파일을 생성할 수 있는 백엔드가 설치되어 있지 않습니다. %1이(가) 필요합"
+#~ "니다"
+
+#~ msgid "Publish Worksheet"
+#~ msgstr "워크시트 게시하기"
+
+#~ msgid "%1: %2"
+#~ msgstr "%1: %2"
+
+#~ msgid "cannot open file %1: Unknown MimeType"
+#~ msgstr "파일 %1을(를) 열 수 없음: 알 수 없는 MIME 형식"
+
+#, fuzzy
+#~| msgid "*.tex|LaTex Document"
+#~ msgid "*.tex|LaTeX Document"
+#~ msgstr "*.tex|LaTeX 문서"
+
+#~ msgid "*.cws|Cantor Worksheet"
+#~ msgstr "*.cws|Cantor 워크시트"
+
+#~ msgid "Server for the Cantor R Backend"
+#~ msgstr "Cantor R 백엔드 서버"
+
+#~ msgid "(C) 2009 Alexander Rieder"
+#~ msgstr "(C) 2009 Alexander Rieder"
+
+#, fuzzy
+#~| msgid "Load Variables"
+#~ msgid "Usage: loadVariables file"
+#~ msgstr "변수 불러오기"
+
+#, fuzzy
+#~| msgid "Load Variables"
+#~ msgid "Loading failed."
+#~ msgstr "변수 불러오기"
+
+#, fuzzy
+#~| msgid "(C) 2009-2010 Alexander Rieder"
+#~ msgid "(C) 2009-2013 Alexander Rieder"
+#~ msgstr "(C) 2009-2010 Alexander Rieder"
+
+#~ msgid "Cantor Server for R"
+#~ msgstr "Cantor R 서버"

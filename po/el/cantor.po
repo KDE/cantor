@@ -1,0 +1,5208 @@
+# Copyright (C) YEAR This_file_is_part_of_KDE
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Petros <pvidalis@gmail.com>, 2010.
+# Yannis Kaskamanidis <kiolalis@gmail.com>, 2010.
+# Dimitris Kardarakos <dimkard@gmail.com>, 2012, 2014.
+# Stelios <<sstavra@gmail.com>>, 2012, 2017, 2020, 2021.
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"Report-Msgid-Bugs-To: https://bugs.kde.org\n"
+"POT-Creation-Date: 2022-08-07 00:40+0000\n"
+"PO-Revision-Date: 2021-10-09 08:16+0300\n"
+"Last-Translator: Stelios <sstavra@gmail.com>\n"
+"Language-Team: Greek <kde-i18n-el@kde.org>\n"
+"Language: el\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Lokalize 20.04.2\n"
+
+#, kde-format
+msgctxt "NAME OF TRANSLATORS"
+msgid "Your names"
+msgstr "Γιάννης Κασκαμανίδης, Δημήτρης Καρδαράκος"
+
+#, kde-format
+msgctxt "EMAIL OF TRANSLATORS"
+msgid "Your emails"
+msgstr "kiolalis@gmail.com, dimkard@gmail.com"
+
+#: animationresultitem.cpp:38
+#, kde-format
+msgid "Pause"
+msgstr "Παύση"
+
+#: animationresultitem.cpp:41
+#, kde-format
+msgid "Start"
+msgstr "Εκκίνηση"
+
+#: animationresultitem.cpp:45
+#, kde-format
+msgid "Stop"
+msgstr "Διακοπή"
+
+#: animationresultitem.cpp:113
+#, fuzzy, kde-format
+#| msgid "Save result"
+msgid "Save animation result"
+msgstr "Αποθήκευση αποτελέσματος"
+
+#: animationresultitem.cpp:113
+#, kde-format
+msgid "Animations (*.gif)"
+msgstr ""
+
+#: assistants/advancedplot/advancedplotassistant.cpp:30
+#, kde-format
+msgid "Advanced Plotting"
+msgstr "Γραφική απεικόνιση για προχωρημένους"
+
+#. i18n: ectx: property (text), widget (QLabel, label_2)
+#: assistants/advancedplot/advancedplotdialog.ui:24
+#: backends/qalculate/plotassistant/qalculateplotassistant.cpp:24
+#, kde-format
+msgid "Plot"
+msgstr "Γραφική απεικόνιση"
+
+#. i18n: ectx: property (text), widget (QLabel, label_3)
+#. i18n: ectx: property (text), widget (QLabel, label)
+#: assistants/advancedplot/advancedplotdialog.ui:33
+#: assistants/differentiate/differentiatedlg.ui:19
+#: assistants/integrate/integratedlg.ui:19 assistants/plot2d/plot2ddlg.ui:19
+#: assistants/plot3d/plot3ddlg.ui:17
+#, kde-format
+msgid "Expression:"
+msgstr "Έκφραση:"
+
+#. i18n: ectx: property (text), widget (QLabel, label)
+#: assistants/advancedplot/advancedplotdialog.ui:45
+#, kde-format
+msgid "Additional options:"
+msgstr "Επιπρόσθετες επιλογές:"
+
+#. i18n: ectx: Menu (Plot)
+#: assistants/advancedplot/cantor_advancedplot_assistant.rc:4
+#: assistants/plot2d/cantor_plot2d_assistant.rc:4
+#: assistants/plot3d/cantor_plot3d_assistant.rc:4
+#: backends/qalculate/plotassistant/cantor_qalculateplotassistant.rc:4
+#, kde-format
+msgid "&Plot"
+msgstr "&Γραφική απεικόνιση"
+
+#. i18n: ectx: property (title), widget (QGroupBox, directiveContainer)
+#: assistants/advancedplot/directivecontainer.ui:14
+#, kde-format
+msgid "Option active"
+msgstr "Ενεργή επιλογή"
+
+#. i18n: ectx: Menu (calculate)
+#: assistants/differentiate/cantor_differentiate_assistant.rc:4
+#: assistants/integrate/cantor_integrate_assistant.rc:4
+#: assistants/solve/cantor_solve_assistant.rc:4
+#, kde-format
+msgid "&Calculate"
+msgstr "&Υπολογισμός"
+
+#: assistants/differentiate/differentiateassistant.cpp:29
+#, kde-format
+msgid "Differentiate"
+msgstr "Διαφορισμός"
+
+#. i18n: ectx: property (text), widget (QLabel, label_2)
+#: assistants/differentiate/differentiatedlg.ui:29
+#: assistants/integrate/integratedlg.ui:29
+#, kde-format
+msgid "Variable:"
+msgstr "Μεταβλητή:"
+
+#. i18n: ectx: property (text), widget (KLineEdit, variable)
+#. i18n: ectx: property (text), widget (KLineEdit, xVarEdit)
+#: assistants/differentiate/differentiatedlg.ui:36
+#: assistants/integrate/integratedlg.ui:36
+#: backends/qalculate/plotassistant/qalculateplotdialog.ui:123
+#, kde-format
+msgid "x"
+msgstr "χ"
+
+#. i18n: ectx: property (text), widget (QLabel, label_3)
+#: assistants/differentiate/differentiatedlg.ui:47
+#, kde-format
+msgid "Times: "
+msgstr "Φορές: "
+
+#. i18n: ectx: Menu (import_package)
+#: assistants/importpackage/cantor_import_package_assistant.rc:4
+#, kde-format
+msgid "&Package"
+msgstr "&Πακέτο"
+
+#: assistants/importpackage/importpackageassistant.cpp:29
+#, kde-format
+msgid "Import Package"
+msgstr "Εισαγωγή πακέτου"
+
+#. i18n: ectx: property (text), widget (QLabel, label)
+#: assistants/importpackage/importpackagedlg.ui:17
+#, kde-format
+msgid "Package:"
+msgstr "Πακέτο:"
+
+#: assistants/integrate/integrateassistant.cpp:29
+#, kde-format
+msgid "Integrate"
+msgstr "Ενσωμάτωση"
+
+#. i18n: ectx: property (text), widget (QLabel, label_3)
+#: assistants/integrate/integratedlg.ui:49
+#, kde-format
+msgid "Lower limit:"
+msgstr "Κατώτερο όριο:"
+
+#. i18n: ectx: property (text), widget (QLabel, label_4)
+#: assistants/integrate/integratedlg.ui:63
+#, kde-format
+msgid "Upper limit:"
+msgstr "Ανώτερο όριο:"
+
+#. i18n: ectx: property (text), widget (QCheckBox, isDefinite)
+#: assistants/integrate/integratedlg.ui:77
+#, kde-format
+msgid "definite integral"
+msgstr "καθορισμένο ολοκλήρωμα"
+
+#. i18n: ectx: Menu (linear_algebra)
+#: assistants/linearalgebra/creatematrix/cantor_create_matrix_assistant.rc:4
+#: assistants/linearalgebra/eigenvalues/cantor_eigenvalues_assistant.rc:4
+#: assistants/linearalgebra/eigenvectors/cantor_eigenvectors_assistant.rc:4
+#: assistants/linearalgebra/invertmatrix/cantor_invert_matrix_assistant.rc:4
+#, kde-format
+msgid "&Linear Algebra"
+msgstr "&Γραμμική άλγεβρα"
+
+#: assistants/linearalgebra/creatematrix/creatematrixassistant.cpp:26
+#, kde-format
+msgid "Create Matrix"
+msgstr "Δημιουργία πίνακα"
+
+#. i18n: ectx: property (text), widget (QLabel, label_2)
+#: assistants/linearalgebra/creatematrix/creatematrixdlg.ui:19
+#, kde-format
+msgid "Columns:"
+msgstr "Στήλες:"
+
+#. i18n: ectx: property (text), widget (QLabel, label)
+#: assistants/linearalgebra/creatematrix/creatematrixdlg.ui:37
+#, kde-format
+msgid "Rows:"
+msgstr "Γραμμές:"
+
+#: assistants/linearalgebra/eigenvalues/eigenvaluesassistant.cpp:28
+#, kde-format
+msgid "Compute Eigenvalues"
+msgstr "Υπολογισμός ιδιοτιμών"
+
+#. i18n: ectx: property (text), widget (QLabel, label)
+#: assistants/linearalgebra/eigenvalues/eigenvaluesdlg.ui:17
+#: assistants/linearalgebra/eigenvectors/eigenvectorsdlg.ui:17
+#: assistants/linearalgebra/invertmatrix/invertmatrixdlg.ui:17
+#, kde-format
+msgid "Matrix:"
+msgstr "Πίνακας:"
+
+#: assistants/linearalgebra/eigenvectors/eigenvectorsassistant.cpp:28
+#, kde-format
+msgid "Compute Eigenvectors"
+msgstr "Υπολογισμός ιδιοδιανυσμάτων"
+
+#: assistants/linearalgebra/invertmatrix/invertmatrixassistant.cpp:28
+#, kde-format
+msgid "Invert Matrix"
+msgstr "Αντιστροφή πίνακα"
+
+#: assistants/plot2d/plot2dassistant.cpp:28
+#, kde-format
+msgid "Plot 2D"
+msgstr "Δισδιάστατο σχέδιο"
+
+#. i18n: ectx: property (title), widget (QGroupBox, groupBox)
+#: assistants/plot2d/plot2ddlg.ui:31
+#, kde-format
+msgid "Variable"
+msgstr "Μεταβλητή"
+
+#. i18n: ectx: property (text), widget (QLabel, label_2)
+#. i18n: ectx: property (text), widget (QLabel, label_5)
+#: assistants/plot2d/plot2ddlg.ui:43 assistants/plot3d/plot3ddlg.ui:41
+#: assistants/plot3d/plot3ddlg.ui:86
+#, kde-format
+msgid "Name"
+msgstr "Όνομα"
+
+#. i18n: ectx: property (text), widget (QLabel, label_3)
+#. i18n: ectx: property (text), widget (QLabel, label_6)
+#: assistants/plot2d/plot2ddlg.ui:53 assistants/plot3d/plot3ddlg.ui:51
+#: assistants/plot3d/plot3ddlg.ui:96
+#, kde-format
+msgid "Minimum:"
+msgstr "Ελάχιστο:"
+
+#. i18n: ectx: property (text), widget (QLabel, label_4)
+#. i18n: ectx: property (text), widget (QLabel, label_7)
+#: assistants/plot2d/plot2ddlg.ui:63 assistants/plot3d/plot3ddlg.ui:61
+#: assistants/plot3d/plot3ddlg.ui:106
+#, kde-format
+msgid "Maximum:"
+msgstr "Μέγιστο:"
+
+#: assistants/plot3d/plot3dassistant.cpp:28
+#, kde-format
+msgid "Plot 3D"
+msgstr "Τρισδιάστατη γραφική απεικόνιση"
+
+#. i18n: ectx: property (title), widget (QGroupBox, groupBox)
+#: assistants/plot3d/plot3ddlg.ui:29
+#, kde-format
+msgid "1st Variable"
+msgstr "1η μεταβλητή"
+
+#. i18n: ectx: property (title), widget (QGroupBox, groupBox_2)
+#: assistants/plot3d/plot3ddlg.ui:74
+#, kde-format
+msgid "2nd Variable"
+msgstr "2η μεταβλητή"
+
+#: assistants/runscript/runscriptassistant.cpp:28
+#: scripteditor/scripteditorwidget.cpp:39
+#, kde-format
+msgid "Run Script"
+msgstr "Εκτέλεση σεναρίου"
+
+#: assistants/solve/solveassistant.cpp:28
+#, kde-format
+msgid "Solve equations"
+msgstr "Λύση εξισώσεων"
+
+#. i18n: ectx: property (text), widget (QLabel, label)
+#: assistants/solve/solvedlg.ui:19
+#, kde-format
+msgid "Equations:"
+msgstr "Εξισώσεις:"
+
+#. i18n: ectx: property (text), widget (QLabel, label_2)
+#: assistants/solve/solvedlg.ui:33
+#, kde-format
+msgid "Variables:"
+msgstr "Μεταβλητές:"
+
+#: backendchoosedialog.cpp:64
+#, kde-format
+msgid "Select the Backend"
+msgstr "Επιλέξτε το σύστημα υποστήριξης"
+
+#: backendchoosedialog.cpp:110
+#, kde-format
+msgid "<h1>%1</h1><div><b>Recommended version:</b> %2</div>"
+msgstr "<h1>%1</h1><div><b>Συνιστώμενη έκδοση:</b> %2</div>"
+
+#: backendchoosedialog.cpp:113
+#, kde-format
+msgid ""
+"<hr><div>%1</div><br><div>See <a href=\"%2\">%2</a> for more information.</"
+"div>"
+msgstr ""
+"<hr><div>%1</div><br><div>Δείτε <a href=\"%2\">%2</a> για περισσότερες "
+"πληροφορίες.</div>"
+
+#: backendchoosedialog.cpp:125
+#, kde-format
+msgid ""
+"<hr><div><b><font color='#e50000'>Some requirements are not fulfilled: </"
+"font></b>%1</div>"
+msgstr ""
+"<hr><div><b><font color='#e50000'>Κάποιες απαιτήσεις δεν πληρούνται: </"
+"font></b>%1</div>"
+
+#. i18n: ectx: property (text), widget (QCheckBox, makeDefault)
+#: backendchooser.ui:37
+#, kde-format
+msgid "Make this the default backend"
+msgstr "Ορισμός αυτού του συστήματος υποστήριξης ως προκαθορισμένου"
+
+#: backends/julia/juliabackend.cpp:57
+#, kde-format
+msgid ""
+"<b>Julia</b> is a high-level, high-performance dynamic programming language "
+"for technical computing, with syntax that is familiar to users of other "
+"technical computing environments. It provides a sophisticated compiler, "
+"distributed parallel execution, numerical accuracy, and an extensive "
+"mathematical function library."
+msgstr ""
+"Η <b>Julia</b> είναι μία υψηλού επιπέδου, υψηλής απόδοσης, δυναμική γλώσσα "
+"προγραμματισμού για τεχνικούς υπολογισμούς, με συντακτικό αναγνωρίσιμο από "
+"άλλα τεχνικά προγραμματιστικά περιβάλλοντα. Παρέχει έναν εξελιγμένο "
+"μεταγλωττιστή, κατανεμημένη παράλληλη εκτέλεση, αριθμητική ακρίβεια και μια "
+"εκτεταμένη βιβλιοθήκη μαθηματικών συναρτήσεων."
+
+#: backends/julia/juliabackend.cpp:70
+#, kde-format
+msgctxt ""
+"The url to the documentation of Julia, please check if there is a translated "
+"version and use the correct url"
+msgid "https://docs.julialang.org/en/latest/"
+msgstr "http://docs.julialang.org/en/latest/"
+
+#: backends/julia/juliabackend.cpp:86
+#, kde-format
+msgid ""
+"The path to Julia specified in the application settings must point directly "
+"to the executable. Symlinks are not allowed. Please provide the correct path "
+"in the application settings and try again."
+msgstr ""
+"Η διαδρομή στη Julia που ορίσθηκε στις ρυθμίσεις της εφαρμογής πρέπει να "
+"δείχνει απευθείας στο εκτελέσιμο. Συμβολικοί δεσμοί δεν επιτρέπονται. Δώστε "
+"τη σωστή διαδρομή στις ρυθμίσεις της εφαρμογής και προσπαθήστε πάλι."
+
+#: backends/julia/juliabackend.cpp:101 backends/julia/juliabackend.cpp:113
+#, kde-format
+msgid ""
+"Сantor couldn’t determine the version of Julia for %1. Please specify the "
+"correct path to Julia executable (no symlinks allowed) and try again."
+msgstr ""
+"Αδυναμία του Сantor να διακρίνει την έκδοση της Julia για το %1. Δώστε τη "
+"σωστή διαδρομή στο εκτελέσιμο Julia (δεν επιτρέπονται συμβολικοί δεσμοί) και "
+"προσπαθήστε πάλι."
+
+#: backends/julia/juliabackend.cpp:126
+#, kde-format
+msgid ""
+"You are trying to use Cantor with Julia v%1.%2.%3. This version of Cantor "
+"was compiled with the support of Julia v%4.%5.%6. Please point to this "
+"version of Julia or recompile Cantor using the version %1.%2.%3."
+msgstr ""
+"Προσπαθείτε να χρησιμοποιήσετε το Cantor με τη Julia v%1.%2.%3. Η "
+"μεταγλώττιση αυτής της έκδοσης του Cantor έγινε με υποστήριξη της  Julia v%4."
+"%5.%6. Καθορίστε έναν δείκτη σε αυτήν την έκδοση της Julia ή μεταγλωττίστε "
+"ξανά το Cantor με την έκδοση %1.%2.%3."
+
+#. i18n: ectx: label, entry (replPath), group (JuliaBackend)
+#: backends/julia/juliabackend.kcfg:10
+#, kde-format
+msgid "Path to the Julia native REPL"
+msgstr "Διαδρομή προς το εγγενές κέλυφος REPL της Julia"
+
+#. i18n: ectx: label, entry (variableManagement), group (JuliaBackend)
+#. i18n: ectx: label, entry (variableManagement), group (PythonBackend)
+#. i18n: ectx: label, entry (variableManagement), group (RBackend)
+#. i18n: ectx: label, entry (variableManagement), group (MaximaBackend)
+#: backends/julia/juliabackend.kcfg:16 backends/maxima/maximabackend.kcfg:26
+#: backends/python/pythonbackend.kcfg:14 backends/R/rserver/rserver.kcfg:16
+#, kde-format
+msgid "Enable Variable Management"
+msgstr "Ενεργοποίηση της διαχείρισης μεταβλητών"
+
+#. i18n: ectx: label, entry (integratePlots), group (JuliaBackend)
+#. i18n: ectx: label, entry (integratePlots), group (PythonBackend)
+#. i18n: ectx: label, entry (integratePlots), group (RBackend)
+#. i18n: ectx: label, entry (integratePlots), group (ScilabBackend)
+#. i18n: ectx: label, entry (integratePlots), group (MaximaBackend)
+#: backends/julia/juliabackend.kcfg:20 backends/maxima/maximabackend.kcfg:22
+#: backends/python/pythonbackend.kcfg:10 backends/R/rserver/rserver.kcfg:12
+#: backends/scilab/scilabbackend.kcfg:22
+#, kde-format
+msgid "Integrate Plots into the Worksheet"
+msgstr "Ενσωμάτωση των γραφικών απεικονίσεων στο φύλλο εργασίας"
+
+#. i18n: ectx: label, entry (plotExtenstionGraphicPackage), group (JuliaBackend)
+#. i18n: ectx: label, entry (plotExtenstionGraphicPackage), group (PythonBackend)
+#: backends/julia/juliabackend.kcfg:37 backends/python/pythonbackend.kcfg:28
+#, fuzzy, kde-format
+#| msgid "Graphic Package for \"Plot\"-assistant"
+msgid "Graphical package for the Plot-Assistant"
+msgstr "Πακέτο γραφικών βοηθός για τη «Γραφική απεικόνιση»"
+
+#: backends/julia/juliaextensions.cpp:246
+#, kde-format
+msgid "# Sorry, but Gadfly don't support 3d plots"
+msgstr "# Λυπούμαστε, αλλά το Gadfly δεν υποστηρίζει τρισδιάστατα γραφικά"
+
+#: backends/julia/juliaextensions.cpp:263
+#, kde-format
+msgid "Julia script file (*.jl)"
+msgstr "Αρχείο σεναρίου της Julia (*.jl)"
+
+#: backends/julia/juliasession.cpp:111 backends/julia/juliasession.cpp:120
+#: backends/maxima/maximasession.cpp:265 cantor_part.cpp:963
+#: lib/session.cpp:311 lib/session.cpp:313 worksheet.cpp:1193
+#: worksheet.cpp:1221 worksheet.cpp:1236 worksheet.cpp:1252 worksheet.cpp:1296
+#: worksheet.cpp:1308
+#, kde-format
+msgid "Error - Cantor"
+msgstr "Σφάλμα - Cantor"
+
+#: backends/julia/juliasession.cpp:111
+#, kde-format
+msgid ""
+"Julia session can't login due internal julia problem with missing internal "
+"file - \"%1\""
+msgstr ""
+"Δεν μπορεί να γίνει σύνδεση με συνεδρία της Julia εξαιτίας εσωτερικού "
+"προβλήματος της julia με αρχείο που λείπει - \"%1\""
+
+#: backends/julia/juliasession.cpp:120
+#, kde-format
+msgid "Julia session can't login due unknown internal problem"
+msgstr ""
+"Δεν μπορεί να γίνει σύνδεση με συνεδρία της Julia εξαιτίας εσωτερικού "
+"προβλήματος"
+
+#: backends/julia/juliasession.cpp:246
+#, kde-format
+msgid "Julia process stopped working."
+msgstr "Η διεργασία Julia σταμάτησε να λειτουργεί."
+
+#: backends/julia/juliasession.cpp:249
+#, kde-format
+msgid "Failed to start Julia process."
+msgstr "Αδυναμία έναρξης της διεργασίας Julia."
+
+#: backends/julia/juliasession.cpp:252
+#, kde-format
+msgid "Communication with Julia process failed for unknown reasons."
+msgstr "Αποτυχία επικοινωνίας με τη διεργασία Julia για άγνωστους λόγους."
+
+#: backends/julia/juliasession.cpp:322
+#, kde-format
+msgid ""
+"For Julia only GR (https://gr-framework.org/), a framework for visualization "
+"applications, is supported at the moment. This package has to be installed "
+"first, if not done yet. For this, run Pkg.install(\"GR\") in Cantor or in "
+"Julia REPL. Note, this operation can take some time and it's better to "
+"perform it in Julia REPL that is able to show the current progress of the "
+"package installation."
+msgstr ""
+"Για τη Julia μόνο το GR (https://gr-framework.org/), ένα πλαίσιο για "
+"οπτικοποίηση εφαρμογών, υποστηρίζεται προς το παρόν. Αυτό το πακέτο πρέπει "
+"πρώτα να εγκατασταθεί, αν δεν έχει ήδη γίνει. Για την εγκατάσταση, εκτελέστε "
+"Pkg.install(\"GR\") στο Cantor ή στο Julia REPL. Σημειώστε, η λειτουργία "
+"αυτή απαιτεί κάποιο χρόνο και είναι καλύτερα να την πραγματοποιήσετε στο "
+"Julia REPL το οποίο δείχνει την πρόοδο της εγκατάστασης του πακέτου."
+
+#. i18n: ectx: attribute (title), widget (QWidget, tabGeneral)
+#. i18n: ectx: attribute (title), widget (QWidget, tab_3)
+#: backends/julia/settings.ui:21 backends/lua/settings.ui:21
+#: backends/maxima/settings.ui:21 backends/octave/settings.ui:21
+#: backends/python/settings.ui:21 backends/qalculate/settings.ui:21
+#: backends/R/settings.ui:21 backends/sage/settings.ui:21
+#: backends/scilab/settings.ui:21 cantor.cpp:632
+#, kde-format
+msgid "General"
+msgstr "Γενικά"
+
+#. i18n: ectx: property (text), widget (QLabel, label)
+#: backends/julia/settings.ui:27 backends/maxima/settings.ui:61
+#: backends/octave/settings.ui:106 backends/sage/settings.ui:63
+#: backends/scilab/settings.ui:27
+#, kde-format
+msgid "Executable:"
+msgstr "Εκτελέσιμο:"
+
+#. i18n: ectx: property (text), widget (QLabel, lPlotIntegration)
+#: backends/julia/settings.ui:37 backends/maxima/settings.ui:37
+#: backends/octave/settings.ui:73 backends/python/settings.ui:47
+#: backends/R/settings.ui:53 backends/scilab/settings.ui:37
+#, kde-format
+msgid "Plot Integration:"
+msgstr "Ενσωμάτωση γραφικών παραστάσεων:"
+
+#. i18n: ectx: property (toolTip), widget (QCheckBox, kcfg_integratePlots)
+#: backends/julia/settings.ui:44 backends/maxima/settings.ui:27
+#: backends/octave/settings.ui:96 backends/python/settings.ui:64
+#: backends/R/settings.ui:33 backends/scilab/settings.ui:44
+#, kde-format
+msgid ""
+"If enabled, plots will be shown inside of the worksheet. Otherwise, plots "
+"will be shown in an external window."
+msgstr ""
+"Αν ενεργοποιηθεί, οι γραφικές απεικονίσεις θα εμφανίζονται μέσα στο φύλλο "
+"εργασίας. Διαφορετικά, θα εμφανίζονται σε εξωτερικό παράθυρο."
+
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_allowLatex)
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_integratePlots)
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_variableManagement)
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_indicateInfiniteSeries)
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_useAllPrefixes)
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_negativeExponents)
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_postConversion)
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_inlinePlot)
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_coloredPlot)
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_plotGrid)
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_plotBorder)
+#: backends/julia/settings.ui:47 backends/julia/settings.ui:64
+#: backends/maxima/settings.ui:30 backends/maxima/settings.ui:47
+#: backends/octave/settings.ui:56 backends/octave/settings.ui:99
+#: backends/python/settings.ui:67 backends/python/settings.ui:77
+#: backends/qalculate/settings.ui:125 backends/qalculate/settings.ui:142
+#: backends/qalculate/settings.ui:159 backends/qalculate/settings.ui:202
+#: backends/qalculate/settings.ui:308 backends/qalculate/settings.ui:315
+#: backends/qalculate/settings.ui:322 backends/qalculate/settings.ui:339
+#: backends/R/settings.ui:36 backends/R/settings.ui:46
+#: backends/sage/settings.ui:37 backends/scilab/settings.ui:47
+#: commandentry.cpp:349
+#, kde-format
+msgid "Enabled"
+msgstr "Ενεργοποιημένο"
+
+#. i18n: ectx: property (text), widget (QLabel, lVariableManagement)
+#: backends/julia/settings.ui:54 backends/maxima/settings.ui:54
+#: backends/octave/settings.ui:66 backends/python/settings.ui:27
+#: backends/R/settings.ui:76
+#, kde-format
+msgid "Variable Management:"
+msgstr "Διαχείριση μεταβλητών:"
+
+#. i18n: ectx: property (toolTip), widget (QCheckBox, kcfg_variableManagement)
+#: backends/julia/settings.ui:61 backends/maxima/settings.ui:44
+#: backends/octave/settings.ui:53 backends/python/settings.ui:74
+#: backends/R/settings.ui:43
+#, kde-format
+msgid ""
+"Monitor the creation and destruction of variables and show the existing "
+"variables in the variable panel."
+msgstr ""
+"Ελέγχει τη δημιουργία και την καταστροφή των μεταβλητών και εμφανίζει τις "
+"μεταβλητές στον σχετικό πίνακα."
+
+#. i18n: ectx: property (text), widget (QLabel, label2)
+#. i18n: ectx: property (text), widget (QLabel, label_2)
+#: backends/julia/settings.ui:71 backends/octave/settings.ui:27
+#, kde-format
+msgid "Internal Plot Format:"
+msgstr "Εσωτερικός τύπος αποθήκευσης γραφικών απεικονίσεων:"
+
+#. i18n: ectx: property (toolTip), widget (QComboBox, kcfg_inlinePlotFormat)
+#: backends/julia/settings.ui:78
+#, kde-format
+msgid "Inner format of plots, if plots embedding is enabled."
+msgstr ""
+"Εσωτερικός τύπος αποθήκευσης των γραφικών παραστάσεων αν είναι η ενσωμάτωσή "
+"τους ενεργοποιημένη."
+
+#. i18n: ectx: property (toolTip), widget (QLabel, label3)
+#. i18n: ectx: property (toolTip), widget (KComboBox, kcfg_plotExtenstionGraphicPackage)
+#. i18n: ectx: property (toolTip), widget (QLabel, label4)
+#: backends/julia/settings.ui:95 backends/julia/settings.ui:111
+#: backends/python/settings.ui:54 backends/python/settings.ui:90
+#, fuzzy, kde-format
+#| msgid "Graphic Package for \"Plot\"-assistant"
+msgid "Graphic package to be used in the Plot Assistant"
+msgstr "Πακέτο γραφικών βοηθός για τη «Γραφική απεικόνιση»"
+
+#. i18n: ectx: property (text), widget (QLabel, label3)
+#. i18n: ectx: property (text), widget (QLabel, label4)
+#: backends/julia/settings.ui:98 backends/python/settings.ui:57
+#, fuzzy, kde-format
+#| msgid "Graphic Package for \"Plot\"-assistant"
+msgid "Package for Plot Assistant"
+msgstr "Πακέτο γραφικών βοηθός για τη «Γραφική απεικόνιση»"
+
+#. i18n: ectx: property (text), item, widget (KComboBox, kcfg_plotExtenstionGraphicPackage)
+#: backends/julia/settings.ui:115 backends/python/settings.ui:109
+#, kde-format
+msgid "GR"
+msgstr "GR"
+
+#. i18n: ectx: property (text), item, widget (KComboBox, kcfg_plotExtenstionGraphicPackage)
+#: backends/julia/settings.ui:120
+#, kde-format
+msgid "Plots"
+msgstr "Γραφικές απεικονίσεις"
+
+#. i18n: ectx: property (text), item, widget (KComboBox, kcfg_plotExtenstionGraphicPackage)
+#: backends/julia/settings.ui:125
+#, kde-format
+msgid "PyPlot"
+msgstr "PyPlot"
+
+#. i18n: ectx: property (text), item, widget (KComboBox, kcfg_plotExtenstionGraphicPackage)
+#: backends/julia/settings.ui:130
+#, kde-format
+msgid "Gadfly"
+msgstr "Gadfly"
+
+#. i18n: ectx: attribute (title), widget (QWidget, tabAutorun)
+#. i18n: ectx: attribute (title), widget (QWidget, tabAutoran)
+#: backends/julia/settings.ui:152 backends/lua/settings.ui:51
+#: backends/maxima/settings.ui:85 backends/octave/settings.ui:114
+#: backends/python/settings.ui:123 backends/qalculate/settings.ui:556
+#: backends/R/settings.ui:84 backends/sage/settings.ui:71
+#: backends/scilab/settings.ui:68
+#, kde-format
+msgid "Autorun"
+msgstr "Αυτόματη εκτέλεση"
+
+#. i18n: ectx: property (text), widget (QLabel, lAutorun)
+#. i18n: ectx: property (title), widget (QGroupBox, groupBox)
+#. i18n: ectx: property (text), widget (QLabel, label_2)
+#: backends/julia/settings.ui:158 backends/kalgebra/settings.ui:20
+#: backends/lua/settings.ui:57 backends/maxima/settings.ui:91
+#: backends/octave/settings.ui:120 backends/python/settings.ui:129
+#: backends/qalculate/settings.ui:562 backends/R/settings.ui:90
+#: backends/sage/settings.ui:77 backends/scilab/settings.ui:74
+#, kde-format
+msgid "Commands to autorun"
+msgstr "Εντολές για αυτόματη εκτέλεση"
+
+#. i18n: ectx: attribute (title), widget (QWidget, tabDocumentation)
+#: backends/julia/settings.ui:172 backends/lua/settings.ui:71
+#: backends/maxima/settings.ui:105 backends/octave/settings.ui:134
+#: backends/python/settings.ui:143 backends/qalculate/settings.ui:575
+#: backends/R/settings.ui:104 backends/sage/settings.ui:91
+#: backends/scilab/settings.ui:88
+#, kde-format
+msgid "Documentation"
+msgstr "Τεκμηρίωση"
+
+#: backends/kalgebra/kalgebrabackend.cpp:56
+#, kde-format
+msgctxt ""
+"The url to the documentation of KAlgebra, please check if there is a "
+"translated version and use the correct url"
+msgid "https://docs.kde.org/?application=kalgebra"
+msgstr "https://docs.kde.org/?application=kalgebra"
+
+#. i18n: ectx: label, entry (autorunScripts), group (SageBackend)
+#. i18n: ectx: label, entry (autorunScripts), group (KAlgebraBackend)
+#. i18n: ectx: label, entry (autorunScripts), group (PythonBackend)
+#. i18n: ectx: label, entry (autorunScripts), group (RBackend)
+#. i18n: ectx: label, entry (autorunScripts), group (LuaBackend)
+#. i18n: ectx: label, entry (autorunScripts), group (ScilabBackend)
+#. i18n: ectx: label, entry (autorunScripts), group (MaximaBackend)
+#. i18n: ectx: label, entry (autorunScripts), group (QalculateBackend)
+#: backends/kalgebra/kalgebrabackend.kcfg:9 backends/lua/luabackend.kcfg:14
+#: backends/maxima/maximabackend.kcfg:30 backends/python/pythonbackend.kcfg:18
+#: backends/qalculate/qalculatebackend.kcfg:130
+#: backends/R/rserver/rserver.kcfg:20 backends/sage/sagebackend.kcfg:18
+#: backends/scilab/scilabbackend.kcfg:26
+#, kde-format
+msgid "List of scripts to autorun at the beginning of session"
+msgstr "Λίστα σεναρίων για αυτόματη εκτέλεση κατά την εκκίνηση της συνεδρίας"
+
+#: backends/kalgebra/kalgebraexpression.cpp:44
+#, kde-format
+msgid "Error: %1"
+msgstr "Σφάλμα: %1"
+
+#: backends/kalgebra/kalgebrasyntaxhelpobject.cpp:27
+#, kde-format
+msgid "<p><b>%1:</b> %2</p>"
+msgstr "<p><b>%1:</b> %2</p>"
+
+#. i18n: ectx: property (toolTip), widget (QGroupBox, groupBox)
+#: backends/kalgebra/settings.ui:17
+#, kde-format
+msgid ""
+"This autorun commands, which will run on start new worksheet. They can be "
+"useful for loading needed modules, changing environment, etc."
+msgstr ""
+"Με αυτό οι εντολές για την εκκίνηση ενός νέου φύλλου εργασίας, εκτελούνται "
+"αυτόματα. Χρησιμεύουν για τη φόρτωση των απαιτούμενων αρθρωμάτων, την αλλαγή "
+"περιβάλλοντος, κλπ."
+
+#: backends/lua/luabackend.cpp:52
+#, kde-format
+msgctxt "Lua official documentation"
+msgid "https://www.lua.org/docs.html"
+msgstr "http://www.lua.org/docs.html"
+
+#: backends/lua/luabackend.cpp:57
+#, kde-format
+msgid ""
+"<b>Lua</b> is a fast and lightweight scripting language, with a simple "
+"procedural syntax. There are several libraries in Lua aimed at math and "
+"science."
+msgstr ""
+"Η <b>Lua</b> είναι μια γρήγορη και ελαφριά γλώσσα συγγραφής σεναρίων, με "
+"απλό συντακτικό διαδικασιών. Υπάρχουν πολλές βιβλιοθήκες στη Lua για τα "
+"μαθηματικά και τη Φυσική."
+
+#. i18n: ectx: label, entry (Path), group (LuaBackend)
+#: backends/lua/luabackend.kcfg:10
+#, kde-format
+msgid "Path to luajit command"
+msgstr "Διαδρομή προς την εντολή luajit"
+
+#: backends/lua/luaextensions.cpp:20
+#, kde-format
+msgid "Lua script file (*.lua)"
+msgstr "Αρχείο σεναρίου της Lua (*.lua)"
+
+#. i18n: ectx: property (text), widget (QLabel, label)
+#: backends/lua/settings.ui:27
+#, kde-format
+msgid "Path to luajit:"
+msgstr "Διαδρομή προς την luajit:"
+
+#: backends/maxima/maximabackend.cpp:72
+#, kde-format
+msgctxt ""
+"the url to the documentation of Maxima, please check if there is a "
+"translated version and use the correct url"
+msgid "http://maxima.sourceforge.net/docs/manual/en/maxima.html"
+msgstr "http://maxima.sourceforge.net/docs/manual/en/maxima.html"
+
+#: backends/maxima/maximabackend.cpp:79
+#, kde-format
+msgid ""
+"<h1>Maxima's Help System</h1><h2>Function <i>apropos</i></h2>Searches for "
+"Maxima names which have name appearing anywhere within them; <i>name</i> "
+"must be a string or symbol. Thus, <i>apropos(exp)</i> returns a list of all "
+"the flags and functions which have exp as part of their name, such as "
+"<i>expand</i>, <i>exp</i>, and <i>exponentialize</i>. So, if you can only "
+"remember part of the name of a Maxima command or variable, you can use this "
+"command to find the rest of the name. Similarly, you can type "
+"<i>apropos(tr_)</i> to find a list of many of the switches relating to the "
+"translator, most of which begin with <i>tr_</i>.<br><br><i>apropos(\"\")</i> "
+"returns a list with all Maxima names.<br><br><i>apropos</i> returns the "
+"empty list [], if no name is found.<br><br><h2>Function <i>describe</i></"
+"h2><i>describe(string)</i> is equivalent to describe(string, exact)."
+"<br><br><i>describe(string, exact)</i> finds an item with title equal (case-"
+"insensitive) to string, if there is any such item."
+"<br><br><i>describe(string, inexact)</i> finds all documented items which "
+"contain string in their titles. If there is more than one such item, Maxima "
+"asks the user to select an item or items to display.<br><br><i>? foo</i> "
+"(with a space between <i>?</i> and <i>foo</i>) is equivalent to "
+"<i>describe(\"foo\", exact)</i>, and <i>?? foo</i> is equivalent to "
+"<i>describe(\"foo\", inexact)</i>.<br><br><i>describe(, inexact)</i> yields "
+"a list of all topics documented in the on-line manual.<br><br><i>describe</"
+"i> quotes its argument. <i>describe</i> returns <i>true</i> if some "
+"documentation is found, otherwise <i>false</i>.<br><h2>Function <i>example</"
+"i></h2><i>example(topic)</i> displays some examples of <i>topic</i>, which "
+"is a symbol or a string. To get examples for operators like <i>if</i>, "
+"<i>do</i>, or <i>lambda</i> the argument must be a string, e.g. "
+"<i>example(\"do\")</i>. <i>example</i> is not case sensitive. Most topics "
+"are function names.<br><br><i>example()</i> returns the list of all "
+"recognized topics.<br><br>The name of the file containing the examples is "
+"given by the global option variable <i>manual_demo</i>, which defaults to <i>"
+"\"manual.demo\"</i>.<br><br><i>example</i> quotes its argument. <i>example</"
+"i> returns <i>done</i> unless no examples are found or there is no argument, "
+"in which case <i>example</i> returns the list of all recognized topics."
+msgstr ""
+
+#: backends/maxima/maximabackend.cpp:111
+#, kde-format
+msgid ""
+"<b>Maxima</b> is a system for the manipulation of symbolic and numerical "
+"expressions, including differentiation, integration, Taylor series, Laplace "
+"transforms, ordinary differential equations, systems of linear equations, "
+"polynomials, and sets, lists, vectors, matrices, and tensors. Maxima yields "
+"high precision numeric results by using exact fractions, arbitrary precision "
+"integers, and variable precision floating point numbers. Maxima can plot "
+"functions and data in two and three dimensions."
+msgstr ""
+"Το <b>Maxima</b> είναι ένα σύστημα που χειρίζεται συμβολικές και αριθμητικές "
+"εκφράσεις, στις οποίες συμπεριλαμβάνονται ο διαφορισμός, η ολοκλήρωση, οι "
+"σειρές Taylor, οι μετασχηματισμοί Laplace, οι συνήθεις διαφορικές εξισώσεις, "
+"συστήματα γραμμικών εξισώσεων, πολυώνυμα, σύνολα, λίστες, διανύσματα, "
+"πίνακες και τανυστές. Το Maxima δίνει αριθμητικά αποτελέσματα μεγάλης "
+"ακρίβειας χρησιμοποιώντας ακριβή κλάσματα, αυθαίρετης ακρίβειας ακέραιους "
+"αριθμούς και μεταβλητής ακρίβειας αριθμούς κινητής υποδιαστολής. Το Maxima "
+"μπορεί να  απεικονίσει γραφικά συναρτήσεις σε δύο ή τρεις διαστάσεις."
+
+#. i18n: ectx: label, entry (Path), group (MaximaBackend)
+#: backends/maxima/maximabackend.kcfg:10
+#, kde-format
+msgid "Path to the Maxima executable"
+msgstr "Διαδρομή προς το εκτελέσιμο Maxima"
+
+#: backends/maxima/maximaexpression.cpp:104
+#, kde-format
+msgid "Error: Too many */"
+msgstr "Σφάλμα: πάρα πολλά */"
+
+#: backends/maxima/maximaexpression.cpp:117
+#, kde-format
+msgid "Error: Too many /*"
+msgstr "Σφάλμα: πάρα πολλά /*"
+
+#: backends/maxima/maximaexpression.cpp:123
+#, kde-format
+msgid "Error: expected \" before ;"
+msgstr "Σφάλμα: αναμενόταν \" πριν το ;"
+
+#: backends/maxima/maximaexpression.cpp:406
+#, kde-format
+msgid "Waiting for the plot result"
+msgstr "Αναμονή για το αποτέλεσμα της γραφικής παράστασης"
+
+#: backends/maxima/maximaextensions.cpp:31
+#, kde-format
+msgid "Maxima batch file (*.mac)"
+msgstr "Αρχείο δέσμης εντολών του Maxima (*.mac)"
+
+#: backends/maxima/maximasession.cpp:184
+#, kde-format
+msgid "Failed to start Maxima"
+msgstr "Αδυναμία έναρξης του Maxima"
+
+#: backends/maxima/maximasession.cpp:251
+#, kde-format
+msgid "Maxima crashed. restarting..."
+msgstr "Το Maxima κατέρρευσε. Επανέναρξη..."
+
+#: backends/maxima/maximasession.cpp:265
+#, kde-format
+msgid "Maxima crashed twice within a short time. Stopping to try starting"
+msgstr ""
+"Το Maxima κατέρρευσε δύο φορές μέσα σε μικρό χρονικό διάστημα. Διακοπή "
+"προσπαθειών έναρξης"
+
+#: backends/octave/octavebackend.cpp:62
+#, kde-format
+msgctxt ""
+"the url to the documentation of Octave, please check if there is a "
+"translated version and use the correct url"
+msgid "https://octave.org/doc/interpreter/"
+msgstr "https://octave.org/doc/interpreter/"
+
+#: backends/octave/octavebackend.cpp:67
+#, kde-format
+msgid ""
+"<b>GNU Octave</b> is a high-level language, primarily intended for numerical "
+"computations. <br/>It provides a convenient command line interface for "
+"solving linear and nonlinear problems numerically, and for performing other "
+"numerical experiments using a language that is mostly compatible with Matlab."
+msgstr ""
+"Η <b>GNU Octave</b> είναι μια υψηλού επιπέδου γλώσσα, με πρωταρχική επιδίωξη "
+"τους αριθμητικούς υπολογισμούς. <br/>Παρέχει ένα εύχρηστο περιβάλλον γραμμής "
+"εντολών για την επίλυση γραμμικών και μη γραμμικών προβλημάτων αριθμητικά "
+"και για την εκτέλεση άλλων αριθμητικών πειραμάτων χρησιμοποιώντας μια γλώσσα "
+"συμβατή με τη Matlab."
+
+#: backends/octave/octaveextensions.cpp:34
+#, kde-format
+msgid "Octave script file (*.m)"
+msgstr "Αρχείο σεναρίου της Octave (*.m)"
+
+#: backends/octave/octavesession.cpp:272 backends/sage/sageexpression.cpp:58
+#, kde-format
+msgid "Syntax Error"
+msgstr "Συντακτικό σφάλμα"
+
+#: backends/octave/octavesession.cpp:409
+#, kde-format
+msgid "Plot integration test failed."
+msgstr "Αποτυχία της δοκιμής ενσωμάτωσης γραφικών παραστάσεων."
+
+#: backends/octave/octavesession.cpp:413
+#, kde-format
+msgid "The integration of plots will be disabled."
+msgstr "Η ενσωμάτωση των γραφικών παραστάσεων θα απενεργοποιηθεί."
+
+#: backends/octave/octavesession.cpp:414 backends/sage/sagesession.cpp:238
+#: backends/sage/sagesession.cpp:271 backends/sage/sagesession.cpp:337
+#: backends/sage/sagesession.cpp:348 cantor.cpp:216 cantor.cpp:218
+#: cantor.cpp:336 cantor.cpp:343 lib/session.cpp:381 main.cpp:66 main.cpp:130
+#: markdownentry.cpp:797 textentry.cpp:553 worksheet.cpp:1275
+#, kde-format
+msgid "Cantor"
+msgstr "Cantor"
+
+#: backends/octave/octavesession.cpp:435
+#, kde-format
+msgid ""
+"The plot integration doesn't work because Cantor found, that Octave can't "
+"create plots, because there are no graphical backends for it: this "
+"conclusion was made on the basis of empty output from "
+"available_graphics_toolkits() function. Looks like you should install some "
+"additional OS packages, like gnuplot, fltk or qt for possibility to create "
+"plots."
+msgstr ""
+"Η ενσωμάτωση των γραφικών παραστάσεων δεν λειτουργεί γιατί το Cantor βρήκε, "
+"ότι το Octave δεν μπορεί να τις δημιουργήσει επειδή δεν υπάρχουν συστήματα "
+"υποστήριξης γραφικών παραστάσεων: το συμπέρασμα αυτό προκύπτει επειδή η "
+"συνάρτηση available_graphics_toolkits() δεν δίνει κάτι στην έξοδο. Φαίνεται "
+"ότι πρέπει να εγκαταστήσετε κάποια πρόσθετα πακέτα, όπως τα gnuplot, fltk ή "
+"το qt για να μποείτε να δημιουργείτε γραφικές παραστάσεις."
+
+#: backends/python/pythonbackend.cpp:67
+#, kde-format
+msgctxt "The url to the documentation Python"
+msgid "https://docs.python.org/3/"
+msgstr "https://docs.python.org/3/"
+
+#: backends/python/pythonbackend.cpp:72
+#, kde-format
+msgid ""
+"<b>Python</b> is a remarkably powerful dynamic programming language that is "
+"used in a wide variety of application domains. There are several Python "
+"packages to scientific programming."
+msgstr ""
+"Η <b>Python</b> είναι μια αξιοσημείωτα ισχυρή δυναμική γλώσσα "
+"προγραμματισμού που χρησιμοποιείται σε μια ευρεία γκάμα τομέων εφαρμογών. "
+"Υπάρχουν διάφορα πακέτα της Python για επιστημονικό προγραμματισμό."
+
+#: backends/python/pythonextensions.cpp:285
+#, kde-format
+msgid "# Sorry, but Bokeh doesn't support 3d plotting"
+msgstr "# Λυπούμαστε, αλλά το Bokeh δεν υποστηρίζει τρισδιάστατη σχεδίαση"
+
+#: backends/python/pythonextensions.cpp:301
+#, kde-format
+msgid "Python script file (*.py)"
+msgstr "Αρχείο σεναρίου της Python (*.py)"
+
+#: backends/python/pythonsession.cpp:274
+#, kde-format
+msgid "Cantor Python server stopped working."
+msgstr ") python εξυπηρετητής του Cantor διέκοψε τη λειτουργία του."
+
+#: backends/python/pythonsession.cpp:278
+#, kde-format
+msgid "Failed to start Cantor python server."
+msgstr "Αδυναμία έναρξης του python εξυπηρετητή του Cantor."
+
+#: backends/python/pythonsession.cpp:282
+#, kde-format
+msgid "Communication with Cantor python server failed for unknown reasons."
+msgstr ""
+"Αποτυχία επικοινωνίας με τον python εξυπηρετητή του Cantor για άγνωστους "
+"λόγους."
+
+#: backends/python/pythonsession.cpp:308
+#, kde-format
+msgid ""
+"For using integrated graphics with Matplotlib package, you need to install "
+"\"matplotlib\" python package first."
+msgstr ""
+"Για τη χρήση ενσωματωμένων γραφικών με το πακέτο Matplotlib, απαιτείται η "
+"εγκατάσταση του python πακέτου «matplotlib»."
+
+#: backends/python/pythonsession.cpp:314
+#, kde-format
+msgid ""
+"For using integrated graphic with Plot.ly, you need to install \"plotly\" "
+"python package and special Plot.ly-compatible \"orca\" executable. See "
+"\"Static Image Export\" article in Plot.ly documentation for details."
+msgstr ""
+"Για τη χρήση ενσωματωμένων γραφικών με το Plot.ly, απαιτείται η εγκατάσταση "
+"του python πακέτου «plotly» και του ειδικού εκτελέσιμου συμβατού με το Plot."
+"ly «orca». Για λεπτομέρειες δείτε το άρθρο «Εξαγωγή στατικών εικόνων» στην "
+"τεκμηρίωση του Plot.ly."
+
+#. i18n: ectx: property (text), item, widget (KComboBox, kcfg_plotExtenstionGraphicPackage)
+#: backends/python/settings.ui:94
+#, kde-format
+msgid "matplotlib"
+msgstr "matplotlib"
+
+#. i18n: ectx: property (text), item, widget (KComboBox, kcfg_plotExtenstionGraphicPackage)
+#: backends/python/settings.ui:99
+#, kde-format
+msgid "pylab"
+msgstr "pylab"
+
+#. i18n: ectx: property (text), item, widget (KComboBox, kcfg_plotExtenstionGraphicPackage)
+#: backends/python/settings.ui:104
+#, kde-format
+msgid "plot.ly"
+msgstr "plot.ly"
+
+#. i18n: ectx: property (text), item, widget (KComboBox, kcfg_plotExtenstionGraphicPackage)
+#: backends/python/settings.ui:114
+#, kde-format
+msgid "bokeh"
+msgstr "bokeh"
+
+#. i18n: ectx: property (windowTitle), widget (QWidget, QalculatePlotAssistantBase)
+#: backends/qalculate/plotassistant/qalculateplotdialog.ui:14
+#, kde-format
+msgid "Cantor - Plot Dialog"
+msgstr "Cantor - Διάλογος γραφικής απεικόνισης"
+
+#. i18n: ectx: attribute (title), widget (QWidget, tab)
+#: backends/qalculate/plotassistant/qalculateplotdialog.ui:24
+#, kde-format
+msgid "Functions"
+msgstr "Συναρτήσεις"
+
+#. i18n: ectx: property (text), widget (QTableWidget, functionTable)
+#: backends/qalculate/plotassistant/qalculateplotdialog.ui:40
+#, kde-format
+msgid "Title"
+msgstr "Τίτλος"
+
+#. i18n: ectx: property (text), widget (QTableWidget, functionTable)
+#: backends/qalculate/plotassistant/qalculateplotdialog.ui:45
+#, kde-format
+msgid "Expression"
+msgstr "Έκφραση"
+
+#. i18n: ectx: property (text), widget (QPushButton, addButton)
+#: backends/qalculate/plotassistant/qalculateplotdialog.ui:72
+#, kde-format
+msgid "Add"
+msgstr "Προσθήκη"
+
+#. i18n: ectx: property (text), widget (QPushButton, removeButton)
+#: backends/qalculate/plotassistant/qalculateplotdialog.ui:82
+#: worksheetentry.cpp:437
+#, kde-format
+msgid "Remove"
+msgstr "Αφαίρεση"
+
+#. i18n: ectx: property (text), widget (QPushButton, clearButton)
+#: backends/qalculate/plotassistant/qalculateplotdialog.ui:92
+#, kde-format
+msgid "Clear List"
+msgstr "Καθαρισμός λίστας"
+
+#. i18n: ectx: property (text), widget (QLabel, label_3)
+#: backends/qalculate/plotassistant/qalculateplotdialog.ui:107
+#, kde-format
+msgid "X variable"
+msgstr "Μεταβλητή Χ"
+
+#. i18n: ectx: property (text), widget (QLabel, label_4)
+#: backends/qalculate/plotassistant/qalculateplotdialog.ui:134
+#, kde-format
+msgid "Style"
+msgstr "Στιλ"
+
+#. i18n: ectx: property (text), item, widget (KComboBox, styleBox)
+#. i18n: ectx: property (text), item, widget (KComboBox, kcfg_plotStyle)
+#: backends/qalculate/plotassistant/qalculateplotdialog.ui:145
+#: backends/qalculate/settings.ui:420
+#, kde-format
+msgid "Lines"
+msgstr "Γραμμές"
+
+#. i18n: ectx: property (text), item, widget (KComboBox, styleBox)
+#. i18n: ectx: property (text), item, widget (KComboBox, kcfg_plotStyle)
+#: backends/qalculate/plotassistant/qalculateplotdialog.ui:150
+#: backends/qalculate/settings.ui:425
+#, kde-format
+msgid "Points"
+msgstr "Σημεία"
+
+#. i18n: ectx: property (text), item, widget (KComboBox, styleBox)
+#. i18n: ectx: property (text), item, widget (KComboBox, kcfg_plotStyle)
+#: backends/qalculate/plotassistant/qalculateplotdialog.ui:155
+#: backends/qalculate/settings.ui:430
+#, kde-format
+msgid "Points and Lines"
+msgstr "Σημεία και γραμμές"
+
+#. i18n: ectx: property (text), item, widget (KComboBox, styleBox)
+#. i18n: ectx: property (text), item, widget (KComboBox, kcfg_plotStyle)
+#: backends/qalculate/plotassistant/qalculateplotdialog.ui:160
+#: backends/qalculate/settings.ui:435
+#, kde-format
+msgid "Boxes"
+msgstr "Πλαίσια"
+
+#. i18n: ectx: property (text), item, widget (KComboBox, styleBox)
+#. i18n: ectx: property (text), item, widget (KComboBox, kcfg_plotStyle)
+#: backends/qalculate/plotassistant/qalculateplotdialog.ui:165
+#: backends/qalculate/settings.ui:440
+#, kde-format
+msgid "Histogram"
+msgstr "Ιστόγραμμα"
+
+#. i18n: ectx: property (text), item, widget (KComboBox, styleBox)
+#: backends/qalculate/plotassistant/qalculateplotdialog.ui:170
+#, kde-format
+msgid "Steps"
+msgstr "Βήματα"
+
+#. i18n: ectx: property (text), item, widget (KComboBox, styleBox)
+#. i18n: ectx: property (text), item, widget (KComboBox, kcfg_plotStyle)
+#: backends/qalculate/plotassistant/qalculateplotdialog.ui:175
+#: backends/qalculate/settings.ui:450
+#, kde-format
+msgid "Candlesticks"
+msgstr "Κηροπήγια"
+
+#. i18n: ectx: property (text), item, widget (KComboBox, styleBox)
+#. i18n: ectx: property (text), item, widget (KComboBox, kcfg_plotStyle)
+#: backends/qalculate/plotassistant/qalculateplotdialog.ui:180
+#: backends/qalculate/settings.ui:455
+#, kde-format
+msgid "Dots"
+msgstr "Τελείες"
+
+#. i18n: ectx: property (text), widget (QLabel, label_5)
+#: backends/qalculate/plotassistant/qalculateplotdialog.ui:192
+#, kde-format
+msgid "Smoothing"
+msgstr "Εξομάλυνση"
+
+#. i18n: ectx: property (text), item, widget (KComboBox, smoothingBox)
+#. i18n: ectx: property (text), item, widget (KComboBox, kcfg_minExp)
+#. i18n: ectx: property (text), item, widget (KComboBox, kcfg_angleUnit)
+#. i18n: ectx: property (text), item, widget (KComboBox, kcfg_structuring)
+#. i18n: ectx: property (text), item, widget (KComboBox, kcfg_plotSmoothing)
+#: backends/qalculate/plotassistant/qalculateplotdialog.ui:203
+#: backends/qalculate/settings.ui:92 backends/qalculate/settings.ui:210
+#: backends/qalculate/settings.ui:244 backends/qalculate/settings.ui:391
+#, kde-format
+msgid "None"
+msgstr "Τίποτα"
+
+#. i18n: ectx: property (text), item, widget (KComboBox, smoothingBox)
+#. i18n: ectx: property (text), item, widget (KComboBox, kcfg_plotSmoothing)
+#: backends/qalculate/plotassistant/qalculateplotdialog.ui:208
+#: backends/qalculate/settings.ui:396
+#, kde-format
+msgid "Monotonic"
+msgstr "Μονότονη"
+
+#. i18n: ectx: property (text), item, widget (KComboBox, smoothingBox)
+#: backends/qalculate/plotassistant/qalculateplotdialog.ui:213
+#, kde-format
+msgid "Natural Cubic Splines"
+msgstr "Φυσικές κυβικές καμπύλες spline"
+
+#. i18n: ectx: property (text), item, widget (KComboBox, smoothingBox)
+#. i18n: ectx: property (text), item, widget (KComboBox, kcfg_plotSmoothing)
+#: backends/qalculate/plotassistant/qalculateplotdialog.ui:218
+#: backends/qalculate/settings.ui:406
+#, kde-format
+msgid "Bezier"
+msgstr "Bezier"
+
+#. i18n: ectx: property (text), item, widget (KComboBox, smoothingBox)
+#. i18n: ectx: property (text), item, widget (KComboBox, kcfg_plotSmoothing)
+#: backends/qalculate/plotassistant/qalculateplotdialog.ui:223
+#: backends/qalculate/settings.ui:411
+#, kde-format
+msgid "Bezier (monotonic)"
+msgstr "Bezier (μονότονη)"
+
+#. i18n: ectx: property (title), widget (QGroupBox, groupBox)
+#: backends/qalculate/plotassistant/qalculateplotdialog.ui:233
+#, kde-format
+msgid "Function Range"
+msgstr "Εύρος συνάρτησης"
+
+#. i18n: ectx: property (text), widget (QLabel, label)
+#: backends/qalculate/plotassistant/qalculateplotdialog.ui:239
+#, kde-format
+msgid "X range"
+msgstr "Εύρος Χ"
+
+#. i18n: ectx: property (text), widget (KLineEdit, xMinEdit)
+#: backends/qalculate/plotassistant/qalculateplotdialog.ui:254
+#, kde-format
+msgid "0"
+msgstr "0"
+
+#. i18n: ectx: property (text), widget (QLabel, label_2)
+#: backends/qalculate/plotassistant/qalculateplotdialog.ui:261
+#, kde-format
+msgid "-"
+msgstr "-"
+
+#. i18n: ectx: property (text), widget (KLineEdit, xMaxEdit)
+#: backends/qalculate/plotassistant/qalculateplotdialog.ui:274
+#, kde-format
+msgid "10"
+msgstr "10"
+
+#. i18n: ectx: property (text), widget (QRadioButton, stepsButton)
+#: backends/qalculate/plotassistant/qalculateplotdialog.ui:283
+#, kde-format
+msgid "Sa&mpling rate"
+msgstr "Ρυθμός δειγ&ματοληψίας"
+
+#. i18n: ectx: property (text), widget (QRadioButton, stepButton)
+#: backends/qalculate/plotassistant/qalculateplotdialog.ui:293
+#, kde-format
+msgid "Step si&ze"
+msgstr "Μέγεθος βήμα&τος"
+
+#. i18n: ectx: attribute (title), widget (QWidget, tab_4)
+#: backends/qalculate/plotassistant/qalculateplotdialog.ui:324
+#, kde-format
+msgid "Options"
+msgstr "Επιλογές"
+
+#. i18n: ectx: property (text), widget (QLabel, label_19)
+#: backends/qalculate/plotassistant/qalculateplotdialog.ui:332
+#, kde-format
+msgid "Plot title"
+msgstr "Τίτλος γραφικής απεικόνισης"
+
+#. i18n: ectx: property (text), widget (QLabel, label_20)
+#: backends/qalculate/plotassistant/qalculateplotdialog.ui:353
+#, kde-format
+msgid "X-axis label"
+msgstr "Ετικέτα άξονα Χ"
+
+#. i18n: ectx: property (text), widget (QLabel, label_21)
+#: backends/qalculate/plotassistant/qalculateplotdialog.ui:374
+#, kde-format
+msgid "Y-axis label"
+msgstr "Ετικέτα άξονα Y"
+
+#. i18n: ectx: property (text), widget (QLabel, label_22)
+#: backends/qalculate/plotassistant/qalculateplotdialog.ui:395
+#, kde-format
+msgid "Legend position"
+msgstr "Θέση υπομνήματος"
+
+#. i18n: ectx: property (text), item, widget (KComboBox, legendBox)
+#. i18n: ectx: property (text), item, widget (KComboBox, kcfg_plotLegend)
+#: backends/qalculate/plotassistant/qalculateplotdialog.ui:403
+#: backends/qalculate/settings.ui:474
+#, kde-format
+msgid "Hide legend"
+msgstr "Απόκρυψη υπομνήματος"
+
+#. i18n: ectx: property (text), item, widget (KComboBox, legendBox)
+#. i18n: ectx: property (text), item, widget (KComboBox, kcfg_plotLegend)
+#: backends/qalculate/plotassistant/qalculateplotdialog.ui:408
+#: backends/qalculate/settings.ui:479
+#, kde-format
+msgid "Top-left"
+msgstr "Πάνω-αριστερά"
+
+#. i18n: ectx: property (text), item, widget (KComboBox, legendBox)
+#. i18n: ectx: property (text), item, widget (KComboBox, kcfg_plotLegend)
+#: backends/qalculate/plotassistant/qalculateplotdialog.ui:413
+#: backends/qalculate/settings.ui:484
+#, kde-format
+msgid "Top-right"
+msgstr "Πάνω-δεξιά"
+
+#. i18n: ectx: property (text), item, widget (KComboBox, legendBox)
+#. i18n: ectx: property (text), item, widget (KComboBox, kcfg_plotLegend)
+#: backends/qalculate/plotassistant/qalculateplotdialog.ui:418
+#: backends/qalculate/settings.ui:489
+#, kde-format
+msgid "Bottom-left"
+msgstr "Κάτω-αριστερά"
+
+#. i18n: ectx: property (text), item, widget (KComboBox, legendBox)
+#. i18n: ectx: property (text), item, widget (KComboBox, kcfg_plotLegend)
+#: backends/qalculate/plotassistant/qalculateplotdialog.ui:423
+#: backends/qalculate/settings.ui:494
+#, kde-format
+msgid "Bottom-right"
+msgstr "Κάτω-δεξιά"
+
+#. i18n: ectx: property (text), item, widget (KComboBox, legendBox)
+#. i18n: ectx: property (text), item, widget (KComboBox, kcfg_plotLegend)
+#: backends/qalculate/plotassistant/qalculateplotdialog.ui:428
+#: backends/qalculate/settings.ui:499
+#, kde-format
+msgid "Below"
+msgstr "Κάτω"
+
+#. i18n: ectx: property (text), item, widget (KComboBox, legendBox)
+#. i18n: ectx: property (text), item, widget (KComboBox, kcfg_plotLegend)
+#: backends/qalculate/plotassistant/qalculateplotdialog.ui:433
+#: backends/qalculate/settings.ui:504
+#, kde-format
+msgid "Outside"
+msgstr "Εξωτερικά"
+
+#. i18n: ectx: property (text), widget (QCheckBox, gridCheckBox)
+#: backends/qalculate/plotassistant/qalculateplotdialog.ui:445
+#, kde-format
+msgid "Display Grid"
+msgstr "Εμφάνιση του καννάβου"
+
+#. i18n: ectx: property (text), widget (QCheckBox, borderCheckBox)
+#: backends/qalculate/plotassistant/qalculateplotdialog.ui:452
+#, kde-format
+msgid "Display full border"
+msgstr "Εμφάνιση πλήρων περιγραμμάτων"
+
+#. i18n: ectx: property (text), widget (QCheckBox, colorCheckBox)
+#: backends/qalculate/plotassistant/qalculateplotdialog.ui:463
+#, kde-format
+msgid "Use Colors"
+msgstr "Χρήση χρωμάτων"
+
+#. i18n: ectx: property (text), widget (QCheckBox, inlineCheckBox)
+#: backends/qalculate/plotassistant/qalculateplotdialog.ui:470
+#, kde-format
+msgid "Display inline"
+msgstr "Εμφάνιση εμβόλιμα"
+
+#. i18n: ectx: property (text), widget (QCheckBox, xLogCheckBox)
+#: backends/qalculate/plotassistant/qalculateplotdialog.ui:481
+#, kde-format
+msgid "Logarithmic x scale"
+msgstr "Λογαριθμική κλίμακα x"
+
+#. i18n: ectx: property (text), widget (QCheckBox, yLogCheckBox)
+#: backends/qalculate/plotassistant/qalculateplotdialog.ui:502
+#, kde-format
+msgid "Logarithmic y scale"
+msgstr "Λογαριθμική κλίμακα y"
+
+#. i18n: ectx: property (title), widget (QGroupBox, groupBox_3)
+#: backends/qalculate/plotassistant/qalculateplotdialog.ui:521
+#, kde-format
+msgid "File Options"
+msgstr "Επιλογές αρχείου"
+
+#. i18n: ectx: property (text), widget (QCheckBox, saveCheckBox)
+#: backends/qalculate/plotassistant/qalculateplotdialog.ui:527
+#, kde-format
+msgid "Save plot to file"
+msgstr "Αποθήκευση γραφικής απεικόνισης σε αρχείο"
+
+#. i18n: ectx: property (text), widget (QLabel, label_23)
+#: backends/qalculate/plotassistant/qalculateplotdialog.ui:547
+#, kde-format
+msgid "File type"
+msgstr "Τύπος αρχείου"
+
+#. i18n: ectx: property (text), item, widget (KComboBox, saveFileBox)
+#: backends/qalculate/plotassistant/qalculateplotdialog.ui:555
+#, kde-format
+msgid "Detect from filename"
+msgstr "Ανίχνευση από το όνομα αρχείου"
+
+#. i18n: ectx: property (text), item, widget (KComboBox, saveFileBox)
+#: backends/qalculate/plotassistant/qalculateplotdialog.ui:560
+#, kde-format
+msgid "PNG"
+msgstr "PNG"
+
+#. i18n: ectx: property (text), item, widget (KComboBox, saveFileBox)
+#: backends/qalculate/plotassistant/qalculateplotdialog.ui:565
+#, kde-format
+msgid "PS"
+msgstr "PS"
+
+#. i18n: ectx: property (text), item, widget (KComboBox, saveFileBox)
+#: backends/qalculate/plotassistant/qalculateplotdialog.ui:570
+#, kde-format
+msgid "EPS"
+msgstr "EPS"
+
+#. i18n: ectx: property (text), item, widget (KComboBox, saveFileBox)
+#: backends/qalculate/plotassistant/qalculateplotdialog.ui:575
+#: worksheet.cpp:1820 worksheet.cpp:1846 worksheet.cpp:1866 worksheet.cpp:1884
+#, kde-format
+msgid "LaTeX"
+msgstr "LaTeX"
+
+#. i18n: ectx: property (text), item, widget (KComboBox, saveFileBox)
+#: backends/qalculate/plotassistant/qalculateplotdialog.ui:580
+#, kde-format
+msgid "SVG"
+msgstr "SVG"
+
+#. i18n: ectx: property (text), item, widget (KComboBox, saveFileBox)
+#: backends/qalculate/plotassistant/qalculateplotdialog.ui:585
+#, kde-format
+msgid "FIG"
+msgstr "FIG"
+
+#: backends/qalculate/qalculatebackend.cpp:51
+#, kde-format
+msgid ""
+"<b>Qalculate!</b> is not your regular software replication of the cheapest "
+"available calculator. Qalculate! aims to make full use of the superior "
+"interface, power and flexibility of modern computers. The center of "
+"attention in Qalculate! is the expression entry. Instead of entering each "
+"number in a mathematical expression separately, you can directly write the "
+"whole expression and later modify it. The interpretation of expressions is "
+"flexible and fault tolerant, and if you nevertheless do something wrong, "
+"Qalculate! will tell you so. Not fully solvable expressions are however not "
+"errors. Qalculate! will simplify as far as it can and answer with an "
+"expression. In addition to numbers and arithmetic operators, an expression "
+"may contain any combination of variables, units, and functions."
+msgstr ""
+"Το <b>Qalculate!</b> δεν είναι ένα συνηθισμένο λογισμικό αντιγραφή της "
+"φθηνότερης διαθέσιμης αριθμομηχανής. Το Qalculate! στοχεύει στο να "
+"αξιοποιήσει πλήρως την ανώτερη διεπαφή, την ισχύ και την ευελιξία που "
+"παρέχουν οι σύγχρονοι υπολογιστές. Στο επίκεντρο της προσοχής του Qalculate! "
+"είναι η εισαγωγή εκφράσεων. Αντί να εισάγετε κάθε αριθμό στη μαθηματική "
+"έκφραση ξεχωριστά, μπορείτε να γράψετε απ' ευθείας όλη την έκφραση και στη "
+"συνέχεια να τη τροποποιήσετε. Η ερμηνεία των εκφράσεων είναι ευέλικτη και "
+"ανεκτική σε σφάλματα και αν παρόλα αυτά κάνετε κάτι λάθος, το Qalculate! θα "
+"σας ειδοποιήσει σχετικά. Εκφράσεις που δεν είναι πλήρως επιλύσιμες δεν "
+"αποτελούν σφάλματα. Το Qalculate! θα τις απλοποιήσει όσο μπορεί και θα "
+"απαντήσει με μια έκφραση. Επιπλέον των αριθμών και των αριθμητικών τελεστών, "
+"μια έκφραση μπορεί να περιέχει έναν οποιοδήποτε συνδυασμό μεταβλητών, "
+"μονάδων και συναρτήσεων."
+
+#. i18n: ectx: label, entry (postConversion), group (QalculateBackend)
+#: backends/qalculate/qalculatebackend.kcfg:9
+#, kde-format
+msgid ""
+"If and how units will be automatically converted. If true, convert to the "
+"best suited SI units (the least amount of units)."
+msgstr ""
+"Αν και πώς οι μονάδες θα μετατραπούν αυτόματα. Αν ενεργοποιηθεί, η μετατροπή "
+"γίνεται στις κατάλληλες αντίστοιχες μονάδες του Διεθνούς Συστήματος (το "
+"ελάχιστο πλήθος μονάδων)."
+
+#. i18n: ectx: label, entry (angleUnit), group (QalculateBackend)
+#: backends/qalculate/qalculatebackend.kcfg:13
+#, kde-format
+msgid "Default angle unit for trigonometric functions."
+msgstr ""
+"Προκαθορισμένη μονάδα μέτρησης γωνίας για τις τριγωνομετρικές συναρτήσεις."
+
+#. i18n: ectx: label, entry (base), group (QalculateBackend)
+#: backends/qalculate/qalculatebackend.kcfg:23
+#, kde-format
+msgid "Base of parsed and evaluated numbers."
+msgstr "Βάση των αναλυμένων και υπολογισμένων αριθμών."
+
+#. i18n: ectx: label, entry (structuring), group (QalculateBackend)
+#: backends/qalculate/qalculatebackend.kcfg:32
+#, kde-format
+msgid "If the evaluation result will be simplified or factorized."
+msgstr "Αν το αποτέλεσμα του υπολογισμού θα απλοποιηθεί ή θα παραγοντοποιηθεί."
+
+#. i18n: ectx: label, entry (fractionFormat), group (QalculateBackend)
+#: backends/qalculate/qalculatebackend.kcfg:42
+#, kde-format
+msgid ""
+"If rational numbers will be displayed with decimals, as a fraction, or "
+"something in between."
+msgstr ""
+"Αν οι ρητοί αριθμοί θα εμφανίζονται ως δεκαδικοί, ως κλάσματα ή ως κάτι "
+"ενδιάμεσο."
+
+#. i18n: ectx: label, entry (indicateInfiniteSeries), group (QalculateBackend)
+#: backends/qalculate/qalculatebackend.kcfg:46
+#, kde-format
+msgid ""
+"Show that the digit series of a number continues forever with three dots, "
+"instead of rounding (ex. 2/3 displays as 0.666666... instead of 0.666667)."
+msgstr ""
+"Δείχνει ότι η σειρά των δεκαδικών ψηφίων ενός αριθμού συνεχίζει για πάντα "
+"εμφανίζοντας τρεις τελείες, αντί να στρογγυλοποιηθεί (π.χ. το 2/3 "
+"εμφανίζεται ως 0.666666... αντί ως 0.666667)."
+
+#. i18n: ectx: label, entry (useAllPrefixes), group (QalculateBackend)
+#: backends/qalculate/qalculatebackend.kcfg:50
+#, kde-format
+msgid ""
+"Use all decimal SI prefixes. If false, prefixes which is not a multiple of "
+"thousand (centi, deci, deca, hecto) will not be used automatically."
+msgstr ""
+"Χρήση όλων των δεκαδικών προθεμάτων του Διεθνούς Συστήματος. Αν δεν "
+"ενεργοποιηθεί, τα προθέματα που δεν είναι πολλαπλάσια του 1000 (centi, deci, "
+"deca, hecto) δε θα χρησιμοποιηθούν αυτόματα."
+
+#. i18n: ectx: label, entry (negativeExponents), group (QalculateBackend)
+#: backends/qalculate/qalculatebackend.kcfg:54
+#, kde-format
+msgid ""
+"If true, negative exponents will be used instead of division (ex. 5/x^2 "
+"becomes 5*x^-2)."
+msgstr ""
+"Αν ενεργοποιηθεί, θα χρησιμοποιηθούν αρνητικοί εκθέτες αντί διαίρεσης (π.χ.  "
+"το 5/x^2 γίνεται 5*x^-2)."
+
+#. i18n: ectx: label, entry (minExp), group (QalculateBackend)
+#: backends/qalculate/qalculatebackend.kcfg:64
+#, kde-format
+msgid "Numerical display."
+msgstr "Αριθμητική εμφάνιση."
+
+#. i18n: ectx: label, entry (inlinePlot), group (QalculateBackend)
+#: backends/qalculate/qalculatebackend.kcfg:68
+#, kde-format
+msgid ""
+"If true, plots will be displayed inside the worksheet. If not they appear in "
+"a separate window."
+msgstr ""
+"Αν ενεργοποιηθεί, οι γραφικές απεικονίσεις θα εμφανίζονται μέσα στο φύλλο "
+"εργασίας. Διαφορετικά, θα εμφανίζονται σε ξεχωριστό παράθυρο."
+
+#. i18n: ectx: label, entry (coloredPlot), group (QalculateBackend)
+#: backends/qalculate/qalculatebackend.kcfg:72
+#, kde-format
+msgid "Whether colors should be used in plots."
+msgstr "Αν πρέπει να χρησιμοποιούνται χρώματα στις γραφικές απεικονίσεις."
+
+#. i18n: ectx: label, entry (plotGrid), group (QalculateBackend)
+#: backends/qalculate/qalculatebackend.kcfg:76
+#, kde-format
+msgid "Whether a grid should be plotted."
+msgstr "Αν ο κάνναβος πρέπει να απεικονίζεται γραφικά."
+
+#. i18n: ectx: label, entry (plotBorder), group (QalculateBackend)
+#: backends/qalculate/qalculatebackend.kcfg:80
+#, kde-format
+msgid "Whether full borders should be drawn around the plot."
+msgstr ""
+"Αν τα πλήρη περιγράμματα πρέπει να σχεδιάζονται γύρω από τη γραφική "
+"απεικόνιση."
+
+#. i18n: ectx: label, entry (plotLineWidth), group (QalculateBackend)
+#: backends/qalculate/qalculatebackend.kcfg:84
+#, kde-format
+msgid "Width of lines, in pixels."
+msgstr "Πλάτος γραμμών, σε εικονοστοιχεία."
+
+#. i18n: ectx: label, entry (plotSteps), group (QalculateBackend)
+#: backends/qalculate/qalculatebackend.kcfg:88
+#, kde-format
+msgid "Number of interpolation steps to be used in plotting."
+msgstr ""
+"Ο αριθμός των βημάτων παρεμβολής που θα χρησιμοποιηθούν στη γραφική "
+"απεικόνιση."
+
+#. i18n: ectx: label, entry (plotSmoothing), group (QalculateBackend)
+#: backends/qalculate/qalculatebackend.kcfg:99
+#, kde-format
+msgid "Smoothing mode in plots."
+msgstr "Λειτουργία εξομάλυνσης στις γραφικές απεικονίσεις."
+
+#. i18n: ectx: label, entry (plotStyle), group (QalculateBackend)
+#: backends/qalculate/qalculatebackend.kcfg:113
+#, kde-format
+msgid "Style of plots."
+msgstr "Στυλ γραφικών απεικονίσεων."
+
+#. i18n: ectx: label, entry (plotLegend), group (QalculateBackend)
+#: backends/qalculate/qalculatebackend.kcfg:126
+#, kde-format
+msgid "Legend position in plots."
+msgstr "Θέση υπομνήματος στις γραφικές απεικονίσεις."
+
+#: backends/qalculate/qalculateexpression.cpp:142
+#, kde-format
+msgid "Qalculate reports it cannot print. Is gnuplot installed?"
+msgstr ""
+"Το Qalculate αναφέρει ότι δε μπορεί να εκτυπώσει. Έχει εγκατασταθεί το "
+"gnuplot;"
+
+#: backends/qalculate/qalculateexpression.cpp:163
+#, kde-format
+msgid "missing %1"
+msgstr "μη διαθέσιμο το %1"
+
+#: backends/qalculate/qalculateexpression.cpp:253
+#, kde-format
+msgid "%1 must be a number."
+msgstr "το %1 πρέπει να είναι αριθμός."
+
+#: backends/qalculate/qalculateexpression.cpp:254
+#, kde-format
+msgid "%1 must be a integer."
+msgstr "το %1 πρέπει να είναι ακέραιος."
+
+#: backends/qalculate/qalculateexpression.cpp:255
+#, kde-format
+msgid "%1 must be a boolean."
+msgstr "το %1 πρέπει να είναι τύπου Μπουλ."
+
+#: backends/qalculate/qalculateexpression.cpp:256
+#, kde-format
+msgid "invalid option for %1: %2"
+msgstr "μη έγκυρη επιλογή για το %1:%2"
+
+#: backends/qalculate/qalculateexpression.cpp:583
+#, kde-format
+msgid "found multiple expressions in one plot command (%1 and %2)."
+msgstr ""
+"βρέθηκαν πολλαπλές εκφράσεις σε μια εντολή γραφικής απεικόνισης (%1 και %2)."
+
+#: backends/qalculate/qalculateexpression.cpp:682
+#: backends/qalculate/qalculateexpression.cpp:790
+#: backends/qalculate/qalculatehighlighter.cpp:29
+#, kde-format
+msgid "ERROR"
+msgstr "ΣΦΑΛΜΑ"
+
+#: backends/qalculate/qalculateexpression.cpp:684
+#: backends/qalculate/qalculateexpression.cpp:792
+#: backends/qalculate/qalculatehighlighter.cpp:29
+#, kde-format
+msgid "WARNING"
+msgstr "ΠΡΟΕΙΔΟΠΟΙΗΣΗ"
+
+#: backends/qalculate/qalculatesyntaxhelpobject.cpp:46
+#, kde-format
+msgid "No function, variable or unit with specified name exist."
+msgstr "Δεν υπάρχει συνάρτηση, μεταβλητή ή μονάδα με το συγκεκριμένο όνομα."
+
+#: backends/qalculate/qalculatesyntaxhelpobject.cpp:53
+#, kde-format
+msgid "Function: %1"
+msgstr "Συνάρτηση: %1"
+
+#: backends/qalculate/qalculatesyntaxhelpobject.cpp:138
+#, kde-format
+msgid "Plotting interface"
+msgstr "Περιβάλλον γραφικής απεικόνισης"
+
+#: backends/qalculate/qalculatesyntaxhelpobject.cpp:139
+#, kde-format
+msgid "Plots one or more functions either inline or in a separate window."
+msgstr ""
+"Απεικονίζει γραφικά μια ή περισσότερες συναρτήσεις είτε εμβόλιμα είτε σε "
+"ξεχωριστό παράθυρο."
+
+#: backends/qalculate/qalculatesyntaxhelpobject.cpp:140
+#, kde-format
+msgid "expression"
+msgstr "έκφραση"
+
+#: backends/qalculate/qalculatesyntaxhelpobject.cpp:141
+#, kde-format
+msgid "option"
+msgstr "επιλογή"
+
+#: backends/qalculate/qalculatesyntaxhelpobject.cpp:142
+#, kde-format
+msgid "value"
+msgstr "τιμή"
+
+#: backends/qalculate/qalculatesyntaxhelpobject.cpp:146
+#, kde-format
+msgid "integer"
+msgstr "ακέραιος"
+
+#: backends/qalculate/qalculatesyntaxhelpobject.cpp:147
+#, kde-format
+msgid "boolean"
+msgstr "τύπος Μπουλ"
+
+#: backends/qalculate/qalculatesyntaxhelpobject.cpp:148
+#, kde-format
+msgid "number"
+msgstr "αριθμός"
+
+#: backends/qalculate/qalculatesyntaxhelpobject.cpp:149
+#, kde-format
+msgid "default: %1"
+msgstr "προκαθορισμένο: %1"
+
+#: backends/qalculate/qalculatesyntaxhelpobject.cpp:209
+#, kde-format
+msgid "The function's name"
+msgstr "Το όνομα της συνάρτησης"
+
+#: backends/qalculate/qalculatesyntaxhelpobject.cpp:211
+#, kde-format
+msgid "Title label"
+msgstr "Τίτλος ετικέτας"
+
+#: backends/qalculate/qalculatesyntaxhelpobject.cpp:212
+#, kde-format
+msgid "x-axis label"
+msgstr "ετικέτα άξονα x"
+
+#: backends/qalculate/qalculatesyntaxhelpobject.cpp:213
+#, kde-format
+msgid "y-axis label"
+msgstr "ετικέτα άξονα y"
+
+#: backends/qalculate/qalculatesyntaxhelpobject.cpp:214
+#, kde-format
+msgid ""
+"Image to save plot to. If empty shows plot in a window on the screen. If "
+"inline=true the image is shown regardless of this option."
+msgstr ""
+"Η εικόνα στην οποία θα αποθηκευθεί η γραφική απεικόνιση. Αν είναι κενό, "
+"εμφανίζει τη γραφική απεικόνιση σε ένα παράθυρο στην οθόνη. Αν έχει επιλεγεί "
+"η εμβόλιμη απεικόνιση, η εικόνα εμφανίζεται ανεξαρτήτως της συγκεκριμένης "
+"επιλογής."
+
+#: backends/qalculate/qalculatesyntaxhelpobject.cpp:215
+#, kde-format
+msgid "The image type to save as. One of auto, png, ps, eps, latex, svg, fig."
+msgstr ""
+"Ο τύπος εικόνας προς αποθήκευση. Ένα από τα εξής: auto, png, ps, eps, latex, "
+"svg, fig."
+
+#: backends/qalculate/qalculatesyntaxhelpobject.cpp:216
+#, kde-format
+msgid "Set to true for colored plot, false for monochrome."
+msgstr ""
+"Ενεργοποιήστε για έγχρωμες απεικονίσεις, μην ενεργοποιήσετε για μονόχρωμες."
+
+#: backends/qalculate/qalculatesyntaxhelpobject.cpp:217
+#, kde-format
+msgid "Minimum x-axis value."
+msgstr "Ελάχιστη τιμή άξονα x."
+
+#: backends/qalculate/qalculatesyntaxhelpobject.cpp:218
+#, kde-format
+msgid "Maximum x-axis value."
+msgstr "Μέγιστη τιμή άξονα x."
+
+#: backends/qalculate/qalculatesyntaxhelpobject.cpp:219
+#, kde-format
+msgid "If a logarithmic scale shall be used for the x-axis."
+msgstr "Αν θα χρησιμοποιηθεί λογαριθμική κλίμακα για τον άξονα x."
+
+#: backends/qalculate/qalculatesyntaxhelpobject.cpp:220
+#, kde-format
+msgid "If a logarithmic scale shall be used for the y-axis."
+msgstr "Αν θα χρησιμοποιηθεί λογαριθμική κλίμακα για τον άξονα y."
+
+#: backends/qalculate/qalculatesyntaxhelpobject.cpp:221
+#, kde-format
+msgid "Logarithmic base for the x-axis."
+msgstr "Βάση λογαρίθμου για τον άξονα x."
+
+#: backends/qalculate/qalculatesyntaxhelpobject.cpp:222
+#, kde-format
+msgid "Logarithmic base for the y-axis."
+msgstr "Βάση λογαρίθμου για τον άξονα y."
+
+#: backends/qalculate/qalculatesyntaxhelpobject.cpp:223
+#, kde-format
+msgid "If a grid shall be shown in the plot."
+msgstr "Αν θα εμφανίζεται ένας κάνναβος στη γραφική απεικόνιση."
+
+#: backends/qalculate/qalculatesyntaxhelpobject.cpp:224
+#, kde-format
+msgid ""
+"If the plot shall be surrounded by borders on all sides (not just axis)."
+msgstr ""
+"Αν η γραφική απεικόνιση θα περιβάλλεται από περιγράμματα απ' όλες τις "
+"πλευρές (όχι μόνο στους άξονες)."
+
+#: backends/qalculate/qalculatesyntaxhelpobject.cpp:225
+#, kde-format
+msgid "Width of lines."
+msgstr "Πλάτος γραμμών."
+
+#: backends/qalculate/qalculatesyntaxhelpobject.cpp:226
+#, kde-format
+msgid ""
+"Where the plot legend shall be placed. One of none, top_left, top_right, "
+"bottom_left, bottom_right, below, outside"
+msgstr ""
+"Πού θα εμφανίζεται το υπόμνημα της γραφικής απεικόνισης. Ένα από τα: εξής "
+"πουθενά, πάνω_αριστερά, πάνω_δεξιά, κάτω_αριστερά, κάτω_δεξιά, κάτω, "
+"εξωτερικά"
+
+#: backends/qalculate/qalculatesyntaxhelpobject.cpp:227
+#, kde-format
+msgid "Plot smoothing. One of none, unique, csplines, bezier, sbezier"
+msgstr ""
+"Εξομάλυνση γραφικής απεικόνισης. Ένα από τα εξής: καθόλου, μοναδική, "
+"csplines, bezier, sbezier"
+
+#: backends/qalculate/qalculatesyntaxhelpobject.cpp:228
+#, kde-format
+msgid ""
+"Plot style. One of lines, points, points_lines, boxes, histogram, steps, "
+"candlesticks, dots"
+msgstr ""
+"Στυλ γραφικής απεικόνισης. Ένα από τα εξής: γραμμές, σημεία, σημεία_γραμμές, "
+"πλαίσια, ιστόγραμμα, βήματα, κηροπήγια, τελείες"
+
+#: backends/qalculate/qalculatesyntaxhelpobject.cpp:229
+#, kde-format
+msgid "Use scale on second x-axis."
+msgstr "Χρήση κλίμακας στον δεύτερο άξονα χ."
+
+#: backends/qalculate/qalculatesyntaxhelpobject.cpp:230
+#, kde-format
+msgid "Use scale on second y-axis."
+msgstr "Χρήση κλίμακας στον δεύτερο άξονα y."
+
+#: backends/qalculate/qalculatesyntaxhelpobject.cpp:231
+#, kde-format
+msgid "If the plot is to be drawn inline, instead of in a new window."
+msgstr ""
+"Αν η γραφική απεικόνιση θα σχεδιαστεί εμβόλιμα και όχι σε νέο παράθυρο."
+
+#: backends/qalculate/qalculatesyntaxhelpobject.cpp:232
+#, kde-format
+msgid "Distance between two interpolation points. See also steps."
+msgstr "Η απόσταση μεταξύ δύο σημείων παρεμβολής. Δείτε επίσης τα βήματα."
+
+#: backends/qalculate/qalculatesyntaxhelpobject.cpp:233
+#, kde-format
+msgid "Number of interpolation points. See also step."
+msgstr "Αριθμός σημείων παρεμβολής. Δείτε επίσης το βήμα."
+
+#: backends/qalculate/qalculatesyntaxhelpobject.cpp:234
+#, kde-format
+msgid "The name of the x variable. This must be an unknown variable"
+msgstr "Το όνομα της μεταβλητής χ. Πρέπει να είναι μια άγνωστη μεταβλητή"
+
+#: backends/qalculate/qalculatesyntaxhelpobject.cpp:243
+#, kde-format
+msgid "Save variables to a file"
+msgstr "Αποθήκευση μεταβλητών σε αρχείο"
+
+#: backends/qalculate/qalculatesyntaxhelpobject.cpp:244
+#, kde-format
+msgid ""
+"Save all currently defined variables to a file. They can be reloaded with %1."
+msgstr ""
+"Αποθήκευση όλων των τρεχουσών μεταβλητών σε αρχείο. Μπορούν να "
+"επαναφορτωθούν με %1."
+
+#: backends/qalculate/qalculatesyntaxhelpobject.cpp:245
+#: backends/qalculate/qalculatesyntaxhelpobject.cpp:254
+#, kde-format
+msgid "file"
+msgstr "αρχείο"
+
+#: backends/qalculate/qalculatesyntaxhelpobject.cpp:246
+#, kde-format
+msgid "file: the file to save to"
+msgstr "αρχείο: το αρχείο στο οποίο θα γίνει η αποθήκευση"
+
+#: backends/qalculate/qalculatesyntaxhelpobject.cpp:252
+#, kde-format
+msgid "Load variables from a file"
+msgstr "Φόρτωση μεταβλητών από αρχείο"
+
+#: backends/qalculate/qalculatesyntaxhelpobject.cpp:253
+#, kde-format
+msgid "Load variables from a file that has previously been created by %1."
+msgstr ""
+"Φόρτωση μεταβλητών από αρχείο το οποίο δημιουργήθηκε προηγουμένως από το %1."
+
+#: backends/qalculate/qalculatesyntaxhelpobject.cpp:255
+#, kde-format
+msgid "file: the file to load"
+msgstr "αρχείο: το αρχείο προς φόρτωση"
+
+#. i18n: ectx: property (text), widget (QLabel, label)
+#: backends/qalculate/settings.ui:27
+#, kde-format
+msgid "Number base:"
+msgstr "Βάση αριθμού:"
+
+#. i18n: ectx: property (text), widget (QLabel, label_5)
+#: backends/qalculate/settings.ui:47
+#, kde-format
+msgid "Fraction format:"
+msgstr "Μορφή κλάσματος:"
+
+#. i18n: ectx: property (text), item, widget (KComboBox, kcfg_fractionFormat)
+#: backends/qalculate/settings.ui:58
+#, kde-format
+msgid "Decimal"
+msgstr "Δεκαδικός"
+
+#. i18n: ectx: property (text), item, widget (KComboBox, kcfg_fractionFormat)
+#: backends/qalculate/settings.ui:63
+#, kde-format
+msgid "Exact"
+msgstr "Ακριβές"
+
+#. i18n: ectx: property (text), item, widget (KComboBox, kcfg_fractionFormat)
+#: backends/qalculate/settings.ui:68
+#, kde-format
+msgid "Fractional"
+msgstr "Κλασματικό"
+
+#. i18n: ectx: property (text), item, widget (KComboBox, kcfg_fractionFormat)
+#: backends/qalculate/settings.ui:73
+#, kde-format
+msgid "Combined"
+msgstr "Συνδυασμένο"
+
+#. i18n: ectx: property (text), widget (QLabel, label_9)
+#: backends/qalculate/settings.ui:81
+#, kde-format
+msgid "Numerical display:"
+msgstr "Αριθμητική εμφάνιση:"
+
+#. i18n: ectx: property (text), item, widget (KComboBox, kcfg_minExp)
+#: backends/qalculate/settings.ui:97
+#, kde-format
+msgid "Pure"
+msgstr "Καθαρή"
+
+#. i18n: ectx: property (text), item, widget (KComboBox, kcfg_minExp)
+#: backends/qalculate/settings.ui:102
+#, kde-format
+msgid "Scientific"
+msgstr "Επιστημονική"
+
+#. i18n: ectx: property (text), item, widget (KComboBox, kcfg_minExp)
+#: backends/qalculate/settings.ui:107
+#, kde-format
+msgid "Precision"
+msgstr "Ακρίβεια"
+
+#. i18n: ectx: property (text), widget (QLabel, label_6)
+#: backends/qalculate/settings.ui:115
+#, kde-format
+msgid "Indicate infinite series:"
+msgstr "Ένδειξη μη πεπερασμένων ακολουθιών:"
+
+#. i18n: ectx: property (text), widget (QLabel, label_7)
+#: backends/qalculate/settings.ui:132
+#, kde-format
+msgid "Use all SI prefixes:"
+msgstr "Χρήση όλων των προθεμάτων του Διεθνούς Συστήματος:"
+
+#. i18n: ectx: property (text), widget (QLabel, label_8)
+#: backends/qalculate/settings.ui:149
+#, kde-format
+msgid "Use negative exponents:"
+msgstr "Χρήση αρνητικών εκθετών:"
+
+#. i18n: ectx: attribute (title), widget (QWidget, tab_2)
+#: backends/qalculate/settings.ui:180 worksheetentry.cpp:414
+#, kde-format
+msgid "Evaluate"
+msgstr "Υπολογισμός"
+
+#. i18n: ectx: property (text), widget (QLabel, label_2)
+#: backends/qalculate/settings.ui:186
+#, kde-format
+msgid "Convert to best SI units:"
+msgstr "Μετατροπή στις καταλληλότερες μονάδες του Διεθνούς Συστήματος:"
+
+#. i18n: ectx: property (text), item, widget (KComboBox, kcfg_angleUnit)
+#: backends/qalculate/settings.ui:215
+#, kde-format
+msgid "Radians"
+msgstr "Ακτίνια"
+
+#. i18n: ectx: property (text), item, widget (KComboBox, kcfg_angleUnit)
+#: backends/qalculate/settings.ui:220
+#, kde-format
+msgid "Degrees"
+msgstr "Μοίρες"
+
+#. i18n: ectx: property (text), item, widget (KComboBox, kcfg_angleUnit)
+#: backends/qalculate/settings.ui:225
+#, kde-format
+msgid "Gradians"
+msgstr "Βαθμοί"
+
+#. i18n: ectx: property (text), widget (QLabel, label_4)
+#: backends/qalculate/settings.ui:233
+#, kde-format
+msgid "Structuring Mode:"
+msgstr "Λειτουργία κατασκευής:"
+
+#. i18n: ectx: property (text), item, widget (KComboBox, kcfg_structuring)
+#: backends/qalculate/settings.ui:249
+#, kde-format
+msgid "Simplify"
+msgstr "Απλοποίηση"
+
+#. i18n: ectx: property (text), item, widget (KComboBox, kcfg_structuring)
+#: backends/qalculate/settings.ui:254
+#, kde-format
+msgid "Factorize"
+msgstr "Παραγοντοποίηση"
+
+#. i18n: ectx: property (text), widget (QLabel, label_3)
+#: backends/qalculate/settings.ui:275
+#, kde-format
+msgid "Angle unit:"
+msgstr "Μονάδα μέτρησης γωνίας:"
+
+#. i18n: ectx: attribute (title), widget (QWidget, tab)
+#: backends/qalculate/settings.ui:286
+#, kde-format
+msgid "Plotting"
+msgstr "Γραφική απεικόνιση"
+
+#. i18n: ectx: property (text), widget (QLabel, label_10)
+#: backends/qalculate/settings.ui:292
+#, kde-format
+msgid "Display plots inline:"
+msgstr "Εμφάνιση γραφικών απεικονίσεων εμβόλιμα:"
+
+#. i18n: ectx: property (text), widget (QLabel, label_12)
+#: backends/qalculate/settings.ui:329
+#, kde-format
+msgid "Show full borders:"
+msgstr "Εμφάνιση πλήρων περιγραμμάτων:"
+
+#. i18n: ectx: property (text), widget (QLabel, label_17)
+#: backends/qalculate/settings.ui:346
+#, kde-format
+msgid "Width of lines:"
+msgstr "Πλάτος γραμμών:"
+
+#. i18n: ectx: property (text), widget (QLabel, label_18)
+#: backends/qalculate/settings.ui:363
+#, kde-format
+msgid "Sampling rate:"
+msgstr "Ρυθμός δειγματοληψίας:"
+
+#. i18n: ectx: property (text), widget (QLabel, label_13)
+#: backends/qalculate/settings.ui:380
+#, kde-format
+msgid "Smoothing Mode:"
+msgstr "Λειτουργία εξομάλυνσης:"
+
+#. i18n: ectx: property (text), item, widget (KComboBox, kcfg_plotSmoothing)
+#: backends/qalculate/settings.ui:401
+#, kde-format
+msgid "Natural cubic Splines"
+msgstr "Φυσικές κυβικές καμπύλες spline"
+
+#. i18n: ectx: property (text), item, widget (KComboBox, kcfg_plotStyle)
+#: backends/qalculate/settings.ui:445
+#, kde-format
+msgctxt "Plot Style"
+msgid "Steps"
+msgstr "Βήματα"
+
+#. i18n: ectx: property (text), widget (QLabel, label_16)
+#: backends/qalculate/settings.ui:463
+#, kde-format
+msgid "Legend Position:"
+msgstr "Θέση υπομνήματος:"
+
+#. i18n: ectx: property (text), widget (QLabel, label_15)
+#: backends/qalculate/settings.ui:525
+#, kde-format
+msgid "Colored Plots:"
+msgstr "Έγχρωμες γραφικές απεικονίσεις:"
+
+#. i18n: ectx: property (text), widget (QLabel, label_11)
+#: backends/qalculate/settings.ui:535
+#, kde-format
+msgid "Show grid:"
+msgstr "Εμφάνιση καννάβου:"
+
+#. i18n: ectx: property (text), widget (QLabel, label_14)
+#: backends/qalculate/settings.ui:545
+#, kde-format
+msgid "Plot Style:"
+msgstr "Στιλ γραφικής απεικόνισης:"
+
+#: backends/qthelpconfig.cpp:45
+#, kde-format
+msgctxt "@title:window"
+msgid "Modify Entry"
+msgstr "Τροποποίηση καταχώρησης"
+
+#: backends/qthelpconfig.cpp:47
+#, kde-format
+msgctxt "@title:window"
+msgid "Add New Entry"
+msgstr "Προσθήκη νέας καταχώρησης"
+
+#: backends/qthelpconfig.cpp:64
+#, kde-format
+msgid "Name cannot be empty."
+msgstr "Το όνομα δεν μπορεί να έιναι κενό."
+
+#: backends/qthelpconfig.cpp:84
+#, kde-format
+msgid "Add local documentation"
+msgstr "Προσθήκη τεκμηρίωσης σε τοπική γλώσσα"
+
+#: backends/qthelpconfig.cpp:100
+#, kde-format
+msgctxt "@action:button Allow user to get some API documentation with GHNS"
+msgid "Get New Documentation"
+msgstr "Ανάκτηση νεας τεκμηρίωσης"
+
+#: backends/qthelpconfig.cpp:103
+#, kde-format
+msgid "Download additional documentations"
+msgstr "Λήψη πρόσθετης τεκμηρίωσης"
+
+#: backends/qthelpconfig.cpp:171
+#, kde-format
+msgid "Qt Compressed Help file is not valid."
+msgstr "Το συμπιεσμένο Qt αρχείο βοήθειας δεν είναι έγκυρο."
+
+#: backends/qthelpconfig.cpp:180
+#, kde-format
+msgid "Documentation already imported"
+msgstr "Η τεκμηρίωση έχει ήδη εισαχθεί"
+
+#: backends/qthelpconfig.cpp:270
+#, kde-format
+msgctxt "@info:tooltip"
+msgid "Modify"
+msgstr "Τροποποίηση"
+
+#: backends/qthelpconfig.cpp:275
+#, kde-format
+msgctxt "@info:tooltip"
+msgid "Delete"
+msgstr "Διαγραφή"
+
+#: backends/qthelpconfig.cpp:283
+#, kde-format
+msgctxt "@info:tooltip"
+msgid "Please uninstall this via GHNS."
+msgstr "Απεγκαταστήστε το μέσω GHNS."
+
+#. i18n: ectx: property (text), widget (QLabel, label)
+#: backends/qthelpconfig.ui:20
+#, kde-format
+msgid "Install Additional Documentation Files"
+msgstr "Εγκατάσταση πρόσθετων αρχείων τεκμηρίωσης"
+
+#. i18n: ectx: property (text), widget (QTreeWidget, qchTable)
+#: backends/qthelpconfig.ui:49 lib/defaultvariablemodel.cpp:67
+#, kde-format
+msgctxt "@title:column"
+msgid "Name"
+msgstr "Όνομα"
+
+#. i18n: ectx: property (text), widget (QTreeWidget, qchTable)
+#: backends/qthelpconfig.ui:54
+#, kde-format
+msgctxt "@title:column"
+msgid "Path"
+msgstr "Διαδρομή"
+
+#. i18n: ectx: property (text), widget (QPushButton, addButton)
+#: backends/qthelpconfig.ui:79
+#, kde-format
+msgctxt "@action:button"
+msgid "Add"
+msgstr "Προσθήκη"
+
+#. i18n: ectx: property (text), widget (QLabel, lIcon)
+#: backends/qthelpconfigeditdialog.ui:17
+#, kde-format
+msgctxt "@label:chooser"
+msgid "Icon:"
+msgstr "Εικονίδιο:"
+
+#. i18n: ectx: property (toolTip), widget (KIconButton, qchIcon)
+#: backends/qthelpconfigeditdialog.ui:24
+#, kde-format
+msgctxt "@info:tooltip"
+msgid "Select an icon"
+msgstr "Επιλέξτε εικονίδιο"
+
+#. i18n: ectx: property (text), widget (QLabel, lName)
+#: backends/qthelpconfigeditdialog.ui:37
+#, kde-format
+msgctxt "@label:textbox"
+msgid "Name:"
+msgstr "Όνομα:"
+
+#. i18n: ectx: property (toolTip), widget (QLineEdit, qchName)
+#: backends/qthelpconfigeditdialog.ui:44
+#, kde-format
+msgctxt "@info:tooltip"
+msgid "Enter a name"
+msgstr "Δώστε ένα όνομα"
+
+#. i18n: ectx: property (placeholderText), widget (QLineEdit, qchName)
+#: backends/qthelpconfigeditdialog.ui:47
+#, kde-format
+msgctxt "@info:placeholder"
+msgid "Select a name..."
+msgstr "Επιλογή ονόματος..."
+
+#. i18n: ectx: property (text), widget (QLabel, lPath)
+#: backends/qthelpconfigeditdialog.ui:54
+#, kde-format
+msgctxt "@label:textbox"
+msgid "Path:"
+msgstr "Διαδρομή:"
+
+#. i18n: ectx: property (toolTip), widget (KUrlRequester, qchRequester)
+#: backends/qthelpconfigeditdialog.ui:67
+#, kde-format
+msgctxt "@info:tooltip"
+msgid "Select a Qt Help file..."
+msgstr "Επιλογή αρχείου βοήθειας της Qt..."
+
+#. i18n: ectx: property (placeholderText), widget (KUrlRequester, qchRequester)
+#: backends/qthelpconfigeditdialog.ui:73
+#, kde-format
+msgctxt "@info:placeholder"
+msgid "Select a Qt Help file..."
+msgstr "Επιλογή αρχείου βοήθειας της Qt..."
+
+#: backends/R/rbackend.cpp:81
+#, kde-format
+msgctxt ""
+"the url to the documentation of R, please check if there is a translated "
+"version and use the correct url"
+msgid "https://cran.r-project.org/manuals.html"
+msgstr "https://cran.r-project.org/manuals.html"
+
+#: backends/R/rbackend.cpp:88
+#, kde-format
+msgid ""
+"<h1>R' Help System: <i>help()</i> and <i>?</i>:</h1><br>The <i>help()</i> "
+"function and <i>?</i> help operator in R provide access to the documentation "
+"pages for R functions, data sets, and other objects, both for packages in "
+"the standard R distribution and for contributed packages.<br><br>To access "
+"documentation for the standard <i>lm</i> (linear model) function, for "
+"example, enter the command <b><i>help(lm)</i></b> or <i>help(\"lm\")</i>, or "
+"<i>?lm</i> or <i>?\"lm\"</i> (i.e., the quotes are optional).<br><br>To "
+"access help for a function in a package that’s not currently loaded, specify "
+"in addition the name of the package: For example, to obtain documentation "
+"for the <i>rlm()</i> (robust linear model) function in the MASS package, "
+"<i>help(rlm, package=\"MASS\")</i>.<br><br>Standard names in R consist of "
+"upper- and lower-case letters, numerals (0-9), underscores (_), and periods "
+"(.), and must begin with a letter or a period. To obtain help for an object "
+"with a non-standard name (such as the help operator <i>?</i>), the name must "
+"be quoted: for example, <i>help('?')</i> or <i>?\"?\"</i>.<br><br>You may "
+"also use the <i>help()</i> function to access information about a package in "
+"your library — for example, <i>help(package=\"MASS\")</i> — which displays "
+"an index of available help pages for the package along with some other "
+"information.<br><br>Help pages for functions usually include a section with "
+"executable examples illustrating how the functions work. You can execute "
+"these examples in the current R session via the <i>example()</i> command: e."
+"g., <i>example(lm)</i>."
+msgstr ""
+
+#: backends/R/rbackend.cpp:99
+#, kde-format
+msgid ""
+"<b>R</b> is a language and environment for statistical computing and "
+"graphics, similar to the S language and environment. <br/>It provides a wide "
+"variety of statistical (linear and nonlinear modelling, classical "
+"statistical tests, time-series analysis, classification, clustering, ...) "
+"and graphical techniques, and is highly extensible. The S language is often "
+"the vehicle of choice for research in statistical methodology, and R "
+"provides an Open Source route to participation in that activity."
+msgstr ""
+"Η <b>R</b> είναι μια γλώσσα και ταυτόχρονα ένα περιβάλλον για στατιστική "
+"επεξεργασία και δημιουργία γραφικών, παρόμοια με τη γλώσσα S. <br/>Παρέχει "
+"μια μεγάλη ποικιλία στατιστικών (γραμμικά και μη γραμμικά μοντέλα, κλασικά "
+"τεστ στατιστικής, ανάλυση χρονολογικών σειρών, ταξινόμηση, ομαδοποίηση, ...) "
+"και γραφικών τεχνικών και είναι επεκτάσιμη σε μεγάλο βαθμό. Η γλώσσα S είναι "
+"πολύ συχνά το όχημα που επιλέγεται για την έρευνα στη στατιστική "
+"μεθοδολογία, και η γλώσσα R παέχει μια Ανοικτού Κώδικα οδό προς τη συμμετοχή "
+"σε αυτήν τη δραστηριότητα."
+
+#: backends/R/rexpression.cpp:107 backends/R/rexpression.cpp:108
+#, kde-format
+msgid "Error opening file %1"
+msgstr "Σφάλμα κατά το άνοιγμα του αρχείου %1"
+
+#: backends/R/rextensions.cpp:22
+#, kde-format
+msgid "R script file (*.R)"
+msgstr "Αρχείο σεναρίου της R (*.R)"
+
+#: backends/R/rserver/rserver.cpp:362
+#, kde-format
+msgid "Error Parsing Command"
+msgstr "Σφάλμα κατά την ανάλυση της εντολής"
+
+#. i18n: ectx: label, entry (localDoc), group (RBackend)
+#: backends/R/rserver/rserver.kcfg:9
+#, kde-format
+msgid "Url to the local R documentation"
+msgstr "Url στην τεκμηρίωση της R σε τοπική γλώσσα"
+
+#: backends/R/rsettingswidget.cpp:24
+#, kde-format
+msgid "Double click to open file selection dialog"
+msgstr "Κάντε διπλό κλικ για να ανοίξει ο διάλογος επιλογής αρχείου"
+
+#: backends/R/rsettingswidget.cpp:44
+#, kde-format
+msgid "*.R *.r|R source files (*.R, *.r)"
+msgstr "*.R *.r|πηγαία αρχεία της R (*.R, *.r)"
+
+#: backends/sage/sagebackend.cpp:79
+#, kde-format
+msgctxt ""
+"the url to the documentation of Sage, please check if there is a translated "
+"version and use the correct url"
+msgid "https://doc.sagemath.org/html/en/reference/index.html"
+msgstr "https://doc.sagemath.org/html/en/reference/index.html"
+
+#: backends/sage/sagebackend.cpp:84
+#, kde-format
+msgid ""
+"<b>Sage</b> is a free open-source mathematics software system licensed under "
+"the GPL. <br/>It combines the power of many existing open-source packages "
+"into a common Python-based interface."
+msgstr ""
+"Το <b>Sage</b> είναι Ελεύθερο Λογισμικό / Λογισμικό Ανοικτού Κώδικα για τα "
+"μαθηματικά, αδειοδοτημένο με τους όρους της GPL. <br/>Συνδυάζει τη δύναμη "
+"πολλών πακέτων ανοικτού κώδικα σε ένα σύνηθες γραφικό περιβάλλον που "
+"βασίζεται στη γλώσσα Python."
+
+#. i18n: ectx: label, entry (Path), group (SageBackend)
+#: backends/sage/sagebackend.kcfg:10
+#, kde-format
+msgid "Path to the Sage executable"
+msgstr "Διαδρομή προς το εκτελέσιμο Sage"
+
+#. i18n: ectx: label, entry (allowLatex), group (SageBackend)
+#: backends/sage/sagebackend.kcfg:14
+#, kde-format
+msgid "Enable LaTeX typesetting for Sage backend"
+msgstr "Ενεργοποίηση στοιχειοθέτησης LaTex για το σύστημα υποστήριξης του Sage"
+
+#: backends/sage/sageexpression.cpp:233 backends/sage/sageexpression.cpp:235
+#, kde-format
+msgid "Result of %1"
+msgstr "Αποτέλεσμα του %1"
+
+#: backends/sage/sageexpression.cpp:242
+#, kde-format
+msgid ""
+"%1\n"
+"The last output was: \n"
+" %2"
+msgstr ""
+"%1\n"
+"Το τελευταίο αποτέλεσμα ήταν: \n"
+" %2"
+
+#: backends/sage/sageextensions.cpp:32
+#, kde-format
+msgid "Python script file (*.py);;Sage script file (*.sage)"
+msgstr "Αρχείο σεναρίου της Python (*.py);;Αρχείο σεναρίου του Sage (*.sage)"
+
+#: backends/sage/sagesession.cpp:236
+#, kde-format
+msgid ""
+"Sage version %1.%2 is unsupported. Please update your installation to the "
+"supported versions to make it work with Cantor."
+msgstr ""
+"Η έκδοση %1.%2 του Sage δεν υποστηρίζεται. Ενημερώστε την εγκατάστασή σας με "
+"τις υποστηριζόμενες εκδόσεις για να λειτουργήσει με το Cantor."
+
+#: backends/sage/sagesession.cpp:270
+#, kde-format
+msgid ""
+"Failed to determine the version of Sage. Please check your installation and "
+"the output of 'sage -v'."
+msgstr ""
+"Αποτυχία καθορισμού της έκδοσης του Sage. Ελέγξτε την εγκατάστασή σας και το "
+"αποτέλεσμα του «sage -v»."
+
+#: backends/sage/sagesession.cpp:333
+#, kde-format
+msgid "The Sage process crashed while evaluating this expression"
+msgstr "Η διεργασία του Sage κατέρρευσε κατά τον υπολογισμό αυτής της έκφρασης"
+
+#: backends/sage/sagesession.cpp:337
+#, kde-format
+msgid "The Sage process crashed"
+msgstr "Η διεργασία του Sage κατέρρευσε"
+
+#: backends/sage/sagesession.cpp:344
+#, kde-format
+msgid "The Sage process exited while evaluating this expression"
+msgstr "Η διεργασία του Sage τερμάτισε κατά τον υπολογισμό αυτής της έκφρασης"
+
+#: backends/sage/sagesession.cpp:348
+#, kde-format
+msgid "The Sage process exited"
+msgstr "Η διεργασία του Sage τερμάτισε"
+
+#: backends/sage/sagesession.cpp:358
+#, kde-format
+msgid "Failed to start Sage"
+msgstr "Αδυναμία έναρξης του Sage"
+
+#. i18n: ectx: property (text), widget (QLabel, label_2)
+#: backends/sage/settings.ui:27
+#, kde-format
+msgid "LaTeX typesetting:"
+msgstr "Στοιχειοθέτηση LaTex"
+
+#. i18n: ectx: property (toolTip), widget (QCheckBox, kcfg_allowLatex)
+#: backends/sage/settings.ui:34
+#, kde-format
+msgid ""
+"Sage LaTeX output not always correct, so latex typesetting can be disabled "
+"for better experience"
+msgstr ""
+"Το LaTeX αποτέλεσμα του Sage δεν είναι πάντα σωστό, έτσι η στοιχειοθέτηση "
+"latex μπορεί να απενεργοποιηθεί για βελτίωση της εμπειρίας"
+
+#: backends/scilab/scilabbackend.cpp:68
+#, kde-format
+msgctxt ""
+"The url to the documentation of Scilab, please check if there is a "
+"translated version and use the correct url"
+msgid "https://www.scilab.org/support/documentation"
+msgstr "https://www.scilab.org/support/documentation"
+
+#: backends/scilab/scilabbackend.cpp:73
+#, kde-format
+msgid ""
+"<b>Scilab</b> is a free software, cross-platform numerical computational "
+"package and a high-level, numerically oriented programming language.Scilab "
+"is distributed under CeCILL license (GPL compatible)."
+msgstr ""
+"Το <b>Scilab</b> είναι ελεύθερο λογισμικό, αποτελεί ένα πακέτο αριθμητικών "
+"υπολογισμών συμβατό με πολλές πλατφόρμες και μια υψηλού επιπέδου γλώσσα "
+"προγραμματισμού για αριθμητική ανάλυση. Το Scilab διανέμεται με την άδεια "
+"χρήσης CeCILL (συμβατή με τη GPL)"
+
+#. i18n: ectx: label, entry (Path), group (ScilabBackend)
+#: backends/scilab/scilabbackend.kcfg:10
+#, kde-format
+msgid "Path to the Scilab executable"
+msgstr "Διαδρομή προς το εκτελέσιμο Scilab"
+
+#: backends/scilab/scilabextensions.cpp:23
+#, kde-format
+msgid ";;Scilab script file (*.sce);;Scilab function file (*.sci)"
+msgstr ";;Αρχείο σεναρίου της Scilab (*.sce);;Αρχείο συνάρτησης Scilab (*.sci)"
+
+#: cantor.cpp:104
+#, kde-format
+msgid "The file %1 is already opened."
+msgstr "Το αρχείο %1 είναι ήδη ανοικτό."
+
+#: cantor.cpp:104 cantor.cpp:228
+#, kde-format
+msgid "Open file"
+msgstr "Άνοιγμα αρχείου"
+
+#: cantor.cpp:146
+#, kde-format
+msgid "Download Examples"
+msgstr "Λήψη παραδειγμάτων"
+
+#: cantor.cpp:149
+#, kde-format
+msgid "&Open Example"
+msgstr "&Άνοιγμα παραδείγματος"
+
+#: cantor.cpp:154
+#, kde-format
+msgid "Go to previous worksheet"
+msgstr "Μετάβαση στο προηγούμενο φύλλο εργασίας"
+
+#: cantor.cpp:166
+#, kde-format
+msgid "Go to next worksheet"
+msgstr "Μετάβαση στο επόμενο φύλλο εργασίας"
+
+#: cantor.cpp:227
+#, kde-format
+msgid ""
+"All supported files (*.cws *ipynb);;Cantor Worksheet (*.cws);;Jupyter "
+"Notebook (*.ipynb)"
+msgstr ""
+"Όλα τα υποστηριζόμενα αρχεία (*.cws *ipynb);;Φύλλο εργασίας Cantor (*.cws);;"
+"Σημειωματάριο Jupyter (*.ipynb)"
+
+#: cantor.cpp:295
+#, kde-format
+msgid ""
+"<h1>No Backend Found</h1>\n"
+"<div>You could try:\n"
+"  <ul>    <li>Changing the settings in the config dialog;</li>    "
+"<li>Installing packages for the following program:</li>     %2   </ul> </"
+"div> "
+msgid_plural ""
+"<h1>No Backend Found</h1>\n"
+"<div>You could try:\n"
+"  <ul>    <li>Changing the settings in the config dialog;</li>    "
+"<li>Installing packages for one of the following programs:</li>     %2   </"
+"ul> </div> "
+msgstr[0] ""
+"<h1>Δε βρέθηκε σύστημα υποστήριξης</h1>\n"
+"<div>Μπορείτε να δοκιμάσετε:\n"
+"  <ul>    <li>Να αλλάξετε τις ρυθμίσεις μέσω του αντίστοιχου διαλόγου "
+"διαμόρφωσης.</li>    <li>Να εγκαταστήσετε πακέτα για το ακόλουθο πρόγραμμα:</"
+"li>     %2   </ul> </div> "
+msgstr[1] ""
+"<h1>Δε βρέθηκε σύστημα υποστήριξης</h1>\n"
+"<div>Μπορείτε να δοκιμάσετε:\n"
+"  <ul>    <li>Να αλλάξετε τις ρυθμίσεις μέσω του αντίστοιχου διαλόγου "
+"διαμόρφωσης.</li>    <li>Να εγκαταστήσετε πακέτα για ένα από τα ακόλουθα "
+"προγράμματα:</li>     %2   </ul> </div> "
+
+#: cantor.cpp:315
+#, kde-format
+msgid "Error"
+msgstr "Σφάλμα"
+
+#: cantor.cpp:336
+#, kde-format
+msgid "Backend %1 is not installed"
+msgstr "Το σύστημα υποστήριξης %1 δεν είναι εγκατεστημένο"
+
+#: cantor.cpp:343
+#, kde-format
+msgid ""
+"%1 backend installed, but inactive. Please check installation and Cantor "
+"settings"
+msgstr ""
+"%1 σύστημα υποστήριξης εγκαταστάθηκε, αλλά είναι ανενεργό. Ελέγξτε την "
+"εγκατάστασή σας και τις ρυθμίσεις του Cantor"
+
+#: cantor.cpp:370
+#, kde-format
+msgid "Session %1"
+msgstr "Συνεδρία %1"
+
+#: cantor.cpp:391
+#, kde-format
+msgid "Failed to find the Cantor Part with error %1"
+msgstr "Αποτυχία εύρεσης του Cantor Part με σφάλμα %1"
+
+#: cantor.cpp:438 cantor_part.cpp:621
+#, kde-format
+msgid "Calculating..."
+msgstr "Υπολογισμός..."
+
+#: cantor.cpp:441 cantor_part.cpp:632 cantor_part.cpp:695
+#, kde-format
+msgid "Ready"
+msgstr "Έτοιμο"
+
+#: cantor.cpp:485
+#, kde-format
+msgid "Changed"
+msgstr "Τροποποιήθηκε"
+
+#: cantor.cpp:569
+#, kde-format
+msgid "Multiple unsaved Worksheets are opened. Do you want to close them?"
+msgstr "Πολλά μη αποθηκευμένα φύλλα εργασίας είναι ανοιχτά. Να κλείσουν;"
+
+#: cantor.cpp:570
+#, kde-format
+msgid "Close Cantor"
+msgstr "Κλείσιμο Cantor"
+
+#: cantor.cpp:586
+#, kde-format
+msgid "The current project has been modified. Do you want to save it?"
+msgstr "Το τρέχον έργο έχει τροποποιηθεί. Θέλετε να αποθηκευθεί;"
+
+#: cantor.cpp:587
+#, kde-format
+msgid "Save Project"
+msgstr "Αποθήκευση έργου"
+
+#: cantor.cpp:633
+#, kde-format
+msgid "Formatting"
+msgstr "Μορφοποίηση"
+
+#. i18n: ectx: label, entry (DefaultBackend), group (Cantor)
+#: cantor.kcfg:12
+#, kde-format
+msgid "The Backend that is used by default"
+msgstr "Το σύστημα υποστήριξης που χρησιμοποιείται ως προκαθορισμένο"
+
+#. i18n: ectx: label, entry (TypesetDefault), group (Cantor)
+#: cantor.kcfg:16
+#, kde-format
+msgid "Do Typesetting by default"
+msgstr "Προεπιλεγμένη πραγματοποίηση στοιχειοθεσίας"
+
+#. i18n: ectx: label, entry (HighlightDefault), group (Cantor)
+#: cantor.kcfg:20
+#, kde-format
+msgid "Do Syntax Highlighting by default"
+msgstr "Προεπιλεγμένη πραγματοποίηση επισήμανσης σύνταξης"
+
+#. i18n: ectx: label, entry (CompletionDefault), group (Cantor)
+#: cantor.kcfg:24
+#, kde-format
+msgid "Enable Completions by default"
+msgstr "Προεπιλεγμένη ενεργοποίηση συμπλήρωσης"
+
+#. i18n: ectx: label, entry (ExpressionNumberingDefault), group (Cantor)
+#: cantor.kcfg:28
+#, kde-format
+msgid "Enable Numbering of Expressions by default"
+msgstr "Προεπιλεγμένη ενεργοποίηση αρίθμησης εκφράσεων"
+
+#. i18n: ectx: label, entry (AnimationDefault), group (Cantor)
+#: cantor.kcfg:32
+#, kde-format
+msgid "Animate changes in the Worksheet by default"
+msgstr "Προεπιλογή εφέ κίνησης αλλαγών στο φύλλο εργασίας"
+
+#. i18n: ectx: label, entry (EmbeddedMathDefault), group (Cantor)
+#: cantor.kcfg:36
+#, kde-format
+msgid ""
+"Enable rendering math expressions inside $$..$$ in Text and Markdown entries "
+"by default (needs pdflatex installed)"
+msgstr ""
+"Ενεργοποίηση αποτύπωσης μαθηματικών εκφράσεων μέσα στο $$..$$ προκαθορισμένα "
+"σε εγγραφές κειμένου και Markdown (απαιτεί εγκατάσταση pdflatex)"
+
+#. i18n: ectx: label, entry (AutoEval), group (Cantor)
+#: cantor.kcfg:40
+#, kde-format
+msgid "Automatically reevaluate the entries below the current"
+msgstr "Αυτόματος εκ νέου υπολογισμός των καταχωρήσεων κάτω από την τρέχουσα"
+
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_WarnAboutSessionRestart)
+#. i18n: ectx: label, entry (WarnAboutSessionRestart), group (Cantor)
+#: cantor.kcfg:44 settings.ui:181
+#, kde-format
+msgid "Ask for confirmation when restarting the backend"
+msgstr ""
+"Να γίνεται ερώτηση επιβεβαίωσης στην επανεκκίνηση του συστήματος υποστήριξης"
+
+#. i18n: ectx: label, entry (StoreTextEntryFormatting), group (Cantor)
+#: cantor.kcfg:48
+#, kde-format
+msgid ""
+"Save rich text formatting of TextEntry, when save Worksheet in Jupyter "
+"notebook format"
+msgstr ""
+"Να αποθηκεύεται η μορφή εμπλουτισμένου κειμένου του TextEntry, όταν γίνεται "
+"αποθήκευση του φύλλου εργασίας σε τύπο αποθήκευσης σημειωματαρίου Jupyter"
+
+#. i18n: ectx: label, entry (UseOldCantorEntriesIndent), group (Cantor)
+#: cantor.kcfg:52
+#, kde-format
+msgid "Use old style Cantor entries placement style"
+msgstr ""
+"Να γίνει χρήση του στιλ τοποθέτησης με εγγραφές παλαιού στιλ του Cantor"
+
+#. i18n: ectx: label, entry (ShowMathRenderError), group (Cantor)
+#: cantor.kcfg:56
+#, kde-format
+msgid "Show embedded math render error"
+msgstr "Να εμφανίζεται το σφάλμα αποτύπωσης στα ενσωματωμένα μαθηματικά"
+
+#. i18n: ectx: label, entry (VisibleLinesLimit), group (Cantor)
+#: cantor.kcfg:60
+#, kde-format
+msgid "Limit of visible lines for text result"
+msgstr "Να περιοριστούν οι ορατές γραμμές για το αποτέλεσμα του κειμένου"
+
+#. i18n: ectx: label, entry (ChapterFontFamily), group (Cantor)
+#: cantor.kcfg:64
+#, kde-format
+msgid "Hierarchy font for chapter"
+msgstr "Γραμματοσειρά ιεραρχίας για κεφάλαια"
+
+#. i18n: ectx: label, entry (ChapterFontSize), group (Cantor)
+#: cantor.kcfg:68
+#, kde-format
+msgid "Hierarchy font size for chapter"
+msgstr "Μέγεθος γραμματοσειράς ιεραρχίας για κεφάλαια"
+
+#. i18n: ectx: label, entry (ChapterFontItalic), group (Cantor)
+#: cantor.kcfg:72
+#, kde-format
+msgid "Hierarchy font italic for chapter"
+msgstr "Πλάγια γραμματοσειρά ιεραρχίας για κεφάλαια"
+
+#. i18n: ectx: label, entry (ChapterFontBold), group (Cantor)
+#: cantor.kcfg:76
+#, kde-format
+msgid "Hierarchy font bold for chapter"
+msgstr "Έντονη γραμματοσειρά ιεραρχίας για κεφάλαια"
+
+#. i18n: ectx: label, entry (SubchapterFontFamily), group (Cantor)
+#: cantor.kcfg:80
+#, kde-format
+msgid "Hierarchy font for subchapter"
+msgstr "Γραμματοσειρά ιεραρχίας για υποκεφάλαια"
+
+#. i18n: ectx: label, entry (SubchapterFontSize), group (Cantor)
+#: cantor.kcfg:84
+#, kde-format
+msgid "Hierarchy font size for subchapter"
+msgstr "Μέγεθος γραμματοσειράς ιεραρχίας για υποκεφάλαια"
+
+#. i18n: ectx: label, entry (SubchapterFontItalic), group (Cantor)
+#: cantor.kcfg:88
+#, kde-format
+msgid "Hierarchy font italic for subchapter"
+msgstr "Πλάγια γραμματοσειρά ιεραρχίας για υποκεφάλαια"
+
+#. i18n: ectx: label, entry (SubchapterFontBold), group (Cantor)
+#: cantor.kcfg:92
+#, kde-format
+msgid "Hierarchy font bold for subchapter"
+msgstr "Έντονη γραμματοσειρά ιεραρχίας για υποκεφάλαια"
+
+#. i18n: ectx: label, entry (SectionFontFamily), group (Cantor)
+#. i18n: ectx: label, entry (SectionFontSize), group (Cantor)
+#: cantor.kcfg:96 cantor.kcfg:100
+#, kde-format
+msgid "Hierarchy font for section"
+msgstr "Γραμματοσειρά ιεραρχίας για ενότητες"
+
+#. i18n: ectx: label, entry (SectionFontItalic), group (Cantor)
+#: cantor.kcfg:104
+#, kde-format
+msgid "Hierarchy font italic for section"
+msgstr "Πλάγια γραμματοσειρά ιεραρχίας για ενότητες"
+
+#. i18n: ectx: label, entry (SectionFontBold), group (Cantor)
+#: cantor.kcfg:108
+#, kde-format
+msgid "Hierarchy font bold for section"
+msgstr "Έντονη γραμματοσειρά ιεραρχίας για ενότητες"
+
+#. i18n: ectx: label, entry (SubsectionFontFamily), group (Cantor)
+#. i18n: ectx: label, entry (SubsectionFontSize), group (Cantor)
+#: cantor.kcfg:112 cantor.kcfg:116
+#, kde-format
+msgid "Hierarchy font for subsection"
+msgstr "Γραμματοσειρά ιεραρχίας για υποενότητες"
+
+#. i18n: ectx: label, entry (SubsectionFontItalic), group (Cantor)
+#: cantor.kcfg:120
+#, kde-format
+msgid "Hierarchy font italic for subsection"
+msgstr "Πλάγια γραμματοσειρά ιεραρχίας για ενότητες"
+
+#. i18n: ectx: label, entry (SubsectionFontBold), group (Cantor)
+#: cantor.kcfg:124
+#, kde-format
+msgid "Hierarchy font bold for subsection"
+msgstr "Έντονη γραμματοσειρά ιεραρχίας για υποενότητες"
+
+#. i18n: ectx: label, entry (ParagraphFontFamily), group (Cantor)
+#. i18n: ectx: label, entry (ParagraphFontSize), group (Cantor)
+#: cantor.kcfg:128 cantor.kcfg:132
+#, kde-format
+msgid "Hierarchy font for paragraph"
+msgstr "Γραμματοσειρά ιεραρχίας για παραγράφους"
+
+#. i18n: ectx: label, entry (ParagraphFontItalic), group (Cantor)
+#: cantor.kcfg:136
+#, kde-format
+msgid "Hierarchy font italic for paragraph"
+msgstr "Πλάγια γραμματοσειρά ιεραρχίας για παραγράφους"
+
+#. i18n: ectx: label, entry (ParagraphFontBold), group (Cantor)
+#: cantor.kcfg:140
+#, kde-format
+msgid "Hierarchy font bold for paragraph"
+msgstr "Έντονη γραμματοσειρά ιεραρχίας για παραγράφους"
+
+#. i18n: ectx: label, entry (SubparagraphFontFamily), group (Cantor)
+#. i18n: ectx: label, entry (SubparagraphFontSize), group (Cantor)
+#: cantor.kcfg:144 cantor.kcfg:148
+#, kde-format
+msgid "Hierarchy font for subparagraph"
+msgstr "Γραμματοσειρά ιεραρχίας για υποπαραγράφους"
+
+#. i18n: ectx: label, entry (SubparagraphFontItalic), group (Cantor)
+#: cantor.kcfg:152
+#, kde-format
+msgid "Hierarchy font italic for subparagraph"
+msgstr "Πλάγια γραμματοσειρά ιεραρχίας για υποπαραγράφους"
+
+#. i18n: ectx: label, entry (SubparagraphFontBold), group (Cantor)
+#: cantor.kcfg:156
+#, kde-format
+msgid "Hierarchy font bold for subparagraph"
+msgstr "Έντονη γραμματοσειρά ιεραρχίας για υποπαραγράφους"
+
+#: cantor_part.cpp:139
+#, kde-format
+msgid "Save Plain Text"
+msgstr "Αποθήκευση ως απλό κείμενο"
+
+#: cantor_part.cpp:181 cantor_part.cpp:532
+#, kde-format
+msgid "Export to LaTeX"
+msgstr "Εξαγωγή σε LaTex"
+
+#: cantor_part.cpp:197 cantor_part.cpp:628 worksheet.cpp:1904
+#, kde-format
+msgid "Evaluate Worksheet"
+msgstr "Υπολογισμός φύλλου εργασίας"
+
+#: cantor_part.cpp:205 worksheet.cpp:1912
+#, kde-format
+msgid "Zoom"
+msgstr "Ζουμ"
+
+#: cantor_part.cpp:220
+#, kde-format
+msgid "Typeset using LaTeX"
+msgstr "Στοιχειοθεσία με τη χρήση του LaTex"
+
+#: cantor_part.cpp:225
+#, kde-format
+msgid "Syntax Highlighting"
+msgstr "Συντακτική επισήμανση"
+
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_CompletionDefault)
+#: cantor_part.cpp:230 settings.ui:105
+#, kde-format
+msgid "Completion"
+msgstr "Συμπλήρωση"
+
+#: cantor_part.cpp:235
+#, kde-format
+msgid "Line Numbers"
+msgstr "Αρίθμηση γραμμών"
+
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_AnimationDefault)
+#: cantor_part.cpp:240 settings.ui:125
+#, fuzzy, kde-format
+#| msgid "Pause Animation"
+msgid "Animations"
+msgstr "Παύση κινούμενης απεικόνισης"
+
+#: cantor_part.cpp:247
+#, kde-format
+msgid "Embedded Math"
+msgstr "Ενσωματωμένα μαθηματικά"
+
+#: cantor_part.cpp:253
+#, kde-format
+msgid "Restart Backend"
+msgstr "Επανεκκίνηση συστήματος υποστήριξης"
+
+#: cantor_part.cpp:260 worksheetentry.cpp:854
+#, kde-format
+msgid "Evaluate Entry"
+msgstr "Υπολογισμός καταχώρησης"
+
+#: cantor_part.cpp:266
+#, kde-format
+msgid "Insert Command Entry"
+msgstr "Εισαγωγή καταχώρησης εντολής"
+
+#: cantor_part.cpp:272
+#, kde-format
+msgid "Insert Text Entry"
+msgstr "Εισαγωγή καταχώρησης κειμένου"
+
+#: cantor_part.cpp:278
+#, kde-format
+msgid "Insert Markdown Entry"
+msgstr "Εισαγωγή markdown καταχώρησης"
+
+#: cantor_part.cpp:285
+#, kde-format
+msgid "Insert LaTeX Entry"
+msgstr "Εισαγωγή καταχώρησης LaTeX"
+
+#: cantor_part.cpp:291
+#, kde-format
+msgid "Insert Page Break"
+msgstr "Εισαγωγή διακοπής σελίδας"
+
+#: cantor_part.cpp:296 markdownentry.cpp:63
+#, kde-format
+msgid "Insert Image"
+msgstr "Εισαγωγή εικόνας"
+
+#: cantor_part.cpp:301
+#, kde-format
+msgid "Collapse All Results"
+msgstr "Συμπίεση όλων των αποτελεσμάτων"
+
+#: cantor_part.cpp:306
+#, kde-format
+msgid "Expand All Results"
+msgstr "Επέκταση όλων των αποτελεσμάτων"
+
+#: cantor_part.cpp:311
+#, kde-format
+msgid "Remove All Results"
+msgstr "Αφαίρεση όλων των αποτελεσμάτων"
+
+#: cantor_part.cpp:316
+#, kde-format
+msgid "Remove current Entry"
+msgstr "Αφαίρεση της τρέχουσας καταχώρησης"
+
+#. i18n("Publish Worksheet"), collection);
+#. publishWorksheet->setIcon(QIcon::fromTheme(QLatin1String("get-hot-new-stuff")));
+#. collection->addAction(QLatin1String("file_publish_worksheet"), publishWorksheet);
+#. connect(publishWorksheet, &QAction::triggered, this, SLOT(publishWorksheet()));
+#.
+#: cantor_part.cpp:332
+#, kde-format
+msgid "Show Script Editor"
+msgstr "Εμφάνιση επεξεργαστή δέσμης εντολών"
+
+#: cantor_part.cpp:337
+#, kde-format
+msgid "Show Completion"
+msgstr "Εμφάνιση ολοκλήρωσης"
+
+#: cantor_part.cpp:404
+#, kde-format
+msgid "CantorPart"
+msgstr "Τμήμα του Cantor"
+
+#: cantor_part.cpp:406
+#, kde-format
+msgid "(C) 2009-2015 Alexander Rieder"
+msgstr "(C) 2009-2015 Alexander Rieder"
+
+#: cantor_part.cpp:410 main.cpp:81
+#, kde-format
+msgid "Alexander Rieder"
+msgstr "Alexander Rieder"
+
+#: cantor_part.cpp:462
+#, kde-format
+msgid "Cantor Worksheet (*.cws)"
+msgstr "Φύλλο εργασίας του Cantor (*.cws)"
+
+#: cantor_part.cpp:463
+#, kde-format
+msgid "Jupyter Notebook (*.ipynb)"
+msgstr "Σημειωματάριο Jupyter (*.ipynb)"
+
+#: cantor_part.cpp:479
+#, kde-format
+msgid "Save as"
+msgstr "Αποθήκευση ως"
+
+#: cantor_part.cpp:525 panelplugins/variablemgr/variablemanagerwidget.cpp:168
+#, kde-format
+msgid "Save"
+msgstr "Αποθήκευση"
+
+#: cantor_part.cpp:577
+#, kde-format
+msgid ""
+"All the available calculation results will be lost. Do you really want to "
+"restart %1?"
+msgstr ""
+"Όλα τα διαθέσιμα αποτελέσματα υπολογισμού θα χαθούν. Θέλετε πράγματι να "
+"επανεκκινήσετε το %1;"
+
+#: cantor_part.cpp:578
+#, kde-format
+msgid "Restart %1?"
+msgstr "Επανεκκίνηση του %1;"
+
+#: cantor_part.cpp:618 worksheet.cpp:1907
+#, kde-format
+msgid "Interrupt"
+msgstr "Διακοπή"
+
+#: cantor_part.cpp:644
+#, kde-format
+msgid "Session Error: %1"
+msgstr "Σφάλμα συνεδρίας: %1"
+
+#: cantor_part.cpp:685
+#, kde-format
+msgid "Initialization complete"
+msgstr "Η αρχικοποίηση ολοκληρώθηκε"
+
+#: cantor_part.cpp:690
+#, kde-format
+msgid "Initializing..."
+msgstr "Αρχικοποίηση..."
+
+#: cantor_part.cpp:748
+#, kde-format
+msgid "[read-only]"
+msgstr "[ανάγνωση-μόνο]"
+
+#: cantor_part.cpp:883
+#, kde-format
+msgid "Do you want to upload current Worksheet to public web server?"
+msgstr "Θέλετε να στείλετε το παρόν φύλλο εργασίας στον δημόσιο διακομιστή;"
+
+#: cantor_part.cpp:884
+#, kde-format
+msgid "Question - Cantor"
+msgstr "Ερώτηση - Cantor"
+
+#: cantor_part.cpp:890
+#, kde-format
+msgid "The Worksheet is not saved. You should save it before uploading."
+msgstr ""
+"Το φύλλο εργασίας δεν έχει αποθηκευθεί. Πρέπει να το αποθηκεύσετε πριν την "
+"αποστολή του."
+
+#: cantor_part.cpp:891
+#, kde-format
+msgid "Warning - Cantor"
+msgstr "Προειδοποίηση - Cantor"
+
+#: cantor_part.cpp:963
+#, kde-format
+msgid "This backend does not support scripts."
+msgstr "Το συγκεκριμένο σύστημα υποστήριξης δεν υποστηρίζει σενάρια."
+
+#. i18n: ectx: Menu (edit)
+#: cantor_part.rc:14 cantor_shell.rc:19
+#, kde-format
+msgid "&Edit"
+msgstr "&Επεξεργασία"
+
+#. i18n: ectx: Menu (view)
+#: cantor_part.rc:27 cantor_shell.rc:22
+#, kde-format
+msgid "&View"
+msgstr "&Προβολή"
+
+#. i18n: ectx: Menu (worksheet)
+#: cantor_part.rc:33
+#, kde-format
+msgid "&Worksheet"
+msgstr "&Φύλλο εργασίας"
+
+#. i18n: ectx: Menu (settings)
+#: cantor_part.rc:50
+#, fuzzy, kde-format
+#| msgid "&Settings"
+msgid "Settings"
+msgstr "&Ρυθμίσεις"
+
+#. i18n: ectx: Menu (file)
+#: cantor_shell.rc:4
+#, kde-format
+msgid "&File"
+msgstr "&Αρχείο"
+
+#. i18n: ectx: Menu (file_new_menu)
+#: cantor_shell.rc:6
+#, kde-format
+msgid "&New"
+msgstr "&Νέο"
+
+#. i18n: ectx: Menu (panels)
+#: cantor_shell.rc:24
+#, kde-format
+msgid "Panels"
+msgstr "Πίνακες"
+
+#. i18n: ectx: Menu (settings)
+#: cantor_shell.rc:29
+#, kde-format
+msgid "&Settings"
+msgstr "&Ρυθμίσεις"
+
+#: commandentry.cpp:120
+#, kde-format
+msgid "Background Color"
+msgstr "Χρώμα φόντου"
+
+#: commandentry.cpp:129 commandentry.cpp:156 horizontalruleentry.cpp:328
+#, kde-format
+msgid "Default"
+msgstr "Προκαθορισμένο"
+
+#: commandentry.cpp:151
+#, kde-format
+msgid "Text Color"
+msgstr "Χρώμα κειμένου"
+
+#: commandentry.cpp:176
+#, kde-format
+msgid "Font"
+msgstr "Γραμματοσειρά"
+
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_ChapterFontBold)
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_SubchapterFontBold)
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_SectionFontBold)
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_SubsectionFontBold)
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_ParagraphFontBold)
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_SubparagraphFontBold)
+#: commandentry.cpp:179 formating.ui:81 formating.ui:140 formating.ui:199
+#: formating.ui:258 formating.ui:317 formating.ui:376
+#, kde-format
+msgid "Bold"
+msgstr "Έντονα"
+
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_ChapterFontItalic)
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_SubchapterFontItalic)
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_SectionFontItalic)
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_SubsectionFontItalic)
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_ParagraphFontItalic)
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_SubparagraphFontItalic)
+#: commandentry.cpp:186 formating.ui:88 formating.ui:147 formating.ui:206
+#: formating.ui:265 formating.ui:324 formating.ui:383
+#, kde-format
+msgid "Italic"
+msgstr "Πλάγια"
+
+#: commandentry.cpp:194
+#, kde-format
+msgid "Increase Size"
+msgstr "Αύξηση μεγέθους"
+
+#: commandentry.cpp:198
+#, kde-format
+msgid "Decrease Size"
+msgstr "Μείωση μεγέθους"
+
+#: commandentry.cpp:203
+#, kde-format
+msgid "Select"
+msgstr "Επιλογή"
+
+#: commandentry.cpp:207
+#, kde-format
+msgid "Reset to Default"
+msgstr "Επαναφορά στο προκαθορισμένο"
+
+#: commandentry.cpp:336
+#, kde-format
+msgid "Show Results"
+msgstr "Εμφάνιση αποτελεσμάτων"
+
+#: commandentry.cpp:338
+#, kde-format
+msgid "Hide Results"
+msgstr "Απόκρυψη αποτελεσμάτων"
+
+#: commandentry.cpp:343 worksheet.cpp:1897
+#, kde-format
+msgid "Show Help"
+msgstr "Να εμφανίζεται η βοήθεια"
+
+#: commandentry.cpp:356
+#, kde-format
+msgid "Appearance"
+msgstr "Εμφάνιση"
+
+#: commandentry.cpp:597 commandentry.cpp:992
+#, kde-format
+msgid "Interrupted"
+msgstr "Διακόπηκε"
+
+#. i18n: ectx: property (windowTitle), widget (QWidget, StandardSearchBar)
+#. i18n: ectx: property (windowTitle), widget (QWidget, ExtendedSearchBar)
+#: extendedsearchbar.ui:14 standardsearchbar.ui:14
+#, kde-format
+msgid "SearchBar"
+msgstr "Γραμμή Αναζήτησης"
+
+#. i18n: ectx: property (text), widget (QToolButton, close)
+#. i18n: ectx: property (text), widget (QToolButton, openExtended)
+#. i18n: ectx: property (text), widget (QToolButton, openStandard)
+#. i18n: ectx: property (text), widget (QToolButton, addFlag)
+#. i18n: ectx: property (text), widget (QToolButton, removeFlag)
+#: extendedsearchbar.ui:22 extendedsearchbar.ui:77 extendedsearchbar.ui:159
+#: extendedsearchbar.ui:166 standardsearchbar.ui:22 standardsearchbar.ui:85
+#, kde-format
+msgid "..."
+msgstr "..."
+
+#. i18n: ectx: property (text), widget (QLabel, label)
+#: extendedsearchbar.ui:47
+#: panelplugins/documentationpanel/documentationpanelwidget.cpp:126
+#, kde-format
+msgid "Find:"
+msgstr "Εύρεση:"
+
+#. i18n: ectx: property (text), widget (QPushButton, next)
+#: extendedsearchbar.ui:61 standardsearchbar.ui:48
+#, kde-format
+msgid "&Next"
+msgstr "&Επόμενο"
+
+#. i18n: ectx: property (text), widget (QPushButton, previous)
+#: extendedsearchbar.ui:68 standardsearchbar.ui:55
+#, kde-format
+msgid "&Previous"
+msgstr "&Προηγούμενο"
+
+#. i18n: ectx: property (text), widget (QLabel, label_2)
+#: extendedsearchbar.ui:102
+#, kde-format
+msgid "Replace:"
+msgstr "Αντικατάσταση:"
+
+#. i18n: ectx: property (text), widget (QPushButton, replace)
+#: extendedsearchbar.ui:116
+#, kde-format
+msgid "&Replace"
+msgstr "&Αντικατάσταση"
+
+#. i18n: ectx: property (text), widget (QPushButton, replaceAll)
+#: extendedsearchbar.ui:123
+#, kde-format
+msgid "Replace &All"
+msgstr "Αντικατάσταση ό&λων"
+
+#. i18n: ectx: property (text), widget (QLabel, label_3)
+#: extendedsearchbar.ui:139
+#, kde-format
+msgid "Search in:"
+msgstr "Αναζήτηση σε:"
+
+#. i18n: ectx: property (text), widget (QToolButton, matchCase)
+#. i18n: ectx: property (text), widget (QCheckBox, matchCase)
+#: extendedsearchbar.ui:173 standardsearchbar.ui:62
+#, kde-format
+msgid "&Match case"
+msgstr "&Ταίριασμα πεζών/κεφαλαίων"
+
+#. i18n: ectx: property (title), widget (QGroupBox, groupBox)
+#: formating.ui:27
+#, kde-format
+msgid "Hierarchy Fonts"
+msgstr "Γραμματοσειρές ιεραρχίας"
+
+#. i18n: ectx: attribute (title), widget (QWidget, ChapterTab)
+#: formating.ui:37
+#, kde-format
+msgid "Chapter Font"
+msgstr "Γραμματοσειρά κεφαλαίου"
+
+#. i18n: ectx: property (text), widget (QLabel, label_2)
+#. i18n: ectx: property (text), widget (QLabel, label_4)
+#. i18n: ectx: property (text), widget (QLabel, label_7)
+#. i18n: ectx: property (text), widget (QLabel, label_8)
+#. i18n: ectx: property (text), widget (QLabel, label_11)
+#. i18n: ectx: property (text), widget (QLabel, label_13)
+#: formating.ui:45 formating.ui:104 formating.ui:163 formating.ui:222
+#: formating.ui:281 formating.ui:340
+#, kde-format
+msgid "Font Family:"
+msgstr "Οικογένεια γραμματοσειράς:"
+
+#. i18n: ectx: property (text), widget (QLabel, label_3)
+#. i18n: ectx: property (text), widget (QLabel, label_5)
+#. i18n: ectx: property (text), widget (QLabel, label_6)
+#. i18n: ectx: property (text), widget (QLabel, label_9)
+#. i18n: ectx: property (text), widget (QLabel, label_10)
+#. i18n: ectx: property (text), widget (QLabel, label_12)
+#: formating.ui:59 formating.ui:118 formating.ui:177 formating.ui:236
+#: formating.ui:295 formating.ui:354
+#, kde-format
+msgid "Font Size:"
+msgstr "Μέγεθος γραμματοσειράς:"
+
+#. i18n: ectx: attribute (title), widget (QWidget, SubchapterTab)
+#: formating.ui:96
+#, kde-format
+msgid "Subchapter Font"
+msgstr "Γραμματοσειρά υποκεφαλαίου"
+
+#. i18n: ectx: attribute (title), widget (QWidget, SectionTab)
+#: formating.ui:155
+#, kde-format
+msgid "Section Font"
+msgstr "Γραμματοσειρά ενότητας"
+
+#. i18n: ectx: attribute (title), widget (QWidget, SubsectionTab)
+#: formating.ui:214
+#, kde-format
+msgid "Subsection Font"
+msgstr "Γραμματοσειρά υποενότητας"
+
+#. i18n: ectx: attribute (title), widget (QWidget, ParagraphTab)
+#: formating.ui:273
+#, kde-format
+msgid "Paragraph Font"
+msgstr "Γραμματοσειρά παραγράφου"
+
+#. i18n: ectx: attribute (title), widget (QWidget, SubparagraphTab)
+#: formating.ui:332
+#, kde-format
+msgid "Subparagraph Font"
+msgstr "Γραμματοσειρά υποπαραγράφου"
+
+#: hierarchyentry.cpp:22
+#, kde-format
+msgid "Chapter"
+msgstr "Κεφάλαιο"
+
+#: hierarchyentry.cpp:22
+#, kde-format
+msgid "Subchapter"
+msgstr "Υποκεφάλαιο"
+
+#: hierarchyentry.cpp:22
+#, kde-format
+msgid "Section"
+msgstr "Ενότητα"
+
+#: hierarchyentry.cpp:22
+#, kde-format
+msgid "Subsection"
+msgstr "Υποενότητα"
+
+#: hierarchyentry.cpp:22
+#, kde-format
+msgid "Paragraph"
+msgstr "Παράγραφος"
+
+#: hierarchyentry.cpp:22
+#, kde-format
+msgid "Subparagraph"
+msgstr "Υποπαράγραφος"
+
+#: hierarchyentry.cpp:48
+#, kde-format
+msgid "Set Hierarchy Level"
+msgstr "Ρύθμιση επιπέδου ιεραρχίας"
+
+#: horizontalruleentry.cpp:20
+#, kde-format
+msgid "Solid Line Style"
+msgstr "Στιλ συμπαγούς γραμμής"
+
+#: horizontalruleentry.cpp:20
+#, kde-format
+msgid "Dash Line Style"
+msgstr "Στιλ διακοπτόμενης γραμμής"
+
+#: horizontalruleentry.cpp:20
+#, kde-format
+msgid "Dot Line Style"
+msgstr "Στιλ γραμμής με κουκίδες"
+
+#: horizontalruleentry.cpp:20
+#, kde-format
+msgid "Dash Dot Line Style"
+msgstr "Στιλ γραμμής παύλα τελεία"
+
+#: horizontalruleentry.cpp:20
+#, kde-format
+msgid "Dash Dot Dot Line Style"
+msgstr "Στιλ γραμμής παύλα τελεία τελεία"
+
+#: horizontalruleentry.cpp:297
+#, kde-format
+msgid "Line Thickness"
+msgstr "Πάχος γραμμής"
+
+#: horizontalruleentry.cpp:299
+#, kde-format
+msgid "Thin"
+msgstr "Λεπτή"
+
+#: horizontalruleentry.cpp:303
+#, kde-format
+msgid "Medium"
+msgstr "Μέση"
+
+#: horizontalruleentry.cpp:307
+#, kde-format
+msgid "Thick"
+msgstr "Χοντρή"
+
+#: horizontalruleentry.cpp:320
+#, kde-format
+msgid "Line Color"
+msgstr "Χρώμα γραμμής"
+
+#: horizontalruleentry.cpp:351
+#, kde-format
+msgid "Line Style"
+msgstr "Στιλ γραμμής"
+
+#: imageentry.cpp:47 imageentry.cpp:371
+#, kde-format
+msgid "Configure Image"
+msgstr "Διαμόρφωση εικόνας"
+
+#: imageentry.cpp:256
+#, kde-format
+msgid "Double click here to configure image settings"
+msgstr "Διπλό κλικ εδώ για να διαμορφώσετε τις ρυθμίσεις της εικόνας"
+
+#: imageentry.cpp:288
+#, kde-format
+msgid "Cannot load image %1"
+msgstr "Αδυναμία φόρτωσης εικόνας %1"
+
+#: imageresultitem.cpp:97
+#, fuzzy, kde-format
+#| msgid "Save result"
+msgid "Save image result"
+msgstr "Αποθήκευση αποτελέσματος"
+
+#: imageresultitem.cpp:99 imagesettingsdialog.cpp:153 markdownentry.cpp:775
+#, kde-format
+msgid "Images (%1)"
+msgstr "Εικόνες (%1)"
+
+#. i18n: ectx: property (windowTitle), widget (QWidget, ImageSettingsBase)
+#: imagesettings.ui:14
+#, kde-format
+msgid "Image Settings"
+msgstr "Ρυθμίσεις εικόνας"
+
+#. i18n: ectx: property (text), widget (QPushButton, openDialogButton)
+#: imagesettings.ui:29
+#, kde-format
+msgid "Open"
+msgstr "Άνοιγμα"
+
+#. i18n: ectx: property (title), widget (QGroupBox, groupBox)
+#: imagesettings.ui:38
+#, kde-format
+msgid "Display Size"
+msgstr "Μέγεθος εμφάνισης"
+
+#. i18n: ectx: property (text), widget (QLabel, label)
+#. i18n: ectx: property (text), widget (QLabel, label_5)
+#: imagesettings.ui:47 imagesettings.ui:101
+#, kde-format
+msgid "Width"
+msgstr "Πλάτος"
+
+#. i18n: ectx: property (text), widget (QLabel, label_2)
+#. i18n: ectx: property (text), widget (QLabel, label_6)
+#: imagesettings.ui:60 imagesettings.ui:114
+#, kde-format
+msgid "Height"
+msgstr "Ύψος"
+
+#. i18n: ectx: property (title), widget (QGroupBox, gbPreview)
+#: imagesettings.ui:76
+#, kde-format
+msgid "Preview"
+msgstr "Προεπισκόπηση"
+
+#. i18n: ectx: property (title), widget (QGroupBox, groupBox_2)
+#: imagesettings.ui:88
+#, kde-format
+msgid "Print Size"
+msgstr "Μέγεθος εκτύπωσης"
+
+#. i18n: ectx: property (text), widget (QCheckBox, useDisplaySize)
+#: imagesettings.ui:94
+#, kde-format
+msgid "Use Display Size"
+msgstr "Χρήση μεγέθους εμφάνισης"
+
+#: imagesettingsdialog.cpp:23
+#, kde-format
+msgctxt "@title:window"
+msgid "Image Settings"
+msgstr "Ρυθμίσεις εικόνας"
+
+#: imagesettingsdialog.cpp:40
+#, kde-format
+msgid "(auto)"
+msgstr "(αυτόματο)"
+
+#: imagesettingsdialog.cpp:40
+#, kde-format
+msgid "px"
+msgstr "px"
+
+#: imagesettingsdialog.cpp:40
+#, kde-format
+msgid "%"
+msgstr "%"
+
+#: imagesettingsdialog.cpp:151 markdownentry.cpp:773
+#, kde-format
+msgid "Open image file"
+msgstr "Άνοιγμα αρχείου εικόνας"
+
+#: latexentry.cpp:61 textentry.cpp:111
+#, kde-format
+msgid "Show LaTeX code"
+msgstr "Εμφάνιση κώδικα LaTeX"
+
+#: lib/backend.cpp:183
+#, kde-format
+msgid ""
+"No path for the %1 executable specified. Please provide the correct path in "
+"the application settings and try again."
+msgstr ""
+"Δεν ορίσθηκε διαδρομή για το εκτελέσιμο %1. Δώστε τη σωστή διαδρομή στις "
+"ρυθμίσεις της εφαρμογής και προσπαθήστε πάλι."
+
+#: lib/backend.cpp:193
+#, kde-format
+msgid ""
+"The specified file '%1' for the %2 executable doesn't exist. Please provide "
+"the correct path in the application settings and try again."
+msgstr ""
+"Το δσσμένο αρχείο '%1' για το εκτελέσιμο %2 δεν υπάρχει. Δώστε τη σωστή "
+"διαδρομή στις ρυθμίσεις της εφαρμογής και προσπαθήστε πάλι."
+
+#: lib/backend.cpp:202
+#, kde-format
+msgid ""
+"The specified file '%1' doesn't point to an executable. Please provide the "
+"correct path in the application settings and try again."
+msgstr ""
+"Το δσσμένο αρχείο '%1' δεν δείχνει σε εκτελέσιμο. Δώστε τη σωστή διαδρομή "
+"στις ρυθμίσεις της εφαρμογής και προσπαθήστε πάλι."
+
+#: lib/backend.cpp:221
+#, kde-format
+msgid ""
+"The program %1 didn't finish the execution after %2 milliseconds during the "
+"plot integration test."
+msgstr ""
+"Το πρόγραμμα %1 δεν ολοκλήρωσε την εκτέλεση μετά από %2 χιλιοστά του "
+"δευτερολέπτου κατά τη διάρκεια της δοκιμής ενσωμάτωσης των γραφικών "
+"παραστάσεων."
+
+#: lib/backend.cpp:230
+#, kde-format
+msgid "Failed to open the file %1 during the plot integration test."
+msgstr ""
+"Αποτυχία ανοίγματος του αρχείου %1 κατά τη διάρκεια της δοκιμής ενσωμάτωσης "
+"των γραφικών παραστάσεων."
+
+#: lib/backend.cpp:238
+#, kde-format
+msgid "Failed to parse the result during the plot integration test."
+msgstr ""
+"Αποτυχία συντακτικής ανάλυσης του αποτελεματος κατά τη διάρκεια της δοκιμής "
+"ενσωμάτωσης των γραφικών παραστάσεων."
+
+#. i18n: ectx: label, entry (latexCommand), group (Cantor)
+#: lib/cantor_libs.kcfg:10
+#, kde-format
+msgid "Path to the latex executable"
+msgstr "Διαδρομή προς το εκτελέσιμο latex"
+
+#. i18n: ectx: label, entry (dvipsCommand), group (Cantor)
+#: lib/cantor_libs.kcfg:14
+#, kde-format
+msgid "Path to the dvips executable"
+msgstr "Διαδρομή προς το εκτελέσιμο dvips"
+
+#: lib/defaultvariablemodel.cpp:70
+#, kde-format
+msgctxt "@title:column"
+msgid "Value"
+msgstr "Τιμή"
+
+#: lib/defaultvariablemodel.cpp:102
+#, kde-format
+msgid "<%1 bytes>"
+msgstr "<%1 bytes>"
+
+#: lib/defaultvariablemodel.cpp:104
+#, kde-format
+msgid "<too big variable>"
+msgstr "<πολύ μεγάλη εταβλητή>"
+
+#. i18n: ectx: property (text), widget (QLabel, label)
+#: lib/directives/axisrange.ui:19
+#, kde-format
+msgid "From:"
+msgstr "Από:"
+
+#. i18n: ectx: property (text), widget (QLabel, label_2)
+#: lib/directives/axisrange.ui:40
+#, kde-format
+msgid "To:"
+msgstr "Προς:"
+
+#: lib/directives/plotdirectives.cpp:19
+#, kde-format
+msgid "Main title"
+msgstr "Κύριος τίτλος"
+
+#: lib/directives/plotdirectives.cpp:30
+#, kde-format
+msgid "Abscissa scale"
+msgstr "Κλίμακα Abscissa"
+
+#: lib/directives/plotdirectives.cpp:41
+#, kde-format
+msgid "Ordinate scale"
+msgstr "Κλίμακα τεταγμένης"
+
+#. i18n: ectx: property (text), widget (QLabel, label)
+#: lib/directives/plottitle.ui:19
+#, kde-format
+msgid "Plot title:"
+msgstr "Τίτλος γραφικής απεικόνισης:"
+
+#: lib/mimeresult.cpp:33
+#, kde-format
+msgid "This is unsupported Jupyter content of types ('%1')"
+msgstr "Αυτό είναι μη υποστηριζόμενο περιεχόμενο Jupyter τύπων ('%1')"
+
+#: lib/session.cpp:311
+#, kde-format
+msgid "%1 process has died unexpectedly. All calculation results are lost."
+msgstr ""
+"Η %1 διεργασία τερματίστηκε απρόσμενα. Όλα τα αποτελέσματα υπολογισμού "
+"χάθηκαν."
+
+#: lib/session.cpp:313
+#, kde-format
+msgid ""
+"%1 process has died unexpectedly with message \"%2\". All calculation "
+"results are lost."
+msgstr ""
+"Η %1 διεργασία τερματίστηκε απρόσμενα με μήνυμα «%2». Όλα τα αποτελέσματα "
+"υπολογισμού χάθηκαν."
+
+#: lib/session.cpp:379
+#, kde-format
+msgid ""
+"You choose support for %1 graphic package, but the support can't be "
+"activated due to the missing requirements, so integration for this package "
+"will be disabled. %2"
+msgstr ""
+"Επιλέξατε υποστήριξη για το πακέτο γραφικών %1, αλλά η υποστήριξη δεν μπορεί "
+"να ενεργοποιηθεί εξαιτίας της έλλειψης απαιτήσεων, έτσι η ολοκλήρωση για το "
+"πακέτο αυτό θα απενεργοποιηθεί. %2"
+
+#: main.cpp:72
+#, kde-format
+msgid "KDE Frontend to mathematical applications"
+msgstr "Περιβάλλον του KDE για μαθηματικές εφαρμογές"
+
+#: main.cpp:74
+#, kde-format
+msgid "(C) 2016 Filipe Saraiva<br/>(C) 2009-2015 Alexander Rieder"
+msgstr "(C) 2016 Filipe Saraiva<br/>(C) 2009-2015 Alexander Rieder"
+
+#: main.cpp:78
+#, kde-format
+msgid "Filipe Saraiva"
+msgstr "Filipe Saraiva"
+
+#: main.cpp:78
+#, kde-format
+msgid "Maintainer<br/>Qt5/KF5 port, Scilab and Python backends"
+msgstr ""
+"Συντηρητής<br/>Μεταφορά Qt5/KF5, συστήματα υποστήριξης Scilab και Python"
+
+#: main.cpp:79
+#, kde-format
+msgid "Nikita Sirgienko"
+msgstr "Nikita Sirgienko"
+
+#: main.cpp:79 main.cpp:80
+#, kde-format
+msgctxt "@info:credit"
+msgid "Developer"
+msgstr "Προγραμματιστής"
+
+#: main.cpp:80
+#, kde-format
+msgid "Alexander Semke"
+msgstr "Alexander Semke"
+
+#: main.cpp:81
+#, kde-format
+msgid "Original author<br/>Maintainer (2009 - 2015)"
+msgstr "Αρχικός συγγραφέας<br/>Συντηρητής (2009-2015)"
+
+#: main.cpp:82
+#, kde-format
+msgid "Aleix Pol Gonzalez"
+msgstr "Aleix Pol Gonzalez"
+
+#: main.cpp:82
+#, kde-format
+msgid "KAlgebra backend"
+msgstr "Σύστημα υποστήριξης KAlgebra"
+
+#: main.cpp:83
+#, kde-format
+msgid "Miha Čančula"
+msgstr "Miha Čančula"
+
+#: main.cpp:83
+#, kde-format
+msgid "Octave backend"
+msgstr "Σύστημα υποστήριξης Octave"
+
+#: main.cpp:84
+#, kde-format
+msgid "Martin Küttler"
+msgstr "Martin Küttler"
+
+#: main.cpp:84
+#, kde-format
+msgid "Interface"
+msgstr "Περιβάλλον"
+
+#: main.cpp:86 main.cpp:87
+#, kde-format
+msgid "Cantor icon"
+msgstr "Εικονίδιο Cantor"
+
+#: main.cpp:92
+#, kde-format
+msgid "Use  backend <backend>"
+msgstr "Χρήση  συστήματος υποστήριξης <backend>"
+
+#: main.cpp:95
+#, kde-format
+msgid "Documents to open."
+msgstr "Έγγραφα για άνοιγμα."
+
+#: main.cpp:130
+#, kde-format
+msgid "Couldn't open the file %1"
+msgstr "Αδυναμία ανοίγματος του αρχείου %1"
+
+#: markdownentry.cpp:70
+#, kde-format
+msgid "Enter Edit Mode"
+msgstr "Εισάγετε λειτουργία επεξεργασίας"
+
+#: markdownentry.cpp:78
+#, kde-format
+msgid "Clear Attachments"
+msgstr "Καθαρισμός συνημμένων"
+
+#: markdownentry.cpp:587
+#, kde-format
+msgid "Cantor Math Error"
+msgstr "Μαθηματικό σφάλμα του Cantor"
+
+#: markdownentry.cpp:796
+#, kde-format
+msgid "Failed to read the image \"%1\". Error \"%2\""
+msgstr "Αποτυχία ανάγνωσης της εικόνας «%1». Σφάλμα «%2»."
+
+#: pagebreakentry.cpp:28
+#, kde-format
+msgid "--- Page Break ---"
+msgstr "--- Διακοπή σελίδας ---"
+
+#: panelplugins/documentationpanel/documentationpanelwidget.cpp:51
+#, kde-format
+msgctxt "@button go to contents page"
+msgid "Go to the contents"
+msgstr "Μετάβαση στα περιεχόμενα"
+
+#: panelplugins/documentationpanel/documentationpanelwidget.cpp:58
+#, kde-format
+msgctxt "@info:placeholder"
+msgid "Search through keywords..."
+msgstr "Αναζήτηση με λέξεις κλειδιά..."
+
+#: panelplugins/documentationpanel/documentationpanelwidget.cpp:69
+#, kde-format
+msgctxt "@info:tooltip"
+msgid "Find in text of current documentation page"
+msgstr "Εύρεση σε κείμενο της τρέχουσας σελίδας τεκμηρίωσης"
+
+#: panelplugins/documentationpanel/documentationpanelwidget.cpp:75
+#, kde-format
+msgctxt "@info:tooltip"
+msgid "Reset zoom level to 100%"
+msgstr "Επαναφορά του επιπέδου ζουμ στο 100%"
+
+#: panelplugins/documentationpanel/documentationpanelwidget.cpp:123
+#, kde-format
+msgctxt "@info:tooltip"
+msgid "Close"
+msgstr "Κλείσιμο"
+
+#: panelplugins/documentationpanel/documentationpanelwidget.cpp:133
+#, kde-format
+msgctxt "@info:tooltip"
+msgid "Jump to next match"
+msgstr "Μετάβαση στο επόμενο αποτέλεσμα"
+
+#: panelplugins/documentationpanel/documentationpanelwidget.cpp:137
+#, kde-format
+msgctxt "@info:tooltip"
+msgid "Jump to previous match"
+msgstr "Μετάβαση στο προηγούμενο αποτέλεσμα"
+
+#: panelplugins/documentationpanel/documentationpanelwidget.cpp:141
+#, kde-format
+msgctxt "@info:tooltip"
+msgid "Match case sensitively"
+msgstr "Να γίνεται διάκριση πεζών/κεφαλαίων"
+
+#: panelplugins/documentationpanel/documentationpanelwidget.cpp:408
+#, kde-format
+msgid "The file has been downloaded successfully at Downloads."
+msgstr "Έχει γίνει επιτυχημένη λήψη του αρχείου στο Downloads."
+
+#: panelplugins/documentationpanel/documentationpanelwidget.cpp:408
+#, kde-format
+msgid "Download Successful"
+msgstr "Λήψη επιτυχής"
+
+#: panelplugins/filebrowserpanel/filebrowserpanelplugin.cpp:137
+#, kde-format
+msgid "Cantor files"
+msgstr "Αρχεία του Cantor"
+
+#: panelplugins/filebrowserpanel/filebrowserpanelplugin.cpp:138
+#, kde-format
+msgid "Jupyter files"
+msgstr "Αρχεία του Jupyter"
+
+#: panelplugins/filebrowserpanel/filebrowserpanelplugin.cpp:139
+#, kde-format
+msgid "All supported files"
+msgstr "Όλα τα υποστηριζόμενα αρχεία"
+
+#: panelplugins/filebrowserpanel/filebrowserpanelplugin.cpp:140
+#, kde-format
+msgid "All files"
+msgstr "Όλα τα αρχεία"
+
+#. i18n: ectx: property (text), widget (QLabel, label)
+#: panelplugins/variablemgr/newvardlg.ui:17
+#, kde-format
+msgid "Name:"
+msgstr "Όνομα:"
+
+#. i18n: ectx: property (text), widget (QLabel, label_2)
+#: panelplugins/variablemgr/newvardlg.ui:27
+#, kde-format
+msgid "Value:"
+msgstr "Τιμή:"
+
+#: panelplugins/variablemgr/variablemanagerwidget.cpp:45
+#: panelplugins/variablemgr/variablemanagerwidget.cpp:197
+#, kde-format
+msgid "Add New Variable"
+msgstr "Προσθήκη νέας μεταβλητής"
+
+#: panelplugins/variablemgr/variablemanagerwidget.cpp:51
+#, kde-format
+msgid "Load Variables"
+msgstr "Φόρτωση μεταβλητών"
+
+#: panelplugins/variablemgr/variablemanagerwidget.cpp:57
+#, kde-format
+msgid "Save Variables"
+msgstr "Αποθήκευση μεταβλητών"
+
+#: panelplugins/variablemgr/variablemanagerwidget.cpp:63
+#: panelplugins/variablemgr/variablemanagerwidget.cpp:140
+#, kde-format
+msgid "Remove Variables"
+msgstr "Αφαίρεση μεταβλητών"
+
+#: panelplugins/variablemgr/variablemanagerwidget.cpp:73
+#, kde-format
+msgid "Search/Filter"
+msgstr "Αναζήτηση/φιλτράρισμα"
+
+#: panelplugins/variablemgr/variablemanagerwidget.cpp:84
+#, kde-format
+msgid "Case Sensitive"
+msgstr "Διάκριση πεζών/κεφαλαίων"
+
+#: panelplugins/variablemgr/variablemanagerwidget.cpp:88
+#, kde-format
+msgid "Match Complete Word"
+msgstr "Ταίριασμα όλης της λέξης"
+
+#: panelplugins/variablemgr/variablemanagerwidget.cpp:139
+#, kde-format
+msgid "Are you sure you want to remove all variables?"
+msgstr "Επιθυμείτε σίγουρα να αφαιρέσετε όλες τις μεταβλητές;"
+
+#: panelplugins/variablemgr/variablemanagerwidget.cpp:182
+#, kde-format
+msgid "Load file"
+msgstr "Φόρτωση αρχείου"
+
+#: resultitem.cpp:59
+#, kde-format
+msgid "Save result"
+msgstr "Αποθήκευση αποτελέσματος"
+
+#: resultitem.cpp:60
+#, kde-format
+msgid "Remove result"
+msgstr "Αφαίρεση αποτελέσματος"
+
+#: scripteditor/scripteditorwidget.cpp:44
+#, kde-format
+msgid ""
+"A KDE text-editor component could not be found;\n"
+"please check your KDE installation."
+msgstr ""
+"Αδυναμία εύρεσης επεξεργαστή κειμένου του KDE·\n"
+"παρακαλώ ελέγξτε την εγκατάσταση του KDE σας."
+
+#: scripteditor/scripteditorwidget.cpp:139
+#, kde-format
+msgid "Script Editor"
+msgstr "Επεξεργαστής σεναρίων"
+
+#: scripteditor/scripteditorwidget.cpp:142
+#, kde-format
+msgid "Script Editor - %1"
+msgstr "Επεξεργαστής σεναρίων - %1"
+
+#: searchbar.cpp:130 searchbar.cpp:178
+#, kde-format
+msgid "Not found"
+msgstr "Δε βρέθηκε"
+
+#: searchbar.cpp:133
+#, kde-format
+msgid "Reached beginning"
+msgstr "Φτάσαμε στην αρχή"
+
+#: searchbar.cpp:181
+#, kde-format
+msgid "Reached end"
+msgstr "Φτάσαμε στο τέλος"
+
+#: searchbar.cpp:238
+#, kde-format
+msgid "Replaced %1 instance"
+msgid_plural "Replaced %1 instances"
+msgstr[0] "Αντικαταστάθηκε %1 στιγμιότυπο"
+msgstr[1] "Αντικαταστάθηκαν %1 στιγμιότυπα"
+
+#: searchbar.cpp:333 searchbar.cpp:362
+#, kde-format
+msgid "Commands"
+msgstr "Εντολές"
+
+#: searchbar.cpp:333 searchbar.cpp:362
+#, kde-format
+msgid "Results"
+msgstr "Αποτελέσματα"
+
+#: searchbar.cpp:333 searchbar.cpp:362
+#, kde-format
+msgid "Errors"
+msgstr "Σφάλματα"
+
+#: searchbar.cpp:334 searchbar.cpp:363 worksheet.cpp:1812 worksheet.cpp:1841
+#: worksheet.cpp:1861 worksheet.cpp:1879
+#, kde-format
+msgid "Text"
+msgstr "Κείμενο"
+
+#: searchbar.cpp:334 searchbar.cpp:363
+#, kde-format
+msgid "LaTeX Code"
+msgstr "Κώδικας LaTeX"
+
+#. i18n: ectx: property (text), widget (QLabel, label_2)
+#: settings.ui:23
+#, fuzzy, kde-format
+#| msgid "Start"
+msgid "Startup:"
+msgstr "Εκκίνηση"
+
+#. i18n: ectx: property (toolTip), widget (QLabel, label)
+#. i18n: ectx: property (toolTip), widget (KComboBox, kcfg_DefaultBackend)
+#: settings.ui:30 settings.ui:293
+#, kde-format
+msgid ""
+"Create a new worksheet for the selected backend system. If none is selected, "
+"the user is asked about which system to use on startup."
+msgstr ""
+
+#. i18n: ectx: property (text), widget (QLabel, label)
+#: settings.ui:33
+#, kde-format
+msgid "Default Backend:"
+msgstr "Προκαθορισμένο σύστημα υποστήριξης:"
+
+#. i18n: ectx: property (text), widget (QLabel, label_3)
+#: settings.ui:75
+#, fuzzy, kde-format
+#| msgid "&Worksheet"
+msgid "Worksheet:"
+msgstr "&Φύλλο εργασίας"
+
+#. i18n: ectx: property (toolTip), widget (QCheckBox, kcfg_TypesetDefault)
+#: settings.ui:82
+#, fuzzy, kde-format
+#| msgid "Enable LaTeX typesetting for Sage backend"
+msgid ""
+"Enable LaTeX typesetting for the results of the calculations, if supported "
+"by the backend system"
+msgstr "Ενεργοποίηση στοιχειοθέτησης LaTex για το σύστημα υποστήριξης του Sage"
+
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_TypesetDefault)
+#: settings.ui:85
+#, fuzzy, kde-format
+#| msgid "LaTeX typesetting:"
+msgid "LaTeX typesetting"
+msgstr "Στοιχειοθέτηση LaTex"
+
+#. i18n: ectx: property (toolTip), widget (QCheckBox, kcfg_HighlightDefault)
+#: settings.ui:92
+#, fuzzy, kde-format
+#| msgid "Enable Syntax Highlighting"
+msgid "Enable syntax highlighting"
+msgstr "Ενεργοποίηση επισήμανσης σύνταξης"
+
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_HighlightDefault)
+#: settings.ui:95
+#, fuzzy, kde-format
+#| msgid "Syntax Highlighting"
+msgid "Syntax highlighting"
+msgstr "Συντακτική επισήμανση"
+
+#. i18n: ectx: property (toolTip), widget (QCheckBox, kcfg_CompletionDefault)
+#: settings.ui:102
+#, fuzzy, kde-format
+#| msgid "Enable Completion"
+msgid "Enable syntax completion"
+msgstr "Ενεργοποίηση συμπλήρωσης"
+
+#. i18n: ectx: property (toolTip), widget (QCheckBox, kcfg_ExpressionNumberingDefault)
+#: settings.ui:112
+#, fuzzy, kde-format
+#| msgid "Line Numbers"
+msgid "Show line numbers"
+msgstr "Αρίθμηση γραμμών"
+
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_ExpressionNumberingDefault)
+#: settings.ui:115
+#, fuzzy, kde-format
+#| msgid "Line Numbers"
+msgid "Line numbers"
+msgstr "Αρίθμηση γραμμών"
+
+#. i18n: ectx: property (toolTip), widget (QCheckBox, kcfg_AnimationDefault)
+#: settings.ui:122
+#, fuzzy, kde-format
+#| msgid "Integrate Plots into the Worksheet"
+msgid "Enable animation effects in the worksheet"
+msgstr "Ενσωμάτωση των γραφικών απεικονίσεων στο φύλλο εργασίας"
+
+#. i18n: ectx: property (toolTip), widget (QCheckBox, kcfg_UseOldCantorEntriesIndent)
+#: settings.ui:132
+#, kde-format
+msgid ""
+"If enabled, text entries are aligned at the worksheet border and not at the "
+"prompt border"
+msgstr ""
+
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_UseOldCantorEntriesIndent)
+#: settings.ui:135
+#, kde-format
+msgid "Don't indent text entries"
+msgstr ""
+
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_StoreTextEntryFormatting)
+#: settings.ui:142
+#, fuzzy, kde-format
+#| msgid ""
+#| "Save rich text formatting of TextEntry, when save Worksheet in Jupyter "
+#| "notebook format"
+msgid ""
+"Use rich text format for text entries when saving in Jupyter Notebook Format"
+msgstr ""
+"Να αποθηκεύεται η μορφή εμπλουτισμένου κειμένου του TextEntry, όταν γίνεται "
+"αποθήκευση του φύλλου εργασίας σε τύπο αποθήκευσης σημειωματαρίου Jupyter"
+
+#. i18n: ectx: property (text), widget (QLabel, label_4)
+#: settings.ui:171
+#, fuzzy, kde-format
+#| msgid "Equations:"
+msgid "Evaluation:"
+msgstr "Εξισώσεις:"
+
+#. i18n: ectx: property (toolTip), widget (QCheckBox, kcfg_WarnAboutSessionRestart)
+#: settings.ui:178
+#, fuzzy, kde-format
+#| msgid "Ask for confirmation when restarting the backend"
+msgid ""
+"If enabled, the user will be asked for confirmation prior to restarting the "
+"backend system"
+msgstr ""
+"Να γίνεται ερώτηση επιβεβαίωσης στην επανεκκίνηση του συστήματος υποστήριξης"
+
+#. i18n: ectx: property (toolTip), widget (QCheckBox, kcfg_AutoEval)
+#: settings.ui:188
+#, kde-format
+msgid ""
+"If enabled, all entries below the current one will be evaluated automatically"
+msgstr ""
+
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_AutoEval)
+#: settings.ui:191
+#, fuzzy, kde-format
+#| msgid "Reevaluate Entries automatically"
+msgid "Reevaluate entries automatically"
+msgstr "Εκ νέου υπολογισμός των καταχωρήσεων αυτόματα"
+
+#. i18n: ectx: property (text), widget (QLabel, VisibleLinesLimit_label)
+#: settings.ui:201
+#, fuzzy, kde-format
+#| msgid "Maximal number of result visible rows (0 for unlimited):"
+msgid "Number of rows in the result (0 for unlimited):"
+msgstr "Μέγιστο πλήθος ορατών γραμμών στο αποτέλεσμα (0 για απεριόριστο):"
+
+#. i18n: ectx: property (toolTip), widget (QSpinBox, kcfg_VisibleLinesLimit)
+#: settings.ui:221
+#, kde-format
+msgid ""
+"Maximal number of visible rows in the result of a command entry. Use 0 to "
+"work without limitations."
+msgstr ""
+"Μέγιστο πλήθος ορατών γραμμών στο αποτέλεσμα εκτέλεσης εντολής. "
+"Χρησιμοποιήστε το 0 για να εργαστείτε χωρίς περιορισμούς."
+
+#. i18n: ectx: property (text), widget (QLabel, label_5)
+#: settings.ui:256
+#, fuzzy, kde-format
+#| msgid "Markdown"
+msgid "Markdown:"
+msgstr "Markdown"
+
+#. i18n: ectx: property (toolTip), widget (QCheckBox, kcfg_EmbeddedMathDefault)
+#: settings.ui:263
+#, fuzzy, kde-format
+#| msgid "Enable LaTeX typesetting for Sage backend"
+msgid ""
+"Enable LaTeX typesetting for mathematical expressions in Markdown entries"
+msgstr "Ενεργοποίηση στοιχειοθέτησης LaTex για το σύστημα υποστήριξης του Sage"
+
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_EmbeddedMathDefault)
+#: settings.ui:266
+#, kde-format
+msgid "Mathematical expressions via LaTeX"
+msgstr ""
+
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_ShowMathRenderError)
+#: settings.ui:273
+#, kde-format
+msgid "Notify about render failures for mathematical expressions"
+msgstr ""
+
+#. i18n: ectx: property (placeholderText), widget (KLineEdit, pattern)
+#: standardsearchbar.ui:35
+#, kde-format
+msgid "Find…"
+msgstr "Εύρεση…"
+
+#: textentry.cpp:55
+#, kde-format
+msgid "Raw Cell Targets"
+msgstr "Προορισμοί ακατέργαστων κελιών"
+
+#: textentry.cpp:62
+#, kde-format
+msgid "Add custom target"
+msgstr "Προσθήκη προσαρμοσμένου προορισμού"
+
+#: textentry.cpp:76
+#, kde-format
+msgid "Convert to Text Entry"
+msgstr "Μετατροπή σε καταχώρηση κειμένου"
+
+#: textentry.cpp:81
+#, kde-format
+msgid "Convert to Raw Cell"
+msgstr "Μετατροπή σε ακατέργαστο κελί"
+
+#: textentry.cpp:553
+#, kde-format
+msgid "Target MIME type:"
+msgstr "Τύπος mime προορισμού:"
+
+#: textresultitem.cpp:59
+#, fuzzy, kde-format
+#| msgid "Remove result"
+msgid "Copy result"
+msgstr "Αφαίρεση αποτελέσματος"
+
+#: textresultitem.cpp:68
+#, kde-format
+msgid "Show Rendered"
+msgstr "Εμφάνιση αποτύπωσης"
+
+#: textresultitem.cpp:70
+#, kde-format
+msgid "Show Code"
+msgstr "Εμφάνιση κώδικα"
+
+#: textresultitem.cpp:78 textresultitem.cpp:91
+#, kde-format
+msgid "Show HTML Code"
+msgstr "Εμφάνιση HTML κώδικα"
+
+#: textresultitem.cpp:80 textresultitem.cpp:86
+#, kde-format
+msgid "Show Plain Alternative"
+msgstr "Εμφάνιση του απλού εναλλακτικά"
+
+#: textresultitem.cpp:84
+#, kde-format
+msgid "Show Html"
+msgstr "Εμφάνιση html"
+
+#: textresultitem.cpp:90
+#, kde-format
+msgid "Show HTML"
+msgstr "Εμφάνιση HTML"
+
+#: textresultitem.cpp:161
+#, kde-format
+msgid "Cannot render Eps file. You may need additional packages"
+msgstr ""
+"Αδυναμία αποτύπωσης του αρχείου Eps. Μπορεί να χρειάζεστε επιπλέον πακέτα."
+
+#: textresultitem.cpp:213
+#, fuzzy, kde-format
+#| msgid "Save result"
+msgid "Save text result"
+msgstr "Αποθήκευση αποτελέσματος"
+
+#: textresultitem.cpp:213
+#, kde-format
+msgid "Text Files (*.txt)"
+msgstr ""
+
+#: worksheet.cpp:1192
+#, kde-format
+msgid "Cannot write file %1."
+msgstr "Αδυναμία εγγραφής του αρχείου %1."
+
+#: worksheet.cpp:1220 worksheet.cpp:1235
+#, kde-format
+msgid "Cannot write file."
+msgstr "Αδυναμία εγγραφής στο αρχείο."
+
+#: worksheet.cpp:1252 worksheet.cpp:1296
+#, kde-format
+msgid "Error saving file %1"
+msgstr "Σφάλμα αποθήκευσης του αρχείου %1"
+
+#: worksheet.cpp:1275
+#, kde-format
+msgid ""
+"In read-only mode Cantor couldn't guarantee, that the export will be valid "
+"for %1"
+msgstr ""
+"Σε λειτουργία ανάγνωσης-μόνο το Cantor δεν εγγυάται ότι η εξαγωγή θα είναι "
+"έγκυρη για το %1"
+
+#: worksheet.cpp:1308
+#, kde-format
+msgid "Error loading latex.xsl stylesheet"
+msgstr "Σφάλμα κατά τη φόρτωση του φύλλου στυλ latex.xsl"
+
+#: worksheet.cpp:1327
+#, kde-format
+msgid "Couldn't open the file %1."
+msgstr "Αδυναμία ανοίγματος του αρχείου %1."
+
+#: worksheet.cpp:1327 worksheet.cpp:1350 worksheet.cpp:1370 worksheet.cpp:1387
+#: worksheet.cpp:1419 worksheet.cpp:1430 worksheet.cpp:1539 worksheet.cpp:1554
+#: worksheet.cpp:1596 worksheet.cpp:1607 worksheet.cpp:1727 worksheet.cpp:1729
+#, kde-format
+msgid "Open File"
+msgstr "Άνοιγμα αρχείου"
+
+#: worksheet.cpp:1350
+#, kde-format
+msgid "Couldn't open the selected file for reading."
+msgstr "Αδυναμία ανοίγματος του επιλεγμένου αρχείου για ανάγνωση."
+
+#: worksheet.cpp:1370
+#, kde-format
+msgid "The selected file is not a valid Cantor or Jupyter project file."
+msgstr ""
+"Το επιλεγμένο αρχείο δεν είναι ένα έγκυρο αρχείο έργου Cantor ή Jupyter."
+
+#: worksheet.cpp:1387
+#, kde-format
+msgid "The selected file is not a valid Cantor project file."
+msgstr "Το επιλεγμένο αρχείο δεν είναι ένα έγκυρο αρχείο έργου Cantor."
+
+#: worksheet.cpp:1409
+#, kde-format
+msgid ""
+"This worksheet was created using Python2 which is not supported anymore. "
+"Python3 will be used."
+msgstr ""
+"Αυτό το φύλλο εργασίας δημιουργήθηκε με χρήση Python2 το οποίο δεν "
+"υποστηρίζεται πλέον. Το Python3 θα χρησιμοποιηθεί."
+
+#: worksheet.cpp:1410 worksheet.cpp:1578
+#, kde-format
+msgid "Python2 not supported anymore"
+msgstr "Το Python2 δεν υποστηρίζεται πλέον"
+
+#: worksheet.cpp:1419 worksheet.cpp:1595
+#, kde-format
+msgid ""
+"%1 backend was not found. Editing and executing entries is not possible."
+msgstr ""
+"Το %1 σύστημα υποστήριξης δε βρέθηκε. Αδυναμία επεξεργασίας και εκτέλεσης "
+"καταχωρήσεων."
+
+#: worksheet.cpp:1428 worksheet.cpp:1605
+#, kde-format
+msgid ""
+"There are some problems with the %1 backend,\n"
+"please check your configuration or install the needed packages.\n"
+"You will only be able to view this worksheet."
+msgstr ""
+"Υπάρχουν μερικά προβλήματα με το σύστημα υποστήριξης %1,\n"
+"παρακαλώ ελέγξτε τη διαμόρφωσή σας ή εγκαταστήστε τα \n"
+"απαιτούμενα πακέτα. Είναι δυνατή μόνο η προβολή\n"
+"του συγκεκριμένου φύλλου εργασίας."
+
+#: worksheet.cpp:1538
+#, kde-format
+msgid ""
+"Jupyter notebooks with versions lower than 4.5 (detected version %1.%2) are "
+"not supported."
+msgstr ""
+"Τα σημειωματάρια Jupyter με εκδόσεις παλαιότερες της 4.5 (ανιχνεύθηκε έκδοση "
+"%1.%2) δεν υποστηρίζονται."
+
+#: worksheet.cpp:1553
+#, kde-format
+msgid ""
+"Jupyter notebooks with versions higher than 4.5 (detected version %1.%2) are "
+"not supported."
+msgstr ""
+"Τα σημειωματάρια Jupyter με εκδόσεις νεότερες της 4.5 (ανιχνεύθηκε έκδοση %1."
+"%2) δεν υποστηρίζονται."
+
+#: worksheet.cpp:1577
+#, kde-format
+msgid ""
+"This notebook was created using Python2 which is not supported anymore. "
+"Python3 will be used."
+msgstr ""
+"Αυτό το σημειωματάριο δημιουργήθηκε με χρήση Python2 το οποίο δεν "
+"υποστηρίζεται πλέον. Το Python3 θα χρησιμοποιηθεί."
+
+#: worksheet.cpp:1645
+#, kde-format
+msgid "an object with keys: %1"
+msgstr "ένα αντικείμενο με κλειδιά: %1"
+
+#: worksheet.cpp:1647
+#, kde-format
+msgid "non object JSON value"
+msgstr "Δεν είναι τιμή αντικειμένου JSON"
+
+#: worksheet.cpp:1650
+#, kde-format
+msgid "found incorrect data (%1) that is not Jupyter cell"
+msgstr "βρέθηκαν λανθασμένα δεδομένα (%1) τα οποία δεν είναι κελί Jupyter"
+
+#: worksheet.cpp:1727
+#, kde-format
+msgid "The file is not valid Jupyter notebook"
+msgstr "Το αρχείο δεν είναι έγκυρο σημειωματάριο Jupyter"
+
+#: worksheet.cpp:1729
+#, kde-format
+msgid "Invalid Jupyter notebook scheme: %1"
+msgstr "Μη έγκυρο σχήμα σημειωματαρίου Jupyter: %1"
+
+#: worksheet.cpp:1804
+#, kde-format
+msgid "Convert To"
+msgstr "Μετατροπή σε"
+
+#: worksheet.cpp:1809 worksheet.cpp:1840 worksheet.cpp:1860 worksheet.cpp:1878
+#, kde-format
+msgid "Command"
+msgstr "Εντολή"
+
+#: worksheet.cpp:1816 worksheet.cpp:1843 worksheet.cpp:1863 worksheet.cpp:1881
+#, kde-format
+msgid "Markdown"
+msgstr "Markdown"
+
+#: worksheet.cpp:1823 worksheet.cpp:1848 worksheet.cpp:1868 worksheet.cpp:1886
+#, kde-format
+msgid "Image"
+msgstr "Εικόνα"
+
+#: worksheet.cpp:1826 worksheet.cpp:1851 worksheet.cpp:1871 worksheet.cpp:1889
+#, kde-format
+msgid "Page Break"
+msgstr "Αλλαγή σελίδας"
+
+#: worksheet.cpp:1829 worksheet.cpp:1850 worksheet.cpp:1870 worksheet.cpp:1888
+#, kde-format
+msgid "Horizontal Line"
+msgstr "Οριζόντια γραμμή"
+
+#: worksheet.cpp:1832 worksheet.cpp:1853 worksheet.cpp:1873 worksheet.cpp:1891
+#, kde-format
+msgid "Hierarchy Entry"
+msgstr "Ιεραρχική καταχώρηση"
+
+#: worksheet.cpp:1835
+#, kde-format
+msgid "Insert After"
+msgstr "Εισαγωγή μετά"
+
+#: worksheet.cpp:1856
+#, kde-format
+msgid "Insert Before"
+msgstr "Εισαγωγή πριν"
+
+#: worksheet.cpp:1875
+#, kde-format
+msgid "Insert"
+msgstr "Εισαγωγή"
+
+#: worksheet.cpp:1916
+#, fuzzy, kde-format
+#| msgid "Zoom"
+msgid "Zoom In"
+msgstr "Ζουμ"
+
+#: worksheet.cpp:1919
+#, fuzzy, kde-format
+#| msgid "Zoom"
+msgid "Zoom Out"
+msgstr "Ζουμ"
+
+#: worksheet.cpp:1923
+#, fuzzy, kde-format
+#| msgid "Print Size"
+msgid "Original Size"
+msgstr "Μέγεθος εκτύπωσης"
+
+#: worksheet.cpp:1931
+#, kde-format
+msgid "Move Entries Up"
+msgstr "Μετακίνηση καταχωρήσεων πάνω"
+
+#: worksheet.cpp:1932
+#, kde-format
+msgid "Move Entries Down"
+msgstr "Μετακίνηση καταχωρήσεων κάτω"
+
+#: worksheet.cpp:1933
+#, kde-format
+msgid "Evaluate Entries"
+msgstr "Αξιολόγηση καταχωρήσεων"
+
+#: worksheet.cpp:1934
+#, kde-format
+msgid "Remove Entries"
+msgstr "Αφαίρεση καταχωρήσεων"
+
+#: worksheet.cpp:1947
+#, kde-format
+msgid "Collapse Command Entry Results"
+msgstr "Συμπίεση αποτελεσμάτων καταχώρησης εντολής"
+
+#: worksheet.cpp:1948
+#, kde-format
+msgid "Expand Command Entry Results"
+msgstr "Επέκταση αποτελεσμάτων καταχώρησης εντολής"
+
+#: worksheet.cpp:1949
+#, kde-format
+msgid "Remove Command Entry Results"
+msgstr "Αφαίρεση αποτελεσμάτων καταχώρησης εντολής"
+
+#: worksheet.cpp:1950
+#, kde-format
+msgid "Exclude Command Entry From Execution"
+msgstr "Αποκλεισμός καταχώρησης εντολής από την εκτέλεση"
+
+#: worksheet.cpp:1951
+#, kde-format
+msgid "Add Command Entry To Execution"
+msgstr "Προσθήκη καταχώρησης εντολής στην εκτέλεση"
+
+#: worksheet.cpp:2059
+#, kde-format
+msgctxt "@action"
+msgid "Text &Color..."
+msgstr "&Χρώμα κειμένου..."
+
+#: worksheet.cpp:2060
+#, kde-format
+msgctxt "@label text color"
+msgid "Color"
+msgstr "Χρώμα"
+
+#: worksheet.cpp:2067
+#, kde-format
+msgctxt "@action"
+msgid "Text &Highlight..."
+msgstr "Επισήμανση &κειμένου..."
+
+#: worksheet.cpp:2073
+#, kde-format
+msgctxt "@action"
+msgid "&Font"
+msgstr "&Γραμματοσειρά"
+
+#: worksheet.cpp:2082
+#, kde-format
+msgctxt "@action"
+msgid "Font &Size"
+msgstr "&Μέγεθος γραμματοσειράς"
+
+#: worksheet.cpp:2088
+#, kde-format
+msgctxt "@action boldify selected text"
+msgid "&Bold"
+msgstr "Έ&ντονα"
+
+#: worksheet.cpp:2099
+#, kde-format
+msgctxt "@action italicize selected text"
+msgid "&Italic"
+msgstr "&Πλάγια"
+
+#: worksheet.cpp:2111
+#, kde-format
+msgctxt "@action underline selected text"
+msgid "&Underline"
+msgstr "&Υπογράμμιση"
+
+#: worksheet.cpp:2122
+#, kde-format
+msgctxt "@action"
+msgid "&Strike Out"
+msgstr "&Επιγράμμιση"
+
+#: worksheet.cpp:2133
+#, kde-format
+msgctxt "@action"
+msgid "Align &Left"
+msgstr "Στοίχιση &αριστερά"
+
+#: worksheet.cpp:2136
+#, kde-format
+msgctxt "@label left justify"
+msgid "Left"
+msgstr "Αριστερά"
+
+#: worksheet.cpp:2143
+#, kde-format
+msgctxt "@action"
+msgid "Align &Center"
+msgstr "Στοίχιση στο &κέντρο"
+
+#: worksheet.cpp:2146
+#, kde-format
+msgctxt "@label center justify"
+msgid "Center"
+msgstr "Κέντρο"
+
+#: worksheet.cpp:2153
+#, kde-format
+msgctxt "@action"
+msgid "Align &Right"
+msgstr "Στοίχιση &δεξιά"
+
+#: worksheet.cpp:2156
+#, kde-format
+msgctxt "@label right justify"
+msgid "Right"
+msgstr "Δεξιά"
+
+#: worksheet.cpp:2163
+#, kde-format
+msgctxt "@action"
+msgid "&Justify"
+msgstr "&Ευθυγράμμιση"
+
+#: worksheet.cpp:2166
+#, kde-format
+msgctxt "@label justify fill"
+msgid "Justify"
+msgstr "Ευθυγράμμιση"
+
+#: worksheet.cpp:2860
+#, kde-format
+msgid ""
+"This action will remove all results without the possibility of cancellation. "
+"Are you sure?"
+msgstr ""
+"Αυτή η ενέργεια θα αφαιρέσει όλα τα αποτελέσματα χωρίς τη δυνατότητα "
+"ακύρωσης. Είστε βέβαιοι;"
+
+#: worksheet.cpp:2861
+#, kde-format
+msgid "Remove all results"
+msgstr "Αφαίρεση όλων των αποτελεσμάτων"
+
+#: worksheetentry.cpp:67
+#, kde-format
+msgid "White"
+msgstr "Λευκό"
+
+#: worksheetentry.cpp:67
+#, kde-format
+msgid "Black"
+msgstr "Μαύρο"
+
+#: worksheetentry.cpp:68
+#, kde-format
+msgid "Dark Red"
+msgstr "Σκούρο κόκκινο"
+
+#: worksheetentry.cpp:68
+#, kde-format
+msgid "Red"
+msgstr "Κόκκινο"
+
+#: worksheetentry.cpp:68
+#, kde-format
+msgid "Light Red"
+msgstr "Ανοιχτό κόκκινο"
+
+#: worksheetentry.cpp:69
+#, kde-format
+msgid "Dark Green"
+msgstr "Σκούρο πράσινο"
+
+#: worksheetentry.cpp:69
+#, kde-format
+msgid "Green"
+msgstr "Πράσινο"
+
+#: worksheetentry.cpp:69
+#, kde-format
+msgid "Light Green"
+msgstr "Ανοιχτό πράσινο"
+
+#: worksheetentry.cpp:70
+#, kde-format
+msgid "Dark Blue"
+msgstr "Σκούρο μπλε"
+
+#: worksheetentry.cpp:70
+#, kde-format
+msgid "Blue"
+msgstr "Μπλε"
+
+#: worksheetentry.cpp:70
+#, kde-format
+msgid "Light Blue"
+msgstr "Ανοιχτό μπλε"
+
+#: worksheetentry.cpp:71
+#, kde-format
+msgid "Dark Yellow"
+msgstr "Σκούρο κίτρινο"
+
+#: worksheetentry.cpp:71
+#, kde-format
+msgid "Yellow"
+msgstr "Κίτρινο"
+
+#: worksheetentry.cpp:71
+#, kde-format
+msgid "Light Yellow"
+msgstr "Ανοιχτό κίτρινο"
+
+#: worksheetentry.cpp:72
+#, kde-format
+msgid "Dark Cyan"
+msgstr "Σκούρο κυανό"
+
+#: worksheetentry.cpp:72
+#, kde-format
+msgid "Cyan"
+msgstr "Κυανό"
+
+#: worksheetentry.cpp:72
+#, kde-format
+msgid "Light Cyan"
+msgstr "Ανοιχτό κυανό"
+
+#: worksheetentry.cpp:73
+#, kde-format
+msgid "Dark Magenta"
+msgstr "Σκούρο φούξια"
+
+#: worksheetentry.cpp:73
+#, kde-format
+msgid "Magenta"
+msgstr "Φούξια"
+
+#: worksheetentry.cpp:73
+#, kde-format
+msgid "Light Magenta"
+msgstr "Ανοιχτό φούξια"
+
+#: worksheetentry.cpp:74
+#, kde-format
+msgid "Dark Orange"
+msgstr "Σκούρο πορτοκαλί"
+
+#: worksheetentry.cpp:74
+#, kde-format
+msgid "Orange"
+msgstr "Πορτοκαλί"
+
+#: worksheetentry.cpp:74
+#, kde-format
+msgid "Light Orange"
+msgstr "Ανοιχτό πορτοκαλί"
+
+#: worksheetentry.cpp:75
+#, kde-format
+msgid "Dark Grey"
+msgstr "Σκούρο γκρι"
+
+#: worksheetentry.cpp:75
+#, kde-format
+msgid "Grey"
+msgstr "Γκρι"
+
+#: worksheetentry.cpp:75
+#, kde-format
+msgid "Light Grey"
+msgstr "Ανοιχτό γκρι"
+
+#: worksheetentry.cpp:421
+#, kde-format
+msgid "Move Up"
+msgstr "Μετακίνηση πάνω"
+
+#: worksheetentry.cpp:429
+#, kde-format
+msgid "Move Down"
+msgstr "Μετακίνηση κάτω"
+
+#: worksheetentry.cpp:717
+#, kde-format
+msgid "Do you really want to remove this entry?"
+msgstr "Θέλετε πράγματι να αφαιρέσετε αυτήν την καταχώρηση;"
+
+#: worksheetentry.cpp:717 worksheetentry.cpp:845
+#, kde-format
+msgid "Remove Entry"
+msgstr "Αφαίρεση καταχώρησης"
+
+#: worksheetentry.cpp:850
+#, kde-format
+msgid "Drag Entry"
+msgstr "Σύρσιμο καταχώρησης"
+
+#~ msgid "Animate Worksheet"
+#~ msgstr "Εφέ κίνησης φύλλου εργασίας"
+
+#~ msgid ""
+#~ "On startup, if a default backend is set, create a worksheet for it "
+#~ "instead of showing the backend chooser dialog."
+#~ msgstr ""
+#~ "Στην εκκίνηση αν έχει ρυθμιστεί ένα προκαθορισμένο σύστημα υποστήριξης, "
+#~ "δημιουργήστε ένα φύλλο εργασίας για αυτό αντί να εμφανίσετε το διάλογο "
+#~ "επιλογής συστήματος υποαστήριξης."
+
+#~ msgid ""
+#~ "When enabled, Cantor will automatically evaluate every entry below the "
+#~ "current one."
+#~ msgstr ""
+#~ "Όταν είναι ενεργοποιημένο, το Cantor θα υπολογίσει αυτόματα κάθε "
+#~ "καταχώρηση που βρίσκεται κάτω από την τρέχουσα."
+
+#~ msgid "Defaults"
+#~ msgstr "Προκαθορισμένα"
+
+#~ msgid ""
+#~ "This is initial value for the session \"Typeset using LaTeX\" option, "
+#~ "which response for allowing rendering some backend output as latex, if "
+#~ "supported. For example, Maxima outputs will be rendered via latex, if the "
+#~ "option is enabled."
+#~ msgstr ""
+#~ "Αυτη΄είναι η αρχική τιμή για τη συνεδρία «Στοιχειοθεσία με χρήση του "
+#~ "LaTeX» η οποία επιτρέπει την αποτύπωση του αποτελέσματος από το σύστημα "
+#~ "υποστήριξης ως latex, αν υποστηρίζεται. Για παράδειγμα, τα αποτελέσματα "
+#~ "του Maxima θα αποτυπωθούν μέσω του latex, αν η επιλογή είνει ενεργή."
+
+#~ msgid "Enable LaTeX Typesetting (works only if latex is installed)"
+#~ msgstr ""
+#~ "Ενεργοποίηση στοιχειοθέτησης LaTex (λειτουργεί μόνο αν το latex είναι "
+#~ "εγκατεστημένο)"
+
+#~ msgid ""
+#~ "This is initial value for the session \"Syntax Highlighting\" option, "
+#~ "which response for syntax highlighting inside command entries."
+#~ msgstr ""
+#~ "Αυτή είναι η αρχική τιμή για τη συνεδρία «Τονισμός σύνταξης» που "
+#~ "εφαρμόζει τονισμό σύνταξης μέσα στις εντολές."
+
+#~ msgid ""
+#~ "This is initial value for the session \"Completion\" option, which "
+#~ "response for code autocompletion."
+#~ msgstr ""
+#~ "Αυτή είναι η αρχική τιμή για τη συνεδρία «Συμπλήρωση» η οποία εφαρμόζει "
+#~ "αυτόματη συμπλήρωση κώδικα."
+
+#~ msgid ""
+#~ "This is initial value for the session \"Line numbers\" option, which "
+#~ "response for presence of command entries execution numbers."
+#~ msgstr ""
+#~ "Αυτή είναι η αρχική τιμή για τη συνεδρία «Αριθμοί γραμμών», για την "
+#~ "παρουσία αρίθμησης στην εκτέλεση των εντολών."
+
+#~ msgid "Enable Line Numbers"
+#~ msgstr "Ενεργοποίηση αρίθμησης γραμμών"
+
+#~ msgid ""
+#~ "This is initial value for the session \"Animate Worksheet\" option, which "
+#~ "response for presence of worksheet animation."
+#~ msgstr ""
+#~ "Αυτή είναι η αρχική τιμή για τη συνεδρία «Φύλλο εργασίας με κινούμενη "
+#~ "εικόνα», για την παρουσία κινούμενης εικόνας στο φύλλο εργασίας."
+
+#~ msgid "Enable Worksheet Animations"
+#~ msgstr "Ενεργοποίηση εφέ κίνησης για το φύλλο εργασίας"
+
+#~ msgid ""
+#~ "This is initial value for the session \"Embedded Math\" option, which "
+#~ "response for enabling of rendering math expressions in text and markdown "
+#~ "entries."
+#~ msgstr ""
+#~ "Αυτή είναι η αρχική τιμή για τη συνεδρία «Ενσωματωμένα Μαθηματικά», η "
+#~ "οποία ενεργοποιεί την αποτύπωση μαθηματικών εκφράσεων σε κείμενο και "
+#~ "markdown εγγραφές."
+
+#~ msgid "Enable Embedded Math (works only if pdflatex is installed)"
+#~ msgstr ""
+#~ "Ενεργοποίηση ενσωματωμένων μαθηματικών (λειτουργεί μόνο εάν το pdflatex "
+#~ "έχει εγκατασταθεί)"
+
+#~ msgid ""
+#~ "If disabled, then warning about restart won't appear on pressing of "
+#~ "restart button."
+#~ msgstr ""
+#~ "Αν απενεργοποιηθεί, η προειδοποίηση επανεκκίνησης δεν θα εμφανίζεται με "
+#~ "το πάτημα του σχετικού κουμπιού."
+
+#~ msgid ""
+#~ "If enabled, then on any math render error will appear an information "
+#~ "window with error description."
+#~ msgstr ""
+#~ "Αν ενεργοποιηθεί, σε κάθε σφάλμα μαθηματικής αποτύπωσης θα εμφανίζεται "
+#~ "ένα παράθυρο πληροφοριών με την περιγραφή του σφάλματος."
+
+#~ msgid "Show message about error on render failure of embedded math"
+#~ msgstr ""
+#~ "Να εμφανίζεται μήνυμα σφάλματος στην αποτυχία αποτύπωσης ενσωματωμένων "
+#~ "μαθηματικών"
+
+#~ msgid ""
+#~ "if enabled, then old Cantor entries indent style (all entries left "
+#~ "aligned) will be used."
+#~ msgstr ""
+#~ "Αν ενεργοποιηθεί, θα χρησιμοποιείται το στιλ παράθεσης των παλαιών "
+#~ "εγγραφών του Cantor (με όλες τις εγγραφές σε στοίχιση)"
+
+#~ msgid "Use old Cantor entries indent style"
+#~ msgstr "Χρήση στιλ εσοχής παλαιών εγγραφών Cantor"
+
+#~ msgid "Jupyter"
+#~ msgstr "Jupyter"
+
+#~ msgid ""
+#~ "If enable, then Cantor will store rich formatting of text entries on "
+#~ "saving to Jupyter notebook format."
+#~ msgstr ""
+#~ "Αν ενεργοποιηθεί, το Cantor θα αποθηκεύει με τύπο αποθήκευσης "
+#~ "εμπλουτισμένου κειμένου του TextEntry, όταν γίνεται αποθήκευση στον τύπο "
+#~ "του σημειωματαρίου Jupyter."
+
+#~ msgid ""
+#~ "Graphical package, for which will be enable support for embedding plots"
+#~ msgstr ""
+#~ "Πακέτο γραφικών, για το οποίο θα ενεργοποιηθεί υποστήριξη για "
+#~ "ενσωματωμένες γραφικές παραστάσεις"
+
+#~ msgid ""
+#~ "Graphic package, which code will be used for plotting via \"Plot\" Cantor "
+#~ "menu."
+#~ msgstr ""
+#~ "Πακέτο γραφικών, με το οποίο θα χρησιμοποιηθεί κώδικας για σχεδίαση "
+#~ "παραστάσεων μέσα από το μενού «Γραφική απεικόνιση» του Cantor."
+
+#~ msgid "Matplotlib (with seaborn, ggplot support too)"
+#~ msgstr "Matplotlib (και με υποστήριξη seaborn, ggplot)"
+
+#~ msgid "Plot.ly"
+#~ msgstr "Plot.ly"
+
+#~ msgid "All supported"
+#~ msgstr "Υποστηρίζονται όλα"
+
+#~ msgid ""
+#~ "Graphic package, used for plotting. When integrated plots option is "
+#~ "enabled, then plots from the package will be integrated to worksheet"
+#~ msgstr ""
+#~ "Πακέτο γραφικών για γραφικές απεικονίσεις. Όταν είναι ενεργοποιημένη η "
+#~ "επιλογή των ενσωματωμένων γραφικών πατραστάσεων, οι παραστάσεις από το "
+#~ "πακέτο ενσωματώνονται στο φύλλο εργασίας"
+
+#~ msgid "Graphic Package: "
+#~ msgstr "Πακέτο γραφικών: "
+
+#~ msgid "<h1>Cantor</h1>The KDE way to do Mathematics"
+#~ msgstr "<h1>Cantor</h1>Ο τρόπος του KDE για να ασχοληθείτε με τα μαθηματικά"
+
+#~ msgid "Url to the local Maxima documentation"
+#~ msgstr "Url στην τεκμηρίωση του Maxima σε τοπική γλώσσα"
+
+#~ msgid ""
+#~ "If empty, the \"Show help\" action will show the default online "
+#~ "documentation. Otherwise, the specified URL will be opened."
+#~ msgstr ""
+#~ "Αν είναι κενό, η ενέργεια «Εμφάνιση βοήθειας» θα εμφανίσει την "
+#~ "προκαθορισμένη επιγραμμική τεκμηρίωση. Διαφορετικά, θα ανοίξει το δοσμένο "
+#~ "URL."
+
+#~ msgid "Documentation:"
+#~ msgstr "Τεκμηρίωση:"
+
+#~ msgid "Url to the local Python documentation"
+#~ msgstr "Url στην τεκμηρίωση της Python σε τοπική γλώσσα"
+
+#~ msgid "Url to the local Octave documentation"
+#~ msgstr "Url στην τεκμηρίωση της Octave σε τοπική γλώσσα"
+
+#~ msgid "Show %1 Help"
+#~ msgstr "Εμφάνιση βοήθειας για το %1"
+
+#~ msgid "Path to Julia:"
+#~ msgstr "Διαδρομή προς τη Julia:"
+
+#~ msgid "Integrate Plots in Worksheet"
+#~ msgstr "Ενσωμάτωση γραφικών απεικονίσεων στο φύλλο εργασίας"
+
+#~ msgid ""
+#~ "Commands to automatically run on start. They can be useful for loading "
+#~ "needed modules, changing environment, etc."
+#~ msgstr ""
+#~ "Εντολές που εκτελούνται αυτόματα στην εκκίνηση. Χρησιμεύουν για τη "
+#~ "φόρτωση των απαιτούμενων αρθρωμάτων, την αλλαγή περιβάλλοντος, κλπ."
+
+#~ msgid "Clear Variables"
+#~ msgstr "Καθαρισμός μεταβλητών"
+
+#~ msgid "Right click here to insert image"
+#~ msgstr "Κάντε δεξί κλικ εδώ για να εισάγετε εικόνα"
+
+#~ msgid "Choose Image"
+#~ msgstr "Επιλογή εικόνας"
+
+#~ msgid "Images (*.png *.bmp *.jpg *.svg)"
+#~ msgstr "Εικόνες (*.png *.bmp *.jpg *.svg)"
+
+#~ msgid "Confirmation - Cantor"
+#~ msgstr "Επιβεβαίωση - Cantor"
+
+#~ msgid "Text Entry"
+#~ msgstr "Καταχώρηση κειμένου"
+
+#~ msgid "LaTeX Entry"
+#~ msgstr "Καταχώρηση LaTeX"
+
+#~ msgid "Insert Entry Before"
+#~ msgstr "Εισαγωγή καταχώρησης πριν από"
+
+#, fuzzy
+#~| msgid "Insert Text Entry"
+#~ msgid "Insert Hierarchy Entry"
+#~ msgstr "Εισαγωγή καταχώρησης κειμένου"
+
+#~ msgid ""
+#~ "Path to scilab-adv-cli command (Warning: Scilab version must better or "
+#~ "equal than 5.4 version)"
+#~ msgstr ""
+#~ "Διαδρομή προς την εντολή scilab-adv-cli  (Προειδοποίηση: η έκδοση του "
+#~ "Scilab πρέπει να είναι η 5.4 ή μεταγενέστερη)"
+
+#~ msgid "Insert Image Attachment"
+#~ msgstr "Αντιστροφή επισυναπτόμενης εικόνας"
+
+#~ msgid "Insert Latex Entry"
+#~ msgstr "Εισαγωγή καταχώρησης LaTeX"
+
+#~ msgid "Path to Cantor python server executable"
+#~ msgstr "Διαδρομή προς το εκτελέσιμο του python εξυπηρετητή του Cantor"
+
+#~ msgid ""
+#~ "Path to directory, which contains Cantor plugins (cantorpart and all "
+#~ "backends)"
+#~ msgstr ""
+#~ "Η διαδρομή στον κατάλογο, η οποία περιέχει πρόσθετα του Cantor (μέρη του "
+#~ "Cantor και όλα τα συστήματα υποστήριξης)"
+
+#~ msgid "Paths (advance settings)"
+#~ msgstr "Διαδρομές (εξελιγμένες ρυθμίσεις)"
+
+#~ msgid "Path to Cantor plugin directory:"
+#~ msgstr "Διαδρομή στον κατάλογο προσθέτων του Cantor:"
+
+#, fuzzy
+#~| msgid ""
+#~| "Path to directory, which contains Cantor plugins (cantorpart and all "
+#~| "backends)"
+#~ msgid ""
+#~ "Path to directory, which contains Cantor backend plugins. This is "
+#~ "important setting - with wrong path Cantor can't create any worksheets."
+#~ msgstr ""
+#~ "Η διαδρομή στον κατάλογο, η οποία περιέχει πρόσθετα του Cantor (μέρη του "
+#~ "Cantor και όλα τα συστήματα υποστήριξης)"
+
+#~ msgid "Inline Plots Intermediate Format:"
+#~ msgstr "Ενδιάμεσος τύπος αποθήκευσης για εμβόλιμες απεικονίσεις:"
+
+#~ msgid "Path to Maxima:"
+#~ msgstr "Διαδρομή προς το Maxima:"
+
+#~ msgid "Path to Cantor Python Server:"
+#~ msgstr "Διαδρομή στον python εξυπηρετητή του Cantor:"
+
+#~ msgid "Path to Sage:"
+#~ msgstr "Διαδρομή προς το Sage:"
+
+#~ msgid "Path to scilab-adv-cli command:"
+#~ msgstr "Διαδρομή προς την εντολή scilab-adv-cli:"
+
+#~ msgid "Let Cantor follow the creation/destruction of variables"
+#~ msgstr ""
+#~ "Να επιτρέπεται το Cantor να παρακολουθεί τη δημιουργία/καταστροφή των "
+#~ "μεταβλητών"
+
+#~ msgid "Integrate Plots in Worksheet (start a new session when changed)"
+#~ msgstr ""
+#~ "Ενσωμάτωση γραφικών απεικονίσεων στο φύλλο εργασίας (με έναρξη νέας "
+#~ "συνεδρίας σε αλλαγή)"
+
+#~ msgid "Path to the Octave executable"
+#~ msgstr "Διαδρομή προς το εκτελέσιμο Octave"
+
+#~ msgid "Path to Octave:"
+#~ msgstr "Διαδρομή προς την Octave:"
+
+#~ msgid "Unnamed"
+#~ msgstr "Ανώνυμο"
+
+#, fuzzy
+#~| msgctxt "the url to the documentation Python 2"
+#~| msgid "http://docs.python.org/2/"
+#~ msgctxt "The url to the documentation Python 2"
+#~ msgid "https://docs.python.org/2/"
+#~ msgstr "http://docs.python.org/2/"
+
+#, fuzzy
+#~| msgid ""
+#~| "<p>Python is a remarkably powerful dynamic programming language that is "
+#~| "used in a wide variety of application domains. There are several Python "
+#~| "packages to scientific programming.</p><p>This backend supports Python 3."
+#~| "</p>"
+#~ msgid ""
+#~ "<b>Python</b> is a remarkably powerful dynamic programming language that "
+#~ "is used in a wide variety of application domains. There are several "
+#~ "Python packages to scientific programming. This backend supports Python 3."
+#~ msgstr ""
+#~ "<p>Η Python αποτελεί μια αξιοσημείωτα ισχυρή δυναμική γλώσσα "
+#~ "προγραμματισμού που χρησιμοποιείται σε μια ευρεία γκάμα τομέων εφαρμογών. "
+#~ "Υπάρχουν διάφορα πακέτα της Python για επιστημονικό προγραμματισμό.</"
+#~ "p><p>Αυτό το σύστημα υποστήριξης υποστηρίζει την Python 3.</p>"
+
+#~ msgctxt ""
+#~ "the url to the documentation of R, please check if there is a translated "
+#~ "version and use the correct url"
+#~ msgid "http://rwiki.sciviews.org/doku.php?id=rdoc:rdoc"
+#~ msgstr "http://rwiki.sciviews.org/doku.php?id=rdoc:rdoc"
+
+#~ msgid "Choose the Backend to use:"
+#~ msgstr "Επιλογή συστήματος υποστήριξης προς χρήση:"
+
+#~ msgid ""
+#~ "The backend with which this file was generated is not installed. It needs "
+#~ "%1"
+#~ msgstr ""
+#~ "Το σύστημα υποστήριξης με το οποίο δημιουργήθηκε αυτό το αρχείο δεν έχει "
+#~ "εγκατασταθεί. Χρειάζεται το %1"
+
+#~ msgid "Publish Worksheet"
+#~ msgstr "Δημοσίευση φύλλου εργασίας"
+
+#~ msgid "Waiting for Image..."
+#~ msgstr "Αναμονή για εικόνα..."
+
+#~ msgid "%1: %2"
+#~ msgstr "%1: %2"
+
+#~ msgid "cannot open file %1: Unknown MimeType"
+#~ msgstr "αδυναμία ανοίγματος του αρχείου %1: άγνωστο MimeType"
+
+#~ msgid "*.tex|LaTeX Document"
+#~ msgstr "*.tex|Έγγραφο LaTeX"
+
+#~ msgid "*.cws|Cantor Worksheet"
+#~ msgstr "*.cws|Φύλλο εργασίας του Cantor"
+
+#~ msgid "Server for the Cantor R Backend"
+#~ msgstr "Διακομιστής για το σύστημα υποστήριξης της R για το Cantor"
+
+#~ msgid "R Server"
+#~ msgstr "R Server"
+
+#~ msgid "(C) 2009 Alexander Rieder"
+#~ msgstr "(C) 2009 Alexander Rieder"
+
+#~ msgid "Usage: saveVariables file"
+#~ msgstr "Χρήση: αρχείο saveVariables"
+
+#~ msgid "Saving failed."
+#~ msgstr "Η αποθήκευση απέτυχε."
+
+#~ msgid "Usage: loadVariables file"
+#~ msgstr "Χρήση: αρχείο loadVariables"
+
+#~ msgid "Loading failed."
+#~ msgstr "Η φόρτωση απέτυχε."
+
+#~ msgid "(C) 2009-2013 Alexander Rieder"
+#~ msgstr "(C) 2009-2013 Alexander Rieder"
+
+#~ msgid "Path to python command"
+#~ msgstr "Διαδρομή προς την εντολή python"
+
+#~ msgid "Cantor Server for R"
+#~ msgstr "Διακομιστής του Cantor για την R"
+
+#~ msgid "Path to python2 command:"
+#~ msgstr "Διαδρομή προς την εντολή python:"
+
+#~ msgid " Enable Variable Management"
+#~ msgstr " Ενεργοποίηση της διαχείρισης μεταβλητών"
+
+#~ msgid "Could not start the server."
+#~ msgstr "Αδυναμία εκκίνησης του διακομιστή."
+
+#~ msgid "Start Animation"
+#~ msgstr "Έναρξη κινούμενης απεικόνισης"
+
+#~ msgid "Restart Animation"
+#~ msgstr "Επανεκκίνηση κινούμενης απεικόνισης"
+
+#, fuzzy
+#~ msgid "Append Latex Entry"
+#~ msgstr "Εισαγωγή καταχώρησης"
+
+#~ msgid "Other"
+#~ msgstr "Άλλο"
+
+#~ msgid "And %1 more..."
+#~ msgstr "Και %1 περισσότερο..."
+
+#~ msgid "Main Toolbar"
+#~ msgstr "Κύρια εργαλειοθήκη"
+
+#~ msgid "Popup"
+#~ msgstr "Αναδυόμενο"
+
+#~ msgid "The style used for Completion"
+#~ msgstr "Το στυλ που χρησιμοποιείται για την ολοκλήρωση"
+
+#, fuzzy
+#~ msgid "Insert Command Entry Before"
+#~ msgstr "Εισαγωγή καταχώρησης"
+
+#, fuzzy
+#~ msgid "Command Entry Before"
+#~ msgstr "Εισαγωγή καταχώρησης"
+
+#~ msgid "Help"
+#~ msgstr "Βοήθεια"
+
+#~ msgid "Show Help Panel"
+#~ msgstr "Εμφάνιση του πίνακα βοήθειας"

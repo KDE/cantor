@@ -1,0 +1,571 @@
+<?xml version="1.0" ?>
+<!DOCTYPE book PUBLIC "-//KDE//DTD DocBook XML V4.5-Based Variant V1.1//EN" 
+"dtd/kdedbx45.dtd" [
+
+  <!ENTITY kappname "&cantor;">
+  <!ENTITY package "kdeedu">
+  <!ENTITY % addindex "IGNORE">
+  <!ENTITY % Russian "INCLUDE"
+> 
+]>
+<book lang="&language;">
+
+<bookinfo>
+<title
+>Руководство &cantor;</title>
+
+<authorgroup>
+<author
+><personname
+> <firstname
+>Alexander</firstname
+> <surname
+>Rieder</surname
+> </personname
+> <email
+>alexanderrieder@gmail.com</email
+> </author>
+<othercredit role="translator"
+><firstname
+>Александр</firstname
+><surname
+>Поташев</surname
+><affiliation
+><address
+><email
+>aspotashev@gmail.com</email
+></address
+></affiliation
+><contrib
+>Перевод на русский язык</contrib
+></othercredit
+> 
+</authorgroup>
+
+<copyright>
+<year
+>2009</year>
+<holder
+>Alexander Rieder</holder>
+</copyright>
+<legalnotice
+>&FDLNotice;</legalnotice>
+
+<date
+>26 августа 2009 г.</date>
+<releaseinfo
+>0.1</releaseinfo>
+
+<abstract>
+<para
+>&cantor; &mdash; это программа, предоставляющая удобный интерфейс к различным свободным математическим пакетам. </para>
+</abstract>
+
+<keywordset>
+<keyword
+>KDE</keyword>
+<keyword
+>kdeedu</keyword>
+<keyword
+>математика</keyword>
+<keyword
+>алгебра</keyword>
+<keyword
+>Cantor</keyword>
+<keyword
+>Sage</keyword>
+<keyword
+>R</keyword>
+<keyword
+>Maxima</keyword>
+</keywordset>
+
+</bookinfo>
+
+<chapter id="introduction">
+<title
+>Введение</title>
+
+<para
+>&cantor; &mdash; это программа, позволяющая использовать ваши любимые математические приложения через приятный интерфейс для &kde;. Она содержит диалоговые окна для удобства выполнения часто встречающихся задач и позволяет публиковать документы. </para>
+</chapter>
+
+<chapter id="using-kapp">
+<title
+>Использование &cantor;</title>
+
+<para
+>Снимок экрана: <screenshot>
+<screeninfo
+>Это снимок экрана программы &cantor;</screeninfo>
+	<mediaobject>
+	  <imageobject>
+	    <imagedata fileref="screenshot.png" format="PNG"/>
+	  </imageobject>
+	  <imageobject>
+	    <imagedata fileref="screenshot.eps" format="EPS"/>
+	  </imageobject>
+	  <textobject>
+	    <phrase
+>Снимок экрана</phrase>
+	  </textobject>
+	</mediaobject>
+</screenshot>
+</para>
+
+
+<sect1 id="kapp-features">
+<title
+>Возможности &cantor;</title>
+<itemizedlist>
+  <listitem
+><para
+>Интуитивно понятный вид документа для подсчёта выражение,</para
+></listitem>
+  <listitem
+><para
+>Показ полученных графиков прямо в документе,</para
+></listitem>
+  <listitem
+><para
+>Простая модульная структура программы, позволяющая добавлять поддержку новых систем компьютерной алгебры,</para
+></listitem>
+  <listitem
+><para
+>Возможность загрузки и публикации примеров документов с помощью утилиты «Загрузка материалов из Интернета».</para
+></listitem>
+  <listitem
+><para
+>Вывод математических формул с помощью LaTeX,</para
+></listitem>
+  <listitem
+><para
+>Подсветка синтаксиса в зависимости от системы компьютерной алгебры,</para
+></listitem>
+  <listitem
+><para
+>Диалоговые окна, упрощающие выполнение часто используемых действий, таких как интегрирование и ввод матрицы.</para
+></listitem>
+</itemizedlist>
+</sect1>
+
+<sect1 id="backends">
+<title
+>Базовые системы для &cantor;</title>
+<para
+>&cantor; предлагает выбрать одну из нескольких систем компьютерной алгебры в зависимости от ваших нужд. </para>
+<para
+>На данный момент доступны следующие системы компьютерной алгебры: <variablelist>
+    <varlistentry>
+      <term
+>Sage:</term>
+      <listitem>
+	<para
+>Sage — это бесплатная математическая программа с открытым исходным кодом, распространяемая на условиях лицензии GPL. Она использует мощь многих существующих пакетов с открытым исходным кодом, предоставляя к ним общий интерфейс на языке Python. Более подробная информация находится на сайте <ulink url="http://sagemath.org"
+>http://sagemath.org</ulink
+>. </para>
+	</listitem>
+    </varlistentry>
+    <varlistentry>
+      <term
+>Maxima:</term>
+      <listitem>
+	<para
+>Maxima — это система обработки символьных и численных выражений, включая дифференцирование, интегрирование, ряды Тейлора, преобразования Лапласа, обыкновенные дифференциальные уравнения, системы линейных уравнений, многочлены, и множества, списки, векторы, матрицы и тензоры. Maxima получает численные результаты высокой точности, используя точные дроби, целые числа произвольной длины и действительные числа переменной точности. Maxima может строить двумерные и трёхмерные графики функций и данных. Более подробная информация находится на сайте <ulink url="http://maxima.sourceforge.net"
+>http://maxima.sourceforge.net</ulink
+>. </para>
+      </listitem>
+    </varlistentry>
+    <varlistentry>
+      <term
+>R:</term>
+      <listitem>
+	<para
+>R — это язык программирования и среда для статистических вычислений и графики, похожая на язык программирования и среду разработки S. Этот язык предоставляет широкий выбор статистических (линейное и нелинейное моделирование, классические статистические тесты, анализ временных рядов, классификация, кластеризация, ...) и графических инструментов. Кроме того, он легко расширяем. Язык программирования S используется повсеместно для статистических исследований, а язык R — альтернативный вариант с открытым кодом. Более подробная информация находится на сайте <ulink url="http://www.r-project.org"
+>http://www.r-project.org</ulink
+>. </para>
+      </listitem>
+    </varlistentry>
+    <varlistentry>
+      <term
+>KAlgebra:</term>
+      <listitem>
+	<para
+>KAlgebra — это калькулятор с поддержкой построения графиков на основе языка MathML, входящий в состав образовательного пакета KDE. Более подробная информация находится на сайте <ulink url="http://edu.kde.org/kalgebra/"
+>http://edu.kde.org/kalgebra/</ulink
+>. </para>
+      </listitem>
+    </varlistentry>
+  </variablelist>
+</para>
+</sect1>
+
+<sect1 id="workspace">
+<title
+>Интерфейс &cantor;</title>
+<para>
+<screenshot>
+  <screeninfo
+>Снимок экрана с документом &cantor;</screeninfo>
+  <mediaobject>
+    <imageobject>
+      <imagedata fileref="screenshot.png" format="PNG"/>
+    </imageobject>
+    <imageobject>
+      <imagedata fileref="screenshot.eps" format="EPS"/>
+    </imageobject>
+    <textobject>
+      <phrase
+>Снимок экрана с документом &cantor;</phrase>
+    </textobject>
+  </mediaobject>
+</screenshot>
+</para>
+<para
+>Интерфейс пользователя &cantor; состоит из трёх частей: <orderedlist>
+    <listitem
+><para
+>Панель вкладок, при помощи которой можно переключаться между документами;</para
+></listitem>
+    <listitem
+><para
+>Панель справки, где будет показано описание команды, если ввести «? команда»;</para
+></listitem>
+    <listitem
+><para
+>Документ.</para
+></listitem>
+  </orderedlist>
+</para>
+<sect2 id="worksheet">
+<title
+>Документ</title>
+<para
+>В &cantor; вы работаете с документом. В нём можно вводить выражения, производить вычисления и видеть результаты. Набор доступных в выражениях команд зависит от используемой системы компьютерной алгебры, поэтому полезно знать синтаксис конкретной системы. Если вы знаете название команды, можно посмотреть её описание, введя «? команда». Чтобы посмотреть примеры документов &cantor;, выберите пункт меню <guimenu
+>Файл</guimenu
+> <guimenuitem
+>Загрузить примеры...</guimenuitem
+> и загрузите документы, опубликованные другими пользователями. </para>
+<sect3 id="worksheet-settings">
+  <title
+>Настройка</title>
+  <para
+>В меню <guimenu
+>Настройка</guimenu
+> можно настроить внешний вид текущего документа. </para>
+  <variablelist>
+    <varlistentry>
+      <term
+>Показывать результаты с помощью LaTeX</term>
+      <listitem>
+	<para
+>Этот параметр влияет на то, в каком виде будут показаны результаты вычислений. Если он включён, результат будет обработан системой LaTeX для создания визуально понятных формул. Например, <quote
+>3*x^2*sqrt(2)*x+2/3</quote
+> превратится в <inlinemediaobject>
+	      <imageobject>
+		<imagedata fileref="latex_formula.png" format="PNG"/>
+	      </imageobject>
+	      <imageobject>
+		<imagedata fileref="latex_formula.eps" format="EPS"/>
+	      </imageobject>
+	      <textobject
+><phrase
+>3*x^2*sqrt(2)*x+2/3</phrase
+></textobject>
+	  </inlinemediaobject>
+	</para>
+      </listitem>
+    </varlistentry>
+    <varlistentry>
+      <term
+>Подсветка синтаксиса</term>
+      <listitem>
+	<para
+>Подсветка синтаксиса повышает читаемость кода, выделяя цветом ключевые слова и парные скобки. </para>
+      </listitem>
+    </varlistentry>
+    <varlistentry>
+      <term
+>Автодополнение</term>
+      <listitem>
+	<para
+>Если включить этот параметр, &cantor; будет показывать возможные продолжения вводимой вами команды при нажатии клавиши Tab. Если существует только одно продолжение команды, при нажатии клавиши Tab название команды будет автоматически введено полностью. </para>
+      </listitem>
+    </varlistentry>
+  <varlistentry>
+    <term
+>Показывать номера строк</term>
+    <listitem>
+      <para
+>Этот параметр позволяет добавить нумерацию введённых выражений. Нумерацию можно использовать для подстановки предыдущих результатов в новое выражение; в Maxima это делается командой <quote
+>%O1</quote
+>. </para>
+    </listitem>
+  </varlistentry>
+  </variablelist>
+</sect3>
+</sect2>
+</sect1>
+<!--
+<sect1 id="assistant-dlgs">
+<title
+>The assistant dialogs</title>
+TODO add screenshots and descriptions of each assistant
+</sect1>
+-->
+</chapter>
+<chapter id="commands">
+<title
+>Список команд</title>
+
+<sect1 id="kapp-mainwindow">
+<title
+>Главное окно &cantor;</title>
+
+<sect2 id="file-menu">
+<title
+>Меню <guimenu
+>Файл</guimenu
+></title>
+<para>
+<variablelist>
+<varlistentry>
+<term
+><menuchoice
+><shortcut
+> <keycombo action="simul"
+>&Ctrl;<keycap
+>N</keycap
+></keycombo
+> </shortcut
+> <guimenu
+>Файл</guimenu
+> <guimenuitem
+>Создать</guimenuitem
+> </menuchoice
+></term>
+<listitem
+><para
+><action
+>Создаёт новый документ.</action
+></para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><menuchoice
+><shortcut
+> <keycombo action="simul"
+>&Ctrl;<keycap
+>S</keycap
+></keycombo
+> </shortcut
+> <guimenu
+>Файл</guimenu
+> <guimenuitem
+>Сохранить</guimenuitem
+> </menuchoice
+></term>
+<listitem
+><para
+><action
+>Сохраняет документ.</action
+></para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><menuchoice
+><shortcut
+> <keycombo action="simul"
+>&Ctrl;<keycap
+>Q</keycap
+></keycombo
+> </shortcut
+> <guimenu
+>Файл</guimenu
+> <guimenuitem
+>Выход</guimenuitem
+> </menuchoice
+></term>
+<listitem
+><para
+>Завершает работу &cantor;.</para
+></listitem>
+</varlistentry>
+</variablelist>
+</para>
+
+</sect2>
+
+<sect2 id="help-menu">
+<title
+>Меню <guimenu
+>Справка</guimenu
+></title>
+&help.menu.documentation; </sect2>
+
+</sect1>
+</chapter>
+
+<chapter id="developers">
+<title
+>Руководство разработчика &cantor;</title>
+
+<para
+>&cantor; расширяется простыми в написании модулями. Модули бывают: <variablelist>
+  <varlistentry>
+    <term
+>Для поддержки системы компьютерной алгебры</term>
+    <listitem>
+      <para
+>Новый модуль поддержки системы компьютерной алгебры позволит работать с ней из &cantor;. </para>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term
+>Диалоговые окна для упрощения ввода команд</term>
+    <listitem>
+      <para
+>Вспомогательные диалоговые окна упрощают и делают наглядным выполнение таких стандартных действий, как например ввод матрицы или запуск сценария. </para>
+    </listitem>
+  </varlistentry>
+</variablelist>
+</para>
+<para
+>На данный момент не написано ни руководства по написанию модулей для Cantor, ни документации по программному интерфейсу. Поэтому при написанием модулей у вас есть только один источник информации — исходный код Cantor. Все определения интерфейса находятся в каталоге lib. В качестве примеров модулей можно рассматривать модули, входящие в состав &cantor;. </para>
+
+</chapter>
+
+<chapter id="faq">
+<title
+>Вопросы и ответы</title>
+&reporting.bugs; &updating.documentation; <qandaset id="faqlist">
+<qandaentry>
+  <question
+><para
+>Пункт меню <guimenuitem
+>Показывать результаты с помощью LaTeX</guimenuitem
+> недоступен</para
+></question>
+  <answer
+><para
+>Не все базовые системы поддерживают каждый параметр.</para
+></answer>
+</qandaentry>
+<qandaentry>
+  <question
+><para
+>Sage или Maxima установлены, но соответствующая базовая система не появляется в списке.</para
+></question>
+  <answer>
+    <para
+>Возможно программа &cantor; не смогла найти расположение базовой системы. Откройте диалоговое окно «Настройка» и укажите правильный путь к соответствующей программе. </para>
+  </answer>
+</qandaentry>
+<qandaentry>
+  <question
+><para
+>Откуда такое странное название программы? Какое оно имеет отношение к математике?</para
+></question>
+  <answer
+><para
+>Программа Cantor названа в честь немецкого математика Георга Кантора (Georg Cantor), создателя теории множеств.</para
+></answer>
+</qandaentry>
+</qandaset>
+</chapter>
+
+<chapter id="credits">
+
+<title
+>Авторские права и лицензия</title>
+
+<para
+>&cantor; </para>
+<para
+>&copy; Alexander Rieder <email
+>alexanderrieder@gmail.com</email
+>, программа, 2009 </para>
+
+<para
+>&copy; Alexander Rieder <email
+>alexanderrieder@gmail.com</email
+>, документация, 2009 </para>
+
+<para
+>Перевод на русский язык: Александр Поташев <email
+>aspotashev@gmail.com</email
+></para
+> 
+&underFDL; &underGPL; </chapter>
+
+<appendix id="installation">
+<title
+>Установка</title>
+
+<sect1 id="getting-kapp">
+<title
+>Как получить &cantor;</title>
+&install.intro.documentation; </sect1>
+
+<sect1 id="requirements">
+<title
+>Системные требования</title>
+
+<para
+>Чтобы успешно использовать &cantor;, необходим &kde; 4. Для возможности отрисовки формул требуется установить LaTeX и LibSpectre. Для использования различных базовых систем компьютерной алгебры, их нужно установить. </para>
+
+<!--
+<para>
+All required libraries as well as &cantor; itself can be found
+on <ulink url="ftp://ftp.kapp.org"
+>The &cantor; home page</ulink
+>.
+</para>
+-->
+
+
+<!-- For a list of updates, you may refer to the application web site
+or the ChangeLog file, or ... -->
+<!--
+<para>
+You can find a list of changes at <ulink
+url="http://apps.kde.org/kapp"
+>http://apps.kde.org/kapp</ulink
+>.
+</para>
+-->
+</sect1>
+
+<sect1 id="compilation">
+<title
+>Компиляция и установка</title>
+&install.compile.documentation; </sect1>
+
+<sect1 id="configuration">
+<title
+>Настройка</title>
+
+<para
+>В зависимости от вашей системы может потребоваться настройка путей к различным приложениям, используемым &cantor;. </para>
+
+</sect1>
+
+</appendix>
+
+&documentation.index;
+</book>
+
+<!--
+Local Variables:
+mode: xml
+sgml-minimize-attributes:nil
+sgml-general-insert-case:lower
+sgml-indent-step:0
+sgml-indent-data:nil
+End:
+
+vim:tabstop=2:shiftwidth=2:expandtab
+kate: space-indent on; indent-width 2; tab-width 2; indent-mode none;
+-->

@@ -1,0 +1,1583 @@
+<?xml version="1.0" ?>
+<!DOCTYPE book PUBLIC "-//KDE//DTD DocBook XML V4.5-Based Variant V1.1//EN" "dtd/kdedbx45.dtd" [
+
+  <!ENTITY latex "L<superscript
+>A</superscript
+>T<subscript
+>E</subscript
+>X">
+  <!ENTITY % addindex "IGNORE">
+  <!ENTITY % Swedish "INCLUDE">
+]>
+<book id="cantor" lang="&language;">
+
+<bookinfo>
+<title
+>Handbok &cantor;</title>
+
+<authorgroup>
+<author
+><personname
+> <firstname
+>Alexander</firstname
+> <surname
+>Rieder</surname
+> </personname
+> <email
+>alexanderrieder@gmail.com</email
+> </author>
+<othercredit role="translator"
+> <firstname
+>Stefan</firstname
+> <surname
+>Asserhäll</surname
+> <affiliation
+><address
+><email
+>stefan.asserhall@bredband.net</email
+></address
+></affiliation
+> <contrib
+>Översättare</contrib
+></othercredit
+> 
+</authorgroup>
+
+<copyright>
+<year
+>2009</year>
+<holder
+>Alexander Rieder</holder>
+</copyright>
+<legalnotice
+>&FDLNotice;</legalnotice>
+
+<date
+>2020-12-16</date>
+<releaseinfo
+>Program 20.12</releaseinfo>
+
+<abstract>
+<para
+>&cantor; är ett program med målet att tillhandahålla en vy med ett trevligt kalkylblad för andra matematikpaket med fri programvara. </para>
+</abstract>
+
+<keywordset>
+<keyword
+>KDE</keyword>
+<keyword
+>kdeedu</keyword>
+<keyword
+>matematik</keyword>
+<keyword
+>matte</keyword>
+<keyword
+>Cantor</keyword>
+<keyword
+>Julia</keyword>
+<keyword
+>Lua</keyword>
+<keyword
+>Maxima</keyword>
+<keyword
+>Octave</keyword>
+<keyword
+>Python</keyword>
+<keyword
+>Qalculate</keyword>
+<keyword
+>R</keyword>
+<keyword
+>Sage</keyword>
+<keyword
+>Scilab</keyword>
+</keywordset>
+
+</bookinfo>
+
+<chapter id="introduction">
+<title
+>Inledning</title>
+
+<para
+>&cantor; är ett program som låter dig använda ditt matematiska favoritprogram inne i ett elegant arbetsbladgränssnitt integrerat med &kde;. Det tillhandahåller guidedialogrutor för vanliga uppgifter och låter dig dela arbetsblad med andra.  </para>
+</chapter>
+
+<chapter id="using-kapp">
+<title
+>Använda &cantor;</title>
+
+<para
+>Skärmbild: <screenshot>
+<screeninfo
+>Här är en skärmbild av &cantor;</screeninfo>
+	<mediaobject>
+	  <imageobject>
+	    <imagedata fileref="screenshot.png" format="PNG"/>
+	  </imageobject>
+	  <textobject>
+	    <phrase
+>Skärmbild</phrase>
+	  </textobject>
+	</mediaobject>
+</screenshot>
+</para>
+
+
+<sect1 id="kapp-features">
+<title
+>Funktioner i &cantor;</title>
+<itemizedlist>
+  <listitem
+><para
+>Intuitiv arbetsbladsvy för att utvärdera uttryck.</para
+></listitem>
+  <listitem
+><para
+>Resultat av diagramuppritning visas på arbetsbladet</para
+></listitem>
+  <listitem
+><para
+>Enkel struktur baserad på insticksprogram för att tillåta att olika bakgrundsprogram läggs till.</para
+></listitem>
+  <listitem
+><para
+>Integrering med Hämta heta nyheter för att tillåta att exempel på arbetsblad laddas ner (eller laddas upp).</para
+></listitem>
+  <listitem
+><para
+>Typsättning av matematiska formler med användning av &latex;.</para
+></listitem>
+  <listitem
+><para
+>Syntaxfärgläggning med kännedom om bakgrundsprogram.</para
+></listitem>
+  <listitem
+><para
+>Guidedialogrutor baserade på insticksprogram för att hjälpa till med vanliga uppgifter, som att integrera en funktion eller skriva in en matris.</para
+></listitem>
+</itemizedlist>
+</sect1>
+
+<sect1 id="backends">
+<title
+>Bakgrundsprogrammen för &cantor;</title>
+<para
+>&cantor; erbjuder flera val av bakgrundsprogram som du önskar använda med det. Valet beror på vad du vill uppnå. </para>
+<para
+>För närvarande är följande bakgrundsprogram tillgängliga: <variablelist>
+    <varlistentry>
+      <term
+>Sage:</term>
+      <listitem>
+	<para
+>Sage är ett fritt matematikpaket med öppen källkod licensierat med GPL. Det kombinerar kraftfullheten hos många befintliga paket med öppen källkod inom ett gemensamt Python-baserat gränssnitt. Se <ulink url="https://sagemath.org"
+>https://sagemath.org</ulink
+> för mer information. </para>
+	</listitem>
+    </varlistentry>
+    <varlistentry>
+      <term
+>Maxima:</term>
+      <listitem>
+	<para
+>Maxima är ett system för hantering av symboliska och numeriska uttryck, inklusive derivering, integrering, Taylor-serier, Laplace-transformer, vanliga differentialekvationer, system av linjära ekvationer, polynom, mängder, listor, vektorer, matriser och tensorer. Maxima ger numeriska resultat med hög precision genom att använda exakta bråk, heltal med godtycklig precision och flyttal med variabel precision. Maxima kan rita upp funktioner och data i två och tre dimensioner. Se <ulink url="http://maxima.sourceforge.net"
+>http://maxima.sourceforge.net</ulink
+> för mer information. </para>
+      </listitem>
+    </varlistentry>
+    <varlistentry>
+      <term
+>R:</term>
+      <listitem>
+	<para
+>R är ett språk och en miljö för statistiska beräkningar och diagram, som liknar språket och miljön S. Det tillhandahåller en stor mängd statistiska och grafiska tekniker (linjär och icke-linjär modellering, klassiska statistiska prov, analys av tidserier, klassificering, ...), och är mycket utökningsbart. Språket S är ofta förstahandsvalet för forskning i statistiska metoder, och R tillhandahåller en väg med öppen källkod för det. Se <ulink url="https://www.r-project.org"
+>https://www.r-project.org</ulink
+> för mer information. </para>
+      </listitem>
+    </varlistentry>
+    <varlistentry>
+      <term
+>Julia:</term>
+      <listitem>
+	<para
+>Julia är ett högnivå och högprestanda dynamiskt programspråk för teknisk databehandling, med en syntax som är bekant för användare av andra tekniska databehandlingsmiljöer. Det tillhandahåller en sofistikerad kompilator, distribuerad parallell exekvering, numerisk noggrannhet och ett omfattande matematiskt funktionsbibliotek. Se <ulink url="https://docs.julialang.org/en/"
+>Julias dokumentation</ulink
+> för mer information. </para>
+      </listitem>
+    </varlistentry>
+    <varlistentry>
+      <term
+>&kalgebra;:</term>
+      <listitem>
+	<para
+>&kalgebra; är en grafisk räknare baserad på MathML, som levereras med &kde;:s utbildningsprojekt. Se <ulink url="https://edu.kde.org/kalgebra/"
+>http://edu.kde.org/kalgebra/</ulink
+> för mer information. </para>
+      </listitem>
+    </varlistentry>
+    <varlistentry>
+      <term
+>Qalculate!:</term>
+      <listitem>
+  <para
+>Qalculate! är inte en vanlig programvarukopia av den billigaste tillgängliga räknaren. Syftet med Qalculate! är att dra full nytta av det överlägsna gränssnittet, kraftfullheten och flexibiliteten hos moderna datorer. Fokus för uppmärksamheten i Qalculate! är inmatningen av uttryck, där man direkt kan skriva in hela det matematiska uttrycket och senare modifiera det, istället för att skriva in varje tal i ett uttryck separat. Tolkningen av uttryck är flexibel och feltolerant, och om du trots det gör något fel, talar Qalculate! om det. Uttryck som inte kan lösas helt är dock inga fel. Qalculate! förenklar så långt det går, och svarar med ett uttryck. Förutom tal och aritmetiska operatorer, kan ett uttryck innehålla vilken kombination av variabler, enheter och funktioner som helst. Se <ulink url="https://qalculate.github.io/"
+>https://qalculate.github.io/</ulink
+> för mer information. </para>
+  </listitem>
+    </varlistentry>
+    <varlistentry>
+      <term
+>Python2 och Python3:</term>
+      <listitem>
+  <para
+>Python är ett häpnadsväckande kraftfullt dynamiskt programspråk som utnyttjas för ett stort antal användningsområden. Det finns flera Python-paket för vetenskaplig programmering. </para>
+  <para
+>Python distribueras enligt Python Software Foundation-licensen (kompatibel med GPL). Se <ulink url="https://www.python.org/"
+>den officiella webbplatsen</ulink
+> för mer information. </para>
+  <note>
+    <para
+>Bakgrundsprogrammet lägger till ytterligare ett alternativ i &cantor;s huvudmeny, <guimenu
+>Paket</guimenu
+>. Det enda alternativet i menyn är <menuchoice
+><guimenu
+>Paket</guimenu
+> <guimenuitem
+>Importera paket</guimenuitem
+></menuchoice
+>. Alternativet kan användas för att importera Python-paket till arbetsbladet. </para>
+  </note>
+    </listitem>
+    </varlistentry>
+    <varlistentry>
+      <term
+>Scilab:</term>
+      <listitem>
+  <para
+>Scilab är ett numeriskt beräkningspaket med fri programvara för flera plattformar, och ett högnivåspråk med numerisk inriktning. </para>
+  <para
+>Scilab distribueras enligt CeCILL licensen (kompatibel med GPL). Se <ulink url="https://www.scilab.org/"
+>http://www.scilab.org/</ulink
+> för mer information. </para>
+  <warning>
+    <para
+>Du måste installera Scilab version 5.5 eller senare för att kunna installeras på systemet för att bakgrundsprogrammet ska vara användbart. </para>
+  </warning>
+  </listitem>
+    </varlistentry>
+    <varlistentry>
+      <term
+>Octave:</term>
+      <listitem>
+  <para
+>&GNU; Octave är ett högnivåspråk, i huvudsak avsett för numeriska beräkningar. Det tillhandahåller ett bekvämt kommandoradsgränssnitt för att lösa linjära och icke-linjära problem numeriskt, och för att utföra andra numeriska experiment med ett språk som i huvudsak är kompatibelt med <ulink url="https://www.mathworks.com/products/matlab.html"
+>MATLAB</ulink
+>. Se <ulink url="https://www.gnu.org/software/octave/"
+>https://www.gnu.org/software/octave/</ulink
+> för mer information. </para>
+      </listitem>
+    </varlistentry>
+    <varlistentry>
+      <term
+>Lua:</term>
+      <listitem>
+  <para
+>Lua är ett snabbt och lättviktigt skriptspråk, men en enkel procedurbaserad syntax. Det finns flera bibliotek i Lua avsedda för matematik och vetenskap. </para>
+  <para
+>Se <ulink url="https://www.lua.org/"
+>https://www.lua.org/</ulink
+> för mer information. </para>
+  <para
+>Bakgrundsprogrammet stöder <ulink url="https://luajit.org/"
+>luajit 2</ulink
+>. </para>
+      </listitem>
+    </varlistentry>
+  </variablelist>
+</para>
+</sect1>
+
+<sect1 id="workspace">
+<title
+>Arbetsytan i &cantor;</title>
+<para>
+<screenshot>
+  <screeninfo
+>Skärmbild av arbetsytan i &cantor;</screeninfo>
+  <mediaobject>
+    <imageobject>
+      <imagedata fileref="screenshot.png" format="PNG"/>
+    </imageobject>
+    <textobject>
+      <phrase
+>Skärmbild av arbetsytan i &cantor;</phrase>
+    </textobject>
+  </mediaobject>
+</screenshot>
+</para>
+<para
+>Arbetsbladgränssnittet i &cantor; består av tre delar: <orderedlist>
+    <listitem
+><para
+>Flikraden, där du kan byta mellan öppna arbetsblad.</para
+></listitem>
+    <listitem
+><para
+>En hjälppanel där hjälp för ett specifikt kommando visas om du skriver in <userinput
+>?? <replaceable
+>kommando</replaceable
+></userinput
+>, <userinput
+>describe(<replaceable
+>kommando</replaceable
+>)</userinput
+> eller <userinput
+>example(<replaceable
+>kommando</replaceable
+>)</userinput
+> (bakgrundsprogrammet <application
+>Maxima</application
+>).</para
+></listitem>
+    <listitem
+><para
+>En ruta för variabelhantering där du kan se en lista över alla tillgängliga variabler på det aktuella arbetsbladet. Rutorna för hjälp och variabelhantering visas som flikar på en sidorad i &cantor;s fönster. Variabelhantering kan bara användas för bakgrundsprogrammen Maxima (om det aktiveras på sidan <guilabel
+>Maxima</guilabel
+> med <menuchoice
+><guimenu
+>Inställningar</guimenu
+> <guimenuitem
+>Anpassa &cantor;...</guimenuitem
+></menuchoice
+>), &kalgebra;, Octave, Python 2, Python 3, Qalculate och Scilab.</para
+></listitem>
+    <listitem
+><para
+>Själva arbetsbladet.</para
+></listitem>
+  </orderedlist>
+</para>
+<sect2 id="worksheet">
+<title
+>Arbetsbladet</title>
+<para
+>Arbetsbladet är det grundläggande området för att arbeta med &cantor;. Genom att använda det kan du skriva in uttryck, låta bakgrundsprogrammet utföra beräkningar, och titta på resultaten. Kommandon som arbetsbladen accepterar beror på det valda bakgrundsprogrammet, så man bör lära sig lämplig syntax för bakgrundsprogrammet (knappen <guibutton
+>Visa hjälp</guibutton
+> går direkt dit). Om du kan kommandot, men behöver ytterligare information, kan du skriva "? <replaceable
+>kommando</replaceable
+>", så visas sammanhangsberoende hjälp till höger om arbetsbladet. Om du vill se exempel på arbetsblad, kan du gå till menyalternativet <menuchoice
+><guimenu
+>Arkiv</guimenu
+><guimenuitem
+>Ladda ner exempelarbetsblad</guimenuitem
+></menuchoice
+>, och ladda ner arbetsblad som andra användare har publicerat. </para>
+<para
+>För att hantera varje kommandoinmatning på arbetsbladet, kan du använda styrknapparna som visas på höger sida av arbetsbladet när muspekaren hålls i inmatningsfältet. Det finns tre grundåtgärder för varje inmatning: <guilabel
+>Beräkna post</guilabel
+> för att uppdatera resultatet av beräkningarna för posten, <guilabel
+>Dra post</guilabel
+> för att flytta posten till en annan plats på det aktuella arbetsbladet och <guilabel
+>Ta bort post</guilabel
+> för att ta bort posten från det aktuella arbetsbladet. </para>
+<para
+>Teckensnittsinställningar och justering av arbetsbladets poster kan ändras genom att använda en verktygsrad ovanför arbetsbladet. </para>
+<sect3 id="worksheet-settings">
+  <title
+>Inställningar</title>
+  <para
+>Menyn <guimenu
+>Inställningar</guimenu
+> låter dig ändra vissa inställningar av det aktuella arbetsbladets utseende </para>
+  <variablelist>
+    <varlistentry>
+      <term
+>Typsättning med användning av Latex</term>
+      <listitem>
+	<para
+>Inställningen ändrar sättet som resultat presenteras. Om aktiverat, skickas resultatet genom &latex;-systemet för att skapa visuellt tilltalande formler. Exempelvis blir <quote
+>3*x^2*sqrt(2)*x+2/3</quote
+>: <inlinemediaobject>
+	      <imageobject>
+		<imagedata fileref="latex_formula.png" format="PNG"/>
+	      </imageobject>
+	      <textobject
+><phrase
+>3*x^2*sqrt(2)*x+2/3</phrase
+></textobject>
+	  </inlinemediaobject>
+	</para>
+      </listitem>
+    </varlistentry>
+    <varlistentry>
+      <term
+>Syntaxfärgläggning</term>
+      <listitem>
+	<para
+>Syntaxfärgläggning ökar kodens läsbarhet, genom att färglägga nyckelord eller samhörande parenteser i olika färger. </para>
+      </listitem>
+    </varlistentry>
+    <varlistentry>
+      <term
+>Komplettering</term>
+      <listitem>
+	<para
+>När det här är aktiverat visar &cantor; möjliga kompletteringar av kommandot som du för närvarande skriver in, när du trycker på tabulatortangenten. Om bara ett val återstår, infogas resten av kommandot åt dig. </para>
+      </listitem>
+    </varlistentry>
+  <varlistentry>
+    <term
+>Radnummer</term>
+    <listitem>
+      <para
+>Inställningen styr om de olika uttrycken ska föregås av ett nummer. Det låter dig återkalla gamla resultat: i Maxima görs det exempelvis med kommandot <quote
+>%O1</quote
+>. </para>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term
+>Animera arbetsblad</term>
+    <listitem>
+      <para
+>Den här inställningen styr om de olika animeringarna används för att färglägga ändringar på ett arbetsblad. </para>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term
+>Inbäddad matematik</term>
+    <listitem>
+      <para
+>Inställningen bestämmer om återgivning av matematiska uttryck <literal
+>$$..$$</literal
+> i text- och &Markdown;-poster normalt är aktiverade (kräver att <application
+>pdflatex</application
+> är installerat). </para>
+    </listitem>
+  </varlistentry>
+  </variablelist>
+</sect3>
+</sect2>
+</sect1>
+<sect1 id="assistant-dlgs">
+<title
+>Guidedialogrutorna</title>
+<para
+>Flera handledningsdialogrutor är implementerade i &cantor; för att underlätta några grundoperationer. </para>
+<para
+>Dialogrutorna kan kommas åt via alternativen i huvudmenyn. Varje bakgrundsprogram har sina egna handledningsdialogrutor. </para>
+<sect2 id="create-matrix-dlg">
+<title
+>Dialogrutan Skapa matris</title>
+<screenshot>
+  <screeninfo
+>Skärmbild av dialogrutan Skapa matris i &cantor;</screeninfo>
+  <mediaobject>
+    <imageobject>
+      <imagedata fileref="create-dlg.png" format="PNG"/>
+    </imageobject>
+    <textobject>
+      <phrase
+>Skärmbild av dialogrutan Skapa matris i &cantor;</phrase>
+    </textobject>
+  </mediaobject>
+</screenshot>
+<para
+>Dialogrutan kan användas för att mata in matriser. Det går att definiera matrisens dimensioner och dess element. </para>
+<para
+>Det är möjligt att snabbt navigera mellan celler vid inmatning genom att använda tabulatortangenten. </para>
+</sect2>
+<sect2 id="compute-invert-dlg">
+<title
+>Dialogrutan Matrisoperation</title>
+<screenshot>
+  <screeninfo
+>Skärmbild av dialogrutan för matrisinmatning i &cantor;</screeninfo>
+  <mediaobject>
+    <imageobject>
+      <imagedata fileref="matrix-dlg.png" format="PNG"/>
+    </imageobject>
+    <textobject>
+      <phrase
+>Skärmbild av dialogrutan för matrisinmatning i &cantor;</phrase>
+    </textobject>
+  </mediaobject>
+</screenshot>
+<para
+>Dialogrutan gör det möjligt att ange matrisens namn för att beräkna dess egenvektorer, egenvärden, eller invertera matrisen. Förvalt värde (<userinput
+>%</userinput
+>) används för att referera till föregående resultat av en beräkning eller inmatning. </para>
+</sect2>
+<sect2 id="calculate-derivative-dlg">
+<title
+>Deriveringsdialogrutan</title>
+<screenshot>
+  <screeninfo
+>Skärmbild av deriveringsdialogrutan i &cantor;</screeninfo>
+  <mediaobject>
+    <imageobject>
+      <imagedata fileref="differentiate-dlg.png" format="PNG"/>
+    </imageobject>
+    <textobject>
+      <phrase
+>Skärmbild av deriveringsdialogrutan i &cantor;</phrase>
+    </textobject>
+  </mediaobject>
+</screenshot>
+<para
+>Dialogrutan gör det möjligt att mata in funktionsuttrycket att derivera, namnet på variabeln och derivatans ordning. </para>
+</sect2>
+<sect2 id="calculate-integral-dlg">
+<title
+>Integreringsdialogrutan</title>
+<screenshot>
+  <screeninfo
+>Skärmbild av integreringsdialogrutan i &cantor;</screeninfo>
+  <mediaobject>
+    <imageobject>
+      <imagedata fileref="integrate-dlg.png" format="PNG"/>
+    </imageobject>
+    <textobject>
+      <phrase
+>Skärmbild av integreringsdialogrutan i &cantor;</phrase>
+    </textobject>
+  </mediaobject>
+</screenshot>
+<para
+>Dialogrutan gör det möjligt att mata in funktionen att integrera, namnet på variabeln och integralens gränser (för en bestämd integral). </para>
+</sect2>
+<sect2 id="calculate-solve-dlg">
+<title
+>Dialogrutan Lös ekvationer</title>
+<screenshot>
+  <screeninfo
+>Skärmbild av dialogrutan Lös ekvationer i &cantor;</screeninfo>
+  <mediaobject>
+    <imageobject>
+      <imagedata fileref="solve-equations-dlg.png" format="PNG"/>
+    </imageobject>
+    <textobject>
+      <phrase
+>Skärmbild av dialogrutan Lös ekvationer i &cantor;</phrase>
+    </textobject>
+  </mediaobject>
+</screenshot>
+<para
+>Dialogrutan gör det möjligt att mata in ekvationer att lösa (varje ekvation på en separat linje) och variablerna att bestämma (åtskilda av kommatecken). </para>
+</sect2>
+<sect2 id="package-import-dlg">
+<title
+>Dialogrutan Paketimport</title>
+<screenshot>
+  <screeninfo
+>Skärmbild av dialogrutan Paketimport i &cantor;</screeninfo>
+  <mediaobject>
+    <imageobject>
+      <imagedata fileref="import-dlg.png" format="PNG"/>
+    </imageobject>
+    <textobject>
+      <phrase
+>Skärmbild av dialogrutan Paketimport i &cantor;</phrase>
+    </textobject>
+  </mediaobject>
+</screenshot>
+<para
+>Dialogrutan gör det möjligt att ange namnet på paketet att importera (t.ex. <userinput
+>numpy</userinput
+> för Python). </para>
+</sect2>
+<sect2 id="plot-dlg">
+<title
+>Dialogrutan Rita</title>
+<screenshot>
+  <screeninfo
+>Skärmbild av dialogrutan Rita i &cantor; (fliken Funktioner)</screeninfo>
+  <mediaobject>
+    <imageobject>
+      <imagedata fileref="plot-dlg1.png" format="PNG"/>
+    </imageobject>
+    <textobject>
+      <phrase
+>Skärmbild av dialogrutan Rita i &cantor; (fliken Funktioner)</phrase>
+    </textobject>
+  </mediaobject>
+</screenshot>
+<para
+>Dialogrutans alternativ är uppdelade i två grupper genom att använda flikar. Fliken <guilabel
+>Funktioner</guilabel
+> gör det möjligt att mata in funktioner att rita upp. </para>
+<para
+>Klicka på <guibutton
+>Lägg till</guibutton
+> för att mata in en ny funktion. Dubbelklicka på cellen <guilabel
+>Rubrik</guilabel
+> och ange rubriken, dubbelklicka därefter på cellen <guilabel
+>Uttryck</guilabel
+> och ange funktionens uttryck. </para>
+<screenshot>
+  <screeninfo
+>Skärmbild av dialogrutan Rita i &cantor; (fliken Alternativ)</screeninfo>
+  <mediaobject>
+    <imageobject>
+      <imagedata fileref="plot-dlg2.png" format="PNG"/>
+    </imageobject>
+    <textobject>
+      <phrase
+>Skärmbild av dialogrutan Rita i &cantor; (fliken Alternativ)</phrase>
+    </textobject>
+  </mediaobject>
+</screenshot>
+<para
+>Fliken <guilabel
+>Alternativ</guilabel
+> används för att definiera diagram- och förklaringsalternativ. Det går att finjustera nästan alla diagramalternativ för att erhålla ett snyggt utseende på figuren. </para>
+</sect2>
+<sect2 id="plot2d-dlg">
+<title
+>Dialogrutan Rita i två dimensioner</title>
+<screenshot>
+  <screeninfo
+>Skärmbild av dialogrutan Rita i två dimensioner i &cantor;</screeninfo>
+  <mediaobject>
+    <imageobject>
+      <imagedata fileref="plot2d-dlg.png" format="PNG"/>
+    </imageobject>
+    <textobject>
+      <phrase
+>Skärmbild av dialogrutan Rita i två dimensioner i &cantor;</phrase>
+    </textobject>
+  </mediaobject>
+</screenshot>
+<para
+>Dialogrutan gör det möjligt att mata in funktionens uttryck, dess variabel och variabelns gränser. </para>
+</sect2>
+<sect2 id="plot3d-dlg">
+<title
+>Dialogrutan Rita i tre dimensioner</title>
+<screenshot>
+  <screeninfo
+>Skärmbild av dialogrutan Rita i tre dimensioner i &cantor;</screeninfo>
+  <mediaobject>
+    <imageobject>
+      <imagedata fileref="plot3d-dlg.png" format="PNG"/>
+    </imageobject>
+    <textobject>
+      <phrase
+>Skärmbild av dialogrutan Rita i tre dimensioner i &cantor;</phrase>
+    </textobject>
+  </mediaobject>
+</screenshot>
+<para
+>Dialogrutan gör det möjligt att mata in funktionens uttryck, dess variabler och varje variabels gränser. </para>
+</sect2>
+</sect1>
+</chapter>
+
+<chapter id="commands">
+<title
+>Kommandoreferens</title>
+
+<sect1 id="kapp-mainwindow">
+<title
+>Huvudfönstret i &cantor;</title>
+
+<para
+>&cantor; har de vanliga menyalternativen i &kde;. För mer information, läs kapitlet <ulink url="help:/fundamentals/menus.html"
+>Meny</ulink
+> i &kde;:s grunder. </para>
+
+<para
+>Nedan är listan över ytterligare eller speciella menyalternativ i &cantor;. Observera att vissa menyer bara visas för bakgrundsprogram som har motsvarande implementering. </para>
+
+<sect2 id="file-menu">
+<title
+>Menyn Arkiv</title>
+<para>
+<variablelist>
+<varlistentry>
+<term
+><menuchoice
+><shortcut
+><keycombo action="simul"
+>&Ctrl;<keycap
+>N</keycap
+></keycombo
+> </shortcut
+> <guimenu
+>Album</guimenu
+><guimenuitem
+>Ny</guimenuitem
+> </menuchoice
+></term>
+<listitem
+><para
+><action
+>Skapar ett nytt arbetsblad med förvalt bakgrundsprogram.</action
+></para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><menuchoice
+><guimenu
+>Arkiv</guimenu
+> <guisubmenu
+>Ny</guisubmenu
+> <guimenuitem
+><replaceable
+>Bakgrundsprogram</replaceable
+></guimenuitem
+> </menuchoice
+></term>
+<listitem
+><para
+><action
+>Skapar ett nytt arbetsblad med valt bakgrundsprogram.</action
+></para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><menuchoice
+><shortcut
+> <keycombo action="simul"
+>&Ctrl;<keycap
+>O</keycap
+></keycombo
+> </shortcut
+> <guimenu
+>Arkiv</guimenu
+> <guimenuitem
+>Öppna...</guimenuitem
+> </menuchoice
+></term>
+<listitem
+><para
+><action
+>Öppnar ett nytt arbetsblad som stöds med fildialogrutan.</action
+></para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><menuchoice
+><guimenu
+>Arkiv</guimenu
+> <guisubmenu
+>Öppna senaste</guisubmenu
+> </menuchoice
+></term>
+<listitem
+><para
+><action
+>Väj ett arbetsblad från en lista över senast använda filer.</action
+></para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><menuchoice
+><guimenu
+>Arkiv</guimenu
+> <guimenuitem
+>Ladda ner exempelarbetsblad</guimenuitem
+> </menuchoice
+></term>
+<listitem
+><para
+><action
+>Öppnar en dialogruta för att ladda ner exempel uppladdade av andra användare &cantor; med <ulink url="https://userbase.kde.org/Special:MyLanguage/Glossary#Get_Hot_New_Stuff"
+>Hämta heta nyheter</ulink
+>.</action
+></para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><menuchoice
+><guimenu
+>Arkiv</guimenu
+> <guimenuitem
+>Öppna exempel</guimenuitem
+> </menuchoice
+></term>
+<listitem
+><para
+><action
+>Öppnar dialogrutan för att välja ett exempel att läsa in.</action
+> Exemplen måste först laddas ner med <menuchoice
+><guimenu
+>Arkiv</guimenu
+> <guimenuitem
+>Ladda ner exempelarbetsblad</guimenuitem
+></menuchoice
+> innan.</para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><menuchoice
+><guimenu
+>Arkiv</guimenu
+> <guimenuitem
+>Spara vanlig text</guimenuitem
+> </menuchoice
+></term>
+<listitem
+><para
+><action
+>Gör det möjligt att spara aktuellt arbetsblad som ett vanligt textdokument.</action
+></para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><menuchoice
+><guimenu
+>Arkiv</guimenu
+> <guimenuitem
+>Exportera till Latex</guimenuitem
+> </menuchoice
+></term>
+<listitem
+><para
+><action
+>Gör det möjligt att spara aktuellt arbetsblad som ett &latex;-dokument.</action
+></para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><menuchoice
+><guimenu
+>Arkiv</guimenu
+> <guimenuitem
+>Publicera arbetsblad</guimenuitem
+> </menuchoice
+></term>
+<listitem
+><para
+><action
+>Öppnar dialogrutan för att publicera aktuellt arbetsblad och göra det tillgängliga för andra användare av &cantor; via <ulink url="https://userbase.kde.org/Special:MyLanguage/Glossary#Get_Hot_New_Stuff"
+>Hämta heta nyheter</ulink
+>.</action
+></para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><menuchoice
+><guimenu
+>Arkiv</guimenu
+> <guimenuitem
+>Kör skript</guimenuitem
+> </menuchoice
+></term>
+<listitem
+><para
+><action
+>Gör det möjligt att ladda och köra bakgrundsskripten för nuvarande bakgrundsprogram.</action
+></para
+></listitem>
+</varlistentry>
+</variablelist>
+</para>
+
+</sect2>
+
+<sect2 id="view-menu">
+<title
+>Menyn Visa</title>
+<para>
+<variablelist>
+<varlistentry>
+<term
+><menuchoice
+><guimenu
+>Visa</guimenu
+> <guisubmenu
+>Paneler</guisubmenu
+></menuchoice
+></term>
+<listitem
+><para
+>Låter dig ändra synlighet för vissa flikar i sidoraden. Du kan välja: <variablelist>
+  <varlistentry>
+  <term
+><guimenuitem
+>Filbläddrare</guimenuitem
+></term>
+  <listitem
+><para
+><action
+>Ändrar</action
+> synlighet för fliken <guilabel
+>Filbläddrare</guilabel
+> i sidoraden.</para
+></listitem>
+  </varlistentry>
+
+  <varlistentry>
+  <term
+><guimenuitem
+>Hjälp</guimenuitem
+></term>
+  <listitem
+><para
+><action
+>Ändrar</action
+> synlighet för fliken <guilabel
+>Hjälp</guilabel
+> i sidoraden.</para
+></listitem>
+  </varlistentry>
+
+  <varlistentry>
+  <term
+><guimenuitem
+>Variabelhantering</guimenuitem
+></term>
+  <listitem
+><para
+><action
+>Ändrar</action
+> synlighet för fliken <guilabel
+>Variabelhantering</guilabel
+> i sidoraden.</para
+></listitem>
+  </varlistentry>
+</variablelist
+></para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><menuchoice
+><shortcut
+> <keycombo action="simul"
+>&Ctrl;<keycap
+>+</keycap
+></keycombo
+> </shortcut
+> <guimenu
+>Visa</guimenu
+> <guimenuitem
+>Zooma in</guimenuitem
+> </menuchoice
+></term>
+<listitem
+><para
+><action
+>Zooma in</action
+> aktuellt arbetsblad 10 %.</para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><menuchoice
+><shortcut
+> <keycombo action="simul"
+>&Ctrl;<keycap
+>-</keycap
+></keycombo
+> </shortcut
+> <guimenu
+>Visa</guimenu
+> <guimenuitem
+>Zooma ut</guimenuitem
+> </menuchoice
+></term>
+<listitem
+><para
+><action
+>Zooma ut</action
+> aktuellt arbetsblad 10 %.</para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><menuchoice
+><guimenu
+>Visa</guimenu
+> <guimenuitem
+>Visa skripteditor</guimenuitem
+> </menuchoice
+></term>
+<listitem
+><para
+><action
+>Öppna fönstret för redigering av bakgrundsskript för aktuellt bakgrundsprogram.</action
+></para
+></listitem>
+</varlistentry>
+</variablelist>
+</para>
+</sect2>
+
+<sect2 id="worsheet-menu">
+<title
+>Menyn Arbetsblad</title>
+<para>
+<variablelist>
+<varlistentry>
+<term
+><menuchoice
+><shortcut
+> <keycombo action="simul"
+>&Ctrl;<keycap
+>E</keycap
+></keycombo
+> </shortcut
+> <guimenu
+>Arbetsblad</guimenu
+> <guimenuitem
+>Beräkna arbetsblad</guimenuitem
+> </menuchoice
+></term>
+<listitem
+><para
+><action
+>Utlöser</action
+> beräkningen av hela arbetsbladet.</para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><menuchoice
+><shortcut
+> <keycombo action="simul"
+>&Shift;<keycap
+>Enter</keycap
+></keycombo
+> </shortcut
+> <guimenu
+>Arbetsblad</guimenu
+> <guimenuitem
+>Beräkna post</guimenuitem
+> </menuchoice
+></term>
+<listitem
+><para
+><action
+>Utlöser</action
+> beräkningen av aktuell post.</para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><menuchoice
+><shortcut
+> <keycombo action="simul"
+>&Ctrl;<keycap
+>Enter</keycap
+></keycombo
+> </shortcut
+> <guimenu
+>Arbetsblad</guimenu
+> <guimenuitem
+>Infoga kommandopost</guimenuitem
+> </menuchoice
+></term>
+<listitem
+><para
+><action
+>Infogar en ny kommandopost under nuvarande markörposition.</action
+></para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><menuchoice
+><guimenu
+>Arbetsblad</guimenu
+> <guimenuitem
+>Infoga textpost</guimenuitem
+> </menuchoice
+></term>
+<listitem
+><para
+><action
+>Infogar en ny textpost under nuvarande markörposition.</action
+></para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><menuchoice
+><guimenu
+>Arbetsblad</guimenu
+> <guimenuitem
+>Infoga Markdown-post</guimenuitem
+> </menuchoice
+></term>
+<listitem
+><para
+><action
+>Infogar en ny &Markdown;-post under nuvarande markörposition.</action
+></para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><menuchoice
+><guimenu
+>Arbetsblad</guimenu
+> <guimenuitem
+>Infoga Latex-post</guimenuitem
+> </menuchoice
+></term>
+<listitem
+><para
+><action
+>Infogar en ny &latex;-post under nuvarande markörposition.</action
+></para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><menuchoice
+><guimenu
+>Arbetsblad</guimenu
+> <guimenuitem
+>Infoga bild</guimenuitem
+> </menuchoice
+></term>
+<listitem
+><para
+><action
+>Infogar en bild under nuvarande markörposition.</action
+></para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><menuchoice
+><guimenu
+>Arbetsblad</guimenu
+> <guimenuitem
+>Infoga sidbrytning</guimenuitem
+> </menuchoice
+></term>
+<listitem
+><para
+><action
+>Infogar sidbrytningen under nuvarande markörposition.</action
+></para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><menuchoice
+><guimenu
+>Arbetsblad</guimenu
+> <guimenuitem
+>Dra ihop alla resultat</guimenuitem
+> </menuchoice
+></term>
+<listitem
+><para
+><action
+>Dra ihop alla kommandoinmatningens resultat.</action
+></para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><menuchoice
+><guimenu
+>Arbetsblad</guimenu
+> <guimenuitem
+>Expandera alla resultat</guimenuitem
+> </menuchoice
+></term>
+<listitem
+><para
+><action
+>Expandera alla kommandoinmatningens resultat.</action
+></para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><menuchoice
+><guimenu
+>Arbetsblad</guimenu
+> <guimenuitem
+>Ta bort alla resultat</guimenuitem
+> </menuchoice
+></term>
+<listitem
+><para
+><action
+>Ta bort alla kommandoinmatningens resultat.</action
+></para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><menuchoice
+><shortcut
+> <keycombo action="simul"
+>&Shift;<keycap
+>Delete</keycap
+></keycombo
+> </shortcut
+> <guimenu
+>Arbetsblad</guimenu
+> <guimenuitem
+>Ta bort nuvarande post</guimenuitem
+> </menuchoice
+></term>
+<listitem
+><para
+><action
+>Tar bort</action
+> aktuell post från arbetsbladet.</para
+></listitem>
+</varlistentry>
+</variablelist>
+</para>
+</sect2>
+
+<sect2 id="linear-algebra-menu">
+<title
+>Menyn Linjär algebra</title>
+<para>
+<variablelist>
+<varlistentry>
+<term
+><menuchoice
+><guimenu
+>Linjär algebra</guimenu
+> <guimenuitem
+>Skapa matris</guimenuitem
+> </menuchoice
+></term>
+<listitem
+><para
+><action
+>Visar</action
+> <link linkend="create-matrix-dlg"
+>handledningsdialogrutan Skapa matris</link
+>.</para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><menuchoice
+><guimenu
+>Linjär algebra</guimenu
+> <guimenuitem
+>Beräkna egenvärden</guimenuitem
+> </menuchoice
+></term>
+<listitem
+><para
+><action
+>Visar</action
+> <link linkend="compute-invert-dlg"
+>handledningsdialogrutan för inmatning av matrisnamn</link
+> för att beräkna dess egenvärden och dimensionerna för egenvärdenas multipler i motsvarande ordning. </para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><menuchoice
+><guimenu
+>Linjär algebra</guimenu
+> <guimenuitem
+>Beräkna egenvektorer</guimenuitem
+> </menuchoice
+></term>
+<listitem
+><para
+><action
+>Visar</action
+> <link linkend="compute-invert-dlg"
+>handledningsdialogrutan för inmatning av matrisnamn</link
+> för att beräkna dess egenvärden och dimensionerna för egenvärdenas och egenvektorernas multipler i motsvarande ordning. </para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><menuchoice
+><guimenu
+>Linjär algebra</guimenu
+> <guimenuitem
+>Invertera matris</guimenuitem
+> </menuchoice
+></term>
+<listitem
+><para
+><action
+>Visar</action
+> <link linkend="compute-invert-dlg"
+>handledningsdialogrutan för inmatning av matrisnamn</link
+> för att beräkna matrisens invers. </para
+></listitem>
+</varlistentry>
+</variablelist>
+</para>
+</sect2>
+
+<sect2 id="calculate-menu">
+<title
+>Menyn Beräkna</title>
+<para>
+<variablelist>
+<varlistentry>
+<term
+><menuchoice
+><guimenu
+>Beräkna</guimenu
+> <guimenuitem
+>Derivera</guimenuitem
+> </menuchoice
+></term>
+<listitem
+><para
+><action
+>Visar</action
+> <link linkend="calculate-derivative-dlg"
+>dialogrutan för deriveringsparametrar</link
+>. </para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><menuchoice
+><guimenu
+>Beräkna</guimenu
+> <guimenuitem
+>Integrera</guimenuitem
+> </menuchoice
+></term>
+<listitem
+><para
+><action
+>Visar</action
+> <link linkend="calculate-integral-dlg"
+>dialogrutan för integreringsparametrar</link
+>. </para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><menuchoice
+><guimenu
+>Beräkna</guimenu
+> <guimenuitem
+>Lös ekvationer</guimenuitem
+> </menuchoice
+></term>
+<listitem
+><para
+><action
+>Visar</action
+> <link linkend="calculate-solve-dlg"
+>dialogrutan för parameterinmatning</link
+> för att lösa linjära och icke-linjära ekvationer. </para
+></listitem>
+</varlistentry>
+</variablelist>
+</para>
+</sect2>
+
+<sect2 id="package-menu">
+<title
+>Menyn Paket</title>
+<para>
+<variablelist>
+<varlistentry>
+<term
+><menuchoice
+><guimenu
+>Paket</guimenu
+> <guimenuitem
+>Importera paket</guimenuitem
+> </menuchoice
+></term>
+<listitem
+><para
+><action
+>Visar</action
+> <link linkend="package-import-dlg"
+>dialogrutan för paketimport</link
+>. </para
+></listitem>
+</varlistentry>
+</variablelist>
+</para>
+</sect2>
+
+<sect2 id="plot-menu">
+<title
+>Menyn Rita</title>
+<para>
+<variablelist>
+<varlistentry>
+<term
+><menuchoice
+><guimenu
+>Rita</guimenu
+> <guimenuitem
+>Rita</guimenuitem
+> </menuchoice
+></term>
+<listitem
+><para
+><action
+>Visar</action
+> <link linkend="plot-dlg"
+>dialogrutan för diagramparametrar</link
+>. </para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><menuchoice
+><guimenu
+>Rita</guimenu
+> <guimenuitem
+>Rita i två dimensioner</guimenuitem
+> </menuchoice
+></term>
+<listitem
+><para
+><action
+>Visar</action
+> <link linkend="plot2d-dlg"
+>dialogrutan för diagramparametrar</link
+>. </para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><menuchoice
+><guimenu
+>Rita</guimenu
+> <guimenuitem
+>Rita i tre dimensioner</guimenuitem
+> </menuchoice
+></term>
+<listitem
+><para
+><action
+>Visar</action
+> <link linkend="plot3d-dlg"
+>dialogrutan för diagramparametrar</link
+>. </para
+></listitem>
+</varlistentry>
+</variablelist>
+</para>
+</sect2>
+
+<sect2 id="settings-help-menu">
+<title
+>Menyerna Inställningar och Hjälp</title>
+<para
+>&cantor; har de vanliga menyalternativen i &kde;, <guimenu
+>Inställningar</guimenu
+> och <guimenu
+>Hjälp</guimenu
+>. För mer information läs avsnitten om <ulink url="help:/fundamentals/menus.html#menus-settings"
+>Menyn Inställningar</ulink
+> och <ulink url="help:/fundamentals/menus.html#menus-help"
+>Menyn Hjälp</ulink
+> i &kde;:s grunder. </para>
+
+</sect2>
+
+</sect1>
+</chapter>
+
+<chapter id="faq">
+<title
+>Vanliga frågor</title>
+
+<qandaset id="faqlist">
+<qandaentry>
+  <question
+><para
+>Menyalternativet <guimenuitem
+>Typsätt med Latex</guimenuitem
+> är inte tillgängligt</para
+></question>
+  <answer
+><para
+>Alla bakgrundsprogram stöder inte alla alternativ. Den nuvarande versionen stöder &latex;-utmatning för bakgrundsprogrammen  Maxima, Qalculate! och Sage.</para
+></answer>
+</qandaentry>
+<qandaentry>
+  <question
+><para
+>Jag har installerat Sage och Maxima eller ett annat CAS som stöds, men det lämpliga bakgrundsprogrammet visas inte.</para
+></question>
+  <answer>
+    <para
+>En möjlig förklaring är att &cantor; inte detekterade platsen riktigt. Gå till <menuchoice
+><guimenu
+>Inställningar</guimenu
+> <guimenuitem
+>Anpassa &cantor;...</guimenuitem
+></menuchoice
+> och ändra <guilabel
+>Sökväg</guilabel
+> till lämpligt program på bakgrundsprogramsidan. </para>
+  </answer>
+</qandaentry>
+<qandaentry>
+  <question
+><para
+>Vilket underligt namn, vad har det att göra med matematik?</para
+></question>
+  <answer
+><para
+>&cantor; är uppkallat efter den tyska matematikern <ulink url="https://sv.wikipedia.org/wiki/Georg_Cantor"
+>Georg Cantor</ulink
+>, skaparen av mängdteori.</para
+></answer>
+</qandaentry>
+</qandaset>
+</chapter>
+
+<chapter id="credits">
+
+<title
+>Tack till och licens</title>
+
+<para
+>&cantor; </para>
+<para
+>Program copyright 2009-2011 Alexander Rieder <email
+>alexanderrieder@gmail.com</email
+> </para>
+
+<para
+>Dokumentation Copyright &copy; 2009-2011 Alexander Rieder <email
+>alexanderrieder@gmail.com</email
+> </para>
+
+<para
+>Översättning Stefan Asserhäll <email
+>stefan.asserhall@bredband.net</email
+></para
+> &underFDL; &underGPL; </chapter>
+
+&documentation.index;
+</book>
+
+<!--
+Local Variables:
+mode: xml
+sgml-minimize-attributes:nil
+sgml-general-insert-case:lower
+sgml-indent-step:0
+sgml-indent-data:nil
+End:
+
+vim:tabstop=2:shiftwidth=2:expandtab
+kate: space-indent on; indent-width 2; tab-width 2; indent-mode none;
+-->
