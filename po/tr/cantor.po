@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kdeedu-kde4\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-08-07 00:40+0000\n"
+"POT-Creation-Date: 2022-10-03 00:41+0000\n"
 "PO-Revision-Date: 2022-08-07 13:15+0300\n"
 "Last-Translator: Emir SARI <emir_sari@icloud.com>\n"
 "Language-Team: Turkish <kde-l10n-tr@kde.org>\n"
@@ -494,7 +494,7 @@ msgstr ""
 #: backends/maxima/settings.ui:21 backends/octave/settings.ui:21
 #: backends/python/settings.ui:21 backends/qalculate/settings.ui:21
 #: backends/R/settings.ui:21 backends/sage/settings.ui:21
-#: backends/scilab/settings.ui:21 cantor.cpp:632
+#: backends/scilab/settings.ui:21 cantor.cpp:633
 #, kde-format
 msgid "General"
 msgstr "Genel"
@@ -2553,54 +2553,54 @@ msgstr ""
 "%1 arka ccu kurulu; ancak etkin değil. Kurulumunuzu ve Cantor ayarlarınızı "
 "denetleyin"
 
-#: cantor.cpp:370
+#: cantor.cpp:374
 #, kde-format
 msgid "Session %1"
 msgstr "Oturum %1"
 
-#: cantor.cpp:391
+#: cantor.cpp:392
 #, kde-format
 msgid "Failed to find the Cantor Part with error %1"
 msgstr "Cantor parçacığı bulunamadı, hata %1"
 
-#: cantor.cpp:438 cantor_part.cpp:621
+#: cantor.cpp:439 cantor_part.cpp:621
 #, kde-format
 msgid "Calculating..."
 msgstr "Hesaplanıyor..."
 
-#: cantor.cpp:441 cantor_part.cpp:632 cantor_part.cpp:695
+#: cantor.cpp:442 cantor_part.cpp:632 cantor_part.cpp:695
 #, kde-format
 msgid "Ready"
 msgstr "Hazır"
 
-#: cantor.cpp:485
+#: cantor.cpp:486
 #, kde-format
 msgid "Changed"
 msgstr "Değiştirildi"
 
-#: cantor.cpp:569
+#: cantor.cpp:570
 #, kde-format
 msgid "Multiple unsaved Worksheets are opened. Do you want to close them?"
 msgstr ""
 "Birden çok kaydedilmemiş Çalışma Sayfası açık. Onları kapatmak istiyor "
 "musunuz?"
 
-#: cantor.cpp:570
+#: cantor.cpp:571
 #, kde-format
 msgid "Close Cantor"
 msgstr "Cantor'u Kapat"
 
-#: cantor.cpp:586
+#: cantor.cpp:587
 #, kde-format
 msgid "The current project has been modified. Do you want to save it?"
 msgstr "Mevcut proje değiştirildi. Kaydetmek istiyor musunuz?"
 
-#: cantor.cpp:587
+#: cantor.cpp:588
 #, kde-format
 msgid "Save Project"
 msgstr "Projeyi Kaydet"
 
-#: cantor.cpp:633
+#: cantor.cpp:634
 #, kde-format
 msgid "Formatting"
 msgstr "Biçimlendirme"

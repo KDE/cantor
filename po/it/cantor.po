@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: cantor\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-08-07 00:40+0000\n"
+"POT-Creation-Date: 2022-10-03 00:41+0000\n"
 "PO-Revision-Date: 2022-09-12 15:27+0200\n"
 "Last-Translator: Vincenzo Reale <smart2128vr@gmail.com>\n"
 "Language-Team: Italian <kde-i18n-it@kde.org>\n"
@@ -496,7 +496,7 @@ msgstr ""
 #: backends/maxima/settings.ui:21 backends/octave/settings.ui:21
 #: backends/python/settings.ui:21 backends/qalculate/settings.ui:21
 #: backends/R/settings.ui:21 backends/sage/settings.ui:21
-#: backends/scilab/settings.ui:21 cantor.cpp:632
+#: backends/scilab/settings.ui:21 cantor.cpp:633
 #, kde-format
 msgid "General"
 msgstr "Generale"
@@ -2571,52 +2571,52 @@ msgstr ""
 "Il motore %1 è installato, ma è inattivo. Controlla la tua installazione e "
 "le impostazioni di Cantor"
 
-#: cantor.cpp:370
+#: cantor.cpp:374
 #, kde-format
 msgid "Session %1"
 msgstr "Sessione %1"
 
-#: cantor.cpp:391
+#: cantor.cpp:392
 #, kde-format
 msgid "Failed to find the Cantor Part with error %1"
 msgstr "Impossibile trovare il componente di Cantor, errore %1"
 
-#: cantor.cpp:438 cantor_part.cpp:621
+#: cantor.cpp:439 cantor_part.cpp:621
 #, kde-format
 msgid "Calculating..."
 msgstr "Calcolo..."
 
-#: cantor.cpp:441 cantor_part.cpp:632 cantor_part.cpp:695
+#: cantor.cpp:442 cantor_part.cpp:632 cantor_part.cpp:695
 #, kde-format
 msgid "Ready"
 msgstr "Pronto"
 
-#: cantor.cpp:485
+#: cantor.cpp:486
 #, kde-format
 msgid "Changed"
 msgstr "Modificato"
 
-#: cantor.cpp:569
+#: cantor.cpp:570
 #, kde-format
 msgid "Multiple unsaved Worksheets are opened. Do you want to close them?"
 msgstr "Ci sono fogli di lavoro non salvati. Vuoi chiudere?"
 
-#: cantor.cpp:570
+#: cantor.cpp:571
 #, kde-format
 msgid "Close Cantor"
 msgstr "Chiudi Cantor"
 
-#: cantor.cpp:586
+#: cantor.cpp:587
 #, kde-format
 msgid "The current project has been modified. Do you want to save it?"
 msgstr "Il progetto corrente è stato modificato. Vuoi salvarlo?"
 
-#: cantor.cpp:587
+#: cantor.cpp:588
 #, kde-format
 msgid "Save Project"
 msgstr "Salva progetto"
 
-#: cantor.cpp:633
+#: cantor.cpp:634
 #, kde-format
 msgid "Formatting"
 msgstr "Formattazione"

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: mathematik\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-08-07 00:40+0000\n"
+"POT-Creation-Date: 2022-10-03 00:41+0000\n"
 "PO-Revision-Date: 2019-09-22 19:06+0800\n"
 "Last-Translator: pan93412 <pan93412@gmail.com>\n"
 "Language-Team: Chinese <zh-l10n@lists.linux.org.tw>\n"
@@ -470,7 +470,7 @@ msgstr ""
 #: backends/maxima/settings.ui:21 backends/octave/settings.ui:21
 #: backends/python/settings.ui:21 backends/qalculate/settings.ui:21
 #: backends/R/settings.ui:21 backends/sage/settings.ui:21
-#: backends/scilab/settings.ui:21 cantor.cpp:632
+#: backends/scilab/settings.ui:21 cantor.cpp:633
 #, kde-format
 msgid "General"
 msgstr "一般"
@@ -2452,53 +2452,53 @@ msgid ""
 "settings"
 msgstr "已安裝 %1 後端但未啟用。請檢查您的後端安裝和 Cantor 設定"
 
-#: cantor.cpp:370
+#: cantor.cpp:374
 #, kde-format
 msgid "Session %1"
 msgstr "作業階段 %1"
 
-#: cantor.cpp:391
+#: cantor.cpp:392
 #, kde-format
 msgid "Failed to find the Cantor Part with error %1"
 msgstr "找不到 Cantor 元件，錯誤碼為 %1"
 
-#: cantor.cpp:438 cantor_part.cpp:621
+#: cantor.cpp:439 cantor_part.cpp:621
 #, kde-format
 msgid "Calculating..."
 msgstr "計算中..."
 
-#: cantor.cpp:441 cantor_part.cpp:632 cantor_part.cpp:695
+#: cantor.cpp:442 cantor_part.cpp:632 cantor_part.cpp:695
 #, kde-format
 msgid "Ready"
 msgstr "已就緒"
 
-#: cantor.cpp:485
+#: cantor.cpp:486
 #, fuzzy, kde-format
 #| msgid "Orange"
 msgid "Changed"
 msgstr "橘色"
 
-#: cantor.cpp:569
+#: cantor.cpp:570
 #, kde-format
 msgid "Multiple unsaved Worksheets are opened. Do you want to close them?"
 msgstr "有多個未儲存的工作表開啟中。是否要將它們關閉？"
 
-#: cantor.cpp:570
+#: cantor.cpp:571
 #, kde-format
 msgid "Close Cantor"
 msgstr "關閉 Cantor"
 
-#: cantor.cpp:586
+#: cantor.cpp:587
 #, kde-format
 msgid "The current project has been modified. Do you want to save it?"
 msgstr "專案已修改，您是否要儲存？"
 
-#: cantor.cpp:587
+#: cantor.cpp:588
 #, kde-format
 msgid "Save Project"
 msgstr "儲存專案"
 
-#: cantor.cpp:633
+#: cantor.cpp:634
 #, fuzzy, kde-format
 #| msgid "Plotting"
 msgid "Formatting"

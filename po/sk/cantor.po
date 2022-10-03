@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: cantor\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-08-07 00:40+0000\n"
+"POT-Creation-Date: 2022-10-03 00:41+0000\n"
 "PO-Revision-Date: 2020-12-02 18:11+0100\n"
 "Last-Translator: Roman Paholík <wizzardsk@gmail.com>\n"
 "Language-Team: Slovak <kde-sk@linux.sk>\n"
@@ -484,7 +484,7 @@ msgstr ""
 #: backends/maxima/settings.ui:21 backends/octave/settings.ui:21
 #: backends/python/settings.ui:21 backends/qalculate/settings.ui:21
 #: backends/R/settings.ui:21 backends/sage/settings.ui:21
-#: backends/scilab/settings.ui:21 cantor.cpp:632
+#: backends/scilab/settings.ui:21 cantor.cpp:633
 #, kde-format
 msgid "General"
 msgstr "Všeobecné"
@@ -2514,53 +2514,53 @@ msgstr ""
 "Backend %1 je nainštalovaný, ale neaktívny. Prosím, skontrolujte inštaláciu "
 "a nastavenia Cantor."
 
-#: cantor.cpp:370
+#: cantor.cpp:374
 #, kde-format
 msgid "Session %1"
 msgstr "Sedenie %1"
 
-#: cantor.cpp:391
+#: cantor.cpp:392
 #, kde-format
 msgid "Failed to find the Cantor Part with error %1"
 msgstr "Nepodarilo sa nájsť časť Cantor s chybou %1"
 
-#: cantor.cpp:438 cantor_part.cpp:621
+#: cantor.cpp:439 cantor_part.cpp:621
 #, kde-format
 msgid "Calculating..."
 msgstr "Vypočítava sa..."
 
-#: cantor.cpp:441 cantor_part.cpp:632 cantor_part.cpp:695
+#: cantor.cpp:442 cantor_part.cpp:632 cantor_part.cpp:695
 #, kde-format
 msgid "Ready"
 msgstr "Pripravený"
 
-#: cantor.cpp:485
+#: cantor.cpp:486
 #, fuzzy, kde-format
 #| msgid "Orange"
 msgid "Changed"
 msgstr "Oranžová"
 
-#: cantor.cpp:569
+#: cantor.cpp:570
 #, kde-format
 msgid "Multiple unsaved Worksheets are opened. Do you want to close them?"
 msgstr "Je otvorených viac neuložených pracovných listov. Chcete ich zatvoriť?"
 
-#: cantor.cpp:570
+#: cantor.cpp:571
 #, kde-format
 msgid "Close Cantor"
 msgstr "Zatvoriť Cantor"
 
-#: cantor.cpp:586
+#: cantor.cpp:587
 #, kde-format
 msgid "The current project has been modified. Do you want to save it?"
 msgstr "Aktuálny projekt bol zmenený. Chcete ho uložiť?"
 
-#: cantor.cpp:587
+#: cantor.cpp:588
 #, kde-format
 msgid "Save Project"
 msgstr "Uloženie projektu"
 
-#: cantor.cpp:633
+#: cantor.cpp:634
 #, fuzzy, kde-format
 #| msgid "Plotting"
 msgid "Formatting"
