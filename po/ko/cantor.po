@@ -7,9 +7,9 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2022-10-03 00:41+0000\n"
-"PO-Revision-Date: 2022-05-07 01:59+0200\n"
+"PO-Revision-Date: 2022-10-03 15:21+0200\n"
 "Last-Translator: Shinjo Park <kde@peremen.name>\n"
-"Language-Team: Korean <kde-kr@kde.org>\n"
+"Language-Team: Korean <kde-i18n-doc@kde.org>\n"
 "Language: ko\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -43,15 +43,14 @@ msgid "Stop"
 msgstr "정지"
 
 #: animationresultitem.cpp:113
-#, fuzzy, kde-format
-#| msgid "Save result"
+#, kde-format
 msgid "Save animation result"
-msgstr "결과 저장"
+msgstr "애니메이션 결과 저장"
 
 #: animationresultitem.cpp:113
 #, kde-format
 msgid "Animations (*.gif)"
-msgstr ""
+msgstr "애니메이션 (*.gif)"
 
 #: assistants/advancedplot/advancedplotassistant.cpp:30
 #, kde-format
@@ -2767,10 +2766,9 @@ msgstr "줄 번호"
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_AnimationDefault)
 #: cantor_part.cpp:240 settings.ui:125
-#, fuzzy, kde-format
-#| msgid "Functions"
+#, kde-format
 msgid "Animations"
-msgstr "함수"
+msgstr "애니메이션"
 
 #: cantor_part.cpp:247
 #, kde-format
@@ -2969,10 +2967,9 @@ msgstr "워크시트(&W)"
 
 #. i18n: ectx: Menu (settings)
 #: cantor_part.rc:50
-#, fuzzy, kde-format
-#| msgid "&Settings"
+#, kde-format
 msgid "Settings"
-msgstr "설정(&S)"
+msgstr "설정"
 
 #. i18n: ectx: Menu (file)
 #: cantor_shell.rc:4
@@ -3327,10 +3324,9 @@ msgid "Cannot load image %1"
 msgstr "%1 그림을 불러올 수 없음"
 
 #: imageresultitem.cpp:97
-#, fuzzy, kde-format
-#| msgid "Save result"
+#, kde-format
 msgid "Save image result"
-msgstr "결과 저장"
+msgstr "그림 결과 저장"
 
 #: imageresultitem.cpp:99 imagesettingsdialog.cpp:153 markdownentry.cpp:775
 #, kde-format
@@ -3885,10 +3881,9 @@ msgstr "LaTeX 코드"
 
 #. i18n: ectx: property (text), widget (QLabel, label_2)
 #: settings.ui:23
-#, fuzzy, kde-format
-#| msgid "Start"
+#, kde-format
 msgid "Startup:"
-msgstr "시작"
+msgstr "시작:"
 
 #. i18n: ectx: property (toolTip), widget (QLabel, label)
 #. i18n: ectx: property (toolTip), widget (KComboBox, kcfg_DefaultBackend)
@@ -3898,6 +3893,8 @@ msgid ""
 "Create a new worksheet for the selected backend system. If none is selected, "
 "the user is asked about which system to use on startup."
 msgstr ""
+"선택한 백엔드 시스템에서 새 워크시트를 만듭니다. 선택한 백엔드가 없으면 시작"
+"할 때 사용할 시스템을 물어봅니다."
 
 #. i18n: ectx: property (text), widget (QLabel, label)
 #: settings.ui:33
@@ -3907,68 +3904,59 @@ msgstr "기본 백엔드:"
 
 #. i18n: ectx: property (text), widget (QLabel, label_3)
 #: settings.ui:75
-#, fuzzy, kde-format
-#| msgid "&Worksheet"
+#, kde-format
 msgid "Worksheet:"
-msgstr "워크시트(&W)"
+msgstr "워크시트:"
 
 #. i18n: ectx: property (toolTip), widget (QCheckBox, kcfg_TypesetDefault)
 #: settings.ui:82
-#, fuzzy, kde-format
-#| msgid "Enable LaTeX typesetting for Sage backend"
+#, kde-format
 msgid ""
 "Enable LaTeX typesetting for the results of the calculations, if supported "
 "by the backend system"
-msgstr "Sage 백엔드의 LaTeX 조판 사용"
+msgstr "백엔드 시스템에서 지원하는 경우 계산 결과에 LaTeX 조판 활성화"
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_TypesetDefault)
 #: settings.ui:85
-#, fuzzy, kde-format
-#| msgid "LaTeX typesetting:"
+#, kde-format
 msgid "LaTeX typesetting"
-msgstr "LaTeX 조판:"
+msgstr "LaTeX 조판"
 
 #. i18n: ectx: property (toolTip), widget (QCheckBox, kcfg_HighlightDefault)
 #: settings.ui:92
-#, fuzzy, kde-format
-#| msgid "Enable Syntax Highlighting"
+#, kde-format
 msgid "Enable syntax highlighting"
 msgstr "구문 강조 활성화"
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_HighlightDefault)
 #: settings.ui:95
-#, fuzzy, kde-format
-#| msgid "Syntax Highlighting"
+#, kde-format
 msgid "Syntax highlighting"
 msgstr "구문 강조"
 
 #. i18n: ectx: property (toolTip), widget (QCheckBox, kcfg_CompletionDefault)
 #: settings.ui:102
-#, fuzzy, kde-format
-#| msgid "Enable Completion"
+#, kde-format
 msgid "Enable syntax completion"
 msgstr "자동 완성 활성화"
 
 #. i18n: ectx: property (toolTip), widget (QCheckBox, kcfg_ExpressionNumberingDefault)
 #: settings.ui:112
-#, fuzzy, kde-format
-#| msgid "Line Numbers"
+#, kde-format
 msgid "Show line numbers"
-msgstr "줄 번호"
+msgstr "줄 번호 표시"
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_ExpressionNumberingDefault)
 #: settings.ui:115
-#, fuzzy, kde-format
-#| msgid "Line Numbers"
+#, kde-format
 msgid "Line numbers"
 msgstr "줄 번호"
 
 #. i18n: ectx: property (toolTip), widget (QCheckBox, kcfg_AnimationDefault)
 #: settings.ui:122
-#, fuzzy, kde-format
-#| msgid "Integrate Plots into the Worksheet"
+#, kde-format
 msgid "Enable animation effects in the worksheet"
-msgstr "워크시트에 플롯 통합"
+msgstr "워크시트에 애니메이션 효과 사용"
 
 #. i18n: ectx: property (toolTip), widget (QCheckBox, kcfg_UseOldCantorEntriesIndent)
 #: settings.ui:132
@@ -3977,57 +3965,53 @@ msgid ""
 "If enabled, text entries are aligned at the worksheet border and not at the "
 "prompt border"
 msgstr ""
+"이 옵션을 사용하면 텍스트 항목을 프롬프트 경계선이 아닌 워크시트 경계선을 따"
+"라서 정렬합니다"
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_UseOldCantorEntriesIndent)
 #: settings.ui:135
 #, kde-format
 msgid "Don't indent text entries"
-msgstr ""
+msgstr "텍스트 항목을 들여 쓰지 않음"
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_StoreTextEntryFormatting)
 #: settings.ui:142
-#, fuzzy, kde-format
-#| msgid ""
-#| "Save rich text formatting of TextEntry, when save Worksheet in Jupyter "
-#| "notebook format"
+#, kde-format
 msgid ""
 "Use rich text format for text entries when saving in Jupyter Notebook Format"
-msgstr "Jupyter 노트북 형식으로 워크시트를 저장할 때 텍스트 항목의 서식 저장"
+msgstr "Jupyter 노트북 형식으로 저장할 때 서식 있는 텍스트 형식 사용"
 
 #. i18n: ectx: property (text), widget (QLabel, label_4)
 #: settings.ui:171
-#, fuzzy, kde-format
-#| msgid "Equations:"
+#, kde-format
 msgid "Evaluation:"
-msgstr "수식:"
+msgstr "평가:"
 
 #. i18n: ectx: property (toolTip), widget (QCheckBox, kcfg_WarnAboutSessionRestart)
 #: settings.ui:178
-#, fuzzy, kde-format
-#| msgid "Ask for confirmation when restarting the backend"
+#, kde-format
 msgid ""
 "If enabled, the user will be asked for confirmation prior to restarting the "
 "backend system"
-msgstr "백엔드를 다시 시작할 때 사용자에게 묻기"
+msgstr ""
+"이 옵션을 사용하면 백엔드 시스템을 다시 시작하기 전에 사용자에게 묻습니다"
 
 #. i18n: ectx: property (toolTip), widget (QCheckBox, kcfg_AutoEval)
 #: settings.ui:188
 #, kde-format
 msgid ""
 "If enabled, all entries below the current one will be evaluated automatically"
-msgstr ""
+msgstr "이 옵션을 사용하면 현재 항목 아래의 모든 항목을 자동으로 계산합니다"
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_AutoEval)
 #: settings.ui:191
-#, fuzzy, kde-format
-#| msgid "Reevaluate Entries automatically"
+#, kde-format
 msgid "Reevaluate entries automatically"
 msgstr "자동으로 항목 다시 계산"
 
 #. i18n: ectx: property (text), widget (QLabel, VisibleLinesLimit_label)
 #: settings.ui:201
-#, fuzzy, kde-format
-#| msgid "Maximal number of result visible rows (0 for unlimited):"
+#, kde-format
 msgid "Number of rows in the result (0 for unlimited):"
 msgstr "최대로 표시할 결과 행 개수(0은 무제한):"
 
@@ -4041,30 +4025,28 @@ msgstr "명령 항목 결과를 표시할 행 개수입니다. 0으로 지정하
 
 #. i18n: ectx: property (text), widget (QLabel, label_5)
 #: settings.ui:256
-#, fuzzy, kde-format
-#| msgid "Markdown"
+#, kde-format
 msgid "Markdown:"
-msgstr "Markdown"
+msgstr "Markdown:"
 
 #. i18n: ectx: property (toolTip), widget (QCheckBox, kcfg_EmbeddedMathDefault)
 #: settings.ui:263
-#, fuzzy, kde-format
-#| msgid "Enable LaTeX typesetting for Sage backend"
+#, kde-format
 msgid ""
 "Enable LaTeX typesetting for mathematical expressions in Markdown entries"
-msgstr "Sage 백엔드의 LaTeX 조판 사용"
+msgstr "Markdown 항목 내 수식 표현에 LaTeX 조판 사용"
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_EmbeddedMathDefault)
 #: settings.ui:266
 #, kde-format
 msgid "Mathematical expressions via LaTeX"
-msgstr ""
+msgstr "LaTeX을 통한 수식"
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_ShowMathRenderError)
 #: settings.ui:273
 #, kde-format
 msgid "Notify about render failures for mathematical expressions"
-msgstr ""
+msgstr "수식 렌더링 실패 알림"
 
 #. i18n: ectx: property (placeholderText), widget (KLineEdit, pattern)
 #: standardsearchbar.ui:35
@@ -4138,15 +4120,14 @@ msgid "Cannot render Eps file. You may need additional packages"
 msgstr "EPS 파일을 렌더할 수 없습니다. 추가 패키지가 필요합니다"
 
 #: textresultitem.cpp:213
-#, fuzzy, kde-format
-#| msgid "Save result"
+#, kde-format
 msgid "Save text result"
-msgstr "결과 저장"
+msgstr "텍스트 결과 저장"
 
 #: textresultitem.cpp:213
 #, kde-format
 msgid "Text Files (*.txt)"
-msgstr ""
+msgstr "텍스트 파일 (*.txt)"
 
 #: worksheet.cpp:1192
 #, kde-format
