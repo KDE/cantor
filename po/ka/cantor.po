@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: cantor\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2022-10-03 00:41+0000\n"
-"PO-Revision-Date: 2022-08-28 06:45+0200\n"
+"PO-Revision-Date: 2022-10-04 05:52+0200\n"
 "Last-Translator: Temuri Doghonadze <temuri.doghonadze@gmail.com>\n"
 "Language-Team: Georgian <kde-i18n-doc@kde.org>\n"
 "Language: ka\n"
@@ -135,7 +135,7 @@ msgstr ""
 #: assistants/importpackage/cantor_import_package_assistant.rc:4
 #, kde-format
 msgid "&Package"
-msgstr ""
+msgstr "&პაკეტი"
 
 #: assistants/importpackage/importpackageassistant.cpp:29
 #, kde-format
@@ -157,19 +157,19 @@ msgstr "ინტეგრირება"
 #: assistants/integrate/integratedlg.ui:49
 #, kde-format
 msgid "Lower limit:"
-msgstr ""
+msgstr "ქვედა ლიმიტი:"
 
 #. i18n: ectx: property (text), widget (QLabel, label_4)
 #: assistants/integrate/integratedlg.ui:63
 #, kde-format
 msgid "Upper limit:"
-msgstr ""
+msgstr "ზედა ლიმიტი:"
 
 #. i18n: ectx: property (text), widget (QCheckBox, isDefinite)
 #: assistants/integrate/integratedlg.ui:77
 #, kde-format
 msgid "definite integral"
-msgstr ""
+msgstr "განაზღვრული ინტეგრალი"
 
 #. i18n: ectx: Menu (linear_algebra)
 #: assistants/linearalgebra/creatematrix/cantor_create_matrix_assistant.rc:4
@@ -178,7 +178,7 @@ msgstr ""
 #: assistants/linearalgebra/invertmatrix/cantor_invert_matrix_assistant.rc:4
 #, kde-format
 msgid "&Linear Algebra"
-msgstr ""
+msgstr "&წრფივი ალგებრა"
 
 #: assistants/linearalgebra/creatematrix/creatematrixassistant.cpp:26
 #, kde-format
@@ -200,7 +200,7 @@ msgstr "სტრიქონები:"
 #: assistants/linearalgebra/eigenvalues/eigenvaluesassistant.cpp:28
 #, kde-format
 msgid "Compute Eigenvalues"
-msgstr ""
+msgstr "საკუთრივი მნიშვნელობების გამოთვლა"
 
 #. i18n: ectx: property (text), widget (QLabel, label)
 #: assistants/linearalgebra/eigenvalues/eigenvaluesdlg.ui:17
@@ -208,12 +208,12 @@ msgstr ""
 #: assistants/linearalgebra/invertmatrix/invertmatrixdlg.ui:17
 #, kde-format
 msgid "Matrix:"
-msgstr ""
+msgstr "მატრიცა:"
 
 #: assistants/linearalgebra/eigenvectors/eigenvectorsassistant.cpp:28
 #, kde-format
 msgid "Compute Eigenvectors"
-msgstr ""
+msgstr "საკუთრივი ვექტორების გამოთვლა"
 
 #: assistants/linearalgebra/invertmatrix/invertmatrixassistant.cpp:28
 #, kde-format
@@ -264,30 +264,30 @@ msgstr ""
 #: assistants/plot3d/plot3ddlg.ui:29
 #, kde-format
 msgid "1st Variable"
-msgstr ""
+msgstr "პირველი ცვლადი"
 
 #. i18n: ectx: property (title), widget (QGroupBox, groupBox_2)
 #: assistants/plot3d/plot3ddlg.ui:74
 #, kde-format
 msgid "2nd Variable"
-msgstr ""
+msgstr "მეორე ცვლადი"
 
 #: assistants/runscript/runscriptassistant.cpp:28
 #: scripteditor/scripteditorwidget.cpp:39
 #, kde-format
 msgid "Run Script"
-msgstr ""
+msgstr "სკრიპტის გაშვება"
 
 #: assistants/solve/solveassistant.cpp:28
 #, kde-format
 msgid "Solve equations"
-msgstr ""
+msgstr "ტოლობების ამოხსნა"
 
 #. i18n: ectx: property (text), widget (QLabel, label)
 #: assistants/solve/solvedlg.ui:19
 #, kde-format
 msgid "Equations:"
-msgstr ""
+msgstr "ტოლობები:"
 
 #. i18n: ectx: property (text), widget (QLabel, label_2)
 #: assistants/solve/solvedlg.ui:33
@@ -298,7 +298,7 @@ msgstr "ცვლადები:"
 #: backendchoosedialog.cpp:64
 #, kde-format
 msgid "Select the Backend"
-msgstr ""
+msgstr "აირჩიეთ უკანაბოლო"
 
 #: backendchoosedialog.cpp:110
 #, kde-format
@@ -572,7 +572,7 @@ msgstr ""
 #: backends/julia/settings.ui:115 backends/python/settings.ui:109
 #, kde-format
 msgid "GR"
-msgstr ""
+msgstr "GR"
 
 #. i18n: ectx: property (text), item, widget (KComboBox, kcfg_plotExtenstionGraphicPackage)
 #: backends/julia/settings.ui:120
@@ -584,13 +584,13 @@ msgstr ""
 #: backends/julia/settings.ui:125
 #, kde-format
 msgid "PyPlot"
-msgstr ""
+msgstr "PyPlot"
 
 #. i18n: ectx: property (text), item, widget (KComboBox, kcfg_plotExtenstionGraphicPackage)
 #: backends/julia/settings.ui:130
 #, kde-format
 msgid "Gadfly"
-msgstr ""
+msgstr "Gadfly"
 
 #. i18n: ectx: attribute (title), widget (QWidget, tabAutorun)
 #. i18n: ectx: attribute (title), widget (QWidget, tabAutoran)
@@ -658,7 +658,7 @@ msgstr "შეცდომა: %1"
 #: backends/kalgebra/kalgebrasyntaxhelpobject.cpp:27
 #, kde-format
 msgid "<p><b>%1:</b> %2</p>"
-msgstr ""
+msgstr "<p><b>%1:</b> %2</p>"
 
 #. i18n: ectx: property (toolTip), widget (QGroupBox, groupBox)
 #: backends/kalgebra/settings.ui:17
@@ -672,7 +672,7 @@ msgstr ""
 #, kde-format
 msgctxt "Lua official documentation"
 msgid "https://www.lua.org/docs.html"
-msgstr ""
+msgstr "https://www.lua.org/docs.html"
 
 #: backends/lua/luabackend.cpp:57
 #, kde-format
@@ -1093,7 +1093,7 @@ msgstr ""
 #: backends/qalculate/settings.ui:406
 #, kde-format
 msgid "Bezier"
-msgstr ""
+msgstr "ბეზიე"
 
 #. i18n: ectx: property (text), item, widget (KComboBox, smoothingBox)
 #. i18n: ectx: property (text), item, widget (KComboBox, kcfg_plotSmoothing)
@@ -1301,13 +1301,13 @@ msgstr "PNG"
 #: backends/qalculate/plotassistant/qalculateplotdialog.ui:565
 #, kde-format
 msgid "PS"
-msgstr ""
+msgstr "PS"
 
 #. i18n: ectx: property (text), item, widget (KComboBox, saveFileBox)
 #: backends/qalculate/plotassistant/qalculateplotdialog.ui:570
 #, kde-format
 msgid "EPS"
-msgstr ""
+msgstr "EPS"
 
 #. i18n: ectx: property (text), item, widget (KComboBox, saveFileBox)
 #: backends/qalculate/plotassistant/qalculateplotdialog.ui:575
@@ -1326,7 +1326,7 @@ msgstr "SVG"
 #: backends/qalculate/plotassistant/qalculateplotdialog.ui:585
 #, kde-format
 msgid "FIG"
-msgstr ""
+msgstr "FIG"
 
 #: backends/qalculate/qalculatebackend.cpp:51
 #, kde-format
@@ -1511,7 +1511,7 @@ msgstr ""
 #: backends/qalculate/qalculatehighlighter.cpp:29
 #, kde-format
 msgid "WARNING"
-msgstr ""
+msgstr "გაფრთხილება"
 
 #: backends/qalculate/qalculatesyntaxhelpobject.cpp:46
 #, kde-format
@@ -1855,7 +1855,7 @@ msgstr ""
 #: backends/qalculate/settings.ui:249
 #, kde-format
 msgid "Simplify"
-msgstr ""
+msgstr "გამარტივება"
 
 #. i18n: ectx: property (text), item, widget (KComboBox, kcfg_structuring)
 #: backends/qalculate/settings.ui:254
@@ -1934,7 +1934,7 @@ msgstr ""
 #: backends/qalculate/settings.ui:535
 #, kde-format
 msgid "Show grid:"
-msgstr ""
+msgstr "ბადის ჩვენება:"
 
 #. i18n: ectx: property (text), widget (QLabel, label_14)
 #: backends/qalculate/settings.ui:545
@@ -2092,7 +2092,7 @@ msgctxt ""
 "the url to the documentation of R, please check if there is a translated "
 "version and use the correct url"
 msgid "https://cran.r-project.org/manuals.html"
-msgstr ""
+msgstr "https://cran.r-project.org/manuals.html"
 
 #: backends/R/rbackend.cpp:88
 #, kde-format
@@ -2342,6 +2342,7 @@ msgid_plural ""
 "<li>Installing packages for one of the following programs:</li>     %2   </"
 "ul> </div> "
 msgstr[0] ""
+msgstr[1] ""
 
 #: cantor.cpp:315
 #, kde-format
@@ -2363,7 +2364,7 @@ msgstr ""
 #: cantor.cpp:374
 #, kde-format
 msgid "Session %1"
-msgstr ""
+msgstr "სესია %1"
 
 #: cantor.cpp:392
 #, kde-format
@@ -2408,7 +2409,7 @@ msgstr "პროექტის შენახვა"
 #: cantor.cpp:634
 #, kde-format
 msgid "Formatting"
-msgstr ""
+msgstr "ფორმატირება"
 
 #. i18n: ectx: label, entry (DefaultBackend), group (Cantor)
 #: cantor.kcfg:12
@@ -3044,19 +3045,19 @@ msgstr ""
 #: extendedsearchbar.ui:173 standardsearchbar.ui:62
 #, kde-format
 msgid "&Match case"
-msgstr ""
+msgstr "&დიდი და პატარა ასოების სხვაობა"
 
 #. i18n: ectx: property (title), widget (QGroupBox, groupBox)
 #: formating.ui:27
 #, kde-format
 msgid "Hierarchy Fonts"
-msgstr ""
+msgstr "იერარქიის ფონტები"
 
 #. i18n: ectx: attribute (title), widget (QWidget, ChapterTab)
 #: formating.ui:37
 #, kde-format
 msgid "Chapter Font"
-msgstr ""
+msgstr "თავის ფონტი"
 
 #. i18n: ectx: property (text), widget (QLabel, label_2)
 #. i18n: ectx: property (text), widget (QLabel, label_4)
@@ -3080,47 +3081,47 @@ msgstr "ფონტის ოჯახი:"
 #: formating.ui:295 formating.ui:354
 #, kde-format
 msgid "Font Size:"
-msgstr ""
+msgstr "ფონტის ზომა:"
 
 #. i18n: ectx: attribute (title), widget (QWidget, SubchapterTab)
 #: formating.ui:96
 #, kde-format
 msgid "Subchapter Font"
-msgstr ""
+msgstr "ქვეთავის ფონტი"
 
 #. i18n: ectx: attribute (title), widget (QWidget, SectionTab)
 #: formating.ui:155
 #, kde-format
 msgid "Section Font"
-msgstr ""
+msgstr "სექციის ფონტი"
 
 #. i18n: ectx: attribute (title), widget (QWidget, SubsectionTab)
 #: formating.ui:214
 #, kde-format
 msgid "Subsection Font"
-msgstr ""
+msgstr "ქვესექციის ფონტი"
 
 #. i18n: ectx: attribute (title), widget (QWidget, ParagraphTab)
 #: formating.ui:273
 #, kde-format
 msgid "Paragraph Font"
-msgstr ""
+msgstr "პარაგრაფის ფონტი"
 
 #. i18n: ectx: attribute (title), widget (QWidget, SubparagraphTab)
 #: formating.ui:332
 #, kde-format
 msgid "Subparagraph Font"
-msgstr ""
+msgstr "ქვეპარაგრაფის ფონტი"
 
 #: hierarchyentry.cpp:22
 #, kde-format
 msgid "Chapter"
-msgstr ""
+msgstr "თავი"
 
 #: hierarchyentry.cpp:22
 #, kde-format
 msgid "Subchapter"
-msgstr ""
+msgstr "ქვეთავი"
 
 #: hierarchyentry.cpp:22
 #, kde-format
@@ -3130,7 +3131,7 @@ msgstr "სექცია"
 #: hierarchyentry.cpp:22
 #, kde-format
 msgid "Subsection"
-msgstr ""
+msgstr "ქვესექცია"
 
 #: hierarchyentry.cpp:22
 #, kde-format
@@ -3140,7 +3141,7 @@ msgstr "პარაგრაფი"
 #: hierarchyentry.cpp:22
 #, kde-format
 msgid "Subparagraph"
-msgstr ""
+msgstr "ქვეპარაგრაფი"
 
 #: hierarchyentry.cpp:48
 #, kde-format
@@ -3175,7 +3176,7 @@ msgstr ""
 #: horizontalruleentry.cpp:297
 #, kde-format
 msgid "Line Thickness"
-msgstr ""
+msgstr "ხაზის სისქე"
 
 #: horizontalruleentry.cpp:299
 #, kde-format
@@ -3286,7 +3287,7 @@ msgstr "გამოსახულების პარამეტრებ�
 #: imagesettingsdialog.cpp:40
 #, kde-format
 msgid "(auto)"
-msgstr ""
+msgstr "(ავტო)"
 
 #: imagesettingsdialog.cpp:40
 #, kde-format
@@ -3367,7 +3368,7 @@ msgstr "მნიშვნელობა"
 #: lib/defaultvariablemodel.cpp:102
 #, kde-format
 msgid "<%1 bytes>"
-msgstr ""
+msgstr "<%1 ბაიტი>"
 
 #: lib/defaultvariablemodel.cpp:104
 #, kde-format
@@ -3445,7 +3446,7 @@ msgstr ""
 #: main.cpp:78
 #, kde-format
 msgid "Filipe Saraiva"
-msgstr ""
+msgstr "Filipe Saraiva"
 
 #: main.cpp:78
 #, kde-format
@@ -3455,7 +3456,7 @@ msgstr ""
 #: main.cpp:79
 #, kde-format
 msgid "Nikita Sirgienko"
-msgstr ""
+msgstr "Nikita Sirgienko"
 
 #: main.cpp:79 main.cpp:80
 #, kde-format
@@ -3496,7 +3497,7 @@ msgstr "Octave-ის უკანაბოლო"
 #: main.cpp:84
 #, kde-format
 msgid "Martin Küttler"
-msgstr ""
+msgstr "Martin Küttler"
 
 #: main.cpp:84
 #, kde-format
@@ -3516,7 +3517,7 @@ msgstr ""
 #: main.cpp:95
 #, kde-format
 msgid "Documents to open."
-msgstr ""
+msgstr "გასახსნელი დოკუმენტები."
 
 #: main.cpp:130
 #, kde-format
@@ -3582,13 +3583,13 @@ msgstr "დახურვა"
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Jump to next match"
-msgstr ""
+msgstr "შემდეგ დამთხვევაზე გადასვლა"
 
 #: panelplugins/documentationpanel/documentationpanelwidget.cpp:137
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Jump to previous match"
-msgstr ""
+msgstr "წინა დამთხვევაზე გადასვლა"
 
 #: panelplugins/documentationpanel/documentationpanelwidget.cpp:141
 #, kde-format
@@ -3663,7 +3664,7 @@ msgstr ""
 #: panelplugins/variablemgr/variablemanagerwidget.cpp:73
 #, kde-format
 msgid "Search/Filter"
-msgstr ""
+msgstr "ძებნა/გაფილტვრა"
 
 #: panelplugins/variablemgr/variablemanagerwidget.cpp:84
 #, kde-format
@@ -3732,6 +3733,7 @@ msgstr ""
 msgid "Replaced %1 instance"
 msgid_plural "Replaced %1 instances"
 msgstr[0] ""
+msgstr[1] ""
 
 #: searchbar.cpp:333 searchbar.cpp:362
 #, kde-format
@@ -4168,12 +4170,12 @@ msgstr ""
 #: worksheet.cpp:1835
 #, kde-format
 msgid "Insert After"
-msgstr ""
+msgstr "ჩასმა შემდეგ"
 
 #: worksheet.cpp:1856
 #, kde-format
 msgid "Insert Before"
-msgstr ""
+msgstr "ჩასმა მანამდე"
 
 #: worksheet.cpp:1875
 #, kde-format
@@ -4193,7 +4195,7 @@ msgstr "და_პატარავება"
 #: worksheet.cpp:1923
 #, kde-format
 msgid "Original Size"
-msgstr ""
+msgstr "საწყისი ზომა"
 
 #: worksheet.cpp:1931
 #, kde-format
