@@ -2525,7 +2525,7 @@ msgstr "Descarrega exemples"
 #: cantor.cpp:149
 #, kde-format
 msgid "&Open Example"
-msgstr "&Obri un exemple"
+msgstr "O&bri un exemple"
 
 #: cantor.cpp:154
 #, kde-format
@@ -3091,7 +3091,7 @@ msgstr "&Edita"
 #: cantor_part.rc:27 cantor_shell.rc:22
 #, kde-format
 msgid "&View"
-msgstr "&Visualitza"
+msgstr "Vi&sualitza"
 
 #. i18n: ectx: Menu (worksheet)
 #: cantor_part.rc:33
@@ -3109,7 +3109,7 @@ msgstr "Configuració"
 #: cantor_shell.rc:4
 #, kde-format
 msgid "&File"
-msgstr "&Fitxer"
+msgstr "Fi&txer"
 
 #. i18n: ectx: Menu (file_new_menu)
 #: cantor_shell.rc:6
@@ -3127,7 +3127,7 @@ msgstr "Quadros"
 #: cantor_shell.rc:29
 #, kde-format
 msgid "&Settings"
-msgstr "&Configuració"
+msgstr "Con&figuració"
 
 #: commandentry.cpp:120
 #, kde-format
@@ -3265,7 +3265,7 @@ msgstr "Substituïx:"
 #: extendedsearchbar.ui:116
 #, kde-format
 msgid "&Replace"
-msgstr "&Substituïx"
+msgstr "Su&bstituïx"
 
 #. i18n: ectx: property (text), widget (QPushButton, replaceAll)
 #: extendedsearchbar.ui:123
