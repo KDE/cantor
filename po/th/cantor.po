@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-10-03 00:41+0000\n"
+"POT-Creation-Date: 2022-10-08 00:40+0000\n"
 "PO-Revision-Date: 2011-05-12 22:47+0700\n"
 "Last-Translator: Phuwanat Sakornsakolpat <narachai@gmail.com>\n"
 "Language-Team: Thai <thai-l10n@googlegroups.com>\n"
@@ -424,7 +424,7 @@ msgid "Julia script file (*.jl)"
 msgstr "*.R|แฟ้มสคริปต์ R"
 
 #: backends/julia/juliasession.cpp:111 backends/julia/juliasession.cpp:120
-#: backends/maxima/maximasession.cpp:265 cantor_part.cpp:963
+#: backends/maxima/maximasession.cpp:265 cantor_part.cpp:946
 #: lib/session.cpp:311 lib/session.cpp:313 worksheet.cpp:1193
 #: worksheet.cpp:1221 worksheet.cpp:1236 worksheet.cpp:1252 worksheet.cpp:1296
 #: worksheet.cpp:1308
@@ -477,7 +477,7 @@ msgstr ""
 #: backends/maxima/settings.ui:21 backends/octave/settings.ui:21
 #: backends/python/settings.ui:21 backends/qalculate/settings.ui:21
 #: backends/R/settings.ui:21 backends/sage/settings.ui:21
-#: backends/scilab/settings.ui:21 cantor.cpp:633
+#: backends/scilab/settings.ui:21 cantor.cpp:627
 #, kde-format
 msgid "General"
 msgstr "ทั่วไป"
@@ -902,7 +902,7 @@ msgstr ""
 #: backends/octave/octavesession.cpp:414 backends/sage/sagesession.cpp:238
 #: backends/sage/sagesession.cpp:271 backends/sage/sagesession.cpp:337
 #: backends/sage/sagesession.cpp:348 cantor.cpp:216 cantor.cpp:218
-#: cantor.cpp:336 cantor.cpp:343 lib/session.cpp:381 main.cpp:66 main.cpp:130
+#: cantor.cpp:337 cantor.cpp:344 lib/session.cpp:381 main.cpp:66 main.cpp:130
 #: markdownentry.cpp:797 textentry.cpp:553 worksheet.cpp:1275
 #, kde-format
 msgid "Cantor"
@@ -2487,67 +2487,67 @@ msgstr[0] ""
 msgid "Error"
 msgstr "ผิดพลาด"
 
-#: cantor.cpp:336
+#: cantor.cpp:337
 #, kde-format
 msgid "Backend %1 is not installed"
 msgstr "โปรแกรมเบื้องหลัง %1 ยังไม่ถูกติดตั้ง"
 
-#: cantor.cpp:343
+#: cantor.cpp:344
 #, kde-format
 msgid ""
 "%1 backend installed, but inactive. Please check installation and Cantor "
 "settings"
 msgstr ""
 
-#: cantor.cpp:374
+#: cantor.cpp:373
 #, kde-format
 msgid "Session %1"
 msgstr "วาระ %1"
 
-#: cantor.cpp:392
+#: cantor.cpp:386
 #, fuzzy, kde-format
 #| msgid "Could not find the Cantor Part."
 msgid "Failed to find the Cantor Part with error %1"
 msgstr "ไม่พบ Cantor Part"
 
-#: cantor.cpp:439 cantor_part.cpp:621
+#: cantor.cpp:433 cantor_part.cpp:621
 #, kde-format
 msgid "Calculating..."
 msgstr "กำลังคำนวณ..."
 
-#: cantor.cpp:442 cantor_part.cpp:632 cantor_part.cpp:695
+#: cantor.cpp:436 cantor_part.cpp:632 cantor_part.cpp:695
 #, kde-format
 msgid "Ready"
 msgstr "พร้อม"
 
-#: cantor.cpp:486
+#: cantor.cpp:480
 #, kde-format
 msgid "Changed"
 msgstr ""
 
-#: cantor.cpp:570
+#: cantor.cpp:564
 #, kde-format
 msgid "Multiple unsaved Worksheets are opened. Do you want to close them?"
 msgstr ""
 
-#: cantor.cpp:571
+#: cantor.cpp:565
 #, fuzzy, kde-format
 #| msgid "Cantor"
 msgid "Close Cantor"
 msgstr "Cantor"
 
-#: cantor.cpp:587
+#: cantor.cpp:581
 #, kde-format
 msgid "The current project has been modified. Do you want to save it?"
 msgstr ""
 
-#: cantor.cpp:588
+#: cantor.cpp:582
 #, fuzzy, kde-format
 #| msgid "Save result"
 msgid "Save Project"
 msgstr "บันทึกผล"
 
-#: cantor.cpp:634
+#: cantor.cpp:628
 #, fuzzy, kde-format
 #| msgid "Plot"
 msgid "Formatting"
@@ -2970,27 +2970,27 @@ msgstr "กำลังเริ่มวาระ"
 msgid "[read-only]"
 msgstr ""
 
-#: cantor_part.cpp:883
+#: cantor_part.cpp:866
 #, kde-format
 msgid "Do you want to upload current Worksheet to public web server?"
 msgstr "คุณต้องการจะอัพโหลดแผ่นงานปัจจุบันไปยังเว็บเซิร์ฟเวอร์สาธารณะหรือไม่?"
 
-#: cantor_part.cpp:884
+#: cantor_part.cpp:867
 #, kde-format
 msgid "Question - Cantor"
 msgstr "คำถาม - Cantor"
 
-#: cantor_part.cpp:890
+#: cantor_part.cpp:873
 #, kde-format
 msgid "The Worksheet is not saved. You should save it before uploading."
 msgstr "คุณน่าจะบันทึกแผ่นงานก่อนที่จะอัพโหลด"
 
-#: cantor_part.cpp:891
+#: cantor_part.cpp:874
 #, kde-format
 msgid "Warning - Cantor"
 msgstr "คำเตือน - Cantor"
 
-#: cantor_part.cpp:963
+#: cantor_part.cpp:946
 #, kde-format
 msgid "This backend does not support scripts."
 msgstr "โปรแกรมเบื้องหลังนี้ไม่สนับสนุนการใช้สคริปต์"
@@ -3481,40 +3481,40 @@ msgstr ""
 msgid "Show LaTeX code"
 msgstr "แสดงโค้ด"
 
-#: lib/backend.cpp:183
+#: lib/backend.cpp:162
 #, kde-format
 msgid ""
 "No path for the %1 executable specified. Please provide the correct path in "
 "the application settings and try again."
 msgstr ""
 
-#: lib/backend.cpp:193
+#: lib/backend.cpp:172
 #, kde-format
 msgid ""
 "The specified file '%1' for the %2 executable doesn't exist. Please provide "
 "the correct path in the application settings and try again."
 msgstr ""
 
-#: lib/backend.cpp:202
+#: lib/backend.cpp:181
 #, kde-format
 msgid ""
 "The specified file '%1' doesn't point to an executable. Please provide the "
 "correct path in the application settings and try again."
 msgstr ""
 
-#: lib/backend.cpp:221
+#: lib/backend.cpp:200
 #, kde-format
 msgid ""
 "The program %1 didn't finish the execution after %2 milliseconds during the "
 "plot integration test."
 msgstr ""
 
-#: lib/backend.cpp:230
+#: lib/backend.cpp:209
 #, kde-format
 msgid "Failed to open the file %1 during the plot integration test."
 msgstr ""
 
-#: lib/backend.cpp:238
+#: lib/backend.cpp:217
 #, kde-format
 msgid "Failed to parse the result during the plot integration test."
 msgstr ""

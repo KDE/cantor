@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kdeorg\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-10-03 00:41+0000\n"
+"POT-Creation-Date: 2022-10-08 00:40+0000\n"
 "PO-Revision-Date: 2022-10-02 15:49\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Simplified\n"
@@ -423,7 +423,7 @@ msgid "Julia script file (*.jl)"
 msgstr "Julia 脚本文件 (*.jl)"
 
 #: backends/julia/juliasession.cpp:111 backends/julia/juliasession.cpp:120
-#: backends/maxima/maximasession.cpp:265 cantor_part.cpp:963
+#: backends/maxima/maximasession.cpp:265 cantor_part.cpp:946
 #: lib/session.cpp:311 lib/session.cpp:313 worksheet.cpp:1193
 #: worksheet.cpp:1221 worksheet.cpp:1236 worksheet.cpp:1252 worksheet.cpp:1296
 #: worksheet.cpp:1308
@@ -479,7 +479,7 @@ msgstr ""
 #: backends/maxima/settings.ui:21 backends/octave/settings.ui:21
 #: backends/python/settings.ui:21 backends/qalculate/settings.ui:21
 #: backends/R/settings.ui:21 backends/sage/settings.ui:21
-#: backends/scilab/settings.ui:21 cantor.cpp:633
+#: backends/scilab/settings.ui:21 cantor.cpp:627
 #, kde-format
 msgid "General"
 msgstr "常规"
@@ -868,7 +868,7 @@ msgstr "绘图集成将被禁用。"
 #: backends/octave/octavesession.cpp:414 backends/sage/sagesession.cpp:238
 #: backends/sage/sagesession.cpp:271 backends/sage/sagesession.cpp:337
 #: backends/sage/sagesession.cpp:348 cantor.cpp:216 cantor.cpp:218
-#: cantor.cpp:336 cantor.cpp:343 lib/session.cpp:381 main.cpp:66 main.cpp:130
+#: cantor.cpp:337 cantor.cpp:344 lib/session.cpp:381 main.cpp:66 main.cpp:130
 #: markdownentry.cpp:797 textentry.cpp:553 worksheet.cpp:1275
 #, kde-format
 msgid "Cantor"
@@ -2420,64 +2420,64 @@ msgstr[0] ""
 msgid "Error"
 msgstr "错误"
 
-#: cantor.cpp:336
+#: cantor.cpp:337
 #, kde-format
 msgid "Backend %1 is not installed"
 msgstr "后端 %1 未安装"
 
-#: cantor.cpp:343
+#: cantor.cpp:344
 #, kde-format
 msgid ""
 "%1 backend installed, but inactive. Please check installation and Cantor "
 "settings"
 msgstr "已安装 %1 后端，但未激活。请检查安装和 Cantor 设置"
 
-#: cantor.cpp:374
+#: cantor.cpp:373
 #, kde-format
 msgid "Session %1"
 msgstr "会话 %1"
 
-#: cantor.cpp:392
+#: cantor.cpp:386
 #, kde-format
 msgid "Failed to find the Cantor Part with error %1"
 msgstr "无法找到 Cantor 组件：%1"
 
-#: cantor.cpp:439 cantor_part.cpp:621
+#: cantor.cpp:433 cantor_part.cpp:621
 #, kde-format
 msgid "Calculating..."
 msgstr "正在计算..."
 
-#: cantor.cpp:442 cantor_part.cpp:632 cantor_part.cpp:695
+#: cantor.cpp:436 cantor_part.cpp:632 cantor_part.cpp:695
 #, kde-format
 msgid "Ready"
 msgstr "就绪"
 
-#: cantor.cpp:486
+#: cantor.cpp:480
 #, kde-format
 msgid "Changed"
 msgstr "已更改"
 
-#: cantor.cpp:570
+#: cantor.cpp:564
 #, kde-format
 msgid "Multiple unsaved Worksheets are opened. Do you want to close them?"
 msgstr "打开了多个未保存的工作表。是否要关闭它们？"
 
-#: cantor.cpp:571
+#: cantor.cpp:565
 #, kde-format
 msgid "Close Cantor"
 msgstr "关闭 Cantor"
 
-#: cantor.cpp:587
+#: cantor.cpp:581
 #, kde-format
 msgid "The current project has been modified. Do you want to save it?"
 msgstr "当前项目已被修改。您想要保存它吗？"
 
-#: cantor.cpp:588
+#: cantor.cpp:582
 #, kde-format
 msgid "Save Project"
 msgstr "保存项目"
 
-#: cantor.cpp:634
+#: cantor.cpp:628
 #, kde-format
 msgid "Formatting"
 msgstr "格式"
@@ -2890,27 +2890,27 @@ msgstr "正在初始化..."
 msgid "[read-only]"
 msgstr "[只读]"
 
-#: cantor_part.cpp:883
+#: cantor_part.cpp:866
 #, kde-format
 msgid "Do you want to upload current Worksheet to public web server?"
 msgstr "您想要将当前工作表上传到公共网页服务器上吗？"
 
-#: cantor_part.cpp:884
+#: cantor_part.cpp:867
 #, kde-format
 msgid "Question - Cantor"
 msgstr "问题 - Cantor"
 
-#: cantor_part.cpp:890
+#: cantor_part.cpp:873
 #, kde-format
 msgid "The Worksheet is not saved. You should save it before uploading."
 msgstr "此工作表尚未保存。您需要在上传前先保存它。"
 
-#: cantor_part.cpp:891
+#: cantor_part.cpp:874
 #, kde-format
 msgid "Warning - Cantor"
 msgstr "警告 - Cantor"
 
-#: cantor_part.cpp:963
+#: cantor_part.cpp:946
 #, kde-format
 msgid "This backend does not support scripts."
 msgstr "此后端不支持脚本"
@@ -3382,40 +3382,40 @@ msgstr "打开图像文件"
 msgid "Show LaTeX code"
 msgstr "显示 LaTeX 代码"
 
-#: lib/backend.cpp:183
+#: lib/backend.cpp:162
 #, kde-format
 msgid ""
 "No path for the %1 executable specified. Please provide the correct path in "
 "the application settings and try again."
 msgstr ""
 
-#: lib/backend.cpp:193
+#: lib/backend.cpp:172
 #, kde-format
 msgid ""
 "The specified file '%1' for the %2 executable doesn't exist. Please provide "
 "the correct path in the application settings and try again."
 msgstr ""
 
-#: lib/backend.cpp:202
+#: lib/backend.cpp:181
 #, kde-format
 msgid ""
 "The specified file '%1' doesn't point to an executable. Please provide the "
 "correct path in the application settings and try again."
 msgstr ""
 
-#: lib/backend.cpp:221
+#: lib/backend.cpp:200
 #, kde-format
 msgid ""
 "The program %1 didn't finish the execution after %2 milliseconds during the "
 "plot integration test."
 msgstr "在绘图集成测试中，程序 %1 没有在 %2 毫秒内完成执行。"
 
-#: lib/backend.cpp:230
+#: lib/backend.cpp:209
 #, kde-format
 msgid "Failed to open the file %1 during the plot integration test."
 msgstr ""
 
-#: lib/backend.cpp:238
+#: lib/backend.cpp:217
 #, kde-format
 msgid "Failed to parse the result during the plot integration test."
 msgstr "无法解析绘图集成测试中产生的结果。"

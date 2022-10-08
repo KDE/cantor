@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kdeedu-kde4\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-10-03 00:41+0000\n"
+"POT-Creation-Date: 2022-10-08 00:40+0000\n"
 "PO-Revision-Date: 2022-08-07 13:15+0300\n"
 "Last-Translator: Emir SARI <emir_sari@icloud.com>\n"
 "Language-Team: Turkish <kde-l10n-tr@kde.org>\n"
@@ -434,7 +434,7 @@ msgid "Julia script file (*.jl)"
 msgstr "Julia betik dosyası (*.jl)"
 
 #: backends/julia/juliasession.cpp:111 backends/julia/juliasession.cpp:120
-#: backends/maxima/maximasession.cpp:265 cantor_part.cpp:963
+#: backends/maxima/maximasession.cpp:265 cantor_part.cpp:946
 #: lib/session.cpp:311 lib/session.cpp:313 worksheet.cpp:1193
 #: worksheet.cpp:1221 worksheet.cpp:1236 worksheet.cpp:1252 worksheet.cpp:1296
 #: worksheet.cpp:1308
@@ -494,7 +494,7 @@ msgstr ""
 #: backends/maxima/settings.ui:21 backends/octave/settings.ui:21
 #: backends/python/settings.ui:21 backends/qalculate/settings.ui:21
 #: backends/R/settings.ui:21 backends/sage/settings.ui:21
-#: backends/scilab/settings.ui:21 cantor.cpp:633
+#: backends/scilab/settings.ui:21 cantor.cpp:627
 #, kde-format
 msgid "General"
 msgstr "Genel"
@@ -927,7 +927,7 @@ msgstr "Çizimlerin tümleştirilmesi devre dışı bırakılacak."
 #: backends/octave/octavesession.cpp:414 backends/sage/sagesession.cpp:238
 #: backends/sage/sagesession.cpp:271 backends/sage/sagesession.cpp:337
 #: backends/sage/sagesession.cpp:348 cantor.cpp:216 cantor.cpp:218
-#: cantor.cpp:336 cantor.cpp:343 lib/session.cpp:381 main.cpp:66 main.cpp:130
+#: cantor.cpp:337 cantor.cpp:344 lib/session.cpp:381 main.cpp:66 main.cpp:130
 #: markdownentry.cpp:797 textentry.cpp:553 worksheet.cpp:1275
 #, kde-format
 msgid "Cantor"
@@ -2539,12 +2539,12 @@ msgstr[1] ""
 msgid "Error"
 msgstr "Hata"
 
-#: cantor.cpp:336
+#: cantor.cpp:337
 #, kde-format
 msgid "Backend %1 is not installed"
 msgstr "%1 arka ucu kurulu değil"
 
-#: cantor.cpp:343
+#: cantor.cpp:344
 #, kde-format
 msgid ""
 "%1 backend installed, but inactive. Please check installation and Cantor "
@@ -2553,54 +2553,54 @@ msgstr ""
 "%1 arka ccu kurulu; ancak etkin değil. Kurulumunuzu ve Cantor ayarlarınızı "
 "denetleyin"
 
-#: cantor.cpp:374
+#: cantor.cpp:373
 #, kde-format
 msgid "Session %1"
 msgstr "Oturum %1"
 
-#: cantor.cpp:392
+#: cantor.cpp:386
 #, kde-format
 msgid "Failed to find the Cantor Part with error %1"
 msgstr "Cantor parçacığı bulunamadı, hata %1"
 
-#: cantor.cpp:439 cantor_part.cpp:621
+#: cantor.cpp:433 cantor_part.cpp:621
 #, kde-format
 msgid "Calculating..."
 msgstr "Hesaplanıyor..."
 
-#: cantor.cpp:442 cantor_part.cpp:632 cantor_part.cpp:695
+#: cantor.cpp:436 cantor_part.cpp:632 cantor_part.cpp:695
 #, kde-format
 msgid "Ready"
 msgstr "Hazır"
 
-#: cantor.cpp:486
+#: cantor.cpp:480
 #, kde-format
 msgid "Changed"
 msgstr "Değiştirildi"
 
-#: cantor.cpp:570
+#: cantor.cpp:564
 #, kde-format
 msgid "Multiple unsaved Worksheets are opened. Do you want to close them?"
 msgstr ""
 "Birden çok kaydedilmemiş Çalışma Sayfası açık. Onları kapatmak istiyor "
 "musunuz?"
 
-#: cantor.cpp:571
+#: cantor.cpp:565
 #, kde-format
 msgid "Close Cantor"
 msgstr "Cantor'u Kapat"
 
-#: cantor.cpp:587
+#: cantor.cpp:581
 #, kde-format
 msgid "The current project has been modified. Do you want to save it?"
 msgstr "Mevcut proje değiştirildi. Kaydetmek istiyor musunuz?"
 
-#: cantor.cpp:588
+#: cantor.cpp:582
 #, kde-format
 msgid "Save Project"
 msgstr "Projeyi Kaydet"
 
-#: cantor.cpp:634
+#: cantor.cpp:628
 #, kde-format
 msgid "Formatting"
 msgstr "Biçimlendirme"
@@ -3018,29 +3018,29 @@ msgstr "İlklendiriliyor..."
 msgid "[read-only]"
 msgstr "[saltokunur]"
 
-#: cantor_part.cpp:883
+#: cantor_part.cpp:866
 #, kde-format
 msgid "Do you want to upload current Worksheet to public web server?"
 msgstr ""
 "Geçerli çalışma sayfasını genel bir web sunucusuna karşıya yüklemek istiyor "
 "musunuz?"
 
-#: cantor_part.cpp:884
+#: cantor_part.cpp:867
 #, kde-format
 msgid "Question - Cantor"
 msgstr "Soru - Cantor"
 
-#: cantor_part.cpp:890
+#: cantor_part.cpp:873
 #, kde-format
 msgid "The Worksheet is not saved. You should save it before uploading."
 msgstr "Çalışma sayfası kaydedilmedi. Karşıya yüklemeden önce kaydetmelisiniz."
 
-#: cantor_part.cpp:891
+#: cantor_part.cpp:874
 #, kde-format
 msgid "Warning - Cantor"
 msgstr "Uyarı - Cantor"
 
-#: cantor_part.cpp:963
+#: cantor_part.cpp:946
 #, kde-format
 msgid "This backend does not support scripts."
 msgstr "Bu arka uç betikleri desteklemiyor."
@@ -3512,7 +3512,7 @@ msgstr "Görsel dosyası aç"
 msgid "Show LaTeX code"
 msgstr "LaTeX kodunu göster"
 
-#: lib/backend.cpp:183
+#: lib/backend.cpp:162
 #, kde-format
 msgid ""
 "No path for the %1 executable specified. Please provide the correct path in "
@@ -3521,7 +3521,7 @@ msgstr ""
 "%1 çalıştırılabiliri için bir yol belirtilmedi. Uygulama ayarlarında doğru "
 "yolu sağlayın ve yeniden deneyin."
 
-#: lib/backend.cpp:193
+#: lib/backend.cpp:172
 #, kde-format
 msgid ""
 "The specified file '%1' for the %2 executable doesn't exist. Please provide "
@@ -3530,7 +3530,7 @@ msgstr ""
 "%2 çalıştırılabiliri için '%1' yolu yok. Uygulama ayarlarında doğru yolu "
 "sağlayın ve yeniden deneyin."
 
-#: lib/backend.cpp:202
+#: lib/backend.cpp:181
 #, kde-format
 msgid ""
 "The specified file '%1' doesn't point to an executable. Please provide the "
@@ -3539,7 +3539,7 @@ msgstr ""
 "Belirtilen '%1' dosyası, bir çalıştırılabilire işaret etmiyor. Uygulama "
 "ayarlarında doğru yolu sağlayın ve yeniden deneyin."
 
-#: lib/backend.cpp:221
+#: lib/backend.cpp:200
 #, kde-format
 msgid ""
 "The program %1 didn't finish the execution after %2 milliseconds during the "
@@ -3548,12 +3548,12 @@ msgstr ""
 "%1 programı, çizim tümleştirme sınaması sırasında %2 milisaniyeden sonra "
 "çalışmayı bitirmedi."
 
-#: lib/backend.cpp:230
+#: lib/backend.cpp:209
 #, kde-format
 msgid "Failed to open the file %1 during the plot integration test."
 msgstr "Çizim tümleştirme sınaması sırasında %1 dosyası açılamadı."
 
-#: lib/backend.cpp:238
+#: lib/backend.cpp:217
 #, kde-format
 msgid "Failed to parse the result during the plot integration test."
 msgstr "Çizim tümleştirme sınaması sırasında sonuç ayrıştırılamadı."
