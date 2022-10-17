@@ -597,7 +597,7 @@ msgstr ""
 #: backends/python/settings.ui:54 backends/python/settings.ui:90
 #, kde-format
 msgid "Graphic package to be used in the Plot Assistant"
-msgstr "Paquet gràfic que s'utilitzarà en l'assistent «Plot»"
+msgstr "Paquet gràfic que s'ha d'utilitzar en l'assistent «Plot»"
 
 #. i18n: ectx: property (text), widget (QLabel, label3)
 #. i18n: ectx: property (text), widget (QLabel, label4)
@@ -1751,8 +1751,8 @@ msgstr ""
 #, kde-format
 msgid "The image type to save as. One of auto, png, ps, eps, latex, svg, fig."
 msgstr ""
-"El tipus d'imatge a guardar. Pot ser «auto», «png», «ps», «eps», «latex», "
-"«svg» o «fig»."
+"El tipus d'imatge que es guardarà. Pot ser «auto», «png», «ps», «eps», "
+"«latex», «svg» o «fig»."
 
 #: backends/qalculate/qalculatesyntaxhelpobject.cpp:216
 #, kde-format
@@ -3773,7 +3773,7 @@ msgstr "Utilitza el dorsal <dorsal>"
 #: main.cpp:95
 #, kde-format
 msgid "Documents to open."
-msgstr "Documents que cal obrir."
+msgstr "Documents que s'obriran."
 
 #: main.cpp:130
 #, kde-format
