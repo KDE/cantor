@@ -10,10 +10,25 @@
 #include <QDebug>
 #include <QStringList>
 
-#include <stdio.h>
-#ifndef _WIN32
+
+#ifdef Q_OS_WIN
+#include <R_ext/RStartup.h>
+#include <R_ext/Utils.h>
+#include <R_ext/libextern.h>
+
+structRstart RK_R_Params;
+
+extern "C" {
+	// why oh why isn't Rinterface.h available on Windows?
+	LibExtern void* R_GlobalContext;
+	LibExtern uintptr_t R_CStackLimit;
+	LibExtern void R_SaveGlobalEnvToFile(char*);
+}
+#else
 #include <Rinterface.h>
 #endif
+
+#include <stdio.h>
 
 RServer* server;
 Expression* currentExpression;
