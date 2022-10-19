@@ -10,6 +10,7 @@
 #include <QDebug>
 #include <QStringList>
 
+#define R_INTERFACE_PTRS 1
 
 #ifdef Q_OS_WIN
 #include <winsock2.h>
