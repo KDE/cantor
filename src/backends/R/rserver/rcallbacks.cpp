@@ -11,6 +11,14 @@
 #include <QStringList>
 
 #define R_INTERFACE_PTRS 1
+#include <Rdefines.h>
+#include <R_ext/Rdynload.h>
+#include <R_ext/Callbacks.h>
+#include <R.h>
+#include <Rversion.h>
+#include <Rinternals.h>
+#include <R_ext/Parse.h>
+#include <Rembedded.h>
 
 #ifdef Q_OS_WIN
 #include <winsock2.h>
