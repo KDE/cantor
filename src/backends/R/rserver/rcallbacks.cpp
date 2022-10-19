@@ -12,6 +12,10 @@
 
 
 #ifdef Q_OS_WIN
+#include <winsock2.h>
+#include <windows.h>
+#undef ERROR     // clashes with R
+#define Win32    // needed for R includes
 #include <R_ext/RStartup.h>
 #include <R_ext/Utils.h>
 #include <R_ext/libextern.h>
