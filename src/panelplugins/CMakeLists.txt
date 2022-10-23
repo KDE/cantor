@@ -2,7 +2,7 @@ function(add_panel name)
 
     kcoreaddons_add_plugin("cantor_${name}"
         SOURCES ${ARGN}
-        INSTALL_NAMESPACE "cantor/panels")
+        INSTALL_NAMESPACE "cantor_panels")
 
     target_link_libraries("cantor_${name}"
     cantorlibs)

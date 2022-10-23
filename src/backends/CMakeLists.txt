@@ -2,7 +2,7 @@ function(add_backend name)
 
     kcoreaddons_add_plugin("cantor_${name}"
         SOURCES ${ARGN}
-        INSTALL_NAMESPACE "cantor/backends")
+        INSTALL_NAMESPACE "cantor_backends")
 
     target_link_libraries("cantor_${name}"
         cantorlibs)
