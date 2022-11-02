@@ -1837,12 +1837,12 @@ msgstr ""
 #: backends/qalculate/qalculatesyntaxhelpobject.cpp:229
 #, kde-format
 msgid "Use scale on second x-axis."
-msgstr "Utilitza una escala a l'eix X secundari."
+msgstr "Utilitza una escala en l'eix X secundari."
 
 #: backends/qalculate/qalculatesyntaxhelpobject.cpp:230
 #, kde-format
 msgid "Use scale on second y-axis."
-msgstr "Utilitza una escala a l'eix Y secundari."
+msgstr "Utilitza una escala en l'eix Y secundari."
 
 #: backends/qalculate/qalculatesyntaxhelpobject.cpp:231
 #, kde-format
