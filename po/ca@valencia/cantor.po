@@ -363,7 +363,7 @@ msgid ""
 "in the application settings and try again."
 msgstr ""
 "El camí a Julia especificat en la configuració de l'aplicació cal que apunte "
-"directament a l'executable. No es permeten els enllaços simbòlics. "
+"directament cap a l'executable. No es permeten els enllaços simbòlics. "
 "Proporcioneu el camí correcte cap a la configuració de l'aplicació i torneu-"
 "ho a intentar."
 
@@ -4123,7 +4123,7 @@ msgstr "No sagnes les entrades de text"
 msgid ""
 "Use rich text format for text entries when saving in Jupyter Notebook Format"
 msgstr ""
-"Utilitza el format de text enriquit a les entrades de text en guardar en el "
+"Utilitza el format de text enriquit en les entrades de text en guardar en el "
 "format bloc de notes de Jupyter"
 
 #. i18n: ectx: property (text), widget (QLabel, label_4)
