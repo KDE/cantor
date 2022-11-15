@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: cantor\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2022-10-08 00:40+0000\n"
-"PO-Revision-Date: 2022-11-08 12:51+0100\n"
+"PO-Revision-Date: 2022-11-14 15:02+0100\n"
 "Last-Translator: giovanni <g.sora@tiscali.it>\n"
 "Language-Team: Interlingua <kde-i18n-doc@kde.org>\n"
 "Language: ia\n"
@@ -4017,6 +4017,9 @@ msgid ""
 "Create a new worksheet for the selected backend system. If none is selected, "
 "the user is asked about which system to use on startup."
 msgstr ""
+"Crea un nove folio de labor per le systema de retroadministration seligite. "
+"Si necun esseligite il essre demandate al usator qual sytema debe esser "
+"usate al startar."
 
 #. i18n: ectx: property (text), widget (QLabel, label)
 #: settings.ui:33
@@ -4089,12 +4092,14 @@ msgid ""
 "If enabled, text entries are aligned at the worksheet border and not at the "
 "prompt border"
 msgstr ""
+"Sihabilitate, entratas de texto es alineate al margine del folio de labor e "
+"non al margine del prompt"
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_UseOldCantorEntriesIndent)
 #: settings.ui:135
 #, kde-format
 msgid "Don't indent text entries"
-msgstr ""
+msgstr "Non indentar entratas de texto"
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_StoreTextEntryFormatting)
 #: settings.ui:142
@@ -4127,6 +4132,8 @@ msgstr ""
 msgid ""
 "If enabled, all entries below the current one will be evaluated automatically"
 msgstr ""
+"Si habilitate, omne entratas a basso del currente essera evalutate "
+"automaticamente"
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_AutoEval)
 #: settings.ui:191
@@ -4175,7 +4182,7 @@ msgstr "Expressione mathematic via LaTeX"
 #: settings.ui:273
 #, kde-format
 msgid "Notify about render failures for mathematical expressions"
-msgstr ""
+msgstr "Notifica re render fallimentos per expressiones mathematic"
 
 #. i18n: ectx: property (placeholderText), widget (KLineEdit, pattern)
 #: standardsearchbar.ui:35
