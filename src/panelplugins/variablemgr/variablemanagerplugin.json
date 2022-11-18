@@ -24,6 +24,7 @@
         "Description[sk]": "Panel na správu premenných sedenia",
         "Description[sl]": "Pult za upravljanje spremenljivk v seji",
         "Description[sv]": "En panel för att hantera variablerna i en session",
+        "Description[ta]": "தற்போதைய அமர்விலுள்ள மாறிகளைக் காட்டும் பலகை",
         "Description[tr]": "Bir oturumun değişkenleri yönetmek için bir panel",
         "Description[uk]": "Панель керування змінними сеансу",
         "Description[x-test]": "xxA panel to manage the variables of a sessionxx",
@@ -52,6 +53,7 @@
         "Name[ru]": "Переменные",
         "Name[sl]": "Spremenljivke",
         "Name[sv]": "Variabler",
+        "Name[ta]": "மாறிகள்",
         "Name[tr]": "Değişkenler",
         "Name[uk]": "Змінні",
         "Name[x-test]": "xxVariablesxx"
