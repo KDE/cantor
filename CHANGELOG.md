@@ -1,10 +1,18 @@
 # Changelog
 
+## 23.03
+
+### New features
+
+    * [octave] properly show the values of row vectors and matrices in the variable panel
+
+
 ## 22.12
 
 ### New features
 
     * Red-highlight the text field for the executable path if wrong path was provided in the settings
+
 
 ## 22.08
 

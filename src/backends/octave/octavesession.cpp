@@ -261,7 +261,6 @@ void OctaveSession::runFirstExpression()
 
 void OctaveSession::readError()
 {
-    qDebug() << "readError";
     QString error = QString::fromLocal8Bit(m_process->readAllStandardError());
     if (!expressionQueue().isEmpty() && !error.isEmpty())
     {
