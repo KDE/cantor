@@ -1,15 +1,14 @@
 /*
     SPDX-License-Identifier: GPL-2.0-or-later
     SPDX-FileCopyrightText: 2018 Nikita Sirgienko <warquark@gmail.com>
+    SPDX-FileCopyrightText: 2022 Alexander Semke <alexander.semke@web.de>
 */
 
 #include "pythonvariablemodel.h"
 #include "pythonsession.h"
-#include "textresult.h"
+#include "result.h"
 
 #include <QDebug>
-#include <QDBusReply>
-#include <QDBusInterface>
 #include <QString>
 
 #include "settings.h"
@@ -44,7 +43,7 @@ void PythonVariableModel::extractVariables(Cantor::Expression::Status status)
     {
         case Cantor::Expression::Done:
         {
-            Cantor::Result* result = m_expression->result();
+            auto* result = m_expression->result();
             if (result)
             {
                 const QString data = result->data().toString();
@@ -54,12 +53,17 @@ void PythonVariableModel::extractVariables(Cantor::Expression::Status status)
                 QList<Variable> variables;
                 for (const QString& record : records)
                 {
-                    // DC1(17) is delimiter between variable name and its value.
-                    const QString& name = record.section(QChar(17), 0, 0);
-                    const QString& value = record.section(QChar(17), 1, 1);
-                    const QString& size = record.section(QChar(17), 2, 2);
+                    // every variable data has 4 parts/elements separated by DC1(17) - the name of the variable, its size, type and the actual value
+                    const auto& elements = record.split(QChar(17), QString::SkipEmptyParts);
+                    int count = elements.count();
+                    if (count < 4)
+                        continue;
 
-                    variables << Variable(name, value, size.toULongLong());
+                    const QString& name = elements.at(0);
+                    const QString& value = elements.at(1);
+                    const QString& size = elements.at(2);
+                    const QString& type = elements.at(3);
+                    variables << Variable(name, value, size.toULongLong(), type);
                 }
 
                 setVariables(variables);
@@ -79,5 +83,5 @@ void PythonVariableModel::extractVariables(Cantor::Expression::Status status)
     }
 
     m_expression->deleteLater();
-    m_expression=nullptr;
+    m_expression = nullptr;
 }

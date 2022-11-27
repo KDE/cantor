@@ -28,6 +28,7 @@ class TestPython3 : public BackendTest
     void testMultilineCommandWithComment();
 
     void testVariablesCreatingFromCode();
+    void testVariableChangeSizeType();
     void testVariableCleanupAfterRestart();
     void testDictVariable();
 

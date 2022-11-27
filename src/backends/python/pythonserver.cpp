@@ -1,6 +1,7 @@
 /*
     SPDX-License-Identifier: GPL-2.0-or-later
     SPDX-FileCopyrightText: 2015 Minh Ngo <minh@fedoraproject.org>
+    SPDX-FileCopyrightText: 2022 Alexander Semke <alexander.semke@web.de>
 */
 
 #include "pythonserver.h"
@@ -153,14 +154,19 @@ string PythonServer::variables(bool parseValue)
 
         string valueString;
         string sizeString;
+        string typeString;
         if (parseValue)
         {
             valueString = pyObjectToQString(PyObject_Repr(value));
-            std::string command = "sys.getsizeof("+keyString+")";
+
+            string command = "sys.getsizeof(" + keyString + ")";
             sizeString = pyObjectToQString(PyObject_Repr(PyRun_String(command.c_str(), Py_eval_input, py_dict, py_dict)));
+
+            command = "type(" + keyString + ")";
+            typeString = pyObjectToQString(PyObject_Repr(PyRun_String(command.c_str(), Py_eval_input, py_dict, py_dict)));
         }
 
-        vars.push_back(keyString + char(17) + valueString + char(17) + sizeString);
+        vars.push_back(keyString + char(17) + valueString + char(17) + sizeString + char(17) + typeString);
     }
 
     PyRun_SimpleStringFlags(

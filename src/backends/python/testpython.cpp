@@ -234,6 +234,41 @@ void TestPython3::testVariablesCreatingFromCode()
     evalExp(QLatin1String("del a; del b"));
 }
 
+void TestPython3::testVariableChangeSizeType()
+{
+    if (!PythonSettings::variableManagement())
+        QSKIP("This test needs enabled variable management in Python3 settings", SkipSingle);
+
+    QAbstractItemModel* model = session()->variableModel();
+    QVERIFY(model != nullptr);
+
+    // create a text variable
+    auto* e = evalExp(QLatin1String("test = \"abcd\";"));
+    QVERIFY(e != nullptr);
+
+    if(session()->status() == Cantor::Session::Running)
+        waitForSignal(session(), SIGNAL(statusChanged(Cantor::Session::Status)));
+
+    QCOMPARE(1, model->rowCount());
+    QCOMPARE(model->index(0,0).data().toString(), QLatin1String("test"));
+    QCOMPARE(model->index(0,1).data().toString(), QLatin1String("'abcd'"));
+    QCOMPARE(model->index(0,2).data().toString(), QLatin1String("<class 'str'>"));
+    QCOMPARE(model->index(0,3).data().toString(), QLatin1String("53"));
+
+    // change from string to integer
+    e = evalExp(QLatin1String("test = 1;"));
+    QVERIFY(e != nullptr);
+
+    if(session()->status() == Cantor::Session::Running)
+        waitForSignal(session(), SIGNAL(statusChanged(Cantor::Session::Status)));
+
+    QCOMPARE(1, model->rowCount());
+    QCOMPARE(model->index(0,0).data().toString(), QLatin1String("test"));
+    QCOMPARE(model->index(0,1).data().toString(), QLatin1String("1"));
+    QCOMPARE(model->index(0,2).data().toString(), QLatin1String("<class 'int'>"));
+    QCOMPARE(model->index(0,3).data().toString(), QLatin1String("28")); // 28 bytes for Python's int object
+}
+
 void TestPython3::testVariableCleanupAfterRestart()
 {
     QAbstractItemModel* model = session()->variableModel();

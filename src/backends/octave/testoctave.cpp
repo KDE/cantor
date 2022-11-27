@@ -244,6 +244,7 @@ void TestOctave::testVariableChangeSizeType()
 
     evalExp(QLatin1String("clear();"));
 
+    // create a text variable
     auto* e1 = evalExp(QLatin1String("test = \"abcd\";"));
     QVERIFY(e1 != nullptr);
 
