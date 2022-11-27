@@ -3,7 +3,7 @@
 ## 23.03
 
 ### New features
-
+    * Allow to copy variable names and values to the clipboard in the variable panel
     * [octave] properly show the values of row vectors and matrices in the variable panel
 
 

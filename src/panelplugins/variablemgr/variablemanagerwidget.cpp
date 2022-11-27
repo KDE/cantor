@@ -1,7 +1,7 @@
 /*
     SPDX-License-Identifier: GPL-2.0-or-later
     SPDX-FileCopyrightText: 2010 Alexander Rieder <alexanderrieder@gmail.com>
-    SPDX-FileCopyrightText: 2018-2021 Alexander Semke <alexander.semke@web.de>
+    SPDX-FileCopyrightText: 2018-2022 Alexander Semke <alexander.semke@web.de>
 */
 
 #include "variablemanagerwidget.h"
@@ -12,6 +12,8 @@
 #include "ui_newvardlg.h"
 
 #include <QAction>
+#include <QClipboard>
+#include <QContextMenuEvent>
 #include <QDialog>
 #include <QFileDialog>
 #include <QMenu>
@@ -119,6 +121,7 @@ void VariableManagerWidget::setSession(Cantor::Session* session)
         auto* ext = dynamic_cast<Cantor::VariableManagementExtension*>(
             m_session->backend()->extension(QLatin1String("VariableManagementExtension"))
         );
+
         if (ext)
         {
             if(ext->loadVariables(QString()).isNull())
@@ -186,7 +189,7 @@ void VariableManagerWidget::load()
     auto* ext = dynamic_cast<Cantor::VariableManagementExtension*>(m_session->backend()->extension(QLatin1String("VariableManagementExtension")));
     if (ext)
     {
-        const QString& cmd=ext->loadVariables(file);
+        const QString& cmd = ext->loadVariables(file);
         emit runCommand(cmd);
     }
 }
@@ -269,4 +272,53 @@ void VariableManagerWidget::updateButtons()
     bool enabled = (m_treeView->model()->rowCount() != 0);
     m_saveBtn->setEnabled(enabled);
     m_clearBtn->setEnabled(enabled);
+}
+
+void VariableManagerWidget::contextMenuEvent(QContextMenuEvent* event) {
+    const auto& index  = m_treeView->currentIndex();
+    if (!index.isValid())
+        return;
+
+    // initialize the actions if not done yet
+    if (!m_copyNameAction)
+    {
+        auto* group = new QActionGroup(this);
+        m_copyNameAction = new QAction(QIcon::fromTheme(QLatin1String("edit-copy")), i18n("Copy Name"), group);
+        m_copyValueAction = new QAction(QIcon::fromTheme(QLatin1String("edit-copy")), i18n("Copy Value"), group);
+        m_copyNameValueAction = new QAction(QIcon::fromTheme(QLatin1String("edit-copy")), i18n("Copy Name and Value"), group);
+        connect(group, &QActionGroup::triggered, this, &VariableManagerWidget::copy);
+
+        //m_dataViewerAction = new QAction(QIcon::fromTheme(QLatin1String("document-preview")), i18n("Data Viewer"), this);
+    }
+
+    auto* menu = new QMenu(this);
+    menu->addAction(m_copyNameAction);
+    menu->addAction(m_copyValueAction);
+    menu->addAction(m_copyNameValueAction);
+    //menu->addSeparator();
+    //menu->addAction(m_dataViewerAction);
+
+    menu->exec(event->globalPos());
+    delete menu;
+}
+
+void VariableManagerWidget::copy(const QAction* action) const
+{
+    const auto& items = m_treeView->selectionModel()->selectedIndexes();
+    QString text;
+    if (action == m_copyNameAction)
+        text = items.at(0).data().toString();
+    else if (action == m_copyValueAction)
+    {
+        text = items.at(1).data().toString();
+        text = text.replace(QStringLiteral("; "), QStringLiteral("\n"));
+    }
+    else if (action == m_copyNameValueAction)
+    {
+        text = items.at(0).data().toString();
+        text += QLatin1Char('\n') + items.at(1).data().toString();
+        text = text.replace(QStringLiteral("; "), QStringLiteral("\n"));
+    }
+
+    QApplication::clipboard()->setText(text);
 }

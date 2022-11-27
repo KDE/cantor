@@ -1,7 +1,7 @@
 /*
     SPDX-License-Identifier: GPL-2.0-or-later
     SPDX-FileCopyrightText: 2010 Alexander Rieder <alexanderrieder@gmail.com>
-    SPDX-FileCopyrightText: 2021 Alexander Semke <alexander.semke@web.de>
+    SPDX-FileCopyrightText: 2021-2022 Alexander Semke <alexander.semke@web.de>
 */
 
 #ifndef _VARIABLEMANAGERWIDGET_H
@@ -45,15 +45,21 @@ private:
     QToolButton* m_loadBtn{nullptr};
     QToolButton* m_saveBtn{nullptr};
     QToolButton* m_clearBtn{nullptr};
-    QLineEdit* m_leFilter;
-    QToolButton* m_bFilterOptions;
-    QAction* m_caseSensitiveAction;
-    QAction* m_matchCompleteWordAction;
+    QLineEdit* m_leFilter{nullptr};
+    QToolButton* m_bFilterOptions{nullptr};
+    QAction* m_caseSensitiveAction{nullptr};
+    QAction* m_matchCompleteWordAction{nullptr};
+    QAction* m_copyNameAction{nullptr};
+    QAction* m_copyValueAction{nullptr};
+    QAction* m_copyNameValueAction{nullptr};
+
+    void contextMenuEvent(QContextMenuEvent*) override;
 
 private Q_SLOTS:
     void filterTextChanged(const QString&);
     void toggleFilterOptionsMenu(bool);
     void updateButtons();
+    void copy(const QAction*) const;
 };
 
 #endif /* _VARIABLEMANAGERWIDGET_H */
