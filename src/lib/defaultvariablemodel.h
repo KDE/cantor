@@ -1,6 +1,7 @@
 /*
     SPDX-License-Identifier: GPL-2.0-or-later
     SPDX-FileCopyrightText: 2010 Miha Čančula <miha.cancula@gmail.com>
+    SPDX-FileCopyrightText: 2018-2022 Alexander Semke <alexander.semke@web.de>
 */
 
 #ifndef CANTOR_DEFAULTVARIABLEMODEL_H
@@ -44,20 +45,12 @@ public:
     struct Variable
     {
         Variable(): size(0) {}
-        Variable(QString name, QString value, size_t size = 0): name(name), value(value), size(size) {}
-        /**
-         * The variable's name
-         */
-        QString name;
-        /**
-         * The variable's value, represented as a string
-         */
-        QString value;
+        Variable(QString name, QString value, size_t size = 0, QString type = QString()): name(name), value(value), size(size), type(type) {}
 
-        /**
-         * Optional parameter. Size of variable in bytes
-         */
+        QString name;
+        QString value;
         size_t size;
+        QString type;
     };
 
     /**
@@ -173,7 +166,9 @@ protected:
     {
         NameColumn = 0,
         ValueColumn = 1,
-        ColumnCount = 2
+        TypeColumn = 2,
+        SizeColumn = 3,
+        ColumnCount = 4
     };
 
 private:

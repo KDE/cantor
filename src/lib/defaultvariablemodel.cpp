@@ -1,13 +1,14 @@
 /*
     SPDX-License-Identifier: GPL-2.0-or-later
     SPDX-FileCopyrightText: 2010 Miha Čančula <miha.cancula@gmail.com>
+    SPDX-FileCopyrightText: 2018-2022 Alexander Semke <alexander.semke@web.de>
 */
 
 #include "defaultvariablemodel.h"
-#include <QDebug>
-#include <KLocalizedString>
 #include "extension.h"
 #include "backend.h"
+
+#include <KLocalizedString>
 
 namespace Cantor
 {
@@ -17,9 +18,8 @@ class DefaultVariableModelPrivate
 public:
     QList<DefaultVariableModel::Variable> variables;
     QStringList functions;
-
-    Session* session;
-    VariableManagementExtension* extension;
+    Session* session = nullptr;
+    VariableManagementExtension* extension = nullptr;
 };
 
 DefaultVariableModel::DefaultVariableModel(Session* session): QAbstractTableModel(session),
@@ -28,10 +28,7 @@ d_ptr(new DefaultVariableModelPrivate)
     Q_D(DefaultVariableModel);
     d->session = session;
     if (session)
-    {
         d->extension = dynamic_cast<Cantor::VariableManagementExtension*>(session->backend()->extension(QStringLiteral("VariableManagementExtension")));
-    }
-    qDebug() << d->session << d->extension;
 }
 
 DefaultVariableModel::~DefaultVariableModel()
@@ -65,7 +62,10 @@ QVariant DefaultVariableModel::headerData(int section, Qt::Orientation orientati
         switch(section) {
             case NameColumn:
                 return i18nc("@title:column", "Name");
-
+            case TypeColumn:
+                return i18nc("@title:column", "Type");
+            case SizeColumn:
+                return i18nc("@title:column", "Size [Bytes]");
             case ValueColumn:
                 return i18nc("@title:column", "Value");
                 break;
@@ -82,31 +82,39 @@ Qt::ItemFlags DefaultVariableModel::flags(const QModelIndex& index) const
 QVariant DefaultVariableModel::data(const QModelIndex& index, int role) const
 {
     if ((role != Qt::DisplayRole && role != DataRole) || !index.isValid())
-    {
         return QVariant();
-    }
 
     Q_D(const DefaultVariableModel);
+    const auto& variable = d->variables.at(index.row());
     switch (index.column())
     {
         case NameColumn:
-            return QVariant(d->variables[index.row()].name);
+            return QVariant(variable.name);
         case ValueColumn:
         {
-            const Variable& var = d->variables[index.row()];
-            if (var.value.size() < 1000 || role == DefaultVariableModel::DataRole)
-                return QVariant(var.value);
+            if (variable.value.size() < 1000 || role == DefaultVariableModel::DataRole)
+                return QVariant(variable.value);
             else
             {
-                if (var.size != 0)
-                    return QVariant(i18n("<%1 bytes>", QString::number(var.size)));
+                if (variable.size != 0)
+                    return QVariant(i18n("<%1 bytes>", QString::number(variable.size)));
                 else
                     return QVariant(i18n("<too big variable>"));
             }
         }
-        default:
-            return QVariant();
+        case TypeColumn:
+            return QVariant(variable.type);
+        case SizeColumn:
+        {
+            size_t size = variable.size;
+            if (size != 0)
+                return QVariant(qlonglong(size));
+            else
+                return {};
+        }
     }
+
+    return {};
 }
 
 bool DefaultVariableModel::setData(const QModelIndex& index, const QVariant& value, int role)
@@ -135,6 +143,7 @@ bool DefaultVariableModel::setData(const QModelIndex& index, const QVariant& val
         emit dataChanged(index, index);
         return true;
     }
+
     return false;
 }
 

@@ -31,8 +31,9 @@ void OctaveVariableModel::update()
         "  if (__cantor_parse_values__)"
         "    try"
         "      eval(['__cantor_string__ = disp(' __cantor_varname__ ');']);"
+        "      printf([num2str(eval(['sizeof(' __cantor_varname__ ');'])) '\\n']);"
+        "      printf([eval(['typeinfo(' __cantor_varname__ ');']) '\\n']);"
         "      printf(__cantor_string__);"
-        "      printf([num2str(eval(['sizeof(' __cantor_varname__ ');']))]);"
         "    catch"
         "      printf(['<unprintable value>' '\\n']);"
         "      printf(['0' '\\n']);"
@@ -50,7 +51,6 @@ void OctaveVariableModel::update()
         "clear __cantor_string__;"
         "clear __cantor_split_var__;"
     );
-
 
     if (m_expr)
         return;
@@ -80,9 +80,10 @@ void OctaveVariableModel::parseNewVariables(Expression::Status status)
 
             for (const auto& data : variableData)
             {
-                // every variable data has 3 parts/elements separated by a new line - the name of the variable, its actual value and the size
+                // every variable data has 4 parts/elements separated by a new line - the name of the variable, its size, type and the actual value
                 const auto& elements = data.split(QLatin1String("\n"), QString::SkipEmptyParts);
-                if (elements.size() < 3)
+                int count = elements.count();
+                if (count < 4)
                     continue;
 
                 const QString& name = elements.constFirst();
@@ -91,13 +92,14 @@ void OctaveVariableModel::parseNewVariables(Expression::Status status)
                 if (name == QStringLiteral("ans"))
                     continue;
 
-                const QString& size = elements.constLast();
+                const QString& size = elements.at(1);
+                const QString& type = elements.at(2);
 
-                // the section(s) between the first and the last sections contain the value (single-line or multi-line output)
+                // the last section(s) contain(s) the value (single-line or multi-line output)
                 QString value;
                 if (OctaveSettings::self()->variableManagement())
                 {
-                    for (int i = 1; i < elements.size() - 1; ++i)
+                    for (int i = 3; i < count; ++i)
                     {
                         if (!value.isEmpty())
                             value += QStringLiteral("; "); // separate multi-line values like in column vectors or in matrices by a semicolon
@@ -106,7 +108,7 @@ void OctaveVariableModel::parseNewVariables(Expression::Status status)
                 }
 
                 value = value.replace(QStringLiteral("   "), QStringLiteral(" ")); // for vectors Octave is separating the values with three blanks, replace with one
-                vars << Variable(name, value, size.toULongLong());
+                vars << Variable(name, value, size.toULongLong(), type);
             }
 
             setVariables(vars);
