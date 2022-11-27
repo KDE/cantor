@@ -44,6 +44,7 @@ private Q_SLOTS:
     //tests variable model
     void testVariablesCreatingFromCode();
     void testVariablesMultiRowValues();
+    void testVariableChangeSizeType();
     void testVariableCleanupAfterRestart();
     void testVariableCreatingFromCodeWithPlot();
 

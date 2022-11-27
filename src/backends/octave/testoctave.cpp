@@ -237,6 +237,39 @@ void TestOctave::testVariablesMultiRowValues()
     QCOMPARE(model->index(2,1).data().toString(), QLatin1String("1 2 3; 2 4 6; 3 6 9"));
 }
 
+void TestOctave::testVariableChangeSizeType()
+{
+    QAbstractItemModel* model = session()->variableModel();
+    QVERIFY(model != nullptr);
+
+    evalExp(QLatin1String("clear();"));
+
+    auto* e1 = evalExp(QLatin1String("test = \"abcd\";"));
+    QVERIFY(e1 != nullptr);
+
+    if(session()->status() == Cantor::Session::Running)
+        waitForSignal(session(), SIGNAL(statusChanged(Cantor::Session::Status)));
+
+    QCOMPARE(1, model->rowCount());
+    QCOMPARE(model->index(0,0).data().toString(), QLatin1String("test"));
+    QCOMPARE(model->index(0,1).data().toString(), QLatin1String("abcd"));
+    QCOMPARE(model->index(0,2).data().toString(), QLatin1String("string"));
+    QCOMPARE(model->index(0,3).data().toInt(), 4); // 4 bytes for 4 characters
+
+    // change from string to integer
+    auto* e2 = evalExp(QLatin1String("test = 1;"));
+    QVERIFY(e2 != nullptr);
+
+    if(session()->status() == Cantor::Session::Running)
+        waitForSignal(session(), SIGNAL(statusChanged(Cantor::Session::Status)));
+
+    QCOMPARE(1, model->rowCount());
+    QCOMPARE(model->index(0,0).data().toString(), QLatin1String("test"));
+    QCOMPARE(model->index(0,1).data().toString(), QLatin1String("1"));
+    QCOMPARE(model->index(0,2).data().toString(), QLatin1String("scalar"));
+    QCOMPARE(model->index(0,3).data().toInt(), 8); // 8 bytes for a scalar value
+}
+
 void TestOctave::testVariableCreatingFromCodeWithPlot()
 {
     QAbstractItemModel* model = session()->variableModel();

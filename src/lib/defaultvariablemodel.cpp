@@ -251,18 +251,21 @@ void DefaultVariableModel::setVariables(const QList<DefaultVariableModel::Variab
     {
         bool found = false;
         for (int i = 0; i < size; i++)
-            if(d->variables[i].name == newvar.name)
+        {
+            auto& var = d->variables[i];
+            if(var.name == newvar.name)
             {
-                found=true;
-                if (d->variables[i].value != newvar.value)
+                found = true;
+                if (var.value != newvar.value || var.size != newvar.size || var.type != newvar.type)
                 {
-                    QModelIndex index = createIndex(i, ValueColumn);
-                    d->variables[i].value = newvar.value;
-                    d->variables[i].size = newvar.size;
-                    emit dataChanged(index, index);
+                    var.value = newvar.value;
+                    var.size = newvar.size;
+                    var.type = newvar.type;
+                    emit dataChanged(createIndex(i, NameColumn), createIndex(i, SizeColumn));
                 }
                 break;
             }
+        }
 
         if (!found)
         {
