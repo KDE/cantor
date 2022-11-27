@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: cantor\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-10-08 00:40+0000\n"
+"POT-Creation-Date: 2022-11-27 00:42+0000\n"
 "PO-Revision-Date: 2019-12-12 21:37+0000\n"
 "Last-Translator: Vivek KJ Pazhedath <vivekkj2004@gmail.com>\n"
 "Language-Team: Swathanthra|സ്വതന്ത്ര Malayalam|മലയാളം Computing|കമ്പ്യൂട്ടിങ്ങ് <smc."
@@ -825,22 +825,22 @@ msgstr ""
 msgid "Octave script file (*.m)"
 msgstr ""
 
-#: backends/octave/octavesession.cpp:272 backends/sage/sageexpression.cpp:58
+#: backends/octave/octavesession.cpp:271 backends/sage/sageexpression.cpp:58
 #, kde-format
 msgid "Syntax Error"
 msgstr ""
 
-#: backends/octave/octavesession.cpp:409
+#: backends/octave/octavesession.cpp:408
 #, kde-format
 msgid "Plot integration test failed."
 msgstr ""
 
-#: backends/octave/octavesession.cpp:413
+#: backends/octave/octavesession.cpp:412
 #, kde-format
 msgid "The integration of plots will be disabled."
 msgstr ""
 
-#: backends/octave/octavesession.cpp:414 backends/sage/sagesession.cpp:238
+#: backends/octave/octavesession.cpp:413 backends/sage/sagesession.cpp:238
 #: backends/sage/sagesession.cpp:271 backends/sage/sagesession.cpp:337
 #: backends/sage/sagesession.cpp:348 cantor.cpp:216 cantor.cpp:218
 #: cantor.cpp:337 cantor.cpp:344 lib/session.cpp:381 main.cpp:66 main.cpp:130
@@ -849,7 +849,7 @@ msgstr ""
 msgid "Cantor"
 msgstr ""
 
-#: backends/octave/octavesession.cpp:435
+#: backends/octave/octavesession.cpp:434
 #, kde-format
 msgid ""
 "The plot integration doesn't work because Cantor found, that Octave can't "

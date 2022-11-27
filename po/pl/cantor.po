@@ -9,15 +9,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-10-08 00:40+0000\n"
-"PO-Revision-Date: 2022-08-06 08:16+0200\n"
+"POT-Creation-Date: 2022-11-27 00:42+0000\n"
+"PO-Revision-Date: 2022-11-26 10:30+0100\n"
 "Last-Translator: Łukasz Wojniłowicz <lukasz.wojnilowicz@gmail.com>\n"
 "Language-Team: Polish <kde-i18n-doc@kde.org>\n"
 "Language: pl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Lokalize 22.04.1\n"
+"X-Generator: Lokalize 22.08.2\n"
 "Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 "
 "|| n%100>=20) ? 1 : 2);\n"
 
@@ -912,22 +912,22 @@ msgstr ""
 msgid "Octave script file (*.m)"
 msgstr "Plik skryptu Octave (*.m)"
 
-#: backends/octave/octavesession.cpp:272 backends/sage/sageexpression.cpp:58
+#: backends/octave/octavesession.cpp:271 backends/sage/sageexpression.cpp:58
 #, kde-format
 msgid "Syntax Error"
 msgstr "Błąd składni"
 
-#: backends/octave/octavesession.cpp:409
+#: backends/octave/octavesession.cpp:408
 #, kde-format
 msgid "Plot integration test failed."
 msgstr "Nie udała się próba integracji wykresów."
 
-#: backends/octave/octavesession.cpp:413
+#: backends/octave/octavesession.cpp:412
 #, kde-format
 msgid "The integration of plots will be disabled."
 msgstr "Integracja wykresów zostanie wyłączona."
 
-#: backends/octave/octavesession.cpp:414 backends/sage/sagesession.cpp:238
+#: backends/octave/octavesession.cpp:413 backends/sage/sagesession.cpp:238
 #: backends/sage/sagesession.cpp:271 backends/sage/sagesession.cpp:337
 #: backends/sage/sagesession.cpp:348 cantor.cpp:216 cantor.cpp:218
 #: cantor.cpp:337 cantor.cpp:344 lib/session.cpp:381 main.cpp:66 main.cpp:130
@@ -936,7 +936,7 @@ msgstr "Integracja wykresów zostanie wyłączona."
 msgid "Cantor"
 msgstr "Cantor"
 
-#: backends/octave/octavesession.cpp:435
+#: backends/octave/octavesession.cpp:434
 #, kde-format
 msgid ""
 "The plot integration doesn't work because Cantor found, that Octave can't "
@@ -2869,10 +2869,9 @@ msgstr "Numery wierszy"
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_AnimationDefault)
 #: cantor_part.cpp:240 settings.ui:125
-#, fuzzy, kde-format
-#| msgid "Pause Animation"
+#, kde-format
 msgid "Animations"
-msgstr "Wstrzymaj animację"
+msgstr "Animacje"
 
 #: cantor_part.cpp:247
 #, kde-format
@@ -3991,10 +3990,9 @@ msgstr "Kod LaTeX"
 
 #. i18n: ectx: property (text), widget (QLabel, label_2)
 #: settings.ui:23
-#, fuzzy, kde-format
-#| msgid "Start"
+#, kde-format
 msgid "Startup:"
-msgstr "Uruchom"
+msgstr "Uruchom:"
 
 #. i18n: ectx: property (toolTip), widget (QLabel, label)
 #. i18n: ectx: property (toolTip), widget (KComboBox, kcfg_DefaultBackend)
@@ -4004,6 +4002,8 @@ msgid ""
 "Create a new worksheet for the selected backend system. If none is selected, "
 "the user is asked about which system to use on startup."
 msgstr ""
+"Utwórz nowy arkusz pracy dla wybranego systemu. Jeśli nie wybrano żadnego "
+"systemu, to użytkownik zostanie zapytany o niego po uruchomieniu programu."
 
 #. i18n: ectx: property (text), widget (QLabel, label)
 #: settings.ui:33
@@ -4013,68 +4013,61 @@ msgstr "Domyślny silnik:"
 
 #. i18n: ectx: property (text), widget (QLabel, label_3)
 #: settings.ui:75
-#, fuzzy, kde-format
-#| msgid "&Worksheet"
+#, kde-format
 msgid "Worksheet:"
-msgstr "&Arkusz pracy"
+msgstr "Arkusz pracy:"
 
 #. i18n: ectx: property (toolTip), widget (QCheckBox, kcfg_TypesetDefault)
 #: settings.ui:82
-#, fuzzy, kde-format
-#| msgid "Enable LaTeX typesetting for Sage backend"
+#, kde-format
 msgid ""
 "Enable LaTeX typesetting for the results of the calculations, if supported "
 "by the backend system"
-msgstr "Włącz zestaw znaków LaTeX dla silnika Sage"
+msgstr ""
+"Włącz zapis LaTeX dla wyników obliczeń, jeśli jest obsługiwany przez system "
+"silnika"
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_TypesetDefault)
 #: settings.ui:85
-#, fuzzy, kde-format
-#| msgid "LaTeX typesetting:"
+#, kde-format
 msgid "LaTeX typesetting"
-msgstr "Zestaw znaków LaTeX:"
+msgstr "Zestaw znaków LaTeX"
 
 #. i18n: ectx: property (toolTip), widget (QCheckBox, kcfg_HighlightDefault)
 #: settings.ui:92
-#, fuzzy, kde-format
-#| msgid "Enable Syntax Highlighting"
+#, kde-format
 msgid "Enable syntax highlighting"
 msgstr "Włącz podświetlanie składni"
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_HighlightDefault)
 #: settings.ui:95
-#, fuzzy, kde-format
-#| msgid "Syntax Highlighting"
+#, kde-format
 msgid "Syntax highlighting"
 msgstr "Podświetlanie składni"
 
 #. i18n: ectx: property (toolTip), widget (QCheckBox, kcfg_CompletionDefault)
 #: settings.ui:102
-#, fuzzy, kde-format
-#| msgid "Enable Completion"
+#, kde-format
 msgid "Enable syntax completion"
-msgstr "Włącz uzupełnianie"
+msgstr "Włącz uzupełnianie składni"
 
 #. i18n: ectx: property (toolTip), widget (QCheckBox, kcfg_ExpressionNumberingDefault)
 #: settings.ui:112
-#, fuzzy, kde-format
-#| msgid "Line Numbers"
+#, kde-format
 msgid "Show line numbers"
-msgstr "Numery wierszy"
+msgstr "Pokaż numery wierszy"
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_ExpressionNumberingDefault)
 #: settings.ui:115
-#, fuzzy, kde-format
-#| msgid "Line Numbers"
+#, kde-format
 msgid "Line numbers"
 msgstr "Numery wierszy"
 
 #. i18n: ectx: property (toolTip), widget (QCheckBox, kcfg_AnimationDefault)
 #: settings.ui:122
-#, fuzzy, kde-format
-#| msgid "Integrate Plots into the Worksheet"
+#, kde-format
 msgid "Enable animation effects in the worksheet"
-msgstr "Zintegruj wykresy do arkusza pracy"
+msgstr "Włącz efekty animacji w arkuszu pracy"
 
 #. i18n: ectx: property (toolTip), widget (QCheckBox, kcfg_UseOldCantorEntriesIndent)
 #: settings.ui:132
@@ -4083,40 +4076,39 @@ msgid ""
 "If enabled, text entries are aligned at the worksheet border and not at the "
 "prompt border"
 msgstr ""
+"Po włączeniu, wpisy tekstowe, które będą wyrównywane do krawędzi arkusza "
+"pracy, a  nie do obramowania zapytania"
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_UseOldCantorEntriesIndent)
 #: settings.ui:135
 #, kde-format
 msgid "Don't indent text entries"
-msgstr ""
+msgstr "Nie wcinaj wpisów tekstowych"
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_StoreTextEntryFormatting)
 #: settings.ui:142
-#, fuzzy, kde-format
-#| msgid ""
-#| "Save rich text formatting of TextEntry, when save Worksheet in Jupyter "
-#| "notebook format"
+#, kde-format
 msgid ""
 "Use rich text format for text entries when saving in Jupyter Notebook Format"
 msgstr ""
-"Zapisz formatowany tekst wpisu tekstowego, gdy arkusz pracy jest w formacie "
-"notatnika Jupyter"
+"Stosuj format sformatowanego tekstu dla wpisów tekstowych przy zapisywaniu "
+"do formatu notatnika Jupyter"
 
 #. i18n: ectx: property (text), widget (QLabel, label_4)
 #: settings.ui:171
-#, fuzzy, kde-format
-#| msgid "Equations:"
+#, kde-format
 msgid "Evaluation:"
-msgstr "Równania:"
+msgstr "Obliczenie:"
 
 #. i18n: ectx: property (toolTip), widget (QCheckBox, kcfg_WarnAboutSessionRestart)
 #: settings.ui:178
-#, fuzzy, kde-format
-#| msgid "Ask for confirmation when restarting the backend"
+#, kde-format
 msgid ""
 "If enabled, the user will be asked for confirmation prior to restarting the "
 "backend system"
-msgstr "Pytaj o potwierdzenie przy ponownym uruchamianiu silnika"
+msgstr ""
+"Po włączeniu, użytkownik będzie pytany o potwierdzenie przed ponownym "
+"uruchomieniem silnika"
 
 #. i18n: ectx: property (toolTip), widget (QCheckBox, kcfg_AutoEval)
 #: settings.ui:188
@@ -4124,21 +4116,19 @@ msgstr "Pytaj o potwierdzenie przy ponownym uruchamianiu silnika"
 msgid ""
 "If enabled, all entries below the current one will be evaluated automatically"
 msgstr ""
+"Po włączeniu, wszystkie wpisy poniżej bieżącego będą przeliczać się same"
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_AutoEval)
 #: settings.ui:191
-#, fuzzy, kde-format
-#| msgid "Reevaluate Entries automatically"
+#, kde-format
 msgid "Reevaluate entries automatically"
-msgstr "Samoczynnie przeliczaj wiersze"
+msgstr "Sam przelicz wpisy ponownie"
 
 #. i18n: ectx: property (text), widget (QLabel, VisibleLinesLimit_label)
 #: settings.ui:201
-#, fuzzy, kde-format
-#| msgid "Maximal number of result visible rows (0 for unlimited):"
+#, kde-format
 msgid "Number of rows in the result (0 for unlimited):"
-msgstr ""
-"Największa liczba widocznych wierszy wyniku (0 oznacza nieograniczenie):"
+msgstr "Liczba wierszy w wynik (0 oznacza nieograniczenie):"
 
 #. i18n: ectx: property (toolTip), widget (QSpinBox, kcfg_VisibleLinesLimit)
 #: settings.ui:221
@@ -4152,30 +4142,29 @@ msgstr ""
 
 #. i18n: ectx: property (text), widget (QLabel, label_5)
 #: settings.ui:256
-#, fuzzy, kde-format
-#| msgid "Markdown"
+#, kde-format
 msgid "Markdown:"
-msgstr "Markdown"
+msgstr "Markdown:"
 
 #. i18n: ectx: property (toolTip), widget (QCheckBox, kcfg_EmbeddedMathDefault)
 #: settings.ui:263
-#, fuzzy, kde-format
-#| msgid "Enable LaTeX typesetting for Sage backend"
+#, kde-format
 msgid ""
 "Enable LaTeX typesetting for mathematical expressions in Markdown entries"
-msgstr "Włącz zestaw znaków LaTeX dla silnika Sage"
+msgstr ""
+"Włącz zestaw znaków LaTeX dla wyrażeń matematycznych we wpisach Markdown"
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_EmbeddedMathDefault)
 #: settings.ui:266
 #, kde-format
 msgid "Mathematical expressions via LaTeX"
-msgstr ""
+msgstr "Wyrażenia matematyczne poprzez LaTeX"
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_ShowMathRenderError)
 #: settings.ui:273
 #, kde-format
 msgid "Notify about render failures for mathematical expressions"
-msgstr ""
+msgstr "Powiadom o błędach w wyświetlaniu wyrażeń matematycznych"
 
 #. i18n: ectx: property (placeholderText), widget (KLineEdit, pattern)
 #: standardsearchbar.ui:35
