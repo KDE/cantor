@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: mathematik\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-11-27 00:42+0000\n"
+"POT-Creation-Date: 2022-11-28 00:42+0000\n"
 "PO-Revision-Date: 2022-08-08 20:03+0200\n"
 "Last-Translator: Eloy Cuadra <ecuadra@eloihr.net>\n"
 "Language-Team: Spanish <kde-l10n-es@kde.org>\n"
@@ -2167,7 +2167,7 @@ msgid "Install Additional Documentation Files"
 msgstr "Instalar archivos de documentación adicional"
 
 #. i18n: ectx: property (text), widget (QTreeWidget, qchTable)
-#: backends/qthelpconfig.ui:49 lib/defaultvariablemodel.cpp:67
+#: backends/qthelpconfig.ui:49 lib/defaultvariablemodel.cpp:64
 #, kde-format
 msgctxt "@title:column"
 msgid "Name"
@@ -3002,7 +3002,7 @@ msgstr "Cuaderno de Jupyter (*.ipynb)"
 msgid "Save as"
 msgstr "Guardar como"
 
-#: cantor_part.cpp:525 panelplugins/variablemgr/variablemanagerwidget.cpp:168
+#: cantor_part.cpp:525 panelplugins/variablemgr/variablemanagerwidget.cpp:171
 #, kde-format
 msgid "Save"
 msgstr "Guardar"
@@ -3602,21 +3602,23 @@ msgstr "Ruta al ejecutable latex"
 msgid "Path to the dvips executable"
 msgstr "Ruta al ejecutable dvips"
 
+#: lib/defaultvariablemodel.cpp:66
+#, kde-format
+msgctxt "@title:column"
+msgid "Type"
+msgstr ""
+
+#: lib/defaultvariablemodel.cpp:68
+#, kde-format
+msgctxt "@title:column"
+msgid "Size [Bytes]"
+msgstr ""
+
 #: lib/defaultvariablemodel.cpp:70
 #, kde-format
 msgctxt "@title:column"
 msgid "Value"
 msgstr "Valor"
-
-#: lib/defaultvariablemodel.cpp:102
-#, kde-format
-msgid "<%1 bytes>"
-msgstr "<%1 bytes>"
-
-#: lib/defaultvariablemodel.cpp:104
-#, kde-format
-msgid "<too big variable>"
-msgstr "<variable demasiado grande>"
 
 #. i18n: ectx: property (text), widget (QLabel, label)
 #: lib/directives/axisrange.ui:19
@@ -3889,52 +3891,70 @@ msgstr "Nombre:"
 msgid "Value:"
 msgstr "Valor:"
 
-#: panelplugins/variablemgr/variablemanagerwidget.cpp:45
-#: panelplugins/variablemgr/variablemanagerwidget.cpp:197
+#: panelplugins/variablemgr/variablemanagerwidget.cpp:47
+#: panelplugins/variablemgr/variablemanagerwidget.cpp:200
 #, kde-format
 msgid "Add New Variable"
 msgstr "Añadir nueva variable"
 
-#: panelplugins/variablemgr/variablemanagerwidget.cpp:51
+#: panelplugins/variablemgr/variablemanagerwidget.cpp:53
 #, kde-format
 msgid "Load Variables"
 msgstr "Cargar variables"
 
-#: panelplugins/variablemgr/variablemanagerwidget.cpp:57
+#: panelplugins/variablemgr/variablemanagerwidget.cpp:59
 #, kde-format
 msgid "Save Variables"
 msgstr "Guardar variables"
 
-#: panelplugins/variablemgr/variablemanagerwidget.cpp:63
-#: panelplugins/variablemgr/variablemanagerwidget.cpp:140
+#: panelplugins/variablemgr/variablemanagerwidget.cpp:65
+#: panelplugins/variablemgr/variablemanagerwidget.cpp:143
 #, kde-format
 msgid "Remove Variables"
 msgstr "Eliminar variables"
 
-#: panelplugins/variablemgr/variablemanagerwidget.cpp:73
+#: panelplugins/variablemgr/variablemanagerwidget.cpp:75
 #, kde-format
 msgid "Search/Filter"
 msgstr "Buscar/filtrar"
 
-#: panelplugins/variablemgr/variablemanagerwidget.cpp:84
+#: panelplugins/variablemgr/variablemanagerwidget.cpp:86
 #, kde-format
 msgid "Case Sensitive"
 msgstr "Distinguir mayúsculas"
 
-#: panelplugins/variablemgr/variablemanagerwidget.cpp:88
+#: panelplugins/variablemgr/variablemanagerwidget.cpp:90
 #, kde-format
 msgid "Match Complete Word"
 msgstr "Coincidir palabra completa"
 
-#: panelplugins/variablemgr/variablemanagerwidget.cpp:139
+#: panelplugins/variablemgr/variablemanagerwidget.cpp:142
 #, kde-format
 msgid "Are you sure you want to remove all variables?"
 msgstr "¿Seguro que quiere eliminar todas las variables?"
 
-#: panelplugins/variablemgr/variablemanagerwidget.cpp:182
+#: panelplugins/variablemgr/variablemanagerwidget.cpp:185
 #, kde-format
 msgid "Load file"
 msgstr "Cargar archivo"
+
+#: panelplugins/variablemgr/variablemanagerwidget.cpp:286
+#, fuzzy, kde-format
+#| msgid "Name"
+msgid "Copy Name"
+msgstr "Nombre"
+
+#: panelplugins/variablemgr/variablemanagerwidget.cpp:287
+#, fuzzy, kde-format
+#| msgctxt "@title:column"
+#| msgid "Value"
+msgid "Copy Value"
+msgstr "Valor"
+
+#: panelplugins/variablemgr/variablemanagerwidget.cpp:288
+#, kde-format
+msgid "Copy Name and Value"
+msgstr ""
 
 #: resultitem.cpp:59
 #, kde-format
@@ -4799,6 +4819,12 @@ msgstr "Eliminar entrada"
 #, kde-format
 msgid "Drag Entry"
 msgstr "Arrastrar entrada"
+
+#~ msgid "<%1 bytes>"
+#~ msgstr "<%1 bytes>"
+
+#~ msgid "<too big variable>"
+#~ msgstr "<variable demasiado grande>"
 
 #~ msgid "Animate Worksheet"
 #~ msgstr "Animar la hoja de ejercicios"

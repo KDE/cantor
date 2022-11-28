@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-10-08 00:40+0000\n"
+"POT-Creation-Date: 2022-11-27 00:42+0000\n"
 "PO-Revision-Date: 2016-01-31 14:32+0100\n"
 "Last-Translator: Karl Ove Hufthammer <karl@huftis.org>\n"
 "Language-Team: Norwegian Nynorsk <l10n-no@lister.huftis.org>\n"
@@ -741,10 +741,11 @@ msgid ""
 "<i>example(\"do\")</i>. <i>example</i> is not case sensitive. Most topics "
 "are function names.<br><br><i>example()</i> returns the list of all "
 "recognized topics.<br><br>The name of the file containing the examples is "
-"given by the global option variable <i>manual_demo</i>, which defaults to <i>"
-"\"manual.demo\"</i>.<br><br><i>example</i> quotes its argument. <i>example</"
-"i> returns <i>done</i> unless no examples are found or there is no argument, "
-"in which case <i>example</i> returns the list of all recognized topics."
+"given by the global option variable <i>manual_demo</i>, which defaults to "
+"<i>\"manual.demo\"</i>.<br><br><i>example</i> quotes its argument. "
+"<i>example</i> returns <i>done</i> unless no examples are found or there is "
+"no argument, in which case <i>example</i> returns the list of all recognized "
+"topics."
 msgstr ""
 
 #: backends/maxima/maximabackend.cpp:111
@@ -827,22 +828,22 @@ msgstr ""
 msgid "Octave script file (*.m)"
 msgstr "Octave-skriptfil (*.m)"
 
-#: backends/octave/octavesession.cpp:272 backends/sage/sageexpression.cpp:58
+#: backends/octave/octavesession.cpp:271 backends/sage/sageexpression.cpp:58
 #, kde-format
 msgid "Syntax Error"
 msgstr "Syntaksfeil"
 
-#: backends/octave/octavesession.cpp:409
+#: backends/octave/octavesession.cpp:408
 #, kde-format
 msgid "Plot integration test failed."
 msgstr ""
 
-#: backends/octave/octavesession.cpp:413
+#: backends/octave/octavesession.cpp:412
 #, kde-format
 msgid "The integration of plots will be disabled."
 msgstr ""
 
-#: backends/octave/octavesession.cpp:414 backends/sage/sagesession.cpp:238
+#: backends/octave/octavesession.cpp:413 backends/sage/sagesession.cpp:238
 #: backends/sage/sagesession.cpp:271 backends/sage/sagesession.cpp:337
 #: backends/sage/sagesession.cpp:348 cantor.cpp:216 cantor.cpp:218
 #: cantor.cpp:337 cantor.cpp:344 lib/session.cpp:381 main.cpp:66 main.cpp:130
@@ -851,7 +852,7 @@ msgstr ""
 msgid "Cantor"
 msgstr "Cantor"
 
-#: backends/octave/octavesession.cpp:435
+#: backends/octave/octavesession.cpp:434
 #, kde-format
 msgid ""
 "The plot integration doesn't work because Cantor found, that Octave can't "

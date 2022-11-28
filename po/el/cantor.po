@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-11-27 00:42+0000\n"
+"POT-Creation-Date: 2022-11-28 00:42+0000\n"
 "PO-Revision-Date: 2021-10-09 08:16+0300\n"
 "Last-Translator: Stelios <sstavra@gmail.com>\n"
 "Language-Team: Greek <kde-i18n-el@kde.org>\n"
@@ -2147,7 +2147,7 @@ msgid "Install Additional Documentation Files"
 msgstr "Εγκατάσταση πρόσθετων αρχείων τεκμηρίωσης"
 
 #. i18n: ectx: property (text), widget (QTreeWidget, qchTable)
-#: backends/qthelpconfig.ui:49 lib/defaultvariablemodel.cpp:67
+#: backends/qthelpconfig.ui:49 lib/defaultvariablemodel.cpp:64
 #, kde-format
 msgctxt "@title:column"
 msgid "Name"
@@ -2958,7 +2958,7 @@ msgstr "Σημειωματάριο Jupyter (*.ipynb)"
 msgid "Save as"
 msgstr "Αποθήκευση ως"
 
-#: cantor_part.cpp:525 panelplugins/variablemgr/variablemanagerwidget.cpp:168
+#: cantor_part.cpp:525 panelplugins/variablemgr/variablemanagerwidget.cpp:171
 #, kde-format
 msgid "Save"
 msgstr "Αποθήκευση"
@@ -3561,21 +3561,23 @@ msgstr "Διαδρομή προς το εκτελέσιμο latex"
 msgid "Path to the dvips executable"
 msgstr "Διαδρομή προς το εκτελέσιμο dvips"
 
+#: lib/defaultvariablemodel.cpp:66
+#, kde-format
+msgctxt "@title:column"
+msgid "Type"
+msgstr ""
+
+#: lib/defaultvariablemodel.cpp:68
+#, kde-format
+msgctxt "@title:column"
+msgid "Size [Bytes]"
+msgstr ""
+
 #: lib/defaultvariablemodel.cpp:70
 #, kde-format
 msgctxt "@title:column"
 msgid "Value"
 msgstr "Τιμή"
-
-#: lib/defaultvariablemodel.cpp:102
-#, kde-format
-msgid "<%1 bytes>"
-msgstr "<%1 bytes>"
-
-#: lib/defaultvariablemodel.cpp:104
-#, kde-format
-msgid "<too big variable>"
-msgstr "<πολύ μεγάλη εταβλητή>"
 
 #. i18n: ectx: property (text), widget (QLabel, label)
 #: lib/directives/axisrange.ui:19
@@ -3849,52 +3851,70 @@ msgstr "Όνομα:"
 msgid "Value:"
 msgstr "Τιμή:"
 
-#: panelplugins/variablemgr/variablemanagerwidget.cpp:45
-#: panelplugins/variablemgr/variablemanagerwidget.cpp:197
+#: panelplugins/variablemgr/variablemanagerwidget.cpp:47
+#: panelplugins/variablemgr/variablemanagerwidget.cpp:200
 #, kde-format
 msgid "Add New Variable"
 msgstr "Προσθήκη νέας μεταβλητής"
 
-#: panelplugins/variablemgr/variablemanagerwidget.cpp:51
+#: panelplugins/variablemgr/variablemanagerwidget.cpp:53
 #, kde-format
 msgid "Load Variables"
 msgstr "Φόρτωση μεταβλητών"
 
-#: panelplugins/variablemgr/variablemanagerwidget.cpp:57
+#: panelplugins/variablemgr/variablemanagerwidget.cpp:59
 #, kde-format
 msgid "Save Variables"
 msgstr "Αποθήκευση μεταβλητών"
 
-#: panelplugins/variablemgr/variablemanagerwidget.cpp:63
-#: panelplugins/variablemgr/variablemanagerwidget.cpp:140
+#: panelplugins/variablemgr/variablemanagerwidget.cpp:65
+#: panelplugins/variablemgr/variablemanagerwidget.cpp:143
 #, kde-format
 msgid "Remove Variables"
 msgstr "Αφαίρεση μεταβλητών"
 
-#: panelplugins/variablemgr/variablemanagerwidget.cpp:73
+#: panelplugins/variablemgr/variablemanagerwidget.cpp:75
 #, kde-format
 msgid "Search/Filter"
 msgstr "Αναζήτηση/φιλτράρισμα"
 
-#: panelplugins/variablemgr/variablemanagerwidget.cpp:84
+#: panelplugins/variablemgr/variablemanagerwidget.cpp:86
 #, kde-format
 msgid "Case Sensitive"
 msgstr "Διάκριση πεζών/κεφαλαίων"
 
-#: panelplugins/variablemgr/variablemanagerwidget.cpp:88
+#: panelplugins/variablemgr/variablemanagerwidget.cpp:90
 #, kde-format
 msgid "Match Complete Word"
 msgstr "Ταίριασμα όλης της λέξης"
 
-#: panelplugins/variablemgr/variablemanagerwidget.cpp:139
+#: panelplugins/variablemgr/variablemanagerwidget.cpp:142
 #, kde-format
 msgid "Are you sure you want to remove all variables?"
 msgstr "Επιθυμείτε σίγουρα να αφαιρέσετε όλες τις μεταβλητές;"
 
-#: panelplugins/variablemgr/variablemanagerwidget.cpp:182
+#: panelplugins/variablemgr/variablemanagerwidget.cpp:185
 #, kde-format
 msgid "Load file"
 msgstr "Φόρτωση αρχείου"
+
+#: panelplugins/variablemgr/variablemanagerwidget.cpp:286
+#, fuzzy, kde-format
+#| msgid "Name"
+msgid "Copy Name"
+msgstr "Όνομα"
+
+#: panelplugins/variablemgr/variablemanagerwidget.cpp:287
+#, fuzzy, kde-format
+#| msgctxt "@title:column"
+#| msgid "Value"
+msgid "Copy Value"
+msgstr "Τιμή"
+
+#: panelplugins/variablemgr/variablemanagerwidget.cpp:288
+#, kde-format
+msgid "Copy Name and Value"
+msgstr ""
 
 #: resultitem.cpp:59
 #, kde-format
@@ -4771,6 +4791,12 @@ msgstr "Αφαίρεση καταχώρησης"
 #, kde-format
 msgid "Drag Entry"
 msgstr "Σύρσιμο καταχώρησης"
+
+#~ msgid "<%1 bytes>"
+#~ msgstr "<%1 bytes>"
+
+#~ msgid "<too big variable>"
+#~ msgstr "<πολύ μεγάλη εταβλητή>"
 
 #~ msgid "Animate Worksheet"
 #~ msgstr "Εφέ κίνησης φύλλου εργασίας"

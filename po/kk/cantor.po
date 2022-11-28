@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-11-27 00:42+0000\n"
+"POT-Creation-Date: 2022-11-28 00:42+0000\n"
 "PO-Revision-Date: 2013-11-01 23:02+0600\n"
 "Last-Translator: Sairan Kikkarin <sairan@computer.org>\n"
 "Language-Team: Kazakh <kde-i18n-doc@kde.org>\n"
@@ -2144,7 +2144,7 @@ msgid "Install Additional Documentation Files"
 msgstr ""
 
 #. i18n: ectx: property (text), widget (QTreeWidget, qchTable)
-#: backends/qthelpconfig.ui:49 lib/defaultvariablemodel.cpp:67
+#: backends/qthelpconfig.ui:49 lib/defaultvariablemodel.cpp:64
 #, kde-format
 msgctxt "@title:column"
 msgid "Name"
@@ -2985,7 +2985,7 @@ msgstr ""
 msgid "Save as"
 msgstr "Нәтижені сақтау"
 
-#: cantor_part.cpp:525 panelplugins/variablemgr/variablemanagerwidget.cpp:168
+#: cantor_part.cpp:525 panelplugins/variablemgr/variablemanagerwidget.cpp:171
 #, kde-format
 msgid "Save"
 msgstr ""
@@ -3598,22 +3598,23 @@ msgstr "Орындалатын latex файлдың жолы"
 msgid "Path to the dvips executable"
 msgstr "Орындалатын dvips файлдың жолы"
 
+#: lib/defaultvariablemodel.cpp:66
+#, kde-format
+msgctxt "@title:column"
+msgid "Type"
+msgstr ""
+
+#: lib/defaultvariablemodel.cpp:68
+#, kde-format
+msgctxt "@title:column"
+msgid "Size [Bytes]"
+msgstr ""
+
 #: lib/defaultvariablemodel.cpp:70
 #, kde-format
 msgctxt "@title:column"
 msgid "Value"
 msgstr "Мәні"
-
-#: lib/defaultvariablemodel.cpp:102
-#, kde-format
-msgid "<%1 bytes>"
-msgstr ""
-
-#: lib/defaultvariablemodel.cpp:104
-#, fuzzy, kde-format
-#| msgid "X variable"
-msgid "<too big variable>"
-msgstr "X айнымалысы"
 
 #. i18n: ectx: property (text), widget (QLabel, label)
 #: lib/directives/axisrange.ui:19
@@ -3892,57 +3893,75 @@ msgstr "Аты:"
 msgid "Value:"
 msgstr "Мәні:"
 
-#: panelplugins/variablemgr/variablemanagerwidget.cpp:45
-#: panelplugins/variablemgr/variablemanagerwidget.cpp:197
+#: panelplugins/variablemgr/variablemanagerwidget.cpp:47
+#: panelplugins/variablemgr/variablemanagerwidget.cpp:200
 #, fuzzy, kde-format
 #| msgid "Add new variable"
 msgid "Add New Variable"
 msgstr "Жаңа айнымалыны қосу"
 
-#: panelplugins/variablemgr/variablemanagerwidget.cpp:51
+#: panelplugins/variablemgr/variablemanagerwidget.cpp:53
 #, kde-format
 msgid "Load Variables"
 msgstr "Айнымалыларды жүктеп алу"
 
-#: panelplugins/variablemgr/variablemanagerwidget.cpp:57
+#: panelplugins/variablemgr/variablemanagerwidget.cpp:59
 #, fuzzy, kde-format
 #| msgid "Store Variables"
 msgid "Save Variables"
 msgstr "Айнымалыларды сақтау"
 
-#: panelplugins/variablemgr/variablemanagerwidget.cpp:63
-#: panelplugins/variablemgr/variablemanagerwidget.cpp:140
+#: panelplugins/variablemgr/variablemanagerwidget.cpp:65
+#: panelplugins/variablemgr/variablemanagerwidget.cpp:143
 #, fuzzy, kde-format
 #| msgid "Store Variables"
 msgid "Remove Variables"
 msgstr "Айнымалыларды сақтау"
 
-#: panelplugins/variablemgr/variablemanagerwidget.cpp:73
+#: panelplugins/variablemgr/variablemanagerwidget.cpp:75
 #, fuzzy, kde-format
 #| msgid "SearchBar"
 msgid "Search/Filter"
 msgstr "Іздеу панелі"
 
-#: panelplugins/variablemgr/variablemanagerwidget.cpp:84
+#: panelplugins/variablemgr/variablemanagerwidget.cpp:86
 #, kde-format
 msgid "Case Sensitive"
 msgstr ""
 
-#: panelplugins/variablemgr/variablemanagerwidget.cpp:88
+#: panelplugins/variablemgr/variablemanagerwidget.cpp:90
 #, kde-format
 msgid "Match Complete Word"
 msgstr ""
 
-#: panelplugins/variablemgr/variablemanagerwidget.cpp:139
+#: panelplugins/variablemgr/variablemanagerwidget.cpp:142
 #, kde-format
 msgid "Are you sure you want to remove all variables?"
 msgstr "Бүкіл айнымалыларды өшірмексіз бе?"
 
-#: panelplugins/variablemgr/variablemanagerwidget.cpp:182
+#: panelplugins/variablemgr/variablemanagerwidget.cpp:185
 #, fuzzy, kde-format
 #| msgid "Loading failed."
 msgid "Load file"
 msgstr "Жүктеу жаңылысы."
+
+#: panelplugins/variablemgr/variablemanagerwidget.cpp:286
+#, fuzzy, kde-format
+#| msgid "Name"
+msgid "Copy Name"
+msgstr "Атауы"
+
+#: panelplugins/variablemgr/variablemanagerwidget.cpp:287
+#, fuzzy, kde-format
+#| msgctxt "@title:column"
+#| msgid "Value"
+msgid "Copy Value"
+msgstr "Мәні"
+
+#: panelplugins/variablemgr/variablemanagerwidget.cpp:288
+#, kde-format
+msgid "Copy Name and Value"
+msgstr ""
 
 #: resultitem.cpp:59
 #, kde-format
@@ -4818,6 +4837,11 @@ msgstr "Жазуды өшіру"
 #, kde-format
 msgid "Drag Entry"
 msgstr "Жазуды сүйреу"
+
+#, fuzzy
+#~| msgid "X variable"
+#~ msgid "<too big variable>"
+#~ msgstr "X айнымалысы"
 
 #~ msgid "Animate Worksheet"
 #~ msgstr "Құжатты анимациялау"

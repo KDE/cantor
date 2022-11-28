@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: cantor\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-11-27 00:42+0000\n"
+"POT-Creation-Date: 2022-11-28 00:42+0000\n"
 "PO-Revision-Date: 2022-10-04 05:52+0200\n"
 "Last-Translator: Temuri Doghonadze <temuri.doghonadze@gmail.com>\n"
 "Language-Team: Georgian <kde-i18n-doc@kde.org>\n"
@@ -2010,7 +2010,7 @@ msgid "Install Additional Documentation Files"
 msgstr "დოკუმენტაციის დამატებითი ფაილების დამატება"
 
 #. i18n: ectx: property (text), widget (QTreeWidget, qchTable)
-#: backends/qthelpconfig.ui:49 lib/defaultvariablemodel.cpp:67
+#: backends/qthelpconfig.ui:49 lib/defaultvariablemodel.cpp:64
 #, kde-format
 msgctxt "@title:column"
 msgid "Name"
@@ -2775,7 +2775,7 @@ msgstr ""
 msgid "Save as"
 msgstr "შენახვა როგორც"
 
-#: cantor_part.cpp:525 panelplugins/variablemgr/variablemanagerwidget.cpp:168
+#: cantor_part.cpp:525 panelplugins/variablemgr/variablemanagerwidget.cpp:171
 #, kde-format
 msgid "Save"
 msgstr "შენახვა"
@@ -3359,21 +3359,23 @@ msgstr ""
 msgid "Path to the dvips executable"
 msgstr ""
 
+#: lib/defaultvariablemodel.cpp:66
+#, kde-format
+msgctxt "@title:column"
+msgid "Type"
+msgstr ""
+
+#: lib/defaultvariablemodel.cpp:68
+#, kde-format
+msgctxt "@title:column"
+msgid "Size [Bytes]"
+msgstr ""
+
 #: lib/defaultvariablemodel.cpp:70
 #, kde-format
 msgctxt "@title:column"
 msgid "Value"
 msgstr "მნიშვნელობა"
-
-#: lib/defaultvariablemodel.cpp:102
-#, kde-format
-msgid "<%1 bytes>"
-msgstr "<%1 ბაიტი>"
-
-#: lib/defaultvariablemodel.cpp:104
-#, kde-format
-msgid "<too big variable>"
-msgstr ""
 
 #. i18n: ectx: property (text), widget (QLabel, label)
 #: lib/directives/axisrange.ui:19
@@ -3639,52 +3641,71 @@ msgstr "სახელი:"
 msgid "Value:"
 msgstr "მნიშვნელობა:"
 
-#: panelplugins/variablemgr/variablemanagerwidget.cpp:45
-#: panelplugins/variablemgr/variablemanagerwidget.cpp:197
+#: panelplugins/variablemgr/variablemanagerwidget.cpp:47
+#: panelplugins/variablemgr/variablemanagerwidget.cpp:200
 #, kde-format
 msgid "Add New Variable"
 msgstr ""
 
-#: panelplugins/variablemgr/variablemanagerwidget.cpp:51
+#: panelplugins/variablemgr/variablemanagerwidget.cpp:53
 #, kde-format
 msgid "Load Variables"
 msgstr ""
 
-#: panelplugins/variablemgr/variablemanagerwidget.cpp:57
+#: panelplugins/variablemgr/variablemanagerwidget.cpp:59
 #, kde-format
 msgid "Save Variables"
 msgstr ""
 
-#: panelplugins/variablemgr/variablemanagerwidget.cpp:63
-#: panelplugins/variablemgr/variablemanagerwidget.cpp:140
+#: panelplugins/variablemgr/variablemanagerwidget.cpp:65
+#: panelplugins/variablemgr/variablemanagerwidget.cpp:143
 #, kde-format
 msgid "Remove Variables"
 msgstr ""
 
-#: panelplugins/variablemgr/variablemanagerwidget.cpp:73
+#: panelplugins/variablemgr/variablemanagerwidget.cpp:75
 #, kde-format
 msgid "Search/Filter"
 msgstr "ძებნა/გაფილტვრა"
 
-#: panelplugins/variablemgr/variablemanagerwidget.cpp:84
+#: panelplugins/variablemgr/variablemanagerwidget.cpp:86
 #, kde-format
 msgid "Case Sensitive"
 msgstr "დიდი ასოს გმრძნობიარე"
 
-#: panelplugins/variablemgr/variablemanagerwidget.cpp:88
+#: panelplugins/variablemgr/variablemanagerwidget.cpp:90
 #, kde-format
 msgid "Match Complete Word"
 msgstr ""
 
-#: panelplugins/variablemgr/variablemanagerwidget.cpp:139
+#: panelplugins/variablemgr/variablemanagerwidget.cpp:142
 #, kde-format
 msgid "Are you sure you want to remove all variables?"
 msgstr ""
 
-#: panelplugins/variablemgr/variablemanagerwidget.cpp:182
+#: panelplugins/variablemgr/variablemanagerwidget.cpp:185
 #, kde-format
 msgid "Load file"
 msgstr "ფაილის ჩატვირთვა"
+
+#: panelplugins/variablemgr/variablemanagerwidget.cpp:286
+#, fuzzy, kde-format
+#| msgctxt "@title:column"
+#| msgid "Name"
+msgid "Copy Name"
+msgstr "სახელი"
+
+#: panelplugins/variablemgr/variablemanagerwidget.cpp:287
+#, fuzzy, kde-format
+#| msgctxt "@title:column"
+#| msgid "Value"
+msgid "Copy Value"
+msgstr "მნიშვნელობა"
+
+#: panelplugins/variablemgr/variablemanagerwidget.cpp:288
+#, kde-format
+msgid "Copy Name and Value"
+msgstr ""
 
 #: resultitem.cpp:59
 #, kde-format
@@ -4510,3 +4531,6 @@ msgstr "ჩანაწერის ამოღება"
 #, kde-format
 msgid "Drag Entry"
 msgstr ""
+
+#~ msgid "<%1 bytes>"
+#~ msgstr "<%1 ბაიტი>"
