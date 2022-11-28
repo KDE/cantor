@@ -8,7 +8,7 @@
 
 #include <iostream>
 #include <QFileInfo>
-#include <QDir>
+//#include <QDir>
 #include <QTemporaryFile>
 #include <QDebug>
 
@@ -134,13 +134,13 @@ void JuliaServer::runJuliaCommand(const QString &command)
     auto vars_to_remove = {
         "__originalSTDOUT__", "__originalSTDERR__"
     };
+
     for (const auto &var : vars_to_remove) {
         jl_eval_string(
             QString::fromLatin1("%1 = 0").arg(QLatin1String(var))
                 .toLatin1().constData()
         );
     }
-
 
     m_output = QString::fromUtf8(output.readAll());
     m_error = QString::fromUtf8(error.readAll());
@@ -178,13 +178,13 @@ void JuliaServer::parseJlModule(jl_module_t* module, bool parseValue)
     jl_function_t* jl_sizeof_function = jl_get_function(jl_base_module, "sizeof");
 
     if (module != JL_MAIN_MODULE)
-        {
+    {
         const QString& moduleName = fromJuliaString(jl_call1(jl_string_function, (jl_value_t*)(module->name)));
         if (parsedModules.contains(moduleName))
             return;
         else
             parsedModules.append(moduleName);
-        }
+    }
 
     jl_function_t* jl_names_function = jl_get_function(jl_base_module, "names");
     jl_value_t* names = jl_call1(jl_names_function, (jl_value_t*)module);
@@ -199,6 +199,7 @@ void JuliaServer::parseJlModule(jl_module_t* module, bool parseValue)
             jl_value_t* value = jl_get_binding_or_error(module, (jl_sym_t*)(data[i]))->value;
             jl_datatype_t* datetype = (jl_datatype_t*)jl_typeof(value);
             QString type = QString::fromUtf8(jl_typeof_str(value));
+
             // Module
             if (jl_is_module(value))
             {
@@ -217,6 +218,7 @@ void JuliaServer::parseJlModule(jl_module_t* module, bool parseValue)
                 if (module == JL_MAIN_MODULE && !INTERNAL_VARIABLES.contains(name))
                 {
                     const QString& size = fromJuliaString(jl_call1(jl_string_function, jl_call1(jl_sizeof_function, value)));
+                    //const QString& type = fromJuliaString(jl_call1(jl_string_function, jl_call1(jl_typeof_function, value)));
                     if (parseValue)
                     {
                         const QString& valueString = fromJuliaString(jl_call1(jl_string_function, value));
@@ -224,13 +226,15 @@ void JuliaServer::parseJlModule(jl_module_t* module, bool parseValue)
                         {
                             int i = m_variables.indexOf(name);
                             m_variableValues[i] = valueString;
-                            m_variableSize[i] = size;
+                            m_variableSizes[i] = size;
+                            m_variableTypes[i] = type;
                         }
                         else
                         {
                             m_variables.append(name);
                             m_variableValues.append(valueString);
-                            m_variableSize.append(size);
+                            m_variableSizes.append(size);
+                            m_variableTypes.append(type);
                         }
                     }
                     else
@@ -238,12 +242,14 @@ void JuliaServer::parseJlModule(jl_module_t* module, bool parseValue)
                         if (m_variables.contains(name))
                         {
                             int i = m_variables.indexOf(name);
-                            m_variableSize[i] = size;
+                            m_variableSizes[i] = size;
+                            m_variableTypes[i] = type;
                         }
                         else
                         {
                             m_variables.append(name);
-                            m_variableSize.append(size);
+                            m_variableSizes.append(size);
+                            m_variableTypes.append(type);
                         }
                     }
                 }
@@ -269,7 +275,12 @@ QStringList JuliaServer::variableValuesList()
 
 QStringList JuliaServer::variableSizesList()
 {
-    return m_variableSize;
+    return m_variableSizes;
+}
+
+QStringList JuliaServer::variableTypesList()
+{
+    return m_variableTypes;
 }
 
 QStringList JuliaServer::functionsList()

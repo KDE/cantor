@@ -37,16 +37,18 @@ void JuliaVariableModel::update()
 
     m_interface->call(QLatin1String("parseModules"), JuliaSettings::variableManagement());
 
-    const QStringList& variables =
+    const auto& variables =
         static_cast<QDBusReply<QStringList>>(m_interface->call(QLatin1String("variablesList"))).value();
 
     QList<Variable> vars;
     if (JuliaSettings::variableManagement())
     {
-        const QStringList& values =
+        const auto& values =
             static_cast<QDBusReply<QStringList>>(m_interface->call(QLatin1String("variableValuesList"))).value();
-        const QStringList& variablesSizes =
+        const auto& sizes =
             static_cast<QDBusReply<QStringList>>(m_interface->call(QLatin1String("variableSizesList"))).value();
+        const auto& types =
+            static_cast<QDBusReply<QStringList>>(m_interface->call(QLatin1String("variableTypesList"))).value();
 
         for (int i = 0; i < variables.size(); i++)
         {
@@ -56,16 +58,17 @@ void JuliaVariableModel::update()
                 continue;
             }
 
-            const QString& name = variables[i];
-            QString value = values[i];
-            size_t size = variablesSizes[i].toULongLong();
+            const auto& name = variables.at(i);
+            auto value = values.at(i);
+            size_t size = sizes.at(i).toULongLong();
+            const auto& type = types.at(i);
             if (!internalCantorJuliaVariables.contains(name) && value != JuliaVariableManagementExtension::REMOVED_VARIABLE_MARKER)
             {
                 // Register variable
                 // We use replace here, because julia return data type for some variables, and we need
                 // remove it to make variable view more consistent with the other backends
                 // More info: https://bugs.kde.org/show_bug.cgi?id=377771
-                vars << Variable(name, value.replace(typeVariableInfo, QLatin1String("[")), size);
+                vars << Variable(name, value.replace(typeVariableInfo, QLatin1String("[")), size, type);
             }
         }
     }

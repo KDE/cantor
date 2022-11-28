@@ -23,7 +23,6 @@ class JuliaServer: public QObject
     Q_OBJECT
 public:
     explicit JuliaServer(QObject *parent = nullptr);
-
     ~JuliaServer() override;
 
 public Q_SLOTS:
@@ -41,7 +40,7 @@ public Q_SLOTS:
      *
      * @param command maybe multiline piece of julia code to run
      */
-    Q_SCRIPTABLE void runJuliaCommand(const QString &command);
+    Q_SCRIPTABLE void runJuliaCommand(const QString&);
 
     /**
      * @return stdout output of the last command execution
@@ -77,9 +76,14 @@ public Q_SLOTS:
     Q_SCRIPTABLE QStringList variableValuesList();
 
     /**
-     * @return corresponding list of values for variables from variablesList.
+     * @return corresponding list of sizes for variables from variablesList.
      */
     Q_SCRIPTABLE QStringList variableSizesList();
+
+    /**
+     * @return corresponding list of types for variables from variablesList.
+     */
+    Q_SCRIPTABLE QStringList variableTypesList();
 
     /**
      * @return list of function in internal Julia's module
@@ -88,16 +92,16 @@ public Q_SLOTS:
 
 private:
     void parseJlModule(jl_module_t* module, bool parseValue);
+    QString fromJuliaString(const jl_value_t*);
 
-    QString fromJuliaString(const jl_value_t* value);
-private:
     QString m_error; //< Stores last stderr output
     QString m_output; //< Stores last stdout output
     bool m_was_exception; //< Stores indicator of exception
     QStringList parsedModules;
     QStringList m_variables;
     QStringList m_variableValues;
-    QStringList m_variableSize;
+    QStringList m_variableSizes;
+    QStringList m_variableTypes;
     QStringList m_functions;
     static QStringList INTERNAL_VARIABLES;
 };
