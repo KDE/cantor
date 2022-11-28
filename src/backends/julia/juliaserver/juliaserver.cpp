@@ -8,7 +8,7 @@
 
 #include <iostream>
 #include <QFileInfo>
-//#include <QDir>
+#include <QDir>
 #include <QTemporaryFile>
 #include <QDebug>
 
