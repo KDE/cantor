@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: cantor\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2022-11-28 00:42+0000\n"
-"PO-Revision-Date: 2022-07-14 18:59+0200\n"
+"PO-Revision-Date: 2022-11-28 21:56+0100\n"
 "Last-Translator: giovanni <g.sora@tiscali.it>\n"
 "Language-Team: Interlingua <kde-i18n-doc@kde.org>\n"
 "Language: ia\n"
@@ -15,7 +15,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Lokalize 21.12.3\n"
+"X-Generator: Lokalize 22.11.80\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -43,15 +43,14 @@ msgid "Stop"
 msgstr "Stoppa"
 
 #: animationresultitem.cpp:113
-#, fuzzy, kde-format
-#| msgid "Save result"
+#, kde-format
 msgid "Save animation result"
-msgstr "Salveguarda exito"
+msgstr "Salveguarda exito de animation"
 
 #: animationresultitem.cpp:113
 #, kde-format
 msgid "Animations (*.gif)"
-msgstr ""
+msgstr "Animationes (*.gif)"
 
 #: assistants/advancedplot/advancedplotassistant.cpp:30
 #, kde-format
@@ -2878,10 +2877,9 @@ msgstr "Numeros de linea"
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_AnimationDefault)
 #: cantor_part.cpp:240 settings.ui:125
-#, fuzzy, kde-format
-#| msgid "Functions"
+#, kde-format
 msgid "Animations"
-msgstr "Functiones"
+msgstr "Animationes"
 
 #: cantor_part.cpp:247
 #, kde-format
@@ -3085,10 +3083,9 @@ msgstr "F&olio de labor"
 
 #. i18n: ectx: Menu (settings)
 #: cantor_part.rc:50
-#, fuzzy, kde-format
-#| msgid "&Settings"
+#, kde-format
 msgid "Settings"
-msgstr "Preferentia&s"
+msgstr "Preferentias"
 
 #. i18n: ectx: Menu (file)
 #: cantor_shell.rc:4
@@ -3443,10 +3440,9 @@ msgid "Cannot load image %1"
 msgstr "Non pote cargar imagine %1"
 
 #: imageresultitem.cpp:97
-#, fuzzy, kde-format
-#| msgid "Save result"
+#, kde-format
 msgid "Save image result"
-msgstr "Salveguarda exito"
+msgstr "Salveguarda exito de imagine"
 
 #: imageresultitem.cpp:99 imagesettingsdialog.cpp:153 markdownentry.cpp:775
 #, kde-format
@@ -3599,13 +3595,13 @@ msgstr "Percurso al executabile de dvips"
 #, kde-format
 msgctxt "@title:column"
 msgid "Type"
-msgstr ""
+msgstr "Typo"
 
 #: lib/defaultvariablemodel.cpp:68
 #, kde-format
 msgctxt "@title:column"
 msgid "Size [Bytes]"
-msgstr ""
+msgstr "Grandor [Bytes]"
 
 #: lib/defaultvariablemodel.cpp:70
 #, kde-format
@@ -3933,22 +3929,19 @@ msgid "Load file"
 msgstr "Carga File"
 
 #: panelplugins/variablemgr/variablemanagerwidget.cpp:286
-#, fuzzy, kde-format
-#| msgid "Name"
+#, kde-format
 msgid "Copy Name"
-msgstr "Nomine"
+msgstr "Copia Nomine"
 
 #: panelplugins/variablemgr/variablemanagerwidget.cpp:287
-#, fuzzy, kde-format
-#| msgctxt "@title:column"
-#| msgid "Value"
+#, kde-format
 msgid "Copy Value"
-msgstr "Valor"
+msgstr "Copia Valor"
 
 #: panelplugins/variablemgr/variablemanagerwidget.cpp:288
 #, kde-format
 msgid "Copy Name and Value"
-msgstr ""
+msgstr "Copia Nomine e Valor"
 
 #: resultitem.cpp:59
 #, kde-format
@@ -4029,10 +4022,9 @@ msgstr "Codice LaTeX"
 
 #. i18n: ectx: property (text), widget (QLabel, label_2)
 #: settings.ui:23
-#, fuzzy, kde-format
-#| msgid "Start"
+#, kde-format
 msgid "Startup:"
-msgstr "Initia"
+msgstr "Starta :"
 
 #. i18n: ectx: property (toolTip), widget (QLabel, label)
 #. i18n: ectx: property (toolTip), widget (KComboBox, kcfg_DefaultBackend)
@@ -4042,6 +4034,9 @@ msgid ""
 "Create a new worksheet for the selected backend system. If none is selected, "
 "the user is asked about which system to use on startup."
 msgstr ""
+"Crea un nove folio de labor per le systema de retroadministration seligite. "
+"Si necun esseligite il essre demandate al usator qual sytema debe esser "
+"usate al startar."
 
 #. i18n: ectx: property (text), widget (QLabel, label)
 #: settings.ui:33
@@ -4051,68 +4046,61 @@ msgstr "Retroadministration predefinite:"
 
 #. i18n: ectx: property (text), widget (QLabel, label_3)
 #: settings.ui:75
-#, fuzzy, kde-format
-#| msgid "&Worksheet"
+#, kde-format
 msgid "Worksheet:"
-msgstr "F&olio de labor"
+msgstr "Folio de labor"
 
 #. i18n: ectx: property (toolTip), widget (QCheckBox, kcfg_TypesetDefault)
 #: settings.ui:82
-#, fuzzy, kde-format
-#| msgid "Enable LaTeX typesetting for Sage backend"
+#, kde-format
 msgid ""
 "Enable LaTeX typesetting for the results of the calculations, if supported "
 "by the backend system"
-msgstr "Habilita typographic de LaTeX per retroadministration de Sage"
+msgstr ""
+"Habilita typographic de LaTeX per le exitos de calculationes, si supportate "
+"per le syustema de retroadministration"
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_TypesetDefault)
 #: settings.ui:85
-#, fuzzy, kde-format
-#| msgid "LaTeX typesetting:"
+#, kde-format
 msgid "LaTeX typesetting"
-msgstr "Typographic de LaTeX:"
+msgstr "Typographic de LaTeX"
 
 #. i18n: ectx: property (toolTip), widget (QCheckBox, kcfg_HighlightDefault)
 #: settings.ui:92
-#, fuzzy, kde-format
-#| msgid "Enable Syntax Highlighting"
+#, kde-format
 msgid "Enable syntax highlighting"
 msgstr "Activa Evidentiar de Syntaxe"
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_HighlightDefault)
 #: settings.ui:95
-#, fuzzy, kde-format
-#| msgid "Syntax Highlighting"
+#, kde-format
 msgid "Syntax highlighting"
 msgstr "Evidentiar syntaxe"
 
 #. i18n: ectx: property (toolTip), widget (QCheckBox, kcfg_CompletionDefault)
 #: settings.ui:102
-#, fuzzy, kde-format
-#| msgid "Enable Completion"
+#, kde-format
 msgid "Enable syntax completion"
-msgstr "Habilita Completion"
+msgstr "Habilita Completion de syntaxe"
 
 #. i18n: ectx: property (toolTip), widget (QCheckBox, kcfg_ExpressionNumberingDefault)
 #: settings.ui:112
-#, fuzzy, kde-format
-#| msgid "Line Numbers"
+#, kde-format
 msgid "Show line numbers"
-msgstr "Numeros de linea"
+msgstr "Monstra numeros de linea"
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_ExpressionNumberingDefault)
 #: settings.ui:115
-#, fuzzy, kde-format
-#| msgid "Line Numbers"
+#, kde-format
 msgid "Line numbers"
 msgstr "Numeros de linea"
 
 #. i18n: ectx: property (toolTip), widget (QCheckBox, kcfg_AnimationDefault)
 #: settings.ui:122
-#, fuzzy, kde-format
-#| msgid "Integrate Plots into the Worksheet"
+#, kde-format
 msgid "Enable animation effects in the worksheet"
-msgstr "Integra Plots (tracias) in le folio de travalio"
+msgstr "Integra effectos de animation le folio de travalio"
 
 #. i18n: ectx: property (toolTip), widget (QCheckBox, kcfg_UseOldCantorEntriesIndent)
 #: settings.ui:132
@@ -4121,40 +4109,39 @@ msgid ""
 "If enabled, text entries are aligned at the worksheet border and not at the "
 "prompt border"
 msgstr ""
+"Sihabilitate, entratas de texto es alineate al margine del folio de labor e "
+"non al margine del prompt"
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_UseOldCantorEntriesIndent)
 #: settings.ui:135
 #, kde-format
 msgid "Don't indent text entries"
-msgstr ""
+msgstr "Non indentar entratas de texto"
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_StoreTextEntryFormatting)
 #: settings.ui:142
-#, fuzzy, kde-format
-#| msgid ""
-#| "Save rich text formatting of TextEntry, when save Worksheet in Jupyter "
-#| "notebook format"
+#, kde-format
 msgid ""
 "Use rich text format for text entries when saving in Jupyter Notebook Format"
 msgstr ""
-"Salveguarda formatar in texto rich de TextEntry, quando salveguarda folio de "
-"travalio in formato de Jupyter notebook"
+"Salveguarda formatar in texto rich  quando salveguarda folio de travalio in "
+"formato de Jupyter notebook"
 
 #. i18n: ectx: property (text), widget (QLabel, label_4)
 #: settings.ui:171
-#, fuzzy, kde-format
-#| msgid "Equations:"
+#, kde-format
 msgid "Evaluation:"
-msgstr "Equationes:"
+msgstr "Evaluattion:"
 
 #. i18n: ectx: property (toolTip), widget (QCheckBox, kcfg_WarnAboutSessionRestart)
 #: settings.ui:178
-#, fuzzy, kde-format
-#| msgid "Ask for confirmation when restarting the backend"
+#, kde-format
 msgid ""
 "If enabled, the user will be asked for confirmation prior to restarting the "
 "backend system"
-msgstr "Demanda per confirmation quando il restarta le retroadministration"
+msgstr ""
+"Si habilitate, le usator essera demandate per confirmation ante restartar  "
+"le systema de retroadministration"
 
 #. i18n: ectx: property (toolTip), widget (QCheckBox, kcfg_AutoEval)
 #: settings.ui:188
@@ -4162,20 +4149,20 @@ msgstr "Demanda per confirmation quando il restarta le retroadministration"
 msgid ""
 "If enabled, all entries below the current one will be evaluated automatically"
 msgstr ""
+"Si habilitate, omne entratas a basso del currente essera evalutate "
+"automaticamente"
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_AutoEval)
 #: settings.ui:191
-#, fuzzy, kde-format
-#| msgid "Reevaluate Entries automatically"
+#, kde-format
 msgid "Reevaluate entries automatically"
 msgstr "Reevaluta automaticamente entratas"
 
 #. i18n: ectx: property (text), widget (QLabel, VisibleLinesLimit_label)
 #: settings.ui:201
-#, fuzzy, kde-format
-#| msgid "Maximal number of result visible rows (0 for unlimited):"
+#, kde-format
 msgid "Number of rows in the result (0 for unlimited):"
-msgstr "Maxime numero de rangos visibile de resultato (0 per sin limite):"
+msgstr "Numero de rangosin le resultato (0 per sin limite):"
 
 #. i18n: ectx: property (toolTip), widget (QSpinBox, kcfg_VisibleLinesLimit)
 #: settings.ui:221
@@ -4189,30 +4176,30 @@ msgstr ""
 
 #. i18n: ectx: property (text), widget (QLabel, label_5)
 #: settings.ui:256
-#, fuzzy, kde-format
-#| msgid "Markdown"
+#, kde-format
 msgid "Markdown:"
-msgstr "Markdown"
+msgstr "Markdown:"
 
 #. i18n: ectx: property (toolTip), widget (QCheckBox, kcfg_EmbeddedMathDefault)
 #: settings.ui:263
-#, fuzzy, kde-format
-#| msgid "Enable LaTeX typesetting for Sage backend"
+#, kde-format
 msgid ""
 "Enable LaTeX typesetting for mathematical expressions in Markdown entries"
-msgstr "Habilita typographic de LaTeX per retroadministration de Sage"
+msgstr ""
+"Habilita typographic de LaTeX per expressiones mathematic in entratas de "
+"MArkdown"
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_EmbeddedMathDefault)
 #: settings.ui:266
 #, kde-format
 msgid "Mathematical expressions via LaTeX"
-msgstr ""
+msgstr "Expressione mathematic via LaTeX"
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_ShowMathRenderError)
 #: settings.ui:273
 #, kde-format
 msgid "Notify about render failures for mathematical expressions"
-msgstr ""
+msgstr "Notifica re render fallimentos per expressiones mathematic"
 
 #. i18n: ectx: property (placeholderText), widget (KLineEdit, pattern)
 #: standardsearchbar.ui:35
@@ -4286,15 +4273,14 @@ msgid "Cannot render Eps file. You may need additional packages"
 msgstr "Non pote render File Eps. Tu pote necessitar pacchettos additional"
 
 #: textresultitem.cpp:213
-#, fuzzy, kde-format
-#| msgid "Save result"
+#, kde-format
 msgid "Save text result"
-msgstr "Salveguarda exito"
+msgstr "Salveguarda exito de texto"
 
 #: textresultitem.cpp:213
 #, kde-format
 msgid "Text Files (*.txt)"
-msgstr ""
+msgstr "Files de texto (*.txt)"
 
 #: worksheet.cpp:1192
 #, kde-format

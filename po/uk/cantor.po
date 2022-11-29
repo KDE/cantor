@@ -9,8 +9,8 @@ msgstr ""
 "Project-Id-Version: cantor\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2022-11-28 00:42+0000\n"
-"PO-Revision-Date: 2022-08-07 08:37+0300\n"
-"Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
+"PO-Revision-Date: 2022-11-28 20:44+0200\n"
+"Last-Translator: Fracture dept <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian <kde-i18n-uk@kde.org>\n"
 "Language: uk\n"
 "MIME-Version: 1.0\n"
@@ -3612,13 +3612,13 @@ msgstr "Шлях до виконуваного файла dvips"
 #, kde-format
 msgctxt "@title:column"
 msgid "Type"
-msgstr ""
+msgstr "Тип"
 
 #: lib/defaultvariablemodel.cpp:68
 #, kde-format
 msgctxt "@title:column"
 msgid "Size [Bytes]"
-msgstr ""
+msgstr "Розмір [у байтах]"
 
 #: lib/defaultvariablemodel.cpp:70
 #, kde-format
@@ -3944,22 +3944,19 @@ msgid "Load file"
 msgstr "Завантаження файла"
 
 #: panelplugins/variablemgr/variablemanagerwidget.cpp:286
-#, fuzzy, kde-format
-#| msgid "Name"
+#, kde-format
 msgid "Copy Name"
-msgstr "Назва"
+msgstr "Копіювати назву"
 
 #: panelplugins/variablemgr/variablemanagerwidget.cpp:287
-#, fuzzy, kde-format
-#| msgctxt "@title:column"
-#| msgid "Value"
+#, kde-format
 msgid "Copy Value"
-msgstr "Значення"
+msgstr "Копіювати значення"
 
 #: panelplugins/variablemgr/variablemanagerwidget.cpp:288
 #, kde-format
 msgid "Copy Name and Value"
-msgstr ""
+msgstr "Копіювати назву і значення"
 
 #: resultitem.cpp:59
 #, kde-format

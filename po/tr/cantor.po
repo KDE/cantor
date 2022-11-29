@@ -13,7 +13,7 @@ msgstr ""
 "Project-Id-Version: kdeedu-kde4\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2022-11-28 00:42+0000\n"
-"PO-Revision-Date: 2022-11-21 22:28+0300\n"
+"PO-Revision-Date: 2022-11-28 18:47+0300\n"
 "Last-Translator: Emir SARI <emir_sari@icloud.com>\n"
 "Language-Team: Turkish <kde-l10n-tr@kde.org>\n"
 "Language: tr\n"
@@ -2550,7 +2550,7 @@ msgid ""
 "%1 backend installed, but inactive. Please check installation and Cantor "
 "settings"
 msgstr ""
-"%1 arka ccu kurulu; ancak etkin değil. Kurulumunuzu ve Cantor ayarlarınızı "
+"%1 arka ucu kurulu; ancak etkin değil. Kurulumunuzu ve Cantor ayarlarınızı "
 "denetleyin"
 
 #: cantor.cpp:373
@@ -3574,13 +3574,13 @@ msgstr "dvips çalıştırılabilirinin yolu"
 #, kde-format
 msgctxt "@title:column"
 msgid "Type"
-msgstr ""
+msgstr "Tür"
 
 #: lib/defaultvariablemodel.cpp:68
 #, kde-format
 msgctxt "@title:column"
 msgid "Size [Bytes]"
-msgstr ""
+msgstr "Boyut [Bayt]"
 
 #: lib/defaultvariablemodel.cpp:70
 #, kde-format
@@ -3906,22 +3906,19 @@ msgid "Load file"
 msgstr "Dosya yükle"
 
 #: panelplugins/variablemgr/variablemanagerwidget.cpp:286
-#, fuzzy, kde-format
-#| msgid "Name"
+#, kde-format
 msgid "Copy Name"
-msgstr "Ad"
+msgstr "Adı Kopyala"
 
 #: panelplugins/variablemgr/variablemanagerwidget.cpp:287
-#, fuzzy, kde-format
-#| msgctxt "@title:column"
-#| msgid "Value"
+#, kde-format
 msgid "Copy Value"
-msgstr "Değer"
+msgstr "Değeri Kopyala"
 
 #: panelplugins/variablemgr/variablemanagerwidget.cpp:288
 #, kde-format
 msgid "Copy Name and Value"
-msgstr ""
+msgstr "Adı ve Değeri Kopyala"
 
 #: resultitem.cpp:59
 #, kde-format

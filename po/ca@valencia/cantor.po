@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: cantor\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2022-11-28 00:42+0000\n"
-"PO-Revision-Date: 2022-08-07 12:01+0200\n"
+"PO-Revision-Date: 2022-11-28 08:59+0100\n"
 "Last-Translator: Josep M. Ferrer <txemaq@gmail.com>\n"
 "Language-Team: Catalan <kde-i18n-ca@kde.org>\n"
 "Language: ca@valencia\n"
@@ -2293,19 +2293,19 @@ msgstr ""
 "<i>help()</i> i l'operador d'ajuda <i>?</i> d'R proporciona accés a les "
 "pàgines de documentació de les funcions R, conjunts de dades, i altres "
 "objectes, tant per als paquets de la distribució R estàndard com per als "
-"paquets de col·laboracions.<br><br>Per accedir a la documentació de la "
+"paquets de col·laboracions.<br><br>Per a accedir a la documentació de la "
 "funció <i>lm</b> (model lineal), per exemple, teclegeu l'ordre "
 "<b><i>help(lm)</i></b> o <i>help(\"lm\")</i>, o <i>?lm</i> o <i>?\"lm\"</i> "
-"(és a dir, les cometes són opcionals).<br><br>. Per accedir a l'ajuda d'una "
-"funció en un paquet que no està carregada actualment, especifiqueu, a més, "
-"el nom del paquet: per exemple, per a obtindre la documentació de la funció "
-"<i>rlm()</i> (model lineal robust) del paquet MASS, </i>help(rlm, package="
-"\"MASS\")</i>.<br><br>Els noms estàndards d'R consistixen en lletres en "
-"majúscules i minúscules, nombres (0-9), guions baixos (_), i punts (.), i "
+"(és a dir, les cometes són opcionals).<br><br>. Per a accedir a l'ajuda "
+"d'una funció en un paquet que no està carregada actualment, especifiqueu, a "
+"més, el nom del paquet: per exemple, per a obtindre la documentació de la "
+"funció <i>rlm()</i> (model lineal robust) del paquet MASS, </i>help(rlm, "
+"package=\"MASS\")</i>.<br><br>Els noms estàndards d'R consistixen en lletres "
+"en majúscules i minúscules, nombres (0-9), guions baixos (_), i punts (.), i "
 "han de començar amb una lletra o un punt. Per a obtindre ajuda per a un "
 "objecte amb un nom no estàndard (com l'operador d'ajuda <i>?</i>), cal posar "
 "el nom entre cometes: per exemple, <i>help('?')</i>o <i>?\"?\"</i>."
-"<br><br>També podeu utilitzar la funció <i>help()</i> per accedir a "
+"<br><br>També podeu utilitzar la funció <i>help()</i> per a accedir a "
 "informació sobre un paquet en la vostra biblioteca: per exemple, "
 "<i>help(package=\"MASS\")</i>, que mostra un índex de pàgines d'ajuda "
 "disponibles per al paquet juntament amb una altra informació.<br><br>Les "
@@ -3614,13 +3614,13 @@ msgstr "Camí cap a l'executable «dvips»"
 #, kde-format
 msgctxt "@title:column"
 msgid "Type"
-msgstr ""
+msgstr "Tipus"
 
 #: lib/defaultvariablemodel.cpp:68
 #, kde-format
 msgctxt "@title:column"
 msgid "Size [Bytes]"
-msgstr ""
+msgstr "Mida [Bytes]"
 
 #: lib/defaultvariablemodel.cpp:70
 #, kde-format
@@ -3945,22 +3945,19 @@ msgid "Load file"
 msgstr "Carrega un fitxer"
 
 #: panelplugins/variablemgr/variablemanagerwidget.cpp:286
-#, fuzzy, kde-format
-#| msgid "Name"
+#, kde-format
 msgid "Copy Name"
-msgstr "Nom"
+msgstr "Copia el nom"
 
 #: panelplugins/variablemgr/variablemanagerwidget.cpp:287
-#, fuzzy, kde-format
-#| msgctxt "@title:column"
-#| msgid "Value"
+#, kde-format
 msgid "Copy Value"
-msgstr "Valor"
+msgstr "Copia el valor"
 
 #: panelplugins/variablemgr/variablemanagerwidget.cpp:288
 #, kde-format
 msgid "Copy Name and Value"
-msgstr ""
+msgstr "Copia el nom i el valor"
 
 #: resultitem.cpp:59
 #, kde-format
@@ -4825,9 +4822,3 @@ msgstr "Elimina l'entrada"
 #, kde-format
 msgid "Drag Entry"
 msgstr "Arrossega l'entrada"
-
-#~ msgid "<%1 bytes>"
-#~ msgstr "<%1 bytes>"
-
-#~ msgid "<too big variable>"
-#~ msgstr "<variable massa gran>"

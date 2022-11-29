@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: mathematik\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2022-11-28 00:42+0000\n"
-"PO-Revision-Date: 2022-08-08 01:26+0100\n"
+"PO-Revision-Date: 2022-11-28 18:15+0000\n"
 "Last-Translator: José Nuno Coelho Pires <zepires@gmail.com>\n"
 "Language-Team: Portuguese <kde-i18n-pt@kde.org>\n"
 "Language: pt\n"
@@ -3618,13 +3618,13 @@ msgstr "Localização do executável 'dvips'"
 #, kde-format
 msgctxt "@title:column"
 msgid "Type"
-msgstr ""
+msgstr "Tipo"
 
 #: lib/defaultvariablemodel.cpp:68
 #, kde-format
 msgctxt "@title:column"
 msgid "Size [Bytes]"
-msgstr ""
+msgstr "Tamanho [Bytes]"
 
 #: lib/defaultvariablemodel.cpp:70
 #, kde-format
@@ -3952,22 +3952,19 @@ msgid "Load file"
 msgstr "Carregar um ficheiro"
 
 #: panelplugins/variablemgr/variablemanagerwidget.cpp:286
-#, fuzzy, kde-format
-#| msgid "Name"
+#, kde-format
 msgid "Copy Name"
-msgstr "Nome"
+msgstr "Copiar o Nome"
 
 #: panelplugins/variablemgr/variablemanagerwidget.cpp:287
-#, fuzzy, kde-format
-#| msgctxt "@title:column"
-#| msgid "Value"
+#, kde-format
 msgid "Copy Value"
-msgstr "Valor"
+msgstr "Copiar o Valor"
 
 #: panelplugins/variablemgr/variablemanagerwidget.cpp:288
 #, kde-format
 msgid "Copy Name and Value"
-msgstr ""
+msgstr "Copiar o Nome e Valor"
 
 #: resultitem.cpp:59
 #, kde-format
@@ -4835,9 +4832,3 @@ msgstr "Remover o Item"
 #, kde-format
 msgid "Drag Entry"
 msgstr "Arrastar o Item"
-
-#~ msgid "<%1 bytes>"
-#~ msgstr "<%1 bytes>"
-
-#~ msgid "<too big variable>"
-#~ msgstr "<variável demasiado grande>"

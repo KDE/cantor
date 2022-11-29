@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: cantor\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2022-11-28 00:42+0000\n"
-"PO-Revision-Date: 2022-08-07 12:01+0200\n"
+"PO-Revision-Date: 2022-11-28 08:59+0100\n"
 "Last-Translator: Josep M. Ferrer <txemaq@gmail.com>\n"
 "Language-Team: Catalan <kde-i18n-ca@kde.org>\n"
 "Language: ca\n"
@@ -3609,13 +3609,13 @@ msgstr "Camí a l'executable «dvips»"
 #, kde-format
 msgctxt "@title:column"
 msgid "Type"
-msgstr ""
+msgstr "Tipus"
 
 #: lib/defaultvariablemodel.cpp:68
 #, kde-format
 msgctxt "@title:column"
 msgid "Size [Bytes]"
-msgstr ""
+msgstr "Mida [Bytes]"
 
 #: lib/defaultvariablemodel.cpp:70
 #, kde-format
@@ -3941,22 +3941,19 @@ msgid "Load file"
 msgstr "Carrega un fitxer"
 
 #: panelplugins/variablemgr/variablemanagerwidget.cpp:286
-#, fuzzy, kde-format
-#| msgid "Name"
+#, kde-format
 msgid "Copy Name"
-msgstr "Nom"
+msgstr "Copia el nom"
 
 #: panelplugins/variablemgr/variablemanagerwidget.cpp:287
-#, fuzzy, kde-format
-#| msgctxt "@title:column"
-#| msgid "Value"
+#, kde-format
 msgid "Copy Value"
-msgstr "Valor"
+msgstr "Copia el valor"
 
 #: panelplugins/variablemgr/variablemanagerwidget.cpp:288
 #, kde-format
 msgid "Copy Name and Value"
-msgstr ""
+msgstr "Copia el nom i el valor"
 
 #: resultitem.cpp:59
 #, kde-format
@@ -4821,9 +4818,3 @@ msgstr "Elimina l'entrada"
 #, kde-format
 msgid "Drag Entry"
 msgstr "Arrossega l'entrada"
-
-#~ msgid "<%1 bytes>"
-#~ msgstr "<%1 bytes>"
-
-#~ msgid "<too big variable>"
-#~ msgstr "<variable massa gran>"
