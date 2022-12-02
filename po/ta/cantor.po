@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: cantor\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2022-11-28 00:42+0000\n"
-"PO-Revision-Date: 2022-11-17 21:50+0530\n"
+"PO-Revision-Date: 2022-12-01 21:57+0530\n"
 "Last-Translator: Kishore G <kishore96@gmail.com>\n"
 "Language-Team: Tamil <kde-i18n-doc@kde.org>\n"
 "Language: ta\n"
@@ -3559,19 +3559,19 @@ msgstr "--- பக்க முடிவு ---"
 #, kde-format
 msgctxt "@button go to contents page"
 msgid "Go to the contents"
-msgstr ""
+msgstr "பொருளடக்கத்துக்குச் செல்"
 
 #: panelplugins/documentationpanel/documentationpanelwidget.cpp:58
 #, kde-format
 msgctxt "@info:placeholder"
 msgid "Search through keywords..."
-msgstr ""
+msgstr "முதன்மைச்சொற்களில் தேடு..."
 
 #: panelplugins/documentationpanel/documentationpanelwidget.cpp:69
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Find in text of current documentation page"
-msgstr ""
+msgstr "தற்போதைய கையேட்டுப்பக்கத்தின் உரையில் தேடும்"
 
 #: panelplugins/documentationpanel/documentationpanelwidget.cpp:75
 #, kde-format
@@ -3583,7 +3583,7 @@ msgstr ""
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Close"
-msgstr ""
+msgstr "மூடு"
 
 #: panelplugins/documentationpanel/documentationpanelwidget.cpp:133
 #, kde-format

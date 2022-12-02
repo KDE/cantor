@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: kdeorg\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2022-11-28 00:42+0000\n"
-"PO-Revision-Date: 2022-11-19 14:48\n"
+"PO-Revision-Date: 2022-12-01 06:51\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Simplified\n"
 "Language: zh_CN\n"
@@ -3762,17 +3762,14 @@ msgid "Load file"
 msgstr "加载文件"
 
 #: panelplugins/variablemgr/variablemanagerwidget.cpp:286
-#, fuzzy, kde-format
-#| msgid "Name"
+#, kde-format
 msgid "Copy Name"
-msgstr "名称"
+msgstr ""
 
 #: panelplugins/variablemgr/variablemanagerwidget.cpp:287
-#, fuzzy, kde-format
-#| msgctxt "@title:column"
-#| msgid "Value"
+#, kde-format
 msgid "Copy Value"
-msgstr "值"
+msgstr ""
 
 #: panelplugins/variablemgr/variablemanagerwidget.cpp:288
 #, kde-format
@@ -4608,9 +4605,3 @@ msgstr "删除条目"
 #, kde-format
 msgid "Drag Entry"
 msgstr "拖动项目"
-
-#~ msgid "<%1 bytes>"
-#~ msgstr "<%1 字节>"
-
-#~ msgid "<too big variable>"
-#~ msgstr "<变量过大>"
