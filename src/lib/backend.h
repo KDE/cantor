@@ -6,10 +6,9 @@
 #ifndef _BACKEND_H
 #define _BACKEND_H
 
+#include <KXMLGUIClient>
 #include <QObject>
 #include <QVariant>
-#include <KXMLGUIClient>
-#include <KPluginInfo>
 
 #include "graphicpackage.h"
 

@@ -8,12 +8,13 @@
 #include "backend.h"
 #include "extension.h"
 
+#include <QCoreApplication>
 #include <QDir>
-#include <QRegularExpression>
-#include <QUrl>
-#include <QProcess>
-#include <QStandardPaths>
 #include <QPluginLoader>
+#include <QProcess>
+#include <QRegularExpression>
+#include <QStandardPaths>
+#include <QUrl>
 
 #include <KPluginFactory>
 #include <KPluginMetaData>

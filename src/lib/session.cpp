@@ -12,9 +12,11 @@ using namespace Cantor;
 #include "backend.h"
 #include "textresult.h"
 
-#include <QTimer>
-#include <QQueue>
 #include <QDebug>
+#include <QEventLoop>
+#include <QQueue>
+#include <QTimer>
+
 #include <KMessageBox>
 #include <KLocalizedString>
 

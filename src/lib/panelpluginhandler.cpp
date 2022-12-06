@@ -6,6 +6,7 @@
 #include "panelpluginhandler.h"
 using namespace Cantor;
 
+#include <QCoreApplication>
 #include <QDebug>
 #include <QDir>
 

@@ -10,6 +10,8 @@
 #include "settings.h"
 #include "ui_settings.h"
 
+#include <KPluginFactory>
+
 KAlgebraBackend::KAlgebraBackend(QObject* parent,const QList<QVariant> args)
     : Cantor::Backend(parent, args)
 {
