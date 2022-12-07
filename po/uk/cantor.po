@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: cantor\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-11-28 00:42+0000\n"
+"POT-Creation-Date: 2022-12-07 00:42+0000\n"
 "PO-Revision-Date: 2022-11-28 20:44+0200\n"
 "Last-Translator: Fracture dept <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian <kde-i18n-uk@kde.org>\n"
@@ -437,7 +437,7 @@ msgstr "файл скрипту Julia (*.jl)"
 
 #: backends/julia/juliasession.cpp:111 backends/julia/juliasession.cpp:120
 #: backends/maxima/maximasession.cpp:265 cantor_part.cpp:946
-#: lib/session.cpp:311 lib/session.cpp:313 worksheet.cpp:1193
+#: lib/session.cpp:313 lib/session.cpp:315 worksheet.cpp:1193
 #: worksheet.cpp:1221 worksheet.cpp:1236 worksheet.cpp:1252 worksheet.cpp:1296
 #: worksheet.cpp:1308
 #, kde-format
@@ -662,7 +662,7 @@ msgstr "Команди для автоматичного запуску"
 msgid "Documentation"
 msgstr "Документація"
 
-#: backends/kalgebra/kalgebrabackend.cpp:56
+#: backends/kalgebra/kalgebrabackend.cpp:58
 #, kde-format
 msgctxt ""
 "The url to the documentation of KAlgebra, please check if there is a "
@@ -936,7 +936,7 @@ msgstr "Інтегрування графіків вимкнено."
 #: backends/octave/octavesession.cpp:413 backends/sage/sagesession.cpp:238
 #: backends/sage/sagesession.cpp:271 backends/sage/sagesession.cpp:337
 #: backends/sage/sagesession.cpp:348 cantor.cpp:216 cantor.cpp:218
-#: cantor.cpp:337 cantor.cpp:344 lib/session.cpp:381 main.cpp:66 main.cpp:130
+#: cantor.cpp:337 cantor.cpp:344 lib/session.cpp:383 main.cpp:66 main.cpp:130
 #: markdownentry.cpp:797 textentry.cpp:553 worksheet.cpp:1275
 #, kde-format
 msgid "Cantor"
@@ -3549,7 +3549,7 @@ msgstr "Відкриття файла зображення"
 msgid "Show LaTeX code"
 msgstr "Показати код LaTeX"
 
-#: lib/backend.cpp:162
+#: lib/backend.cpp:163
 #, kde-format
 msgid ""
 "No path for the %1 executable specified. Please provide the correct path in "
@@ -3558,7 +3558,7 @@ msgstr ""
 "Не вказано шляху для виконуваного файла %1. Будь ласка, вкажіть чинний шлях "
 "у параметрах програми і повторіть спробу."
 
-#: lib/backend.cpp:172
+#: lib/backend.cpp:173
 #, kde-format
 msgid ""
 "The specified file '%1' for the %2 executable doesn't exist. Please provide "
@@ -3567,7 +3567,7 @@ msgstr ""
 "Вказаного файла «%1» для виконуваної програми %2 не існує. Будь ласка, "
 "вкажіть чинний шлях у параметрах програми і повторіть спробу."
 
-#: lib/backend.cpp:181
+#: lib/backend.cpp:182
 #, kde-format
 msgid ""
 "The specified file '%1' doesn't point to an executable. Please provide the "
@@ -3576,7 +3576,7 @@ msgstr ""
 "Вказаний файл «%1» не є файлом виконуваної програми. Будь ласка, вкажіть "
 "коректний шлях у параметрах програми і повторіть спробу."
 
-#: lib/backend.cpp:200
+#: lib/backend.cpp:201
 #, kde-format
 msgid ""
 "The program %1 didn't finish the execution after %2 milliseconds during the "
@@ -3585,12 +3585,12 @@ msgstr ""
 "Програма %1 не завершила виконання за %2 мілісекунд під час виконання "
 "перевірки на інтегрування графіка."
 
-#: lib/backend.cpp:209
+#: lib/backend.cpp:210
 #, kde-format
 msgid "Failed to open the file %1 during the plot integration test."
 msgstr "Не вдалося відкрити файл %1 під час перевірки на інтегрування графіка."
 
-#: lib/backend.cpp:217
+#: lib/backend.cpp:218
 #, kde-format
 msgid "Failed to parse the result during the plot integration test."
 msgstr ""
@@ -3664,13 +3664,13 @@ msgstr "Заголовок креслення:"
 msgid "This is unsupported Jupyter content of types ('%1')"
 msgstr "Це непідтримуваний вміст типів Jupyter («%1»)"
 
-#: lib/session.cpp:311
+#: lib/session.cpp:313
 #, kde-format
 msgid "%1 process has died unexpectedly. All calculation results are lost."
 msgstr ""
 "Процес %1 неочікувано завершив роботу. Усі результати обчислень втрачено."
 
-#: lib/session.cpp:313
+#: lib/session.cpp:315
 #, kde-format
 msgid ""
 "%1 process has died unexpectedly with message \"%2\". All calculation "
@@ -3679,7 +3679,7 @@ msgstr ""
 "Процес %1 неочікувано завершив роботу із повідомленням «%2». Усі результати "
 "буде втрачено."
 
-#: lib/session.cpp:379
+#: lib/session.cpp:381
 #, kde-format
 msgid ""
 "You choose support for %1 graphic package, but the support can't be "

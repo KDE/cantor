@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-11-28 00:42+0000\n"
+"POT-Creation-Date: 2022-12-07 00:42+0000\n"
 "PO-Revision-Date: 2010-12-05 20:18+0100\n"
 "Last-Translator: Marko Dimjašević\n"
 "Language-Team: Croatian <kde-croatia-list@lists.sourceforge.net>\n"
@@ -430,7 +430,7 @@ msgstr "*.R|R skripta"
 
 #: backends/julia/juliasession.cpp:111 backends/julia/juliasession.cpp:120
 #: backends/maxima/maximasession.cpp:265 cantor_part.cpp:946
-#: lib/session.cpp:311 lib/session.cpp:313 worksheet.cpp:1193
+#: lib/session.cpp:313 lib/session.cpp:315 worksheet.cpp:1193
 #: worksheet.cpp:1221 worksheet.cpp:1236 worksheet.cpp:1252 worksheet.cpp:1296
 #: worksheet.cpp:1308
 #, kde-format
@@ -650,7 +650,7 @@ msgstr "Prikaži uređivač skripti"
 msgid "Documentation"
 msgstr "Dokument za otvoriti"
 
-#: backends/kalgebra/kalgebrabackend.cpp:56
+#: backends/kalgebra/kalgebrabackend.cpp:58
 #, fuzzy, kde-format
 #| msgctxt ""
 #| "the url to the documentation of KAlgebra, please check if there is a "
@@ -900,7 +900,7 @@ msgstr ""
 #: backends/octave/octavesession.cpp:413 backends/sage/sagesession.cpp:238
 #: backends/sage/sagesession.cpp:271 backends/sage/sagesession.cpp:337
 #: backends/sage/sagesession.cpp:348 cantor.cpp:216 cantor.cpp:218
-#: cantor.cpp:337 cantor.cpp:344 lib/session.cpp:381 main.cpp:66 main.cpp:130
+#: cantor.cpp:337 cantor.cpp:344 lib/session.cpp:383 main.cpp:66 main.cpp:130
 #: markdownentry.cpp:797 textentry.cpp:553 worksheet.cpp:1275
 #, kde-format
 msgid "Cantor"
@@ -3489,40 +3489,40 @@ msgstr ""
 msgid "Show LaTeX code"
 msgstr "Prikaži kod"
 
-#: lib/backend.cpp:162
+#: lib/backend.cpp:163
 #, kde-format
 msgid ""
 "No path for the %1 executable specified. Please provide the correct path in "
 "the application settings and try again."
 msgstr ""
 
-#: lib/backend.cpp:172
+#: lib/backend.cpp:173
 #, kde-format
 msgid ""
 "The specified file '%1' for the %2 executable doesn't exist. Please provide "
 "the correct path in the application settings and try again."
 msgstr ""
 
-#: lib/backend.cpp:181
+#: lib/backend.cpp:182
 #, kde-format
 msgid ""
 "The specified file '%1' doesn't point to an executable. Please provide the "
 "correct path in the application settings and try again."
 msgstr ""
 
-#: lib/backend.cpp:200
+#: lib/backend.cpp:201
 #, kde-format
 msgid ""
 "The program %1 didn't finish the execution after %2 milliseconds during the "
 "plot integration test."
 msgstr ""
 
-#: lib/backend.cpp:209
+#: lib/backend.cpp:210
 #, kde-format
 msgid "Failed to open the file %1 during the plot integration test."
 msgstr ""
 
-#: lib/backend.cpp:217
+#: lib/backend.cpp:218
 #, kde-format
 msgid "Failed to parse the result during the plot integration test."
 msgstr ""
@@ -3596,19 +3596,19 @@ msgstr ""
 msgid "This is unsupported Jupyter content of types ('%1')"
 msgstr ""
 
-#: lib/session.cpp:311
+#: lib/session.cpp:313
 #, kde-format
 msgid "%1 process has died unexpectedly. All calculation results are lost."
 msgstr ""
 
-#: lib/session.cpp:313
+#: lib/session.cpp:315
 #, kde-format
 msgid ""
 "%1 process has died unexpectedly with message \"%2\". All calculation "
 "results are lost."
 msgstr ""
 
-#: lib/session.cpp:379
+#: lib/session.cpp:381
 #, kde-format
 msgid ""
 "You choose support for %1 graphic package, but the support can't be "

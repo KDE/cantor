@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: cantor\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-11-28 00:42+0000\n"
-"PO-Revision-Date: 2022-12-01 21:57+0530\n"
+"POT-Creation-Date: 2022-12-07 00:42+0000\n"
+"PO-Revision-Date: 2022-12-06 21:58+0530\n"
 "Last-Translator: Kishore G <kishore96@gmail.com>\n"
 "Language-Team: Tamil <kde-i18n-doc@kde.org>\n"
 "Language: ta\n"
@@ -415,7 +415,7 @@ msgstr "Julia சிறுநிரல் கோப்பு (*.jl)"
 
 #: backends/julia/juliasession.cpp:111 backends/julia/juliasession.cpp:120
 #: backends/maxima/maximasession.cpp:265 cantor_part.cpp:946
-#: lib/session.cpp:311 lib/session.cpp:313 worksheet.cpp:1193
+#: lib/session.cpp:313 lib/session.cpp:315 worksheet.cpp:1193
 #: worksheet.cpp:1221 worksheet.cpp:1236 worksheet.cpp:1252 worksheet.cpp:1296
 #: worksheet.cpp:1308
 #, kde-format
@@ -629,7 +629,7 @@ msgstr "தானாக இயக்கவேண்டிய கட்டளை�
 msgid "Documentation"
 msgstr "கையேடு"
 
-#: backends/kalgebra/kalgebrabackend.cpp:56
+#: backends/kalgebra/kalgebrabackend.cpp:58
 #, kde-format
 msgctxt ""
 "The url to the documentation of KAlgebra, please check if there is a "
@@ -847,7 +847,7 @@ msgstr "வரைபட ஒருங்கிணைப்பு முடக்�
 #: backends/octave/octavesession.cpp:413 backends/sage/sagesession.cpp:238
 #: backends/sage/sagesession.cpp:271 backends/sage/sagesession.cpp:337
 #: backends/sage/sagesession.cpp:348 cantor.cpp:216 cantor.cpp:218
-#: cantor.cpp:337 cantor.cpp:344 lib/session.cpp:381 main.cpp:66 main.cpp:130
+#: cantor.cpp:337 cantor.cpp:344 lib/session.cpp:383 main.cpp:66 main.cpp:130
 #: markdownentry.cpp:797 textentry.cpp:553 worksheet.cpp:1275
 #, kde-format
 msgid "Cantor"
@@ -2302,27 +2302,27 @@ msgstr ""
 #: cantor.cpp:104 cantor.cpp:228
 #, kde-format
 msgid "Open file"
-msgstr ""
+msgstr "கோப்பை திற"
 
 #: cantor.cpp:146
 #, kde-format
 msgid "Download Examples"
-msgstr ""
+msgstr "எடுத்துக்காட்டுகளைப் பதிவிறக்கு"
 
 #: cantor.cpp:149
 #, kde-format
 msgid "&Open Example"
-msgstr ""
+msgstr "எடுத்துக்காட்டைத் திற"
 
 #: cantor.cpp:154
 #, kde-format
 msgid "Go to previous worksheet"
-msgstr ""
+msgstr "முந்தைய பணித்தாளுக்கு செல்"
 
 #: cantor.cpp:166
 #, kde-format
 msgid "Go to next worksheet"
-msgstr ""
+msgstr "அடுத்த பணித்தாளுக்கு செல்"
 
 #: cantor.cpp:227
 #, kde-format
@@ -2625,22 +2625,22 @@ msgstr ""
 #: cantor_part.cpp:139
 #, kde-format
 msgid "Save Plain Text"
-msgstr ""
+msgstr "வெறும் உரையாக செமி"
 
 #: cantor_part.cpp:181 cantor_part.cpp:532
 #, kde-format
 msgid "Export to LaTeX"
-msgstr ""
+msgstr "LaTeX-ஆக ஏற்றுமதி செய்"
 
 #: cantor_part.cpp:197 cantor_part.cpp:628 worksheet.cpp:1904
 #, kde-format
 msgid "Evaluate Worksheet"
-msgstr ""
+msgstr "பணித்தாளை செயல்படுத்து"
 
 #: cantor_part.cpp:205 worksheet.cpp:1912
 #, kde-format
 msgid "Zoom"
-msgstr ""
+msgstr "உருப்பெருக்கம்"
 
 #: cantor_part.cpp:220
 #, kde-format
@@ -2656,83 +2656,83 @@ msgstr ""
 #: cantor_part.cpp:230 settings.ui:105
 #, kde-format
 msgid "Completion"
-msgstr ""
+msgstr "நிறைவு"
 
 #: cantor_part.cpp:235
 #, kde-format
 msgid "Line Numbers"
-msgstr ""
+msgstr "வரியேண்கள்"
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_AnimationDefault)
 #: cantor_part.cpp:240 settings.ui:125
 #, kde-format
 msgid "Animations"
-msgstr ""
+msgstr "அசைவூட்டங்கள்"
 
 #: cantor_part.cpp:247
 #, kde-format
 msgid "Embedded Math"
-msgstr ""
+msgstr "உட்பொதிந்த கணிதக் காட்சி"
 
 #: cantor_part.cpp:253
 #, kde-format
 msgid "Restart Backend"
-msgstr ""
+msgstr "பின்நிலையை மீள்துவக்கு"
 
 #: cantor_part.cpp:260 worksheetentry.cpp:854
 #, kde-format
 msgid "Evaluate Entry"
-msgstr ""
+msgstr "பதிவை செயல்படுத்து"
 
 #: cantor_part.cpp:266
 #, kde-format
 msgid "Insert Command Entry"
-msgstr ""
+msgstr "கட்டளைப் பதிவை நுழை"
 
 #: cantor_part.cpp:272
 #, kde-format
 msgid "Insert Text Entry"
-msgstr ""
+msgstr "உரைப்பதிவை நுழை"
 
 #: cantor_part.cpp:278
 #, kde-format
 msgid "Insert Markdown Entry"
-msgstr ""
+msgstr "Markdown பதிவை நுழை"
 
 #: cantor_part.cpp:285
 #, kde-format
 msgid "Insert LaTeX Entry"
-msgstr ""
+msgstr "LaTeX பதிவை நுழை"
 
 #: cantor_part.cpp:291
-#, kde-format
+#, fuzzy, kde-format
 msgid "Insert Page Break"
-msgstr ""
+msgstr "பக்க "
 
 #: cantor_part.cpp:296 markdownentry.cpp:63
 #, kde-format
 msgid "Insert Image"
-msgstr ""
+msgstr "படத்தை நுழை"
 
 #: cantor_part.cpp:301
 #, kde-format
 msgid "Collapse All Results"
-msgstr ""
+msgstr "அனைத்து விடைகளையும் சுருக்கு"
 
 #: cantor_part.cpp:306
 #, kde-format
 msgid "Expand All Results"
-msgstr ""
+msgstr "அனைத்து விடைகளையும் விரிவுபடுத்து"
 
 #: cantor_part.cpp:311
 #, kde-format
 msgid "Remove All Results"
-msgstr ""
+msgstr "அனைத்து விடைகளையும் நீக்கு"
 
 #: cantor_part.cpp:316
 #, kde-format
 msgid "Remove current Entry"
-msgstr ""
+msgstr "தற்போதைய பதிவை நீக்கு"
 
 #. i18n("Publish Worksheet"), collection);
 #. publishWorksheet->setIcon(QIcon::fromTheme(QLatin1String("get-hot-new-stuff")));
@@ -2777,12 +2777,12 @@ msgstr ""
 #: cantor_part.cpp:479
 #, kde-format
 msgid "Save as"
-msgstr ""
+msgstr "இப்படி சேமி"
 
 #: cantor_part.cpp:525 panelplugins/variablemgr/variablemanagerwidget.cpp:171
 #, kde-format
 msgid "Save"
-msgstr ""
+msgstr "சேமி"
 
 #: cantor_part.cpp:577
 #, kde-format
@@ -2794,32 +2794,32 @@ msgstr ""
 #: cantor_part.cpp:578
 #, kde-format
 msgid "Restart %1?"
-msgstr ""
+msgstr "%1 தனை மீள்துவக்கலாமா?"
 
 #: cantor_part.cpp:618 worksheet.cpp:1907
 #, kde-format
 msgid "Interrupt"
-msgstr ""
+msgstr "குறுக்கிடு"
 
 #: cantor_part.cpp:644
 #, kde-format
 msgid "Session Error: %1"
-msgstr ""
+msgstr "அமர்வில் சிக்கல்: %1"
 
 #: cantor_part.cpp:685
 #, kde-format
 msgid "Initialization complete"
-msgstr ""
+msgstr "துவக்கம் முடிந்தது"
 
 #: cantor_part.cpp:690
 #, kde-format
 msgid "Initializing..."
-msgstr ""
+msgstr "துவக்கப்படுகிறது..."
 
 #: cantor_part.cpp:748
 #, kde-format
 msgid "[read-only]"
-msgstr ""
+msgstr "[படித்தல் மட்டும்]"
 
 #: cantor_part.cpp:866
 #, kde-format
@@ -3313,40 +3313,40 @@ msgstr ""
 msgid "Show LaTeX code"
 msgstr ""
 
-#: lib/backend.cpp:162
+#: lib/backend.cpp:163
 #, kde-format
 msgid ""
 "No path for the %1 executable specified. Please provide the correct path in "
 "the application settings and try again."
 msgstr ""
 
-#: lib/backend.cpp:172
+#: lib/backend.cpp:173
 #, kde-format
 msgid ""
 "The specified file '%1' for the %2 executable doesn't exist. Please provide "
 "the correct path in the application settings and try again."
 msgstr ""
 
-#: lib/backend.cpp:181
+#: lib/backend.cpp:182
 #, kde-format
 msgid ""
 "The specified file '%1' doesn't point to an executable. Please provide the "
 "correct path in the application settings and try again."
 msgstr ""
 
-#: lib/backend.cpp:200
+#: lib/backend.cpp:201
 #, kde-format
 msgid ""
 "The program %1 didn't finish the execution after %2 milliseconds during the "
 "plot integration test."
 msgstr ""
 
-#: lib/backend.cpp:209
+#: lib/backend.cpp:210
 #, kde-format
 msgid "Failed to open the file %1 during the plot integration test."
 msgstr ""
 
-#: lib/backend.cpp:217
+#: lib/backend.cpp:218
 #, kde-format
 msgid "Failed to parse the result during the plot integration test."
 msgstr ""
@@ -3419,19 +3419,19 @@ msgstr ""
 msgid "This is unsupported Jupyter content of types ('%1')"
 msgstr ""
 
-#: lib/session.cpp:311
+#: lib/session.cpp:313
 #, kde-format
 msgid "%1 process has died unexpectedly. All calculation results are lost."
 msgstr ""
 
-#: lib/session.cpp:313
+#: lib/session.cpp:315
 #, kde-format
 msgid ""
 "%1 process has died unexpectedly with message \"%2\". All calculation "
 "results are lost."
 msgstr ""
 
-#: lib/session.cpp:379
+#: lib/session.cpp:381
 #, kde-format
 msgid ""
 "You choose support for %1 graphic package, but the support can't be "
@@ -3589,24 +3589,24 @@ msgstr "மூடு"
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Jump to next match"
-msgstr ""
+msgstr "அடுத்தப் பொருத்தத்துக்குத் தாவு"
 
 #: panelplugins/documentationpanel/documentationpanelwidget.cpp:137
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Jump to previous match"
-msgstr ""
+msgstr "முந்தைய பொருத்தத்துக்கு தாவுக"
 
 #: panelplugins/documentationpanel/documentationpanelwidget.cpp:141
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Match case sensitively"
-msgstr ""
+msgstr "பெரிய/சிறிய எழுத்தை பொருட்படுத்து"
 
 #: panelplugins/documentationpanel/documentationpanelwidget.cpp:408
 #, kde-format
 msgid "The file has been downloaded successfully at Downloads."
-msgstr ""
+msgstr "பதிவிறக்க அடைவிற்கு கோப்பு வெற்றிகரமாக பதிவிறக்கப்பட்டுள்ளது."
 
 #: panelplugins/documentationpanel/documentationpanelwidget.cpp:408
 #, kde-format
@@ -3637,40 +3637,40 @@ msgstr "அனைத்து கோப்புகள்"
 #: panelplugins/variablemgr/newvardlg.ui:17
 #, kde-format
 msgid "Name:"
-msgstr ""
+msgstr "பெயர்:"
 
 #. i18n: ectx: property (text), widget (QLabel, label_2)
 #: panelplugins/variablemgr/newvardlg.ui:27
 #, kde-format
 msgid "Value:"
-msgstr ""
+msgstr "மதிப்பு:"
 
 #: panelplugins/variablemgr/variablemanagerwidget.cpp:47
 #: panelplugins/variablemgr/variablemanagerwidget.cpp:200
 #, kde-format
 msgid "Add New Variable"
-msgstr ""
+msgstr "புதிய மாறியைச் சேர்"
 
 #: panelplugins/variablemgr/variablemanagerwidget.cpp:53
 #, kde-format
 msgid "Load Variables"
-msgstr ""
+msgstr "மாறிகளை ஏற்று"
 
 #: panelplugins/variablemgr/variablemanagerwidget.cpp:59
 #, kde-format
 msgid "Save Variables"
-msgstr ""
+msgstr "மாறிகளை சேமி"
 
 #: panelplugins/variablemgr/variablemanagerwidget.cpp:65
 #: panelplugins/variablemgr/variablemanagerwidget.cpp:143
 #, kde-format
 msgid "Remove Variables"
-msgstr ""
+msgstr "மாறிகளை நீக்கு"
 
 #: panelplugins/variablemgr/variablemanagerwidget.cpp:75
 #, kde-format
 msgid "Search/Filter"
-msgstr ""
+msgstr "தேடு/வடிகட்டு"
 
 #: panelplugins/variablemgr/variablemanagerwidget.cpp:86
 #, kde-format
@@ -3680,43 +3680,42 @@ msgstr ""
 #: panelplugins/variablemgr/variablemanagerwidget.cpp:90
 #, kde-format
 msgid "Match Complete Word"
-msgstr ""
+msgstr "முழு சொல்லைப் பொருத்து"
 
 #: panelplugins/variablemgr/variablemanagerwidget.cpp:142
 #, kde-format
 msgid "Are you sure you want to remove all variables?"
-msgstr ""
+msgstr "அனைத்து மாறிகளையும் உறுதியாக நீக்க வேண்டுமா?"
 
 #: panelplugins/variablemgr/variablemanagerwidget.cpp:185
 #, kde-format
 msgid "Load file"
-msgstr ""
+msgstr "கோப்பை ஏற்று"
 
 #: panelplugins/variablemgr/variablemanagerwidget.cpp:286
-#, fuzzy, kde-format
-#| msgid "Name"
+#, kde-format
 msgid "Copy Name"
-msgstr "பெயர்"
+msgstr "பெயரை நகலெடு"
 
 #: panelplugins/variablemgr/variablemanagerwidget.cpp:287
 #, kde-format
 msgid "Copy Value"
-msgstr ""
+msgstr "மதிப்பை நகலெடு"
 
 #: panelplugins/variablemgr/variablemanagerwidget.cpp:288
 #, kde-format
 msgid "Copy Name and Value"
-msgstr ""
+msgstr "பெயரையும் மதிப்பையும் நகலெடு"
 
 #: resultitem.cpp:59
 #, kde-format
 msgid "Save result"
-msgstr ""
+msgstr "விடையை நகலெடு"
 
 #: resultitem.cpp:60
 #, kde-format
 msgid "Remove result"
-msgstr ""
+msgstr "விடையை நீக்கு"
 
 #: scripteditor/scripteditorwidget.cpp:44
 #, kde-format
@@ -3728,27 +3727,27 @@ msgstr ""
 #: scripteditor/scripteditorwidget.cpp:139
 #, kde-format
 msgid "Script Editor"
-msgstr ""
+msgstr "சிறுநிரல் திருத்தி"
 
 #: scripteditor/scripteditorwidget.cpp:142
 #, kde-format
 msgid "Script Editor - %1"
-msgstr ""
+msgstr "சிறுநிரல் திருத்தி - %1"
 
 #: searchbar.cpp:130 searchbar.cpp:178
 #, kde-format
 msgid "Not found"
-msgstr ""
+msgstr "கண்டுபிடிக்கப்படவில்லை"
 
 #: searchbar.cpp:133
 #, kde-format
 msgid "Reached beginning"
-msgstr ""
+msgstr "துவக்கம் அடையப்பட்டது"
 
 #: searchbar.cpp:181
 #, kde-format
 msgid "Reached end"
-msgstr ""
+msgstr "முடிவு அடையப்பட்டது"
 
 #: searchbar.cpp:238
 #, kde-format

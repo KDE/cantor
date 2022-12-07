@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-11-28 00:42+0000\n"
+"POT-Creation-Date: 2022-12-07 00:42+0000\n"
 "PO-Revision-Date: 2022-10-03 15:21+0200\n"
 "Last-Translator: Shinjo Park <kde@peremen.name>\n"
 "Language-Team: Korean <kde-i18n-doc@kde.org>\n"
@@ -427,7 +427,7 @@ msgstr "Julia 스크립트 파일 (*.jl)"
 
 #: backends/julia/juliasession.cpp:111 backends/julia/juliasession.cpp:120
 #: backends/maxima/maximasession.cpp:265 cantor_part.cpp:946
-#: lib/session.cpp:311 lib/session.cpp:313 worksheet.cpp:1193
+#: lib/session.cpp:313 lib/session.cpp:315 worksheet.cpp:1193
 #: worksheet.cpp:1221 worksheet.cpp:1236 worksheet.cpp:1252 worksheet.cpp:1296
 #: worksheet.cpp:1308
 #, kde-format
@@ -648,7 +648,7 @@ msgstr "자동 실행할 명령"
 msgid "Documentation"
 msgstr "문서"
 
-#: backends/kalgebra/kalgebrabackend.cpp:56
+#: backends/kalgebra/kalgebrabackend.cpp:58
 #, kde-format
 msgctxt ""
 "The url to the documentation of KAlgebra, please check if there is a "
@@ -878,7 +878,7 @@ msgstr "플롯 통합이 비활성화됩니다."
 #: backends/octave/octavesession.cpp:413 backends/sage/sagesession.cpp:238
 #: backends/sage/sagesession.cpp:271 backends/sage/sagesession.cpp:337
 #: backends/sage/sagesession.cpp:348 cantor.cpp:216 cantor.cpp:218
-#: cantor.cpp:337 cantor.cpp:344 lib/session.cpp:381 main.cpp:66 main.cpp:130
+#: cantor.cpp:337 cantor.cpp:344 lib/session.cpp:383 main.cpp:66 main.cpp:130
 #: markdownentry.cpp:797 textentry.cpp:553 worksheet.cpp:1275
 #, kde-format
 msgid "Cantor"
@@ -3414,7 +3414,7 @@ msgstr "그림 파일 열기"
 msgid "Show LaTeX code"
 msgstr "LaTeX 코드 표시"
 
-#: lib/backend.cpp:162
+#: lib/backend.cpp:163
 #, kde-format
 msgid ""
 "No path for the %1 executable specified. Please provide the correct path in "
@@ -3423,7 +3423,7 @@ msgstr ""
 "%1 실행 파일 경로를 지정하지 않았습니다. 프로그램 설정에서 올바른 경로를 지정"
 "하고 다시 시도하십시오."
 
-#: lib/backend.cpp:172
+#: lib/backend.cpp:173
 #, kde-format
 msgid ""
 "The specified file '%1' for the %2 executable doesn't exist. Please provide "
@@ -3432,7 +3432,7 @@ msgstr ""
 "%2 실행 파일의 경로 '%1'이(가) 없습니다. 프로그램 설정에서 올바른 경로를 지정"
 "하고 다시 시도하십시오."
 
-#: lib/backend.cpp:181
+#: lib/backend.cpp:182
 #, kde-format
 msgid ""
 "The specified file '%1' doesn't point to an executable. Please provide the "
@@ -3441,7 +3441,7 @@ msgstr ""
 "지정한 파일 '%1'이(가) 실행 파일을 가리키지 않습니다. 프로그램 설정에서 올바"
 "른 경로를 지정하고 다시 시도하십시오."
 
-#: lib/backend.cpp:200
+#: lib/backend.cpp:201
 #, kde-format
 msgid ""
 "The program %1 didn't finish the execution after %2 milliseconds during the "
@@ -3449,12 +3449,12 @@ msgid ""
 msgstr ""
 "플롯 통합 시험 중 %1 프로그램이 %2밀리초 이후 실행을 종료하지 않았습니다."
 
-#: lib/backend.cpp:209
+#: lib/backend.cpp:210
 #, kde-format
 msgid "Failed to open the file %1 during the plot integration test."
 msgstr "플롯 통합 시험 중 %1 파일을 열 수 없습니다."
 
-#: lib/backend.cpp:217
+#: lib/backend.cpp:218
 #, kde-format
 msgid "Failed to parse the result during the plot integration test."
 msgstr "플롯 통합 시험 중 시험 결과를 처리할 수 없습니다."
@@ -3527,13 +3527,13 @@ msgstr "그래프 제목:"
 msgid "This is unsupported Jupyter content of types ('%1')"
 msgstr "지원하지 않는 Jupyter 내용 형식('%1')"
 
-#: lib/session.cpp:311
+#: lib/session.cpp:313
 #, kde-format
 msgid "%1 process has died unexpectedly. All calculation results are lost."
 msgstr ""
 "%1 프로세스가 예상하지 못하게 종료되었습니다. 모든 계산 결과가 손실됩니다."
 
-#: lib/session.cpp:313
+#: lib/session.cpp:315
 #, kde-format
 msgid ""
 "%1 process has died unexpectedly with message \"%2\". All calculation "
@@ -3542,7 +3542,7 @@ msgstr ""
 "%1 프로세스가 예상하지 못하게 종료되면서 메시지 \"%2\"을(를) 반환했습니다. 모"
 "든 계산 결과가 손실됩니다."
 
-#: lib/session.cpp:379
+#: lib/session.cpp:381
 #, kde-format
 msgid ""
 "You choose support for %1 graphic package, but the support can't be "
