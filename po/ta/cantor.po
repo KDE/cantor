@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: cantor\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2022-12-07 00:42+0000\n"
-"PO-Revision-Date: 2022-12-06 21:58+0530\n"
+"PO-Revision-Date: 2022-12-08 21:58+0530\n"
 "Last-Translator: Kishore G <kishore96@gmail.com>\n"
 "Language-Team: Tamil <kde-i18n-doc@kde.org>\n"
 "Language: ta\n"
@@ -15,7 +15,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Lokalize 22.08.3\n"
+"X-Generator: Lokalize 22.11.90\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -2330,6 +2330,8 @@ msgid ""
 "All supported files (*.cws *ipynb);;Cantor Worksheet (*.cws);;Jupyter "
 "Notebook (*.ipynb)"
 msgstr ""
+"ஆதரிக்கப்படும் அனைத்து கோப்புகள் (*.cws *ipynb);;கேண்ட்டொர் பணித்தாள் (*.cws);;ஜுப்பிட்டர் "
+"பணித்தாள் (*.ipynb)"
 
 #: cantor.cpp:295
 #, kde-format
@@ -2351,12 +2353,12 @@ msgstr[1] ""
 #: cantor.cpp:315
 #, kde-format
 msgid "Error"
-msgstr ""
+msgstr "சிக்கல்"
 
 #: cantor.cpp:337
 #, kde-format
 msgid "Backend %1 is not installed"
-msgstr ""
+msgstr "%1 பின்நிலை நிறுவப்படவில்லை"
 
 #: cantor.cpp:344
 #, kde-format
@@ -2364,62 +2366,64 @@ msgid ""
 "%1 backend installed, but inactive. Please check installation and Cantor "
 "settings"
 msgstr ""
+"%1 பின்நிலை நிறுவப்பட்டுள்ளது, ஆனால் செயலில் இல்லை. நிறுவலையும் கேண்ட்டொரின் "
+"அமைப்புகளையும் சரிபாருங்கள்"
 
 #: cantor.cpp:373
 #, kde-format
 msgid "Session %1"
-msgstr ""
+msgstr "அமர்வு %1"
 
 #: cantor.cpp:386
-#, kde-format
+#, fuzzy, kde-format
 msgid "Failed to find the Cantor Part with error %1"
-msgstr ""
+msgstr "%1 சிக்கலால் கேண்ட்டொர்"
 
 #: cantor.cpp:433 cantor_part.cpp:621
 #, kde-format
 msgid "Calculating..."
-msgstr ""
+msgstr "கணிக்கிறது..."
 
 #: cantor.cpp:436 cantor_part.cpp:632 cantor_part.cpp:695
 #, kde-format
 msgid "Ready"
-msgstr ""
+msgstr "தயார்"
 
 #: cantor.cpp:480
 #, kde-format
 msgid "Changed"
-msgstr ""
+msgstr "மாற்றப்பட்டுள்ளது"
 
 #: cantor.cpp:564
 #, kde-format
 msgid "Multiple unsaved Worksheets are opened. Do you want to close them?"
-msgstr ""
+msgstr "சேமிக்கப்படா பணித்தாள்கள் உள்ளன. அவற்றை உறுதியாக மூட வேண்டுமா?"
 
 #: cantor.cpp:565
 #, kde-format
 msgid "Close Cantor"
-msgstr ""
+msgstr "கேண்ட்டொரை மூடு"
 
 #: cantor.cpp:581
 #, kde-format
 msgid "The current project has been modified. Do you want to save it?"
-msgstr ""
+msgstr "தற்போதைய பணித்தாள் மாற்றப்பட்டுள்ளது. அதை சேமிக்க வேண்டுமா?"
 
 #: cantor.cpp:582
 #, kde-format
 msgid "Save Project"
-msgstr ""
+msgstr "பணித்தாளை சேமி"
 
 #: cantor.cpp:628
 #, kde-format
 msgid "Formatting"
-msgstr ""
+msgstr "வடிவமைப்பு"
 
 #. i18n: ectx: label, entry (DefaultBackend), group (Cantor)
 #: cantor.kcfg:12
 #, kde-format
 msgid "The Backend that is used by default"
-msgstr ""
+msgstr "இயல்பிருப்பாக பயன்படுத்தப்படும் பின்நிலை"
 
 #. i18n: ectx: label, entry (TypesetDefault), group (Cantor)
 #: cantor.kcfg:16
@@ -2431,25 +2435,25 @@ msgstr ""
 #: cantor.kcfg:20
 #, kde-format
 msgid "Do Syntax Highlighting by default"
-msgstr ""
+msgstr "நிரலிலக்கண முன்னிலைப்படுத்தலைத் தானாக இயக்க வேண்டுமா"
 
 #. i18n: ectx: label, entry (CompletionDefault), group (Cantor)
 #: cantor.kcfg:24
 #, kde-format
 msgid "Enable Completions by default"
-msgstr ""
+msgstr "நிரல்நிரப்பைத் தானாக இயக்க வேண்டுமா"
 
 #. i18n: ectx: label, entry (ExpressionNumberingDefault), group (Cantor)
 #: cantor.kcfg:28
 #, kde-format
 msgid "Enable Numbering of Expressions by default"
-msgstr ""
+msgstr "பணித்தாளிலுள்ள பதிவுகளுக்கு தானாக எண்ணிட வேண்டுமா"
 
 #. i18n: ectx: label, entry (AnimationDefault), group (Cantor)
 #: cantor.kcfg:32
 #, kde-format
 msgid "Animate changes in the Worksheet by default"
-msgstr ""
+msgstr "பணித்தாளிலுள்ள மாற்றங்களுக்கு தானாக அசைவூட்ட வேண்டுமா"
 
 #. i18n: ectx: label, entry (EmbeddedMathDefault), group (Cantor)
 #: cantor.kcfg:36
@@ -2458,19 +2462,21 @@ msgid ""
 "Enable rendering math expressions inside $$..$$ in Text and Markdown entries "
 "by default (needs pdflatex installed)"
 msgstr ""
+"உரை மற்றும் Markdown பதிவுகளில் $$..$$ என்பவற்றிலுள்ள கணிதக் குறிகளை தானாக அச்சியற்ற "
+"வேண்டுமா (இதற்கு pdflatex நிறுவப்பட்டிருக்க வேண்டும்)"
 
 #. i18n: ectx: label, entry (AutoEval), group (Cantor)
 #: cantor.kcfg:40
 #, kde-format
 msgid "Automatically reevaluate the entries below the current"
-msgstr ""
+msgstr "தற்போதையதற்கு கீழுள்ள பதிவுகளைத் தானாக மீளியக்கு"
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_WarnAboutSessionRestart)
 #. i18n: ectx: label, entry (WarnAboutSessionRestart), group (Cantor)
 #: cantor.kcfg:44 settings.ui:181
 #, kde-format
 msgid "Ask for confirmation when restarting the backend"
-msgstr ""
+msgstr "பின்நிலையை மீள்துவக்கும்போது உறுதிப்படுத்து"
 
 #. i18n: ectx: label, entry (StoreTextEntryFormatting), group (Cantor)
 #: cantor.kcfg:48
@@ -2496,7 +2502,7 @@ msgstr ""
 #: cantor.kcfg:60
 #, kde-format
 msgid "Limit of visible lines for text result"
-msgstr ""
+msgstr "உரைவடிவ விடைகளில் காட்டப்படும் வரிகளின் அதிகபட்ச எண்ணிக்கை"
 
 #. i18n: ectx: label, entry (ChapterFontFamily), group (Cantor)
 #: cantor.kcfg:64
@@ -2645,12 +2651,12 @@ msgstr "உருப்பெருக்கம்"
 #: cantor_part.cpp:220
 #, kde-format
 msgid "Typeset using LaTeX"
-msgstr ""
+msgstr "LaTeX கொண்டு அச்சுக்கோர்"
 
 #: cantor_part.cpp:225
 #, kde-format
 msgid "Syntax Highlighting"
-msgstr ""
+msgstr "நிரலிலக்கணத்தை முன்னிலைப்படுத்து"
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_CompletionDefault)
 #: cantor_part.cpp:230 settings.ui:105
@@ -2705,9 +2711,9 @@ msgid "Insert LaTeX Entry"
 msgstr "LaTeX பதிவை நுழை"
 
 #: cantor_part.cpp:291
-#, fuzzy, kde-format
+#, kde-format
 msgid "Insert Page Break"
-msgstr "பக்க "
+msgstr "பக்கமுறிவை நுழை"
 
 #: cantor_part.cpp:296 markdownentry.cpp:63
 #, kde-format
