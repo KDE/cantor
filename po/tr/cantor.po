@@ -13,7 +13,7 @@ msgstr ""
 "Project-Id-Version: kdeedu-kde4\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2022-10-08 00:40+0000\n"
-"PO-Revision-Date: 2022-11-28 18:47+0300\n"
+"PO-Revision-Date: 2022-12-10 17:56+0300\n"
 "Last-Translator: Emir SARI <emir_sari@icloud.com>\n"
 "Language-Team: Turkish <kde-l10n-tr@kde.org>\n"
 "Language: tr\n"
@@ -2649,7 +2649,7 @@ msgid ""
 "by default (needs pdflatex installed)"
 msgstr ""
 "Öntanımlı olarak matematik ifadelerini metin ve Markdown girdilerinde $$.$$ "
-"içinde dokumayı etkinleştir (pdflatex kurulu olmasını gerektirir)"
+"içinde sunmayı etkinleştir (pdflatex kurulu olmasını gerektirir)"
 
 #. i18n: ectx: label, entry (AutoEval), group (Cantor)
 #: cantor.kcfg:40
@@ -2685,7 +2685,7 @@ msgstr "Eski tarz Cantor girdileri yerleştirme biçemini kullan"
 #: cantor.kcfg:56
 #, kde-format
 msgid "Show embedded math render error"
-msgstr "Gömülü matematik dokuma hatasını göster"
+msgstr "Gömülü matematik sunum hatasını göster"
 
 #. i18n: ectx: label, entry (VisibleLinesLimit), group (Cantor)
 #: cantor.kcfg:60
@@ -4159,7 +4159,7 @@ msgstr "Matematiksel ifadeler LaTeX ile"
 #: settings.ui:273
 #, kde-format
 msgid "Notify about render failures for mathematical expressions"
-msgstr "Matematiksel ifadelerdeki dokuma hataları ile ilgili bildir"
+msgstr "Matematiksel ifadelerdeki sunum hataları ile ilgili bildir"
 
 #. i18n: ectx: property (placeholderText), widget (KLineEdit, pattern)
 #: standardsearchbar.ui:35
@@ -4200,7 +4200,7 @@ msgstr "Sonucu kopyala"
 #: textresultitem.cpp:68
 #, kde-format
 msgid "Show Rendered"
-msgstr "Dokunanı Göster"
+msgstr "Sunulanı Göster"
 
 #: textresultitem.cpp:70
 #, kde-format
@@ -4230,7 +4230,7 @@ msgstr "HTML'yi Göster"
 #: textresultitem.cpp:161
 #, kde-format
 msgid "Cannot render Eps file. You may need additional packages"
-msgstr "Eps dosyası dokunamıyor. Ek paketlere gerek olabilir"
+msgstr "Eps dosyası sunulamıyor. Ek paketlere gerek olabilir"
 
 #: textresultitem.cpp:213
 #, kde-format
