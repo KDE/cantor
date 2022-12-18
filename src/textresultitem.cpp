@@ -1,22 +1,23 @@
 /*
     SPDX-License-Identifier: GPL-2.0-or-later
     SPDX-FileCopyrightText: 2012 Martin Kuettler <martin.kuettler@gmail.com>
+    SPDX-FileCopyrightText: 2018-2022 by Alexander Semke (alexander.semke@web.de)
 */
 
 #include "textresultitem.h"
 #include "commandentry.h"
-#include "lib/result.h"
 #include "lib/textresult.h"
 #include "lib/latexresult.h"
 #include "lib/renderer.h"
 #include "lib/mimeresult.h"
 #include "lib/htmlresult.h"
+#ifdef WITH_EPS
 #include "mathrendertask.h"
-#include "config-cantor.h"
+#endif
 #include "settings.h"
 #include "worksheetview.h"
 
-#include <QDebug>
+#include <QApplication>
 #include <QFileDialog>
 #include <QTextCursor>
 
@@ -63,7 +64,7 @@ void TextResultItem::populateMenu(QMenu* menu, QPointF pos)
     auto* res = result();
     if (res->type() == Cantor::LatexResult::Type) {
         QAction* showCodeAction = nullptr;
-        Cantor::LatexResult* lres = static_cast<Cantor::LatexResult*>(res);
+        auto* lres = static_cast<Cantor::LatexResult*>(res);
         if (lres->isCodeShown())
             showCodeAction = menu->addAction(i18n("Show Rendered"));
         else
@@ -71,7 +72,7 @@ void TextResultItem::populateMenu(QMenu* menu, QPointF pos)
 
         connect(showCodeAction, &QAction::triggered, this, &TextResultItem::toggleLatexCode);
     } else if (res->type() == Cantor::HtmlResult::Type) {
-        Cantor::HtmlResult* hres = static_cast<Cantor::HtmlResult*>(res);
+        auto* hres = static_cast<Cantor::HtmlResult*>(res);
         switch (hres->format())
         {
             case Cantor::HtmlResult::Html:
@@ -95,7 +96,6 @@ void TextResultItem::populateMenu(QMenu* menu, QPointF pos)
     }
 
     menu->addSeparator();
-    qDebug() << "populate Menu";
     emit menuCreated(menu, mapToParent(pos));
 }
 
@@ -109,6 +109,8 @@ void TextResultItem::update()
     );
     switch(m_result->type()) {
     case Cantor::TextResult::Type:
+        setPlainText(static_cast<Cantor::TextResult*>(m_result)->plain());
+        break;
     case Cantor::MimeResult::Type:
     case Cantor::HtmlResult::Type:
         setHtml(m_result->toHtml());
