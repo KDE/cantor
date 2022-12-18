@@ -2676,7 +2676,7 @@ msgstr "Habilita de manera predeterminada la numeració de les expressions"
 #: cantor.kcfg:32
 #, kde-format
 msgid "Animate changes in the Worksheet by default"
-msgstr "Anima per defecte els canvis en el full de treball"
+msgstr "Anima de manera predeterminada els canvis en el full de treball"
 
 #. i18n: ectx: label, entry (EmbeddedMathDefault), group (Cantor)
 #: cantor.kcfg:36
