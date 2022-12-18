@@ -83,7 +83,7 @@ void JuliaSession::login()
     }
 
     const QString &serviceName =
-        QString::fromLatin1("org.kde.Cantor.Julia-%1").arg(m_process->pid());
+        QString::fromLatin1("org.kde.Cantor.Julia-%1").arg(m_process->processId());
 
     m_interface = new QDBusInterface(
         serviceName,
@@ -130,7 +130,7 @@ void JuliaSession::login()
     m_plotFilePrefixPath =
         QDir::tempPath()
         + QLatin1String("/cantor_octave_")
-        + QString::number(m_process->pid())
+        + QString::number(m_process->processId())
         + QLatin1String("_")
         + QString::number(rand_dist(mt))
         + QLatin1String("_");
@@ -182,7 +182,7 @@ void JuliaSession::interrupt()
     if (expressionQueue().isEmpty())
         return;
 
-    if (m_process && m_process->pid())
+    if (m_process && m_process->processId())
     {
         disconnect(m_process, &QProcess::errorOccurred, this, &JuliaSession::reportServerProcessError);
         m_process->kill();

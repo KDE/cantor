@@ -247,8 +247,8 @@ void WorksheetView::wheelEvent(QWheelEvent* event)
 {
     if ((QApplication::keyboardModifiers() & Qt::ControlModifier)) {
         //https://wiki.qt.io/Smooth_Zoom_In_QGraphicsView
-        int numDegrees = event->delta() / 8;
-        int numSteps = numDegrees / 15; // see QWheelEvent documentation
+        QPoint numDegrees = event->angleDelta() / 8;
+        int numSteps = numDegrees.y() / 15; // see QWheelEvent documentation
         zoom(numSteps);
     } else
         QGraphicsView::wheelEvent(event);

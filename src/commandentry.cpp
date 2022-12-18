@@ -1072,7 +1072,7 @@ void CommandEntry::showCompletions()
         m_completionBox->setTabHandling(false);
         m_completionBox->setActivateOnSelect(true);
 
-        connect(m_completionBox.data(), &KCompletionBox::activated, this, &CommandEntry::applySelectedCompletion);
+        connect(m_completionBox.data(), &KCompletionBox::textActivated, this, &CommandEntry::applySelectedCompletion);
         connect(m_commandItem->document(), &QTextDocument::contentsChanged, this, &CommandEntry::completedLineChanged);
         connect(m_completionObject, &Cantor::CompletionObject::done, this, &CommandEntry::updateCompletions);
 
