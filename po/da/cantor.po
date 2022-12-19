@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-12-07 00:42+0000\n"
+"POT-Creation-Date: 2022-12-19 00:42+0000\n"
 "PO-Revision-Date: 2016-05-28 16:30+0100\n"
 "Last-Translator: Martin Schlander <mschlander@opensuse.org>\n"
 "Language-Team: Danish <kde-i18n-doc@kde.org>\n"
@@ -341,7 +341,7 @@ msgstr ""
 msgid "Make this the default backend"
 msgstr "Gør denne til standard-backend"
 
-#: backends/julia/juliabackend.cpp:57
+#: backends/julia/juliabackend.cpp:58
 #, kde-format
 msgid ""
 "<b>Julia</b> is a high-level, high-performance dynamic programming language "
@@ -351,7 +351,7 @@ msgid ""
 "mathematical function library."
 msgstr ""
 
-#: backends/julia/juliabackend.cpp:70
+#: backends/julia/juliabackend.cpp:71
 #, fuzzy, kde-format
 #| msgctxt "the url to the documentation Python 2"
 #| msgid "http://docs.python.org/2/"
@@ -361,7 +361,7 @@ msgctxt ""
 msgid "https://docs.julialang.org/en/latest/"
 msgstr "http://docs.python.org/2/"
 
-#: backends/julia/juliabackend.cpp:86
+#: backends/julia/juliabackend.cpp:87
 #, kde-format
 msgid ""
 "The path to Julia specified in the application settings must point directly "
@@ -369,14 +369,14 @@ msgid ""
 "in the application settings and try again."
 msgstr ""
 
-#: backends/julia/juliabackend.cpp:101 backends/julia/juliabackend.cpp:113
+#: backends/julia/juliabackend.cpp:102 backends/julia/juliabackend.cpp:114
 #, kde-format
 msgid ""
 "Сantor couldn’t determine the version of Julia for %1. Please specify the "
 "correct path to Julia executable (no symlinks allowed) and try again."
 msgstr ""
 
-#: backends/julia/juliabackend.cpp:126
+#: backends/julia/juliabackend.cpp:127
 #, kde-format
 msgid ""
 "You are trying to use Cantor with Julia v%1.%2.%3. This version of Cantor "
@@ -4249,57 +4249,57 @@ msgstr ""
 msgid "Target MIME type:"
 msgstr ""
 
-#: textresultitem.cpp:59
+#: textresultitem.cpp:60
 #, fuzzy, kde-format
 #| msgid "Remove result"
 msgid "Copy result"
 msgstr "Fjern resultat"
 
-#: textresultitem.cpp:68
+#: textresultitem.cpp:69
 #, kde-format
 msgid "Show Rendered"
 msgstr "Vis renderet"
 
-#: textresultitem.cpp:70
+#: textresultitem.cpp:71
 #, kde-format
 msgid "Show Code"
 msgstr "Vis kode"
 
-#: textresultitem.cpp:78 textresultitem.cpp:91
+#: textresultitem.cpp:79 textresultitem.cpp:92
 #, fuzzy, kde-format
 #| msgid "Show Code"
 msgid "Show HTML Code"
 msgstr "Vis kode"
 
-#: textresultitem.cpp:80 textresultitem.cpp:86
+#: textresultitem.cpp:81 textresultitem.cpp:87
 #, kde-format
 msgid "Show Plain Alternative"
 msgstr ""
 
-#: textresultitem.cpp:84
+#: textresultitem.cpp:85
 #, fuzzy, kde-format
 #| msgid "Show %1 Help"
 msgid "Show Html"
 msgstr "Vis hjælp til %1"
 
-#: textresultitem.cpp:90
+#: textresultitem.cpp:91
 #, fuzzy, kde-format
 #| msgid "Show %1 Help"
 msgid "Show HTML"
 msgstr "Vis hjælp til %1"
 
-#: textresultitem.cpp:161
+#: textresultitem.cpp:163
 #, kde-format
 msgid "Cannot render Eps file. You may need additional packages"
 msgstr "Kan ikke vise EPS-fil. Du har muligvis brug for yderligere pakker"
 
-#: textresultitem.cpp:213
+#: textresultitem.cpp:215
 #, fuzzy, kde-format
 #| msgid "Save result"
 msgid "Save text result"
 msgstr "Gem resultat"
 
-#: textresultitem.cpp:213
+#: textresultitem.cpp:215
 #, kde-format
 msgid "Text Files (*.txt)"
 msgstr ""

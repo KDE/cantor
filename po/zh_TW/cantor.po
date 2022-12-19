@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: mathematik\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-12-07 00:42+0000\n"
+"POT-Creation-Date: 2022-12-19 00:42+0000\n"
 "PO-Revision-Date: 2019-09-22 19:06+0800\n"
 "Last-Translator: pan93412 <pan93412@gmail.com>\n"
 "Language-Team: Chinese <zh-l10n@lists.linux.org.tw>\n"
@@ -328,7 +328,7 @@ msgstr "<br><div><b>未滿足部份需求：</b>%1</div>"
 msgid "Make this the default backend"
 msgstr "將此後端程式設為預設"
 
-#: backends/julia/juliabackend.cpp:57
+#: backends/julia/juliabackend.cpp:58
 #, kde-format
 msgid ""
 "<b>Julia</b> is a high-level, high-performance dynamic programming language "
@@ -341,7 +341,7 @@ msgstr ""
 "學計算環境的使用者來說相當友善。它提供了精密的編譯器、分散且平行的執行、精準"
 "的數據以及一份可擴充的數學函數的函式庫。"
 
-#: backends/julia/juliabackend.cpp:70
+#: backends/julia/juliabackend.cpp:71
 #, kde-format
 msgctxt ""
 "The url to the documentation of Julia, please check if there is a translated "
@@ -349,7 +349,7 @@ msgctxt ""
 msgid "https://docs.julialang.org/en/latest/"
 msgstr "https://docs.julialang.org/en/latest/"
 
-#: backends/julia/juliabackend.cpp:86
+#: backends/julia/juliabackend.cpp:87
 #, kde-format
 msgid ""
 "The path to Julia specified in the application settings must point directly "
@@ -357,14 +357,14 @@ msgid ""
 "in the application settings and try again."
 msgstr ""
 
-#: backends/julia/juliabackend.cpp:101 backends/julia/juliabackend.cpp:113
+#: backends/julia/juliabackend.cpp:102 backends/julia/juliabackend.cpp:114
 #, kde-format
 msgid ""
 "Сantor couldn’t determine the version of Julia for %1. Please specify the "
 "correct path to Julia executable (no symlinks allowed) and try again."
 msgstr ""
 
-#: backends/julia/juliabackend.cpp:126
+#: backends/julia/juliabackend.cpp:127
 #, kde-format
 msgid ""
 "You are trying to use Cantor with Julia v%1.%2.%3. This version of Cantor "
@@ -4109,54 +4109,54 @@ msgstr ""
 msgid "Target MIME type:"
 msgstr "目標 MIME 類型："
 
-#: textresultitem.cpp:59
+#: textresultitem.cpp:60
 #, fuzzy, kde-format
 #| msgid "Remove result"
 msgid "Copy result"
 msgstr "移除結果"
 
-#: textresultitem.cpp:68
+#: textresultitem.cpp:69
 #, kde-format
 msgid "Show Rendered"
 msgstr "顯示成像"
 
-#: textresultitem.cpp:70
+#: textresultitem.cpp:71
 #, kde-format
 msgid "Show Code"
 msgstr "顯示程式碼"
 
-#: textresultitem.cpp:78 textresultitem.cpp:91
+#: textresultitem.cpp:79 textresultitem.cpp:92
 #, kde-format
 msgid "Show HTML Code"
 msgstr "顯示 HTML 程式碼"
 
-#: textresultitem.cpp:80 textresultitem.cpp:86
+#: textresultitem.cpp:81 textresultitem.cpp:87
 #, kde-format
 msgid "Show Plain Alternative"
 msgstr ""
 
-#: textresultitem.cpp:84
+#: textresultitem.cpp:85
 #, kde-format
 msgid "Show Html"
 msgstr "顯示 HTML"
 
-#: textresultitem.cpp:90
+#: textresultitem.cpp:91
 #, kde-format
 msgid "Show HTML"
 msgstr "顯示 HTML"
 
-#: textresultitem.cpp:161
+#: textresultitem.cpp:163
 #, kde-format
 msgid "Cannot render Eps file. You may need additional packages"
 msgstr "無法繪製 Eps 檔。您可能需要額外的套件"
 
-#: textresultitem.cpp:213
+#: textresultitem.cpp:215
 #, fuzzy, kde-format
 #| msgid "Save result"
 msgid "Save text result"
 msgstr "儲存結果"
 
-#: textresultitem.cpp:213
+#: textresultitem.cpp:215
 #, kde-format
 msgid "Text Files (*.txt)"
 msgstr ""

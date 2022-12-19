@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: mathematik\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-12-07 00:42+0000\n"
+"POT-Creation-Date: 2022-12-19 00:42+0000\n"
 "PO-Revision-Date: 2022-11-28 05:15+0100\n"
 "Last-Translator: Eloy Cuadra <ecuadra@eloihr.net>\n"
 "Language-Team: Spanish <kde-l10n-es@kde.org>\n"
@@ -330,7 +330,7 @@ msgstr ""
 msgid "Make this the default backend"
 msgstr "Hacer que este sea el motor por omisión"
 
-#: backends/julia/juliabackend.cpp:57
+#: backends/julia/juliabackend.cpp:58
 #, kde-format
 msgid ""
 "<b>Julia</b> is a high-level, high-performance dynamic programming language "
@@ -345,7 +345,7 @@ msgstr ""
 "sofisticado compilador, ejecución en paralelo distribuida, precisión "
 "numérica y una amplia biblioteca de funciones matemáticas."
 
-#: backends/julia/juliabackend.cpp:70
+#: backends/julia/juliabackend.cpp:71
 #, kde-format
 msgctxt ""
 "The url to the documentation of Julia, please check if there is a translated "
@@ -353,7 +353,7 @@ msgctxt ""
 msgid "https://docs.julialang.org/en/latest/"
 msgstr "https://docs.julialang.org/en/latest/"
 
-#: backends/julia/juliabackend.cpp:86
+#: backends/julia/juliabackend.cpp:87
 #, kde-format
 msgid ""
 "The path to Julia specified in the application settings must point directly "
@@ -365,7 +365,7 @@ msgstr ""
 "Proporcione la ruta correcta en las preferencias de la aplicación y vuelva a "
 "intentarlo."
 
-#: backends/julia/juliabackend.cpp:101 backends/julia/juliabackend.cpp:113
+#: backends/julia/juliabackend.cpp:102 backends/julia/juliabackend.cpp:114
 #, kde-format
 msgid ""
 "Сantor couldn’t determine the version of Julia for %1. Please specify the "
@@ -375,7 +375,7 @@ msgstr ""
 "correcta al ejecutable de Julia (no puede ser un enlace simbólico) y vuelva "
 "a probar."
 
-#: backends/julia/juliabackend.cpp:126
+#: backends/julia/juliabackend.cpp:127
 #, kde-format
 msgid ""
 "You are trying to use Cantor with Julia v%1.%2.%3. This version of Cantor "
@@ -4242,54 +4242,54 @@ msgstr "Convertir a celda en bruto"
 msgid "Target MIME type:"
 msgstr "Tipo MIME de destino:"
 
-#: textresultitem.cpp:59
+#: textresultitem.cpp:60
 #, kde-format
 msgid "Copy result"
 msgstr "Copiar el resultado"
 
-#: textresultitem.cpp:68
+#: textresultitem.cpp:69
 #, kde-format
 msgid "Show Rendered"
 msgstr "Mostrar gráfico"
 
-#: textresultitem.cpp:70
+#: textresultitem.cpp:71
 #, kde-format
 msgid "Show Code"
 msgstr "Mostrar código"
 
-#: textresultitem.cpp:78 textresultitem.cpp:91
+#: textresultitem.cpp:79 textresultitem.cpp:92
 #, kde-format
 msgid "Show HTML Code"
 msgstr "Mostrar código HTML"
 
-#: textresultitem.cpp:80 textresultitem.cpp:86
+#: textresultitem.cpp:81 textresultitem.cpp:87
 #, kde-format
 msgid "Show Plain Alternative"
 msgstr "Mostrar alternativa sin formato"
 
-#: textresultitem.cpp:84
+#: textresultitem.cpp:85
 #, kde-format
 msgid "Show Html"
 msgstr "Mostrar HTML"
 
-#: textresultitem.cpp:90
+#: textresultitem.cpp:91
 #, kde-format
 msgid "Show HTML"
 msgstr "Mostrar HTML"
 
-#: textresultitem.cpp:161
+#: textresultitem.cpp:163
 #, kde-format
 msgid "Cannot render Eps file. You may need additional packages"
 msgstr ""
 "No se puede interpretar el archivo Eps. Es posible que necesite paquetes "
 "adicionales."
 
-#: textresultitem.cpp:213
+#: textresultitem.cpp:215
 #, kde-format
 msgid "Save text result"
 msgstr "Guardar el texto del resultado"
 
-#: textresultitem.cpp:213
+#: textresultitem.cpp:215
 #, kde-format
 msgid "Text Files (*.txt)"
 msgstr "Archivo de texto (*.txt)"

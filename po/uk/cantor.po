@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: cantor\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-12-07 00:42+0000\n"
+"POT-Creation-Date: 2022-12-19 00:42+0000\n"
 "PO-Revision-Date: 2022-11-28 20:44+0200\n"
 "Last-Translator: Fracture dept <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian <kde-i18n-uk@kde.org>\n"
@@ -333,7 +333,7 @@ msgstr ""
 msgid "Make this the default backend"
 msgstr "Зробити цей модуль типовим"
 
-#: backends/julia/juliabackend.cpp:57
+#: backends/julia/juliabackend.cpp:58
 #, kde-format
 msgid ""
 "<b>Julia</b> is a high-level, high-performance dynamic programming language "
@@ -348,7 +348,7 @@ msgstr ""
 "паралельних обчислень, визначення точності представлення чисел та бібліотеку "
 "із широким спектр математичних функцій."
 
-#: backends/julia/juliabackend.cpp:70
+#: backends/julia/juliabackend.cpp:71
 #, kde-format
 msgctxt ""
 "The url to the documentation of Julia, please check if there is a translated "
@@ -356,7 +356,7 @@ msgctxt ""
 msgid "https://docs.julialang.org/en/latest/"
 msgstr "https://docs.julialang.org/en/latest/"
 
-#: backends/julia/juliabackend.cpp:86
+#: backends/julia/juliabackend.cpp:87
 #, kde-format
 msgid ""
 "The path to Julia specified in the application settings must point directly "
@@ -368,7 +368,7 @@ msgstr ""
 "посилання. Будь ласка, вкажіть чинний шлях у параметрах програми і повторіть "
 "спробу."
 
-#: backends/julia/juliabackend.cpp:101 backends/julia/juliabackend.cpp:113
+#: backends/julia/juliabackend.cpp:102 backends/julia/juliabackend.cpp:114
 #, kde-format
 msgid ""
 "Сantor couldn’t determine the version of Julia for %1. Please specify the "
@@ -378,7 +378,7 @@ msgstr ""
 "виконуваного файла Julia належним чином (не можна використовувати символічні "
 "посилання) і повторіть спробу."
 
-#: backends/julia/juliabackend.cpp:126
+#: backends/julia/juliabackend.cpp:127
 #, kde-format
 msgid ""
 "You are trying to use Cantor with Julia v%1.%2.%3. This version of Cantor "
@@ -4247,54 +4247,54 @@ msgstr "Перетворити на просту комірку"
 msgid "Target MIME type:"
 msgstr "Тип MIME призначення:"
 
-#: textresultitem.cpp:59
+#: textresultitem.cpp:60
 #, kde-format
 msgid "Copy result"
 msgstr "Копіювати результат"
 
-#: textresultitem.cpp:68
+#: textresultitem.cpp:69
 #, kde-format
 msgid "Show Rendered"
 msgstr "Показати вигляд"
 
-#: textresultitem.cpp:70
+#: textresultitem.cpp:71
 #, kde-format
 msgid "Show Code"
 msgstr "Показати код"
 
-#: textresultitem.cpp:78 textresultitem.cpp:91
+#: textresultitem.cpp:79 textresultitem.cpp:92
 #, kde-format
 msgid "Show HTML Code"
 msgstr "Показати код HTML"
 
-#: textresultitem.cpp:80 textresultitem.cpp:86
+#: textresultitem.cpp:81 textresultitem.cpp:87
 #, kde-format
 msgid "Show Plain Alternative"
 msgstr "Показувати спрощену альтернативу"
 
-#: textresultitem.cpp:84
+#: textresultitem.cpp:85
 #, kde-format
 msgid "Show Html"
 msgstr "Показати HTML"
 
-#: textresultitem.cpp:90
+#: textresultitem.cpp:91
 #, kde-format
 msgid "Show HTML"
 msgstr "Показати HTML"
 
-#: textresultitem.cpp:161
+#: textresultitem.cpp:163
 #, kde-format
 msgid "Cannot render Eps file. You may need additional packages"
 msgstr ""
 "Не вдалося показати файл Eps. Ймовірно, вам слід встановити додаткові "
 "пакунки."
 
-#: textresultitem.cpp:213
+#: textresultitem.cpp:215
 #, kde-format
 msgid "Save text result"
 msgstr "Зберегти текст-результат"
 
-#: textresultitem.cpp:213
+#: textresultitem.cpp:215
 #, kde-format
 msgid "Text Files (*.txt)"
 msgstr "текстові файли (*.txt)"

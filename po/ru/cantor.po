@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-12-07 00:42+0000\n"
+"POT-Creation-Date: 2022-12-19 00:42+0000\n"
 "PO-Revision-Date: 2022-09-06 11:33+0300\n"
 "Last-Translator: Olesya Gerasimenko <translation-team@basealt.ru>\n"
 "Language-Team: Basealt Translation Team\n"
@@ -337,7 +337,7 @@ msgstr ""
 msgid "Make this the default backend"
 msgstr "Использовать по умолчанию эту систему компьютерной алгебры"
 
-#: backends/julia/juliabackend.cpp:57
+#: backends/julia/juliabackend.cpp:58
 #, kde-format
 msgid ""
 "<b>Julia</b> is a high-level, high-performance dynamic programming language "
@@ -352,7 +352,7 @@ msgstr ""
 "предоставляет сложный компилятор, поддержку распределённых вычислений, "
 "численную точность и обширную библиотеку математических функций."
 
-#: backends/julia/juliabackend.cpp:70
+#: backends/julia/juliabackend.cpp:71
 #, kde-format
 msgctxt ""
 "The url to the documentation of Julia, please check if there is a translated "
@@ -360,7 +360,7 @@ msgctxt ""
 msgid "https://docs.julialang.org/en/latest/"
 msgstr "https://docs.julialang.org/en/latest/"
 
-#: backends/julia/juliabackend.cpp:86
+#: backends/julia/juliabackend.cpp:87
 #, kde-format
 msgid ""
 "The path to Julia specified in the application settings must point directly "
@@ -371,7 +371,7 @@ msgstr ""
 "непосредственно на исполняемый файл Julia. Символические ссылки использовать "
 "нельзя. Укажите корректный путь в параметрах приложения и попробуйте снова."
 
-#: backends/julia/juliabackend.cpp:101 backends/julia/juliabackend.cpp:113
+#: backends/julia/juliabackend.cpp:102 backends/julia/juliabackend.cpp:114
 #, kde-format
 msgid ""
 "Сantor couldn’t determine the version of Julia for %1. Please specify the "
@@ -381,7 +381,7 @@ msgstr ""
 "исполняемому файлу (символические ссылки использовать нельзя) и попробуйте "
 "снова."
 
-#: backends/julia/juliabackend.cpp:126
+#: backends/julia/juliabackend.cpp:127
 #, kde-format
 msgid ""
 "You are trying to use Cantor with Julia v%1.%2.%3. This version of Cantor "
@@ -4248,53 +4248,53 @@ msgstr "Преобразовать в ячейку Raw"
 msgid "Target MIME type:"
 msgstr "Тип MIME цели:"
 
-#: textresultitem.cpp:59
+#: textresultitem.cpp:60
 #, kde-format
 msgid "Copy result"
 msgstr "Копировать результат"
 
-#: textresultitem.cpp:68
+#: textresultitem.cpp:69
 #, kde-format
 msgid "Show Rendered"
 msgstr "Показать выражение"
 
-#: textresultitem.cpp:70
+#: textresultitem.cpp:71
 #, kde-format
 msgid "Show Code"
 msgstr "Показать код LaTeX"
 
-#: textresultitem.cpp:78 textresultitem.cpp:91
+#: textresultitem.cpp:79 textresultitem.cpp:92
 #, kde-format
 msgid "Show HTML Code"
 msgstr "Показать код HTML"
 
-#: textresultitem.cpp:80 textresultitem.cpp:86
+#: textresultitem.cpp:81 textresultitem.cpp:87
 #, kde-format
 msgid "Show Plain Alternative"
 msgstr "Показать обычный текст"
 
-#: textresultitem.cpp:84
+#: textresultitem.cpp:85
 #, kde-format
 msgid "Show Html"
 msgstr "Показать HTML"
 
-#: textresultitem.cpp:90
+#: textresultitem.cpp:91
 #, kde-format
 msgid "Show HTML"
 msgstr "Показать HTML"
 
-#: textresultitem.cpp:161
+#: textresultitem.cpp:163
 #, kde-format
 msgid "Cannot render Eps file. You may need additional packages"
 msgstr ""
 "Не удалось интерпретировать файл Eps. Возможно, нужны дополнительные пакеты"
 
-#: textresultitem.cpp:213
+#: textresultitem.cpp:215
 #, kde-format
 msgid "Save text result"
 msgstr "Сохранить текстовый результат"
 
-#: textresultitem.cpp:213
+#: textresultitem.cpp:215
 #, kde-format
 msgid "Text Files (*.txt)"
 msgstr "Текстовые файлы (*.txt)"
