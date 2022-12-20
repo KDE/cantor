@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-12-07 00:42+0000\n"
+"POT-Creation-Date: 2022-12-19 00:42+0000\n"
 "PO-Revision-Date: 2016-01-31 14:32+0100\n"
 "Last-Translator: Karl Ove Hufthammer <karl@huftis.org>\n"
 "Language-Team: Norwegian Nynorsk <l10n-no@lister.huftis.org>\n"
@@ -327,7 +327,7 @@ msgstr ""
 msgid "Make this the default backend"
 msgstr "Gjer denne til standardmotor"
 
-#: backends/julia/juliabackend.cpp:57
+#: backends/julia/juliabackend.cpp:58
 #, kde-format
 msgid ""
 "<b>Julia</b> is a high-level, high-performance dynamic programming language "
@@ -337,7 +337,7 @@ msgid ""
 "mathematical function library."
 msgstr ""
 
-#: backends/julia/juliabackend.cpp:70
+#: backends/julia/juliabackend.cpp:71
 #, kde-format
 msgctxt ""
 "The url to the documentation of Julia, please check if there is a translated "
@@ -345,7 +345,7 @@ msgctxt ""
 msgid "https://docs.julialang.org/en/latest/"
 msgstr ""
 
-#: backends/julia/juliabackend.cpp:86
+#: backends/julia/juliabackend.cpp:87
 #, kde-format
 msgid ""
 "The path to Julia specified in the application settings must point directly "
@@ -353,14 +353,14 @@ msgid ""
 "in the application settings and try again."
 msgstr ""
 
-#: backends/julia/juliabackend.cpp:101 backends/julia/juliabackend.cpp:113
+#: backends/julia/juliabackend.cpp:102 backends/julia/juliabackend.cpp:114
 #, kde-format
 msgid ""
 "Сantor couldn’t determine the version of Julia for %1. Please specify the "
 "correct path to Julia executable (no symlinks allowed) and try again."
 msgstr ""
 
-#: backends/julia/juliabackend.cpp:126
+#: backends/julia/juliabackend.cpp:127
 #, kde-format
 msgid ""
 "You are trying to use Cantor with Julia v%1.%2.%3. This version of Cantor "
@@ -3991,52 +3991,52 @@ msgstr ""
 msgid "Target MIME type:"
 msgstr ""
 
-#: textresultitem.cpp:59
+#: textresultitem.cpp:60
 #, kde-format
 msgid "Copy result"
 msgstr ""
 
-#: textresultitem.cpp:68
+#: textresultitem.cpp:69
 #, kde-format
 msgid "Show Rendered"
 msgstr "Vis oppteikna"
 
-#: textresultitem.cpp:70
+#: textresultitem.cpp:71
 #, kde-format
 msgid "Show Code"
 msgstr "Vis kode"
 
-#: textresultitem.cpp:78 textresultitem.cpp:91
+#: textresultitem.cpp:79 textresultitem.cpp:92
 #, kde-format
 msgid "Show HTML Code"
 msgstr ""
 
-#: textresultitem.cpp:80 textresultitem.cpp:86
+#: textresultitem.cpp:81 textresultitem.cpp:87
 #, kde-format
 msgid "Show Plain Alternative"
 msgstr ""
 
-#: textresultitem.cpp:84
+#: textresultitem.cpp:85
 #, kde-format
 msgid "Show Html"
 msgstr ""
 
-#: textresultitem.cpp:90
+#: textresultitem.cpp:91
 #, kde-format
 msgid "Show HTML"
 msgstr ""
 
-#: textresultitem.cpp:161
+#: textresultitem.cpp:163
 #, kde-format
 msgid "Cannot render Eps file. You may need additional packages"
 msgstr "Klarar ikkje teikna opp eps-fila. Du treng kanskje fleire pakkar."
 
-#: textresultitem.cpp:213
+#: textresultitem.cpp:215
 #, kde-format
 msgid "Save text result"
 msgstr ""
 
-#: textresultitem.cpp:213
+#: textresultitem.cpp:215
 #, kde-format
 msgid "Text Files (*.txt)"
 msgstr ""
