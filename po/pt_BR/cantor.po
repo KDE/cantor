@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: cantor\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2022-10-08 00:40+0000\n"
-"PO-Revision-Date: 2022-08-05 18:53-0300\n"
+"PO-Revision-Date: 2022-12-20 11:11-0300\n"
 "Last-Translator: Luiz Fernando Ranghetti <elchevive@opensuse.org>\n"
 "Language-Team: Portuguese <kde-i18n-pt_BR@kde.org>\n"
 "Language: pt_BR\n"
@@ -2828,10 +2828,9 @@ msgstr "Número de linhas"
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_AnimationDefault)
 #: cantor_part.cpp:240 settings.ui:125
-#, fuzzy, kde-format
-#| msgid "Animations (*.gif)"
+#, kde-format
 msgid "Animations"
-msgstr "Animações (*.gif)"
+msgstr "Animações"
 
 #: cantor_part.cpp:247
 #, kde-format
@@ -3951,10 +3950,9 @@ msgstr "Código LaTeX"
 
 #. i18n: ectx: property (text), widget (QLabel, label_2)
 #: settings.ui:23
-#, fuzzy, kde-format
-#| msgid "Start"
+#, kde-format
 msgid "Startup:"
-msgstr "Iniciar"
+msgstr "Inicialização:"
 
 #. i18n: ectx: property (toolTip), widget (QLabel, label)
 #. i18n: ectx: property (toolTip), widget (KComboBox, kcfg_DefaultBackend)
@@ -3973,38 +3971,35 @@ msgstr "Infraestrutura padrão:"
 
 #. i18n: ectx: property (text), widget (QLabel, label_3)
 #: settings.ui:75
-#, fuzzy, kde-format
-#| msgid "&Worksheet"
+#, kde-format
 msgid "Worksheet:"
-msgstr "&Planilha"
+msgstr "Planilha:"
 
 #. i18n: ectx: property (toolTip), widget (QCheckBox, kcfg_TypesetDefault)
 #: settings.ui:82
-#, fuzzy, kde-format
-#| msgid "Enable LaTeX typesetting for Sage backend"
+#, kde-format
 msgid ""
 "Enable LaTeX typesetting for the results of the calculations, if supported "
 "by the backend system"
-msgstr "Habilitar o processamento do LaTeX para a infraestrutura Sage"
+msgstr ""
+"Habilitar o processamento do LaTeX para o resultado dos cálculos, se "
+"suportado pela infraestrutura do sistema"
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_TypesetDefault)
 #: settings.ui:85
-#, fuzzy, kde-format
-#| msgid "LaTeX typesetting:"
+#, kde-format
 msgid "LaTeX typesetting"
-msgstr "Processamento do LaTeX:"
+msgstr "Processamento do LaTeX"
 
 #. i18n: ectx: property (toolTip), widget (QCheckBox, kcfg_HighlightDefault)
 #: settings.ui:92
-#, fuzzy, kde-format
-#| msgid "Enable Syntax Highlighting"
+#, kde-format
 msgid "Enable syntax highlighting"
-msgstr "Habilitar o realce de sintaxe"
+msgstr "Habilitar realce de sintaxe"
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_HighlightDefault)
 #: settings.ui:95
-#, fuzzy, kde-format
-#| msgid "Syntax Highlighting"
+#, kde-format
 msgid "Syntax highlighting"
 msgstr "Realce de sintaxe"
 
@@ -4017,17 +4012,15 @@ msgstr "Habilitar o completamento"
 
 #. i18n: ectx: property (toolTip), widget (QCheckBox, kcfg_ExpressionNumberingDefault)
 #: settings.ui:112
-#, fuzzy, kde-format
-#| msgid "Line Numbers"
+#, kde-format
 msgid "Show line numbers"
-msgstr "Número de linhas"
+msgstr "Mostrar números de linha"
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_ExpressionNumberingDefault)
 #: settings.ui:115
-#, fuzzy, kde-format
-#| msgid "Line Numbers"
+#, kde-format
 msgid "Line numbers"
-msgstr "Número de linhas"
+msgstr "Números de linha"
 
 #. i18n: ectx: property (toolTip), widget (QCheckBox, kcfg_AnimationDefault)
 #: settings.ui:122
@@ -4111,10 +4104,9 @@ msgstr ""
 
 #. i18n: ectx: property (text), widget (QLabel, label_5)
 #: settings.ui:256
-#, fuzzy, kde-format
-#| msgid "Markdown"
+#, kde-format
 msgid "Markdown:"
-msgstr "Markdown"
+msgstr "Markdown:"
 
 #. i18n: ectx: property (toolTip), widget (QCheckBox, kcfg_EmbeddedMathDefault)
 #: settings.ui:263
