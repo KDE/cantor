@@ -91,7 +91,10 @@ QVariant DefaultVariableModel::data(const QModelIndex& index, int role) const
         case NameColumn:
             return QVariant(variable.name);
         case ValueColumn:
-            return QVariant(variable.value);
+            if (variable.value.size() <= 100 || role == DefaultVariableModel::DataRole)
+                return QVariant(variable.value);
+            else
+                return QVariant(variable.value.left(100) + QStringLiteral("..."));
         case TypeColumn:
             return QVariant(variable.type);
         case SizeColumn:

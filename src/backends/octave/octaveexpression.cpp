@@ -137,20 +137,19 @@ QString OctaveExpression::internalCommand()
 
 void OctaveExpression::parseOutput(const QString& output)
 {
-    qDebug() << "parseOutput: " << output;
+    if (output.size() > 200)
+        qDebug() << "parseOutput: " << output.left(200) << "...";
+    else
+        qDebug() << "parseOutput: " << output;
 
     if (!output.trimmed().isEmpty())
     {
         // TODO: what about help in comment? printf with '... help ...'?
         // This must be corrected.
         if (command().contains(QLatin1String("help")))
-        {
             addResult(new Cantor::HelpResult(output));
-        }
         else
-        {
             addResult(new Cantor::TextResult(output));
-        }
     }
 
     m_finished = true;
