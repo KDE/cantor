@@ -4,6 +4,7 @@
 
 ### New features
     * Allow to copy variable names and values to the clipboard in the variable panel
+    * show the type of a variable, its size (in Bytes) and its dimension (number of rows and columns) for backends that provide this information
     * [octave] properly show the values of row vectors and matrices in the variable panel
 
 

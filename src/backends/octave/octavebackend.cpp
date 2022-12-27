@@ -38,7 +38,8 @@ Cantor::Backend::Capabilities OctaveBackend::capabilities() const
         SyntaxHighlighting |
         Completion         |
         SyntaxHelp         |
-        IntegratedPlots;
+        IntegratedPlots    |
+        VariableDimension;
 
     if (OctaveSettings::self()->variableManagement())
         cap |= VariableManagement;

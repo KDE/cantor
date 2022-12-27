@@ -54,6 +54,7 @@ class CANTOR_EXPORT Backend : public QObject, public KXMLGUIClient
                                         be shown in a tooltip
                                    */
         VariableManagement = 0x20, ///< it offers access to the variables (for variable management panel)
+        VariableDimension = 0x21, ///< it is able to show the dimensions of a variable (number of rows and columns)
         IntegratedPlots = 0x40,    ///< it offers, that backend supports plot not only as separate window, but also image result
     };
     Q_DECLARE_FLAGS(Capabilities, Capability)

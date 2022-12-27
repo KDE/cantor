@@ -45,12 +45,14 @@ public:
     struct Variable
     {
         Variable(): size(0) {}
-        Variable(QString name, QString value, size_t size = 0, QString type = QString()): name(name), value(value), size(size), type(type) {}
+        Variable(QString name, QString value, size_t size = 0, QString type = QString(), QString dimension = QString()) :
+            name(name), value(value), size(size), type(type), dimension(dimension) {}
 
         QString name;
         QString value;
         size_t size;
         QString type;
+        QString dimension;
     };
 
     /**
@@ -168,7 +170,8 @@ protected:
         ValueColumn = 1,
         TypeColumn = 2,
         SizeColumn = 3,
-        ColumnCount = 4
+        DimensionColumn = 4,
+        ColumnCount = 5
     };
 
 private:

@@ -40,7 +40,12 @@ DefaultVariableModel::~DefaultVariableModel()
 int DefaultVariableModel::columnCount(const QModelIndex& parent) const
 {
     Q_UNUSED(parent);
-    return ColumnCount;
+    Q_D(const DefaultVariableModel);
+    const auto& capabilities = d->session->backend()->capabilities();
+    if (capabilities.testFlag(Cantor::Backend::VariableDimension))
+        return ColumnCount;
+    else
+        return ColumnCount - 1;
 }
 
 int DefaultVariableModel::rowCount(const QModelIndex& parent) const
@@ -66,6 +71,8 @@ QVariant DefaultVariableModel::headerData(int section, Qt::Orientation orientati
                 return i18nc("@title:column", "Type");
             case SizeColumn:
                 return i18nc("@title:column", "Size [Bytes]");
+            case DimensionColumn:
+                return i18nc("@title:column", "Dimension");
             case ValueColumn:
                 return i18nc("@title:column", "Value");
                 break;
@@ -105,6 +112,8 @@ QVariant DefaultVariableModel::data(const QModelIndex& index, int role) const
             else
                 return {};
         }
+        case DimensionColumn:
+            return QVariant(variable.dimension);
     }
 
     return {};
