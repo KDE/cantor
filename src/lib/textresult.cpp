@@ -7,8 +7,6 @@
 #include "textresult.h"
 using namespace Cantor;
 
-#include <QDebug>
-
 #include <QFile>
 #include <QTextStream>
 #include <QJsonArray>
@@ -18,9 +16,8 @@ QString rtrim(const QString& s)
 {
     QString result = s;
     while (result.count() > 0 && result[result.count()-1].isSpace() )
-    {
         result = result.left(result.count() -1 );
-    }
+
     return result;
 }
 
@@ -36,14 +33,14 @@ public:
 
 TextResult::TextResult(const QString& data) : d(new TextResultPrivate)
 {
-    d->data=rtrim(data);
-    d->plain=d->data;
+    d->data = rtrim(data);
+    d->plain = d->data;
 }
 
 TextResult::TextResult(const QString& data, const QString& plain) : d(new TextResultPrivate)
 {
-    d->data=rtrim(data);
-    d->plain=rtrim(plain);
+    d->data = rtrim(data);
+    d->plain = rtrim(plain);
 }
 
 TextResult::~TextResult()
@@ -63,7 +60,7 @@ bool TextResult::isWarning() const
 
 QString TextResult::toHtml()
 {
-    QString s=d->data.toHtmlEscaped();
+    QString s = d->data.toHtmlEscaped();
     s.replace(QLatin1Char('\n'), QLatin1String("<br/>\n"));
     s.replace(QLatin1Char(' '), QLatin1String("&nbsp;"));
     return s;
@@ -86,15 +83,12 @@ int TextResult::type()
 
 QString TextResult::mimeType()
 {
-    qDebug()<<"format: "<<format();
     switch(format())
     {
         case TextResult::PlainTextFormat:
             return QStringLiteral("text/plain");
-
         case TextResult::LatexFormat:
             return QStringLiteral("text/x-tex");
-
         default:
             return QString();
     }
@@ -107,18 +101,19 @@ TextResult::Format TextResult::format()
 
 void TextResult::setFormat(TextResult::Format f)
 {
-    d->format=f;
+    d->format = f;
 }
 
 QDomElement TextResult::toXml(QDomDocument& doc)
 {
-    qDebug()<<"saving textresult "<<toHtml();
-    QDomElement e=doc.createElement(QStringLiteral("Result"));
+    QDomElement e = doc.createElement(QStringLiteral("Result"));
     e.setAttribute(QStringLiteral("type"), QStringLiteral("text"));
     e.setAttribute(QStringLiteral("stderr"), d->isStderr);
+
     if (d->format == LatexFormat)
         e.setAttribute(QStringLiteral("format"), QStringLiteral("latex"));
-    QDomText txt=doc.createTextNode(data().toString());
+
+    QDomText txt = doc.createTextNode(data().toString());
     e.appendChild(txt);
 
     return e;
