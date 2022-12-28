@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-12-19 00:42+0000\n"
+"POT-Creation-Date: 2022-12-28 00:44+0000\n"
 "PO-Revision-Date: 2022-11-29 07:48+0100\n"
 "Last-Translator: Matjaž Jeran <matjaz.jeran@amis.net>\n"
 "Language-Team: Slovenian <lugos-slo@lugos.si>\n"
@@ -879,7 +879,7 @@ msgstr ""
 "Maxima se je v kratkem času dvakrat sesula. Zaustavljanje za poskus "
 "ponovnega zagona"
 
-#: backends/octave/octavebackend.cpp:62
+#: backends/octave/octavebackend.cpp:63
 #, kde-format
 msgctxt ""
 "the url to the documentation of Octave, please check if there is a "
@@ -887,7 +887,7 @@ msgctxt ""
 msgid "https://octave.org/doc/interpreter/"
 msgstr "https://octave.org/doc/interpreter/"
 
-#: backends/octave/octavebackend.cpp:67
+#: backends/octave/octavebackend.cpp:68
 #, kde-format
 msgid ""
 "<b>GNU Octave</b> is a high-level language, primarily intended for numerical "
@@ -2141,7 +2141,7 @@ msgid "Install Additional Documentation Files"
 msgstr "Namesti dodatne datoteke dokumentacije"
 
 #. i18n: ectx: property (text), widget (QTreeWidget, qchTable)
-#: backends/qthelpconfig.ui:49 lib/defaultvariablemodel.cpp:64
+#: backends/qthelpconfig.ui:49 lib/defaultvariablemodel.cpp:69
 #, kde-format
 msgctxt "@title:column"
 msgid "Name"
@@ -3572,19 +3572,25 @@ msgstr "Pot do izvedljive datoteke latex"
 msgid "Path to the dvips executable"
 msgstr "Pot do izvedljive datoteke dvips"
 
-#: lib/defaultvariablemodel.cpp:66
+#: lib/defaultvariablemodel.cpp:71
 #, kde-format
 msgctxt "@title:column"
 msgid "Type"
 msgstr "Vrsta"
 
-#: lib/defaultvariablemodel.cpp:68
+#: lib/defaultvariablemodel.cpp:73
 #, kde-format
 msgctxt "@title:column"
 msgid "Size [Bytes]"
 msgstr "Velikost [Byti]"
 
-#: lib/defaultvariablemodel.cpp:70
+#: lib/defaultvariablemodel.cpp:75
+#, kde-format
+msgctxt "@title:column"
+msgid "Dimension"
+msgstr ""
+
+#: lib/defaultvariablemodel.cpp:77
 #, kde-format
 msgctxt "@title:column"
 msgid "Value"

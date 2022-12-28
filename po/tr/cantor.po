@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kdeedu-kde4\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-12-19 00:42+0000\n"
+"POT-Creation-Date: 2022-12-28 00:44+0000\n"
 "PO-Revision-Date: 2022-12-10 17:56+0300\n"
 "Last-Translator: Emir SARI <emir_sari@icloud.com>\n"
 "Language-Team: Turkish <kde-l10n-tr@kde.org>\n"
@@ -883,7 +883,7 @@ msgid "Maxima crashed twice within a short time. Stopping to try starting"
 msgstr ""
 "Maxima kısa bir süre içinde 2 kere çöktü. Yeniden başlatılmaya çalışılıyor."
 
-#: backends/octave/octavebackend.cpp:62
+#: backends/octave/octavebackend.cpp:63
 #, kde-format
 msgctxt ""
 "the url to the documentation of Octave, please check if there is a "
@@ -891,7 +891,7 @@ msgctxt ""
 msgid "https://octave.org/doc/interpreter/"
 msgstr "https://octave.org/doc/interpreter/"
 
-#: backends/octave/octavebackend.cpp:67
+#: backends/octave/octavebackend.cpp:68
 #, kde-format
 msgid ""
 "<b>GNU Octave</b> is a high-level language, primarily intended for numerical "
@@ -2146,7 +2146,7 @@ msgid "Install Additional Documentation Files"
 msgstr "Ek Belgelendirme Dosyaları İndir"
 
 #. i18n: ectx: property (text), widget (QTreeWidget, qchTable)
-#: backends/qthelpconfig.ui:49 lib/defaultvariablemodel.cpp:64
+#: backends/qthelpconfig.ui:49 lib/defaultvariablemodel.cpp:69
 #, kde-format
 msgctxt "@title:column"
 msgid "Name"
@@ -3570,19 +3570,25 @@ msgstr "latex çalıştırılabilirinin yolu"
 msgid "Path to the dvips executable"
 msgstr "dvips çalıştırılabilirinin yolu"
 
-#: lib/defaultvariablemodel.cpp:66
+#: lib/defaultvariablemodel.cpp:71
 #, kde-format
 msgctxt "@title:column"
 msgid "Type"
 msgstr "Tür"
 
-#: lib/defaultvariablemodel.cpp:68
+#: lib/defaultvariablemodel.cpp:73
 #, kde-format
 msgctxt "@title:column"
 msgid "Size [Bytes]"
 msgstr "Boyut [Bayt]"
 
-#: lib/defaultvariablemodel.cpp:70
+#: lib/defaultvariablemodel.cpp:75
+#, kde-format
+msgctxt "@title:column"
+msgid "Dimension"
+msgstr ""
+
+#: lib/defaultvariablemodel.cpp:77
 #, kde-format
 msgctxt "@title:column"
 msgid "Value"
