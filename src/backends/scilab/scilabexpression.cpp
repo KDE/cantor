@@ -113,12 +113,6 @@ void ScilabExpression::parsePlotFile(QString filename)
     }
 }
 
-void ScilabExpression::interrupt()
-{
-    qDebug()<<"interruptinging command";
-    setStatus(Cantor::Expression::Interrupted);
-}
-
 void ScilabExpression::evalFinished()
 {
     qDebug()<<"evaluation finished";

@@ -53,7 +53,3 @@ void LuaExpression::parseOutput(const QString &output)
     setStatus(Cantor::Expression::Done);
 }
 
-void LuaExpression::interrupt()
-{
-    setStatus(Cantor::Expression::Interrupted);
-}

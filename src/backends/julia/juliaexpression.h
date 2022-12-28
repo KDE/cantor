@@ -27,11 +27,6 @@ public:
      */
     void evaluate() override;
 
-    /**
-     * @see Cantor::Expression::interrupt
-     */
-    void interrupt() override;
-
     QString internalCommand() override;
 
     void parseOutput(const QString&) override {};

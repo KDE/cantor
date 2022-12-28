@@ -44,13 +44,6 @@ void SageExpression::evaluate()
     session()->enqueueExpression(this);
 }
 
-void SageExpression::interrupt()
-{
-    qDebug()<<"interrupting";
-
-    setStatus(Cantor::Expression::Interrupted);
-}
-
 void SageExpression::parseOutput(const QString& text)
 {
     if (m_syntaxError)

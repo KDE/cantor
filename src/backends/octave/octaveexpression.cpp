@@ -56,13 +56,6 @@ OctaveExpression::~OctaveExpression()
 {
 }
 
-void OctaveExpression::interrupt()
-{
-    qDebug() << "interrupt";
-
-    setStatus(Interrupted);
-}
-
 void OctaveExpression::evaluate()
 {
     m_plotFilename.clear();

@@ -45,6 +45,3 @@ void KAlgebraExpression::evaluate()
         setStatus(Cantor::Expression::Error);
     }
 }
-
-void KAlgebraExpression::interrupt()
-{}

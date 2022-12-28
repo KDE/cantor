@@ -26,7 +26,6 @@ public:
     ~QalculateExpression() override;
 
     void evaluate() override;
-    void interrupt() override;
     void parseOutput(const QString&) override;
     void parseError(const QString&) override;
 

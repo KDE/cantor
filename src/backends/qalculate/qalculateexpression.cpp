@@ -118,11 +118,6 @@ void QalculateExpression::parseError(const QString& error)
     setStatus(Cantor::Expression::Error);
 }
 
-void QalculateExpression::interrupt()
-{
-    setStatus(Cantor::Expression::Interrupted);
-}
-
 void QalculateExpression::evaluatePlotCommand()
 {
     QString argString = command().mid(command().indexOf(QLatin1String("plot"))+4);

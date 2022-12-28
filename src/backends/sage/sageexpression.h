@@ -15,8 +15,6 @@ class SageExpression : public Cantor::Expression
     explicit SageExpression(Cantor::Session*, bool internal = false);
 
     void evaluate() override;
-    void interrupt() override;
-
     void parseOutput(const QString&) override;
     void parseError(const QString&) override;
 

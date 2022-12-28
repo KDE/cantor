@@ -80,9 +80,3 @@ void JuliaExpression::finalize(const QString& output, const QString& error, bool
         setStatus(Cantor::Expression::Done);
     }
 }
-
-void JuliaExpression::interrupt()
-{
-    setStatus(Cantor::Expression::Interrupted);
-}
-

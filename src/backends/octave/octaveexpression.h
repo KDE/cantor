@@ -21,7 +21,6 @@ public:
     explicit OctaveExpression(Cantor::Session*, bool internal = false);
     ~OctaveExpression();
 
-    void interrupt() override;
     void evaluate() override;
     QString internalCommand() override;
 

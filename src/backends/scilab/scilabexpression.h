@@ -18,7 +18,6 @@ class ScilabExpression : public Cantor::Expression
         ~ScilabExpression() override = default;
 
         void evaluate() override;
-        void interrupt() override;
         void parseOutput(const QString&) override;
         void parseError(const QString&) override;
         void parsePlotFile(QString filename);

@@ -22,8 +22,6 @@ public:
     ~MaximaExpression() override;
 
     void evaluate() override;
-    void interrupt() override;
-
     QString internalCommand() override;
 
     //Forces the status of this Expression to done

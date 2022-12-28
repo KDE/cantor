@@ -131,8 +131,3 @@ void PythonExpression::parseWarning(const QString& warning)
     }
 }
 
-void PythonExpression::interrupt()
-{
-    qDebug()<<"interruptinging command";
-    setStatus(Cantor::Expression::Interrupted);
-}

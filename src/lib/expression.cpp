@@ -96,6 +96,12 @@ QString Expression::internalCommand()
     return d->command;
 }
 
+void Expression::interrupt()
+{
+    qDebug()<<"interrupting";
+    setStatus(Cantor::Expression::Interrupted);
+}
+
 void Expression::setErrorMessage(const QString& error)
 {
     d->error=error;

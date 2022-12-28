@@ -77,7 +77,7 @@ class CANTOR_EXPORT Expression : public QObject
      * Interrupt the running of the Expression.
      * This should set the state to Interrupted.
      */
-    virtual void interrupt() = 0;
+    virtual void interrupt();
 
     virtual void parseOutput(const QString&) = 0;
     virtual void parseError(const QString&) = 0;

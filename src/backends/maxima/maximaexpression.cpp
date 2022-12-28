@@ -133,12 +133,6 @@ void MaximaExpression::evaluate()
     session()->enqueueExpression(this);
 }
 
-void MaximaExpression::interrupt()
-{
-    qDebug()<<"interrupting";
-    setStatus(Cantor::Expression::Interrupted);
-}
-
 QString MaximaExpression::internalCommand()
 {
     QString cmd=command();
