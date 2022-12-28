@@ -1,5 +1,6 @@
 /*
     SPDX-FileCopyrightText: 2010 Miha Čančula <miha.cancula@gmail.com>
+    SPDX-FileCopyrightText: 2017-2022 by Alexander Semke (alexander.semke@web.de)
 
     SPDX-License-Identifier: GPL-2.0-or-later
 */
@@ -55,14 +56,11 @@ class OctaveSession : public Cantor::Session
         QString m_plotFilePrefixPath;
         QString m_worksheetPath;
         bool m_isIntegratedPlotsEnabled{false}; // Better move it in worksheet, like isCompletion, etc.
-        bool m_isIntegratedPlotsSettingsEnabled{false};
 
     private:
         void readFromOctave(QByteArray);
         bool isDoNothingCommand(const QString&);
         bool isSpecialOctaveCommand(const QString&);
-        void updateGraphicPackagesFromSettings();
-        QString graphicPackageErrorMessage(QString packageId) const override;
 
     private Q_SLOTS:
         void readOutput();

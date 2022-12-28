@@ -1,5 +1,6 @@
 /*
     SPDX-FileCopyrightText: 2010 Miha Čančula <miha.cancula@gmail.com>
+    SPDX-FileCopyrightText: 2018-2022 by Alexander Semke (alexander.semke@web.de)
 
     SPDX-License-Identifier: GPL-2.0-or-later
 */
@@ -11,8 +12,6 @@
 
 #include <expression.h>
 #include <QStringList>
-
-class QTemporaryFile;
 
 class OctaveExpression : public Cantor::Expression
 {
@@ -30,7 +29,6 @@ public:
     void parseError(const QString&) override;
     void imageChanged();
 
-public:
     const static QStringList plotExtensions;
 
 private:
