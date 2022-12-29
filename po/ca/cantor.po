@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: cantor\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-12-28 00:44+0000\n"
-"PO-Revision-Date: 2022-11-28 08:59+0100\n"
+"POT-Creation-Date: 2022-12-29 00:47+0000\n"
+"PO-Revision-Date: 2022-12-28 05:50+0100\n"
 "Last-Translator: Josep M. Ferrer <txemaq@gmail.com>\n"
 "Language-Team: Catalan <kde-i18n-ca@kde.org>\n"
 "Language: ca\n"
@@ -868,7 +868,7 @@ msgstr "Error: Massa /*"
 msgid "Error: expected \" before ;"
 msgstr "Error: s'esperava \" abans de ;"
 
-#: backends/maxima/maximaexpression.cpp:406
+#: backends/maxima/maximaexpression.cpp:400
 #, kde-format
 msgid "Waiting for the plot result"
 msgstr "S'està esperant el resultat de la gràfica"
@@ -922,22 +922,17 @@ msgstr ""
 msgid "Octave script file (*.m)"
 msgstr "Fitxer script de l'Octave (*.m)"
 
-#: backends/octave/octavesession.cpp:271 backends/sage/sageexpression.cpp:58
-#, kde-format
-msgid "Syntax Error"
-msgstr "Error de sintaxi"
-
-#: backends/octave/octavesession.cpp:408
+#: backends/octave/octavesession.cpp:116
 #, kde-format
 msgid "Plot integration test failed."
 msgstr "Ha fallat la prova d'integració de les gràfiques."
 
-#: backends/octave/octavesession.cpp:412
+#: backends/octave/octavesession.cpp:120
 #, kde-format
 msgid "The integration of plots will be disabled."
 msgstr "Es desactivarà la integració de les gràfiques."
 
-#: backends/octave/octavesession.cpp:413 backends/sage/sagesession.cpp:238
+#: backends/octave/octavesession.cpp:121 backends/sage/sagesession.cpp:238
 #: backends/sage/sagesession.cpp:271 backends/sage/sagesession.cpp:337
 #: backends/sage/sagesession.cpp:348 cantor.cpp:216 cantor.cpp:218
 #: cantor.cpp:337 cantor.cpp:344 lib/session.cpp:383 main.cpp:66 main.cpp:130
@@ -946,22 +941,10 @@ msgstr "Es desactivarà la integració de les gràfiques."
 msgid "Cantor"
 msgstr "Cantor"
 
-#: backends/octave/octavesession.cpp:434
+#: backends/octave/octavesession.cpp:322 backends/sage/sageexpression.cpp:51
 #, kde-format
-msgid ""
-"The plot integration doesn't work because Cantor found, that Octave can't "
-"create plots, because there are no graphical backends for it: this "
-"conclusion was made on the basis of empty output from "
-"available_graphics_toolkits() function. Looks like you should install some "
-"additional OS packages, like gnuplot, fltk or qt for possibility to create "
-"plots."
-msgstr ""
-"La integració de les gràfiques no funciona perquè el Cantor ha detectat que "
-"l'Octave no pot crear gràfiques, ja que no hi ha cap dorsal gràfic per a "
-"ell: s'ha arribat a aquesta conclusió per la sortida buida de la funció "
-"«available_graphics_toolkits()». Sembla que cal instal·lar paquets "
-"addicionals del SO, com el «gnuplot», «fltk» o «qt» per a la possibilitat de "
-"crear gràfiques."
+msgid "Syntax Error"
+msgstr "Error de sintaxi"
 
 #: backends/python/pythonbackend.cpp:67
 #, kde-format
@@ -1608,50 +1591,50 @@ msgstr "Estil de les gràfiques."
 msgid "Legend position in plots."
 msgstr "Posició de la llegenda a les gràfiques."
 
-#: backends/qalculate/qalculateexpression.cpp:142
+#: backends/qalculate/qalculateexpression.cpp:137
 #, kde-format
 msgid "Qalculate reports it cannot print. Is gnuplot installed?"
 msgstr "El Qalculate informa que no pot imprimir. Teniu instal·lat el gnuplot?"
 
-#: backends/qalculate/qalculateexpression.cpp:163
+#: backends/qalculate/qalculateexpression.cpp:158
 #, kde-format
 msgid "missing %1"
 msgstr "falta %1"
 
-#: backends/qalculate/qalculateexpression.cpp:253
+#: backends/qalculate/qalculateexpression.cpp:248
 #, kde-format
 msgid "%1 must be a number."
 msgstr "%1 ha de ser un nombre."
 
-#: backends/qalculate/qalculateexpression.cpp:254
+#: backends/qalculate/qalculateexpression.cpp:249
 #, kde-format
 msgid "%1 must be a integer."
 msgstr "%1 ha de ser un enter."
 
-#: backends/qalculate/qalculateexpression.cpp:255
+#: backends/qalculate/qalculateexpression.cpp:250
 #, kde-format
 msgid "%1 must be a boolean."
 msgstr "%1 ha de ser un booleà."
 
-#: backends/qalculate/qalculateexpression.cpp:256
+#: backends/qalculate/qalculateexpression.cpp:251
 #, kde-format
 msgid "invalid option for %1: %2"
 msgstr "Opció no vàlida per a %1: %2"
 
-#: backends/qalculate/qalculateexpression.cpp:583
+#: backends/qalculate/qalculateexpression.cpp:578
 #, kde-format
 msgid "found multiple expressions in one plot command (%1 and %2)."
 msgstr "s'han trobat múltiples expressions en una ordre plot (%1 i %2)."
 
-#: backends/qalculate/qalculateexpression.cpp:682
-#: backends/qalculate/qalculateexpression.cpp:790
+#: backends/qalculate/qalculateexpression.cpp:677
+#: backends/qalculate/qalculateexpression.cpp:785
 #: backends/qalculate/qalculatehighlighter.cpp:29
 #, kde-format
 msgid "ERROR"
 msgstr "ERROR"
 
-#: backends/qalculate/qalculateexpression.cpp:684
-#: backends/qalculate/qalculateexpression.cpp:792
+#: backends/qalculate/qalculateexpression.cpp:679
+#: backends/qalculate/qalculateexpression.cpp:787
 #: backends/qalculate/qalculatehighlighter.cpp:29
 #, kde-format
 msgid "WARNING"
@@ -2391,12 +2374,12 @@ msgstr "Camí a l'executable «sage»"
 msgid "Enable LaTeX typesetting for Sage backend"
 msgstr "Habilita la composició tipogràfica del LaTeX per al dorsal Sage"
 
-#: backends/sage/sageexpression.cpp:233 backends/sage/sageexpression.cpp:235
+#: backends/sage/sageexpression.cpp:226 backends/sage/sageexpression.cpp:228
 #, kde-format
 msgid "Result of %1"
 msgstr "Resultat de %1"
 
-#: backends/sage/sageexpression.cpp:242
+#: backends/sage/sageexpression.cpp:235
 #, kde-format
 msgid ""
 "%1\n"
@@ -3621,7 +3604,7 @@ msgstr "Mida [Bytes]"
 #, kde-format
 msgctxt "@title:column"
 msgid "Dimension"
-msgstr ""
+msgstr "Dimensió"
 
 #: lib/defaultvariablemodel.cpp:77
 #, kde-format
@@ -4824,3 +4807,18 @@ msgstr "Elimina l'entrada"
 #, kde-format
 msgid "Drag Entry"
 msgstr "Arrossega l'entrada"
+
+#~ msgid ""
+#~ "The plot integration doesn't work because Cantor found, that Octave can't "
+#~ "create plots, because there are no graphical backends for it: this "
+#~ "conclusion was made on the basis of empty output from "
+#~ "available_graphics_toolkits() function. Looks like you should install "
+#~ "some additional OS packages, like gnuplot, fltk or qt for possibility to "
+#~ "create plots."
+#~ msgstr ""
+#~ "La integració de les gràfiques no funciona perquè el Cantor ha detectat "
+#~ "que l'Octave no pot crear gràfiques, ja que no hi ha cap dorsal gràfic "
+#~ "per a ell: s'ha arribat a aquesta conclusió per la sortida buida de la "
+#~ "funció «available_graphics_toolkits()». Sembla que cal instal·lar paquets "
+#~ "addicionals del SO, com el «gnuplot», «fltk» o «qt» per a la possibilitat "
+#~ "de crear gràfiques."

@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: cantor\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-12-28 00:44+0000\n"
+"POT-Creation-Date: 2022-12-29 00:47+0000\n"
 "PO-Revision-Date: 2022-11-28 21:56+0100\n"
 "Last-Translator: giovanni <g.sora@tiscali.it>\n"
 "Language-Team: Interlingua <kde-i18n-doc@kde.org>\n"
@@ -861,7 +861,7 @@ msgstr "Error: Troppo de /*"
 msgid "Error: expected \" before ;"
 msgstr "Error: attendite \" ante ;"
 
-#: backends/maxima/maximaexpression.cpp:406
+#: backends/maxima/maximaexpression.cpp:400
 #, kde-format
 msgid "Waiting for the plot result"
 msgstr "Attendente le exito de plot (tracia)"
@@ -915,22 +915,17 @@ msgstr ""
 msgid "Octave script file (*.m)"
 msgstr "File de script de Octave (*.m)"
 
-#: backends/octave/octavesession.cpp:271 backends/sage/sageexpression.cpp:58
-#, kde-format
-msgid "Syntax Error"
-msgstr "Error de syntaxe."
-
-#: backends/octave/octavesession.cpp:408
+#: backends/octave/octavesession.cpp:116
 #, kde-format
 msgid "Plot integration test failed."
 msgstr "Test de Integration de tracia (plot) falleva."
 
-#: backends/octave/octavesession.cpp:412
+#: backends/octave/octavesession.cpp:120
 #, kde-format
 msgid "The integration of plots will be disabled."
 msgstr "Le integration de tracis (plots) essera dishabilitate."
 
-#: backends/octave/octavesession.cpp:413 backends/sage/sagesession.cpp:238
+#: backends/octave/octavesession.cpp:121 backends/sage/sagesession.cpp:238
 #: backends/sage/sagesession.cpp:271 backends/sage/sagesession.cpp:337
 #: backends/sage/sagesession.cpp:348 cantor.cpp:216 cantor.cpp:218
 #: cantor.cpp:337 cantor.cpp:344 lib/session.cpp:383 main.cpp:66 main.cpp:130
@@ -939,22 +934,10 @@ msgstr "Le integration de tracis (plots) essera dishabilitate."
 msgid "Cantor"
 msgstr "Cantor"
 
-#: backends/octave/octavesession.cpp:434
+#: backends/octave/octavesession.cpp:322 backends/sage/sageexpression.cpp:51
 #, kde-format
-msgid ""
-"The plot integration doesn't work because Cantor found, that Octave can't "
-"create plots, because there are no graphical backends for it: this "
-"conclusion was made on the basis of empty output from "
-"available_graphics_toolkits() function. Looks like you should install some "
-"additional OS packages, like gnuplot, fltk or qt for possibility to create "
-"plots."
-msgstr ""
-"Le integration de traciar (plot) non functiona proque Cantor trovava que "
-"Octave non pote crear tracias (plots), proque il non ha "
-"retroadministrationes graphic pro illo: iste conclusion esseva facite sur le "
-"base de exitos vacue ex function grapgics_toolkit8) disponibile. Il sembla "
-"que tu deberea installar alcun paccos additional de SO, como gnuplot, fltk e "
-"qt per possibilitate de crear tracias (plots)."
+msgid "Syntax Error"
+msgstr "Error de syntaxe."
 
 #: backends/python/pythonbackend.cpp:67
 #, kde-format
@@ -1595,52 +1578,52 @@ msgstr "Stilo de tracias (plots)."
 msgid "Legend position in plots."
 msgstr "Position  de legenda in tracias (plots)."
 
-#: backends/qalculate/qalculateexpression.cpp:142
+#: backends/qalculate/qalculateexpression.cpp:137
 #, kde-format
 msgid "Qalculate reports it cannot print. Is gnuplot installed?"
 msgstr ""
 "Qalculate reporta que illo non pote imprimer, Esque gnuplot es installate?"
 
-#: backends/qalculate/qalculateexpression.cpp:163
+#: backends/qalculate/qalculateexpression.cpp:158
 #, kde-format
 msgid "missing %1"
 msgstr "mancante %1"
 
-#: backends/qalculate/qalculateexpression.cpp:253
+#: backends/qalculate/qalculateexpression.cpp:248
 #, kde-format
 msgid "%1 must be a number."
 msgstr "%1 debe esser un numero."
 
-#: backends/qalculate/qalculateexpression.cpp:254
+#: backends/qalculate/qalculateexpression.cpp:249
 #, kde-format
 msgid "%1 must be a integer."
 msgstr "%1 debe esser un integer"
 
-#: backends/qalculate/qalculateexpression.cpp:255
+#: backends/qalculate/qalculateexpression.cpp:250
 #, kde-format
 msgid "%1 must be a boolean."
 msgstr "%1 debe esser un boolean."
 
-#: backends/qalculate/qalculateexpression.cpp:256
+#: backends/qalculate/qalculateexpression.cpp:251
 #, kde-format
 msgid "invalid option for %1: %2"
 msgstr "option invalide per %1:%2"
 
-#: backends/qalculate/qalculateexpression.cpp:583
+#: backends/qalculate/qalculateexpression.cpp:578
 #, kde-format
 msgid "found multiple expressions in one plot command (%1 and %2)."
 msgstr ""
 "trovava expressiones multiple in un commando de traciar (plot)(%1 e %2)."
 
-#: backends/qalculate/qalculateexpression.cpp:682
-#: backends/qalculate/qalculateexpression.cpp:790
+#: backends/qalculate/qalculateexpression.cpp:677
+#: backends/qalculate/qalculateexpression.cpp:785
 #: backends/qalculate/qalculatehighlighter.cpp:29
 #, kde-format
 msgid "ERROR"
 msgstr "ERROR"
 
-#: backends/qalculate/qalculateexpression.cpp:684
-#: backends/qalculate/qalculateexpression.cpp:792
+#: backends/qalculate/qalculateexpression.cpp:679
+#: backends/qalculate/qalculateexpression.cpp:787
 #: backends/qalculate/qalculatehighlighter.cpp:29
 #, kde-format
 msgid "WARNING"
@@ -2377,12 +2360,12 @@ msgstr "Percurso a executabile de Sage"
 msgid "Enable LaTeX typesetting for Sage backend"
 msgstr "Habilita typographic de LaTeX per retroadministration de Sage"
 
-#: backends/sage/sageexpression.cpp:233 backends/sage/sageexpression.cpp:235
+#: backends/sage/sageexpression.cpp:226 backends/sage/sageexpression.cpp:228
 #, kde-format
 msgid "Result of %1"
 msgstr "Exito de %1"
 
-#: backends/sage/sageexpression.cpp:242
+#: backends/sage/sageexpression.cpp:235
 #, kde-format
 msgid ""
 "%1\n"
@@ -4810,6 +4793,21 @@ msgstr "Remove entrata"
 #, kde-format
 msgid "Drag Entry"
 msgstr "Entrata Obscur"
+
+#~ msgid ""
+#~ "The plot integration doesn't work because Cantor found, that Octave can't "
+#~ "create plots, because there are no graphical backends for it: this "
+#~ "conclusion was made on the basis of empty output from "
+#~ "available_graphics_toolkits() function. Looks like you should install "
+#~ "some additional OS packages, like gnuplot, fltk or qt for possibility to "
+#~ "create plots."
+#~ msgstr ""
+#~ "Le integration de traciar (plot) non functiona proque Cantor trovava que "
+#~ "Octave non pote crear tracias (plots), proque il non ha "
+#~ "retroadministrationes graphic pro illo: iste conclusion esseva facite sur "
+#~ "le base de exitos vacue ex function grapgics_toolkit8) disponibile. Il "
+#~ "sembla que tu deberea installar alcun paccos additional de SO, como "
+#~ "gnuplot, fltk e qt per possibilitate de crear tracias (plots)."
 
 #~ msgid "<%1 bytes>"
 #~ msgstr "<%1 bytes>"

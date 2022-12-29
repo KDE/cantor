@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-12-28 00:44+0000\n"
+"POT-Creation-Date: 2022-12-29 00:47+0000\n"
 "PO-Revision-Date: 2014-06-15 00:51+0200\n"
 "Last-Translator: Balázs Úr <urbalazs@gmail.com>\n"
 "Language-Team: Hungarian <kde-l10n-hu@kde.org>\n"
@@ -839,7 +839,7 @@ msgstr "Hiba: Túl sok /*"
 msgid "Error: expected \" before ;"
 msgstr "Hiba: \" várt ; előtt"
 
-#: backends/maxima/maximaexpression.cpp:406
+#: backends/maxima/maximaexpression.cpp:400
 #, kde-format
 msgid "Waiting for the plot result"
 msgstr ""
@@ -904,22 +904,17 @@ msgstr ""
 msgid "Octave script file (*.m)"
 msgstr "*.m|Octave szkriptfájl"
 
-#: backends/octave/octavesession.cpp:271 backends/sage/sageexpression.cpp:58
-#, kde-format
-msgid "Syntax Error"
-msgstr "Szintaktikai hiba"
-
-#: backends/octave/octavesession.cpp:408
+#: backends/octave/octavesession.cpp:116
 #, kde-format
 msgid "Plot integration test failed."
 msgstr ""
 
-#: backends/octave/octavesession.cpp:412
+#: backends/octave/octavesession.cpp:120
 #, kde-format
 msgid "The integration of plots will be disabled."
 msgstr ""
 
-#: backends/octave/octavesession.cpp:413 backends/sage/sagesession.cpp:238
+#: backends/octave/octavesession.cpp:121 backends/sage/sagesession.cpp:238
 #: backends/sage/sagesession.cpp:271 backends/sage/sagesession.cpp:337
 #: backends/sage/sagesession.cpp:348 cantor.cpp:216 cantor.cpp:218
 #: cantor.cpp:337 cantor.cpp:344 lib/session.cpp:383 main.cpp:66 main.cpp:130
@@ -928,16 +923,10 @@ msgstr ""
 msgid "Cantor"
 msgstr "Cantor"
 
-#: backends/octave/octavesession.cpp:434
+#: backends/octave/octavesession.cpp:322 backends/sage/sageexpression.cpp:51
 #, kde-format
-msgid ""
-"The plot integration doesn't work because Cantor found, that Octave can't "
-"create plots, because there are no graphical backends for it: this "
-"conclusion was made on the basis of empty output from "
-"available_graphics_toolkits() function. Looks like you should install some "
-"additional OS packages, like gnuplot, fltk or qt for possibility to create "
-"plots."
-msgstr ""
+msgid "Syntax Error"
+msgstr "Szintaktikai hiba"
 
 #: backends/python/pythonbackend.cpp:67
 #, fuzzy, kde-format
@@ -1594,50 +1583,50 @@ msgstr "Az ábrák stílusa."
 msgid "Legend position in plots."
 msgstr "A jelmagyarázat helyzete az ábrákon."
 
-#: backends/qalculate/qalculateexpression.cpp:142
+#: backends/qalculate/qalculateexpression.cpp:137
 #, kde-format
 msgid "Qalculate reports it cannot print. Is gnuplot installed?"
 msgstr "A Qalculate nem tud nyomtatni. Telepítve van a gnuplot?"
 
-#: backends/qalculate/qalculateexpression.cpp:163
+#: backends/qalculate/qalculateexpression.cpp:158
 #, kde-format
 msgid "missing %1"
 msgstr "hiányzó %1"
 
-#: backends/qalculate/qalculateexpression.cpp:253
+#: backends/qalculate/qalculateexpression.cpp:248
 #, kde-format
 msgid "%1 must be a number."
 msgstr "%1 szám kell hogy legyen."
 
-#: backends/qalculate/qalculateexpression.cpp:254
+#: backends/qalculate/qalculateexpression.cpp:249
 #, kde-format
 msgid "%1 must be a integer."
 msgstr "%1 egész kell hogy legyen."
 
-#: backends/qalculate/qalculateexpression.cpp:255
+#: backends/qalculate/qalculateexpression.cpp:250
 #, kde-format
 msgid "%1 must be a boolean."
 msgstr "%1 logikai érték kell hogy legyen."
 
-#: backends/qalculate/qalculateexpression.cpp:256
+#: backends/qalculate/qalculateexpression.cpp:251
 #, kde-format
 msgid "invalid option for %1: %2"
 msgstr "érvénytelen beállítás ehhez: %1 (%2)"
 
-#: backends/qalculate/qalculateexpression.cpp:583
+#: backends/qalculate/qalculateexpression.cpp:578
 #, kde-format
 msgid "found multiple expressions in one plot command (%1 and %2)."
 msgstr "több kifejezés található egy rajzoló parancsban (%1 és %2)."
 
-#: backends/qalculate/qalculateexpression.cpp:682
-#: backends/qalculate/qalculateexpression.cpp:790
+#: backends/qalculate/qalculateexpression.cpp:677
+#: backends/qalculate/qalculateexpression.cpp:785
 #: backends/qalculate/qalculatehighlighter.cpp:29
 #, kde-format
 msgid "ERROR"
 msgstr "HIBA"
 
-#: backends/qalculate/qalculateexpression.cpp:684
-#: backends/qalculate/qalculateexpression.cpp:792
+#: backends/qalculate/qalculateexpression.cpp:679
+#: backends/qalculate/qalculateexpression.cpp:787
 #: backends/qalculate/qalculatehighlighter.cpp:29
 #, kde-format
 msgid "WARNING"
@@ -2369,12 +2358,12 @@ msgstr "A Sage program elérési útja"
 msgid "Enable LaTeX typesetting for Sage backend"
 msgstr "LaTeX típusbeállítás engedélyezése"
 
-#: backends/sage/sageexpression.cpp:233 backends/sage/sageexpression.cpp:235
+#: backends/sage/sageexpression.cpp:226 backends/sage/sageexpression.cpp:228
 #, kde-format
 msgid "Result of %1"
 msgstr "%1 eredménye"
 
-#: backends/sage/sageexpression.cpp:242
+#: backends/sage/sageexpression.cpp:235
 #, kde-format
 msgid ""
 "%1\n"

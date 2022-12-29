@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: cantor\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-12-28 00:44+0000\n"
-"PO-Revision-Date: 2022-11-30 06:34+0100\n"
+"POT-Creation-Date: 2022-12-29 00:47+0000\n"
+"PO-Revision-Date: 2022-12-28 09:08+0100\n"
 "Last-Translator: Temuri Doghonadze <temuri.doghonadze@gmail.com>\n"
 "Language-Team: Georgian <kde-i18n-doc@kde.org>\n"
 "Language: ka\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 3.2\n"
+"X-Generator: Poedit 3.2.2\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -778,7 +778,7 @@ msgstr "შეცდომა: მეტისმეტად ბევრი /*
 msgid "Error: expected \" before ;"
 msgstr ""
 
-#: backends/maxima/maximaexpression.cpp:406
+#: backends/maxima/maximaexpression.cpp:400
 #, kde-format
 msgid "Waiting for the plot result"
 msgstr ""
@@ -825,22 +825,17 @@ msgstr ""
 msgid "Octave script file (*.m)"
 msgstr ""
 
-#: backends/octave/octavesession.cpp:271 backends/sage/sageexpression.cpp:58
-#, kde-format
-msgid "Syntax Error"
-msgstr "სინტაქსური შეცდომა"
-
-#: backends/octave/octavesession.cpp:408
+#: backends/octave/octavesession.cpp:116
 #, kde-format
 msgid "Plot integration test failed."
 msgstr ""
 
-#: backends/octave/octavesession.cpp:412
+#: backends/octave/octavesession.cpp:120
 #, kde-format
 msgid "The integration of plots will be disabled."
 msgstr ""
 
-#: backends/octave/octavesession.cpp:413 backends/sage/sagesession.cpp:238
+#: backends/octave/octavesession.cpp:121 backends/sage/sagesession.cpp:238
 #: backends/sage/sagesession.cpp:271 backends/sage/sagesession.cpp:337
 #: backends/sage/sagesession.cpp:348 cantor.cpp:216 cantor.cpp:218
 #: cantor.cpp:337 cantor.cpp:344 lib/session.cpp:383 main.cpp:66 main.cpp:130
@@ -849,16 +844,10 @@ msgstr ""
 msgid "Cantor"
 msgstr "Cantor"
 
-#: backends/octave/octavesession.cpp:434
+#: backends/octave/octavesession.cpp:322 backends/sage/sageexpression.cpp:51
 #, kde-format
-msgid ""
-"The plot integration doesn't work because Cantor found, that Octave can't "
-"create plots, because there are no graphical backends for it: this "
-"conclusion was made on the basis of empty output from "
-"available_graphics_toolkits() function. Looks like you should install some "
-"additional OS packages, like gnuplot, fltk or qt for possibility to create "
-"plots."
-msgstr ""
+msgid "Syntax Error"
+msgstr "სინტაქსური შეცდომა"
 
 #: backends/python/pythonbackend.cpp:67
 #, kde-format
@@ -1464,50 +1453,50 @@ msgstr ""
 msgid "Legend position in plots."
 msgstr ""
 
-#: backends/qalculate/qalculateexpression.cpp:142
+#: backends/qalculate/qalculateexpression.cpp:137
 #, kde-format
 msgid "Qalculate reports it cannot print. Is gnuplot installed?"
 msgstr ""
 
-#: backends/qalculate/qalculateexpression.cpp:163
+#: backends/qalculate/qalculateexpression.cpp:158
 #, kde-format
 msgid "missing %1"
 msgstr "აკლია %1"
 
-#: backends/qalculate/qalculateexpression.cpp:253
+#: backends/qalculate/qalculateexpression.cpp:248
 #, kde-format
 msgid "%1 must be a number."
 msgstr "%1 რიცხვი უნდა იყოს."
 
-#: backends/qalculate/qalculateexpression.cpp:254
+#: backends/qalculate/qalculateexpression.cpp:249
 #, kde-format
 msgid "%1 must be a integer."
 msgstr "%1 მთელი რიცხვი უნდა იყოს."
 
-#: backends/qalculate/qalculateexpression.cpp:255
+#: backends/qalculate/qalculateexpression.cpp:250
 #, kde-format
 msgid "%1 must be a boolean."
 msgstr "%1 ლოგიკური მნიშვნელობა უნდა იყოს."
 
-#: backends/qalculate/qalculateexpression.cpp:256
+#: backends/qalculate/qalculateexpression.cpp:251
 #, kde-format
 msgid "invalid option for %1: %2"
 msgstr "%1-ის არასწორი პარამეტრი: %2"
 
-#: backends/qalculate/qalculateexpression.cpp:583
+#: backends/qalculate/qalculateexpression.cpp:578
 #, kde-format
 msgid "found multiple expressions in one plot command (%1 and %2)."
 msgstr ""
 
-#: backends/qalculate/qalculateexpression.cpp:682
-#: backends/qalculate/qalculateexpression.cpp:790
+#: backends/qalculate/qalculateexpression.cpp:677
+#: backends/qalculate/qalculateexpression.cpp:785
 #: backends/qalculate/qalculatehighlighter.cpp:29
 #, kde-format
 msgid "ERROR"
 msgstr "შეცდომა"
 
-#: backends/qalculate/qalculateexpression.cpp:684
-#: backends/qalculate/qalculateexpression.cpp:792
+#: backends/qalculate/qalculateexpression.cpp:679
+#: backends/qalculate/qalculateexpression.cpp:787
 #: backends/qalculate/qalculatehighlighter.cpp:29
 #, kde-format
 msgid "WARNING"
@@ -1649,7 +1638,7 @@ msgstr ""
 #: backends/qalculate/qalculatesyntaxhelpobject.cpp:225
 #, kde-format
 msgid "Width of lines."
-msgstr ""
+msgstr "ხაზების სიგანე."
 
 #: backends/qalculate/qalculatesyntaxhelpobject.cpp:226
 #, kde-format
@@ -2192,12 +2181,12 @@ msgstr ""
 msgid "Enable LaTeX typesetting for Sage backend"
 msgstr ""
 
-#: backends/sage/sageexpression.cpp:233 backends/sage/sageexpression.cpp:235
+#: backends/sage/sageexpression.cpp:226 backends/sage/sageexpression.cpp:228
 #, kde-format
 msgid "Result of %1"
 msgstr "%1-ის შედეგი"
 
-#: backends/sage/sageexpression.cpp:242
+#: backends/sage/sageexpression.cpp:235
 #, kde-format
 msgid ""
 "%1\n"
@@ -2394,7 +2383,7 @@ msgstr ""
 #: cantor.cpp:565
 #, kde-format
 msgid "Close Cantor"
-msgstr ""
+msgstr "Cantor-ისდახურვა"
 
 #: cantor.cpp:581
 #, kde-format
@@ -2621,12 +2610,12 @@ msgstr ""
 #: cantor_part.cpp:139
 #, kde-format
 msgid "Save Plain Text"
-msgstr ""
+msgstr "უბრალო ტექსტად შენახვა"
 
 #: cantor_part.cpp:181 cantor_part.cpp:532
 #, kde-format
 msgid "Export to LaTeX"
-msgstr ""
+msgstr "Latex-ად გატანა"
 
 #: cantor_part.cpp:197 cantor_part.cpp:628 worksheet.cpp:1904
 #, kde-format
@@ -2668,12 +2657,12 @@ msgstr "ანიმაციები"
 #: cantor_part.cpp:247
 #, kde-format
 msgid "Embedded Math"
-msgstr ""
+msgstr "ჩადგმული მათემატიკა"
 
 #: cantor_part.cpp:253
 #, kde-format
 msgid "Restart Backend"
-msgstr ""
+msgstr "უკანაბოლოს გადატვირთვა"
 
 #: cantor_part.cpp:260 worksheetentry.cpp:854
 #, kde-format
@@ -2723,12 +2712,12 @@ msgstr ""
 #: cantor_part.cpp:311
 #, kde-format
 msgid "Remove All Results"
-msgstr ""
+msgstr "ყველა შედეგის წაშლა"
 
 #: cantor_part.cpp:316
 #, kde-format
 msgid "Remove current Entry"
-msgstr ""
+msgstr "მიმდინარე ჩანაწერის წაშლა"
 
 #. i18n("Publish Worksheet"), collection);
 #. publishWorksheet->setIcon(QIcon::fromTheme(QLatin1String("get-hot-new-stuff")));
@@ -2738,12 +2727,12 @@ msgstr ""
 #: cantor_part.cpp:332
 #, kde-format
 msgid "Show Script Editor"
-msgstr ""
+msgstr "სკრიპტის რედაქტორის ჩვენება"
 
 #: cantor_part.cpp:337
 #, kde-format
 msgid "Show Completion"
-msgstr ""
+msgstr "დასრულების ჩვენება"
 
 #: cantor_part.cpp:404
 #, kde-format
@@ -3375,7 +3364,7 @@ msgstr "ზომა [ბაიტი]"
 #, kde-format
 msgctxt "@title:column"
 msgid "Dimension"
-msgstr ""
+msgstr "განზომილება"
 
 #: lib/defaultvariablemodel.cpp:77
 #, kde-format
@@ -3651,23 +3640,23 @@ msgstr "მნიშვნელობა:"
 #: panelplugins/variablemgr/variablemanagerwidget.cpp:200
 #, kde-format
 msgid "Add New Variable"
-msgstr ""
+msgstr "ახალი ცვლადის დამატება"
 
 #: panelplugins/variablemgr/variablemanagerwidget.cpp:53
 #, kde-format
 msgid "Load Variables"
-msgstr ""
+msgstr "ცვლადების ჩატვირთვა"
 
 #: panelplugins/variablemgr/variablemanagerwidget.cpp:59
 #, kde-format
 msgid "Save Variables"
-msgstr ""
+msgstr "ცვლადების შენახვა"
 
 #: panelplugins/variablemgr/variablemanagerwidget.cpp:65
 #: panelplugins/variablemgr/variablemanagerwidget.cpp:143
 #, kde-format
 msgid "Remove Variables"
-msgstr ""
+msgstr "ცვლადების წაშლა"
 
 #: panelplugins/variablemgr/variablemanagerwidget.cpp:75
 #, kde-format
@@ -3788,7 +3777,7 @@ msgstr ""
 #: settings.ui:23
 #, kde-format
 msgid "Startup:"
-msgstr ""
+msgstr "გაშვებისას:"
 
 #. i18n: ectx: property (toolTip), widget (QLabel, label)
 #. i18n: ectx: property (toolTip), widget (KComboBox, kcfg_DefaultBackend)
@@ -3927,7 +3916,7 @@ msgstr ""
 #: settings.ui:256
 #, kde-format
 msgid "Markdown:"
-msgstr ""
+msgstr "მარკდაუნი:"
 
 #. i18n: ectx: property (toolTip), widget (QCheckBox, kcfg_EmbeddedMathDefault)
 #: settings.ui:263
@@ -3997,7 +3986,7 @@ msgstr "კოდის ჩვენება"
 #: textresultitem.cpp:79 textresultitem.cpp:92
 #, kde-format
 msgid "Show HTML Code"
-msgstr ""
+msgstr "HTML კოდის ჩვენება"
 
 #: textresultitem.cpp:81 textresultitem.cpp:87
 #, kde-format
@@ -4007,12 +3996,12 @@ msgstr ""
 #: textresultitem.cpp:85
 #, kde-format
 msgid "Show Html"
-msgstr ""
+msgstr "HTML-ის ჩვენება"
 
 #: textresultitem.cpp:91
 #, kde-format
 msgid "Show HTML"
-msgstr ""
+msgstr "HTML-ის ჩვენება"
 
 #: textresultitem.cpp:163
 #, kde-format
@@ -4027,17 +4016,17 @@ msgstr ""
 #: textresultitem.cpp:215
 #, kde-format
 msgid "Text Files (*.txt)"
-msgstr ""
+msgstr "ტექსტური ფაილები (*.txt)"
 
 #: worksheet.cpp:1192
 #, kde-format
 msgid "Cannot write file %1."
-msgstr ""
+msgstr "ფაილში ჩაწერის შეცდომა: %1"
 
 #: worksheet.cpp:1220 worksheet.cpp:1235
 #, kde-format
 msgid "Cannot write file."
-msgstr ""
+msgstr "ფაილში ჩაწერის შეცდომა."
 
 #: worksheet.cpp:1252 worksheet.cpp:1296
 #, kde-format
@@ -4183,7 +4172,7 @@ msgstr ""
 #: worksheet.cpp:1829 worksheet.cpp:1850 worksheet.cpp:1870 worksheet.cpp:1888
 #, kde-format
 msgid "Horizontal Line"
-msgstr ""
+msgstr "ჰორიზონტალური ხაზი"
 
 #: worksheet.cpp:1832 worksheet.cpp:1853 worksheet.cpp:1873 worksheet.cpp:1891
 #, kde-format
@@ -4208,7 +4197,7 @@ msgstr "ჩამატება"
 #: worksheet.cpp:1916
 #, kde-format
 msgid "Zoom In"
-msgstr ""
+msgstr "გადიდება"
 
 #: worksheet.cpp:1919
 #, kde-format
@@ -4317,7 +4306,7 @@ msgstr "&ხაზგასმა"
 #, kde-format
 msgctxt "@action"
 msgid "&Strike Out"
-msgstr ""
+msgstr "&ხაზგადასმული"
 
 #: worksheet.cpp:2133
 #, kde-format

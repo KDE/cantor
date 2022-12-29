@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-12-28 00:44+0000\n"
+"POT-Creation-Date: 2022-12-29 00:47+0000\n"
 "PO-Revision-Date: 2021-10-09 08:16+0300\n"
 "Last-Translator: Stelios <sstavra@gmail.com>\n"
 "Language-Team: Greek <kde-i18n-el@kde.org>\n"
@@ -833,7 +833,7 @@ msgstr "Σφάλμα: πάρα πολλά /*"
 msgid "Error: expected \" before ;"
 msgstr "Σφάλμα: αναμενόταν \" πριν το ;"
 
-#: backends/maxima/maximaexpression.cpp:406
+#: backends/maxima/maximaexpression.cpp:400
 #, kde-format
 msgid "Waiting for the plot result"
 msgstr "Αναμονή για το αποτέλεσμα της γραφικής παράστασης"
@@ -887,22 +887,17 @@ msgstr ""
 msgid "Octave script file (*.m)"
 msgstr "Αρχείο σεναρίου της Octave (*.m)"
 
-#: backends/octave/octavesession.cpp:271 backends/sage/sageexpression.cpp:58
-#, kde-format
-msgid "Syntax Error"
-msgstr "Συντακτικό σφάλμα"
-
-#: backends/octave/octavesession.cpp:408
+#: backends/octave/octavesession.cpp:116
 #, kde-format
 msgid "Plot integration test failed."
 msgstr "Αποτυχία της δοκιμής ενσωμάτωσης γραφικών παραστάσεων."
 
-#: backends/octave/octavesession.cpp:412
+#: backends/octave/octavesession.cpp:120
 #, kde-format
 msgid "The integration of plots will be disabled."
 msgstr "Η ενσωμάτωση των γραφικών παραστάσεων θα απενεργοποιηθεί."
 
-#: backends/octave/octavesession.cpp:413 backends/sage/sagesession.cpp:238
+#: backends/octave/octavesession.cpp:121 backends/sage/sagesession.cpp:238
 #: backends/sage/sagesession.cpp:271 backends/sage/sagesession.cpp:337
 #: backends/sage/sagesession.cpp:348 cantor.cpp:216 cantor.cpp:218
 #: cantor.cpp:337 cantor.cpp:344 lib/session.cpp:383 main.cpp:66 main.cpp:130
@@ -911,22 +906,10 @@ msgstr "Η ενσωμάτωση των γραφικών παραστάσεων �
 msgid "Cantor"
 msgstr "Cantor"
 
-#: backends/octave/octavesession.cpp:434
+#: backends/octave/octavesession.cpp:322 backends/sage/sageexpression.cpp:51
 #, kde-format
-msgid ""
-"The plot integration doesn't work because Cantor found, that Octave can't "
-"create plots, because there are no graphical backends for it: this "
-"conclusion was made on the basis of empty output from "
-"available_graphics_toolkits() function. Looks like you should install some "
-"additional OS packages, like gnuplot, fltk or qt for possibility to create "
-"plots."
-msgstr ""
-"Η ενσωμάτωση των γραφικών παραστάσεων δεν λειτουργεί γιατί το Cantor βρήκε, "
-"ότι το Octave δεν μπορεί να τις δημιουργήσει επειδή δεν υπάρχουν συστήματα "
-"υποστήριξης γραφικών παραστάσεων: το συμπέρασμα αυτό προκύπτει επειδή η "
-"συνάρτηση available_graphics_toolkits() δεν δίνει κάτι στην έξοδο. Φαίνεται "
-"ότι πρέπει να εγκαταστήσετε κάποια πρόσθετα πακέτα, όπως τα gnuplot, fltk ή "
-"το qt για να μποείτε να δημιουργείτε γραφικές παραστάσεις."
+msgid "Syntax Error"
+msgstr "Συντακτικό σφάλμα"
 
 #: backends/python/pythonbackend.cpp:67
 #, kde-format
@@ -1576,53 +1559,53 @@ msgstr "Στυλ γραφικών απεικονίσεων."
 msgid "Legend position in plots."
 msgstr "Θέση υπομνήματος στις γραφικές απεικονίσεις."
 
-#: backends/qalculate/qalculateexpression.cpp:142
+#: backends/qalculate/qalculateexpression.cpp:137
 #, kde-format
 msgid "Qalculate reports it cannot print. Is gnuplot installed?"
 msgstr ""
 "Το Qalculate αναφέρει ότι δε μπορεί να εκτυπώσει. Έχει εγκατασταθεί το "
 "gnuplot;"
 
-#: backends/qalculate/qalculateexpression.cpp:163
+#: backends/qalculate/qalculateexpression.cpp:158
 #, kde-format
 msgid "missing %1"
 msgstr "μη διαθέσιμο το %1"
 
-#: backends/qalculate/qalculateexpression.cpp:253
+#: backends/qalculate/qalculateexpression.cpp:248
 #, kde-format
 msgid "%1 must be a number."
 msgstr "το %1 πρέπει να είναι αριθμός."
 
-#: backends/qalculate/qalculateexpression.cpp:254
+#: backends/qalculate/qalculateexpression.cpp:249
 #, kde-format
 msgid "%1 must be a integer."
 msgstr "το %1 πρέπει να είναι ακέραιος."
 
-#: backends/qalculate/qalculateexpression.cpp:255
+#: backends/qalculate/qalculateexpression.cpp:250
 #, kde-format
 msgid "%1 must be a boolean."
 msgstr "το %1 πρέπει να είναι τύπου Μπουλ."
 
-#: backends/qalculate/qalculateexpression.cpp:256
+#: backends/qalculate/qalculateexpression.cpp:251
 #, kde-format
 msgid "invalid option for %1: %2"
 msgstr "μη έγκυρη επιλογή για το %1:%2"
 
-#: backends/qalculate/qalculateexpression.cpp:583
+#: backends/qalculate/qalculateexpression.cpp:578
 #, kde-format
 msgid "found multiple expressions in one plot command (%1 and %2)."
 msgstr ""
 "βρέθηκαν πολλαπλές εκφράσεις σε μια εντολή γραφικής απεικόνισης (%1 και %2)."
 
-#: backends/qalculate/qalculateexpression.cpp:682
-#: backends/qalculate/qalculateexpression.cpp:790
+#: backends/qalculate/qalculateexpression.cpp:677
+#: backends/qalculate/qalculateexpression.cpp:785
 #: backends/qalculate/qalculatehighlighter.cpp:29
 #, kde-format
 msgid "ERROR"
 msgstr "ΣΦΑΛΜΑ"
 
-#: backends/qalculate/qalculateexpression.cpp:684
-#: backends/qalculate/qalculateexpression.cpp:792
+#: backends/qalculate/qalculateexpression.cpp:679
+#: backends/qalculate/qalculateexpression.cpp:787
 #: backends/qalculate/qalculatehighlighter.cpp:29
 #, kde-format
 msgid "WARNING"
@@ -2341,12 +2324,12 @@ msgstr "Διαδρομή προς το εκτελέσιμο Sage"
 msgid "Enable LaTeX typesetting for Sage backend"
 msgstr "Ενεργοποίηση στοιχειοθέτησης LaTex για το σύστημα υποστήριξης του Sage"
 
-#: backends/sage/sageexpression.cpp:233 backends/sage/sageexpression.cpp:235
+#: backends/sage/sageexpression.cpp:226 backends/sage/sageexpression.cpp:228
 #, kde-format
 msgid "Result of %1"
 msgstr "Αποτέλεσμα του %1"
 
-#: backends/sage/sageexpression.cpp:242
+#: backends/sage/sageexpression.cpp:235
 #, kde-format
 msgid ""
 "%1\n"
@@ -4797,6 +4780,22 @@ msgstr "Αφαίρεση καταχώρησης"
 #, kde-format
 msgid "Drag Entry"
 msgstr "Σύρσιμο καταχώρησης"
+
+#~ msgid ""
+#~ "The plot integration doesn't work because Cantor found, that Octave can't "
+#~ "create plots, because there are no graphical backends for it: this "
+#~ "conclusion was made on the basis of empty output from "
+#~ "available_graphics_toolkits() function. Looks like you should install "
+#~ "some additional OS packages, like gnuplot, fltk or qt for possibility to "
+#~ "create plots."
+#~ msgstr ""
+#~ "Η ενσωμάτωση των γραφικών παραστάσεων δεν λειτουργεί γιατί το Cantor "
+#~ "βρήκε, ότι το Octave δεν μπορεί να τις δημιουργήσει επειδή δεν υπάρχουν "
+#~ "συστήματα υποστήριξης γραφικών παραστάσεων: το συμπέρασμα αυτό προκύπτει "
+#~ "επειδή η συνάρτηση available_graphics_toolkits() δεν δίνει κάτι στην "
+#~ "έξοδο. Φαίνεται ότι πρέπει να εγκαταστήσετε κάποια πρόσθετα πακέτα, όπως "
+#~ "τα gnuplot, fltk ή το qt για να μποείτε να δημιουργείτε γραφικές "
+#~ "παραστάσεις."
 
 #~ msgid "<%1 bytes>"
 #~ msgstr "<%1 bytes>"

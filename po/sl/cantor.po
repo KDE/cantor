@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-12-28 00:44+0000\n"
+"POT-Creation-Date: 2022-12-29 00:47+0000\n"
 "PO-Revision-Date: 2022-11-29 07:48+0100\n"
 "Last-Translator: Matjaž Jeran <matjaz.jeran@amis.net>\n"
 "Language-Team: Slovenian <lugos-slo@lugos.si>\n"
@@ -852,7 +852,7 @@ msgstr "Napaka: preveč nizov /*"
 msgid "Error: expected \" before ;"
 msgstr "Napaka: pričakovan je \" pred ;"
 
-#: backends/maxima/maximaexpression.cpp:406
+#: backends/maxima/maximaexpression.cpp:400
 #, kde-format
 msgid "Waiting for the plot result"
 msgstr "Čakam na rezultate risanja"
@@ -905,22 +905,17 @@ msgstr ""
 msgid "Octave script file (*.m)"
 msgstr "Skriptna datoteka Octave (*.m)"
 
-#: backends/octave/octavesession.cpp:271 backends/sage/sageexpression.cpp:58
-#, kde-format
-msgid "Syntax Error"
-msgstr "Skladenjska napaka"
-
-#: backends/octave/octavesession.cpp:408
+#: backends/octave/octavesession.cpp:116
 #, kde-format
 msgid "Plot integration test failed."
 msgstr "Preizkus integracije risanja ni uspel."
 
-#: backends/octave/octavesession.cpp:412
+#: backends/octave/octavesession.cpp:120
 #, kde-format
 msgid "The integration of plots will be disabled."
 msgstr "Integracija grafov bo onemogočena."
 
-#: backends/octave/octavesession.cpp:413 backends/sage/sagesession.cpp:238
+#: backends/octave/octavesession.cpp:121 backends/sage/sagesession.cpp:238
 #: backends/sage/sagesession.cpp:271 backends/sage/sagesession.cpp:337
 #: backends/sage/sagesession.cpp:348 cantor.cpp:216 cantor.cpp:218
 #: cantor.cpp:337 cantor.cpp:344 lib/session.cpp:383 main.cpp:66 main.cpp:130
@@ -929,21 +924,10 @@ msgstr "Integracija grafov bo onemogočena."
 msgid "Cantor"
 msgstr "Cantor"
 
-#: backends/octave/octavesession.cpp:434
+#: backends/octave/octavesession.cpp:322 backends/sage/sageexpression.cpp:51
 #, kde-format
-msgid ""
-"The plot integration doesn't work because Cantor found, that Octave can't "
-"create plots, because there are no graphical backends for it: this "
-"conclusion was made on the basis of empty output from "
-"available_graphics_toolkits() function. Looks like you should install some "
-"additional OS packages, like gnuplot, fltk or qt for possibility to create "
-"plots."
-msgstr ""
-"Integracija grafike ne deluje, ker je Cantor ugotovil, da Octave ne more "
-"ustvarite grafov, ker ni grafičnih programov za to: sklep je bil narejen na "
-"podlagi praznega rezultata iz funkcije available_graphics_toolkits(). Kaže, "
-"da bi morali namestiti dodatne pakete OS, kot so gnuplot, fltk ali qt za "
-"zmožnost ustvarjanja grafov."
+msgid "Syntax Error"
+msgstr "Skladenjska napaka"
 
 #: backends/python/pythonbackend.cpp:67
 #, kde-format
@@ -1581,51 +1565,51 @@ msgstr "Slog grafa."
 msgid "Legend position in plots."
 msgstr "Položaj legende na grafu."
 
-#: backends/qalculate/qalculateexpression.cpp:142
+#: backends/qalculate/qalculateexpression.cpp:137
 #, kde-format
 msgid "Qalculate reports it cannot print. Is gnuplot installed?"
 msgstr ""
 "Qalculate! sporoča, da tiskanje ni mogoče. Ali je program gnuplot nameščen?"
 
-#: backends/qalculate/qalculateexpression.cpp:163
+#: backends/qalculate/qalculateexpression.cpp:158
 #, kde-format
 msgid "missing %1"
 msgstr "manjka %1"
 
-#: backends/qalculate/qalculateexpression.cpp:253
+#: backends/qalculate/qalculateexpression.cpp:248
 #, kde-format
 msgid "%1 must be a number."
 msgstr "%1 mora biti število."
 
-#: backends/qalculate/qalculateexpression.cpp:254
+#: backends/qalculate/qalculateexpression.cpp:249
 #, kde-format
 msgid "%1 must be a integer."
 msgstr "%1 mora biti celo število."
 
-#: backends/qalculate/qalculateexpression.cpp:255
+#: backends/qalculate/qalculateexpression.cpp:250
 #, kde-format
 msgid "%1 must be a boolean."
 msgstr "%1 mora biti logična vrednost."
 
-#: backends/qalculate/qalculateexpression.cpp:256
+#: backends/qalculate/qalculateexpression.cpp:251
 #, kde-format
 msgid "invalid option for %1: %2"
 msgstr "neveljavna možnost za %1: %2"
 
-#: backends/qalculate/qalculateexpression.cpp:583
+#: backends/qalculate/qalculateexpression.cpp:578
 #, kde-format
 msgid "found multiple expressions in one plot command (%1 and %2)."
 msgstr "v enem ukazu za izris grafa je bilo najdenih več izrazov (%1 in %2)."
 
-#: backends/qalculate/qalculateexpression.cpp:682
-#: backends/qalculate/qalculateexpression.cpp:790
+#: backends/qalculate/qalculateexpression.cpp:677
+#: backends/qalculate/qalculateexpression.cpp:785
 #: backends/qalculate/qalculatehighlighter.cpp:29
 #, kde-format
 msgid "ERROR"
 msgstr "NAPAKA"
 
-#: backends/qalculate/qalculateexpression.cpp:684
-#: backends/qalculate/qalculateexpression.cpp:792
+#: backends/qalculate/qalculateexpression.cpp:679
+#: backends/qalculate/qalculateexpression.cpp:787
 #: backends/qalculate/qalculatehighlighter.cpp:29
 #, kde-format
 msgid "WARNING"
@@ -2354,12 +2338,12 @@ msgstr "Pot do izvedljive datoteke Sage"
 msgid "Enable LaTeX typesetting for Sage backend"
 msgstr "Omogoči stavljenje LaTeX-a za Sage v ozadju"
 
-#: backends/sage/sageexpression.cpp:233 backends/sage/sageexpression.cpp:235
+#: backends/sage/sageexpression.cpp:226 backends/sage/sageexpression.cpp:228
 #, kde-format
 msgid "Result of %1"
 msgstr "Rezultat %1"
 
-#: backends/sage/sageexpression.cpp:242
+#: backends/sage/sageexpression.cpp:235
 #, kde-format
 msgid ""
 "%1\n"
@@ -4784,6 +4768,20 @@ msgstr "Odstrani vnos"
 #, kde-format
 msgid "Drag Entry"
 msgstr "Povlecite vnos"
+
+#~ msgid ""
+#~ "The plot integration doesn't work because Cantor found, that Octave can't "
+#~ "create plots, because there are no graphical backends for it: this "
+#~ "conclusion was made on the basis of empty output from "
+#~ "available_graphics_toolkits() function. Looks like you should install "
+#~ "some additional OS packages, like gnuplot, fltk or qt for possibility to "
+#~ "create plots."
+#~ msgstr ""
+#~ "Integracija grafike ne deluje, ker je Cantor ugotovil, da Octave ne more "
+#~ "ustvarite grafov, ker ni grafičnih programov za to: sklep je bil narejen "
+#~ "na podlagi praznega rezultata iz funkcije available_graphics_toolkits(). "
+#~ "Kaže, da bi morali namestiti dodatne pakete OS, kot so gnuplot, fltk ali "
+#~ "qt za zmožnost ustvarjanja grafov."
 
 #~ msgid "<%1 bytes>"
 #~ msgstr "<%1 bajtov>"
