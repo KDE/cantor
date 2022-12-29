@@ -8,21 +8,19 @@
 #include "octaveexpression.h"
 #include "octavesession.h"
 #include "defaultvariablemodel.h"
-
-#include "textresult.h"
+#include <helpresult.h>
 #include "imageresult.h"
+#include "settings.h"
+#include "textresult.h"
 
 #include <QDebug>
 #include <QFile>
 #include <QDir>
 #include <QFileSystemWatcher>
 #include <QRegularExpression>
-#include <QTemporaryFile>
-#include <helpresult.h>
 
-#include "settings.h"
+static const QString printCommandTemplate = QString::fromLatin1("print(\"%1\", \"-S500,340\")");
 
-static const QString printCommandTemplate = QString::fromLatin1("cantor_print('%1', '%2');");
 static const QStringList plotCommands({
     QLatin1String("plot"), QLatin1String("semilogx"), QLatin1String("semilogy"),
     QLatin1String("loglog"), QLatin1String("polar"), QLatin1String("contour"),
@@ -42,6 +40,7 @@ static const QStringList plotCommands({
     QLatin1String("ezplot3"), QLatin1String("ezmesh"), QLatin1String("ezmeshc"),
     QLatin1String("ezsurf"), QLatin1String("ezsurfc"), QLatin1String("cantor_plot2d"),
     QLatin1String("cantor_plot3d")});
+
 const QStringList OctaveExpression::plotExtensions({
     QLatin1String("png"),
     QLatin1String("svg"),
@@ -83,14 +82,14 @@ QString OctaveExpression::internalCommand()
                     if (!cmd.endsWith(QLatin1Char(';')) && !cmd.endsWith(QLatin1Char(',')))
                         cmd += QLatin1Char(',');
 
-                    cmd += printCommandTemplate.arg(plotExtensions[OctaveSettings::inlinePlotFormat()]).arg(octaveSession->plotFilePrefixPath() + QString::number(id()));
+                    m_plotFilename = octaveSession->plotFilePrefixPath() + QString::number(id()) + QLatin1String(".") + plotExtensions[OctaveSettings::inlinePlotFormat()];
+                    cmd += printCommandTemplate.arg(m_plotFilename);
 
                     auto* watcher = fileWatcher();
                     if (!watcher->files().isEmpty())
                         watcher->removePaths(watcher->files());
 
-                    // Add path works only with existed paths, so create the file
-                    m_plotFilename = octaveSession->plotFilePrefixPath() + QString::number(id()) + QLatin1String(".") + plotExtensions[OctaveSettings::inlinePlotFormat()];
+                    // add path works only for existing paths, so create the file
                     QFile file(m_plotFilename);
                     if (file.open(QFile::WriteOnly))
                     {
@@ -104,7 +103,7 @@ QString OctaveExpression::internalCommand()
         }
     }
 
-    // We need remove all comments here, because below we merge all strings to one long string
+    // We need to remove all comments here, because below we merge all strings to one long string
     // Otherwise, all code after line with comment will be commented out after merging
     // So, this small state machine remove all comments
     // FIXME better implementation
