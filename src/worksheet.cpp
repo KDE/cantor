@@ -228,7 +228,7 @@ void Worksheet::updateHierarchyLayout()
     {
         if (entry->type() == HierarchyEntry::Type)
         {
-            HierarchyEntry* hierarchEntry = static_cast<HierarchyEntry*>(entry);
+            auto* hierarchEntry = static_cast<HierarchyEntry*>(entry);
             hierarchEntry->updateHierarchyLevel(hierarchyNumbers);
             m_hierarchyMaxDepth = std::max(m_hierarchyMaxDepth, hierarchyNumbers.size());
 
@@ -557,8 +557,8 @@ void Worksheet::startDrag(WorksheetEntry* entry, QDrag* drag)
 
     resetEntryCursor();
     m_dragEntry = entry;
-    WorksheetEntry* prev = entry->previous();
-    WorksheetEntry* next = entry->next();
+    auto* prev = entry->previous();
+    auto* next = entry->next();
     m_placeholderEntry = new PlaceHolderEntry(this, entry->size());
     m_placeholderEntry->setPrevious(prev);
     m_placeholderEntry->setNext(next);
@@ -797,12 +797,12 @@ void Worksheet::appendCommandEntry(const QString& text)
     }
 }
 
-WorksheetEntry * Worksheet::appendHorizontalRuleEntry()
+WorksheetEntry* Worksheet::appendHorizontalRuleEntry()
 {
     return appendEntry(HorizontalRuleEntry::Type);
 }
 
-WorksheetEntry * Worksheet::appendHierarchyEntry()
+WorksheetEntry* Worksheet::appendHierarchyEntry()
 {
     return appendEntry(HierarchyEntry::Type);
 }
@@ -1137,11 +1137,11 @@ void Worksheet::enableExpressionNumbering(bool enable)
 QDomDocument Worksheet::toXML(KZip* archive)
 {
     QDomDocument doc( QLatin1String("CantorWorksheet") );
-    QDomElement root=doc.createElement( QLatin1String("Worksheet") );
+    QDomElement root = doc.createElement( QLatin1String("Worksheet") );
     root.setAttribute(QLatin1String("backend"), (m_session ? m_session->backend()->name(): m_backendName));
     doc.appendChild(root);
 
-    for( WorksheetEntry* entry = firstEntry(); entry; entry = entry->next())
+    for( auto* entry = firstEntry(); entry; entry = entry->next())
     {
         QDomElement el = entry->toXml(doc, archive);
         root.appendChild( el );
@@ -1758,13 +1758,14 @@ void Worksheet::gotResult(Cantor::Expression* expr)
 void Worksheet::removeCurrentEntry()
 {
     qDebug()<<"removing current entry";
-    WorksheetEntry* entry=currentEntry();
+    auto* entry = currentEntry();
     if(!entry)
         return;
 
     // In case we just removed this
     if (entry->isAncestorOf(m_lastFocusedTextItem))
         m_lastFocusedTextItem = nullptr;
+
     entry->startRemoving();
 }
 
@@ -1780,20 +1781,20 @@ MathRenderer* Worksheet::mathRenderer()
 
 QMenu* Worksheet::createContextMenu()
 {
-    QMenu *menu = new QMenu(worksheetView());
+    auto* menu = new QMenu(worksheetView());
     connect(menu, SIGNAL(aboutToHide()), menu, SLOT(deleteLater()));
 
     return menu;
 }
 
-void Worksheet::populateMenu(QMenu *menu, QPointF pos)
+void Worksheet::populateMenu(QMenu* menu, QPointF pos)
 {
     // Two menu: for particular entry and for selection (multiple entry)
     if (m_selectedEntries.isEmpty())
     {
-        WorksheetEntry* entry = entryAt(pos);
+        auto* entry = entryAt(pos);
         if (entry && !entry->isAncestorOf(m_lastFocusedTextItem)) {
-            WorksheetTextItem* item =
+            auto* item =
                 qgraphicsitem_cast<WorksheetTextItem*>(itemAt(pos, QTransform()));
             if (item && item->isEditable())
                 m_lastFocusedTextItem = item;
@@ -1963,7 +1964,7 @@ void Worksheet::contextMenuEvent(QGraphicsSceneContextMenuEvent *event)
 
     if (!event->isAccepted()) {
         event->accept();
-        QMenu *menu = createContextMenu();
+        QMenu* menu = createContextMenu();
         populateMenu(menu, event->scenePos());
 
         menu->popup(event->screenPos());
@@ -1981,7 +1982,7 @@ void Worksheet::mousePressEvent(QGraphicsSceneMouseEvent* event)
 
     if (!m_readOnly && event->buttons() & Qt::LeftButton)
     {
-        WorksheetEntry* selectedEntry = entryAt(event->scenePos());
+        auto* selectedEntry = entryAt(event->scenePos());
         if (event->modifiers() & Qt::ControlModifier)
         {
             clearFocus();
@@ -2012,7 +2013,7 @@ void Worksheet::mousePressEvent(QGraphicsSceneMouseEvent* event)
         }
         else
         {
-            for (WorksheetEntry* entry : m_selectedEntries)
+            for (auto* entry : m_selectedEntries)
             {
                 if(isValidEntry(entry))
                 {
@@ -2360,7 +2361,7 @@ void Worksheet::setAcceptRichText(bool b)
 
 WorksheetTextItem* Worksheet::currentTextItem()
 {
-    QGraphicsItem* item = focusItem();
+    auto* item = focusItem();
     if (!item)
         item = m_lastFocusedTextItem;
     while (item && item->type() != WorksheetTextItem::Type)
@@ -2371,84 +2372,84 @@ WorksheetTextItem* Worksheet::currentTextItem()
 
 void Worksheet::setTextForegroundColor()
 {
-    WorksheetTextItem* item = currentTextItem();
+    auto* item = currentTextItem();
     if (item)
         item->setTextForegroundColor();
 }
 
 void Worksheet::setTextBackgroundColor()
 {
-    WorksheetTextItem* item = currentTextItem();
+    auto* item = currentTextItem();
     if (item)
         item->setTextBackgroundColor();
 }
 
 void Worksheet::setTextBold(bool b)
 {
-    WorksheetTextItem* item = currentTextItem();
+    auto* item = currentTextItem();
     if (item)
         item->setTextBold(b);
 }
 
 void Worksheet::setTextItalic(bool b)
 {
-    WorksheetTextItem* item = currentTextItem();
+    auto* item = currentTextItem();
     if (item)
         item->setTextItalic(b);
 }
 
 void Worksheet::setTextUnderline(bool b)
 {
-    WorksheetTextItem* item = currentTextItem();
+    auto* item = currentTextItem();
     if (item)
         item->setTextUnderline(b);
 }
 
 void Worksheet::setTextStrikeOut(bool b)
 {
-    WorksheetTextItem* item = currentTextItem();
+    auto* item = currentTextItem();
     if (item)
         item->setTextStrikeOut(b);
 }
 
 void Worksheet::setAlignLeft()
 {
-    WorksheetTextItem* item = currentTextItem();
+    auto* item = currentTextItem();
     if (item)
         item->setAlignment(Qt::AlignLeft);
 }
 
 void Worksheet::setAlignRight()
 {
-    WorksheetTextItem* item = currentTextItem();
+    auto* item = currentTextItem();
     if (item)
         item->setAlignment(Qt::AlignRight);
 }
 
 void Worksheet::setAlignCenter()
 {
-    WorksheetTextItem* item = currentTextItem();
+    auto* item = currentTextItem();
     if (item)
         item->setAlignment(Qt::AlignCenter);
 }
 
 void Worksheet::setAlignJustify()
 {
-    WorksheetTextItem* item = currentTextItem();
+    auto* item = currentTextItem();
     if (item)
         item->setAlignment(Qt::AlignJustify);
 }
 
 void Worksheet::setFontFamily(const QString& font)
 {
-    WorksheetTextItem* item = currentTextItem();
+    auto* item = currentTextItem();
     if (item)
         item->setFontFamily(font);
 }
 
 void Worksheet::setFontSize(int size)
 {
-    WorksheetTextItem* item = currentTextItem();
+    auto* item = currentTextItem();
     if (item)
         item->setFontSize(size);
 }
@@ -2512,7 +2513,7 @@ void Worksheet::dragMoveEvent(QGraphicsSceneDragDropEvent* event)
     }
 
     QPointF pos = event->scenePos();
-    WorksheetEntry* entry = entryAt(pos);
+    auto* entry = entryAt(pos);
     WorksheetEntry* prev = nullptr;
     WorksheetEntry* next = nullptr;
     if (entry) {
@@ -2534,7 +2535,7 @@ void Worksheet::dragMoveEvent(QGraphicsSceneDragDropEvent* event)
     bool dragWithHierarchy = m_hierarchySubentriesDrag.size() != 0;
 
     if (prev || next) {
-        PlaceHolderEntry* oldPlaceHolder = m_placeholderEntry;
+        auto* oldPlaceHolder = m_placeholderEntry;
         if (prev && prev->type() == PlaceHolderEntry::Type &&
             (!prev->aboutToBeRemoved() || prev->stopRemoving())) {
             m_placeholderEntry = qgraphicsitem_cast<PlaceHolderEntry*>(prev);
@@ -2623,7 +2624,7 @@ void Worksheet::updateEntryCursor(QGraphicsSceneMouseEvent* event)
     if (event->button() == Qt::LeftButton && !focusItem())
     {
         const qreal y = event->scenePos().y();
-        for (WorksheetEntry* entry = firstEntry(); entry; entry = entry->next())
+        for (auto* entry = firstEntry(); entry; entry = entry->next())
         {
             if (entry == firstEntry() && y < entry->y() )
             {
@@ -2730,7 +2731,7 @@ void Worksheet::changeEntryType(WorksheetEntry* target, int newType)
         if (newEntry)
         {
             newEntry->setContent(content);
-            WorksheetEntry* tmp = target;
+            auto* tmp = target;
 
             newEntry->setPrevious(tmp->previous());
             newEntry->setNext(tmp->next());
@@ -2783,7 +2784,7 @@ void Worksheet::selectionRemove()
 void Worksheet::selectionEvaluate()
 {
     // run entries in worksheet order: from top to down
-    for (WorksheetEntry* entry = firstEntry(); entry; entry = entry->next())
+    for (auto* entry = firstEntry(); entry; entry = entry->next())
         if (m_selectedEntries.indexOf(entry) != -1)
             entry->evaluate();
 }
@@ -2792,7 +2793,7 @@ void Worksheet::selectionMoveUp()
 {
     bool moveHierarchyEntry = false;
     // movement up should have an order from top to down.
-    for(WorksheetEntry* entry = firstEntry(); entry; entry = entry->next())
+    for(auto* entry = firstEntry(); entry; entry = entry->next())
         if(m_selectedEntries.indexOf(entry) != -1)
             if (entry->previous() && m_selectedEntries.indexOf(entry->previous()) == -1)
             {
@@ -2809,7 +2810,7 @@ void Worksheet::selectionMoveDown()
 {
     bool moveHierarchyEntry = false;
     // movement up should have an order from down to top.
-    for(WorksheetEntry* entry = lastEntry(); entry; entry = entry->previous())
+    for(auto* entry = lastEntry(); entry; entry = entry->previous())
         if(m_selectedEntries.indexOf(entry) != -1)
             if (entry->next() && m_selectedEntries.indexOf(entry->next()) == -1)
             {
@@ -2837,14 +2838,14 @@ void Worksheet::notifyEntryFocus(WorksheetEntry* entry)
 
 void Worksheet::collapseAllResults()
 {
-    for (WorksheetEntry *entry = firstEntry(); entry; entry = entry->next())
+    for (auto* entry = firstEntry(); entry; entry = entry->next())
         if (entry->type() == CommandEntry::Type)
             static_cast<CommandEntry*>(entry)->collapseResults();
 }
 
 void Worksheet::uncollapseAllResults()
 {
-    for (WorksheetEntry *entry = firstEntry(); entry; entry = entry->next())
+    for (auto* entry = firstEntry(); entry; entry = entry->next())
         if (entry->type() == CommandEntry::Type)
             static_cast<CommandEntry*>(entry)->expandResults();
 }
@@ -2870,7 +2871,7 @@ void Worksheet::removeAllResults()
 
     if (remove)
     {
-        for (WorksheetEntry *entry = firstEntry(); entry; entry = entry->next())
+        for (auto *entry = firstEntry(); entry; entry = entry->next())
             if (entry->type() == CommandEntry::Type)
                 static_cast<CommandEntry*>(entry)->removeResults();
     }
@@ -2878,46 +2879,46 @@ void Worksheet::removeAllResults()
 
 void Worksheet::addToExectuionSelection()
 {
-    for (WorksheetEntry* entry : m_selectedEntries)
+    for (auto* entry : m_selectedEntries)
         if (entry->type() == CommandEntry::Type)
             static_cast<CommandEntry*>(entry)->addToExecution();
 }
 
 void Worksheet::excludeFromExecutionSelection()
 {
-    for (WorksheetEntry* entry : m_selectedEntries)
+    for (auto* entry : m_selectedEntries)
         if (entry->type() == CommandEntry::Type)
             static_cast<CommandEntry*>(entry)->excludeFromExecution();
 }
 
 void Worksheet::collapseSelectionResults()
 {
-    for (WorksheetEntry* entry : m_selectedEntries)
+    for (auto* entry : m_selectedEntries)
         if (entry->type() == CommandEntry::Type)
             static_cast<CommandEntry*>(entry)->collapseResults();
 }
 
 void Worksheet::uncollapseSelectionResults()
 {
-    for (WorksheetEntry* entry : m_selectedEntries)
+    for (auto* entry : m_selectedEntries)
         if (entry->type() == CommandEntry::Type)
             static_cast<CommandEntry*>(entry)->expandResults();
 }
 
 void Worksheet::removeSelectionResults()
 {
-    for (WorksheetEntry* entry : m_selectedEntries)
+    for (auto* entry : m_selectedEntries)
         if (entry->type() == CommandEntry::Type)
             static_cast<CommandEntry*>(entry)->removeResults();
 }
 
 void Worksheet::requestScrollToHierarchyEntry(QString hierarchyText)
 {
-    for (WorksheetEntry *entry = firstEntry(); entry; entry = entry->next())
+    for (auto* entry = firstEntry(); entry; entry = entry->next())
     {
         if (entry->type() == HierarchyEntry::Type)
         {
-            HierarchyEntry* hierarchEntry = static_cast<HierarchyEntry*>(entry);
+            auto* hierarchEntry = static_cast<HierarchyEntry*>(entry);
             if (hierarchEntry->hierarchyText() == hierarchyText)
                 worksheetView()->scrollTo(hierarchEntry->y());
         }
@@ -2927,14 +2928,14 @@ void Worksheet::requestScrollToHierarchyEntry(QString hierarchyText)
 WorksheetEntry * Worksheet::cutSubentriesForHierarchy(HierarchyEntry* hierarchyEntry)
 {
     Q_ASSERT(hierarchyEntry->next());
-    WorksheetEntry* cutBegin = hierarchyEntry->next();
-    WorksheetEntry* cutEnd = cutBegin;
+    auto* cutBegin = hierarchyEntry->next();
+    auto* cutEnd = cutBegin;
 
     bool isCutEnd = false;
     int level = (int)hierarchyEntry->level();
     while (!isCutEnd && cutEnd && cutEnd->next())
     {
-        WorksheetEntry* next = cutEnd->next();
+        auto* next = cutEnd->next();
         if (next->type() == HierarchyEntry::Type && (int)static_cast<HierarchyEntry*>(next)->level() <= level)
             isCutEnd = true;
         else
@@ -2955,7 +2956,7 @@ WorksheetEntry * Worksheet::cutSubentriesForHierarchy(HierarchyEntry* hierarchyE
 
     cutBegin->setPrevious(nullptr);
 
-    for(WorksheetEntry* entry = cutBegin; entry; entry = entry->next())
+    for(auto* entry = cutBegin; entry; entry = entry->next())
         entry->hide();
 
     return cutBegin;
@@ -2963,11 +2964,11 @@ WorksheetEntry * Worksheet::cutSubentriesForHierarchy(HierarchyEntry* hierarchyE
 
 void Worksheet::insertSubentriesForHierarchy(HierarchyEntry* hierarchyEntry, WorksheetEntry* storedSubentriesBegin)
 {
-    WorksheetEntry* previousNext = hierarchyEntry->next();
+    auto* previousNext = hierarchyEntry->next();
     hierarchyEntry->setNext(storedSubentriesBegin);
     storedSubentriesBegin->show();
 
-    WorksheetEntry* storedEnd = storedSubentriesBegin;
+    auto* storedEnd = storedSubentriesBegin;
     while(storedEnd->next())
     {
         storedEnd = storedEnd->next();
@@ -2980,6 +2981,6 @@ void Worksheet::insertSubentriesForHierarchy(HierarchyEntry* hierarchyEntry, Wor
 
 void Worksheet::handleSettingsChanges()
 {
-    for (WorksheetEntry *entry = firstEntry(); entry; entry = entry->next())
+    for (auto* entry = firstEntry(); entry; entry = entry->next())
         entry->updateAfterSettingsChanges();
 }

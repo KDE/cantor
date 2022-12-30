@@ -8,7 +8,6 @@
 #include "imageresultitem.h"
 #include "animationresultitem.h"
 #include "commandentry.h"
-#include "worksheetentry.h"
 
 #include "lib/result.h"
 #include "lib/textresult.h"
@@ -19,11 +18,7 @@
 #include "lib/mimeresult.h"
 #include "lib/htmlresult.h"
 
-#include <QObject>
-
-#include <QIcon>
 #include <KLocalizedString>
-#include <QDebug>
 
 ResultItem::ResultItem(Cantor::Result* result):
     m_result(result)
@@ -37,18 +32,12 @@ ResultItem* ResultItem::create(WorksheetEntry* parent, Cantor::Result* result)
     case Cantor::LatexResult::Type:
     case Cantor::MimeResult::Type:
     case Cantor::HtmlResult::Type:
-        {
-            return new TextResultItem(parent, result);
-        }
+        return new TextResultItem(parent, result);
     case Cantor::ImageResult::Type:
     case Cantor::EpsResult::Type:
-        {
-            return new ImageResultItem(parent, result);
-        }
+        return new ImageResultItem(parent, result);
     case Cantor::AnimationResult::Type:
-        {
-            return new AnimationResultItem(parent, result);
-        }
+        return new AnimationResultItem(parent, result);
     default:
         return nullptr;
     }

@@ -6,13 +6,10 @@
 #include "worksheetimageitem.h"
 #include "worksheet.h"
 
-#include <QMovie>
-#include <QImage>
 #include <QGraphicsSceneContextMenuEvent>
-#include <QUrl>
 #include <QMenu>
-#include <QDebug>
 #include <QPainter>
+#include <QStyleOptionGraphicsItem>
 
 WorksheetImageItem::WorksheetImageItem(QGraphicsObject* parent)
     : QGraphicsObject(parent)
@@ -40,11 +37,11 @@ bool WorksheetImageItem::imageIsValid()
 
 qreal WorksheetImageItem::setGeometry(qreal x, qreal y, qreal w, bool centered)
 {
-    if (width() <= w && centered) {
+    if (width() <= w && centered)
         setPos(x + w/2 - width()/2, y);
-    } else {
+    else
         setPos(x, y);
-    }
+
     worksheet()->setRequestedWidth(this, scenePos().x() + width());
 
     return height();
@@ -82,8 +79,6 @@ QRectF WorksheetImageItem::boundingRect() const
 {
     return QRectF(QPointF(0, 0), m_size);
 }
-
-#include <QStyleOptionGraphicsItem>
 
 void WorksheetImageItem::paint(QPainter *painter,
                                const QStyleOptionGraphicsItem *option,
@@ -145,6 +140,3 @@ Worksheet* WorksheetImageItem::worksheet()
 {
     return qobject_cast<Worksheet*>(scene());
 }
-
-
-
