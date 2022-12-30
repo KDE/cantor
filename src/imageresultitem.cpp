@@ -1,6 +1,7 @@
 /*
     SPDX-License-Identifier: GPL-2.0-or-later
     SPDX-FileCopyrightText: 2012 Martin Kuettler <martin.kuettler@gmail.com>
+    SPDX-FileCopyrightText: 2018-2022 by Alexander Semke (alexander.semke@web.de)
 */
 
 #include "imageresultitem.h"
@@ -85,18 +86,19 @@ double ImageResultItem::height() const
 
 void ImageResultItem::saveResult()
 {
-    QString formats;
-    for (const auto& format : QImageReader::supportedImageFormats()) {
-        QString f = QLatin1String("*.") + QLatin1String(format.constData());
-        if (f == QLatin1String("*.svg")) // TODO: add SVG after we've switched internally to PDF/SVG for backend's output
-            continue;
-        formats += f + QLatin1Char(' ');
+    QString format;
+    if (m_result->type() == Cantor::ImageResult::Type)
+    {
+        auto* imageResult = static_cast<Cantor::ImageResult*>(result());
+        format = i18n("%1 files (*.%2)", imageResult->extension().toUpper(), imageResult->extension());
     }
+    else
+        format = i18n("EPS files (*.eps)");
 
     const auto& fileName = QFileDialog::getSaveFileName(worksheet()->worksheetView(),
                                                            i18n("Save image result"),
                                                            /*dir*/ QString(),
-                                                           i18n("Images (%1)", formats));
+                                                           format);
     if (!fileName.isEmpty())
         result()->save(fileName);
 }

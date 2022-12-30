@@ -1,19 +1,24 @@
 /*
     SPDX-License-Identifier: GPL-2.0-or-later
     SPDX-FileCopyrightText: 2009 Alexander Rieder <alexanderrieder@gmail.com>
+    SPDX-FileCopyrightText: 2022 by Alexander Semke (alexander.semke@web.de)
 */
 
 #include "imageresult.h"
+#include "jupyterutils.h"
 using namespace Cantor;
 
+#include <QApplication>
+#include <QDesktopWidget>
+#include <QDebug>
+#include <QFile>
 #include <QImage>
 #include <QImageWriter>
-#include <KZip>
-#include <QDebug>
-#include <QBuffer>
 #include <QTemporaryFile>
 
-#include "jupyterutils.h"
+#include <KZip>
+
+#include <poppler-qt5.h>
 
 class Cantor::ImageResultPrivate
 {
@@ -24,6 +29,8 @@ class Cantor::ImageResultPrivate
     QImage img;
     QString alt;
     QSize displaySize;
+    QString extension;
+    QByteArray data; // byte array used to store the contnent of PDF and SVG files
 
     QString originalFormat{JupyterUtils::pngMime};
     QString svgContent; // HACK: qt can't easily render svg, so, if we load the result from Jupyter svg image, store original svg
@@ -31,14 +38,56 @@ class Cantor::ImageResultPrivate
 
 ImageResult::ImageResult(const QUrl &url, const QString& alt) :  d(new ImageResultPrivate)
 {
-    d->url=url;
-    d->alt=alt;
+    d->url = url;
+    d->alt = alt;
+    d->extension = url.toLocalFile().right(3).toLower();
+
+    if (d->extension == QLatin1String("pdf"))
+    {
+        QFile pdfFile(url.toLocalFile());
+        if (!pdfFile.open(QIODevice::ReadOnly))
+            return;
+
+        d->data = pdfFile.readAll();
+
+        auto* document = Poppler::Document::loadFromData(d->data);
+        if (!document) {
+            qDebug()<< "Failed to process the byte array of the PDF file " << url.toLocalFile();
+            delete document;
+            return;
+        }
+
+        auto* page = document->page(0);
+        if (!page) {
+            qDebug() << "Failed to process the first page in the PDF file.";
+            delete document;
+            return;
+        }
+
+        document->setRenderHint(Poppler::Document::TextAntialiasing);
+        document->setRenderHint(Poppler::Document::Antialiasing);
+        document->setRenderHint(Poppler::Document::TextHinting);
+        document->setRenderHint(Poppler::Document::TextSlightHinting);
+        document->setRenderHint(Poppler::Document::ThinLineSolid);
+
+        const static int dpi = QApplication::desktop()->logicalDpiX();
+        d->img = page->renderToImage(dpi, dpi);
+
+        delete page;
+        delete document;
+    }
+    else if (d->extension == QLatin1String("svg"))
+    {
+        // TODO:
+    }
+    else
+        d->img.load(d->url.toLocalFile());
 }
 
 Cantor::ImageResult::ImageResult(const QImage& image, const QString& alt) :  d(new ImageResultPrivate)
 {
-    d->img=image;
-    d->alt=alt;
+    d->img = image;
+    d->alt = alt;
 
     QTemporaryFile imageFile;
     imageFile.setAutoRemove(false);
@@ -66,9 +115,6 @@ QString ImageResult::toLatex()
 
 QVariant ImageResult::data()
 {
-    if(d->img.isNull())
-        d->img.load(d->url.toLocalFile());
-
     return QVariant(d->img);
 }
 
@@ -84,26 +130,26 @@ int ImageResult::type()
 
 QString ImageResult::mimeType()
 {
-    const QList<QByteArray> formats=QImageWriter::supportedImageFormats();
     QString mimetype;
-    foreach(const QByteArray& format, formats)
-    {
-        mimetype+=QLatin1String("image/"+format.toLower()+' ');
-    }
-    qDebug()<<"type: "<<mimetype;
+    for (const auto& format : QImageWriter::supportedImageFormats())
+        mimetype += QLatin1String("image/" + format.toLower() + ' ');
 
     return mimetype;
 }
 
+QString ImageResult::extension()
+{
+    return d->extension;
+}
+
 QDomElement ImageResult::toXml(QDomDocument& doc)
 {
-    qDebug()<<"saving imageresult "<<toHtml();
-    QDomElement e=doc.createElement(QStringLiteral("Result"));
+    auto e = doc.createElement(QStringLiteral("Result"));
     e.setAttribute(QStringLiteral("type"), QStringLiteral("image"));
     e.setAttribute(QStringLiteral("filename"), d->url.fileName());
+
     if (!d->alt.isEmpty())
         e.appendChild(doc.createTextNode(d->alt));
-    qDebug()<<"done";
 
     return e;
 }
@@ -132,7 +178,7 @@ QJsonValue Cantor::ImageResult::toJupyterJson()
     if (d->originalFormat == JupyterUtils::svgMime)
         data.insert(JupyterUtils::svgMime, JupyterUtils::toJupyterMultiline(d->svgContent));
     else
-        data = JupyterUtils::packMimeBundle(image, d->originalFormat);
+        data = JupyterUtils::packMimeBundle(d->img, d->originalFormat);
 
     data.insert(JupyterUtils::textMime, JupyterUtils::toJupyterMultiline(d->alt));
 
@@ -157,11 +203,24 @@ void ImageResult::saveAdditionalData(KZip* archive)
     archive->addLocalFile(d->url.toLocalFile(), d->url.fileName());
 }
 
-void ImageResult::save(const QString& filename)
+void ImageResult::save(const QString& fileName)
 {
-    bool rc = d->img.save(filename);
+    bool rc = false;
+    if (d->extension == QLatin1String("pdf") || d->extension == QLatin1String("svg"))
+    {
+        QFile file(fileName);
+        if (file.open(QIODevice::WriteOnly))
+        {
+            if (file.write(d->data) > 0)
+                rc = true;
+            file.close();
+        }
+    }
+    else
+        rc = d->img.save(fileName);
+
     if (!rc)
-        qDebug()<<"saving to " << filename << " failed.";
+        qDebug()<<"saving to " << fileName << " failed.";
 }
 
 QSize Cantor::ImageResult::displaySize()

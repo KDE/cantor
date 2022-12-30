@@ -43,8 +43,9 @@ static const QStringList plotCommands({
 
 const QStringList OctaveExpression::plotExtensions({
     QLatin1String("png"),
+    QLatin1String("jpeg"),
     QLatin1String("svg"),
-    QLatin1String("jpeg")
+    QLatin1String("pdf")
 });
 
 OctaveExpression::OctaveExpression(Cantor::Session* session, bool internal): Expression(session, internal)

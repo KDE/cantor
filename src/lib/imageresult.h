@@ -1,6 +1,7 @@
 /*
     SPDX-License-Identifier: GPL-2.0-or-later
     SPDX-FileCopyrightText: 2009 Alexander Rieder <alexanderrieder@gmail.com>
+    SPDX-FileCopyrightText: 2022 by Alexander Semke (alexander.semke@web.de)
 */
 
 #ifndef _IMAGERESULT_H
@@ -31,6 +32,7 @@ class CANTOR_EXPORT ImageResult : public Result
 
     int type() override;
     QString mimeType() override;
+    QString extension();
 
     QSize displaySize();
     void setDisplaySize(QSize size);

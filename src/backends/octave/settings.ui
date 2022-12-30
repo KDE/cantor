@@ -37,12 +37,17 @@
          </item>
          <item>
           <property name="text">
+           <string notr="true">jpeg</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
            <string notr="true">svg</string>
           </property>
          </item>
          <item>
           <property name="text">
-           <string notr="true">jpeg</string>
+           <string notr="true">pdf</string>
           </property>
          </item>
         </widget>
