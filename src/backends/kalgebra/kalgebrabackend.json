@@ -14,6 +14,7 @@
         "Description[gl]": "Infraestrutura de KAlgebra para Cantor. Permite empregar a mesma linguaxe que na aplicación KAlgebra nas fichas de Cantor.",
         "Description[ia]": "Retroadministration de KAlgebra per Cantor. Il permitte a te de usar le mesme linguage que tu usa in le application de KAlgebra in folios de travalio de Cantor.",
         "Description[it]": "Motore per KAlgebra di Cantor. Permette di usare in Cantor lo stesso linguaggio usato in KAlgebra.",
+        "Description[ka]": "KAlgebra -ის უკანაბოლო Cantor-სთვის. საშუალებას გაძლევთ, იგივე ენა, რასაც KAlgebra -ში იყენებთ, Cantor-ის ცხრილებში გამოიყენოთ.",
         "Description[ko]": "Cantor의 KAlgebra 백엔드입니다. Cantor 워크시트에서 KAlgebra와 같은 언어를 사용할 수 있습니다.",
         "Description[nl]": "Kalgebra backend voor Cantor. Het laat u dezelfde taal als in Kalgebra gebruiken in Cantor-werkbladen.",
         "Description[nn]": "KAlgebra-motor for Cantor. Lèt deg bruka same språk som du brukar i KAlgebra-program i Cantor-arbeidsark.",

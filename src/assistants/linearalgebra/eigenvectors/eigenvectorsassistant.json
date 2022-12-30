@@ -14,6 +14,7 @@
         "Description[gl]": "Un diálogo auxiliar para simplificar o cálculo de vectores de Eigen",
         "Description[ia]": "Un dialogo Assistente per simplificar calcular autovectores (Eigen)",
         "Description[it]": "Un assistente che semplifica il calcolo degli autovettori",
+        "Description[ka]": "დამხმარე ფანჯარა EigenVectors-ის გამოთვლის გასამარტივებლად",
         "Description[ko]": "고유벡터를 간단하게 계산할 수 있도록 해 주는 도우미 대화 상자",
         "Description[nl]": "Een assistentdialoog voor het vereenvoudigen van het berekenen van eigenvectoren",
         "Description[nn]": "Eit hjelpevindauge for utrekning av eigenvektorar",
