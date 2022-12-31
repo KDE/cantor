@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-12-29 00:47+0000\n"
+"POT-Creation-Date: 2022-12-31 00:46+0000\n"
 "PO-Revision-Date: 2022-08-14 16:51+0100\n"
 "Last-Translator: Sergiu Bivol <sergiu@cip.md>\n"
 "Language-Team: Romanian <kde-i18n-ro@kde.org>\n"
@@ -488,7 +488,7 @@ msgstr "General"
 
 #. i18n: ectx: property (text), widget (QLabel, label)
 #: backends/julia/settings.ui:27 backends/maxima/settings.ui:61
-#: backends/octave/settings.ui:106 backends/sage/settings.ui:63
+#: backends/octave/settings.ui:111 backends/sage/settings.ui:63
 #: backends/scilab/settings.ui:27
 #, kde-format
 msgid "Executable:"
@@ -496,7 +496,7 @@ msgstr ""
 
 #. i18n: ectx: property (text), widget (QLabel, lPlotIntegration)
 #: backends/julia/settings.ui:37 backends/maxima/settings.ui:37
-#: backends/octave/settings.ui:73 backends/python/settings.ui:47
+#: backends/octave/settings.ui:78 backends/python/settings.ui:47
 #: backends/R/settings.ui:53 backends/scilab/settings.ui:37
 #, fuzzy, kde-format
 #| msgid "Integrate"
@@ -505,7 +505,7 @@ msgstr "Integrează"
 
 #. i18n: ectx: property (toolTip), widget (QCheckBox, kcfg_integratePlots)
 #: backends/julia/settings.ui:44 backends/maxima/settings.ui:27
-#: backends/octave/settings.ui:96 backends/python/settings.ui:64
+#: backends/octave/settings.ui:101 backends/python/settings.ui:64
 #: backends/R/settings.ui:33 backends/scilab/settings.ui:44
 #, kde-format
 msgid ""
@@ -526,7 +526,7 @@ msgstr ""
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_plotBorder)
 #: backends/julia/settings.ui:47 backends/julia/settings.ui:64
 #: backends/maxima/settings.ui:30 backends/maxima/settings.ui:47
-#: backends/octave/settings.ui:56 backends/octave/settings.ui:99
+#: backends/octave/settings.ui:61 backends/octave/settings.ui:104
 #: backends/python/settings.ui:67 backends/python/settings.ui:77
 #: backends/qalculate/settings.ui:125 backends/qalculate/settings.ui:142
 #: backends/qalculate/settings.ui:159 backends/qalculate/settings.ui:202
@@ -541,7 +541,7 @@ msgstr ""
 
 #. i18n: ectx: property (text), widget (QLabel, lVariableManagement)
 #: backends/julia/settings.ui:54 backends/maxima/settings.ui:54
-#: backends/octave/settings.ui:66 backends/python/settings.ui:27
+#: backends/octave/settings.ui:71 backends/python/settings.ui:27
 #: backends/R/settings.ui:76
 #, fuzzy, kde-format
 #| msgid "Variable:"
@@ -550,7 +550,7 @@ msgstr "Variabilă:"
 
 #. i18n: ectx: property (toolTip), widget (QCheckBox, kcfg_variableManagement)
 #: backends/julia/settings.ui:61 backends/maxima/settings.ui:44
-#: backends/octave/settings.ui:53 backends/python/settings.ui:74
+#: backends/octave/settings.ui:58 backends/python/settings.ui:74
 #: backends/R/settings.ui:43
 #, kde-format
 msgid ""
@@ -617,7 +617,7 @@ msgstr ""
 #. i18n: ectx: attribute (title), widget (QWidget, tabAutorun)
 #. i18n: ectx: attribute (title), widget (QWidget, tabAutoran)
 #: backends/julia/settings.ui:152 backends/lua/settings.ui:51
-#: backends/maxima/settings.ui:85 backends/octave/settings.ui:114
+#: backends/maxima/settings.ui:85 backends/octave/settings.ui:119
 #: backends/python/settings.ui:123 backends/qalculate/settings.ui:556
 #: backends/R/settings.ui:84 backends/sage/settings.ui:71
 #: backends/scilab/settings.ui:68
@@ -630,7 +630,7 @@ msgstr ""
 #. i18n: ectx: property (text), widget (QLabel, label_2)
 #: backends/julia/settings.ui:158 backends/kalgebra/settings.ui:20
 #: backends/lua/settings.ui:57 backends/maxima/settings.ui:91
-#: backends/octave/settings.ui:120 backends/python/settings.ui:129
+#: backends/octave/settings.ui:125 backends/python/settings.ui:129
 #: backends/qalculate/settings.ui:562 backends/R/settings.ui:90
 #: backends/sage/settings.ui:77 backends/scilab/settings.ui:74
 #, fuzzy, kde-format
@@ -640,7 +640,7 @@ msgstr "Scripturi către autorulare"
 
 #. i18n: ectx: attribute (title), widget (QWidget, tabDocumentation)
 #: backends/julia/settings.ui:172 backends/lua/settings.ui:71
-#: backends/maxima/settings.ui:105 backends/octave/settings.ui:134
+#: backends/maxima/settings.ui:105 backends/octave/settings.ui:139
 #: backends/python/settings.ui:143 backends/qalculate/settings.ui:575
 #: backends/R/settings.ui:104 backends/sage/settings.ui:91
 #: backends/scilab/settings.ui:88
@@ -1379,7 +1379,7 @@ msgstr ""
 
 #. i18n: ectx: property (text), item, widget (KComboBox, saveFileBox)
 #: backends/qalculate/plotassistant/qalculateplotdialog.ui:575
-#: worksheet.cpp:1820 worksheet.cpp:1846 worksheet.cpp:1866 worksheet.cpp:1884
+#: worksheet.cpp:1821 worksheet.cpp:1847 worksheet.cpp:1867 worksheet.cpp:1885
 #, kde-format
 msgid "LaTeX"
 msgstr ""
@@ -2785,12 +2785,12 @@ msgstr ""
 msgid "Export to LaTeX"
 msgstr "Trimite către LaTex"
 
-#: cantor_part.cpp:197 cantor_part.cpp:628 worksheet.cpp:1904
+#: cantor_part.cpp:197 cantor_part.cpp:628 worksheet.cpp:1905
 #, kde-format
 msgid "Evaluate Worksheet"
 msgstr "Evaluează foaia de lucru"
 
-#: cantor_part.cpp:205 worksheet.cpp:1912
+#: cantor_part.cpp:205 worksheet.cpp:1913
 #, kde-format
 msgid "Zoom"
 msgstr ""
@@ -2957,7 +2957,7 @@ msgstr ""
 msgid "Restart %1?"
 msgstr "Restartează platforma"
 
-#: cantor_part.cpp:618 worksheet.cpp:1907
+#: cantor_part.cpp:618 worksheet.cpp:1908
 #, kde-format
 msgid "Interrupt"
 msgstr "Întrerupe"
@@ -3132,7 +3132,7 @@ msgstr "Arată rezultatele"
 msgid "Hide Results"
 msgstr "Ascunde rezultatele"
 
-#: commandentry.cpp:343 worksheet.cpp:1897
+#: commandentry.cpp:343 worksheet.cpp:1898
 #, fuzzy, kde-format
 #| msgid "Show %1 Help"
 msgid "Show Help"
@@ -3387,17 +3387,21 @@ msgstr ""
 msgid "Cannot load image %1"
 msgstr "Nu se poate încărca imaginea %1"
 
-#: imageresultitem.cpp:97
+#: imageresultitem.cpp:93
+#, kde-format
+msgid "%1 files (*.%2)"
+msgstr ""
+
+#: imageresultitem.cpp:96
+#, kde-format
+msgid "EPS files (*.eps)"
+msgstr ""
+
+#: imageresultitem.cpp:99
 #, fuzzy, kde-format
 #| msgid "Save result"
 msgid "Save image result"
 msgstr "Salvează rezultatul"
-
-#: imageresultitem.cpp:99 imagesettingsdialog.cpp:153 markdownentry.cpp:775
-#, fuzzy, kde-format
-#| msgid "Remove Entry"
-msgid "Images (%1)"
-msgstr "Șterge înregistrarea"
 
 #. i18n: ectx: property (windowTitle), widget (QWidget, ImageSettingsBase)
 #: imagesettings.ui:14
@@ -3475,6 +3479,12 @@ msgstr "%"
 #, kde-format
 msgid "Open image file"
 msgstr "Deschide fișier cu imagine"
+
+#: imagesettingsdialog.cpp:153 markdownentry.cpp:775
+#, fuzzy, kde-format
+#| msgid "Remove Entry"
+msgid "Images (%1)"
+msgstr "Șterge înregistrarea"
 
 #: latexentry.cpp:61 textentry.cpp:111
 #, kde-format
@@ -3902,12 +3912,12 @@ msgstr "Valoare"
 msgid "Copy Name and Value"
 msgstr ""
 
-#: resultitem.cpp:59
+#: resultitem.cpp:48
 #, kde-format
 msgid "Save result"
 msgstr "Salvează rezultatul"
 
-#: resultitem.cpp:60
+#: resultitem.cpp:49
 #, kde-format
 msgid "Remove result"
 msgstr "Șterge rezultatul"
@@ -3972,8 +3982,8 @@ msgstr "Rezultat"
 msgid "Errors"
 msgstr "Eroare"
 
-#: searchbar.cpp:334 searchbar.cpp:363 worksheet.cpp:1812 worksheet.cpp:1841
-#: worksheet.cpp:1861 worksheet.cpp:1879
+#: searchbar.cpp:334 searchbar.cpp:363 worksheet.cpp:1813 worksheet.cpp:1842
+#: worksheet.cpp:1862 worksheet.cpp:1880
 #, kde-format
 msgid "Text"
 msgstr ""
@@ -4382,243 +4392,243 @@ msgstr ""
 msgid "Invalid Jupyter notebook scheme: %1"
 msgstr ""
 
-#: worksheet.cpp:1804
+#: worksheet.cpp:1805
 #, fuzzy, kde-format
 #| msgid "Insert Text Entry"
 msgid "Convert To"
 msgstr "Introduceți textul"
 
-#: worksheet.cpp:1809 worksheet.cpp:1840 worksheet.cpp:1860 worksheet.cpp:1878
+#: worksheet.cpp:1810 worksheet.cpp:1841 worksheet.cpp:1861 worksheet.cpp:1879
 #, fuzzy, kde-format
 #| msgid "Command Entry"
 msgid "Command"
 msgstr "Comandă de intrare"
 
-#: worksheet.cpp:1816 worksheet.cpp:1843 worksheet.cpp:1863 worksheet.cpp:1881
+#: worksheet.cpp:1817 worksheet.cpp:1844 worksheet.cpp:1864 worksheet.cpp:1882
 #, fuzzy, kde-format
 #| msgid "Insert Command Entry"
 msgid "Markdown"
 msgstr "Inserează comandă de intrare"
 
-#: worksheet.cpp:1823 worksheet.cpp:1848 worksheet.cpp:1868 worksheet.cpp:1886
+#: worksheet.cpp:1824 worksheet.cpp:1849 worksheet.cpp:1869 worksheet.cpp:1887
 #, fuzzy, kde-format
 #| msgid "Remove Entry"
 msgid "Image"
 msgstr "Șterge înregistrarea"
 
-#: worksheet.cpp:1826 worksheet.cpp:1851 worksheet.cpp:1871 worksheet.cpp:1889
+#: worksheet.cpp:1827 worksheet.cpp:1852 worksheet.cpp:1872 worksheet.cpp:1890
 #, kde-format
 msgid "Page Break"
 msgstr ""
 
-#: worksheet.cpp:1829 worksheet.cpp:1850 worksheet.cpp:1870 worksheet.cpp:1888
+#: worksheet.cpp:1830 worksheet.cpp:1851 worksheet.cpp:1871 worksheet.cpp:1889
 #, kde-format
 msgid "Horizontal Line"
 msgstr ""
 
-#: worksheet.cpp:1832 worksheet.cpp:1853 worksheet.cpp:1873 worksheet.cpp:1891
+#: worksheet.cpp:1833 worksheet.cpp:1854 worksheet.cpp:1874 worksheet.cpp:1892
 #, fuzzy, kde-format
 #| msgid "Remove Entry"
 msgid "Hierarchy Entry"
 msgstr "Șterge înregistrarea"
 
-#: worksheet.cpp:1835
+#: worksheet.cpp:1836
 #, fuzzy, kde-format
 #| msgid "Insert Text Entry"
 msgid "Insert After"
 msgstr "Introduceți textul"
 
-#: worksheet.cpp:1856
+#: worksheet.cpp:1857
 #, fuzzy, kde-format
 #| msgid "Insert Text Entry Before"
 msgid "Insert Before"
 msgstr "Inserează text de intrare înainte de "
 
-#: worksheet.cpp:1875
+#: worksheet.cpp:1876
 #, fuzzy, kde-format
 #| msgid "Insert Entry"
 msgid "Insert"
 msgstr "Inserează înregistrare"
 
-#: worksheet.cpp:1916
+#: worksheet.cpp:1917
 #, kde-format
 msgid "Zoom In"
 msgstr ""
 
-#: worksheet.cpp:1919
+#: worksheet.cpp:1920
 #, kde-format
 msgid "Zoom Out"
 msgstr ""
 
-#: worksheet.cpp:1923
+#: worksheet.cpp:1924
 #, fuzzy, kde-format
 #| msgid "Print Size"
 msgid "Original Size"
 msgstr "Dimensiune tipărire"
 
-#: worksheet.cpp:1931
+#: worksheet.cpp:1932
 #, kde-format
 msgid "Move Entries Up"
 msgstr ""
 
-#: worksheet.cpp:1932
+#: worksheet.cpp:1933
 #, fuzzy, kde-format
 #| msgid "Insert Text Entry"
 msgid "Move Entries Down"
 msgstr "Introduceți textul"
 
-#: worksheet.cpp:1933
+#: worksheet.cpp:1934
 #, fuzzy, kde-format
 #| msgid "Evaluate Entry"
 msgid "Evaluate Entries"
 msgstr "Evaluează înregistrarea"
 
-#: worksheet.cpp:1934
+#: worksheet.cpp:1935
 #, fuzzy, kde-format
 #| msgid "Remove Entry"
 msgid "Remove Entries"
 msgstr "Șterge înregistrarea"
 
-#: worksheet.cpp:1947
+#: worksheet.cpp:1948
 #, fuzzy, kde-format
 #| msgid "Insert Command Entry"
 msgid "Collapse Command Entry Results"
 msgstr "Inserează comandă de intrare"
 
-#: worksheet.cpp:1948
+#: worksheet.cpp:1949
 #, fuzzy, kde-format
 #| msgid "Append Command Entry"
 msgid "Expand Command Entry Results"
 msgstr "Adăugă comandă de intrare"
 
-#: worksheet.cpp:1949
+#: worksheet.cpp:1950
 #, fuzzy, kde-format
 #| msgid "Command Entry"
 msgid "Remove Command Entry Results"
 msgstr "Comandă de intrare"
 
-#: worksheet.cpp:1950
+#: worksheet.cpp:1951
 #, kde-format
 msgid "Exclude Command Entry From Execution"
 msgstr ""
 
-#: worksheet.cpp:1951
+#: worksheet.cpp:1952
 #, fuzzy, kde-format
 #| msgid "Append Command Entry"
 msgid "Add Command Entry To Execution"
 msgstr "Adăugă comandă de intrare"
 
-#: worksheet.cpp:2059
+#: worksheet.cpp:2060
 #, kde-format
 msgctxt "@action"
 msgid "Text &Color..."
 msgstr ""
 
-#: worksheet.cpp:2060
+#: worksheet.cpp:2061
 #, kde-format
 msgctxt "@label text color"
 msgid "Color"
 msgstr ""
 
-#: worksheet.cpp:2067
+#: worksheet.cpp:2068
 #, kde-format
 msgctxt "@action"
 msgid "Text &Highlight..."
 msgstr ""
 
-#: worksheet.cpp:2073
+#: worksheet.cpp:2074
 #, kde-format
 msgctxt "@action"
 msgid "&Font"
 msgstr ""
 
-#: worksheet.cpp:2082
+#: worksheet.cpp:2083
 #, kde-format
 msgctxt "@action"
 msgid "Font &Size"
 msgstr ""
 
-#: worksheet.cpp:2088
+#: worksheet.cpp:2089
 #, kde-format
 msgctxt "@action boldify selected text"
 msgid "&Bold"
 msgstr ""
 
-#: worksheet.cpp:2099
+#: worksheet.cpp:2100
 #, kde-format
 msgctxt "@action italicize selected text"
 msgid "&Italic"
 msgstr ""
 
-#: worksheet.cpp:2111
+#: worksheet.cpp:2112
 #, fuzzy, kde-format
 #| msgid "Inline"
 msgctxt "@action underline selected text"
 msgid "&Underline"
 msgstr "În linie"
 
-#: worksheet.cpp:2122
+#: worksheet.cpp:2123
 #, kde-format
 msgctxt "@action"
 msgid "&Strike Out"
 msgstr ""
 
-#: worksheet.cpp:2133
+#: worksheet.cpp:2134
 #, kde-format
 msgctxt "@action"
 msgid "Align &Left"
 msgstr ""
 
-#: worksheet.cpp:2136
+#: worksheet.cpp:2137
 #, kde-format
 msgctxt "@label left justify"
 msgid "Left"
 msgstr ""
 
-#: worksheet.cpp:2143
+#: worksheet.cpp:2144
 #, kde-format
 msgctxt "@action"
 msgid "Align &Center"
 msgstr ""
 
-#: worksheet.cpp:2146
+#: worksheet.cpp:2147
 #, kde-format
 msgctxt "@label center justify"
 msgid "Center"
 msgstr ""
 
-#: worksheet.cpp:2153
+#: worksheet.cpp:2154
 #, kde-format
 msgctxt "@action"
 msgid "Align &Right"
 msgstr ""
 
-#: worksheet.cpp:2156
+#: worksheet.cpp:2157
 #, kde-format
 msgctxt "@label right justify"
 msgid "Right"
 msgstr ""
 
-#: worksheet.cpp:2163
+#: worksheet.cpp:2164
 #, kde-format
 msgctxt "@action"
 msgid "&Justify"
 msgstr ""
 
-#: worksheet.cpp:2166
+#: worksheet.cpp:2167
 #, kde-format
 msgctxt "@label justify fill"
 msgid "Justify"
 msgstr ""
 
-#: worksheet.cpp:2860
+#: worksheet.cpp:2861
 #, kde-format
 msgid ""
 "This action will remove all results without the possibility of cancellation. "
 "Are you sure?"
 msgstr ""
 
-#: worksheet.cpp:2861
+#: worksheet.cpp:2862
 #, fuzzy, kde-format
 #| msgid "Remove result"
 msgid "Remove all results"
