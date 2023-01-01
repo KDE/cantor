@@ -4463,7 +4463,8 @@ msgid "Insert Before"
 msgstr "Inserir unha entrada antes"
 
 #: worksheet.cpp:1876
-#, kde-format
+#, fuzzy, kde-format
+#| msgid "Insert"
 msgid "Insert"
 msgstr "Inserir"
 

@@ -13,7 +13,7 @@ msgstr ""
 "Project-Id-Version: kdeedu-kde4\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2022-12-31 00:46+0000\n"
-"PO-Revision-Date: 2022-12-30 23:50+0300\n"
+"PO-Revision-Date: 2022-12-31 17:07+0300\n"
 "Last-Translator: Emir SARI <emir_sari@icloud.com>\n"
 "Language-Team: Turkish <kde-l10n-tr@kde.org>\n"
 "Language: tr\n"
@@ -3406,15 +3406,14 @@ msgid "Cannot load image %1"
 msgstr "%1 görseli yüklenemiyor"
 
 #: imageresultitem.cpp:93
-#, fuzzy, kde-format
-#| msgid "Text Files (*.txt)"
+#, kde-format
 msgid "%1 files (*.%2)"
-msgstr "Metin Dosyaları (*.txt)"
+msgstr "%1 dosyaları (*.%2)"
 
 #: imageresultitem.cpp:96
 #, kde-format
 msgid "EPS files (*.eps)"
-msgstr ""
+msgstr "EPS dosyaları (*.eps)"
 
 #: imageresultitem.cpp:99
 #, kde-format

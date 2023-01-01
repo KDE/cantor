@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: mathematik\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2022-12-31 00:46+0000\n"
-"PO-Revision-Date: 2022-12-28 11:17+0100\n"
+"PO-Revision-Date: 2022-12-31 10:48+0100\n"
 "Last-Translator: Eloy Cuadra <ecuadra@eloihr.net>\n"
 "Language-Team: Spanish <kde-l10n-es@kde.org>\n"
 "Language: es\n"
@@ -3434,15 +3434,14 @@ msgid "Cannot load image %1"
 msgstr "No se puede cargar la imagen %1"
 
 #: imageresultitem.cpp:93
-#, fuzzy, kde-format
-#| msgid "Text Files (*.txt)"
+#, kde-format
 msgid "%1 files (*.%2)"
-msgstr "Archivo de texto (*.txt)"
+msgstr "Archivos %1 (*.%2)"
 
 #: imageresultitem.cpp:96
 #, kde-format
 msgid "EPS files (*.eps)"
-msgstr ""
+msgstr "Archivos EPS (*.eps)"
 
 #: imageresultitem.cpp:99
 #, kde-format

@@ -12,7 +12,7 @@ msgstr ""
 "Project-Id-Version: cantor\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2022-12-31 00:46+0000\n"
-"PO-Revision-Date: 2022-12-28 13:48+0100\n"
+"PO-Revision-Date: 2022-12-31 16:14+0100\n"
 "Last-Translator: Freek de Kruijf <freekdekruijf@kde.nl>\n"
 "Language-Team: \n"
 "Language: nl\n"
@@ -3417,15 +3417,14 @@ msgid "Cannot load image %1"
 msgstr "Kan afbeelding %1 niet inlezen"
 
 #: imageresultitem.cpp:93
-#, fuzzy, kde-format
-#| msgid "Text Files (*.txt)"
+#, kde-format
 msgid "%1 files (*.%2)"
-msgstr "Tekstbestanden (*.txt)"
+msgstr "%1 bestanden (*.%2)"
 
 #: imageresultitem.cpp:96
 #, kde-format
 msgid "EPS files (*.eps)"
-msgstr ""
+msgstr "EPS-bestanden (*.eps)"
 
 #: imageresultitem.cpp:99
 #, kde-format

@@ -8,15 +8,15 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2022-12-31 00:46+0000\n"
-"PO-Revision-Date: 2022-08-07 11:12+0100\n"
+"PO-Revision-Date: 2022-12-31 15:49+0000\n"
 "Last-Translator: Steve Allewell <steve.allewell@gmail.com>\n"
-"Language-Team: British English <kde-l10n-en_gb@kde.org>\n"
+"Language-Team: English <kde-i18n-doc@kde.org>\n"
 "Language: en_GB\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Lokalize 22.04.3\n"
+"X-Generator: Lokalize 21.12.3\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -3389,15 +3389,14 @@ msgid "Cannot load image %1"
 msgstr "Cannot load image %1"
 
 #: imageresultitem.cpp:93
-#, fuzzy, kde-format
-#| msgid "Text Files (*.txt)"
+#, kde-format
 msgid "%1 files (*.%2)"
-msgstr "Text Files (*.txt)"
+msgstr "%1 files (*.%2)"
 
 #: imageresultitem.cpp:96
 #, kde-format
 msgid "EPS files (*.eps)"
-msgstr ""
+msgstr "EPS files (*.eps)"
 
 #: imageresultitem.cpp:99
 #, kde-format
@@ -3552,19 +3551,19 @@ msgstr "Path to the dvips executable"
 #, kde-format
 msgctxt "@title:column"
 msgid "Type"
-msgstr ""
+msgstr "Type"
 
 #: lib/defaultvariablemodel.cpp:73
 #, kde-format
 msgctxt "@title:column"
 msgid "Size [Bytes]"
-msgstr ""
+msgstr "Size [Bytes]"
 
 #: lib/defaultvariablemodel.cpp:75
 #, kde-format
 msgctxt "@title:column"
 msgid "Dimension"
-msgstr ""
+msgstr "Dimension"
 
 #: lib/defaultvariablemodel.cpp:77
 #, kde-format
@@ -3889,22 +3888,19 @@ msgid "Load file"
 msgstr "Load file"
 
 #: panelplugins/variablemgr/variablemanagerwidget.cpp:286
-#, fuzzy, kde-format
-#| msgid "Name"
+#, kde-format
 msgid "Copy Name"
-msgstr "Name"
+msgstr "Copy Name"
 
 #: panelplugins/variablemgr/variablemanagerwidget.cpp:287
-#, fuzzy, kde-format
-#| msgctxt "@title:column"
-#| msgid "Value"
+#, kde-format
 msgid "Copy Value"
-msgstr "Value"
+msgstr "Copy Value"
 
 #: panelplugins/variablemgr/variablemanagerwidget.cpp:288
 #, kde-format
 msgid "Copy Name and Value"
-msgstr ""
+msgstr "Copy Name and Value"
 
 #: resultitem.cpp:48
 #, kde-format

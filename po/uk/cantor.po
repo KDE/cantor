@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: cantor\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2022-12-31 00:46+0000\n"
-"PO-Revision-Date: 2022-12-28 08:18+0200\n"
+"PO-Revision-Date: 2022-12-31 09:02+0200\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian <kde-i18n-uk@kde.org>\n"
 "Language: uk\n"
@@ -3442,15 +3442,14 @@ msgid "Cannot load image %1"
 msgstr "Не вдалося завантажити зображення %1"
 
 #: imageresultitem.cpp:93
-#, fuzzy, kde-format
-#| msgid "Text Files (*.txt)"
+#, kde-format
 msgid "%1 files (*.%2)"
-msgstr "текстові файли (*.txt)"
+msgstr "файли %1 (*.%2)"
 
 #: imageresultitem.cpp:96
 #, kde-format
 msgid "EPS files (*.eps)"
-msgstr ""
+msgstr "файли EPS (*.eps)"
 
 #: imageresultitem.cpp:99
 #, kde-format
