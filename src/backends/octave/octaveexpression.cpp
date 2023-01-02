@@ -46,10 +46,9 @@ static const QStringList plotCommands({
     QLatin1String("cantor_plot3d")});
 
 const QStringList OctaveExpression::plotExtensions({
-    QLatin1String("png"),
-    QLatin1String("jpeg"),
+    QLatin1String("pdf"),
     QLatin1String("svg"),
-    QLatin1String("pdf")
+    QLatin1String("png")
 });
 
 OctaveExpression::OctaveExpression(Cantor::Session* session, bool internal): Expression(session, internal)
@@ -90,7 +89,7 @@ QString OctaveExpression::internalCommand()
                     m_plotFilename = octaveSession->plotFilePrefixPath() + QString::number(id()) + QLatin1String(".") + plotExtensions[OctaveSettings::inlinePlotFormat()];
 
                     int w, h;
-                    if (OctaveSettings::inlinePlotFormat() == 2 || OctaveSettings::inlinePlotFormat() == 3) // for vector formats like SVG and PDF the size for 'print'  is provided in points
+                    if (OctaveSettings::inlinePlotFormat() == 0 || OctaveSettings::inlinePlotFormat() == 1) // for vector formats like PDF and SVG the size for 'print'  is provided in points
                     {
                         w = OctaveSettings::plotWidth() / 2.54 * 72;
                         h = OctaveSettings::plotHeight() / 2.54 * 72;
@@ -198,7 +197,7 @@ void OctaveExpression::parseError(const QString& error)
 void OctaveExpression::imageChanged()
 {
     QFile file(m_plotFilename);
-    if(!file.open(QIODevice::ReadOnly | QIODevice::Text) || file.size() <= 0)
+    if(!file.open(QIODevice::ReadOnly)/* || file.size() <= 0*/)
     {
         m_plotPending = false;
         setResult(new Cantor::TextResult(i18n("Invalid image file generated.")));

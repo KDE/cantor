@@ -19,6 +19,10 @@ OctaveSettingsWidget::OctaveSettingsWidget(QWidget* parent, const QString& id) :
     connect(kcfg_Path, &KUrlRequester::textChanged, this, &BackendSettingsWidget::fileNameChanged);
     connect(kcfg_integratePlots, &QCheckBox::clicked, this, &OctaveSettingsWidget::integratePlotsChanged);
 
+    kcfg_inlinePlotFormat->setItemIcon(0, QIcon::fromTheme(QLatin1String("application-pdf")));
+    kcfg_inlinePlotFormat->setItemIcon(1, QIcon::fromTheme(QLatin1String("image-svg+xml")));
+    kcfg_inlinePlotFormat->setItemIcon(2, QIcon::fromTheme(QLatin1String("image-png")));
+
     // return to the event loop to show the settings
     // and then call the slot to update the state of the widgets
     QTimer::singleShot(0, this, [=]() {

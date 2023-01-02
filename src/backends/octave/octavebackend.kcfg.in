@@ -31,19 +31,19 @@
     </entry>
     <entry name="inlinePlotFormat" type="Enum">
       <choices>
-        <choice name="png"/>
+        <choice name="pdf"/>
         <choice name="svg"/>
-        <choice name="jpeg"/>
+        <choice name="png"/>
       </choices>
-      <default>@DEFAULT_PLOT_FORMAT@</default>
+      <default>0</default>
     </entry>
     <entry name="plotWidth" type="Double">
       <label>Default plot width</label>
-      <default>5.0</default>
+      <default>12.0</default>
     </entry>
     <entry name="plotHeight" type="Double">
       <label>Default plot height</label>
-      <default>3.0</default>
+      <default>8.0</default>
     </entry>
   </group>
 </kcfg>

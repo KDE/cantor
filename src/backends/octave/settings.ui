@@ -21,22 +21,6 @@
        <string>General</string>
       </attribute>
       <layout class="QGridLayout" name="gridLayout">
-       <item row="7" column="1">
-        <spacer name="verticalSpacer_3">
-         <property name="orientation">
-          <enum>Qt::Vertical</enum>
-         </property>
-         <property name="sizeType">
-          <enum>QSizePolicy::Expanding</enum>
-         </property>
-         <property name="sizeHint" stdset="0">
-          <size>
-           <width>20</width>
-           <height>44</height>
-          </size>
-         </property>
-        </spacer>
-       </item>
        <item row="4" column="2">
         <widget class="QCheckBox" name="kcfg_integratePlots">
          <property name="toolTip">
@@ -209,25 +193,36 @@
         <widget class="QComboBox" name="kcfg_inlinePlotFormat">
          <item>
           <property name="text">
-           <string notr="true">png</string>
+           <string>PDF</string>
           </property>
          </item>
          <item>
           <property name="text">
-           <string notr="true">jpeg</string>
+           <string notr="true">SVG</string>
           </property>
          </item>
          <item>
           <property name="text">
-           <string notr="true">svg</string>
-          </property>
-         </item>
-         <item>
-          <property name="text">
-           <string>pdf</string>
+           <string notr="true">PNG</string>
           </property>
          </item>
         </widget>
+       </item>
+       <item row="7" column="0">
+        <spacer name="verticalSpacer_3">
+         <property name="orientation">
+          <enum>Qt::Vertical</enum>
+         </property>
+         <property name="sizeType">
+          <enum>QSizePolicy::Expanding</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>20</width>
+           <height>44</height>
+          </size>
+         </property>
+        </spacer>
        </item>
       </layout>
      </widget>

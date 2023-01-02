@@ -16,15 +16,17 @@
 #include "latexresult.h"
 #include "settings.h"
 
+#include <QApplication>
+#include <QDesktopWidget>
+// #include <QChar>
+#include <QDebug>
 #include <QDir>
+#include <QRegularExpression>
 #include <QTemporaryFile>
+#include <QTimer>
+#include <QUrl>
 
 #include <KLocalizedString>
-#include <QDebug>
-#include <QTimer>
-#include <QRegularExpression>
-#include <QChar>
-#include <QUrl>
 
 // MaximaExpression use real id from Maxima as expression id, so we don't know id before executing
 MaximaExpression::MaximaExpression( Cantor::Session* session, bool internal ) : Cantor::Expression(session, internal, -1)
@@ -75,7 +77,15 @@ void MaximaExpression::evaluate()
         if (cmd.contains(QRegularExpression(QStringLiteral("(?:draw|draw2d|draw3d)\\s*\\([^\\)]"))))
             m_isDraw = true;
 
-        m_tempFile = new QTemporaryFile(QDir::tempPath() + QLatin1String("/cantor_maxima-XXXXXX.png"));
+        QString extension;
+        if (MaximaSettings::inlinePlotFormat() == 0)
+            extension = QLatin1String("pdf");
+        else if (MaximaSettings::inlinePlotFormat() == 1)
+            extension = QLatin1String("svg");
+        else if (MaximaSettings::inlinePlotFormat() == 2)
+            extension = QLatin1String("png");
+
+        m_tempFile = new QTemporaryFile(QDir::tempPath() + QLatin1String("/cantor_maxima-XXXXXX.%1").arg(extension));
         m_tempFile->open();
 
         m_fileWatch.removePaths(m_fileWatch.files());
@@ -145,12 +155,6 @@ QString MaximaExpression::internalCommand()
             return QString();
         }
 
-
-        /*
-        const QString pdfParam = QLatin1String("[gnuplot_pdf_term_command, \"set term pdfcairo size 9cm, 6cm\"]"); // size 5.9in, 4.7in
-        const QString plotParameters = QLatin1String("[pdf_file, \"") + fileName + QLatin1String("\"], ") + pdfParam;
-        */
-
         //replace all newlines with spaces, as maxima isn't sensitive about
         //whitespaces, and without newlines the whole command
         //is executed at once, without outputting an input
@@ -160,19 +164,44 @@ QString MaximaExpression::internalCommand()
 
         if (!m_isDraw)
         {
-            const QString plotParameters = QLatin1String("[gnuplot_png_term_command, \"set term png size 500,340\"], [png_file, \"") + m_tempFile->fileName() + QLatin1String("\"]");
+            QString params;
+            const auto& fileName = m_tempFile->fileName();
+            int w, h;
+            if (MaximaSettings::inlinePlotFormat() == 0) // pdf
+            {
+                // pdfcairo terminal accepts the sizes in cm
+                w = MaximaSettings::plotWidth();
+                h = MaximaSettings::plotHeight();
+                params = QLatin1String("[gnuplot_pdf_term_command, \"set term pdfcairo size %2cm,%3cm\"], [pdf_file, \"%1\"]");
+            }
+            else if (MaximaSettings::inlinePlotFormat() == 1) // svg
+            {
+                // svg terminal accepts the sizes in points
+                w = MaximaSettings::plotWidth() / 2.54 * 72;
+                h = MaximaSettings::plotHeight() / 2.54 * 72;
+                params = QLatin1String("[gnuplot_svg_term_command, \"set term svg size %2,%3\"], [svg_file, \"%1\"]");
+            }
+            else // png
+            {
+                // png terminal accepts the sizes in pixels
+                w = MaximaSettings::plotWidth() / 2.54 * QApplication::desktop()->physicalDpiX();
+                h = MaximaSettings::plotHeight() / 2.54 * QApplication::desktop()->physicalDpiX();
+                params = QLatin1String("[gnuplot_png_term_command, \"set term png size %2,%3\"], [png_file, \"%1\"]");
+            }
+
             cmd.replace(QRegularExpression(QStringLiteral("((plot2d|plot3d|contour_plot)\\s*\\(.*)\\)([;\n$]|$)")),
-                        QLatin1String("\\1, ") + plotParameters + QLatin1String(");"));
+                        QLatin1String("\\1, ") + params.arg(fileName, QString::number(w), QString::number(h)) + QLatin1String(");"));
 
         }
         else
         {
-            //strip off the extension ".png", the terminal parameter for draw() is adding the extension additionally
+            //strip off the extension ".png", etc. - the terminal parameter for draw() is adding the extension additionally
             QString fileName = m_tempFile->fileName();
+            QString extension = fileName.right(3);
             fileName = fileName.left(fileName.length() - 4);
-            const QString plotParameters = QLatin1String("terminal=png, file_name = \"") + fileName + QLatin1String("\"");
+            const QString params = QLatin1String("terminal=%1, file_name = \"%2\"").arg(extension, fileName);
             cmd.replace(QRegularExpression(QStringLiteral("((draw|draw2d|draw3d)\\s*\\(.*)*\\)([;\n$]|$)")),
-                        QLatin1String("\\1, ") + plotParameters + QLatin1String(");"));
+                        QLatin1String("\\1, ") + params + QLatin1String(");"));
         }
 
     }
@@ -180,7 +209,7 @@ QString MaximaExpression::internalCommand()
     if (!cmd.endsWith(QLatin1Char('$')))
     {
         if (!cmd.endsWith(QLatin1String(";")))
-            cmd+=QLatin1Char(';');
+            cmd += QLatin1Char(';');
     }
 
     //lisp-quiet doesn't print a prompt after the command
