@@ -37,5 +37,13 @@
       </choices>
       <default>@DEFAULT_PLOT_FORMAT@</default>
     </entry>
+    <entry name="plotWidth" type="Double">
+      <label>Default plot width</label>
+      <default>5.0</default>
+    </entry>
+    <entry name="plotHeight" type="Double">
+      <label>Default plot height</label>
+      <default>3.0</default>
+    </entry>
   </group>
 </kcfg>

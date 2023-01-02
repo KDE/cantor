@@ -13,13 +13,16 @@
 #include "settings.h"
 #include "textresult.h"
 
+
+#include <QApplication>
+#include <QDesktopWidget>
 #include <QDebug>
 #include <QFile>
 #include <QDir>
 #include <QFileSystemWatcher>
 #include <QRegularExpression>
 
-static const QString printCommandTemplate = QString::fromLatin1("print(\"%1\", \"-S500,340\")");
+static const QString printCommandTemplate = QString::fromLatin1("print(\"%1\", \"-S%2,%3\")");
 
 static const QStringList plotCommands({
     QLatin1String("plot"), QLatin1String("semilogx"), QLatin1String("semilogy"),
@@ -84,7 +87,18 @@ QString OctaveExpression::internalCommand()
                         cmd += QLatin1Char(',');
 
                     m_plotFilename = octaveSession->plotFilePrefixPath() + QString::number(id()) + QLatin1String(".") + plotExtensions[OctaveSettings::inlinePlotFormat()];
-                    cmd += printCommandTemplate.arg(m_plotFilename);
+                    int w, h;
+                    if (OctaveSettings::inlinePlotFormat() == 3) // for vector formats like PDF the size is provided in points
+                    {
+                        w = OctaveSettings::plotWidth() / 2.54 * 72;
+                        h = OctaveSettings::plotHeight() / 2.54 * 72;
+                    }
+                    else // for raster formats the size is provided in pixels
+                    {
+                        w = OctaveSettings::plotWidth() / 2.54 * QApplication::desktop()->physicalDpiX();
+                        h = OctaveSettings::plotHeight() / 2.54 * QApplication::desktop()->physicalDpiX();
+                    }
+                    cmd += printCommandTemplate.arg(m_plotFilename, QString::number(w), QString::number(h));
 
                     auto* watcher = fileWatcher();
                     if (!watcher->files().isEmpty())
