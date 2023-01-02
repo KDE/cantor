@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: cantor\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2022-12-31 00:46+0000\n"
-"PO-Revision-Date: 2022-12-30 06:08+0100\n"
+"PO-Revision-Date: 2023-01-01 07:33+0100\n"
 "Last-Translator: Temuri Doghonadze <temuri.doghonadze@gmail.com>\n"
 "Language-Team: Georgian <kde-i18n-doc@kde.org>\n"
 "Language: ka\n"
@@ -790,7 +790,7 @@ msgstr ""
 #: backends/maxima/maximaextensions.cpp:31
 #, kde-format
 msgid "Maxima batch file (*.mac)"
-msgstr ""
+msgstr "Maxima -ის სცენარის ფაილი (*.mac)"
 
 #: backends/maxima/maximasession.cpp:184
 #, kde-format
@@ -800,7 +800,7 @@ msgstr "Maxima-ის გაშვების შეცდომა"
 #: backends/maxima/maximasession.cpp:251
 #, kde-format
 msgid "Maxima crashed. restarting..."
-msgstr ""
+msgstr "Maxima ავარიულად დასრულდა. თავიდან გაშვება..."
 
 #: backends/maxima/maximasession.cpp:265
 #, kde-format
@@ -1399,7 +1399,7 @@ msgstr ""
 #: backends/qalculate/qalculatebackend.kcfg:64
 #, kde-format
 msgid "Numerical display."
-msgstr ""
+msgstr "რიცხვის ჩაწერის ფორმატი."
 
 #. i18n: ectx: label, entry (inlinePlot), group (QalculateBackend)
 #: backends/qalculate/qalculatebackend.kcfg:68
@@ -1443,13 +1443,13 @@ msgstr ""
 #: backends/qalculate/qalculatebackend.kcfg:99
 #, kde-format
 msgid "Smoothing mode in plots."
-msgstr ""
+msgstr "გრაფიკებს მოგლუვების რეჟიმი"
 
 #. i18n: ectx: label, entry (plotStyle), group (QalculateBackend)
 #: backends/qalculate/qalculatebackend.kcfg:113
 #, kde-format
 msgid "Style of plots."
-msgstr ""
+msgstr "გრაფიკების სტილი."
 
 #. i18n: ectx: label, entry (plotLegend), group (QalculateBackend)
 #: backends/qalculate/qalculatebackend.kcfg:126
@@ -1740,7 +1740,7 @@ msgstr "ათვლის სისტემა:"
 #: backends/qalculate/settings.ui:47
 #, kde-format
 msgid "Fraction format:"
-msgstr "წილადის ფორმატი"
+msgstr "წილადის ფორმატი:"
 
 #. i18n: ectx: property (text), item, widget (KComboBox, kcfg_fractionFormat)
 #: backends/qalculate/settings.ui:58
@@ -1842,7 +1842,7 @@ msgstr "გრადიანები"
 #: backends/qalculate/settings.ui:233
 #, kde-format
 msgid "Structuring Mode:"
-msgstr "ფორმულების გამარტივება"
+msgstr "ფორმულების გამარტივება:"
 
 #. i18n: ectx: property (text), item, widget (KComboBox, kcfg_structuring)
 #: backends/qalculate/settings.ui:249
@@ -3212,10 +3212,9 @@ msgid "Cannot load image %1"
 msgstr ""
 
 #: imageresultitem.cpp:93
-#, fuzzy, kde-format
-#| msgid "Text Files (*.txt)"
+#, kde-format
 msgid "%1 files (*.%2)"
-msgstr "ტექსტური ფაილები (*.txt)"
+msgstr "%1 ფაილი (*.%2)"
 
 #: imageresultitem.cpp:96
 #, kde-format
