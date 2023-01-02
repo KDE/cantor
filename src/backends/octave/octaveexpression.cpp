@@ -13,7 +13,6 @@
 #include "settings.h"
 #include "textresult.h"
 
-
 #include <QApplication>
 #include <QDesktopWidget>
 #include <QDebug>
@@ -21,6 +20,8 @@
 #include <QDir>
 #include <QFileSystemWatcher>
 #include <QRegularExpression>
+
+#include <KLocalizedString>
 
 static const QString printCommandTemplate = QString::fromLatin1("print(\"%1\", \"-S%2,%3\")");
 
@@ -87,13 +88,14 @@ QString OctaveExpression::internalCommand()
                         cmd += QLatin1Char(',');
 
                     m_plotFilename = octaveSession->plotFilePrefixPath() + QString::number(id()) + QLatin1String(".") + plotExtensions[OctaveSettings::inlinePlotFormat()];
+
                     int w, h;
-                    if (OctaveSettings::inlinePlotFormat() == 3) // for vector formats like PDF the size is provided in points
+                    if (OctaveSettings::inlinePlotFormat() == 2 || OctaveSettings::inlinePlotFormat() == 3) // for vector formats like SVG and PDF the size for 'print'  is provided in points
                     {
                         w = OctaveSettings::plotWidth() / 2.54 * 72;
                         h = OctaveSettings::plotHeight() / 2.54 * 72;
                     }
-                    else // for raster formats the size is provided in pixels
+                    else // for raster formats the size for 'print' is provided in pixels
                     {
                         w = OctaveSettings::plotWidth() / 2.54 * QApplication::desktop()->physicalDpiX();
                         h = OctaveSettings::plotHeight() / 2.54 * QApplication::desktop()->physicalDpiX();
@@ -195,8 +197,14 @@ void OctaveExpression::parseError(const QString& error)
 
 void OctaveExpression::imageChanged()
 {
-    if(QFile(m_plotFilename).size() <= 0)
+    QFile file(m_plotFilename);
+    if(!file.open(QIODevice::ReadOnly | QIODevice::Text) || file.size() <= 0)
+    {
+        m_plotPending = false;
+        setResult(new Cantor::TextResult(i18n("Invalid image file generated.")));
+        setStatus(Error);
         return;
+    }
 
     const QUrl& url = QUrl::fromLocalFile(m_plotFilename);
     auto* newResult = new Cantor::ImageResult(url);

@@ -14,6 +14,8 @@ using namespace Cantor;
 #include <QFile>
 #include <QImage>
 #include <QImageWriter>
+#include <QPainter>
+#include <QSvgRenderer>
 #include <QTemporaryFile>
 
 #include <KZip>
@@ -42,45 +44,60 @@ ImageResult::ImageResult(const QUrl &url, const QString& alt) :  d(new ImageResu
     d->alt = alt;
     d->extension = url.toLocalFile().right(3).toLower();
 
-    if (d->extension == QLatin1String("pdf"))
+    if (d->extension == QLatin1String("pdf") || d->extension == QLatin1String("svg")) // vector formats
     {
-        QFile pdfFile(url.toLocalFile());
-        if (!pdfFile.open(QIODevice::ReadOnly))
+        QFile file(url.toLocalFile());
+        if (!file.open(QIODevice::ReadOnly))
             return;
 
-        d->data = pdfFile.readAll();
+        d->data = file.readAll();
 
-        auto* document = Poppler::Document::loadFromData(d->data);
-        if (!document) {
-            qDebug()<< "Failed to process the byte array of the PDF file " << url.toLocalFile();
+        if (d->extension == QLatin1String("pdf"))
+        {
+            auto* document = Poppler::Document::loadFromData(d->data);
+            if (!document) {
+                qDebug()<< "Failed to process the byte array of the PDF file " << url.toLocalFile();
+                delete document;
+                return;
+            }
+
+            auto* page = document->page(0);
+            if (!page) {
+                qDebug() << "Failed to process the first page in the PDF file.";
+                delete document;
+                return;
+            }
+
+            document->setRenderHint(Poppler::Document::TextAntialiasing);
+            document->setRenderHint(Poppler::Document::Antialiasing);
+            document->setRenderHint(Poppler::Document::TextHinting);
+            document->setRenderHint(Poppler::Document::TextSlightHinting);
+            document->setRenderHint(Poppler::Document::ThinLineSolid);
+
+            const static int dpi = QApplication::desktop()->logicalDpiX();
+            d->img = page->renderToImage(dpi, dpi);
+
+            delete page;
             delete document;
-            return;
         }
+        else
+        {
+            QSvgRenderer renderer(d->data);
 
-        auto* page = document->page(0);
-        if (!page) {
-            qDebug() << "Failed to process the first page in the PDF file.";
-            delete document;
-            return;
+            // SVG document size is in points, convert to pixels
+            const auto& size = renderer.defaultSize();
+            int w = size.width() / 72 * QApplication::desktop()->physicalDpiX();
+            int h = size.height() / 72 * QApplication::desktop()->physicalDpiX();
+            d->img = QImage(w, h, QImage::Format_ARGB32);
+
+            // render
+            QPainter painter;
+            painter.begin(&d->img);
+            renderer.render(&painter);
+            painter.end();
         }
-
-        document->setRenderHint(Poppler::Document::TextAntialiasing);
-        document->setRenderHint(Poppler::Document::Antialiasing);
-        document->setRenderHint(Poppler::Document::TextHinting);
-        document->setRenderHint(Poppler::Document::TextSlightHinting);
-        document->setRenderHint(Poppler::Document::ThinLineSolid);
-
-        const static int dpi = QApplication::desktop()->logicalDpiX();
-        d->img = page->renderToImage(dpi, dpi);
-
-        delete page;
-        delete document;
     }
-    else if (d->extension == QLatin1String("svg"))
-    {
-        // TODO:
-    }
-    else
+    else // raster formats
         d->img.load(d->url.toLocalFile());
 }
 
