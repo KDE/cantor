@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: cantor\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2022-10-08 00:40+0000\n"
-"PO-Revision-Date: 2022-12-29 11:48+0100\n"
+"PO-Revision-Date: 2023-01-01 13:09+0100\n"
 "Last-Translator: Temuri Doghonadze <temuri.doghonadze@gmail.com>\n"
 "Language-Team: Georgian <kde-i18n-doc@kde.org>\n"
 "Language: ka\n"
@@ -780,7 +780,7 @@ msgstr "შეცდომა: მეტისმეტად ბევრი /*
 #: backends/maxima/maximaexpression.cpp:123
 #, kde-format
 msgid "Error: expected \" before ;"
-msgstr "შეცდომა: ;-მდე \"-ს მოველოდი"
+msgstr "შეცდომა: ;-მდე \"-ს მოველოდი ;"
 
 #: backends/maxima/maximaexpression.cpp:406
 #, kde-format
@@ -790,7 +790,7 @@ msgstr ""
 #: backends/maxima/maximaextensions.cpp:31
 #, kde-format
 msgid "Maxima batch file (*.mac)"
-msgstr ""
+msgstr "Maxima -ის სცენარის ფაილი (*.mac)"
 
 #: backends/maxima/maximasession.cpp:184
 #, kde-format
@@ -800,7 +800,7 @@ msgstr "Maxima-ის გაშვების შეცდომა"
 #: backends/maxima/maximasession.cpp:251
 #, kde-format
 msgid "Maxima crashed. restarting..."
-msgstr ""
+msgstr "Maxima ავარიულად დასრულდა. თავიდან გაშვება..."
 
 #: backends/maxima/maximasession.cpp:265
 #, kde-format
@@ -827,7 +827,7 @@ msgstr ""
 #: backends/octave/octaveextensions.cpp:34
 #, kde-format
 msgid "Octave script file (*.m)"
-msgstr ""
+msgstr "Octave -ის სკრიპტის ფაილები (*.m)"
 
 #: backends/octave/octavesession.cpp:272 backends/sage/sageexpression.cpp:58
 #, kde-format
@@ -891,12 +891,12 @@ msgstr "Python -ის სკრიპტის ფაილი (*.py)"
 #: backends/python/pythonsession.cpp:274
 #, kde-format
 msgid "Cantor Python server stopped working."
-msgstr ""
+msgstr "Canton-ის Python სერვერმა მუშაობა შეწყვიტა."
 
 #: backends/python/pythonsession.cpp:278
 #, kde-format
 msgid "Failed to start Cantor python server."
-msgstr ""
+msgstr "Cantor -ის python სერვერს გაშვების შეცდომა."
 
 #: backends/python/pythonsession.cpp:282
 #, kde-format
@@ -1410,7 +1410,7 @@ msgstr ""
 #: backends/qalculate/qalculatebackend.kcfg:64
 #, kde-format
 msgid "Numerical display."
-msgstr ""
+msgstr "რიცხვის ჩაწერის ფორმატი."
 
 #. i18n: ectx: label, entry (inlinePlot), group (QalculateBackend)
 #: backends/qalculate/qalculatebackend.kcfg:68
@@ -1430,7 +1430,7 @@ msgstr ""
 #: backends/qalculate/qalculatebackend.kcfg:76
 #, kde-format
 msgid "Whether a grid should be plotted."
-msgstr ""
+msgstr "დაიხაზება თუ არა ბადე."
 
 #. i18n: ectx: label, entry (plotBorder), group (QalculateBackend)
 #: backends/qalculate/qalculatebackend.kcfg:80
@@ -1442,7 +1442,7 @@ msgstr ""
 #: backends/qalculate/qalculatebackend.kcfg:84
 #, kde-format
 msgid "Width of lines, in pixels."
-msgstr ""
+msgstr "ხაზის სიგანე, პიქსელებში."
 
 #. i18n: ectx: label, entry (plotSteps), group (QalculateBackend)
 #: backends/qalculate/qalculatebackend.kcfg:88
@@ -1454,13 +1454,13 @@ msgstr ""
 #: backends/qalculate/qalculatebackend.kcfg:99
 #, kde-format
 msgid "Smoothing mode in plots."
-msgstr ""
+msgstr "გრაფიკებს მოგლუვების რეჟიმი."
 
 #. i18n: ectx: label, entry (plotStyle), group (QalculateBackend)
 #: backends/qalculate/qalculatebackend.kcfg:113
 #, kde-format
 msgid "Style of plots."
-msgstr ""
+msgstr "გრაფიკების სტილი."
 
 #. i18n: ectx: label, entry (plotLegend), group (QalculateBackend)
 #: backends/qalculate/qalculatebackend.kcfg:126
@@ -1707,7 +1707,7 @@ msgstr ""
 #: backends/qalculate/qalculatesyntaxhelpobject.cpp:243
 #, kde-format
 msgid "Save variables to a file"
-msgstr ""
+msgstr "ცვლადების ფაილში ჩაწერა"
 
 #: backends/qalculate/qalculatesyntaxhelpobject.cpp:244
 #, kde-format
@@ -1724,12 +1724,12 @@ msgstr "ფაილი"
 #: backends/qalculate/qalculatesyntaxhelpobject.cpp:246
 #, kde-format
 msgid "file: the file to save to"
-msgstr ""
+msgstr "ფაილი: შესანახი ფაილი"
 
 #: backends/qalculate/qalculatesyntaxhelpobject.cpp:252
 #, kde-format
 msgid "Load variables from a file"
-msgstr ""
+msgstr "ცვლადების ფაილიდან წაკითხვა"
 
 #: backends/qalculate/qalculatesyntaxhelpobject.cpp:253
 #, kde-format
@@ -1739,19 +1739,19 @@ msgstr ""
 #: backends/qalculate/qalculatesyntaxhelpobject.cpp:255
 #, kde-format
 msgid "file: the file to load"
-msgstr ""
+msgstr "ფაილი: ჩასატვირთი ფაილი"
 
 #. i18n: ectx: property (text), widget (QLabel, label)
 #: backends/qalculate/settings.ui:27
 #, kde-format
 msgid "Number base:"
-msgstr ""
+msgstr "ათვლის სისტემა:"
 
 #. i18n: ectx: property (text), widget (QLabel, label_5)
 #: backends/qalculate/settings.ui:47
 #, kde-format
 msgid "Fraction format:"
-msgstr ""
+msgstr "წილადის ფორმატი:"
 
 #. i18n: ectx: property (text), item, widget (KComboBox, kcfg_fractionFormat)
 #: backends/qalculate/settings.ui:58
@@ -1769,19 +1769,19 @@ msgstr "ზუსტი"
 #: backends/qalculate/settings.ui:68
 #, kde-format
 msgid "Fractional"
-msgstr ""
+msgstr "წილადი"
 
 #. i18n: ectx: property (text), item, widget (KComboBox, kcfg_fractionFormat)
 #: backends/qalculate/settings.ui:73
 #, kde-format
 msgid "Combined"
-msgstr ""
+msgstr "სწორი წილადები"
 
 #. i18n: ectx: property (text), widget (QLabel, label_9)
 #: backends/qalculate/settings.ui:81
 #, kde-format
 msgid "Numerical display:"
-msgstr ""
+msgstr "რიცხვის ჩაწერის წესი:"
 
 #. i18n: ectx: property (text), item, widget (KComboBox, kcfg_minExp)
 #: backends/qalculate/settings.ui:97
@@ -1805,19 +1805,19 @@ msgstr "სიზუსტე"
 #: backends/qalculate/settings.ui:115
 #, kde-format
 msgid "Indicate infinite series:"
-msgstr ""
+msgstr "უსასრულო მწკრივის მითითება:"
 
 #. i18n: ectx: property (text), widget (QLabel, label_7)
 #: backends/qalculate/settings.ui:132
 #, kde-format
 msgid "Use all SI prefixes:"
-msgstr ""
+msgstr "ყველა SI პრეფიქსის გამოყენება:"
 
 #. i18n: ectx: property (text), widget (QLabel, label_8)
 #: backends/qalculate/settings.ui:149
 #, kde-format
 msgid "Use negative exponents:"
-msgstr ""
+msgstr "უარყოფითი ხარისხის გამოყენება:"
 
 #. i18n: ectx: attribute (title), widget (QWidget, tab_2)
 #: backends/qalculate/settings.ui:180 worksheetentry.cpp:414
@@ -1853,7 +1853,7 @@ msgstr "გრადიანები"
 #: backends/qalculate/settings.ui:233
 #, kde-format
 msgid "Structuring Mode:"
-msgstr ""
+msgstr "ფორმულების გამარტივება:"
 
 #. i18n: ectx: property (text), item, widget (KComboBox, kcfg_structuring)
 #: backends/qalculate/settings.ui:249
@@ -1865,7 +1865,7 @@ msgstr "გამარტივება"
 #: backends/qalculate/settings.ui:254
 #, kde-format
 msgid "Factorize"
-msgstr ""
+msgstr "მამრავლებად დაშლა"
 
 #. i18n: ectx: property (text), widget (QLabel, label_3)
 #: backends/qalculate/settings.ui:275
@@ -1877,7 +1877,7 @@ msgstr "კუთხის ერთეული:"
 #: backends/qalculate/settings.ui:286
 #, kde-format
 msgid "Plotting"
-msgstr ""
+msgstr "გრაფიკები"
 
 #. i18n: ectx: property (text), widget (QLabel, label_10)
 #: backends/qalculate/settings.ui:292
@@ -2307,7 +2307,7 @@ msgstr "ფაილის გახსნა"
 #: cantor.cpp:146
 #, kde-format
 msgid "Download Examples"
-msgstr ""
+msgstr "მაგალითების გადმოწერა"
 
 #: cantor.cpp:149
 #, kde-format
