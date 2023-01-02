@@ -29,12 +29,9 @@ double ImageResultItem::setGeometry(double x, double y, double w)
     return height();
 }
 
-void ImageResultItem::populateMenu(QMenu* menu, QPointF pos)
+void ImageResultItem::populateMenu(QMenu* menu, QPointF)
 {
     ResultItem::addCommonActions(this, menu);
-
-    menu->addSeparator();
-    emit menuCreated(menu, mapToParent(pos));
 }
 
 void ImageResultItem::update()

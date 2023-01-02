@@ -54,7 +54,7 @@ double TextResultItem::setGeometry(double x, double y, double w)
     return height();
 }
 
-void TextResultItem::populateMenu(QMenu* menu, QPointF pos)
+void TextResultItem::populateMenu(QMenu* menu, QPointF)
 {
     auto* copy = KStandardAction::copy(this, SLOT(copy()), menu);
     copy->setText(i18n("Copy result"));
@@ -94,9 +94,6 @@ void TextResultItem::populateMenu(QMenu* menu, QPointF pos)
 
         }
     }
-
-    menu->addSeparator();
-    emit menuCreated(menu, mapToParent(pos));
 }
 
 void TextResultItem::update()

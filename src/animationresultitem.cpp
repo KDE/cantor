@@ -28,7 +28,7 @@ double AnimationResultItem::setGeometry(double x, double y, double w)
     return m_height;
 }
 
-void AnimationResultItem::populateMenu(QMenu* menu, QPointF pos)
+void AnimationResultItem::populateMenu(QMenu* menu, QPointF)
 {
     ResultItem::addCommonActions(this, menu);
 
@@ -45,8 +45,6 @@ void AnimationResultItem::populateMenu(QMenu* menu, QPointF pos)
             menu->addAction(QIcon::fromTheme(QLatin1String("media-playback-stop")), i18n("Stop"),
                             this, SLOT(stopMovie()));
     }
-
-    emit menuCreated(menu, mapToParent(pos));
 }
 
 void AnimationResultItem::update()
