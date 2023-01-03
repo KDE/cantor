@@ -714,15 +714,19 @@ void WorksheetEntry::startRemoving()
     if (type() == PlaceHolderEntry::Type) //don't do anything if a PlaceholderEntry is being removed in Worksheet::drageMoveEvent()
         return;
 
-    int rc = KMessageBox::warningYesNo(nullptr, i18n("Do you really want to remove this entry?"), i18n("Remove Entry"));
-    if (rc == KMessageBox::No)
-        return;
+    if (Settings::warnAboutEntryDelete())
+    {
+        int rc = KMessageBox::warningYesNo(nullptr, i18n("Do you really want to remove this entry?"), i18n("Remove Entry"));
+        if (rc == KMessageBox::No)
+            return;
+    }
 
     if (!worksheet()->animationsEnabled()) {
         m_aboutToBeRemoved = true;
         remove();
         return;
     }
+
     if (m_aboutToBeRemoved)
         return;
 
