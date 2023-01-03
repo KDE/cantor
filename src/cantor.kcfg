@@ -36,6 +36,10 @@
       <label>Enable rendering math expressions inside $$..$$ in Text and Markdown entries by default (needs pdflatex installed)</label>
       <default>true</default>
     </entry>
+    <entry name="WarnAboutEntryDelete" type="Bool">
+      <label>Ask for confirmation when deleting an entry</label>
+      <default>true</default>
+    </entry>
     <entry name="AutoEval" type="Bool">
       <label>Automatically reevaluate the entries below the current</label>
       <default>false</default>
