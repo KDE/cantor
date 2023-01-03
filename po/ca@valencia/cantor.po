@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: cantor\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-12-31 00:46+0000\n"
+"POT-Creation-Date: 2023-01-03 00:42+0000\n"
 "PO-Revision-Date: 2022-12-31 06:19+0100\n"
 "Last-Translator: Josep M. Ferrer <txemaq@gmail.com>\n"
 "Language-Team: Catalan <kde-i18n-ca@kde.org>\n"
@@ -46,12 +46,12 @@ msgstr "Inicia"
 msgid "Stop"
 msgstr "Para"
 
-#: animationresultitem.cpp:113
+#: animationresultitem.cpp:111
 #, kde-format
 msgid "Save animation result"
 msgstr "Guarda l'animació resultant"
 
-#: animationresultitem.cpp:113
+#: animationresultitem.cpp:111
 #, kde-format
 msgid "Animations (*.gif)"
 msgstr "Animacions (*.gif)"
@@ -502,24 +502,23 @@ msgid "General"
 msgstr "General"
 
 #. i18n: ectx: property (text), widget (QLabel, label)
-#: backends/julia/settings.ui:27 backends/maxima/settings.ui:61
-#: backends/octave/settings.ui:111 backends/sage/settings.ui:63
+#: backends/julia/settings.ui:27 backends/maxima/settings.ui:27
+#: backends/octave/settings.ui:165 backends/sage/settings.ui:63
 #: backends/scilab/settings.ui:27
 #, kde-format
 msgid "Executable:"
 msgstr "Executable:"
 
 #. i18n: ectx: property (text), widget (QLabel, lPlotIntegration)
-#: backends/julia/settings.ui:37 backends/maxima/settings.ui:37
-#: backends/octave/settings.ui:78 backends/python/settings.ui:47
+#: backends/julia/settings.ui:37 backends/python/settings.ui:47
 #: backends/R/settings.ui:53 backends/scilab/settings.ui:37
 #, kde-format
 msgid "Plot Integration:"
 msgstr "Integració de les gràfiques:"
 
 #. i18n: ectx: property (toolTip), widget (QCheckBox, kcfg_integratePlots)
-#: backends/julia/settings.ui:44 backends/maxima/settings.ui:27
-#: backends/octave/settings.ui:101 backends/python/settings.ui:64
+#: backends/julia/settings.ui:44 backends/maxima/settings.ui:74
+#: backends/octave/settings.ui:27 backends/python/settings.ui:64
 #: backends/R/settings.ui:33 backends/scilab/settings.ui:44
 #, kde-format
 msgid ""
@@ -541,8 +540,8 @@ msgstr ""
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_plotGrid)
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_plotBorder)
 #: backends/julia/settings.ui:47 backends/julia/settings.ui:64
-#: backends/maxima/settings.ui:30 backends/maxima/settings.ui:47
-#: backends/octave/settings.ui:61 backends/octave/settings.ui:104
+#: backends/maxima/settings.ui:47 backends/maxima/settings.ui:77
+#: backends/octave/settings.ui:30 backends/octave/settings.ui:128
 #: backends/python/settings.ui:67 backends/python/settings.ui:77
 #: backends/qalculate/settings.ui:125 backends/qalculate/settings.ui:142
 #: backends/qalculate/settings.ui:159 backends/qalculate/settings.ui:202
@@ -556,8 +555,8 @@ msgid "Enabled"
 msgstr "Habilitat"
 
 #. i18n: ectx: property (text), widget (QLabel, lVariableManagement)
-#: backends/julia/settings.ui:54 backends/maxima/settings.ui:54
-#: backends/octave/settings.ui:71 backends/python/settings.ui:27
+#: backends/julia/settings.ui:54 backends/maxima/settings.ui:37
+#: backends/octave/settings.ui:172 backends/python/settings.ui:27
 #: backends/R/settings.ui:76
 #, kde-format
 msgid "Variable Management:"
@@ -565,7 +564,7 @@ msgstr "Gestió de les variables:"
 
 #. i18n: ectx: property (toolTip), widget (QCheckBox, kcfg_variableManagement)
 #: backends/julia/settings.ui:61 backends/maxima/settings.ui:44
-#: backends/octave/settings.ui:58 backends/python/settings.ui:74
+#: backends/octave/settings.ui:125 backends/python/settings.ui:74
 #: backends/R/settings.ui:43
 #, kde-format
 msgid ""
@@ -576,8 +575,7 @@ msgstr ""
 "existents en el quadro de variables."
 
 #. i18n: ectx: property (text), widget (QLabel, label2)
-#. i18n: ectx: property (text), widget (QLabel, label_2)
-#: backends/julia/settings.ui:71 backends/octave/settings.ui:27
+#: backends/julia/settings.ui:71
 #, kde-format
 msgid "Internal Plot Format:"
 msgstr "Format intern de les gràfiques:"
@@ -613,7 +611,9 @@ msgid "GR"
 msgstr "GR"
 
 #. i18n: ectx: property (text), item, widget (KComboBox, kcfg_plotExtenstionGraphicPackage)
-#: backends/julia/settings.ui:120
+#. i18n: ectx: property (text), widget (QLabel, label_4)
+#: backends/julia/settings.ui:120 backends/maxima/settings.ui:60
+#: backends/octave/settings.ui:148
 #, kde-format
 msgid "Plots"
 msgstr "Plots"
@@ -633,7 +633,7 @@ msgstr "Gadfly"
 #. i18n: ectx: attribute (title), widget (QWidget, tabAutorun)
 #. i18n: ectx: attribute (title), widget (QWidget, tabAutoran)
 #: backends/julia/settings.ui:152 backends/lua/settings.ui:51
-#: backends/maxima/settings.ui:85 backends/octave/settings.ui:119
+#: backends/maxima/settings.ui:228 backends/octave/settings.ui:231
 #: backends/python/settings.ui:123 backends/qalculate/settings.ui:556
 #: backends/R/settings.ui:84 backends/sage/settings.ui:71
 #: backends/scilab/settings.ui:68
@@ -645,8 +645,8 @@ msgstr "Executa automàticament"
 #. i18n: ectx: property (title), widget (QGroupBox, groupBox)
 #. i18n: ectx: property (text), widget (QLabel, label_2)
 #: backends/julia/settings.ui:158 backends/kalgebra/settings.ui:20
-#: backends/lua/settings.ui:57 backends/maxima/settings.ui:91
-#: backends/octave/settings.ui:125 backends/python/settings.ui:129
+#: backends/lua/settings.ui:57 backends/maxima/settings.ui:234
+#: backends/octave/settings.ui:237 backends/python/settings.ui:129
 #: backends/qalculate/settings.ui:562 backends/R/settings.ui:90
 #: backends/sage/settings.ui:77 backends/scilab/settings.ui:74
 #, kde-format
@@ -655,7 +655,7 @@ msgstr "Ordres que s'han d'executar automàticament"
 
 #. i18n: ectx: attribute (title), widget (QWidget, tabDocumentation)
 #: backends/julia/settings.ui:172 backends/lua/settings.ui:71
-#: backends/maxima/settings.ui:105 backends/octave/settings.ui:139
+#: backends/maxima/settings.ui:248 backends/octave/settings.ui:251
 #: backends/python/settings.ui:143 backends/qalculate/settings.ui:575
 #: backends/R/settings.ui:104 backends/sage/settings.ui:91
 #: backends/scilab/settings.ui:88
@@ -853,23 +853,35 @@ msgstr ""
 msgid "Path to the Maxima executable"
 msgstr "Camí cap a l'executable «maxima»"
 
-#: backends/maxima/maximaexpression.cpp:104
+#. i18n: ectx: label, entry (plotWidth), group (MaximaBackend)
+#: backends/maxima/maximabackend.kcfg:41
+#, kde-format
+msgid "Default plot width"
+msgstr ""
+
+#. i18n: ectx: label, entry (plotHeight), group (MaximaBackend)
+#: backends/maxima/maximabackend.kcfg:45
+#, kde-format
+msgid "Default plot height"
+msgstr ""
+
+#: backends/maxima/maximaexpression.cpp:114
 #, kde-format
 msgid "Error: Too many */"
 msgstr "S'ha produït un error: Massa */"
 
-#: backends/maxima/maximaexpression.cpp:117
+#: backends/maxima/maximaexpression.cpp:127
 #, kde-format
 msgid "Error: Too many /*"
 msgstr "S'ha produït un error: Massa /*"
 
 # skip-rule: t-sp_pc
-#: backends/maxima/maximaexpression.cpp:123
+#: backends/maxima/maximaexpression.cpp:133
 #, kde-format
 msgid "Error: expected \" before ;"
 msgstr "S'ha produït un error: s'esperava \" abans de ;"
 
-#: backends/maxima/maximaexpression.cpp:400
+#: backends/maxima/maximaexpression.cpp:429
 #, kde-format
 msgid "Waiting for the plot result"
 msgstr "S'està esperant el resultat de la gràfica"
@@ -896,6 +908,56 @@ msgstr ""
 "Maxima ha fallat dues vegades en poc temps. Es deixarà de reintentar "
 "l'iniciada"
 
+#. i18n: ectx: property (text), widget (QLabel, lPlotIntegration)
+#: backends/maxima/settings.ui:67 backends/octave/settings.ui:135
+#, fuzzy, kde-format
+#| msgid "Integrate"
+msgid "Integrated:"
+msgstr "Integra"
+
+#. i18n: ectx: property (text), widget (QLabel, label_3)
+#. i18n: ectx: property (text), widget (QLabel, label_5)
+#: backends/maxima/settings.ui:84 backends/octave/settings.ui:118
+#, fuzzy, kde-format
+#| msgid "Font Size:"
+msgid "Size:"
+msgstr "Mida del tipus de lletra:"
+
+#. i18n: ectx: property (text), widget (QLabel, lPlotWidth)
+#: backends/maxima/settings.ui:112 backends/octave/settings.ui:58
+#, fuzzy, kde-format
+#| msgid "Width"
+msgid "width:"
+msgstr "Amplària"
+
+#. i18n: ectx: property (suffix), widget (QDoubleSpinBox, kcfg_plotWidth)
+#. i18n: ectx: property (suffix), widget (QDoubleSpinBox, kcfg_plotHeight)
+#: backends/maxima/settings.ui:119 backends/maxima/settings.ui:149
+#: backends/octave/settings.ui:65 backends/octave/settings.ui:95
+#, kde-format
+msgid "cm"
+msgstr ""
+
+#. i18n: ectx: property (text), widget (QLabel, lPlotHeight)
+#: backends/maxima/settings.ui:142 backends/octave/settings.ui:88
+#, fuzzy, kde-format
+#| msgid "Height"
+msgid "height:"
+msgstr "Alçària"
+
+#. i18n: ectx: property (text), widget (QLabel, label_2)
+#. i18n: ectx: property (text), widget (QLabel, label_3)
+#: backends/maxima/settings.ui:172 backends/octave/settings.ui:155
+#, kde-format
+msgid "Image Format:"
+msgstr ""
+
+#. i18n: ectx: property (text), item, widget (QComboBox, kcfg_inlinePlotFormat)
+#: backends/maxima/settings.ui:180 backends/octave/settings.ui:196
+#, kde-format
+msgid "PDF"
+msgstr ""
+
 #: backends/octave/octavebackend.cpp:63
 #, kde-format
 msgctxt ""
@@ -917,6 +979,11 @@ msgstr ""
 "problemes lineals i no lineals numèricament, i per a efectuar altres "
 "experiments numèrics emprant un llenguatge que és altament compatible amb "
 "Matlab."
+
+#: backends/octave/octaveexpression.cpp:203
+#, kde-format
+msgid "Invalid image file generated."
+msgstr ""
 
 #: backends/octave/octaveextensions.cpp:34
 #, kde-format
@@ -3440,17 +3507,17 @@ msgstr "Feu doble clic ací per a configurar les opcions de la imatge"
 msgid "Cannot load image %1"
 msgstr "No s'ha pogut carregar la imatge %1"
 
-#: imageresultitem.cpp:93
+#: imageresultitem.cpp:90
 #, kde-format
 msgid "%1 files (*.%2)"
 msgstr "Fitxers %1 (*.%2)"
 
-#: imageresultitem.cpp:96
+#: imageresultitem.cpp:93
 #, kde-format
 msgid "EPS files (*.eps)"
 msgstr "Fitxers EPS (*.eps)"
 
-#: imageresultitem.cpp:99
+#: imageresultitem.cpp:96
 #, kde-format
 msgid "Save image result"
 msgstr "Guarda la imatge resultant"
@@ -4282,19 +4349,19 @@ msgstr "Mostra l'HTML"
 msgid "Show HTML"
 msgstr "Mostra l'HTML"
 
-#: textresultitem.cpp:163
+#: textresultitem.cpp:160
 #, kde-format
 msgid "Cannot render Eps file. You may need additional packages"
 msgstr ""
 "No s'ha pogut renderitzar el fitxer EPS. Potser necessiteu programes "
 "addicionals"
 
-#: textresultitem.cpp:215
+#: textresultitem.cpp:212
 #, kde-format
 msgid "Save text result"
 msgstr "Guarda el text resultant"
 
-#: textresultitem.cpp:215
+#: textresultitem.cpp:212
 #, kde-format
 msgid "Text Files (*.txt)"
 msgstr "Fitxers de text (*.txt)"

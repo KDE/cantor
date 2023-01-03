@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-12-31 00:46+0000\n"
+"POT-Creation-Date: 2023-01-03 00:42+0000\n"
 "PO-Revision-Date: 2022-12-31 15:49+0000\n"
 "Last-Translator: Steve Allewell <steve.allewell@gmail.com>\n"
 "Language-Team: English <kde-i18n-doc@kde.org>\n"
@@ -43,12 +43,12 @@ msgstr "Start"
 msgid "Stop"
 msgstr "Stop"
 
-#: animationresultitem.cpp:113
+#: animationresultitem.cpp:111
 #, kde-format
 msgid "Save animation result"
 msgstr "Save animation result"
 
-#: animationresultitem.cpp:113
+#: animationresultitem.cpp:111
 #, kde-format
 msgid "Animations (*.gif)"
 msgstr "Animations (*.gif)"
@@ -495,24 +495,23 @@ msgid "General"
 msgstr "General"
 
 #. i18n: ectx: property (text), widget (QLabel, label)
-#: backends/julia/settings.ui:27 backends/maxima/settings.ui:61
-#: backends/octave/settings.ui:111 backends/sage/settings.ui:63
+#: backends/julia/settings.ui:27 backends/maxima/settings.ui:27
+#: backends/octave/settings.ui:165 backends/sage/settings.ui:63
 #: backends/scilab/settings.ui:27
 #, kde-format
 msgid "Executable:"
 msgstr "Executable:"
 
 #. i18n: ectx: property (text), widget (QLabel, lPlotIntegration)
-#: backends/julia/settings.ui:37 backends/maxima/settings.ui:37
-#: backends/octave/settings.ui:78 backends/python/settings.ui:47
+#: backends/julia/settings.ui:37 backends/python/settings.ui:47
 #: backends/R/settings.ui:53 backends/scilab/settings.ui:37
 #, kde-format
 msgid "Plot Integration:"
 msgstr "Plot Integration:"
 
 #. i18n: ectx: property (toolTip), widget (QCheckBox, kcfg_integratePlots)
-#: backends/julia/settings.ui:44 backends/maxima/settings.ui:27
-#: backends/octave/settings.ui:101 backends/python/settings.ui:64
+#: backends/julia/settings.ui:44 backends/maxima/settings.ui:74
+#: backends/octave/settings.ui:27 backends/python/settings.ui:64
 #: backends/R/settings.ui:33 backends/scilab/settings.ui:44
 #, kde-format
 msgid ""
@@ -534,8 +533,8 @@ msgstr ""
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_plotGrid)
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_plotBorder)
 #: backends/julia/settings.ui:47 backends/julia/settings.ui:64
-#: backends/maxima/settings.ui:30 backends/maxima/settings.ui:47
-#: backends/octave/settings.ui:61 backends/octave/settings.ui:104
+#: backends/maxima/settings.ui:47 backends/maxima/settings.ui:77
+#: backends/octave/settings.ui:30 backends/octave/settings.ui:128
 #: backends/python/settings.ui:67 backends/python/settings.ui:77
 #: backends/qalculate/settings.ui:125 backends/qalculate/settings.ui:142
 #: backends/qalculate/settings.ui:159 backends/qalculate/settings.ui:202
@@ -549,8 +548,8 @@ msgid "Enabled"
 msgstr "Enabled"
 
 #. i18n: ectx: property (text), widget (QLabel, lVariableManagement)
-#: backends/julia/settings.ui:54 backends/maxima/settings.ui:54
-#: backends/octave/settings.ui:71 backends/python/settings.ui:27
+#: backends/julia/settings.ui:54 backends/maxima/settings.ui:37
+#: backends/octave/settings.ui:172 backends/python/settings.ui:27
 #: backends/R/settings.ui:76
 #, kde-format
 msgid "Variable Management:"
@@ -558,7 +557,7 @@ msgstr "Variable Management:"
 
 #. i18n: ectx: property (toolTip), widget (QCheckBox, kcfg_variableManagement)
 #: backends/julia/settings.ui:61 backends/maxima/settings.ui:44
-#: backends/octave/settings.ui:58 backends/python/settings.ui:74
+#: backends/octave/settings.ui:125 backends/python/settings.ui:74
 #: backends/R/settings.ui:43
 #, kde-format
 msgid ""
@@ -569,8 +568,7 @@ msgstr ""
 "variables in the variable panel."
 
 #. i18n: ectx: property (text), widget (QLabel, label2)
-#. i18n: ectx: property (text), widget (QLabel, label_2)
-#: backends/julia/settings.ui:71 backends/octave/settings.ui:27
+#: backends/julia/settings.ui:71
 #, kde-format
 msgid "Internal Plot Format:"
 msgstr "Internal Plot Format:"
@@ -604,7 +602,9 @@ msgid "GR"
 msgstr "GR"
 
 #. i18n: ectx: property (text), item, widget (KComboBox, kcfg_plotExtenstionGraphicPackage)
-#: backends/julia/settings.ui:120
+#. i18n: ectx: property (text), widget (QLabel, label_4)
+#: backends/julia/settings.ui:120 backends/maxima/settings.ui:60
+#: backends/octave/settings.ui:148
 #, kde-format
 msgid "Plots"
 msgstr "Plots"
@@ -624,7 +624,7 @@ msgstr "Gadfly"
 #. i18n: ectx: attribute (title), widget (QWidget, tabAutorun)
 #. i18n: ectx: attribute (title), widget (QWidget, tabAutoran)
 #: backends/julia/settings.ui:152 backends/lua/settings.ui:51
-#: backends/maxima/settings.ui:85 backends/octave/settings.ui:119
+#: backends/maxima/settings.ui:228 backends/octave/settings.ui:231
 #: backends/python/settings.ui:123 backends/qalculate/settings.ui:556
 #: backends/R/settings.ui:84 backends/sage/settings.ui:71
 #: backends/scilab/settings.ui:68
@@ -636,8 +636,8 @@ msgstr "Autorun"
 #. i18n: ectx: property (title), widget (QGroupBox, groupBox)
 #. i18n: ectx: property (text), widget (QLabel, label_2)
 #: backends/julia/settings.ui:158 backends/kalgebra/settings.ui:20
-#: backends/lua/settings.ui:57 backends/maxima/settings.ui:91
-#: backends/octave/settings.ui:125 backends/python/settings.ui:129
+#: backends/lua/settings.ui:57 backends/maxima/settings.ui:234
+#: backends/octave/settings.ui:237 backends/python/settings.ui:129
 #: backends/qalculate/settings.ui:562 backends/R/settings.ui:90
 #: backends/sage/settings.ui:77 backends/scilab/settings.ui:74
 #, kde-format
@@ -646,7 +646,7 @@ msgstr "Commands to autorun"
 
 #. i18n: ectx: attribute (title), widget (QWidget, tabDocumentation)
 #: backends/julia/settings.ui:172 backends/lua/settings.ui:71
-#: backends/maxima/settings.ui:105 backends/octave/settings.ui:139
+#: backends/maxima/settings.ui:248 backends/octave/settings.ui:251
 #: backends/python/settings.ui:143 backends/qalculate/settings.ui:575
 #: backends/R/settings.ui:104 backends/sage/settings.ui:91
 #: backends/scilab/settings.ui:88
@@ -837,22 +837,34 @@ msgstr ""
 msgid "Path to the Maxima executable"
 msgstr "Path to the Maxima executable"
 
-#: backends/maxima/maximaexpression.cpp:104
+#. i18n: ectx: label, entry (plotWidth), group (MaximaBackend)
+#: backends/maxima/maximabackend.kcfg:41
+#, kde-format
+msgid "Default plot width"
+msgstr ""
+
+#. i18n: ectx: label, entry (plotHeight), group (MaximaBackend)
+#: backends/maxima/maximabackend.kcfg:45
+#, kde-format
+msgid "Default plot height"
+msgstr ""
+
+#: backends/maxima/maximaexpression.cpp:114
 #, kde-format
 msgid "Error: Too many */"
 msgstr "Error: Too many */"
 
-#: backends/maxima/maximaexpression.cpp:117
+#: backends/maxima/maximaexpression.cpp:127
 #, kde-format
 msgid "Error: Too many /*"
 msgstr "Error: Too many /*"
 
-#: backends/maxima/maximaexpression.cpp:123
+#: backends/maxima/maximaexpression.cpp:133
 #, kde-format
 msgid "Error: expected \" before ;"
 msgstr "Error: expected \" before ;"
 
-#: backends/maxima/maximaexpression.cpp:400
+#: backends/maxima/maximaexpression.cpp:429
 #, kde-format
 msgid "Waiting for the plot result"
 msgstr "Waiting for the plot result"
@@ -877,6 +889,56 @@ msgstr "Maxima crashed. restarting..."
 msgid "Maxima crashed twice within a short time. Stopping to try starting"
 msgstr "Maxima crashed twice within a short time. Stopping to try starting"
 
+#. i18n: ectx: property (text), widget (QLabel, lPlotIntegration)
+#: backends/maxima/settings.ui:67 backends/octave/settings.ui:135
+#, fuzzy, kde-format
+#| msgid "Integrate"
+msgid "Integrated:"
+msgstr "Integrate"
+
+#. i18n: ectx: property (text), widget (QLabel, label_3)
+#. i18n: ectx: property (text), widget (QLabel, label_5)
+#: backends/maxima/settings.ui:84 backends/octave/settings.ui:118
+#, fuzzy, kde-format
+#| msgid "Font Size:"
+msgid "Size:"
+msgstr "Font Size:"
+
+#. i18n: ectx: property (text), widget (QLabel, lPlotWidth)
+#: backends/maxima/settings.ui:112 backends/octave/settings.ui:58
+#, fuzzy, kde-format
+#| msgid "Width"
+msgid "width:"
+msgstr "Width"
+
+#. i18n: ectx: property (suffix), widget (QDoubleSpinBox, kcfg_plotWidth)
+#. i18n: ectx: property (suffix), widget (QDoubleSpinBox, kcfg_plotHeight)
+#: backends/maxima/settings.ui:119 backends/maxima/settings.ui:149
+#: backends/octave/settings.ui:65 backends/octave/settings.ui:95
+#, kde-format
+msgid "cm"
+msgstr ""
+
+#. i18n: ectx: property (text), widget (QLabel, lPlotHeight)
+#: backends/maxima/settings.ui:142 backends/octave/settings.ui:88
+#, fuzzy, kde-format
+#| msgid "Height"
+msgid "height:"
+msgstr "Height"
+
+#. i18n: ectx: property (text), widget (QLabel, label_2)
+#. i18n: ectx: property (text), widget (QLabel, label_3)
+#: backends/maxima/settings.ui:172 backends/octave/settings.ui:155
+#, kde-format
+msgid "Image Format:"
+msgstr ""
+
+#. i18n: ectx: property (text), item, widget (QComboBox, kcfg_inlinePlotFormat)
+#: backends/maxima/settings.ui:180 backends/octave/settings.ui:196
+#, kde-format
+msgid "PDF"
+msgstr ""
+
 #: backends/octave/octavebackend.cpp:63
 #, kde-format
 msgctxt ""
@@ -897,6 +959,11 @@ msgstr ""
 "computations. <br/>It provides a convenient command line interface for "
 "solving linear and non-linear problems numerically, and for performing other "
 "numerical experiments using a language that is mostly compatible with Matlab."
+
+#: backends/octave/octaveexpression.cpp:203
+#, kde-format
+msgid "Invalid image file generated."
+msgstr ""
 
 #: backends/octave/octaveextensions.cpp:34
 #, kde-format
@@ -3388,17 +3455,17 @@ msgstr "Double click here to configure image settings"
 msgid "Cannot load image %1"
 msgstr "Cannot load image %1"
 
-#: imageresultitem.cpp:93
+#: imageresultitem.cpp:90
 #, kde-format
 msgid "%1 files (*.%2)"
 msgstr "%1 files (*.%2)"
 
-#: imageresultitem.cpp:96
+#: imageresultitem.cpp:93
 #, kde-format
 msgid "EPS files (*.eps)"
 msgstr "EPS files (*.eps)"
 
-#: imageresultitem.cpp:99
+#: imageresultitem.cpp:96
 #, kde-format
 msgid "Save image result"
 msgstr "Save image result"
@@ -4222,17 +4289,17 @@ msgstr "Show Html"
 msgid "Show HTML"
 msgstr "Show HTML"
 
-#: textresultitem.cpp:163
+#: textresultitem.cpp:160
 #, kde-format
 msgid "Cannot render Eps file. You may need additional packages"
 msgstr "Cannot render Eps file. You may need additional packages"
 
-#: textresultitem.cpp:215
+#: textresultitem.cpp:212
 #, kde-format
 msgid "Save text result"
 msgstr "Save text result"
 
-#: textresultitem.cpp:215
+#: textresultitem.cpp:212
 #, kde-format
 msgid "Text Files (*.txt)"
 msgstr "Text Files (*.txt)"
