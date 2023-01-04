@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: cantor\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-01-03 00:42+0000\n"
+"POT-Creation-Date: 2023-01-04 00:43+0000\n"
 "PO-Revision-Date: 2023-01-01 11:08+0100\n"
 "Last-Translator: Xavier BESNARD <xavier.besnard]neuf.fr>\n"
 "Language-Team: fr\n"
@@ -2757,21 +2757,28 @@ msgstr ""
 "pour les entrées par défaut « Texte » et « Marquage » (nécessite que le "
 "paquet « pdflatex » soit installé)."
 
-#. i18n: ectx: label, entry (AutoEval), group (Cantor)
+#. i18n: ectx: label, entry (WarnAboutEntryDelete), group (Cantor)
 #: cantor.kcfg:40
+#, fuzzy, kde-format
+#| msgid "Ask for confirmation when restarting the backend"
+msgid "Ask for confirmation when deleting an entry"
+msgstr "Demander une confirmation pour re-démarrer le moteur :"
+
+#. i18n: ectx: label, entry (AutoEval), group (Cantor)
+#: cantor.kcfg:44
 #, kde-format
 msgid "Automatically reevaluate the entries below the current"
 msgstr "Réévaluer automatiquement les éléments situés sous l'actuel"
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_WarnAboutSessionRestart)
 #. i18n: ectx: label, entry (WarnAboutSessionRestart), group (Cantor)
-#: cantor.kcfg:44 settings.ui:181
+#: cantor.kcfg:48 settings.ui:269
 #, kde-format
 msgid "Ask for confirmation when restarting the backend"
 msgstr "Demander une confirmation pour re-démarrer le moteur :"
 
 #. i18n: ectx: label, entry (StoreTextEntryFormatting), group (Cantor)
-#: cantor.kcfg:48
+#: cantor.kcfg:52
 #, kde-format
 msgid ""
 "Save rich text formatting of TextEntry, when save Worksheet in Jupyter "
@@ -2781,143 +2788,143 @@ msgstr ""
 "l'enregistrement de la feuille de calcul au format « Notebook Jupyter »"
 
 #. i18n: ectx: label, entry (UseOldCantorEntriesIndent), group (Cantor)
-#: cantor.kcfg:52
+#: cantor.kcfg:56
 #, kde-format
 msgid "Use old style Cantor entries placement style"
 msgstr "Utiliser l'ancien style de placement des entrées Cantor"
 
 #. i18n: ectx: label, entry (ShowMathRenderError), group (Cantor)
-#: cantor.kcfg:56
+#: cantor.kcfg:60
 #, kde-format
 msgid "Show embedded math render error"
 msgstr "Afficher l'erreur de rendu intégré de mathématiques"
 
 #. i18n: ectx: label, entry (VisibleLinesLimit), group (Cantor)
-#: cantor.kcfg:60
+#: cantor.kcfg:64
 #, kde-format
 msgid "Limit of visible lines for text result"
 msgstr "Limite des lignes visibles pour le résultat textuel"
 
 #. i18n: ectx: label, entry (ChapterFontFamily), group (Cantor)
-#: cantor.kcfg:64
+#: cantor.kcfg:68
 #, kde-format
 msgid "Hierarchy font for chapter"
 msgstr "Police hiérarchique de chapitre"
 
 #. i18n: ectx: label, entry (ChapterFontSize), group (Cantor)
-#: cantor.kcfg:68
+#: cantor.kcfg:72
 #, kde-format
 msgid "Hierarchy font size for chapter"
 msgstr "Taille de la police hiérarchique de chapitre"
 
 #. i18n: ectx: label, entry (ChapterFontItalic), group (Cantor)
-#: cantor.kcfg:72
+#: cantor.kcfg:76
 #, kde-format
 msgid "Hierarchy font italic for chapter"
 msgstr "Format italique de la police hiérarchique de chapitre"
 
 #. i18n: ectx: label, entry (ChapterFontBold), group (Cantor)
-#: cantor.kcfg:76
+#: cantor.kcfg:80
 #, kde-format
 msgid "Hierarchy font bold for chapter"
 msgstr "Format gras de la police hiérarchique de chapitre"
 
 #. i18n: ectx: label, entry (SubchapterFontFamily), group (Cantor)
-#: cantor.kcfg:80
+#: cantor.kcfg:84
 #, kde-format
 msgid "Hierarchy font for subchapter"
 msgstr "Police hiérarchique de sous-chapitre"
 
 #. i18n: ectx: label, entry (SubchapterFontSize), group (Cantor)
-#: cantor.kcfg:84
+#: cantor.kcfg:88
 #, kde-format
 msgid "Hierarchy font size for subchapter"
 msgstr "Taille de la police hiérarchique de sous-chapitre"
 
 #. i18n: ectx: label, entry (SubchapterFontItalic), group (Cantor)
-#: cantor.kcfg:88
+#: cantor.kcfg:92
 #, kde-format
 msgid "Hierarchy font italic for subchapter"
 msgstr "Format italique de la police hiérarchique de sous-chapitre"
 
 #. i18n: ectx: label, entry (SubchapterFontBold), group (Cantor)
-#: cantor.kcfg:92
+#: cantor.kcfg:96
 #, kde-format
 msgid "Hierarchy font bold for subchapter"
 msgstr "Format gras de la police hiérarchique de sous-chapitre"
 
 #. i18n: ectx: label, entry (SectionFontFamily), group (Cantor)
 #. i18n: ectx: label, entry (SectionFontSize), group (Cantor)
-#: cantor.kcfg:96 cantor.kcfg:100
+#: cantor.kcfg:100 cantor.kcfg:104
 #, kde-format
 msgid "Hierarchy font for section"
 msgstr "Police hiérarchique de section"
 
 #. i18n: ectx: label, entry (SectionFontItalic), group (Cantor)
-#: cantor.kcfg:104
+#: cantor.kcfg:108
 #, kde-format
 msgid "Hierarchy font italic for section"
 msgstr "Format italique pour la police hiérarchique de section"
 
 #. i18n: ectx: label, entry (SectionFontBold), group (Cantor)
-#: cantor.kcfg:108
+#: cantor.kcfg:112
 #, kde-format
 msgid "Hierarchy font bold for section"
 msgstr "Format gras pour la police hiérarchique de section"
 
 #. i18n: ectx: label, entry (SubsectionFontFamily), group (Cantor)
 #. i18n: ectx: label, entry (SubsectionFontSize), group (Cantor)
-#: cantor.kcfg:112 cantor.kcfg:116
+#: cantor.kcfg:116 cantor.kcfg:120
 #, kde-format
 msgid "Hierarchy font for subsection"
 msgstr "Police hiérarchique de sous-section"
 
 #. i18n: ectx: label, entry (SubsectionFontItalic), group (Cantor)
-#: cantor.kcfg:120
+#: cantor.kcfg:124
 #, kde-format
 msgid "Hierarchy font italic for subsection"
 msgstr "Format italique pour la police hiérarchique de sous-section"
 
 #. i18n: ectx: label, entry (SubsectionFontBold), group (Cantor)
-#: cantor.kcfg:124
+#: cantor.kcfg:128
 #, kde-format
 msgid "Hierarchy font bold for subsection"
 msgstr "Format gras pour la police hiérarchique de sous-section"
 
 #. i18n: ectx: label, entry (ParagraphFontFamily), group (Cantor)
 #. i18n: ectx: label, entry (ParagraphFontSize), group (Cantor)
-#: cantor.kcfg:128 cantor.kcfg:132
+#: cantor.kcfg:132 cantor.kcfg:136
 #, kde-format
 msgid "Hierarchy font for paragraph"
 msgstr "Police hiérarchique du paragraphe"
 
 #. i18n: ectx: label, entry (ParagraphFontItalic), group (Cantor)
-#: cantor.kcfg:136
+#: cantor.kcfg:140
 #, kde-format
 msgid "Hierarchy font italic for paragraph"
 msgstr "Format italique de la police hiérarchique du paragraphe"
 
 #. i18n: ectx: label, entry (ParagraphFontBold), group (Cantor)
-#: cantor.kcfg:140
+#: cantor.kcfg:144
 #, kde-format
 msgid "Hierarchy font bold for paragraph"
 msgstr "Format gras de la police hiérarchique du paragraphe"
 
 #. i18n: ectx: label, entry (SubparagraphFontFamily), group (Cantor)
 #. i18n: ectx: label, entry (SubparagraphFontSize), group (Cantor)
-#: cantor.kcfg:144 cantor.kcfg:148
+#: cantor.kcfg:148 cantor.kcfg:152
 #, kde-format
 msgid "Hierarchy font for subparagraph"
 msgstr "Police hiérarchique du sous-paragraphe"
 
 #. i18n: ectx: label, entry (SubparagraphFontItalic), group (Cantor)
-#: cantor.kcfg:152
+#: cantor.kcfg:156
 #, kde-format
 msgid "Hierarchy font italic for subparagraph"
 msgstr "Format italique de la police hiérarchique du sous-paragraphe"
 
 #. i18n: ectx: label, entry (SubparagraphFontBold), group (Cantor)
-#: cantor.kcfg:156
+#: cantor.kcfg:160
 #, kde-format
 msgid "Hierarchy font bold for subparagraph"
 msgstr "Format gras de la police hiérarchique du sous-paragraphe"
@@ -2953,7 +2960,7 @@ msgid "Syntax Highlighting"
 msgstr "Coloration syntaxique"
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_CompletionDefault)
-#: cantor_part.cpp:230 settings.ui:105
+#: cantor_part.cpp:230 settings.ui:46
 #, kde-format
 msgid "Completion"
 msgstr "Complètement automatique"
@@ -2964,7 +2971,7 @@ msgid "Line Numbers"
 msgstr "Numéros de lignes"
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_AnimationDefault)
-#: cantor_part.cpp:240 settings.ui:125
+#: cantor_part.cpp:240 settings.ui:138
 #, kde-format
 msgid "Animations"
 msgstr "Animations"
@@ -2979,7 +2986,7 @@ msgstr "Module Math intégré"
 msgid "Restart Backend"
 msgstr "Redémarrer le moteur"
 
-#: cantor_part.cpp:260 worksheetentry.cpp:854
+#: cantor_part.cpp:260 worksheetentry.cpp:858
 #, kde-format
 msgid "Evaluate Entry"
 msgstr "Évaluer un élément"
@@ -4125,15 +4132,27 @@ msgstr "Texte"
 msgid "LaTeX Code"
 msgstr "Code LaTeX"
 
-#. i18n: ectx: property (text), widget (QLabel, label_2)
+#. i18n: ectx: property (text), widget (QLabel, label_4)
 #: settings.ui:23
+#, kde-format
+msgid "Evaluation:"
+msgstr "Évaluation :"
+
+#. i18n: ectx: property (toolTip), widget (QCheckBox, kcfg_CompletionDefault)
+#: settings.ui:43
+#, kde-format
+msgid "Enable syntax completion"
+msgstr "Activer le complètement syntaxique"
+
+#. i18n: ectx: property (text), widget (QLabel, label_2)
+#: settings.ui:59
 #, kde-format
 msgid "Startup:"
 msgstr "Démarrage :"
 
 #. i18n: ectx: property (toolTip), widget (QLabel, label)
 #. i18n: ectx: property (toolTip), widget (KComboBox, kcfg_DefaultBackend)
-#: settings.ui:30 settings.ui:293
+#: settings.ui:66 settings.ui:109
 #, kde-format
 msgid ""
 "Create a new worksheet for the selected backend system. If none is selected, "
@@ -4144,19 +4163,23 @@ msgstr ""
 "sur le système à utiliser au démarrage."
 
 #. i18n: ectx: property (text), widget (QLabel, label)
-#: settings.ui:33
+#: settings.ui:69
 #, kde-format
 msgid "Default Backend:"
 msgstr "Moteur par défaut :"
 
-#. i18n: ectx: property (text), widget (QLabel, label_3)
-#: settings.ui:75
+#. i18n: ectx: property (toolTip), widget (QSpinBox, kcfg_VisibleLinesLimit)
+#: settings.ui:76
 #, kde-format
-msgid "Worksheet:"
-msgstr "Feuille de calcul :"
+msgid ""
+"Maximal number of visible rows in the result of a command entry. Use 0 to "
+"work without limitations."
+msgstr ""
+"Nombre maximal de colonnes visibles dans le résultat d'une commande. "
+"Utiliser 0 pour travailler sans aucune limitation."
 
 #. i18n: ectx: property (toolTip), widget (QCheckBox, kcfg_TypesetDefault)
-#: settings.ui:82
+#: settings.ui:89
 #, kde-format
 msgid ""
 "Enable LaTeX typesetting for the results of the calculations, if supported "
@@ -4166,49 +4189,76 @@ msgstr ""
 "pris en charge par le système de moteurs."
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_TypesetDefault)
-#: settings.ui:85
+#: settings.ui:92
 #, kde-format
 msgid "LaTeX typesetting"
 msgstr "Composition LaTex"
 
-#. i18n: ectx: property (toolTip), widget (QCheckBox, kcfg_HighlightDefault)
-#: settings.ui:92
-#, kde-format
-msgid "Enable syntax highlighting"
-msgstr "Activer la coloration syntaxique"
-
-#. i18n: ectx: property (text), widget (QCheckBox, kcfg_HighlightDefault)
-#: settings.ui:95
-#, kde-format
-msgid "Syntax highlighting"
-msgstr "Coloration syntaxique"
-
-#. i18n: ectx: property (toolTip), widget (QCheckBox, kcfg_CompletionDefault)
+#. i18n: ectx: property (text), widget (QLabel, VisibleLinesLimit_label)
 #: settings.ui:102
 #, kde-format
-msgid "Enable syntax completion"
-msgstr "Activer le complètement syntaxique"
-
-#. i18n: ectx: property (toolTip), widget (QCheckBox, kcfg_ExpressionNumberingDefault)
-#: settings.ui:112
-#, kde-format
-msgid "Show line numbers"
-msgstr "Afficher les numéros de lignes"
-
-#. i18n: ectx: property (text), widget (QCheckBox, kcfg_ExpressionNumberingDefault)
-#: settings.ui:115
-#, kde-format
-msgid "Line numbers"
-msgstr "Numéros de lignes"
+msgid "Number of rows in the result (0 for unlimited):"
+msgstr "Nombre de colonnes dans le résultat (0 pour illimité) :"
 
 #. i18n: ectx: property (toolTip), widget (QCheckBox, kcfg_AnimationDefault)
-#: settings.ui:122
+#: settings.ui:135
 #, kde-format
 msgid "Enable animation effects in the worksheet"
 msgstr "Activer les effets d'animation dans la feuille de travail"
 
+#. i18n: ectx: property (toolTip), widget (QCheckBox, kcfg_EmbeddedMathDefault)
+#: settings.ui:158
+#, kde-format
+msgid ""
+"Enable LaTeX typesetting for mathematical expressions in Markdown entries"
+msgstr ""
+"Activer la composition LaTex pour les expressions mathématiques dans les "
+"entrées « Markdown »"
+
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_EmbeddedMathDefault)
+#: settings.ui:161
+#, kde-format
+msgid "Mathematical expressions via LaTeX"
+msgstr "Expressions mathématiques grâce à LaTeX"
+
+#. i18n: ectx: property (toolTip), widget (QCheckBox, kcfg_AutoEval)
+#: settings.ui:168
+#, kde-format
+msgid ""
+"If enabled, all entries below the current one will be evaluated automatically"
+msgstr ""
+"Si cette option est activée, toutes les entrées sous celle courante seront "
+"évaluées automatiquement."
+
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_AutoEval)
+#: settings.ui:171
+#, kde-format
+msgid "Reevaluate entries automatically"
+msgstr "Réévaluer les entrées automatiquement"
+
+#. i18n: ectx: property (text), widget (QLabel, label_3)
+#: settings.ui:184
+#, kde-format
+msgid "Worksheet:"
+msgstr "Feuille de calcul :"
+
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_StoreTextEntryFormatting)
+#: settings.ui:223
+#, kde-format
+msgid ""
+"Use rich text format for text entries when saving in Jupyter Notebook Format"
+msgstr ""
+"Utiliser le format « Rich Text Format » pour les entrées de texte lors de "
+"l'enregistrement au format « Notebook Jupyter »"
+
+#. i18n: ectx: property (text), widget (QLabel, label_5)
+#: settings.ui:236
+#, kde-format
+msgid "Markdown:"
+msgstr "Markdown :"
+
 #. i18n: ectx: property (toolTip), widget (QCheckBox, kcfg_UseOldCantorEntriesIndent)
-#: settings.ui:132
+#: settings.ui:243
 #, kde-format
 msgid ""
 "If enabled, text entries are aligned at the worksheet border and not at the "
@@ -4218,28 +4268,13 @@ msgstr ""
 "bordure de la feuille de travail et non sur la bordure du prompt."
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_UseOldCantorEntriesIndent)
-#: settings.ui:135
+#: settings.ui:246
 #, kde-format
 msgid "Don't indent text entries"
 msgstr "Ne pas indenter les entrées de texte"
 
-#. i18n: ectx: property (text), widget (QCheckBox, kcfg_StoreTextEntryFormatting)
-#: settings.ui:142
-#, kde-format
-msgid ""
-"Use rich text format for text entries when saving in Jupyter Notebook Format"
-msgstr ""
-"Utiliser le format « Rich Text Format » pour les entrées de texte lors de "
-"l'enregistrement au format « Notebook Jupyter »"
-
-#. i18n: ectx: property (text), widget (QLabel, label_4)
-#: settings.ui:171
-#, kde-format
-msgid "Evaluation:"
-msgstr "Évaluation :"
-
 #. i18n: ectx: property (toolTip), widget (QCheckBox, kcfg_WarnAboutSessionRestart)
-#: settings.ui:178
+#: settings.ui:266
 #, kde-format
 msgid ""
 "If enabled, the user will be asked for confirmation prior to restarting the "
@@ -4248,63 +4283,42 @@ msgstr ""
 "Si cette option est activée, une demande sera faite à l'utilisateur pour une "
 "confirmation avant de re-démarrer le système de moteurs."
 
-#. i18n: ectx: property (toolTip), widget (QCheckBox, kcfg_AutoEval)
-#: settings.ui:188
-#, kde-format
-msgid ""
-"If enabled, all entries below the current one will be evaluated automatically"
-msgstr ""
-"Si cette option est activée, toutes les entrées sous celle courante seront "
-"évaluées automatiquement."
-
-#. i18n: ectx: property (text), widget (QCheckBox, kcfg_AutoEval)
-#: settings.ui:191
-#, kde-format
-msgid "Reevaluate entries automatically"
-msgstr "Réévaluer les entrées automatiquement"
-
-#. i18n: ectx: property (text), widget (QLabel, VisibleLinesLimit_label)
-#: settings.ui:201
-#, kde-format
-msgid "Number of rows in the result (0 for unlimited):"
-msgstr "Nombre de colonnes dans le résultat (0 pour illimité) :"
-
-#. i18n: ectx: property (toolTip), widget (QSpinBox, kcfg_VisibleLinesLimit)
-#: settings.ui:221
-#, kde-format
-msgid ""
-"Maximal number of visible rows in the result of a command entry. Use 0 to "
-"work without limitations."
-msgstr ""
-"Nombre maximal de colonnes visibles dans le résultat d'une commande. "
-"Utiliser 0 pour travailler sans aucune limitation."
-
-#. i18n: ectx: property (text), widget (QLabel, label_5)
-#: settings.ui:256
-#, kde-format
-msgid "Markdown:"
-msgstr "Markdown :"
-
-#. i18n: ectx: property (toolTip), widget (QCheckBox, kcfg_EmbeddedMathDefault)
-#: settings.ui:263
-#, kde-format
-msgid ""
-"Enable LaTeX typesetting for mathematical expressions in Markdown entries"
-msgstr ""
-"Activer la composition LaTex pour les expressions mathématiques dans les "
-"entrées « Markdown »"
-
-#. i18n: ectx: property (text), widget (QCheckBox, kcfg_EmbeddedMathDefault)
-#: settings.ui:266
-#, kde-format
-msgid "Mathematical expressions via LaTeX"
-msgstr "Expressions mathématiques grâce à LaTeX"
-
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_ShowMathRenderError)
-#: settings.ui:273
+#: settings.ui:276
 #, kde-format
 msgid "Notify about render failures for mathematical expressions"
 msgstr "Signaler les échecs de rendu pour les expressions mathématiques"
+
+#. i18n: ectx: property (toolTip), widget (QCheckBox, kcfg_ExpressionNumberingDefault)
+#: settings.ui:283
+#, kde-format
+msgid "Show line numbers"
+msgstr "Afficher les numéros de lignes"
+
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_ExpressionNumberingDefault)
+#: settings.ui:286
+#, kde-format
+msgid "Line numbers"
+msgstr "Numéros de lignes"
+
+#. i18n: ectx: property (toolTip), widget (QCheckBox, kcfg_HighlightDefault)
+#: settings.ui:293
+#, kde-format
+msgid "Enable syntax highlighting"
+msgstr "Activer la coloration syntaxique"
+
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_HighlightDefault)
+#: settings.ui:296
+#, kde-format
+msgid "Syntax highlighting"
+msgstr "Coloration syntaxique"
+
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_WarnAboutEntryDelete)
+#: settings.ui:303
+#, fuzzy, kde-format
+#| msgid "Ask for confirmation when restarting the backend"
+msgid "Ask for confirmation when deleting entries"
+msgstr "Demander une confirmation pour re-démarrer le moteur :"
 
 #. i18n: ectx: property (placeholderText), widget (KLineEdit, pattern)
 #: standardsearchbar.ui:35
@@ -4900,17 +4914,17 @@ msgstr "Déplacer vers le haut"
 msgid "Move Down"
 msgstr "Déplacer vers le bas"
 
-#: worksheetentry.cpp:717
+#: worksheetentry.cpp:719
 #, kde-format
 msgid "Do you really want to remove this entry?"
 msgstr "Voulez-vous vraiment supprimer cette entrée ?"
 
-#: worksheetentry.cpp:717 worksheetentry.cpp:845
+#: worksheetentry.cpp:719 worksheetentry.cpp:849
 #, kde-format
 msgid "Remove Entry"
 msgstr "Supprimer une entrée"
 
-#: worksheetentry.cpp:850
+#: worksheetentry.cpp:854
 #, kde-format
 msgid "Drag Entry"
 msgstr "Faire glisser une entrée"

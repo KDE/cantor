@@ -3,13 +3,13 @@
 # This file is distributed under the license LGPL version 2.1 or
 # version 3 or later versions approved by the membership of KDE e.V.
 #
-# Yuri Chornoivan <yurchor@ukr.net>, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022.
+# Yuri Chornoivan <yurchor@ukr.net>, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023.
 msgid ""
 msgstr ""
 "Project-Id-Version: cantor\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-01-03 00:42+0000\n"
-"PO-Revision-Date: 2022-12-31 09:02+0200\n"
+"POT-Creation-Date: 2023-01-04 00:43+0000\n"
+"PO-Revision-Date: 2023-01-03 15:57+0200\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian <kde-i18n-uk@kde.org>\n"
 "Language: uk\n"
@@ -853,13 +853,13 @@ msgstr "Шлях до виконуваного файла Maxima"
 #: backends/maxima/maximabackend.kcfg:41
 #, kde-format
 msgid "Default plot width"
-msgstr ""
+msgstr "Типова ширина креслення"
 
 #. i18n: ectx: label, entry (plotHeight), group (MaximaBackend)
 #: backends/maxima/maximabackend.kcfg:45
 #, kde-format
 msgid "Default plot height"
-msgstr ""
+msgstr "Типова висота креслення"
 
 #: backends/maxima/maximaexpression.cpp:114
 #, kde-format
@@ -905,25 +905,22 @@ msgstr ""
 
 #. i18n: ectx: property (text), widget (QLabel, lPlotIntegration)
 #: backends/maxima/settings.ui:67 backends/octave/settings.ui:135
-#, fuzzy, kde-format
-#| msgid "Integrate"
+#, kde-format
 msgid "Integrated:"
-msgstr "Проінтегрувати"
+msgstr "Інтегрована:"
 
 #. i18n: ectx: property (text), widget (QLabel, label_3)
 #. i18n: ectx: property (text), widget (QLabel, label_5)
 #: backends/maxima/settings.ui:84 backends/octave/settings.ui:118
-#, fuzzy, kde-format
-#| msgid "Font Size:"
+#, kde-format
 msgid "Size:"
-msgstr "Розмір шрифту:"
+msgstr "Розмір:"
 
 #. i18n: ectx: property (text), widget (QLabel, lPlotWidth)
 #: backends/maxima/settings.ui:112 backends/octave/settings.ui:58
-#, fuzzy, kde-format
-#| msgid "Width"
+#, kde-format
 msgid "width:"
-msgstr "Ширина"
+msgstr "ширина:"
 
 #. i18n: ectx: property (suffix), widget (QDoubleSpinBox, kcfg_plotWidth)
 #. i18n: ectx: property (suffix), widget (QDoubleSpinBox, kcfg_plotHeight)
@@ -931,27 +928,26 @@ msgstr "Ширина"
 #: backends/octave/settings.ui:65 backends/octave/settings.ui:95
 #, kde-format
 msgid "cm"
-msgstr ""
+msgstr "см"
 
 #. i18n: ectx: property (text), widget (QLabel, lPlotHeight)
 #: backends/maxima/settings.ui:142 backends/octave/settings.ui:88
-#, fuzzy, kde-format
-#| msgid "Height"
+#, kde-format
 msgid "height:"
-msgstr "Висота"
+msgstr "висота:"
 
 #. i18n: ectx: property (text), widget (QLabel, label_2)
 #. i18n: ectx: property (text), widget (QLabel, label_3)
 #: backends/maxima/settings.ui:172 backends/octave/settings.ui:155
 #, kde-format
 msgid "Image Format:"
-msgstr ""
+msgstr "Формат зображення:"
 
 #. i18n: ectx: property (text), item, widget (QComboBox, kcfg_inlinePlotFormat)
 #: backends/maxima/settings.ui:180 backends/octave/settings.ui:196
 #, kde-format
 msgid "PDF"
-msgstr ""
+msgstr "PDF"
 
 #: backends/octave/octavebackend.cpp:63
 #, kde-format
@@ -978,7 +974,7 @@ msgstr ""
 #: backends/octave/octaveexpression.cpp:203
 #, kde-format
 msgid "Invalid image file generated."
-msgstr ""
+msgstr "Створено некоректний файл зображення."
 
 #: backends/octave/octaveextensions.cpp:34
 #, kde-format
@@ -2739,21 +2735,28 @@ msgstr ""
 "Увімкнути обробку математичних формул у конструкціях $$..$$ у записах Text "
 "та Markdown (потребує встановлення pdflatex)"
 
-#. i18n: ectx: label, entry (AutoEval), group (Cantor)
+#. i18n: ectx: label, entry (WarnAboutEntryDelete), group (Cantor)
 #: cantor.kcfg:40
+#, fuzzy, kde-format
+#| msgid "Ask for confirmation when restarting the backend"
+msgid "Ask for confirmation when deleting an entry"
+msgstr "Підтверджувати перезапуск модуля"
+
+#. i18n: ectx: label, entry (AutoEval), group (Cantor)
+#: cantor.kcfg:44
 #, kde-format
 msgid "Automatically reevaluate the entries below the current"
 msgstr "Автоматично переобчислювати записи під поточним"
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_WarnAboutSessionRestart)
 #. i18n: ectx: label, entry (WarnAboutSessionRestart), group (Cantor)
-#: cantor.kcfg:44 settings.ui:181
+#: cantor.kcfg:48 settings.ui:269
 #, kde-format
 msgid "Ask for confirmation when restarting the backend"
 msgstr "Підтверджувати перезапуск модуля"
 
 #. i18n: ectx: label, entry (StoreTextEntryFormatting), group (Cantor)
-#: cantor.kcfg:48
+#: cantor.kcfg:52
 #, kde-format
 msgid ""
 "Save rich text formatting of TextEntry, when save Worksheet in Jupyter "
@@ -2763,143 +2766,143 @@ msgstr ""
 "форматі нотатника Jupyter"
 
 #. i18n: ectx: label, entry (UseOldCantorEntriesIndent), group (Cantor)
-#: cantor.kcfg:52
+#: cantor.kcfg:56
 #, kde-format
 msgid "Use old style Cantor entries placement style"
 msgstr "Розташування записів Cantor у старому стилі"
 
 #. i18n: ectx: label, entry (ShowMathRenderError), group (Cantor)
-#: cantor.kcfg:56
+#: cantor.kcfg:60
 #, kde-format
 msgid "Show embedded math render error"
 msgstr "Помилка обробки під час спроби показати вбудовані формули"
 
 #. i18n: ectx: label, entry (VisibleLinesLimit), group (Cantor)
-#: cantor.kcfg:60
+#: cantor.kcfg:64
 #, kde-format
 msgid "Limit of visible lines for text result"
 msgstr "Обмежити кількість видимих рядків для текстового результату"
 
 #. i18n: ectx: label, entry (ChapterFontFamily), group (Cantor)
-#: cantor.kcfg:64
+#: cantor.kcfg:68
 #, kde-format
 msgid "Hierarchy font for chapter"
 msgstr "Шрифт для глави в ієрархії"
 
 #. i18n: ectx: label, entry (ChapterFontSize), group (Cantor)
-#: cantor.kcfg:68
+#: cantor.kcfg:72
 #, kde-format
 msgid "Hierarchy font size for chapter"
 msgstr "Розмір шрифту для глави в ієрархії"
 
 #. i18n: ectx: label, entry (ChapterFontItalic), group (Cantor)
-#: cantor.kcfg:72
+#: cantor.kcfg:76
 #, kde-format
 msgid "Hierarchy font italic for chapter"
 msgstr "Курсивний шрифт для глави в ієрархії"
 
 #. i18n: ectx: label, entry (ChapterFontBold), group (Cantor)
-#: cantor.kcfg:76
+#: cantor.kcfg:80
 #, kde-format
 msgid "Hierarchy font bold for chapter"
 msgstr "Напівжирний шрифт для глави в ієрархії"
 
 #. i18n: ectx: label, entry (SubchapterFontFamily), group (Cantor)
-#: cantor.kcfg:80
+#: cantor.kcfg:84
 #, kde-format
 msgid "Hierarchy font for subchapter"
 msgstr "Шрифт для підглави в ієрархії"
 
 #. i18n: ectx: label, entry (SubchapterFontSize), group (Cantor)
-#: cantor.kcfg:84
+#: cantor.kcfg:88
 #, kde-format
 msgid "Hierarchy font size for subchapter"
 msgstr "Розмір шрифту для підглави в ієрархії"
 
 #. i18n: ectx: label, entry (SubchapterFontItalic), group (Cantor)
-#: cantor.kcfg:88
+#: cantor.kcfg:92
 #, kde-format
 msgid "Hierarchy font italic for subchapter"
 msgstr "Курсивний шрифт для підглави в ієрархії"
 
 #. i18n: ectx: label, entry (SubchapterFontBold), group (Cantor)
-#: cantor.kcfg:92
+#: cantor.kcfg:96
 #, kde-format
 msgid "Hierarchy font bold for subchapter"
 msgstr "Напівжирний шрифт для підглави в ієрархії"
 
 #. i18n: ectx: label, entry (SectionFontFamily), group (Cantor)
 #. i18n: ectx: label, entry (SectionFontSize), group (Cantor)
-#: cantor.kcfg:96 cantor.kcfg:100
+#: cantor.kcfg:100 cantor.kcfg:104
 #, kde-format
 msgid "Hierarchy font for section"
 msgstr "Шрифт для розділу в ієрархії"
 
 #. i18n: ectx: label, entry (SectionFontItalic), group (Cantor)
-#: cantor.kcfg:104
+#: cantor.kcfg:108
 #, kde-format
 msgid "Hierarchy font italic for section"
 msgstr "Курсивний шрифт для розділу в ієрархії"
 
 #. i18n: ectx: label, entry (SectionFontBold), group (Cantor)
-#: cantor.kcfg:108
+#: cantor.kcfg:112
 #, kde-format
 msgid "Hierarchy font bold for section"
 msgstr "Напіжирний шрифт для розділу в ієрархії"
 
 #. i18n: ectx: label, entry (SubsectionFontFamily), group (Cantor)
 #. i18n: ectx: label, entry (SubsectionFontSize), group (Cantor)
-#: cantor.kcfg:112 cantor.kcfg:116
+#: cantor.kcfg:116 cantor.kcfg:120
 #, kde-format
 msgid "Hierarchy font for subsection"
 msgstr "Шрифт для підрозділу в ієрархії"
 
 #. i18n: ectx: label, entry (SubsectionFontItalic), group (Cantor)
-#: cantor.kcfg:120
+#: cantor.kcfg:124
 #, kde-format
 msgid "Hierarchy font italic for subsection"
 msgstr "Курсивний шрифт для підрозділу в ієрархії"
 
 #. i18n: ectx: label, entry (SubsectionFontBold), group (Cantor)
-#: cantor.kcfg:124
+#: cantor.kcfg:128
 #, kde-format
 msgid "Hierarchy font bold for subsection"
 msgstr "Напівжирний шрифт для підрозділу в ієрархії"
 
 #. i18n: ectx: label, entry (ParagraphFontFamily), group (Cantor)
 #. i18n: ectx: label, entry (ParagraphFontSize), group (Cantor)
-#: cantor.kcfg:128 cantor.kcfg:132
+#: cantor.kcfg:132 cantor.kcfg:136
 #, kde-format
 msgid "Hierarchy font for paragraph"
 msgstr "Шрифт для параграфа в ієрархії"
 
 #. i18n: ectx: label, entry (ParagraphFontItalic), group (Cantor)
-#: cantor.kcfg:136
+#: cantor.kcfg:140
 #, kde-format
 msgid "Hierarchy font italic for paragraph"
 msgstr "Курсивний шрифт для параграфа в ієрархії"
 
 #. i18n: ectx: label, entry (ParagraphFontBold), group (Cantor)
-#: cantor.kcfg:140
+#: cantor.kcfg:144
 #, kde-format
 msgid "Hierarchy font bold for paragraph"
 msgstr "Напівжирний шрифт для параграфа в ієрархії"
 
 #. i18n: ectx: label, entry (SubparagraphFontFamily), group (Cantor)
 #. i18n: ectx: label, entry (SubparagraphFontSize), group (Cantor)
-#: cantor.kcfg:144 cantor.kcfg:148
+#: cantor.kcfg:148 cantor.kcfg:152
 #, kde-format
 msgid "Hierarchy font for subparagraph"
 msgstr "Шрифт для підпараграфа в ієрархії"
 
 #. i18n: ectx: label, entry (SubparagraphFontItalic), group (Cantor)
-#: cantor.kcfg:152
+#: cantor.kcfg:156
 #, kde-format
 msgid "Hierarchy font italic for subparagraph"
 msgstr "Курсивний шрифт для підпараграфа в ієрархії"
 
 #. i18n: ectx: label, entry (SubparagraphFontBold), group (Cantor)
-#: cantor.kcfg:156
+#: cantor.kcfg:160
 #, kde-format
 msgid "Hierarchy font bold for subparagraph"
 msgstr "Напівжирний шрифт для підпараграфа в ієрархії"
@@ -2935,7 +2938,7 @@ msgid "Syntax Highlighting"
 msgstr "Підсвічування синтаксису"
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_CompletionDefault)
-#: cantor_part.cpp:230 settings.ui:105
+#: cantor_part.cpp:230 settings.ui:46
 #, kde-format
 msgid "Completion"
 msgstr "Доповнення"
@@ -2946,7 +2949,7 @@ msgid "Line Numbers"
 msgstr "Номери рядків"
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_AnimationDefault)
-#: cantor_part.cpp:240 settings.ui:125
+#: cantor_part.cpp:240 settings.ui:138
 #, kde-format
 msgid "Animations"
 msgstr "Анімації"
@@ -2961,7 +2964,7 @@ msgstr "Вбудовані формули"
 msgid "Restart Backend"
 msgstr "Перезапустити модуль"
 
-#: cantor_part.cpp:260 worksheetentry.cpp:854
+#: cantor_part.cpp:260 worksheetentry.cpp:858
 #, kde-format
 msgid "Evaluate Entry"
 msgstr "Обчислити запис"
@@ -4103,15 +4106,27 @@ msgstr "Текст"
 msgid "LaTeX Code"
 msgstr "Код LaTeX"
 
-#. i18n: ectx: property (text), widget (QLabel, label_2)
+#. i18n: ectx: property (text), widget (QLabel, label_4)
 #: settings.ui:23
+#, kde-format
+msgid "Evaluation:"
+msgstr "Обчислення:"
+
+#. i18n: ectx: property (toolTip), widget (QCheckBox, kcfg_CompletionDefault)
+#: settings.ui:43
+#, kde-format
+msgid "Enable syntax completion"
+msgstr "Увімкнути доповнення синтаксичних конструкцій"
+
+#. i18n: ectx: property (text), widget (QLabel, label_2)
+#: settings.ui:59
 #, kde-format
 msgid "Startup:"
 msgstr "Запуск:"
 
 #. i18n: ectx: property (toolTip), widget (QLabel, label)
 #. i18n: ectx: property (toolTip), widget (KComboBox, kcfg_DefaultBackend)
-#: settings.ui:30 settings.ui:293
+#: settings.ui:66 settings.ui:109
 #, kde-format
 msgid ""
 "Create a new worksheet for the selected backend system. If none is selected, "
@@ -4122,132 +4137,13 @@ msgstr ""
 "запуску."
 
 #. i18n: ectx: property (text), widget (QLabel, label)
-#: settings.ui:33
+#: settings.ui:69
 #, kde-format
 msgid "Default Backend:"
 msgstr "Типовий модуль:"
 
-#. i18n: ectx: property (text), widget (QLabel, label_3)
-#: settings.ui:75
-#, kde-format
-msgid "Worksheet:"
-msgstr "Робочий аркуш:"
-
-#. i18n: ectx: property (toolTip), widget (QCheckBox, kcfg_TypesetDefault)
-#: settings.ui:82
-#, kde-format
-msgid ""
-"Enable LaTeX typesetting for the results of the calculations, if supported "
-"by the backend system"
-msgstr ""
-"Увімкнути верстання LaTeX для результатів обчислень, якщо підтримку такого "
-"верстання передбачено системою модулів обробки"
-
-#. i18n: ectx: property (text), widget (QCheckBox, kcfg_TypesetDefault)
-#: settings.ui:85
-#, kde-format
-msgid "LaTeX typesetting"
-msgstr "Типографський набір LaTeX"
-
-#. i18n: ectx: property (toolTip), widget (QCheckBox, kcfg_HighlightDefault)
-#: settings.ui:92
-#, kde-format
-msgid "Enable syntax highlighting"
-msgstr "Увімкнути підсвічування синтаксису"
-
-#. i18n: ectx: property (text), widget (QCheckBox, kcfg_HighlightDefault)
-#: settings.ui:95
-#, kde-format
-msgid "Syntax highlighting"
-msgstr "Підсвічування синтаксису"
-
-#. i18n: ectx: property (toolTip), widget (QCheckBox, kcfg_CompletionDefault)
-#: settings.ui:102
-#, kde-format
-msgid "Enable syntax completion"
-msgstr "Увімкнути доповнення синтаксичних конструкцій"
-
-#. i18n: ectx: property (toolTip), widget (QCheckBox, kcfg_ExpressionNumberingDefault)
-#: settings.ui:112
-#, kde-format
-msgid "Show line numbers"
-msgstr "Показувати номери рядків"
-
-#. i18n: ectx: property (text), widget (QCheckBox, kcfg_ExpressionNumberingDefault)
-#: settings.ui:115
-#, kde-format
-msgid "Line numbers"
-msgstr "Номери рядків"
-
-#. i18n: ectx: property (toolTip), widget (QCheckBox, kcfg_AnimationDefault)
-#: settings.ui:122
-#, kde-format
-msgid "Enable animation effects in the worksheet"
-msgstr "Увімкнути ефекти анімації на робочому аркуші"
-
-#. i18n: ectx: property (toolTip), widget (QCheckBox, kcfg_UseOldCantorEntriesIndent)
-#: settings.ui:132
-#, kde-format
-msgid ""
-"If enabled, text entries are aligned at the worksheet border and not at the "
-"prompt border"
-msgstr ""
-"Якщо позначено, текстові записи буде вирівняно за рамкою робочого аркуша, а "
-"не за позицією запиту щодо команди"
-
-#. i18n: ectx: property (text), widget (QCheckBox, kcfg_UseOldCantorEntriesIndent)
-#: settings.ui:135
-#, kde-format
-msgid "Don't indent text entries"
-msgstr "Не додавати відступи для текстових записів"
-
-#. i18n: ectx: property (text), widget (QCheckBox, kcfg_StoreTextEntryFormatting)
-#: settings.ui:142
-#, kde-format
-msgid ""
-"Use rich text format for text entries when saving in Jupyter Notebook Format"
-msgstr ""
-"Використовувати форматований текст для текстових записів при збереженні у "
-"форматі нотатника Jupyter"
-
-#. i18n: ectx: property (text), widget (QLabel, label_4)
-#: settings.ui:171
-#, kde-format
-msgid "Evaluation:"
-msgstr "Обчислення:"
-
-#. i18n: ectx: property (toolTip), widget (QCheckBox, kcfg_WarnAboutSessionRestart)
-#: settings.ui:178
-#, kde-format
-msgid ""
-"If enabled, the user will be asked for confirmation prior to restarting the "
-"backend system"
-msgstr ""
-"Якщо позначено, програма питатиме користувача перед перезапуском системи "
-"модулів обробки"
-
-#. i18n: ectx: property (toolTip), widget (QCheckBox, kcfg_AutoEval)
-#: settings.ui:188
-#, kde-format
-msgid ""
-"If enabled, all entries below the current one will be evaluated automatically"
-msgstr ""
-"Якщо позначено, усі записи під поточним будуть автоматично переобчислюватися"
-
-#. i18n: ectx: property (text), widget (QCheckBox, kcfg_AutoEval)
-#: settings.ui:191
-#, kde-format
-msgid "Reevaluate entries automatically"
-msgstr "Автоматично переобчислювати записи"
-
-#. i18n: ectx: property (text), widget (QLabel, VisibleLinesLimit_label)
-#: settings.ui:201
-#, kde-format
-msgid "Number of rows in the result (0 for unlimited):"
-msgstr "Максимальна кількість рядків результату (0 — без обмежень):"
-
 #. i18n: ectx: property (toolTip), widget (QSpinBox, kcfg_VisibleLinesLimit)
-#: settings.ui:221
+#: settings.ui:76
 #, kde-format
 msgid ""
 "Maximal number of visible rows in the result of a command entry. Use 0 to "
@@ -4257,30 +4153,144 @@ msgstr ""
 "команди. Скористайтеся значенням 0, якщо не хочете обмежувати виведення "
 "даних."
 
-#. i18n: ectx: property (text), widget (QLabel, label_5)
-#: settings.ui:256
+#. i18n: ectx: property (toolTip), widget (QCheckBox, kcfg_TypesetDefault)
+#: settings.ui:89
 #, kde-format
-msgid "Markdown:"
-msgstr "Markdown:"
+msgid ""
+"Enable LaTeX typesetting for the results of the calculations, if supported "
+"by the backend system"
+msgstr ""
+"Увімкнути верстання LaTeX для результатів обчислень, якщо підтримку такого "
+"верстання передбачено системою модулів обробки"
+
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_TypesetDefault)
+#: settings.ui:92
+#, kde-format
+msgid "LaTeX typesetting"
+msgstr "Типографський набір LaTeX"
+
+#. i18n: ectx: property (text), widget (QLabel, VisibleLinesLimit_label)
+#: settings.ui:102
+#, kde-format
+msgid "Number of rows in the result (0 for unlimited):"
+msgstr "Максимальна кількість рядків результату (0 — без обмежень):"
+
+#. i18n: ectx: property (toolTip), widget (QCheckBox, kcfg_AnimationDefault)
+#: settings.ui:135
+#, kde-format
+msgid "Enable animation effects in the worksheet"
+msgstr "Увімкнути ефекти анімації на робочому аркуші"
 
 #. i18n: ectx: property (toolTip), widget (QCheckBox, kcfg_EmbeddedMathDefault)
-#: settings.ui:263
+#: settings.ui:158
 #, kde-format
 msgid ""
 "Enable LaTeX typesetting for mathematical expressions in Markdown entries"
 msgstr "Увімкнути верстання LaTeX для математичних виразів у записах Markdown"
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_EmbeddedMathDefault)
-#: settings.ui:266
+#: settings.ui:161
 #, kde-format
 msgid "Mathematical expressions via LaTeX"
 msgstr "Математичні вирази з використанням LaTeX"
 
+#. i18n: ectx: property (toolTip), widget (QCheckBox, kcfg_AutoEval)
+#: settings.ui:168
+#, kde-format
+msgid ""
+"If enabled, all entries below the current one will be evaluated automatically"
+msgstr ""
+"Якщо позначено, усі записи під поточним будуть автоматично переобчислюватися"
+
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_AutoEval)
+#: settings.ui:171
+#, kde-format
+msgid "Reevaluate entries automatically"
+msgstr "Автоматично переобчислювати записи"
+
+#. i18n: ectx: property (text), widget (QLabel, label_3)
+#: settings.ui:184
+#, kde-format
+msgid "Worksheet:"
+msgstr "Робочий аркуш:"
+
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_StoreTextEntryFormatting)
+#: settings.ui:223
+#, kde-format
+msgid ""
+"Use rich text format for text entries when saving in Jupyter Notebook Format"
+msgstr ""
+"Використовувати форматований текст для текстових записів при збереженні у "
+"форматі нотатника Jupyter"
+
+#. i18n: ectx: property (text), widget (QLabel, label_5)
+#: settings.ui:236
+#, kde-format
+msgid "Markdown:"
+msgstr "Markdown:"
+
+#. i18n: ectx: property (toolTip), widget (QCheckBox, kcfg_UseOldCantorEntriesIndent)
+#: settings.ui:243
+#, kde-format
+msgid ""
+"If enabled, text entries are aligned at the worksheet border and not at the "
+"prompt border"
+msgstr ""
+"Якщо позначено, текстові записи буде вирівняно за рамкою робочого аркуша, а "
+"не за позицією запиту щодо команди"
+
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_UseOldCantorEntriesIndent)
+#: settings.ui:246
+#, kde-format
+msgid "Don't indent text entries"
+msgstr "Не додавати відступи для текстових записів"
+
+#. i18n: ectx: property (toolTip), widget (QCheckBox, kcfg_WarnAboutSessionRestart)
+#: settings.ui:266
+#, kde-format
+msgid ""
+"If enabled, the user will be asked for confirmation prior to restarting the "
+"backend system"
+msgstr ""
+"Якщо позначено, програма питатиме користувача перед перезапуском системи "
+"модулів обробки"
+
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_ShowMathRenderError)
-#: settings.ui:273
+#: settings.ui:276
 #, kde-format
 msgid "Notify about render failures for mathematical expressions"
 msgstr "Сповіщати про помилки обробки для математичних виразів"
+
+#. i18n: ectx: property (toolTip), widget (QCheckBox, kcfg_ExpressionNumberingDefault)
+#: settings.ui:283
+#, kde-format
+msgid "Show line numbers"
+msgstr "Показувати номери рядків"
+
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_ExpressionNumberingDefault)
+#: settings.ui:286
+#, kde-format
+msgid "Line numbers"
+msgstr "Номери рядків"
+
+#. i18n: ectx: property (toolTip), widget (QCheckBox, kcfg_HighlightDefault)
+#: settings.ui:293
+#, kde-format
+msgid "Enable syntax highlighting"
+msgstr "Увімкнути підсвічування синтаксису"
+
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_HighlightDefault)
+#: settings.ui:296
+#, kde-format
+msgid "Syntax highlighting"
+msgstr "Підсвічування синтаксису"
+
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_WarnAboutEntryDelete)
+#: settings.ui:303
+#, fuzzy, kde-format
+#| msgid "Ask for confirmation when restarting the backend"
+msgid "Ask for confirmation when deleting entries"
+msgstr "Підтверджувати перезапуск модуля"
 
 #. i18n: ectx: property (placeholderText), widget (KLineEdit, pattern)
 #: standardsearchbar.ui:35
@@ -4871,17 +4881,17 @@ msgstr "Пересунути вище"
 msgid "Move Down"
 msgstr "Пересунути нижче"
 
-#: worksheetentry.cpp:717
+#: worksheetentry.cpp:719
 #, kde-format
 msgid "Do you really want to remove this entry?"
 msgstr "Ви справді хочете вилучити цей запис?"
 
-#: worksheetentry.cpp:717 worksheetentry.cpp:845
+#: worksheetentry.cpp:719 worksheetentry.cpp:849
 #, kde-format
 msgid "Remove Entry"
 msgstr "Вилучити запис"
 
-#: worksheetentry.cpp:850
+#: worksheetentry.cpp:854
 #, kde-format
 msgid "Drag Entry"
 msgstr "Перетягнути запис"
