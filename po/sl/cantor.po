@@ -9,15 +9,15 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-01-04 00:43+0000\n"
-"PO-Revision-Date: 2023-01-02 19:55+0100\n"
+"PO-Revision-Date: 2023-01-04 07:31+0100\n"
 "Last-Translator: Matjaž Jeran <matjaz.jeran@amis.net>\n"
 "Language-Team: Slovenian <lugos-slo@lugos.si>\n"
 "Language: sl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=4; plural=(n%100==1 ? 1 : n%100==2 ? 2 : n%100==3 || n"
-"%100==4 ? 3 : 0);\n"
+"Plural-Forms: nplurals=4; plural=(n%100==1 ? 0 : n%100==2 ? 1 : n%100>=3 && n"
+"%100<=4 ? 2 : 3);\n"
 "Translator: Andrej Mernik <andrejm@ubuntu.si>\n"
 "X-Generator: Poedit 3.2.2\n"
 
@@ -841,13 +841,13 @@ msgstr "Pot do izvedljive datoteke Maxima"
 #: backends/maxima/maximabackend.kcfg:41
 #, kde-format
 msgid "Default plot width"
-msgstr ""
+msgstr "Privzeta širina risbe"
 
 #. i18n: ectx: label, entry (plotHeight), group (MaximaBackend)
 #: backends/maxima/maximabackend.kcfg:45
 #, kde-format
 msgid "Default plot height"
-msgstr ""
+msgstr "Privzeta višina risbe"
 
 #: backends/maxima/maximaexpression.cpp:114
 #, kde-format
@@ -893,25 +893,22 @@ msgstr ""
 
 #. i18n: ectx: property (text), widget (QLabel, lPlotIntegration)
 #: backends/maxima/settings.ui:67 backends/octave/settings.ui:135
-#, fuzzy, kde-format
-#| msgid "Integrate"
+#, kde-format
 msgid "Integrated:"
-msgstr "Integriraj"
+msgstr "Integrirano:"
 
 #. i18n: ectx: property (text), widget (QLabel, label_3)
 #. i18n: ectx: property (text), widget (QLabel, label_5)
 #: backends/maxima/settings.ui:84 backends/octave/settings.ui:118
-#, fuzzy, kde-format
-#| msgid "Font Size:"
+#, kde-format
 msgid "Size:"
-msgstr "Velikost pisave:"
+msgstr "Velikost:"
 
 #. i18n: ectx: property (text), widget (QLabel, lPlotWidth)
 #: backends/maxima/settings.ui:112 backends/octave/settings.ui:58
-#, fuzzy, kde-format
-#| msgid "Width"
+#, kde-format
 msgid "width:"
-msgstr "Širina"
+msgstr "širina:"
 
 #. i18n: ectx: property (suffix), widget (QDoubleSpinBox, kcfg_plotWidth)
 #. i18n: ectx: property (suffix), widget (QDoubleSpinBox, kcfg_plotHeight)
@@ -919,27 +916,26 @@ msgstr "Širina"
 #: backends/octave/settings.ui:65 backends/octave/settings.ui:95
 #, kde-format
 msgid "cm"
-msgstr ""
+msgstr "cm"
 
 #. i18n: ectx: property (text), widget (QLabel, lPlotHeight)
 #: backends/maxima/settings.ui:142 backends/octave/settings.ui:88
-#, fuzzy, kde-format
-#| msgid "Height"
+#, kde-format
 msgid "height:"
-msgstr "Višina"
+msgstr "višina:"
 
 #. i18n: ectx: property (text), widget (QLabel, label_2)
 #. i18n: ectx: property (text), widget (QLabel, label_3)
 #: backends/maxima/settings.ui:172 backends/octave/settings.ui:155
 #, kde-format
 msgid "Image Format:"
-msgstr ""
+msgstr "Formati slike:"
 
 #. i18n: ectx: property (text), item, widget (QComboBox, kcfg_inlinePlotFormat)
 #: backends/maxima/settings.ui:180 backends/octave/settings.ui:196
 #, kde-format
 msgid "PDF"
-msgstr ""
+msgstr "PDF"
 
 #: backends/octave/octavebackend.cpp:63
 #, kde-format
@@ -965,7 +961,7 @@ msgstr ""
 #: backends/octave/octaveexpression.cpp:203
 #, kde-format
 msgid "Invalid image file generated."
-msgstr ""
+msgstr "Ustvarjena datoteka neveljavnega formata slike."
 
 #: backends/octave/octaveextensions.cpp:34
 #, kde-format
@@ -2707,10 +2703,9 @@ msgstr ""
 
 #. i18n: ectx: label, entry (WarnAboutEntryDelete), group (Cantor)
 #: cantor.kcfg:40
-#, fuzzy, kde-format
-#| msgid "Ask for confirmation when restarting the backend"
+#, kde-format
 msgid "Ask for confirmation when deleting an entry"
-msgstr "Prosi za potrditev, kadar ponovno zaganjate program v zaledju"
+msgstr "Prošnja za potrditev ob brisanju vnosa"
 
 #. i18n: ectx: label, entry (AutoEval), group (Cantor)
 #: cantor.kcfg:44
@@ -4252,10 +4247,9 @@ msgstr "Poudarjanje skladnje"
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_WarnAboutEntryDelete)
 #: settings.ui:303
-#, fuzzy, kde-format
-#| msgid "Ask for confirmation when restarting the backend"
+#, kde-format
 msgid "Ask for confirmation when deleting entries"
-msgstr "Prosi za potrditev, kadar ponovno zaganjate program v zaledju"
+msgstr "Prošnja za potrditev ob brisanju vnosov"
 
 #. i18n: ectx: property (placeholderText), widget (KLineEdit, pattern)
 #: standardsearchbar.ui:35

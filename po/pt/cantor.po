@@ -945,7 +945,7 @@ msgstr "Largura"
 #: backends/octave/settings.ui:65 backends/octave/settings.ui:95
 #, kde-format
 msgid "cm"
-msgstr ""
+msgstr "cm"
 
 #. i18n: ectx: property (text), widget (QLabel, lPlotHeight)
 #: backends/maxima/settings.ui:142 backends/octave/settings.ui:88
@@ -959,13 +959,13 @@ msgstr "Altura"
 #: backends/maxima/settings.ui:172 backends/octave/settings.ui:155
 #, kde-format
 msgid "Image Format:"
-msgstr ""
+msgstr "Formato da Imagem:"
 
 #. i18n: ectx: property (text), item, widget (QComboBox, kcfg_inlinePlotFormat)
 #: backends/maxima/settings.ui:180 backends/octave/settings.ui:196
 #, kde-format
 msgid "PDF"
-msgstr ""
+msgstr "PDF"
 
 #: backends/octave/octavebackend.cpp:63
 #, kde-format

@@ -7,13 +7,13 @@
 # Renan Cakirerk, 2010.
 # obsoleteman <tulliana@gmail.com>, 2009.
 # Volkan Gezer <volkangezer@gmail.com>, 2014, 2015, 2017.
-# Emir SARI <emir_sari@icloud.com>, 2022.
+# Emir SARI <emir_sari@icloud.com>, 2022, 2023.
 msgid ""
 msgstr ""
 "Project-Id-Version: kdeedu-kde4\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-01-04 00:43+0000\n"
-"PO-Revision-Date: 2022-12-31 17:07+0300\n"
+"PO-Revision-Date: 2023-01-04 22:41+0300\n"
 "Last-Translator: Emir SARI <emir_sari@icloud.com>\n"
 "Language-Team: Turkish <kde-l10n-tr@kde.org>\n"
 "Language: tr\n"
@@ -846,13 +846,13 @@ msgstr "Maxima çalıştırılabilir dosyası yolu"
 #: backends/maxima/maximabackend.kcfg:41
 #, kde-format
 msgid "Default plot width"
-msgstr ""
+msgstr "Öntanımlı çizim genişliği"
 
 #. i18n: ectx: label, entry (plotHeight), group (MaximaBackend)
 #: backends/maxima/maximabackend.kcfg:45
 #, kde-format
 msgid "Default plot height"
-msgstr ""
+msgstr "Öntanımlı çizim yüksekliği"
 
 #: backends/maxima/maximaexpression.cpp:114
 #, kde-format
@@ -897,25 +897,22 @@ msgstr ""
 
 #. i18n: ectx: property (text), widget (QLabel, lPlotIntegration)
 #: backends/maxima/settings.ui:67 backends/octave/settings.ui:135
-#, fuzzy, kde-format
-#| msgid "Integrate"
+#, kde-format
 msgid "Integrated:"
-msgstr "Bütünleştir"
+msgstr "Tümleştirilmiş:"
 
 #. i18n: ectx: property (text), widget (QLabel, label_3)
 #. i18n: ectx: property (text), widget (QLabel, label_5)
 #: backends/maxima/settings.ui:84 backends/octave/settings.ui:118
-#, fuzzy, kde-format
-#| msgid "Font Size:"
+#, kde-format
 msgid "Size:"
-msgstr "Yazıtipi Boyutu:"
+msgstr "Boyut:"
 
 #. i18n: ectx: property (text), widget (QLabel, lPlotWidth)
 #: backends/maxima/settings.ui:112 backends/octave/settings.ui:58
-#, fuzzy, kde-format
-#| msgid "Width"
+#, kde-format
 msgid "width:"
-msgstr "Genişlik"
+msgstr "genişlik:"
 
 #. i18n: ectx: property (suffix), widget (QDoubleSpinBox, kcfg_plotWidth)
 #. i18n: ectx: property (suffix), widget (QDoubleSpinBox, kcfg_plotHeight)
@@ -923,27 +920,26 @@ msgstr "Genişlik"
 #: backends/octave/settings.ui:65 backends/octave/settings.ui:95
 #, kde-format
 msgid "cm"
-msgstr ""
+msgstr "cm"
 
 #. i18n: ectx: property (text), widget (QLabel, lPlotHeight)
 #: backends/maxima/settings.ui:142 backends/octave/settings.ui:88
-#, fuzzy, kde-format
-#| msgid "Height"
+#, kde-format
 msgid "height:"
-msgstr "Yükseklik"
+msgstr "yükseklik:"
 
 #. i18n: ectx: property (text), widget (QLabel, label_2)
 #. i18n: ectx: property (text), widget (QLabel, label_3)
 #: backends/maxima/settings.ui:172 backends/octave/settings.ui:155
 #, kde-format
 msgid "Image Format:"
-msgstr ""
+msgstr "Görsel Biçimi:"
 
 #. i18n: ectx: property (text), item, widget (QComboBox, kcfg_inlinePlotFormat)
 #: backends/maxima/settings.ui:180 backends/octave/settings.ui:196
 #, kde-format
 msgid "PDF"
-msgstr ""
+msgstr "PDF"
 
 #: backends/octave/octavebackend.cpp:63
 #, kde-format
@@ -969,7 +965,7 @@ msgstr ""
 #: backends/octave/octaveexpression.cpp:203
 #, kde-format
 msgid "Invalid image file generated."
-msgstr ""
+msgstr "Geçersiz görsel dosyası oluşturuldu."
 
 #: backends/octave/octaveextensions.cpp:34
 #, kde-format
@@ -2704,10 +2700,9 @@ msgstr ""
 
 #. i18n: ectx: label, entry (WarnAboutEntryDelete), group (Cantor)
 #: cantor.kcfg:40
-#, fuzzy, kde-format
-#| msgid "Ask for confirmation when restarting the backend"
+#, kde-format
 msgid "Ask for confirmation when deleting an entry"
-msgstr "Arka ucu yeniden başlatırken onay iste"
+msgstr "Bir girdi silerken onay iste"
 
 #. i18n: ectx: label, entry (AutoEval), group (Cantor)
 #: cantor.kcfg:44
@@ -4254,10 +4249,9 @@ msgstr "Sözdizim vurgulama"
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_WarnAboutEntryDelete)
 #: settings.ui:303
-#, fuzzy, kde-format
-#| msgid "Ask for confirmation when restarting the backend"
+#, kde-format
 msgid "Ask for confirmation when deleting entries"
-msgstr "Arka ucu yeniden başlatırken onay iste"
+msgstr "Girdiler silerken onay iste"
 
 #. i18n: ectx: property (placeholderText), widget (KLineEdit, pattern)
 #: standardsearchbar.ui:35

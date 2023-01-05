@@ -13,7 +13,7 @@ msgstr ""
 "Project-Id-Version: cantor\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-01-04 00:43+0000\n"
-"PO-Revision-Date: 2023-01-01 11:08+0100\n"
+"PO-Revision-Date: 2023-01-04 14:09+0100\n"
 "Last-Translator: Xavier BESNARD <xavier.besnard]neuf.fr>\n"
 "Language-Team: fr\n"
 "Language: fr\n"
@@ -868,13 +868,13 @@ msgstr "Emplacement de l'exécutable Maxima"
 #: backends/maxima/maximabackend.kcfg:41
 #, kde-format
 msgid "Default plot width"
-msgstr ""
+msgstr "Largeur par défaut du tracé"
 
 #. i18n: ectx: label, entry (plotHeight), group (MaximaBackend)
 #: backends/maxima/maximabackend.kcfg:45
 #, kde-format
 msgid "Default plot height"
-msgstr ""
+msgstr "Hauteur par défaut du tracé"
 
 #: backends/maxima/maximaexpression.cpp:114
 #, kde-format
@@ -920,25 +920,22 @@ msgstr ""
 
 #. i18n: ectx: property (text), widget (QLabel, lPlotIntegration)
 #: backends/maxima/settings.ui:67 backends/octave/settings.ui:135
-#, fuzzy, kde-format
-#| msgid "Integrate"
+#, kde-format
 msgid "Integrated:"
-msgstr "Intégrer"
+msgstr "Intégré :"
 
 #. i18n: ectx: property (text), widget (QLabel, label_3)
 #. i18n: ectx: property (text), widget (QLabel, label_5)
 #: backends/maxima/settings.ui:84 backends/octave/settings.ui:118
-#, fuzzy, kde-format
-#| msgid "Font Size:"
+#, kde-format
 msgid "Size:"
-msgstr "Taille de police :"
+msgstr "Taille :"
 
 #. i18n: ectx: property (text), widget (QLabel, lPlotWidth)
 #: backends/maxima/settings.ui:112 backends/octave/settings.ui:58
-#, fuzzy, kde-format
-#| msgid "Width"
+#, kde-format
 msgid "width:"
-msgstr "Largeur"
+msgstr "Largeur :"
 
 #. i18n: ectx: property (suffix), widget (QDoubleSpinBox, kcfg_plotWidth)
 #. i18n: ectx: property (suffix), widget (QDoubleSpinBox, kcfg_plotHeight)
@@ -946,27 +943,26 @@ msgstr "Largeur"
 #: backends/octave/settings.ui:65 backends/octave/settings.ui:95
 #, kde-format
 msgid "cm"
-msgstr ""
+msgstr "cm"
 
 #. i18n: ectx: property (text), widget (QLabel, lPlotHeight)
 #: backends/maxima/settings.ui:142 backends/octave/settings.ui:88
-#, fuzzy, kde-format
-#| msgid "Height"
+#, kde-format
 msgid "height:"
-msgstr "Hauteur"
+msgstr "Hauteur :"
 
 #. i18n: ectx: property (text), widget (QLabel, label_2)
 #. i18n: ectx: property (text), widget (QLabel, label_3)
 #: backends/maxima/settings.ui:172 backends/octave/settings.ui:155
 #, kde-format
 msgid "Image Format:"
-msgstr ""
+msgstr "Format de l'image :"
 
 #. i18n: ectx: property (text), item, widget (QComboBox, kcfg_inlinePlotFormat)
 #: backends/maxima/settings.ui:180 backends/octave/settings.ui:196
 #, kde-format
 msgid "PDF"
-msgstr ""
+msgstr "PDF"
 
 #: backends/octave/octavebackend.cpp:63
 #, kde-format
@@ -993,7 +989,7 @@ msgstr ""
 #: backends/octave/octaveexpression.cpp:203
 #, kde-format
 msgid "Invalid image file generated."
-msgstr ""
+msgstr "Fichier d'image généré non valable."
 
 #: backends/octave/octaveextensions.cpp:34
 #, kde-format
@@ -2457,7 +2453,7 @@ msgstr "Emplacement de l'exécutable Sage"
 #: backends/sage/sagebackend.kcfg:14
 #, kde-format
 msgid "Enable LaTeX typesetting for Sage backend"
-msgstr "Activer la composition LaTex pour le moteur Sage"
+msgstr "Activer la composition LaTeX pour le moteur Sage"
 
 #: backends/sage/sageexpression.cpp:226 backends/sage/sageexpression.cpp:228
 #, kde-format
@@ -2531,7 +2527,7 @@ msgstr "Impossible de démarrer Sage"
 #: backends/sage/settings.ui:27
 #, kde-format
 msgid "LaTeX typesetting:"
-msgstr "Composition LaTex"
+msgstr "Composition LaTeX"
 
 #. i18n: ectx: property (toolTip), widget (QCheckBox, kcfg_allowLatex)
 #: backends/sage/settings.ui:34
@@ -2937,7 +2933,7 @@ msgstr "Enregistrer en texte clair"
 #: cantor_part.cpp:181 cantor_part.cpp:532
 #, kde-format
 msgid "Export to LaTeX"
-msgstr "Exporter en LaTex"
+msgstr "Exporter en LaTeX"
 
 #: cantor_part.cpp:197 cantor_part.cpp:628 worksheet.cpp:1905
 #, kde-format
@@ -3689,7 +3685,7 @@ msgstr ""
 #: lib/cantor_libs.kcfg:10
 #, kde-format
 msgid "Path to the latex executable"
-msgstr "Emplacement de l'exécutable LaTex"
+msgstr "Emplacement de l'exécutable LaTeX"
 
 #. i18n: ectx: label, entry (dvipsCommand), group (Cantor)
 #: lib/cantor_libs.kcfg:14
@@ -4185,14 +4181,14 @@ msgid ""
 "Enable LaTeX typesetting for the results of the calculations, if supported "
 "by the backend system"
 msgstr ""
-"Activer la composition LaTex pour les résultats des calculs, si cela est "
+"Activer la composition LaTeX pour les résultats des calculs, si cela est "
 "pris en charge par le système de moteurs."
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_TypesetDefault)
 #: settings.ui:92
 #, kde-format
 msgid "LaTeX typesetting"
-msgstr "Composition LaTex"
+msgstr "Composition LaTeX"
 
 #. i18n: ectx: property (text), widget (QLabel, VisibleLinesLimit_label)
 #: settings.ui:102
@@ -4212,7 +4208,7 @@ msgstr "Activer les effets d'animation dans la feuille de travail"
 msgid ""
 "Enable LaTeX typesetting for mathematical expressions in Markdown entries"
 msgstr ""
-"Activer la composition LaTex pour les expressions mathématiques dans les "
+"Activer la composition LaTeX pour les expressions mathématiques dans les "
 "entrées « Markdown »"
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_EmbeddedMathDefault)
