@@ -13,8 +13,8 @@ msgstr ""
 "Project-Id-Version: cantor\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2022-10-08 00:40+0000\n"
-"PO-Revision-Date: 2022-08-08 10:28+0200\n"
-"Last-Translator: Xavier Besnard <xavier.besnard@neuf.fr>\n"
+"PO-Revision-Date: 2023-01-04 14:09+0100\n"
+"Last-Translator: Xavier BESNARD <xavier.besnard]neuf.fr>\n"
 "Language-Team: fr\n"
 "Language: fr\n"
 "MIME-Version: 1.0\n"
@@ -2408,7 +2408,7 @@ msgstr "Emplacement de l'exécutable Sage"
 #: backends/sage/sagebackend.kcfg:14
 #, kde-format
 msgid "Enable LaTeX typesetting for Sage backend"
-msgstr "Activer la composition LaTex pour le moteur Sage"
+msgstr "Activer la composition LaTeX pour le moteur Sage"
 
 #: backends/sage/sageexpression.cpp:233 backends/sage/sageexpression.cpp:235
 #, kde-format
@@ -2482,7 +2482,7 @@ msgstr "Impossible de démarrer Sage"
 #: backends/sage/settings.ui:27
 #, kde-format
 msgid "LaTeX typesetting:"
-msgstr "Composition LaTex"
+msgstr "Composition LaTeX"
 
 #. i18n: ectx: property (toolTip), widget (QCheckBox, kcfg_allowLatex)
 #: backends/sage/settings.ui:34
@@ -2881,7 +2881,7 @@ msgstr "Enregistrer en texte clair"
 #: cantor_part.cpp:181 cantor_part.cpp:532
 #, kde-format
 msgid "Export to LaTeX"
-msgstr "Exporter en LaTex"
+msgstr "Exporter en LaTeX"
 
 #: cantor_part.cpp:197 cantor_part.cpp:628 worksheet.cpp:1904
 #, kde-format
@@ -3623,7 +3623,7 @@ msgstr ""
 #: lib/cantor_libs.kcfg:10
 #, kde-format
 msgid "Path to the latex executable"
-msgstr "Emplacement de l'exécutable LaTex"
+msgstr "Emplacement de l'exécutable LaTeX"
 
 #. i18n: ectx: label, entry (dvipsCommand), group (Cantor)
 #: lib/cantor_libs.kcfg:14
@@ -4080,14 +4080,14 @@ msgid ""
 "Enable LaTeX typesetting for the results of the calculations, if supported "
 "by the backend system"
 msgstr ""
-"Activer la composition LaTex pour les résultats des calculs, si cela est "
+"Activer la composition LaTeX pour les résultats des calculs, si cela est "
 "pris en charge par le système de moteurs."
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_TypesetDefault)
 #: settings.ui:85
 #, kde-format
 msgid "LaTeX typesetting"
-msgstr "Composition LaTex"
+msgstr "Composition LaTeX"
 
 #. i18n: ectx: property (toolTip), widget (QCheckBox, kcfg_HighlightDefault)
 #: settings.ui:92
@@ -4209,7 +4209,7 @@ msgstr "Markdown :"
 msgid ""
 "Enable LaTeX typesetting for mathematical expressions in Markdown entries"
 msgstr ""
-"Activer la composition LaTex pour les expressions mathématiques dans les "
+"Activer la composition LaTeX pour les expressions mathématiques dans les "
 "entrées « Markdown »"
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_EmbeddedMathDefault)
