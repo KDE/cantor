@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: cantor\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2022-10-08 00:40+0000\n"
-"PO-Revision-Date: 2023-01-03 09:42+0100\n"
+"PO-Revision-Date: 2023-01-05 07:27+0100\n"
 "Last-Translator: Temuri Doghonadze <temuri.doghonadze@gmail.com>\n"
 "Language-Team: Georgian <kde-i18n-doc@kde.org>\n"
 "Language: ka\n"
@@ -2502,125 +2502,125 @@ msgstr ""
 #: cantor.kcfg:64
 #, kde-format
 msgid "Hierarchy font for chapter"
-msgstr ""
+msgstr "იერარქიის ფონტი თავისთვის"
 
 #. i18n: ectx: label, entry (ChapterFontSize), group (Cantor)
 #: cantor.kcfg:68
 #, kde-format
 msgid "Hierarchy font size for chapter"
-msgstr ""
+msgstr "იერარქიის ფონტის ზომა თავისთვის"
 
 #. i18n: ectx: label, entry (ChapterFontItalic), group (Cantor)
 #: cantor.kcfg:72
 #, kde-format
 msgid "Hierarchy font italic for chapter"
-msgstr ""
+msgstr "იერარქიის კურსივი ფონტი თავისთვის"
 
 #. i18n: ectx: label, entry (ChapterFontBold), group (Cantor)
 #: cantor.kcfg:76
 #, kde-format
 msgid "Hierarchy font bold for chapter"
-msgstr ""
+msgstr "იერარქიის სქელი ფონტი თავისთვის"
 
 #. i18n: ectx: label, entry (SubchapterFontFamily), group (Cantor)
 #: cantor.kcfg:80
 #, kde-format
 msgid "Hierarchy font for subchapter"
-msgstr ""
+msgstr "იერარქიის ფონტი ქვეთავისთვის"
 
 #. i18n: ectx: label, entry (SubchapterFontSize), group (Cantor)
 #: cantor.kcfg:84
 #, kde-format
 msgid "Hierarchy font size for subchapter"
-msgstr ""
+msgstr "იერარქიის ფონტის ზომათავისთვის"
 
 #. i18n: ectx: label, entry (SubchapterFontItalic), group (Cantor)
 #: cantor.kcfg:88
 #, kde-format
 msgid "Hierarchy font italic for subchapter"
-msgstr ""
+msgstr "იერარქიის კურსივი ფონტი ქვეთავისთვის"
 
 #. i18n: ectx: label, entry (SubchapterFontBold), group (Cantor)
 #: cantor.kcfg:92
 #, kde-format
 msgid "Hierarchy font bold for subchapter"
-msgstr ""
+msgstr "იერარქიის სქელი ფონტი ქვეთავისთვის"
 
 #. i18n: ectx: label, entry (SectionFontFamily), group (Cantor)
 #. i18n: ectx: label, entry (SectionFontSize), group (Cantor)
 #: cantor.kcfg:96 cantor.kcfg:100
 #, kde-format
 msgid "Hierarchy font for section"
-msgstr ""
+msgstr "იერარქიის ფონტი განყოფილებისთვის"
 
 #. i18n: ectx: label, entry (SectionFontItalic), group (Cantor)
 #: cantor.kcfg:104
 #, kde-format
 msgid "Hierarchy font italic for section"
-msgstr ""
+msgstr "იერარქიის კურსივი ფონტი განყოფილებისთვის"
 
 #. i18n: ectx: label, entry (SectionFontBold), group (Cantor)
 #: cantor.kcfg:108
 #, kde-format
 msgid "Hierarchy font bold for section"
-msgstr ""
+msgstr "იერარქიის სქელი ფონტი განყოფილებისთვის"
 
 #. i18n: ectx: label, entry (SubsectionFontFamily), group (Cantor)
 #. i18n: ectx: label, entry (SubsectionFontSize), group (Cantor)
 #: cantor.kcfg:112 cantor.kcfg:116
 #, kde-format
 msgid "Hierarchy font for subsection"
-msgstr ""
+msgstr "იერარქიის ფონტი ქვეგანყოფილებისთვის"
 
 #. i18n: ectx: label, entry (SubsectionFontItalic), group (Cantor)
 #: cantor.kcfg:120
 #, kde-format
 msgid "Hierarchy font italic for subsection"
-msgstr ""
+msgstr "იერარქიის კურსივი ფონტი ქვეგანყოფილებისთვის"
 
 #. i18n: ectx: label, entry (SubsectionFontBold), group (Cantor)
 #: cantor.kcfg:124
 #, kde-format
 msgid "Hierarchy font bold for subsection"
-msgstr ""
+msgstr "იერარქიის სქელი ფონტი ქვეგანყოფილებისთვის"
 
 #. i18n: ectx: label, entry (ParagraphFontFamily), group (Cantor)
 #. i18n: ectx: label, entry (ParagraphFontSize), group (Cantor)
 #: cantor.kcfg:128 cantor.kcfg:132
 #, kde-format
 msgid "Hierarchy font for paragraph"
-msgstr ""
+msgstr "იერარქიის ფონტი პარაგრაფისთვის"
 
 #. i18n: ectx: label, entry (ParagraphFontItalic), group (Cantor)
 #: cantor.kcfg:136
 #, kde-format
 msgid "Hierarchy font italic for paragraph"
-msgstr ""
+msgstr "იერარქიის კურსივი ფონტი პარაგრაფისთვის"
 
 #. i18n: ectx: label, entry (ParagraphFontBold), group (Cantor)
 #: cantor.kcfg:140
 #, kde-format
 msgid "Hierarchy font bold for paragraph"
-msgstr ""
+msgstr "იერარქიის სქელი ფონტი პარაგრაფისთვის"
 
 #. i18n: ectx: label, entry (SubparagraphFontFamily), group (Cantor)
 #. i18n: ectx: label, entry (SubparagraphFontSize), group (Cantor)
 #: cantor.kcfg:144 cantor.kcfg:148
 #, kde-format
 msgid "Hierarchy font for subparagraph"
-msgstr ""
+msgstr "იერარქიის ფონტი ქვეპარაგრაფისთვის"
 
 #. i18n: ectx: label, entry (SubparagraphFontItalic), group (Cantor)
 #: cantor.kcfg:152
 #, kde-format
 msgid "Hierarchy font italic for subparagraph"
-msgstr ""
+msgstr "იერარქიის კურსივი ფონტი ქვეპარაგრაფისთვის"
 
 #. i18n: ectx: label, entry (SubparagraphFontBold), group (Cantor)
 #: cantor.kcfg:156
 #, kde-format
 msgid "Hierarchy font bold for subparagraph"
-msgstr ""
+msgstr "იერარქიის სქელი ფონტი ქვეპარაგრაფისთვის"
 
 #: cantor_part.cpp:139
 #, kde-format
@@ -2682,7 +2682,7 @@ msgstr "უკანაბოლოს გადატვირთვა"
 #: cantor_part.cpp:260 worksheetentry.cpp:854
 #, kde-format
 msgid "Evaluate Entry"
-msgstr ""
+msgstr "გამოსახულების დათვლა"
 
 #: cantor_part.cpp:266
 #, kde-format
@@ -3042,7 +3042,7 @@ msgstr "ყველას &ჩანაცვლება"
 #: extendedsearchbar.ui:139
 #, kde-format
 msgid "Search in:"
-msgstr ""
+msgstr "ძებნა:"
 
 #. i18n: ectx: property (text), widget (QToolButton, matchCase)
 #. i18n: ectx: property (text), widget (QCheckBox, matchCase)
@@ -3355,13 +3355,13 @@ msgstr ""
 #: lib/cantor_libs.kcfg:10
 #, kde-format
 msgid "Path to the latex executable"
-msgstr ""
+msgstr "ბილიკი latex გამშვებ ფაილამდე"
 
 #. i18n: ectx: label, entry (dvipsCommand), group (Cantor)
 #: lib/cantor_libs.kcfg:14
 #, kde-format
 msgid "Path to the dvips executable"
-msgstr ""
+msgstr "ბილიკი dvips გამშვებ ფაილამდე"
 
 #: lib/defaultvariablemodel.cpp:70
 #, kde-format
@@ -3399,18 +3399,18 @@ msgstr "მთავარი სათაური"
 #: lib/directives/plotdirectives.cpp:30
 #, kde-format
 msgid "Abscissa scale"
-msgstr ""
+msgstr "აბსცისის ღერძი"
 
 #: lib/directives/plotdirectives.cpp:41
 #, kde-format
 msgid "Ordinate scale"
-msgstr ""
+msgstr "ორდინატების ღერძი"
 
 #. i18n: ectx: property (text), widget (QLabel, label)
 #: lib/directives/plottitle.ui:19
 #, kde-format
 msgid "Plot title:"
-msgstr ""
+msgstr "გრაფიკის სათაური:"
 
 #: lib/mimeresult.cpp:33
 #, kde-format
@@ -4433,7 +4433,7 @@ msgstr "ღია ყვითელი"
 #: worksheetentry.cpp:72
 #, kde-format
 msgid "Dark Cyan"
-msgstr ""
+msgstr "მუქი ცისფერი"
 
 #: worksheetentry.cpp:72
 #, kde-format
@@ -4448,7 +4448,7 @@ msgstr "ღია ცისფერი"
 #: worksheetentry.cpp:73
 #, kde-format
 msgid "Dark Magenta"
-msgstr ""
+msgstr "მუქი ალისფერი"
 
 #: worksheetentry.cpp:73
 #, kde-format
@@ -4478,7 +4478,7 @@ msgstr "ღია ნარინჯისფერი"
 #: worksheetentry.cpp:75
 #, kde-format
 msgid "Dark Grey"
-msgstr ""
+msgstr "მუქი ნაცრისფერი"
 
 #: worksheetentry.cpp:75
 #, kde-format
@@ -4488,7 +4488,7 @@ msgstr "ნაცრისფერი"
 #: worksheetentry.cpp:75
 #, kde-format
 msgid "Light Grey"
-msgstr ""
+msgstr "ღია ნაცრისფერი"
 
 #: worksheetentry.cpp:421
 #, kde-format
