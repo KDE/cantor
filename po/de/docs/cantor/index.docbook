@@ -1,123 +1,85 @@
 <?xml version="1.0" ?>
 <!DOCTYPE book PUBLIC "-//KDE//DTD DocBook XML V4.5-Based Variant V1.1//EN" "dtd/kdedbx45.dtd" [
 
-  <!ENTITY latex "L<superscript
->A</superscript
->T<subscript
->E</subscript
->X">
+  <!ENTITY latex "L<superscript>A</superscript>T<subscript>E</subscript>X">
   <!ENTITY % addindex "IGNORE">
-  <!ENTITY % German "INCLUDE">
+  <!ENTITY % English "INCLUDE">
 ]>
 <book id="cantor" lang="&language;">
 
 <bookinfo>
-<title
->Das Handbuch zu &cantor;</title>
+<title>The &cantor; Handbook</title>
 
 <authorgroup>
-<author
-><personname
-> <firstname
->Alexander</firstname
-> <surname
->Rieder</surname
-> </personname
-> <email
->alexanderrieder@gmail.com</email
-> </author>
-<othercredit role="translator"
-><firstname
->Burkhard</firstname
-><surname
->Lück</surname
-><affiliation
-><address
-><email
->lueck@hube-lueck.de</email
-></address
-></affiliation
-><contrib
->Übersetzung</contrib
-></othercredit
-> 
+<author>
+<personname>
+<firstname>Alexander</firstname>
+<surname>Rieder</surname>
+</personname>
+<email>alexanderrieder@gmail.com</email>
+</author>
+<!-- TRANS:ROLES_OF_TRANSLATORS -->
 </authorgroup>
 
 <copyright>
-<year
->2009</year>
-<holder
->Alexander Rieder</holder>
+<year>2009</year>
+<holder>Alexander Rieder</holder>
 </copyright>
-<legalnotice
->&FDLNotice;</legalnotice>
+<legalnotice>&FDLNotice;</legalnotice>
 
-<date
->2020-12-16</date>
-<releaseinfo
->Anwendungen 20.12</releaseinfo>
+<date>2020-12-16</date>
+<releaseinfo>Applications 20.12</releaseinfo>
 
 <abstract>
-<para
->&cantor; ist ein Programm, das ein Arbeitsblatt als grafische Bedienungsoberfläche für andere freie Mathematikpakete zu Verfügung stellt. </para>
+<para>
+&cantor; is an application, aimed at providing a
+nice worksheet view to other Free Software Math packages.
+</para>
 </abstract>
 
 <keywordset>
-<keyword
->KDE</keyword>
-<keyword
->kdeedu</keyword>
-<keyword
->Mathematik</keyword>
-<keyword
->Mathe</keyword>
-<keyword
->Cantor</keyword>
-<keyword
->Julia</keyword>
-<keyword
->Lua</keyword>
-<keyword
->Maxima</keyword>
-<keyword
->Octave</keyword>
-<keyword
->Python</keyword>
-<keyword
->Qalculate</keyword>
-<keyword
->R</keyword>
-<keyword
->Sage</keyword>
-<keyword
->Scilab</keyword>
+<keyword>KDE</keyword>
+<keyword>kdeedu</keyword>
+<keyword>mathematics</keyword>
+<keyword>math</keyword>
+<keyword>Cantor</keyword>
+<keyword>Julia</keyword>
+<keyword>Lua</keyword>
+<keyword>Maxima</keyword>
+<keyword>Octave</keyword>
+<keyword>Python</keyword>
+<keyword>Qalculate</keyword>
+<keyword>R</keyword>
+<keyword>Sage</keyword>
+<keyword>Scilab</keyword>
 </keywordset>
 
 </bookinfo>
 
 <chapter id="introduction">
-<title
->Einleitung</title>
+<title>Introduction</title>
 
-<para
->&cantor; ist ein Programm, um Ihre Lieblings-Mathematikpakete in &kde; mit einem Arbeitsblatt als grafische Schnittstelle zu benutzen. Dialoge unterstützen Sie bei häufig vorkommenden Aufgaben und Sie können Arbeitsblätter mit anderen gemeinsam nutzen. </para>
+<para>
+&cantor; is an application to allow you to you use your favorite
+mathematical applications from within an elegant &kde;-integrated
+Worksheet Interface. It provides dialogs to assist with common tasks
+and allows you to share your worksheets with others.
+</para>
 </chapter>
 
 <chapter id="using-kapp">
-<title
->&cantor; benutzen</title>
+<title>Using &cantor;</title>
 
-<para
->Bildschirmfoto: <screenshot>
-<screeninfo
->Ein Bildschirmfoto von &cantor;</screeninfo>
+<para>
+Screenshot:
+<screenshot>
+<screeninfo>Here is a screenshot of &cantor;</screeninfo>
 	<mediaobject>
 	  <imageobject>
 	    <imagedata fileref="screenshot.png" format="PNG"/>
 	  </imageobject>
 	  <textobject>
-	    <phrase
->Bildschirmfoto</phrase>
+	    <phrase>Screenshot</phrase>
 	  </textobject>
 	</mediaobject>
 </screenshot>
@@ -125,173 +87,165 @@
 
 
 <sect1 id="kapp-features">
-<title
->Leistungsmerkmale von &cantor;</title>
+<title>&cantor; features</title>
 <itemizedlist>
-  <listitem
-><para
->Intuitive Arbeitsblattansicht zur Berechnung von Ausdrücken.</para
-></listitem>
-  <listitem
-><para
->Graphische Ausgaben werden im Arbeitsblatt dargestellt.</para
-></listitem>
-  <listitem
-><para
->Modulbasierte Struktur, daher können verschiedene Module hinzugefügt werden.</para
-></listitem>
-  <listitem
-><para
->Mit der Funktion „Neue Erweiterungen“ können Beispiel-Arbeitsblätter aus dem Internet herunter- oder hochgeladen werden.</para
-></listitem>
-  <listitem
-><para
->Schriftsatz für mathematische Formeln mit Hilfe von &latex;.</para
-></listitem>
-  <listitem
-><para
->Syntaxhervorhebung passend zum verwendeten Modul.</para
-></listitem>
-  <listitem
-><para
->Abhängig vom verwendeten Modul gibt es Assistenten als Dialoge für häufig vorkommende Aufgaben wie die Integration einer Funktion oder die Eingabe einer Matrix.</para
-></listitem>
+  <listitem><para>Intuitive worksheet view for evaluating expressions.</para></listitem>
+  <listitem><para>Results of graph plotting shown inside the worksheet.</para></listitem>
+  <listitem><para>Easy plugin-based structure to allow different backends to be added.</para></listitem>
+  <listitem><para>GetHotNewStuff integration to allow example worksheets to be downloaded (or uploaded.)</para></listitem>
+  <listitem><para>Mathematical formula typesetting using &latex;.</para></listitem>
+  <listitem><para>Backend-aware syntax highlighting.</para></listitem>
+  <listitem><para>Plugin-based assistant dialogs to help with common tasks, such as integrating a function, or entering a matrix.</para></listitem>
 </itemizedlist>
 </sect1>
 
 <sect1 id="backends">
-<title
->Die Module von &cantor;</title>
-<para
->In &cantor; stehen mehrere Module zur Auswahl, je nach Aufgabenstellung wählen Sie das am besten geeignete Modul aus. </para>
-<para
->Zur Zeit sind folgende Module vorhanden: <variablelist>
+<title>The &cantor; backends</title>
+<para>
+  &cantor; offers you several choices for the backends you wish to use with it.
+  The choice to make depends on what you want to achieve.
+</para>
+<para>
+  Currently the following backends are available:
+  <variablelist>
     <varlistentry>
-      <term
->Sage:</term>
+      <term>Sage:</term>
       <listitem>
-	<para
->Sage ist ein unter der GPL lizenziertes freies Mathematik-Software-System.Es kombiniert die Stärken vieler Open-Source-Pakete mit einer gemeinsamen Python-basierten Schnittstelle. Weitere Informationen finden Sie auf der Webseite <ulink url="http://sagemath.org"
->https://sagemath.org</ulink
->. </para>
+	<para>
+	  Sage is a free open-source mathematics software system licensed under the GPL.
+	  It combines the power of many existing open-source packages, within a common Python-based interface.
+	  See <ulink url="https://sagemath.org">https://sagemath.org</ulink> for more information.
+	</para>
 	</listitem>
     </varlistentry>
     <varlistentry>
-      <term
->Maxima:</term>
+      <term>Maxima:</term>
       <listitem>
-	<para
->Maxima ist ein System für die Manipulation von symbolischen und numerischen Ausdrücken, einschließlich Differenzierung, Integration, Taylorreihe, Laplace-Transformation, gewöhnliche Differentialgleichungen, lineare Gleichungssysteme, Polynome und Mengen, Listen, Vektoren, Matrizen und Tensoren. Durch exakte Brüche sowie Langzahlarithmetik und Gleitkommazahlen mit beliebiger Genauigkeit (arbitrary precision) erzeugt Maxima Ergebnisse mit hoher numerischer Präzision. Maxima kann Funktionen und Daten zwei- und dreidimensional grafisch darstellen. Weitere Informationen finden Sie auf der Webseite <ulink url="http://maxima.sourceforge.net"
->http://maxima.sourceforge.net</ulink
->. </para>
+	<para>
+	  Maxima is a system for the manipulation of symbolic and numeric expressions,
+	  including differentiation, integration, Taylor series, Laplace transforms,
+	  ordinary differential equations, systems of linear equations, polynomials, sets,
+	  lists, vectors, matrices, and tensors. Maxima yields high-precision numeric results
+	  by using exact fractions, arbitrary precision integers, and variable precision
+	  floating point numbers. Maxima can plot functions and data in two and three dimensions.
+	  See <ulink url="http://maxima.sourceforge.net">http://maxima.sourceforge.net</ulink> for more information.
+	</para>
       </listitem>
     </varlistentry>
     <varlistentry>
-      <term
->R:</term>
+      <term>R:</term>
       <listitem>
-	<para
->„R“ ist eine Sprache und eine Umgebung für statistische Berechnungen und Grafiken, ähnlich zur Sprache und Umgebung „S“. Es stellt eine große Auswahl an statistischen (lineare und nicht lineare Modellierung, klassische statistische Tests, Zeitreihenanalyse, Klassifikation, Clustering, ...) und grafischen Techniken bereit und lässt sich stark erweitern. Die Sprache „S“ ist oft das bevorzugte Mittel für Forschungen mit statistischer Methodologie und „R“ stellt die Open-Source-Mittel für die Teilnahme an diesen Aktivitäten bereit. Weitere Informationen finden Sie auf der Webseite <ulink url="https://www.r-project.org"
->http://www.r-project.org</ulink
->. </para>
+	<para>
+	  R is a language and environment for statistical computing and graphics, similar to the S language and environment.
+	  It provides a wide variety of statistical (linear and nonlinear modelling,
+	  classical statistical tests, time-series analysis, classification, clustering, ...)
+	  and graphical techniques, and is highly extensible. The S language is often the
+	  vehicle of choice for research in statistical methodology,
+	  and R provides an open-source route to this.
+	  See <ulink url="https://www.r-project.org">https://www.r-project.org</ulink> for more information.
+	</para>
       </listitem>
     </varlistentry>
     <varlistentry>
-      <term
->Julia:</term>
+      <term>Julia:</term>
       <listitem>
-	<para
->Julia ist eine leistungsstarke höhere Programmiersprache  für technische Berechnungen, mit einer Syntax, die den Benutzern von andere technische Berechnungsumgebungen bekannt ist. Sie bietet einen hochentwickelte Compiler, verteilte parallele Ausführung, numerische Genauigkeit und eine umfangreiche mathematische Funktionsbibliothek. Weitere Informationen finden Sie in der <ulink url="https://docs.julialang.org/en/"
->Julia-Dokumentation</ulink
->. </para>
+	<para>
+    Julia is a high-level, high-performance dynamic programming
+    language for technical computing, with syntax that is familiar to users of
+    other technical computing environments. It provides a sophisticated
+    compiler, distributed parallel execution, numerical accuracy, and an
+    extensive mathematical function library.
+	  See <ulink url="https://docs.julialang.org/en/">Julia documentation</ulink> for more information.
+	</para>
       </listitem>
     </varlistentry>
     <varlistentry>
-      <term
->&kalgebra;:</term>
+      <term>&kalgebra;:</term>
       <listitem>
-	<para
->&kalgebra; ist ein grafischen Mathematikprogramm auf der Basis von MathML. Es ist im Projekt &kde;-Lernprogramme enthalten. Weitere Informationen finden Sie auf der Webseite <ulink url="https://edu.kde.org/kalgebra/"
->https://edu.kde.org/kalgebra/</ulink
->. </para>
+	<para>
+	  &kalgebra; is a MathML-based graph calculator, that ships with &kde; Education project.
+	  See <ulink url="https://edu.kde.org/kalgebra/">https://edu.kde.org/kalgebra/</ulink> for more information.
+	  </para>
       </listitem>
     </varlistentry>
     <varlistentry>
-      <term
->Qalculate!:</term>
+      <term>Qalculate!:</term>
       <listitem>
-  <para
->Qalculate! ist mehr als nur ein einfacher Rechner und nutzt die Schnittstellen, Rechenleistung und Flexibilität moderner Rechner aus. Der wichtigste Begriff in Qalculate! ist der Ausdruck. Anstatt jede Zahl in mathematischen Ausdrücken einzeln einzugeben, schreiben Sie den gesamten Ausdruck und bearbeiten ihn dann. Die Interpretation der Ausdrücke ist flexibel und fehlertolerant. Bei fehlerhaften Eingaben erhalten Sie Hinweise zur Korrektur. Nicht vollständig lösbare Ausdrücke führen aber nicht zu Fehlern, sondern diese Ausdrücke werden durch Qalculate! soweit wie möglich vereinfacht und als geänderter Ausdruck zurückgegeben. Zusätzlich zu Zahlen und arithmetischen Operatoren darf ein Ausdruck eine beliebige Kombination von Variablen, Einheiten und Funktionen enthalten. Weitere Informationen finden Sie auf <ulink url="https://qalculate.github.io/"
->https://qalculate.github.io/</ulink
->. </para>
+  <para>
+    Qalculate! is not your regular software replication of the cheapest
+    available calculator. Qalculate! aims to make full use of the superior
+    interface, power and flexibility of modern computers. The center of
+    attention in Qalculate! is the expression entry. Instead of entering each
+    number in a mathematical expression separately, you can directly write the
+    whole expression and later modify it. The interpretation of expressions is
+    flexible and fault tolerant, and if you nevertheless do something wrong,
+    Qalculate! will tell you so. Not fully solvable expressions are however not
+    errors. Qalculate! will simplify as far as it can and answer with an
+    expression. In addition to numbers and arithmetic operators, an expression
+    may contain any combination of variables, units, and functions.
+    See <ulink url="https://qalculate.github.io/">https://qalculate.github.io/</ulink> for more information.
+  </para>
   </listitem>
     </varlistentry>
     <varlistentry>
-      <term
->Python2 und Python3:</term>
+      <term>Python2 and Python3:</term>
       <listitem>
-  <para
->Python ist eine außergewöhnlich leistungsfähige dynamische Programmiersprache, die in vielen verschiedenen Anwendungsbereichen benutzt wird. Es gibt mehrere Python-Pakete für wissenschaftliche Programmierung. </para>
-  <para
->Python wird unter der „Python Software Foundation“-Lizenz (kompatibel zur GPL) verbreitet. Weitere Informationen dazu finden Sie auf <ulink url="https://www.python.org/"
->offiziellen Webseite</ulink
->. </para>
+  <para>
+    Python is a remarkably powerful dynamic programming language that is used
+in a wide variety of application domains. There are several Python packages
+to scientific programming.
+  </para>
+  <para>Python is distributed under Python Software Foundation license (GPL compatible).
+    See the <ulink url="https://www.python.org/">official website</ulink> for more information.
+  </para>
   <note>
-    <para
->Diese Modul fügt den zusätzlichen Eintrag <guimenu
->Paket</guimenu
-> zum Hauptmenü von &cantor; hinzu. Benutzen Sie dann <menuchoice
-><guimenu
->Paket</guimenu
-><guimenuitem
->Paket importieren</guimenuitem
-></menuchoice
->, um Python-Pakete in das Arbeitsblatt zu importieren. </para>
+    <para>
+      This backend adds an additional item to the &cantor;'s main menu, <guimenu>Package</guimenu>. The only item of this menu is <menuchoice><guimenu>Package</guimenu><guimenuitem>Import Package</guimenuitem></menuchoice>. This item can be used to import Python packages to the worksheet.
+    </para>
   </note>
     </listitem>
     </varlistentry>
     <varlistentry>
-      <term
->Scilab:</term>
+      <term>Scilab:</term>
       <listitem>
-  <para
->Scilab ist ein freies Softwarepaket für numerische Berechnungen für verschiedene Betriebssysteme und eine höhere Programmiersprache für numerische Probleme. </para>
-  <para
->Scilab wird unter der CeCILL-Lizenz (kompatibel zur GPL) verbreitet. Weitere Informationen dazu finden Sie auf <ulink url="https://www.scilab.org/"
->https://www.scilab.org/</ulink
->. </para>
+  <para>
+    Scilab is an free software, cross-platform numerical computational package
+    and a high-level, numerically oriented programming language.
+  </para>
+  <para>Scilab is distributed under CeCILL license (GPL compatible).
+    See <ulink url="https://www.scilab.org/">https://www.scilab.org/</ulink> for more information.
+  </para>
   <warning>
-    <para
->Scilab in Version 5.5 oder neuer muss auf Ihrem System installiert sein, damit Sie mit diesem Modul arbeiten können. </para>
+    <para>
+      You need Scilab version 5.5 or higher to be installed in your system to make this backend usable.
+    </para>
   </warning>
   </listitem>
     </varlistentry>
     <varlistentry>
-      <term
->Octave:</term>
+      <term>Octave:</term>
       <listitem>
-  <para
->&GNU; Octave ist eine „höhere Programmiersprache“, die hauptsächlich für numerische Berechnungen vorgesehen ist. Sie stellt eine praktische Befehlszeilenoberfläche für das numerische Lösen von linearen und nichtlinearen Problemen und für das Durchführen von anderen numerischen Experimenten bereit. Die Sprache ist dabei weitestgehend kompatibel zu <ulink url="https://www.mathworks.com/products/matlab.html"
->Matlab</ulink
->. Weitere Informationen finden Sie unter <ulink url="https://www.gnu.org/software/octave/"
->https://www.gnu.org/software/octave/</ulink
->. </para>
+  <para>
+    &GNU; Octave is a high-level language, primarily intended for numerical
+    computations. It provides a convenient command line interface for
+    solving linear and nonlinear problems numerically, and for performing other
+    numerical experiments using a language that is mostly compatible with <ulink url="https://www.mathworks.com/products/matlab.html">MATLAB</ulink>.
+    See <ulink url="https://www.gnu.org/software/octave/">https://www.gnu.org/software/octave/</ulink> for more information.
+    </para>
       </listitem>
     </varlistentry>
     <varlistentry>
-      <term
->Lua:</term>
+      <term>Lua:</term>
       <listitem>
-  <para
->Lua ist eine schnelle und leichtgewichtige Skript-Sprache mit einer einfachen prozeduralen Syntax. Es gibt mehrere Bibliotheken für Mathematik und Wissenschaft in Lua. </para>
-  <para
->Weitere Informationen dazu finden Sie auf <ulink url="https://www.lua.org/"
->https://www.lua.org/</ulink
->. </para>
-  <para
->Dieses Modul unterstützt <ulink url="https://luajit.org/"
->luajit 2</ulink
->. </para>
+  <para>
+    Lua is a fast and lightweight scripting language, with a simple procedural syntax. There are several libraries in Lua aimed at math and science.
+  </para>
+  <para>
+    See <ulink url="https://www.lua.org/">https://www.lua.org/</ulink> for more information.
+  </para>
+  <para>
+    This backend supports <ulink url="https://luajit.org/">luajit 2</ulink>.
+  </para>
       </listitem>
     </varlistentry>
   </variablelist>
@@ -299,161 +253,110 @@
 </sect1>
 
 <sect1 id="workspace">
-<title
->Der Arbeitsbereich von &cantor;</title>
+<title>The &cantor; Workspace</title>
 <para>
 <screenshot>
-  <screeninfo
->Der Arbeitsbereich von &cantor;</screeninfo>
+  <screeninfo>Screenshot of the &cantor; Workspace</screeninfo>
   <mediaobject>
     <imageobject>
       <imagedata fileref="screenshot.png" format="PNG"/>
     </imageobject>
     <textobject>
-      <phrase
->Der Arbeitsbereich von &cantor;</phrase>
+      <phrase>Screenshot of the &cantor; Workspace</phrase>
     </textobject>
   </mediaobject>
 </screenshot>
 </para>
-<para
->Der Arbeitsbereich von &cantor; besteht aus drei Teilen: <orderedlist>
-    <listitem
-><para
->Der Karteireiterleiste, mit der Sie zwischen den geöffneten Arbeitsblättern wechseln können.</para
-></listitem>
-    <listitem
-><para
->Einem Hilfebereich, hier werden Informationen zu den Befehlen angezeigt, wenn Sie <userinput
->?? <replaceable
->befehl</replaceable
-></userinput
->, <userinput
->describe(<replaceable
->befehl</replaceable
->)</userinput
-> oder <userinput
->example(<replaceable
->befehl</replaceable
->)</userinput
-> (<application
->Maxima</application
->-Modul).</para
-></listitem>
-    <listitem
-><para
->Einer Seitenleiste mit der Variablen-Verwaltung, in der eine Liste aller verfügbaren Variablen auf dem aktuellen Arbeitsblatt angezeigt wird. Die  Seitenleiste von &cantor; enthält Karteikarten mit Hilfe und der Variablen-Verwaltung. Die Variablen-Verwaltung kann mit Maxima (wenn auf der Seite  <menuchoice
-><guimenu
->Einstellungen</guimenu
-><guimenuitem
->&cantor; einrichten ...</guimenuitem
-></menuchoice
-> <guilabel
->Maxima</guilabel
->aktiviert) und mit &kalgebra;, Octave, Python2, Python3, Qalculate und Scilab verwendet werden.</para
-></listitem>
-    <listitem
-><para
->Dem Arbeitsblatt selbst.</para
-></listitem>
+<para>
+  The Worksheet interface of &cantor; consists of three parts:
+  <orderedlist>
+    <listitem><para>The tab bar, where you can switch through the open worksheets.</para></listitem>
+    <listitem><para>A help panel, where help for a specific command is displayed if you enter <userinput>?? <replaceable>command</replaceable></userinput>, <userinput>describe(<replaceable>command</replaceable>)</userinput> or <userinput>example(<replaceable>command</replaceable>)</userinput> (<application>Maxima</application> backend).</para></listitem>
+    <listitem><para>A Variable Manager panel where you can see the list of all available variables on the current worksheet. The Help and Variable Manager panels are shown as tabs on a sidebar of a &cantor; window. Variable manager can be used for Maxima (if enabled on <menuchoice><guimenu>Settings</guimenu><guimenuitem>Configure &cantor;...</guimenuitem></menuchoice> <guilabel>Maxima</guilabel> page), &kalgebra;, Octave, Python2, Python3, Qalculate, and Scilab backends only.</para></listitem>
+    <listitem><para>The worksheet itself.</para></listitem>
   </orderedlist>
 </para>
 <sect2 id="worksheet">
-<title
->Das Arbeitsblatt</title>
-<para
->Das Arbeitsblatt ist der wichtigste Bereich für die Arbeit mit &cantor;. Hier geben Sie Ausdrücke ein, lassen sie vom Modul auswerten und hier werden die Ergebnisse angezeigt. Die Befehle, die im Arbeitsblatt benutzt werden können, sind durch das ausgewählte Modul vorgeben. Daher sollten Sie die Syntax des gewählten Moduls lernen. Im Menü <guibutton
->Hilfe</guibutton
-> finden Sie einen Eintrag für das aktuell benutzte Modul, damit können Sie die Dokumentation des Moduls online lesen. Brauchen Sie zu einem bekannten Befehl weitere Hilfe, geben Sie "? <replaceable
->befehl</replaceable
->" ein, dann wird die Dokumentation zum Befehl rechts im Arbeitsblatt angezeigt. Möchten Sie einige Beispielarbeitsblätter laden, wählen Sie im Menü <menuchoice
-><guimenu
->Datei</guimenu
-><guimenuitem
->Beispielarbeitsblatt herunterladen</guimenuitem
-></menuchoice
->. Dann können Sie von anderen Benutzern veröffentlichte Arbeitsblätter herunterladen. </para>
-<para
->Um jeden Befehlseintrag im Arbeitsblatt zu kontrollieren, verwenden Sie die Knöpfe, die rechts im Arbeitsblatt angezeigt werden, wenn der Mauszeiger über einem Eingabefeld steht. Es gibt drei grundlegende Aktionen für jeden Eintrag. Mit <guilabel
->Eintrag auswerten</guilabel
-> wird das Ergebnis der Berechnung dieses Eintrags aktualisiert, mit <guilabel
->Eintrag ziehen</guilabel
-> kann der Eintrag an eine anderen Platz im Arbeitsblatt verschoben werden und mit <guilabel
->Eintrag entfernen</guilabel
-> wird ein Eintrag vom aktuellen Arbeitsblatt gelöscht </para>
-<para
->Einstellungen für Schriften und die Ausrichtung von Elementen im Arbeitsblatt können mit den Aktionen in der Werkzeugleiste über dem Arbeitsblatt geändert werden. </para>
+<title>The Worksheet</title>
+<para>
+  The worksheet is the basic area for working with &cantor;.  Using it, you can enter
+  expressions, allow the backend to perform calculations, and look at the results.
+  The commands the worksheets accept depend on the chosen backend, so you should
+  learn the appropriate backend syntax (the <guibutton>Show Help</guibutton> button takes you there directly).
+  If you know the command, but you need additional information, you can type "? <replaceable>command</replaceable>",
+  and contextual help will appear on the right of the worksheet.
+  If you want to see some example worksheets, you can go to <menuchoice><guimenu>File</guimenu><guimenuitem>Download Example Worksheets</guimenuitem></menuchoice> menu item, and download worksheets other users have published.
+</para>
+<para>
+  To control each command entry of the worksheet you can use control buttons shown at the right part of the worksheet when hovering the entry field with a mouse cursor. There are three basic actions for each entry: <guilabel>Evaluate Entry</guilabel> to update the result of calculations for the entry, <guilabel>Drag Entry</guilabel> to move the entry at the other place of the current worksheet and <guilabel>Remove Entry</guilabel> to remove the entry from the current worksheet.
+</para>
+<para>
+  Font settings and alignment of worksheet entries can be changed using a toolbar above the worksheet.
+</para>
 <sect3 id="worksheet-settings">
-  <title
->Einstellungen</title>
-  <para
->Im Menü <guimenu
->Einstellungen</guimenu
-> kann das Erscheinungsbild des aktuellen Arbeitsblatts geändert werden. </para>
+  <title>Settings</title>
+  <para>
+    The <guimenu>Settings</guimenu> menu allows you to change some settings of the appearance of your
+    current worksheet.
+  </para>
   <variablelist>
     <varlistentry>
-      <term
->Schriftsatz mit Hilfe von &latex;</term>
+      <term>Typeset using LaTeX</term>
       <listitem>
-	<para
->Diese Einstellung ändert die Anzeige von Ergebnissen. Ist sie aktiviert, werden die Ergebnisse vor der Anzeige vom &latex;-System bearbeitet. Damit wird eine ansprechende Darstellung der Formeln möglich. Aus <quote
->3*x^2*sqrt(2)*x+2/3</quote
-> zum Beispiel wird <inlinemediaobject>
+	<para>
+	  This setting changes the way results are presented to you. If enabled, it passes the result through
+	  the &latex; system, to produce visually appealing formulas. For example, <quote>3*x^2*sqrt(2)*x+2/3</quote> becomes
+	  <inlinemediaobject>
 	      <imageobject>
 		<imagedata fileref="latex_formula.png" format="PNG"/>
 	      </imageobject>
-	      <textobject
-><phrase
->3*x^2*sqrt(2)*x+2/3</phrase
-></textobject>
+	      <textobject><phrase>3*x^2*sqrt(2)*x+2/3</phrase></textobject>
 	  </inlinemediaobject>
 	</para>
       </listitem>
     </varlistentry>
     <varlistentry>
-      <term
->Syntaxhervorhebung aktivieren</term>
+      <term>Syntax Highlighting</term>
       <listitem>
-	<para
->Syntaxhervorhebung verbessert die Lesbarkeit des Quelltextes, indem Schlüsselworte oder zusammengehörige Klammern farblich hervorgehoben werden. </para>
+	<para>
+	  Syntax Highlighting increases the readability of code, by highlighting
+	  keywords, or matching brackets in different colors.
+	</para>
       </listitem>
     </varlistentry>
     <varlistentry>
-      <term
->Vervollständigung</term>
+      <term>Completion</term>
       <listitem>
-	<para
->Ist dies aktiviert, zeigt &cantor; bei der Eingabe eine Liste aller mit den bisher eingetippten Buchstaben beginnenden Befehle an, wenn die Tabulatortaste gedrückt wird. Gibt es nur noch einen passenden Befehl, wird er vervollständigt. </para>
+	<para>
+	  When this is enabled, &cantor; will show you possible completions
+	  for the command you are currently typing when you press the Tab-key. If there is only one choice
+	  remaining, it will insert the rest of the command for you.
+	</para>
       </listitem>
     </varlistentry>
   <varlistentry>
-    <term
->Zeilennummern</term>
+    <term>Line Numbers</term>
     <listitem>
-      <para
->Mit dieser Einstellung legen Sie fest, ob die Ausdrücke mit einer Zeilennummer gekennzeichnet werden sollen. Damit können vorher bereits eingegebene Ergebnisse wieder aufgerufen werden - in Maxima funktioniert dies zum Beispiel mit dem Befehl <quote
->%O1</quote
->. </para>
+      <para>
+	This setting controls whether the different expressions should have a number in front.  This allows you
+	to recall older results - in Maxima, for instance, this is done with the <quote>%O1</quote> command.
+      </para>
     </listitem>
   </varlistentry>
   <varlistentry>
-    <term
->Arbeitsblatt animieren</term>
+    <term>Animate Worksheet</term>
     <listitem>
-      <para
->Ist diese Einstellung aktiv. werden verschiedene Animationen verwendet, um Änderungen auf einem Arbeitsblatt hervorzuheben. </para>
+      <para>
+  This setting controls whether the different animations will be used to highlight changes on a worksheet.
+      </para>
     </listitem>
   </varlistentry>
   <varlistentry>
-    <term
->Eingebettete Mathematik</term>
+    <term>Embedded Math</term>
     <listitem>
-      <para
->Diese Einstellung legt fest, ob das Rendern von mathematischen Ausdrücken in <literal
->$$..$$</literal
-> in Text- und &Markdown;-Einträgen aktiviert ist. Für diese Funktion muss <application
->pdflatex</application
-> installiert sein. </para>
+      <para>
+  This setting controls whether rendering math expressions inside <literal>$$..$$</literal> in Text and &Markdown; entries is enabled by default (needs <application>pdflatex</application> installed).
+      </para>
     </listitem>
   </varlistentry>
   </variablelist>
@@ -461,425 +364,286 @@
 </sect2>
 </sect1>
 <sect1 id="assistant-dlgs">
-<title
->Die Assistentendialoge</title>
-<para
->Es gibt mehrere Assistentendialoge in &cantor;, um einige grundlegende Operationen durchzuführen. </para>
-<para
->Diese Dialoge finden Sie in den Menüeinträgen. Für jedes Modul gibt es spezielle Assistentendialoge. </para>
+<title>The assistant dialogs</title>
+<para>
+There are several assistant dialogs implemented in &cantor; to alleviate some basic operations.
+</para>
+<para>
+These dialogs can be accessed using the main menu items. Each backend has its own assistant dialogs.
+</para>
 <sect2 id="create-matrix-dlg">
-<title
->Der Dialog „Matrix erstellen“</title>
+<title>The Create Matrix dialog</title>
 <screenshot>
-  <screeninfo
->Bildschirmfoto des &cantor;-Dialogs zur Erstellung von Matrizen</screeninfo>
+  <screeninfo>Screenshot of the &cantor; matrix creation dialog</screeninfo>
   <mediaobject>
     <imageobject>
       <imagedata fileref="create-dlg.png" format="PNG"/>
     </imageobject>
     <textobject>
-      <phrase
->Bildschirmfoto des &cantor;-Dialogs zur Erstellung von Matrizen</phrase>
+      <phrase>Screenshot of the &cantor; matrix creation dialog</phrase>
     </textobject>
   </mediaobject>
 </screenshot>
-<para
->Dieser Dialog kann zur Eingabe von Matrizen benutzt werden. Die Dimension der Matrizen und die Elemente können hier definiert werden. </para>
-<para
->Mit der &Tab;taste können Sie schnell zwischen den Zellen bei der Eingabe navigieren. </para>
+<para>
+This dialog can be used to input matrices. You can define matrix dimensions and its elements.
+</para>
+<para>
+It is possible to navigate between cells quickly during input using the &Tab; key.
+</para>
 </sect2>
 <sect2 id="compute-invert-dlg">
-<title
->Dialog Matrizen-Operationen</title>
+<title>Matrix operation dialog</title>
 <screenshot>
-  <screeninfo
->Bildschirmfoto des &cantor;-Dialogs zur Eingabe von Matrizen</screeninfo>
+  <screeninfo>Screenshot of the &cantor; matrix input dialog</screeninfo>
   <mediaobject>
     <imageobject>
       <imagedata fileref="matrix-dlg.png" format="PNG"/>
     </imageobject>
     <textobject>
-      <phrase
->Bildschirmfoto des &cantor;-Dialogs zur Eingabe von Matrizen</phrase>
+      <phrase>Screenshot of the &cantor; matrix input dialog</phrase>
     </textobject>
   </mediaobject>
 </screenshot>
-<para
->In diesem Dialog können Sie den Namen einer Matrix eingeben, um ihre Eigenvektoren und Eigenwerte zu berechnen und die Matrix zu invertieren. Der Vorgabewert <userinput
->%</userinput
-> kann als Referenz zum vorherigen Ergebnis einer Berechnung oder einer Eingabe verwendet werden. </para>
+<para>
+This dialog allows entering name of the matrix to compute its eigenvectors, eigenvalues or invert matrix. The default value (<userinput>%</userinput>) is used to refer to the previous result of calculation or input.
+</para>
 </sect2>
 <sect2 id="calculate-derivative-dlg">
-<title
->Der Dialog Differenzieren</title>
+<title>Differentiation dialog</title>
 <screenshot>
-  <screeninfo
->Der Dialog Differenzieren von &cantor;</screeninfo>
+  <screeninfo>Screenshot of the &cantor; differentiation dialog</screeninfo>
   <mediaobject>
     <imageobject>
       <imagedata fileref="differentiate-dlg.png" format="PNG"/>
     </imageobject>
     <textobject>
-      <phrase
->Der Dialog Differenzieren von &cantor;</phrase>
+      <phrase>Screenshot of the &cantor; differentiation dialog</phrase>
     </textobject>
   </mediaobject>
 </screenshot>
-<para
->In diesem Dialog können Sie den Ausdruck einer Funktion zum Differenzieren, die Namen der Variablen und die Art der Ableitung eingeben </para>
+<para>
+This dialog allows entering expression of the function to differentiate, the name of the variable and the order of derivative.
+</para>
 </sect2>
 <sect2 id="calculate-integral-dlg">
-<title
->Der Dialog Integrieren</title>
+<title>Integration dialog</title>
 <screenshot>
-  <screeninfo
->Der Dialog Integrieren von &cantor;</screeninfo>
+  <screeninfo>Screenshot of the &cantor; integration dialog</screeninfo>
   <mediaobject>
     <imageobject>
       <imagedata fileref="integrate-dlg.png" format="PNG"/>
     </imageobject>
     <textobject>
-      <phrase
->Der Dialog Integrieren von &cantor;</phrase>
+      <phrase>Screenshot of the &cantor; integration dialog</phrase>
     </textobject>
   </mediaobject>
 </screenshot>
-<para
->In diesem Dialog können Sie den Ausdruck einer Funktion zum Integrieren, die Namen der Variablen und die Grenzwerte für diese Variablen als bestimmtes Integral eingeben. </para>
+<para>
+This dialog allows entering expression of the function to integrate, the name of the variable and the limits of integration (for the definite integral).
+</para>
 </sect2>
 <sect2 id="calculate-solve-dlg">
-<title
->Der Dialog „Gleichungen lösen“</title>
+<title>Solve equations dialog</title>
 <screenshot>
-  <screeninfo
->Der Dialog „Gleichungen lösen“ von &cantor;</screeninfo>
+  <screeninfo>Screenshot of the &cantor; solve equation dialog</screeninfo>
   <mediaobject>
     <imageobject>
       <imagedata fileref="solve-equations-dlg.png" format="PNG"/>
     </imageobject>
     <textobject>
-      <phrase
->Der Dialog „Gleichungen lösen“ von &cantor;</phrase>
+      <phrase>Screenshot of the &cantor; solve equation dialog</phrase>
     </textobject>
   </mediaobject>
 </screenshot>
-<para
->In diesem Dialog geben Sie Gleichungen zum Lösen ein, jeden Ausdruck in einer eigenen Zeile, und die zu bestimmenden Variablen, durch Kommata getrennt. </para>
+<para>
+This dialog allows entering equations to solve (each equation in a separate line) and the variables to determine (separated by the comma).
+</para>
 </sect2>
 <sect2 id="package-import-dlg">
-<title
->Paket-Importdialog</title>
+<title>Package import dialog</title>
 <screenshot>
-  <screeninfo
->Bildschirmfoto des &cantor;-Dialogs zum Paketimport</screeninfo>
+  <screeninfo>Screenshot of the &cantor; package import dialog</screeninfo>
   <mediaobject>
     <imageobject>
       <imagedata fileref="import-dlg.png" format="PNG"/>
     </imageobject>
     <textobject>
-      <phrase
->Bildschirmfoto des &cantor;-Dialogs zum Paketimport</phrase>
+      <phrase>Screenshot of the &cantor; package import dialog</phrase>
     </textobject>
   </mediaobject>
 </screenshot>
-<para
->In diesem Dialog können Sie den Namen der Pakete zum Importieren eingeben, &eg; <userinput
->numpy</userinput
-> für Python. </para>
+<para>
+This dialog allows entering name of the package to import (&eg; <userinput>numpy</userinput> for Python).
+</para>
 </sect2>
 <sect2 id="plot-dlg">
-<title
->Grafikdialog</title>
+<title>Plot dialog</title>
 <screenshot>
-  <screeninfo
->Der Grafikdialog von &cantor; mit der Karteikarte Funktionen</screeninfo>
+  <screeninfo>Screenshot of the &cantor; plot dialog (Functions tab)</screeninfo>
   <mediaobject>
     <imageobject>
       <imagedata fileref="plot-dlg1.png" format="PNG"/>
     </imageobject>
     <textobject>
-      <phrase
->Der Grafikdialog von &cantor; mit der Karteikarte Funktionen</phrase>
+      <phrase>Screenshot of the &cantor; plot dialog (Functions tab)</phrase>
     </textobject>
   </mediaobject>
 </screenshot>
-<para
->Die Einstellungen in diesem Dialog sind auf zwei Karteikarten aufgeteilt. Auf der Karteikarte <guilabel
->Funktionen</guilabel
-> können Sie Funktionen eingeben, die grafisch dargestellt werden sollen. </para>
-<para
->Um eine neue Funktion einzugeben, klicken Sie auf <guibutton
->Hinzufügen</guibutton
->. Doppelklicken Sie auf die Zelle <guilabel
->Titel</guilabel
-> und geben dann den Titel ein. Doppelklicken Sie auf die Zelle <guilabel
->Ausdruck</guilabel
-> und tragen den Ausdruck der Funktion ein. </para>
+<para>
+The options of this dialog are separated into two groups using tabs. The <guilabel>Functions</guilabel> tab allows entering functions to plot.
+</para>
+<para>
+To enter new function click on the <guibutton>Add</guibutton>. Double-click on the <guilabel>Title</guilabel> cell and enter the title, then double-click on the <guilabel>Expression</guilabel> cell and enter the function expression.
+</para>
 <screenshot>
-  <screeninfo
->Der Grafikdialog von &cantor; mit der Karteikarte Einstellungen</screeninfo>
+  <screeninfo>Screenshot of the &cantor; plot dialog (Options tab)</screeninfo>
   <mediaobject>
     <imageobject>
       <imagedata fileref="plot-dlg2.png" format="PNG"/>
     </imageobject>
     <textobject>
-      <phrase
->Der Grafikdialog von &cantor; mit der Karteikarte Einstellungen</phrase>
+      <phrase>Screenshot of the &cantor; plot dialog (Options tab)</phrase>
     </textobject>
   </mediaobject>
 </screenshot>
-<para
->Auf der Karteikarte <guilabel
->Einstellungen</guilabel
-> definieren Sie das Erscheinungsbild von Grafik und die Legende.  </para>
+<para>
+The <guilabel>Options</guilabel> tab is used to define plot and legend options. You can fine-tune almost every plot option to obtain the pleasant look of your figure.
+</para>
 </sect2>
 <sect2 id="plot2d-dlg">
-<title
->2D-Grafikdialog</title>
+<title>Plot 2D dialog</title>
 <screenshot>
-  <screeninfo
->Der 2D-Grafikdialog von &cantor;</screeninfo>
+  <screeninfo>Screenshot of the &cantor; plot 2D dialog</screeninfo>
   <mediaobject>
     <imageobject>
       <imagedata fileref="plot2d-dlg.png" format="PNG"/>
     </imageobject>
     <textobject>
-      <phrase
->Der 2D-Grafikdialog von &cantor;</phrase>
+      <phrase>Screenshot of the &cantor; plot 2D dialog</phrase>
     </textobject>
   </mediaobject>
 </screenshot>
-<para
->In diesem Dialog können Sie den Ausdruck einer Funktion, die Variablen und die Grenzwerte für diese Variable eingeben. </para>
+<para>
+This dialog allows entering expression of the function, its variable and the limits for this variable.
+</para>
 </sect2>
 <sect2 id="plot3d-dlg">
-<title
->3D-Grafikdialog</title>
+<title>Plot 3D dialog</title>
 <screenshot>
-  <screeninfo
->Der 3D-Grafikdialog von &cantor;</screeninfo>
+  <screeninfo>Screenshot of the &cantor; plot 3D dialog</screeninfo>
   <mediaobject>
     <imageobject>
       <imagedata fileref="plot3d-dlg.png" format="PNG"/>
     </imageobject>
     <textobject>
-      <phrase
->Der 3D-Grafikdialog von &cantor;</phrase>
+      <phrase>Screenshot of the &cantor; plot 3D dialog</phrase>
     </textobject>
   </mediaobject>
 </screenshot>
-<para
->In diesem Dialog können Sie den Ausdruck einer Funktion, die Variablen und die Grenzwerte für jede Variable eingeben. </para>
+<para>
+This dialog allows entering expression of the function, its variables and the limits for each variable.
+</para>
 </sect2>
 </sect1>
 </chapter>
 
 <chapter id="commands">
-<title
->Befehlsreferenz</title>
+<title>Command Reference</title>
 
 <sect1 id="kapp-mainwindow">
-<title
->Das Hauptfenster von &cantor;</title>
+<title>The main &cantor; window</title>
 
-<para
->&cantor; benutzt die bekannten &kde;-Menüeinträge, weitere Informationen dazu finden Sie im Kapitel <ulink url="help:/fundamentals/menus.html"
->Menüs</ulink
-> der &kde;-Grundlagen. </para>
+<para>
+&cantor; has the common &kde; menu items, for more information read the <ulink url="help:/fundamentals/menus.html"
+>Menu</ulink> chapter of the &kde; Fundamentals.
+</para>
 
-<para
->Im folgenden finden Sie eine Liste der zusätzlichen oder speziellen Menüeinträge für &cantor;. Einige Menüs werden nur angezeigt, wenn die verwendeten Module diese Funktionen implementiert haben. </para>
+<para>Below is the list of the additional or special menu items in &cantor;. Please note that some menus are only shown for backends that have corresponding implementation.
+</para>
 
 <sect2 id="file-menu">
-<title
->Das Menü Datei</title>
+<title>The File Menu</title>
 <para>
 <variablelist>
 <varlistentry>
-<term
-><menuchoice
-><shortcut
-><keycombo action="simul"
->&Ctrl; <keycap
->N</keycap
-></keycombo
-></shortcut
-> <guimenu
->Datei</guimenu
-> <guimenuitem
->Neu</guimenuitem
-> </menuchoice
-></term>
-<listitem
-><para
-><action
->Erstellt ein neues Arbeitsblatt mit dem Standardmodul.</action
-></para
-></listitem>
+<term><menuchoice>
+<shortcut>
+<keycombo action="simul">&Ctrl;<keycap>N</keycap></keycombo>
+</shortcut>
+<guimenu>File</guimenu>
+<guimenuitem>New</guimenuitem>
+</menuchoice></term>
+<listitem><para><action>Creates a new worksheet with the default backend.</action></para></listitem>
 </varlistentry>
 <varlistentry>
-<term
-><menuchoice
-><guimenu
->Datei</guimenu
-> <guisubmenu
->Neu</guisubmenu
-> <guimenuitem
-><replaceable
->Modul</replaceable
-></guimenuitem
-> </menuchoice
-></term>
-<listitem
-><para
-><action
->Erstellt ein neues Arbeitsblatt mit dem ausgewählten Modul.</action
-></para
-></listitem>
+<term><menuchoice>
+<guimenu>File</guimenu>
+<guisubmenu>New</guisubmenu>
+<guimenuitem><replaceable>Backend</replaceable></guimenuitem>
+</menuchoice></term>
+<listitem><para><action>Creates a new worksheet with the chosen backend.</action></para></listitem>
 </varlistentry>
 <varlistentry>
-<term
-><menuchoice
-><shortcut
-> <keycombo action="simul"
->&Ctrl;<keycap
->O</keycap
-></keycombo
-> </shortcut
-> <guimenu
->Datei</guimenu
-> <guimenuitem
->Öffnen</guimenuitem
-> </menuchoice
-></term>
-<listitem
-><para
-><action
->Öffnet ein neues unterstütztes Arbeitsblatt mit dem Dateiauswahl-Dialog.</action
-></para
-></listitem>
+<term><menuchoice>
+<shortcut>
+<keycombo action="simul">&Ctrl;<keycap>O</keycap></keycombo>
+</shortcut>
+<guimenu>File</guimenu>
+<guimenuitem>Open...</guimenuitem>
+</menuchoice></term>
+<listitem><para><action>Open a supported new worksheet with the file dialog.</action></para></listitem>
 </varlistentry>
 <varlistentry>
-<term
-><menuchoice
-><guimenu
->Datei</guimenu
-> <guisubmenu
->Zuletzt geöffnete Dateien</guisubmenu
-> </menuchoice
-></term>
-<listitem
-><para
-><action
->Wählt ein Arbeitsblatt aus der Liste der zuletzt benutzen Dateien.</action
-></para
-></listitem>
+<term><menuchoice>
+<guimenu>File</guimenu>
+<guisubmenu>Open Recent</guisubmenu>
+</menuchoice></term>
+<listitem><para><action>Choose a worksheet from a list of recently used files.</action></para></listitem>
 </varlistentry>
 <varlistentry>
-<term
-><menuchoice
-><guimenu
->Datei</guimenu
-> <guimenuitem
->Beispielarbeitsblatt herunterladen</guimenuitem
-> </menuchoice
-></term>
-<listitem
-><para
-><action
->Öffnet einen Dialog, um Beispiele, die von anderen Benutzer von &cantor; veröffentlicht wurden, mit der Funktion <ulink url="https://userbase.kde.org/Special:MyLanguage/Glossary#Get_Hot_New_Stuff"
->Neue Erweiterungen</ulink
-> herunterzuladen.</action
-></para
-></listitem>
+<term><menuchoice>
+<guimenu>File</guimenu>
+<guimenuitem>Download Example Worksheets</guimenuitem>
+</menuchoice></term>
+<listitem><para><action>Opens the dialog to download examples uploaded by other &cantor; users with
+ <ulink url="https://userbase.kde.org/Special:MyLanguage/Glossary#Get_Hot_New_Stuff">GetHotNewStuff</ulink>.</action></para></listitem>
 </varlistentry>
 <varlistentry>
-<term
-><menuchoice
-><guimenu
->Datei</guimenu
-> <guimenuitem
->Beispieldatei öffnen</guimenuitem
-> </menuchoice
-></term>
-<listitem
-><para
-><action
->Öffnet einen Dialog, um eine Beispiel auszuwählen und zu laden</action
->. Die Beispiele können zum Beispiel vorher mit <menuchoice
-><guimenu
->Datei</guimenu
-> <guimenuitem
->Beispielarbeitsblatt herunterladen</guimenuitem
-></menuchoice
-> auf der Festplatte gespeichert werden.</para
-></listitem>
+<term><menuchoice>
+<guimenu>File</guimenu>
+<guimenuitem>Open Example</guimenuitem>
+</menuchoice></term>
+<listitem><para><action>Opens the dialog to choose an example to load.</action> The examples should be downloaded with <menuchoice><guimenu>File</guimenu>
+<guimenuitem>Download Example Worksheets</guimenuitem></menuchoice> beforehand.</para></listitem>
 </varlistentry>
 <varlistentry>
-<term
-><menuchoice
-><guimenu
->Datei</guimenu
-> <guimenuitem
->Als einfache Textdatei speichern</guimenuitem
-> </menuchoice
-></term>
-<listitem
-><para
-><action
->Ermöglicht das Speichern des aktuellen Arbeitsblatts als einfaches Textdokument.</action
-></para
-></listitem>
+<term><menuchoice>
+<guimenu>File</guimenu>
+<guimenuitem>Save Plain Text</guimenuitem>
+</menuchoice></term>
+<listitem><para><action>Allows saving the current worksheet as a plain text document.</action></para></listitem>
 </varlistentry>
 <varlistentry>
-<term
-><menuchoice
-><guimenu
->Datei</guimenu
-> <guimenuitem
->LaTeX-Export</guimenuitem
-> </menuchoice
-></term>
-<listitem
-><para
-><action
->Ermöglicht das Speichern des aktuellen Arbeitsblatts als &latex;-Dokument.</action
-></para
-></listitem>
+<term><menuchoice>
+<guimenu>File</guimenu>
+<guimenuitem>Export to LaTeX</guimenuitem>
+</menuchoice></term>
+<listitem><para><action>Allows saving the current worksheet as a &latex; document.</action></para></listitem>
 </varlistentry>
 <varlistentry>
-<term
-><menuchoice
-><guimenu
->Datei</guimenu
-> <guimenuitem
->Arbeitsblatt veröffentlichen</guimenuitem
-> </menuchoice
-></term>
-<listitem
-><para
-><action
->Öffnet einen Dialog, um Ihr aktuelles Arbeitsblatt zu veröffentlichen und anderen Benutzer von &cantor; über die Funktion <ulink url="https://userbase.kde.org/Special:MyLanguage/Glossary#Get_Hot_New_Stuff"
->„Neue Erweiterungen“ veröffentlichen</ulink
-> zur Verfügung zu stellen.</action
-></para
-></listitem>
+<term><menuchoice>
+<guimenu>File</guimenu>
+<guimenuitem>Publish Worksheet</guimenuitem>
+</menuchoice></term>
+<listitem><para><action>Opens the dialog to publish your current worksheet and make it available to other &cantor; users through
+ <ulink url="https://userbase.kde.org/Special:MyLanguage/Glossary#Get_Hot_New_Stuff">GetHotNewStuff</ulink>.</action></para></listitem>
 </varlistentry>
 <varlistentry>
-<term
-><menuchoice
-><guimenu
->Datei</guimenu
-> <guimenuitem
->Skript ausführen</guimenuitem
-> </menuchoice
-></term>
-<listitem
-><para
-><action
->Ermöglicht das Laden und Ausführen der Skripte für das aktuelle Modul.</action
-></para
-></listitem>
+<term><menuchoice>
+<guimenu>File</guimenu>
+<guimenuitem>Run Script</guimenuitem>
+</menuchoice></term>
+<listitem><para><action>Allows to load and run the batch scripts for the current backend.</action></para></listitem>
 </varlistentry>
 </variablelist>
 </para>
@@ -887,600 +651,292 @@
 </sect2>
 
 <sect2 id="view-menu">
-<title
->Das Menü Ansicht</title>
+<title>The View Menu</title>
 <para>
 <variablelist>
 <varlistentry>
-<term
-><menuchoice
-><guimenu
->Ansicht</guimenu
-> <guisubmenu
->Seitenleisten</guisubmenu
-></menuchoice
-></term>
-<listitem
-><para
->Hier können Sie die Anzeige folgender Fenster in der Seitenleiste ein- oder ausschalten: <variablelist>
+<term><menuchoice><guimenu>View</guimenu><guisubmenu>Panels</guisubmenu></menuchoice></term>
+<listitem><para>Allows you to toggle the visibility of some tabs in the sidebar. Choices are:
+<variablelist>
   <varlistentry>
-  <term
-><guimenuitem
->Dateibrowser</guimenuitem
-></term>
-  <listitem
-><para
-><action
->Schaltet</action
-> die Anzeige der Karteikarte <guilabel
->Dateibrowser</guilabel
-> in der Seitenleiste an oder aus.</para
-></listitem>
+  <term><guimenuitem>File Browser</guimenuitem></term>
+  <listitem><para><action>Toggles</action> the visibility of the <guilabel>File Browser</guilabel> tab in the sidebar.</para></listitem>
   </varlistentry>
 
   <varlistentry>
-  <term
-><guimenuitem
->Hilfe</guimenuitem
-></term>
-  <listitem
-><para
-><action
->Schaltet</action
-> die Anzeige der Karteikarte <guilabel
->Hilfe</guilabel
-> in der Seitenleiste an oder aus.</para
-></listitem>
+  <term><guimenuitem>Help</guimenuitem></term>
+  <listitem><para><action>Toggles</action> the visibility of the <guilabel>Help</guilabel> tab in the sidebar.</para></listitem>
   </varlistentry>
 
   <varlistentry>
-  <term
-><guimenuitem
->Variablen-Verwaltung</guimenuitem
-></term>
-  <listitem
-><para
-><action
->Schaltet</action
-> die Anzeige der Karteikarte <guilabel
->Variablen-Verwaltung</guilabel
-> in der Seitenleiste an oder aus.</para
-></listitem>
+  <term><guimenuitem>Variable Manager</guimenuitem></term>
+  <listitem><para><action>Toggles</action> the visibility of the <guilabel>Variable Manager</guilabel> tab in the sidebar.</para></listitem>
   </varlistentry>
-</variablelist
-></para
-></listitem>
+</variablelist></para></listitem>
 </varlistentry>
 <varlistentry>
-<term
-><menuchoice
-><shortcut
-><keycombo action="simul"
->&Ctrl;<keycap
->+</keycap
-></keycombo
-></shortcut
-> <guimenu
->Ansicht</guimenu
-> <guimenuitem
->Vergrößern</guimenuitem
-> </menuchoice
-></term>
-<listitem
-><para
-><action
->Vergrößert</action
-> das aktuelle Arbeitsblatt um 10 %.</para
-></listitem>
+<term><menuchoice>
+<shortcut>
+<keycombo action="simul">&Ctrl;<keycap>+</keycap></keycombo>
+</shortcut>
+<guimenu>View</guimenu>
+<guimenuitem>Zoom In</guimenuitem>
+</menuchoice></term>
+<listitem><para><action>Zoom in</action> the current worksheet by 10%.</para></listitem>
 </varlistentry>
 <varlistentry>
-<term
-><menuchoice
-><shortcut
-> <keycombo action="simul"
->&Ctrl;<keycap
->-</keycap
-></keycombo
-> </shortcut
-> <guimenu
->Ansicht</guimenu
-> <guimenuitem
->Verkleinern</guimenuitem
-> </menuchoice
-></term>
-<listitem
-><para
-><action
->Verkleinert</action
-> das aktuelle Arbeitsblatt um 10 %.</para
-></listitem>
+<term><menuchoice>
+<shortcut>
+<keycombo action="simul">&Ctrl;<keycap>-</keycap></keycombo>
+</shortcut>
+<guimenu>View</guimenu>
+<guimenuitem>Zoom Out</guimenuitem>
+</menuchoice></term>
+<listitem><para><action>Zoom out</action> the current worksheet by 10%.</para></listitem>
 </varlistentry>
 <varlistentry>
-<term
-><menuchoice
-><guimenu
->Ansicht</guimenu
-> <guimenuitem
->Skripteditor anzeigen</guimenuitem
-> </menuchoice
-></term>
-<listitem
-><para
-><action
->Öffnet das Skripteditorfenster für das aktuell gewählte Modul.</action
-></para
-></listitem>
+<term><menuchoice>
+<guimenu>View</guimenu>
+<guimenuitem>Show Script Editor</guimenuitem>
+</menuchoice></term>
+<listitem><para><action>Opens the batch script editor window for the current backend.</action></para></listitem>
 </varlistentry>
 </variablelist>
 </para>
 </sect2>
 
 <sect2 id="worsheet-menu">
-<title
->Das Menü Arbeitsblatt</title>
+<title>The Worksheet Menu</title>
 <para>
 <variablelist>
 <varlistentry>
-<term
-><menuchoice
-><shortcut
-> <keycombo action="simul"
->&Ctrl;<keycap
->E</keycap
-></keycombo
-> </shortcut
-> <guimenu
->Arbeitsblatt</guimenu
-> <guimenuitem
->Arbeitsblatt auswerten</guimenuitem
-> </menuchoice
-></term>
-<listitem
-><para
-><action
->Startet</action
-> die Auswertung des gesamten Arbeitsblatts.</para
-></listitem>
+<term><menuchoice>
+<shortcut>
+<keycombo action="simul">&Ctrl;<keycap>E</keycap></keycombo>
+</shortcut>
+<guimenu>Worksheet</guimenu>
+<guimenuitem>Evaluate Worksheet</guimenuitem>
+</menuchoice></term>
+<listitem><para><action>Triggers</action> the evaluation of the whole worksheet.</para></listitem>
 </varlistentry>
 <varlistentry>
-<term
-><menuchoice
-><shortcut
-> <keycombo action="simul"
->&Shift;&Enter;</keycombo
-> </shortcut
-> <guimenu
->Arbeitsblatt</guimenu
-> <guimenuitem
->Eintrag auswerten</guimenuitem
-> </menuchoice
-></term>
-<listitem
-><para
-><action
->Startet</action
-> die Auswertung des aktuellen Eintrags.</para
-></listitem>
+<term><menuchoice>
+<shortcut>
+<keycombo action="simul">&Shift;&Enter;</keycombo>
+</shortcut>
+<guimenu>Worksheet</guimenu>
+<guimenuitem>Evaluate Entry</guimenuitem>
+</menuchoice></term>
+<listitem><para><action>Triggers</action> the current entry evaluation.</para></listitem>
 </varlistentry>
 <varlistentry>
-<term
-><menuchoice
-><shortcut
-> <keycombo action="simul"
->&Ctrl;&Enter;</keycombo
-> </shortcut
-> <guimenu
->Arbeitsblatt</guimenu
-> <guimenuitem
->Befehlseintrag einfügen</guimenuitem
-> </menuchoice
-></term>
-<listitem
-><para
-><action
->Fügt unter der aktuellen Cursor-Position einen neuen Befehlseintrag ein.</action
-></para
-></listitem>
+<term><menuchoice>
+<shortcut>
+<keycombo action="simul">&Ctrl;&Enter;</keycombo>
+</shortcut>
+<guimenu>Worksheet</guimenu>
+<guimenuitem>Insert Command Entry</guimenuitem>
+</menuchoice></term>
+<listitem><para><action>Inserts a new command entry below the current cursor position.</action></para></listitem>
 </varlistentry>
 <varlistentry>
-<term
-><menuchoice
-><guimenu
->Arbeitsblatt</guimenu
-> <guimenuitem
->Texteintrag einfügen</guimenuitem
-> </menuchoice
-></term>
-<listitem
-><para
-><action
->Fügt unter der aktuellen Cursor-Position einen neuen Texteintrag ein.</action
-></para
-></listitem>
+<term><menuchoice>
+<guimenu>Worksheet</guimenu>
+<guimenuitem>Insert Text Entry</guimenuitem>
+</menuchoice></term>
+<listitem><para><action>Inserts a new text entry below the current cursor position.</action></para></listitem>
 </varlistentry>
 <varlistentry>
-<term
-><menuchoice
-><guimenu
->Arbeitsblatt</guimenu
-> <guimenuitem
->Markdown-Eintrag einfügen</guimenuitem
-> </menuchoice
-></term>
-<listitem
-><para
-><action
->Fügt unter der aktuellen Cursor-Position einen neuen Markdown-Eintrag ein</action
->.</para
-></listitem>
+<term><menuchoice>
+<guimenu>Worksheet</guimenu>
+<guimenuitem>Insert Markdown Entry</guimenuitem>
+</menuchoice></term>
+<listitem><para><action>Inserts a &Markdown; entry below the current cursor position.</action>.</para></listitem>
 </varlistentry>
 <varlistentry>
-<term
-><menuchoice
-><guimenu
->Arbeitsblatt</guimenu
-> <guimenuitem
->LaTeX-Eintrag einfügen</guimenuitem
-> </menuchoice
-></term>
-<listitem
-><para
-><action
->Fügt unter der aktuellen Cursor-Position einen neuen &latex;-Eintrag ein</action
->.</para
-></listitem>
+<term><menuchoice>
+<guimenu>Worksheet</guimenu>
+<guimenuitem>Insert LaTeX Entry</guimenuitem>
+</menuchoice></term>
+<listitem><para><action>Inserts a &latex; entry below the current cursor position.</action>.</para></listitem>
 </varlistentry>
 <varlistentry>
-<term
-><menuchoice
-><guimenu
->Arbeitsblatt</guimenu
-> <guimenuitem
->Bild einfügen</guimenuitem
-> </menuchoice
-></term>
-<listitem
-><para
-><action
->Fügt unter der aktuellen Cursor-Position ein Bild ein.</action
-></para
-></listitem>
+<term><menuchoice>
+<guimenu>Worksheet</guimenu>
+<guimenuitem>Insert Image</guimenuitem>
+</menuchoice></term>
+<listitem><para><action>Inserts an image below the current cursor position.</action></para></listitem>
 </varlistentry>
 <varlistentry>
-<term
-><menuchoice
-><guimenu
->Arbeitsblatt</guimenu
-> <guimenuitem
->Seitenumbruch einfügen</guimenuitem
-> </menuchoice
-></term>
-<listitem
-><para
-><action
->Fügt unter der aktuellen Cursor-Position einen Seitenumbruch ein.</action
-></para
-></listitem>
+<term><menuchoice>
+<guimenu>Worksheet</guimenu>
+<guimenuitem>Insert Page Break</guimenuitem>
+</menuchoice></term>
+<listitem><para><action>Inserts the page break below the current cursor position.</action></para></listitem>
 </varlistentry>
 <varlistentry>
-<term
-><menuchoice
-><guimenu
->Arbeitsblatt</guimenu
-> <guimenuitem
-> Alle Ergebnisse zusammenklappen</guimenuitem
-> </menuchoice
-></term>
-<listitem
-><para
-><action
->Klappt alle Ergebnisse des Befehlseintrags ein.</action
-></para
-></listitem>
+<term><menuchoice>
+<guimenu>Worksheet</guimenu>
+<guimenuitem>Collapse All Results</guimenuitem>
+</menuchoice></term>
+<listitem><para><action>Collapse all results of the command entry.</action></para></listitem>
 </varlistentry>
 <varlistentry>
-<term
-><menuchoice
-><guimenu
->Arbeitsblatt</guimenu
-> <guimenuitem
-> Alle Ergebnisse ausklappen</guimenuitem
-> </menuchoice
-></term>
-<listitem
-><para
-><action
->Klappt alle Ergebnisse des Befehlseintrags aus.</action
-></para
-></listitem>
+<term><menuchoice>
+<guimenu>Worksheet</guimenu>
+<guimenuitem>Expand All Results</guimenuitem>
+</menuchoice></term>
+<listitem><para><action>Expand all results of the command entry.</action></para></listitem>
 </varlistentry>
 <varlistentry>
-<term
-><menuchoice
-><guimenu
->Arbeitsblatt</guimenu
-> <guimenuitem
->Alle Ergebnisse entfernen</guimenuitem
-> </menuchoice
-></term>
-<listitem
-><para
-><action
->Entfernt alle Ergebnisse des Befehlseintrags.</action
-></para
-></listitem>
+<term><menuchoice>
+<guimenu>Worksheet</guimenu>
+<guimenuitem>Remove All Results</guimenuitem>
+</menuchoice></term>
+<listitem><para><action>Remove all results of the command entry.</action></para></listitem>
 </varlistentry>
 <varlistentry>
-<term
-><menuchoice
-><shortcut
-> <keycombo action="simul"
->&Shift;&Del;</keycombo
-> </shortcut
-> <guimenu
->Arbeitsblatt</guimenu
-> <guimenuitem
->Aktuellen Eintrag entfernen</guimenuitem
-> </menuchoice
-></term>
-<listitem
-><para
-><action
->Löscht</action
-> den aktuellen Eintrag aus dem Arbeitsblatt.</para
-></listitem>
+<term><menuchoice>
+<shortcut>
+<keycombo action="simul">&Shift;&Del;</keycombo>
+</shortcut>
+<guimenu>Worksheet</guimenu>
+<guimenuitem>Remove current Entry</guimenuitem>
+</menuchoice></term>
+<listitem><para><action>Removes</action> current entry from the worksheet.</para></listitem>
 </varlistentry>
 </variablelist>
 </para>
 </sect2>
 
 <sect2 id="linear-algebra-menu">
-<title
->Das Menü Lineare Algebra</title>
+<title>The Linear Algebra Menu</title>
 <para>
 <variablelist>
 <varlistentry>
-<term
-><menuchoice
-><guimenu
->Lineare Algebra</guimenu
-> <guimenuitem
->Matrix erstellen</guimenuitem
-> </menuchoice
-></term>
-<listitem
-><para
-><action
->Öffnet</action
-> den <link linkend="create-matrix-dlg"
->Dialog zur Erstellung von Matrizen</link
->.</para
-></listitem>
+<term><menuchoice>
+<guimenu>Linear Algebra</guimenu>
+<guimenuitem>Create Matrix</guimenuitem>
+</menuchoice></term>
+<listitem><para><action>Opens</action> the <link linkend="create-matrix-dlg">matrix creation assistant dialog</link>.</para></listitem>
 </varlistentry>
 <varlistentry>
-<term
-><menuchoice
-><guimenu
->Lineare Algebra</guimenu
-> <guimenuitem
->Eigenwerte berechnen</guimenuitem
-> </menuchoice
-></term>
-<listitem
-><para
-><action
->Öffnet</action
-> den <link linkend="compute-invert-dlg"
->Dialog zur Eingabe des Namens einer Matrix</link
->, um deren Eigenwerte  und die Dimension der Eigenwerte in der zugehörigen Reihenfolge zu berechnen.. </para
-></listitem>
+<term><menuchoice>
+<guimenu>Linear Algebra</guimenu>
+<guimenuitem>Compute Eigenvalues</guimenuitem>
+</menuchoice></term>
+<listitem><para><action>Opens</action> the <link linkend="compute-invert-dlg">matrix name input assistant dialog</link> to compute its eigenvalues and dimensions of the multiplicities of the eigenvalues in the corresponding order.
+</para></listitem>
 </varlistentry>
 <varlistentry>
-<term
-><menuchoice
-><guimenu
->Lineare Algebra</guimenu
-> <guimenuitem
->Eigenvektoren berechnen</guimenuitem
-> </menuchoice
-></term>
-<listitem
-><para
-><action
->Öffnet</action
-> den <link linkend="compute-invert-dlg"
->Dialog zur Eingabe des Namens einer Matrix</link
->, um deren Eigenwerte, die Dimension der Eigenwerte in der zugehörigen Reihenfolge und die Eigenvektoren zu berechnen.. </para
-></listitem>
+<term><menuchoice>
+<guimenu>Linear Algebra</guimenu>
+<guimenuitem>Compute Eigenvectors</guimenuitem>
+</menuchoice></term>
+<listitem><para><action>Opens</action> the <link linkend="compute-invert-dlg">matrix name input assistant dialog</link> to compute its eigenvalues, dimensions of the multiplicities of the eigenvalues and eigenvectors in the corresponding order.
+</para></listitem>
 </varlistentry>
 <varlistentry>
-<term
-><menuchoice
-><guimenu
->Lineare Algebra</guimenu
-> <guimenuitem
->Matrix invertieren</guimenuitem
-> </menuchoice
-></term>
-<listitem
-><para
-><action
->Öffnet</action
-> den <link linkend="compute-invert-dlg"
->Dialog Matrix-Eingabe</link
-> um die inverse Matrix zu berechnen. </para
-></listitem>
+<term><menuchoice>
+<guimenu>Linear Algebra</guimenu>
+<guimenuitem>Invert Matrix</guimenuitem>
+</menuchoice></term>
+<listitem><para><action>Opens</action> the <link linkend="compute-invert-dlg">matrix name input assistant dialog</link> to find the inverse of the matrix.
+</para></listitem>
 </varlistentry>
 </variablelist>
 </para>
 </sect2>
 
 <sect2 id="calculate-menu">
-<title
->Das Menü Berechnen</title>
+<title>The Calculate Menu</title>
 <para>
 <variablelist>
 <varlistentry>
-<term
-><menuchoice
-><guimenu
->Berechnen</guimenu
-> <guimenuitem
->Differenzieren</guimenuitem
-> </menuchoice
-></term>
-<listitem
-><para
-><action
->Öffnet</action
-> den <link linkend="calculate-derivative-dlg"
->Dialog Differenzieren-Parameter</link
->. </para
-></listitem>
+<term><menuchoice>
+<guimenu>Calculate</guimenu>
+<guimenuitem>Differentiate</guimenuitem>
+</menuchoice></term>
+<listitem><para><action>Opens</action> the <link linkend="calculate-derivative-dlg">differentiation parameters dialog</link>.
+</para></listitem>
 </varlistentry>
 <varlistentry>
-<term
-><menuchoice
-><guimenu
->Berechnen</guimenu
-> <guimenuitem
->Integrieren</guimenuitem
-> </menuchoice
-></term>
-<listitem
-><para
-><action
->Öffnet</action
-> den <link linkend="calculate-integral-dlg"
->Dialog Integrations-Parameter</link
->. </para
-></listitem>
+<term><menuchoice>
+<guimenu>Calculate</guimenu>
+<guimenuitem>Integrate</guimenuitem>
+</menuchoice></term>
+<listitem><para><action>Opens</action> the <link linkend="calculate-integral-dlg">integration parameters dialog</link>.
+</para></listitem>
 </varlistentry>
 <varlistentry>
-<term
-><menuchoice
-><guimenu
->Berechnen</guimenu
-> <guimenuitem
->Gleichungen lösen</guimenuitem
-> </menuchoice
-></term>
-<listitem
-><para
-><action
->Öffnet</action
-> den <link linkend="calculate-solve-dlg"
->Dialog zur Eingabe der Parameter</link
->, um lineare und nicht-lineare Gleichungen zu lösen. </para
-></listitem>
+<term><menuchoice>
+<guimenu>Calculate</guimenu>
+<guimenuitem>Solve equations</guimenuitem>
+</menuchoice></term>
+<listitem><para><action>Opens</action> the <link linkend="calculate-solve-dlg">parameters input dialog</link> to solve linear and non-linear equations.
+</para></listitem>
 </varlistentry>
 </variablelist>
 </para>
 </sect2>
 
 <sect2 id="package-menu">
-<title
->Das Menü Paket</title>
+<title>The Package Menu</title>
 <para>
 <variablelist>
 <varlistentry>
-<term
-><menuchoice
-><guimenu
->Paket</guimenu
-> <guimenuitem
->Paket importieren</guimenuitem
-> </menuchoice
-></term>
-<listitem
-><para
-><action
->Öffnet</action
-> den  <link linkend="package-import-dlg"
->Dialog zum Import von Paketen</link
->. </para
-></listitem>
+<term><menuchoice>
+<guimenu>Package</guimenu>
+<guimenuitem>Import Package</guimenuitem>
+</menuchoice></term>
+<listitem><para><action>Opens</action> the <link linkend="package-import-dlg">package import dialog</link>.
+</para></listitem>
 </varlistentry>
 </variablelist>
 </para>
 </sect2>
 
 <sect2 id="plot-menu">
-<title
->Das Menü Grafik</title>
+<title>The Plot Menu</title>
 <para>
 <variablelist>
 <varlistentry>
-<term
-><menuchoice
-><guimenu
->Grafik</guimenu
-> <guimenuitem
->Grafik</guimenuitem
-> </menuchoice
-></term>
-<listitem
-><para
-><action
->Öffnet</action
-> den <link linkend="plot-dlg"
->Dialog Grafik-Parameter</link
->. </para
-></listitem>
+<term><menuchoice>
+<guimenu>Plot</guimenu>
+<guimenuitem>Plot</guimenuitem>
+</menuchoice></term>
+<listitem><para><action>Opens</action> the <link linkend="plot-dlg">plot parameters dialog</link>.
+</para></listitem>
 </varlistentry>
 <varlistentry>
-<term
-><menuchoice
-><guimenu
->Grafik</guimenu
-> <guimenuitem
->2D-Grafik</guimenuitem
-> </menuchoice
-></term>
-<listitem
-><para
-><action
->Öffnet</action
-> den <link linkend="plot2d-dlg"
->Dialog 2D-Grafik-Parameter</link
->. </para
-></listitem>
+<term><menuchoice>
+<guimenu>Plot</guimenu>
+<guimenuitem>Plot 2D</guimenuitem>
+</menuchoice></term>
+<listitem><para><action>Opens</action> the <link linkend="plot2d-dlg">plot parameters dialog</link>.
+</para></listitem>
 </varlistentry>
 <varlistentry>
-<term
-><menuchoice
-><guimenu
->Grafik</guimenu
-> <guimenuitem
->3D-Grafik</guimenuitem
-> </menuchoice
-></term>
-<listitem
-><para
-><action
->Öffnet</action
-> den <link linkend="plot3d-dlg"
->Dialog 3D-Grafik-Parameter</link
->. </para
-></listitem>
+<term><menuchoice>
+<guimenu>Plot</guimenu>
+<guimenuitem>Plot 3D</guimenuitem>
+</menuchoice></term>
+<listitem><para><action>Opens</action> the <link linkend="plot3d-dlg">plot parameters dialog</link>.
+</para></listitem>
 </varlistentry>
 </variablelist>
 </para>
 </sect2>
 
 <sect2 id="settings-help-menu">
-<title
->Die Menüs Einstellungen und Hilfe</title>
-<para
->&cantor; benutzt die bekannten &kde;-Menüeinträge <guimenu
->Einstellungen</guimenu
-> und <guimenu
->Hilfe</guimenu
->. Mehr dazu erfahren Sie in den Abschnitten zu den Menüs <ulink url="help:/fundamentals/menus.html#menus-settings"
->Einstellungen</ulink
-> und <ulink url="help:/fundamentals/menus.html#menus-help"
->Hilfe</ulink
-> in den &kde;-Grundlagen. </para>
+<title>The Settings and Help Menu</title>
+<para>
+&cantor; has the common &kde; <guimenu>Settings</guimenu> and <guimenu>Help</guimenu>
+menu items, for more information read the sections about the <ulink
+url="help:/fundamentals/menus.html#menus-settings">Settings Menu</ulink> and
+<ulink url="help:/fundamentals/menus.html#menus-help">Help Menu</ulink>
+of the &kde; Fundamentals.
+</para>
 
 </sect2>
 
@@ -1488,77 +944,49 @@
 </chapter>
 
 <chapter id="faq">
-<title
->Fragen und Antworten</title>
+<title>Questions and Answers</title>
 
 <qandaset id="faqlist">
 <qandaentry>
-  <question
-><para
->Der Menüeintrag <guimenuitem
->Schriftsatz mit Hilfe von LaTeX</guimenuitem
-> ist nicht vorhanden</para
-></question>
-  <answer
-><para
->Diese Funktion wird nicht von allen Modulen unterstützt. In der aktuellen Version wird die &latex;-Ausgabe mit den Modulen Maxima, Qalculate! und Sage unterstützt.</para
-></answer>
+  <question><para>The Menu Item <guimenuitem>Typeset using LaTeX</guimenuitem> is not available</para></question>
+  <answer><para>Not every backend supports every option. Current version supports &latex; output for Maxima, Qalculate! and Sage backends.</para></answer>
 </qandaentry>
 <qandaentry>
-  <question
-><para
->Ich habe Sage/Maxima oder andere unterstützte Computeralgebrasysteme (CAS) installiert, aber das zugehörige Modul wird nicht angezeigt.</para
-></question>
+  <question><para>I have installed Sage/Maxima or other supported CAS, but the appropriate backend does not appear.</para></question>
   <answer>
-    <para
->Möglicherweise hat &cantor; den Pfad zu diesen Modulen nicht gefunden. Öffnen Sie den Einrichtungsdialog mit <menuchoice
-><guimenu
->Einstellungen</guimenu
-><guimenuitem
->&cantor; einrichten ...</guimenuitem
-></menuchoice
-> und stellen Sie dort den <guilabel
->Pfad</guilabel
-> zu den Modulen richtig ein. </para>
+    <para>
+      One possible explanation is that &cantor; did not correctly detect the location. Go to the <menuchoice><guimenu>Settings</guimenu><guimenuitem>Configure &cantor;...</guimenuitem></menuchoice> dialog and change
+      the <guilabel>Path</guilabel> to the appropriate application on the backend's page.
+    </para>
   </answer>
 </qandaentry>
 <qandaentry>
-  <question
-><para
->Was hat der eigenartige Name des Programms mit Mathematik zu tun?</para
-></question>
-  <answer
-><para
->Das Programm ist nach dem deutschen Mathematiker <ulink url="https://de.wikipedia.org/wiki/Georg_Cantor"
->Georg Cantor</ulink
-> benannt, dem Entdecker der Mengenlehre.</para
-></answer>
+  <question><para>What a peculiar name - what does it have to do with mathematics?</para></question>
+  <answer><para>&cantor; is named after the German mathematician <ulink url="https://en.wikipedia.org/wiki/Georg_Cantor">Georg Cantor</ulink>, the creator of set theory.</para></answer>
 </qandaentry>
 </qandaset>
 </chapter>
 
 <chapter id="credits">
 
-<title
->Danksagungen und Lizenz</title>
+<title>Credits and License</title>
 
-<para
->&cantor; </para>
-<para
->Programm Copyright 2009-2011 Alexander Rieder <email
->alexanderrieder@gmail.com</email
-> </para>
+<para>
+&cantor;
+</para>
+<para>
+Program copyright 2009-2011 Alexander Rieder <email>alexanderrieder@gmail.com</email>
+</para>
 
-<para
->Dokumentation Copyright &copy; 2009-2011 Alexander Rieder <email
->alexanderrieder@gmail.com</email
-> </para>
+<para>
+Documentation Copyright &copy; 2009-2011 Alexander Rieder <email>alexanderrieder@gmail.com</email>
+</para>
 
-<para
->Übersetzung Burkhard Lück<email
->lueck@hube-lueck.de</email
-></para
-> &underFDL; &underGPL; </chapter>
+<!-- TRANS:CREDIT_FOR_TRANSLATORS -->
+
+&underFDL;               <!-- FDL: do not remove -->
+&underGPL;        	 <!-- GPL License -->
+</chapter>
 
 &documentation.index;
 </book>

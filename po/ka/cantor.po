@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: cantor\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-01-04 00:43+0000\n"
-"PO-Revision-Date: 2023-01-04 08:58+0100\n"
+"PO-Revision-Date: 2023-01-05 05:47+0100\n"
 "Last-Translator: Temuri Doghonadze <temuri.doghonadze@gmail.com>\n"
 "Language-Team: Georgian <kde-i18n-doc@kde.org>\n"
 "Language: ka\n"
@@ -4530,7 +4530,7 @@ msgstr "ღია ყვითელი"
 #: worksheetentry.cpp:72
 #, kde-format
 msgid "Dark Cyan"
-msgstr ""
+msgstr "მუქი ცისფერი"
 
 #: worksheetentry.cpp:72
 #, kde-format
@@ -4545,7 +4545,7 @@ msgstr "ღია ცისფერი"
 #: worksheetentry.cpp:73
 #, kde-format
 msgid "Dark Magenta"
-msgstr ""
+msgstr "მუქი ალისფერი"
 
 #: worksheetentry.cpp:73
 #, kde-format
@@ -4575,7 +4575,7 @@ msgstr "ღია ნარინჯისფერი"
 #: worksheetentry.cpp:75
 #, kde-format
 msgid "Dark Grey"
-msgstr ""
+msgstr "მუქი ნაცრისფერი"
 
 #: worksheetentry.cpp:75
 #, kde-format
@@ -4585,7 +4585,7 @@ msgstr "ნაცრისფერი"
 #: worksheetentry.cpp:75
 #, kde-format
 msgid "Light Grey"
-msgstr ""
+msgstr "ღია ნაცრისფერი"
 
 #: worksheetentry.cpp:421
 #, kde-format

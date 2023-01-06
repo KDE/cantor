@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: cantor\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-01-04 00:43+0000\n"
-"PO-Revision-Date: 2023-01-03 21:48+0530\n"
+"PO-Revision-Date: 2023-01-05 21:45+0530\n"
 "Last-Translator: Kishore G <kishore96@gmail.com>\n"
 "Language-Team: Tamil <kde-i18n-doc@kde.org>\n"
 "Language: ta\n"
@@ -3108,14 +3108,14 @@ msgstr "அ&னைத்தையும் மாற்று"
 #: extendedsearchbar.ui:139
 #, kde-format
 msgid "Search in:"
-msgstr ""
+msgstr "இதில் தேடு:"
 
 #. i18n: ectx: property (text), widget (QToolButton, matchCase)
 #. i18n: ectx: property (text), widget (QCheckBox, matchCase)
 #: extendedsearchbar.ui:173 standardsearchbar.ui:62
 #, kde-format
 msgid "&Match case"
-msgstr ""
+msgstr "&பெரிய/சிறிய எழுத்தை பொருட்படுத்து"
 
 #. i18n: ectx: property (title), widget (QGroupBox, groupBox)
 #: formating.ui:27
@@ -3139,7 +3139,7 @@ msgstr ""
 #: formating.ui:281 formating.ui:340
 #, kde-format
 msgid "Font Family:"
-msgstr ""
+msgstr "எழுத்துரு குடும்பம்:"
 
 #. i18n: ectx: property (text), widget (QLabel, label_3)
 #. i18n: ectx: property (text), widget (QLabel, label_5)
@@ -3151,7 +3151,7 @@ msgstr ""
 #: formating.ui:295 formating.ui:354
 #, kde-format
 msgid "Font Size:"
-msgstr ""
+msgstr "எழுத்துருவின் அளவு:"
 
 #. i18n: ectx: attribute (title), widget (QWidget, SubchapterTab)
 #: formating.ui:96
@@ -3186,32 +3186,32 @@ msgstr ""
 #: hierarchyentry.cpp:22
 #, kde-format
 msgid "Chapter"
-msgstr ""
+msgstr "அத்தியாயம்"
 
 #: hierarchyentry.cpp:22
 #, kde-format
 msgid "Subchapter"
-msgstr ""
+msgstr "துணை அத்தியாயம்"
 
 #: hierarchyentry.cpp:22
 #, kde-format
 msgid "Section"
-msgstr ""
+msgstr "பிரிவு"
 
 #: hierarchyentry.cpp:22
 #, kde-format
 msgid "Subsection"
-msgstr ""
+msgstr "உட்பிரிவு"
 
 #: hierarchyentry.cpp:22
 #, kde-format
 msgid "Paragraph"
-msgstr ""
+msgstr "பத்தி"
 
 #: hierarchyentry.cpp:22
 #, kde-format
 msgid "Subparagraph"
-msgstr ""
+msgstr "துணைப்பத்தி"
 
 #: hierarchyentry.cpp:48
 #, kde-format
@@ -3246,27 +3246,27 @@ msgstr ""
 #: horizontalruleentry.cpp:297
 #, kde-format
 msgid "Line Thickness"
-msgstr ""
+msgstr "கோட்டின் அகலம்"
 
 #: horizontalruleentry.cpp:299
 #, kde-format
 msgid "Thin"
-msgstr ""
+msgstr "மெல்லியது"
 
 #: horizontalruleentry.cpp:303
 #, kde-format
 msgid "Medium"
-msgstr ""
+msgstr "சாதாரணமானது"
 
 #: horizontalruleentry.cpp:307
 #, kde-format
 msgid "Thick"
-msgstr ""
+msgstr "தடித்த‍து"
 
 #: horizontalruleentry.cpp:320
 #, kde-format
 msgid "Line Color"
-msgstr ""
+msgstr "கோட்டின் நிறம்"
 
 #: horizontalruleentry.cpp:351
 #, kde-format
@@ -3276,93 +3276,93 @@ msgstr ""
 #: imageentry.cpp:47 imageentry.cpp:371
 #, kde-format
 msgid "Configure Image"
-msgstr ""
+msgstr "படத்தை அமை"
 
 #: imageentry.cpp:256
 #, kde-format
 msgid "Double click here to configure image settings"
-msgstr ""
+msgstr "பட அமைப்புகளை மாற்ற இங்கு இரட்டை கிளிக் செய்யும்"
 
 #: imageentry.cpp:288
 #, kde-format
 msgid "Cannot load image %1"
-msgstr ""
+msgstr "%1 எனும் படத்தை ஏற்ற முடியவில்லை"
 
 #: imageresultitem.cpp:90
 #, kde-format
 msgid "%1 files (*.%2)"
-msgstr ""
+msgstr "%1 கோப்புகள் (*.%2)"
 
 #: imageresultitem.cpp:93
 #, kde-format
 msgid "EPS files (*.eps)"
-msgstr ""
+msgstr "EPS கோப்புகள் (*.eps)"
 
 #: imageresultitem.cpp:96
 #, kde-format
 msgid "Save image result"
-msgstr ""
+msgstr "படத்தை சேமி"
 
 #. i18n: ectx: property (windowTitle), widget (QWidget, ImageSettingsBase)
 #: imagesettings.ui:14
 #, kde-format
 msgid "Image Settings"
-msgstr ""
+msgstr "பட அமைப்புகள்"
 
 #. i18n: ectx: property (text), widget (QPushButton, openDialogButton)
 #: imagesettings.ui:29
 #, kde-format
 msgid "Open"
-msgstr ""
+msgstr "திற"
 
 #. i18n: ectx: property (title), widget (QGroupBox, groupBox)
 #: imagesettings.ui:38
 #, kde-format
 msgid "Display Size"
-msgstr ""
+msgstr "காட்டப்படும் அளவு"
 
 #. i18n: ectx: property (text), widget (QLabel, label)
 #. i18n: ectx: property (text), widget (QLabel, label_5)
 #: imagesettings.ui:47 imagesettings.ui:101
 #, kde-format
 msgid "Width"
-msgstr ""
+msgstr "அகலம்"
 
 #. i18n: ectx: property (text), widget (QLabel, label_2)
 #. i18n: ectx: property (text), widget (QLabel, label_6)
 #: imagesettings.ui:60 imagesettings.ui:114
 #, kde-format
 msgid "Height"
-msgstr ""
+msgstr "உயரம்"
 
 #. i18n: ectx: property (title), widget (QGroupBox, gbPreview)
 #: imagesettings.ui:76
 #, kde-format
 msgid "Preview"
-msgstr ""
+msgstr "முன்னோட்டம்"
 
 #. i18n: ectx: property (title), widget (QGroupBox, groupBox_2)
 #: imagesettings.ui:88
 #, kde-format
 msgid "Print Size"
-msgstr ""
+msgstr "அச்சிடுவதற்கான அளவு"
 
 #. i18n: ectx: property (text), widget (QCheckBox, useDisplaySize)
 #: imagesettings.ui:94
 #, kde-format
 msgid "Use Display Size"
-msgstr ""
+msgstr "காட்டப்படும் அளவையே பயன்படுத்து"
 
 #: imagesettingsdialog.cpp:23
 #, kde-format
 msgctxt "@title:window"
 msgid "Image Settings"
-msgstr ""
+msgstr "பட அமைப்புகள்"
 
 #: imagesettingsdialog.cpp:40
 #, kde-format
 msgid "(auto)"
-msgstr ""
+msgstr "(தானியக்கம்)"
 
 #: imagesettingsdialog.cpp:40
 #, kde-format
@@ -3372,7 +3372,7 @@ msgstr ""
 #: imagesettingsdialog.cpp:40
 #, kde-format
 msgid "%"
-msgstr ""
+msgstr "%"
 
 #: imagesettingsdialog.cpp:151 markdownentry.cpp:773
 #, kde-format
