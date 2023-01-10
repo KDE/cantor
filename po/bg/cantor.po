@@ -1,46 +1,48 @@
 # Bulgarian translations for cantor package.
 # Copyright (C) 2022 This file is copyright:
 # This file is distributed under the same license as the cantor package.
-# Automatically generated, 2022.
 #
+# Automatically generated, 2022.
+# Mincho Kondarev <mkondarev@yahoo.de>, 2023.
 msgid ""
 msgstr ""
 "Project-Id-Version: cantor\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2022-10-08 00:40+0000\n"
-"PO-Revision-Date: 2022-05-22 00:40+0000\n"
-"Last-Translator: Automatically generated\n"
-"Language-Team: none\n"
+"PO-Revision-Date: 2023-01-06 22:57+0100\n"
+"Last-Translator: Mincho Kondarev <mkondarev@yahoo.de>\n"
+"Language-Team: Bulgarian <kde-i18n-doc@kde.org>\n"
 "Language: bg\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Lokalize 22.12.0\n"
 
-#, kde-format
+#, fuzzy, kde-format
 msgctxt "NAME OF TRANSLATORS"
 msgid "Your names"
-msgstr ""
+msgstr "Минчо Кондарев"
 
-#, kde-format
+#, fuzzy, kde-format
 msgctxt "EMAIL OF TRANSLATORS"
 msgid "Your emails"
-msgstr ""
+msgstr "mkondarev@yahoo.de"
 
 #: animationresultitem.cpp:38
 #, kde-format
 msgid "Pause"
-msgstr ""
+msgstr "Пауза"
 
 #: animationresultitem.cpp:41
-#, kde-format
+#, fuzzy, kde-format
 msgid "Start"
-msgstr ""
+msgstr "Начало"
 
 #: animationresultitem.cpp:45
-#, kde-format
+#, fuzzy, kde-format
 msgid "Stop"
-msgstr ""
+msgstr "Спиране"
 
 #: animationresultitem.cpp:113
 #, kde-format
@@ -62,7 +64,7 @@ msgstr ""
 #: backends/qalculate/plotassistant/qalculateplotassistant.cpp:24
 #, kde-format
 msgid "Plot"
-msgstr ""
+msgstr "Изчертаване"
 
 #. i18n: ectx: property (text), widget (QLabel, label_3)
 #. i18n: ectx: property (text), widget (QLabel, label)
@@ -70,24 +72,24 @@ msgstr ""
 #: assistants/differentiate/differentiatedlg.ui:19
 #: assistants/integrate/integratedlg.ui:19 assistants/plot2d/plot2ddlg.ui:19
 #: assistants/plot3d/plot3ddlg.ui:17
-#, kde-format
+#, fuzzy, kde-format
 msgid "Expression:"
-msgstr ""
+msgstr "израз"
 
 #. i18n: ectx: property (text), widget (QLabel, label)
 #: assistants/advancedplot/advancedplotdialog.ui:45
-#, kde-format
+#, fuzzy, kde-format
 msgid "Additional options:"
-msgstr ""
+msgstr "Допълнителни опции:"
 
 #. i18n: ectx: Menu (Plot)
 #: assistants/advancedplot/cantor_advancedplot_assistant.rc:4
 #: assistants/plot2d/cantor_plot2d_assistant.rc:4
 #: assistants/plot3d/cantor_plot3d_assistant.rc:4
 #: backends/qalculate/plotassistant/cantor_qalculateplotassistant.rc:4
-#, kde-format
+#, fuzzy, kde-format
 msgid "&Plot"
-msgstr ""
+msgstr "Изчертаване"
 
 #. i18n: ectx: property (title), widget (QGroupBox, directiveContainer)
 #: assistants/advancedplot/directivecontainer.ui:14
@@ -99,9 +101,9 @@ msgstr ""
 #: assistants/differentiate/cantor_differentiate_assistant.rc:4
 #: assistants/integrate/cantor_integrate_assistant.rc:4
 #: assistants/solve/cantor_solve_assistant.rc:4
-#, kde-format
+#, fuzzy, kde-format
 msgid "&Calculate"
-msgstr ""
+msgstr "Изчисление"
 
 #: assistants/differentiate/differentiateassistant.cpp:29
 #, kde-format
@@ -111,30 +113,30 @@ msgstr ""
 #. i18n: ectx: property (text), widget (QLabel, label_2)
 #: assistants/differentiate/differentiatedlg.ui:29
 #: assistants/integrate/integratedlg.ui:29
-#, kde-format
+#, fuzzy, kde-format
 msgid "Variable:"
-msgstr ""
+msgstr "Променлива"
 
 #. i18n: ectx: property (text), widget (KLineEdit, variable)
 #. i18n: ectx: property (text), widget (KLineEdit, xVarEdit)
 #: assistants/differentiate/differentiatedlg.ui:36
 #: assistants/integrate/integratedlg.ui:36
 #: backends/qalculate/plotassistant/qalculateplotdialog.ui:123
-#, kde-format
+#, fuzzy, kde-format
 msgid "x"
-msgstr ""
+msgstr "x"
 
 #. i18n: ectx: property (text), widget (QLabel, label_3)
 #: assistants/differentiate/differentiatedlg.ui:47
-#, kde-format
+#, fuzzy, kde-format
 msgid "Times: "
-msgstr ""
+msgstr "Времена"
 
 #. i18n: ectx: Menu (import_package)
 #: assistants/importpackage/cantor_import_package_assistant.rc:4
-#, kde-format
+#, fuzzy, kde-format
 msgid "&Package"
-msgstr ""
+msgstr "Пакет"
 
 #: assistants/importpackage/importpackageassistant.cpp:29
 #, kde-format
@@ -143,9 +145,9 @@ msgstr ""
 
 #. i18n: ectx: property (text), widget (QLabel, label)
 #: assistants/importpackage/importpackagedlg.ui:17
-#, kde-format
+#, fuzzy, kde-format
 msgid "Package:"
-msgstr ""
+msgstr "Пакет"
 
 #: assistants/integrate/integrateassistant.cpp:29
 #, kde-format
@@ -156,13 +158,13 @@ msgstr ""
 #: assistants/integrate/integratedlg.ui:49
 #, kde-format
 msgid "Lower limit:"
-msgstr ""
+msgstr "Долен предел:"
 
 #. i18n: ectx: property (text), widget (QLabel, label_4)
 #: assistants/integrate/integratedlg.ui:63
 #, kde-format
 msgid "Upper limit:"
-msgstr ""
+msgstr "Горен предел:"
 
 #. i18n: ectx: property (text), widget (QCheckBox, isDefinite)
 #: assistants/integrate/integratedlg.ui:77
@@ -186,15 +188,15 @@ msgstr ""
 
 #. i18n: ectx: property (text), widget (QLabel, label_2)
 #: assistants/linearalgebra/creatematrix/creatematrixdlg.ui:19
-#, kde-format
+#, fuzzy, kde-format
 msgid "Columns:"
-msgstr ""
+msgstr "Колони:"
 
 #. i18n: ectx: property (text), widget (QLabel, label)
 #: assistants/linearalgebra/creatematrix/creatematrixdlg.ui:37
-#, kde-format
+#, fuzzy, kde-format
 msgid "Rows:"
-msgstr ""
+msgstr "Брой редове:"
 
 #: assistants/linearalgebra/eigenvalues/eigenvaluesassistant.cpp:28
 #, kde-format
@@ -205,9 +207,9 @@ msgstr ""
 #: assistants/linearalgebra/eigenvalues/eigenvaluesdlg.ui:17
 #: assistants/linearalgebra/eigenvectors/eigenvectorsdlg.ui:17
 #: assistants/linearalgebra/invertmatrix/invertmatrixdlg.ui:17
-#, kde-format
+#, fuzzy, kde-format
 msgid "Matrix:"
-msgstr ""
+msgstr "Matrix"
 
 #: assistants/linearalgebra/eigenvectors/eigenvectorsassistant.cpp:28
 #, kde-format
@@ -228,15 +230,15 @@ msgstr ""
 #: assistants/plot2d/plot2ddlg.ui:31
 #, kde-format
 msgid "Variable"
-msgstr ""
+msgstr "Променлива"
 
 #. i18n: ectx: property (text), widget (QLabel, label_2)
 #. i18n: ectx: property (text), widget (QLabel, label_5)
 #: assistants/plot2d/plot2ddlg.ui:43 assistants/plot3d/plot3ddlg.ui:41
 #: assistants/plot3d/plot3ddlg.ui:86
-#, kde-format
+#, fuzzy, kde-format
 msgid "Name"
-msgstr ""
+msgstr "Име"
 
 #. i18n: ectx: property (text), widget (QLabel, label_3)
 #. i18n: ectx: property (text), widget (QLabel, label_6)
@@ -244,7 +246,7 @@ msgstr ""
 #: assistants/plot3d/plot3ddlg.ui:96
 #, kde-format
 msgid "Minimum:"
-msgstr ""
+msgstr "Минимум:"
 
 #. i18n: ectx: property (text), widget (QLabel, label_4)
 #. i18n: ectx: property (text), widget (QLabel, label_7)
@@ -252,7 +254,7 @@ msgstr ""
 #: assistants/plot3d/plot3ddlg.ui:106
 #, kde-format
 msgid "Maximum:"
-msgstr ""
+msgstr "Максимум:"
 
 #: assistants/plot3d/plot3dassistant.cpp:28
 #, kde-format
@@ -273,9 +275,9 @@ msgstr ""
 
 #: assistants/runscript/runscriptassistant.cpp:28
 #: scripteditor/scripteditorwidget.cpp:39
-#, kde-format
+#, fuzzy, kde-format
 msgid "Run Script"
-msgstr ""
+msgstr "Изпълнение на скрипт"
 
 #: assistants/solve/solveassistant.cpp:28
 #, kde-format
@@ -290,9 +292,9 @@ msgstr ""
 
 #. i18n: ectx: property (text), widget (QLabel, label_2)
 #: assistants/solve/solvedlg.ui:33
-#, kde-format
+#, fuzzy, kde-format
 msgid "Variables:"
-msgstr ""
+msgstr "Променливи"
 
 #: backendchoosedialog.cpp:64
 #, kde-format
@@ -464,9 +466,9 @@ msgstr ""
 #: backends/python/settings.ui:21 backends/qalculate/settings.ui:21
 #: backends/R/settings.ui:21 backends/sage/settings.ui:21
 #: backends/scilab/settings.ui:21 cantor.cpp:627
-#, kde-format
+#, fuzzy, kde-format
 msgid "General"
-msgstr ""
+msgstr "Общи"
 
 #. i18n: ectx: property (text), widget (QLabel, label)
 #: backends/julia/settings.ui:27 backends/maxima/settings.ui:61
@@ -474,7 +476,7 @@ msgstr ""
 #: backends/scilab/settings.ui:27
 #, kde-format
 msgid "Executable:"
-msgstr ""
+msgstr "Изпълним файл:"
 
 #. i18n: ectx: property (text), widget (QLabel, lPlotIntegration)
 #: backends/julia/settings.ui:37 backends/maxima/settings.ui:37
@@ -516,9 +518,9 @@ msgstr ""
 #: backends/R/settings.ui:36 backends/R/settings.ui:46
 #: backends/sage/settings.ui:37 backends/scilab/settings.ui:47
 #: commandentry.cpp:349
-#, kde-format
+#, fuzzy, kde-format
 msgid "Enabled"
-msgstr ""
+msgstr "Включено"
 
 #. i18n: ectx: property (text), widget (QLabel, lVariableManagement)
 #: backends/julia/settings.ui:54 backends/maxima/settings.ui:54
@@ -622,7 +624,7 @@ msgstr ""
 #: backends/scilab/settings.ui:88
 #, kde-format
 msgid "Documentation"
-msgstr ""
+msgstr "Документация"
 
 #: backends/kalgebra/kalgebrabackend.cpp:56
 #, kde-format
@@ -652,7 +654,7 @@ msgstr ""
 #: backends/kalgebra/kalgebraexpression.cpp:44
 #, kde-format
 msgid "Error: %1"
-msgstr ""
+msgstr "Грешка: %1"
 
 #: backends/kalgebra/kalgebrasyntaxhelpobject.cpp:27
 #, kde-format
@@ -846,7 +848,7 @@ msgstr ""
 #: markdownentry.cpp:797 textentry.cpp:553 worksheet.cpp:1275
 #, kde-format
 msgid "Cantor"
-msgstr ""
+msgstr "Cantor"
 
 #: backends/octave/octavesession.cpp:435
 #, kde-format
@@ -947,38 +949,38 @@ msgstr ""
 #: backends/qalculate/plotassistant/qalculateplotdialog.ui:24
 #, kde-format
 msgid "Functions"
-msgstr ""
+msgstr "Функции"
 
 #. i18n: ectx: property (text), widget (QTableWidget, functionTable)
 #: backends/qalculate/plotassistant/qalculateplotdialog.ui:40
-#, kde-format
+#, fuzzy, kde-format
 msgid "Title"
-msgstr ""
+msgstr "Заглавие"
 
 #. i18n: ectx: property (text), widget (QTableWidget, functionTable)
 #: backends/qalculate/plotassistant/qalculateplotdialog.ui:45
-#, kde-format
+#, fuzzy, kde-format
 msgid "Expression"
-msgstr ""
+msgstr "израз"
 
 #. i18n: ectx: property (text), widget (QPushButton, addButton)
 #: backends/qalculate/plotassistant/qalculateplotdialog.ui:72
 #, kde-format
 msgid "Add"
-msgstr ""
+msgstr "Добавяне"
 
 #. i18n: ectx: property (text), widget (QPushButton, removeButton)
 #: backends/qalculate/plotassistant/qalculateplotdialog.ui:82
 #: worksheetentry.cpp:437
-#, kde-format
+#, fuzzy, kde-format
 msgid "Remove"
-msgstr ""
+msgstr "Премахване"
 
 #. i18n: ectx: property (text), widget (QPushButton, clearButton)
 #: backends/qalculate/plotassistant/qalculateplotdialog.ui:92
-#, kde-format
+#, fuzzy, kde-format
 msgid "Clear List"
-msgstr ""
+msgstr "Изчистване на списъка"
 
 #. i18n: ectx: property (text), widget (QLabel, label_3)
 #: backends/qalculate/plotassistant/qalculateplotdialog.ui:107
@@ -990,15 +992,15 @@ msgstr ""
 #: backends/qalculate/plotassistant/qalculateplotdialog.ui:134
 #, kde-format
 msgid "Style"
-msgstr ""
+msgstr "Стил"
 
 #. i18n: ectx: property (text), item, widget (KComboBox, styleBox)
 #. i18n: ectx: property (text), item, widget (KComboBox, kcfg_plotStyle)
 #: backends/qalculate/plotassistant/qalculateplotdialog.ui:145
 #: backends/qalculate/settings.ui:420
-#, kde-format
+#, fuzzy, kde-format
 msgid "Lines"
-msgstr ""
+msgstr "Редове"
 
 #. i18n: ectx: property (text), item, widget (KComboBox, styleBox)
 #. i18n: ectx: property (text), item, widget (KComboBox, kcfg_plotStyle)
@@ -1006,7 +1008,7 @@ msgstr ""
 #: backends/qalculate/settings.ui:425
 #, kde-format
 msgid "Points"
-msgstr ""
+msgstr "Точки"
 
 #. i18n: ectx: property (text), item, widget (KComboBox, styleBox)
 #. i18n: ectx: property (text), item, widget (KComboBox, kcfg_plotStyle)
@@ -1030,13 +1032,13 @@ msgstr ""
 #: backends/qalculate/settings.ui:440
 #, kde-format
 msgid "Histogram"
-msgstr ""
+msgstr "Хистограма"
 
 #. i18n: ectx: property (text), item, widget (KComboBox, styleBox)
 #: backends/qalculate/plotassistant/qalculateplotdialog.ui:170
 #, kde-format
 msgid "Steps"
-msgstr ""
+msgstr "Стъпки"
 
 #. i18n: ectx: property (text), item, widget (KComboBox, styleBox)
 #. i18n: ectx: property (text), item, widget (KComboBox, kcfg_plotStyle)
@@ -1050,15 +1052,15 @@ msgstr ""
 #. i18n: ectx: property (text), item, widget (KComboBox, kcfg_plotStyle)
 #: backends/qalculate/plotassistant/qalculateplotdialog.ui:180
 #: backends/qalculate/settings.ui:455
-#, kde-format
+#, fuzzy, kde-format
 msgid "Dots"
-msgstr ""
+msgstr "Точка"
 
 #. i18n: ectx: property (text), widget (QLabel, label_5)
 #: backends/qalculate/plotassistant/qalculateplotdialog.ui:192
-#, kde-format
+#, fuzzy, kde-format
 msgid "Smoothing"
-msgstr ""
+msgstr "Изглаждане:"
 
 #. i18n: ectx: property (text), item, widget (KComboBox, smoothingBox)
 #. i18n: ectx: property (text), item, widget (KComboBox, kcfg_minExp)
@@ -1068,9 +1070,9 @@ msgstr ""
 #: backends/qalculate/plotassistant/qalculateplotdialog.ui:203
 #: backends/qalculate/settings.ui:92 backends/qalculate/settings.ui:210
 #: backends/qalculate/settings.ui:244 backends/qalculate/settings.ui:391
-#, kde-format
+#, fuzzy, kde-format
 msgid "None"
-msgstr ""
+msgstr "Без"
 
 #. i18n: ectx: property (text), item, widget (KComboBox, smoothingBox)
 #. i18n: ectx: property (text), item, widget (KComboBox, kcfg_plotSmoothing)
@@ -1134,9 +1136,9 @@ msgstr ""
 
 #. i18n: ectx: property (text), widget (QRadioButton, stepsButton)
 #: backends/qalculate/plotassistant/qalculateplotdialog.ui:283
-#, kde-format
+#, fuzzy, kde-format
 msgid "Sa&mpling rate"
-msgstr ""
+msgstr "Дискретизация"
 
 #. i18n: ectx: property (text), widget (QRadioButton, stepButton)
 #: backends/qalculate/plotassistant/qalculateplotdialog.ui:293
@@ -1146,9 +1148,9 @@ msgstr ""
 
 #. i18n: ectx: attribute (title), widget (QWidget, tab_4)
 #: backends/qalculate/plotassistant/qalculateplotdialog.ui:324
-#, kde-format
+#, fuzzy, kde-format
 msgid "Options"
-msgstr ""
+msgstr "Настройки"
 
 #. i18n: ectx: property (text), widget (QLabel, label_19)
 #: backends/qalculate/plotassistant/qalculateplotdialog.ui:332
@@ -1170,9 +1172,9 @@ msgstr ""
 
 #. i18n: ectx: property (text), widget (QLabel, label_22)
 #: backends/qalculate/plotassistant/qalculateplotdialog.ui:395
-#, kde-format
+#, fuzzy, kde-format
 msgid "Legend position"
-msgstr ""
+msgstr "Разположение на легендата:"
 
 #. i18n: ectx: property (text), item, widget (KComboBox, legendBox)
 #. i18n: ectx: property (text), item, widget (KComboBox, kcfg_plotLegend)
@@ -1188,7 +1190,7 @@ msgstr ""
 #: backends/qalculate/settings.ui:479
 #, kde-format
 msgid "Top-left"
-msgstr ""
+msgstr "Отгоре вляво"
 
 #. i18n: ectx: property (text), item, widget (KComboBox, legendBox)
 #. i18n: ectx: property (text), item, widget (KComboBox, kcfg_plotLegend)
@@ -1196,7 +1198,7 @@ msgstr ""
 #: backends/qalculate/settings.ui:484
 #, kde-format
 msgid "Top-right"
-msgstr ""
+msgstr "Отгоре вдясно"
 
 #. i18n: ectx: property (text), item, widget (KComboBox, legendBox)
 #. i18n: ectx: property (text), item, widget (KComboBox, kcfg_plotLegend)
@@ -1204,7 +1206,7 @@ msgstr ""
 #: backends/qalculate/settings.ui:489
 #, kde-format
 msgid "Bottom-left"
-msgstr ""
+msgstr "Отдолу вляво"
 
 #. i18n: ectx: property (text), item, widget (KComboBox, legendBox)
 #. i18n: ectx: property (text), item, widget (KComboBox, kcfg_plotLegend)
@@ -1212,7 +1214,7 @@ msgstr ""
 #: backends/qalculate/settings.ui:494
 #, kde-format
 msgid "Bottom-right"
-msgstr ""
+msgstr "Отдолу вдясно"
 
 #. i18n: ectx: property (text), item, widget (KComboBox, legendBox)
 #. i18n: ectx: property (text), item, widget (KComboBox, kcfg_plotLegend)
@@ -1228,7 +1230,7 @@ msgstr ""
 #: backends/qalculate/settings.ui:504
 #, kde-format
 msgid "Outside"
-msgstr ""
+msgstr "Отвън"
 
 #. i18n: ectx: property (text), widget (QCheckBox, gridCheckBox)
 #: backends/qalculate/plotassistant/qalculateplotdialog.ui:445
@@ -1244,9 +1246,9 @@ msgstr ""
 
 #. i18n: ectx: property (text), widget (QCheckBox, colorCheckBox)
 #: backends/qalculate/plotassistant/qalculateplotdialog.ui:463
-#, kde-format
+#, fuzzy, kde-format
 msgid "Use Colors"
-msgstr ""
+msgstr "&Използване на цветове"
 
 #. i18n: ectx: property (text), widget (QCheckBox, inlineCheckBox)
 #: backends/qalculate/plotassistant/qalculateplotdialog.ui:470
@@ -1270,7 +1272,7 @@ msgstr ""
 #: backends/qalculate/plotassistant/qalculateplotdialog.ui:521
 #, kde-format
 msgid "File Options"
-msgstr ""
+msgstr "Настройки на файл"
 
 #. i18n: ectx: property (text), widget (QCheckBox, saveCheckBox)
 #: backends/qalculate/plotassistant/qalculateplotdialog.ui:527
@@ -1282,7 +1284,7 @@ msgstr ""
 #: backends/qalculate/plotassistant/qalculateplotdialog.ui:547
 #, kde-format
 msgid "File type"
-msgstr ""
+msgstr "Тип файл"
 
 #. i18n: ectx: property (text), item, widget (KComboBox, saveFileBox)
 #: backends/qalculate/plotassistant/qalculateplotdialog.ui:555
@@ -1294,38 +1296,38 @@ msgstr ""
 #: backends/qalculate/plotassistant/qalculateplotdialog.ui:560
 #, kde-format
 msgid "PNG"
-msgstr ""
+msgstr "PNG"
 
 #. i18n: ectx: property (text), item, widget (KComboBox, saveFileBox)
 #: backends/qalculate/plotassistant/qalculateplotdialog.ui:565
-#, kde-format
+#, fuzzy, kde-format
 msgid "PS"
-msgstr ""
+msgstr "Пс"
 
 #. i18n: ectx: property (text), item, widget (KComboBox, saveFileBox)
 #: backends/qalculate/plotassistant/qalculateplotdialog.ui:570
-#, kde-format
+#, fuzzy, kde-format
 msgid "EPS"
-msgstr ""
+msgstr "eps"
 
 #. i18n: ectx: property (text), item, widget (KComboBox, saveFileBox)
 #: backends/qalculate/plotassistant/qalculateplotdialog.ui:575
 #: worksheet.cpp:1820 worksheet.cpp:1846 worksheet.cpp:1866 worksheet.cpp:1884
 #, kde-format
 msgid "LaTeX"
-msgstr ""
+msgstr "LaTeX"
 
 #. i18n: ectx: property (text), item, widget (KComboBox, saveFileBox)
 #: backends/qalculate/plotassistant/qalculateplotdialog.ui:580
-#, kde-format
+#, fuzzy, kde-format
 msgid "SVG"
-msgstr ""
+msgstr "SV&G"
 
 #. i18n: ectx: property (text), item, widget (KComboBox, saveFileBox)
 #: backends/qalculate/plotassistant/qalculateplotdialog.ui:585
-#, kde-format
+#, fuzzy, kde-format
 msgid "FIG"
-msgstr ""
+msgstr "фиг."
 
 #: backends/qalculate/qalculatebackend.cpp:51
 #, kde-format
@@ -1469,9 +1471,9 @@ msgid "Qalculate reports it cannot print. Is gnuplot installed?"
 msgstr ""
 
 #: backends/qalculate/qalculateexpression.cpp:163
-#, kde-format
+#, fuzzy, kde-format
 msgid "missing %1"
-msgstr ""
+msgstr "Липсва"
 
 #: backends/qalculate/qalculateexpression.cpp:253
 #, kde-format
@@ -1503,14 +1505,14 @@ msgstr ""
 #: backends/qalculate/qalculatehighlighter.cpp:29
 #, kde-format
 msgid "ERROR"
-msgstr ""
+msgstr "ГРЕШКА"
 
 #: backends/qalculate/qalculateexpression.cpp:684
 #: backends/qalculate/qalculateexpression.cpp:792
 #: backends/qalculate/qalculatehighlighter.cpp:29
-#, kde-format
+#, fuzzy, kde-format
 msgid "WARNING"
-msgstr ""
+msgstr "Предупреждение"
 
 #: backends/qalculate/qalculatesyntaxhelpobject.cpp:46
 #, kde-format
@@ -1518,9 +1520,9 @@ msgid "No function, variable or unit with specified name exist."
 msgstr ""
 
 #: backends/qalculate/qalculatesyntaxhelpobject.cpp:53
-#, kde-format
+#, fuzzy, kde-format
 msgid "Function: %1"
-msgstr ""
+msgstr "Функция"
 
 #: backends/qalculate/qalculatesyntaxhelpobject.cpp:138
 #, kde-format
@@ -1535,37 +1537,37 @@ msgstr ""
 #: backends/qalculate/qalculatesyntaxhelpobject.cpp:140
 #, kde-format
 msgid "expression"
-msgstr ""
+msgstr "израз"
 
 #: backends/qalculate/qalculatesyntaxhelpobject.cpp:141
-#, kde-format
+#, fuzzy, kde-format
 msgid "option"
-msgstr ""
+msgstr "Опция"
 
 #: backends/qalculate/qalculatesyntaxhelpobject.cpp:142
 #, kde-format
 msgid "value"
-msgstr ""
+msgstr "стойност"
 
 #: backends/qalculate/qalculatesyntaxhelpobject.cpp:146
 #, kde-format
 msgid "integer"
-msgstr ""
+msgstr "цяло число"
 
 #: backends/qalculate/qalculatesyntaxhelpobject.cpp:147
 #, kde-format
 msgid "boolean"
-msgstr ""
+msgstr "булев"
 
 #: backends/qalculate/qalculatesyntaxhelpobject.cpp:148
-#, kde-format
+#, fuzzy, kde-format
 msgid "number"
-msgstr ""
+msgstr "Число:"
 
 #: backends/qalculate/qalculatesyntaxhelpobject.cpp:149
-#, kde-format
+#, fuzzy, kde-format
 msgid "default: %1"
-msgstr ""
+msgstr "По подразбиране"
 
 #: backends/qalculate/qalculatesyntaxhelpobject.cpp:209
 #, kde-format
@@ -1712,9 +1714,9 @@ msgstr ""
 
 #: backends/qalculate/qalculatesyntaxhelpobject.cpp:245
 #: backends/qalculate/qalculatesyntaxhelpobject.cpp:254
-#, kde-format
+#, fuzzy, kde-format
 msgid "file"
-msgstr ""
+msgstr "&Файл"
 
 #: backends/qalculate/qalculatesyntaxhelpobject.cpp:246
 #, kde-format
@@ -1750,15 +1752,15 @@ msgstr ""
 
 #. i18n: ectx: property (text), item, widget (KComboBox, kcfg_fractionFormat)
 #: backends/qalculate/settings.ui:58
-#, kde-format
+#, fuzzy, kde-format
 msgid "Decimal"
-msgstr ""
+msgstr "Де&сетичен"
 
 #. i18n: ectx: property (text), item, widget (KComboBox, kcfg_fractionFormat)
 #: backends/qalculate/settings.ui:63
 #, kde-format
 msgid "Exact"
-msgstr ""
+msgstr "Точно"
 
 #. i18n: ectx: property (text), item, widget (KComboBox, kcfg_fractionFormat)
 #: backends/qalculate/settings.ui:68
@@ -1782,19 +1784,19 @@ msgstr ""
 #: backends/qalculate/settings.ui:97
 #, kde-format
 msgid "Pure"
-msgstr ""
+msgstr "Pure"
 
 #. i18n: ectx: property (text), item, widget (KComboBox, kcfg_minExp)
 #: backends/qalculate/settings.ui:102
-#, kde-format
+#, fuzzy, kde-format
 msgid "Scientific"
-msgstr ""
+msgstr "Научни"
 
 #. i18n: ectx: property (text), item, widget (KComboBox, kcfg_minExp)
 #: backends/qalculate/settings.ui:107
 #, kde-format
 msgid "Precision"
-msgstr ""
+msgstr "Точност"
 
 #. i18n: ectx: property (text), widget (QLabel, label_6)
 #: backends/qalculate/settings.ui:115
@@ -1828,21 +1830,21 @@ msgstr ""
 
 #. i18n: ectx: property (text), item, widget (KComboBox, kcfg_angleUnit)
 #: backends/qalculate/settings.ui:215
-#, kde-format
+#, fuzzy, kde-format
 msgid "Radians"
-msgstr ""
+msgstr "%1 радиана"
 
 #. i18n: ectx: property (text), item, widget (KComboBox, kcfg_angleUnit)
 #: backends/qalculate/settings.ui:220
 #, kde-format
 msgid "Degrees"
-msgstr ""
+msgstr "Градуси"
 
 #. i18n: ectx: property (text), item, widget (KComboBox, kcfg_angleUnit)
 #: backends/qalculate/settings.ui:225
-#, kde-format
+#, fuzzy, kde-format
 msgid "Gradians"
-msgstr ""
+msgstr "%1 градиан"
 
 #. i18n: ectx: property (text), widget (QLabel, label_4)
 #: backends/qalculate/settings.ui:233
@@ -1894,9 +1896,9 @@ msgstr ""
 
 #. i18n: ectx: property (text), widget (QLabel, label_18)
 #: backends/qalculate/settings.ui:363
-#, kde-format
+#, fuzzy, kde-format
 msgid "Sampling rate:"
-msgstr ""
+msgstr "Дискретизация"
 
 #. i18n: ectx: property (text), widget (QLabel, label_13)
 #: backends/qalculate/settings.ui:380
@@ -1915,13 +1917,13 @@ msgstr ""
 #, kde-format
 msgctxt "Plot Style"
 msgid "Steps"
-msgstr ""
+msgstr "Стъпки"
 
 #. i18n: ectx: property (text), widget (QLabel, label_16)
 #: backends/qalculate/settings.ui:463
-#, kde-format
+#, fuzzy, kde-format
 msgid "Legend Position:"
-msgstr ""
+msgstr "Разположение на легендата:"
 
 #. i18n: ectx: property (text), widget (QLabel, label_15)
 #: backends/qalculate/settings.ui:525
@@ -1933,7 +1935,7 @@ msgstr ""
 #: backends/qalculate/settings.ui:535
 #, kde-format
 msgid "Show grid:"
-msgstr ""
+msgstr "Показване на мрежа:"
 
 #. i18n: ectx: property (text), widget (QLabel, label_14)
 #: backends/qalculate/settings.ui:545
@@ -1948,15 +1950,15 @@ msgid "Modify Entry"
 msgstr ""
 
 #: backends/qthelpconfig.cpp:47
-#, kde-format
+#, fuzzy, kde-format
 msgctxt "@title:window"
 msgid "Add New Entry"
-msgstr ""
+msgstr "Добавяне на нов запис"
 
 #: backends/qthelpconfig.cpp:64
 #, kde-format
 msgid "Name cannot be empty."
-msgstr ""
+msgstr "Името не може да бъде празно."
 
 #: backends/qthelpconfig.cpp:84
 #, kde-format
@@ -1985,16 +1987,16 @@ msgid "Documentation already imported"
 msgstr ""
 
 #: backends/qthelpconfig.cpp:270
-#, kde-format
+#, fuzzy, kde-format
 msgctxt "@info:tooltip"
 msgid "Modify"
-msgstr ""
+msgstr "Промяна"
 
 #: backends/qthelpconfig.cpp:275
-#, kde-format
+#, fuzzy, kde-format
 msgctxt "@info:tooltip"
 msgid "Delete"
-msgstr ""
+msgstr "Изтриване"
 
 #: backends/qthelpconfig.cpp:283
 #, kde-format
@@ -2010,31 +2012,31 @@ msgstr ""
 
 #. i18n: ectx: property (text), widget (QTreeWidget, qchTable)
 #: backends/qthelpconfig.ui:49 lib/defaultvariablemodel.cpp:67
-#, kde-format
+#, fuzzy, kde-format
 msgctxt "@title:column"
 msgid "Name"
-msgstr ""
+msgstr "Име"
 
 #. i18n: ectx: property (text), widget (QTreeWidget, qchTable)
 #: backends/qthelpconfig.ui:54
 #, kde-format
 msgctxt "@title:column"
 msgid "Path"
-msgstr ""
+msgstr "Път"
 
 #. i18n: ectx: property (text), widget (QPushButton, addButton)
 #: backends/qthelpconfig.ui:79
 #, kde-format
 msgctxt "@action:button"
 msgid "Add"
-msgstr ""
+msgstr "Добавяне"
 
 #. i18n: ectx: property (text), widget (QLabel, lIcon)
 #: backends/qthelpconfigeditdialog.ui:17
 #, kde-format
 msgctxt "@label:chooser"
 msgid "Icon:"
-msgstr ""
+msgstr "Икона:"
 
 #. i18n: ectx: property (toolTip), widget (KIconButton, qchIcon)
 #: backends/qthelpconfigeditdialog.ui:24
@@ -2045,17 +2047,17 @@ msgstr ""
 
 #. i18n: ectx: property (text), widget (QLabel, lName)
 #: backends/qthelpconfigeditdialog.ui:37
-#, kde-format
+#, fuzzy, kde-format
 msgctxt "@label:textbox"
 msgid "Name:"
-msgstr ""
+msgstr "Име:"
 
 #. i18n: ectx: property (toolTip), widget (QLineEdit, qchName)
 #: backends/qthelpconfigeditdialog.ui:44
-#, kde-format
+#, fuzzy, kde-format
 msgctxt "@info:tooltip"
 msgid "Enter a name"
-msgstr ""
+msgstr "Въведете име."
 
 #. i18n: ectx: property (placeholderText), widget (QLineEdit, qchName)
 #: backends/qthelpconfigeditdialog.ui:47
@@ -2069,7 +2071,7 @@ msgstr ""
 #, kde-format
 msgctxt "@label:textbox"
 msgid "Path:"
-msgstr ""
+msgstr "Път:"
 
 #. i18n: ectx: property (toolTip), widget (KUrlRequester, qchRequester)
 #: backends/qthelpconfigeditdialog.ui:67
@@ -2133,9 +2135,9 @@ msgid ""
 msgstr ""
 
 #: backends/R/rexpression.cpp:107 backends/R/rexpression.cpp:108
-#, kde-format
+#, fuzzy, kde-format
 msgid "Error opening file %1"
-msgstr ""
+msgstr "Грешка при отваряне на файла."
 
 #: backends/R/rextensions.cpp:22
 #, kde-format
@@ -2297,7 +2299,7 @@ msgstr ""
 #: cantor.cpp:104 cantor.cpp:228
 #, kde-format
 msgid "Open file"
-msgstr ""
+msgstr "Отваряне на файл"
 
 #: cantor.cpp:146
 #, kde-format
@@ -2305,9 +2307,9 @@ msgid "Download Examples"
 msgstr ""
 
 #: cantor.cpp:149
-#, kde-format
+#, fuzzy, kde-format
 msgid "&Open Example"
-msgstr ""
+msgstr "Отваряне на &пример..."
 
 #: cantor.cpp:154
 #, kde-format
@@ -2344,9 +2346,9 @@ msgstr[0] ""
 msgstr[1] ""
 
 #: cantor.cpp:315
-#, kde-format
+#, fuzzy, kde-format
 msgid "Error"
-msgstr ""
+msgstr "Грешка"
 
 #: cantor.cpp:337
 #, kde-format
@@ -2361,9 +2363,9 @@ msgid ""
 msgstr ""
 
 #: cantor.cpp:373
-#, kde-format
+#, fuzzy, kde-format
 msgid "Session %1"
-msgstr ""
+msgstr "Сесия"
 
 #: cantor.cpp:386
 #, kde-format
@@ -2373,17 +2375,17 @@ msgstr ""
 #: cantor.cpp:433 cantor_part.cpp:621
 #, kde-format
 msgid "Calculating..."
-msgstr ""
+msgstr "Изчисляване..."
 
 #: cantor.cpp:436 cantor_part.cpp:632 cantor_part.cpp:695
-#, kde-format
+#, fuzzy, kde-format
 msgid "Ready"
-msgstr ""
+msgstr "Готово"
 
 #: cantor.cpp:480
-#, kde-format
+#, fuzzy, kde-format
 msgid "Changed"
-msgstr ""
+msgstr "Променени:"
 
 #: cantor.cpp:564
 #, kde-format
@@ -2403,12 +2405,12 @@ msgstr ""
 #: cantor.cpp:582
 #, kde-format
 msgid "Save Project"
-msgstr ""
+msgstr "Запис на проект"
 
 #: cantor.cpp:628
 #, kde-format
 msgid "Formatting"
-msgstr ""
+msgstr "Форматиране"
 
 #. i18n: ectx: label, entry (DefaultBackend), group (Cantor)
 #: cantor.kcfg:12
@@ -2623,9 +2625,9 @@ msgid "Save Plain Text"
 msgstr ""
 
 #: cantor_part.cpp:181 cantor_part.cpp:532
-#, kde-format
+#, fuzzy, kde-format
 msgid "Export to LaTeX"
-msgstr ""
+msgstr "Експортиране като ф&айл Latex..."
 
 #: cantor_part.cpp:197 cantor_part.cpp:628 worksheet.cpp:1904
 #, kde-format
@@ -2633,9 +2635,9 @@ msgid "Evaluate Worksheet"
 msgstr ""
 
 #: cantor_part.cpp:205 worksheet.cpp:1912
-#, kde-format
+#, fuzzy, kde-format
 msgid "Zoom"
-msgstr ""
+msgstr "Мащаб"
 
 #: cantor_part.cpp:220
 #, kde-format
@@ -2643,26 +2645,26 @@ msgid "Typeset using LaTeX"
 msgstr ""
 
 #: cantor_part.cpp:225
-#, kde-format
+#, fuzzy, kde-format
 msgid "Syntax Highlighting"
-msgstr ""
+msgstr "Акцентиране на синтаксиса"
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_CompletionDefault)
 #: cantor_part.cpp:230 settings.ui:105
 #, kde-format
 msgid "Completion"
-msgstr ""
+msgstr "Завършване"
 
 #: cantor_part.cpp:235
 #, kde-format
 msgid "Line Numbers"
-msgstr ""
+msgstr "Номериране на редове"
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_AnimationDefault)
 #: cantor_part.cpp:240 settings.ui:125
 #, kde-format
 msgid "Animations"
-msgstr ""
+msgstr "Анимации"
 
 #: cantor_part.cpp:247
 #, kde-format
@@ -2772,12 +2774,12 @@ msgstr ""
 #: cantor_part.cpp:479
 #, kde-format
 msgid "Save as"
-msgstr ""
+msgstr "Запазване като"
 
 #: cantor_part.cpp:525 panelplugins/variablemgr/variablemanagerwidget.cpp:168
-#, kde-format
+#, fuzzy, kde-format
 msgid "Save"
-msgstr ""
+msgstr "Запазване"
 
 #: cantor_part.cpp:577
 #, kde-format
@@ -2787,9 +2789,9 @@ msgid ""
 msgstr ""
 
 #: cantor_part.cpp:578
-#, kde-format
+#, fuzzy, kde-format
 msgid "Restart %1?"
-msgstr ""
+msgstr "Рестартиране"
 
 #: cantor_part.cpp:618 worksheet.cpp:1907
 #, kde-format
@@ -2807,14 +2809,14 @@ msgid "Initialization complete"
 msgstr ""
 
 #: cantor_part.cpp:690
-#, kde-format
+#, fuzzy, kde-format
 msgid "Initializing..."
-msgstr ""
+msgstr "Стартиране..."
 
 #: cantor_part.cpp:748
-#, kde-format
+#, fuzzy, kde-format
 msgid "[read-only]"
-msgstr ""
+msgstr "Само за четене"
 
 #: cantor_part.cpp:866
 #, kde-format
@@ -2843,15 +2845,15 @@ msgstr ""
 
 #. i18n: ectx: Menu (edit)
 #: cantor_part.rc:14 cantor_shell.rc:19
-#, kde-format
+#, fuzzy, kde-format
 msgid "&Edit"
-msgstr ""
+msgstr "&Редактиране"
 
 #. i18n: ectx: Menu (view)
 #: cantor_part.rc:27 cantor_shell.rc:22
-#, kde-format
+#, fuzzy, kde-format
 msgid "&View"
-msgstr ""
+msgstr "&Изглед"
 
 #. i18n: ectx: Menu (worksheet)
 #: cantor_part.rc:33
@@ -2863,51 +2865,51 @@ msgstr ""
 #: cantor_part.rc:50
 #, kde-format
 msgid "Settings"
-msgstr ""
+msgstr "Настройки"
 
 #. i18n: ectx: Menu (file)
 #: cantor_shell.rc:4
 #, kde-format
 msgid "&File"
-msgstr ""
+msgstr "&Файл"
 
 #. i18n: ectx: Menu (file_new_menu)
 #: cantor_shell.rc:6
-#, kde-format
+#, fuzzy, kde-format
 msgid "&New"
-msgstr ""
+msgstr "&Нов"
 
 #. i18n: ectx: Menu (panels)
 #: cantor_shell.rc:24
-#, kde-format
+#, fuzzy, kde-format
 msgid "Panels"
-msgstr ""
+msgstr "&Панели"
 
 #. i18n: ectx: Menu (settings)
 #: cantor_shell.rc:29
-#, kde-format
+#, fuzzy, kde-format
 msgid "&Settings"
-msgstr ""
+msgstr "&Настройки"
 
 #: commandentry.cpp:120
-#, kde-format
+#, fuzzy, kde-format
 msgid "Background Color"
-msgstr ""
+msgstr "Цвят на фона"
 
 #: commandentry.cpp:129 commandentry.cpp:156 horizontalruleentry.cpp:328
-#, kde-format
+#, fuzzy, kde-format
 msgid "Default"
-msgstr ""
+msgstr "По подразбиране"
 
 #: commandentry.cpp:151
-#, kde-format
+#, fuzzy, kde-format
 msgid "Text Color"
-msgstr ""
+msgstr "Цвят на текста"
 
 #: commandentry.cpp:176
-#, kde-format
+#, fuzzy, kde-format
 msgid "Font"
-msgstr ""
+msgstr "Шрифт"
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_ChapterFontBold)
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_SubchapterFontBold)
@@ -2919,7 +2921,7 @@ msgstr ""
 #: formating.ui:258 formating.ui:317 formating.ui:376
 #, kde-format
 msgid "Bold"
-msgstr ""
+msgstr "Получер"
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_ChapterFontItalic)
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_SubchapterFontItalic)
@@ -2931,7 +2933,7 @@ msgstr ""
 #: formating.ui:265 formating.ui:324 formating.ui:383
 #, kde-format
 msgid "Italic"
-msgstr ""
+msgstr "Курсив"
 
 #: commandentry.cpp:194
 #, kde-format
@@ -2944,14 +2946,14 @@ msgid "Decrease Size"
 msgstr ""
 
 #: commandentry.cpp:203
-#, kde-format
+#, fuzzy, kde-format
 msgid "Select"
-msgstr ""
+msgstr "Избиране"
 
 #: commandentry.cpp:207
 #, kde-format
 msgid "Reset to Default"
-msgstr ""
+msgstr "Връщане към подразбиране"
 
 #: commandentry.cpp:336
 #, kde-format
@@ -2964,14 +2966,14 @@ msgid "Hide Results"
 msgstr ""
 
 #: commandentry.cpp:343 worksheet.cpp:1897
-#, kde-format
+#, fuzzy, kde-format
 msgid "Show Help"
-msgstr ""
+msgstr "Показване на помощ"
 
 #: commandentry.cpp:356
-#, kde-format
+#, fuzzy, kde-format
 msgid "Appearance"
-msgstr ""
+msgstr "Външен вид"
 
 #: commandentry.cpp:597 commandentry.cpp:992
 #, kde-format
@@ -2999,52 +3001,52 @@ msgstr ""
 #. i18n: ectx: property (text), widget (QLabel, label)
 #: extendedsearchbar.ui:47
 #: panelplugins/documentationpanel/documentationpanelwidget.cpp:126
-#, kde-format
+#, fuzzy, kde-format
 msgid "Find:"
-msgstr ""
+msgstr "Търсене:"
 
 #. i18n: ectx: property (text), widget (QPushButton, next)
 #: extendedsearchbar.ui:61 standardsearchbar.ui:48
-#, kde-format
+#, fuzzy, kde-format
 msgid "&Next"
-msgstr ""
+msgstr "&Следващ"
 
 #. i18n: ectx: property (text), widget (QPushButton, previous)
 #: extendedsearchbar.ui:68 standardsearchbar.ui:55
-#, kde-format
+#, fuzzy, kde-format
 msgid "&Previous"
-msgstr ""
+msgstr "&Предишен"
 
 #. i18n: ectx: property (text), widget (QLabel, label_2)
 #: extendedsearchbar.ui:102
-#, kde-format
+#, fuzzy, kde-format
 msgid "Replace:"
-msgstr ""
+msgstr "Замяна:"
 
 #. i18n: ectx: property (text), widget (QPushButton, replace)
 #: extendedsearchbar.ui:116
-#, kde-format
+#, fuzzy, kde-format
 msgid "&Replace"
-msgstr ""
+msgstr "Заместване"
 
 #. i18n: ectx: property (text), widget (QPushButton, replaceAll)
 #: extendedsearchbar.ui:123
 #, kde-format
 msgid "Replace &All"
-msgstr ""
+msgstr "Замяна на &всички"
 
 #. i18n: ectx: property (text), widget (QLabel, label_3)
 #: extendedsearchbar.ui:139
 #, kde-format
 msgid "Search in:"
-msgstr ""
+msgstr "Търсене в:"
 
 #. i18n: ectx: property (text), widget (QToolButton, matchCase)
 #. i18n: ectx: property (text), widget (QCheckBox, matchCase)
 #: extendedsearchbar.ui:173 standardsearchbar.ui:62
-#, kde-format
+#, fuzzy, kde-format
 msgid "&Match case"
-msgstr ""
+msgstr "Зачитане на регистъра"
 
 #. i18n: ectx: property (title), widget (QGroupBox, groupBox)
 #: formating.ui:27
@@ -3068,7 +3070,7 @@ msgstr ""
 #: formating.ui:281 formating.ui:340
 #, kde-format
 msgid "Font Family:"
-msgstr ""
+msgstr "Фамилия на шрифта:"
 
 #. i18n: ectx: property (text), widget (QLabel, label_3)
 #. i18n: ectx: property (text), widget (QLabel, label_5)
@@ -3080,7 +3082,7 @@ msgstr ""
 #: formating.ui:295 formating.ui:354
 #, kde-format
 msgid "Font Size:"
-msgstr ""
+msgstr "Размер на шрифта:"
 
 #. i18n: ectx: attribute (title), widget (QWidget, SubchapterTab)
 #: formating.ui:96
@@ -3115,7 +3117,7 @@ msgstr ""
 #: hierarchyentry.cpp:22
 #, kde-format
 msgid "Chapter"
-msgstr ""
+msgstr "Глава"
 
 #: hierarchyentry.cpp:22
 #, kde-format
@@ -3125,22 +3127,22 @@ msgstr ""
 #: hierarchyentry.cpp:22
 #, kde-format
 msgid "Section"
-msgstr ""
+msgstr "Раздел"
 
 #: hierarchyentry.cpp:22
 #, kde-format
 msgid "Subsection"
-msgstr ""
+msgstr "Подраздел"
 
 #: hierarchyentry.cpp:22
-#, kde-format
+#, fuzzy, kde-format
 msgid "Paragraph"
-msgstr ""
+msgstr "Параграф"
 
 #: hierarchyentry.cpp:22
 #, kde-format
 msgid "Subparagraph"
-msgstr ""
+msgstr "Подпараграф"
 
 #: hierarchyentry.cpp:48
 #, kde-format
@@ -3180,12 +3182,12 @@ msgstr ""
 #: horizontalruleentry.cpp:299
 #, kde-format
 msgid "Thin"
-msgstr ""
+msgstr "Тънък"
 
 #: horizontalruleentry.cpp:303
-#, kde-format
+#, fuzzy, kde-format
 msgid "Medium"
-msgstr ""
+msgstr "Среден"
 
 #: horizontalruleentry.cpp:307
 #, kde-format
@@ -3195,7 +3197,7 @@ msgstr ""
 #: horizontalruleentry.cpp:320
 #, kde-format
 msgid "Line Color"
-msgstr ""
+msgstr "Цвят на линия"
 
 #: horizontalruleentry.cpp:351
 #, kde-format
@@ -3223,21 +3225,21 @@ msgid "Save image result"
 msgstr ""
 
 #: imageresultitem.cpp:99 imagesettingsdialog.cpp:153 markdownentry.cpp:775
-#, kde-format
+#, fuzzy, kde-format
 msgid "Images (%1)"
-msgstr ""
+msgstr "Изображения"
 
 #. i18n: ectx: property (windowTitle), widget (QWidget, ImageSettingsBase)
 #: imagesettings.ui:14
-#, kde-format
+#, fuzzy, kde-format
 msgid "Image Settings"
-msgstr ""
+msgstr "Изображение"
 
 #. i18n: ectx: property (text), widget (QPushButton, openDialogButton)
 #: imagesettings.ui:29
-#, kde-format
+#, fuzzy, kde-format
 msgid "Open"
-msgstr ""
+msgstr "Отваряне"
 
 #. i18n: ectx: property (title), widget (QGroupBox, groupBox)
 #: imagesettings.ui:38
@@ -3248,28 +3250,28 @@ msgstr ""
 #. i18n: ectx: property (text), widget (QLabel, label)
 #. i18n: ectx: property (text), widget (QLabel, label_5)
 #: imagesettings.ui:47 imagesettings.ui:101
-#, kde-format
+#, fuzzy, kde-format
 msgid "Width"
-msgstr ""
+msgstr "Широчина"
 
 #. i18n: ectx: property (text), widget (QLabel, label_2)
 #. i18n: ectx: property (text), widget (QLabel, label_6)
 #: imagesettings.ui:60 imagesettings.ui:114
 #, kde-format
 msgid "Height"
-msgstr ""
+msgstr "Височина"
 
 #. i18n: ectx: property (title), widget (QGroupBox, gbPreview)
 #: imagesettings.ui:76
-#, kde-format
+#, fuzzy, kde-format
 msgid "Preview"
-msgstr ""
+msgstr "Преглед"
 
 #. i18n: ectx: property (title), widget (QGroupBox, groupBox_2)
 #: imagesettings.ui:88
 #, kde-format
 msgid "Print Size"
-msgstr ""
+msgstr "Размер за отпечатване"
 
 #. i18n: ectx: property (text), widget (QCheckBox, useDisplaySize)
 #: imagesettings.ui:94
@@ -3278,20 +3280,20 @@ msgid "Use Display Size"
 msgstr ""
 
 #: imagesettingsdialog.cpp:23
-#, kde-format
+#, fuzzy, kde-format
 msgctxt "@title:window"
 msgid "Image Settings"
-msgstr ""
+msgstr "Изображение"
 
 #: imagesettingsdialog.cpp:40
-#, kde-format
+#, fuzzy, kde-format
 msgid "(auto)"
-msgstr ""
+msgstr "Автоматично"
 
 #: imagesettingsdialog.cpp:40
 #, kde-format
 msgid "px"
-msgstr ""
+msgstr "px"
 
 #: imagesettingsdialog.cpp:40
 #, kde-format
@@ -3301,7 +3303,7 @@ msgstr ""
 #: imagesettingsdialog.cpp:151 markdownentry.cpp:773
 #, kde-format
 msgid "Open image file"
-msgstr ""
+msgstr "Отворен файл с изображение"
 
 #: latexentry.cpp:61 textentry.cpp:111
 #, kde-format
@@ -3362,7 +3364,7 @@ msgstr ""
 #, kde-format
 msgctxt "@title:column"
 msgid "Value"
-msgstr ""
+msgstr "Стойност"
 
 #: lib/defaultvariablemodel.cpp:102
 #, kde-format
@@ -3378,13 +3380,13 @@ msgstr ""
 #: lib/directives/axisrange.ui:19
 #, kde-format
 msgid "From:"
-msgstr ""
+msgstr "От:"
 
 #. i18n: ectx: property (text), widget (QLabel, label_2)
 #: lib/directives/axisrange.ui:40
-#, kde-format
+#, fuzzy, kde-format
 msgid "To:"
-msgstr ""
+msgstr "До:"
 
 #: lib/directives/plotdirectives.cpp:19
 #, kde-format
@@ -3458,10 +3460,10 @@ msgid "Nikita Sirgienko"
 msgstr ""
 
 #: main.cpp:79 main.cpp:80
-#, kde-format
+#, fuzzy, kde-format
 msgctxt "@info:credit"
 msgid "Developer"
-msgstr ""
+msgstr "Разработка"
 
 #: main.cpp:80
 #, kde-format
@@ -3476,7 +3478,7 @@ msgstr ""
 #: main.cpp:82
 #, kde-format
 msgid "Aleix Pol Gonzalez"
-msgstr ""
+msgstr "Aleix Pol Gonzalez"
 
 #: main.cpp:82
 #, kde-format
@@ -3486,7 +3488,7 @@ msgstr ""
 #: main.cpp:83
 #, kde-format
 msgid "Miha Čančula"
-msgstr ""
+msgstr "Miha Čančula"
 
 #: main.cpp:83
 #, kde-format
@@ -3501,7 +3503,7 @@ msgstr ""
 #: main.cpp:84
 #, kde-format
 msgid "Interface"
-msgstr ""
+msgstr "Интерфейс"
 
 #: main.cpp:86 main.cpp:87
 #, kde-format
@@ -3516,7 +3518,7 @@ msgstr ""
 #: main.cpp:95
 #, kde-format
 msgid "Documents to open."
-msgstr ""
+msgstr "Документ за отваряне."
 
 #: main.cpp:130
 #, kde-format
@@ -3526,7 +3528,7 @@ msgstr ""
 #: markdownentry.cpp:70
 #, kde-format
 msgid "Enter Edit Mode"
-msgstr ""
+msgstr "Влизане в режим на редактиране"
 
 #: markdownentry.cpp:78
 #, kde-format
@@ -3544,9 +3546,9 @@ msgid "Failed to read the image \"%1\". Error \"%2\""
 msgstr ""
 
 #: pagebreakentry.cpp:28
-#, kde-format
+#, fuzzy, kde-format
 msgid "--- Page Break ---"
-msgstr ""
+msgstr "Край на страница"
 
 #: panelplugins/documentationpanel/documentationpanelwidget.cpp:51
 #, kde-format
@@ -3573,22 +3575,22 @@ msgid "Reset zoom level to 100%"
 msgstr ""
 
 #: panelplugins/documentationpanel/documentationpanelwidget.cpp:123
-#, kde-format
+#, fuzzy, kde-format
 msgctxt "@info:tooltip"
 msgid "Close"
-msgstr ""
+msgstr "Затваряне"
 
 #: panelplugins/documentationpanel/documentationpanelwidget.cpp:133
-#, kde-format
+#, fuzzy, kde-format
 msgctxt "@info:tooltip"
 msgid "Jump to next match"
-msgstr ""
+msgstr "Преминаване към следващото съвпадение"
 
 #: panelplugins/documentationpanel/documentationpanelwidget.cpp:137
-#, kde-format
+#, fuzzy, kde-format
 msgctxt "@info:tooltip"
 msgid "Jump to previous match"
-msgstr ""
+msgstr "Преход към предишно съвпадение"
 
 #: panelplugins/documentationpanel/documentationpanelwidget.cpp:141
 #, kde-format
@@ -3619,24 +3621,24 @@ msgstr ""
 #: panelplugins/filebrowserpanel/filebrowserpanelplugin.cpp:139
 #, kde-format
 msgid "All supported files"
-msgstr ""
+msgstr "Всички поддържани файлове"
 
 #: panelplugins/filebrowserpanel/filebrowserpanelplugin.cpp:140
 #, kde-format
 msgid "All files"
-msgstr ""
+msgstr "Всички файлове"
 
 #. i18n: ectx: property (text), widget (QLabel, label)
 #: panelplugins/variablemgr/newvardlg.ui:17
-#, kde-format
+#, fuzzy, kde-format
 msgid "Name:"
-msgstr ""
+msgstr "Име:"
 
 #. i18n: ectx: property (text), widget (QLabel, label_2)
 #: panelplugins/variablemgr/newvardlg.ui:27
 #, kde-format
 msgid "Value:"
-msgstr ""
+msgstr "Стойност:"
 
 #: panelplugins/variablemgr/variablemanagerwidget.cpp:45
 #: panelplugins/variablemgr/variablemanagerwidget.cpp:197
@@ -3666,9 +3668,9 @@ msgid "Search/Filter"
 msgstr ""
 
 #: panelplugins/variablemgr/variablemanagerwidget.cpp:84
-#, kde-format
+#, fuzzy, kde-format
 msgid "Case Sensitive"
-msgstr ""
+msgstr "Чувствителен регистър"
 
 #: panelplugins/variablemgr/variablemanagerwidget.cpp:88
 #, kde-format
@@ -3681,9 +3683,9 @@ msgid "Are you sure you want to remove all variables?"
 msgstr ""
 
 #: panelplugins/variablemgr/variablemanagerwidget.cpp:182
-#, kde-format
+#, fuzzy, kde-format
 msgid "Load file"
-msgstr ""
+msgstr "Зареждане на файл..."
 
 #: resultitem.cpp:59
 #, kde-format
@@ -3715,7 +3717,7 @@ msgstr ""
 #: searchbar.cpp:130 searchbar.cpp:178
 #, kde-format
 msgid "Not found"
-msgstr ""
+msgstr "Не е намерен"
 
 #: searchbar.cpp:133
 #, kde-format
@@ -3737,23 +3739,23 @@ msgstr[1] ""
 #: searchbar.cpp:333 searchbar.cpp:362
 #, kde-format
 msgid "Commands"
-msgstr ""
+msgstr "Команди"
 
 #: searchbar.cpp:333 searchbar.cpp:362
 #, kde-format
 msgid "Results"
-msgstr ""
+msgstr "Резултати"
 
 #: searchbar.cpp:333 searchbar.cpp:362
 #, kde-format
 msgid "Errors"
-msgstr ""
+msgstr "Грешки"
 
 #: searchbar.cpp:334 searchbar.cpp:363 worksheet.cpp:1812 worksheet.cpp:1841
 #: worksheet.cpp:1861 worksheet.cpp:1879
 #, kde-format
 msgid "Text"
-msgstr ""
+msgstr "Текст"
 
 #: searchbar.cpp:334 searchbar.cpp:363
 #, kde-format
@@ -3764,7 +3766,7 @@ msgstr ""
 #: settings.ui:23
 #, kde-format
 msgid "Startup:"
-msgstr ""
+msgstr "Стартиране:"
 
 #. i18n: ectx: property (toolTip), widget (QLabel, label)
 #. i18n: ectx: property (toolTip), widget (KComboBox, kcfg_DefaultBackend)
@@ -3811,7 +3813,7 @@ msgstr ""
 #: settings.ui:95
 #, kde-format
 msgid "Syntax highlighting"
-msgstr ""
+msgstr "Акцентиране на синтаксиса"
 
 #. i18n: ectx: property (toolTip), widget (QCheckBox, kcfg_CompletionDefault)
 #: settings.ui:102
@@ -3821,15 +3823,15 @@ msgstr ""
 
 #. i18n: ectx: property (toolTip), widget (QCheckBox, kcfg_ExpressionNumberingDefault)
 #: settings.ui:112
-#, kde-format
+#, fuzzy, kde-format
 msgid "Show line numbers"
-msgstr ""
+msgstr "&Номериране на редовете"
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_ExpressionNumberingDefault)
 #: settings.ui:115
-#, kde-format
+#, fuzzy, kde-format
 msgid "Line numbers"
-msgstr ""
+msgstr "Номериране на редове"
 
 #. i18n: ectx: property (toolTip), widget (QCheckBox, kcfg_AnimationDefault)
 #: settings.ui:122
@@ -3903,7 +3905,7 @@ msgstr ""
 #: settings.ui:256
 #, kde-format
 msgid "Markdown:"
-msgstr ""
+msgstr "Markdown:"
 
 #. i18n: ectx: property (toolTip), widget (QCheckBox, kcfg_EmbeddedMathDefault)
 #: settings.ui:263
@@ -3928,7 +3930,7 @@ msgstr ""
 #: standardsearchbar.ui:35
 #, kde-format
 msgid "Find…"
-msgstr ""
+msgstr "Търсене…"
 
 #: textentry.cpp:55
 #, kde-format
@@ -3983,12 +3985,12 @@ msgstr ""
 #: textresultitem.cpp:84
 #, kde-format
 msgid "Show Html"
-msgstr ""
+msgstr "Показване на Html"
 
 #: textresultitem.cpp:90
 #, kde-format
 msgid "Show HTML"
-msgstr ""
+msgstr "Показване на HTML"
 
 #: textresultitem.cpp:161
 #, kde-format
@@ -4018,7 +4020,7 @@ msgstr ""
 #: worksheet.cpp:1252 worksheet.cpp:1296
 #, kde-format
 msgid "Error saving file %1"
-msgstr ""
+msgstr "Грешка при запис на файла %1"
 
 #: worksheet.cpp:1275
 #, kde-format
@@ -4042,7 +4044,7 @@ msgstr ""
 #: worksheet.cpp:1596 worksheet.cpp:1607 worksheet.cpp:1727 worksheet.cpp:1729
 #, kde-format
 msgid "Open File"
-msgstr ""
+msgstr "Отваряне на файл"
 
 #: worksheet.cpp:1350
 #, kde-format
@@ -4134,32 +4136,32 @@ msgstr ""
 #: worksheet.cpp:1804
 #, kde-format
 msgid "Convert To"
-msgstr ""
+msgstr "Преобразуване в"
 
 #: worksheet.cpp:1809 worksheet.cpp:1840 worksheet.cpp:1860 worksheet.cpp:1878
 #, kde-format
 msgid "Command"
-msgstr ""
+msgstr "Команда"
 
 #: worksheet.cpp:1816 worksheet.cpp:1843 worksheet.cpp:1863 worksheet.cpp:1881
 #, kde-format
 msgid "Markdown"
-msgstr ""
+msgstr "Markdown"
 
 #: worksheet.cpp:1823 worksheet.cpp:1848 worksheet.cpp:1868 worksheet.cpp:1886
-#, kde-format
+#, fuzzy, kde-format
 msgid "Image"
-msgstr ""
+msgstr "Изображение"
 
 #: worksheet.cpp:1826 worksheet.cpp:1851 worksheet.cpp:1871 worksheet.cpp:1889
 #, kde-format
 msgid "Page Break"
-msgstr ""
+msgstr "Край на страница"
 
 #: worksheet.cpp:1829 worksheet.cpp:1850 worksheet.cpp:1870 worksheet.cpp:1888
 #, kde-format
 msgid "Horizontal Line"
-msgstr ""
+msgstr "Хоризонтална линия"
 
 #: worksheet.cpp:1832 worksheet.cpp:1853 worksheet.cpp:1873 worksheet.cpp:1891
 #, kde-format
@@ -4169,32 +4171,32 @@ msgstr ""
 #: worksheet.cpp:1835
 #, kde-format
 msgid "Insert After"
-msgstr ""
+msgstr "Вмъкване след"
 
 #: worksheet.cpp:1856
 #, kde-format
 msgid "Insert Before"
-msgstr ""
+msgstr "Вмъкване преди"
 
 #: worksheet.cpp:1875
 #, kde-format
 msgid "Insert"
-msgstr ""
+msgstr "Вмъкване"
 
 #: worksheet.cpp:1916
 #, kde-format
 msgid "Zoom In"
-msgstr ""
+msgstr "Увеличаване"
 
 #: worksheet.cpp:1919
 #, kde-format
 msgid "Zoom Out"
-msgstr ""
+msgstr "Намаляване"
 
 #: worksheet.cpp:1923
 #, kde-format
 msgid "Original Size"
-msgstr ""
+msgstr "Оригинален размер"
 
 #: worksheet.cpp:1931
 #, kde-format
@@ -4245,103 +4247,103 @@ msgstr ""
 #, kde-format
 msgctxt "@action"
 msgid "Text &Color..."
-msgstr ""
+msgstr "Цвят на &текст..."
 
 #: worksheet.cpp:2060
 #, kde-format
 msgctxt "@label text color"
 msgid "Color"
-msgstr ""
+msgstr "Цвят"
 
 #: worksheet.cpp:2067
 #, kde-format
 msgctxt "@action"
 msgid "Text &Highlight..."
-msgstr ""
+msgstr "&Открояване на текст..."
 
 #: worksheet.cpp:2073
 #, kde-format
 msgctxt "@action"
 msgid "&Font"
-msgstr ""
+msgstr "&Шрифт"
 
 #: worksheet.cpp:2082
 #, kde-format
 msgctxt "@action"
 msgid "Font &Size"
-msgstr ""
+msgstr "&Размер на шрифта"
 
 #: worksheet.cpp:2088
 #, kde-format
 msgctxt "@action boldify selected text"
 msgid "&Bold"
-msgstr ""
+msgstr "&Получер"
 
 #: worksheet.cpp:2099
-#, kde-format
+#, fuzzy, kde-format
 msgctxt "@action italicize selected text"
 msgid "&Italic"
-msgstr ""
+msgstr "&Курсив"
 
 #: worksheet.cpp:2111
-#, kde-format
+#, fuzzy, kde-format
 msgctxt "@action underline selected text"
 msgid "&Underline"
-msgstr ""
+msgstr "&Подчертаване"
 
 #: worksheet.cpp:2122
 #, kde-format
 msgctxt "@action"
 msgid "&Strike Out"
-msgstr ""
+msgstr "&Зачертан"
 
 #: worksheet.cpp:2133
-#, kde-format
+#, fuzzy, kde-format
 msgctxt "@action"
 msgid "Align &Left"
-msgstr ""
+msgstr "&Ляво подравняване"
 
 #: worksheet.cpp:2136
-#, kde-format
+#, fuzzy, kde-format
 msgctxt "@label left justify"
 msgid "Left"
-msgstr ""
+msgstr "Ляво"
 
 #: worksheet.cpp:2143
 #, kde-format
 msgctxt "@action"
 msgid "Align &Center"
-msgstr ""
+msgstr "&Центрирано"
 
 #: worksheet.cpp:2146
-#, kde-format
+#, fuzzy, kde-format
 msgctxt "@label center justify"
 msgid "Center"
-msgstr ""
+msgstr "Център"
 
 #: worksheet.cpp:2153
 #, kde-format
 msgctxt "@action"
 msgid "Align &Right"
-msgstr ""
+msgstr "&Дясно подравняване"
 
 #: worksheet.cpp:2156
-#, kde-format
+#, fuzzy, kde-format
 msgctxt "@label right justify"
 msgid "Right"
-msgstr ""
+msgstr "Дясно"
 
 #: worksheet.cpp:2163
 #, kde-format
 msgctxt "@action"
 msgid "&Justify"
-msgstr ""
+msgstr "&Двустранно подравняване"
 
 #: worksheet.cpp:2166
 #, kde-format
 msgctxt "@label justify fill"
 msgid "Justify"
-msgstr ""
+msgstr "Двустранно"
 
 #: worksheet.cpp:2860
 #, kde-format
@@ -4356,24 +4358,24 @@ msgid "Remove all results"
 msgstr ""
 
 #: worksheetentry.cpp:67
-#, kde-format
+#, fuzzy, kde-format
 msgid "White"
-msgstr ""
+msgstr "Празни"
 
 #: worksheetentry.cpp:67
-#, kde-format
+#, fuzzy, kde-format
 msgid "Black"
-msgstr ""
+msgstr "Черно"
 
 #: worksheetentry.cpp:68
 #, kde-format
 msgid "Dark Red"
-msgstr ""
+msgstr "Тъмночервен"
 
 #: worksheetentry.cpp:68
-#, kde-format
+#, fuzzy, kde-format
 msgid "Red"
-msgstr ""
+msgstr "Червено"
 
 #: worksheetentry.cpp:68
 #, kde-format
@@ -4383,12 +4385,12 @@ msgstr ""
 #: worksheetentry.cpp:69
 #, kde-format
 msgid "Dark Green"
-msgstr ""
+msgstr "Тъмнозелен"
 
 #: worksheetentry.cpp:69
-#, kde-format
+#, fuzzy, kde-format
 msgid "Green"
-msgstr ""
+msgstr "Зелено"
 
 #: worksheetentry.cpp:69
 #, kde-format
@@ -4396,29 +4398,29 @@ msgid "Light Green"
 msgstr ""
 
 #: worksheetentry.cpp:70
-#, kde-format
+#, fuzzy, kde-format
 msgid "Dark Blue"
-msgstr ""
+msgstr "Тъмно синьо"
 
 #: worksheetentry.cpp:70
-#, kde-format
+#, fuzzy, kde-format
 msgid "Blue"
-msgstr ""
+msgstr "Синьо"
 
 #: worksheetentry.cpp:70
 #, kde-format
 msgid "Light Blue"
-msgstr ""
+msgstr "Светло синьо"
 
 #: worksheetentry.cpp:71
 #, kde-format
 msgid "Dark Yellow"
-msgstr ""
+msgstr "Тъмножълт"
 
 #: worksheetentry.cpp:71
-#, kde-format
+#, fuzzy, kde-format
 msgid "Yellow"
-msgstr ""
+msgstr "Жълто"
 
 #: worksheetentry.cpp:71
 #, kde-format
@@ -4428,12 +4430,12 @@ msgstr ""
 #: worksheetentry.cpp:72
 #, kde-format
 msgid "Dark Cyan"
-msgstr ""
+msgstr "Тъмен циан"
 
 #: worksheetentry.cpp:72
 #, kde-format
 msgid "Cyan"
-msgstr ""
+msgstr "Циан"
 
 #: worksheetentry.cpp:72
 #, kde-format
@@ -4443,12 +4445,12 @@ msgstr ""
 #: worksheetentry.cpp:73
 #, kde-format
 msgid "Dark Magenta"
-msgstr ""
+msgstr "Тъмна магента"
 
 #: worksheetentry.cpp:73
-#, kde-format
+#, fuzzy, kde-format
 msgid "Magenta"
-msgstr ""
+msgstr "Магента"
 
 #: worksheetentry.cpp:73
 #, kde-format
@@ -4461,9 +4463,9 @@ msgid "Dark Orange"
 msgstr ""
 
 #: worksheetentry.cpp:74
-#, kde-format
+#, fuzzy, kde-format
 msgid "Orange"
-msgstr ""
+msgstr "Ориндж"
 
 #: worksheetentry.cpp:74
 #, kde-format
@@ -4478,7 +4480,7 @@ msgstr ""
 #: worksheetentry.cpp:75
 #, kde-format
 msgid "Grey"
-msgstr ""
+msgstr "Сиво"
 
 #: worksheetentry.cpp:75
 #, kde-format
@@ -4486,14 +4488,14 @@ msgid "Light Grey"
 msgstr ""
 
 #: worksheetentry.cpp:421
-#, kde-format
+#, fuzzy, kde-format
 msgid "Move Up"
-msgstr ""
+msgstr "Преместване нагоре"
 
 #: worksheetentry.cpp:429
-#, kde-format
+#, fuzzy, kde-format
 msgid "Move Down"
-msgstr ""
+msgstr "Преместване надолу"
 
 #: worksheetentry.cpp:717
 #, kde-format
@@ -4501,9 +4503,9 @@ msgid "Do you really want to remove this entry?"
 msgstr ""
 
 #: worksheetentry.cpp:717 worksheetentry.cpp:845
-#, kde-format
+#, fuzzy, kde-format
 msgid "Remove Entry"
-msgstr ""
+msgstr "Премахване на запис"
 
 #: worksheetentry.cpp:850
 #, kde-format
