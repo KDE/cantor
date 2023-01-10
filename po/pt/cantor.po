@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: mathematik\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-01-04 00:43+0000\n"
-"PO-Revision-Date: 2022-12-28 18:41+0000\n"
+"PO-Revision-Date: 2023-01-09 18:48+0000\n"
 "Last-Translator: José Nuno Coelho Pires <zepires@gmail.com>\n"
 "Language-Team: Portuguese <kde-i18n-pt@kde.org>\n"
 "Language: pt\n"
@@ -867,13 +867,13 @@ msgstr "Localização do executável Maxima"
 #: backends/maxima/maximabackend.kcfg:41
 #, kde-format
 msgid "Default plot width"
-msgstr ""
+msgstr "Largura predefinida do gráfico"
 
 #. i18n: ectx: label, entry (plotHeight), group (MaximaBackend)
 #: backends/maxima/maximabackend.kcfg:45
 #, kde-format
 msgid "Default plot height"
-msgstr ""
+msgstr "Altura predefinida do gráfico"
 
 #: backends/maxima/maximaexpression.cpp:114
 #, kde-format
@@ -919,25 +919,22 @@ msgstr ""
 
 #. i18n: ectx: property (text), widget (QLabel, lPlotIntegration)
 #: backends/maxima/settings.ui:67 backends/octave/settings.ui:135
-#, fuzzy, kde-format
-#| msgid "Integrate"
+#, kde-format
 msgid "Integrated:"
-msgstr "Integrar"
+msgstr "Integrado:"
 
 #. i18n: ectx: property (text), widget (QLabel, label_3)
 #. i18n: ectx: property (text), widget (QLabel, label_5)
 #: backends/maxima/settings.ui:84 backends/octave/settings.ui:118
-#, fuzzy, kde-format
-#| msgid "Font Size:"
+#, kde-format
 msgid "Size:"
-msgstr "Tamanho da Letra:"
+msgstr "Tamanho:"
 
 #. i18n: ectx: property (text), widget (QLabel, lPlotWidth)
 #: backends/maxima/settings.ui:112 backends/octave/settings.ui:58
-#, fuzzy, kde-format
-#| msgid "Width"
+#, kde-format
 msgid "width:"
-msgstr "Largura"
+msgstr "largura:"
 
 #. i18n: ectx: property (suffix), widget (QDoubleSpinBox, kcfg_plotWidth)
 #. i18n: ectx: property (suffix), widget (QDoubleSpinBox, kcfg_plotHeight)
@@ -949,10 +946,9 @@ msgstr "cm"
 
 #. i18n: ectx: property (text), widget (QLabel, lPlotHeight)
 #: backends/maxima/settings.ui:142 backends/octave/settings.ui:88
-#, fuzzy, kde-format
-#| msgid "Height"
+#, kde-format
 msgid "height:"
-msgstr "Altura"
+msgstr "altura:"
 
 #. i18n: ectx: property (text), widget (QLabel, label_2)
 #. i18n: ectx: property (text), widget (QLabel, label_3)
@@ -992,7 +988,7 @@ msgstr ""
 #: backends/octave/octaveexpression.cpp:203
 #, kde-format
 msgid "Invalid image file generated."
-msgstr ""
+msgstr "Foi gerado um ficheiro de imagem inválido."
 
 #: backends/octave/octaveextensions.cpp:34
 #, kde-format
@@ -2746,10 +2742,9 @@ msgstr ""
 
 #. i18n: ectx: label, entry (WarnAboutEntryDelete), group (Cantor)
 #: cantor.kcfg:40
-#, fuzzy, kde-format
-#| msgid "Ask for confirmation when restarting the backend"
+#, kde-format
 msgid "Ask for confirmation when deleting an entry"
-msgstr "Pedir a confirmação ao reiniciar a infra-estrutura"
+msgstr "Pedir a confirmação ao remover um item"
 
 #. i18n: ectx: label, entry (AutoEval), group (Cantor)
 #: cantor.kcfg:44
@@ -3519,15 +3514,14 @@ msgid "Cannot load image %1"
 msgstr "Não é possível carregar a imagem %1"
 
 #: imageresultitem.cpp:90
-#, fuzzy, kde-format
-#| msgid "Text Files (*.txt)"
+#, kde-format
 msgid "%1 files (*.%2)"
-msgstr "Ficheiros de Texto (*.txt)"
+msgstr "Ficheiros %1 (%2)"
 
 #: imageresultitem.cpp:93
 #, kde-format
 msgid "EPS files (*.eps)"
-msgstr ""
+msgstr "Ficheiros EPS (*.eps)"
 
 #: imageresultitem.cpp:96
 #, kde-format
@@ -4299,10 +4293,9 @@ msgstr "Realce de sintaxe"
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_WarnAboutEntryDelete)
 #: settings.ui:303
-#, fuzzy, kde-format
-#| msgid "Ask for confirmation when restarting the backend"
+#, kde-format
 msgid "Ask for confirmation when deleting entries"
-msgstr "Pedir a confirmação ao reiniciar a infra-estrutura"
+msgstr "Pedir a confirmação ao remover itens"
 
 #. i18n: ectx: property (placeholderText), widget (KLineEdit, pattern)
 #: standardsearchbar.ui:35
@@ -4913,18 +4906,3 @@ msgstr "Remover o Item"
 #, kde-format
 msgid "Drag Entry"
 msgstr "Arrastar o Item"
-
-#~ msgid ""
-#~ "The plot integration doesn't work because Cantor found, that Octave can't "
-#~ "create plots, because there are no graphical backends for it: this "
-#~ "conclusion was made on the basis of empty output from "
-#~ "available_graphics_toolkits() function. Looks like you should install "
-#~ "some additional OS packages, like gnuplot, fltk or qt for possibility to "
-#~ "create plots."
-#~ msgstr ""
-#~ "A integração dos gráficos não funciona porque o Cantor descobriu que o "
-#~ "Octave não consegue criar gráficos, devido à inexistência de infra-"
-#~ "estruturas para ele: esta conclusão foi feita com base no resultado vazio "
-#~ "da função available_graphics_toolkits(). Parece que terá de instalar "
-#~ "alguns pacotes adicionais do SO, como o 'gnuplot', 'fltk' ou 'qt' para "
-#~ "ter a possibilidade de criar gráficos."
