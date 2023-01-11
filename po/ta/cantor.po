@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: cantor\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-01-04 00:43+0000\n"
-"PO-Revision-Date: 2023-01-05 21:45+0530\n"
+"PO-Revision-Date: 2023-01-10 21:52+0530\n"
 "Last-Translator: Kishore G <kishore96@gmail.com>\n"
 "Language-Team: Tamil <kde-i18n-doc@kde.org>\n"
 "Language: ta\n"
@@ -15,7 +15,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Lokalize 22.12.0\n"
+"X-Generator: Lokalize 22.12.1\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -3377,17 +3377,17 @@ msgstr "%"
 #: imagesettingsdialog.cpp:151 markdownentry.cpp:773
 #, kde-format
 msgid "Open image file"
-msgstr ""
+msgstr "படக்கோப்பைத் திறப்பது"
 
 #: imagesettingsdialog.cpp:153 markdownentry.cpp:775
 #, kde-format
 msgid "Images (%1)"
-msgstr ""
+msgstr "படங்கள் (%1)"
 
 #: latexentry.cpp:61 textentry.cpp:111
 #, kde-format
 msgid "Show LaTeX code"
-msgstr ""
+msgstr "LaTeX நிரல்மொழியைக் காட்டு"
 
 #: lib/backend.cpp:163
 #, kde-format
@@ -3395,6 +3395,8 @@ msgid ""
 "No path for the %1 executable specified. Please provide the correct path in "
 "the application settings and try again."
 msgstr ""
+"%1 நிரலுக்கான பாதை குறிப்பிடப்படவில்லை. செயலியின் அமைப்புகளில் சரியான பாதையை "
+"அமைத்தபின் மறுபடியும் முயற்சியுங்கள்."
 
 #: lib/backend.cpp:173
 #, kde-format
