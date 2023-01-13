@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: cantor\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-01-04 00:43+0000\n"
-"PO-Revision-Date: 2023-01-10 21:52+0530\n"
+"PO-Revision-Date: 2023-01-12 19:39+0530\n"
 "Last-Translator: Kishore G <kishore96@gmail.com>\n"
 "Language-Team: Tamil <kde-i18n-doc@kde.org>\n"
 "Language: ta\n"
@@ -3404,6 +3404,8 @@ msgid ""
 "The specified file '%1' for the %2 executable doesn't exist. Please provide "
 "the correct path in the application settings and try again."
 msgstr ""
+"%2 நிரலுக்கு இயக்க வேண்டிய '%1' எனும் கோப்பு இல்லை. செயலியின் அமைப்புகளில் சரியான "
+"பாதையை உள்ளிட்டு மீண்டும் முயலுங்கள்."
 
 #: lib/backend.cpp:182
 #, kde-format
