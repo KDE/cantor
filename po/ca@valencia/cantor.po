@@ -560,7 +560,7 @@ msgstr "Habilitat"
 #: backends/R/settings.ui:76
 #, kde-format
 msgid "Variable Management:"
-msgstr "Gestió de les variables:"
+msgstr "Gestioneu les variables:"
 
 #. i18n: ectx: property (toolTip), widget (QCheckBox, kcfg_variableManagement)
 #: backends/julia/settings.ui:61 backends/maxima/settings.ui:44
