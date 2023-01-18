@@ -2,7 +2,7 @@
 # Copyright (C) 2009-2020 This file is copyright:
 # This file is distributed under the same license as the cantor package.
 #
-# Luiz Fernando Ranghetti <elchevive@opensuse.org>, 2009, 2010, 2011, 2016, 2017, 2018, 2019, 2020, 2021, 2022.
+# Luiz Fernando Ranghetti <elchevive@opensuse.org>, 2009, 2010, 2011, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023.
 # André Marcelo Alvarenga <alvarenga@kde.org>, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2018, 2019, 2020.
 # Aracele Torres <araceletorres@gmail.com>, 2010, 2011.
 # Marcus Gama <marcus.gama@gmail.com>, 2011.
@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: cantor\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-01-04 00:43+0000\n"
-"PO-Revision-Date: 2022-12-20 11:11-0300\n"
+"PO-Revision-Date: 2023-01-16 23:37-0300\n"
 "Last-Translator: Luiz Fernando Ranghetti <elchevive@opensuse.org>\n"
 "Language-Team: Portuguese <kde-i18n-pt_BR@kde.org>\n"
 "Language: pt_BR\n"
@@ -4048,10 +4048,9 @@ msgstr "Equações:"
 
 #. i18n: ectx: property (toolTip), widget (QCheckBox, kcfg_CompletionDefault)
 #: settings.ui:43
-#, fuzzy, kde-format
-#| msgid "Enable Completion"
+#, kde-format
 msgid "Enable syntax completion"
-msgstr "Habilitar o completamento"
+msgstr "Habilitar o completamento de sintaxe"
 
 #. i18n: ectx: property (text), widget (QLabel, label_2)
 #: settings.ui:59
@@ -4109,10 +4108,9 @@ msgstr "Número máximo de linhas visíveis no resultado (0 para sem limite):"
 
 #. i18n: ectx: property (toolTip), widget (QCheckBox, kcfg_AnimationDefault)
 #: settings.ui:135
-#, fuzzy, kde-format
-#| msgid "Integrate Plots into the Worksheet"
+#, kde-format
 msgid "Enable animation effects in the worksheet"
-msgstr "Integrar gráficos na planilha"
+msgstr "Habilitar efeitos de animação na planilha"
 
 #. i18n: ectx: property (toolTip), widget (QCheckBox, kcfg_EmbeddedMathDefault)
 #: settings.ui:158
@@ -4137,8 +4135,7 @@ msgstr ""
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_AutoEval)
 #: settings.ui:171
-#, fuzzy, kde-format
-#| msgid "Reevaluate Entries automatically"
+#, kde-format
 msgid "Reevaluate entries automatically"
 msgstr "Reavaliar os itens automaticamente"
 
@@ -4178,7 +4175,7 @@ msgstr ""
 #: settings.ui:246
 #, kde-format
 msgid "Don't indent text entries"
-msgstr ""
+msgstr "Não recuar entradas de texto"
 
 #. i18n: ectx: property (toolTip), widget (QCheckBox, kcfg_WarnAboutSessionRestart)
 #: settings.ui:266
@@ -4193,7 +4190,7 @@ msgstr "Solicitar confirmação ao reiniciar a infraestrutura"
 #: settings.ui:276
 #, kde-format
 msgid "Notify about render failures for mathematical expressions"
-msgstr ""
+msgstr "Notificar sobre falhas de renderização para expressões matemáticas"
 
 #. i18n: ectx: property (toolTip), widget (QCheckBox, kcfg_ExpressionNumberingDefault)
 #: settings.ui:283

@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: cantor\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-01-04 00:43+0000\n"
-"PO-Revision-Date: 2023-01-12 19:39+0530\n"
+"PO-Revision-Date: 2023-01-17 21:48+0530\n"
 "Last-Translator: Kishore G <kishore96@gmail.com>\n"
 "Language-Team: Tamil <kde-i18n-doc@kde.org>\n"
 "Language: ta\n"
@@ -3413,6 +3413,8 @@ msgid ""
 "The specified file '%1' doesn't point to an executable. Please provide the "
 "correct path in the application settings and try again."
 msgstr ""
+"'%1' எனும் கோப்பு, இயக்கவல்லதில்லை. செயலியின் அமைப்புகளில் சரியான பாதையை அமைத்தபின் "
+"மீண்டும் முயலுங்கள்."
 
 #: lib/backend.cpp:201
 #, kde-format
@@ -3420,69 +3422,70 @@ msgid ""
 "The program %1 didn't finish the execution after %2 milliseconds during the "
 "plot integration test."
 msgstr ""
+"வரைபட உள்ளமைவு சோதனையின்போது %1 எனும் நிரல், %2 மில்லிநொடிகளுக்குள் பதிலளிக்கவில்லை."
 
 #: lib/backend.cpp:210
 #, kde-format
 msgid "Failed to open the file %1 during the plot integration test."
-msgstr ""
+msgstr "வரைபட உள்ளமைவு சோதனையின்போது %1 எனும் கோப்பைத் திறக்க முடியவில்லை."
 
 #: lib/backend.cpp:218
 #, kde-format
 msgid "Failed to parse the result during the plot integration test."
-msgstr ""
+msgstr "வரைபட உள்ளமைவு சோதனையின்போது கிடைத்த பதிலைப் புரிந்துகொள்ள முடியவில்லை."
 
 #. i18n: ectx: label, entry (latexCommand), group (Cantor)
 #: lib/cantor_libs.kcfg:10
 #, kde-format
 msgid "Path to the latex executable"
-msgstr ""
+msgstr "latex நிரலுக்கான பாதை"
 
 #. i18n: ectx: label, entry (dvipsCommand), group (Cantor)
 #: lib/cantor_libs.kcfg:14
 #, kde-format
 msgid "Path to the dvips executable"
-msgstr ""
+msgstr "dvips நிரலுக்கான பாதை"
 
 #: lib/defaultvariablemodel.cpp:71
 #, kde-format
 msgctxt "@title:column"
 msgid "Type"
-msgstr ""
+msgstr "வகை"
 
 #: lib/defaultvariablemodel.cpp:73
 #, kde-format
 msgctxt "@title:column"
 msgid "Size [Bytes]"
-msgstr ""
+msgstr "அளவு [பைட்டுகள்]"
 
 #: lib/defaultvariablemodel.cpp:75
 #, kde-format
 msgctxt "@title:column"
 msgid "Dimension"
-msgstr ""
+msgstr "பரிமாணம்"
 
 #: lib/defaultvariablemodel.cpp:77
 #, kde-format
 msgctxt "@title:column"
 msgid "Value"
-msgstr ""
+msgstr "மதிப்பு"
 
 #. i18n: ectx: property (text), widget (QLabel, label)
 #: lib/directives/axisrange.ui:19
 #, kde-format
 msgid "From:"
-msgstr ""
+msgstr "துவக்கம்:"
 
 #. i18n: ectx: property (text), widget (QLabel, label_2)
 #: lib/directives/axisrange.ui:40
 #, kde-format
 msgid "To:"
-msgstr ""
+msgstr "முடிவு:"
 
 #: lib/directives/plotdirectives.cpp:19
 #, kde-format
 msgid "Main title"
-msgstr ""
+msgstr "பிரதான தலைப்பு"
 
 #: lib/directives/plotdirectives.cpp:30
 #, kde-format
