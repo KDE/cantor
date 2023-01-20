@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: cantor\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-01-04 00:43+0000\n"
-"PO-Revision-Date: 2023-01-17 21:48+0530\n"
+"PO-Revision-Date: 2023-01-19 21:36+0530\n"
 "Last-Translator: Kishore G <kishore96@gmail.com>\n"
 "Language-Team: Tamil <kde-i18n-doc@kde.org>\n"
 "Language: ta\n"
@@ -3387,7 +3387,7 @@ msgstr "படங்கள் (%1)"
 #: latexentry.cpp:61 textentry.cpp:111
 #, kde-format
 msgid "Show LaTeX code"
-msgstr "LaTeX நிரல்மொழியைக் காட்டு"
+msgstr "LaTeX நிரல்தொடரைக் காட்டு"
 
 #: lib/backend.cpp:163
 #, kde-format
@@ -3490,28 +3490,28 @@ msgstr "பிரதான தலைப்பு"
 #: lib/directives/plotdirectives.cpp:30
 #, kde-format
 msgid "Abscissa scale"
-msgstr ""
+msgstr "கிடையாயத்தொலைவுக்கான அளவுகோல்"
 
 #: lib/directives/plotdirectives.cpp:41
 #, kde-format
 msgid "Ordinate scale"
-msgstr ""
+msgstr "நெட்டாயத்தொலைவுக்கான அளவுகோல்"
 
 #. i18n: ectx: property (text), widget (QLabel, label)
 #: lib/directives/plottitle.ui:19
 #, kde-format
 msgid "Plot title:"
-msgstr ""
+msgstr "வரைபடத்திற்கான தலைப்பு:"
 
 #: lib/mimeresult.cpp:33
 #, kde-format
 msgid "This is unsupported Jupyter content of types ('%1')"
-msgstr ""
+msgstr "இது ஆதரிக்கப்படா Jupyter தரவு ('%1' வகையானது) ஆகும்"
 
 #: lib/session.cpp:313
 #, kde-format
 msgid "%1 process has died unexpectedly. All calculation results are lost."
-msgstr ""
+msgstr "%1 நிரல் எதிர்பாரா வித‍த்தில் முறிவடைந்துள்ளது. அனைத்து விடைகளும் இழக்கப்பட்டுள்ளன."
 
 #: lib/session.cpp:315
 #, kde-format
@@ -3519,6 +3519,8 @@ msgid ""
 "%1 process has died unexpectedly with message \"%2\". All calculation "
 "results are lost."
 msgstr ""
+"\"%2\" எனும் தகவலுடன் %1 நிரல் எதிர்பாரா வித‍த்தில் முறிவடைந்துள்ளது அனைத்து விடைகளும் "
+"இழக்கப்பட்டுள்ளன."
 
 #: lib/session.cpp:381
 #, kde-format
@@ -3527,11 +3529,13 @@ msgid ""
 "activated due to the missing requirements, so integration for this package "
 "will be disabled. %2"
 msgstr ""
+"%1 வரைபட நிரலகத்தை தேர்ந்தெடுத்திருந்தீர்கள், ஆனால் அதற்கு தேவையான சில இல்லை. "
+"இக்காரணத்தால் அது முடக்கப்படும். %2"
 
 #: main.cpp:72
 #, kde-format
 msgid "KDE Frontend to mathematical applications"
-msgstr ""
+msgstr "கணித நிரல்களுக்கான கே.டீ.யீ. இடைமுகப்பு"
 
 #: main.cpp:74
 #, kde-format
@@ -3557,7 +3561,7 @@ msgstr ""
 #, kde-format
 msgctxt "@info:credit"
 msgid "Developer"
-msgstr ""
+msgstr "நிரலாளர்"
 
 #: main.cpp:80
 #, kde-format
@@ -3567,7 +3571,7 @@ msgstr ""
 #: main.cpp:81
 #, kde-format
 msgid "Original author<br/>Maintainer (2009 - 2015)"
-msgstr ""
+msgstr "முதலில் இயற்றியவர்<br/>பராமரிப்பாளர் (2009 - 2015)"
 
 #: main.cpp:82
 #, kde-format
@@ -3597,47 +3601,47 @@ msgstr ""
 #: main.cpp:84
 #, kde-format
 msgid "Interface"
-msgstr ""
+msgstr "இடைமுகப்பு"
 
 #: main.cpp:86 main.cpp:87
 #, kde-format
 msgid "Cantor icon"
-msgstr ""
+msgstr "கேண்ட்டொரின் சின்னம்"
 
 #: main.cpp:92
 #, kde-format
 msgid "Use  backend <backend>"
-msgstr ""
+msgstr "<backend> பின்நிலையைப் பயன்படுத்து"
 
 #: main.cpp:95
 #, kde-format
 msgid "Documents to open."
-msgstr ""
+msgstr "திறக்க வேண்டிய ஆவணங்கள்"
 
 #: main.cpp:130
 #, kde-format
 msgid "Couldn't open the file %1"
-msgstr ""
+msgstr "%1 எனும் கோப்பைத் திறக்க முடியவில்லை"
 
 #: markdownentry.cpp:70
 #, kde-format
 msgid "Enter Edit Mode"
-msgstr ""
+msgstr "திருத்தும் பயன்முறையில் நுழை"
 
 #: markdownentry.cpp:78
 #, kde-format
 msgid "Clear Attachments"
-msgstr ""
+msgstr "உடனிணைப்புகளை நீக்கு"
 
 #: markdownentry.cpp:587
 #, kde-format
 msgid "Cantor Math Error"
-msgstr ""
+msgstr "கேண்ட்டொர் கணித சிக்கல்"
 
 #: markdownentry.cpp:796
 #, kde-format
 msgid "Failed to read the image \"%1\". Error \"%2\""
-msgstr ""
+msgstr "\"%1\" எனும் படக்கோப்பைப் படிக்க முடியவில்லை. சிக்கல் \"%2\""
 
 #: pagebreakentry.cpp:28
 #, kde-format
@@ -3666,7 +3670,7 @@ msgstr "தற்போதைய கையேட்டுப்பக்கத�
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Reset zoom level to 100%"
-msgstr ""
+msgstr "உருப்பெருக்கத்தை 100%-ஆக மீட்டமை"
 
 #: panelplugins/documentationpanel/documentationpanelwidget.cpp:123
 #, kde-format
@@ -3710,7 +3714,7 @@ msgstr "கேண்ட்டொர் கோப்புகள்"
 #: panelplugins/filebrowserpanel/filebrowserpanelplugin.cpp:138
 #, kde-format
 msgid "Jupyter files"
-msgstr ""
+msgstr "Jupyter கோப்புகள்"
 
 #: panelplugins/filebrowserpanel/filebrowserpanelplugin.cpp:139
 #, kde-format
@@ -3812,6 +3816,8 @@ msgid ""
 "A KDE text-editor component could not be found;\n"
 "please check your KDE installation."
 msgstr ""
+"கே.டீ.யீ. உரைத்திருத்தி எதுவும் கண்டுபிடிக்கப்படவில்லை;\n"
+"கே.டீ.யீ. சரியாக நிறுவப்பட்டுள்ளதா எனப் பாருங்கள்."
 
 #: scripteditor/scripteditorwidget.cpp:139
 #, kde-format
@@ -3842,52 +3848,52 @@ msgstr "முடிவு அடையப்பட்டது"
 #, kde-format
 msgid "Replaced %1 instance"
 msgid_plural "Replaced %1 instances"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%1 நிகழ்வு மாற்றப்பட்டது"
+msgstr[1] "%1 நிகழ்வுகள் மாற்றப்பட்டன"
 
 #: searchbar.cpp:333 searchbar.cpp:362
 #, kde-format
 msgid "Commands"
-msgstr ""
+msgstr "கட்டளைகள்"
 
 #: searchbar.cpp:333 searchbar.cpp:362
 #, kde-format
 msgid "Results"
-msgstr ""
+msgstr "விடைகள்"
 
 #: searchbar.cpp:333 searchbar.cpp:362
 #, kde-format
 msgid "Errors"
-msgstr ""
+msgstr "சிக்கல்கள்"
 
 #: searchbar.cpp:334 searchbar.cpp:363 worksheet.cpp:1813 worksheet.cpp:1842
 #: worksheet.cpp:1862 worksheet.cpp:1880
 #, kde-format
 msgid "Text"
-msgstr ""
+msgstr "உரை"
 
 #: searchbar.cpp:334 searchbar.cpp:363
 #, kde-format
 msgid "LaTeX Code"
-msgstr ""
+msgstr "LaTeX நிரல்தொடர்"
 
 #. i18n: ectx: property (text), widget (QLabel, label_4)
 #: settings.ui:23
 #, kde-format
 msgid "Evaluation:"
-msgstr ""
+msgstr "மதிப்பிடுவது:"
 
 #. i18n: ectx: property (toolTip), widget (QCheckBox, kcfg_CompletionDefault)
 #: settings.ui:43
 #, kde-format
 msgid "Enable syntax completion"
-msgstr ""
+msgstr "இலக்கண நிறைவை இயக்கு"
 
 #. i18n: ectx: property (text), widget (QLabel, label_2)
 #: settings.ui:59
 #, kde-format
 msgid "Startup:"
-msgstr ""
+msgstr "துவக்கம்:"
 
 #. i18n: ectx: property (toolTip), widget (QLabel, label)
 #. i18n: ectx: property (toolTip), widget (KComboBox, kcfg_DefaultBackend)
@@ -3902,7 +3908,7 @@ msgstr ""
 #: settings.ui:69
 #, kde-format
 msgid "Default Backend:"
-msgstr ""
+msgstr "இயல்பிருப்பு பின்நிலை:"
 
 #. i18n: ectx: property (toolTip), widget (QSpinBox, kcfg_VisibleLinesLimit)
 #: settings.ui:76
@@ -3924,32 +3930,32 @@ msgstr ""
 #: settings.ui:92
 #, kde-format
 msgid "LaTeX typesetting"
-msgstr ""
+msgstr "LaTeX அச்சுக்கோர்வை"
 
 #. i18n: ectx: property (text), widget (QLabel, VisibleLinesLimit_label)
 #: settings.ui:102
 #, kde-format
 msgid "Number of rows in the result (0 for unlimited):"
-msgstr ""
+msgstr "விடைக்கான அதிகபட்ச வரிகள் (வரம்பற்றதற்கு 0):"
 
 #. i18n: ectx: property (toolTip), widget (QCheckBox, kcfg_AnimationDefault)
 #: settings.ui:135
 #, kde-format
 msgid "Enable animation effects in the worksheet"
-msgstr ""
+msgstr "பணித்தாளில் அசைவூட்டங்களை இயக்கு"
 
 #. i18n: ectx: property (toolTip), widget (QCheckBox, kcfg_EmbeddedMathDefault)
 #: settings.ui:158
 #, kde-format
 msgid ""
 "Enable LaTeX typesetting for mathematical expressions in Markdown entries"
-msgstr ""
+msgstr "Markdown பதிவுகளிலுள்ள கணித‍த் தொகுதிகளுக்கு LaTeX அச்சுக்கோர்வையைப் பயன்படுத்து"
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_EmbeddedMathDefault)
 #: settings.ui:161
 #, kde-format
 msgid "Mathematical expressions via LaTeX"
-msgstr ""
+msgstr "கணித‍த் தொகுதிகளுக்கு LaTeX"
 
 #. i18n: ectx: property (toolTip), widget (QCheckBox, kcfg_AutoEval)
 #: settings.ui:168
@@ -3957,31 +3963,33 @@ msgstr ""
 msgid ""
 "If enabled, all entries below the current one will be evaluated automatically"
 msgstr ""
+"இது இயக்கப்பட்டிருந்தால், தற்போதைய பதிவுக்கு கீழுள்ள அனைத்துப் பதிவுகளும் தானாக மீண்டும் "
+"மதிப்பிடப்படும்"
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_AutoEval)
 #: settings.ui:171
 #, kde-format
 msgid "Reevaluate entries automatically"
-msgstr ""
+msgstr "பதிவுகளை தானாக மீளமதிப்பிடு"
 
 #. i18n: ectx: property (text), widget (QLabel, label_3)
 #: settings.ui:184
 #, kde-format
 msgid "Worksheet:"
-msgstr ""
+msgstr "பணித்தாள்"
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_StoreTextEntryFormatting)
 #: settings.ui:223
 #, kde-format
 msgid ""
 "Use rich text format for text entries when saving in Jupyter Notebook Format"
-msgstr ""
+msgstr "Jupyter பணித்தாள் வடிவத்தில் சேமிக்கும்போது மேம்பட்ட உரைவடிவத்தை பயன்படுத்து"
 
 #. i18n: ectx: property (text), widget (QLabel, label_5)
 #: settings.ui:236
 #, kde-format
 msgid "Markdown:"
-msgstr ""
+msgstr "மார்க்டவுன்:"
 
 #. i18n: ectx: property (toolTip), widget (QCheckBox, kcfg_UseOldCantorEntriesIndent)
 #: settings.ui:243
@@ -3990,12 +3998,14 @@ msgid ""
 "If enabled, text entries are aligned at the worksheet border and not at the "
 "prompt border"
 msgstr ""
+"இது இயக்கப்படிருந்தால், உரைப்பதிவுகள் பணித்தாளின் ஓரத்தைப் பொறுத்து சீரமைக்கப்படும். "
+"இல்லையேல், தூண்டியை (prompt-ஐ) பொறுத்து சீரமைக்கப்படும்."
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_UseOldCantorEntriesIndent)
 #: settings.ui:246
 #, kde-format
 msgid "Don't indent text entries"
-msgstr ""
+msgstr "உரைப்பதிவுகளை உள்தள்ளாதே"
 
 #. i18n: ectx: property (toolTip), widget (QCheckBox, kcfg_WarnAboutSessionRestart)
 #: settings.ui:266
@@ -4004,49 +4014,49 @@ msgid ""
 "If enabled, the user will be asked for confirmation prior to restarting the "
 "backend system"
 msgstr ""
+"இது இயக்கப்பட்டிருந்தால், பின்நிலையை மீள்துவக்குமுன் உறுதிப்படுத்துமாறு தூண்டப்படுவீர்கள்"
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_ShowMathRenderError)
 #: settings.ui:276
 #, kde-format
 msgid "Notify about render failures for mathematical expressions"
-msgstr ""
+msgstr "கணித‍த் தொகுதிகளை அச்சுக்கோர்ப்பதில் சிக்கல் நேர்ந்தால் அறிவி"
 
 #. i18n: ectx: property (toolTip), widget (QCheckBox, kcfg_ExpressionNumberingDefault)
 #: settings.ui:283
 #, kde-format
 msgid "Show line numbers"
-msgstr ""
+msgstr "வரி எண்களைக் காட்டும்"
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_ExpressionNumberingDefault)
 #: settings.ui:286
 #, kde-format
 msgid "Line numbers"
-msgstr ""
+msgstr "வரி எண்கள்"
 
 #. i18n: ectx: property (toolTip), widget (QCheckBox, kcfg_HighlightDefault)
 #: settings.ui:293
 #, kde-format
 msgid "Enable syntax highlighting"
-msgstr ""
+msgstr "நிரலிலக்கண முன்னிலைப்பாட்டை இயக்கும்"
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_HighlightDefault)
 #: settings.ui:296
 #, kde-format
 msgid "Syntax highlighting"
-msgstr ""
+msgstr "நிரலிலக்கணத்தை முன்னிலைப்படுத்து"
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_WarnAboutEntryDelete)
 #: settings.ui:303
-#, fuzzy, kde-format
-#| msgid "Ask for confirmation when restarting the backend"
+#, kde-format
 msgid "Ask for confirmation when deleting entries"
-msgstr "பின்நிலையை மீள்துவக்கும்போது உறுதிப்படுத்து"
+msgstr "பதிவுகளை நீக்குமுன் உறுதிப்படுத்து"
 
 #. i18n: ectx: property (placeholderText), widget (KLineEdit, pattern)
 #: standardsearchbar.ui:35
 #, kde-format
 msgid "Find…"
-msgstr ""
+msgstr "தேடு…"
 
 #: textentry.cpp:55
 #, kde-format
@@ -4061,7 +4071,7 @@ msgstr ""
 #: textentry.cpp:76
 #, kde-format
 msgid "Convert to Text Entry"
-msgstr ""
+msgstr "உரைப்பதிவாக மாற்று"
 
 #: textentry.cpp:81
 #, kde-format
@@ -4069,74 +4079,74 @@ msgid "Convert to Raw Cell"
 msgstr ""
 
 #: textentry.cpp:553
-#, kde-format
+#, fuzzy, kde-format
 msgid "Target MIME type:"
-msgstr ""
+msgstr "இலக்கின் மைம் வகை:"
 
 #: textresultitem.cpp:60
 #, kde-format
 msgid "Copy result"
-msgstr ""
+msgstr "விடையை நகலெடு"
 
 #: textresultitem.cpp:69
 #, kde-format
 msgid "Show Rendered"
-msgstr ""
+msgstr "அச்சுக்கோர்த்ததைக் காட்டு"
 
 #: textresultitem.cpp:71
 #, kde-format
 msgid "Show Code"
-msgstr ""
+msgstr "நிரல்தொடரைக் காட்டு"
 
 #: textresultitem.cpp:79 textresultitem.cpp:92
 #, kde-format
 msgid "Show HTML Code"
-msgstr ""
+msgstr "HTML நிரல்தொடரைக் காட்டு"
 
 #: textresultitem.cpp:81 textresultitem.cpp:87
 #, kde-format
 msgid "Show Plain Alternative"
-msgstr ""
+msgstr "சாதாரண உரையாக‍க் காட்டு"
 
 #: textresultitem.cpp:85
 #, kde-format
 msgid "Show Html"
-msgstr ""
+msgstr "HTMLஐ காட்டு"
 
 #: textresultitem.cpp:91
 #, kde-format
 msgid "Show HTML"
-msgstr ""
+msgstr "HTMLஐ காட்டு"
 
 #: textresultitem.cpp:160
 #, kde-format
 msgid "Cannot render Eps file. You may need additional packages"
-msgstr ""
+msgstr "Eps கோப்பைக் காட்ட முடியவில்லை. கூடுதல் நிரல்களை நிறுவ‍வேண்டியிருக்கலாம்"
 
 #: textresultitem.cpp:212
 #, kde-format
 msgid "Save text result"
-msgstr ""
+msgstr "உரைவடிவ விடையை செமி"
 
 #: textresultitem.cpp:212
 #, kde-format
 msgid "Text Files (*.txt)"
-msgstr ""
+msgstr "உரை கோப்புகள் (*.txt)"
 
 #: worksheet.cpp:1192
 #, kde-format
 msgid "Cannot write file %1."
-msgstr ""
+msgstr "%1 எனும் கோப்பிற்கு எழுத முடியவில்லை."
 
 #: worksheet.cpp:1220 worksheet.cpp:1235
 #, kde-format
 msgid "Cannot write file."
-msgstr ""
+msgstr "கோப்பிற்கு எழுத முடியவில்லை."
 
 #: worksheet.cpp:1252 worksheet.cpp:1296
 #, kde-format
 msgid "Error saving file %1"
-msgstr ""
+msgstr "%1 எனும் கோப்பை சேமிப்பதில் சிக்கல்"
 
 #: worksheet.cpp:1275
 #, kde-format
@@ -4262,7 +4272,7 @@ msgstr ""
 #: worksheet.cpp:1817 worksheet.cpp:1844 worksheet.cpp:1864 worksheet.cpp:1882
 #, kde-format
 msgid "Markdown"
-msgstr ""
+msgstr "மார்க்டவுன்"
 
 #: worksheet.cpp:1824 worksheet.cpp:1849 worksheet.cpp:1869 worksheet.cpp:1887
 #, kde-format
