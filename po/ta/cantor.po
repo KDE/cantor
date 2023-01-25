@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: cantor\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-01-04 00:43+0000\n"
-"PO-Revision-Date: 2023-01-19 21:36+0530\n"
+"PO-Revision-Date: 2023-01-24 21:25+0530\n"
 "Last-Translator: Kishore G <kishore96@gmail.com>\n"
 "Language-Team: Tamil <kde-i18n-doc@kde.org>\n"
 "Language: ta\n"
@@ -4154,6 +4154,8 @@ msgid ""
 "In read-only mode Cantor couldn't guarantee, that the export will be valid "
 "for %1"
 msgstr ""
+"படித்தல்-மட்டும் பயன்முறையில் உள்ளதால், ஏற்றுமதியாவது முறையான %1 கோப்பாக இருக்கும் என்பதை "
+"உறுதி செய்ய முடியாது"
 
 #: worksheet.cpp:1308
 #, kde-format
