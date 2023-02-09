@@ -3,14 +3,14 @@
 # Pavel Fric <pavelfric@seznam.cz>, 2010.
 # Vít Pelčák <vit@pelcak.org>, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020.
 # Tomáš Chvátal <tomas.chvatal@gmail.com>, 2013.
-# Vit Pelcak <vit@pelcak.org>, 2021, 2022.
+# Vit Pelcak <vit@pelcak.org>, 2021, 2022, 2023.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-01-04 00:43+0000\n"
-"PO-Revision-Date: 2022-04-06 11:31+0200\n"
+"PO-Revision-Date: 2023-02-08 12:53+0100\n"
 "Last-Translator: Vit Pelcak <vit@pelcak.org>\n"
 "Language-Team: Czech <kde-i18n-doc@kde.org>\n"
 "Language: cs\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
-"X-Generator: Lokalize 21.12.3\n"
+"X-Generator: Lokalize 22.12.2\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -48,12 +48,12 @@ msgstr "Zastavit"
 #: animationresultitem.cpp:111
 #, kde-format
 msgid "Save animation result"
-msgstr ""
+msgstr "Uložit výsledek animace"
 
 #: animationresultitem.cpp:111
 #, kde-format
 msgid "Animations (*.gif)"
-msgstr ""
+msgstr "Animace (*.gif)"
 
 #: assistants/advancedplot/advancedplotassistant.cpp:30
 #, kde-format
@@ -776,13 +776,13 @@ msgstr "Cesta ke spustitelnému souboru Maximy"
 #: backends/maxima/maximabackend.kcfg:41
 #, kde-format
 msgid "Default plot width"
-msgstr ""
+msgstr "Výchozí šířka grafu"
 
 #. i18n: ectx: label, entry (plotHeight), group (MaximaBackend)
 #: backends/maxima/maximabackend.kcfg:45
 #, kde-format
 msgid "Default plot height"
-msgstr ""
+msgstr "Výchozí výška grafu"
 
 #: backends/maxima/maximaexpression.cpp:114
 #, kde-format
@@ -3322,7 +3322,7 @@ msgstr "Nelze načíst obrázek %1"
 #: imageresultitem.cpp:90
 #, kde-format
 msgid "%1 files (*.%2)"
-msgstr ""
+msgstr "%1 soubory (*.%2)"
 
 #: imageresultitem.cpp:93
 #, kde-format
@@ -3480,13 +3480,13 @@ msgstr "Typ"
 #, kde-format
 msgctxt "@title:column"
 msgid "Size [Bytes]"
-msgstr ""
+msgstr "Velikost [bajtů]"
 
 #: lib/defaultvariablemodel.cpp:75
 #, kde-format
 msgctxt "@title:column"
 msgid "Dimension"
-msgstr ""
+msgstr "Rozměr"
 
 #: lib/defaultvariablemodel.cpp:77
 #, kde-format
@@ -3808,7 +3808,7 @@ msgstr "Načíst soubor"
 #: panelplugins/variablemgr/variablemanagerwidget.cpp:286
 #, kde-format
 msgid "Copy Name"
-msgstr ""
+msgstr "Kopírovat název"
 
 #: panelplugins/variablemgr/variablemanagerwidget.cpp:287
 #, kde-format
@@ -3902,7 +3902,7 @@ msgstr "Kód LaTeX"
 #: settings.ui:23
 #, kde-format
 msgid "Evaluation:"
-msgstr ""
+msgstr "Analýza:"
 
 #. i18n: ectx: property (toolTip), widget (QCheckBox, kcfg_CompletionDefault)
 #: settings.ui:43
@@ -3995,7 +3995,7 @@ msgstr ""
 #: settings.ui:184
 #, kde-format
 msgid "Worksheet:"
-msgstr ""
+msgstr "Pracovní list:"
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_StoreTextEntryFormatting)
 #: settings.ui:223
@@ -4008,7 +4008,7 @@ msgstr ""
 #: settings.ui:236
 #, kde-format
 msgid "Markdown:"
-msgstr ""
+msgstr "Markdown:"
 
 #. i18n: ectx: property (toolTip), widget (QCheckBox, kcfg_UseOldCantorEntriesIndent)
 #: settings.ui:243
@@ -4054,7 +4054,7 @@ msgstr "Čísla řádek"
 #: settings.ui:293
 #, kde-format
 msgid "Enable syntax highlighting"
-msgstr ""
+msgstr "Povolit zvýrazňování syntaxe"
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_HighlightDefault)
 #: settings.ui:296
@@ -4147,7 +4147,7 @@ msgstr ""
 #: textresultitem.cpp:212
 #, kde-format
 msgid "Text Files (*.txt)"
-msgstr ""
+msgstr "Textové soubory (*.txt)"
 
 #: worksheet.cpp:1192
 #, kde-format

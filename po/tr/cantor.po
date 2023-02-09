@@ -13,7 +13,7 @@ msgstr ""
 "Project-Id-Version: kdeedu-kde4\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-01-04 00:43+0000\n"
-"PO-Revision-Date: 2023-01-19 22:40+0300\n"
+"PO-Revision-Date: 2023-02-08 13:39+0300\n"
 "Last-Translator: Emir SARI <emir_sari@icloud.com>\n"
 "Language-Team: Turkish <kde-l10n-tr@kde.org>\n"
 "Language: tr\n"
@@ -21,7 +21,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"X-Generator: Lokalize 22.12.1\n"
+"X-Generator: Lokalize 22.12.2\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -448,13 +448,12 @@ msgid ""
 "Julia session can't login due internal julia problem with missing internal "
 "file - \"%1\""
 msgstr ""
-"Julia oturumu, eksik Julia iç dosyası sorunu nedeniyle giriş yapamıyor - "
-"\"%1\""
+"Julia oturumu, eksik Julia iç dosyası sorunu nedeniyle açılamıyor- \"%1\""
 
 #: backends/julia/juliasession.cpp:120
 #, kde-format
 msgid "Julia session can't login due unknown internal problem"
-msgstr "Julia oturumu, bilinmeyen bir iç sorun nedeniyle giriş yapamıyor"
+msgstr "Julia oturumu, bilinmeyen bir iç sorun nedeniyle açılamıyor"
 
 #: backends/julia/juliasession.cpp:246
 #, kde-format
