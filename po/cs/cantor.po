@@ -3,22 +3,22 @@
 # Pavel Fric <pavelfric@seznam.cz>, 2010.
 # Vít Pelčák <vit@pelcak.org>, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020.
 # Tomáš Chvátal <tomas.chvatal@gmail.com>, 2013.
-# Vit Pelcak <vit@pelcak.org>, 2021, 2022.
+# Vit Pelcak <vit@pelcak.org>, 2021, 2022, 2023.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2022-10-08 00:40+0000\n"
-"PO-Revision-Date: 2022-04-06 11:31+0200\n"
-"Last-Translator: Vit Pelcak <vpelcak@suse.cz>\n"
+"PO-Revision-Date: 2023-02-08 12:53+0100\n"
+"Last-Translator: Vit Pelcak <vit@pelcak.org>\n"
 "Language-Team: Czech <kde-i18n-doc@kde.org>\n"
 "Language: cs\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
-"X-Generator: Lokalize 21.12.3\n"
+"X-Generator: Lokalize 22.12.2\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -48,12 +48,12 @@ msgstr "Zastavit"
 #: animationresultitem.cpp:113
 #, kde-format
 msgid "Save animation result"
-msgstr ""
+msgstr "Uložit výsledek animace"
 
 #: animationresultitem.cpp:113
 #, kde-format
 msgid "Animations (*.gif)"
-msgstr ""
+msgstr "Animace (*.gif)"
 
 #: assistants/advancedplot/advancedplotassistant.cpp:30
 #, kde-format
@@ -3832,7 +3832,7 @@ msgstr "Výchozí podpůrná vrstva:"
 #: settings.ui:75
 #, kde-format
 msgid "Worksheet:"
-msgstr ""
+msgstr "Pracovní list:"
 
 #. i18n: ectx: property (toolTip), widget (QCheckBox, kcfg_TypesetDefault)
 #: settings.ui:82
@@ -3852,7 +3852,7 @@ msgstr ""
 #: settings.ui:92
 #, kde-format
 msgid "Enable syntax highlighting"
-msgstr ""
+msgstr "Povolit zvýrazňování syntaxe"
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_HighlightDefault)
 #: settings.ui:95
@@ -3909,7 +3909,7 @@ msgstr ""
 #: settings.ui:171
 #, kde-format
 msgid "Evaluation:"
-msgstr ""
+msgstr "Analýza:"
 
 #. i18n: ectx: property (toolTip), widget (QCheckBox, kcfg_WarnAboutSessionRestart)
 #: settings.ui:178
@@ -3950,7 +3950,7 @@ msgstr ""
 #: settings.ui:256
 #, kde-format
 msgid "Markdown:"
-msgstr ""
+msgstr "Markdown:"
 
 #. i18n: ectx: property (toolTip), widget (QCheckBox, kcfg_EmbeddedMathDefault)
 #: settings.ui:263
@@ -4050,7 +4050,7 @@ msgstr ""
 #: textresultitem.cpp:213
 #, kde-format
 msgid "Text Files (*.txt)"
-msgstr ""
+msgstr "Textové soubory (*.txt)"
 
 #: worksheet.cpp:1192
 #, kde-format

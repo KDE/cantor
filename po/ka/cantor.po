@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: cantor\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2022-10-08 00:40+0000\n"
-"PO-Revision-Date: 2023-01-05 07:27+0100\n"
+"PO-Revision-Date: 2023-02-08 11:59+0100\n"
 "Last-Translator: Temuri Doghonadze <temuri.doghonadze@gmail.com>\n"
 "Language-Team: Georgian <kde-i18n-doc@kde.org>\n"
 "Language: ka\n"
@@ -2039,7 +2039,7 @@ msgstr "დამატება"
 #, kde-format
 msgctxt "@label:chooser"
 msgid "Icon:"
-msgstr "_ხატულა:"
+msgstr "ხატულა:"
 
 #. i18n: ectx: property (toolTip), widget (KIconButton, qchIcon)
 #: backends/qthelpconfigeditdialog.ui:24
@@ -4194,7 +4194,7 @@ msgstr ""
 #: worksheet.cpp:1919
 #, kde-format
 msgid "Zoom Out"
-msgstr "და_პატარავება"
+msgstr "გადიდება"
 
 #: worksheet.cpp:1923
 #, kde-format
