@@ -29,6 +29,7 @@ private Q_SLOTS:
     //tests doing a plot
     void testPlot();
     void testPlotMultiline();
+    void testPlotWithWhitespaces();
     void testPlotWithAnotherTextResults();
     void testDraw();
     void testDrawMultiline();

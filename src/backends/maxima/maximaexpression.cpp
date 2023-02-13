@@ -145,7 +145,7 @@ void MaximaExpression::evaluate()
 
 QString MaximaExpression::internalCommand()
 {
-    QString cmd=command();
+    QString cmd = command();
 
     if(m_isPlot)
     {
@@ -154,6 +154,9 @@ QString MaximaExpression::internalCommand()
             qDebug()<<"plotting without tempFile";
             return QString();
         }
+
+        // trim the string so the regex-logic below also works with whitespaces around the actual plot command
+        cmd = cmd.trimmed();
 
         //replace all newlines with spaces, as maxima isn't sensitive about
         //whitespaces, and without newlines the whole command
