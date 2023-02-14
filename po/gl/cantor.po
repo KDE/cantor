@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: mathematik\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-01-04 00:43+0000\n"
+"POT-Creation-Date: 2023-02-14 00:54+0000\n"
 "PO-Revision-Date: 2019-11-17 09:29+0100\n"
 "Last-Translator: Adrián Chaves (Gallaecio) <adrian@chaves.io>\n"
 "Language-Team: Galician <proxecto@trasno.gal>\n"
@@ -841,7 +841,7 @@ msgstr "Erro: Demasiados /*"
 msgid "Error: expected \" before ;"
 msgstr "Erro: agardábase \" antes do ;"
 
-#: backends/maxima/maximaexpression.cpp:429
+#: backends/maxima/maximaexpression.cpp:432
 #, kde-format
 msgid "Waiting for the plot result"
 msgstr "Agardando polo resultado da gráfica"

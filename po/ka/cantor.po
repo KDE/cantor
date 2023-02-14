@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: cantor\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-01-04 00:43+0000\n"
+"POT-Creation-Date: 2023-02-14 00:54+0000\n"
 "PO-Revision-Date: 2023-02-03 16:59+0100\n"
 "Last-Translator: Temuri Doghonadze <temuri.doghonadze@gmail.com>\n"
 "Language-Team: Georgian <kde-i18n-doc@kde.org>\n"
@@ -794,7 +794,7 @@ msgstr "შეცდომა: მეტისმეტად ბევრი /*
 msgid "Error: expected \" before ;"
 msgstr "შეცდომა: ;-მდე \"-ს მოველოდი;"
 
-#: backends/maxima/maximaexpression.cpp:429
+#: backends/maxima/maximaexpression.cpp:432
 #, kde-format
 msgid "Waiting for the plot result"
 msgstr ""
