@@ -18,12 +18,12 @@
 %}
 
 function cantor_plot2d(f_string,var,min,max)
-   f_mod_string = f_string;
+  f_mod_string = f_string;
   for op = ['*' '/' '^']
     f_mod_string = strrep(f_mod_string, op, strcat('.',op));
   endfor
 
-  f = inline(f_mod_string, var);
+  f = str2func(strcat('@(', var, ')', f_mod_string));
   x = linspace(min,max);
   plot (x, f(x));
 

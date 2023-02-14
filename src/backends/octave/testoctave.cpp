@@ -323,24 +323,44 @@ void TestOctave::testVariableCleanupAfterRestart()
 
 void TestOctave::testPlot()
 {
+    auto* e = evalExp(QLatin1String("x=-10:0.1:10; plot(x,sin(x));"));
+    QVERIFY(e != nullptr);
+
+    if(session()->status() == Cantor::Session::Running)
+        waitForSignal(session(), SIGNAL(statusChanged(Cantor::Session::Status)));
+
+    QVERIFY(e->result() != nullptr);
+    QCOMPARE(e->result()->type(), (int)Cantor::ImageResult::Type );
+    QVERIFY(!e->result()->data().isNull());
+    QVERIFY(e->errorMessage().isNull());
+}
+
+void TestOctave::testCantorPlot2d()
+{
     auto* e = evalExp( QLatin1String("cantor_plot2d('sin(x)', 'x', -10,10);") );
+    QVERIFY(e != nullptr);
 
-    int cnt=0;
-    //give some time to create the image, but at most 5sec
-    int plotType = (OctaveExpression::plotExtensions[OctaveSettings::inlinePlotFormat()] == QLatin1String("eps") ? (int)Cantor::EpsResult::Type : (int)Cantor::ImageResult::Type);
-    while(e->result()==nullptr||e->result()->type() != plotType )
-    {
-        QTest::qWait(250);
-        cnt+=250;
-        if(cnt>5000)
-            break;
-    }
+    if(session()->status() == Cantor::Session::Running)
+        waitForSignal(session(), SIGNAL(statusChanged(Cantor::Session::Status)));
 
-    QVERIFY( e != nullptr );
-    QVERIFY( e->result()!=nullptr );
+    QVERIFY(e->result() != nullptr);
+    QCOMPARE(e->result()->type(), (int)Cantor::ImageResult::Type );
+    QVERIFY(!e->result()->data().isNull());
+    QVERIFY(e->errorMessage().isNull());
+}
 
-    QCOMPARE( e->result()->type(), plotType );
-    QVERIFY( !e->result()->data().isNull() );
+void TestOctave::testCantorPlot3d()
+{
+    auto* e = evalExp( QLatin1String("cantor_plot3d('cos(x)*sin(y)', 'x', -10,10, 'y', -10,10);") );
+    QVERIFY(e != nullptr);
+
+    if(session()->status() == Cantor::Session::Running)
+        waitForSignal(session(), SIGNAL(statusChanged(Cantor::Session::Status)));
+
+    QVERIFY(e->result() != nullptr);
+    QCOMPARE(e->result()->type(), (int)Cantor::ImageResult::Type );
+    QVERIFY(!e->result()->data().isNull());
+    QVERIFY(e->errorMessage().isNull());
 }
 
 void TestOctave::testInvalidSyntax()

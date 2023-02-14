@@ -50,6 +50,8 @@ private Q_SLOTS:
 
     //tests doing a plot
     void testPlot();
+    void testCantorPlot2d();
+    void testCantorPlot3d();
 
     void testLoginLogout();
     void testRestartWhileRunning();

@@ -23,7 +23,7 @@ function cantor_plot3d(f_string,var1,min1,max1,var2,min2,max2)
     f_mod_string = strrep(f_mod_string, op, strcat('.',op));
   endfor
 
-  f = inline(f_mod_string, var1, var2);
+  f = str2func(strcat('@(', var1, ',', var2, ')', f_mod_string));
   [x,y] = meshgrid(linspace(min1,max1),linspace(min2,max2));
   mesh(x,y,f(x,y));
 
