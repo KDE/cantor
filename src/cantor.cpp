@@ -1,7 +1,7 @@
 /*
     SPDX-License-Identifier: GPL-2.0-or-later
     SPDX-FileCopyrightText: 2009 Alexander Rieder <alexanderrieder@gmail.com>
-    SPDX-FileCopyrightText: 2018-2022 Alexander Semke <alexander.semke@web.de>
+    SPDX-FileCopyrightText: 2018-2023 Alexander Semke <alexander.semke@web.de>
 */
 #include "cantor.h"
 #include "lib/session.h"
@@ -30,7 +30,6 @@
 #include <QGraphicsView>
 #include <QPushButton>
 #include <QRegularExpression>
-
 
 #include "lib/backend.h"
 #include "lib/worksheetaccess.h"
@@ -360,16 +359,15 @@ void CantorShell::addWorksheet(const QString& backendName)
         connect(part, SIGNAL(requestDocumentation(QString)), this, SIGNAL(requestDocumentation(QString)));
 
         m_parts.append(part);
-        if (backend) {// If backend empty (loading worksheet from file), then we connect to signal and wait
+        if (backend)
             m_parts2Backends[part] = backend->id();
-
-            //show the default help string in the help panel
-            emit showHelp(backend->defaultHelp());
-        } else
+        else
         {
+            // if the backend is empty (loading worksheet from file), connect to the signal and wait
             m_parts2Backends[part] = QString();
             connect(part, SIGNAL(setBackendName(QString)), this, SLOT(updateBackendForPart(QString)));
         }
+
         int tab = m_tabWidget->addTab(part->widget(), i18n("Session %1", sessionCount++));
         m_tabWidget->setCurrentIndex(tab);
         // Setting focus on worksheet view, because Qt clear focus of added widget inside addTab
@@ -378,6 +376,10 @@ void CantorShell::addWorksheet(const QString& backendName)
 
         // Force run updateCaption for getting proper backend icon
         QMetaObject::invokeMethod(part, "updateCaption");
+
+        //all panels initialized, show the default help string in the help panel
+        if (backend)
+            emit showHelp(backend->defaultHelp());
     }
     else
     {
