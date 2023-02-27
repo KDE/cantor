@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-02-14 00:54+0000\n"
+"POT-Creation-Date: 2023-02-27 00:55+0000\n"
 "PO-Revision-Date: 2019-02-10 09:37-0800\n"
 "Last-Translator: A S Alam <alam.yellow@gmail.com>\n"
 "Language-Team: Punjabi <punjabi-users@lists.sf.net>\n"
@@ -477,7 +477,7 @@ msgstr ""
 #: backends/maxima/settings.ui:21 backends/octave/settings.ui:21
 #: backends/python/settings.ui:21 backends/qalculate/settings.ui:21
 #: backends/R/settings.ui:21 backends/sage/settings.ui:21
-#: backends/scilab/settings.ui:21 cantor.cpp:627
+#: backends/scilab/settings.ui:21 cantor.cpp:629
 #, kde-format
 msgid "General"
 msgstr "ਆਮ"
@@ -929,8 +929,8 @@ msgstr ""
 
 #: backends/octave/octavesession.cpp:121 backends/sage/sagesession.cpp:238
 #: backends/sage/sagesession.cpp:271 backends/sage/sagesession.cpp:337
-#: backends/sage/sagesession.cpp:348 cantor.cpp:216 cantor.cpp:218
-#: cantor.cpp:337 cantor.cpp:344 lib/session.cpp:383 main.cpp:66 main.cpp:130
+#: backends/sage/sagesession.cpp:348 cantor.cpp:215 cantor.cpp:217
+#: cantor.cpp:336 cantor.cpp:343 lib/session.cpp:383 main.cpp:66 main.cpp:130
 #: markdownentry.cpp:797 textentry.cpp:553 worksheet.cpp:1275
 #, kde-format
 msgid "Cantor"
@@ -2404,45 +2404,45 @@ msgstr "ਸਰਵਰ ਸ਼ੁਰੂ ਨਹੀਂ ਕੀਤਾ ਜਾ ਸਕਿ�
 msgid ";;Scilab script file (*.sce);;Scilab function file (*.sci)"
 msgstr "*.R|R ਸਕ੍ਰਿਪਟ ਫਾਇਲ"
 
-#: cantor.cpp:104
+#: cantor.cpp:103
 #, kde-format
 msgid "The file %1 is already opened."
 msgstr ""
 
-#: cantor.cpp:104 cantor.cpp:228
+#: cantor.cpp:103 cantor.cpp:227
 #, kde-format
 msgid "Open file"
 msgstr "ਫਾਇਲ ਖੋਲ੍ਹੋ"
 
-#: cantor.cpp:146
+#: cantor.cpp:145
 #, fuzzy, kde-format
 #| msgid "Download Example Worksheets"
 msgid "Download Examples"
 msgstr "ਉਦਾਹਰਨ ਵਰਕਸ਼ੀਟ ਡਾਊਨਲੋਡ ਕਰੋ"
 
-#: cantor.cpp:149
+#: cantor.cpp:148
 #, kde-format
 msgid "&Open Example"
 msgstr "ਉਦਾਹਰਨ ਖੋਲ੍ਹੋ(&O)"
 
-#: cantor.cpp:154
+#: cantor.cpp:153
 #, kde-format
 msgid "Go to previous worksheet"
 msgstr ""
 
-#: cantor.cpp:166
+#: cantor.cpp:165
 #, kde-format
 msgid "Go to next worksheet"
 msgstr ""
 
-#: cantor.cpp:227
+#: cantor.cpp:226
 #, kde-format
 msgid ""
 "All supported files (*.cws *ipynb);;Cantor Worksheet (*.cws);;Jupyter "
 "Notebook (*.ipynb)"
 msgstr ""
 
-#: cantor.cpp:295
+#: cantor.cpp:294
 #, kde-format
 msgid ""
 "<h1>No Backend Found</h1>\n"
@@ -2459,71 +2459,71 @@ msgid_plural ""
 msgstr[0] ""
 msgstr[1] ""
 
-#: cantor.cpp:315
+#: cantor.cpp:314
 #, kde-format
 msgid "Error"
 msgstr "ਗਲਤੀ"
 
-#: cantor.cpp:337
+#: cantor.cpp:336
 #, kde-format
 msgid "Backend %1 is not installed"
 msgstr "ਬੈਕਐਂਡ %1 ਇੰਸਟਾਲ ਨਹੀਂ ਹੈ"
 
-#: cantor.cpp:344
+#: cantor.cpp:343
 #, kde-format
 msgid ""
 "%1 backend installed, but inactive. Please check installation and Cantor "
 "settings"
 msgstr ""
 
-#: cantor.cpp:373
+#: cantor.cpp:371
 #, kde-format
 msgid "Session %1"
 msgstr "ਸ਼ੈਸ਼ਨ %1"
 
-#: cantor.cpp:386
+#: cantor.cpp:388
 #, fuzzy, kde-format
 #| msgid "Could not start the server."
 msgid "Failed to find the Cantor Part with error %1"
 msgstr "ਸਰਵਰ ਸ਼ੁਰੂ ਨਹੀਂ ਕੀਤਾ ਜਾ ਸਕਿਆ।"
 
-#: cantor.cpp:433 cantor_part.cpp:621
+#: cantor.cpp:435 cantor_part.cpp:621
 #, kde-format
 msgid "Calculating..."
 msgstr "ਗਿਣਤੀ ਕੀਤੀ ਜਾ ਰਹੀ ਹੈ..."
 
-#: cantor.cpp:436 cantor_part.cpp:632 cantor_part.cpp:695
+#: cantor.cpp:438 cantor_part.cpp:632 cantor_part.cpp:695
 #, kde-format
 msgid "Ready"
 msgstr "ਤਿਆਰ"
 
-#: cantor.cpp:480
+#: cantor.cpp:482
 #, kde-format
 msgid "Changed"
 msgstr ""
 
-#: cantor.cpp:564
+#: cantor.cpp:566
 #, kde-format
 msgid "Multiple unsaved Worksheets are opened. Do you want to close them?"
 msgstr ""
 
-#: cantor.cpp:565
+#: cantor.cpp:567
 #, fuzzy, kde-format
 #| msgid "Cantor"
 msgid "Close Cantor"
 msgstr "ਕੇਨਟੋਰ"
 
-#: cantor.cpp:581
+#: cantor.cpp:583
 #, kde-format
 msgid "The current project has been modified. Do you want to save it?"
 msgstr ""
 
-#: cantor.cpp:582
+#: cantor.cpp:584
 #, kde-format
 msgid "Save Project"
 msgstr "ਪਰੋਜੈਕਟ ਸੰਭਾਲੋ"
 
-#: cantor.cpp:628
+#: cantor.cpp:630
 #, fuzzy, kde-format
 #| msgid "&Plot"
 msgid "Formatting"

@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: mathematik\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-02-14 00:54+0000\n"
+"POT-Creation-Date: 2023-02-27 00:55+0000\n"
 "PO-Revision-Date: 2023-01-09 18:48+0000\n"
 "Last-Translator: José Nuno Coelho Pires <zepires@gmail.com>\n"
 "Language-Team: Portuguese <kde-i18n-pt@kde.org>\n"
@@ -508,7 +508,7 @@ msgstr ""
 #: backends/maxima/settings.ui:21 backends/octave/settings.ui:21
 #: backends/python/settings.ui:21 backends/qalculate/settings.ui:21
 #: backends/R/settings.ui:21 backends/sage/settings.ui:21
-#: backends/scilab/settings.ui:21 cantor.cpp:627
+#: backends/scilab/settings.ui:21 cantor.cpp:629
 #, kde-format
 msgid "General"
 msgstr "Geral"
@@ -1007,8 +1007,8 @@ msgstr "Será desactivada a integração dos gráficos."
 
 #: backends/octave/octavesession.cpp:121 backends/sage/sagesession.cpp:238
 #: backends/sage/sagesession.cpp:271 backends/sage/sagesession.cpp:337
-#: backends/sage/sagesession.cpp:348 cantor.cpp:216 cantor.cpp:218
-#: cantor.cpp:337 cantor.cpp:344 lib/session.cpp:383 main.cpp:66 main.cpp:130
+#: backends/sage/sagesession.cpp:348 cantor.cpp:215 cantor.cpp:217
+#: cantor.cpp:336 cantor.cpp:343 lib/session.cpp:383 main.cpp:66 main.cpp:130
 #: markdownentry.cpp:797 textentry.cpp:553 worksheet.cpp:1275
 #, kde-format
 msgid "Cantor"
@@ -2560,37 +2560,37 @@ msgstr ""
 ";;Ficheiro de programa em Scilab (*.sce);;Ficheiro de funções em Scilab (*."
 "sci)"
 
-#: cantor.cpp:104
+#: cantor.cpp:103
 #, kde-format
 msgid "The file %1 is already opened."
 msgstr "O ficheiro %1 já está aberto."
 
-#: cantor.cpp:104 cantor.cpp:228
+#: cantor.cpp:103 cantor.cpp:227
 #, kde-format
 msgid "Open file"
 msgstr "Abrir um ficheiro"
 
-#: cantor.cpp:146
+#: cantor.cpp:145
 #, kde-format
 msgid "Download Examples"
 msgstr "Transferir os Exemplos"
 
-#: cantor.cpp:149
+#: cantor.cpp:148
 #, kde-format
 msgid "&Open Example"
 msgstr "Abrir &o Exemplo"
 
-#: cantor.cpp:154
+#: cantor.cpp:153
 #, kde-format
 msgid "Go to previous worksheet"
 msgstr "Ir para a área de trabalho anterior"
 
-#: cantor.cpp:166
+#: cantor.cpp:165
 #, kde-format
 msgid "Go to next worksheet"
 msgstr "Ir para a área de trabalho seguinte"
 
-#: cantor.cpp:227
+#: cantor.cpp:226
 #, kde-format
 msgid ""
 "All supported files (*.cws *ipynb);;Cantor Worksheet (*.cws);;Jupyter "
@@ -2599,7 +2599,7 @@ msgstr ""
 "Todos os ficheiros suportados (*.cws *ipynb);;Área de Trabalho do Cantor (*."
 "cws);;Bloco de Notas do Jupyter (*.ipynb)"
 
-#: cantor.cpp:295
+#: cantor.cpp:294
 #, kde-format
 msgid ""
 "<h1>No Backend Found</h1>\n"
@@ -2625,17 +2625,17 @@ msgstr[1] ""
 "<li>Instalar os pacotes para um dos seguintes programas:</li>     %2   </ul> "
 "</div> "
 
-#: cantor.cpp:315
+#: cantor.cpp:314
 #, kde-format
 msgid "Error"
 msgstr "Erro"
 
-#: cantor.cpp:337
+#: cantor.cpp:336
 #, kde-format
 msgid "Backend %1 is not installed"
 msgstr "A infra-estrutura %1 não está instalada"
 
-#: cantor.cpp:344
+#: cantor.cpp:343
 #, kde-format
 msgid ""
 "%1 backend installed, but inactive. Please check installation and Cantor "
@@ -2644,52 +2644,52 @@ msgstr ""
 "A infra-estrutura %1 está instalada, mas desactivada. Verifique por favor a "
 "instalação e a configuração do Cantor"
 
-#: cantor.cpp:373
+#: cantor.cpp:371
 #, kde-format
 msgid "Session %1"
 msgstr "Sessão %1"
 
-#: cantor.cpp:386
+#: cantor.cpp:388
 #, kde-format
 msgid "Failed to find the Cantor Part with error %1"
 msgstr "Não foi possível obter a componente do Cantor com o erro %1"
 
-#: cantor.cpp:433 cantor_part.cpp:621
+#: cantor.cpp:435 cantor_part.cpp:621
 #, kde-format
 msgid "Calculating..."
 msgstr "A calcular..."
 
-#: cantor.cpp:436 cantor_part.cpp:632 cantor_part.cpp:695
+#: cantor.cpp:438 cantor_part.cpp:632 cantor_part.cpp:695
 #, kde-format
 msgid "Ready"
 msgstr "Pronto"
 
-#: cantor.cpp:480
+#: cantor.cpp:482
 #, kde-format
 msgid "Changed"
 msgstr "Modificado"
 
-#: cantor.cpp:564
+#: cantor.cpp:566
 #, kde-format
 msgid "Multiple unsaved Worksheets are opened. Do you want to close them?"
 msgstr "Estão abertas diversas área de trabalho por gravar. Deseja fechá-las?"
 
-#: cantor.cpp:565
+#: cantor.cpp:567
 #, kde-format
 msgid "Close Cantor"
 msgstr "Fechar o Cantor"
 
-#: cantor.cpp:581
+#: cantor.cpp:583
 #, kde-format
 msgid "The current project has been modified. Do you want to save it?"
 msgstr "O projecto actual foi modificado. Deseja gravá-lo?"
 
-#: cantor.cpp:582
+#: cantor.cpp:584
 #, kde-format
 msgid "Save Project"
 msgstr "Gravar o Projecto"
 
-#: cantor.cpp:628
+#: cantor.cpp:630
 #, kde-format
 msgid "Formatting"
 msgstr "Formatação"

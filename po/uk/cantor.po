@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: cantor\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-02-14 00:54+0000\n"
+"POT-Creation-Date: 2023-02-27 00:55+0000\n"
 "PO-Revision-Date: 2023-01-04 08:30+0200\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian <kde-i18n-uk@kde.org>\n"
@@ -497,7 +497,7 @@ msgstr ""
 #: backends/maxima/settings.ui:21 backends/octave/settings.ui:21
 #: backends/python/settings.ui:21 backends/qalculate/settings.ui:21
 #: backends/R/settings.ui:21 backends/sage/settings.ui:21
-#: backends/scilab/settings.ui:21 cantor.cpp:627
+#: backends/scilab/settings.ui:21 cantor.cpp:629
 #, kde-format
 msgid "General"
 msgstr "Загальне"
@@ -993,8 +993,8 @@ msgstr "Інтегрування графіків вимкнено."
 
 #: backends/octave/octavesession.cpp:121 backends/sage/sagesession.cpp:238
 #: backends/sage/sagesession.cpp:271 backends/sage/sagesession.cpp:337
-#: backends/sage/sagesession.cpp:348 cantor.cpp:216 cantor.cpp:218
-#: cantor.cpp:337 cantor.cpp:344 lib/session.cpp:383 main.cpp:66 main.cpp:130
+#: backends/sage/sagesession.cpp:348 cantor.cpp:215 cantor.cpp:217
+#: cantor.cpp:336 cantor.cpp:343 lib/session.cpp:383 main.cpp:66 main.cpp:130
 #: markdownentry.cpp:797 textentry.cpp:553 worksheet.cpp:1275
 #, kde-format
 msgid "Cantor"
@@ -2544,37 +2544,37 @@ msgstr "Шлях до виконуваного файла Scilab"
 msgid ";;Scilab script file (*.sce);;Scilab function file (*.sci)"
 msgstr ";;файл скрипту Scilab (*.sce);;файл функції Scilab (*.sci)"
 
-#: cantor.cpp:104
+#: cantor.cpp:103
 #, kde-format
 msgid "The file %1 is already opened."
 msgstr "Файл %1 вже відкрито."
 
-#: cantor.cpp:104 cantor.cpp:228
+#: cantor.cpp:103 cantor.cpp:227
 #, kde-format
 msgid "Open file"
 msgstr "Відкриття файла"
 
-#: cantor.cpp:146
+#: cantor.cpp:145
 #, kde-format
 msgid "Download Examples"
 msgstr "Отримати приклади"
 
-#: cantor.cpp:149
+#: cantor.cpp:148
 #, kde-format
 msgid "&Open Example"
 msgstr "&Відкрити приклад"
 
-#: cantor.cpp:154
+#: cantor.cpp:153
 #, kde-format
 msgid "Go to previous worksheet"
 msgstr "Перейти до попереднього робочого аркуша"
 
-#: cantor.cpp:166
+#: cantor.cpp:165
 #, kde-format
 msgid "Go to next worksheet"
 msgstr "Перейти до наступного робочого аркуша"
 
-#: cantor.cpp:227
+#: cantor.cpp:226
 #, kde-format
 msgid ""
 "All supported files (*.cws *ipynb);;Cantor Worksheet (*.cws);;Jupyter "
@@ -2583,7 +2583,7 @@ msgstr ""
 "усі підтримувані файли (*.cws *ipynb);;робочий аркуш Cantor (*.cws);;"
 "нотатник Jupyter (*.ipynb)"
 
-#: cantor.cpp:295
+#: cantor.cpp:294
 #, kde-format
 msgid ""
 "<h1>No Backend Found</h1>\n"
@@ -2618,17 +2618,17 @@ msgstr[3] ""
 " <ul>    <li>змінити параметри у діалоговому вікні налаштування</li> "
 "<li>встановити пакунки цієї програми: </li>   %2 </ul> </div>"
 
-#: cantor.cpp:315
+#: cantor.cpp:314
 #, kde-format
 msgid "Error"
 msgstr "Помилка"
 
-#: cantor.cpp:337
+#: cantor.cpp:336
 #, kde-format
 msgid "Backend %1 is not installed"
 msgstr "Модуль %1 не встановлено"
 
-#: cantor.cpp:344
+#: cantor.cpp:343
 #, kde-format
 msgid ""
 "%1 backend installed, but inactive. Please check installation and Cantor "
@@ -2637,54 +2637,54 @@ msgstr ""
 "Модуль %1 встановлено, але не задіяно. Будь ласка, перевірте, чи належним "
 "чином його встановлено і чи правильно визначено параметри Cantor."
 
-#: cantor.cpp:373
+#: cantor.cpp:371
 #, kde-format
 msgid "Session %1"
 msgstr "Сеанс %1"
 
-#: cantor.cpp:386
+#: cantor.cpp:388
 #, kde-format
 msgid "Failed to find the Cantor Part with error %1"
 msgstr "Не вдалося знайти модуль Cantor. Помилка %1"
 
-#: cantor.cpp:433 cantor_part.cpp:621
+#: cantor.cpp:435 cantor_part.cpp:621
 #, kde-format
 msgid "Calculating..."
 msgstr "Обчислення…"
 
-#: cantor.cpp:436 cantor_part.cpp:632 cantor_part.cpp:695
+#: cantor.cpp:438 cantor_part.cpp:632 cantor_part.cpp:695
 #, kde-format
 msgid "Ready"
 msgstr "Виконано"
 
-#: cantor.cpp:480
+#: cantor.cpp:482
 #, kde-format
 msgid "Changed"
 msgstr "Змінено"
 
-#: cantor.cpp:564
+#: cantor.cpp:566
 #, kde-format
 msgid "Multiple unsaved Worksheets are opened. Do you want to close them?"
 msgstr ""
 "Відкрито декілька робочих аркушів, зміни у яких не збережено. Хочете закрити "
 "їх усі?"
 
-#: cantor.cpp:565
+#: cantor.cpp:567
 #, kde-format
 msgid "Close Cantor"
 msgstr "Закрити Cantor"
 
-#: cantor.cpp:581
+#: cantor.cpp:583
 #, kde-format
 msgid "The current project has been modified. Do you want to save it?"
 msgstr "До поточного проєкту було внесено зміни. Хочете зберегти їх?"
 
-#: cantor.cpp:582
+#: cantor.cpp:584
 #, kde-format
 msgid "Save Project"
 msgstr "Зберегти проєкт"
 
-#: cantor.cpp:628
+#: cantor.cpp:630
 #, kde-format
 msgid "Formatting"
 msgstr "Форматування"
