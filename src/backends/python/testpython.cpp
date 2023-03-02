@@ -267,6 +267,8 @@ void TestPython3::testVariableChangeSizeType()
     QCOMPARE(model->index(0,1).data().toString(), QLatin1String("1"));
     QCOMPARE(model->index(0,2).data().toString(), QLatin1String("<class 'int'>"));
     QCOMPARE(model->index(0,3).data().toString(), QLatin1String("28")); // 28 bytes for Python's int object
+
+    evalExp(QLatin1String("del test;"));
 }
 
 void TestPython3::testVariableCleanupAfterRestart()
@@ -293,7 +295,7 @@ void TestPython3::testDictVariable()
     if (!PythonSettings::variableManagement())
         QSKIP("This test needs enabled variable management in Python3 settings", SkipSingle);
 
-    Cantor::DefaultVariableModel* model = session()->variableModel();
+    auto* model = session()->variableModel();
     QVERIFY(model != nullptr);
 
     auto* e = evalExp(QLatin1String("d = {'value': 33}"));
