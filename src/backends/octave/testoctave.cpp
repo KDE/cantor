@@ -27,6 +27,12 @@ QString TestOctave::backendName()
     return QLatin1String("octave");
 }
 
+void TestOctave::initTestCase() {
+    if (QStandardPaths::findExecutable(QLatin1String("octave")).isEmpty())
+        QSKIP("Octave executable not found");
+    BackendTest::initTestCase();
+}
+
 void TestOctave::testSimpleCommand()
 {
     auto* e = evalExp( QLatin1String("2+2") );

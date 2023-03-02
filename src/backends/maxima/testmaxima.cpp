@@ -24,6 +24,11 @@ QString TestMaxima::backendName()
     return QLatin1String("maxima");
 }
 
+void TestMaxima::initTestCase() {
+    if (QStandardPaths::findExecutable(QLatin1String("maxima")).isEmpty())
+        QSKIP("Maxima executable not found");
+    BackendTest::initTestCase();
+}
 
 void TestMaxima::testSimpleCommand()
 {
@@ -394,6 +399,7 @@ void TestMaxima::testHelpRequest()
 
     //help result will be shown, but maxima still expects further input
     waitForSignal(e, SIGNAL(needsAdditionalInformation(QString)));
+    qDebug()<<"expression status " << e->status();
     QVERIFY(e->status() != Cantor::Expression::Done);
     QVERIFY(e->results().size() == 1); // one HelpResult showing the possible options for the answer
 

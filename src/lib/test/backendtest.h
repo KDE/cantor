@@ -21,28 +21,21 @@ namespace Cantor
 class CANTORTEST_EXPORT BackendTest : public QObject
 {
     Q_OBJECT
-    private Q_SLOTS:
-        void initTestCase();
-        void cleanupTestCase();
 
-    protected:
-        Cantor::Expression* evalExp(const QString& exp);
-        /**
-         * simple method that removes whitespaces/other irrelevant stuff,
-         * so comparing results is easier
-         */
-        QString cleanOutput( const QString& out );
+private Q_SLOTS:
+    void cleanupTestCase();
 
-	Cantor::Session* session();
+protected:
+    void initTestCase();
+    Cantor::Expression* evalExp(const QString& exp);
+    QString cleanOutput( const QString& out );
+    Cantor::Session* session();
+    void waitForSignal( QObject* sender, const char* signal);
 
-	/**
-	 * simple method that blocks and waits for a signal to be emitted
-	 */
-	void waitForSignal( QObject* sender, const char* signal);
-    private:
-        void createSession();
-        Cantor::Session* m_session;
-        virtual QString backendName() = 0;
+private:
+    void createSession();
+    Cantor::Session* m_session{nullptr};
+    virtual QString backendName() = 0;
 };
 
 #endif // BACKENDTEST_H

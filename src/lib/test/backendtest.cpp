@@ -21,14 +21,14 @@ void BackendTest::createSession()
     if (!QCoreApplication::libraryPaths().contains(path))
         QCoreApplication::addLibraryPath(path);
 
-    Cantor::Backend* b=Cantor::Backend::getBackend( backendName() );
+    auto* b = Cantor::Backend::getBackend( backendName() );
     if(!b || !b->requirementsFullfilled() )
     {
         m_session = nullptr;
         return;
     }
 
-    m_session=b->createSession();
+    m_session = b->createSession();
 
     QSignalSpy spy(m_session, SIGNAL(loginDone()) );
     m_session->login();
@@ -40,23 +40,24 @@ void BackendTest::createSession()
 
 Cantor::Expression* BackendTest::evalExp(const QString& exp )
 {
-   Cantor::Expression* e=m_session->evaluateExpression(exp);
+   auto* e = m_session->evaluateExpression(exp);
 
-   if(e->status()==Cantor::Expression::Queued)
-   {
+   if(e->status() == Cantor::Expression::Queued)
        waitForSignal( e, SIGNAL(statusChanged(Cantor::Expression::Status)) );
-   }
 
-   if (e->status()==Cantor::Expression::Computing)
-   {
+   if (e->status() == Cantor::Expression::Computing)
        waitForSignal( e, SIGNAL(statusChanged(Cantor::Expression::Status)) );
-   }
+
    return e;
 }
 
+/**
+* simple method that removes whitespaces/other irrelevant stuff,
+* so comparing results is easier
+*/
 QString BackendTest::cleanOutput(const QString& out)
 {
-    QString cleaned=out;
+    QString cleaned = out;
     cleaned.replace( QLatin1String("&nbsp;"),QLatin1String(" ") );
     cleaned.remove( QLatin1String("<br/>") );
     cleaned.replace( QChar::ParagraphSeparator, QLatin1Char('\n') );
@@ -80,9 +81,7 @@ void BackendTest::initTestCase()
 void BackendTest::cleanupTestCase()
 {
     if (m_session)
-    {
         m_session->logout();
-    }
 }
 
 Cantor::Session* BackendTest::session()
@@ -90,6 +89,9 @@ Cantor::Session* BackendTest::session()
     return m_session;
 }
 
+/**
+* simple method that blocks and waits for a signal to be emitted
+*/
 void BackendTest::waitForSignal(QObject* sender, const char* signal)
 {
     QTimer timeout( this );
@@ -101,6 +103,3 @@ void BackendTest::waitForSignal(QObject* sender, const char* signal)
     timeout.start( 25000 );
     loop.exec();
 }
-
-
-

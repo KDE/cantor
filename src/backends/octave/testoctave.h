@@ -18,6 +18,8 @@ class TestOctave : public BackendTest
   Q_OBJECT
 
 private Q_SLOTS:
+    void initTestCase();
+
     //tests evaluating a simple command
     void testSimpleCommand();
     //tests a command, containing more than 1 line
