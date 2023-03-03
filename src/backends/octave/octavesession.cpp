@@ -142,7 +142,8 @@ void OctaveSession::login()
     qDebug() << "starting " << m_process->program();
     m_process->setOutputChannelMode ( KProcess::SeparateChannels );
     m_process->start();
-    m_process->waitForStarted();
+    bool rc = m_process->waitForStarted();
+    qDebug() << "octave process started " << rc;
 
     connect ( m_process, SIGNAL (readyReadStandardOutput()), SLOT (readOutput()) );
     connect ( m_process, SIGNAL (readyReadStandardError()), SLOT (readError()) );

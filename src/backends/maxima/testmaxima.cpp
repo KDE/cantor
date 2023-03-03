@@ -228,6 +228,8 @@ void TestMaxima::testInvalidSyntax()
 
     QVERIFY( e!=nullptr );
     QVERIFY( e->status()==Cantor::Expression::Error );
+    QVERIFY( !e->errorMessage().isNull() );
+    QCOMPARE(e->results().size(), 0);
 }
 
 void TestMaxima::testWarning01()
@@ -354,6 +356,28 @@ void TestMaxima::testInvalidAssignment()
     QCOMPARE(cleanOutput(e2->result()->data().toString()), QLatin1String("4"));
 }
 
+void TestMaxima::testHelpRequest()
+{
+    //execute "??print"
+    auto* e = session()->evaluateExpression(QLatin1String("??print"));
+    QVERIFY(e != nullptr);
+
+    //help result will be shown, but maxima still expects further input
+    waitForSignal(e, SIGNAL(needsAdditionalInformation(QString)));
+    QVERIFY(e->status() != Cantor::Expression::Done);
+    QVERIFY(e->results().size() == 1); // one HelpResult showing the possible options for the answer
+
+    //ask for help for the first flag of the print command
+    e->addInformation(QLatin1String("0"));
+
+    //no further input is required, we're done
+    if (e->status() == Cantor::Expression::Computing)
+        waitForSignal(e, SIGNAL(statusChanged(Cantor::Expression::Status)));
+
+    QVERIFY(e->status() == Cantor::Expression::Done);
+    QVERIFY(e->results().size() == 1); // final HelpResult
+}
+
 void TestMaxima::testInformationRequest()
 {
     auto* e = session()->evaluateExpression(QLatin1String("integrate(x^n,x)"));
@@ -389,29 +413,6 @@ void TestMaxima::testCompletion()
     QVERIFY(completions.contains(QLatin1String("asksign")));
     QVERIFY(completions.contains(QLatin1String("askinteger")));
     QVERIFY(completions.contains(QLatin1String("askexp")));
-}
-
-void TestMaxima::testHelpRequest()
-{
-    //execute "??print"
-    auto* e = session()->evaluateExpression(QLatin1String("??print"));
-    QVERIFY(e != nullptr);
-
-    //help result will be shown, but maxima still expects further input
-    waitForSignal(e, SIGNAL(needsAdditionalInformation(QString)));
-    qDebug()<<"expression status " << e->status();
-    QVERIFY(e->status() != Cantor::Expression::Done);
-    QVERIFY(e->results().size() == 1); // one HelpResult showing the possible options for the answer
-
-    //ask for help for the first flag of the print command
-    e->addInformation(QLatin1String("0"));
-
-    //no further input is required, we're done
-    if (e->status() == Cantor::Expression::Computing)
-        waitForSignal(e, SIGNAL(statusChanged(Cantor::Expression::Status)));
-
-    QVERIFY(e->status() == Cantor::Expression::Done);
-    QVERIFY(e->results().size() == 1); // final HelpResult
 }
 
 void TestMaxima::testTextQuotes()
