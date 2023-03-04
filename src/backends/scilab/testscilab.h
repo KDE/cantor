@@ -15,6 +15,7 @@ class TestScilab : public BackendTest
   Q_OBJECT
 
 private Q_SLOTS:
+    void initTestCase();
     void testSimpleCommand();
     void testVariableDefinition();
     void testInvalidSyntax();

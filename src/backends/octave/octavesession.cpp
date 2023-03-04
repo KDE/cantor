@@ -300,15 +300,19 @@ Cantor::Expression* OctaveSession::evaluateExpression(const QString& cmd, Cantor
 
 void OctaveSession::runFirstExpression()
 {
+    qDebug()<< "OctaveSession::runFirstExpression()";
     auto* expression = expressionQueue().first();
     connect(expression, &Cantor::Expression::statusChanged, this, &Session::currentExpressionStatusChanged);
 
     const auto& command = expression->internalCommand();
-    expression->setStatus(Cantor::Expression::Computing);
     if (isDoNothingCommand(command))
         expression->setStatus(Cantor::Expression::Done);
     else
+    {
+        expression->setStatus(Cantor::Expression::Computing);
+        qDebug()<<"writing " << command.toLocal8Bit();
         m_process->write(command.toLocal8Bit());
+    }
 }
 
 void OctaveSession::readError()

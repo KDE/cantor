@@ -17,6 +17,12 @@ QString TestScilab::backendName()
     return QLatin1String("scilab");
 }
 
+void TestScilab::initTestCase() {
+    if (QStandardPaths::findExecutable(QLatin1String("scilab")).isEmpty())
+        QSKIP("Scilab executable not found");
+    BackendTest::initTestCase();
+}
+
 void TestScilab::testSimpleCommand()
 {
     Cantor::Expression* e = evalExp(QLatin1String("printf(\"Testing\")\n"));
