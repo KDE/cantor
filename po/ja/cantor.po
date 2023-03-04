@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: mathematik\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-02-27 00:55+0000\n"
+"POT-Creation-Date: 2023-03-04 00:42+0000\n"
 "PO-Revision-Date: 2009-05-18 00:19+0900\n"
 "Last-Translator: Japanese KDE translation team <kde-jp@kde.org>\n"
 "Language-Team: Japanese <kde-jp@kde.org>\n"
@@ -903,7 +903,7 @@ msgstr ""
 msgid "Cantor"
 msgstr ""
 
-#: backends/octave/octavesession.cpp:322 backends/sage/sageexpression.cpp:51
+#: backends/octave/octavesession.cpp:323 backends/sage/sageexpression.cpp:51
 #, kde-format
 msgid "Syntax Error"
 msgstr ""
