@@ -121,10 +121,16 @@ QString OctaveExpression::internalCommand()
 
     // We need to remove all comments here, because below we merge all strings to one long string
     // Otherwise, all code after line with comment will be commented out after merging
-    // So, this small state machine remove all comments
-    // FIXME better implementation
-    QString tmp;
-    // 0 - command mode, 1 - string mode for ', 2 - string mode for ", 3 - comment mode
+    // So, this small state machine removes all comments.
+    // status:
+    // 0 - command mode
+    // 1 - string mode for '
+    // 2 - string mode for "
+    // 3 - comment mode
+    // 4 - comment character after '
+
+    QString tmpCmd;
+    QString tmpComment;
     int status = 0;
     for (int i = 0; i < cmd.size(); i++)
     {
@@ -133,24 +139,37 @@ QString OctaveExpression::internalCommand()
             status = 3;
         else if (status == 0 && ch == '\'')
             status = 1;
+        else if (status == 4 && ch == '\'')
+        {
+            tmpCmd += tmpComment;
+            tmpComment.clear();
+            status = 0;
+        }
         else if (status == 0 && ch == '"')
             status = 2;
         else if (status == 1 && ch == '\'')
             status = 0;
+        else if (status == 1 && (ch == '#' || ch == '%'))
+            status = 4;
         else if (status == 2 && ch == '"')
             status = 0;
-        else if (status == 3 && ch == '\n')
+        else if (ch == '\n')
+        {
+            tmpComment.clear();
             status = 0;
+        }
 
-        if (status != 3)
-            tmp += cmd[i];
+        if (status == 4)
+            tmpComment += cmd[i];
+        else if (status != 3)
+            tmpCmd += cmd[i];
     }
 
-    //Remove "\n" in the beginning of the command, if present
-    while(tmp[0] == QLatin1Char('\n'))
-        tmp.remove(0, 1);
+    // Remove "\n" in the beginning of the command, if present
+    while(tmpCmd[0] == QLatin1Char('\n'))
+        tmpCmd.remove(0, 1);
 
-    cmd = tmp;
+    cmd = tmpCmd;
     cmd.replace(QLatin1String(";\n"), QLatin1String(";"));
     cmd.replace(QLatin1Char('\n'), QLatin1Char(','));
     cmd += QLatin1Char('\n');

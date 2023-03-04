@@ -1,6 +1,7 @@
 /*
     SPDX-License-Identifier: GPL-2.0-or-later
     SPDX-FileCopyrightText: 2009 Alexander Rieder <alexanderrieder@gmail.com>
+    SPDX-FileCopyrightText: 2021-2023 Alexander Semke <alexander.semke@web.de>
 */
 
 #include "testoctave.h"
@@ -174,6 +175,200 @@ void TestOctave::testComment03()
         "q = Str\n"
         "b = 4"
     ));
+}
+
+/*!
+ * multi-line command with comments within the line containing also the actual expression
+ * and with ' used to transpose the vector.
+ * */
+void TestOctave::testComment04()
+{
+    QAbstractItemModel* model = session()->variableModel();
+    QVERIFY(model != nullptr);
+
+    evalExp(QLatin1String("clear();"));
+
+    auto* e = evalExp(QLatin1String(
+        "x=[1,2,3];\n"
+        "xT=x';\n"
+        "% comment\n"
+        "y=1;"
+    ));
+
+    QVERIFY(e != nullptr);
+
+   if(session()->status()==Cantor::Session::Running)
+        waitForSignal(session(), SIGNAL(statusChanged(Cantor::Session::Status)));
+
+    QCOMPARE(e->status(), Cantor::Expression::Status::Done);
+    QVERIFY(e->result() == nullptr); // empty result output
+
+    QCOMPARE(model->rowCount(), 3);
+    QCOMPARE(model->index(0,0).data().toString(), QLatin1String("x"));
+    QCOMPARE(model->index(1,0).data().toString(), QLatin1String("xT"));
+    QCOMPARE(model->index(2,0).data().toString(), QLatin1String("y"));
+}
+
+/*!
+ * multi-line command with comments within the line containing also the actual expression
+ * and with ' used to transpose the vector.
+ * */
+void TestOctave::testComment05()
+{
+    QAbstractItemModel* model = session()->variableModel();
+    QVERIFY(model != nullptr);
+
+    evalExp(QLatin1String("clear();"));
+
+    auto* e = evalExp(QLatin1String(
+        "x=[1,2,3];\n"
+        "xT=x';\n"
+        "# comment\n"
+        "y=1;"
+    ));
+
+    QVERIFY(e != nullptr);
+
+   if(session()->status()==Cantor::Session::Running)
+        waitForSignal(session(), SIGNAL(statusChanged(Cantor::Session::Status)));
+
+    QCOMPARE(e->status(), Cantor::Expression::Status::Done);
+    QVERIFY(e->result() == nullptr); // empty result output
+
+    QCOMPARE(model->rowCount(), 3);
+    QCOMPARE(model->index(0,0).data().toString(), QLatin1String("x"));
+    QCOMPARE(model->index(1,0).data().toString(), QLatin1String("xT"));
+    QCOMPARE(model->index(2,0).data().toString(), QLatin1String("y"));
+}
+
+/*!
+ * multi-line command with comments within the line containing also the actual expression
+ * and with ' used to transpose the vector.
+ * */
+void TestOctave::testComment06()
+{
+    QAbstractItemModel* model = session()->variableModel();
+    QVERIFY(model != nullptr);
+
+    evalExp(QLatin1String("clear();"));
+
+    auto* e = evalExp(QLatin1String(
+        "x=[1,2,3];\n"
+        "xT=x'; % comment\n"
+        "y=1;"
+    ));
+
+    QVERIFY(e != nullptr);
+
+   if(session()->status()==Cantor::Session::Running)
+        waitForSignal(session(), SIGNAL(statusChanged(Cantor::Session::Status)));
+
+    QCOMPARE(e->status(), Cantor::Expression::Status::Done);
+    QVERIFY(e->result() == nullptr); // empty result output
+
+    QCOMPARE(model->rowCount(), 3);
+    QCOMPARE(model->index(0,0).data().toString(), QLatin1String("x"));
+    QCOMPARE(model->index(1,0).data().toString(), QLatin1String("xT"));
+    QCOMPARE(model->index(2,0).data().toString(), QLatin1String("y"));
+}
+
+/*!
+ * multi-line command with comments within the line containing also the actual expression
+ * and with ' used to transpose the vector.
+ * */
+void TestOctave::testComment07()
+{
+    QAbstractItemModel* model = session()->variableModel();
+    QVERIFY(model != nullptr);
+
+    evalExp(QLatin1String("clear();"));
+
+    auto* e = evalExp(QLatin1String(
+        "x=[1,2,3];\n"
+        "xT=x'; # comment\n"
+        "y=1;"
+    ));
+
+    QVERIFY(e != nullptr);
+
+   if(session()->status()==Cantor::Session::Running)
+        waitForSignal(session(), SIGNAL(statusChanged(Cantor::Session::Status)));
+
+    QCOMPARE(e->status(), Cantor::Expression::Status::Done);
+    QVERIFY(e->result() == nullptr); // empty result output
+
+    QCOMPARE(model->rowCount(), 3);
+    QCOMPARE(model->index(0,0).data().toString(), QLatin1String("x"));
+    QCOMPARE(model->index(1,0).data().toString(), QLatin1String("xT"));
+    QCOMPARE(model->index(2,0).data().toString(), QLatin1String("y"));
+}
+
+/*!
+ * multi-line command with comments within the line containing also the actual expression
+ * and with ' used to transpose the vector and to quote a string
+ * */
+void TestOctave::testComment08()
+{
+    QAbstractItemModel* model = session()->variableModel();
+    QVERIFY(model != nullptr);
+
+    evalExp(QLatin1String("clear();"));
+
+    auto* e = evalExp(QLatin1String(
+        "x=[1,2,3];\n"
+        "xT=x';\n"
+        "% comment\n"
+        "text = 'bla#blub';\n"
+        "y=1;"
+    ));
+
+    QVERIFY(e != nullptr);
+
+   if(session()->status()==Cantor::Session::Running)
+        waitForSignal(session(), SIGNAL(statusChanged(Cantor::Session::Status)));
+
+    QCOMPARE(e->status(), Cantor::Expression::Status::Done);
+    QVERIFY(e->result() == nullptr); // empty result output
+
+    QCOMPARE(model->rowCount(), 4);
+    QCOMPARE(model->index(0,0).data().toString(), QLatin1String("text"));
+    QCOMPARE(model->index(1,0).data().toString(), QLatin1String("x"));
+    QCOMPARE(model->index(2,0).data().toString(), QLatin1String("xT"));
+    QCOMPARE(model->index(3,0).data().toString(), QLatin1String("y"));
+}
+
+/*!
+ * multi-line command with comments within the line containing also the actual expression
+ * and with ' used to transpose the vector and to quote a string
+ * */
+void TestOctave::testComment09()
+{
+    QAbstractItemModel* model = session()->variableModel();
+    QVERIFY(model != nullptr);
+
+    evalExp(QLatin1String("clear();"));
+
+    auto* e = evalExp(QLatin1String(
+        "x=[1,2,3];\n"
+        "xT=x';\n"
+        "% comment\n"
+        "text = 'bla%blub';\n"
+        "y=1;"
+    ));
+
+    QVERIFY(e != nullptr);
+
+   if(session()->status()==Cantor::Session::Running)
+        waitForSignal(session(), SIGNAL(statusChanged(Cantor::Session::Status)));
+
+    QCOMPARE(e->status(), Cantor::Expression::Status::Done);
+    QVERIFY(e->result() == nullptr); // empty result output
+
+    QCOMPARE(model->rowCount(), 4);
+    QCOMPARE(model->index(0,0).data().toString(), QLatin1String("text"));
+    QCOMPARE(model->index(1,0).data().toString(), QLatin1String("x"));
+    QCOMPARE(model->index(2,0).data().toString(), QLatin1String("xT"));
+    QCOMPARE(model->index(3,0).data().toString(), QLatin1String("y"));
 }
 
 void TestOctave::testCompletion()

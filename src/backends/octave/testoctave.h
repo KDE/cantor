@@ -1,6 +1,7 @@
 /*
     SPDX-License-Identifier: GPL-2.0-or-later
     SPDX-FileCopyrightText: 2009 Alexander Rieder <alexanderrieder@gmail.com>
+    SPDX-FileCopyrightText: 2021-2023 Alexander Semke <alexander.semke@web.de>
 */
 
 #ifndef _TESTOCTAVE_H
@@ -35,6 +36,12 @@ private Q_SLOTS:
     void testComment01();
     void testComment02();
     void testComment03();
+    void testComment04();
+    void testComment05();
+    void testComment06();
+    void testComment07();
+    void testComment08();
+    void testComment09();
 
     //tests a syntax error (not closing bracket)
     void testInvalidSyntax();
