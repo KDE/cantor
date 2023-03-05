@@ -18,6 +18,8 @@ class TestSage : public BackendTest
   Q_OBJECT
 
 private Q_SLOTS:
+    void initTestCase();
+
     //tests evaluating a simple command
     void testSimpleCommand();
 

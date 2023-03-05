@@ -51,6 +51,8 @@ ImageResult::ImageResult(const QUrl &url, const QString& alt) :  d(new ImageResu
             return;
 
         d->data = file.readAll();
+        if (d->data.isEmpty())
+            return;
 
         if (d->extension == QLatin1String("pdf"))
         {

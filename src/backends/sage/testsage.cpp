@@ -19,6 +19,12 @@ QString TestSage::backendName()
     return QLatin1String("sage");
 }
 
+void TestSage::initTestCase() {
+    if (QStandardPaths::findExecutable(QLatin1String("sage")).isEmpty())
+        QSKIP("Sage executable not found");
+    BackendTest::initTestCase();
+}
+
 void TestSage::testSimpleCommand()
 {
     Cantor::Expression* e=evalExp( QLatin1String("2+2") );

@@ -1744,6 +1744,7 @@ void Worksheet::gotResult(Cantor::Expression* expr)
         {
             QString help = result->toHtml();
             //Do some basic LaTeX replacing
+            //TODO: what for? relevant for sage only?
             help.replace(QRegularExpression(QStringLiteral("\\\\code\\{([^\\}]*)\\}")), QStringLiteral("<b>\\1</b>"));
             help.replace(QRegularExpression(QStringLiteral("\\$([^\\$])\\$")), QStringLiteral("<i>\\1</i>"));
 
