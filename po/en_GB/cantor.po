@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-03-04 00:42+0000\n"
+"POT-Creation-Date: 2023-03-05 00:41+0000\n"
 "PO-Revision-Date: 2023-02-27 19:54+0000\n"
 "Last-Translator: Steve Allewell <steve.allewell@gmail.com>\n"
 "Language-Team: British English <kde-l10n-en_gb@kde.org>\n"
@@ -956,7 +956,7 @@ msgstr ""
 "solving linear and non-linear problems numerically, and for performing other "
 "numerical experiments using a language that is mostly compatible with Matlab."
 
-#: backends/octave/octaveexpression.cpp:203
+#: backends/octave/octaveexpression.cpp:222
 #, kde-format
 msgid "Invalid image file generated."
 msgstr "Invalid image file generated."
@@ -985,7 +985,7 @@ msgstr "The integration of plots will be disabled."
 msgid "Cantor"
 msgstr "Cantor"
 
-#: backends/octave/octavesession.cpp:323 backends/sage/sageexpression.cpp:51
+#: backends/octave/octavesession.cpp:327 backends/sage/sageexpression.cpp:51
 #, kde-format
 msgid "Syntax Error"
 msgstr "Syntax Error"

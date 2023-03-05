@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-03-04 00:42+0000\n"
+"POT-Creation-Date: 2023-03-05 00:41+0000\n"
 "PO-Revision-Date: 2014-06-15 00:51+0200\n"
 "Last-Translator: Balázs Úr <urbalazs@gmail.com>\n"
 "Language-Team: Hungarian <kde-l10n-hu@kde.org>\n"
@@ -961,7 +961,7 @@ msgstr ""
 "problémák numerikus megoldásához valamint egyéb numerikus kísérletek "
 "végrehajtásához egy nagyrészt Matlab-kompatibilis nyelv használatával."
 
-#: backends/octave/octaveexpression.cpp:203
+#: backends/octave/octaveexpression.cpp:222
 #, kde-format
 msgid "Invalid image file generated."
 msgstr ""
@@ -991,7 +991,7 @@ msgstr ""
 msgid "Cantor"
 msgstr "Cantor"
 
-#: backends/octave/octavesession.cpp:323 backends/sage/sageexpression.cpp:51
+#: backends/octave/octavesession.cpp:327 backends/sage/sageexpression.cpp:51
 #, kde-format
 msgid "Syntax Error"
 msgstr "Szintaktikai hiba"

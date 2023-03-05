@@ -4,20 +4,20 @@
 # Maciej Wikło <maciej.wiklo@wp.pl>, 2009.
 # Artur Chłond <eugenewolfe@o2.pl>, 2010.
 # Marta Rybczyńska <kde-i18n@rybczynska.net>, 2011.
-# Łukasz Wojniłowicz <lukasz.wojnilowicz@gmail.com>, 2011, 2012, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022.
+# Łukasz Wojniłowicz <lukasz.wojnilowicz@gmail.com>, 2011, 2012, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023.
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-03-04 00:42+0000\n"
-"PO-Revision-Date: 2022-11-26 10:30+0100\n"
+"POT-Creation-Date: 2023-03-05 00:41+0000\n"
+"PO-Revision-Date: 2023-03-04 09:21+0100\n"
 "Last-Translator: Łukasz Wojniłowicz <lukasz.wojnilowicz@gmail.com>\n"
 "Language-Team: Polish <kde-i18n-doc@kde.org>\n"
 "Language: pl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Lokalize 22.08.2\n"
+"X-Generator: Lokalize 22.12.2\n"
 "Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 "
 "|| n%100>=20) ? 1 : 2);\n"
 
@@ -82,7 +82,7 @@ msgstr "Wyrażenie:"
 #: assistants/advancedplot/advancedplotdialog.ui:45
 #, kde-format
 msgid "Additional options:"
-msgstr "Dodatkowe opcje:"
+msgstr "Ustawienia dodatkowe:"
 
 #. i18n: ectx: Menu (Plot)
 #: assistants/advancedplot/cantor_advancedplot_assistant.rc:4
@@ -847,13 +847,13 @@ msgstr "Ścieżka do pliku wykonywalnego Maxima"
 #: backends/maxima/maximabackend.kcfg:41
 #, kde-format
 msgid "Default plot width"
-msgstr ""
+msgstr "Domyślna szerokość wykresu"
 
 #. i18n: ectx: label, entry (plotHeight), group (MaximaBackend)
 #: backends/maxima/maximabackend.kcfg:45
 #, kde-format
 msgid "Default plot height"
-msgstr ""
+msgstr "Domyślna wysokość wykresu"
 
 #: backends/maxima/maximaexpression.cpp:114
 #, kde-format
@@ -899,25 +899,22 @@ msgstr ""
 
 #. i18n: ectx: property (text), widget (QLabel, lPlotIntegration)
 #: backends/maxima/settings.ui:67 backends/octave/settings.ui:135
-#, fuzzy, kde-format
-#| msgid "Integrate"
+#, kde-format
 msgid "Integrated:"
-msgstr "Całkuj"
+msgstr "Zintegrowany:"
 
 #. i18n: ectx: property (text), widget (QLabel, label_3)
 #. i18n: ectx: property (text), widget (QLabel, label_5)
 #: backends/maxima/settings.ui:84 backends/octave/settings.ui:118
-#, fuzzy, kde-format
-#| msgid "Font Size:"
+#, kde-format
 msgid "Size:"
-msgstr "Rozmiar czcionki:"
+msgstr "Rozmiar:"
 
 #. i18n: ectx: property (text), widget (QLabel, lPlotWidth)
 #: backends/maxima/settings.ui:112 backends/octave/settings.ui:58
-#, fuzzy, kde-format
-#| msgid "Width"
+#, kde-format
 msgid "width:"
-msgstr "Szerokość"
+msgstr "szerokość:"
 
 #. i18n: ectx: property (suffix), widget (QDoubleSpinBox, kcfg_plotWidth)
 #. i18n: ectx: property (suffix), widget (QDoubleSpinBox, kcfg_plotHeight)
@@ -925,27 +922,26 @@ msgstr "Szerokość"
 #: backends/octave/settings.ui:65 backends/octave/settings.ui:95
 #, kde-format
 msgid "cm"
-msgstr ""
+msgstr "cm"
 
 #. i18n: ectx: property (text), widget (QLabel, lPlotHeight)
 #: backends/maxima/settings.ui:142 backends/octave/settings.ui:88
-#, fuzzy, kde-format
-#| msgid "Height"
+#, kde-format
 msgid "height:"
-msgstr "Wysokość"
+msgstr "wysokość:"
 
 #. i18n: ectx: property (text), widget (QLabel, label_2)
 #. i18n: ectx: property (text), widget (QLabel, label_3)
 #: backends/maxima/settings.ui:172 backends/octave/settings.ui:155
 #, kde-format
 msgid "Image Format:"
-msgstr ""
+msgstr "Format obrazu:"
 
 #. i18n: ectx: property (text), item, widget (QComboBox, kcfg_inlinePlotFormat)
 #: backends/maxima/settings.ui:180 backends/octave/settings.ui:196
 #, kde-format
 msgid "PDF"
-msgstr ""
+msgstr "PDF"
 
 #: backends/octave/octavebackend.cpp:63
 #, kde-format
@@ -969,10 +965,10 @@ msgstr ""
 "wykonywania innych numerycznych eksperymentów przy wykorzystaniu języka, "
 "który jest w dużej części zgodny z Matlabem."
 
-#: backends/octave/octaveexpression.cpp:203
+#: backends/octave/octaveexpression.cpp:222
 #, kde-format
 msgid "Invalid image file generated."
-msgstr ""
+msgstr "Utworzono nieprawidłowy plik obrazu"
 
 #: backends/octave/octaveextensions.cpp:34
 #, kde-format
@@ -998,7 +994,7 @@ msgstr "Integracja wykresów zostanie wyłączona."
 msgid "Cantor"
 msgstr "Cantor"
 
-#: backends/octave/octavesession.cpp:323 backends/sage/sageexpression.cpp:51
+#: backends/octave/octavesession.cpp:327 backends/sage/sageexpression.cpp:51
 #, kde-format
 msgid "Syntax Error"
 msgstr "Błąd składni"
@@ -2714,10 +2710,9 @@ msgstr ""
 
 #. i18n: ectx: label, entry (WarnAboutEntryDelete), group (Cantor)
 #: cantor.kcfg:40
-#, fuzzy, kde-format
-#| msgid "Ask for confirmation when restarting the backend"
+#, kde-format
 msgid "Ask for confirmation when deleting an entry"
-msgstr "Pytaj o potwierdzenie przy ponownym uruchamianiu silnika"
+msgstr "Pytaj o potwierdzenie przy usuwaniu wpisu"
 
 #. i18n: ectx: label, entry (AutoEval), group (Cantor)
 #: cantor.kcfg:44
@@ -3487,15 +3482,14 @@ msgid "Cannot load image %1"
 msgstr "Nie można wczytać obrazu %1"
 
 #: imageresultitem.cpp:90
-#, fuzzy, kde-format
-#| msgid "Text Files (*.txt)"
+#, kde-format
 msgid "%1 files (*.%2)"
-msgstr "Pliki tekstowe (*.txt)"
+msgstr "%1 pliki (*.%2)"
 
 #: imageresultitem.cpp:93
 #, kde-format
 msgid "EPS files (*.eps)"
-msgstr ""
+msgstr "Pliki EPS (*.eps)"
 
 #: imageresultitem.cpp:96
 #, kde-format
@@ -3650,19 +3644,19 @@ msgstr "Ścieżka do pliku wykonywalnego dvips"
 #, kde-format
 msgctxt "@title:column"
 msgid "Type"
-msgstr ""
+msgstr "Rodzaj"
 
 #: lib/defaultvariablemodel.cpp:73
 #, kde-format
 msgctxt "@title:column"
 msgid "Size [Bytes]"
-msgstr ""
+msgstr "Rozmiar [w bajtach]"
 
 #: lib/defaultvariablemodel.cpp:75
 #, kde-format
 msgctxt "@title:column"
 msgid "Dimension"
-msgstr ""
+msgstr "Wymiar"
 
 #: lib/defaultvariablemodel.cpp:77
 #, kde-format
@@ -3988,22 +3982,19 @@ msgid "Load file"
 msgstr "Wczytaj plik"
 
 #: panelplugins/variablemgr/variablemanagerwidget.cpp:286
-#, fuzzy, kde-format
-#| msgid "Name"
+#, kde-format
 msgid "Copy Name"
-msgstr "Nazwa"
+msgstr "Skopiuj nazwę"
 
 #: panelplugins/variablemgr/variablemanagerwidget.cpp:287
-#, fuzzy, kde-format
-#| msgctxt "@title:column"
-#| msgid "Value"
+#, kde-format
 msgid "Copy Value"
-msgstr "Wartość"
+msgstr "Skopiuj wartość"
 
 #: panelplugins/variablemgr/variablemanagerwidget.cpp:288
 #, kde-format
 msgid "Copy Name and Value"
-msgstr ""
+msgstr "Skopiuj nazwę i wartość"
 
 #: resultitem.cpp:48
 #, kde-format
@@ -4263,10 +4254,9 @@ msgstr "Podświetlanie składni"
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_WarnAboutEntryDelete)
 #: settings.ui:303
-#, fuzzy, kde-format
-#| msgid "Ask for confirmation when restarting the backend"
+#, kde-format
 msgid "Ask for confirmation when deleting entries"
-msgstr "Pytaj o potwierdzenie przy ponownym uruchamianiu silnika"
+msgstr "Pytaj o potwierdzenie przy usuwaniu wpisu"
 
 #. i18n: ectx: property (placeholderText), widget (KLineEdit, pattern)
 #: standardsearchbar.ui:35

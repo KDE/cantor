@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: cantor\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-03-04 00:42+0000\n"
+"POT-Creation-Date: 2023-03-05 00:41+0000\n"
 "PO-Revision-Date: 2023-01-04 14:27+0100\n"
 "Last-Translator: Josep M. Ferrer <txemaq@gmail.com>\n"
 "Language-Team: Catalan <kde-i18n-ca@kde.org>\n"
@@ -976,7 +976,7 @@ msgstr ""
 "experiments numèrics emprant un llenguatge que és altament compatible amb "
 "Matlab."
 
-#: backends/octave/octaveexpression.cpp:203
+#: backends/octave/octaveexpression.cpp:222
 #, kde-format
 msgid "Invalid image file generated."
 msgstr "Fitxer generat d'imatge no vàlid."
@@ -1005,7 +1005,7 @@ msgstr "Es desactivarà la integració de les gràfiques."
 msgid "Cantor"
 msgstr "Cantor"
 
-#: backends/octave/octavesession.cpp:323 backends/sage/sageexpression.cpp:51
+#: backends/octave/octavesession.cpp:327 backends/sage/sageexpression.cpp:51
 #, kde-format
 msgid "Syntax Error"
 msgstr "S'ha produït un error de sintaxi"

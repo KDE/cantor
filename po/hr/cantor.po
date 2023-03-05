@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-03-04 00:42+0000\n"
+"POT-Creation-Date: 2023-03-05 00:41+0000\n"
 "PO-Revision-Date: 2010-12-05 20:18+0100\n"
 "Last-Translator: Marko Dimjašević\n"
 "Language-Team: Croatian <kde-croatia-list@lists.sourceforge.net>\n"
@@ -935,7 +935,7 @@ msgid ""
 "numerical experiments using a language that is mostly compatible with Matlab."
 msgstr ""
 
-#: backends/octave/octaveexpression.cpp:203
+#: backends/octave/octaveexpression.cpp:222
 #, kde-format
 msgid "Invalid image file generated."
 msgstr ""
@@ -965,7 +965,7 @@ msgstr ""
 msgid "Cantor"
 msgstr "Cantor"
 
-#: backends/octave/octavesession.cpp:323 backends/sage/sageexpression.cpp:51
+#: backends/octave/octavesession.cpp:327 backends/sage/sageexpression.cpp:51
 #, kde-format
 msgid "Syntax Error"
 msgstr "Sintaktička pogreška"
