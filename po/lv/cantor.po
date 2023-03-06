@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: cantor\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-03-05 00:41+0000\n"
+"POT-Creation-Date: 2023-03-06 00:42+0000\n"
 "PO-Revision-Date: 2012-12-22 19:21+0200\n"
 "Last-Translator: Einars Sprugis <einars8@gmail.com>\n"
 "Language-Team: Latvian <locale@laka.lv>\n"
@@ -1447,7 +1447,7 @@ msgstr "EPS"
 
 #. i18n: ectx: property (text), item, widget (KComboBox, saveFileBox)
 #: backends/qalculate/plotassistant/qalculateplotdialog.ui:575
-#: worksheet.cpp:1821 worksheet.cpp:1847 worksheet.cpp:1867 worksheet.cpp:1885
+#: worksheet.cpp:1822 worksheet.cpp:1848 worksheet.cpp:1868 worksheet.cpp:1886
 #, kde-format
 msgid "LaTeX"
 msgstr "LaTeX"
@@ -2903,12 +2903,12 @@ msgstr "Saglabāt kā vienkāršu tekstu"
 msgid "Export to LaTeX"
 msgstr "Eksportēt uz LaTex"
 
-#: cantor_part.cpp:197 cantor_part.cpp:628 worksheet.cpp:1905
+#: cantor_part.cpp:197 cantor_part.cpp:628 worksheet.cpp:1906
 #, kde-format
 msgid "Evaluate Worksheet"
 msgstr "Novērtēt darblapu"
 
-#: cantor_part.cpp:205 worksheet.cpp:1913
+#: cantor_part.cpp:205 worksheet.cpp:1914
 #, kde-format
 msgid "Zoom"
 msgstr ""
@@ -3075,7 +3075,7 @@ msgstr ""
 msgid "Restart %1?"
 msgstr "Pārstartēt aizmuguri"
 
-#: cantor_part.cpp:618 worksheet.cpp:1908
+#: cantor_part.cpp:618 worksheet.cpp:1909
 #, kde-format
 msgid "Interrupt"
 msgstr "Pārtraukums"
@@ -3262,7 +3262,7 @@ msgstr "Rezultāti"
 msgid "Hide Results"
 msgstr "Rezultāti"
 
-#: commandentry.cpp:343 worksheet.cpp:1898
+#: commandentry.cpp:343 worksheet.cpp:1899
 #, fuzzy, kde-format
 #| msgid "Show %1 Help"
 msgid "Show Help"
@@ -4120,8 +4120,8 @@ msgstr "Rezultāti"
 msgid "Errors"
 msgstr "Kļūdas"
 
-#: searchbar.cpp:334 searchbar.cpp:363 worksheet.cpp:1813 worksheet.cpp:1842
-#: worksheet.cpp:1862 worksheet.cpp:1880
+#: searchbar.cpp:334 searchbar.cpp:363 worksheet.cpp:1814 worksheet.cpp:1843
+#: worksheet.cpp:1863 worksheet.cpp:1881
 #, kde-format
 msgid "Text"
 msgstr "Teksts"
@@ -4537,240 +4537,240 @@ msgstr ""
 msgid "Invalid Jupyter notebook scheme: %1"
 msgstr ""
 
-#: worksheet.cpp:1805
+#: worksheet.cpp:1806
 #, fuzzy, kde-format
 #| msgid "Insert Text Entry"
 msgid "Convert To"
 msgstr "Ievietot teksta ierakstu"
 
-#: worksheet.cpp:1810 worksheet.cpp:1841 worksheet.cpp:1861 worksheet.cpp:1879
+#: worksheet.cpp:1811 worksheet.cpp:1842 worksheet.cpp:1862 worksheet.cpp:1880
 #, fuzzy, kde-format
 #| msgid "Commands"
 msgid "Command"
 msgstr "Komandas"
 
-#: worksheet.cpp:1817 worksheet.cpp:1844 worksheet.cpp:1864 worksheet.cpp:1882
+#: worksheet.cpp:1818 worksheet.cpp:1845 worksheet.cpp:1865 worksheet.cpp:1883
 #, fuzzy, kde-format
 #| msgid "Insert Command Entry"
 msgid "Markdown"
 msgstr "Ievietot komandas ierakstu"
 
-#: worksheet.cpp:1824 worksheet.cpp:1849 worksheet.cpp:1869 worksheet.cpp:1887
+#: worksheet.cpp:1825 worksheet.cpp:1850 worksheet.cpp:1870 worksheet.cpp:1888
 #, kde-format
 msgid "Image"
 msgstr "Attēls"
 
-#: worksheet.cpp:1827 worksheet.cpp:1852 worksheet.cpp:1872 worksheet.cpp:1890
+#: worksheet.cpp:1828 worksheet.cpp:1853 worksheet.cpp:1873 worksheet.cpp:1891
 #, kde-format
 msgid "Page Break"
 msgstr "Lapas atdalītājs"
 
-#: worksheet.cpp:1830 worksheet.cpp:1851 worksheet.cpp:1871 worksheet.cpp:1889
+#: worksheet.cpp:1831 worksheet.cpp:1852 worksheet.cpp:1872 worksheet.cpp:1890
 #, fuzzy, kde-format
 #| msgid "Points and Lines"
 msgid "Horizontal Line"
 msgstr "Punkti un rindas"
 
-#: worksheet.cpp:1833 worksheet.cpp:1854 worksheet.cpp:1874 worksheet.cpp:1892
+#: worksheet.cpp:1834 worksheet.cpp:1855 worksheet.cpp:1875 worksheet.cpp:1893
 #, fuzzy, kde-format
 #| msgid "Drag Entry"
 msgid "Hierarchy Entry"
 msgstr "Pārnest ierakstu"
 
-#: worksheet.cpp:1836
+#: worksheet.cpp:1837
 #, fuzzy, kde-format
 #| msgid "Insert Text Entry"
 msgid "Insert After"
 msgstr "Ievietot teksta ierakstu"
 
-#: worksheet.cpp:1857
+#: worksheet.cpp:1858
 #, kde-format
 msgid "Insert Before"
 msgstr "Ievietot pirms"
 
-#: worksheet.cpp:1876
+#: worksheet.cpp:1877
 #, kde-format
 msgid "Insert"
 msgstr "Ievietot"
 
-#: worksheet.cpp:1917
+#: worksheet.cpp:1918
 #, kde-format
 msgid "Zoom In"
 msgstr ""
 
-#: worksheet.cpp:1920
+#: worksheet.cpp:1921
 #, kde-format
 msgid "Zoom Out"
 msgstr ""
 
-#: worksheet.cpp:1924
+#: worksheet.cpp:1925
 #, fuzzy, kde-format
 #| msgid "Print Size"
 msgid "Original Size"
 msgstr "Drukāšanas izmērs"
 
-#: worksheet.cpp:1932
+#: worksheet.cpp:1933
 #, kde-format
 msgid "Move Entries Up"
 msgstr ""
 
-#: worksheet.cpp:1933
+#: worksheet.cpp:1934
 #, fuzzy, kde-format
 #| msgid "Insert Text Entry"
 msgid "Move Entries Down"
 msgstr "Ievietot teksta ierakstu"
 
-#: worksheet.cpp:1934
+#: worksheet.cpp:1935
 #, fuzzy, kde-format
 #| msgid "Evaluate Entry"
 msgid "Evaluate Entries"
 msgstr "Novērtēt ierakstu"
 
-#: worksheet.cpp:1935
+#: worksheet.cpp:1936
 #, fuzzy, kde-format
 #| msgid "Remove Entry"
 msgid "Remove Entries"
 msgstr "Izņemt ierakstu"
 
-#: worksheet.cpp:1948
+#: worksheet.cpp:1949
 #, fuzzy, kde-format
 #| msgid "Insert Command Entry"
 msgid "Collapse Command Entry Results"
 msgstr "Ievietot komandas ierakstu"
 
-#: worksheet.cpp:1949
+#: worksheet.cpp:1950
 #, fuzzy, kde-format
 #| msgid "Append Command Entry"
 msgid "Expand Command Entry Results"
 msgstr "Pievienot komandas ierakstu"
 
-#: worksheet.cpp:1950
+#: worksheet.cpp:1951
 #, fuzzy, kde-format
 #| msgid "Command Entry"
 msgid "Remove Command Entry Results"
 msgstr "Komandas ieraksts"
 
-#: worksheet.cpp:1951
+#: worksheet.cpp:1952
 #, kde-format
 msgid "Exclude Command Entry From Execution"
 msgstr ""
 
-#: worksheet.cpp:1952
+#: worksheet.cpp:1953
 #, fuzzy, kde-format
 #| msgid "Append Command Entry"
 msgid "Add Command Entry To Execution"
 msgstr "Pievienot komandas ierakstu"
 
-#: worksheet.cpp:2060
+#: worksheet.cpp:2061
 #, kde-format
 msgctxt "@action"
 msgid "Text &Color..."
 msgstr "Teksta &krāsa..."
 
-#: worksheet.cpp:2061
+#: worksheet.cpp:2062
 #, kde-format
 msgctxt "@label text color"
 msgid "Color"
 msgstr "Krāsa"
 
-#: worksheet.cpp:2068
+#: worksheet.cpp:2069
 #, kde-format
 msgctxt "@action"
 msgid "Text &Highlight..."
 msgstr "Teksta &izcelšana..."
 
-#: worksheet.cpp:2074
+#: worksheet.cpp:2075
 #, kde-format
 msgctxt "@action"
 msgid "&Font"
 msgstr "&Fonts"
 
-#: worksheet.cpp:2083
+#: worksheet.cpp:2084
 #, kde-format
 msgctxt "@action"
 msgid "Font &Size"
 msgstr "Fonta i&zmērs"
 
-#: worksheet.cpp:2089
+#: worksheet.cpp:2090
 #, kde-format
 msgctxt "@action boldify selected text"
 msgid "&Bold"
 msgstr "&Trekns"
 
-#: worksheet.cpp:2100
+#: worksheet.cpp:2101
 #, kde-format
 msgctxt "@action italicize selected text"
 msgid "&Italic"
 msgstr "&Slīpraksts"
 
-#: worksheet.cpp:2112
+#: worksheet.cpp:2113
 #, kde-format
 msgctxt "@action underline selected text"
 msgid "&Underline"
 msgstr "&Pasvītrots"
 
-#: worksheet.cpp:2123
+#: worksheet.cpp:2124
 #, kde-format
 msgctxt "@action"
 msgid "&Strike Out"
 msgstr "Pā&rsvīrtots"
 
-#: worksheet.cpp:2134
+#: worksheet.cpp:2135
 #, kde-format
 msgctxt "@action"
 msgid "Align &Left"
 msgstr "Izlīdzināt gar &kreiso"
 
-#: worksheet.cpp:2137
+#: worksheet.cpp:2138
 #, kde-format
 msgctxt "@label left justify"
 msgid "Left"
 msgstr "Pa kreisi"
 
-#: worksheet.cpp:2144
+#: worksheet.cpp:2145
 #, kde-format
 msgctxt "@action"
 msgid "Align &Center"
 msgstr "Izlīdzināt &centrā"
 
-#: worksheet.cpp:2147
+#: worksheet.cpp:2148
 #, kde-format
 msgctxt "@label center justify"
 msgid "Center"
 msgstr "Centrā"
 
-#: worksheet.cpp:2154
+#: worksheet.cpp:2155
 #, kde-format
 msgctxt "@action"
 msgid "Align &Right"
 msgstr "Izlīdzināt gar &labo"
 
-#: worksheet.cpp:2157
+#: worksheet.cpp:2158
 #, kde-format
 msgctxt "@label right justify"
 msgid "Right"
 msgstr "Pa labi"
 
-#: worksheet.cpp:2164
+#: worksheet.cpp:2165
 #, kde-format
 msgctxt "@action"
 msgid "&Justify"
 msgstr "&Izretināt"
 
-#: worksheet.cpp:2167
+#: worksheet.cpp:2168
 #, kde-format
 msgctxt "@label justify fill"
 msgid "Justify"
 msgstr "Izlīdzināt"
 
-#: worksheet.cpp:2861
+#: worksheet.cpp:2862
 #, kde-format
 msgid ""
 "This action will remove all results without the possibility of cancellation. "
 "Are you sure?"
 msgstr ""
 
-#: worksheet.cpp:2862
+#: worksheet.cpp:2863
 #, fuzzy, kde-format
 #| msgid "Remove result"
 msgid "Remove all results"
