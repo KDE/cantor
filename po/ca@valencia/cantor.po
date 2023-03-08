@@ -2914,7 +2914,7 @@ msgstr "Anomena i guarda text net"
 #: cantor_part.cpp:181 cantor_part.cpp:532
 #, kde-format
 msgid "Export to LaTeX"
-msgstr "Exporta a LaTeX"
+msgstr "Exporta cap a LaTeX"
 
 #: cantor_part.cpp:197 cantor_part.cpp:628 worksheet.cpp:1906
 #, kde-format
