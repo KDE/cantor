@@ -2448,9 +2448,9 @@ msgid ""
 "package and a high-level, numerically oriented programming language.Scilab "
 "is distributed under CeCILL license (GPL compatible)."
 msgstr ""
-"<p>Scilab on vapaa monialustainen numeerisen laskennan paketti ja korkean "
-"tason numeerisesti suuntautunut ohjelmointikieli. Scilabia jaetaan (GPL-"
-"yhteensopivalla) CeCILL-lisensillä."
+"<b>Scilab</b> on vapaa monialustainen numeerisen laskennan paketti ja "
+"korkean tason numeerisesti suuntautunut ohjelmointikieli. Scilabia jaetaan "
+"(GPL-yhteensopivalla) CeCILL-lisensillä."
 
 #. i18n: ectx: label, entry (Path), group (ScilabBackend)
 #: backends/scilab/scilabbackend.kcfg:10
