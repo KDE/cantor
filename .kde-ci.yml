@@ -23,6 +23,3 @@ Dependencies:
 - 'on': ['Linux', 'FreeBSD']
   'require':
     'frameworks/kpty': '@stable'
-
-Options:
-  require-passing-tests-on: ['@all']
