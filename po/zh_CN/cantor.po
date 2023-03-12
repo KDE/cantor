@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: kdeorg\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-03-06 00:42+0000\n"
-"PO-Revision-Date: 2023-02-24 12:43\n"
+"PO-Revision-Date: 2023-03-11 04:54\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Simplified\n"
 "Language: zh_CN\n"
@@ -14,8 +14,8 @@ msgstr ""
 "X-Crowdin-Project: kdeorg\n"
 "X-Crowdin-Project-ID: 269464\n"
 "X-Crowdin-Language: zh-CN\n"
-"X-Crowdin-File: /kf5-trunk/messages/cantor/cantor.pot\n"
-"X-Crowdin-File-ID: 5106\n"
+"X-Crowdin-File: /kf5-stable/messages/cantor/cantor.pot\n"
+"X-Crowdin-File-ID: 4303\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -839,22 +839,25 @@ msgstr "Maxima 在短时间内连续崩溃了两次。已停止启动尝试"
 
 #. i18n: ectx: property (text), widget (QLabel, lPlotIntegration)
 #: backends/maxima/settings.ui:67 backends/octave/settings.ui:135
-#, kde-format
+#, fuzzy, kde-format
+#| msgid "Integrate"
 msgid "Integrated:"
-msgstr ""
+msgstr "积分"
 
 #. i18n: ectx: property (text), widget (QLabel, label_3)
 #. i18n: ectx: property (text), widget (QLabel, label_5)
 #: backends/maxima/settings.ui:84 backends/octave/settings.ui:118
-#, kde-format
+#, fuzzy, kde-format
+#| msgid "Font Size:"
 msgid "Size:"
-msgstr ""
+msgstr "字体大小："
 
 #. i18n: ectx: property (text), widget (QLabel, lPlotWidth)
 #: backends/maxima/settings.ui:112 backends/octave/settings.ui:58
-#, kde-format
+#, fuzzy, kde-format
+#| msgid "Width"
 msgid "width:"
-msgstr ""
+msgstr "宽度"
 
 #. i18n: ectx: property (suffix), widget (QDoubleSpinBox, kcfg_plotWidth)
 #. i18n: ectx: property (suffix), widget (QDoubleSpinBox, kcfg_plotHeight)
@@ -866,9 +869,10 @@ msgstr ""
 
 #. i18n: ectx: property (text), widget (QLabel, lPlotHeight)
 #: backends/maxima/settings.ui:142 backends/octave/settings.ui:88
-#, kde-format
+#, fuzzy, kde-format
+#| msgid "Height"
 msgid "height:"
-msgstr ""
+msgstr "高度"
 
 #. i18n: ectx: property (text), widget (QLabel, label_2)
 #. i18n: ectx: property (text), widget (QLabel, label_3)
@@ -2579,9 +2583,10 @@ msgstr ""
 
 #. i18n: ectx: label, entry (WarnAboutEntryDelete), group (Cantor)
 #: cantor.kcfg:40
-#, kde-format
+#, fuzzy, kde-format
+#| msgid "Ask for confirmation when restarting the backend"
 msgid "Ask for confirmation when deleting an entry"
-msgstr ""
+msgstr "重新启动后端时要求确认"
 
 #. i18n: ectx: label, entry (AutoEval), group (Cantor)
 #: cantor.kcfg:44
@@ -3833,14 +3838,17 @@ msgid "Load file"
 msgstr "加载文件"
 
 #: panelplugins/variablemgr/variablemanagerwidget.cpp:286
-#, kde-format
+#, fuzzy, kde-format
+#| msgid "Name"
 msgid "Copy Name"
-msgstr ""
+msgstr "名称"
 
 #: panelplugins/variablemgr/variablemanagerwidget.cpp:287
-#, kde-format
+#, fuzzy, kde-format
+#| msgctxt "@title:column"
+#| msgid "Value"
 msgid "Copy Value"
-msgstr ""
+msgstr "值"
 
 #: panelplugins/variablemgr/variablemanagerwidget.cpp:288
 #, kde-format
@@ -4089,9 +4097,10 @@ msgstr ""
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_WarnAboutEntryDelete)
 #: settings.ui:303
-#, kde-format
+#, fuzzy, kde-format
+#| msgid "Ask for confirmation when restarting the backend"
 msgid "Ask for confirmation when deleting entries"
-msgstr ""
+msgstr "重新启动后端时要求确认"
 
 #. i18n: ectx: property (placeholderText), widget (KLineEdit, pattern)
 #: standardsearchbar.ui:35
@@ -4682,3 +4691,22 @@ msgstr "删除条目"
 #, kde-format
 msgid "Drag Entry"
 msgstr "拖动项目"
+
+#~ msgid ""
+#~ "The plot integration doesn't work because Cantor found, that Octave can't "
+#~ "create plots, because there are no graphical backends for it: this "
+#~ "conclusion was made on the basis of empty output from "
+#~ "available_graphics_toolkits() function. Looks like you should install "
+#~ "some additional OS packages, like gnuplot, fltk or qt for possibility to "
+#~ "create plots."
+#~ msgstr ""
+#~ "绘图集成无法正常运行，因为 Cantor 发现 Octave 无法创建绘图，因为它没有图形"
+#~ "后端：这个结论是基于 available_graphics_toolkits() 函数的空输出做出的。 看"
+#~ "起来您应该安装一些额外的操作系统软件包，如 gnutplot、fltk 或 qt 来使其能够"
+#~ "绘图。"
+
+#~ msgid "<%1 bytes>"
+#~ msgstr "<%1 字节>"
+
+#~ msgid "<too big variable>"
+#~ msgstr "<变量过大>"
