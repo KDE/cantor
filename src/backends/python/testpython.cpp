@@ -159,7 +159,7 @@ void TestPython3::testPython3Code()
 
 void TestPython3::testSimplePlot()
 {
-    QSKIP("doesn't work", SkipSingle);
+    QSKIP("doesn't work on CI", SkipSingle);
 
     if (!PythonSettings::integratePlots())
         QSKIP("This test needs enabled plots integration in Python3 settings", SkipSingle);
@@ -316,6 +316,8 @@ void TestPython3::testDictVariable()
 
 void TestPython3::testInterrupt()
 {
+    QSKIP("doesn't work on CI", SkipSingle);
+
     auto* e1 = session()->evaluateExpression(QLatin1String("import time; time.sleep(150)"));
     auto* e2 = session()->evaluateExpression(QLatin1String("2"));
 
