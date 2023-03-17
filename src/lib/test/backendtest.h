@@ -25,8 +25,10 @@ class CANTORTEST_EXPORT BackendTest : public QObject
 private Q_SLOTS:
     void cleanupTestCase();
 
-protected:
+protected Q_SLOTS:
     void initTestCase();
+
+protected:
     Cantor::Expression* evalExp(const QString& exp);
     QString cleanOutput( const QString& out );
     Cantor::Session* session();
