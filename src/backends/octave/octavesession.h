@@ -1,6 +1,6 @@
 /*
     SPDX-FileCopyrightText: 2010 Miha Čančula <miha.cancula@gmail.com>
-    SPDX-FileCopyrightText: 2017-2022 by Alexander Semke (alexander.semke@web.de)
+    SPDX-FileCopyrightText: 2017-2023 by Alexander Semke (alexander.semke@web.de)
 
     SPDX-License-Identifier: GPL-2.0-or-later
 */
@@ -9,19 +9,15 @@
 #define OCTAVESESSION_H
 
 #include <session.h>
-#include <QQueue>
 #include <QTextStream>
 #include <QRegularExpression>
-#include <QPointer>
 
 namespace Cantor {
 class DefaultVariableModel;
 }
 
-class KDirWatch;
 class OctaveExpression;
-class KProcess;
-
+class QProcess;
 
 class OctaveSession : public Cantor::Session
 {
@@ -46,7 +42,7 @@ class OctaveSession : public Cantor::Session
         const static QRegularExpression PROMPT_UNCHANGEABLE_COMMAND;
 
     private:
-        KProcess* m_process{nullptr};
+        QProcess* m_process{nullptr};
         QTextStream m_stream;
         QRegularExpression m_prompt;
         QRegularExpression m_subprompt;
@@ -56,17 +52,18 @@ class OctaveSession : public Cantor::Session
         QString m_plotFilePrefixPath;
         QString m_worksheetPath;
         bool m_isIntegratedPlotsEnabled{false}; // Better move it in worksheet, like isCompletion, etc.
+        bool m_writableTempFolder{false};
 
     private:
         void readFromOctave(QByteArray);
         bool isDoNothingCommand(const QString&);
         bool isSpecialOctaveCommand(const QString&);
+        void checkWritableTempFolder();
 
     private Q_SLOTS:
         void readOutput();
         void readError();
         void processError();
-        void runSpecificCommands();
 };
 
 #endif // OCTAVESESSION_H

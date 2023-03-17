@@ -147,6 +147,16 @@ QString MaximaExpression::internalCommand()
 {
     QString cmd = command();
 
+    // trim the string so the regex-logic below also works with whitespaces around the actual plot command
+    cmd = cmd.trimmed();
+
+    //replace all newlines with spaces, as maxima isn't sensitive about
+    //whitespaces, and without newlines the whole command
+    //is executed at once, without outputting an input
+    //prompt after each line.
+    // Also, this helps to handle plot/draw commands  with line breaks that are not properly handled by the regex below.
+    cmd.replace(QLatin1Char('\n'), QLatin1Char(' '));
+
     if(m_isPlot)
     {
         if(!m_tempFile)
@@ -154,16 +164,6 @@ QString MaximaExpression::internalCommand()
             qDebug()<<"plotting without tempFile";
             return QString();
         }
-
-        // trim the string so the regex-logic below also works with whitespaces around the actual plot command
-        cmd = cmd.trimmed();
-
-        //replace all newlines with spaces, as maxima isn't sensitive about
-        //whitespaces, and without newlines the whole command
-        //is executed at once, without outputting an input
-        //prompt after each line.
-        // Also, this helps to handle plot/draw commands  with line breaks that are not properly handled by the regex below.
-        cmd.replace(QLatin1Char('\n'), QLatin1Char(' '));
 
         if (!m_isDraw)
         {

@@ -24,7 +24,8 @@ QWidget* DocumentationPanelPlugin::widget()
     if(!m_widget)
     {
         m_widget = new DocumentationPanelWidget(parentWidget());
-        connect(m_cantorShell, SIGNAL(requestDocumentation(QString)), m_widget, SLOT(contextSensitiveHelp(QString)));
+        if (m_cantorShell)
+            connect(m_cantorShell, SIGNAL(requestDocumentation(QString)), m_widget, SLOT(contextSensitiveHelp(QString)));
     }
 
     return m_widget;
@@ -39,6 +40,10 @@ void DocumentationPanelPlugin::connectToShell(QObject* cantorShell)
 {
     m_cantorShell = cantorShell;
     connect(cantorShell, SIGNAL(requestDocumentation(QString)), this, SIGNAL(visibilityRequested()));
+
+    // when using cantor in labplot, connectToShell() is called after widget() so we need to connect here, too
+    if (m_widget)
+        connect(m_cantorShell, SIGNAL(requestDocumentation(QString)), m_widget, SLOT(contextSensitiveHelp(QString)));
 }
 
 Cantor::PanelPlugin::State DocumentationPanelPlugin::saveState()

@@ -74,15 +74,18 @@ QString OctaveExpression::internalCommand()
     QString cmd = command();
     auto* octaveSession = static_cast<OctaveSession*>(session());
 
-    if (octaveSession->isIntegratedPlotsEnabled() && !isInternal())
+    if (!isInternal())
     {
         QStringList cmdWords = cmd.split(QRegularExpression(QStringLiteral("\\b")), QString::SkipEmptyParts);
         if (!cmdWords.contains(QLatin1String("help")) && !cmdWords.contains(QLatin1String("completion_matches")))
         {
             for (const QString& plotCmd : plotCommands)
-                if (cmdWords.contains(plotCmd))
-                {
+            {
+                if (!cmdWords.contains(plotCmd))
+                    continue;
 
+                if (octaveSession->isIntegratedPlotsEnabled())
+                {
                     if (!cmd.endsWith(QLatin1Char(';')) && !cmd.endsWith(QLatin1Char(',')))
                         cmd += QLatin1Char(',');
 
@@ -114,8 +117,14 @@ QString OctaveExpression::internalCommand()
                         m_plotPending = true;
                         connect(watcher, &QFileSystemWatcher::fileChanged, this, &OctaveExpression::imageChanged,  Qt::UniqueConnection);
                     }
-                    break;
+
+                    cmd = QLatin1String("figure('visible','off');") + cmd;
                 }
+                else
+                    cmd = QLatin1String("figure('visible','on');") + cmd;
+
+                break;
+            }
         }
     }
 

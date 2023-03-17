@@ -1,6 +1,7 @@
 /*
     SPDX-License-Identifier: GPL-2.0-or-later
     SPDX-FileCopyrightText: 2018 Nikita Sirgienko <warquark@gmail.com>
+    SPDX-FileCopyrightText: 2023 Alexander Semke <alexander.semke@web.de>
 */
 
 #ifndef _TESTLUA_H
@@ -16,18 +17,13 @@ class TestLua : public BackendTest
   Q_OBJECT
 
 private Q_SLOTS:
-    //tests evaluating a simple command
     void testSimpleCommand();
-    //tests a command, containing more than 1 line
     void testMultilineCommand();
-    //tests simple variable definition
     void testVariableDefinition();
-    //tests a syntax error (not closing bracket)
     void testInvalidSyntax();
-    //tests if-else condition
     void testIfElseCondition();
-    //tests 'for' loop
     void testForLoop();
+    void testFunction();
 
 private:
     QString backendName() override;
