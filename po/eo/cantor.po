@@ -1,13 +1,15 @@
 # Translation of cantor into esperanto.
 # Axel Rousseau <axel@esperanto-jeunes.org>, 2009.
 # Eliovir <eliovir@gmail.com>, 2015. #zanata
+# Oliver Kellogg <okellogg@users.sourceforge.net>, 2023.
+#
 msgid ""
 msgstr ""
 "Project-Id-Version: cantor\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-03-06 00:42+0000\n"
-"PO-Revision-Date: 2015-03-15 08:54-0400\n"
-"Last-Translator: Eliovir <eliovir@gmail.com>\n"
+"PO-Revision-Date: 2023-03-20 22:31+0100\n"
+"Last-Translator: Oliver Kellogg <okellogg@users.sourceforge.net>\n"
 "Language-Team: esperanto <kde-i18n-eo@kde.org>\n"
 "Language: eo\n"
 "MIME-Version: 1.0\n"
@@ -19,28 +21,28 @@ msgstr ""
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
 msgid "Your names"
-msgstr "Axel Rousseau"
+msgstr "Axel Rousseau,Oliver Kellogg"
 
 #, kde-format
 msgctxt "EMAIL OF TRANSLATORS"
 msgid "Your emails"
-msgstr "axel@esperanto-jeunes.org"
+msgstr "axel@esperanto-jeunes.org,okellogg@users.sourceforge.net"
 
 # auto translated by TM merge from project: Enlightenment, version: master, DocId: enlightenment/modules/photo/po/photo
 #: animationresultitem.cpp:38
-#, fuzzy, kde-format
+#, kde-format
 msgid "Pause"
-msgstr "Paŭzo"
+msgstr "Paŭzi"
 
 # auto translated by TM merge from project: KDE por esperantistoj, version: kdeedu, DocId: kdeedu/marble
 #: animationresultitem.cpp:41
-#, fuzzy, kde-format
+#, kde-format
 msgid "Start"
-msgstr "Startigo"
+msgstr "Komenci"
 
 # auto translated by TM merge from project: KDE por esperantistoj, version: kdeedu5, DocId: kdeedu/parley
 #: animationresultitem.cpp:45
-#, fuzzy, kde-format
+#, kde-format
 msgid "Stop"
 msgstr "Halti"
 
@@ -52,19 +54,19 @@ msgstr ""
 #: animationresultitem.cpp:111
 #, kde-format
 msgid "Animations (*.gif)"
-msgstr ""
+msgstr "Animacioj (*.gif)"
 
 #: assistants/advancedplot/advancedplotassistant.cpp:30
 #, kde-format
 msgid "Advanced Plotting"
-msgstr ""
+msgstr "Altnivela Grafikprezento"
 
 #. i18n: ectx: property (text), widget (QLabel, label_2)
 #: assistants/advancedplot/advancedplotdialog.ui:24
 #: backends/qalculate/plotassistant/qalculateplotassistant.cpp:24
 #, kde-format
 msgid "Plot"
-msgstr ""
+msgstr "Grafikprezento"
 
 #. i18n: ectx: property (text), widget (QLabel, label_3)
 #. i18n: ectx: property (text), widget (QLabel, label)
@@ -275,9 +277,9 @@ msgstr "2a variablo"
 
 #: assistants/runscript/runscriptassistant.cpp:28
 #: scripteditor/scripteditorwidget.cpp:39
-#, fuzzy, kde-format
+#, kde-format
 msgid "Run Script"
-msgstr "Informpeti"
+msgstr ""
 
 #: assistants/solve/solveassistant.cpp:28
 #, kde-format
@@ -525,10 +527,9 @@ msgstr ""
 #: backends/julia/settings.ui:54 backends/maxima/settings.ui:37
 #: backends/octave/settings.ui:172 backends/python/settings.ui:27
 #: backends/R/settings.ui:76
-#, fuzzy, kde-format
-#| msgid "Variable:"
+#, kde-format
 msgid "Variable Management:"
-msgstr "Variablo:"
+msgstr ""
 
 #. i18n: ectx: property (toolTip), widget (QCheckBox, kcfg_variableManagement)
 #: backends/julia/settings.ui:61 backends/maxima/settings.ui:44
@@ -623,21 +624,17 @@ msgstr ""
 #: backends/python/settings.ui:143 backends/qalculate/settings.ui:575
 #: backends/R/settings.ui:104 backends/sage/settings.ui:91
 #: backends/scilab/settings.ui:88
-#, fuzzy, kde-format
+#, kde-format
 msgid "Documentation"
-msgstr "La dosiero malfermiĝi"
+msgstr ""
 
 #: backends/kalgebra/kalgebrabackend.cpp:58
-#, fuzzy, kde-format
-#| msgctxt ""
-#| "the url to the documentation of KAlgebra, please check if there is a "
-#| "translated version and use the correct url"
-#| msgid "http://docs.kde.org/stable/en/kdeedu/kalgebra/"
+#, kde-format
 msgctxt ""
 "The url to the documentation of KAlgebra, please check if there is a "
 "translated version and use the correct url"
 msgid "https://docs.kde.org/?application=kalgebra"
-msgstr "https://edu.kde.org/kalgebra/"
+msgstr ""
 
 #. i18n: ectx: label, entry (autorunScripts), group (SageBackend)
 #. i18n: ectx: label, entry (autorunScripts), group (KAlgebraBackend)
@@ -675,12 +672,10 @@ msgid ""
 msgstr ""
 
 #: backends/lua/luabackend.cpp:52
-#, fuzzy, kde-format
-#| msgctxt "Lua official documentation"
-#| msgid "http://www.lua.org/docs.html"
+#, kde-format
 msgctxt "Lua official documentation"
 msgid "https://www.lua.org/docs.html"
-msgstr "http://www.lua.org/docs.html"
+msgstr ""
 
 #: backends/lua/luabackend.cpp:57
 #, kde-format
@@ -825,10 +820,9 @@ msgstr ""
 
 #. i18n: ectx: property (text), widget (QLabel, lPlotIntegration)
 #: backends/maxima/settings.ui:67 backends/octave/settings.ui:135
-#, fuzzy, kde-format
-#| msgid "Interrupt"
+#, kde-format
 msgid "Integrated:"
-msgstr "Interrompoj"
+msgstr ""
 
 #. i18n: ectx: property (text), widget (QLabel, label_3)
 #. i18n: ectx: property (text), widget (QLabel, label_5)
@@ -1019,9 +1013,9 @@ msgstr ""
 
 #. i18n: ectx: property (text), widget (QTableWidget, functionTable)
 #: backends/qalculate/plotassistant/qalculateplotdialog.ui:45
-#, fuzzy, kde-format
+#, kde-format
 msgid "Expression"
-msgstr "Esprimo:"
+msgstr ""
 
 #. i18n: ectx: property (text), widget (QPushButton, addButton)
 #: backends/qalculate/plotassistant/qalculateplotdialog.ui:72
@@ -1032,21 +1026,21 @@ msgstr ""
 #. i18n: ectx: property (text), widget (QPushButton, removeButton)
 #: backends/qalculate/plotassistant/qalculateplotdialog.ui:82
 #: worksheetentry.cpp:437
-#, fuzzy, kde-format
+#, kde-format
 msgid "Remove"
-msgstr "Rezulto"
+msgstr ""
 
 #. i18n: ectx: property (text), widget (QPushButton, clearButton)
 #: backends/qalculate/plotassistant/qalculateplotdialog.ui:92
-#, fuzzy, kde-format
+#, kde-format
 msgid "Clear List"
-msgstr "Variablo"
+msgstr ""
 
 #. i18n: ectx: property (text), widget (QLabel, label_3)
 #: backends/qalculate/plotassistant/qalculateplotdialog.ui:107
-#, fuzzy, kde-format
+#, kde-format
 msgid "X variable"
-msgstr "Variablo"
+msgstr ""
 
 #. i18n: ectx: property (text), widget (QLabel, label_4)
 #: backends/qalculate/plotassistant/qalculateplotdialog.ui:134
@@ -1595,9 +1589,9 @@ msgid "Plots one or more functions either inline or in a separate window."
 msgstr ""
 
 #: backends/qalculate/qalculatesyntaxhelpobject.cpp:140
-#, fuzzy, kde-format
+#, kde-format
 msgid "expression"
-msgstr "Esprimo:"
+msgstr ""
 
 #: backends/qalculate/qalculatesyntaxhelpobject.cpp:141
 #, kde-format
@@ -1605,9 +1599,9 @@ msgid "option"
 msgstr ""
 
 #: backends/qalculate/qalculatesyntaxhelpobject.cpp:142
-#, fuzzy, kde-format
+#, kde-format
 msgid "value"
-msgstr "Variablo"
+msgstr ""
 
 #: backends/qalculate/qalculatesyntaxhelpobject.cpp:146
 #, kde-format
@@ -1784,9 +1778,9 @@ msgid "file: the file to save to"
 msgstr ""
 
 #: backends/qalculate/qalculatesyntaxhelpobject.cpp:252
-#, fuzzy, kde-format
+#, kde-format
 msgid "Load variables from a file"
-msgstr "Variablo"
+msgstr ""
 
 #: backends/qalculate/qalculatesyntaxhelpobject.cpp:253
 #, kde-format
@@ -1854,9 +1848,9 @@ msgstr ""
 
 #. i18n: ectx: property (text), item, widget (KComboBox, kcfg_minExp)
 #: backends/qalculate/settings.ui:107
-#, fuzzy, kde-format
+#, kde-format
 msgid "Precision"
-msgstr "Esprimo:"
+msgstr ""
 
 #. i18n: ectx: property (text), widget (QLabel, label_6)
 #: backends/qalculate/settings.ui:115
@@ -2010,11 +2004,10 @@ msgid "Modify Entry"
 msgstr ""
 
 #: backends/qthelpconfig.cpp:47
-#, fuzzy, kde-format
-#| msgid "2nd Variable"
+#, kde-format
 msgctxt "@title:window"
 msgid "Add New Entry"
-msgstr "2a variablo"
+msgstr ""
 
 #: backends/qthelpconfig.cpp:64
 #, kde-format
@@ -2022,21 +2015,20 @@ msgid "Name cannot be empty."
 msgstr ""
 
 #: backends/qthelpconfig.cpp:84
-#, fuzzy, kde-format
+#, kde-format
 msgid "Add local documentation"
-msgstr "La dosiero malfermiĝi"
+msgstr ""
 
 #: backends/qthelpconfig.cpp:100
-#, fuzzy, kde-format
+#, kde-format
 msgctxt "@action:button Allow user to get some API documentation with GHNS"
 msgid "Get New Documentation"
-msgstr "La dosiero malfermiĝi"
+msgstr ""
 
 #: backends/qthelpconfig.cpp:103
-#, fuzzy, kde-format
-#| msgid "Additional options:"
+#, kde-format
 msgid "Download additional documentations"
-msgstr "Kromaj elektebloj:"
+msgstr ""
 
 #: backends/qthelpconfig.cpp:171
 #, kde-format
@@ -2074,10 +2066,10 @@ msgstr ""
 
 #. i18n: ectx: property (text), widget (QTreeWidget, qchTable)
 #: backends/qthelpconfig.ui:49 lib/defaultvariablemodel.cpp:69
-#, fuzzy, kde-format
+#, kde-format
 msgctxt "@title:column"
 msgid "Name"
-msgstr "Nomo"
+msgstr ""
 
 #. i18n: ectx: property (text), widget (QTreeWidget, qchTable)
 #: backends/qthelpconfig.ui:54
@@ -2109,10 +2101,10 @@ msgstr ""
 
 #. i18n: ectx: property (text), widget (QLabel, lName)
 #: backends/qthelpconfigeditdialog.ui:37
-#, fuzzy, kde-format
+#, kde-format
 msgctxt "@label:textbox"
 msgid "Name:"
-msgstr "Nomo"
+msgstr ""
 
 #. i18n: ectx: property (toolTip), widget (QLineEdit, qchName)
 #: backends/qthelpconfigeditdialog.ui:44
@@ -2228,16 +2220,12 @@ msgid "*.R *.r|R source files (*.R, *.r)"
 msgstr ""
 
 #: backends/sage/sagebackend.cpp:79
-#, fuzzy, kde-format
-#| msgctxt ""
-#| "the url to the documentation of Sage, please check if there is a "
-#| "translated version and use the correct url"
-#| msgid "http://www.sagemath.org/doc/reference/index.html"
+#, kde-format
 msgctxt ""
 "the url to the documentation of Sage, please check if there is a translated "
 "version and use the correct url"
 msgid "https://doc.sagemath.org/html/en/reference/index.html"
-msgstr "http://www.sagemath.org/doc/reference/index.html"
+msgstr ""
 
 #: backends/sage/sagebackend.cpp:84
 #, kde-format
@@ -2331,14 +2319,12 @@ msgid ""
 msgstr ""
 
 #: backends/scilab/scilabbackend.cpp:68
-#, fuzzy, kde-format
-#| msgctxt "Lua official documentation"
-#| msgid "http://www.lua.org/docs.html"
+#, kde-format
 msgctxt ""
 "The url to the documentation of Scilab, please check if there is a "
 "translated version and use the correct url"
 msgid "https://www.scilab.org/support/documentation"
-msgstr "http://www.lua.org/docs.html"
+msgstr ""
 
 #: backends/scilab/scilabbackend.cpp:73
 #, kde-format
@@ -2365,10 +2351,9 @@ msgid "The file %1 is already opened."
 msgstr ""
 
 #: cantor.cpp:103 cantor.cpp:227
-#, fuzzy, kde-format
-#| msgid "Open"
+#, kde-format
 msgid "Open file"
-msgstr "Malfermi"
+msgstr ""
 
 #: cantor.cpp:145
 #, kde-format
@@ -2462,10 +2447,9 @@ msgid "Multiple unsaved Worksheets are opened. Do you want to close them?"
 msgstr ""
 
 #: cantor.cpp:567
-#, fuzzy, kde-format
-#| msgid "Cantor"
+#, kde-format
 msgid "Close Cantor"
-msgstr "Cantor"
+msgstr ""
 
 #: cantor.cpp:583
 #, kde-format
@@ -2738,10 +2722,9 @@ msgstr ""
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_AnimationDefault)
 #: cantor_part.cpp:240 settings.ui:138
-#, fuzzy, kde-format
-#| msgid "Equations:"
+#, kde-format
 msgid "Animations"
-msgstr "Ekvacioj:"
+msgstr ""
 
 #: cantor_part.cpp:247
 #, kde-format
@@ -2769,14 +2752,14 @@ msgid "Insert Text Entry"
 msgstr ""
 
 #: cantor_part.cpp:278
-#, fuzzy, kde-format
+#, kde-format
 msgid "Insert Markdown Entry"
-msgstr "Rezulto"
+msgstr ""
 
 #: cantor_part.cpp:285
-#, fuzzy, kde-format
+#, kde-format
 msgid "Insert LaTeX Entry"
-msgstr "Rezulto"
+msgstr ""
 
 #: cantor_part.cpp:291
 #, kde-format
@@ -2794,14 +2777,14 @@ msgid "Collapse All Results"
 msgstr ""
 
 #: cantor_part.cpp:306
-#, fuzzy, kde-format
+#, kde-format
 msgid "Expand All Results"
-msgstr "Rezulto"
+msgstr ""
 
 #: cantor_part.cpp:311
-#, fuzzy, kde-format
+#, kde-format
 msgid "Remove All Results"
-msgstr "Rezulto"
+msgstr ""
 
 #: cantor_part.cpp:316
 #, kde-format
@@ -2829,9 +2812,9 @@ msgid "CantorPart"
 msgstr ""
 
 #: cantor_part.cpp:406
-#, fuzzy, kde-format
+#, kde-format
 msgid "(C) 2009-2015 Alexander Rieder"
-msgstr "Alexander Rieder"
+msgstr ""
 
 #: cantor_part.cpp:410 main.cpp:81
 #, kde-format
@@ -2940,10 +2923,9 @@ msgstr ""
 
 #. i18n: ectx: Menu (settings)
 #: cantor_part.rc:50
-#, fuzzy, kde-format
-#| msgid "&Settings"
+#, kde-format
 msgid "Settings"
-msgstr "A&gordo"
+msgstr "Agordo"
 
 #. i18n: ectx: Menu (file)
 #: cantor_shell.rc:4
@@ -2953,9 +2935,9 @@ msgstr "&Dosiero"
 
 #. i18n: ectx: Menu (file_new_menu)
 #: cantor_shell.rc:6
-#, fuzzy, kde-format
+#, kde-format
 msgid "&New"
-msgstr "Nova"
+msgstr ""
 
 #. i18n: ectx: Menu (panels)
 #: cantor_shell.rc:24
@@ -3034,19 +3016,19 @@ msgid "Reset to Default"
 msgstr ""
 
 #: commandentry.cpp:336
-#, fuzzy, kde-format
+#, kde-format
 msgid "Show Results"
-msgstr "Rezulto"
+msgstr ""
 
 #: commandentry.cpp:338
-#, fuzzy, kde-format
+#, kde-format
 msgid "Hide Results"
-msgstr "Rezulto"
+msgstr ""
 
 #: commandentry.cpp:343 worksheet.cpp:1899
-#, fuzzy, kde-format
+#, kde-format
 msgid "Show Help"
-msgstr "Rezulto"
+msgstr ""
 
 #: commandentry.cpp:356
 #, kde-format
@@ -3308,15 +3290,15 @@ msgid "EPS files (*.eps)"
 msgstr ""
 
 #: imageresultitem.cpp:96
-#, fuzzy, kde-format
+#, kde-format
 msgid "Save image result"
-msgstr "Rezulto"
+msgstr ""
 
 #. i18n: ectx: property (windowTitle), widget (QWidget, ImageSettingsBase)
 #: imagesettings.ui:14
-#, fuzzy, kde-format
+#, kde-format
 msgid "Image Settings"
-msgstr "A&gordo"
+msgstr ""
 
 #. i18n: ectx: property (text), widget (QPushButton, openDialogButton)
 #: imagesettings.ui:29
@@ -3363,10 +3345,10 @@ msgid "Use Display Size"
 msgstr ""
 
 #: imagesettingsdialog.cpp:23
-#, fuzzy, kde-format
+#, kde-format
 msgctxt "@title:window"
 msgid "Image Settings"
-msgstr "A&gordo"
+msgstr ""
 
 #: imagesettingsdialog.cpp:40
 #, kde-format
@@ -3374,9 +3356,9 @@ msgid "(auto)"
 msgstr ""
 
 #: imagesettingsdialog.cpp:40
-#, fuzzy, kde-format
+#, kde-format
 msgid "px"
-msgstr "x"
+msgstr ""
 
 #: imagesettingsdialog.cpp:40
 #, kde-format
@@ -3389,9 +3371,9 @@ msgid "Open image file"
 msgstr ""
 
 #: imagesettingsdialog.cpp:153 markdownentry.cpp:775
-#, fuzzy, kde-format
+#, kde-format
 msgid "Images (%1)"
-msgstr "Rezulto"
+msgstr ""
 
 #: latexentry.cpp:61 textentry.cpp:111
 #, kde-format
@@ -3467,10 +3449,10 @@ msgid "Dimension"
 msgstr ""
 
 #: lib/defaultvariablemodel.cpp:77
-#, fuzzy, kde-format
+#, kde-format
 msgctxt "@title:column"
 msgid "Value"
-msgstr "Variablo"
+msgstr ""
 
 #. i18n: ectx: property (text), widget (QLabel, label)
 #: lib/directives/axisrange.ui:19
@@ -3536,9 +3518,9 @@ msgid "KDE Frontend to mathematical applications"
 msgstr ""
 
 #: main.cpp:74
-#, fuzzy, kde-format
+#, kde-format
 msgid "(C) 2016 Filipe Saraiva<br/>(C) 2009-2015 Alexander Rieder"
-msgstr "Alexander Rieder"
+msgstr ""
 
 #: main.cpp:78
 #, kde-format
@@ -3562,10 +3544,9 @@ msgid "Developer"
 msgstr ""
 
 #: main.cpp:80
-#, fuzzy, kde-format
-#| msgid "Alexander Rieder"
+#, kde-format
 msgid "Alexander Semke"
-msgstr "Alexander Rieder"
+msgstr ""
 
 #: main.cpp:81
 #, kde-format
@@ -3603,9 +3584,9 @@ msgid "Interface"
 msgstr ""
 
 #: main.cpp:86 main.cpp:87
-#, fuzzy, kde-format
+#, kde-format
 msgid "Cantor icon"
-msgstr "Cantor"
+msgstr ""
 
 #: main.cpp:92
 #, kde-format
@@ -3613,9 +3594,9 @@ msgid "Use  backend <backend>"
 msgstr ""
 
 #: main.cpp:95
-#, fuzzy, kde-format
+#, kde-format
 msgid "Documents to open."
-msgstr "La dosiero malfermiĝi"
+msgstr ""
 
 #: main.cpp:130
 #, kde-format
@@ -3706,15 +3687,14 @@ msgid "Download Successful"
 msgstr ""
 
 #: panelplugins/filebrowserpanel/filebrowserpanelplugin.cpp:137
-#, fuzzy, kde-format
+#, kde-format
 msgid "Cantor files"
-msgstr "Cantor"
+msgstr ""
 
 #: panelplugins/filebrowserpanel/filebrowserpanelplugin.cpp:138
-#, fuzzy, kde-format
-#| msgid "Open"
+#, kde-format
 msgid "Jupyter files"
-msgstr "Malfermi"
+msgstr ""
 
 #: panelplugins/filebrowserpanel/filebrowserpanelplugin.cpp:139
 #, kde-format
@@ -3728,9 +3708,9 @@ msgstr ""
 
 #. i18n: ectx: property (text), widget (QLabel, label)
 #: panelplugins/variablemgr/newvardlg.ui:17
-#, fuzzy, kde-format
+#, kde-format
 msgid "Name:"
-msgstr "Nomo"
+msgstr ""
 
 #. i18n: ectx: property (text), widget (QLabel, label_2)
 #: panelplugins/variablemgr/newvardlg.ui:27
@@ -3740,26 +3720,25 @@ msgstr ""
 
 #: panelplugins/variablemgr/variablemanagerwidget.cpp:47
 #: panelplugins/variablemgr/variablemanagerwidget.cpp:200
-#, fuzzy, kde-format
-#| msgid "2nd Variable"
+#, kde-format
 msgid "Add New Variable"
-msgstr "2a variablo"
+msgstr ""
 
 #: panelplugins/variablemgr/variablemanagerwidget.cpp:53
-#, fuzzy, kde-format
+#, kde-format
 msgid "Load Variables"
-msgstr "Variablo"
+msgstr ""
 
 #: panelplugins/variablemgr/variablemanagerwidget.cpp:59
-#, fuzzy, kde-format
+#, kde-format
 msgid "Save Variables"
-msgstr "Variablo"
+msgstr ""
 
 #: panelplugins/variablemgr/variablemanagerwidget.cpp:65
 #: panelplugins/variablemgr/variablemanagerwidget.cpp:143
-#, fuzzy, kde-format
+#, kde-format
 msgid "Remove Variables"
-msgstr "Variablo"
+msgstr ""
 
 #: panelplugins/variablemgr/variablemanagerwidget.cpp:75
 #, kde-format
@@ -3782,20 +3761,19 @@ msgid "Are you sure you want to remove all variables?"
 msgstr ""
 
 #: panelplugins/variablemgr/variablemanagerwidget.cpp:185
-#, fuzzy, kde-format
+#, kde-format
 msgid "Load file"
-msgstr "Variablo"
+msgstr ""
 
 #: panelplugins/variablemgr/variablemanagerwidget.cpp:286
-#, fuzzy, kde-format
-#| msgid "Name"
+#, kde-format
 msgid "Copy Name"
-msgstr "Nomo"
+msgstr ""
 
 #: panelplugins/variablemgr/variablemanagerwidget.cpp:287
-#, fuzzy, kde-format
+#, kde-format
 msgid "Copy Value"
-msgstr "Variablo"
+msgstr ""
 
 #: panelplugins/variablemgr/variablemanagerwidget.cpp:288
 #, kde-format
@@ -3808,9 +3786,9 @@ msgid "Save result"
 msgstr ""
 
 #: resultitem.cpp:49
-#, fuzzy, kde-format
+#, kde-format
 msgid "Remove result"
-msgstr "Rezulto"
+msgstr ""
 
 #: scripteditor/scripteditorwidget.cpp:44
 #, kde-format
@@ -3859,14 +3837,14 @@ msgid "Commands"
 msgstr ""
 
 #: searchbar.cpp:333 searchbar.cpp:362
-#, fuzzy, kde-format
+#, kde-format
 msgid "Results"
-msgstr "Rezulto"
+msgstr ""
 
 #: searchbar.cpp:333 searchbar.cpp:362
-#, fuzzy, kde-format
+#, kde-format
 msgid "Errors"
-msgstr "Eraro"
+msgstr ""
 
 #: searchbar.cpp:334 searchbar.cpp:363 worksheet.cpp:1814 worksheet.cpp:1843
 #: worksheet.cpp:1863 worksheet.cpp:1881
@@ -3881,10 +3859,9 @@ msgstr ""
 
 #. i18n: ectx: property (text), widget (QLabel, label_4)
 #: settings.ui:23
-#, fuzzy, kde-format
-#| msgid "Equations:"
+#, kde-format
 msgid "Evaluation:"
-msgstr "Ekvacioj:"
+msgstr ""
 
 #. i18n: ectx: property (toolTip), widget (QCheckBox, kcfg_CompletionDefault)
 #: settings.ui:43
@@ -3895,9 +3872,9 @@ msgstr ""
 # auto translated by TM merge from project: KDE por esperantistoj, version: kdeedu, DocId: kdeedu/marble
 #. i18n: ectx: property (text), widget (QLabel, label_2)
 #: settings.ui:59
-#, fuzzy, kde-format
+#, kde-format
 msgid "Startup:"
-msgstr "Startigo"
+msgstr ""
 
 #. i18n: ectx: property (toolTip), widget (QLabel, label)
 #. i18n: ectx: property (toolTip), widget (KComboBox, kcfg_DefaultBackend)
@@ -3989,9 +3966,9 @@ msgstr ""
 
 #. i18n: ectx: property (text), widget (QLabel, label_5)
 #: settings.ui:236
-#, fuzzy, kde-format
+#, kde-format
 msgid "Markdown:"
-msgstr "Rezulto"
+msgstr ""
 
 #. i18n: ectx: property (toolTip), widget (QCheckBox, kcfg_UseOldCantorEntriesIndent)
 #: settings.ui:243
@@ -4035,17 +4012,15 @@ msgstr ""
 
 #. i18n: ectx: property (toolTip), widget (QCheckBox, kcfg_HighlightDefault)
 #: settings.ui:293
-#, fuzzy, kde-format
-#| msgid "Syntax Highlighting"
+#, kde-format
 msgid "Enable syntax highlighting"
-msgstr "Sintaksemfazo"
+msgstr ""
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_HighlightDefault)
 #: settings.ui:296
-#, fuzzy, kde-format
-#| msgid "Syntax Highlighting"
+#, kde-format
 msgid "Syntax highlighting"
-msgstr "Sintaksemfazo"
+msgstr ""
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_WarnAboutEntryDelete)
 #: settings.ui:303
@@ -4070,9 +4045,9 @@ msgid "Add custom target"
 msgstr ""
 
 #: textentry.cpp:76
-#, fuzzy, kde-format
+#, kde-format
 msgid "Convert to Text Entry"
-msgstr "Rezulto"
+msgstr ""
 
 #: textentry.cpp:81
 #, kde-format
@@ -4085,9 +4060,9 @@ msgid "Target MIME type:"
 msgstr ""
 
 #: textresultitem.cpp:60
-#, fuzzy, kde-format
+#, kde-format
 msgid "Copy result"
-msgstr "Rezulto"
+msgstr ""
 
 #: textresultitem.cpp:69
 #, kde-format
@@ -4125,9 +4100,9 @@ msgid "Cannot render Eps file. You may need additional packages"
 msgstr ""
 
 #: textresultitem.cpp:212
-#, fuzzy, kde-format
+#, kde-format
 msgid "Save text result"
-msgstr "Rezulto"
+msgstr ""
 
 #: textresultitem.cpp:212
 #, kde-format
@@ -4169,10 +4144,9 @@ msgstr ""
 #: worksheet.cpp:1327 worksheet.cpp:1350 worksheet.cpp:1370 worksheet.cpp:1387
 #: worksheet.cpp:1419 worksheet.cpp:1430 worksheet.cpp:1539 worksheet.cpp:1554
 #: worksheet.cpp:1596 worksheet.cpp:1607 worksheet.cpp:1727 worksheet.cpp:1729
-#, fuzzy, kde-format
-#| msgid "Open"
+#, kde-format
 msgid "Open File"
-msgstr "Malfermi"
+msgstr ""
 
 #: worksheet.cpp:1350
 #, kde-format
@@ -4262,9 +4236,9 @@ msgid "Invalid Jupyter notebook scheme: %1"
 msgstr ""
 
 #: worksheet.cpp:1806
-#, fuzzy, kde-format
+#, kde-format
 msgid "Convert To"
-msgstr "Rezulto"
+msgstr ""
 
 #: worksheet.cpp:1811 worksheet.cpp:1842 worksheet.cpp:1862 worksheet.cpp:1880
 #, kde-format
@@ -4272,14 +4246,14 @@ msgid "Command"
 msgstr ""
 
 #: worksheet.cpp:1818 worksheet.cpp:1845 worksheet.cpp:1865 worksheet.cpp:1883
-#, fuzzy, kde-format
+#, kde-format
 msgid "Markdown"
-msgstr "Rezulto"
+msgstr ""
 
 #: worksheet.cpp:1825 worksheet.cpp:1850 worksheet.cpp:1870 worksheet.cpp:1888
-#, fuzzy, kde-format
+#, kde-format
 msgid "Image"
-msgstr "Rezulto"
+msgstr ""
 
 #: worksheet.cpp:1828 worksheet.cpp:1853 worksheet.cpp:1873 worksheet.cpp:1891
 #, kde-format
@@ -4292,19 +4266,19 @@ msgid "Horizontal Line"
 msgstr ""
 
 #: worksheet.cpp:1834 worksheet.cpp:1855 worksheet.cpp:1875 worksheet.cpp:1893
-#, fuzzy, kde-format
+#, kde-format
 msgid "Hierarchy Entry"
-msgstr "Rezulto"
+msgstr ""
 
 #: worksheet.cpp:1837
-#, fuzzy, kde-format
+#, kde-format
 msgid "Insert After"
-msgstr "Rezulto"
+msgstr ""
 
 #: worksheet.cpp:1858
-#, fuzzy, kde-format
+#, kde-format
 msgid "Insert Before"
-msgstr "Rezulto"
+msgstr ""
 
 #: worksheet.cpp:1877
 #, kde-format
@@ -4332,9 +4306,9 @@ msgid "Move Entries Up"
 msgstr ""
 
 #: worksheet.cpp:1934
-#, fuzzy, kde-format
+#, kde-format
 msgid "Move Entries Down"
-msgstr "Rezulto"
+msgstr ""
 
 #: worksheet.cpp:1935
 #, kde-format
@@ -4342,9 +4316,9 @@ msgid "Evaluate Entries"
 msgstr ""
 
 #: worksheet.cpp:1936
-#, fuzzy, kde-format
+#, kde-format
 msgid "Remove Entries"
-msgstr "Rezulto"
+msgstr ""
 
 #: worksheet.cpp:1949
 #, kde-format
@@ -4357,9 +4331,9 @@ msgid "Expand Command Entry Results"
 msgstr ""
 
 #: worksheet.cpp:1951
-#, fuzzy, kde-format
+#, kde-format
 msgid "Remove Command Entry Results"
-msgstr "Rezulto"
+msgstr ""
 
 #: worksheet.cpp:1952
 #, kde-format
@@ -4414,10 +4388,10 @@ msgid "&Italic"
 msgstr ""
 
 #: worksheet.cpp:2113
-#, fuzzy, kde-format
+#, kde-format
 msgctxt "@action underline selected text"
 msgid "&Underline"
-msgstr "Enlinia"
+msgstr ""
 
 #: worksheet.cpp:2124
 #, kde-format
@@ -4481,9 +4455,9 @@ msgid ""
 msgstr ""
 
 #: worksheet.cpp:2863
-#, fuzzy, kde-format
+#, kde-format
 msgid "Remove all results"
-msgstr "Rezulto"
+msgstr ""
 
 #: worksheetentry.cpp:67
 #, kde-format
@@ -4501,10 +4475,9 @@ msgid "Dark Red"
 msgstr ""
 
 #: worksheetentry.cpp:68
-#, fuzzy, kde-format
-#| msgid "Ready"
+#, kde-format
 msgid "Red"
-msgstr "Preta"
+msgstr ""
 
 #: worksheetentry.cpp:68
 #, kde-format
@@ -4632,62 +4605,11 @@ msgid "Do you really want to remove this entry?"
 msgstr ""
 
 #: worksheetentry.cpp:719 worksheetentry.cpp:849
-#, fuzzy, kde-format
+#, kde-format
 msgid "Remove Entry"
-msgstr "Rezulto"
+msgstr ""
 
 #: worksheetentry.cpp:854
-#, fuzzy, kde-format
+#, kde-format
 msgid "Drag Entry"
-msgstr "Rezulto"
-
-#, fuzzy
-#~ msgid "<too big variable>"
-#~ msgstr "Variablo"
-
-#, fuzzy
-#~| msgid "Package:"
-#~ msgid "Graphic Package: "
-#~ msgstr "Pakon:"
-
-#, fuzzy
-#~ msgid "Documentation:"
-#~ msgstr "La dosiero malfermiĝi"
-
-#, fuzzy
-#~ msgid "Clear Variables"
-#~ msgstr "Variablo"
-
-#, fuzzy
-#~ msgid "LaTeX Entry"
-#~ msgstr "Rezulto"
-
-#, fuzzy
-#~ msgid "Insert Hierarchy Entry"
-#~ msgstr "Rezulto"
-
-#, fuzzy
-#~ msgid "Insert Latex Entry"
-#~ msgstr "Rezulto"
-
-#, fuzzy
-#~ msgid "Unnamed"
-#~ msgstr "Uzantnomo"
-
-#, fuzzy
-#~ msgctxt ""
-#~ "the url to the documentation of R, please check if there is a translated "
-#~ "version and use the correct url"
-#~ msgid "http://rwiki.sciviews.org/doku.php?id=rdoc:rdoc"
-#~ msgstr "http://wiki.r-project.org/rwiki/doku.php?id=rdoc:rdoc"
-
-#~ msgid "%1: %2"
-#~ msgstr "%1: %2"
-
-#, fuzzy
-#~ msgid "Usage: loadVariables file"
-#~ msgstr "Variablo"
-
-#, fuzzy
-#~ msgid "Loading failed."
-#~ msgstr "Variablo"
+msgstr ""
