@@ -1,6 +1,7 @@
 /*
     SPDX-License-Identifier: GPL-2.0-or-later
     SPDX-FileCopyrightText: 2014 Lucas Hermann Negri <lucashnegri@gmail.com>
+    SPDX-FileCopyrightText: 2023 Alexander Semke <alexander.semke@web.de>
 */
 
 #include "luaexpression.h"
@@ -44,12 +45,24 @@ void LuaExpression::parseError(const QString &error)
     setStatus(Error);
 }
 
-void LuaExpression::parseOutput(const QString &output)
+void LuaExpression::parseOutput(const QString& output)
 {
     qDebug()<<"parsing the output " << output;
+    QString result = output;
 
-    if (!output.isEmpty())
-        setResult(new Cantor::TextResult(output));
+    // in case the expression is incomplete, Lua is answering with the sub-promt ">> ".
+    // since we don't handle it yet, replace it with the prompt string so we can handle it easier below
+    // when splitting the whole output into the separate results
+    // TODO: add handling for the sub-promt
+    result.replace(QLatin1String(">> "), QLatin1String("> "));
+
+    const auto& results = result.split(QLatin1String("> "));
+    for (auto& result : results) {
+        if (result.simplified() == QLatin1String(">") || result.simplified().isEmpty())
+            continue;
+
+        addResult(new Cantor::TextResult(result));
+    }
+
     setStatus(Cantor::Expression::Done);
 }
-

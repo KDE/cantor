@@ -1,6 +1,7 @@
 /*
     SPDX-License-Identifier: GPL-2.0-or-later
     SPDX-FileCopyrightText: 2014 Lucas Hermann Negri <lucashnegri@gmail.com>
+    SPDX-FileCopyrightText: 2023 Alexander Semke <alexander.semke@web.de>
 */
 
 #ifndef _LUASESSION_H
@@ -15,21 +16,21 @@ class QProcess;
 class LuaSession : public Cantor::Session
 {
   Q_OBJECT
+
 public:
-    explicit LuaSession( Cantor::Backend* backend);
+    explicit LuaSession(Cantor::Backend*);
     ~LuaSession() override;
 
     void login() override;
     void logout() override;
 
     void interrupt() override;
-
     void runFirstExpression() override;
 
-    Cantor::Expression*         evaluateExpression(const QString& command, Cantor::Expression::FinishingBehavior behave = Cantor::Expression::FinishingBehavior::DoNotDelete, bool internal = false) override;
-    Cantor::CompletionObject*   completionFor(const QString& cmd, int index=-1) override;
+    Cantor::Expression* evaluateExpression(const QString& command, Cantor::Expression::FinishingBehavior behave = Cantor::Expression::FinishingBehavior::DoNotDelete, bool internal = false) override;
+    Cantor::CompletionObject* completionFor(const QString& cmd, int index = -1) override;
     QSyntaxHighlighter* syntaxHighlighter(QObject* parent) override;
-    lua_State*                  getState() const;
+    lua_State* getState() const;
 
 public Q_SLOTS:
     void readIntroMessage();
@@ -38,19 +39,12 @@ public Q_SLOTS:
     void processStarted();
 
 private Q_SLOTS:
-    void expressionFinished(Cantor::Expression::Status status);
+    void expressionFinished(Cantor::Expression::Status);
 
 private:
-    bool isPromptString(const QString& s);
-
-private:
-    lua_State* m_L;
-    QProcess* m_process;
-    QStringList m_inputCommands;
-    QStringList m_output;
-
-    static const QString LUA_PROMPT;
-    static const QString LUA_SUBPROMPT;
+    lua_State* m_L{nullptr};
+    QProcess* m_process{nullptr};
+    LuaExpression* m_lastExpression{nullptr};
 };
 
 #endif /* _LUASESSION_H */

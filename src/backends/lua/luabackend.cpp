@@ -24,7 +24,7 @@ QString LuaBackend::id() const
 
 QString LuaBackend::version() const
 {
-    return QLatin1String("LuaJIT 2.0");
+    return QLatin1String("LuaJIT 2.1");
 }
 
 Cantor::Session* LuaBackend::createSession()
