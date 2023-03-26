@@ -197,7 +197,6 @@ void MaximaSession::runFirstExpression()
         const auto& command = expr->internalCommand();
         connect(expr, &Cantor::Expression::statusChanged, this, &Session::currentExpressionStatusChanged);
 
-        expr->setStatus(Cantor::Expression::Computing);
         if(command.isEmpty())
         {
             qDebug()<<"empty command";
@@ -205,6 +204,7 @@ void MaximaSession::runFirstExpression()
         }
         else
         {
+            expr->setStatus(Cantor::Expression::Computing);
             m_cache.clear();
             write(command + QLatin1Char('\n'));
         }
