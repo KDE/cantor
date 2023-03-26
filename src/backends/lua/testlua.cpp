@@ -19,17 +19,17 @@ void TestLua::testSimpleCommand()
 {
     auto* e = evalExp( QLatin1String("print(2+2)\n") );
 
-    QVERIFY( e!=nullptr );
-    QVERIFY( e->result()!=nullptr );
+    QVERIFY(e != nullptr);
+    QVERIFY(e->result() != nullptr);
 
-    QCOMPARE( cleanOutput( e->result()->data().toString() ), QLatin1String("4") );
+    QCOMPARE(cleanOutput(e->result()->data().toString() ), QLatin1String("4"));
 }
 
 void TestLua::testMultilineCommand()
 {
-    auto* e = evalExp( QLatin1String("print(4+4); print(2-1)") );
+    auto* e = evalExp(QLatin1String("print(4+4); print(2-1)"));
 
-    QVERIFY(e!=nullptr);
+    QVERIFY(e != nullptr);
     QVERIFY(e->errorMessage().isNull());
     QCOMPARE(e->results().size(), 2);
 
@@ -41,10 +41,10 @@ void TestLua::testVariableDefinition()
 {
     auto* e = evalExp( QLatin1String("num = 42; print(num)") );
 
-    QVERIFY( e!=nullptr );
-    QVERIFY( e->result()!=nullptr );
+    QVERIFY(e != nullptr);
+    QVERIFY(e->result() != nullptr);
 
-    QCOMPARE( cleanOutput(e->result()->data().toString()), QLatin1String("42") );
+    QCOMPARE(cleanOutput(e->result()->data().toString()), QLatin1String("42"));
 }
 
 void TestLua::testInvalidSyntax()
@@ -52,7 +52,7 @@ void TestLua::testInvalidSyntax()
     QSKIP("Works in Cantor, doesn't work in the test");
     auto* e = evalExp( QLatin1String("2+2*+.") );
 
-    QVERIFY( e!=nullptr );
+    QVERIFY(e != nullptr);
 
     waitForSignal(e, SIGNAL(statusChanged(Cantor::Expression::Status)));
     QCOMPARE(e->status(), Cantor::Expression::Done);
@@ -74,10 +74,10 @@ void TestLua::testIfElseCondition()
 
     auto* e = evalExp(cmd);
 
-    QVERIFY( e!=nullptr );
-    QVERIFY( e->result()!=nullptr );
+    QVERIFY(e != nullptr);
+    QVERIFY(e->result() != nullptr);
 
-    QCOMPARE( cleanOutput(e->result()->data().toString()), QLatin1String("false") );
+    QCOMPARE(cleanOutput(e->result()->data().toString()), QLatin1String("false"));
 }
 
 void TestLua::testForLoop()
