@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-03-06 00:42+0000\n"
+"POT-Creation-Date: 2023-03-26 00:43+0000\n"
 "PO-Revision-Date: 2023-02-08 12:53+0100\n"
 "Last-Translator: Vit Pelcak <vit@pelcak.org>\n"
 "Language-Team: Czech <kde-i18n-doc@kde.org>\n"
@@ -2113,42 +2113,42 @@ msgid "Select an icon"
 msgstr "Vyberte ikonu"
 
 #. i18n: ectx: property (text), widget (QLabel, lName)
-#: backends/qthelpconfigeditdialog.ui:37
+#: backends/qthelpconfigeditdialog.ui:34
 #, kde-format
 msgctxt "@label:textbox"
 msgid "Name:"
 msgstr "Název:"
 
 #. i18n: ectx: property (toolTip), widget (QLineEdit, qchName)
-#: backends/qthelpconfigeditdialog.ui:44
+#: backends/qthelpconfigeditdialog.ui:41
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Enter a name"
 msgstr "Zadejte název"
 
 #. i18n: ectx: property (placeholderText), widget (QLineEdit, qchName)
-#: backends/qthelpconfigeditdialog.ui:47
+#: backends/qthelpconfigeditdialog.ui:44
 #, kde-format
 msgctxt "@info:placeholder"
 msgid "Select a name..."
 msgstr "Vyberte název..."
 
 #. i18n: ectx: property (text), widget (QLabel, lPath)
-#: backends/qthelpconfigeditdialog.ui:54
+#: backends/qthelpconfigeditdialog.ui:51
 #, kde-format
 msgctxt "@label:textbox"
 msgid "Path:"
 msgstr "Cesta:"
 
 #. i18n: ectx: property (toolTip), widget (KUrlRequester, qchRequester)
-#: backends/qthelpconfigeditdialog.ui:67
+#: backends/qthelpconfigeditdialog.ui:64
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Select a Qt Help file..."
 msgstr "Vyberte soubor Qt Help..."
 
 #. i18n: ectx: property (placeholderText), widget (KUrlRequester, qchRequester)
-#: backends/qthelpconfigeditdialog.ui:73
+#: backends/qthelpconfigeditdialog.ui:70
 #, kde-format
 msgctxt "@info:placeholder"
 msgid "Select a Qt Help file..."
