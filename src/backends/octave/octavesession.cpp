@@ -1,6 +1,6 @@
 /*
     SPDX-FileCopyrightText: 2010 Miha Čančula <miha.cancula@gmail.com>
-    SPDX-FileCopyrightText: 2017-2022 by Alexander Semke (alexander.semke@web.de)
+    SPDX-FileCopyrightText: 2017-2023 by Alexander Semke (alexander.semke@web.de)
 
     SPDX-License-Identifier: GPL-2.0-or-later
 */
@@ -60,7 +60,7 @@ void OctaveSession::login()
 
     emit loginStarted();
 
-    m_process = new KProcess(this);
+    m_process = new QProcess(this);
     QStringList args;
     args << QLatin1String("--silent");
     args << QLatin1String("--interactive");
@@ -87,67 +87,15 @@ void OctaveSession::login()
     args << QLatin1String("suppress_verbose_help_message(1);");
 
     // check whether we can write to the temp folder for integrated plot files
-    m_isIntegratedPlotsEnabled = OctaveSettings::integratePlots();
-    if (m_isIntegratedPlotsEnabled)
-    {
-        QString filename = QDir::tempPath() + QLatin1String("/cantor_octave_plot_integration_test.txt");
-        QFile::remove(filename); // Remove previous file, if present
-        int test_number = rand() % 1000;
+    checkWritableTempFolder();
 
-        QStringList args;
-        args << QLatin1String("--no-init-file");
-        args << QLatin1String("--no-gui");
-        args << QLatin1String("--eval");
-        args << QString::fromLatin1("file_id = fopen('%1', 'w'); fdisp(file_id, %2); fclose(file_id);").arg(filename).arg(test_number);
-
-        QString errorMsg;
-        bool writable = Cantor::Backend::testProgramWritable(
-            OctaveSettings::path().toLocalFile(),
-            args,
-            filename,
-            QString::number(test_number),
-            &errorMsg
-        );
-
-        if (!writable)
-        {
-            m_isIntegratedPlotsEnabled = false;
-            KMessageBox::error(nullptr,
-                i18n("Plot integration test failed.")+
-                QLatin1String("\n\n")+
-                errorMsg+
-                QLatin1String("\n\n")+
-                i18n("The integration of plots will be disabled."),
-                i18n("Cantor")
-            );
-        }
-    }
-
-    // enable/disable integrated plots depending on the current settings and on the ability to write to the temp folder
-    if (m_isIntegratedPlotsEnabled)
-    {
-        // Do not show the popup when plotting, rather only print to a file
-        args << QLatin1String("--eval");
-        args << QLatin1String("set (0, \"defaultfigurevisible\",\"off\");");
-        args << QLatin1String("--eval");
-        args << QLatin1String("if strcmp(graphics_toolkit(), \"fltk\") graphics_toolkit(\"gnuplot\") endif;");
-    }
-    else
-    {
-        args << QLatin1String("--eval");
-        args << QLatin1String("set (0, \"defaultfigurevisible\",\"on\");");
-    }
-
-    m_process->setProgram ( OctaveSettings::path().toLocalFile(), args );
+    m_process->start(OctaveSettings::path().toLocalFile(), args);
     qDebug() << "starting " << m_process->program();
-    m_process->setOutputChannelMode ( KProcess::SeparateChannels );
-    m_process->start();
     bool rc = m_process->waitForStarted();
     qDebug() << "octave process started " << rc;
 
-    connect ( m_process, SIGNAL (readyReadStandardOutput()), SLOT (readOutput()) );
-    connect ( m_process, SIGNAL (readyReadStandardError()), SLOT (readError()) );
-    connect ( m_process, SIGNAL (error(QProcess::ProcessError)), SLOT (processError()) );
+    connect(m_process, &QProcess::readyReadStandardOutput, this, &OctaveSession::readOutput);
+    connect(m_process, &QProcess::readyReadStandardError, this, &OctaveSession::readError);
 
     std::random_device rd;
     std::mt19937 mt(rd());
@@ -162,7 +110,6 @@ void OctaveSession::login()
 
     if(!OctaveSettings::self()->autorunScripts().isEmpty()){
         QString autorunScripts = OctaveSettings::self()->autorunScripts().join(QLatin1String("\n"));
-
         evaluateExpression(autorunScripts, OctaveExpression::DeleteOnFinish, true);
         updateVariables();
     }
@@ -280,12 +227,6 @@ void OctaveSession::interrupt()
     changeStatus(Cantor::Session::Done);
 }
 
-void OctaveSession::processError()
-{
-    qDebug() << "processError";
-    emit error(m_process->errorString());
-}
-
 Cantor::Expression* OctaveSession::evaluateExpression(const QString& cmd, Cantor::Expression::FinishingBehavior behavior, bool internal)
 {
     qDebug()<<"################################## EXPRESSION START ###############################################";
@@ -338,6 +279,7 @@ void OctaveSession::readOutput()
     while (m_process->bytesAvailable() > 0)
     {
         QString line = QString::fromLocal8Bit(m_process->readLine());
+
         qDebug()<<"start parsing " << "  " << line;
         QRegularExpressionMatch match = m_prompt.match(line);
         if (match.hasMatch())
@@ -395,11 +337,6 @@ QSyntaxHighlighter* OctaveSession::syntaxHighlighter(QObject* parent)
     return new OctaveHighlighter(parent, this);
 }
 
-void OctaveSession::runSpecificCommands()
-{
-    m_process->write("figure(1,'visible','off')");
-}
-
 bool OctaveSession::isDoNothingCommand(const QString& command)
 {
     return PROMPT_UNCHANGEABLE_COMMAND.match(command).hasMatch()
@@ -413,10 +350,46 @@ bool OctaveSession::isSpecialOctaveCommand(const QString& command)
 
 bool OctaveSession::isIntegratedPlotsEnabled() const
 {
-    return m_isIntegratedPlotsEnabled;
+    return OctaveSettings::integratePlots() && m_writableTempFolder;
 }
 
 QString OctaveSession::plotFilePrefixPath() const
 {
     return m_plotFilePrefixPath;
+}
+
+/*!
+ * check whether we can write to the temp folder for integrated plot files.
+ */
+void OctaveSession::checkWritableTempFolder() {
+    QString filename = QDir::tempPath() + QLatin1String("/cantor_octave_plot_integration_test.txt");
+    QFile::remove(filename); // Remove previous file, if present
+    int test_number = rand() % 1000;
+
+    QStringList args;
+    args << QLatin1String("--no-init-file");
+    args << QLatin1String("--no-gui");
+    args << QLatin1String("--eval");
+    args << QString::fromLatin1("file_id = fopen('%1', 'w'); fdisp(file_id, %2); fclose(file_id);").arg(filename).arg(test_number);
+
+    QString errorMsg;
+    m_writableTempFolder = Cantor::Backend::testProgramWritable(
+        OctaveSettings::path().toLocalFile(),
+        args,
+        filename,
+        QString::number(test_number),
+        &errorMsg
+    );
+
+    if (!m_writableTempFolder)
+    {
+        KMessageBox::error(nullptr,
+            i18n("Plot integration test failed.")+
+            QLatin1String("\n\n")+
+            errorMsg+
+            QLatin1String("\n\n")+
+            i18n("The integration of plots will be disabled."),
+            i18n("Cantor")
+        );
+    }
 }
