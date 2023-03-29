@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: cantor\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-03-26 00:43+0000\n"
+"POT-Creation-Date: 2023-03-29 00:42+0000\n"
 "PO-Revision-Date: 2022-07-23 23:07+0200\n"
 "Last-Translator: Frederik Schwarzer <schwarzer@kde.org>\n"
 "Language-Team: German <kde-i18n-de@kde.org>\n"
@@ -947,7 +947,7 @@ msgstr ""
 "Experimenten bereit. Die Sprache ist dabei weitestgehend kompatibel zu "
 "Matlab."
 
-#: backends/octave/octaveexpression.cpp:222
+#: backends/octave/octaveexpression.cpp:231
 #, kde-format
 msgid "Invalid image file generated."
 msgstr ""
@@ -957,17 +957,22 @@ msgstr ""
 msgid "Octave script file (*.m)"
 msgstr "Octave-Skriptdatei (*.m)"
 
-#: backends/octave/octavesession.cpp:116
+#: backends/octave/octavesession.cpp:268 backends/sage/sageexpression.cpp:51
+#, kde-format
+msgid "Syntax Error"
+msgstr "Syntaxfehler"
+
+#: backends/octave/octavesession.cpp:387
 #, kde-format
 msgid "Plot integration test failed."
 msgstr "Grafik-Integrationstest fehlgeschlagen."
 
-#: backends/octave/octavesession.cpp:120
+#: backends/octave/octavesession.cpp:391
 #, kde-format
 msgid "The integration of plots will be disabled."
 msgstr "Die Integration von Grafiken wird deaktiviert."
 
-#: backends/octave/octavesession.cpp:121 backends/sage/sagesession.cpp:238
+#: backends/octave/octavesession.cpp:392 backends/sage/sagesession.cpp:238
 #: backends/sage/sagesession.cpp:271 backends/sage/sagesession.cpp:337
 #: backends/sage/sagesession.cpp:348 cantor.cpp:215 cantor.cpp:217
 #: cantor.cpp:336 cantor.cpp:343 lib/session.cpp:383 main.cpp:66 main.cpp:130
@@ -975,11 +980,6 @@ msgstr "Die Integration von Grafiken wird deaktiviert."
 #, kde-format
 msgid "Cantor"
 msgstr "Cantor"
-
-#: backends/octave/octavesession.cpp:327 backends/sage/sageexpression.cpp:51
-#, kde-format
-msgid "Syntax Error"
-msgstr "Syntaxfehler"
 
 #: backends/python/pythonbackend.cpp:67
 #, kde-format
