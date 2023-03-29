@@ -63,6 +63,7 @@ class OctaveSession : public Cantor::Session
     private Q_SLOTS:
         void readOutput();
         void readError();
+        void processError();
 };
 
 #endif // OCTAVESESSION_H

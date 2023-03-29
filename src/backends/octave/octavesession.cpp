@@ -96,6 +96,7 @@ void OctaveSession::login()
 
     connect(m_process, &QProcess::readyReadStandardOutput, this, &OctaveSession::readOutput);
     connect(m_process, &QProcess::readyReadStandardError, this, &OctaveSession::readError);
+    connect (m_process, &QProcess::errorOccurred, this, &OctaveSession::processError);
 
     std::random_device rd;
     std::mt19937 mt(rd());
@@ -225,6 +226,12 @@ void OctaveSession::interrupt()
     }
 
     changeStatus(Cantor::Session::Done);
+}
+
+void OctaveSession::processError()
+{
+    qDebug() << "processError";
+    emit error(m_process->errorString());
 }
 
 Cantor::Expression* OctaveSession::evaluateExpression(const QString& cmd, Cantor::Expression::FinishingBehavior behavior, bool internal)
