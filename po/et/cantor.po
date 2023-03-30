@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: mathematik\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-03-06 00:42+0000\n"
+"POT-Creation-Date: 2023-03-30 02:40+0000\n"
 "PO-Revision-Date: 2020-05-12 10:53+0300\n"
 "Last-Translator: Marek Laane <qiilaq69@gmail.com>\n"
 "Language-Team: Estonian <kde-et@lists.linux.ee>\n"
@@ -937,7 +937,7 @@ msgstr ""
 "lahendamiseks ja muudeks arvutustoiminguteks, pruukides selleks keelt, mis "
 "on valdavalt ühilduv Matlabiga."
 
-#: backends/octave/octaveexpression.cpp:222
+#: backends/octave/octaveexpression.cpp:231
 #, kde-format
 msgid "Invalid image file generated."
 msgstr ""
@@ -947,17 +947,22 @@ msgstr ""
 msgid "Octave script file (*.m)"
 msgstr "Octave'i skriptifail (*.m)"
 
-#: backends/octave/octavesession.cpp:116
+#: backends/octave/octavesession.cpp:275 backends/sage/sageexpression.cpp:51
+#, kde-format
+msgid "Syntax Error"
+msgstr "Süntaksiviga"
+
+#: backends/octave/octavesession.cpp:394
 #, kde-format
 msgid "Plot integration test failed."
 msgstr "Joonise lõimimise test nurjus."
 
-#: backends/octave/octavesession.cpp:120
+#: backends/octave/octavesession.cpp:398
 #, kde-format
 msgid "The integration of plots will be disabled."
 msgstr "Jooniste lõimimine keelatakse."
 
-#: backends/octave/octavesession.cpp:121 backends/sage/sagesession.cpp:238
+#: backends/octave/octavesession.cpp:399 backends/sage/sagesession.cpp:238
 #: backends/sage/sagesession.cpp:271 backends/sage/sagesession.cpp:337
 #: backends/sage/sagesession.cpp:348 cantor.cpp:215 cantor.cpp:217
 #: cantor.cpp:336 cantor.cpp:343 lib/session.cpp:383 main.cpp:66 main.cpp:130
@@ -965,11 +970,6 @@ msgstr "Jooniste lõimimine keelatakse."
 #, kde-format
 msgid "Cantor"
 msgstr "Cantor"
-
-#: backends/octave/octavesession.cpp:327 backends/sage/sageexpression.cpp:51
-#, kde-format
-msgid "Syntax Error"
-msgstr "Süntaksiviga"
 
 #: backends/python/pythonbackend.cpp:67
 #, kde-format
