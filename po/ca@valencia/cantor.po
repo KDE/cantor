@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: cantor\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-03-29 00:42+0000\n"
+"POT-Creation-Date: 2023-03-30 00:44+0000\n"
 "PO-Revision-Date: 2023-01-04 14:27+0100\n"
 "Last-Translator: Josep M. Ferrer <txemaq@gmail.com>\n"
 "Language-Team: Catalan <kde-i18n-ca@kde.org>\n"
@@ -986,22 +986,22 @@ msgstr "Fitxer generat d'imatge no vàlid."
 msgid "Octave script file (*.m)"
 msgstr "Fitxer script d'Octave (*.m)"
 
-#: backends/octave/octavesession.cpp:268 backends/sage/sageexpression.cpp:51
+#: backends/octave/octavesession.cpp:275 backends/sage/sageexpression.cpp:51
 #, kde-format
 msgid "Syntax Error"
 msgstr "S'ha produït un error de sintaxi"
 
-#: backends/octave/octavesession.cpp:387
+#: backends/octave/octavesession.cpp:394
 #, kde-format
 msgid "Plot integration test failed."
 msgstr "Ha fallat la prova d'integració de les gràfiques."
 
-#: backends/octave/octavesession.cpp:391
+#: backends/octave/octavesession.cpp:398
 #, kde-format
 msgid "The integration of plots will be disabled."
 msgstr "Es desactivarà la integració de les gràfiques."
 
-#: backends/octave/octavesession.cpp:392 backends/sage/sagesession.cpp:238
+#: backends/octave/octavesession.cpp:399 backends/sage/sagesession.cpp:238
 #: backends/sage/sagesession.cpp:271 backends/sage/sagesession.cpp:337
 #: backends/sage/sagesession.cpp:348 cantor.cpp:215 cantor.cpp:217
 #: cantor.cpp:336 cantor.cpp:343 lib/session.cpp:383 main.cpp:66 main.cpp:130
