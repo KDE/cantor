@@ -18,7 +18,7 @@
 #include <QString>
 #include <QStringList>
 
-LuaExpression::LuaExpression( Cantor::Session* session, bool internal)
+LuaExpression::LuaExpression(Cantor::Session* session, bool internal)
     : Cantor::Expression(session, internal)
 {
 }
@@ -47,21 +47,35 @@ void LuaExpression::parseError(const QString &error)
 
 void LuaExpression::parseOutput(const QString& output)
 {
+
     qDebug()<<"parsing the output " << output;
-    QString result = output;
+    auto* luaSession = static_cast<LuaSession*>(session());
 
-    // in case the expression is incomplete, Lua is answering with the sub-promt ">> ".
-    // since we don't handle it yet, replace it with the prompt string so we can handle it easier below
-    // when splitting the whole output into the separate results
-    // TODO: add handling for the sub-promt
-    result.replace(QLatin1String(">> "), QLatin1String("> "));
+    if (luaSession->isLuaJIT())
+    {
+        QString result = output;
 
-    const auto& results = result.split(QLatin1String("> "));
-    for (auto& result : results) {
-        if (result.simplified() == QLatin1String(">") || result.simplified().isEmpty())
-            continue;
+        // in case the expression is incomplete, Lua is answering with the sub-promt ">> ".
+        // since we don't handle it yet, replace it with the prompt string so we can handle it easier below
+        // when splitting the whole output into the separate results
+        // TODO: add handling for the sub-promt
+        result.replace(QLatin1String(">> "), QLatin1String("> "));
 
-        addResult(new Cantor::TextResult(result));
+        const auto& results = result.split(QLatin1String("> "));
+        for (auto& result : results) {
+            if (result.simplified() == QLatin1String(">") || result.simplified().isEmpty())
+                continue;
+
+            addResult(new Cantor::TextResult(result));
+        }
+    }
+    else
+    {
+        // the parsing of Lua's output was already done in LuaSession::readOutputLua()
+        // where the information about the actual commands is present and required.
+        // here we only set the final result without any further parsing.
+        if (!output.isEmpty())
+            setResult(new Cantor::TextResult(output));
     }
 
     setStatus(Cantor::Expression::Done);

@@ -25,7 +25,7 @@ void TestLua::testSimpleCommand()
     QCOMPARE(cleanOutput(e->result()->data().toString() ), QLatin1String("4"));
 }
 
-void TestLua::testMultilineCommand()
+void TestLua::testMultilineCommand01()
 {
     auto* e = evalExp(QLatin1String("print(4+4); print(2-1)"));
 
@@ -35,6 +35,33 @@ void TestLua::testMultilineCommand()
 
     QCOMPARE(e->results().at(0)->data().toString(), QLatin1String("8"));
     QCOMPARE(e->results().at(1)->data().toString(), QLatin1String("1"));
+}
+
+/*!
+ * test multiple assignments with comments and with multi-line strings
+ */
+void TestLua::testMultilineCommand02()
+{
+    QSKIP("Works in Cantor, doesn't work in the test");
+    auto* e = evalExp(QLatin1String(
+        "s = 'walternate'  -- Immutable strings like Python.\n"
+        "t = \"double-quotes are also fine\"\n"
+        "u = [[ Double brackets\n"
+        "    start and end\n"
+        "    multi-line strings.]]\n"
+        "print(u)\n"
+    ));
+
+    QVERIFY(e != nullptr);
+    QVERIFY(e->errorMessage().isNull());
+    QCOMPARE(e->results().size(), 1);
+
+    QCOMPARE(e->results().at(0)->data().toString(),
+             QLatin1String(
+                 "Double brackets"
+                "       start and end"
+                "       multi-line strings."
+             ));
 }
 
 void TestLua::testVariableDefinition()
@@ -96,6 +123,29 @@ void TestLua::testForLoop()
     QVERIFY( e->result()!=nullptr );
 
     QCOMPARE( cleanOutput(e->result()->data().toString()), QLatin1String("5050") );
+}
+
+void TestLua::testWhileLoop()
+{
+    QSKIP("Works in Cantor, doesn't work in the test");
+    auto* e = evalExp(QLatin1String(
+        "num = 42\n"
+        "print(num)\n"
+        "while num < 50 do\n"
+        "   num = num + 1  -- No ++ or += type operators.\n"
+        "end\n"
+        "print(num)\n"
+    ));
+
+    if (e->status() != Cantor::Expression::Done)
+        waitForSignal(e, SIGNAL(statusChanged(Cantor::Expression::Status)));
+
+    QVERIFY(e != nullptr);
+    QVERIFY(e->errorMessage().isNull());
+    QCOMPARE(e->results().size(), 2);
+
+    QCOMPARE(e->results().at(0)->data().toString(), QLatin1String("42"));
+    QCOMPARE(e->results().at(1)->data().toString(), QLatin1String("50"));
 }
 
 void TestLua::testFunction()
