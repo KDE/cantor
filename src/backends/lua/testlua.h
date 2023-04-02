@@ -18,11 +18,15 @@ class TestLua : public BackendTest
 
 private Q_SLOTS:
     void testSimpleCommand();
-    void testMultilineCommand();
+
+    void testMultilineCommand01();
+    void testMultilineCommand02();
+
     void testVariableDefinition();
     void testInvalidSyntax();
     void testIfElseCondition();
     void testForLoop();
+    void testWhileLoop();
     void testFunction();
 
 private:
