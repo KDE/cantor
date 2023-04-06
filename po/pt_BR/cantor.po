@@ -11,9 +11,9 @@ msgstr ""
 "Project-Id-Version: cantor\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-03-30 00:44+0000\n"
-"PO-Revision-Date: 2023-01-16 23:37-0300\n"
+"PO-Revision-Date: 2023-04-05 10:42-0300\n"
 "Last-Translator: Luiz Fernando Ranghetti <elchevive@opensuse.org>\n"
-"Language-Team: Portuguese <kde-i18n-pt_BR@kde.org>\n"
+"Language-Team: Brazilian Portuguese <kde-i18n-pt_BR@kde.org>\n"
 "Language: pt_BR\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -879,17 +879,15 @@ msgstr "Integral"
 #. i18n: ectx: property (text), widget (QLabel, label_3)
 #. i18n: ectx: property (text), widget (QLabel, label_5)
 #: backends/maxima/settings.ui:84 backends/octave/settings.ui:118
-#, fuzzy, kde-format
-#| msgid "Font Size:"
+#, kde-format
 msgid "Size:"
-msgstr "Tamanho da fonte:"
+msgstr "Tamanho:"
 
 #. i18n: ectx: property (text), widget (QLabel, lPlotWidth)
 #: backends/maxima/settings.ui:112 backends/octave/settings.ui:58
-#, fuzzy, kde-format
-#| msgid "Width"
+#, kde-format
 msgid "width:"
-msgstr "Largura"
+msgstr "largura:"
 
 #. i18n: ectx: property (suffix), widget (QDoubleSpinBox, kcfg_plotWidth)
 #. i18n: ectx: property (suffix), widget (QDoubleSpinBox, kcfg_plotHeight)
@@ -897,27 +895,26 @@ msgstr "Largura"
 #: backends/octave/settings.ui:65 backends/octave/settings.ui:95
 #, kde-format
 msgid "cm"
-msgstr ""
+msgstr "cm"
 
 #. i18n: ectx: property (text), widget (QLabel, lPlotHeight)
 #: backends/maxima/settings.ui:142 backends/octave/settings.ui:88
-#, fuzzy, kde-format
-#| msgid "Height"
+#, kde-format
 msgid "height:"
-msgstr "Altura"
+msgstr "altura:"
 
 #. i18n: ectx: property (text), widget (QLabel, label_2)
 #. i18n: ectx: property (text), widget (QLabel, label_3)
 #: backends/maxima/settings.ui:172 backends/octave/settings.ui:155
 #, kde-format
 msgid "Image Format:"
-msgstr ""
+msgstr "Formato da imagem:"
 
 #. i18n: ectx: property (text), item, widget (QComboBox, kcfg_inlinePlotFormat)
 #: backends/maxima/settings.ui:180 backends/octave/settings.ui:196
 #, kde-format
 msgid "PDF"
-msgstr ""
+msgstr "PDF"
 
 #: backends/octave/octavebackend.cpp:63
 #, kde-format
@@ -944,7 +941,7 @@ msgstr ""
 #: backends/octave/octaveexpression.cpp:231
 #, kde-format
 msgid "Invalid image file generated."
-msgstr ""
+msgstr "Arquivo de imagem inválido gerado."
 
 #: backends/octave/octaveextensions.cpp:34
 #, kde-format
@@ -2671,10 +2668,9 @@ msgstr ""
 
 #. i18n: ectx: label, entry (WarnAboutEntryDelete), group (Cantor)
 #: cantor.kcfg:40
-#, fuzzy, kde-format
-#| msgid "Ask for confirmation when restarting the backend"
+#, kde-format
 msgid "Ask for confirmation when deleting an entry"
-msgstr "Solicitar confirmação ao reiniciar a infraestrutura"
+msgstr "Solicitar confirmação ao excluir uma entrada"
 
 #. i18n: ectx: label, entry (AutoEval), group (Cantor)
 #: cantor.kcfg:44
@@ -3445,15 +3441,14 @@ msgid "Cannot load image %1"
 msgstr "Não foi possível carregar a imagem %1"
 
 #: imageresultitem.cpp:90
-#, fuzzy, kde-format
-#| msgid "Text Files (*.txt)"
+#, kde-format
 msgid "%1 files (*.%2)"
-msgstr "Arquivos de texto (*.txt)"
+msgstr "Arquivos %1 (*.%2)"
 
 #: imageresultitem.cpp:93
 #, kde-format
 msgid "EPS files (*.eps)"
-msgstr ""
+msgstr "Arquivos EPS (*.eps)"
 
 #: imageresultitem.cpp:96
 #, kde-format
@@ -3621,7 +3616,7 @@ msgstr "Tamanho [bytes]"
 #, kde-format
 msgctxt "@title:column"
 msgid "Dimension"
-msgstr ""
+msgstr "Dimensão"
 
 #: lib/defaultvariablemodel.cpp:77
 #, kde-format
