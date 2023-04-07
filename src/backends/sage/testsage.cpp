@@ -85,12 +85,10 @@ void TestSage::testPlot()
     auto* e = evalExp( QLatin1String("plot(sin(x))") );
 
     QVERIFY(e != nullptr);
-    QCOMPARE(e->results().size(), 2);
-    QVERIFY(e->results()[0]->type() == Cantor::TextResult::Type);
-    QCOMPARE(e->results()[0]->data().toString(), QLatin1String("Launched png viewer for Graphics object consisting of 1 graphics primitive"));
+    QCOMPARE(e->results().size(), 1);
 
-    QVERIFY(e->results()[1]->type() == Cantor::ImageResult::Type);
-    QVERIFY(!e->results()[1]->data().isNull());
+    QVERIFY(e->results().at(0)->type() == Cantor::ImageResult::Type);
+    QVERIFY(!e->results().at(0)->data().isNull());
 }
 
 void TestSage::testInvalidSyntax()

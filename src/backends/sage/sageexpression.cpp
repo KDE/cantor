@@ -1,6 +1,7 @@
 /*
     SPDX-License-Identifier: GPL-2.0-or-later
     SPDX-FileCopyrightText: 2009 Alexander Rieder <alexanderrieder@gmail.com>
+    SPDX-FileCopyrightText: 2023 Alexander Semke <alexander.semke@web.de>
 */
 
 #include "sageexpression.h"
@@ -16,10 +17,7 @@
 #include <QMimeDatabase>
 #include <QRegularExpression>
 
-SageExpression::SageExpression( Cantor::Session* session, bool internal ) : Cantor::Expression(session, internal),
-    m_isHelpRequest(false),
-    m_promptCount(0),
-    m_syntaxError(false)
+SageExpression::SageExpression( Cantor::Session* session, bool internal ) : Cantor::Expression(session, internal)
 {
 }
 
@@ -34,12 +32,12 @@ void SageExpression::evaluate()
         || command().endsWith(QLatin1Char('?'))
         || command().contains(QLatin1String("help("))
     )
-        m_isHelpRequest=true;
+        m_isHelpRequest = true;
 
     //coun't how many newlines are in the command,
     //as sage will output one "sage: " or "....:" for
     //each.
-    m_promptCount=command().count(QLatin1Char('\n'))+2;
+    m_promptCount = command().count(QLatin1Char('\n'))+2;
 
     session()->enqueueExpression(this);
 }
@@ -53,7 +51,14 @@ void SageExpression::parseOutput(const QString& text)
         return;
     }
 
-    QString output=text;
+    if (text.startsWith(QLatin1String("Launched png viewer"))
+        || text.startsWith(QLatin1String("Launched gif viewer")) )
+    {
+        evalFinished();
+        return;
+    }
+
+    QString output = text;
     //remove carriage returns, we only use \n internally
     output.remove(QLatin1Char('\r'));
     //replace appearing backspaces, as they mess the whole output up
@@ -75,36 +80,36 @@ void SageExpression::parseOutput(const QString& text)
     //remove all prompts. we do this in a loop, because after we removed the first prompt,
     //there could be a second one, that isn't matched by promptRegexp in the first run, because
     //it originally isn't at the beginning of a line.
-    int index=-1, index2=-1;
+    int index =- 1, index2 =- 1;
     while ( (index=output.indexOf(promptRegexp)) != -1 || (index2=output.indexOf(altPromptRegexp)) != -1 )
     {
-        qDebug()<<"got prompt"<<index<<"  "<<index2;
-        if(index!=-1)
+        qDebug() << "got prompt" << index << "  " << index2;
+        if(index != -1)
         {
             m_promptCount--;
 
             //remove this prompt, the if is needed, because, if the prompt is on the
             //beginning of the string, index points to the "s", if it is within the string
             //index points to the newline
-            if(output[index]==QLatin1Char('\n'))
-                output.remove(index+1, SageSession::SagePrompt.length());
+            if(output[index] == QLatin1Char('\n'))
+                output.remove(index + 1, SageSession::SagePrompt.length());
             else
                 output.remove(index, SageSession::SagePrompt.length());
         }
 
-        if(index2!=-1)
+        if(index2 != -1)
         {
             m_promptCount--;
 
             //see comment above, for the reason for this "if"
-            if(output[index2]==QLatin1Char('\n'))
-                output.remove(index2+1, SageSession::SageAlternativePrompt.length());
+            if(output[index2] == QLatin1Char('\n'))
+                output.remove(index2 + 1, SageSession::SageAlternativePrompt.length());
             else
                 output.remove(index2, SageSession::SageAlternativePrompt.length());
         }
 
         //reset the indices
-        index=index2=-1;
+        index = index2 = -1;
     }
 
     m_outputCache+=output;
@@ -126,16 +131,13 @@ void SageExpression::parseOutput(const QString& text)
             m_syntaxError = true;
         }
         else
-        {
             evalFinished();
-        }
     }
-
 }
 
 void SageExpression::parseError(const QString& text)
 {
-    qDebug()<<"error";
+    qDebug() << "error";
     setErrorMessage(text);
     setStatus(Cantor::Expression::Error);
 }
@@ -147,9 +149,7 @@ void SageExpression::addFileResult( const QString& path )
   QMimeType type = db.mimeTypeForUrl(url);
 
   if(m_imagePath.isEmpty()||type.name().contains(QLatin1String("image"))||path.endsWith(QLatin1String(".png"))||path.endsWith(QLatin1String(".gif")))
-  {
-      m_imagePath=path;
-  }
+      m_imagePath = path;
 }
 
 void SageExpression::evalFinished()
@@ -162,9 +162,9 @@ void SageExpression::evalFinished()
 
     if (!m_outputCache.isEmpty())
     {
-        QString stripped=m_outputCache;
-        const bool isHtml=stripped.contains(QLatin1String("<html>"));
-        const bool isLatex=m_outputCache.contains(QLatin1String("\\newcommand{\\Bold}")); //Check if it's latex stuff
+        QString stripped = m_outputCache;
+        const bool isHtml = stripped.contains(QLatin1String("<html>"));
+        const bool isLatex = m_outputCache.contains(QLatin1String("\\newcommand{\\Bold}")); //Check if it's latex stuff
         if(isLatex) //It's latex stuff so encapsulate it into an eqnarray environment
         {
             int bol_command_len = QLatin1String("\\newcommand{\\Bold}[1]{\\mathbf{#1}}").size();
@@ -185,15 +185,13 @@ void SageExpression::evalFinished()
             stripped.prepend(QLatin1String("\\begin{align*}"));
             stripped.append(QLatin1String("\\end{align*}"));
             // TODO: Remove for final merge
-            qDebug()<<"NewCommand";
-            qDebug()<<stripped;
+            qDebug() << "NewCommand";
+            qDebug() << stripped;
         }
 
         //strip html tags
         if(isHtml)
-        {
             stripped.remove( QRegularExpression( QStringLiteral("<[a-zA-Z\\/][^>]*>") ) );
-        }
 
         if (stripped.endsWith(QLatin1Char('\n')))
             stripped.chop(1);
@@ -211,28 +209,37 @@ void SageExpression::evalFinished()
         }
         else
         {
-            Cantor::TextResult* result=new Cantor::TextResult(stripped);
+            auto* result=new Cantor::TextResult(stripped);
             if(isLatex)
                 result->setFormat(Cantor::TextResult::LatexFormat);
             addResult(result);
         }
     }
+    qDebug()<<"has image " << hasImage;
 
     if (hasImage)
     {
-    QMimeDatabase db;
-    QMimeType type = db.mimeTypeForUrl(QUrl::fromLocalFile(m_imagePath));
+        QMimeDatabase db;
+        QMimeType type = db.mimeTypeForUrl(QUrl::fromLocalFile(m_imagePath));
+        qDebug()<<"mime type " << type;
+        qDebug()<<"image path " << m_imagePath;
         if(type.inherits(QLatin1String("image/gif")))
-            addResult( new Cantor::AnimationResult(QUrl::fromLocalFile(m_imagePath ),i18n("Result of %1" , command() ) ) );
+        {
+            qDebug()<<"adding animation";
+            addResult( new Cantor::AnimationResult(QUrl::fromLocalFile(m_imagePath), i18n("Result of %1" , command() ) ) );
+        }
         else
-            addResult( new Cantor::ImageResult( QUrl::fromLocalFile(m_imagePath ),i18n("Result of %1" , command() ) ) );
+        {
+            qDebug()<<"adding image";
+            addResult( new Cantor::ImageResult(QUrl::fromLocalFile(m_imagePath ), i18n("Result of %1" , command() ) ) );
+        }
     }
     setStatus(Cantor::Expression::Done);
 }
 
 void SageExpression::onProcessError(const QString& msg)
 {
-    QString errMsg=i18n("%1\nThe last output was: \n %2", msg, m_outputCache.trimmed());
+    QString errMsg = i18n("%1\nThe last output was: \n %2", msg, m_outputCache.trimmed());
     setErrorMessage(errMsg);
     setStatus(Cantor::Expression::Error);
 }
@@ -261,4 +268,3 @@ QString SageExpression::additionalLatexHeaders()
                          "\\newcommand{\\RLF}{\\Bold{R}}\n"          \
                          "\\newcommand{\\CFF}{\\Bold{CFF}}\n");
 }
-

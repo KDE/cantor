@@ -31,14 +31,11 @@ static QByteArray initCmd= "import os\n"\
                            "sage.plot.plot3d.base.SHOW_DEFAULTS['viewer'] = 'tachyon' \n"\
                            "sage.misc.latex.EMBEDDED_MODE = True           \n "\
                            "os.environ['PAGER'] = 'cat'                    \n "\
-                           "%colors nocolor                                \n ";
+                           "%colors nocolor                                \n "\
+                           "print('%s %s' % ('____TMP_DIR____', sage.misc.misc.SAGE_TMP))\n";
 
 static QByteArray newInitCmd=
     "__CANTOR_IPYTHON_SHELL__=get_ipython()   \n "\
-    "__CANTOR_IPYTHON_SHELL__.autoindent=False\n ";
-
-static QByteArray legacyInitCmd=
-    "__CANTOR_IPYTHON_SHELL__=__IPYTHON__   \n "  \
     "__CANTOR_IPYTHON_SHELL__.autoindent=False\n ";
 
 static QByteArray endOfInitMarker="print('____END_OF_INIT____')\n ";
@@ -193,8 +190,12 @@ Cantor::Expression* SageSession::evaluateExpression(const QString& cmd, Cantor::
 
 void SageSession::readStdOut()
 {
-    m_outputCache.append(QString::fromUtf8(m_process->readAll()));
-    qDebug()<<"out: "<<m_outputCache;
+    QString out = QString::fromUtf8(m_process->readAllStandardOutput());
+    if (out.isEmpty())
+        return;
+
+    qDebug()<<"out: " << out;
+    m_outputCache += out;
 
     if ( m_outputCache.contains( QLatin1String("___TMP_DIR___") ) )
     {

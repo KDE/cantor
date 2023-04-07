@@ -1,6 +1,7 @@
 /*
     SPDX-License-Identifier: GPL-2.0-or-later
     SPDX-FileCopyrightText: 2009 Alexander Rieder <alexanderrieder@gmail.com>
+    SPDX-FileCopyrightText: 2023 Alexander Semke <alexander.semke@web.de>
 */
 
 #ifndef _SAGEEXPRESSION_H
@@ -31,9 +32,9 @@ class SageExpression : public Cantor::Expression
   private:
     QString m_outputCache;
     QString m_imagePath;
-    bool m_isHelpRequest;
-    int m_promptCount;
-    bool m_syntaxError;
+    bool m_isHelpRequest{false};
+    int m_promptCount{0};
+    bool m_syntaxError{false};
 };
 
 #endif /* _SAGEEXPRESSION_H */
