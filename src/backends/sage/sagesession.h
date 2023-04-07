@@ -1,6 +1,7 @@
 /*
     SPDX-License-Identifier: GPL-2.0-or-later
     SPDX-FileCopyrightText: 2009 Alexander Rieder <alexanderrieder@gmail.com>
+    SPDX-FileCopyrightText: 2023 Alexander Semke <alexander.semke@web.de>
 */
 
 #ifndef _SAGESESSION_H
@@ -11,9 +12,6 @@
 
 #include <KDirWatch>
 #include <QProcess>
-
-class SageExpression;
-class KPtyProcess;
 
 class SageSession : public Cantor::Session
 {
@@ -79,14 +77,14 @@ class SageSession : public Cantor::Session
     void defineCustomFunctions();
     bool updateSageVersion();
 
-    KPtyProcess* m_process;
-    bool m_isInitialized;
+    QProcess* m_process{nullptr};
+    bool m_isInitialized{false};
     QString m_tmpPath;
     KDirWatch m_dirWatch;
-    bool m_waitingForPrompt;
+    bool m_waitingForPrompt{false};
     QString m_outputCache;
     VersionInfo m_sageVersion;
-    bool m_haveSentInitCmd;
+    bool m_haveSentInitCmd{false};
     QString m_worksheetPath;
 };
 

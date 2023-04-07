@@ -36,7 +36,7 @@ QString SageBackend::id() const
 
 QString SageBackend::version() const
 {
-    return QLatin1String("8.3");
+    return QLatin1String("9.5");
 }
 
 Cantor::Session* SageBackend::createSession()

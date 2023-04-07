@@ -1,6 +1,7 @@
 /*
     SPDX-License-Identifier: GPL-2.0-or-later
     SPDX-FileCopyrightText: 2009 Alexander Rieder <alexanderrieder@gmail.com>
+    SPDX-FileCopyrightText: 2023 Alexander Semke <alexander.semke@web.de>
 */
 
 #include "sagesession.h"
@@ -10,8 +11,6 @@
 
 #include <QDebug>
 #include <QRegularExpression>
-#include <KPtyProcess>
-#include <KPtyDevice>
 #include <KLocalizedString>
 #include <KMessageBox>
 #include "settings.h"
@@ -24,15 +23,15 @@ const QByteArray SageSession::SagePrompt="sage: "; //Text, sage outputs after ea
 const QByteArray SageSession::SageAlternativePrompt="....: "; //Text, sage outputs when it expects further input
 
 //some commands that are run after login
-static QByteArray initCmd="os.environ['PAGER'] = 'cat'                     \n "\
+static QByteArray initCmd= "import os\n"\
+                           "os.environ['PAGER'] = 'cat'                     \n "\
                            "sage.misc.pager.EMBEDDED_MODE = True           \n "\
                            "sage.misc.viewer.BROWSER=''                    \n "\
                            "sage.misc.viewer.viewer.png_viewer('false')         \n" \
                            "sage.plot.plot3d.base.SHOW_DEFAULTS['viewer'] = 'tachyon' \n"\
                            "sage.misc.latex.EMBEDDED_MODE = True           \n "\
                            "os.environ['PAGER'] = 'cat'                    \n "\
-                           "%colors nocolor                                \n "\
-                           "print('%s %s' % ('____TMP_DIR____', sage.misc.misc.SAGE_TMP))\n";
+                           "%colors nocolor                                \n ";
 
 static QByteArray newInitCmd=
     "__CANTOR_IPYTHON_SHELL__=get_ipython()   \n "\
@@ -47,8 +46,8 @@ static QByteArray endOfInitMarker="print('____END_OF_INIT____')\n ";
 
 SageSession::VersionInfo::VersionInfo(int major, int minor)
 {
-    m_major=major;
-    m_minor=minor;
+    m_major = major;
+    m_minor = minor;
 }
 
 int SageSession::VersionInfo::majorVersion() const
@@ -63,13 +62,14 @@ int SageSession::VersionInfo::minorVersion() const
 
 bool SageSession::VersionInfo::operator==(VersionInfo other) const
 {
-    return m_major==other.m_major&&m_minor==other.m_minor;
+    return m_major == other.m_major&&m_minor==other.m_minor;
 }
 
 bool SageSession::VersionInfo::operator<(VersionInfo other) const
 {
-    return (m_major!= -1 && other.m_major==-1) ||
-        ( ((m_major!=-1 && other.m_major!=-1) || (m_major==other.m_major && m_major==-1) ) && ( m_major<other.m_major||(m_major==other.m_major&&m_minor<other.m_minor) ) );
+    return (m_major != -1 && other.m_major == -1) ||
+        ( ((m_major !=- 1 && other.m_major != -1) || (m_major == other.m_major && m_major == -1) )
+        && ( m_major < other.m_major || (m_major == other.m_major && m_minor < other.m_minor) ) );
 }
 
 bool SageSession::VersionInfo::operator<=(VersionInfo other) const
@@ -87,13 +87,9 @@ bool SageSession::VersionInfo::operator>=(SageSession::VersionInfo other) const
     return !( *this < other);
 }
 
-SageSession::SageSession(Cantor::Backend* backend) : Session(backend),
-m_process(nullptr),
-m_isInitialized(false),
-m_waitingForPrompt(false),
-m_haveSentInitCmd(false)
+SageSession::SageSession(Cantor::Backend* backend) : Session(backend)
 {
-    connect( &m_dirWatch, SIGNAL(created(QString)), this, SLOT(fileCreated(QString)) );
+    connect(&m_dirWatch, &KDirWatch::created, this, &SageSession::fileCreated);
 }
 
 SageSession::~SageSession()
@@ -113,31 +109,23 @@ void SageSession::login()
         return;
     emit loginStarted();
 
-    m_process=new KPtyProcess(this);
     updateSageVersion();
-    const QString& sageExecFile = SageSettings::self()->path().toLocalFile();
-    if (false)
-//  Reenable when https://trac.sagemath.org/ticket/25363 is merged
-//  if (m_sageVersion >= SageSession::VersionInfo(8, 4))
-        m_process->setProgram(sageExecFile, QStringList() << QLatin1String("--simple-prompt"));
-    else
-        {
-        const QString& sageStartScript = locateCantorFile(QLatin1String("sagebackend/cantor-execsage"));
-        m_process->setProgram(sageStartScript, QStringList(sageExecFile));
-        }
 
-    m_process->setOutputChannelMode(KProcess::SeparateChannels);
-    m_process->setPtyChannels(KPtyProcess::AllChannels);
-    m_process->pty()->setEcho(false);
+    QStringList arguments;
+    arguments << QLatin1String("-q"); // suppress the banner
+    arguments << QLatin1String("--simple-prompt"); // suppress the colorizing of the output
 
-    connect(m_process->pty(), SIGNAL(readyRead()), this, SLOT(readStdOut()));
-    connect(m_process, SIGNAL(readyReadStandardError()), this, SLOT(readStdErr()));
-    connect(m_process, SIGNAL(finished(int,QProcess::ExitStatus)), this, SLOT(processFinished(int,QProcess::ExitStatus)));
-    connect(m_process, SIGNAL(error(QProcess::ProcessError)), this, SLOT(reportProcessError(QProcess::ProcessError)));
-    m_process->start();
+    m_process = new QProcess(this);
+    m_process->start(SageSettings::self()->path().toLocalFile(), arguments);
     m_process->waitForStarted();
 
-    m_process->pty()->write(initCmd);
+    connect(m_process, &QProcess::readyRead, this, &SageSession::readStdOut);
+    connect(m_process, &QProcess::readyReadStandardOutput, this, &SageSession::readStdOut);
+    connect(m_process, &QProcess::readyReadStandardError, this, &SageSession::readStdErr);
+    connect(m_process, &QProcess::errorOccurred, this, &SageSession::reportProcessError);
+    connect(m_process, SIGNAL(finished(int,QProcess::ExitStatus)), this, SLOT(processFinished(int,QProcess::ExitStatus)));
+
+    m_process->write(initCmd);
 
     //save the path to the worksheet as variable "__file__"
     //this variable is usually set by the "os" package when running a script
@@ -150,7 +138,8 @@ void SageSession::login()
 
     //enable latex typesetting if needed
     const QString cmd = QLatin1String("__cantor_enable_typesetting(%1)");
-    evaluateExpression(cmd.arg(isTypesettingEnabled() ? QLatin1String("true"):QLatin1String("false")), Cantor::Expression::DeleteOnFinish);
+    evaluateExpression(cmd.arg(isTypesettingEnabled() ? QLatin1String("true"):QLatin1String("false")),
+                       Cantor::Expression::DeleteOnFinish);
 
     //auto-run scripts
     if(!SageSettings::self()->autorunScripts().isEmpty()){
@@ -174,7 +163,7 @@ void SageSession::logout()
 
     disconnect(m_process, SIGNAL(finished(int,QProcess::ExitStatus)), this, SLOT(processFinished(int,QProcess::ExitStatus)));
 
-    m_process->pty()->write("exit\n");
+    m_process->write("exit\n");
 
     if(!m_process->waitForFinished(1000))
         m_process->kill();
@@ -182,7 +171,7 @@ void SageSession::logout()
     m_process = nullptr;
 
     //Run sage-cleaner to kill all the orphans
-    KProcess::startDetached(SageSettings::self()->path().toLocalFile(),QStringList()<<QLatin1String("-cleaner"));
+    QProcess::startDetached(SageSettings::self()->path().toLocalFile(), QStringList() << QLatin1String("-cleaner"));
 
     m_isInitialized = false;
     m_waitingForPrompt = false;
@@ -193,8 +182,8 @@ void SageSession::logout()
 
 Cantor::Expression* SageSession::evaluateExpression(const QString& cmd, Cantor::Expression::FinishingBehavior behave, bool internal)
 {
-    qDebug()<<"evaluating: "<<cmd;
-    SageExpression* expr=new SageExpression(this, internal);
+    qDebug() << "evaluating: " << cmd;
+    auto* expr = new SageExpression(this, internal);
     expr->setFinishingBehavior(behave);
     expr->setCommand(cmd);
     expr->evaluate();
@@ -204,52 +193,40 @@ Cantor::Expression* SageSession::evaluateExpression(const QString& cmd, Cantor::
 
 void SageSession::readStdOut()
 {
-    m_outputCache.append(QString::fromUtf8(m_process->pty()->readAll()));
+    m_outputCache.append(QString::fromUtf8(m_process->readAll()));
     qDebug()<<"out: "<<m_outputCache;
 
     if ( m_outputCache.contains( QLatin1String("___TMP_DIR___") ) )
     {
-        int index=m_outputCache.indexOf(QLatin1String("___TMP_DIR___") )+14;
-        int endIndex=m_outputCache.indexOf(QLatin1String("\n"), index);
+        int index = m_outputCache.indexOf(QLatin1String("___TMP_DIR___") )+14;
+        int endIndex = m_outputCache.indexOf(QLatin1String("\n"), index);
 
-        if(endIndex==-1)
-            m_tmpPath=m_outputCache.mid( index ).trimmed();
+        if(endIndex == -1)
+            m_tmpPath = m_outputCache.mid( index ).trimmed();
         else
-            m_tmpPath=m_outputCache.mid( index, endIndex-index ).trimmed();
+            m_tmpPath = m_outputCache.mid( index, endIndex-index ).trimmed();
 
         qDebug()<<"tmp path: "<<m_tmpPath;
 
-        m_dirWatch.addDir( m_tmpPath, KDirWatch::WatchFiles );
+        m_dirWatch.addDir(m_tmpPath, KDirWatch::WatchFiles);
     }
 
     if(!m_isInitialized)
     {
+        // enforce the minimal version Sage 9.2 (released Oct 24, 2020).
+        // this is the version supporting the --simple prompt CLI option that simplifies the initialization of sage,
+        // s.a. the discussions in
+        // https://github.com/sagemath/sage/issues/25363
+        // https://bugs.kde.org/show_bug.cgi?id=408176
         if(updateSageVersion())
         {
-            // After the update ipython5 somewhere around Sage 7.6, Cantor stopped working with Sage.
-            // To fix this, we start Sage via a help wrapper that makes ipythong using simple prompt.
-            // This method works starting with Sage 8.1"
-            // Versions lower than 8.1 are not supported because of https://github.com/ipython/ipython/issues/9816
-            if(m_sageVersion <= SageSession::VersionInfo(8, 0) && m_sageVersion >= SageSession::VersionInfo(7,4))
+            if(m_sageVersion <= SageSession::VersionInfo(9, 2))
             {
-                const QString message = i18n(
-                    "Sage version %1.%2 is unsupported. Please update your installation "\
-                    "to the supported versions to make it work with Cantor.", m_sageVersion.majorVersion(), m_sageVersion.minorVersion());
-                KMessageBox::error(nullptr, message, i18n("Cantor"));
+                const QString& message = i18n("Sage version %1.%2 is unsupported. Please update your installation to the versions 9.2 or higher.",
+                                             m_sageVersion.majorVersion(), m_sageVersion.minorVersion());
+                KMessageBox::error(nullptr, message, i18n("Unsupported Version"));
                 interrupt();
                 logout();
-            }
-            else if(m_sageVersion<=SageSession::VersionInfo(5, 7))
-            {
-                qDebug()<<"using an old version of sage: "<<m_sageVersion.majorVersion()<<"."<<m_sageVersion.minorVersion()<<". Using the old init command";
-                if(!m_haveSentInitCmd)
-                {
-                    m_process->pty()->write(legacyInitCmd);
-                    defineCustomFunctions();
-                    m_process->pty()->write(endOfInitMarker);
-                    m_haveSentInitCmd=true;
-                }
-
             }
             else
             {
@@ -257,43 +234,42 @@ void SageSession::readStdOut()
 
                 if(!m_haveSentInitCmd)
                 {
-                    m_process->pty()->write(newInitCmd);
+                    m_process->write(newInitCmd);
                     defineCustomFunctions();
-                    m_process->pty()->write(endOfInitMarker);
+                    m_process->write(endOfInitMarker);
                     m_haveSentInitCmd=true;
                 }
             }
         }
         else
         {
-            const QString message = i18n(
-                "Failed to determine the version of Sage. Please check your installation and the output of 'sage -v'.");
-            KMessageBox::error(nullptr, message, i18n("Cantor"));
+            const QString& message = i18n("Failed to determine the version of Sage. Please check your installation and the output of 'sage -v'.");
+            KMessageBox::error(nullptr, message, i18n("Unsupported Version"));
             interrupt();
             logout();
         }
     }
 
 
-    int indexOfEOI=m_outputCache.indexOf(QLatin1String("____END_OF_INIT____"));
-    if(indexOfEOI!=-1&&m_outputCache.indexOf(QLatin1String(SagePrompt), indexOfEOI)!=-1)
+    int indexOfEOI = m_outputCache.indexOf(QLatin1String("____END_OF_INIT____"));
+    if(indexOfEOI != -1 && m_outputCache.indexOf(QLatin1String(SagePrompt), indexOfEOI) != -1)
     {
-        qDebug()<<"initialized";
+        qDebug() << "initialized";
         //out.remove("____END_OF_INIT____");
         //out.remove(SagePrompt);
-        m_isInitialized=true;
-        m_waitingForPrompt=false;
+        m_isInitialized = true;
+        m_waitingForPrompt = false;
         runFirstExpression();
         m_outputCache.clear();
     }
 
     //If we are waiting for another prompt, drop every output
     //until a prompt is found
-    if(m_isInitialized&&m_waitingForPrompt)
+    if(m_isInitialized && m_waitingForPrompt)
     {
-        qDebug()<<"waiting for prompt";
+        qDebug() << "waiting for prompt";
         if(m_outputCache.contains(QLatin1String(SagePrompt)))
-            m_waitingForPrompt=false;
+            m_waitingForPrompt = false;
 
         m_outputCache.clear();
         return;
@@ -314,7 +290,6 @@ void SageSession::readStdErr()
 {
     qDebug()<<"reading stdErr";
     QString out = QLatin1String(m_process->readAllStandardError());
-    qDebug()<<"err: "<<out;
     if (!expressionQueue().isEmpty())
     {
         auto* expr = expressionQueue().first();
@@ -325,7 +300,7 @@ void SageSession::readStdErr()
 void SageSession::processFinished(int exitCode, QProcess::ExitStatus exitStatus)
 {
     Q_UNUSED(exitCode);
-    if(exitStatus==QProcess::CrashExit)
+    if(exitStatus == QProcess::CrashExit)
     {
         if(!expressionQueue().isEmpty())
         {
@@ -352,7 +327,7 @@ void SageSession::processFinished(int exitCode, QProcess::ExitStatus exitStatus)
 
 void SageSession::reportProcessError(QProcess::ProcessError e)
 {
-    if(e==QProcess::FailedToStart)
+    if(e == QProcess::FailedToStart)
     {
         changeStatus(Cantor::Session::Done);
         emit error(i18n("Failed to start Sage"));
@@ -364,6 +339,7 @@ void SageSession::runFirstExpression()
     if(!expressionQueue().isEmpty())
     {
         auto* expr = expressionQueue().first();
+
         if (m_isInitialized)
         {
             connect(expr, &Cantor::Expression::statusChanged, this, &Session::currentExpressionStatusChanged);
@@ -377,10 +353,9 @@ void SageSession::runFirstExpression()
 
             qDebug()<<"writing "<<command<<" to the process";
             expr->setStatus(Cantor::Expression::Computing);
-            m_process->pty()->write(command.toUtf8());
+            m_process->write(command.toUtf8());
         }
         else if (expressionQueue().size() == 1)
-
             // If queue contains one expression, it means, what we run this expression immediately (drop setting queued status)
             // TODO: Sage login is slow, so, maybe better mark this expression as queued for a login time
             expr->setStatus(Cantor::Expression::Queued);
@@ -395,17 +370,17 @@ void SageSession::interrupt()
         if(m_process && m_process->state() != QProcess::NotRunning)
         {
 #ifndef Q_OS_WIN
-            const int pid=m_process->processId();
+            const int pid = m_process->processId();
             kill(pid, SIGINT);
 #else
             ; //TODO: interrupt the process on windows
 #endif
         }
+
         for (auto* expression : expressionQueue())
             expression->setStatus(Cantor::Expression::Interrupted);
 
         expressionQueue().clear();
-
         m_outputCache.clear();
 
         qDebug()<<"done interrupting";
@@ -416,7 +391,7 @@ void SageSession::interrupt()
 
 void SageSession::sendInputToProcess(const QString& input)
 {
-    m_process->pty()->write(input.toUtf8());
+    m_process->write(input.toUtf8());
 }
 
 void SageSession::fileCreated( const QString& path )
@@ -466,18 +441,18 @@ void SageSession::defineCustomFunctions()
 {
     //typesetting
     QString cmd = QLatin1String("def __cantor_enable_typesetting(enable):\n");
-    if(m_sageVersion<VersionInfo(5, 7))
+    if(m_sageVersion < VersionInfo(5, 7))
     {
         //the _ and __IP.outputcache() are needed to keep the
         // _ operator working. in modern versions of sage the __IP variable
         //has been removed
-        cmd+=QLatin1String("\t sage.misc.latex.pretty_print_default(enable);_;__IP.outputcache() \n\n");
+        cmd += QLatin1String("\t sage.misc.latex.pretty_print_default(enable);_;__IP.outputcache() \n\n");
     }else if (m_sageVersion > VersionInfo(5, 7) && m_sageVersion< VersionInfo(5, 12))
     {
-        cmd+=QLatin1String("\t sage.misc.latex.pretty_print_default(enable)\n\n");
+        cmd += QLatin1String("\t sage.misc.latex.pretty_print_default(enable)\n\n");
     }else
     {
-        cmd+=QLatin1String("\t if(enable==true):\n "\
+        cmd += QLatin1String("\t if(enable==true):\n "\
              "\t \t %display typeset \n"\
              "\t else: \n" \
              "\t \t %display simple \n\n");
@@ -490,7 +465,7 @@ bool SageSession::updateSageVersion()
 {
     QProcess get_sage_version;
     get_sage_version.setProgram(SageSettings::self()->path().toLocalFile());
-    get_sage_version.setArguments(QStringList()<<QLatin1String("-v"));
+    get_sage_version.setArguments(QStringList() << QLatin1String("-v"));
     get_sage_version.start();
     if (!get_sage_version.waitForFinished(-1))
         return false;
@@ -501,9 +476,9 @@ bool SageSession::updateSageVersion()
     qDebug()<<"found version: " << version.capturedTexts();
     if(version.capturedTexts().length() == 3)
     {
-        int major=version.capturedTexts().at(1).toInt();
-        int minor=version.capturedTexts().at(2).toInt();
-        m_sageVersion=SageSession::VersionInfo(major, minor);
+        int major = version.capturedTexts().at(1).toInt();
+        int minor = version.capturedTexts().at(2).toInt();
+        m_sageVersion = SageSession::VersionInfo(major, minor);
         return true;
     }
     else

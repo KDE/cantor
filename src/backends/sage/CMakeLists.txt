@@ -17,9 +17,7 @@ ki18n_wrap_ui(SageBackend_SRCS settings.ui)
 
 add_backend(sagebackend ${SageBackend_SRCS})
 
-target_link_libraries( cantor_sagebackend cantor_help
-    KF5::Pty
-    KF5::SyntaxHighlighting)
+target_link_libraries( cantor_sagebackend cantor_help KF5::SyntaxHighlighting)
 
 if(BUILD_TESTING)
   add_executable( testsage testsage.cpp)
@@ -33,7 +31,3 @@ endif()
 
 install(FILES cantor_sage.knsrc  DESTINATION  ${KDE_INSTALL_KNSRCDIR})
 
-install(
-  PROGRAMS cantor-execsage
-  DESTINATION ${KDE_INSTALL_DATADIR}/cantor/sagebackend
-)
