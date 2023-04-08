@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-03-30 00:44+0000\n"
+"POT-Creation-Date: 2023-04-08 00:42+0000\n"
 "PO-Revision-Date: 2011-05-12 22:47+0700\n"
 "Last-Translator: Phuwanat Sakornsakolpat <narachai@gmail.com>\n"
 "Language-Team: Thai <thai-l10n@googlegroups.com>\n"
@@ -963,9 +963,8 @@ msgstr ""
 msgid "The integration of plots will be disabled."
 msgstr ""
 
-#: backends/octave/octavesession.cpp:399 backends/sage/sagesession.cpp:238
-#: backends/sage/sagesession.cpp:271 backends/sage/sagesession.cpp:337
-#: backends/sage/sagesession.cpp:348 cantor.cpp:215 cantor.cpp:217
+#: backends/octave/octavesession.cpp:399 backends/sage/sagesession.cpp:312
+#: backends/sage/sagesession.cpp:323 cantor.cpp:215 cantor.cpp:217
 #: cantor.cpp:336 cantor.cpp:343 lib/session.cpp:383 main.cpp:66 main.cpp:130
 #: markdownentry.cpp:797 textentry.cpp:553 worksheet.cpp:1275
 #, kde-format
@@ -2385,41 +2384,46 @@ msgstr ""
 "*.py|แฟ้มสคริปต์ Python\n"
 "*.sage|แฟ้มสคริปต์ Sage"
 
-#: backends/sage/sagesession.cpp:236
+#: backends/sage/sagesession.cpp:225
 #, kde-format
 msgid ""
 "Sage version %1.%2 is unsupported. Please update your installation to the "
-"supported versions to make it work with Cantor."
+"versions 9.2 or higher."
 msgstr ""
 
-#: backends/sage/sagesession.cpp:270
+#: backends/sage/sagesession.cpp:227 backends/sage/sagesession.cpp:247
+#, kde-format
+msgid "Unsupported Version"
+msgstr ""
+
+#: backends/sage/sagesession.cpp:246
 #, kde-format
 msgid ""
 "Failed to determine the version of Sage. Please check your installation and "
 "the output of 'sage -v'."
 msgstr ""
 
-#: backends/sage/sagesession.cpp:333
+#: backends/sage/sagesession.cpp:308
 #, kde-format
 msgid "The Sage process crashed while evaluating this expression"
 msgstr "โพรเซส Sage หยุดทำงานขณะหาค่าของนิพจน์นี้"
 
-#: backends/sage/sagesession.cpp:337
+#: backends/sage/sagesession.cpp:312
 #, kde-format
 msgid "The Sage process crashed"
 msgstr "โพรเซส Sage หยุดทำงาน"
 
-#: backends/sage/sagesession.cpp:344
+#: backends/sage/sagesession.cpp:319
 #, kde-format
 msgid "The Sage process exited while evaluating this expression"
 msgstr "โพรเซส Sage ปิดขณะกำลังคำนวณนิพจน์นี้"
 
-#: backends/sage/sagesession.cpp:348
+#: backends/sage/sagesession.cpp:323
 #, kde-format
 msgid "The Sage process exited"
 msgstr "โพรเซส Sage ปิดทำงาน"
 
-#: backends/sage/sagesession.cpp:358
+#: backends/sage/sagesession.cpp:333
 #, kde-format
 msgid "Failed to start Sage"
 msgstr "การเริ่ม Sage ล้มเหลว"

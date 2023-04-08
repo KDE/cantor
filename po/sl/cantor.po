@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-03-30 00:44+0000\n"
+"POT-Creation-Date: 2023-04-08 00:42+0000\n"
 "PO-Revision-Date: 2023-03-31 09:28+0200\n"
 "Last-Translator: Matjaž Jeran <matjaz.jeran@amis.net>\n"
 "Language-Team: Slovenian <lugos-slo@lugos.si>\n"
@@ -983,9 +983,8 @@ msgstr "Preizkus integracije risanja ni uspel."
 msgid "The integration of plots will be disabled."
 msgstr "Integracija grafov bo onemogočena."
 
-#: backends/octave/octavesession.cpp:399 backends/sage/sagesession.cpp:238
-#: backends/sage/sagesession.cpp:271 backends/sage/sagesession.cpp:337
-#: backends/sage/sagesession.cpp:348 cantor.cpp:215 cantor.cpp:217
+#: backends/octave/octavesession.cpp:399 backends/sage/sagesession.cpp:312
+#: backends/sage/sagesession.cpp:323 cantor.cpp:215 cantor.cpp:217
 #: cantor.cpp:336 cantor.cpp:343 lib/session.cpp:383 main.cpp:66 main.cpp:130
 #: markdownentry.cpp:797 textentry.cpp:553 worksheet.cpp:1275
 #, kde-format
@@ -2422,16 +2421,25 @@ msgstr ""
 msgid "Python script file (*.py);;Sage script file (*.sage)"
 msgstr "Skriptna datoteka Python (*.py);;Skriptna datoteka Sage (*.sage)"
 
-#: backends/sage/sagesession.cpp:236
-#, kde-format
+#: backends/sage/sagesession.cpp:225
+#, fuzzy, kde-format
+#| msgid ""
+#| "Sage version %1.%2 is unsupported. Please update your installation to the "
+#| "supported versions to make it work with Cantor."
 msgid ""
 "Sage version %1.%2 is unsupported. Please update your installation to the "
-"supported versions to make it work with Cantor."
+"versions 9.2 or higher."
 msgstr ""
 "Sage verzija %1.%2 ni podprta. Prosim nadgradite vašo namestitev s podprtimi "
 "verzijami, da jih boste lahko uporabili skupaj s Cantorjem."
 
-#: backends/sage/sagesession.cpp:270
+#: backends/sage/sagesession.cpp:227 backends/sage/sagesession.cpp:247
+#, fuzzy, kde-format
+#| msgid "All supported files"
+msgid "Unsupported Version"
+msgstr "Vse podprte datoteke"
+
+#: backends/sage/sagesession.cpp:246
 #, kde-format
 msgid ""
 "Failed to determine the version of Sage. Please check your installation and "
@@ -2440,27 +2448,27 @@ msgstr ""
 "Ni mogoče ugotovite verzije Sage. Prosim preverite vašo namestitev in izhod "
 "ukaza  'sage -v'."
 
-#: backends/sage/sagesession.cpp:333
+#: backends/sage/sagesession.cpp:308
 #, kde-format
 msgid "The Sage process crashed while evaluating this expression"
 msgstr "Opravilo Sage se je med vrednotenjem tega izraza sesulo"
 
-#: backends/sage/sagesession.cpp:337
+#: backends/sage/sagesession.cpp:312
 #, kde-format
 msgid "The Sage process crashed"
 msgstr "Opravilo Sage se je sesulo"
 
-#: backends/sage/sagesession.cpp:344
+#: backends/sage/sagesession.cpp:319
 #, kde-format
 msgid "The Sage process exited while evaluating this expression"
 msgstr "Opravilo Sage se je končalo med vrednotenjem tega izraza"
 
-#: backends/sage/sagesession.cpp:348
+#: backends/sage/sagesession.cpp:323
 #, kde-format
 msgid "The Sage process exited"
 msgstr "Opravilo Sage se je končalo"
 
-#: backends/sage/sagesession.cpp:358
+#: backends/sage/sagesession.cpp:333
 #, kde-format
 msgid "Failed to start Sage"
 msgstr "Ni bilo mogoče zagnati programa Sage"
