@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kdeorg\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-04-08 00:42+0000\n"
+"POT-Creation-Date: 2023-04-09 00:43+0000\n"
 "PO-Revision-Date: 2023-03-27 11:58\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Simplified\n"
@@ -913,7 +913,7 @@ msgstr ""
 msgid "Octave script file (*.m)"
 msgstr "Octave 脚本文件 (*.m)"
 
-#: backends/octave/octavesession.cpp:275 backends/sage/sageexpression.cpp:51
+#: backends/octave/octavesession.cpp:275 backends/sage/sageexpression.cpp:49
 #, kde-format
 msgid "Syntax Error"
 msgstr "语法错误"
@@ -928,8 +928,8 @@ msgstr "绘图集成测试失败。"
 msgid "The integration of plots will be disabled."
 msgstr "绘图集成将被禁用。"
 
-#: backends/octave/octavesession.cpp:399 backends/sage/sagesession.cpp:312
-#: backends/sage/sagesession.cpp:323 cantor.cpp:215 cantor.cpp:217
+#: backends/octave/octavesession.cpp:399 backends/sage/sagesession.cpp:313
+#: backends/sage/sagesession.cpp:324 cantor.cpp:215 cantor.cpp:217
 #: cantor.cpp:336 cantor.cpp:343 lib/session.cpp:383 main.cpp:66 main.cpp:130
 #: markdownentry.cpp:797 textentry.cpp:553 worksheet.cpp:1275
 #, kde-format
@@ -2297,12 +2297,12 @@ msgstr "Sage 可执行文件路径"
 msgid "Enable LaTeX typesetting for Sage backend"
 msgstr "为 Sage 后端启用 LaTeX 排版"
 
-#: backends/sage/sageexpression.cpp:226 backends/sage/sageexpression.cpp:228
+#: backends/sage/sageexpression.cpp:229 backends/sage/sageexpression.cpp:234
 #, kde-format
 msgid "Result of %1"
 msgstr "%1 的结果"
 
-#: backends/sage/sageexpression.cpp:235
+#: backends/sage/sageexpression.cpp:242
 #, kde-format
 msgid ""
 "%1\n"
@@ -2320,7 +2320,7 @@ msgstr ""
 "*.py|Python 脚本文件\n"
 "*.sage|Sage 脚本文件"
 
-#: backends/sage/sagesession.cpp:225
+#: backends/sage/sagesession.cpp:226
 #, fuzzy, kde-format
 #| msgid ""
 #| "Sage version %1.%2 is unsupported. Please update your installation to the "
@@ -2330,40 +2330,40 @@ msgid ""
 "versions 9.2 or higher."
 msgstr "不支持 Sage %1.%2 版本。请更新您的安装到支持的版本，Cantor 才能工作。"
 
-#: backends/sage/sagesession.cpp:227 backends/sage/sagesession.cpp:247
+#: backends/sage/sagesession.cpp:228 backends/sage/sagesession.cpp:248
 #, fuzzy, kde-format
 #| msgid "All supported files"
 msgid "Unsupported Version"
 msgstr "所有支持的文件"
 
-#: backends/sage/sagesession.cpp:246
+#: backends/sage/sagesession.cpp:247
 #, kde-format
 msgid ""
 "Failed to determine the version of Sage. Please check your installation and "
 "the output of 'sage -v'."
 msgstr "无法决定 Sage 版本。请检查您的安装和 sage -v 的输出。"
 
-#: backends/sage/sagesession.cpp:308
+#: backends/sage/sagesession.cpp:309
 #, kde-format
 msgid "The Sage process crashed while evaluating this expression"
 msgstr "计算此算式时 Sage 进程崩溃"
 
-#: backends/sage/sagesession.cpp:312
+#: backends/sage/sagesession.cpp:313
 #, kde-format
 msgid "The Sage process crashed"
 msgstr "Sage 进程已崩溃"
 
-#: backends/sage/sagesession.cpp:319
+#: backends/sage/sagesession.cpp:320
 #, kde-format
 msgid "The Sage process exited while evaluating this expression"
 msgstr "计算此算式时 Sage 进程退出"
 
-#: backends/sage/sagesession.cpp:323
+#: backends/sage/sagesession.cpp:324
 #, kde-format
 msgid "The Sage process exited"
 msgstr "Sage 进程已退出"
 
-#: backends/sage/sagesession.cpp:333
+#: backends/sage/sagesession.cpp:334
 #, kde-format
 msgid "Failed to start Sage"
 msgstr "启动 Sage 失败"

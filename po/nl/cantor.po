@@ -11,15 +11,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: cantor\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-04-08 00:42+0000\n"
-"PO-Revision-Date: 2023-01-04 13:25+0100\n"
+"POT-Creation-Date: 2023-04-09 00:43+0000\n"
+"PO-Revision-Date: 2023-04-08 17:33+0200\n"
 "Last-Translator: Freek de Kruijf <freekdekruijf@kde.nl>\n"
 "Language-Team: \n"
 "Language: nl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Lokalize 22.12.0\n"
+"X-Generator: Lokalize 22.12.3\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 
 #, kde-format
@@ -980,7 +980,7 @@ msgstr "Ongeldig afbeeldingsbestand gegenereerd."
 msgid "Octave script file (*.m)"
 msgstr "Octave scriptbestand (*.m)"
 
-#: backends/octave/octavesession.cpp:275 backends/sage/sageexpression.cpp:51
+#: backends/octave/octavesession.cpp:275 backends/sage/sageexpression.cpp:49
 #, kde-format
 msgid "Syntax Error"
 msgstr "Syntaxisfout"
@@ -995,8 +995,8 @@ msgstr "Plotintegratietest is mislukt."
 msgid "The integration of plots will be disabled."
 msgstr "Het integreren (samenvoegen?) van plots wordt uitgezet."
 
-#: backends/octave/octavesession.cpp:399 backends/sage/sagesession.cpp:312
-#: backends/sage/sagesession.cpp:323 cantor.cpp:215 cantor.cpp:217
+#: backends/octave/octavesession.cpp:399 backends/sage/sagesession.cpp:313
+#: backends/sage/sagesession.cpp:324 cantor.cpp:215 cantor.cpp:217
 #: cantor.cpp:336 cantor.cpp:343 lib/session.cpp:383 main.cpp:66 main.cpp:130
 #: markdownentry.cpp:797 textentry.cpp:553 worksheet.cpp:1275
 #, kde-format
@@ -2417,12 +2417,12 @@ msgstr "Path naar het uitvoerbaar bestand voor Sage"
 msgid "Enable LaTeX typesetting for Sage backend"
 msgstr "LaTeX-letters aanzetten voor backend van Sage"
 
-#: backends/sage/sageexpression.cpp:226 backends/sage/sageexpression.cpp:228
+#: backends/sage/sageexpression.cpp:229 backends/sage/sageexpression.cpp:234
 #, kde-format
 msgid "Result of %1"
 msgstr "Antwoord van %1"
 
-#: backends/sage/sageexpression.cpp:235
+#: backends/sage/sageexpression.cpp:242
 #, kde-format
 msgid ""
 "%1\n"
@@ -2438,25 +2438,21 @@ msgstr ""
 msgid "Python script file (*.py);;Sage script file (*.sage)"
 msgstr "Python scriptbestand (*.py);;Sage scriptbestand( *.sage)"
 
-#: backends/sage/sagesession.cpp:225
-#, fuzzy, kde-format
-#| msgid ""
-#| "Sage version %1.%2 is unsupported. Please update your installation to the "
-#| "supported versions to make it work with Cantor."
+#: backends/sage/sagesession.cpp:226
+#, kde-format
 msgid ""
 "Sage version %1.%2 is unsupported. Please update your installation to the "
 "versions 9.2 or higher."
 msgstr ""
-"Sage versie %1.%2 wordt niet ondersteund. Update uw installatie naar de "
-"ondersteunde versies, die wel samenwerken mat Cantor."
+"Sage versie %1.%2 wordt niet ondersteund. Werk uw installatie bij naar de "
+"versies 9.2 of hoger."
 
-#: backends/sage/sagesession.cpp:227 backends/sage/sagesession.cpp:247
-#, fuzzy, kde-format
-#| msgid "All supported files"
+#: backends/sage/sagesession.cpp:228 backends/sage/sagesession.cpp:248
+#, kde-format
 msgid "Unsupported Version"
-msgstr "Alle ondersteunde bestanden"
+msgstr "Niet-ondersteunde versie"
 
-#: backends/sage/sagesession.cpp:246
+#: backends/sage/sagesession.cpp:247
 #, kde-format
 msgid ""
 "Failed to determine the version of Sage. Please check your installation and "
@@ -2465,28 +2461,28 @@ msgstr ""
 "Het bepalen van de versie van Sage is niet gelukt. Kijk even naar uw "
 "installatie, en de uitvoer van 'sage -v'."
 
-#: backends/sage/sagesession.cpp:308
+#: backends/sage/sagesession.cpp:309
 #, kde-format
 msgid "The Sage process crashed while evaluating this expression"
 msgstr "Het Sage-proces liep vast tijdens het berekenen van deze expressie"
 
-#: backends/sage/sagesession.cpp:312
+#: backends/sage/sagesession.cpp:313
 #, kde-format
 msgid "The Sage process crashed"
 msgstr "Het Sage-proces liep vast"
 
-#: backends/sage/sagesession.cpp:319
+#: backends/sage/sagesession.cpp:320
 #, kde-format
 msgid "The Sage process exited while evaluating this expression"
 msgstr ""
 "Het Sage-proces werd afgebroken tijdens het berekenen van deze expressie"
 
-#: backends/sage/sagesession.cpp:323
+#: backends/sage/sagesession.cpp:324
 #, kde-format
 msgid "The Sage process exited"
 msgstr "Het Sage-proces werd afgebroken"
 
-#: backends/sage/sagesession.cpp:333
+#: backends/sage/sagesession.cpp:334
 #, kde-format
 msgid "Failed to start Sage"
 msgstr "Starten van Sage is mislukt"
