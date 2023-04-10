@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: cantor\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-04-09 00:43+0000\n"
-"PO-Revision-Date: 2023-01-24 21:25+0530\n"
+"PO-Revision-Date: 2023-04-09 13:01+0530\n"
 "Last-Translator: Kishore G <kishore96@gmail.com>\n"
 "Language-Team: Tamil <kde-i18n-doc@kde.org>\n"
 "Language: ta\n"
@@ -15,7 +15,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Lokalize 22.12.1\n"
+"X-Generator: Lokalize 23.03.90\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -55,14 +55,14 @@ msgstr "அசைவூட்டங்கள் (*.gif)"
 #: assistants/advancedplot/advancedplotassistant.cpp:30
 #, kde-format
 msgid "Advanced Plotting"
-msgstr ""
+msgstr "மேம்பட்ட வரைபடமாக்கம்"
 
 #. i18n: ectx: property (text), widget (QLabel, label_2)
 #: assistants/advancedplot/advancedplotdialog.ui:24
 #: backends/qalculate/plotassistant/qalculateplotassistant.cpp:24
 #, kde-format
 msgid "Plot"
-msgstr ""
+msgstr "வரைபடமாக்கு"
 
 #. i18n: ectx: property (text), widget (QLabel, label_3)
 #. i18n: ectx: property (text), widget (QLabel, label)
@@ -72,7 +72,7 @@ msgstr ""
 #: assistants/plot3d/plot3ddlg.ui:17
 #, kde-format
 msgid "Expression:"
-msgstr ""
+msgstr "சார்பு:"
 
 #. i18n: ectx: property (text), widget (QLabel, label)
 #: assistants/advancedplot/advancedplotdialog.ui:45
@@ -87,7 +87,7 @@ msgstr "மேம்பட்ட அமைப்புகள்:"
 #: backends/qalculate/plotassistant/cantor_qalculateplotassistant.rc:4
 #, kde-format
 msgid "&Plot"
-msgstr ""
+msgstr "&வரைபடமாக்கு"
 
 #. i18n: ectx: property (title), widget (QGroupBox, directiveContainer)
 #: assistants/advancedplot/directivecontainer.ui:14

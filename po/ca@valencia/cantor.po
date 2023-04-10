@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: cantor\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-04-09 00:43+0000\n"
-"PO-Revision-Date: 2023-01-04 14:27+0100\n"
+"PO-Revision-Date: 2023-04-08 08:24+0100\n"
 "Last-Translator: Josep M. Ferrer <txemaq@gmail.com>\n"
 "Language-Team: Catalan <kde-i18n-ca@kde.org>\n"
 "Language: ca@valencia\n"
@@ -2462,22 +2462,18 @@ msgid "Python script file (*.py);;Sage script file (*.sage)"
 msgstr "Fitxer de script en Python (*.py);;Fitxer de script de Sage (*.sage)"
 
 #: backends/sage/sagesession.cpp:226
-#, fuzzy, kde-format
-#| msgid ""
-#| "Sage version %1.%2 is unsupported. Please update your installation to the "
-#| "supported versions to make it work with Cantor."
+#, kde-format
 msgid ""
 "Sage version %1.%2 is unsupported. Please update your installation to the "
 "versions 9.2 or higher."
 msgstr ""
-"No s'admet la versió %1.%2 de Sage. Actualitzeu la instal·lació a les "
-"versions acceptades per a fer que funcione amb Cantor."
+"No s'admet la versió %1.%2 de Sage. Actualitzeu la instal·lació a la versió "
+"9.2 o superior."
 
 #: backends/sage/sagesession.cpp:228 backends/sage/sagesession.cpp:248
-#, fuzzy, kde-format
-#| msgid "All supported files"
+#, kde-format
 msgid "Unsupported Version"
-msgstr "Tots els fitxers admesos"
+msgstr "Versió no admesa"
 
 #: backends/sage/sagesession.cpp:247
 #, kde-format

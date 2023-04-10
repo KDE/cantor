@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: cantor\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-04-09 00:43+0000\n"
-"PO-Revision-Date: 2023-02-03 16:59+0100\n"
+"PO-Revision-Date: 2023-04-09 04:04+0200\n"
 "Last-Translator: Temuri Doghonadze <temuri.doghonadze@gmail.com>\n"
 "Language-Team: Georgian <kde-i18n-doc@kde.org>\n"
 "Language: ka\n"
@@ -345,7 +345,7 @@ msgctxt ""
 "The url to the documentation of Julia, please check if there is a translated "
 "version and use the correct url"
 msgid "https://docs.julialang.org/en/latest/"
-msgstr ""
+msgstr "https://docs.julialang.org/en/latest/"
 
 #: backends/julia/juliabackend.cpp:87
 #, kde-format
@@ -885,7 +885,7 @@ msgstr ""
 #: backends/octave/octaveexpression.cpp:231
 #, kde-format
 msgid "Invalid image file generated."
-msgstr ""
+msgstr "გენერირებული გამოსახულების ფაილი არასწორია."
 
 #: backends/octave/octaveextensions.cpp:34
 #, kde-format
@@ -2273,10 +2273,9 @@ msgid ""
 msgstr ""
 
 #: backends/sage/sagesession.cpp:228 backends/sage/sagesession.cpp:248
-#, fuzzy, kde-format
-#| msgid "All supported files"
+#, kde-format
 msgid "Unsupported Version"
-msgstr "ყველა მხარდაჭერილი ფაილი"
+msgstr "მხარდაუჭერელი ვერსია"
 
 #: backends/sage/sagesession.cpp:247
 #, kde-format
@@ -2330,7 +2329,7 @@ msgctxt ""
 "The url to the documentation of Scilab, please check if there is a "
 "translated version and use the correct url"
 msgid "https://www.scilab.org/support/documentation"
-msgstr ""
+msgstr "https://www.scilab.org/support/documentation"
 
 #: backends/scilab/scilabbackend.cpp:73
 #, kde-format
@@ -3278,12 +3277,12 @@ msgstr "გამოსახულების მორგება"
 #: imageentry.cpp:256
 #, kde-format
 msgid "Double click here to configure image settings"
-msgstr ""
+msgstr "გამოსახულების პარამეტრების მოსარგებად ორჯერ დააწკაპუნეთ"
 
 #: imageentry.cpp:288
 #, kde-format
 msgid "Cannot load image %1"
-msgstr ""
+msgstr "%1 გამოსახულების ჩატვირთვა სეუძლებელია"
 
 #: imageresultitem.cpp:90
 #, kde-format
@@ -3597,7 +3596,7 @@ msgstr "Cantor ხატულა"
 #: main.cpp:92
 #, kde-format
 msgid "Use  backend <backend>"
-msgstr ""
+msgstr "უკანაბოლოს  გამოყენება <backend>"
 
 #: main.cpp:95
 #, kde-format
@@ -3607,7 +3606,7 @@ msgstr "გასახსნელი დოკუმენტები."
 #: main.cpp:130
 #, kde-format
 msgid "Couldn't open the file %1"
-msgstr ""
+msgstr "ფაილის გახსნის შეცდომა %1"
 
 #: markdownentry.cpp:70
 #, kde-format
@@ -3680,7 +3679,7 @@ msgstr "წინა დამთხვევაზე გადასვლა"
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Match case sensitively"
-msgstr ""
+msgstr "რეგისტრზე-დამოკიდებული დამთხვევა"
 
 #: panelplugins/documentationpanel/documentationpanelwidget.cpp:408
 #, kde-format
@@ -3690,7 +3689,7 @@ msgstr ""
 #: panelplugins/documentationpanel/documentationpanelwidget.cpp:408
 #, kde-format
 msgid "Download Successful"
-msgstr ""
+msgstr "გადმოწერა წარმატებულია"
 
 #: panelplugins/filebrowserpanel/filebrowserpanelplugin.cpp:137
 #, kde-format
@@ -3700,7 +3699,7 @@ msgstr "Cantor-ის ფაილები"
 #: panelplugins/filebrowserpanel/filebrowserpanelplugin.cpp:138
 #, kde-format
 msgid "Jupyter files"
-msgstr ""
+msgstr "Jupyter-ის ფაილები"
 
 #: panelplugins/filebrowserpanel/filebrowserpanelplugin.cpp:139
 #, kde-format
@@ -3759,12 +3758,12 @@ msgstr "დიდი ასოს გმრძნობიარე"
 #: panelplugins/variablemgr/variablemanagerwidget.cpp:90
 #, kde-format
 msgid "Match Complete Word"
-msgstr ""
+msgstr "სიტყვის სრული დამთხვევა"
 
 #: panelplugins/variablemgr/variablemanagerwidget.cpp:142
 #, kde-format
 msgid "Are you sure you want to remove all variables?"
-msgstr ""
+msgstr "მართლა წავშალო ყველა ცვლადი?"
 
 #: panelplugins/variablemgr/variablemanagerwidget.cpp:185
 #, kde-format
@@ -3802,6 +3801,8 @@ msgid ""
 "A KDE text-editor component could not be found;\n"
 "please check your KDE installation."
 msgstr ""
+"KDE-ის ტექსტური რედაქტორის კომპონენტი აღმჩენილი არაა;\n"
+"შეამოწმეთ KDE-ის ფაილები."
 
 #: scripteditor/scripteditorwidget.cpp:139
 #, kde-format
@@ -3821,12 +3822,12 @@ msgstr "ნაპოვნი არაა"
 #: searchbar.cpp:133
 #, kde-format
 msgid "Reached beginning"
-msgstr ""
+msgstr "მიღწეულია დასაწყისი"
 
 #: searchbar.cpp:181
 #, kde-format
 msgid "Reached end"
-msgstr ""
+msgstr "მიღწეულია ბოლო"
 
 #: searchbar.cpp:238
 #, kde-format
@@ -3859,7 +3860,7 @@ msgstr "ტექსტი"
 #: searchbar.cpp:334 searchbar.cpp:363
 #, kde-format
 msgid "LaTeX Code"
-msgstr ""
+msgstr "LaTeX-ის კოდი"
 
 #. i18n: ectx: property (text), widget (QLabel, label_4)
 #: settings.ui:23
@@ -3892,7 +3893,7 @@ msgstr ""
 #: settings.ui:69
 #, kde-format
 msgid "Default Backend:"
-msgstr ""
+msgstr "ნაგულისხმები უკანაბოლო:"
 
 #. i18n: ectx: property (toolTip), widget (QSpinBox, kcfg_VisibleLinesLimit)
 #: settings.ui:76
@@ -4017,13 +4018,13 @@ msgstr "ხაზის ნომრები"
 #: settings.ui:293
 #, kde-format
 msgid "Enable syntax highlighting"
-msgstr ""
+msgstr "სინტაქსის გამოკვეთის ჩართვა"
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_HighlightDefault)
 #: settings.ui:296
 #, kde-format
 msgid "Syntax highlighting"
-msgstr ""
+msgstr "სინტაქსის გამოკვეთა"
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_WarnAboutEntryDelete)
 #: settings.ui:303
@@ -4045,12 +4046,12 @@ msgstr ""
 #: textentry.cpp:62
 #, kde-format
 msgid "Add custom target"
-msgstr ""
+msgstr "მორგებული სამიზნის დამატება"
 
 #: textentry.cpp:76
 #, kde-format
 msgid "Convert to Text Entry"
-msgstr ""
+msgstr "ტექსტურ ჩანაწერსი გადაყვანა"
 
 #: textentry.cpp:81
 #, kde-format
@@ -4060,7 +4061,7 @@ msgstr ""
 #: textentry.cpp:553
 #, kde-format
 msgid "Target MIME type:"
-msgstr ""
+msgstr "სამიზნე MIME ტიპი:"
 
 #: textresultitem.cpp:60
 #, kde-format
@@ -4070,7 +4071,7 @@ msgstr "შედეგის კოპირება"
 #: textresultitem.cpp:69
 #, kde-format
 msgid "Show Rendered"
-msgstr ""
+msgstr "დარენდერებულის ჩვენება"
 
 #: textresultitem.cpp:71
 #, kde-format
@@ -4105,7 +4106,7 @@ msgstr ""
 #: textresultitem.cpp:212
 #, kde-format
 msgid "Save text result"
-msgstr ""
+msgstr "ტექსტური შედეგის შენახვა"
 
 #: textresultitem.cpp:212
 #, kde-format
@@ -4125,7 +4126,7 @@ msgstr "ფაილში ჩაწერის შეცდომა."
 #: worksheet.cpp:1252 worksheet.cpp:1296
 #, kde-format
 msgid "Error saving file %1"
-msgstr ""
+msgstr "%1 ფაილის შენახვის შეცდომა"
 
 #: worksheet.cpp:1275
 #, kde-format
@@ -4142,7 +4143,7 @@ msgstr ""
 #: worksheet.cpp:1327
 #, kde-format
 msgid "Couldn't open the file %1."
-msgstr ""
+msgstr "ფაილის გახსნის შეცდომა %1"
 
 #: worksheet.cpp:1327 worksheet.cpp:1350 worksheet.cpp:1370 worksheet.cpp:1387
 #: worksheet.cpp:1419 worksheet.cpp:1430 worksheet.cpp:1539 worksheet.cpp:1554
@@ -4176,7 +4177,7 @@ msgstr ""
 #: worksheet.cpp:1410 worksheet.cpp:1578
 #, kde-format
 msgid "Python2 not supported anymore"
-msgstr ""
+msgstr "Python2 მხარდაჭერილი აღარაა"
 
 #: worksheet.cpp:1419 worksheet.cpp:1595
 #, kde-format
@@ -4460,7 +4461,7 @@ msgstr ""
 #: worksheet.cpp:2863
 #, kde-format
 msgid "Remove all results"
-msgstr ""
+msgstr "ყველა შედეგის წაშლა"
 
 #: worksheetentry.cpp:67
 #, kde-format
@@ -4605,7 +4606,7 @@ msgstr "ჩამოწევა"
 #: worksheetentry.cpp:719
 #, kde-format
 msgid "Do you really want to remove this entry?"
-msgstr ""
+msgstr "ნამდვილად გსურთ ამ ჩანაწერის წაშლა?"
 
 #: worksheetentry.cpp:719 worksheetentry.cpp:849
 #, kde-format
