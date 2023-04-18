@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: mathematik\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-04-09 00:43+0000\n"
-"PO-Revision-Date: 2023-01-09 18:48+0000\n"
+"PO-Revision-Date: 2023-04-17 17:02+0100\n"
 "Last-Translator: José Nuno Coelho Pires <zepires@gmail.com>\n"
 "Language-Team: Portuguese <kde-i18n-pt@kde.org>\n"
 "Language: pt\n"
@@ -2469,22 +2469,18 @@ msgid "Python script file (*.py);;Sage script file (*.sage)"
 msgstr "Programa em Python (*.py);;|Programa em Sage (*.sage)"
 
 #: backends/sage/sagesession.cpp:226
-#, fuzzy, kde-format
-#| msgid ""
-#| "Sage version %1.%2 is unsupported. Please update your installation to the "
-#| "supported versions to make it work with Cantor."
+#, kde-format
 msgid ""
 "Sage version %1.%2 is unsupported. Please update your installation to the "
 "versions 9.2 or higher."
 msgstr ""
 "A versão do Sage %1.%2 não é suportada. Por favor, actualize a sua "
-"instalação para uma das versões suportadas, para que funcione com o Cantor."
+"instalação para a versão 9.2 ou posteriores."
 
 #: backends/sage/sagesession.cpp:228 backends/sage/sagesession.cpp:248
-#, fuzzy, kde-format
-#| msgid "All supported files"
+#, kde-format
 msgid "Unsupported Version"
-msgstr "Todos os ficheiros suportados"
+msgstr "Versão Não Suportada"
 
 #: backends/sage/sagesession.cpp:247
 #, kde-format
