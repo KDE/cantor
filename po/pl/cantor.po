@@ -10,14 +10,14 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-04-09 00:43+0000\n"
-"PO-Revision-Date: 2023-03-04 09:21+0100\n"
+"PO-Revision-Date: 2023-04-23 12:10+0200\n"
 "Last-Translator: Łukasz Wojniłowicz <lukasz.wojnilowicz@gmail.com>\n"
 "Language-Team: Polish <kde-i18n-doc@kde.org>\n"
 "Language: pl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Lokalize 22.12.2\n"
+"X-Generator: Lokalize 22.12.3\n"
 "Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 "
 "|| n%100>=20) ? 1 : 2);\n"
 
@@ -2431,22 +2431,18 @@ msgid "Python script file (*.py);;Sage script file (*.sage)"
 msgstr "Plik skryptu Pythona (*.py);;Plik skryptu Sage (*.sage)"
 
 #: backends/sage/sagesession.cpp:226
-#, fuzzy, kde-format
-#| msgid ""
-#| "Sage version %1.%2 is unsupported. Please update your installation to the "
-#| "supported versions to make it work with Cantor."
+#, kde-format
 msgid ""
 "Sage version %1.%2 is unsupported. Please update your installation to the "
 "versions 9.2 or higher."
 msgstr ""
-"Wersja Sage %1.%2 jest nieobsługiwana. Uaktualnij swoją wersję do wersji "
-"obsługiwanej, aby mogła ona działać z Cantor."
+"Wersja Sage %1.%2 jest nieobsługiwana. Uaktualnij swoją wersję do 9.2 lub "
+"wyższej."
 
 #: backends/sage/sagesession.cpp:228 backends/sage/sagesession.cpp:248
-#, fuzzy, kde-format
-#| msgid "All supported files"
+#, kde-format
 msgid "Unsupported Version"
-msgstr "Wszystkie obsługiwane pliki"
+msgstr "Nieobsługiwana wersja"
 
 #: backends/sage/sagesession.cpp:247
 #, kde-format
