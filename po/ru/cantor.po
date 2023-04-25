@@ -6,20 +6,20 @@
 # Alexey Subach <alexey.subach@gmail.com>, 2011.
 # Yuri Efremov <yur.arh@gmail.com>, 2013.
 # Alexander Yavorsky <kekcuha@gmail.com>, 2020.
-# Olesya Gerasimenko <translation-team@basealt.ru>, 2021, 2022.
+# Olesya Gerasimenko <translation-team@basealt.ru>, 2021, 2022, 2023.
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-04-09 00:43+0000\n"
-"PO-Revision-Date: 2022-09-06 11:33+0300\n"
+"PO-Revision-Date: 2023-04-24 15:53+0300\n"
 "Last-Translator: Olesya Gerasimenko <translation-team@basealt.ru>\n"
 "Language-Team: Basealt Translation Team\n"
 "Language: ru\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Lokalize 22.04.3\n"
+"X-Generator: Lokalize 22.12.3\n"
 "Plural-Forms: nplurals=4; plural=n==1 ? 3 : n%10==1 && n%100!=11 ? 0 : n"
 "%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
 "X-Environment: kde\n"
@@ -856,13 +856,13 @@ msgstr "Путь к исполняемому файлу Maxima"
 #: backends/maxima/maximabackend.kcfg:41
 #, kde-format
 msgid "Default plot width"
-msgstr ""
+msgstr "Ширина графика по умолчанию"
 
 #. i18n: ectx: label, entry (plotHeight), group (MaximaBackend)
 #: backends/maxima/maximabackend.kcfg:45
 #, kde-format
 msgid "Default plot height"
-msgstr ""
+msgstr "Высота графика по умолчанию"
 
 #: backends/maxima/maximaexpression.cpp:114
 #, kde-format
@@ -908,25 +908,22 @@ msgstr ""
 
 #. i18n: ectx: property (text), widget (QLabel, lPlotIntegration)
 #: backends/maxima/settings.ui:67 backends/octave/settings.ui:135
-#, fuzzy, kde-format
-#| msgid "Integrate"
+#, kde-format
 msgid "Integrated:"
-msgstr "Найти &интеграл"
+msgstr "Встройка:"
 
 #. i18n: ectx: property (text), widget (QLabel, label_3)
 #. i18n: ectx: property (text), widget (QLabel, label_5)
 #: backends/maxima/settings.ui:84 backends/octave/settings.ui:118
-#, fuzzy, kde-format
-#| msgid "Font Size:"
+#, kde-format
 msgid "Size:"
-msgstr "Размер шрифта:"
+msgstr "Размер:"
 
 #. i18n: ectx: property (text), widget (QLabel, lPlotWidth)
 #: backends/maxima/settings.ui:112 backends/octave/settings.ui:58
-#, fuzzy, kde-format
-#| msgid "Width"
+#, kde-format
 msgid "width:"
-msgstr "Ширина"
+msgstr "ширина:"
 
 #. i18n: ectx: property (suffix), widget (QDoubleSpinBox, kcfg_plotWidth)
 #. i18n: ectx: property (suffix), widget (QDoubleSpinBox, kcfg_plotHeight)
@@ -934,27 +931,26 @@ msgstr "Ширина"
 #: backends/octave/settings.ui:65 backends/octave/settings.ui:95
 #, kde-format
 msgid "cm"
-msgstr ""
+msgstr "см"
 
 #. i18n: ectx: property (text), widget (QLabel, lPlotHeight)
 #: backends/maxima/settings.ui:142 backends/octave/settings.ui:88
-#, fuzzy, kde-format
-#| msgid "Height"
+#, kde-format
 msgid "height:"
-msgstr "Высота"
+msgstr "высота:"
 
 #. i18n: ectx: property (text), widget (QLabel, label_2)
 #. i18n: ectx: property (text), widget (QLabel, label_3)
 #: backends/maxima/settings.ui:172 backends/octave/settings.ui:155
 #, kde-format
 msgid "Image Format:"
-msgstr ""
+msgstr "Формат изображения:"
 
 #. i18n: ectx: property (text), item, widget (QComboBox, kcfg_inlinePlotFormat)
 #: backends/maxima/settings.ui:180 backends/octave/settings.ui:196
 #, kde-format
 msgid "PDF"
-msgstr ""
+msgstr "PDF"
 
 # http://xgu.ru/wiki/GNU_Octave -- ссылки на информацию об Octave (в том числе на русском языке).
 # http://ru.wikibooks.org/wiki/GNU_Octave -- зачатки русского перевода документации.
@@ -983,7 +979,7 @@ msgstr ""
 #: backends/octave/octaveexpression.cpp:231
 #, kde-format
 msgid "Invalid image file generated."
-msgstr ""
+msgstr "Создан некорректный файл изображения."
 
 #: backends/octave/octaveextensions.cpp:34
 #, kde-format
@@ -2464,22 +2460,18 @@ msgid "Python script file (*.py);;Sage script file (*.sage)"
 msgstr "Сценарии Python (*.py);;Сценарии Sage (*.sage)"
 
 #: backends/sage/sagesession.cpp:226
-#, fuzzy, kde-format
-#| msgid ""
-#| "Sage version %1.%2 is unsupported. Please update your installation to the "
-#| "supported versions to make it work with Cantor."
+#, kde-format
 msgid ""
 "Sage version %1.%2 is unsupported. Please update your installation to the "
 "versions 9.2 or higher."
 msgstr ""
-"Версия Sage %1.%2 не поддерживается. Обновите установку до поддерживаемой "
-"версии, чтобы обеспечить работу в Cantor."
+"Версия Sage %1.%2 не поддерживается. Обновите установку до версии 9.2 или "
+"выше."
 
 #: backends/sage/sagesession.cpp:228 backends/sage/sagesession.cpp:248
-#, fuzzy, kde-format
-#| msgid "All supported files"
+#, kde-format
 msgid "Unsupported Version"
-msgstr "Все поддерживаемые файлы"
+msgstr "Неподдерживаемая версия"
 
 #: backends/sage/sagesession.cpp:247
 #, kde-format
@@ -2757,10 +2749,9 @@ msgstr ""
 
 #. i18n: ectx: label, entry (WarnAboutEntryDelete), group (Cantor)
 #: cantor.kcfg:40
-#, fuzzy, kde-format
-#| msgid "Ask for confirmation when restarting the backend"
+#, kde-format
 msgid "Ask for confirmation when deleting an entry"
-msgstr "Запрашивать подтверждение при перезапуске базовой системы"
+msgstr "Запрашивать подтверждение при удалении записи"
 
 #. i18n: ectx: label, entry (AutoEval), group (Cantor)
 #: cantor.kcfg:44
@@ -2971,9 +2962,9 @@ msgstr "Показывать номера строк"
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_AnimationDefault)
 #: cantor_part.cpp:240 settings.ui:138
-#, fuzzy, kde-format
+#, kde-format
 msgid "Animations"
-msgstr "Остановить анимацию"
+msgstr "Анимация"
 
 #: cantor_part.cpp:247
 #, kde-format
@@ -3533,15 +3524,14 @@ msgid "Cannot load image %1"
 msgstr "Не удалось загрузить изображение %1"
 
 #: imageresultitem.cpp:90
-#, fuzzy, kde-format
-#| msgid "Text Files (*.txt)"
+#, kde-format
 msgid "%1 files (*.%2)"
-msgstr "Текстовые файлы (*.txt)"
+msgstr "Файлы %1 (*.%2)"
 
 #: imageresultitem.cpp:93
 #, kde-format
 msgid "EPS files (*.eps)"
-msgstr ""
+msgstr "Файлы EPS (*.eps)"
 
 #: imageresultitem.cpp:96
 #, kde-format
@@ -3696,19 +3686,19 @@ msgstr "Путь к исполняемому файлу dvips"
 #, kde-format
 msgctxt "@title:column"
 msgid "Type"
-msgstr ""
+msgstr "Тип"
 
 #: lib/defaultvariablemodel.cpp:73
 #, kde-format
 msgctxt "@title:column"
 msgid "Size [Bytes]"
-msgstr ""
+msgstr "Размер [в байтах]"
 
 #: lib/defaultvariablemodel.cpp:75
 #, kde-format
 msgctxt "@title:column"
 msgid "Dimension"
-msgstr ""
+msgstr "Размерность"
 
 #: lib/defaultvariablemodel.cpp:77
 #, kde-format
@@ -4034,22 +4024,19 @@ msgid "Load file"
 msgstr "Загрузка файла"
 
 #: panelplugins/variablemgr/variablemanagerwidget.cpp:286
-#, fuzzy, kde-format
-#| msgid "Name"
+#, kde-format
 msgid "Copy Name"
-msgstr "Название"
+msgstr "Копировать имя"
 
 #: panelplugins/variablemgr/variablemanagerwidget.cpp:287
-#, fuzzy, kde-format
-#| msgctxt "@title:column"
-#| msgid "Value"
+#, kde-format
 msgid "Copy Value"
-msgstr "Значение"
+msgstr "Копировать значение"
 
 #: panelplugins/variablemgr/variablemanagerwidget.cpp:288
 #, kde-format
 msgid "Copy Name and Value"
-msgstr ""
+msgstr "Копировать имя и значение"
 
 #: resultitem.cpp:48
 #, kde-format
@@ -4132,21 +4119,21 @@ msgstr "Код LaTeX"
 
 #. i18n: ectx: property (text), widget (QLabel, label_4)
 #: settings.ui:23
-#, fuzzy, kde-format
+#, kde-format
 msgid "Evaluation:"
-msgstr "Уравнения:"
+msgstr "Вычисление:"
 
 #. i18n: ectx: property (toolTip), widget (QCheckBox, kcfg_CompletionDefault)
 #: settings.ui:43
-#, fuzzy, kde-format
+#, kde-format
 msgid "Enable syntax completion"
-msgstr "Включить автодополнение"
+msgstr "Включить дополнение синтаксиса"
 
 #. i18n: ectx: property (text), widget (QLabel, label_2)
 #: settings.ui:59
-#, fuzzy, kde-format
+#, kde-format
 msgid "Startup:"
-msgstr "Запустить"
+msgstr "Запуск:"
 
 #. i18n: ectx: property (toolTip), widget (QLabel, label)
 #. i18n: ectx: property (toolTip), widget (KComboBox, kcfg_DefaultBackend)
@@ -4156,6 +4143,8 @@ msgid ""
 "Create a new worksheet for the selected backend system. If none is selected, "
 "the user is asked about which system to use on startup."
 msgstr ""
+"Создать новый документ для выбранной системы компьютерной алгебры. Если "
+"система не выбрана, программа предложит указать систему при запуске."
 
 #. i18n: ectx: property (text), widget (QLabel, label)
 #: settings.ui:69
@@ -4175,44 +4164,45 @@ msgstr ""
 
 #. i18n: ectx: property (toolTip), widget (QCheckBox, kcfg_TypesetDefault)
 #: settings.ui:89
-#, fuzzy, kde-format
-#| msgid "Enable LaTeX typesetting for Sage backend"
+#, kde-format
 msgid ""
 "Enable LaTeX typesetting for the results of the calculations, if supported "
 "by the backend system"
-msgstr "Показывать результаты системы Sage с помощью LaTeX"
+msgstr ""
+"Использовать LaTeX для показа результатов вычислений, если это "
+"поддерживается системой компьютерной алгебры"
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_TypesetDefault)
 #: settings.ui:92
-#, fuzzy, kde-format
+#, kde-format
 msgid "LaTeX typesetting"
-msgstr "LaTeX:"
+msgstr "LaTeX"
 
 #. i18n: ectx: property (text), widget (QLabel, VisibleLinesLimit_label)
 #: settings.ui:102
-#, fuzzy, kde-format
+#, kde-format
 msgid "Number of rows in the result (0 for unlimited):"
-msgstr ""
-"Максимальное количество отображаемых строк результата («0» — без ограничений)"
+msgstr "Количество строк результата («0» — без ограничений):"
 
 #. i18n: ectx: property (toolTip), widget (QCheckBox, kcfg_AnimationDefault)
 #: settings.ui:135
-#, fuzzy, kde-format
+#, kde-format
 msgid "Enable animation effects in the worksheet"
-msgstr "Встраивать графики в документ"
+msgstr "Включить эффекты анимации в документе"
 
 #. i18n: ectx: property (toolTip), widget (QCheckBox, kcfg_EmbeddedMathDefault)
 #: settings.ui:158
-#, fuzzy, kde-format
+#, kde-format
 msgid ""
 "Enable LaTeX typesetting for mathematical expressions in Markdown entries"
-msgstr "Показывать результаты системы Sage с помощью LaTeX"
+msgstr ""
+"Использовать LaTeX для показа математических выражений в записях Markdown"
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_EmbeddedMathDefault)
 #: settings.ui:161
 #, kde-format
 msgid "Mathematical expressions via LaTeX"
-msgstr ""
+msgstr "Математические выражения с использованием LaTeX"
 
 #. i18n: ectx: property (toolTip), widget (QCheckBox, kcfg_AutoEval)
 #: settings.ui:168
@@ -4220,33 +4210,35 @@ msgstr ""
 msgid ""
 "If enabled, all entries below the current one will be evaluated automatically"
 msgstr ""
+"Если параметр включён, будет выполняться автоматическое вычисление всех "
+"записей, находящихся под текущей"
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_AutoEval)
 #: settings.ui:171
-#, fuzzy, kde-format
+#, kde-format
 msgid "Reevaluate entries automatically"
 msgstr "Автоматически пересчитывать выражения"
 
 #. i18n: ectx: property (text), widget (QLabel, label_3)
 #: settings.ui:184
-#, fuzzy, kde-format
+#, kde-format
 msgid "Worksheet:"
-msgstr "&Документ"
+msgstr "Документ:"
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_StoreTextEntryFormatting)
 #: settings.ui:223
-#, fuzzy, kde-format
+#, kde-format
 msgid ""
 "Use rich text format for text entries when saving in Jupyter Notebook Format"
 msgstr ""
-"Сохранять форматирование текста при сохранении документа в формате Jupyter "
-"Notebook"
+"Использовать форматированный текст для текстовых записей при сохранении "
+"документа в формате Jupyter Notebook"
 
 #. i18n: ectx: property (text), widget (QLabel, label_5)
 #: settings.ui:236
-#, fuzzy, kde-format
+#, kde-format
 msgid "Markdown:"
-msgstr "Markdown"
+msgstr "Markdown:"
 
 #. i18n: ectx: property (toolTip), widget (QCheckBox, kcfg_UseOldCantorEntriesIndent)
 #: settings.ui:243
@@ -4255,57 +4247,60 @@ msgid ""
 "If enabled, text entries are aligned at the worksheet border and not at the "
 "prompt border"
 msgstr ""
+"Если параметр включён, текстовые записи будут выровнены по границе "
+"документа, а не по границе запроса"
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_UseOldCantorEntriesIndent)
 #: settings.ui:246
 #, kde-format
 msgid "Don't indent text entries"
-msgstr ""
+msgstr "Не добавлять отступы для текстовых записей"
 
 #. i18n: ectx: property (toolTip), widget (QCheckBox, kcfg_WarnAboutSessionRestart)
 #: settings.ui:266
-#, fuzzy, kde-format
+#, kde-format
 msgid ""
 "If enabled, the user will be asked for confirmation prior to restarting the "
 "backend system"
-msgstr "Запрашивать подтверждение при перезапуске базовой системы"
+msgstr ""
+"Если параметр включён, перед перезапуском системы компьютерной алгебры у "
+"пользователя будет запрашиваться подтверждение"
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_ShowMathRenderError)
 #: settings.ui:276
 #, kde-format
 msgid "Notify about render failures for mathematical expressions"
-msgstr ""
+msgstr "Уведомить об ошибках обработки математических выражений"
 
 #. i18n: ectx: property (toolTip), widget (QCheckBox, kcfg_ExpressionNumberingDefault)
 #: settings.ui:283
-#, fuzzy, kde-format
+#, kde-format
 msgid "Show line numbers"
 msgstr "Показывать номера строк"
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_ExpressionNumberingDefault)
 #: settings.ui:286
-#, fuzzy, kde-format
+#, kde-format
 msgid "Line numbers"
-msgstr "Показывать номера строк"
+msgstr "Номера строк"
 
 #. i18n: ectx: property (toolTip), widget (QCheckBox, kcfg_HighlightDefault)
 #: settings.ui:293
-#, fuzzy, kde-format
+#, kde-format
 msgid "Enable syntax highlighting"
 msgstr "Включить подсветку синтаксиса"
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_HighlightDefault)
 #: settings.ui:296
-#, fuzzy, kde-format
+#, kde-format
 msgid "Syntax highlighting"
 msgstr "Подсветка синтаксиса"
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_WarnAboutEntryDelete)
 #: settings.ui:303
-#, fuzzy, kde-format
-#| msgid "Ask for confirmation when restarting the backend"
+#, kde-format
 msgid "Ask for confirmation when deleting entries"
-msgstr "Запрашивать подтверждение при перезапуске базовой системы"
+msgstr "Запрашивать подтверждение при удалении записей"
 
 #. i18n: ectx: property (placeholderText), widget (KLineEdit, pattern)
 #: standardsearchbar.ui:35
