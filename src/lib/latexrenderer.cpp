@@ -193,8 +193,8 @@ bool LatexRenderer::renderWithLatex()
     d->texFile->open();
 
     KColorScheme scheme(QPalette::Active);
-    const QColor &backgroundColor=scheme.background().color();
-    const QColor &foregroundColor=scheme.foreground().color();
+    const QColor backgroundColor=scheme.background().color();
+    const QColor foregroundColor=scheme.foreground().color();
     QString expressionTex=tex;
     expressionTex=expressionTex.arg(d->header)
                                .arg(backgroundColor.redF()).arg(backgroundColor.greenF()).arg(backgroundColor.blueF())
