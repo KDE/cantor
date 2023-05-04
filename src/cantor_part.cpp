@@ -208,8 +208,8 @@ CantorPart::CantorPart(QWidget* parentWidget, QObject* parent, const QVariantLis
     QStringList zoomNames;
     for (double zoomValue : ZoomValues)
     {
-        const std::string& zoomName = std::to_string(static_cast<int>(zoomValue * 100)) + "%";
-        zoomNames << i18n(zoomName.c_str());
+        QString zoomName = QString::fromStdString(std::to_string(static_cast<int>(zoomValue * 100)));
+        zoomNames << i18nc("Zoom percentage value %1 will be replaced by the actual zoom factor value, so make sure you include it in your translation in order to not to break anything", "%1%", zoomName);
     }
     m_zoom->setItems(zoomNames);
     m_zoom->setEditable(true);
@@ -982,7 +982,7 @@ void CantorPart::showImportantStatusMessage(const QString& message)
 
 void CantorPart::zoomValueEdited(const QString& text)
 {
-    static const QRegularExpression zoomRegexp(QLatin1String("(?:(\\d+)%|(\\d+))"));
+    static const QRegularExpression zoomRegexp(QLatin1String("(?:%?(\\d+(?:\\.\\d+)?)(?:%|\\s*))"));
     QRegularExpressionMatch match = zoomRegexp.match(text);
     if (match.hasMatch())
     {
