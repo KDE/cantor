@@ -106,7 +106,7 @@ int main()
                 try {
                     val = (bool)stoi(records[1]);
                     ok = true;
-                } catch (std::invalid_argument e) {
+                } catch (const std::invalid_argument &e) {
                     ok = false;
                 };
 
