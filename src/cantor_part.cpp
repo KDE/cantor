@@ -46,7 +46,6 @@
 #include <QProgressDialog>
 #include <QTextStream>
 #include <QTimer>
-#include <QRegularExpression>
 
 //A concrete implementation of the WorksheetAccesssInterface
 class WorksheetAccessInterfaceImpl : public Cantor::WorksheetAccessInterface
@@ -208,8 +207,15 @@ CantorPart::CantorPart(QWidget* parentWidget, QObject* parent, const QVariantLis
     QStringList zoomNames;
     for (double zoomValue : ZoomValues)
     {
-        QString zoomName = QString::fromStdString(std::to_string(static_cast<int>(zoomValue * 100)));
-        zoomNames << i18nc("Zoom percentage value %1 will be replaced by the actual zoom factor value, so make sure you include it in your translation in order to not to break anything", "%1%", zoomName);
+        const QString zoomName = QString::fromStdString(std::to_string(static_cast<int>(zoomValue * 100)));
+        const QString i18nZoomName = i18nc("Zoom percentage value %1 will be replaced by the actual zoom factor value, so make sure you include it in your translation in order to not to break anything", "%1%", zoomName);
+        const QRegularExpressionMatch match = m_zoomRegexp.match(i18nZoomName);
+        if (match.hasMatch() && match.captured(1) == zoomName) {
+            zoomNames << i18nZoomName;
+        } else {
+            qWarning() << "Wrong translation of zoom percentage. Please fill a bug";
+            zoomNames << QStringLiteral("%1%").arg(zoomName);
+        }
     }
     m_zoom->setItems(zoomNames);
     m_zoom->setEditable(true);
@@ -982,8 +988,7 @@ void CantorPart::showImportantStatusMessage(const QString& message)
 
 void CantorPart::zoomValueEdited(const QString& text)
 {
-    static const QRegularExpression zoomRegexp(QLatin1String("(?:%?(\\d+(?:\\.\\d+)?)(?:%|\\s*))"));
-    QRegularExpressionMatch match = zoomRegexp.match(text);
+    const QRegularExpressionMatch match = m_zoomRegexp.match(text);
     if (match.hasMatch())
     {
         double zoom = match.captured(1).toDouble() / 100.0;

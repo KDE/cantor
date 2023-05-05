@@ -7,6 +7,7 @@
 #define CANTORPART_H
 
 #include <QPointer>
+#include <QRegularExpression>
 #include <QVector>
 
 #include <KParts/ReadWritePart>
@@ -173,6 +174,7 @@ private:
     QString m_cachedStatusMessage;
     bool m_statusBarBlocked{false};
     unsigned int m_sessionStatusCounter{0};
+    const QRegularExpression m_zoomRegexp{QLatin1String("(?:%?(\\d+(?:\\.\\d+)?)(?:%|\\s*))")};
 
 private Q_SLOTS:
     void documentationRequested(const QString&);
