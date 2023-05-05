@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: cantor\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-04-09 00:43+0000\n"
+"POT-Creation-Date: 2023-05-05 00:43+0000\n"
 "PO-Revision-Date: 2023-04-08 08:44+0300\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian <kde-i18n-uk@kde.org>\n"
@@ -2930,6 +2930,16 @@ msgstr "Виконати обчислення на аркуші"
 msgid "Zoom"
 msgstr "Масштаб"
 
+#: cantor_part.cpp:212
+#, fuzzy, kde-format
+#| msgid "%1: %2"
+msgctxt ""
+"Zoom percentage value %1 will be replaced by the actual zoom factor value, "
+"so make sure you include it in your translation in order to not to break "
+"anything"
+msgid "%1%"
+msgstr "%1: %2"
+
 #: cantor_part.cpp:220
 #, kde-format
 msgid "Typeset using LaTeX"
@@ -5413,9 +5423,6 @@ msgstr "Перетягнути запис"
 
 #~ msgid "Waiting for Image..."
 #~ msgstr "Очікування на зображення…"
-
-#~ msgid "%1: %2"
-#~ msgstr "%1: %2"
 
 #~ msgid "cannot open file %1: Unknown MimeType"
 #~ msgstr "Не вдалося відкрити файл %1: невідомий тип MIME"

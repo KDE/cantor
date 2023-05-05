@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: cantor\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-04-09 00:43+0000\n"
+"POT-Creation-Date: 2023-05-05 00:43+0000\n"
 "PO-Revision-Date: 2022-01-22 17:58+0400\n"
 "Last-Translator: Zayed Al-Saidi <zayed.alsaidi@gmail.com>\n"
 "Language-Team: ar\n"
@@ -2709,6 +2709,15 @@ msgstr ""
 #, kde-format
 msgid "Zoom"
 msgstr "تكبير"
+
+#: cantor_part.cpp:212
+#, kde-format
+msgctxt ""
+"Zoom percentage value %1 will be replaced by the actual zoom factor value, "
+"so make sure you include it in your translation in order to not to break "
+"anything"
+msgid "%1%"
+msgstr ""
 
 #: cantor_part.cpp:220
 #, kde-format

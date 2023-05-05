@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-04-09 00:43+0000\n"
+"POT-Creation-Date: 2023-05-05 00:43+0000\n"
 "PO-Revision-Date: 2014-06-15 00:51+0200\n"
 "Last-Translator: Balázs Úr <urbalazs@gmail.com>\n"
 "Language-Team: Hungarian <kde-l10n-hu@kde.org>\n"
@@ -2927,6 +2927,16 @@ msgstr "Munkalap kiértékelése"
 msgid "Zoom"
 msgstr ""
 
+#: cantor_part.cpp:212
+#, fuzzy, kde-format
+#| msgid "%1: %2"
+msgctxt ""
+"Zoom percentage value %1 will be replaced by the actual zoom factor value, "
+"so make sure you include it in your translation in order to not to break "
+"anything"
+msgid "%1%"
+msgstr "%1: %2"
+
 #: cantor_part.cpp:220
 #, kde-format
 msgid "Typeset using LaTeX"
@@ -5122,9 +5132,6 @@ msgstr "Bejegyzés húzása"
 
 #~ msgid "Waiting for Image..."
 #~ msgstr "Várakozás a képre…"
-
-#~ msgid "%1: %2"
-#~ msgstr "%1: %2"
 
 #~ msgid "cannot open file %1: Unknown MimeType"
 #~ msgstr "Nem lehet megnyitni a(z) %1 fájlt: ismeretlen MIME-típus"

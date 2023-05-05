@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: mathematik\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-04-09 00:43+0000\n"
+"POT-Creation-Date: 2023-05-05 00:43+0000\n"
 "PO-Revision-Date: 2014-05-13 11:57+0200\n"
 "Last-Translator: Sönke Dibbern <s_dibbern@web.de>\n"
 "Language-Team: Low Saxon <kde-i18n-nds@kde.org>\n"
@@ -2937,6 +2937,16 @@ msgstr "Arbeitblatt utreken"
 msgid "Zoom"
 msgstr ""
 
+#: cantor_part.cpp:212
+#, fuzzy, kde-format
+#| msgid "%1: %2"
+msgctxt ""
+"Zoom percentage value %1 will be replaced by the actual zoom factor value, "
+"so make sure you include it in your translation in order to not to break "
+"anything"
+msgid "%1%"
+msgstr "%1: %2"
+
 #: cantor_part.cpp:220
 #, kde-format
 msgid "Typeset using LaTeX"
@@ -5134,9 +5144,6 @@ msgstr "Indrag trecken"
 
 #~ msgid "Waiting for Image..."
 #~ msgstr "Töven op Bild..."
-
-#~ msgid "%1: %2"
-#~ msgstr "%1: %2"
 
 #~ msgid "cannot open file %1: Unknown MimeType"
 #~ msgstr "Datei »%1« lett sik nich opmaken. - MIME-Typ nich begäng."

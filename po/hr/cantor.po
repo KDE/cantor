@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-04-09 00:43+0000\n"
+"POT-Creation-Date: 2023-05-05 00:43+0000\n"
 "PO-Revision-Date: 2010-12-05 20:18+0100\n"
 "Last-Translator: Marko Dimjašević\n"
 "Language-Team: Croatian <kde-croatia-list@lists.sourceforge.net>\n"
@@ -2850,6 +2850,16 @@ msgstr "Evaluiraj radnu tablu"
 msgid "Zoom"
 msgstr ""
 
+#: cantor_part.cpp:212
+#, fuzzy, kde-format
+#| msgid "%1: %2"
+msgctxt ""
+"Zoom percentage value %1 will be replaced by the actual zoom factor value, "
+"so make sure you include it in your translation in order to not to break "
+"anything"
+msgid "%1%"
+msgstr "%1: %2"
+
 #: cantor_part.cpp:220
 #, kde-format
 msgid "Typeset using LaTeX"
@@ -5009,9 +5019,6 @@ msgstr "Spremi rezultat"
 
 #~ msgid "Publish Worksheet"
 #~ msgstr "Objavi radnu tablu"
-
-#~ msgid "%1: %2"
-#~ msgstr "%1: %2"
 
 #~ msgid "cannot open file %1: Unknown MimeType"
 #~ msgstr "neuspješno otvaranje datoteke %1: Nepoznat MimeType"

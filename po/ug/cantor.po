@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: cantor\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-04-09 00:43+0000\n"
+"POT-Creation-Date: 2023-05-05 00:43+0000\n"
 "PO-Revision-Date: 2013-09-08 07:05+0900\n"
 "Last-Translator: Gheyret Kenji <gheyret@gmail.com>\n"
 "Language-Team: Uyghur Computer Science Association <UKIJ@yahoogroups.com>\n"
@@ -2730,6 +2730,16 @@ msgstr ""
 msgid "Zoom"
 msgstr ""
 
+#: cantor_part.cpp:212
+#, fuzzy, kde-format
+#| msgid "%1: %2"
+msgctxt ""
+"Zoom percentage value %1 will be replaced by the actual zoom factor value, "
+"so make sure you include it in your translation in order to not to break "
+"anything"
+msgid "%1%"
+msgstr "%1: %2"
+
 #: cantor_part.cpp:220
 #, kde-format
 msgid "Typeset using LaTeX"
@@ -4750,9 +4760,6 @@ msgstr ""
 
 #~ msgid "Choose the Backend to use:"
 #~ msgstr "ئىشلىتىدىغان ئارقا ئۇچنى تاللاڭ:"
-
-#~ msgid "%1: %2"
-#~ msgstr "%1: %2"
 
 #~ msgid "Other"
 #~ msgstr "باشقا"

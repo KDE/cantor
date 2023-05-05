@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: cantor\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-04-09 00:43+0000\n"
+"POT-Creation-Date: 2023-05-05 00:43+0000\n"
 "PO-Revision-Date: 2020-12-02 18:11+0100\n"
 "Last-Translator: Roman Paholík <wizzardsk@gmail.com>\n"
 "Language-Team: Slovak <kde-sk@linux.sk>\n"
@@ -2865,6 +2865,16 @@ msgstr "Vyhodnotiť pracovný zošit"
 msgid "Zoom"
 msgstr "Lupa"
 
+#: cantor_part.cpp:212
+#, fuzzy, kde-format
+#| msgid "%1: %2"
+msgctxt ""
+"Zoom percentage value %1 will be replaced by the actual zoom factor value, "
+"so make sure you include it in your translation in order to not to break "
+"anything"
+msgid "%1%"
+msgstr "%1: %2"
+
 #: cantor_part.cpp:220
 #, kde-format
 msgid "Typeset using LaTeX"
@@ -5150,9 +5160,6 @@ msgstr "Presunúť položku"
 
 #~ msgid "Waiting for Image..."
 #~ msgstr "Čakanie na obrázok..."
-
-#~ msgid "%1: %2"
-#~ msgstr "%1: %2"
 
 #~ msgid "cannot open file %1: Unknown MimeType"
 #~ msgstr "Nemožno otvoriť súbor %1: Neznámy typ MIME"
