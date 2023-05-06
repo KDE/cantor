@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-05-05 00:43+0000\n"
+"POT-Creation-Date: 2023-05-06 00:42+0000\n"
 "PO-Revision-Date: 2022-08-14 16:51+0100\n"
 "Last-Translator: Sergiu Bivol <sergiu@cip.md>\n"
 "Language-Team: Romanian <kde-i18n-ro@kde.org>\n"
@@ -428,7 +428,7 @@ msgid "Julia script file (*.jl)"
 msgstr "*.R|R fișier de tip script "
 
 #: backends/julia/juliasession.cpp:111 backends/julia/juliasession.cpp:120
-#: backends/maxima/maximasession.cpp:265 cantor_part.cpp:946
+#: backends/maxima/maximasession.cpp:265 cantor_part.cpp:952
 #: lib/session.cpp:313 lib/session.cpp:315 worksheet.cpp:1193
 #: worksheet.cpp:1221 worksheet.cpp:1236 worksheet.cpp:1252 worksheet.cpp:1296
 #: worksheet.cpp:1308
@@ -2595,12 +2595,12 @@ msgstr "Sesiunea %1"
 msgid "Failed to find the Cantor Part with error %1"
 msgstr "Nu s-a putut găsi partea Cantor."
 
-#: cantor.cpp:435 cantor_part.cpp:621
+#: cantor.cpp:435 cantor_part.cpp:627
 #, kde-format
 msgid "Calculating..."
 msgstr "Se calculează..."
 
-#: cantor.cpp:438 cantor_part.cpp:632 cantor_part.cpp:695
+#: cantor.cpp:438 cantor_part.cpp:638 cantor_part.cpp:701
 #, kde-format
 msgid "Ready"
 msgstr "Gata"
@@ -2851,28 +2851,28 @@ msgstr ""
 msgid "Hierarchy font bold for subparagraph"
 msgstr ""
 
-#: cantor_part.cpp:139
+#: cantor_part.cpp:138
 #, kde-format
 msgid "Save Plain Text"
 msgstr ""
 
-#: cantor_part.cpp:181 cantor_part.cpp:532
+#: cantor_part.cpp:180 cantor_part.cpp:538
 #, fuzzy, kde-format
 #| msgid "Export to LaTex"
 msgid "Export to LaTeX"
 msgstr "Trimite către LaTex"
 
-#: cantor_part.cpp:197 cantor_part.cpp:628 worksheet.cpp:1906
+#: cantor_part.cpp:196 cantor_part.cpp:634 worksheet.cpp:1906
 #, kde-format
 msgid "Evaluate Worksheet"
 msgstr "Evaluează foaia de lucru"
 
-#: cantor_part.cpp:205 worksheet.cpp:1914
+#: cantor_part.cpp:204 worksheet.cpp:1914
 #, kde-format
 msgid "Zoom"
 msgstr ""
 
-#: cantor_part.cpp:212
+#: cantor_part.cpp:211
 #, fuzzy, kde-format
 #| msgid "%1: %2"
 msgctxt ""
@@ -2882,99 +2882,99 @@ msgctxt ""
 msgid "%1%"
 msgstr "%1: %2"
 
-#: cantor_part.cpp:220
+#: cantor_part.cpp:226
 #, fuzzy, kde-format
 msgid "Typeset using LaTeX"
 msgstr "Setări de scriere care folosesc LaTex"
 
-#: cantor_part.cpp:225
+#: cantor_part.cpp:231
 #, kde-format
 msgid "Syntax Highlighting"
 msgstr "Evidențiere sitaxă"
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_CompletionDefault)
-#: cantor_part.cpp:230 settings.ui:46
+#: cantor_part.cpp:236 settings.ui:46
 #, kde-format
 msgid "Completion"
 msgstr "Completare"
 
-#: cantor_part.cpp:235
+#: cantor_part.cpp:241
 #, kde-format
 msgid "Line Numbers"
 msgstr "Numere de linie"
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_AnimationDefault)
-#: cantor_part.cpp:240 settings.ui:138
+#: cantor_part.cpp:246 settings.ui:138
 #, fuzzy, kde-format
 #| msgid "Pause Animation"
 msgid "Animations"
 msgstr "Întrerupe animația"
 
-#: cantor_part.cpp:247
+#: cantor_part.cpp:253
 #, kde-format
 msgid "Embedded Math"
 msgstr ""
 
-#: cantor_part.cpp:253
+#: cantor_part.cpp:259
 #, fuzzy, kde-format
 msgid "Restart Backend"
 msgstr "Restartează platforma"
 
-#: cantor_part.cpp:260 worksheetentry.cpp:858
+#: cantor_part.cpp:266 worksheetentry.cpp:858
 #, kde-format
 msgid "Evaluate Entry"
 msgstr "Evaluează înregistrarea"
 
-#: cantor_part.cpp:266
+#: cantor_part.cpp:272
 #, fuzzy, kde-format
 msgid "Insert Command Entry"
 msgstr "Inserează comandă de intrare"
 
-#: cantor_part.cpp:272
+#: cantor_part.cpp:278
 #, fuzzy, kde-format
 msgid "Insert Text Entry"
 msgstr "Introduceți textul"
 
-#: cantor_part.cpp:278
+#: cantor_part.cpp:284
 #, fuzzy, kde-format
 #| msgid "Insert Command Entry"
 msgid "Insert Markdown Entry"
 msgstr "Inserează comandă de intrare"
 
-#: cantor_part.cpp:285
+#: cantor_part.cpp:291
 #, fuzzy, kde-format
 #| msgid "Insert Text Entry"
 msgid "Insert LaTeX Entry"
 msgstr "Introduceți textul"
 
-#: cantor_part.cpp:291
+#: cantor_part.cpp:297
 #, kde-format
 msgid "Insert Page Break"
 msgstr ""
 
-#: cantor_part.cpp:296 markdownentry.cpp:63
+#: cantor_part.cpp:302 markdownentry.cpp:63
 #, kde-format
 msgid "Insert Image"
 msgstr ""
 
-#: cantor_part.cpp:301
+#: cantor_part.cpp:307
 #, kde-format
 msgid "Collapse All Results"
 msgstr ""
 
-#: cantor_part.cpp:306
+#: cantor_part.cpp:312
 #, fuzzy, kde-format
 #| msgid "Result"
 msgid "Expand All Results"
 msgstr "Rezultat"
 
-#: cantor_part.cpp:311
+#: cantor_part.cpp:317
 #, fuzzy, kde-format
 #| msgid "Remove result"
 msgid "Remove All Results"
 msgstr "Șterge rezultatul"
 
-#: cantor_part.cpp:316
+#: cantor_part.cpp:322
 #, kde-format
 msgid "Remove current Entry"
 msgstr "Șterge intrarea actuală"
@@ -2984,114 +2984,114 @@ msgstr "Șterge intrarea actuală"
 #. collection->addAction(QLatin1String("file_publish_worksheet"), publishWorksheet);
 #. connect(publishWorksheet, &QAction::triggered, this, SLOT(publishWorksheet()));
 #.
-#: cantor_part.cpp:332
+#: cantor_part.cpp:338
 #, kde-format
 msgid "Show Script Editor"
 msgstr "Arată redactor de scripturi"
 
-#: cantor_part.cpp:337
+#: cantor_part.cpp:343
 #, fuzzy, kde-format
 msgid "Show Completion"
 msgstr "Arată finalizarea"
 
-#: cantor_part.cpp:404
+#: cantor_part.cpp:410
 #, fuzzy, kde-format
 msgid "CantorPart"
 msgstr "Parte a Cantor"
 
-#: cantor_part.cpp:406
+#: cantor_part.cpp:412
 #, fuzzy, kde-format
 #| msgid "(C) 2009-2010 Alexander Rieder"
 msgid "(C) 2009-2015 Alexander Rieder"
 msgstr "(C) 2009-2010 Alexander Rieder"
 
-#: cantor_part.cpp:410 main.cpp:81
+#: cantor_part.cpp:416 main.cpp:81
 #, kde-format
 msgid "Alexander Rieder"
 msgstr "Alexander Rieder"
 
-#: cantor_part.cpp:462
+#: cantor_part.cpp:468
 #, fuzzy, kde-format
 #| msgid "*.cws|Cantor Worksheet"
 msgid "Cantor Worksheet (*.cws)"
 msgstr "*.cws|Foaie de lucru Cantor"
 
-#: cantor_part.cpp:463
+#: cantor_part.cpp:469
 #, kde-format
 msgid "Jupyter Notebook (*.ipynb)"
 msgstr ""
 
-#: cantor_part.cpp:479
+#: cantor_part.cpp:485
 #, kde-format
 msgid "Save as"
 msgstr "Salvează ca"
 
-#: cantor_part.cpp:525 panelplugins/variablemgr/variablemanagerwidget.cpp:171
+#: cantor_part.cpp:531 panelplugins/variablemgr/variablemanagerwidget.cpp:171
 #, kde-format
 msgid "Save"
 msgstr "Salvează"
 
-#: cantor_part.cpp:577
+#: cantor_part.cpp:583
 #, kde-format
 msgid ""
 "All the available calculation results will be lost. Do you really want to "
 "restart %1?"
 msgstr ""
 
-#: cantor_part.cpp:578
+#: cantor_part.cpp:584
 #, fuzzy, kde-format
 #| msgid "Restart Backend"
 msgid "Restart %1?"
 msgstr "Restartează platforma"
 
-#: cantor_part.cpp:618 worksheet.cpp:1909
+#: cantor_part.cpp:624 worksheet.cpp:1909
 #, kde-format
 msgid "Interrupt"
 msgstr "Întrerupe"
 
-#: cantor_part.cpp:644
+#: cantor_part.cpp:650
 #, kde-format
 msgid "Session Error: %1"
 msgstr "Eroare sesiune: %1"
 
-#: cantor_part.cpp:685
+#: cantor_part.cpp:691
 #, kde-format
 msgid "Initialization complete"
 msgstr "Inițializare încheiată"
 
-#: cantor_part.cpp:690
+#: cantor_part.cpp:696
 #, fuzzy, kde-format
 #| msgid "Initializing Session"
 msgid "Initializing..."
 msgstr "Se inițializează sesiunea"
 
-#: cantor_part.cpp:748
+#: cantor_part.cpp:754
 #, kde-format
 msgid "[read-only]"
 msgstr ""
 
-#: cantor_part.cpp:866
+#: cantor_part.cpp:872
 #, fuzzy, kde-format
 msgid "Do you want to upload current Worksheet to public web server?"
 msgstr "Vrei să urci foaia de lucru la un server web public ?"
 
-#: cantor_part.cpp:867
+#: cantor_part.cpp:873
 #, kde-format
 msgid "Question - Cantor"
 msgstr "Întrebare - Cantor"
 
-#: cantor_part.cpp:873
+#: cantor_part.cpp:879
 #, fuzzy, kde-format
 msgid "The Worksheet is not saved. You should save it before uploading."
 msgstr ""
 "Foaia de lucru nu este salvată. Ar trebui sa o salvezi înainte de a o uploada"
 
-#: cantor_part.cpp:874
+#: cantor_part.cpp:880
 #, kde-format
 msgid "Warning - Cantor"
 msgstr "Avertizare - Cantor"
 
-#: cantor_part.cpp:946
+#: cantor_part.cpp:952
 #, fuzzy, kde-format
 msgid "This backend does not support scripts."
 msgstr "Această platformă nu suportă scripturi."

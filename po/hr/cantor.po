@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-05-05 00:43+0000\n"
+"POT-Creation-Date: 2023-05-06 00:42+0000\n"
 "PO-Revision-Date: 2010-12-05 20:18+0100\n"
 "Last-Translator: Marko Dimjašević\n"
 "Language-Team: Croatian <kde-croatia-list@lists.sourceforge.net>\n"
@@ -429,7 +429,7 @@ msgid "Julia script file (*.jl)"
 msgstr "*.R|R skripta"
 
 #: backends/julia/juliasession.cpp:111 backends/julia/juliasession.cpp:120
-#: backends/maxima/maximasession.cpp:265 cantor_part.cpp:946
+#: backends/maxima/maximasession.cpp:265 cantor_part.cpp:952
 #: lib/session.cpp:313 lib/session.cpp:315 worksheet.cpp:1193
 #: worksheet.cpp:1221 worksheet.cpp:1236 worksheet.cpp:1252 worksheet.cpp:1296
 #: worksheet.cpp:1308
@@ -2574,12 +2574,12 @@ msgstr "Sesija %1"
 msgid "Failed to find the Cantor Part with error %1"
 msgstr "Neuspješno pronalaženje Cantora"
 
-#: cantor.cpp:435 cantor_part.cpp:621
+#: cantor.cpp:435 cantor_part.cpp:627
 #, kde-format
 msgid "Calculating..."
 msgstr "Računam …"
 
-#: cantor.cpp:438 cantor_part.cpp:632 cantor_part.cpp:695
+#: cantor.cpp:438 cantor_part.cpp:638 cantor_part.cpp:701
 #, kde-format
 msgid "Ready"
 msgstr "Spreman"
@@ -2830,27 +2830,27 @@ msgstr ""
 msgid "Hierarchy font bold for subparagraph"
 msgstr ""
 
-#: cantor_part.cpp:139
+#: cantor_part.cpp:138
 #, kde-format
 msgid "Save Plain Text"
 msgstr ""
 
-#: cantor_part.cpp:181 cantor_part.cpp:532
+#: cantor_part.cpp:180 cantor_part.cpp:538
 #, kde-format
 msgid "Export to LaTeX"
 msgstr ""
 
-#: cantor_part.cpp:197 cantor_part.cpp:628 worksheet.cpp:1906
+#: cantor_part.cpp:196 cantor_part.cpp:634 worksheet.cpp:1906
 #, kde-format
 msgid "Evaluate Worksheet"
 msgstr "Evaluiraj radnu tablu"
 
-#: cantor_part.cpp:205 worksheet.cpp:1914
+#: cantor_part.cpp:204 worksheet.cpp:1914
 #, kde-format
 msgid "Zoom"
 msgstr ""
 
-#: cantor_part.cpp:212
+#: cantor_part.cpp:211
 #, fuzzy, kde-format
 #| msgid "%1: %2"
 msgctxt ""
@@ -2860,101 +2860,101 @@ msgctxt ""
 msgid "%1%"
 msgstr "%1: %2"
 
-#: cantor_part.cpp:220
+#: cantor_part.cpp:226
 #, kde-format
 msgid "Typeset using LaTeX"
 msgstr ""
 
-#: cantor_part.cpp:225
+#: cantor_part.cpp:231
 #, kde-format
 msgid "Syntax Highlighting"
 msgstr "Osvjetljavanje sintakse"
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_CompletionDefault)
-#: cantor_part.cpp:230 settings.ui:46
+#: cantor_part.cpp:236 settings.ui:46
 #, kde-format
 msgid "Completion"
 msgstr "Dovršavanje"
 
-#: cantor_part.cpp:235
+#: cantor_part.cpp:241
 #, kde-format
 msgid "Line Numbers"
 msgstr "Brojevi linija"
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_AnimationDefault)
-#: cantor_part.cpp:240 settings.ui:138
+#: cantor_part.cpp:246 settings.ui:138
 #, fuzzy, kde-format
 #| msgid "Pause Animation"
 msgid "Animations"
 msgstr "Pauziraj animaciju"
 
-#: cantor_part.cpp:247
+#: cantor_part.cpp:253
 #, kde-format
 msgid "Embedded Math"
 msgstr ""
 
-#: cantor_part.cpp:253
+#: cantor_part.cpp:259
 #, kde-format
 msgid "Restart Backend"
 msgstr "Nanovo pokreni pozadinski servis"
 
-#: cantor_part.cpp:260 worksheetentry.cpp:858
+#: cantor_part.cpp:266 worksheetentry.cpp:858
 #, kde-format
 msgid "Evaluate Entry"
 msgstr "Evaluiraj unos"
 
-#: cantor_part.cpp:266
+#: cantor_part.cpp:272
 #, fuzzy, kde-format
 #| msgid "Insert Entry"
 msgid "Insert Command Entry"
 msgstr "Unesi"
 
-#: cantor_part.cpp:272
+#: cantor_part.cpp:278
 #, fuzzy, kde-format
 #| msgid "Insert Entry"
 msgid "Insert Text Entry"
 msgstr "Unesi"
 
-#: cantor_part.cpp:278
+#: cantor_part.cpp:284
 #, fuzzy, kde-format
 #| msgid "Insert Entry"
 msgid "Insert Markdown Entry"
 msgstr "Unesi"
 
-#: cantor_part.cpp:285
+#: cantor_part.cpp:291
 #, fuzzy, kde-format
 #| msgid "Insert Entry"
 msgid "Insert LaTeX Entry"
 msgstr "Unesi"
 
-#: cantor_part.cpp:291
+#: cantor_part.cpp:297
 #, kde-format
 msgid "Insert Page Break"
 msgstr ""
 
-#: cantor_part.cpp:296 markdownentry.cpp:63
+#: cantor_part.cpp:302 markdownentry.cpp:63
 #, kde-format
 msgid "Insert Image"
 msgstr ""
 
-#: cantor_part.cpp:301
+#: cantor_part.cpp:307
 #, kde-format
 msgid "Collapse All Results"
 msgstr ""
 
-#: cantor_part.cpp:306
+#: cantor_part.cpp:312
 #, fuzzy, kde-format
 #| msgid "Result"
 msgid "Expand All Results"
 msgstr "Rezultat"
 
-#: cantor_part.cpp:311
+#: cantor_part.cpp:317
 #, fuzzy, kde-format
 #| msgid "Save result"
 msgid "Remove All Results"
 msgstr "Spremi rezultat"
 
-#: cantor_part.cpp:316
+#: cantor_part.cpp:322
 #, kde-format
 msgid "Remove current Entry"
 msgstr ""
@@ -2964,115 +2964,115 @@ msgstr ""
 #. collection->addAction(QLatin1String("file_publish_worksheet"), publishWorksheet);
 #. connect(publishWorksheet, &QAction::triggered, this, SLOT(publishWorksheet()));
 #.
-#: cantor_part.cpp:332
+#: cantor_part.cpp:338
 #, kde-format
 msgid "Show Script Editor"
 msgstr "Prikaži uređivač skripti"
 
-#: cantor_part.cpp:337
+#: cantor_part.cpp:343
 #, kde-format
 msgid "Show Completion"
 msgstr "Prikaži dopunu"
 
-#: cantor_part.cpp:404
+#: cantor_part.cpp:410
 #, kde-format
 msgid "CantorPart"
 msgstr "CantorPart"
 
-#: cantor_part.cpp:406
+#: cantor_part.cpp:412
 #, fuzzy, kde-format
 #| msgid "(C) 2009 Alexander Rieder"
 msgid "(C) 2009-2015 Alexander Rieder"
 msgstr "© 2009 Alexander Rieder"
 
-#: cantor_part.cpp:410 main.cpp:81
+#: cantor_part.cpp:416 main.cpp:81
 #, kde-format
 msgid "Alexander Rieder"
 msgstr "Alexander Rieder"
 
-#: cantor_part.cpp:462
+#: cantor_part.cpp:468
 #, fuzzy, kde-format
 #| msgid "*.cws|Cantor Worksheet"
 msgid "Cantor Worksheet (*.cws)"
 msgstr "*.cws|Cantor radna tabla"
 
-#: cantor_part.cpp:463
+#: cantor_part.cpp:469
 #, kde-format
 msgid "Jupyter Notebook (*.ipynb)"
 msgstr ""
 
-#: cantor_part.cpp:479
+#: cantor_part.cpp:485
 #, fuzzy, kde-format
 #| msgid "Save"
 msgid "Save as"
 msgstr "Spremi"
 
-#: cantor_part.cpp:525 panelplugins/variablemgr/variablemanagerwidget.cpp:171
+#: cantor_part.cpp:531 panelplugins/variablemgr/variablemanagerwidget.cpp:171
 #, kde-format
 msgid "Save"
 msgstr "Spremi"
 
-#: cantor_part.cpp:577
+#: cantor_part.cpp:583
 #, kde-format
 msgid ""
 "All the available calculation results will be lost. Do you really want to "
 "restart %1?"
 msgstr ""
 
-#: cantor_part.cpp:578
+#: cantor_part.cpp:584
 #, fuzzy, kde-format
 #| msgid "Restart Backend"
 msgid "Restart %1?"
 msgstr "Nanovo pokreni pozadinski servis"
 
-#: cantor_part.cpp:618 worksheet.cpp:1909
+#: cantor_part.cpp:624 worksheet.cpp:1909
 #, kde-format
 msgid "Interrupt"
 msgstr "Prekid"
 
-#: cantor_part.cpp:644
+#: cantor_part.cpp:650
 #, kde-format
 msgid "Session Error: %1"
 msgstr "Greška sesije: %1"
 
-#: cantor_part.cpp:685
+#: cantor_part.cpp:691
 #, kde-format
 msgid "Initialization complete"
 msgstr "Inicijaliziranje završeno"
 
-#: cantor_part.cpp:690
+#: cantor_part.cpp:696
 #, fuzzy, kde-format
 #| msgid "Initializing Session"
 msgid "Initializing..."
 msgstr "Inicijaliziranje sesije"
 
-#: cantor_part.cpp:748
+#: cantor_part.cpp:754
 #, kde-format
 msgid "[read-only]"
 msgstr ""
 
-#: cantor_part.cpp:866
+#: cantor_part.cpp:872
 #, kde-format
 msgid "Do you want to upload current Worksheet to public web server?"
 msgstr "Da li želite objaviti trenutnu radnu tablu na javnom web serveru?"
 
-#: cantor_part.cpp:867
+#: cantor_part.cpp:873
 #, kde-format
 msgid "Question - Cantor"
 msgstr "Pitanje – Cantor"
 
-#: cantor_part.cpp:873
+#: cantor_part.cpp:879
 #, kde-format
 msgid "The Worksheet is not saved. You should save it before uploading."
 msgstr ""
 "Radna tabla nije spremljena. Trebali biste ju snimiti prije objavljivanja."
 
-#: cantor_part.cpp:874
+#: cantor_part.cpp:880
 #, kde-format
 msgid "Warning - Cantor"
 msgstr "Upozorenje – Cantor"
 
-#: cantor_part.cpp:946
+#: cantor_part.cpp:952
 #, kde-format
 msgid "This backend does not support scripts."
 msgstr "Ovaj pozadinski servis ne dopušta skripte."

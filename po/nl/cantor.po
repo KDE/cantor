@@ -11,15 +11,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: cantor\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-05-05 00:43+0000\n"
-"PO-Revision-Date: 2023-04-08 17:33+0200\n"
+"POT-Creation-Date: 2023-05-06 00:42+0000\n"
+"PO-Revision-Date: 2023-05-05 10:51+0200\n"
 "Last-Translator: Freek de Kruijf <freekdekruijf@kde.nl>\n"
 "Language-Team: \n"
 "Language: nl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Lokalize 22.12.3\n"
+"X-Generator: Lokalize 23.04.0\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 
 #, kde-format
@@ -435,7 +435,7 @@ msgid "Julia script file (*.jl)"
 msgstr "Julia script-bestand (*.jl)"
 
 #: backends/julia/juliasession.cpp:111 backends/julia/juliasession.cpp:120
-#: backends/maxima/maximasession.cpp:265 cantor_part.cpp:946
+#: backends/maxima/maximasession.cpp:265 cantor_part.cpp:952
 #: lib/session.cpp:313 lib/session.cpp:315 worksheet.cpp:1193
 #: worksheet.cpp:1221 worksheet.cpp:1236 worksheet.cpp:1252 worksheet.cpp:1296
 #: worksheet.cpp:1308
@@ -2628,12 +2628,12 @@ msgstr "Sessie %1"
 msgid "Failed to find the Cantor Part with error %1"
 msgstr "Kon het Cantor-gedeelte niet vinden, foutmelding %1"
 
-#: cantor.cpp:435 cantor_part.cpp:621
+#: cantor.cpp:435 cantor_part.cpp:627
 #, kde-format
 msgid "Calculating..."
 msgstr "Berekenen..."
 
-#: cantor.cpp:438 cantor_part.cpp:632 cantor_part.cpp:695
+#: cantor.cpp:438 cantor_part.cpp:638 cantor_part.cpp:701
 #, kde-format
 msgid "Ready"
 msgstr "Gereed"
@@ -2886,124 +2886,123 @@ msgstr "Hiërarchisch schuin lettertype voor alinea"
 msgid "Hierarchy font bold for subparagraph"
 msgstr "Hiërarchisch vet lettertype voor alinea"
 
-#: cantor_part.cpp:139
+#: cantor_part.cpp:138
 #, kde-format
 msgid "Save Plain Text"
 msgstr "Platte tekst opslaan"
 
-#: cantor_part.cpp:181 cantor_part.cpp:532
+#: cantor_part.cpp:180 cantor_part.cpp:538
 #, kde-format
 msgid "Export to LaTeX"
 msgstr "Exporteren naar LaTeX"
 
-#: cantor_part.cpp:197 cantor_part.cpp:628 worksheet.cpp:1906
+#: cantor_part.cpp:196 cantor_part.cpp:634 worksheet.cpp:1906
 #, kde-format
 msgid "Evaluate Worksheet"
 msgstr "Werkblad doorrekenen"
 
-#: cantor_part.cpp:205 worksheet.cpp:1914
+#: cantor_part.cpp:204 worksheet.cpp:1914
 #, kde-format
 msgid "Zoom"
 msgstr "Zoomen"
 
-#: cantor_part.cpp:212
-#, fuzzy, kde-format
-#| msgid "%1: %2"
+#: cantor_part.cpp:211
+#, kde-format
 msgctxt ""
 "Zoom percentage value %1 will be replaced by the actual zoom factor value, "
 "so make sure you include it in your translation in order to not to break "
 "anything"
 msgid "%1%"
-msgstr "%1: %2"
+msgstr "%1%"
 
-#: cantor_part.cpp:220
+#: cantor_part.cpp:226
 #, kde-format
 msgid "Typeset using LaTeX"
 msgstr "Letterzetten met LaTeX"
 
-#: cantor_part.cpp:225
+#: cantor_part.cpp:231
 #, kde-format
 msgid "Syntax Highlighting"
 msgstr "Syntaxisaccentuering"
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_CompletionDefault)
-#: cantor_part.cpp:230 settings.ui:46
+#: cantor_part.cpp:236 settings.ui:46
 #, kde-format
 msgid "Completion"
 msgstr "Voltooien"
 
-#: cantor_part.cpp:235
+#: cantor_part.cpp:241
 #, kde-format
 msgid "Line Numbers"
 msgstr "Regelnummers"
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_AnimationDefault)
-#: cantor_part.cpp:240 settings.ui:138
+#: cantor_part.cpp:246 settings.ui:138
 #, kde-format
 msgid "Animations"
 msgstr "Animaties"
 
-#: cantor_part.cpp:247
+#: cantor_part.cpp:253
 #, kde-format
 msgid "Embedded Math"
 msgstr "Ingebedde Math"
 
-#: cantor_part.cpp:253
+#: cantor_part.cpp:259
 #, kde-format
 msgid "Restart Backend"
 msgstr "Backend herstarten"
 
-#: cantor_part.cpp:260 worksheetentry.cpp:858
+#: cantor_part.cpp:266 worksheetentry.cpp:858
 #, kde-format
 msgid "Evaluate Entry"
 msgstr "Invoer berekenen"
 
-#: cantor_part.cpp:266
+#: cantor_part.cpp:272
 #, kde-format
 msgid "Insert Command Entry"
 msgstr "Opdrachtinvoer invoegen"
 
-#: cantor_part.cpp:272
+#: cantor_part.cpp:278
 #, kde-format
 msgid "Insert Text Entry"
 msgstr "Tekstinvoer invoegen"
 
-#: cantor_part.cpp:278
+#: cantor_part.cpp:284
 #, kde-format
 msgid "Insert Markdown Entry"
 msgstr "\"Markdown\"invoer invoegen"
 
-#: cantor_part.cpp:285
+#: cantor_part.cpp:291
 #, kde-format
 msgid "Insert LaTeX Entry"
 msgstr "Latexinvoer invoegen"
 
-#: cantor_part.cpp:291
+#: cantor_part.cpp:297
 #, kde-format
 msgid "Insert Page Break"
 msgstr "Paginaeinde invoegen"
 
-#: cantor_part.cpp:296 markdownentry.cpp:63
+#: cantor_part.cpp:302 markdownentry.cpp:63
 #, kde-format
 msgid "Insert Image"
 msgstr "Afbeelding invoegen"
 
-#: cantor_part.cpp:301
+#: cantor_part.cpp:307
 #, kde-format
 msgid "Collapse All Results"
 msgstr "Alle resultaten inklappen"
 
-#: cantor_part.cpp:306
+#: cantor_part.cpp:312
 #, kde-format
 msgid "Expand All Results"
 msgstr "Alle resultaten uitvouwen"
 
-#: cantor_part.cpp:311
+#: cantor_part.cpp:317
 #, kde-format
 msgid "Remove All Results"
 msgstr "Alle resultaten verwijderen"
 
-#: cantor_part.cpp:316
+#: cantor_part.cpp:322
 #, kde-format
 msgid "Remove current Entry"
 msgstr "Huidige invoer verwijderen"
@@ -3013,52 +3012,52 @@ msgstr "Huidige invoer verwijderen"
 #. collection->addAction(QLatin1String("file_publish_worksheet"), publishWorksheet);
 #. connect(publishWorksheet, &QAction::triggered, this, SLOT(publishWorksheet()));
 #.
-#: cantor_part.cpp:332
+#: cantor_part.cpp:338
 #, kde-format
 msgid "Show Script Editor"
 msgstr "Scriptbewerker tonen"
 
-#: cantor_part.cpp:337
+#: cantor_part.cpp:343
 #, kde-format
 msgid "Show Completion"
 msgstr "Voltooien tonen"
 
-#: cantor_part.cpp:404
+#: cantor_part.cpp:410
 #, kde-format
 msgid "CantorPart"
 msgstr "CantorPart"
 
-#: cantor_part.cpp:406
+#: cantor_part.cpp:412
 #, kde-format
 msgid "(C) 2009-2015 Alexander Rieder"
 msgstr "(C) 2009-2015 Alexander Rieder"
 
-#: cantor_part.cpp:410 main.cpp:81
+#: cantor_part.cpp:416 main.cpp:81
 #, kde-format
 msgid "Alexander Rieder"
 msgstr "Alexander Rieder"
 
-#: cantor_part.cpp:462
+#: cantor_part.cpp:468
 #, kde-format
 msgid "Cantor Worksheet (*.cws)"
 msgstr "Cantor Werkblad (*.cws)"
 
-#: cantor_part.cpp:463
+#: cantor_part.cpp:469
 #, kde-format
 msgid "Jupyter Notebook (*.ipynb)"
 msgstr "Jupyter Notebook (*.ipynb)"
 
-#: cantor_part.cpp:479
+#: cantor_part.cpp:485
 #, kde-format
 msgid "Save as"
 msgstr "Opslaan als"
 
-#: cantor_part.cpp:525 panelplugins/variablemgr/variablemanagerwidget.cpp:171
+#: cantor_part.cpp:531 panelplugins/variablemgr/variablemanagerwidget.cpp:171
 #, kde-format
 msgid "Save"
 msgstr "Opslaan"
 
-#: cantor_part.cpp:577
+#: cantor_part.cpp:583
 #, kde-format
 msgid ""
 "All the available calculation results will be lost. Do you really want to "
@@ -3067,58 +3066,58 @@ msgstr ""
 "Alle aanwezige berekende antwoorden gaan verloren. Wilt u werkelijk %1 "
 "opnieuw starten?"
 
-#: cantor_part.cpp:578
+#: cantor_part.cpp:584
 #, kde-format
 msgid "Restart %1?"
 msgstr "%1 herstarten?"
 
-#: cantor_part.cpp:618 worksheet.cpp:1909
+#: cantor_part.cpp:624 worksheet.cpp:1909
 #, kde-format
 msgid "Interrupt"
 msgstr "Onderbreking"
 
-#: cantor_part.cpp:644
+#: cantor_part.cpp:650
 #, kde-format
 msgid "Session Error: %1"
 msgstr "Sessiefout: %1"
 
-#: cantor_part.cpp:685
+#: cantor_part.cpp:691
 #, kde-format
 msgid "Initialization complete"
 msgstr "Initialisatie klaar"
 
-#: cantor_part.cpp:690
+#: cantor_part.cpp:696
 #, kde-format
 msgid "Initializing..."
 msgstr "Initialiseren..."
 
-#: cantor_part.cpp:748
+#: cantor_part.cpp:754
 #, kde-format
 msgid "[read-only]"
 msgstr "[alleen-lezen]"
 
-#: cantor_part.cpp:866
+#: cantor_part.cpp:872
 #, kde-format
 msgid "Do you want to upload current Worksheet to public web server?"
 msgstr "Wilt u het huidige werkblad naar de publieke server uploaden?"
 
-#: cantor_part.cpp:867
+#: cantor_part.cpp:873
 #, kde-format
 msgid "Question - Cantor"
 msgstr "Vraag - Cantor"
 
-#: cantor_part.cpp:873
+#: cantor_part.cpp:879
 #, kde-format
 msgid "The Worksheet is not saved. You should save it before uploading."
 msgstr ""
 "Het werkblad is niet opgeslagen. U moet het opslaan voordat u het uploadt."
 
-#: cantor_part.cpp:874
+#: cantor_part.cpp:880
 #, kde-format
 msgid "Warning - Cantor"
 msgstr "Waarschuwing - Cantor"
 
-#: cantor_part.cpp:946
+#: cantor_part.cpp:952
 #, kde-format
 msgid "This backend does not support scripts."
 msgstr "Dit backend ondersteunt geen scripts"

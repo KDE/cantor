@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: cantor\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-05-05 00:43+0000\n"
-"PO-Revision-Date: 2023-04-29 12:26+0200\n"
+"POT-Creation-Date: 2023-05-06 00:42+0000\n"
+"PO-Revision-Date: 2023-05-05 19:55+0200\n"
 "Last-Translator: Frederik Schwarzer <schwarzer@kde.org>\n"
 "Language-Team: German <kde-i18n-de@kde.org>\n"
 "Language: de\n"
@@ -435,7 +435,7 @@ msgid "Julia script file (*.jl)"
 msgstr "Julia-Skriptdatei (*.jl)"
 
 #: backends/julia/juliasession.cpp:111 backends/julia/juliasession.cpp:120
-#: backends/maxima/maximasession.cpp:265 cantor_part.cpp:946
+#: backends/maxima/maximasession.cpp:265 cantor_part.cpp:952
 #: lib/session.cpp:313 lib/session.cpp:315 worksheet.cpp:1193
 #: worksheet.cpp:1221 worksheet.cpp:1236 worksheet.cpp:1252 worksheet.cpp:1296
 #: worksheet.cpp:1308
@@ -2411,10 +2411,9 @@ msgstr ""
 "Installation auf eine unterstützte Version, die mit Cantor funktioniert."
 
 #: backends/sage/sagesession.cpp:228 backends/sage/sagesession.cpp:248
-#, fuzzy, kde-format
-#| msgid "All supported files"
+#, kde-format
 msgid "Unsupported Version"
-msgstr "Alle unterstützten Dateien"
+msgstr "Version nicht unterstützt"
 
 #: backends/sage/sagesession.cpp:247
 #, kde-format
@@ -2594,12 +2593,12 @@ msgstr ""
 "Der Pfad zur Komponente Cantor wurde nicht gefunden, die Fehlermeldung "
 "lautet %1"
 
-#: cantor.cpp:435 cantor_part.cpp:621
+#: cantor.cpp:435 cantor_part.cpp:627
 #, kde-format
 msgid "Calculating..."
 msgstr "Berechnung läuft ..."
 
-#: cantor.cpp:438 cantor_part.cpp:632 cantor_part.cpp:695
+#: cantor.cpp:438 cantor_part.cpp:638 cantor_part.cpp:701
 #, kde-format
 msgid "Ready"
 msgstr "Fertig"
@@ -2854,125 +2853,123 @@ msgstr "Hierarchie Schriftart kursiv für Unterabsatz"
 msgid "Hierarchy font bold for subparagraph"
 msgstr "Hierarchie Schriftart fett für Unterabsatz"
 
-#: cantor_part.cpp:139
+#: cantor_part.cpp:138
 #, kde-format
 msgid "Save Plain Text"
 msgstr "Als einfache Textdatei speichern"
 
-#: cantor_part.cpp:181 cantor_part.cpp:532
+#: cantor_part.cpp:180 cantor_part.cpp:538
 #, kde-format
 msgid "Export to LaTeX"
 msgstr "LaTeX-Export"
 
-#: cantor_part.cpp:197 cantor_part.cpp:628 worksheet.cpp:1906
+#: cantor_part.cpp:196 cantor_part.cpp:634 worksheet.cpp:1906
 #, kde-format
 msgid "Evaluate Worksheet"
 msgstr "Arbeitsblatt auswerten"
 
-#: cantor_part.cpp:205 worksheet.cpp:1914
+#: cantor_part.cpp:204 worksheet.cpp:1914
 #, kde-format
 msgid "Zoom"
 msgstr "Zoom"
 
-#: cantor_part.cpp:212
-#, fuzzy, kde-format
-#| msgid "%1: %2"
+#: cantor_part.cpp:211
+#, kde-format
 msgctxt ""
 "Zoom percentage value %1 will be replaced by the actual zoom factor value, "
 "so make sure you include it in your translation in order to not to break "
 "anything"
 msgid "%1%"
-msgstr "%1: %2"
+msgstr "%1 %"
 
-#: cantor_part.cpp:220
+#: cantor_part.cpp:226
 #, kde-format
 msgid "Typeset using LaTeX"
 msgstr "Schriftsatz mit Hilfe von LaTeX"
 
-#: cantor_part.cpp:225
+#: cantor_part.cpp:231
 #, kde-format
 msgid "Syntax Highlighting"
 msgstr "Syntaxhervorhebung"
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_CompletionDefault)
-#: cantor_part.cpp:230 settings.ui:46
+#: cantor_part.cpp:236 settings.ui:46
 #, kde-format
 msgid "Completion"
 msgstr "Vervollständigung"
 
-#: cantor_part.cpp:235
+#: cantor_part.cpp:241
 #, kde-format
 msgid "Line Numbers"
 msgstr "Zeilennummern"
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_AnimationDefault)
-#: cantor_part.cpp:240 settings.ui:138
-#, fuzzy, kde-format
-#| msgid "Pause Animation"
+#: cantor_part.cpp:246 settings.ui:138
+#, kde-format
 msgid "Animations"
-msgstr "Animation anhalten"
+msgstr "Animationen"
 
-#: cantor_part.cpp:247
+#: cantor_part.cpp:253
 #, kde-format
 msgid "Embedded Math"
 msgstr "Eingebettete Mathematik"
 
-#: cantor_part.cpp:253
+#: cantor_part.cpp:259
 #, kde-format
 msgid "Restart Backend"
 msgstr "Modul neu starten"
 
-#: cantor_part.cpp:260 worksheetentry.cpp:858
+#: cantor_part.cpp:266 worksheetentry.cpp:858
 #, kde-format
 msgid "Evaluate Entry"
 msgstr "Eintrag auswerten"
 
-#: cantor_part.cpp:266
+#: cantor_part.cpp:272
 #, kde-format
 msgid "Insert Command Entry"
 msgstr "Befehlseintrag einfügen"
 
-#: cantor_part.cpp:272
+#: cantor_part.cpp:278
 #, kde-format
 msgid "Insert Text Entry"
 msgstr "Texteintrag einfügen"
 
-#: cantor_part.cpp:278
+#: cantor_part.cpp:284
 #, kde-format
 msgid "Insert Markdown Entry"
 msgstr "Markdown-Eintrag einfügen"
 
-#: cantor_part.cpp:285
+#: cantor_part.cpp:291
 #, kde-format
 msgid "Insert LaTeX Entry"
 msgstr "LaTeX-Eintrag einfügen"
 
-#: cantor_part.cpp:291
+#: cantor_part.cpp:297
 #, kde-format
 msgid "Insert Page Break"
 msgstr "Seitenumbruch einfügen"
 
-#: cantor_part.cpp:296 markdownentry.cpp:63
+#: cantor_part.cpp:302 markdownentry.cpp:63
 #, kde-format
 msgid "Insert Image"
 msgstr "Bild einfügen"
 
-#: cantor_part.cpp:301
+#: cantor_part.cpp:307
 #, kde-format
 msgid "Collapse All Results"
 msgstr "Alle Ergebnisse zusammenklappen"
 
-#: cantor_part.cpp:306
+#: cantor_part.cpp:312
 #, kde-format
 msgid "Expand All Results"
 msgstr "Alle Ergebnisse erweitern"
 
-#: cantor_part.cpp:311
+#: cantor_part.cpp:317
 #, kde-format
 msgid "Remove All Results"
 msgstr "Alle Ergebnisse entfernen"
 
-#: cantor_part.cpp:316
+#: cantor_part.cpp:322
 #, kde-format
 msgid "Remove current Entry"
 msgstr "Aktuellen Eintrag entfernen"
@@ -2982,52 +2979,52 @@ msgstr "Aktuellen Eintrag entfernen"
 #. collection->addAction(QLatin1String("file_publish_worksheet"), publishWorksheet);
 #. connect(publishWorksheet, &QAction::triggered, this, SLOT(publishWorksheet()));
 #.
-#: cantor_part.cpp:332
+#: cantor_part.cpp:338
 #, kde-format
 msgid "Show Script Editor"
 msgstr "Skripteditor anzeigen"
 
-#: cantor_part.cpp:337
+#: cantor_part.cpp:343
 #, kde-format
 msgid "Show Completion"
 msgstr "Vervollständigung anzeigen"
 
-#: cantor_part.cpp:404
+#: cantor_part.cpp:410
 #, kde-format
 msgid "CantorPart"
 msgstr "CantorPart"
 
-#: cantor_part.cpp:406
+#: cantor_part.cpp:412
 #, kde-format
 msgid "(C) 2009-2015 Alexander Rieder"
 msgstr "© 2009–2015 Alexander Rieder"
 
-#: cantor_part.cpp:410 main.cpp:81
+#: cantor_part.cpp:416 main.cpp:81
 #, kde-format
 msgid "Alexander Rieder"
 msgstr "Alexander Rieder"
 
-#: cantor_part.cpp:462
+#: cantor_part.cpp:468
 #, kde-format
 msgid "Cantor Worksheet (*.cws)"
 msgstr "Cantor-Arbeitsblatt (*.cws)"
 
-#: cantor_part.cpp:463
+#: cantor_part.cpp:469
 #, kde-format
 msgid "Jupyter Notebook (*.ipynb)"
 msgstr "Jupyter-Notebook (*.ipynb)"
 
-#: cantor_part.cpp:479
+#: cantor_part.cpp:485
 #, kde-format
 msgid "Save as"
 msgstr "Speichern unter"
 
-#: cantor_part.cpp:525 panelplugins/variablemgr/variablemanagerwidget.cpp:171
+#: cantor_part.cpp:531 panelplugins/variablemgr/variablemanagerwidget.cpp:171
 #, kde-format
 msgid "Save"
 msgstr "Speichern"
 
-#: cantor_part.cpp:577
+#: cantor_part.cpp:583
 #, kde-format
 msgid ""
 "All the available calculation results will be lost. Do you really want to "
@@ -3036,60 +3033,60 @@ msgstr ""
 "Alle vorhandenen Berechnungsergebnisse werden verworfen. Möchten Sie %1 "
 "wirklich neu starten%1?"
 
-#: cantor_part.cpp:578
+#: cantor_part.cpp:584
 #, kde-format
 msgid "Restart %1?"
 msgstr "%1 neu starten?"
 
-#: cantor_part.cpp:618 worksheet.cpp:1909
+#: cantor_part.cpp:624 worksheet.cpp:1909
 #, kde-format
 msgid "Interrupt"
 msgstr "Unterbrechen"
 
-#: cantor_part.cpp:644
+#: cantor_part.cpp:650
 #, kde-format
 msgid "Session Error: %1"
 msgstr "Sitzungsfehler: %1"
 
-#: cantor_part.cpp:685
+#: cantor_part.cpp:691
 #, kde-format
 msgid "Initialization complete"
 msgstr "Initialisierung abgeschlossen"
 
-#: cantor_part.cpp:690
+#: cantor_part.cpp:696
 #, kde-format
 msgid "Initializing..."
 msgstr "Initialisierung ..."
 
-#: cantor_part.cpp:748
+#: cantor_part.cpp:754
 #, kde-format
 msgid "[read-only]"
 msgstr "[nur lesen]"
 
-#: cantor_part.cpp:866
+#: cantor_part.cpp:872
 #, kde-format
 msgid "Do you want to upload current Worksheet to public web server?"
 msgstr ""
 "Möchten Sie das aktuelle Arbeitsblatt auf den öffentliche Server hochladen?"
 
-#: cantor_part.cpp:867
+#: cantor_part.cpp:873
 #, kde-format
 msgid "Question - Cantor"
 msgstr "Frage – Cantor"
 
-#: cantor_part.cpp:873
+#: cantor_part.cpp:879
 #, kde-format
 msgid "The Worksheet is not saved. You should save it before uploading."
 msgstr ""
 "Das Arbeitsblatt ist nicht gespeichert. Sie sollten es speichern, bevor Sie "
 "es hochladen."
 
-#: cantor_part.cpp:874
+#: cantor_part.cpp:880
 #, kde-format
 msgid "Warning - Cantor"
 msgstr "Warnung – Cantor"
 
-#: cantor_part.cpp:946
+#: cantor_part.cpp:952
 #, kde-format
 msgid "This backend does not support scripts."
 msgstr "Dieses Modul unterstützt keine Skripte."
@@ -3114,10 +3111,9 @@ msgstr "&Arbeitsblatt"
 
 #. i18n: ectx: Menu (settings)
 #: cantor_part.rc:50
-#, fuzzy, kde-format
-#| msgid "&Settings"
+#, kde-format
 msgid "Settings"
-msgstr "&Einstellungen"
+msgstr "Einstellungen"
 
 #. i18n: ectx: Menu (file)
 #: cantor_shell.rc:4
@@ -3479,7 +3475,7 @@ msgstr ""
 #: imageresultitem.cpp:93
 #, kde-format
 msgid "EPS files (*.eps)"
-msgstr ""
+msgstr "EPS-Dateien (*.eps)"
 
 #: imageresultitem.cpp:96
 #, fuzzy, kde-format
@@ -3641,19 +3637,19 @@ msgstr "Pfad zum Programm dvips"
 #, kde-format
 msgctxt "@title:column"
 msgid "Type"
-msgstr ""
+msgstr "Typ"
 
 #: lib/defaultvariablemodel.cpp:73
 #, kde-format
 msgctxt "@title:column"
 msgid "Size [Bytes]"
-msgstr ""
+msgstr "Größe [Bytes]"
 
 #: lib/defaultvariablemodel.cpp:75
 #, kde-format
 msgctxt "@title:column"
 msgid "Dimension"
-msgstr ""
+msgstr "Dimension"
 
 #: lib/defaultvariablemodel.cpp:77
 #, kde-format
@@ -3981,22 +3977,19 @@ msgid "Load file"
 msgstr "Datei laden"
 
 #: panelplugins/variablemgr/variablemanagerwidget.cpp:286
-#, fuzzy, kde-format
-#| msgid "Name"
+#, kde-format
 msgid "Copy Name"
-msgstr "Name"
+msgstr "Namen übernehmen"
 
 #: panelplugins/variablemgr/variablemanagerwidget.cpp:287
-#, fuzzy, kde-format
-#| msgctxt "@title:column"
-#| msgid "Value"
+#, kde-format
 msgid "Copy Value"
-msgstr "Wert"
+msgstr "Wert übernehmen"
 
 #: panelplugins/variablemgr/variablemanagerwidget.cpp:288
 #, kde-format
 msgid "Copy Name and Value"
-msgstr ""
+msgstr "Namen und Wert übernehmen"
 
 #: resultitem.cpp:48
 #, kde-format
@@ -4077,24 +4070,21 @@ msgstr "LaTeX-Quelltext"
 
 #. i18n: ectx: property (text), widget (QLabel, label_4)
 #: settings.ui:23
-#, fuzzy, kde-format
-#| msgid "Equations:"
+#, kde-format
 msgid "Evaluation:"
-msgstr "Gleichungen:"
+msgstr "Auswertung:"
 
 #. i18n: ectx: property (toolTip), widget (QCheckBox, kcfg_CompletionDefault)
 #: settings.ui:43
-#, fuzzy, kde-format
-#| msgid "Enable Completion"
+#, kde-format
 msgid "Enable syntax completion"
-msgstr "Vervollständigung aktivieren"
+msgstr "Syntaxvervollständigung aktivieren"
 
 #. i18n: ectx: property (text), widget (QLabel, label_2)
 #: settings.ui:59
-#, fuzzy, kde-format
-#| msgid "Start"
+#, kde-format
 msgid "Startup:"
-msgstr "Starten"
+msgstr "Start:"
 
 #. i18n: ectx: property (toolTip), widget (QLabel, label)
 #. i18n: ectx: property (toolTip), widget (KComboBox, kcfg_DefaultBackend)
@@ -4132,10 +4122,9 @@ msgstr "LaTeX-Schriftsatz für Sage-Modul aktivieren"
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_TypesetDefault)
 #: settings.ui:92
-#, fuzzy, kde-format
-#| msgid "LaTeX typesetting:"
+#, kde-format
 msgid "LaTeX typesetting"
-msgstr "LaTeX-Schriftsatz:"
+msgstr "LaTeX-Schriftsatz"
 
 #. i18n: ectx: property (text), widget (QLabel, VisibleLinesLimit_label)
 #: settings.ui:102
@@ -4174,17 +4163,15 @@ msgstr ""
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_AutoEval)
 #: settings.ui:171
-#, fuzzy, kde-format
-#| msgid "Reevaluate Entries automatically"
+#, kde-format
 msgid "Reevaluate entries automatically"
 msgstr "Einträge automatisch neu berechnen"
 
 #. i18n: ectx: property (text), widget (QLabel, label_3)
 #: settings.ui:184
-#, fuzzy, kde-format
-#| msgid "&Worksheet"
+#, kde-format
 msgid "Worksheet:"
-msgstr "&Arbeitsblatt"
+msgstr "Arbeitsblatt:"
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_StoreTextEntryFormatting)
 #: settings.ui:223
@@ -4200,10 +4187,9 @@ msgstr ""
 
 #. i18n: ectx: property (text), widget (QLabel, label_5)
 #: settings.ui:236
-#, fuzzy, kde-format
-#| msgid "Markdown"
+#, kde-format
 msgid "Markdown:"
-msgstr "Markdown"
+msgstr "Markdown:"
 
 #. i18n: ectx: property (toolTip), widget (QCheckBox, kcfg_UseOldCantorEntriesIndent)
 #: settings.ui:243
@@ -4236,29 +4222,25 @@ msgstr ""
 
 #. i18n: ectx: property (toolTip), widget (QCheckBox, kcfg_ExpressionNumberingDefault)
 #: settings.ui:283
-#, fuzzy, kde-format
-#| msgid "Line Numbers"
+#, kde-format
 msgid "Show line numbers"
-msgstr "Zeilennummern"
+msgstr "Zeilennummern zeigen"
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_ExpressionNumberingDefault)
 #: settings.ui:286
-#, fuzzy, kde-format
-#| msgid "Line Numbers"
+#, kde-format
 msgid "Line numbers"
 msgstr "Zeilennummern"
 
 #. i18n: ectx: property (toolTip), widget (QCheckBox, kcfg_HighlightDefault)
 #: settings.ui:293
-#, fuzzy, kde-format
-#| msgid "Enable Syntax Highlighting"
+#, kde-format
 msgid "Enable syntax highlighting"
 msgstr "Syntaxhervorhebung aktivieren"
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_HighlightDefault)
 #: settings.ui:296
-#, fuzzy, kde-format
-#| msgid "Syntax Highlighting"
+#, kde-format
 msgid "Syntax highlighting"
 msgstr "Syntaxhervorhebung"
 
@@ -4351,7 +4333,7 @@ msgstr "Ergebnis speichern"
 #: textresultitem.cpp:212
 #, kde-format
 msgid "Text Files (*.txt)"
-msgstr ""
+msgstr "Textdateien (*.txt)"
 
 #: worksheet.cpp:1192
 #, kde-format
