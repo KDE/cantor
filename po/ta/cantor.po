@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: cantor\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-05-06 00:42+0000\n"
-"PO-Revision-Date: 2023-05-07 15:05+0530\n"
+"PO-Revision-Date: 2023-05-14 15:29+0530\n"
 "Last-Translator: Kishore G <kishore96@gmail.com>\n"
 "Language-Team: Tamil <kde-i18n-doc@kde.org>\n"
 "Language: ta\n"
@@ -15,7 +15,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Lokalize 23.04.0\n"
+"X-Generator: Lokalize 23.04.1\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -3817,7 +3817,7 @@ msgstr "பெயரையும் மதிப்பையும் நகல�
 #: resultitem.cpp:48
 #, kde-format
 msgid "Save result"
-msgstr "விடையை நகலெடு"
+msgstr "விடையை சேமி"
 
 #: resultitem.cpp:49
 #, kde-format
@@ -4313,12 +4313,12 @@ msgstr ""
 #: worksheet.cpp:1837
 #, kde-format
 msgid "Insert After"
-msgstr "முன்னே நுழை"
+msgstr "பின்னே நுழை"
 
 #: worksheet.cpp:1858
 #, kde-format
 msgid "Insert Before"
-msgstr "பின்னே நுழை"
+msgstr "முன்னே நுழை"
 
 #: worksheet.cpp:1877
 #, kde-format
