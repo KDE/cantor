@@ -32,7 +32,11 @@ static QByteArray initCmd= "import os\n"\
                            "sage.misc.latex.EMBEDDED_MODE = True           \n "\
                            "os.environ['PAGER'] = 'cat'                    \n "\
                            "%colors nocolor                                \n "\
-                           "print('%s %s' % ('____TMP_DIR____', sage.misc.misc.SAGE_TMP))\n";
+                           "try: \n "\
+                           "    SAGE_TMP = sage.misc.temporary_file.TMP_DIR_FILENAME_BASE.name \n "\
+                           "except AttributeError: \n "\
+                           "    SAGE_TMP = sage.misc.misc.SAGE_TMP \n "\
+                           "print('%s %s' % ('____TMP_DIR____', SAGE_TMP))\n";
 
 static QByteArray newInitCmd=
     "__CANTOR_IPYTHON_SHELL__=get_ipython()   \n "\
