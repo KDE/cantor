@@ -1,0 +1,119 @@
+{
+    "id": "org.kde.cantor",
+    "branch": "master",
+    "runtime": "org.kde.Platform",
+    "runtime-version": "5.15-22.08",
+    "base": "io.qt.qtwebengine.BaseApp",
+    "base-version": "5.15-22.08",
+    "sdk": "org.kde.Sdk",
+    "command": "cantor",
+    "tags": [
+        "nightly"
+    ],
+    "desktop-file-name-suffix": " (Nightly)",
+    "finish-args": [
+        "--share=network",
+        "--share=ipc",
+        "--socket=x11",
+        "--socket=wayland",
+        "--filesystem=host"
+    ],
+    "modules": [
+        {
+            "name": "poppler",
+            "config-opts": [
+                "-DENABLE_TESTING=OFF",
+                "-DENABLE_UNSTABLE_API_ABI_HEADERS=ON",
+                "-DENABLE_CPP=OFF",
+                "-DENABLE_GLIB=OFF",
+                "-DENABLE_GOBJECT_INTROSPECTION=OFF",
+                "-DENABLE_UTILS=OFF"
+            ],
+            "buildsystem": "cmake-ninja",
+            "builddir": true,
+            "sources": [
+                {
+                    "type": "archive",
+                    "url": "https://poppler.freedesktop.org/poppler-23.04.0.tar.xz",
+                    "sha256": "b6d893dc7dcd4138b9e9df59a13c59695e50e80dc5c2cacee0674670693951a1",
+                    "x-checker-data": {
+                        "type": "anitya",
+                        "project-id": 3686,
+                        "stable-only": true,
+                        "url-template": "https://poppler.freedesktop.org/poppler-$version.tar.xz"
+                    }
+                }
+            ],
+            "modules": [
+                {
+                    "name": "boost",
+                    "buildsystem": "simple",
+                    "build-commands": [
+                        "./bootstrap.sh --prefix=/app --with-libraries=system",
+                        "./b2 -j $FLATPAK_BUILDER_N_JOBS install"
+                    ],
+                    "sources": [
+                        {
+                            "type": "archive",
+                            "url": "https://boostorg.jfrog.io/artifactory/main/release/1.81.0/source/boost_1_81_0.tar.bz2",
+                            "sha256": "71feeed900fbccca04a3b4f2f84a7c217186f28a940ed8b7ed4725986baf99fa",
+                            "x-checker-data": {
+                                "type": "anitya",
+                                "project-id": 6845,
+                                "stable-only": true,
+                                "url-template": "https://boostorg.jfrog.io/artifactory/main/release/$version/source/boost_${major}_${minor}_$patch.tar.bz2"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "name": "openjpeg2",
+                    "buildsystem": "cmake-ninja",
+                    "builddir": true,
+                    "sources": [
+                        {
+                            "type": "git",
+                            "url": "https://github.com/uclouvain/openjpeg.git",
+                            "tag": "v2.4.0",
+                            "x-checker-data": {
+                                "type": "git",
+                                "tag-pattern": "^v([\\d.]+)$"
+                            }
+                        }
+                    ],
+                    "cleanup": [
+                        "/bin",
+                        "/include",
+                        "/lib/openjpeg-*",
+                        "/lib/pkgconfig"
+                    ]
+                }
+            ],
+            "cleanup": [
+                "/include",
+                "/lib/pkgconfig"
+            ]
+        },
+        {
+            "name": "analitza",
+            "buildsystem": "cmake-ninja",
+            "sources": [
+                {
+                    "type": "git",
+                    "url": "https://invent.kde.org/kde/analitza.git",
+                    "branch": "master"
+                }
+            ]
+        },
+        {
+            "name": "cantor",
+            "buildsystem": "cmake-ninja",
+            "sources": [
+                {
+                    "type": "dir",
+                    "path": "."
+                }
+            ]
+        }
+    ]
+}
