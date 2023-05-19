@@ -30,7 +30,6 @@ static QByteArray initCmd = "import os\n"\
                            "sage.misc.viewer.BROWSER=''                    \n "\
                            "sage.plot.plot3d.base.SHOW_DEFAULTS['viewer'] = 'tachyon' \n"\
                            "sage.misc.latex.EMBEDDED_MODE = True           \n "\
-                           "os.environ['PAGER'] = 'cat'                    \n "\
                            "%colors nocolor                                \n "\
                            "try: \n "\
                            "    SAGE_TMP = sage.misc.temporary_file.TMP_DIR_FILENAME_BASE.name \n "\
@@ -473,23 +472,11 @@ SageSession::VersionInfo SageSession::sageVersion()
 void SageSession::defineCustomFunctions()
 {
     //typesetting
-    QString cmd = QLatin1String("def __cantor_enable_typesetting(enable):\n");
-    if(m_sageVersion < VersionInfo(5, 7))
-    {
-        //the _ and __IP.outputcache() are needed to keep the
-        // _ operator working. in modern versions of sage the __IP variable
-        //has been removed
-        cmd += QLatin1String("\t sage.misc.latex.pretty_print_default(enable);_;__IP.outputcache() \n\n");
-    }else if (m_sageVersion > VersionInfo(5, 7) && m_sageVersion< VersionInfo(5, 12))
-    {
-        cmd += QLatin1String("\t sage.misc.latex.pretty_print_default(enable)\n\n");
-    }else
-    {
-        cmd += QLatin1String("\t if(enable==true):\n "\
-             "\t \t %display typeset \n"\
-             "\t else: \n" \
-             "\t \t %display simple \n\n");
-    }
+    QString cmd = QLatin1String("def __cantor_enable_typesetting(enable):\n"\
+                                "\t if(enable==true):\n "\
+                                "\t \t %display typeset \n"\
+                                "\t else: \n" \
+                                "\t \t %display simple \n\n");
 
     sendInputToProcess(cmd);
 }
