@@ -171,9 +171,6 @@ void SageSession::logout()
     m_process->deleteLater();
     m_process = nullptr;
 
-    //Run sage-cleaner to kill all the orphans
-    QProcess::startDetached(SageSettings::self()->path().toLocalFile(), QStringList() << QLatin1String("-cleaner"));
-
     m_isInitialized = false;
     m_waitingForPrompt = false;
     m_haveSentInitCmd = false;
