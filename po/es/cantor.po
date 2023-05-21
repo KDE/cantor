@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: mathematik\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-05-06 00:42+0000\n"
+"POT-Creation-Date: 2023-05-21 00:41+0000\n"
 "PO-Revision-Date: 2023-05-06 00:44+0200\n"
 "Last-Translator: Eloy Cuadra <ecuadra@eloihr.net>\n"
 "Language-Team: Spanish <kde-l10n-es@kde.org>\n"
@@ -999,8 +999,8 @@ msgstr "La prueba de integración del gráfico ha fallado."
 msgid "The integration of plots will be disabled."
 msgstr "La integración de los gráficos se desactivará."
 
-#: backends/octave/octavesession.cpp:399 backends/sage/sagesession.cpp:313
-#: backends/sage/sagesession.cpp:324 cantor.cpp:215 cantor.cpp:217
+#: backends/octave/octavesession.cpp:399 backends/sage/sagesession.cpp:314
+#: backends/sage/sagesession.cpp:325 cantor.cpp:215 cantor.cpp:217
 #: cantor.cpp:336 cantor.cpp:343 lib/session.cpp:383 main.cpp:66 main.cpp:130
 #: markdownentry.cpp:797 textentry.cpp:553 worksheet.cpp:1275
 #, kde-format
@@ -2451,7 +2451,7 @@ msgstr ""
 msgid "Python script file (*.py);;Sage script file (*.sage)"
 msgstr "Archivo de script de Python (*.py);;Archivo de script de Sage (*.sage)"
 
-#: backends/sage/sagesession.cpp:226
+#: backends/sage/sagesession.cpp:227
 #, kde-format
 msgid ""
 "Sage version %1.%2 is unsupported. Please update your installation to the "
@@ -2460,12 +2460,12 @@ msgstr ""
 "Este programa no es compatible con la versión %1.%2 de Sage. Actualice su "
 "instalación con la versión 9.2 u otra posterior."
 
-#: backends/sage/sagesession.cpp:228 backends/sage/sagesession.cpp:248
+#: backends/sage/sagesession.cpp:229 backends/sage/sagesession.cpp:249
 #, kde-format
 msgid "Unsupported Version"
 msgstr "Versión incompatible"
 
-#: backends/sage/sagesession.cpp:247
+#: backends/sage/sagesession.cpp:248
 #, kde-format
 msgid ""
 "Failed to determine the version of Sage. Please check your installation and "
@@ -2474,27 +2474,27 @@ msgstr ""
 "No se ha podido determinar la versión de Sage. Compruebe su instalación y la "
 "salida de «sage -v»."
 
-#: backends/sage/sagesession.cpp:309
+#: backends/sage/sagesession.cpp:310
 #, kde-format
 msgid "The Sage process crashed while evaluating this expression"
 msgstr "El proceso Sage ha fallado mientras evaluaba esta expresión"
 
-#: backends/sage/sagesession.cpp:313
+#: backends/sage/sagesession.cpp:314
 #, kde-format
 msgid "The Sage process crashed"
 msgstr "El proceso Sage ha fallado"
 
-#: backends/sage/sagesession.cpp:320
+#: backends/sage/sagesession.cpp:321
 #, kde-format
 msgid "The Sage process exited while evaluating this expression"
 msgstr "El proceso Sage ha salido mientras se evaluaba esta expresión"
 
-#: backends/sage/sagesession.cpp:324
+#: backends/sage/sagesession.cpp:325
 #, kde-format
 msgid "The Sage process exited"
 msgstr "El proceso Sage ha salido"
 
-#: backends/sage/sagesession.cpp:334
+#: backends/sage/sagesession.cpp:335
 #, kde-format
 msgid "Failed to start Sage"
 msgstr "Fallo al iniciar Sage"
