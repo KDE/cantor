@@ -96,7 +96,7 @@ void OctaveSession::login()
 
     connect(m_process, &QProcess::readyReadStandardOutput, this, &OctaveSession::readOutput);
     connect(m_process, &QProcess::readyReadStandardError, this, &OctaveSession::readError);
-    connect (m_process, &QProcess::errorOccurred, this, &OctaveSession::processError);
+    connect(m_process, &QProcess::errorOccurred, this, &OctaveSession::processError);
 
     std::random_device rd;
     std::mt19937 mt(rd());

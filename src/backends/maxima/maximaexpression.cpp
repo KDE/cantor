@@ -18,7 +18,6 @@
 
 #include <QApplication>
 #include <QDesktopWidget>
-// #include <QChar>
 #include <QDebug>
 #include <QDir>
 #include <QRegularExpression>

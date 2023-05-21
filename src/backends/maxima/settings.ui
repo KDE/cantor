@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>539</width>
+    <width>566</width>
     <height>355</height>
    </rect>
   </property>
@@ -58,13 +58,6 @@
          </property>
          <property name="text">
           <string>Plots</string>
-         </property>
-        </widget>
-       </item>
-       <item row="4" column="0" rowspan="2" colspan="3">
-        <widget class="QLabel" name="lPlotIntegration">
-         <property name="text">
-          <string>Integrated:</string>
          </property>
         </widget>
        </item>
@@ -220,6 +213,13 @@
           </size>
          </property>
         </spacer>
+       </item>
+       <item row="4" column="0" rowspan="2" colspan="2">
+        <widget class="QLabel" name="lPlotIntegration">
+         <property name="text">
+          <string>Integrated:</string>
+         </property>
+        </widget>
        </item>
       </layout>
      </widget>

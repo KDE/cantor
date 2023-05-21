@@ -8,26 +8,26 @@
 #include "sageexpression.h"
 #include "sagecompletionobject.h"
 #include "sagehighlighter.h"
+#include "settings.h"
 
 #include <QDebug>
 #include <QRegularExpression>
+
 #include <KLocalizedString>
 #include <KMessageBox>
-#include "settings.h"
 
 #ifndef Q_OS_WIN
 #include <signal.h>
 #endif
 
-const QByteArray SageSession::SagePrompt="sage: "; //Text, sage outputs after each command
-const QByteArray SageSession::SageAlternativePrompt="....: "; //Text, sage outputs when it expects further input
+const QByteArray SageSession::SagePrompt = "sage: "; //Text, sage outputs after each command
+const QByteArray SageSession::SageAlternativePrompt = "....: "; //Text, sage outputs when it expects further input
 
 //some commands that are run after login
-static QByteArray initCmd= "import os\n"\
+static QByteArray initCmd = "import os\n"\
                            "os.environ['PAGER'] = 'cat'                     \n "\
                            "sage.misc.pager.EMBEDDED_MODE = True           \n "\
                            "sage.misc.viewer.BROWSER=''                    \n "\
-                           "sage.misc.viewer.viewer.png_viewer('false')         \n" \
                            "sage.plot.plot3d.base.SHOW_DEFAULTS['viewer'] = 'tachyon' \n"\
                            "sage.misc.latex.EMBEDDED_MODE = True           \n "\
                            "os.environ['PAGER'] = 'cat'                    \n "\
@@ -38,11 +38,11 @@ static QByteArray initCmd= "import os\n"\
                            "    SAGE_TMP = sage.misc.misc.SAGE_TMP \n "\
                            "print('%s %s' % ('____TMP_DIR____', SAGE_TMP))\n";
 
-static QByteArray newInitCmd=
+static QByteArray newInitCmd =
     "__CANTOR_IPYTHON_SHELL__=get_ipython()   \n "\
     "__CANTOR_IPYTHON_SHELL__.autoindent=False\n ";
 
-static QByteArray endOfInitMarker="print('____END_OF_INIT____')\n ";
+static QByteArray endOfInitMarker = "print('____END_OF_INIT____')\n ";
 
 
 SageSession::VersionInfo::VersionInfo(int major, int minor)
@@ -63,7 +63,7 @@ int SageSession::VersionInfo::minorVersion() const
 
 bool SageSession::VersionInfo::operator==(VersionInfo other) const
 {
-    return m_major == other.m_major&&m_minor==other.m_minor;
+    return m_major == other.m_major && m_minor==other.m_minor;
 }
 
 bool SageSession::VersionInfo::operator<(VersionInfo other) const
@@ -125,6 +125,34 @@ void SageSession::login()
     connect(m_process, &QProcess::readyReadStandardError, this, &SageSession::readStdErr);
     connect(m_process, &QProcess::errorOccurred, this, &SageSession::reportProcessError);
     connect(m_process, SIGNAL(finished(int,QProcess::ExitStatus)), this, SLOT(processFinished(int,QProcess::ExitStatus)));
+
+    // initialize the settings for embeded plots
+    // TODO: right now the settings are evaluated during the login only and the user needs to re-login
+    // or to restart the application to get the changes applied. A better logic would be to recognize
+    // a plot command and to apply the changes "on the fly" as in maximasession for example or
+    // to apply the changes when the user has modified the settings only. Both options are not
+    // available for Sage yet and should be implemented later.
+    if (SageSettings::self()->integratePlots())
+    {
+        // deactivate external viewers
+        initCmd += "sage.misc.viewer.viewer.png_viewer('false')\n";
+        initCmd += "sage.misc.viewer.viewer.pdf_viewer('false')\n";
+    }
+    else
+    {
+        initCmd += "sage.misc.viewer.viewer.png_viewer('true')\n";
+        initCmd += "sage.misc.viewer.viewer.pdf_viewer('true')\n";
+    }
+
+    if (SageSettings::inlinePlotFormat() == 0) // PDF
+        initCmd += "sage.repl.rich_output.get_display_manager().preferences.graphics = 'vector' \n";
+    else // PNG
+        initCmd += "sage.repl.rich_output.get_display_manager().preferences.graphics = 'raster' \n";
+
+    // matplotlib's figure accepts the sizes in inches
+    double w = SageSettings::plotWidth() / 2.54;
+    double h = SageSettings::plotHeight() / 2.54;
+    initCmd += "import matplotlib.pyplot as plt; plt.rcParams['figure.figsize'] = [" + QString::number(w).toLatin1() + ", " + QString::number(h).toLatin1() + "]\n";
 
     m_process->write(initCmd);
 
@@ -398,7 +426,10 @@ void SageSession::sendInputToProcess(const QString& input)
 
 void SageSession::fileCreated( const QString& path )
 {
-    qDebug()<<"got a file "<<path;
+    if (!SageSettings::self()->integratePlots())
+        return;
+
+    qDebug()<<"got a file " << path;
     if (!expressionQueue().isEmpty())
     {
         auto* expr = static_cast<SageExpression*>(expressionQueue().first());

@@ -52,6 +52,7 @@ void SageExpression::parseOutput(const QString& text)
     }
 
     if (text.startsWith(QLatin1String("Launched png viewer"))
+        || text.startsWith(QLatin1String("Launched pdf viewer"))
         || text.startsWith(QLatin1String("Launched gif viewer")) )
     {
         evalFinished();
