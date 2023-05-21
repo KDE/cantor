@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: mathematik\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-03-30 02:40+0000\n"
+"POT-Creation-Date: 2023-05-21 02:31+0000\n"
 "PO-Revision-Date: 2019-09-22 19:06+0800\n"
 "Last-Translator: pan93412 <pan93412@gmail.com>\n"
 "Language-Team: Chinese <zh-l10n@lists.linux.org.tw>\n"
@@ -943,9 +943,9 @@ msgstr ""
 msgid "The integration of plots will be disabled."
 msgstr ""
 
-#: backends/octave/octavesession.cpp:399 backends/sage/sagesession.cpp:238
-#: backends/sage/sagesession.cpp:271 backends/sage/sagesession.cpp:337
-#: backends/sage/sagesession.cpp:348 cantor.cpp:215 cantor.cpp:217
+#: backends/octave/octavesession.cpp:399 backends/sage/sagesession.cpp:242
+#: backends/sage/sagesession.cpp:275 backends/sage/sagesession.cpp:341
+#: backends/sage/sagesession.cpp:352 cantor.cpp:215 cantor.cpp:217
 #: cantor.cpp:336 cantor.cpp:343 lib/session.cpp:383 main.cpp:66 main.cpp:130
 #: markdownentry.cpp:797 textentry.cpp:553 worksheet.cpp:1275
 #, kde-format
@@ -2348,7 +2348,7 @@ msgstr ""
 msgid "Python script file (*.py);;Sage script file (*.sage)"
 msgstr "Python 文稿檔 (*.py);; Sage 文稿檔 (*.sage)"
 
-#: backends/sage/sagesession.cpp:236
+#: backends/sage/sagesession.cpp:240
 #, kde-format
 msgid ""
 "Sage version %1.%2 is unsupported. Please update your installation to the "
@@ -2357,7 +2357,7 @@ msgstr ""
 "已不支援 Sage 版本 %1.%2。請更新您的 Sage 安裝至支援的版本，以讓其能與 "
 "Cantor 搭配使用。"
 
-#: backends/sage/sagesession.cpp:270
+#: backends/sage/sagesession.cpp:274
 #, kde-format
 msgid ""
 "Failed to determine the version of Sage. Please check your installation and "
@@ -2365,27 +2365,27 @@ msgid ""
 msgstr ""
 "無法確定 Sage 的版本，請檢查您的 Sage 是否安裝正確和「sage -v」所輸出的版本。"
 
-#: backends/sage/sagesession.cpp:333
+#: backends/sage/sagesession.cpp:337
 #, kde-format
 msgid "The Sage process crashed while evaluating this expression"
 msgstr "Sage 行程在計算此表示式時發生錯誤。"
 
-#: backends/sage/sagesession.cpp:337
+#: backends/sage/sagesession.cpp:341
 #, kde-format
 msgid "The Sage process crashed"
 msgstr "Sage 行程發生錯誤"
 
-#: backends/sage/sagesession.cpp:344
+#: backends/sage/sagesession.cpp:348
 #, kde-format
 msgid "The Sage process exited while evaluating this expression"
 msgstr "Sage 行程在計算此表示式時結束"
 
-#: backends/sage/sagesession.cpp:348
+#: backends/sage/sagesession.cpp:352
 #, kde-format
 msgid "The Sage process exited"
 msgstr "Sage 行程已結束"
 
-#: backends/sage/sagesession.cpp:358
+#: backends/sage/sagesession.cpp:362
 #, kde-format
 msgid "Failed to start Sage"
 msgstr "啟動 Sage 失敗"

@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-03-30 02:40+0000\n"
+"POT-Creation-Date: 2023-05-21 02:31+0000\n"
 "PO-Revision-Date: 2021-10-09 08:16+0300\n"
 "Last-Translator: Stelios <sstavra@gmail.com>\n"
 "Language-Team: Greek <kde-i18n-el@kde.org>\n"
@@ -969,9 +969,9 @@ msgstr "Αποτυχία της δοκιμής ενσωμάτωσης γραφι
 msgid "The integration of plots will be disabled."
 msgstr "Η ενσωμάτωση των γραφικών παραστάσεων θα απενεργοποιηθεί."
 
-#: backends/octave/octavesession.cpp:399 backends/sage/sagesession.cpp:238
-#: backends/sage/sagesession.cpp:271 backends/sage/sagesession.cpp:337
-#: backends/sage/sagesession.cpp:348 cantor.cpp:215 cantor.cpp:217
+#: backends/octave/octavesession.cpp:399 backends/sage/sagesession.cpp:242
+#: backends/sage/sagesession.cpp:275 backends/sage/sagesession.cpp:341
+#: backends/sage/sagesession.cpp:352 cantor.cpp:215 cantor.cpp:217
 #: cantor.cpp:336 cantor.cpp:343 lib/session.cpp:383 main.cpp:66 main.cpp:130
 #: markdownentry.cpp:797 textentry.cpp:553 worksheet.cpp:1275
 #, kde-format
@@ -2412,7 +2412,7 @@ msgstr ""
 msgid "Python script file (*.py);;Sage script file (*.sage)"
 msgstr "Αρχείο σεναρίου της Python (*.py);;Αρχείο σεναρίου του Sage (*.sage)"
 
-#: backends/sage/sagesession.cpp:236
+#: backends/sage/sagesession.cpp:240
 #, kde-format
 msgid ""
 "Sage version %1.%2 is unsupported. Please update your installation to the "
@@ -2421,7 +2421,7 @@ msgstr ""
 "Η έκδοση %1.%2 του Sage δεν υποστηρίζεται. Ενημερώστε την εγκατάστασή σας με "
 "τις υποστηριζόμενες εκδόσεις για να λειτουργήσει με το Cantor."
 
-#: backends/sage/sagesession.cpp:270
+#: backends/sage/sagesession.cpp:274
 #, kde-format
 msgid ""
 "Failed to determine the version of Sage. Please check your installation and "
@@ -2430,27 +2430,27 @@ msgstr ""
 "Αποτυχία καθορισμού της έκδοσης του Sage. Ελέγξτε την εγκατάστασή σας και το "
 "αποτέλεσμα του «sage -v»."
 
-#: backends/sage/sagesession.cpp:333
+#: backends/sage/sagesession.cpp:337
 #, kde-format
 msgid "The Sage process crashed while evaluating this expression"
 msgstr "Η διεργασία του Sage κατέρρευσε κατά τον υπολογισμό αυτής της έκφρασης"
 
-#: backends/sage/sagesession.cpp:337
+#: backends/sage/sagesession.cpp:341
 #, kde-format
 msgid "The Sage process crashed"
 msgstr "Η διεργασία του Sage κατέρρευσε"
 
-#: backends/sage/sagesession.cpp:344
+#: backends/sage/sagesession.cpp:348
 #, kde-format
 msgid "The Sage process exited while evaluating this expression"
 msgstr "Η διεργασία του Sage τερμάτισε κατά τον υπολογισμό αυτής της έκφρασης"
 
-#: backends/sage/sagesession.cpp:348
+#: backends/sage/sagesession.cpp:352
 #, kde-format
 msgid "The Sage process exited"
 msgstr "Η διεργασία του Sage τερμάτισε"
 
-#: backends/sage/sagesession.cpp:358
+#: backends/sage/sagesession.cpp:362
 #, kde-format
 msgid "Failed to start Sage"
 msgstr "Αδυναμία έναρξης του Sage"

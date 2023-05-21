@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-03-30 02:40+0000\n"
+"POT-Creation-Date: 2023-05-21 02:31+0000\n"
 "PO-Revision-Date: 2022-10-03 15:21+0200\n"
 "Last-Translator: Shinjo Park <kde@peremen.name>\n"
 "Language-Team: Korean <kde-i18n-doc@kde.org>\n"
@@ -942,9 +942,9 @@ msgstr "플롯 통합 시험이 실패했습니다."
 msgid "The integration of plots will be disabled."
 msgstr "플롯 통합이 비활성화됩니다."
 
-#: backends/octave/octavesession.cpp:399 backends/sage/sagesession.cpp:238
-#: backends/sage/sagesession.cpp:271 backends/sage/sagesession.cpp:337
-#: backends/sage/sagesession.cpp:348 cantor.cpp:215 cantor.cpp:217
+#: backends/octave/octavesession.cpp:399 backends/sage/sagesession.cpp:242
+#: backends/sage/sagesession.cpp:275 backends/sage/sagesession.cpp:341
+#: backends/sage/sagesession.cpp:352 cantor.cpp:215 cantor.cpp:217
 #: cantor.cpp:336 cantor.cpp:343 lib/session.cpp:383 main.cpp:66 main.cpp:130
 #: markdownentry.cpp:797 textentry.cpp:553 worksheet.cpp:1275
 #, kde-format
@@ -2349,7 +2349,7 @@ msgstr ""
 msgid "Python script file (*.py);;Sage script file (*.sage)"
 msgstr "Python 스크립트 파일 (*.py);;Sage 스크립트 파일 (*.sage)"
 
-#: backends/sage/sagesession.cpp:236
+#: backends/sage/sagesession.cpp:240
 #, kde-format
 msgid ""
 "Sage version %1.%2 is unsupported. Please update your installation to the "
@@ -2358,7 +2358,7 @@ msgstr ""
 "Sage 버전 %1.%2은(는) 지원하지 않습니다. Cantor에서 사용하려면 지원하는 버전"
 "으로 업그레이드하십시오."
 
-#: backends/sage/sagesession.cpp:270
+#: backends/sage/sagesession.cpp:274
 #, kde-format
 msgid ""
 "Failed to determine the version of Sage. Please check your installation and "
@@ -2367,27 +2367,27 @@ msgstr ""
 "Sage의 버전을 알 수 없습니다. 설치 상태와 'sage -v' 명령의 출력을 확인하십시"
 "오."
 
-#: backends/sage/sagesession.cpp:333
+#: backends/sage/sagesession.cpp:337
 #, kde-format
 msgid "The Sage process crashed while evaluating this expression"
 msgstr "이 수식을 처리하는 중 Sage 프로세스가 충돌함"
 
-#: backends/sage/sagesession.cpp:337
+#: backends/sage/sagesession.cpp:341
 #, kde-format
 msgid "The Sage process crashed"
 msgstr "Sage 프로세스가 충돌함"
 
-#: backends/sage/sagesession.cpp:344
+#: backends/sage/sagesession.cpp:348
 #, kde-format
 msgid "The Sage process exited while evaluating this expression"
 msgstr "이 수식을 처리하는 중 Sage 프로세스가 종료됨"
 
-#: backends/sage/sagesession.cpp:348
+#: backends/sage/sagesession.cpp:352
 #, kde-format
 msgid "The Sage process exited"
 msgstr "Sage 프로세스 종료됨"
 
-#: backends/sage/sagesession.cpp:358
+#: backends/sage/sagesession.cpp:362
 #, kde-format
 msgid "Failed to start Sage"
 msgstr "Sage를 시작할 수 없음"
