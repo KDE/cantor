@@ -10,7 +10,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
 "X-Accelerator-Marker: &\n"
 "X-Text-Markup: kde4\n"
 
@@ -2390,7 +2390,6 @@ msgid_plural ""
 "<li>Installing packages for one of the following programs:</li>     %2   </"
 "ul> </div> "
 msgstr[0] ""
-msgstr[1] ""
 
 #: cantor.cpp:314
 #, kde-format
@@ -3820,7 +3819,6 @@ msgstr ""
 msgid "Replaced %1 instance"
 msgid_plural "Replaced %1 instances"
 msgstr[0] ""
-msgstr[1] ""
 
 #: searchbar.cpp:333 searchbar.cpp:362
 #, kde-format
