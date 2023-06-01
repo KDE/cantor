@@ -4260,7 +4260,7 @@ msgid ""
 "prompt border"
 msgstr ""
 "Si està activada, les entrades de text s'alinearan amb la vora del full de "
-"treball i no amb la vora de l'indicador"
+"treball i no amb la vora de l'indicatiu"
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_UseOldCantorEntriesIndent)
 #: settings.ui:246
