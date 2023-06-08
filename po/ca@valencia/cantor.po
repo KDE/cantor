@@ -4608,12 +4608,12 @@ msgstr "Mida original"
 #: worksheet.cpp:1933
 #, kde-format
 msgid "Move Entries Up"
-msgstr "Mou amunt les entrades"
+msgstr "Mou cap amunt les entrades"
 
 #: worksheet.cpp:1934
 #, kde-format
 msgid "Move Entries Down"
-msgstr "Mou avall les entrades"
+msgstr "Mou cap avall les entrades"
 
 #: worksheet.cpp:1935
 #, kde-format
@@ -4899,12 +4899,12 @@ msgstr "Gris clar"
 #: worksheetentry.cpp:421
 #, kde-format
 msgid "Move Up"
-msgstr "Mou amunt"
+msgstr "Mou cap amunt"
 
 #: worksheetentry.cpp:429
 #, kde-format
 msgid "Move Down"
-msgstr "Mou avall"
+msgstr "Mou cap avall"
 
 #: worksheetentry.cpp:719
 #, kde-format
