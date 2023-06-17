@@ -13,7 +13,7 @@ msgstr ""
 "Project-Id-Version: kdeedu-kde4\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-05-21 02:31+0000\n"
-"PO-Revision-Date: 2023-05-05 11:25+0300\n"
+"PO-Revision-Date: 2023-06-16 12:13+0300\n"
 "Last-Translator: Emir SARI <emir_sari@icloud.com>\n"
 "Language-Team: Turkish <kde-l10n-tr@kde.org>\n"
 "Language: tr\n"
@@ -21,7 +21,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"X-Generator: Lokalize 23.03.70\n"
+"X-Generator: Lokalize 23.07.70\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -2989,7 +2989,7 @@ msgstr "Geçerli Girdiyi Kaldır"
 #: cantor_part.cpp:332
 #, kde-format
 msgid "Show Script Editor"
-msgstr "Betik Düzenleyiciyi Göster"
+msgstr "Betik Düzenleyicisini Göster"
 
 #: cantor_part.cpp:337
 #, kde-format
@@ -4010,12 +4010,12 @@ msgstr ""
 #: scripteditor/scripteditorwidget.cpp:139
 #, kde-format
 msgid "Script Editor"
-msgstr "Betik Düzenleyici"
+msgstr "Betik Düzenleyicisi"
 
 #: scripteditor/scripteditorwidget.cpp:142
 #, kde-format
 msgid "Script Editor - %1"
-msgstr "Betik Düzenleyici - %1"
+msgstr "Betik Düzenleyicisi - %1"
 
 #: searchbar.cpp:130 searchbar.cpp:178
 #, kde-format
