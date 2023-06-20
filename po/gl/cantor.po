@@ -332,7 +332,7 @@ msgstr "<br><div><b>Non se cumpren algúns dos requisitos: </b>%1</div>"
 #: backendchooser.ui:37
 #, kde-format
 msgid "Make this the default backend"
-msgstr "Empregar esta infraestrutura de maneira predeterminada"
+msgstr "Usar esta infraestrutura de maneira predeterminada"
 
 #: backends/julia/juliabackend.cpp:58
 #, kde-format
@@ -942,8 +942,8 @@ msgstr ""
 "<b>Octave de GNU</b> é unha linguaxe de alto nivel deseñada principalmente "
 "para cálculos numéricos. <br/>Fornece unha interface de liña de ordes cómoda "
 "para resolver numericamente problemas lineais e non lineais e para realizar "
-"outros experimentos numéricos empregando unha linguaxe que é bastante "
-"compatíbel con Matlab."
+"outros experimentos numéricos usando unha linguaxe que é bastante compatíbel "
+"con Matlab."
 
 #: backends/octave/octaveexpression.cpp:231
 #, kde-format
@@ -1367,13 +1367,13 @@ msgstr "Fóra"
 #: backends/qalculate/plotassistant/qalculateplotdialog.ui:445
 #, kde-format
 msgid "Display Grid"
-msgstr "Mostrar a grade"
+msgstr "Amosar a grade"
 
 #. i18n: ectx: property (text), widget (QCheckBox, borderCheckBox)
 #: backends/qalculate/plotassistant/qalculateplotdialog.ui:452
 #, kde-format
 msgid "Display full border"
-msgstr "Mostrar todo o bordo"
+msgstr "Amosar todo o bordo"
 
 #. i18n: ectx: property (text), widget (QCheckBox, colorCheckBox)
 #: backends/qalculate/plotassistant/qalculateplotdialog.ui:463
@@ -1385,7 +1385,7 @@ msgstr "Usar cores"
 #: backends/qalculate/plotassistant/qalculateplotdialog.ui:470
 #, kde-format
 msgid "Display inline"
-msgstr "Mostrar intercalada"
+msgstr "Amosar intercalada"
 
 #. i18n: ectx: property (text), widget (QCheckBox, xLogCheckBox)
 #: backends/qalculate/plotassistant/qalculateplotdialog.ui:481
@@ -1521,7 +1521,7 @@ msgid ""
 "If rational numbers will be displayed with decimals, as a fraction, or "
 "something in between."
 msgstr ""
-"Indica se os números racionais han mostrarse con decimais, como fraccións ou "
+"Indica se os números racionais han amosarse con decimais, como fraccións ou "
 "algo entre medias."
 
 #. i18n: ectx: label, entry (indicateInfiniteSeries), group (QalculateBackend)
@@ -1754,8 +1754,8 @@ msgid ""
 "Image to save plot to. If empty shows plot in a window on the screen. If "
 "inline=true the image is shown regardless of this option."
 msgstr ""
-"A imaxe onde gardar a gráfica. Se o deixa baleira mostrarase nunha xanela na "
-"pantalla. Se inline=true a imaxe móstrase con independencia do que diga esta "
+"A imaxe onde gardar a gráfica. Se o deixa baleira amosarase nunha xanela na "
+"pantalla. Se inline=true a imaxe amósase con independencia do que diga esta "
 "opción."
 
 #: backends/qalculate/qalculatesyntaxhelpobject.cpp:215
@@ -1769,7 +1769,7 @@ msgstr ""
 #, kde-format
 msgid "Set to true for colored plot, false for monochrome."
 msgstr ""
-"Estabelézao como certo para que a gráfica colorada, ou falso para monocromo."
+"Defínao como certo para que a gráfica colorada, ou falso para monocromo."
 
 #: backends/qalculate/qalculatesyntaxhelpobject.cpp:217
 #, kde-format
@@ -2060,7 +2060,7 @@ msgstr "Intercalar as gráficas:"
 #: backends/qalculate/settings.ui:329
 #, kde-format
 msgid "Show full borders:"
-msgstr "Mostrar todos os bordos:"
+msgstr "Amosar todos os bordos:"
 
 #. i18n: ectx: property (text), widget (QLabel, label_17)
 #: backends/qalculate/settings.ui:346
@@ -2109,7 +2109,7 @@ msgstr "Colorear as gráficas:"
 #: backends/qalculate/settings.ui:535
 #, kde-format
 msgid "Show grid:"
-msgstr "Mostrar a grade:"
+msgstr "Amosar a grade:"
 
 #. i18n: ectx: property (text), widget (QLabel, label_14)
 #: backends/qalculate/settings.ui:545
@@ -2642,7 +2642,7 @@ msgstr "Representación"
 #: cantor.kcfg:12
 #, kde-format
 msgid "The Backend that is used by default"
-msgstr "A infraestrutura que se emprega de maneira predeterminada"
+msgstr "A infraestrutura que se usa de maneira predeterminada"
 
 #. i18n: ectx: label, entry (TypesetDefault), group (Cantor)
 #: cantor.kcfg:16
@@ -2724,7 +2724,7 @@ msgstr ""
 #: cantor.kcfg:60
 #, kde-format
 msgid "Show embedded math render error"
-msgstr "Mostrar o erro de renderización de matemáticas incrustadas"
+msgstr "Amosar o erro de renderización de matemáticas incrustadas"
 
 #. i18n: ectx: label, entry (VisibleLinesLimit), group (Cantor)
 #: cantor.kcfg:64
@@ -2979,12 +2979,12 @@ msgstr "Retirar esta entrada"
 #: cantor_part.cpp:332
 #, kde-format
 msgid "Show Script Editor"
-msgstr "Mostrar o editor de scripts"
+msgstr "Amosar o editor de scripts"
 
 #: cantor_part.cpp:337
 #, kde-format
 msgid "Show Completion"
-msgstr "Mostrar o completado"
+msgstr "Amosar o completado"
 
 #: cantor_part.cpp:404
 #, kde-format
@@ -3202,7 +3202,7 @@ msgstr ""
 #: commandentry.cpp:336
 #, kde-format
 msgid "Show Results"
-msgstr "Mostrar os resultados"
+msgstr "Amosar os resultados"
 
 #: commandentry.cpp:338
 #, kde-format
@@ -3212,7 +3212,7 @@ msgstr "Agochar os resultados"
 #: commandentry.cpp:343 worksheet.cpp:1899
 #, kde-format
 msgid "Show Help"
-msgstr "Mostrar a axuda"
+msgstr "Amosar a axuda"
 
 #: commandentry.cpp:356
 #, kde-format
@@ -3574,7 +3574,7 @@ msgstr "Imaxe"
 #: latexentry.cpp:61 textentry.cpp:111
 #, kde-format
 msgid "Show LaTeX code"
-msgstr "Mostrar o código LaTeX"
+msgstr "Amosar o código LaTeX"
 
 #: lib/backend.cpp:163
 #, kde-format
@@ -4308,38 +4308,38 @@ msgstr "Retirar o resultado"
 #: textresultitem.cpp:69
 #, kde-format
 msgid "Show Rendered"
-msgstr "Mostrar renderizado"
+msgstr "Amosar renderizado"
 
 #: textresultitem.cpp:71
 #, kde-format
 msgid "Show Code"
-msgstr "Mostrar o código"
+msgstr "Amosar o código"
 
 #: textresultitem.cpp:79 textresultitem.cpp:92
 #, kde-format
 msgid "Show HTML Code"
-msgstr "Mostrar o código HTML"
+msgstr "Amosar o código HTML"
 
 #: textresultitem.cpp:81 textresultitem.cpp:87
 #, kde-format
 msgid "Show Plain Alternative"
-msgstr "Mostrar a alternativa en texto simple"
+msgstr "Amosar a alternativa en texto simple"
 
 #: textresultitem.cpp:85
 #, kde-format
 msgid "Show Html"
-msgstr "Mostrar o HTML"
+msgstr "Amosar o HTML"
 
 #: textresultitem.cpp:91
 #, kde-format
 msgid "Show HTML"
-msgstr "Mostrar o HTML"
+msgstr "Amosar o HTML"
 
 #: textresultitem.cpp:160
 #, kde-format
 msgid "Cannot render Eps file. You may need additional packages"
 msgstr ""
-"Non se pode mostrar o ficheiro Eps. Quizais precise de paquetes adicionais"
+"Non se pode amosar o ficheiro Eps. Quizais precise de paquetes adicionais"
 
 #: textresultitem.cpp:212
 #, fuzzy, kde-format
