@@ -52,7 +52,7 @@
   <summary xml:lang="et">KDE matemaatikatarkvara kasutajaliides</summary>
   <summary xml:lang="fi">KDE:n käyttöliittymä matemaattisille ohjelmistoille</summary>
   <summary xml:lang="fr">Interface KDE pour les logiciels de mathématiques</summary>
-  <summary xml:lang="gl">Interface de KDE de software matemático</summary>
+  <summary xml:lang="gl">Interface de KDE de software matemático.</summary>
   <summary xml:lang="ia">Interfacie de KDE a Software Matematic</summary>
   <summary xml:lang="id">Frontend KDE untuk Software Matematika</summary>
   <summary xml:lang="it">Interfaccia KDE per software matematici</summary>
@@ -127,7 +127,7 @@
       <caption xml:lang="et">Cantori kasutamine Maxima taustaprogrammiga</caption>
       <caption xml:lang="fi">Maximan käyttö Cantorin taustajärjestelmänä</caption>
       <caption xml:lang="fr">Utilisation du moteur Maxima de Cantor</caption>
-      <caption xml:lang="gl">Usando a infraestrutura de Maxima de Cantor</caption>
+      <caption xml:lang="gl">Usando a infraestrutura de Maxima de Cantor.</caption>
       <caption xml:lang="ia">Usa retro-administration de  Maxima de Cantor</caption>
       <caption xml:lang="id">Menggunakan Maxima backend Cantor</caption>
       <caption xml:lang="it">Usare il motore Maxima di Cantor</caption>
