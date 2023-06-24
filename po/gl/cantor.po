@@ -282,7 +282,7 @@ msgstr "2ª variábel"
 #: scripteditor/scripteditorwidget.cpp:39
 #, kde-format
 msgid "Run Script"
-msgstr "Executar un script"
+msgstr "Executar un guión"
 
 #: assistants/solve/solveassistant.cpp:28
 #, kde-format
@@ -433,7 +433,7 @@ msgstr ""
 #: backends/julia/juliaextensions.cpp:263
 #, kde-format
 msgid "Julia script file (*.jl)"
-msgstr "Ficheiro de script de Julia (*.jl)"
+msgstr "Ficheiro de guión de Julia (*.jl)"
 
 #: backends/julia/juliasession.cpp:111 backends/julia/juliasession.cpp:120
 #: backends/maxima/maximasession.cpp:265 cantor_part.cpp:952
@@ -689,7 +689,7 @@ msgstr "https://docs.kde.org/stable/en/kdeedu/kalgebra/"
 #: backends/scilab/scilabbackend.kcfg:26
 #, kde-format
 msgid "List of scripts to autorun at the beginning of session"
-msgstr "Lista de scripts para executar automaticamente ao iniciar unha sesión"
+msgstr "Lista de guións para executar automaticamente ao iniciar unha sesión"
 
 #: backends/kalgebra/kalgebraexpression.cpp:44
 #, kde-format
@@ -735,7 +735,7 @@ msgstr "Ruta á orde luajit"
 #: backends/lua/luaextensions.cpp:20
 #, kde-format
 msgid "Lua script file (*.lua)"
-msgstr "Ficheiro de script de Lua (*.lua)"
+msgstr "Ficheiro de guión de Lua (*.lua)"
 
 #. i18n: ectx: property (text), widget (QLabel, label)
 #: backends/lua/settings.ui:27
@@ -964,7 +964,7 @@ msgstr ""
 #: backends/octave/octaveextensions.cpp:34
 #, kde-format
 msgid "Octave script file (*.m)"
-msgstr "Ficheiro de script de Octave (*.m)"
+msgstr "Ficheiro de guión de Octave (*.m)"
 
 #: backends/octave/octavesession.cpp:275 backends/sage/sageexpression.cpp:49
 #, kde-format
@@ -1021,7 +1021,7 @@ msgstr ""
 #: backends/python/pythonextensions.cpp:301
 #, kde-format
 msgid "Python script file (*.py)"
-msgstr "Ficheiro de script de Python (*.py)"
+msgstr "Ficheiro de guión de Python (*.py)"
 
 #: backends/python/pythonsession.cpp:274
 #, kde-format
@@ -2341,7 +2341,7 @@ msgstr "Produciuse un erro ao abrir o ficheiro %1"
 #: backends/R/rextensions.cpp:22
 #, kde-format
 msgid "R script file (*.R)"
-msgstr "Ficheiro de script de R (*.R)"
+msgstr "Ficheiro de guión de R (*.R)"
 
 #: backends/R/rserver/rserver.cpp:362
 #, kde-format
@@ -2419,8 +2419,7 @@ msgstr ""
 #: backends/sage/sageextensions.cpp:32
 #, kde-format
 msgid "Python script file (*.py);;Sage script file (*.sage)"
-msgstr ""
-"Ficheiro de script de Python (*.py);;Ficheiro de script de Sage (*.sage)"
+msgstr "Ficheiro de guión de Python (*.py);;Ficheiro de guión de Sage (*.sage)"
 
 #: backends/sage/sagesession.cpp:254
 #, fuzzy, kde-format
@@ -2518,8 +2517,7 @@ msgstr "Ruta ao executábel de Sage"
 #, kde-format
 msgid ";;Scilab script file (*.sce);;Scilab function file (*.sci)"
 msgstr ""
-";;Ficheiro de script de Scilab (*.sce);;Ficheiro de funcións de Scilab (*."
-"sci)"
+";;Ficheiro de guión de Scilab (*.sce);;Ficheiro de funcións de Scilab (*.sci)"
 
 #: cantor.cpp:103
 #, kde-format
@@ -3007,7 +3005,7 @@ msgstr "Retirar esta entrada"
 #: cantor_part.cpp:338
 #, kde-format
 msgid "Show Script Editor"
-msgstr "Amosar o editor de scripts"
+msgstr "Amosar o editor de guións"
 
 #: cantor_part.cpp:343
 #, kde-format
@@ -4050,12 +4048,12 @@ msgstr ""
 #: scripteditor/scripteditorwidget.cpp:139
 #, kde-format
 msgid "Script Editor"
-msgstr "Editor de scripts"
+msgstr "Editor de guións"
 
 #: scripteditor/scripteditorwidget.cpp:142
 #, kde-format
 msgid "Script Editor - %1"
-msgstr "Editor de scripts - %1"
+msgstr "Editor de guións - %1"
 
 #: searchbar.cpp:130 searchbar.cpp:178
 #, kde-format
