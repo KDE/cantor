@@ -11,7 +11,7 @@
         "Description[et]": "Omavektorite arvutamist lihtsustav abiline",
         "Description[fi]": "Apuikkuna helpottamaan ominaisvektoreiden laskemista",
         "Description[fr]": "Une boîte de dialogue d'assistant simplifiant le calcul de vecteurs propres",
-        "Description[gl]": "Un diálogo auxiliar para simplificar o cálculo de vectores de Eigen",
+        "Description[gl]": "Un diálogo auxiliar para simplificar o cálculo de vectores de Eigen.",
         "Description[ia]": "Un dialogo Assistente per simplificar calcular autovectores (Eigen)",
         "Description[it]": "Un assistente che semplifica il calcolo degli autovettori",
         "Description[ka]": "დამხმარე ფანჯარა EigenVectors-ის გამოთვლის გასამარტივებლად",
