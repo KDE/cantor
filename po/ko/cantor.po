@@ -1,21 +1,21 @@
 # Copyright (C) YEAR This_file_is_part_of_KDE
 # This file is distributed under the same license as the PACKAGE package.
-# Shinjo Park <kde@peremen.name>, 2011, 2015, 2020, 2021, 2022.
+# Shinjo Park <kde@peremen.name>, 2011, 2015, 2020, 2021, 2022, 2023.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-05-22 00:42+0000\n"
-"PO-Revision-Date: 2022-10-03 15:21+0200\n"
+"PO-Revision-Date: 2023-07-22 22:55+0200\n"
 "Last-Translator: Shinjo Park <kde@peremen.name>\n"
-"Language-Team: Korean <kde-i18n-doc@kde.org>\n"
+"Language-Team: Korean <kde-kr@kde.org>\n"
 "Language: ko\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Lokalize 21.12.3\n"
+"X-Generator: Lokalize 22.12.3\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -356,9 +356,8 @@ msgid ""
 "to the executable. Symlinks are not allowed. Please provide the correct path "
 "in the application settings and try again."
 msgstr ""
-"프로그램 설정에서 지정한 Julia 경로는 실행 파일을 가리켜야 합니다. 심볼릭 링"
-"크는 사용할 수 없습니다. 프로그램 설정에서 올바른 경로를 지정하고 다시 시도하"
-"십시오."
+"앱 설정에서 지정한 Julia 경로는 실행 파일을 가리켜야 합니다. 심볼릭 링크는 사"
+"용할 수 없습니다. 앱 설정에서 올바른 경로를 지정하고 다시 시도하십시오."
 
 #: backends/julia/juliabackend.cpp:102 backends/julia/juliabackend.cpp:114
 #, kde-format
@@ -474,11 +473,10 @@ msgid ""
 "perform it in Julia REPL that is able to show the current progress of the "
 "package installation."
 msgstr ""
-"Julia에서는 현재 프로그램 시각화 프레임워크 GR(https://gr-framework.org/)만 "
-"지원합니다. 이 패키지를 설치하지 않았다면 설치하십시오. Cantor나 Julia REPL에"
-"서 Pkg.install(\"GR\") 명령을 내리면 됩니다. 이 작업은 시간이 걸릴 수 있으므"
-"로 패키지 설치 진행 상태를 표시할 수 있는 Julia REPL에서 수행하기를 추천합니"
-"다."
+"Julia에서는 현재 앱 시각화 프레임워크 GR(https://gr-framework.org/)만 지원합"
+"니다. 이 패키지를 설치하지 않았다면 설치하십시오. Cantor나 Julia REPL에서 "
+"Pkg.install(\"GR\") 명령을 내리면 됩니다. 이 작업은 시간이 걸릴 수 있으므로 "
+"패키지 설치 진행 상태를 표시할 수 있는 Julia REPL에서 수행하기를 추천합니다."
 
 #. i18n: ectx: attribute (title), widget (QWidget, tabGeneral)
 #. i18n: ectx: attribute (title), widget (QWidget, tab_3)
@@ -802,14 +800,14 @@ msgstr "Maxima 실행 파일 경로"
 #: backends/maxima/maximabackend.kcfg:41 backends/sage/sagebackend.kcfg:29
 #, kde-format
 msgid "Default plot width"
-msgstr ""
+msgstr "기본 플롯 너비"
 
 #. i18n: ectx: label, entry (plotHeight), group (SageBackend)
 #. i18n: ectx: label, entry (plotHeight), group (MaximaBackend)
 #: backends/maxima/maximabackend.kcfg:45 backends/sage/sagebackend.kcfg:33
 #, kde-format
 msgid "Default plot height"
-msgstr ""
+msgstr "기본 플롯 높이"
 
 #: backends/maxima/maximaexpression.cpp:113
 #, kde-format
@@ -855,18 +853,16 @@ msgstr "Maxima가 짧은 시간 동안 두 번 충돌했습니다. 재시작을 
 #. i18n: ectx: property (text), widget (QLabel, label_3)
 #: backends/maxima/settings.ui:77 backends/octave/settings.ui:118
 #: backends/sage/settings.ui:107
-#, fuzzy, kde-format
-#| msgid "Font Size:"
+#, kde-format
 msgid "Size:"
-msgstr "글꼴 크기:"
+msgstr "크기:"
 
 #. i18n: ectx: property (text), widget (QLabel, lPlotWidth)
 #: backends/maxima/settings.ui:105 backends/octave/settings.ui:58
 #: backends/sage/settings.ui:135
-#, fuzzy, kde-format
-#| msgid "Width"
+#, kde-format
 msgid "width:"
-msgstr "너비"
+msgstr "너비:"
 
 #. i18n: ectx: property (suffix), widget (QDoubleSpinBox, kcfg_plotWidth)
 #. i18n: ectx: property (suffix), widget (QDoubleSpinBox, kcfg_plotHeight)
@@ -875,15 +871,14 @@ msgstr "너비"
 #: backends/sage/settings.ui:142 backends/sage/settings.ui:172
 #, kde-format
 msgid "cm"
-msgstr ""
+msgstr "cm"
 
 #. i18n: ectx: property (text), widget (QLabel, lPlotHeight)
 #: backends/maxima/settings.ui:135 backends/octave/settings.ui:88
 #: backends/sage/settings.ui:165
-#, fuzzy, kde-format
-#| msgid "Height"
+#, kde-format
 msgid "height:"
-msgstr "높이"
+msgstr "높이:"
 
 #. i18n: ectx: property (text), widget (QLabel, label_3)
 #. i18n: ectx: property (text), widget (QLabel, label_2)
@@ -891,22 +886,21 @@ msgstr "높이"
 #: backends/sage/settings.ui:195
 #, kde-format
 msgid "Image Format:"
-msgstr ""
+msgstr "그림 형식:"
 
 #. i18n: ectx: property (text), item, widget (QComboBox, kcfg_inlinePlotFormat)
 #: backends/maxima/settings.ui:173 backends/octave/settings.ui:196
 #: backends/sage/settings.ui:203
 #, kde-format
 msgid "PDF"
-msgstr ""
+msgstr "PDF"
 
 #. i18n: ectx: property (text), widget (QLabel, lPlotIntegration)
 #: backends/maxima/settings.ui:220 backends/octave/settings.ui:135
 #: backends/sage/settings.ui:90
-#, fuzzy, kde-format
-#| msgid "Integrate"
+#, kde-format
 msgid "Integrated:"
-msgstr "적분"
+msgstr "통합:"
 
 #: backends/octave/octavebackend.cpp:63
 #, kde-format
@@ -931,7 +925,7 @@ msgstr ""
 #: backends/octave/octaveexpression.cpp:231
 #, kde-format
 msgid "Invalid image file generated."
-msgstr ""
+msgstr "잘못된 그림 파일이 생성되었습니다."
 
 #: backends/octave/octaveextensions.cpp:34
 #, kde-format
@@ -2360,22 +2354,17 @@ msgid "Python script file (*.py);;Sage script file (*.sage)"
 msgstr "Python 스크립트 파일 (*.py);;Sage 스크립트 파일 (*.sage)"
 
 #: backends/sage/sagesession.cpp:254
-#, fuzzy, kde-format
-#| msgid ""
-#| "Sage version %1.%2 is unsupported. Please update your installation to the "
-#| "supported versions to make it work with Cantor."
+#, kde-format
 msgid ""
 "Sage version %1.%2 is unsupported. Please update your installation to the "
 "versions 9.2 or higher."
 msgstr ""
-"Sage 버전 %1.%2은(는) 지원하지 않습니다. Cantor에서 사용하려면 지원하는 버전"
-"으로 업그레이드하십시오."
+"Sage 버전 %1.%2은(는) 지원하지 않습니다. 9.2 이상으로 업그레이드하십시오."
 
 #: backends/sage/sagesession.cpp:256 backends/sage/sagesession.cpp:276
-#, fuzzy, kde-format
-#| msgid "All supported files"
+#, kde-format
 msgid "Unsupported Version"
-msgstr "모든 지원하는 파일"
+msgstr "지원하지 않는 버전"
 
 #: backends/sage/sagesession.cpp:275
 #, kde-format
@@ -2633,10 +2622,9 @@ msgstr ""
 
 #. i18n: ectx: label, entry (WarnAboutEntryDelete), group (Cantor)
 #: cantor.kcfg:40
-#, fuzzy, kde-format
-#| msgid "Ask for confirmation when restarting the backend"
+#, kde-format
 msgid "Ask for confirmation when deleting an entry"
-msgstr "백엔드를 다시 시작할 때 사용자에게 묻기"
+msgstr "항목을 삭제할 때 사용자에게 묻기"
 
 #. i18n: ectx: label, entry (AutoEval), group (Cantor)
 #: cantor.kcfg:44
@@ -2822,14 +2810,13 @@ msgid "Zoom"
 msgstr "확대/축소"
 
 #: cantor_part.cpp:211
-#, fuzzy, kde-format
-#| msgid "%1: %2"
+#, kde-format
 msgctxt ""
 "Zoom percentage value %1 will be replaced by the actual zoom factor value, "
 "so make sure you include it in your translation in order to not to break "
 "anything"
 msgid "%1%"
-msgstr "%1: %2"
+msgstr "%1%"
 
 #: cantor_part.cpp:226
 #, kde-format
@@ -3412,15 +3399,14 @@ msgid "Cannot load image %1"
 msgstr "%1 그림을 불러올 수 없음"
 
 #: imageresultitem.cpp:90
-#, fuzzy, kde-format
-#| msgid "Text Files (*.txt)"
+#, kde-format
 msgid "%1 files (*.%2)"
-msgstr "텍스트 파일 (*.txt)"
+msgstr "%1 파일 (*.%2)"
 
 #: imageresultitem.cpp:93
 #, kde-format
 msgid "EPS files (*.eps)"
-msgstr ""
+msgstr "EPS 파일 (*.eps)"
 
 #: imageresultitem.cpp:96
 #, kde-format
@@ -3519,8 +3505,8 @@ msgid ""
 "No path for the %1 executable specified. Please provide the correct path in "
 "the application settings and try again."
 msgstr ""
-"%1 실행 파일 경로를 지정하지 않았습니다. 프로그램 설정에서 올바른 경로를 지정"
-"하고 다시 시도하십시오."
+"%1 실행 파일 경로를 지정하지 않았습니다. 앱 설정에서 올바른 경로를 지정하고 "
+"다시 시도하십시오."
 
 #: lib/backend.cpp:173
 #, kde-format
@@ -3528,8 +3514,8 @@ msgid ""
 "The specified file '%1' for the %2 executable doesn't exist. Please provide "
 "the correct path in the application settings and try again."
 msgstr ""
-"%2 실행 파일의 경로 '%1'이(가) 없습니다. 프로그램 설정에서 올바른 경로를 지정"
-"하고 다시 시도하십시오."
+"%2 실행 파일의 경로 '%1'이(가) 없습니다. 앱 설정에서 올바른 경로를 지정하고 "
+"다시 시도하십시오."
 
 #: lib/backend.cpp:182
 #, kde-format
@@ -3537,8 +3523,8 @@ msgid ""
 "The specified file '%1' doesn't point to an executable. Please provide the "
 "correct path in the application settings and try again."
 msgstr ""
-"지정한 파일 '%1'이(가) 실행 파일을 가리키지 않습니다. 프로그램 설정에서 올바"
-"른 경로를 지정하고 다시 시도하십시오."
+"지정한 파일 '%1'이(가) 실행 파일을 가리키지 않습니다. 앱 설정에서 올바른 경로"
+"를 지정하고 다시 시도하십시오."
 
 #: lib/backend.cpp:201
 #, kde-format
@@ -3574,19 +3560,19 @@ msgstr "dvips 실행 파일 경로"
 #, kde-format
 msgctxt "@title:column"
 msgid "Type"
-msgstr ""
+msgstr "형식"
 
 #: lib/defaultvariablemodel.cpp:73
 #, kde-format
 msgctxt "@title:column"
 msgid "Size [Bytes]"
-msgstr ""
+msgstr "크기 [바이트]"
 
 #: lib/defaultvariablemodel.cpp:75
 #, kde-format
 msgctxt "@title:column"
 msgid "Dimension"
-msgstr ""
+msgstr "면적"
 
 #: lib/defaultvariablemodel.cpp:77
 #, kde-format
@@ -3660,7 +3646,7 @@ msgstr ""
 #: main.cpp:72
 #, kde-format
 msgid "KDE Frontend to mathematical applications"
-msgstr "KDE 수학 프로그램 프론트엔드"
+msgstr "KDE 수학 앱 프론트엔드"
 
 #: main.cpp:74
 #, kde-format
@@ -3911,22 +3897,19 @@ msgid "Load file"
 msgstr "파일 불러오기"
 
 #: panelplugins/variablemgr/variablemanagerwidget.cpp:286
-#, fuzzy, kde-format
-#| msgid "Name"
+#, kde-format
 msgid "Copy Name"
-msgstr "이름"
+msgstr "이름 복사"
 
 #: panelplugins/variablemgr/variablemanagerwidget.cpp:287
-#, fuzzy, kde-format
-#| msgctxt "@title:column"
-#| msgid "Value"
+#, kde-format
 msgid "Copy Value"
-msgstr "값"
+msgstr "값 복사"
 
 #: panelplugins/variablemgr/variablemanagerwidget.cpp:288
 #, kde-format
 msgid "Copy Name and Value"
-msgstr ""
+msgstr "이름과 값 복사"
 
 #: resultitem.cpp:48
 #, kde-format
@@ -4175,10 +4158,9 @@ msgstr "구문 강조"
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_WarnAboutEntryDelete)
 #: settings.ui:303
-#, fuzzy, kde-format
-#| msgid "Ask for confirmation when restarting the backend"
+#, kde-format
 msgid "Ask for confirmation when deleting entries"
-msgstr "백엔드를 다시 시작할 때 사용자에게 묻기"
+msgstr "항목을 삭제할 때 사용자에게 묻기"
 
 #. i18n: ectx: property (placeholderText), widget (KLineEdit, pattern)
 #: standardsearchbar.ui:35
