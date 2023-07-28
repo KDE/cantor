@@ -5,30 +5,31 @@
 # Yannis Kaskamanidis <kiolalis@gmail.com>, 2010.
 # Dimitris Kardarakos <dimkard@gmail.com>, 2012, 2014.
 # Stelios <<sstavra@gmail.com>>, 2012, 2017, 2020, 2021.
+# Theofilos Intzoglou <int.teo@gmail.com>, 2023.
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-05-22 00:42+0000\n"
-"PO-Revision-Date: 2021-10-09 08:16+0300\n"
-"Last-Translator: Stelios <sstavra@gmail.com>\n"
+"PO-Revision-Date: 2023-07-25 19:54+0300\n"
+"Last-Translator: Theofilos Intzoglou <int.teo@gmail.com>\n"
 "Language-Team: Greek <kde-i18n-el@kde.org>\n"
 "Language: el\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Lokalize 20.04.2\n"
+"X-Generator: Lokalize 23.04.3\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
 msgid "Your names"
-msgstr "Γιάννης Κασκαμανίδης, Δημήτρης Καρδαράκος"
+msgstr "Γιάννης Κασκαμανίδης, Δημήτρης Καρδαράκος, Ιντζόγλου Θεόφιλος"
 
 #, kde-format
 msgctxt "EMAIL OF TRANSLATORS"
 msgid "Your emails"
-msgstr "kiolalis@gmail.com, dimkard@gmail.com"
+msgstr "kiolalis@gmail.com, dimkard@gmail.com, int.teo@gmail.com"
 
 #: animationresultitem.cpp:38
 #, kde-format
@@ -46,15 +47,14 @@ msgid "Stop"
 msgstr "Διακοπή"
 
 #: animationresultitem.cpp:111
-#, fuzzy, kde-format
-#| msgid "Save result"
+#, kde-format
 msgid "Save animation result"
-msgstr "Αποθήκευση αποτελέσματος"
+msgstr "Αποθήκευση αποτελέσματος κινούμενου σχεδίου"
 
 #: animationresultitem.cpp:111
 #, kde-format
 msgid "Animations (*.gif)"
-msgstr ""
+msgstr "Κινούμενα σχέδια (*.gif)"
 
 #: assistants/advancedplot/advancedplotassistant.cpp:30
 #, kde-format
@@ -420,10 +420,9 @@ msgstr "Ενσωμάτωση των γραφικών απεικονίσεων σ
 #. i18n: ectx: label, entry (plotExtenstionGraphicPackage), group (JuliaBackend)
 #. i18n: ectx: label, entry (plotExtenstionGraphicPackage), group (PythonBackend)
 #: backends/julia/juliabackend.kcfg:37 backends/python/pythonbackend.kcfg:28
-#, fuzzy, kde-format
-#| msgid "Graphic Package for \"Plot\"-assistant"
+#, kde-format
 msgid "Graphical package for the Plot-Assistant"
-msgstr "Πακέτο γραφικών βοηθός για τη «Γραφική απεικόνιση»"
+msgstr "Πακέτο γραφικών για τη «Γραφική απεικόνιση»"
 
 #: backends/julia/juliaextensions.cpp:246
 #, kde-format
@@ -596,18 +595,16 @@ msgstr ""
 #. i18n: ectx: property (toolTip), widget (QLabel, label4)
 #: backends/julia/settings.ui:95 backends/julia/settings.ui:111
 #: backends/python/settings.ui:54 backends/python/settings.ui:90
-#, fuzzy, kde-format
-#| msgid "Graphic Package for \"Plot\"-assistant"
+#, kde-format
 msgid "Graphic package to be used in the Plot Assistant"
-msgstr "Πακέτο γραφικών βοηθός για τη «Γραφική απεικόνιση»"
+msgstr "Πακέτο γραφικών για τη «Γραφική απεικόνιση»"
 
 #. i18n: ectx: property (text), widget (QLabel, label3)
 #. i18n: ectx: property (text), widget (QLabel, label4)
 #: backends/julia/settings.ui:98 backends/python/settings.ui:57
-#, fuzzy, kde-format
-#| msgid "Graphic Package for \"Plot\"-assistant"
+#, kde-format
 msgid "Package for Plot Assistant"
-msgstr "Πακέτο γραφικών βοηθός για τη «Γραφική απεικόνιση»"
+msgstr "Πακέτο για τη «Γραφική απεικόνιση»"
 
 #. i18n: ectx: property (text), item, widget (KComboBox, kcfg_plotExtenstionGraphicPackage)
 #: backends/julia/settings.ui:115 backends/python/settings.ui:109
@@ -793,6 +790,46 @@ msgid ""
 "i> returns <i>done</i> unless no examples are found or there is no argument, "
 "in which case <i>example</i> returns the list of all recognized topics."
 msgstr ""
+"<h1>Σύστημα Βοήθειας του Maxima</h1><h2>Συνάρτηση <i>apropos</i></"
+"h2>Αναζητεί για ονόματα Maxima τα οποία έχουν το όνομα να εμφανίζεται "
+"οπουδήποτε μέσα τους· το <i>όνομα</i> πρέπει να είναι μια συμβολοσειρά ή "
+"σύμβολο. Έτσι, το <i>apropos(exp)</i> επιστρέφει όλες τις σημαίες και "
+"συναρτήσεις οι οποίες έχουν το exp ως μέρος του ονόματός τους, όπως "
+"<i>expand</i>, <i>exp</i>, και <i>exponentialize</i>. Άρα, αν μπορείτε να "
+"θυμηθείτε μέρος του ονόματος της εντολής Maxima ή της μεταβλητής, μπορείτε "
+"να χρησιμοποιήσετε αυτή την εντολή για να βρείτε το υπόλοιπο όνομα. Ομοίως, "
+"μπορείτε να πληκτρολογήσετε <i>apropos(tr_)</i> για να βρείτε μια λίστα με "
+"πολλές από τις επιλογές που σχετίζονται με τον μεταφραστή, οι περισσότερες "
+"από τις οποίες ξεκινούν από <i>tr_</i>.<br><br>Το <i>apropos(\"\")</i> "
+"επιστρέφει μια λίστα με όλα τα ονόματα Maxima.<br><br>Η συνάρτηση "
+"<i>apropos</i> επιστρέφει μια κενή λίστα [], αν δεν βρεθεί κανένα όνομα."
+"<br><br><h2>Συνάρτηση<i>describe</i></h2>Το <i>describe(string)</i> είναι "
+"ισότιμο με το describe(string, exact).<br><br>Το <i>describe(string, exact)</"
+"i> βρίσκει ένα αντικείμενο με τίτλο ισότιμο (με διάκριση πεζών κεφαλαίων) "
+"στο string, αν υπάρχει τέτοιο αντικείμενο.<br><br>Το <i>describe(string, "
+"inexact)</i> βρίσκει όλα τα τεκμηριωμένα αντικείμενα τα οποία περιέχουν "
+"string στους τίτλους τους. Αν υπάρχουν περισσότερα από ένα τέτοια "
+"αντικείμενα, το Maxima ζητάει από τον χρήστη να επιλέξει το αντικείμενο ή "
+"αντικείμενα για εμφάνιση.<br><br>Το <i>? foo</i> (με ένα κενό μεταξύ <i>?</"
+"i> και <i>foo</i>) είναι ισοδύναμο με το <i>describe(\"foo\", exact)</i>, "
+"και το <i>?? foo</i> είναι ισοδύναμο στο <i>describe(\"foo\", inexact)</i>."
+"<br><br>Το <i>describe(, inexact)</i> επιστρέφει μια λίστα με όλα τα "
+"τεκμηριωμένα θέματα στο on-line εγχειρίδιο χρήσης.<br><br>Η συνάρτηση "
+"<i>describe</i> προσθέτει εισαγωγικά στα ορίσματά της. Η <i>describe</i> "
+"επιστρέφει <i>true</i> αν κάποια τεκμηρίωση βρέθηκε, διαφορετικά επιστρέφει "
+"<i>false</i>.<br><h2>Συνάρτηση<i>example</i></h2>Το <i>example(θέμα)</i> "
+"εμφανίζει κάποια παραδείγματα για το <i>θέμα</i>, το οποίο είναι ένα σύμβολο "
+"ή συμβολοσειρά. Για να πάρετε παραδείγματα για τελεστές όπως <i>if</i>, "
+"<i>do</i>, ή <i>lambda</i> το όρισμα πρέπει να είναι μια συμβολοσειρά, π.χ. "
+"<i>example(\"do\")</i>. Η συνάρτηση <i>example</i> δεν κάνει διάκριση πεζών "
+"κεφαλαίων. Τα περισσότερα θέματα είναι ονόματα συναρτήσεων.<br><br>Το "
+"<i>example()</i> επιστρέφει μια λίστα με όλα τα αναγνωρισμένα θέματα."
+"<br><br>Το όνομα του αρχείου που περιέχει όλα τα παραδείγματα δίνεται με την "
+"μεταβλητή περιβάλλοντος <i>manual_demo</i>, το οποίο έχει προκαθορισμένη "
+"τιμή το <i>\"manual.demo\"</i>.<br><br>Η συνάρτηση <i>example</i> προσθέτει "
+"εισαγωγικά στα ορίσματά του. Η <i>example</i> επιστρέφει <i>done</i> εκτός "
+"αν δεν βρέθηκαν παραδείγματα ή δεν δόθηκε όρισμα, στην οποία περίπτωση η "
+"<i>example</i> επιστρέφει μια λίστα με όλα τα αναγνωρισμένα θέματα."
 
 #: backends/maxima/maximabackend.cpp:111
 #, kde-format
@@ -825,14 +862,14 @@ msgstr "Διαδρομή προς το εκτελέσιμο Maxima"
 #: backends/maxima/maximabackend.kcfg:41 backends/sage/sagebackend.kcfg:29
 #, kde-format
 msgid "Default plot width"
-msgstr ""
+msgstr "Προκαθορισμένο πλάτος γραφήματος"
 
 #. i18n: ectx: label, entry (plotHeight), group (SageBackend)
 #. i18n: ectx: label, entry (plotHeight), group (MaximaBackend)
 #: backends/maxima/maximabackend.kcfg:45 backends/sage/sagebackend.kcfg:33
 #, kde-format
 msgid "Default plot height"
-msgstr ""
+msgstr "Προκαθορισμένο ύψος γραφήματος"
 
 #: backends/maxima/maximaexpression.cpp:113
 #, kde-format
@@ -880,18 +917,16 @@ msgstr ""
 #. i18n: ectx: property (text), widget (QLabel, label_3)
 #: backends/maxima/settings.ui:77 backends/octave/settings.ui:118
 #: backends/sage/settings.ui:107
-#, fuzzy, kde-format
-#| msgid "Font Size:"
+#, kde-format
 msgid "Size:"
-msgstr "Μέγεθος γραμματοσειράς:"
+msgstr "Μέγεθος:"
 
 #. i18n: ectx: property (text), widget (QLabel, lPlotWidth)
 #: backends/maxima/settings.ui:105 backends/octave/settings.ui:58
 #: backends/sage/settings.ui:135
-#, fuzzy, kde-format
-#| msgid "Width"
+#, kde-format
 msgid "width:"
-msgstr "Πλάτος"
+msgstr "πλάτος:"
 
 #. i18n: ectx: property (suffix), widget (QDoubleSpinBox, kcfg_plotWidth)
 #. i18n: ectx: property (suffix), widget (QDoubleSpinBox, kcfg_plotHeight)
@@ -900,15 +935,14 @@ msgstr "Πλάτος"
 #: backends/sage/settings.ui:142 backends/sage/settings.ui:172
 #, kde-format
 msgid "cm"
-msgstr ""
+msgstr "εκ"
 
 #. i18n: ectx: property (text), widget (QLabel, lPlotHeight)
 #: backends/maxima/settings.ui:135 backends/octave/settings.ui:88
 #: backends/sage/settings.ui:165
-#, fuzzy, kde-format
-#| msgid "Height"
+#, kde-format
 msgid "height:"
-msgstr "Ύψος"
+msgstr "ύψος:"
 
 #. i18n: ectx: property (text), widget (QLabel, label_3)
 #. i18n: ectx: property (text), widget (QLabel, label_2)
@@ -916,22 +950,21 @@ msgstr "Ύψος"
 #: backends/sage/settings.ui:195
 #, kde-format
 msgid "Image Format:"
-msgstr ""
+msgstr "Μορφή εικόνας:"
 
 #. i18n: ectx: property (text), item, widget (QComboBox, kcfg_inlinePlotFormat)
 #: backends/maxima/settings.ui:173 backends/octave/settings.ui:196
 #: backends/sage/settings.ui:203
 #, kde-format
 msgid "PDF"
-msgstr ""
+msgstr "PDF"
 
 #. i18n: ectx: property (text), widget (QLabel, lPlotIntegration)
 #: backends/maxima/settings.ui:220 backends/octave/settings.ui:135
 #: backends/sage/settings.ui:90
-#, fuzzy, kde-format
-#| msgid "Integrate"
+#, kde-format
 msgid "Integrated:"
-msgstr "Ενσωμάτωση"
+msgstr "Ενσωματωμένο:"
 
 #: backends/octave/octavebackend.cpp:63
 #, kde-format
@@ -958,7 +991,7 @@ msgstr ""
 #: backends/octave/octaveexpression.cpp:231
 #, kde-format
 msgid "Invalid image file generated."
-msgstr ""
+msgstr "Δημιουργήθηκε άκυρη μορφή εικόνας."
 
 #: backends/octave/octaveextensions.cpp:34
 #, kde-format
@@ -2317,6 +2350,31 @@ msgid ""
 "these examples in the current R session via the <i>example()</i> command: e."
 "g., <i>example(lm)</i>."
 msgstr ""
+"<h1>Σύστημα βοήθειας R: <i>help()</i> και <i>?</i>:</h1><br>Η συνάρτηση "
+"<i>help()</i> και ο τελεστής βοήθειας <i>?</i> στην R παρέχουν πρόσβαση στις "
+"σελίδες τεκμηρίωσης για συναρτήσεις, σετ δεδομένων και άλλα αντικείμενα της "
+"R για πακέτα στην βασική διανομή της R και για πρόσθετα πακέτα.<br><br>Για "
+"να προσπελάσετε την τεκμηρίωση για την συνάρτηση <i>lm</i> (γραμμικό "
+"μοντέλο), για παράδειγμα, εισάγουμε την εντολή <b><i>help(lm)</i></b> ή "
+"<i>help(\"lm\")</i>, ή <i>?lm</i> ή <i>?\"lm\"</i> (π.χ., τα εισαγωγικά "
+"είναι προαιρετικά).<br><br>Για να προσπελάσετε βοήθεια για μια συνάρτηση σε "
+"ένα πακέτο που δεν είναι φορτωμένο προς το παρόν ορίστε επιπροσθέτως το "
+"όνομα του πακέτου: Για παράδειγμα, για να αποκτήσετε τεκμηρίωση για την "
+"συνάρτηση <i>rlm()</i> (στιβαρό γραμμικό μοντέλο) στο πακέτο MASS, "
+"<i>help(rlm, package=\"MASS\")</i>.<br><br>Τα κανονικά ονόματα στην R "
+"αποτελούνται από κεφαλαία και πεζά γράμματα, αριθμητικά (0-9), κάτω παύλες "
+"(_), και τελείες (.), και πρέπει να αρχίζουν με ένα γράμμα ή μία τελεία. Για "
+"να αποκτήσουμε βοήθεια για ένα αντικείμενο με μη κανονικό όνομα (όπως ο "
+"τελεστής βοήθειας <i>?</i>), το όνομα πρέπει να περιέχεται σε εισαγωγικά: "
+"για παράδειγμα, <i>help('?')</i> ή <i>?\"?\"</i>.<br><br>Μπορείτε να "
+"χρησιμοποιήσετε επίσης τη συνάρτηση <i>help()</i> για να προσπελάσετε "
+"πληροφορία σχετική με ένα πακέτο στην βιβλιοθήκη σας — για παράδειγμα, "
+"<i>help(package=\"MASS\")</i> — το οποίο εμφανίζει μια λίστα με τις "
+"διαθέσιμες σελίδες βοήθειας μαζί με κάποιες ακόμα πληροφορίες.<br><br> Οι "
+"σελίδες βοήθειας για συναρτήσεις συνήθως περιλαμβάνουν μια ενότητα με "
+"εκτελέσιμα παραδείγματα που παρουσιάζουν πως λειτουργούν οι συναρτήσεις. "
+"Μπορείτε να εκτελέσετε αυτά τα παραδείγματα στην τρέχουσα συνεδρία R μέσω "
+"της εντολής <i>example()</i>: π.χ., <i>example(lm)</i>."
 
 #: backends/R/rbackend.cpp:99
 #, kde-format
@@ -2423,22 +2481,18 @@ msgid "Python script file (*.py);;Sage script file (*.sage)"
 msgstr "Αρχείο σεναρίου της Python (*.py);;Αρχείο σεναρίου του Sage (*.sage)"
 
 #: backends/sage/sagesession.cpp:254
-#, fuzzy, kde-format
-#| msgid ""
-#| "Sage version %1.%2 is unsupported. Please update your installation to the "
-#| "supported versions to make it work with Cantor."
+#, kde-format
 msgid ""
 "Sage version %1.%2 is unsupported. Please update your installation to the "
 "versions 9.2 or higher."
 msgstr ""
-"Η έκδοση %1.%2 του Sage δεν υποστηρίζεται. Ενημερώστε την εγκατάστασή σας με "
-"τις υποστηριζόμενες εκδόσεις για να λειτουργήσει με το Cantor."
+"Η έκδοση %1.%2 του Sage δεν υποστηρίζεται. Παρακαλούμε ενημερώστε την "
+"εγκατάστασή σας με την έκδοση 9.2 ή νεότερη."
 
 #: backends/sage/sagesession.cpp:256 backends/sage/sagesession.cpp:276
-#, fuzzy, kde-format
-#| msgid "All supported files"
+#, kde-format
 msgid "Unsupported Version"
-msgstr "Όλα τα υποστηριζόμενα αρχεία"
+msgstr "Μη υποστηριζόμενη έκδοση"
 
 #: backends/sage/sagesession.cpp:275
 #, kde-format
@@ -2704,11 +2758,9 @@ msgstr ""
 
 #. i18n: ectx: label, entry (WarnAboutEntryDelete), group (Cantor)
 #: cantor.kcfg:40
-#, fuzzy, kde-format
-#| msgid "Ask for confirmation when restarting the backend"
+#, kde-format
 msgid "Ask for confirmation when deleting an entry"
-msgstr ""
-"Να γίνεται ερώτηση επιβεβαίωσης στην επανεκκίνηση του συστήματος υποστήριξης"
+msgstr "Να γίνεται επιβεβαίωση κατά την διαγραφή μιας καταχώρησης"
 
 #. i18n: ectx: label, entry (AutoEval), group (Cantor)
 #: cantor.kcfg:44
@@ -2898,14 +2950,13 @@ msgid "Zoom"
 msgstr "Ζουμ"
 
 #: cantor_part.cpp:211
-#, fuzzy, kde-format
-#| msgid "%1: %2"
+#, kde-format
 msgctxt ""
 "Zoom percentage value %1 will be replaced by the actual zoom factor value, "
 "so make sure you include it in your translation in order to not to break "
 "anything"
 msgid "%1%"
-msgstr "%1: %2"
+msgstr "%1%"
 
 #: cantor_part.cpp:226
 #, kde-format
@@ -2930,10 +2981,9 @@ msgstr "Αρίθμηση γραμμών"
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_AnimationDefault)
 #: cantor_part.cpp:246 settings.ui:138
-#, fuzzy, kde-format
-#| msgid "Pause Animation"
+#, kde-format
 msgid "Animations"
-msgstr "Παύση κινούμενης απεικόνισης"
+msgstr "Εφέ κίνησης"
 
 #: cantor_part.cpp:253
 #, kde-format
@@ -3136,10 +3186,9 @@ msgstr "&Φύλλο εργασίας"
 
 #. i18n: ectx: Menu (settings)
 #: cantor_part.rc:50
-#, fuzzy, kde-format
-#| msgid "&Settings"
+#, kde-format
 msgid "Settings"
-msgstr "&Ρυθμίσεις"
+msgstr "Ρυθμίσεις"
 
 #. i18n: ectx: Menu (file)
 #: cantor_shell.rc:4
@@ -3496,18 +3545,17 @@ msgstr "Αδυναμία φόρτωσης εικόνας %1"
 #: imageresultitem.cpp:90
 #, kde-format
 msgid "%1 files (*.%2)"
-msgstr ""
+msgstr "%1 αρχεία (*.%2)"
 
 #: imageresultitem.cpp:93
 #, kde-format
 msgid "EPS files (*.eps)"
-msgstr ""
+msgstr "EPS αρχεία (*.eps)"
 
 #: imageresultitem.cpp:96
-#, fuzzy, kde-format
-#| msgid "Save result"
+#, kde-format
 msgid "Save image result"
-msgstr "Αποθήκευση αποτελέσματος"
+msgstr "Αποθήκευση αποτελέσματος εικόνας"
 
 #. i18n: ectx: property (windowTitle), widget (QWidget, ImageSettingsBase)
 #: imagesettings.ui:14
@@ -3662,19 +3710,19 @@ msgstr "Διαδρομή προς το εκτελέσιμο dvips"
 #, kde-format
 msgctxt "@title:column"
 msgid "Type"
-msgstr ""
+msgstr "Τύπος"
 
 #: lib/defaultvariablemodel.cpp:73
 #, kde-format
 msgctxt "@title:column"
 msgid "Size [Bytes]"
-msgstr ""
+msgstr "Μέγεθος [Bytes]"
 
 #: lib/defaultvariablemodel.cpp:75
 #, kde-format
 msgctxt "@title:column"
 msgid "Dimension"
-msgstr ""
+msgstr "Διάσταση"
 
 #: lib/defaultvariablemodel.cpp:77
 #, kde-format
@@ -4002,22 +4050,19 @@ msgid "Load file"
 msgstr "Φόρτωση αρχείου"
 
 #: panelplugins/variablemgr/variablemanagerwidget.cpp:286
-#, fuzzy, kde-format
-#| msgid "Name"
+#, kde-format
 msgid "Copy Name"
-msgstr "Όνομα"
+msgstr "Αντιγραφή ονόματος"
 
 #: panelplugins/variablemgr/variablemanagerwidget.cpp:287
-#, fuzzy, kde-format
-#| msgctxt "@title:column"
-#| msgid "Value"
+#, kde-format
 msgid "Copy Value"
-msgstr "Τιμή"
+msgstr "Αντιγραφή τιμής"
 
 #: panelplugins/variablemgr/variablemanagerwidget.cpp:288
 #, kde-format
 msgid "Copy Name and Value"
-msgstr ""
+msgstr "Αντιγραφή ονόματος και τιμής"
 
 #: resultitem.cpp:48
 #, kde-format
@@ -4098,24 +4143,21 @@ msgstr "Κώδικας LaTeX"
 
 #. i18n: ectx: property (text), widget (QLabel, label_4)
 #: settings.ui:23
-#, fuzzy, kde-format
-#| msgid "Equations:"
+#, kde-format
 msgid "Evaluation:"
-msgstr "Εξισώσεις:"
+msgstr "Αξιολόγηση:"
 
 #. i18n: ectx: property (toolTip), widget (QCheckBox, kcfg_CompletionDefault)
 #: settings.ui:43
-#, fuzzy, kde-format
-#| msgid "Enable Completion"
+#, kde-format
 msgid "Enable syntax completion"
-msgstr "Ενεργοποίηση συμπλήρωσης"
+msgstr "Ενεργοποίηση συντακτικής συμπλήρωσης"
 
 #. i18n: ectx: property (text), widget (QLabel, label_2)
 #: settings.ui:59
-#, fuzzy, kde-format
-#| msgid "Start"
+#, kde-format
 msgid "Startup:"
-msgstr "Εκκίνηση"
+msgstr "Εκκίνηση:"
 
 #. i18n: ectx: property (toolTip), widget (QLabel, label)
 #. i18n: ectx: property (toolTip), widget (KComboBox, kcfg_DefaultBackend)
@@ -4125,6 +4167,9 @@ msgid ""
 "Create a new worksheet for the selected backend system. If none is selected, "
 "the user is asked about which system to use on startup."
 msgstr ""
+"Δημιουργία ενός νέου φύλλου εργασίας για το επιλεγμένο σύστημα υποστήριξης. "
+"Αν δεν έχει επιλεγεί κανένα, ο χρήστης θα ερωτηθεί ποιο σύστημα θα "
+"χρησιμοποιηθεί κατά την έναρξη."
 
 #. i18n: ectx: property (text), widget (QLabel, label)
 #: settings.ui:69
@@ -4144,47 +4189,46 @@ msgstr ""
 
 #. i18n: ectx: property (toolTip), widget (QCheckBox, kcfg_TypesetDefault)
 #: settings.ui:89
-#, fuzzy, kde-format
-#| msgid "Enable LaTeX typesetting for Sage backend"
+#, kde-format
 msgid ""
 "Enable LaTeX typesetting for the results of the calculations, if supported "
 "by the backend system"
-msgstr "Ενεργοποίηση στοιχειοθέτησης LaTex για το σύστημα υποστήριξης του Sage"
+msgstr ""
+"Ενεργοποίηση στοιχειοθέτησης LaTex για τα αποτελέσματα των υπολογισμών, αν "
+"υποστηρίζονται από το σύστημα υποστήριξης"
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_TypesetDefault)
 #: settings.ui:92
-#, fuzzy, kde-format
-#| msgid "LaTeX typesetting:"
+#, kde-format
 msgid "LaTeX typesetting"
 msgstr "Στοιχειοθέτηση LaTex"
 
 #. i18n: ectx: property (text), widget (QLabel, VisibleLinesLimit_label)
 #: settings.ui:102
-#, fuzzy, kde-format
-#| msgid "Maximal number of result visible rows (0 for unlimited):"
+#, kde-format
 msgid "Number of rows in the result (0 for unlimited):"
-msgstr "Μέγιστο πλήθος ορατών γραμμών στο αποτέλεσμα (0 για απεριόριστο):"
+msgstr "Πλήθος ορατών γραμμών στο αποτέλεσμα (0 για απεριόριστο):"
 
 #. i18n: ectx: property (toolTip), widget (QCheckBox, kcfg_AnimationDefault)
 #: settings.ui:135
-#, fuzzy, kde-format
-#| msgid "Integrate Plots into the Worksheet"
+#, kde-format
 msgid "Enable animation effects in the worksheet"
-msgstr "Ενσωμάτωση των γραφικών απεικονίσεων στο φύλλο εργασίας"
+msgstr "Ενεργοποίηση εφέ κίνησης στο φύλλο εργασίας"
 
 #. i18n: ectx: property (toolTip), widget (QCheckBox, kcfg_EmbeddedMathDefault)
 #: settings.ui:158
-#, fuzzy, kde-format
-#| msgid "Enable LaTeX typesetting for Sage backend"
+#, kde-format
 msgid ""
 "Enable LaTeX typesetting for mathematical expressions in Markdown entries"
-msgstr "Ενεργοποίηση στοιχειοθέτησης LaTex για το σύστημα υποστήριξης του Sage"
+msgstr ""
+"Ενεργοποίηση στοιχειοθέτησης LaTex για τις μαθηματικές εκφράσεις στις "
+"καταχωρήσεις Markdown"
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_EmbeddedMathDefault)
 #: settings.ui:161
 #, kde-format
 msgid "Mathematical expressions via LaTeX"
-msgstr ""
+msgstr "Μαθηματικές εκφράσεις μέσω LaTeX"
 
 #. i18n: ectx: property (toolTip), widget (QCheckBox, kcfg_AutoEval)
 #: settings.ui:168
@@ -4192,39 +4236,35 @@ msgstr ""
 msgid ""
 "If enabled, all entries below the current one will be evaluated automatically"
 msgstr ""
+"Αν ενεργοποιηθεί, όλες οι καταχωρήσεις κάτω από την τρέχουσα θα υπολογιστούν "
+"αυτόματα"
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_AutoEval)
 #: settings.ui:171
-#, fuzzy, kde-format
-#| msgid "Reevaluate Entries automatically"
+#, kde-format
 msgid "Reevaluate entries automatically"
 msgstr "Εκ νέου υπολογισμός των καταχωρήσεων αυτόματα"
 
 #. i18n: ectx: property (text), widget (QLabel, label_3)
 #: settings.ui:184
-#, fuzzy, kde-format
-#| msgid "&Worksheet"
+#, kde-format
 msgid "Worksheet:"
-msgstr "&Φύλλο εργασίας"
+msgstr "Φύλλο εργασίας:"
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_StoreTextEntryFormatting)
 #: settings.ui:223
-#, fuzzy, kde-format
-#| msgid ""
-#| "Save rich text formatting of TextEntry, when save Worksheet in Jupyter "
-#| "notebook format"
+#, kde-format
 msgid ""
 "Use rich text format for text entries when saving in Jupyter Notebook Format"
 msgstr ""
-"Να αποθηκεύεται η μορφή εμπλουτισμένου κειμένου του TextEntry, όταν γίνεται "
-"αποθήκευση του φύλλου εργασίας σε τύπο αποθήκευσης σημειωματαρίου Jupyter"
+"Να χρησιμοποιείται η μορφή εμπλουτισμένου κειμένου όταν γίνεται αποθήκευση "
+"σε τύπο αποθήκευσης σημειωματάριου Jupyter"
 
 #. i18n: ectx: property (text), widget (QLabel, label_5)
 #: settings.ui:236
-#, fuzzy, kde-format
-#| msgid "Markdown"
+#, kde-format
 msgid "Markdown:"
-msgstr "Markdown"
+msgstr "Markdown:"
 
 #. i18n: ectx: property (toolTip), widget (QCheckBox, kcfg_UseOldCantorEntriesIndent)
 #: settings.ui:243
@@ -4238,59 +4278,53 @@ msgstr ""
 #: settings.ui:246
 #, kde-format
 msgid "Don't indent text entries"
-msgstr ""
+msgstr "Μην στοιχίσεις τις καταχωρήσεις κειμένου"
 
 #. i18n: ectx: property (toolTip), widget (QCheckBox, kcfg_WarnAboutSessionRestart)
 #: settings.ui:266
-#, fuzzy, kde-format
-#| msgid "Ask for confirmation when restarting the backend"
+#, kde-format
 msgid ""
 "If enabled, the user will be asked for confirmation prior to restarting the "
 "backend system"
 msgstr ""
-"Να γίνεται ερώτηση επιβεβαίωσης στην επανεκκίνηση του συστήματος υποστήριξης"
+"Αν ενεργοποιηθεί, ο χρήστης θα ερωτάται για επιβεβαίωση πριν την "
+"επανεκκίνηση του συστήματος υποστήριξης"
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_ShowMathRenderError)
 #: settings.ui:276
 #, kde-format
 msgid "Notify about render failures for mathematical expressions"
-msgstr ""
+msgstr "Ειδοποίησε για αποτυχίες απεικόνισης για μαθηματικές εκφράσεις"
 
 #. i18n: ectx: property (toolTip), widget (QCheckBox, kcfg_ExpressionNumberingDefault)
 #: settings.ui:283
-#, fuzzy, kde-format
-#| msgid "Line Numbers"
+#, kde-format
 msgid "Show line numbers"
-msgstr "Αρίθμηση γραμμών"
+msgstr "Εμφάνιση αρίθμησης γραμμών"
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_ExpressionNumberingDefault)
 #: settings.ui:286
-#, fuzzy, kde-format
-#| msgid "Line Numbers"
+#, kde-format
 msgid "Line numbers"
 msgstr "Αρίθμηση γραμμών"
 
 #. i18n: ectx: property (toolTip), widget (QCheckBox, kcfg_HighlightDefault)
 #: settings.ui:293
-#, fuzzy, kde-format
-#| msgid "Enable Syntax Highlighting"
+#, kde-format
 msgid "Enable syntax highlighting"
 msgstr "Ενεργοποίηση επισήμανσης σύνταξης"
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_HighlightDefault)
 #: settings.ui:296
-#, fuzzy, kde-format
-#| msgid "Syntax Highlighting"
+#, kde-format
 msgid "Syntax highlighting"
 msgstr "Συντακτική επισήμανση"
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_WarnAboutEntryDelete)
 #: settings.ui:303
-#, fuzzy, kde-format
-#| msgid "Ask for confirmation when restarting the backend"
+#, kde-format
 msgid "Ask for confirmation when deleting entries"
-msgstr ""
-"Να γίνεται ερώτηση επιβεβαίωσης στην επανεκκίνηση του συστήματος υποστήριξης"
+msgstr "Να γίνεται επιβεβαίωση κατά τη διαγραφή καταχωρήσεων"
 
 #. i18n: ectx: property (placeholderText), widget (KLineEdit, pattern)
 #: standardsearchbar.ui:35
@@ -4324,10 +4358,9 @@ msgid "Target MIME type:"
 msgstr "Τύπος mime προορισμού:"
 
 #: textresultitem.cpp:60
-#, fuzzy, kde-format
-#| msgid "Remove result"
+#, kde-format
 msgid "Copy result"
-msgstr "Αφαίρεση αποτελέσματος"
+msgstr "Αντιγραφή αποτελέσματος"
 
 #: textresultitem.cpp:69
 #, kde-format
@@ -4366,15 +4399,14 @@ msgstr ""
 "Αδυναμία αποτύπωσης του αρχείου Eps. Μπορεί να χρειάζεστε επιπλέον πακέτα."
 
 #: textresultitem.cpp:212
-#, fuzzy, kde-format
-#| msgid "Save result"
+#, kde-format
 msgid "Save text result"
-msgstr "Αποθήκευση αποτελέσματος"
+msgstr "Αποθήκευση αποτελέσματος κειμένου"
 
 #: textresultitem.cpp:212
 #, kde-format
 msgid "Text Files (*.txt)"
-msgstr ""
+msgstr "Αρχεία κειμένου (*.txt)"
 
 #: worksheet.cpp:1192
 #, kde-format
@@ -4570,22 +4602,19 @@ msgid "Insert"
 msgstr "Εισαγωγή"
 
 #: worksheet.cpp:1918
-#, fuzzy, kde-format
-#| msgid "Zoom"
+#, kde-format
 msgid "Zoom In"
-msgstr "Ζουμ"
+msgstr "Μεγέθυνση"
 
 #: worksheet.cpp:1921
-#, fuzzy, kde-format
-#| msgid "Zoom"
+#, kde-format
 msgid "Zoom Out"
-msgstr "Ζουμ"
+msgstr "Σμίκρυνση"
 
 #: worksheet.cpp:1925
-#, fuzzy, kde-format
-#| msgid "Print Size"
+#, kde-format
 msgid "Original Size"
-msgstr "Μέγεθος εκτύπωσης"
+msgstr "Αρχικό μέγεθος"
 
 #: worksheet.cpp:1933
 #, kde-format

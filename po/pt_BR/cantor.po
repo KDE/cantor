@@ -6,20 +6,21 @@
 # André Marcelo Alvarenga <alvarenga@kde.org>, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2018, 2019, 2020.
 # Aracele Torres <araceletorres@gmail.com>, 2010, 2011.
 # Marcus Gama <marcus.gama@gmail.com>, 2011.
+# Geraldo Simiao <geraldosimiao@fedoraproject.org>, 2023.
 msgid ""
 msgstr ""
 "Project-Id-Version: cantor\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-05-22 00:42+0000\n"
-"PO-Revision-Date: 2023-07-04 15:25-0300\n"
-"Last-Translator: Luiz Fernando Ranghetti <elchevive@opensuse.org>\n"
+"PO-Revision-Date: 2023-07-26 23:55-0300\n"
+"Last-Translator: Geraldo Simiao <geraldosimiao@fedoraproject.org>\n"
 "Language-Team: Brazilian Portuguese <kde-i18n-pt_BR@kde.org>\n"
 "Language: pt_BR\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"X-Generator: Lokalize 22.12.3\n"
+"X-Generator: Lokalize 23.04.3\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -822,14 +823,14 @@ msgstr "Caminho para o executável do Maxima"
 #: backends/maxima/maximabackend.kcfg:41 backends/sage/sagebackend.kcfg:29
 #, kde-format
 msgid "Default plot width"
-msgstr ""
+msgstr "Largura de plotagem padrão"
 
 #. i18n: ectx: label, entry (plotHeight), group (SageBackend)
 #. i18n: ectx: label, entry (plotHeight), group (MaximaBackend)
 #: backends/maxima/maximabackend.kcfg:45 backends/sage/sagebackend.kcfg:33
 #, kde-format
 msgid "Default plot height"
-msgstr ""
+msgstr "Altura de plotagem padrão"
 
 #: backends/maxima/maximaexpression.cpp:113
 #, kde-format
@@ -922,10 +923,9 @@ msgstr "PDF"
 #. i18n: ectx: property (text), widget (QLabel, lPlotIntegration)
 #: backends/maxima/settings.ui:220 backends/octave/settings.ui:135
 #: backends/sage/settings.ui:90
-#, fuzzy, kde-format
-#| msgid "Integrate"
+#, kde-format
 msgid "Integrated:"
-msgstr "Integral"
+msgstr "Integrado:"
 
 #: backends/octave/octavebackend.cpp:63
 #, kde-format
@@ -2301,6 +2301,29 @@ msgid ""
 "these examples in the current R session via the <i>example()</i> command: e."
 "g., <i>example(lm)</i>."
 msgstr ""
+"<h1>Sistema de ajuda R': <i>help()</i> e <i>?</i>:</h1><br>A função "
+"<i>help()</i> e <i >?</i> operador de ajuda em R fornece acesso às páginas "
+"de documentação para funções R, conjuntos de dados e outros objetos, tanto "
+"para pacotes na distribuição R padrão quanto para pacotes contribuídos."
+"<br><br>Para acessar a documentação para a função padrão <i>lm</i> (modelo "
+"linear), por exemplo, digite o comando <b><i>help(lm)</i></b> ou <i>help(\"lm"
+"\") </i>, ou <i>?lm</i> ou <i>?\"lm\"</i> (ou seja, as aspas são opcionais)."
+"<br><br>Para acessar a ajuda de uma função em um pacote que não está "
+"carregado no momento, especifique além disso o nome do pacote: Por exemplo, "
+"para obter documentação para a função <i>rlm()</i> (modelo linear robusto) "
+"no pacote MASS, <i>help(rlm , package=\"MASS\")</i>.<br><br>Nomes padrão em "
+"R consistem em letras maiúsculas e minúsculas, numerais (0-9), sublinhados "
+"(_) e pontos (.), e deve começar com uma letra ou um ponto. Para obter ajuda "
+"para um objeto com um nome não padrão (como o operador de ajuda <i>?</i>), o "
+"nome deve ser colocado entre aspas: por exemplo, <i>help('?')</i> ou <i>?\"?"
+"\"</i>.<br><br>Você também pode usar a função <i>help()</i> para acessar "
+"informações sobre um pacote em sua biblioteca — por exemplo, <i "
+">help(package=\"MASS\")</i> — que exibe um índice de páginas de ajuda "
+"disponíveis para o pacote junto com algumas outras informações."
+"<br><br>Páginas de ajuda para funções geralmente incluem uma seção com "
+"exemplos executáveis ilustrando como as funções funcionam. Você pode "
+"executar esses exemplos na sessão R atual por meio do  <i>example()</i> "
+"comando: por exemplo, <i>example(lm)</i>."
 
 #: backends/R/rbackend.cpp:99
 #, kde-format
@@ -4060,10 +4083,9 @@ msgstr "Código LaTeX"
 
 #. i18n: ectx: property (text), widget (QLabel, label_4)
 #: settings.ui:23
-#, fuzzy, kde-format
-#| msgid "Equations:"
+#, kde-format
 msgid "Evaluation:"
-msgstr "Equações:"
+msgstr "Avaliação:"
 
 #. i18n: ectx: property (toolTip), widget (QCheckBox, kcfg_CompletionDefault)
 #: settings.ui:43
@@ -4085,6 +4107,9 @@ msgid ""
 "Create a new worksheet for the selected backend system. If none is selected, "
 "the user is asked about which system to use on startup."
 msgstr ""
+"Crie uma nova planilha para o sistema back-end selecionado. Se nenhum for "
+"selecionado, o usuário será questionado sobre qual sistema usar na "
+"inicialização."
 
 #. i18n: ectx: property (text), widget (QLabel, label)
 #: settings.ui:69
@@ -4143,7 +4168,7 @@ msgstr "Habilitar o processamento do LaTeX para a infraestrutura Sage"
 #: settings.ui:161
 #, kde-format
 msgid "Mathematical expressions via LaTeX"
-msgstr ""
+msgstr "Expressões matemáticas via LaTeX"
 
 #. i18n: ectx: property (toolTip), widget (QCheckBox, kcfg_AutoEval)
 #: settings.ui:168
@@ -4151,6 +4176,7 @@ msgstr ""
 msgid ""
 "If enabled, all entries below the current one will be evaluated automatically"
 msgstr ""
+"Se ativado, todas as entradas abaixo da atual serão avaliadas automaticamente"
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_AutoEval)
 #: settings.ui:171
@@ -4189,6 +4215,8 @@ msgid ""
 "If enabled, text entries are aligned at the worksheet border and not at the "
 "prompt border"
 msgstr ""
+"Se ativado, as entradas de texto são alinhadas na borda da planilha e não na "
+"borda do prompt"
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_UseOldCantorEntriesIndent)
 #: settings.ui:246
