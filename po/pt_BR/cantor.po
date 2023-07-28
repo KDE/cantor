@@ -6,30 +6,32 @@
 # André Marcelo Alvarenga <alvarenga@kde.org>, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2018, 2019, 2020.
 # Aracele Torres <araceletorres@gmail.com>, 2010, 2011.
 # Marcus Gama <marcus.gama@gmail.com>, 2011.
+# Geraldo Simiao <geraldosimiao@fedoraproject.org>, 2023.
 msgid ""
 msgstr ""
 "Project-Id-Version: cantor\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-05-22 00:42+0000\n"
-"PO-Revision-Date: 2023-07-04 15:25-0300\n"
-"Last-Translator: Luiz Fernando Ranghetti <elchevive@opensuse.org>\n"
+"PO-Revision-Date: 2023-07-27 20:51-0300\n"
+"Last-Translator: Geraldo Simiao <geraldosimiao@fedoraproject.org>\n"
 "Language-Team: Brazilian Portuguese <kde-i18n-pt_BR@kde.org>\n"
 "Language: pt_BR\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"X-Generator: Lokalize 22.12.3\n"
+"X-Generator: Lokalize 23.04.3\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
 msgid "Your names"
-msgstr "Luiz Fernando Ranghetti, André Marcelo Alvarenga"
+msgstr "Luiz Fernando Ranghetti, André Marcelo Alvarenga, Geraldo Simião"
 
 #, kde-format
 msgctxt "EMAIL OF TRANSLATORS"
 msgid "Your emails"
-msgstr "elchevive@opensuse.org, alvarenga@kde.org"
+msgstr ""
+"elchevive@opensuse.org, alvarenga@kde.org, geraldosimiao@fedoraproject.org"
 
 #: animationresultitem.cpp:38
 #, kde-format
@@ -790,6 +792,42 @@ msgid ""
 "i> returns <i>done</i> unless no examples are found or there is no argument, "
 "in which case <i>example</i> returns the list of all recognized topics."
 msgstr ""
+"<h1>Sistema de Ajuda do Maxima</h1><h2>Função <i>apropos</i></h2>Procura por "
+"nomes do Maxima que tenham o nome aparecendo em qualquer lugar dentro deles; "
+"<i>nome</i> deve ser uma string ou símbolo. Assim, <i>apropos(exp)</i> "
+"retorna uma lista de todos os sinalizadores e funções que possuem exp como "
+"parte de seu nome, como <i>expand</i>, <i>exp</i> e <i>exponencializar</i>. "
+"Então, se você só consegue lembrar parte do nome de um comando ou variável "
+"do Maxima, você pode usar este comando para encontrar o resto do nome. Da "
+"mesma forma, você pode digitar <i>apropos(tr_)</i> para encontrar uma lista "
+"de muitas opções relacionadas ao tradutor, a maioria das quais começa com "
+"<i>tr_</i>.<br><br> <i>apropos(\"\")</i> retorna uma lista com todos os "
+"nomes do Maxima.<br><br><i>apropos</i> retorna a lista vazia [], se nenhum "
+"nome for encontrado.<br> <br><h2>Função <i>descrever</i></"
+"h2><i>descrever(string)</i> é equivalente a descrever(string, exato)."
+"<br><br><i>describe(string, exact)</i> localiza um item com título igual "
+"(sem distinção entre maiúsculas e minúsculas) para string, se houver algum "
+"item desse tipo.<br><br><i>describe(string, inexact)</i> localiza todos os "
+"itens documentados que contêm string em seus títulos. Se houver mais de um "
+"desses itens, o Maxima pede ao usuário para selecionar um item ou itens a "
+"serem exibidos.<br><br><i>? foo</i> (com um espaço entre <i>?</i> e <i>foo</"
+"i>) é equivalente a <i>describe(\"foo\", exact)</i>, e <i >?? foo</i> é "
+"equivalente a <i>describe(\"foo\", inexact)</i>.<br><br><i>describe(, "
+"inexact)</i> produz uma lista de todos os tópicos documentados em o manual "
+"on-line.<br><br><i>descrever</i> cita seu argumento. <i>describe</i> retorna "
+"<i>true</i> se alguma documentação for encontrada, caso contrário, <i>false</"
+"i>.<br><h2>Função <i>exemplo</i></ h2><i>example(topic)</i> exibe alguns "
+"exemplos de <i>topic</i>, que é um símbolo ou uma string. Para obter "
+"exemplos de operadores como <i>if</i>, <i>do</i> ou <i>lambda</i>, o "
+"argumento deve ser uma string, por exemplo <i>exemplo(\"fazer\")</i>. "
+"<i>exemplo</i> não diferencia maiúsculas de minúsculas. A maioria dos "
+"tópicos são nomes de função.<br><br><i>example()</i> retorna a lista de "
+"todos os tópicos reconhecidos.<br><br>O nome do arquivo contendo os exemplos "
+"é dado pela opção global variável <i>manual_demo</i>, cujo padrão é <i>"
+"\"manual.demo\"</i>.<br><br><i>exemplo</i> cita seu argumento. <i>exemplo</"
+"i> retorna <i>concluído</i> a menos que nenhum exemplo seja encontrado ou "
+"não haja nenhum argumento, caso em que <i>exemplo</i> retorna a lista de "
+"todos os tópicos reconhecidos."
 
 #: backends/maxima/maximabackend.cpp:111
 #, kde-format
@@ -822,14 +860,14 @@ msgstr "Caminho para o executável do Maxima"
 #: backends/maxima/maximabackend.kcfg:41 backends/sage/sagebackend.kcfg:29
 #, kde-format
 msgid "Default plot width"
-msgstr ""
+msgstr "Largura de plotagem padrão"
 
 #. i18n: ectx: label, entry (plotHeight), group (SageBackend)
 #. i18n: ectx: label, entry (plotHeight), group (MaximaBackend)
 #: backends/maxima/maximabackend.kcfg:45 backends/sage/sagebackend.kcfg:33
 #, kde-format
 msgid "Default plot height"
-msgstr ""
+msgstr "Altura de plotagem padrão"
 
 #: backends/maxima/maximaexpression.cpp:113
 #, kde-format
@@ -922,10 +960,9 @@ msgstr "PDF"
 #. i18n: ectx: property (text), widget (QLabel, lPlotIntegration)
 #: backends/maxima/settings.ui:220 backends/octave/settings.ui:135
 #: backends/sage/settings.ui:90
-#, fuzzy, kde-format
-#| msgid "Integrate"
+#, kde-format
 msgid "Integrated:"
-msgstr "Integral"
+msgstr "Integrado:"
 
 #: backends/octave/octavebackend.cpp:63
 #, kde-format
@@ -2301,6 +2338,29 @@ msgid ""
 "these examples in the current R session via the <i>example()</i> command: e."
 "g., <i>example(lm)</i>."
 msgstr ""
+"<h1>Sistema de ajuda R': <i>help()</i> e <i>?</i>:</h1><br>A função "
+"<i>help()</i> e <i >?</i> operador de ajuda em R fornece acesso às páginas "
+"de documentação para funções R, conjuntos de dados e outros objetos, tanto "
+"para pacotes na distribuição R padrão quanto para pacotes contribuídos."
+"<br><br>Para acessar a documentação para a função padrão <i>lm</i> (modelo "
+"linear), por exemplo, digite o comando <b><i>help(lm)</i></b> ou <i>help(\"lm"
+"\") </i>, ou <i>?lm</i> ou <i>?\"lm\"</i> (ou seja, as aspas são opcionais)."
+"<br><br>Para acessar a ajuda de uma função em um pacote que não está "
+"carregado no momento, especifique além disso o nome do pacote: Por exemplo, "
+"para obter documentação para a função <i>rlm()</i> (modelo linear robusto) "
+"no pacote MASS, <i>help(rlm , package=\"MASS\")</i>.<br><br>Nomes padrão em "
+"R consistem em letras maiúsculas e minúsculas, numerais (0-9), sublinhados "
+"(_) e pontos (.), e deve começar com uma letra ou um ponto. Para obter ajuda "
+"para um objeto com um nome não padrão (como o operador de ajuda <i>?</i>), o "
+"nome deve ser colocado entre aspas: por exemplo, <i>help('?')</i> ou <i>?\"?"
+"\"</i>.<br><br>Você também pode usar a função <i>help()</i> para acessar "
+"informações sobre um pacote em sua biblioteca — por exemplo, <i "
+">help(package=\"MASS\")</i> — que exibe um índice de páginas de ajuda "
+"disponíveis para o pacote junto com algumas outras informações."
+"<br><br>Páginas de ajuda para funções geralmente incluem uma seção com "
+"exemplos executáveis ilustrando como as funções funcionam. Você pode "
+"executar esses exemplos na sessão R atual por meio do  <i>example()</i> "
+"comando: por exemplo, <i>example(lm)</i>."
 
 #: backends/R/rbackend.cpp:99
 #, kde-format
@@ -4060,10 +4120,9 @@ msgstr "Código LaTeX"
 
 #. i18n: ectx: property (text), widget (QLabel, label_4)
 #: settings.ui:23
-#, fuzzy, kde-format
-#| msgid "Equations:"
+#, kde-format
 msgid "Evaluation:"
-msgstr "Equações:"
+msgstr "Avaliação:"
 
 #. i18n: ectx: property (toolTip), widget (QCheckBox, kcfg_CompletionDefault)
 #: settings.ui:43
@@ -4085,6 +4144,9 @@ msgid ""
 "Create a new worksheet for the selected backend system. If none is selected, "
 "the user is asked about which system to use on startup."
 msgstr ""
+"Crie uma nova planilha para o sistema back-end selecionado. Se nenhum for "
+"selecionado, o usuário será questionado sobre qual sistema usar na "
+"inicialização."
 
 #. i18n: ectx: property (text), widget (QLabel, label)
 #: settings.ui:69
@@ -4120,10 +4182,9 @@ msgstr "Processamento do LaTeX"
 
 #. i18n: ectx: property (text), widget (QLabel, VisibleLinesLimit_label)
 #: settings.ui:102
-#, fuzzy, kde-format
-#| msgid "Maximal number of result visible rows (0 for unlimited):"
+#, kde-format
 msgid "Number of rows in the result (0 for unlimited):"
-msgstr "Número máximo de linhas visíveis no resultado (0 para sem limite):"
+msgstr "Número de linhas no resultado (0 para ilimitado):"
 
 #. i18n: ectx: property (toolTip), widget (QCheckBox, kcfg_AnimationDefault)
 #: settings.ui:135
@@ -4133,17 +4194,17 @@ msgstr "Habilitar efeitos de animação na planilha"
 
 #. i18n: ectx: property (toolTip), widget (QCheckBox, kcfg_EmbeddedMathDefault)
 #: settings.ui:158
-#, fuzzy, kde-format
-#| msgid "Enable LaTeX typesetting for Sage backend"
+#, kde-format
 msgid ""
 "Enable LaTeX typesetting for mathematical expressions in Markdown entries"
-msgstr "Habilitar o processamento do LaTeX para a infraestrutura Sage"
+msgstr ""
+"Ativar a composição LaTeX para expressões matemáticas em entradas Markdown"
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_EmbeddedMathDefault)
 #: settings.ui:161
 #, kde-format
 msgid "Mathematical expressions via LaTeX"
-msgstr ""
+msgstr "Expressões matemáticas via LaTeX"
 
 #. i18n: ectx: property (toolTip), widget (QCheckBox, kcfg_AutoEval)
 #: settings.ui:168
@@ -4151,6 +4212,7 @@ msgstr ""
 msgid ""
 "If enabled, all entries below the current one will be evaluated automatically"
 msgstr ""
+"Se ativado, todas as entradas abaixo da atual serão avaliadas automaticamente"
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_AutoEval)
 #: settings.ui:171
@@ -4166,15 +4228,12 @@ msgstr "Planilha:"
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_StoreTextEntryFormatting)
 #: settings.ui:223
-#, fuzzy, kde-format
-#| msgid ""
-#| "Save rich text formatting of TextEntry, when save Worksheet in Jupyter "
-#| "notebook format"
+#, kde-format
 msgid ""
 "Use rich text format for text entries when saving in Jupyter Notebook Format"
 msgstr ""
-"Salva a formatação do texto formatado do TextEntry, quando salvar a folha de "
-"trabalho no formato de bloco de notas do Jupyter"
+"Use o formato rich text para entradas de texto ao salvar no Jupyter Notebook "
+"Format"
 
 #. i18n: ectx: property (text), widget (QLabel, label_5)
 #: settings.ui:236
@@ -4189,6 +4248,8 @@ msgid ""
 "If enabled, text entries are aligned at the worksheet border and not at the "
 "prompt border"
 msgstr ""
+"Se ativado, as entradas de texto são alinhadas na borda da planilha e não na "
+"borda do prompt"
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_UseOldCantorEntriesIndent)
 #: settings.ui:246
@@ -4198,12 +4259,13 @@ msgstr "Não recuar entradas de texto"
 
 #. i18n: ectx: property (toolTip), widget (QCheckBox, kcfg_WarnAboutSessionRestart)
 #: settings.ui:266
-#, fuzzy, kde-format
-#| msgid "Ask for confirmation when restarting the backend"
+#, kde-format
 msgid ""
 "If enabled, the user will be asked for confirmation prior to restarting the "
 "backend system"
-msgstr "Solicitar confirmação ao reiniciar a infraestrutura"
+msgstr ""
+"Se ativado, o usuário será solicitado a confirmar antes de reiniciar o "
+"sistema de back-end"
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_ShowMathRenderError)
 #: settings.ui:276
@@ -4237,10 +4299,9 @@ msgstr "Realce de sintaxe"
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_WarnAboutEntryDelete)
 #: settings.ui:303
-#, fuzzy, kde-format
-#| msgid "Ask for confirmation when restarting the backend"
+#, kde-format
 msgid "Ask for confirmation when deleting entries"
-msgstr "Solicitar confirmação ao reiniciar a infraestrutura"
+msgstr "Pedir confirmação ao excluir entradas"
 
 #. i18n: ectx: property (placeholderText), widget (KLineEdit, pattern)
 #: standardsearchbar.ui:35
