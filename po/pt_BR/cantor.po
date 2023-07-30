@@ -12,7 +12,7 @@ msgstr ""
 "Project-Id-Version: cantor\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-05-22 00:42+0000\n"
-"PO-Revision-Date: 2023-07-26 23:55-0300\n"
+"PO-Revision-Date: 2023-07-27 20:51-0300\n"
 "Last-Translator: Geraldo Simiao <geraldosimiao@fedoraproject.org>\n"
 "Language-Team: Brazilian Portuguese <kde-i18n-pt_BR@kde.org>\n"
 "Language: pt_BR\n"
@@ -25,12 +25,13 @@ msgstr ""
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
 msgid "Your names"
-msgstr "Luiz Fernando Ranghetti, André Marcelo Alvarenga"
+msgstr "Luiz Fernando Ranghetti, André Marcelo Alvarenga, Geraldo Simião"
 
 #, kde-format
 msgctxt "EMAIL OF TRANSLATORS"
 msgid "Your emails"
-msgstr "elchevive@opensuse.org, alvarenga@kde.org"
+msgstr ""
+"elchevive@opensuse.org, alvarenga@kde.org, geraldosimiao@fedoraproject.org"
 
 #: animationresultitem.cpp:38
 #, kde-format
@@ -791,6 +792,42 @@ msgid ""
 "i> returns <i>done</i> unless no examples are found or there is no argument, "
 "in which case <i>example</i> returns the list of all recognized topics."
 msgstr ""
+"<h1>Sistema de Ajuda do Maxima</h1><h2>Função <i>apropos</i></h2>Procura por "
+"nomes do Maxima que tenham o nome aparecendo em qualquer lugar dentro deles; "
+"<i>nome</i> deve ser uma string ou símbolo. Assim, <i>apropos(exp)</i> "
+"retorna uma lista de todos os sinalizadores e funções que possuem exp como "
+"parte de seu nome, como <i>expand</i>, <i>exp</i> e <i>exponencializar</i>. "
+"Então, se você só consegue lembrar parte do nome de um comando ou variável "
+"do Maxima, você pode usar este comando para encontrar o resto do nome. Da "
+"mesma forma, você pode digitar <i>apropos(tr_)</i> para encontrar uma lista "
+"de muitas opções relacionadas ao tradutor, a maioria das quais começa com "
+"<i>tr_</i>.<br><br> <i>apropos(\"\")</i> retorna uma lista com todos os "
+"nomes do Maxima.<br><br><i>apropos</i> retorna a lista vazia [], se nenhum "
+"nome for encontrado.<br> <br><h2>Função <i>descrever</i></"
+"h2><i>descrever(string)</i> é equivalente a descrever(string, exato)."
+"<br><br><i>describe(string, exact)</i> localiza um item com título igual "
+"(sem distinção entre maiúsculas e minúsculas) para string, se houver algum "
+"item desse tipo.<br><br><i>describe(string, inexact)</i> localiza todos os "
+"itens documentados que contêm string em seus títulos. Se houver mais de um "
+"desses itens, o Maxima pede ao usuário para selecionar um item ou itens a "
+"serem exibidos.<br><br><i>? foo</i> (com um espaço entre <i>?</i> e <i>foo</"
+"i>) é equivalente a <i>describe(\"foo\", exact)</i>, e <i >?? foo</i> é "
+"equivalente a <i>describe(\"foo\", inexact)</i>.<br><br><i>describe(, "
+"inexact)</i> produz uma lista de todos os tópicos documentados em o manual "
+"on-line.<br><br><i>descrever</i> cita seu argumento. <i>describe</i> retorna "
+"<i>true</i> se alguma documentação for encontrada, caso contrário, <i>false</"
+"i>.<br><h2>Função <i>exemplo</i></ h2><i>example(topic)</i> exibe alguns "
+"exemplos de <i>topic</i>, que é um símbolo ou uma string. Para obter "
+"exemplos de operadores como <i>if</i>, <i>do</i> ou <i>lambda</i>, o "
+"argumento deve ser uma string, por exemplo <i>exemplo(\"fazer\")</i>. "
+"<i>exemplo</i> não diferencia maiúsculas de minúsculas. A maioria dos "
+"tópicos são nomes de função.<br><br><i>example()</i> retorna a lista de "
+"todos os tópicos reconhecidos.<br><br>O nome do arquivo contendo os exemplos "
+"é dado pela opção global variável <i>manual_demo</i>, cujo padrão é <i>"
+"\"manual.demo\"</i>.<br><br><i>exemplo</i> cita seu argumento. <i>exemplo</"
+"i> retorna <i>concluído</i> a menos que nenhum exemplo seja encontrado ou "
+"não haja nenhum argumento, caso em que <i>exemplo</i> retorna a lista de "
+"todos os tópicos reconhecidos."
 
 #: backends/maxima/maximabackend.cpp:111
 #, kde-format
@@ -4145,10 +4182,9 @@ msgstr "Processamento do LaTeX"
 
 #. i18n: ectx: property (text), widget (QLabel, VisibleLinesLimit_label)
 #: settings.ui:102
-#, fuzzy, kde-format
-#| msgid "Maximal number of result visible rows (0 for unlimited):"
+#, kde-format
 msgid "Number of rows in the result (0 for unlimited):"
-msgstr "Número máximo de linhas visíveis no resultado (0 para sem limite):"
+msgstr "Número de linhas no resultado (0 para ilimitado):"
 
 #. i18n: ectx: property (toolTip), widget (QCheckBox, kcfg_AnimationDefault)
 #: settings.ui:135
@@ -4158,11 +4194,11 @@ msgstr "Habilitar efeitos de animação na planilha"
 
 #. i18n: ectx: property (toolTip), widget (QCheckBox, kcfg_EmbeddedMathDefault)
 #: settings.ui:158
-#, fuzzy, kde-format
-#| msgid "Enable LaTeX typesetting for Sage backend"
+#, kde-format
 msgid ""
 "Enable LaTeX typesetting for mathematical expressions in Markdown entries"
-msgstr "Habilitar o processamento do LaTeX para a infraestrutura Sage"
+msgstr ""
+"Ativar a composição LaTeX para expressões matemáticas em entradas Markdown"
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_EmbeddedMathDefault)
 #: settings.ui:161
@@ -4192,15 +4228,12 @@ msgstr "Planilha:"
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_StoreTextEntryFormatting)
 #: settings.ui:223
-#, fuzzy, kde-format
-#| msgid ""
-#| "Save rich text formatting of TextEntry, when save Worksheet in Jupyter "
-#| "notebook format"
+#, kde-format
 msgid ""
 "Use rich text format for text entries when saving in Jupyter Notebook Format"
 msgstr ""
-"Salva a formatação do texto formatado do TextEntry, quando salvar a folha de "
-"trabalho no formato de bloco de notas do Jupyter"
+"Use o formato rich text para entradas de texto ao salvar no Jupyter Notebook "
+"Format"
 
 #. i18n: ectx: property (text), widget (QLabel, label_5)
 #: settings.ui:236
@@ -4226,12 +4259,13 @@ msgstr "Não recuar entradas de texto"
 
 #. i18n: ectx: property (toolTip), widget (QCheckBox, kcfg_WarnAboutSessionRestart)
 #: settings.ui:266
-#, fuzzy, kde-format
-#| msgid "Ask for confirmation when restarting the backend"
+#, kde-format
 msgid ""
 "If enabled, the user will be asked for confirmation prior to restarting the "
 "backend system"
-msgstr "Solicitar confirmação ao reiniciar a infraestrutura"
+msgstr ""
+"Se ativado, o usuário será solicitado a confirmar antes de reiniciar o "
+"sistema de back-end"
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_ShowMathRenderError)
 #: settings.ui:276
@@ -4265,10 +4299,9 @@ msgstr "Realce de sintaxe"
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_WarnAboutEntryDelete)
 #: settings.ui:303
-#, fuzzy, kde-format
-#| msgid "Ask for confirmation when restarting the backend"
+#, kde-format
 msgid "Ask for confirmation when deleting entries"
-msgstr "Solicitar confirmação ao reiniciar a infraestrutura"
+msgstr "Pedir confirmação ao excluir entradas"
 
 #. i18n: ectx: property (placeholderText), widget (KLineEdit, pattern)
 #: standardsearchbar.ui:35
