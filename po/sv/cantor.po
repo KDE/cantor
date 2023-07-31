@@ -3,13 +3,13 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Stefan Asserhäll <stefan.asserhall@bredband.net>, 2009, 2010.
-# Stefan Asserhall <stefan.asserhall@bredband.net>, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022.
+# Stefan Asserhall <stefan.asserhall@bredband.net>, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023.
 msgid ""
 msgstr ""
 "Project-Id-Version: mathematik\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-05-22 00:42+0000\n"
-"PO-Revision-Date: 2022-09-25 09:28+0200\n"
+"PO-Revision-Date: 2023-07-25 12:56+0200\n"
 "Last-Translator: Stefan Asserhäll <stefan.asserhall@bredband.net>\n"
 "Language-Team: Swedish <kde-i18n-doc@kde.org>\n"
 "Language: sv\n"
@@ -847,14 +847,14 @@ msgstr "Sökväg till körbar fil för Maxima"
 #: backends/maxima/maximabackend.kcfg:41 backends/sage/sagebackend.kcfg:29
 #, kde-format
 msgid "Default plot width"
-msgstr ""
+msgstr "Förvald diagrambredd"
 
 #. i18n: ectx: label, entry (plotHeight), group (SageBackend)
 #. i18n: ectx: label, entry (plotHeight), group (MaximaBackend)
 #: backends/maxima/maximabackend.kcfg:45 backends/sage/sagebackend.kcfg:33
 #, kde-format
 msgid "Default plot height"
-msgstr ""
+msgstr "Förvald diagramhöjd"
 
 #: backends/maxima/maximaexpression.cpp:113
 #, kde-format
@@ -900,18 +900,16 @@ msgstr "Maxima kraschade två gånger på kort tid. Avbryter startförsök."
 #. i18n: ectx: property (text), widget (QLabel, label_3)
 #: backends/maxima/settings.ui:77 backends/octave/settings.ui:118
 #: backends/sage/settings.ui:107
-#, fuzzy, kde-format
-#| msgid "Font Size:"
+#, kde-format
 msgid "Size:"
-msgstr "Teckenstorlek:"
+msgstr "Storlek:"
 
 #. i18n: ectx: property (text), widget (QLabel, lPlotWidth)
 #: backends/maxima/settings.ui:105 backends/octave/settings.ui:58
 #: backends/sage/settings.ui:135
-#, fuzzy, kde-format
-#| msgid "Width"
+#, kde-format
 msgid "width:"
-msgstr "Bredd"
+msgstr "bredd:"
 
 #. i18n: ectx: property (suffix), widget (QDoubleSpinBox, kcfg_plotWidth)
 #. i18n: ectx: property (suffix), widget (QDoubleSpinBox, kcfg_plotHeight)
@@ -920,15 +918,14 @@ msgstr "Bredd"
 #: backends/sage/settings.ui:142 backends/sage/settings.ui:172
 #, kde-format
 msgid "cm"
-msgstr ""
+msgstr "cm"
 
 #. i18n: ectx: property (text), widget (QLabel, lPlotHeight)
 #: backends/maxima/settings.ui:135 backends/octave/settings.ui:88
 #: backends/sage/settings.ui:165
-#, fuzzy, kde-format
-#| msgid "Height"
+#, kde-format
 msgid "height:"
-msgstr "Höjd"
+msgstr "höjd:"
 
 #. i18n: ectx: property (text), widget (QLabel, label_3)
 #. i18n: ectx: property (text), widget (QLabel, label_2)
@@ -936,22 +933,21 @@ msgstr "Höjd"
 #: backends/sage/settings.ui:195
 #, kde-format
 msgid "Image Format:"
-msgstr ""
+msgstr "Bildformat:"
 
 #. i18n: ectx: property (text), item, widget (QComboBox, kcfg_inlinePlotFormat)
 #: backends/maxima/settings.ui:173 backends/octave/settings.ui:196
 #: backends/sage/settings.ui:203
 #, kde-format
 msgid "PDF"
-msgstr ""
+msgstr "PDF"
 
 #. i18n: ectx: property (text), widget (QLabel, lPlotIntegration)
 #: backends/maxima/settings.ui:220 backends/octave/settings.ui:135
 #: backends/sage/settings.ui:90
-#, fuzzy, kde-format
-#| msgid "Integrate"
+#, kde-format
 msgid "Integrated:"
-msgstr "Integrera"
+msgstr "Integrerad:"
 
 #: backends/octave/octavebackend.cpp:63
 #, kde-format
@@ -978,7 +974,7 @@ msgstr ""
 #: backends/octave/octaveexpression.cpp:231
 #, kde-format
 msgid "Invalid image file generated."
-msgstr ""
+msgstr "Ogiltig bildfil genererad."
 
 #: backends/octave/octaveextensions.cpp:34
 #, kde-format
@@ -2439,22 +2435,18 @@ msgid "Python script file (*.py);;Sage script file (*.sage)"
 msgstr "Python-skriptfil (*.py);;Sage-skriptfil (*.sage)"
 
 #: backends/sage/sagesession.cpp:254
-#, fuzzy, kde-format
-#| msgid ""
-#| "Sage version %1.%2 is unsupported. Please update your installation to the "
-#| "supported versions to make it work with Cantor."
+#, kde-format
 msgid ""
 "Sage version %1.%2 is unsupported. Please update your installation to the "
 "versions 9.2 or higher."
 msgstr ""
-"Sage version %1.%2 stöds inte. Uppdatera installationen till versioner som "
-"stöds för att det ska fungera med Cantor."
+"Sage version %1.%2 stöds inte. Uppdatera installationen till version 9.2 "
+"eller senare."
 
 #: backends/sage/sagesession.cpp:256 backends/sage/sagesession.cpp:276
-#, fuzzy, kde-format
-#| msgid "All supported files"
+#, kde-format
 msgid "Unsupported Version"
-msgstr "Alla filer som stöds"
+msgstr "Version stöds inte"
 
 #: backends/sage/sagesession.cpp:275
 #, kde-format
@@ -2719,10 +2711,9 @@ msgstr ""
 
 #. i18n: ectx: label, entry (WarnAboutEntryDelete), group (Cantor)
 #: cantor.kcfg:40
-#, fuzzy, kde-format
-#| msgid "Ask for confirmation when restarting the backend"
+#, kde-format
 msgid "Ask for confirmation when deleting an entry"
-msgstr "Fråga efter bekräftelse när bakgrundsprogrammet startas om"
+msgstr "Fråga efter bekräftelse när en post tas bort"
 
 #. i18n: ectx: label, entry (AutoEval), group (Cantor)
 #: cantor.kcfg:44
@@ -2910,14 +2901,13 @@ msgid "Zoom"
 msgstr "Zooma"
 
 #: cantor_part.cpp:211
-#, fuzzy, kde-format
-#| msgid "%1: %2"
+#, kde-format
 msgctxt ""
 "Zoom percentage value %1 will be replaced by the actual zoom factor value, "
 "so make sure you include it in your translation in order to not to break "
 "anything"
 msgid "%1%"
-msgstr "%1: %2"
+msgstr "%1 %"
 
 #: cantor_part.cpp:226
 #, kde-format
@@ -3502,15 +3492,14 @@ msgid "Cannot load image %1"
 msgstr "Kan inte läsa in bild %1"
 
 #: imageresultitem.cpp:90
-#, fuzzy, kde-format
-#| msgid "Text Files (*.txt)"
+#, kde-format
 msgid "%1 files (*.%2)"
-msgstr "Textfiler (*.txt)"
+msgstr "%1-filer (*.%2)"
 
 #: imageresultitem.cpp:93
 #, kde-format
 msgid "EPS files (*.eps)"
-msgstr ""
+msgstr "EPS-filer (*.eps)"
 
 #: imageresultitem.cpp:96
 #, kde-format
@@ -3665,19 +3654,19 @@ msgstr "Sökväg till körbar fil för dvips"
 #, kde-format
 msgctxt "@title:column"
 msgid "Type"
-msgstr ""
+msgstr "Typ"
 
 #: lib/defaultvariablemodel.cpp:73
 #, kde-format
 msgctxt "@title:column"
 msgid "Size [Bytes]"
-msgstr ""
+msgstr "Storlek [byte]"
 
 #: lib/defaultvariablemodel.cpp:75
 #, kde-format
 msgctxt "@title:column"
 msgid "Dimension"
-msgstr ""
+msgstr "Dimension"
 
 #: lib/defaultvariablemodel.cpp:77
 #, kde-format
@@ -4005,22 +3994,19 @@ msgid "Load file"
 msgstr "Läs in fil"
 
 #: panelplugins/variablemgr/variablemanagerwidget.cpp:286
-#, fuzzy, kde-format
-#| msgid "Name"
+#, kde-format
 msgid "Copy Name"
-msgstr "Namn"
+msgstr "Kopiera namn"
 
 #: panelplugins/variablemgr/variablemanagerwidget.cpp:287
-#, fuzzy, kde-format
-#| msgctxt "@title:column"
-#| msgid "Value"
+#, kde-format
 msgid "Copy Value"
-msgstr "Värde"
+msgstr "Kopiera värde"
 
 #: panelplugins/variablemgr/variablemanagerwidget.cpp:288
 #, kde-format
 msgid "Copy Name and Value"
-msgstr ""
+msgstr "Kopiera namn och värde"
 
 #: resultitem.cpp:48
 #, kde-format
@@ -4278,10 +4264,9 @@ msgstr "Syntaxfärgläggning"
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_WarnAboutEntryDelete)
 #: settings.ui:303
-#, fuzzy, kde-format
-#| msgid "Ask for confirmation when restarting the backend"
+#, kde-format
 msgid "Ask for confirmation when deleting entries"
-msgstr "Fråga efter bekräftelse när bakgrundsprogrammet startas om"
+msgstr "Fråga efter bekräftelse när poster tas bort"
 
 #. i18n: ectx: property (placeholderText), widget (KLineEdit, pattern)
 #: standardsearchbar.ui:35
