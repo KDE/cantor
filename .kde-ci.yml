@@ -20,9 +20,6 @@ Dependencies:
     'frameworks/kio': '@stable'
     'frameworks/kxmlgui': '@stable'
     'frameworks/ki18n': '@stable'
-- 'on': ['Linux', 'FreeBSD']
-  'require':
-    'frameworks/kpty': '@stable'
 
 Options:
   require-passing-tests-on: ['@all']
