@@ -135,9 +135,8 @@ CantorPart::CantorPart(QWidget* parentWidget, QObject* parent, const QVariantLis
     m_save = KStandardAction::save(this, SLOT(save()), collection);
     m_save->setPriority(QAction::LowPriority);
 
-    QAction* savePlain = new QAction(i18n("Save Plain Text"), collection);
+    QAction* savePlain = new QAction(QIcon::fromTheme(QLatin1String("document-save")), i18n("Save Plain Text"), collection);
     collection->addAction(QLatin1String("file_save_plain"), savePlain);
-    savePlain->setIcon(QIcon::fromTheme(QLatin1String("document-save")));
     connect(savePlain, &QAction::triggered, this, &CantorPart::fileSavePlain);
 
     QAction* undo = KStandardAction::undo(m_worksheet, SIGNAL(undo()), collection);
@@ -177,9 +176,12 @@ CantorPart::CantorPart(QWidget* parentWidget, QObject* parent, const QVariantLis
     m_findPrev = KStandardAction::findPrev(this, SLOT(findPrev()), collection);
     m_findPrev->setEnabled(false);
 
-    QAction* latexExport = new QAction(i18n("Export to LaTeX"), collection);
+    QAction* pdfExport = new QAction(QIcon::fromTheme(QLatin1String("application-pdf")), i18n("Export to PDF"), collection);
+    collection->addAction(QLatin1String("file_export_pdf"), pdfExport);
+    connect(pdfExport, &QAction::triggered, this, &CantorPart::exportToPDF);
+
+    QAction* latexExport = new QAction(QIcon::fromTheme(QLatin1String("text-x-tex")), i18n("Export to LaTeX"), collection);
     collection->addAction(QLatin1String("file_export_latex"), latexExport);
-    latexExport->setIcon(QIcon::fromTheme(QLatin1String("document-export")));
     connect(latexExport, &QAction::triggered, this, &CantorPart::exportToLatex);
 
     QAction* print = KStandardAction::print(this, SLOT(print()), collection);
@@ -193,9 +195,8 @@ CantorPart::CantorPart(QWidget* parentWidget, QObject* parent, const QVariantLis
     KStandardAction::actualSize(m_worksheetview, SLOT(actualSize()), collection);
     connect(m_worksheetview, &WorksheetView::scaleFactorChanged, this, &CantorPart::updateZoomWidgetValue);
 
-    m_evaluate = new QAction(i18n("Evaluate Worksheet"), collection);
+    m_evaluate = new QAction(QIcon::fromTheme(QLatin1String("system-run")), i18n("Evaluate Worksheet"), collection);
     collection->addAction(QLatin1String("evaluate_worksheet"), m_evaluate);
-    m_evaluate->setIcon(QIcon::fromTheme(QLatin1String("system-run")));
     collection->setDefaultShortcut(m_evaluate, Qt::CTRL+Qt::Key_E);
     connect(m_evaluate, &QAction::triggered, this, &CantorPart::evaluateOrInterrupt);
     m_editActions.push_back(m_evaluate);
@@ -256,9 +257,8 @@ CantorPart::CantorPart(QWidget* parentWidget, QObject* parent, const QVariantLis
         connect(m_embeddedMath, &KToggleAction::toggled, m_worksheet, &Worksheet::enableEmbeddedMath);
     }
 
-    m_restart = new QAction(i18n("Restart Backend"), collection);
+    m_restart = new QAction(QIcon::fromTheme(QLatin1String("system-reboot")), i18n("Restart Backend"), collection);
     collection->addAction(QLatin1String("restart_backend"), m_restart);
-    m_restart->setIcon(QIcon::fromTheme(QLatin1String("system-reboot")));
     connect(m_restart, &QAction::triggered, this, &CantorPart::restartBackend);
     m_restart->setEnabled(false); // No need show restart button before login
     m_editActions.push_back(m_restart);
@@ -528,14 +528,26 @@ void CantorPart::fileSaveAs()
 
 void CantorPart::fileSavePlain()
 {
-    QString file_name = QFileDialog::getSaveFileName(widget(), i18n("Save"), QString(), QString());
+    QString file_name = QFileDialog::getSaveFileName(widget(), i18n("Save"), QString(), i18n("Text Files (*.txt)"));
     if (!file_name.isEmpty())
         m_worksheet->savePlain(file_name);
 }
 
+void CantorPart::exportToPDF()
+{
+    QString path = QFileDialog::getSaveFileName(widget(), i18n("Export to PDF"), QString(), i18n("PDF Files (*.pdf)"));
+    if (path.isEmpty()) // "Cancel" was clicked
+        return;
+
+    QPrinter printer;
+    printer.setOutputFormat(QPrinter::PdfFormat);
+    printer.setOutputFileName(path);
+    m_worksheet->print(&printer);
+}
+
 void CantorPart::exportToLatex()
 {
-    QString file_name = QFileDialog::getSaveFileName(widget(), i18n("Export to LaTeX"), QString(), QString());
+    QString file_name = QFileDialog::getSaveFileName(widget(), i18n("Export to LaTeX"), QString(), i18n("TeX Files (*.tex)"));
 
     if (file_name.isEmpty() == false)
     {

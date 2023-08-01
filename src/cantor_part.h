@@ -103,6 +103,7 @@ protected:
 protected Q_SLOTS:
     void fileSaveAs();
     void fileSavePlain();
+    void exportToPDF();
     void exportToLatex();
     void evaluateOrInterrupt();
     void restartBackend();

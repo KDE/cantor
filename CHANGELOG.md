@@ -1,6 +1,16 @@
 # Changelog
 
-## 23.03
+## 23.12
+
+### New features
+    * Export worksheet to PDF
+
+## 23.08
+
+### New features
+    * [sage] allow to specify plot format and size in the application settings
+
+## 23.04
 
 ### New features
     * Allow to copy variable names and values to the clipboard in the variable panel
