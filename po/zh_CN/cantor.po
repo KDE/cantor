@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kdeorg\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-05-22 00:42+0000\n"
+"POT-Creation-Date: 2023-08-02 00:41+0000\n"
 "PO-Revision-Date: 2023-07-30 07:09\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Simplified\n"
@@ -424,7 +424,7 @@ msgid "Julia script file (*.jl)"
 msgstr "Julia 脚本文件 (*.jl)"
 
 #: backends/julia/juliasession.cpp:111 backends/julia/juliasession.cpp:120
-#: backends/maxima/maximasession.cpp:265 cantor_part.cpp:952
+#: backends/maxima/maximasession.cpp:265 cantor_part.cpp:964
 #: lib/session.cpp:313 lib/session.cpp:315 worksheet.cpp:1193
 #: worksheet.cpp:1221 worksheet.cpp:1236 worksheet.cpp:1252 worksheet.cpp:1296
 #: worksheet.cpp:1308
@@ -2506,12 +2506,12 @@ msgstr "会话 %1"
 msgid "Failed to find the Cantor Part with error %1"
 msgstr "无法找到 Cantor 组件：%1"
 
-#: cantor.cpp:435 cantor_part.cpp:627
+#: cantor.cpp:435 cantor_part.cpp:639
 #, kde-format
 msgid "Calculating..."
 msgstr "正在计算..."
 
-#: cantor.cpp:438 cantor_part.cpp:638 cantor_part.cpp:701
+#: cantor.cpp:438 cantor_part.cpp:650 cantor_part.cpp:713
 #, kde-format
 msgid "Ready"
 msgstr "就绪"
@@ -2766,22 +2766,28 @@ msgstr ""
 msgid "Save Plain Text"
 msgstr "保存纯文本"
 
-#: cantor_part.cpp:180 cantor_part.cpp:538
+#: cantor_part.cpp:179 cantor_part.cpp:538
+#, fuzzy, kde-format
+#| msgid "Export to LaTeX"
+msgid "Export to PDF"
+msgstr "导出到 LaTex 格式"
+
+#: cantor_part.cpp:183 cantor_part.cpp:550
 #, kde-format
 msgid "Export to LaTeX"
 msgstr "导出到 LaTex 格式"
 
-#: cantor_part.cpp:196 cantor_part.cpp:634 worksheet.cpp:1906
+#: cantor_part.cpp:198 cantor_part.cpp:646 worksheet.cpp:1906
 #, kde-format
 msgid "Evaluate Worksheet"
 msgstr "计算工作表"
 
-#: cantor_part.cpp:204 worksheet.cpp:1914
+#: cantor_part.cpp:205 worksheet.cpp:1914
 #, kde-format
 msgid "Zoom"
 msgstr "缩放"
 
-#: cantor_part.cpp:211
+#: cantor_part.cpp:212
 #, kde-format
 msgctxt ""
 "Zoom percentage value %1 will be replaced by the actual zoom factor value, "
@@ -2790,39 +2796,39 @@ msgctxt ""
 msgid "%1%"
 msgstr ""
 
-#: cantor_part.cpp:226
+#: cantor_part.cpp:227
 #, kde-format
 msgid "Typeset using LaTeX"
 msgstr "使用 LaTeX 排版"
 
-#: cantor_part.cpp:231
+#: cantor_part.cpp:232
 #, kde-format
 msgid "Syntax Highlighting"
 msgstr "语法加亮"
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_CompletionDefault)
-#: cantor_part.cpp:236 settings.ui:46
+#: cantor_part.cpp:237 settings.ui:46
 #, kde-format
 msgid "Completion"
 msgstr "自动补全"
 
-#: cantor_part.cpp:241
+#: cantor_part.cpp:242
 #, kde-format
 msgid "Line Numbers"
 msgstr "显示行号"
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_AnimationDefault)
-#: cantor_part.cpp:246 settings.ui:138
+#: cantor_part.cpp:247 settings.ui:138
 #, kde-format
 msgid "Animations"
 msgstr ""
 
-#: cantor_part.cpp:253
+#: cantor_part.cpp:254
 #, kde-format
 msgid "Embedded Math"
 msgstr "嵌入式数学"
 
-#: cantor_part.cpp:259
+#: cantor_part.cpp:260
 #, kde-format
 msgid "Restart Backend"
 msgstr "重启后端"
@@ -2932,88 +2938,103 @@ msgstr "另存为"
 msgid "Save"
 msgstr "保存"
 
-#: cantor_part.cpp:583
+#: cantor_part.cpp:531 textresultitem.cpp:212
+#, kde-format
+msgid "Text Files (*.txt)"
+msgstr ""
+
+#: cantor_part.cpp:538
+#, kde-format
+msgid "PDF Files (*.pdf)"
+msgstr ""
+
+#: cantor_part.cpp:550
+#, kde-format
+msgid "TeX Files (*.tex)"
+msgstr ""
+
+#: cantor_part.cpp:595
 #, kde-format
 msgid ""
 "All the available calculation results will be lost. Do you really want to "
 "restart %1?"
 msgstr "所有可用的计算结果都将丢失。是否确实要重新启动 %1？"
 
-#: cantor_part.cpp:584
+#: cantor_part.cpp:596
 #, kde-format
 msgid "Restart %1?"
 msgstr "要重新启动 %1 吗？"
 
-#: cantor_part.cpp:624 worksheet.cpp:1909
+#: cantor_part.cpp:636 worksheet.cpp:1909
 #, kde-format
 msgid "Interrupt"
 msgstr "中断"
 
-#: cantor_part.cpp:650
+#: cantor_part.cpp:662
 #, kde-format
 msgid "Session Error: %1"
 msgstr "会话错误：%1"
 
-#: cantor_part.cpp:691
+#: cantor_part.cpp:703
 #, kde-format
 msgid "Initialization complete"
 msgstr "初始化完成"
 
-#: cantor_part.cpp:696
+#: cantor_part.cpp:708
 #, kde-format
 msgid "Initializing..."
 msgstr "正在初始化..."
 
-#: cantor_part.cpp:754
+#: cantor_part.cpp:766
 #, kde-format
 msgid "[read-only]"
 msgstr "[只读]"
 
-#: cantor_part.cpp:872
+#: cantor_part.cpp:884
 #, kde-format
 msgid "Do you want to upload current Worksheet to public web server?"
 msgstr "您想要将当前工作表上传到公共网页服务器上吗？"
 
-#: cantor_part.cpp:873
+#: cantor_part.cpp:885
 #, kde-format
 msgid "Question - Cantor"
 msgstr "问题 - Cantor"
 
-#: cantor_part.cpp:879
+#: cantor_part.cpp:891
 #, kde-format
 msgid "The Worksheet is not saved. You should save it before uploading."
 msgstr "此工作表尚未保存。您需要在上传前先保存它。"
 
-#: cantor_part.cpp:880
+#: cantor_part.cpp:892
 #, kde-format
 msgid "Warning - Cantor"
 msgstr "警告 - Cantor"
 
-#: cantor_part.cpp:952
+#: cantor_part.cpp:964
 #, kde-format
 msgid "This backend does not support scripts."
 msgstr "此后端不支持脚本"
 
 #. i18n: ectx: Menu (edit)
-#: cantor_part.rc:14 cantor_shell.rc:19
+#: cantor_part.rc:15 cantor_shell.rc:19
 #, kde-format
 msgid "&Edit"
 msgstr "编辑(&E)"
 
 #. i18n: ectx: Menu (view)
-#: cantor_part.rc:27 cantor_shell.rc:22
+#: cantor_part.rc:28 cantor_shell.rc:22
 #, kde-format
 msgid "&View"
 msgstr "视图(&V)"
 
 #. i18n: ectx: Menu (worksheet)
-#: cantor_part.rc:33
+#: cantor_part.rc:34
 #, kde-format
 msgid "&Worksheet"
 msgstr "工作表(&W)"
 
 #. i18n: ectx: Menu (settings)
-#: cantor_part.rc:50
+#: cantor_part.rc:51
 #, kde-format
 msgid "Settings"
 msgstr ""
@@ -4191,11 +4212,6 @@ msgstr "无法渲染 Eps 文件。您可能还需要其他软件包"
 #: textresultitem.cpp:212
 #, kde-format
 msgid "Save text result"
-msgstr ""
-
-#: textresultitem.cpp:212
-#, kde-format
-msgid "Text Files (*.txt)"
 msgstr ""
 
 #: worksheet.cpp:1192

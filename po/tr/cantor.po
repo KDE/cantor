@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kdeedu-kde4\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-05-22 00:42+0000\n"
+"POT-Creation-Date: 2023-08-02 00:41+0000\n"
 "PO-Revision-Date: 2023-06-16 12:13+0300\n"
 "Last-Translator: Emir SARI <emir_sari@icloud.com>\n"
 "Language-Team: Turkish <kde-l10n-tr@kde.org>\n"
@@ -435,7 +435,7 @@ msgid "Julia script file (*.jl)"
 msgstr "Julia betik dosyası (*.jl)"
 
 #: backends/julia/juliasession.cpp:111 backends/julia/juliasession.cpp:120
-#: backends/maxima/maximasession.cpp:265 cantor_part.cpp:952
+#: backends/maxima/maximasession.cpp:265 cantor_part.cpp:964
 #: lib/session.cpp:313 lib/session.cpp:315 worksheet.cpp:1193
 #: worksheet.cpp:1221 worksheet.cpp:1236 worksheet.cpp:1252 worksheet.cpp:1296
 #: worksheet.cpp:1308
@@ -2624,12 +2624,12 @@ msgstr "Oturum %1"
 msgid "Failed to find the Cantor Part with error %1"
 msgstr "Cantor parçacığı bulunamadı, hata %1"
 
-#: cantor.cpp:435 cantor_part.cpp:627
+#: cantor.cpp:435 cantor_part.cpp:639
 #, kde-format
 msgid "Calculating..."
 msgstr "Hesaplanıyor..."
 
-#: cantor.cpp:438 cantor_part.cpp:638 cantor_part.cpp:701
+#: cantor.cpp:438 cantor_part.cpp:650 cantor_part.cpp:713
 #, kde-format
 msgid "Ready"
 msgstr "Hazır"
@@ -2889,22 +2889,28 @@ msgstr "Alt paragraf için kalın hiyerarşi yazıtipi"
 msgid "Save Plain Text"
 msgstr "Düz Metin Kaydet"
 
-#: cantor_part.cpp:180 cantor_part.cpp:538
+#: cantor_part.cpp:179 cantor_part.cpp:538
+#, fuzzy, kde-format
+#| msgid "Export to LaTeX"
+msgid "Export to PDF"
+msgstr "LaTex'e Dışa Aktar"
+
+#: cantor_part.cpp:183 cantor_part.cpp:550
 #, kde-format
 msgid "Export to LaTeX"
 msgstr "LaTex'e Dışa Aktar"
 
-#: cantor_part.cpp:196 cantor_part.cpp:634 worksheet.cpp:1906
+#: cantor_part.cpp:198 cantor_part.cpp:646 worksheet.cpp:1906
 #, kde-format
 msgid "Evaluate Worksheet"
 msgstr "Çalışma Sayfasını Değerlendir"
 
-#: cantor_part.cpp:204 worksheet.cpp:1914
+#: cantor_part.cpp:205 worksheet.cpp:1914
 #, kde-format
 msgid "Zoom"
 msgstr "Yakınlaştır"
 
-#: cantor_part.cpp:211
+#: cantor_part.cpp:212
 #, kde-format
 msgctxt ""
 "Zoom percentage value %1 will be replaced by the actual zoom factor value, "
@@ -2913,39 +2919,39 @@ msgctxt ""
 msgid "%1%"
 msgstr "%%1"
 
-#: cantor_part.cpp:226
+#: cantor_part.cpp:227
 #, kde-format
 msgid "Typeset using LaTeX"
 msgstr "LaTeX Kullanan Dizgi"
 
-#: cantor_part.cpp:231
+#: cantor_part.cpp:232
 #, kde-format
 msgid "Syntax Highlighting"
 msgstr "Sözdizim Vurgulama"
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_CompletionDefault)
-#: cantor_part.cpp:236 settings.ui:46
+#: cantor_part.cpp:237 settings.ui:46
 #, kde-format
 msgid "Completion"
 msgstr "Tamamlama"
 
-#: cantor_part.cpp:241
+#: cantor_part.cpp:242
 #, kde-format
 msgid "Line Numbers"
 msgstr "Satır Numaraları"
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_AnimationDefault)
-#: cantor_part.cpp:246 settings.ui:138
+#: cantor_part.cpp:247 settings.ui:138
 #, kde-format
 msgid "Animations"
 msgstr "Canlandırmalar"
 
-#: cantor_part.cpp:253
+#: cantor_part.cpp:254
 #, kde-format
 msgid "Embedded Math"
 msgstr "Gömülü Matematik"
 
-#: cantor_part.cpp:259
+#: cantor_part.cpp:260
 #, kde-format
 msgid "Restart Backend"
 msgstr "Arka Ucu Yeniden Başlat"
@@ -3055,7 +3061,24 @@ msgstr "Farklı Kaydet"
 msgid "Save"
 msgstr "Kaydet"
 
-#: cantor_part.cpp:583
+#: cantor_part.cpp:531 textresultitem.cpp:212
+#, kde-format
+msgid "Text Files (*.txt)"
+msgstr "Metin Dosyaları (*.txt)"
+
+#: cantor_part.cpp:538
+#, fuzzy, kde-format
+#| msgid "EPS files (*.eps)"
+msgid "PDF Files (*.pdf)"
+msgstr "EPS dosyaları (*.eps)"
+
+#: cantor_part.cpp:550
+#, fuzzy, kde-format
+#| msgid "Text Files (*.txt)"
+msgid "TeX Files (*.tex)"
+msgstr "Metin Dosyaları (*.txt)"
+
+#: cantor_part.cpp:595
 #, kde-format
 msgid ""
 "All the available calculation results will be lost. Do you really want to "
@@ -3064,83 +3087,83 @@ msgstr ""
 "Tüm kullanılabilir hesaplama sonuçları kaybolacak. %1 programını gerçekten "
 "yeniden başlatmak istiyor musunuz?"
 
-#: cantor_part.cpp:584
+#: cantor_part.cpp:596
 #, kde-format
 msgid "Restart %1?"
 msgstr "%1 Yeniden Başlatılsın mı?"
 
-#: cantor_part.cpp:624 worksheet.cpp:1909
+#: cantor_part.cpp:636 worksheet.cpp:1909
 #, kde-format
 msgid "Interrupt"
 msgstr "Yarıda Kes"
 
-#: cantor_part.cpp:650
+#: cantor_part.cpp:662
 #, kde-format
 msgid "Session Error: %1"
 msgstr "Oturum Hatası: %1"
 
-#: cantor_part.cpp:691
+#: cantor_part.cpp:703
 #, kde-format
 msgid "Initialization complete"
 msgstr "İlklendirme tamamlandı"
 
-#: cantor_part.cpp:696
+#: cantor_part.cpp:708
 #, kde-format
 msgid "Initializing..."
 msgstr "İlklendiriliyor..."
 
-#: cantor_part.cpp:754
+#: cantor_part.cpp:766
 #, kde-format
 msgid "[read-only]"
 msgstr "[saltokunur]"
 
-#: cantor_part.cpp:872
+#: cantor_part.cpp:884
 #, kde-format
 msgid "Do you want to upload current Worksheet to public web server?"
 msgstr ""
 "Geçerli çalışma sayfasını genel bir web sunucusuna karşıya yüklemek istiyor "
 "musunuz?"
 
-#: cantor_part.cpp:873
+#: cantor_part.cpp:885
 #, kde-format
 msgid "Question - Cantor"
 msgstr "Soru - Cantor"
 
-#: cantor_part.cpp:879
+#: cantor_part.cpp:891
 #, kde-format
 msgid "The Worksheet is not saved. You should save it before uploading."
 msgstr "Çalışma sayfası kaydedilmedi. Karşıya yüklemeden önce kaydetmelisiniz."
 
-#: cantor_part.cpp:880
+#: cantor_part.cpp:892
 #, kde-format
 msgid "Warning - Cantor"
 msgstr "Uyarı - Cantor"
 
-#: cantor_part.cpp:952
+#: cantor_part.cpp:964
 #, kde-format
 msgid "This backend does not support scripts."
 msgstr "Bu arka uç betikleri desteklemiyor."
 
 #. i18n: ectx: Menu (edit)
-#: cantor_part.rc:14 cantor_shell.rc:19
+#: cantor_part.rc:15 cantor_shell.rc:19
 #, kde-format
 msgid "&Edit"
 msgstr "Dü&zen"
 
 #. i18n: ectx: Menu (view)
-#: cantor_part.rc:27 cantor_shell.rc:22
+#: cantor_part.rc:28 cantor_shell.rc:22
 #, kde-format
 msgid "&View"
 msgstr "&Görünüm"
 
 #. i18n: ectx: Menu (worksheet)
-#: cantor_part.rc:33
+#: cantor_part.rc:34
 #, kde-format
 msgid "&Worksheet"
 msgstr "&Çalışma Sayfası"
 
 #. i18n: ectx: Menu (settings)
-#: cantor_part.rc:50
+#: cantor_part.rc:51
 #, kde-format
 msgid "Settings"
 msgstr "Ayarlar"
@@ -4351,11 +4374,6 @@ msgstr "Eps dosyası sunulamıyor. Ek paketlere gerek olabilir"
 #, kde-format
 msgid "Save text result"
 msgstr "Metin sonucu kaydet"
-
-#: textresultitem.cpp:212
-#, kde-format
-msgid "Text Files (*.txt)"
-msgstr "Metin Dosyaları (*.txt)"
 
 #: worksheet.cpp:1192
 #, kde-format

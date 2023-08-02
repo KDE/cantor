@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-05-22 00:42+0000\n"
+"POT-Creation-Date: 2023-08-02 00:41+0000\n"
 "PO-Revision-Date: 2023-07-25 19:54+0300\n"
 "Last-Translator: Theofilos Intzoglou <int.teo@gmail.com>\n"
 "Language-Team: Greek <kde-i18n-el@kde.org>\n"
@@ -435,7 +435,7 @@ msgid "Julia script file (*.jl)"
 msgstr "Αρχείο σεναρίου της Julia (*.jl)"
 
 #: backends/julia/juliasession.cpp:111 backends/julia/juliasession.cpp:120
-#: backends/maxima/maximasession.cpp:265 cantor_part.cpp:952
+#: backends/maxima/maximasession.cpp:265 cantor_part.cpp:964
 #: lib/session.cpp:313 lib/session.cpp:315 worksheet.cpp:1193
 #: worksheet.cpp:1221 worksheet.cpp:1236 worksheet.cpp:1252 worksheet.cpp:1296
 #: worksheet.cpp:1308
@@ -2670,12 +2670,12 @@ msgstr "Συνεδρία %1"
 msgid "Failed to find the Cantor Part with error %1"
 msgstr "Αποτυχία εύρεσης του Cantor Part με σφάλμα %1"
 
-#: cantor.cpp:435 cantor_part.cpp:627
+#: cantor.cpp:435 cantor_part.cpp:639
 #, kde-format
 msgid "Calculating..."
 msgstr "Υπολογισμός..."
 
-#: cantor.cpp:438 cantor_part.cpp:638 cantor_part.cpp:701
+#: cantor.cpp:438 cantor_part.cpp:650 cantor_part.cpp:713
 #, kde-format
 msgid "Ready"
 msgstr "Έτοιμο"
@@ -2934,22 +2934,28 @@ msgstr "Έντονη γραμματοσειρά ιεραρχίας για υπο
 msgid "Save Plain Text"
 msgstr "Αποθήκευση ως απλό κείμενο"
 
-#: cantor_part.cpp:180 cantor_part.cpp:538
+#: cantor_part.cpp:179 cantor_part.cpp:538
+#, fuzzy, kde-format
+#| msgid "Export to LaTeX"
+msgid "Export to PDF"
+msgstr "Εξαγωγή σε LaTex"
+
+#: cantor_part.cpp:183 cantor_part.cpp:550
 #, kde-format
 msgid "Export to LaTeX"
 msgstr "Εξαγωγή σε LaTex"
 
-#: cantor_part.cpp:196 cantor_part.cpp:634 worksheet.cpp:1906
+#: cantor_part.cpp:198 cantor_part.cpp:646 worksheet.cpp:1906
 #, kde-format
 msgid "Evaluate Worksheet"
 msgstr "Υπολογισμός φύλλου εργασίας"
 
-#: cantor_part.cpp:204 worksheet.cpp:1914
+#: cantor_part.cpp:205 worksheet.cpp:1914
 #, kde-format
 msgid "Zoom"
 msgstr "Ζουμ"
 
-#: cantor_part.cpp:211
+#: cantor_part.cpp:212
 #, kde-format
 msgctxt ""
 "Zoom percentage value %1 will be replaced by the actual zoom factor value, "
@@ -2958,39 +2964,39 @@ msgctxt ""
 msgid "%1%"
 msgstr "%1%"
 
-#: cantor_part.cpp:226
+#: cantor_part.cpp:227
 #, kde-format
 msgid "Typeset using LaTeX"
 msgstr "Στοιχειοθεσία με τη χρήση του LaTex"
 
-#: cantor_part.cpp:231
+#: cantor_part.cpp:232
 #, kde-format
 msgid "Syntax Highlighting"
 msgstr "Συντακτική επισήμανση"
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_CompletionDefault)
-#: cantor_part.cpp:236 settings.ui:46
+#: cantor_part.cpp:237 settings.ui:46
 #, kde-format
 msgid "Completion"
 msgstr "Συμπλήρωση"
 
-#: cantor_part.cpp:241
+#: cantor_part.cpp:242
 #, kde-format
 msgid "Line Numbers"
 msgstr "Αρίθμηση γραμμών"
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_AnimationDefault)
-#: cantor_part.cpp:246 settings.ui:138
+#: cantor_part.cpp:247 settings.ui:138
 #, kde-format
 msgid "Animations"
 msgstr "Εφέ κίνησης"
 
-#: cantor_part.cpp:253
+#: cantor_part.cpp:254
 #, kde-format
 msgid "Embedded Math"
 msgstr "Ενσωματωμένα μαθηματικά"
 
-#: cantor_part.cpp:259
+#: cantor_part.cpp:260
 #, kde-format
 msgid "Restart Backend"
 msgstr "Επανεκκίνηση συστήματος υποστήριξης"
@@ -3100,7 +3106,24 @@ msgstr "Αποθήκευση ως"
 msgid "Save"
 msgstr "Αποθήκευση"
 
-#: cantor_part.cpp:583
+#: cantor_part.cpp:531 textresultitem.cpp:212
+#, kde-format
+msgid "Text Files (*.txt)"
+msgstr "Αρχεία κειμένου (*.txt)"
+
+#: cantor_part.cpp:538
+#, fuzzy, kde-format
+#| msgid "EPS files (*.eps)"
+msgid "PDF Files (*.pdf)"
+msgstr "EPS αρχεία (*.eps)"
+
+#: cantor_part.cpp:550
+#, fuzzy, kde-format
+#| msgid "Text Files (*.txt)"
+msgid "TeX Files (*.tex)"
+msgstr "Αρχεία κειμένου (*.txt)"
+
+#: cantor_part.cpp:595
 #, kde-format
 msgid ""
 "All the available calculation results will be lost. Do you really want to "
@@ -3109,83 +3132,83 @@ msgstr ""
 "Όλα τα διαθέσιμα αποτελέσματα υπολογισμού θα χαθούν. Θέλετε πράγματι να "
 "επανεκκινήσετε το %1;"
 
-#: cantor_part.cpp:584
+#: cantor_part.cpp:596
 #, kde-format
 msgid "Restart %1?"
 msgstr "Επανεκκίνηση του %1;"
 
-#: cantor_part.cpp:624 worksheet.cpp:1909
+#: cantor_part.cpp:636 worksheet.cpp:1909
 #, kde-format
 msgid "Interrupt"
 msgstr "Διακοπή"
 
-#: cantor_part.cpp:650
+#: cantor_part.cpp:662
 #, kde-format
 msgid "Session Error: %1"
 msgstr "Σφάλμα συνεδρίας: %1"
 
-#: cantor_part.cpp:691
+#: cantor_part.cpp:703
 #, kde-format
 msgid "Initialization complete"
 msgstr "Η αρχικοποίηση ολοκληρώθηκε"
 
-#: cantor_part.cpp:696
+#: cantor_part.cpp:708
 #, kde-format
 msgid "Initializing..."
 msgstr "Αρχικοποίηση..."
 
-#: cantor_part.cpp:754
+#: cantor_part.cpp:766
 #, kde-format
 msgid "[read-only]"
 msgstr "[ανάγνωση-μόνο]"
 
-#: cantor_part.cpp:872
+#: cantor_part.cpp:884
 #, kde-format
 msgid "Do you want to upload current Worksheet to public web server?"
 msgstr "Θέλετε να στείλετε το παρόν φύλλο εργασίας στον δημόσιο διακομιστή;"
 
-#: cantor_part.cpp:873
+#: cantor_part.cpp:885
 #, kde-format
 msgid "Question - Cantor"
 msgstr "Ερώτηση - Cantor"
 
-#: cantor_part.cpp:879
+#: cantor_part.cpp:891
 #, kde-format
 msgid "The Worksheet is not saved. You should save it before uploading."
 msgstr ""
 "Το φύλλο εργασίας δεν έχει αποθηκευθεί. Πρέπει να το αποθηκεύσετε πριν την "
 "αποστολή του."
 
-#: cantor_part.cpp:880
+#: cantor_part.cpp:892
 #, kde-format
 msgid "Warning - Cantor"
 msgstr "Προειδοποίηση - Cantor"
 
-#: cantor_part.cpp:952
+#: cantor_part.cpp:964
 #, kde-format
 msgid "This backend does not support scripts."
 msgstr "Το συγκεκριμένο σύστημα υποστήριξης δεν υποστηρίζει σενάρια."
 
 #. i18n: ectx: Menu (edit)
-#: cantor_part.rc:14 cantor_shell.rc:19
+#: cantor_part.rc:15 cantor_shell.rc:19
 #, kde-format
 msgid "&Edit"
 msgstr "&Επεξεργασία"
 
 #. i18n: ectx: Menu (view)
-#: cantor_part.rc:27 cantor_shell.rc:22
+#: cantor_part.rc:28 cantor_shell.rc:22
 #, kde-format
 msgid "&View"
 msgstr "&Προβολή"
 
 #. i18n: ectx: Menu (worksheet)
-#: cantor_part.rc:33
+#: cantor_part.rc:34
 #, kde-format
 msgid "&Worksheet"
 msgstr "&Φύλλο εργασίας"
 
 #. i18n: ectx: Menu (settings)
-#: cantor_part.rc:50
+#: cantor_part.rc:51
 #, kde-format
 msgid "Settings"
 msgstr "Ρυθμίσεις"
@@ -4402,11 +4425,6 @@ msgstr ""
 #, kde-format
 msgid "Save text result"
 msgstr "Αποθήκευση αποτελέσματος κειμένου"
-
-#: textresultitem.cpp:212
-#, kde-format
-msgid "Text Files (*.txt)"
-msgstr "Αρχεία κειμένου (*.txt)"
 
 #: worksheet.cpp:1192
 #, kde-format
