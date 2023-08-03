@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: cantor\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-08-02 00:41+0000\n"
-"PO-Revision-Date: 2023-05-05 17:18+0300\n"
+"PO-Revision-Date: 2023-08-02 17:09+0300\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian <kde-i18n-uk@kde.org>\n"
 "Language: uk\n"
@@ -2927,10 +2927,9 @@ msgid "Save Plain Text"
 msgstr "Зберегти як простий текст"
 
 #: cantor_part.cpp:179 cantor_part.cpp:538
-#, fuzzy, kde-format
-#| msgid "Export to LaTeX"
+#, kde-format
 msgid "Export to PDF"
-msgstr "Експортувати до LaTeX"
+msgstr "Експортувати до PDF"
 
 #: cantor_part.cpp:183 cantor_part.cpp:550
 #, kde-format
@@ -3104,16 +3103,14 @@ msgid "Text Files (*.txt)"
 msgstr "текстові файли (*.txt)"
 
 #: cantor_part.cpp:538
-#, fuzzy, kde-format
-#| msgid "EPS files (*.eps)"
+#, kde-format
 msgid "PDF Files (*.pdf)"
-msgstr "файли EPS (*.eps)"
+msgstr "файли PDF (*.pdf)"
 
 #: cantor_part.cpp:550
-#, fuzzy, kde-format
-#| msgid "Text Files (*.txt)"
+#, kde-format
 msgid "TeX Files (*.tex)"
-msgstr "текстові файли (*.txt)"
+msgstr "файли TeX (*.tex)"
 
 #: cantor_part.cpp:595
 #, kde-format

@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: mathematik\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-08-02 00:41+0000\n"
-"PO-Revision-Date: 2023-07-25 12:56+0200\n"
+"PO-Revision-Date: 2023-08-02 07:56+0200\n"
 "Last-Translator: Stefan Asserhäll <stefan.asserhall@bredband.net>\n"
 "Language-Team: Swedish <kde-i18n-doc@kde.org>\n"
 "Language: sv\n"
@@ -2886,10 +2886,9 @@ msgid "Save Plain Text"
 msgstr "Spara vanlig text"
 
 #: cantor_part.cpp:179 cantor_part.cpp:538
-#, fuzzy, kde-format
-#| msgid "Export to LaTeX"
+#, kde-format
 msgid "Export to PDF"
-msgstr "Exportera till Latex"
+msgstr "Exportera till PDF"
 
 #: cantor_part.cpp:183 cantor_part.cpp:550
 #, kde-format
@@ -3063,16 +3062,14 @@ msgid "Text Files (*.txt)"
 msgstr "Textfiler (*.txt)"
 
 #: cantor_part.cpp:538
-#, fuzzy, kde-format
-#| msgid "EPS files (*.eps)"
+#, kde-format
 msgid "PDF Files (*.pdf)"
-msgstr "EPS-filer (*.eps)"
+msgstr "PDF-filer (*.pdf)"
 
 #: cantor_part.cpp:550
-#, fuzzy, kde-format
-#| msgid "Text Files (*.txt)"
+#, kde-format
 msgid "TeX Files (*.tex)"
-msgstr "Textfiler (*.txt)"
+msgstr "Tex-filer (*.tex)"
 
 #: cantor_part.cpp:595
 #, kde-format

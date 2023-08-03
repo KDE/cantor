@@ -13,7 +13,7 @@ msgstr ""
 "Project-Id-Version: kdeedu-kde4\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-08-02 00:41+0000\n"
-"PO-Revision-Date: 2023-06-16 12:13+0300\n"
+"PO-Revision-Date: 2023-08-02 13:12+0300\n"
 "Last-Translator: Emir SARI <emir_sari@icloud.com>\n"
 "Language-Team: Turkish <kde-l10n-tr@kde.org>\n"
 "Language: tr\n"
@@ -21,7 +21,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"X-Generator: Lokalize 23.07.70\n"
+"X-Generator: Lokalize 23.11.70\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -2199,7 +2199,7 @@ msgstr "Lütfen bunun GHNS ile kurulumuunu kaldırın."
 #: backends/qthelpconfig.ui:20
 #, kde-format
 msgid "Install Additional Documentation Files"
-msgstr "Ek Belgelendirme Dosyaları İndir"
+msgstr "Ek Belgelendirme Dosyalarını Kur"
 
 #. i18n: ectx: property (text), widget (QTreeWidget, qchTable)
 #: backends/qthelpconfig.ui:49 lib/defaultvariablemodel.cpp:69
@@ -2383,7 +2383,7 @@ msgstr "Dosya seçim penceresini açmak için çift tıklayın"
 #: backends/R/rsettingswidget.cpp:44
 #, kde-format
 msgid "*.R *.r|R source files (*.R, *.r)"
-msgstr "*.R *.r|R kaynak dosyaları (*.R, *.r)"
+msgstr "*.R *.r|R Kaynak Dosyaları (*.R, *.r)"
 
 #: backends/sage/sagebackend.cpp:79
 #, kde-format
@@ -2890,10 +2890,9 @@ msgid "Save Plain Text"
 msgstr "Düz Metin Kaydet"
 
 #: cantor_part.cpp:179 cantor_part.cpp:538
-#, fuzzy, kde-format
-#| msgid "Export to LaTeX"
+#, kde-format
 msgid "Export to PDF"
-msgstr "LaTex'e Dışa Aktar"
+msgstr "PDF'ye Dışa Aktar"
 
 #: cantor_part.cpp:183 cantor_part.cpp:550
 #, kde-format
@@ -3067,16 +3066,14 @@ msgid "Text Files (*.txt)"
 msgstr "Metin Dosyaları (*.txt)"
 
 #: cantor_part.cpp:538
-#, fuzzy, kde-format
-#| msgid "EPS files (*.eps)"
+#, kde-format
 msgid "PDF Files (*.pdf)"
-msgstr "EPS dosyaları (*.eps)"
+msgstr "PDF Dosyaları (*.pdf)"
 
 #: cantor_part.cpp:550
-#, fuzzy, kde-format
-#| msgid "Text Files (*.txt)"
+#, kde-format
 msgid "TeX Files (*.tex)"
-msgstr "Metin Dosyaları (*.txt)"
+msgstr "TeX Dosyaları (*.tex)"
 
 #: cantor_part.cpp:595
 #, kde-format
@@ -3523,12 +3520,12 @@ msgstr "%1 görseli yüklenemiyor"
 #: imageresultitem.cpp:90
 #, kde-format
 msgid "%1 files (*.%2)"
-msgstr "%1 dosyaları (*.%2)"
+msgstr "%1 Dosyaları (*.%2)"
 
 #: imageresultitem.cpp:93
 #, kde-format
 msgid "EPS files (*.eps)"
-msgstr "EPS dosyaları (*.eps)"
+msgstr "EPS Dosyaları (*.eps)"
 
 #: imageresultitem.cpp:96
 #, kde-format
@@ -3944,12 +3941,12 @@ msgstr "İndirme Başarılı"
 #: panelplugins/filebrowserpanel/filebrowserpanelplugin.cpp:137
 #, kde-format
 msgid "Cantor files"
-msgstr "Cantor dosyaları"
+msgstr "Cantor Dosyaları"
 
 #: panelplugins/filebrowserpanel/filebrowserpanelplugin.cpp:138
 #, kde-format
 msgid "Jupyter files"
-msgstr "Jupyter dosyaları"
+msgstr "Jupyter Dosyaları"
 
 #: panelplugins/filebrowserpanel/filebrowserpanelplugin.cpp:139
 #, kde-format
