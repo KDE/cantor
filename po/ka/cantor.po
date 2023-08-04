@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: cantor\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-08-02 00:41+0000\n"
-"PO-Revision-Date: 2023-04-09 04:04+0200\n"
+"PO-Revision-Date: 2023-08-03 18:41+0200\n"
 "Last-Translator: Temuri Doghonadze <temuri.doghonadze@gmail.com>\n"
 "Language-Team: Georgian <kde-i18n-doc@kde.org>\n"
 "Language: ka\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 3.2.2\n"
+"X-Generator: Poedit 3.3.2\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -774,14 +774,14 @@ msgstr "ბილიკი Maxima-ის გამშვებ ფაილე�
 #: backends/maxima/maximabackend.kcfg:41 backends/sage/sagebackend.kcfg:29
 #, kde-format
 msgid "Default plot width"
-msgstr ""
+msgstr "ნაგულისხმევი ნახაზის სიგანე"
 
 #. i18n: ectx: label, entry (plotHeight), group (SageBackend)
 #. i18n: ectx: label, entry (plotHeight), group (MaximaBackend)
 #: backends/maxima/maximabackend.kcfg:45 backends/sage/sagebackend.kcfg:33
 #, kde-format
 msgid "Default plot height"
-msgstr ""
+msgstr "ნაგულისხმევი ნახაზის სიმაღლე"
 
 #: backends/maxima/maximaexpression.cpp:113
 #, kde-format
@@ -801,7 +801,7 @@ msgstr "შეცდომა: ;-მდე \"-ს მოველოდი;"
 #: backends/maxima/maximaexpression.cpp:431
 #, kde-format
 msgid "Waiting for the plot result"
-msgstr ""
+msgstr "ნახაზის შედეგის მოლოდინი"
 
 #: backends/maxima/maximaextensions.cpp:31
 #, kde-format
@@ -2701,10 +2701,9 @@ msgid "Save Plain Text"
 msgstr "უბრალო ტექსტად შენახვა"
 
 #: cantor_part.cpp:179 cantor_part.cpp:538
-#, fuzzy, kde-format
-#| msgid "Export to LaTeX"
+#, kde-format
 msgid "Export to PDF"
-msgstr "Latex-ად გატანა"
+msgstr "PDF-ად გატანა"
 
 #: cantor_part.cpp:183 cantor_part.cpp:550
 #, kde-format
@@ -2878,16 +2877,14 @@ msgid "Text Files (*.txt)"
 msgstr "ტექსტური ფაილები (*.txt)"
 
 #: cantor_part.cpp:538
-#, fuzzy, kde-format
-#| msgid "EPS files (*.eps)"
+#, kde-format
 msgid "PDF Files (*.pdf)"
-msgstr "EPS ფაილები (*.eps)"
+msgstr "PDF ფაილები (*.pdf)"
 
 #: cantor_part.cpp:550
-#, fuzzy, kde-format
-#| msgid "Text Files (*.txt)"
+#, kde-format
 msgid "TeX Files (*.tex)"
-msgstr "ტექსტური ფაილები (*.txt)"
+msgstr "TeX ფაილები (*.tex)"
 
 #: cantor_part.cpp:595
 #, kde-format
@@ -4181,7 +4178,7 @@ msgstr ""
 #: worksheet.cpp:1327
 #, kde-format
 msgid "Couldn't open the file %1."
-msgstr "ფაილის გახსნის შეცდომა %1"
+msgstr "ფაილის გახსნის შეცდომა %1."
 
 #: worksheet.cpp:1327 worksheet.cpp:1350 worksheet.cpp:1370 worksheet.cpp:1387
 #: worksheet.cpp:1419 worksheet.cpp:1430 worksheet.cpp:1539 worksheet.cpp:1554

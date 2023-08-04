@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: cantor\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-08-02 00:41+0000\n"
-"PO-Revision-Date: 2023-05-08 19:55+0100\n"
+"PO-Revision-Date: 2023-08-03 06:51+0100\n"
 "Last-Translator: Oliver Kellogg <okellogg@users.sourceforge.net>\n"
 "Language-Team: esperanto <kde-i18n-eo@kde.org>\n"
 "Language: eo\n"
@@ -2878,18 +2878,17 @@ msgstr "Hierarkia tiparo grasa por subalineo"
 #: cantor_part.cpp:138
 #, kde-format
 msgid "Save Plain Text"
-msgstr "Konservu Klaran Tekston"
+msgstr "Konservi Klaran Tekston"
 
 #: cantor_part.cpp:179 cantor_part.cpp:538
-#, fuzzy, kde-format
-#| msgid "Export to LaTeX"
+#, kde-format
 msgid "Export to PDF"
-msgstr "Eksportu al LaTeX"
+msgstr "Eksporti al PDF"
 
 #: cantor_part.cpp:183 cantor_part.cpp:550
 #, kde-format
 msgid "Export to LaTeX"
-msgstr "Eksportu al LaTeX"
+msgstr "Eksporti al LaTeX"
 
 #: cantor_part.cpp:198 cantor_part.cpp:646 worksheet.cpp:1906
 #, kde-format
@@ -2913,7 +2912,7 @@ msgstr "%1%"
 #: cantor_part.cpp:227
 #, kde-format
 msgid "Typeset using LaTeX"
-msgstr "Komparu uzante LaTeX"
+msgstr "Komposti uzante LaTeX"
 
 #: cantor_part.cpp:232
 #, kde-format
@@ -3058,16 +3057,14 @@ msgid "Text Files (*.txt)"
 msgstr "Tekstaj Dosieroj (*.txt)"
 
 #: cantor_part.cpp:538
-#, fuzzy, kde-format
-#| msgid "EPS files (*.eps)"
+#, kde-format
 msgid "PDF Files (*.pdf)"
-msgstr "EPS-dosieroj (*.eps)"
+msgstr "PDF-dosieroj (*.pdf)"
 
 #: cantor_part.cpp:550
-#, fuzzy, kde-format
-#| msgid "Text Files (*.txt)"
+#, kde-format
 msgid "TeX Files (*.tex)"
-msgstr "Tekstaj Dosieroj (*.txt)"
+msgstr "TeX-dosieroj (*.tex)"
 
 #: cantor_part.cpp:595
 #, kde-format
