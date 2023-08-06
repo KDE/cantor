@@ -10,7 +10,15 @@ set (RELEASE_SERVICE_VERSION "${RELEASE_SERVICE_VERSION_MAJOR}.${RELEASE_SERVICE
 
 project(cantor VERSION ${RELEASE_SERVICE_VERSION})
 
-set(KF5_MIN_VERSION "5.91.0")
+if (QT_MAJOR_VERSION STREQUAL "6")
+	set(QT_MIN_VERSION "6.4.0")
+	set(KF_MIN_VERSION "5.240.0")
+	set(KF_MAJOR_VERSION "6")
+else()
+	set(QT_MIN_VERSION "5.8.0")
+	set(KF_MIN_VERSION "5.91.0")
+	set(KF_MAJOR_VERSION "5")
+endif()
 
 find_package(ECM 5.15.0 REQUIRED CONFIG)
 set(CMAKE_MODULE_PATH ${cantor_SOURCE_DIR}/cmake ${CMAKE_MODULE_PATH} ${ECM_MODULE_PATH} )
@@ -29,7 +37,7 @@ include(FeatureSummary)
 set( SharedMimeInfo_MINIMUM_VERSION "1.3" ) #TODO: What is the minimum required version?
 find_package(SharedMimeInfo ${SharedMimeInfo_MINIMUM_VERSION} REQUIRED)
 
-find_package(Qt5 5.8.0 CONFIG REQUIRED
+find_package(Qt${QT_MAJOR_VERSION} ${QT_MIN_VERSION} CONFIG REQUIRED
     Core
     Widgets
     PrintSupport
@@ -41,7 +49,7 @@ find_package(Qt5 5.8.0 CONFIG REQUIRED
     WebEngine
     WebEngineWidgets)
 
-find_package(KF5 ${KF5_MIN_VERSION} REQUIRED
+find_package(KF${KF_MAJOR_VERSION} ${KF_MIN_VERSION} REQUIRED
     Config
     Crash
     Completion
@@ -59,7 +67,7 @@ find_package(KF5 ${KF5_MIN_VERSION} REQUIRED
     I18n
 )
 
-find_package(Poppler "0.62.0" REQUIRED COMPONENTS Qt5)
+find_package(Poppler "0.62.0" REQUIRED COMPONENTS Qt${QT_MAJOR_VERSION})
 
 option(USE_LIBSPECTRE "Use libspectre library" ON)
 
