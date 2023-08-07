@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-08-02 00:41+0000\n"
-"PO-Revision-Date: 2023-07-22 22:55+0200\n"
+"PO-Revision-Date: 2023-08-06 19:37+0200\n"
 "Last-Translator: Shinjo Park <kde@peremen.name>\n"
 "Language-Team: Korean <kde-kr@kde.org>\n"
 "Language: ko\n"
@@ -2795,10 +2795,9 @@ msgid "Save Plain Text"
 msgstr "일반 텍스트로 저장"
 
 #: cantor_part.cpp:179 cantor_part.cpp:538
-#, fuzzy, kde-format
-#| msgid "Export to LaTeX"
+#, kde-format
 msgid "Export to PDF"
-msgstr "LaTeX으로 내보내기"
+msgstr "PDF로 내보내기"
 
 #: cantor_part.cpp:183 cantor_part.cpp:550
 #, kde-format
@@ -2972,16 +2971,14 @@ msgid "Text Files (*.txt)"
 msgstr "텍스트 파일 (*.txt)"
 
 #: cantor_part.cpp:538
-#, fuzzy, kde-format
-#| msgid "EPS files (*.eps)"
+#, kde-format
 msgid "PDF Files (*.pdf)"
-msgstr "EPS 파일 (*.eps)"
+msgstr "PDF 파일 (*.pdf)"
 
 #: cantor_part.cpp:550
-#, fuzzy, kde-format
-#| msgid "Text Files (*.txt)"
+#, kde-format
 msgid "TeX Files (*.tex)"
-msgstr "텍스트 파일 (*.txt)"
+msgstr "TeX 파일 (*.tex)"
 
 #: cantor_part.cpp:595
 #, kde-format
