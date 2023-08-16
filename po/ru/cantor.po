@@ -12,7 +12,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-08-02 00:41+0000\n"
-"PO-Revision-Date: 2023-04-24 15:53+0300\n"
+"PO-Revision-Date: 2023-08-15 14:19+0300\n"
 "Last-Translator: Olesya Gerasimenko <translation-team@basealt.ru>\n"
 "Language-Team: Basealt Translation Team\n"
 "Language: ru\n"
@@ -2936,10 +2936,9 @@ msgstr "Сохранить в виде обычного текста"
 
 # BUGME: add ellipsis ("...") --aspotashev
 #: cantor_part.cpp:179 cantor_part.cpp:538
-#, fuzzy, kde-format
-#| msgid "Export to LaTeX"
+#, kde-format
 msgid "Export to PDF"
-msgstr "Экспорт в LaTeX..."
+msgstr "Экспорт в PDF..."
 
 # BUGME: add ellipsis ("...") --aspotashev
 #: cantor_part.cpp:183 cantor_part.cpp:550
@@ -2958,14 +2957,13 @@ msgid "Zoom"
 msgstr "Масштаб"
 
 #: cantor_part.cpp:212
-#, fuzzy, kde-format
-#| msgid "%1: %2"
+#, kde-format
 msgctxt ""
 "Zoom percentage value %1 will be replaced by the actual zoom factor value, "
 "so make sure you include it in your translation in order to not to break "
 "anything"
 msgid "%1%"
-msgstr "%1: %2"
+msgstr "%1%"
 
 #: cantor_part.cpp:227
 #, kde-format
@@ -3115,16 +3113,14 @@ msgid "Text Files (*.txt)"
 msgstr "Текстовые файлы (*.txt)"
 
 #: cantor_part.cpp:538
-#, fuzzy, kde-format
-#| msgid "EPS files (*.eps)"
+#, kde-format
 msgid "PDF Files (*.pdf)"
-msgstr "Файлы EPS (*.eps)"
+msgstr "Файлы PDF (*.pdf)"
 
 #: cantor_part.cpp:550
-#, fuzzy, kde-format
-#| msgid "Text Files (*.txt)"
+#, kde-format
 msgid "TeX Files (*.tex)"
-msgstr "Текстовые файлы (*.txt)"
+msgstr "Файлы TeX (*.tex)"
 
 #: cantor_part.cpp:595
 #, kde-format
