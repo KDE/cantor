@@ -1,6 +1,7 @@
 /*
     SPDX-FileCopyrightText: 2009 Milian Wolff <mail@milianw.de>
     SPDX-FileCopyrightText: 2011 Matteo Agostinelli <agostinelli@gmail.com>
+    SPDX-FileCopyrightText: 2022 Alexander Semke (alexander.semke@web.de)
 
     SPDX-License-Identifier: GPL-2.0-or-later
 */
@@ -77,11 +78,8 @@ void QalculateSession::login()
     m_process = new QProcess(this);
 
     m_process->setProgram(QStandardPaths::findExecutable(QLatin1String("qalc")));
-#ifdef QALCULATE_NEED_DISABLE_COLOR
-    QStringList args;
-    args << QLatin1String("-s") << QLatin1String("color 0");
+    QStringList args{QLatin1String("-s"), QLatin1String("color 0")}; // switch off the colored output
     m_process->setArguments(args);
-#endif
     m_process->setProcessChannelMode(QProcess::SeparateChannels);
 
     connect(m_process, SIGNAL(readyReadStandardOutput()), this, SLOT(readOutput()));

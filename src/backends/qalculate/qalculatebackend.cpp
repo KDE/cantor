@@ -1,6 +1,7 @@
 /*
     SPDX-FileCopyrightText: 2009 Milian Wolff <mail@milianw.de>
     SPDX-FileCopyrightText: 2011 Matteo Agostinelli <agostinelli@gmail.com>
+    SPDX-FileCopyrightText: 2023 Alexander Semke <alexander.semke@web.de>
 
     SPDX-License-Identifier: GPL-2.0-or-later
 */
@@ -32,7 +33,7 @@ QString QalculateBackend::id() const
 
 QString QalculateBackend::version() const
 {
-    return QLatin1String("0.9");
+    return QLatin1String("4.8");
 }
 
 Cantor::Session* QalculateBackend::createSession()
@@ -43,27 +44,27 @@ Cantor::Session* QalculateBackend::createSession()
 Cantor::Backend::Capabilities QalculateBackend::capabilities() const
 {
     return Cantor::Backend::Completion | Cantor::Backend::SyntaxHighlighting | Cantor::Backend::SyntaxHelp | Cantor::Backend::VariableManagement;
-//     return Cantor::Backend::Completion | Cantor::Backend::SyntaxHelp;
 }
 
 QString QalculateBackend::description() const
 {
-    return i18n("<b>Qalculate!</b> is not your regular software replication of the cheapest available calculator. Qalculate! aims to make full use of the superior interface, power and flexibility of modern computers. "\
-    "The center of attention in Qalculate! is the expression entry. Instead of entering each number in a mathematical expression separately, you can directly write the whole expression and later modify it. "\
-    "The interpretation of expressions is flexible and fault tolerant, and if you nevertheless do something wrong, Qalculate! will tell you so. Not fully solvable expressions are however not errors. Qalculate! will simplify as far as it can and answer with an expression. "\
-    "In addition to numbers and arithmetic operators, an expression may contain any combination of variables, units, and functions.");
+    return i18n("<b>Qalculate!</b> is a multi-purpose cross-platform desktop calculator. "
+    "It is simple to use but provides power and versatility normally reserved for complicated math packages, "
+    "as well as useful tools for everyday needs (such as currency conversion and percent calculation). "
+    "Features include a large library of customizable functions, unit calculations and conversion, "
+    "physical constants, symbolic calculations (including integrals and equations), arbitrary precision, "
+    "uncertainty propagation, interval arithmetic, plotting,");
 }
 
 QUrl QalculateBackend::helpUrl() const
 {
-    // A sub-optimal solution but still this manual is fairly complete
     return QUrl(QString::fromLatin1("https://qalculate.github.io/manual/index.html"));
 }
 
 bool QalculateBackend::requirementsFullfilled(QString* const reason) const
 {
-    Q_UNUSED(reason);
-    return true;
+    const QString& path = QalculateSettings::self()->path().toLocalFile();
+    return Cantor::Backend::checkExecutable(QLatin1String("Qalculate!"), path, reason);
 }
 
 KConfigSkeleton* QalculateBackend::config() const

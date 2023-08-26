@@ -52,8 +52,10 @@ set_package_properties(Qalculate PROPERTIES DESCRIPTION "A multi-purpose desktop
     TYPE OPTIONAL
     PURPOSE "Backend to use Qalculate with Cantor.")
 
-# Due this bug (https://github.com/Qalculate/libqalculate/issues/171)
-set(QALCULATE_MIN_VERSION 3.8.0)
+# set the minimal version to 3.11 (release date 22.06.2020) since this is the version where the colored output
+# was introduced and we don't want to deal with two different formattings and switch off the color completely
+# when starting qcalc
+set(QALCULATE_MIN_VERSION 3.11.0)
 find_package(Qalculate)
 if(QALCULATE_FOUND)
     add_subdirectory(qalculate)

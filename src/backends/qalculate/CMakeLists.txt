@@ -2,9 +2,6 @@ add_subdirectory(plotassistant)
 project(cantor-qalculate-backend)
 
 add_definitions(${QALCULATE_CFLAGS})
-if (QALCULATE_VERSION VERSION_GREATER_EQUAL 3.11.0)
-  add_compile_definitions(QALCULATE_NEED_DISABLE_COLOR)
-endif()
 
 set( QalculateBackend_SRCS
   qalculatesyntaxhelpobject.cpp
@@ -26,10 +23,6 @@ ki18n_wrap_ui(QalculateBackend_SRCS settings.ui)
 
 add_backend(qalculatebackend ${QalculateBackend_SRCS})
 
-if (QALCULATE_VERSION VERSION_LESS 2.0.0)
-  target_link_libraries( cantor_qalculatebackend cantorlibs cantor_help ${QALCULATE_LIBRARIES} ${CLN_LIBRARIES})
-else()
-  target_link_libraries( cantor_qalculatebackend cantorlibs cantor_help ${QALCULATE_LIBRARIES})
-endif()
+target_link_libraries( cantor_qalculatebackend cantorlibs cantor_help ${QALCULATE_LIBRARIES})
 
 install( FILES cantor_qalculate.knsrc  DESTINATION  ${KDE_INSTALL_KNSRCDIR} )

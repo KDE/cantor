@@ -5,6 +5,18 @@
                           https://www.kde.org/standards/kcfg/1.0/kcfg.xsd" >
   <kcfgfile name="cantorrc"/>
   <group name="QalculateBackend">
+    <entry name="Path" type="Url">
+      <label>Path to the Qalculate! executable</label>
+      <default code="true">
+          [this] {
+                #ifdef Q_OS_WIN
+                return QUrl::fromLocalFile(QStandardPaths::findExecutable( QLatin1String("qalc.exe") ));
+                #else
+                return QUrl::fromLocalFile(QStandardPaths::findExecutable( QLatin1String("qalc") ));
+                #endif
+            } ()
+      </default>
+    </entry>
     <entry name="postConversion" type="Bool">
       <label>If and how units will be automatically converted. If true, convert to the best suited SI units (the least amount of units).</label>
       <default>true</default>
