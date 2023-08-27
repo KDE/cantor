@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: cantor\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-08-02 00:41+0000\n"
+"POT-Creation-Date: 2023-08-27 00:41+0000\n"
 "PO-Revision-Date: 2023-05-09 13:13+0200\n"
 "Last-Translator: Xavier BESNARD <xavier.besnard@neuf.fr>\n"
 "Language-Team: fr\n"
@@ -515,9 +515,10 @@ msgid "General"
 msgstr "Général"
 
 #. i18n: ectx: property (text), widget (QLabel, label)
+#. i18n: ectx: property (text), widget (QLabel, label_19)
 #: backends/julia/settings.ui:27 backends/maxima/settings.ui:27
-#: backends/octave/settings.ui:165 backends/sage/settings.ui:27
-#: backends/scilab/settings.ui:27
+#: backends/octave/settings.ui:165 backends/qalculate/settings.ui:151
+#: backends/sage/settings.ui:27 backends/scilab/settings.ui:27
 #, kde-format
 msgid "Executable:"
 msgstr "Exécutable :"
@@ -546,8 +547,8 @@ msgstr ""
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_allowLatex)
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_integratePlots)
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_variableManagement)
-#. i18n: ectx: property (text), widget (QCheckBox, kcfg_indicateInfiniteSeries)
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_useAllPrefixes)
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_indicateInfiniteSeries)
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_negativeExponents)
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_postConversion)
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_inlinePlot)
@@ -558,10 +559,10 @@ msgstr ""
 #: backends/maxima/settings.ui:47 backends/maxima/settings.ui:70
 #: backends/octave/settings.ui:30 backends/octave/settings.ui:128
 #: backends/python/settings.ui:67 backends/python/settings.ui:77
-#: backends/qalculate/settings.ui:125 backends/qalculate/settings.ui:142
-#: backends/qalculate/settings.ui:159 backends/qalculate/settings.ui:202
-#: backends/qalculate/settings.ui:308 backends/qalculate/settings.ui:315
-#: backends/qalculate/settings.ui:322 backends/qalculate/settings.ui:339
+#: backends/qalculate/settings.ui:90 backends/qalculate/settings.ui:131
+#: backends/qalculate/settings.ui:182 backends/qalculate/settings.ui:212
+#: backends/qalculate/settings.ui:318 backends/qalculate/settings.ui:325
+#: backends/qalculate/settings.ui:332 backends/qalculate/settings.ui:349
 #: backends/R/settings.ui:36 backends/R/settings.ui:46
 #: backends/sage/settings.ui:54 backends/sage/settings.ui:100
 #: backends/scilab/settings.ui:47 commandentry.cpp:349
@@ -647,7 +648,7 @@ msgstr "Gadfly"
 #. i18n: ectx: attribute (title), widget (QWidget, tabAutoran)
 #: backends/julia/settings.ui:152 backends/lua/settings.ui:51
 #: backends/maxima/settings.ui:228 backends/octave/settings.ui:231
-#: backends/python/settings.ui:123 backends/qalculate/settings.ui:556
+#: backends/python/settings.ui:123 backends/qalculate/settings.ui:566
 #: backends/R/settings.ui:84 backends/sage/settings.ui:230
 #: backends/scilab/settings.ui:68
 #, kde-format
@@ -660,7 +661,7 @@ msgstr "Exécuter automatiquement"
 #: backends/julia/settings.ui:158 backends/kalgebra/settings.ui:20
 #: backends/lua/settings.ui:57 backends/maxima/settings.ui:234
 #: backends/octave/settings.ui:237 backends/python/settings.ui:129
-#: backends/qalculate/settings.ui:562 backends/R/settings.ui:90
+#: backends/qalculate/settings.ui:572 backends/R/settings.ui:90
 #: backends/sage/settings.ui:236 backends/scilab/settings.ui:74
 #, kde-format
 msgid "Commands to autorun"
@@ -669,7 +670,7 @@ msgstr "Commandes à lancer automatiquement"
 #. i18n: ectx: attribute (title), widget (QWidget, tabDocumentation)
 #: backends/julia/settings.ui:172 backends/lua/settings.ui:71
 #: backends/maxima/settings.ui:248 backends/octave/settings.ui:251
-#: backends/python/settings.ui:143 backends/qalculate/settings.ui:575
+#: backends/python/settings.ui:143 backends/qalculate/settings.ui:585
 #: backends/R/settings.ui:104 backends/sage/settings.ui:250
 #: backends/scilab/settings.ui:88
 #, kde-format
@@ -694,7 +695,7 @@ msgstr "https://docs.kde.org/?application=kalgebra"
 #. i18n: ectx: label, entry (autorunScripts), group (QalculateBackend)
 #: backends/kalgebra/kalgebrabackend.kcfg:9 backends/lua/luabackend.kcfg:14
 #: backends/maxima/maximabackend.kcfg:30 backends/python/pythonbackend.kcfg:18
-#: backends/qalculate/qalculatebackend.kcfg:130
+#: backends/qalculate/qalculatebackend.kcfg:142
 #: backends/R/rserver/rserver.kcfg:20 backends/sage/sagebackend.kcfg:37
 #: backends/scilab/scilabbackend.kcfg:26
 #, kde-format
@@ -1177,7 +1178,7 @@ msgstr "Style"
 #. i18n: ectx: property (text), item, widget (KComboBox, styleBox)
 #. i18n: ectx: property (text), item, widget (KComboBox, kcfg_plotStyle)
 #: backends/qalculate/plotassistant/qalculateplotdialog.ui:145
-#: backends/qalculate/settings.ui:420
+#: backends/qalculate/settings.ui:430
 #, kde-format
 msgid "Lines"
 msgstr "Lignes"
@@ -1185,7 +1186,7 @@ msgstr "Lignes"
 #. i18n: ectx: property (text), item, widget (KComboBox, styleBox)
 #. i18n: ectx: property (text), item, widget (KComboBox, kcfg_plotStyle)
 #: backends/qalculate/plotassistant/qalculateplotdialog.ui:150
-#: backends/qalculate/settings.ui:425
+#: backends/qalculate/settings.ui:435
 #, kde-format
 msgid "Points"
 msgstr "Points"
@@ -1193,7 +1194,7 @@ msgstr "Points"
 #. i18n: ectx: property (text), item, widget (KComboBox, styleBox)
 #. i18n: ectx: property (text), item, widget (KComboBox, kcfg_plotStyle)
 #: backends/qalculate/plotassistant/qalculateplotdialog.ui:155
-#: backends/qalculate/settings.ui:430
+#: backends/qalculate/settings.ui:440
 #, kde-format
 msgid "Points and Lines"
 msgstr "Points et lignes"
@@ -1201,7 +1202,7 @@ msgstr "Points et lignes"
 #. i18n: ectx: property (text), item, widget (KComboBox, styleBox)
 #. i18n: ectx: property (text), item, widget (KComboBox, kcfg_plotStyle)
 #: backends/qalculate/plotassistant/qalculateplotdialog.ui:160
-#: backends/qalculate/settings.ui:435
+#: backends/qalculate/settings.ui:445
 #, kde-format
 msgid "Boxes"
 msgstr "Cases"
@@ -1209,7 +1210,7 @@ msgstr "Cases"
 #. i18n: ectx: property (text), item, widget (KComboBox, styleBox)
 #. i18n: ectx: property (text), item, widget (KComboBox, kcfg_plotStyle)
 #: backends/qalculate/plotassistant/qalculateplotdialog.ui:165
-#: backends/qalculate/settings.ui:440
+#: backends/qalculate/settings.ui:450
 #, kde-format
 msgid "Histogram"
 msgstr "Histogramme"
@@ -1223,7 +1224,7 @@ msgstr "Pas"
 #. i18n: ectx: property (text), item, widget (KComboBox, styleBox)
 #. i18n: ectx: property (text), item, widget (KComboBox, kcfg_plotStyle)
 #: backends/qalculate/plotassistant/qalculateplotdialog.ui:175
-#: backends/qalculate/settings.ui:450
+#: backends/qalculate/settings.ui:460
 #, kde-format
 msgid "Candlesticks"
 msgstr "Chandeliers"
@@ -1231,7 +1232,7 @@ msgstr "Chandeliers"
 #. i18n: ectx: property (text), item, widget (KComboBox, styleBox)
 #. i18n: ectx: property (text), item, widget (KComboBox, kcfg_plotStyle)
 #: backends/qalculate/plotassistant/qalculateplotdialog.ui:180
-#: backends/qalculate/settings.ui:455
+#: backends/qalculate/settings.ui:465
 #, kde-format
 msgid "Dots"
 msgstr "Points"
@@ -1248,8 +1249,8 @@ msgstr "Lissage"
 #. i18n: ectx: property (text), item, widget (KComboBox, kcfg_structuring)
 #. i18n: ectx: property (text), item, widget (KComboBox, kcfg_plotSmoothing)
 #: backends/qalculate/plotassistant/qalculateplotdialog.ui:203
-#: backends/qalculate/settings.ui:92 backends/qalculate/settings.ui:210
-#: backends/qalculate/settings.ui:244 backends/qalculate/settings.ui:391
+#: backends/qalculate/settings.ui:108 backends/qalculate/settings.ui:220
+#: backends/qalculate/settings.ui:254 backends/qalculate/settings.ui:401
 #, kde-format
 msgid "None"
 msgstr "Aucun"
@@ -1257,7 +1258,7 @@ msgstr "Aucun"
 #. i18n: ectx: property (text), item, widget (KComboBox, smoothingBox)
 #. i18n: ectx: property (text), item, widget (KComboBox, kcfg_plotSmoothing)
 #: backends/qalculate/plotassistant/qalculateplotdialog.ui:208
-#: backends/qalculate/settings.ui:396
+#: backends/qalculate/settings.ui:406
 #, kde-format
 msgid "Monotonic"
 msgstr "Monotone"
@@ -1271,7 +1272,7 @@ msgstr "Splines cubiques naturelles"
 #. i18n: ectx: property (text), item, widget (KComboBox, smoothingBox)
 #. i18n: ectx: property (text), item, widget (KComboBox, kcfg_plotSmoothing)
 #: backends/qalculate/plotassistant/qalculateplotdialog.ui:218
-#: backends/qalculate/settings.ui:406
+#: backends/qalculate/settings.ui:416
 #, kde-format
 msgid "Bezier"
 msgstr "Bézier"
@@ -1279,7 +1280,7 @@ msgstr "Bézier"
 #. i18n: ectx: property (text), item, widget (KComboBox, smoothingBox)
 #. i18n: ectx: property (text), item, widget (KComboBox, kcfg_plotSmoothing)
 #: backends/qalculate/plotassistant/qalculateplotdialog.ui:223
-#: backends/qalculate/settings.ui:411
+#: backends/qalculate/settings.ui:421
 #, kde-format
 msgid "Bezier (monotonic)"
 msgstr "Bézier (monotone)"
@@ -1359,7 +1360,7 @@ msgstr "Position de la légende"
 #. i18n: ectx: property (text), item, widget (KComboBox, legendBox)
 #. i18n: ectx: property (text), item, widget (KComboBox, kcfg_plotLegend)
 #: backends/qalculate/plotassistant/qalculateplotdialog.ui:403
-#: backends/qalculate/settings.ui:474
+#: backends/qalculate/settings.ui:484
 #, kde-format
 msgid "Hide legend"
 msgstr "Cacher la légende"
@@ -1367,7 +1368,7 @@ msgstr "Cacher la légende"
 #. i18n: ectx: property (text), item, widget (KComboBox, legendBox)
 #. i18n: ectx: property (text), item, widget (KComboBox, kcfg_plotLegend)
 #: backends/qalculate/plotassistant/qalculateplotdialog.ui:408
-#: backends/qalculate/settings.ui:479
+#: backends/qalculate/settings.ui:489
 #, kde-format
 msgid "Top-left"
 msgstr "En haut à gauche"
@@ -1375,7 +1376,7 @@ msgstr "En haut à gauche"
 #. i18n: ectx: property (text), item, widget (KComboBox, legendBox)
 #. i18n: ectx: property (text), item, widget (KComboBox, kcfg_plotLegend)
 #: backends/qalculate/plotassistant/qalculateplotdialog.ui:413
-#: backends/qalculate/settings.ui:484
+#: backends/qalculate/settings.ui:494
 #, kde-format
 msgid "Top-right"
 msgstr "En haut à droite"
@@ -1383,7 +1384,7 @@ msgstr "En haut à droite"
 #. i18n: ectx: property (text), item, widget (KComboBox, legendBox)
 #. i18n: ectx: property (text), item, widget (KComboBox, kcfg_plotLegend)
 #: backends/qalculate/plotassistant/qalculateplotdialog.ui:418
-#: backends/qalculate/settings.ui:489
+#: backends/qalculate/settings.ui:499
 #, kde-format
 msgid "Bottom-left"
 msgstr "En bas à gauche"
@@ -1391,7 +1392,7 @@ msgstr "En bas à gauche"
 #. i18n: ectx: property (text), item, widget (KComboBox, legendBox)
 #. i18n: ectx: property (text), item, widget (KComboBox, kcfg_plotLegend)
 #: backends/qalculate/plotassistant/qalculateplotdialog.ui:423
-#: backends/qalculate/settings.ui:494
+#: backends/qalculate/settings.ui:504
 #, kde-format
 msgid "Bottom-right"
 msgstr "En bas à droite"
@@ -1399,7 +1400,7 @@ msgstr "En bas à droite"
 #. i18n: ectx: property (text), item, widget (KComboBox, legendBox)
 #. i18n: ectx: property (text), item, widget (KComboBox, kcfg_plotLegend)
 #: backends/qalculate/plotassistant/qalculateplotdialog.ui:428
-#: backends/qalculate/settings.ui:499
+#: backends/qalculate/settings.ui:509
 #, kde-format
 msgid "Below"
 msgstr "En dessous"
@@ -1407,7 +1408,7 @@ msgstr "En dessous"
 #. i18n: ectx: property (text), item, widget (KComboBox, legendBox)
 #. i18n: ectx: property (text), item, widget (KComboBox, kcfg_plotLegend)
 #: backends/qalculate/plotassistant/qalculateplotdialog.ui:433
-#: backends/qalculate/settings.ui:504
+#: backends/qalculate/settings.ui:514
 #, kde-format
 msgid "Outside"
 msgstr "En dehors"
@@ -1512,34 +1513,25 @@ msgstr "FIG"
 #: backends/qalculate/qalculatebackend.cpp:51
 #, kde-format
 msgid ""
-"<b>Qalculate!</b> is not your regular software replication of the cheapest "
-"available calculator. Qalculate! aims to make full use of the superior "
-"interface, power and flexibility of modern computers. The center of "
-"attention in Qalculate! is the expression entry. Instead of entering each "
-"number in a mathematical expression separately, you can directly write the "
-"whole expression and later modify it. The interpretation of expressions is "
-"flexible and fault tolerant, and if you nevertheless do something wrong, "
-"Qalculate! will tell you so. Not fully solvable expressions are however not "
-"errors. Qalculate! will simplify as far as it can and answer with an "
-"expression. In addition to numbers and arithmetic operators, an expression "
-"may contain any combination of variables, units, and functions."
+"<b>Qalculate!</b> is a multi-purpose cross-platform desktop calculator. It "
+"is simple to use but provides power and versatility normally reserved for "
+"complicated math packages, as well as useful tools for everyday needs (such "
+"as currency conversion and percent calculation). Features include a large "
+"library of customizable functions, unit calculations and conversion, "
+"physical constants, symbolic calculations (including integrals and "
+"equations), arbitrary precision, uncertainty propagation, interval "
+"arithmetic, plotting,"
 msgstr ""
-"<b>Qalculate!</b> n'est pas votre copie logicielle habituelle de la "
-"calculatrice la moins chère disponible. Qalculate! a pour objectif "
-"d'utiliser pleinement l'interface, la puissance et la flexibilité "
-"supérieures des ordinateurs modernes. Le point fort de Qalculate! est la "
-"saisie d'expressions. Au lieu de saisir chaque nombre dans une expression "
-"mathématique séparément, vous pouvez directement écrire l'expression "
-"complète et la modifier ultérieurement. L'interprétation d'expressions est "
-"flexible, tolérante aux erreurs et, néanmoins, en cas d'incorrection, "
-"Qalculate! vous le signalera. Les expressions non entièrement solubles ne "
-"sont cependant pas toujours des erreurs. Qalculate! simplifiera autant que "
-"possible et proposera une expression. En plus des nombres et des opérateurs "
-"arithmétiques, une expression peut contenir n'importe quelle combinaison de "
-"variables, d'unités et de fonctions."
+
+#. i18n: ectx: label, entry (Path), group (QalculateBackend)
+#: backends/qalculate/qalculatebackend.kcfg:9
+#, fuzzy, kde-format
+#| msgid "Path to the latex executable"
+msgid "Path to the Qalculate! executable"
+msgstr "Emplacement de l'exécutable LaTeX"
 
 #. i18n: ectx: label, entry (postConversion), group (QalculateBackend)
-#: backends/qalculate/qalculatebackend.kcfg:9
+#: backends/qalculate/qalculatebackend.kcfg:21
 #, kde-format
 msgid ""
 "If and how units will be automatically converted. If true, convert to the "
@@ -1550,25 +1542,25 @@ msgstr ""
 "plus petite quantité d'unités)."
 
 #. i18n: ectx: label, entry (angleUnit), group (QalculateBackend)
-#: backends/qalculate/qalculatebackend.kcfg:13
+#: backends/qalculate/qalculatebackend.kcfg:25
 #, kde-format
 msgid "Default angle unit for trigonometric functions."
 msgstr "Unité d'angle par défaut pour les fonctions trigonométriques."
 
 #. i18n: ectx: label, entry (base), group (QalculateBackend)
-#: backends/qalculate/qalculatebackend.kcfg:23
+#: backends/qalculate/qalculatebackend.kcfg:35
 #, kde-format
 msgid "Base of parsed and evaluated numbers."
 msgstr "Base des nombres analysés et évalués."
 
 #. i18n: ectx: label, entry (structuring), group (QalculateBackend)
-#: backends/qalculate/qalculatebackend.kcfg:32
+#: backends/qalculate/qalculatebackend.kcfg:44
 #, kde-format
 msgid "If the evaluation result will be simplified or factorized."
 msgstr "Indiquez si le résultat de l'évaluation sera simplifié ou factorisé."
 
 #. i18n: ectx: label, entry (fractionFormat), group (QalculateBackend)
-#: backends/qalculate/qalculatebackend.kcfg:42
+#: backends/qalculate/qalculatebackend.kcfg:54
 #, kde-format
 msgid ""
 "If rational numbers will be displayed with decimals, as a fraction, or "
@@ -1578,7 +1570,7 @@ msgstr ""
 "une fraction, ou une sorte de compromis entre les deux."
 
 #. i18n: ectx: label, entry (indicateInfiniteSeries), group (QalculateBackend)
-#: backends/qalculate/qalculatebackend.kcfg:46
+#: backends/qalculate/qalculatebackend.kcfg:58
 #, kde-format
 msgid ""
 "Show that the digit series of a number continues forever with three dots, "
@@ -1589,7 +1581,7 @@ msgstr ""
 "0,666666... au lieu de 0,666667)."
 
 #. i18n: ectx: label, entry (useAllPrefixes), group (QalculateBackend)
-#: backends/qalculate/qalculatebackend.kcfg:50
+#: backends/qalculate/qalculatebackend.kcfg:62
 #, kde-format
 msgid ""
 "Use all decimal SI prefixes. If false, prefixes which is not a multiple of "
@@ -1600,7 +1592,7 @@ msgstr ""
 "seront employés automatiquement."
 
 #. i18n: ectx: label, entry (negativeExponents), group (QalculateBackend)
-#: backends/qalculate/qalculatebackend.kcfg:54
+#: backends/qalculate/qalculatebackend.kcfg:66
 #, kde-format
 msgid ""
 "If true, negative exponents will be used instead of division (ex. 5/x^2 "
@@ -1610,13 +1602,13 @@ msgstr ""
 "division (ex. 5/x^2 devient 5*x^-2)."
 
 #. i18n: ectx: label, entry (minExp), group (QalculateBackend)
-#: backends/qalculate/qalculatebackend.kcfg:64
+#: backends/qalculate/qalculatebackend.kcfg:76
 #, kde-format
 msgid "Numerical display."
 msgstr "Affichage numérique."
 
 #. i18n: ectx: label, entry (inlinePlot), group (QalculateBackend)
-#: backends/qalculate/qalculatebackend.kcfg:68
+#: backends/qalculate/qalculatebackend.kcfg:80
 #, kde-format
 msgid ""
 "If true, plots will be displayed inside the worksheet. If not they appear in "
@@ -1626,19 +1618,19 @@ msgstr ""
 "calcul. Dans le cas contraire, ils apparaîtront dans une fenêtre séparée."
 
 #. i18n: ectx: label, entry (coloredPlot), group (QalculateBackend)
-#: backends/qalculate/qalculatebackend.kcfg:72
+#: backends/qalculate/qalculatebackend.kcfg:84
 #, kde-format
 msgid "Whether colors should be used in plots."
 msgstr "Décidez s'il faut ou non utiliser des couleurs dans les tracés."
 
 #. i18n: ectx: label, entry (plotGrid), group (QalculateBackend)
-#: backends/qalculate/qalculatebackend.kcfg:76
+#: backends/qalculate/qalculatebackend.kcfg:88
 #, kde-format
 msgid "Whether a grid should be plotted."
 msgstr "Décidez s'il faut ou non tracer une grille."
 
 #. i18n: ectx: label, entry (plotBorder), group (QalculateBackend)
-#: backends/qalculate/qalculatebackend.kcfg:80
+#: backends/qalculate/qalculatebackend.kcfg:92
 #, kde-format
 msgid "Whether full borders should be drawn around the plot."
 msgstr ""
@@ -1646,31 +1638,31 @@ msgstr ""
 "du tracé."
 
 #. i18n: ectx: label, entry (plotLineWidth), group (QalculateBackend)
-#: backends/qalculate/qalculatebackend.kcfg:84
+#: backends/qalculate/qalculatebackend.kcfg:96
 #, kde-format
 msgid "Width of lines, in pixels."
 msgstr "Largeur des lignes, en pixels."
 
 #. i18n: ectx: label, entry (plotSteps), group (QalculateBackend)
-#: backends/qalculate/qalculatebackend.kcfg:88
+#: backends/qalculate/qalculatebackend.kcfg:100
 #, kde-format
 msgid "Number of interpolation steps to be used in plotting."
 msgstr "Nombre de pas d'interpolation à utiliser dans le traçage."
 
 #. i18n: ectx: label, entry (plotSmoothing), group (QalculateBackend)
-#: backends/qalculate/qalculatebackend.kcfg:99
+#: backends/qalculate/qalculatebackend.kcfg:111
 #, kde-format
 msgid "Smoothing mode in plots."
 msgstr "Mode de lissage dans les tracés."
 
 #. i18n: ectx: label, entry (plotStyle), group (QalculateBackend)
-#: backends/qalculate/qalculatebackend.kcfg:113
+#: backends/qalculate/qalculatebackend.kcfg:125
 #, kde-format
 msgid "Style of plots."
 msgstr "Style des tracés."
 
 #. i18n: ectx: label, entry (plotLegend), group (QalculateBackend)
-#: backends/qalculate/qalculatebackend.kcfg:126
+#: backends/qalculate/qalculatebackend.kcfg:138
 #, kde-format
 msgid "Legend position in plots."
 msgstr "Position de la légende dans les tracés."
@@ -1973,207 +1965,207 @@ msgstr "Charge des variables depuis un fichier précédemment créé par %1."
 msgid "file: the file to load"
 msgstr "fichier : le fichier à charger"
 
+#. i18n: ectx: property (text), widget (QLabel, label_6)
+#: backends/qalculate/settings.ui:37
+#, kde-format
+msgid "Indicate infinite series:"
+msgstr "Indiquer une série infinie :"
+
+#. i18n: ectx: property (text), widget (QLabel, label_8)
+#: backends/qalculate/settings.ui:47
+#, kde-format
+msgid "Use negative exponents:"
+msgstr "Utiliser des exposants négatifs :"
+
+#. i18n: ectx: property (text), widget (QLabel, label_9)
+#: backends/qalculate/settings.ui:60
+#, kde-format
+msgid "Numerical display:"
+msgstr "Affichage numérique :"
+
+#. i18n: ectx: property (text), widget (QLabel, label_7)
+#: backends/qalculate/settings.ui:70
+#, kde-format
+msgid "Use all SI prefixes:"
+msgstr "Utiliser tous les préfixes du SI :"
+
 #. i18n: ectx: property (text), widget (QLabel, label)
-#: backends/qalculate/settings.ui:27
+#: backends/qalculate/settings.ui:80
 #, kde-format
 msgid "Number base:"
 msgstr "Base numérique :"
 
 #. i18n: ectx: property (text), widget (QLabel, label_5)
-#: backends/qalculate/settings.ui:47
+#: backends/qalculate/settings.ui:97
 #, kde-format
 msgid "Fraction format:"
 msgstr "Format des fractions :"
 
-#. i18n: ectx: property (text), item, widget (KComboBox, kcfg_fractionFormat)
-#: backends/qalculate/settings.ui:58
-#, kde-format
-msgid "Decimal"
-msgstr "Décimal"
-
-#. i18n: ectx: property (text), item, widget (KComboBox, kcfg_fractionFormat)
-#: backends/qalculate/settings.ui:63
-#, kde-format
-msgid "Exact"
-msgstr "Exact"
-
-#. i18n: ectx: property (text), item, widget (KComboBox, kcfg_fractionFormat)
-#: backends/qalculate/settings.ui:68
-#, kde-format
-msgid "Fractional"
-msgstr "Fractionnaire"
-
-#. i18n: ectx: property (text), item, widget (KComboBox, kcfg_fractionFormat)
-#: backends/qalculate/settings.ui:73
-#, kde-format
-msgid "Combined"
-msgstr "Combiné"
-
-#. i18n: ectx: property (text), widget (QLabel, label_9)
-#: backends/qalculate/settings.ui:81
-#, kde-format
-msgid "Numerical display:"
-msgstr "Affichage numérique :"
-
 #. i18n: ectx: property (text), item, widget (KComboBox, kcfg_minExp)
-#: backends/qalculate/settings.ui:97
+#: backends/qalculate/settings.ui:113
 #, kde-format
 msgid "Pure"
 msgstr "Pur"
 
 #. i18n: ectx: property (text), item, widget (KComboBox, kcfg_minExp)
-#: backends/qalculate/settings.ui:102
+#: backends/qalculate/settings.ui:118
 #, kde-format
 msgid "Scientific"
 msgstr "Scientifique"
 
 #. i18n: ectx: property (text), item, widget (KComboBox, kcfg_minExp)
-#: backends/qalculate/settings.ui:107
+#: backends/qalculate/settings.ui:123
 #, kde-format
 msgid "Precision"
 msgstr "Précision"
 
-#. i18n: ectx: property (text), widget (QLabel, label_6)
-#: backends/qalculate/settings.ui:115
+#. i18n: ectx: property (text), item, widget (KComboBox, kcfg_fractionFormat)
+#: backends/qalculate/settings.ui:159
 #, kde-format
-msgid "Indicate infinite series:"
-msgstr "Indiquer une série infinie :"
+msgid "Decimal"
+msgstr "Décimal"
 
-#. i18n: ectx: property (text), widget (QLabel, label_7)
-#: backends/qalculate/settings.ui:132
+#. i18n: ectx: property (text), item, widget (KComboBox, kcfg_fractionFormat)
+#: backends/qalculate/settings.ui:164
 #, kde-format
-msgid "Use all SI prefixes:"
-msgstr "Utiliser tous les préfixes du SI :"
+msgid "Exact"
+msgstr "Exact"
 
-#. i18n: ectx: property (text), widget (QLabel, label_8)
-#: backends/qalculate/settings.ui:149
+#. i18n: ectx: property (text), item, widget (KComboBox, kcfg_fractionFormat)
+#: backends/qalculate/settings.ui:169
 #, kde-format
-msgid "Use negative exponents:"
-msgstr "Utiliser des exposants négatifs :"
+msgid "Fractional"
+msgstr "Fractionnaire"
+
+#. i18n: ectx: property (text), item, widget (KComboBox, kcfg_fractionFormat)
+#: backends/qalculate/settings.ui:174
+#, kde-format
+msgid "Combined"
+msgstr "Combiné"
 
 #. i18n: ectx: attribute (title), widget (QWidget, tab_2)
-#: backends/qalculate/settings.ui:180 worksheetentry.cpp:414
+#: backends/qalculate/settings.ui:190 worksheetentry.cpp:414
 #, kde-format
 msgid "Evaluate"
 msgstr "Évaluer"
 
 #. i18n: ectx: property (text), widget (QLabel, label_2)
-#: backends/qalculate/settings.ui:186
+#: backends/qalculate/settings.ui:196
 #, kde-format
 msgid "Convert to best SI units:"
 msgstr "Convertir en unités les mieux appropriées du SI :"
 
 #. i18n: ectx: property (text), item, widget (KComboBox, kcfg_angleUnit)
-#: backends/qalculate/settings.ui:215
+#: backends/qalculate/settings.ui:225
 #, kde-format
 msgid "Radians"
 msgstr "Radians"
 
 #. i18n: ectx: property (text), item, widget (KComboBox, kcfg_angleUnit)
-#: backends/qalculate/settings.ui:220
+#: backends/qalculate/settings.ui:230
 #, kde-format
 msgid "Degrees"
 msgstr "Degrés"
 
 #. i18n: ectx: property (text), item, widget (KComboBox, kcfg_angleUnit)
-#: backends/qalculate/settings.ui:225
+#: backends/qalculate/settings.ui:235
 #, kde-format
 msgid "Gradians"
 msgstr "Gradients"
 
 #. i18n: ectx: property (text), widget (QLabel, label_4)
-#: backends/qalculate/settings.ui:233
+#: backends/qalculate/settings.ui:243
 #, kde-format
 msgid "Structuring Mode:"
 msgstr "Mode de structuration :"
 
 #. i18n: ectx: property (text), item, widget (KComboBox, kcfg_structuring)
-#: backends/qalculate/settings.ui:249
+#: backends/qalculate/settings.ui:259
 #, kde-format
 msgid "Simplify"
 msgstr "Simplifier"
 
 #. i18n: ectx: property (text), item, widget (KComboBox, kcfg_structuring)
-#: backends/qalculate/settings.ui:254
+#: backends/qalculate/settings.ui:264
 #, kde-format
 msgid "Factorize"
 msgstr "Factoriser"
 
 #. i18n: ectx: property (text), widget (QLabel, label_3)
-#: backends/qalculate/settings.ui:275
+#: backends/qalculate/settings.ui:285
 #, kde-format
 msgid "Angle unit:"
 msgstr "Unité d'angle :"
 
 #. i18n: ectx: attribute (title), widget (QWidget, tab)
-#: backends/qalculate/settings.ui:286
+#: backends/qalculate/settings.ui:296
 #, kde-format
 msgid "Plotting"
 msgstr "Traçage"
 
 #. i18n: ectx: property (text), widget (QLabel, label_10)
-#: backends/qalculate/settings.ui:292
+#: backends/qalculate/settings.ui:302
 #, kde-format
 msgid "Display plots inline:"
 msgstr "Afficher les tracés dans la feuille de calcul :"
 
 #. i18n: ectx: property (text), widget (QLabel, label_12)
-#: backends/qalculate/settings.ui:329
+#: backends/qalculate/settings.ui:339
 #, kde-format
 msgid "Show full borders:"
 msgstr "Afficher des bordures continues :"
 
 #. i18n: ectx: property (text), widget (QLabel, label_17)
-#: backends/qalculate/settings.ui:346
+#: backends/qalculate/settings.ui:356
 #, kde-format
 msgid "Width of lines:"
 msgstr "Largeur des lignes :"
 
 #. i18n: ectx: property (text), widget (QLabel, label_18)
-#: backends/qalculate/settings.ui:363
+#: backends/qalculate/settings.ui:373
 #, kde-format
 msgid "Sampling rate:"
 msgstr "Taux d'échantillonnage :"
 
 #. i18n: ectx: property (text), widget (QLabel, label_13)
-#: backends/qalculate/settings.ui:380
+#: backends/qalculate/settings.ui:390
 #, kde-format
 msgid "Smoothing Mode:"
 msgstr "Mode de lissage :"
 
 #. i18n: ectx: property (text), item, widget (KComboBox, kcfg_plotSmoothing)
-#: backends/qalculate/settings.ui:401
+#: backends/qalculate/settings.ui:411
 #, kde-format
 msgid "Natural cubic Splines"
 msgstr "Splines cubiques naturelles"
 
 #. i18n: ectx: property (text), item, widget (KComboBox, kcfg_plotStyle)
-#: backends/qalculate/settings.ui:445
+#: backends/qalculate/settings.ui:455
 #, kde-format
 msgctxt "Plot Style"
 msgid "Steps"
 msgstr "Pas"
 
 #. i18n: ectx: property (text), widget (QLabel, label_16)
-#: backends/qalculate/settings.ui:463
+#: backends/qalculate/settings.ui:473
 #, kde-format
 msgid "Legend Position:"
 msgstr "Position de la légende :"
 
 #. i18n: ectx: property (text), widget (QLabel, label_15)
-#: backends/qalculate/settings.ui:525
+#: backends/qalculate/settings.ui:535
 #, kde-format
 msgid "Colored Plots:"
 msgstr "Tracés en couleurs :"
 
 #. i18n: ectx: property (text), widget (QLabel, label_11)
-#: backends/qalculate/settings.ui:535
+#: backends/qalculate/settings.ui:545
 #, kde-format
 msgid "Show grid:"
 msgstr "Afficher la grille :"
 
 #. i18n: ectx: property (text), widget (QLabel, label_14)
-#: backends/qalculate/settings.ui:545
+#: backends/qalculate/settings.ui:555
 #, kde-format
 msgid "Plot Style:"
 msgstr "Style de tracé :"
@@ -4963,6 +4955,34 @@ msgstr "Supprimer une entrée"
 #, kde-format
 msgid "Drag Entry"
 msgstr "Faire glisser une entrée"
+
+#~ msgid ""
+#~ "<b>Qalculate!</b> is not your regular software replication of the "
+#~ "cheapest available calculator. Qalculate! aims to make full use of the "
+#~ "superior interface, power and flexibility of modern computers. The center "
+#~ "of attention in Qalculate! is the expression entry. Instead of entering "
+#~ "each number in a mathematical expression separately, you can directly "
+#~ "write the whole expression and later modify it. The interpretation of "
+#~ "expressions is flexible and fault tolerant, and if you nevertheless do "
+#~ "something wrong, Qalculate! will tell you so. Not fully solvable "
+#~ "expressions are however not errors. Qalculate! will simplify as far as it "
+#~ "can and answer with an expression. In addition to numbers and arithmetic "
+#~ "operators, an expression may contain any combination of variables, units, "
+#~ "and functions."
+#~ msgstr ""
+#~ "<b>Qalculate!</b> n'est pas votre copie logicielle habituelle de la "
+#~ "calculatrice la moins chère disponible. Qalculate! a pour objectif "
+#~ "d'utiliser pleinement l'interface, la puissance et la flexibilité "
+#~ "supérieures des ordinateurs modernes. Le point fort de Qalculate! est la "
+#~ "saisie d'expressions. Au lieu de saisir chaque nombre dans une expression "
+#~ "mathématique séparément, vous pouvez directement écrire l'expression "
+#~ "complète et la modifier ultérieurement. L'interprétation d'expressions "
+#~ "est flexible, tolérante aux erreurs et, néanmoins, en cas d'incorrection, "
+#~ "Qalculate! vous le signalera. Les expressions non entièrement solubles ne "
+#~ "sont cependant pas toujours des erreurs. Qalculate! simplifiera autant "
+#~ "que possible et proposera une expression. En plus des nombres et des "
+#~ "opérateurs arithmétiques, une expression peut contenir n'importe quelle "
+#~ "combinaison de variables, d'unités et de fonctions."
 
 #~ msgid ""
 #~ "The plot integration doesn't work because Cantor found, that Octave can't "
