@@ -13,7 +13,7 @@ msgstr ""
 "Project-Id-Version: kdeedu-kde4\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-05-22 00:42+0000\n"
-"PO-Revision-Date: 2023-08-02 13:12+0300\n"
+"PO-Revision-Date: 2023-08-27 21:53+0300\n"
 "Last-Translator: Emir SARI <emir_sari@icloud.com>\n"
 "Language-Team: Turkish <kde-l10n-tr@kde.org>\n"
 "Language: tr\n"
@@ -363,7 +363,7 @@ msgid ""
 "to the executable. Symlinks are not allowed. Please provide the correct path "
 "in the application settings and try again."
 msgstr ""
-"Uygulama ayarlarında belirtilen Julia yolu, doğrudan çalıştırılabiliri "
+"Uygulama ayarlarında belirtilen Julia yolu, doğrudan yürütülebiliri "
 "gösteriyor olmalıdır. Sembolik bağlantılara izin verilmez. Uygulama "
 "ayarlarında doğru yolu sağlayın ve yeniden deneyin."
 
@@ -373,9 +373,9 @@ msgid ""
 "Сantor couldn’t determine the version of Julia for %1. Please specify the "
 "correct path to Julia executable (no symlinks allowed) and try again."
 msgstr ""
-"Cantor, %1 için Julia sürümünü algılayamıyor. Lütfen, Julia "
-"çalıştırılabilirine olan doğru yolu sağlayın (sembolik bağlantılara izin "
-"verilmez) ve yeniden deneyin."
+"Cantor, %1 için Julia sürümünü algılayamıyor. Lütfen, Julia yürütülebilirine "
+"olan doğru yolu sağlayın (sembolik bağlantılara izin verilmez) ve yeniden "
+"deneyin."
 
 #: backends/julia/juliabackend.cpp:127
 #, kde-format
@@ -505,7 +505,7 @@ msgstr "Genel"
 #: backends/scilab/settings.ui:27
 #, kde-format
 msgid "Executable:"
-msgstr "Çalıştırılabilir:"
+msgstr "Yürütülebilir:"
 
 #. i18n: ectx: property (text), widget (QLabel, lPlotIntegration)
 #: backends/julia/settings.ui:37 backends/python/settings.ui:47
@@ -841,7 +841,7 @@ msgstr ""
 #: backends/maxima/maximabackend.kcfg:10
 #, kde-format
 msgid "Path to the Maxima executable"
-msgstr "Maxima çalıştırılabilir dosyası yolu"
+msgstr "Maxima yürütülebilirinin yolu"
 
 #. i18n: ectx: label, entry (plotWidth), group (SageBackend)
 #. i18n: ectx: label, entry (plotWidth), group (MaximaBackend)
@@ -1066,8 +1066,8 @@ msgid ""
 "\"Static Image Export\" article in Plot.ly documentation for details."
 msgstr ""
 "Plot.ly ile tümleşik grafikleri kullanmak için \"plotly\" python paketini ve "
-"özel Plot.ly uyumlu \"orca\" çalıştırılabilirini kurmalısınız. Ayrıntılar "
-"için Plot.ly belgelendirmesinde \"Static Image Export\" bölümüne bakın."
+"özel Plot.ly uyumlu \"orca\" yürütülebilirini kurmalısınız. Ayrıntılar için "
+"Plot.ly belgelendirmesinde \"Static Image Export\" bölümüne bakın."
 
 #. i18n: ectx: property (text), item, widget (KComboBox, kcfg_plotExtenstionGraphicPackage)
 #: backends/python/settings.ui:94
@@ -2331,7 +2331,7 @@ msgstr ""
 "<i>help(package=\"MASS\")</i> — kullanılabilir yardım sayfalarını ve ek "
 "diğer bilgileri görüntüler.<br><br>İşlev yardım sayfaları, genelde onların "
 "nice çalıştığını gösteren bir bölüm de içerir. Bu örnekleri geçerli R "
-"oturumunda <i>example()</i> komutu ile çalıştırabilirsiniz: Örneğin, "
+"oturumunda <i>example()</i> komutu ile yürütebilirsiniz: Örneğin, "
 "<i>example(lm)</i>."
 
 #: backends/R/rbackend.cpp:99
@@ -2408,7 +2408,7 @@ msgstr ""
 #: backends/sage/sagebackend.kcfg:10
 #, kde-format
 msgid "Path to the Sage executable"
-msgstr "Sage çalıştırılabilirinin yolu"
+msgstr "Sage yürütülebilirinin yolu"
 
 #. i18n: ectx: label, entry (allowLatex), group (SageBackend)
 #: backends/sage/sagebackend.kcfg:14
@@ -2524,7 +2524,7 @@ msgstr ""
 #: backends/scilab/scilabbackend.kcfg:10
 #, kde-format
 msgid "Path to the Scilab executable"
-msgstr "Sage çalıştırılabilirinin yolu"
+msgstr "Scilab yürütülebilirinin yolu"
 
 #: backends/scilab/scilabextensions.cpp:23
 #, kde-format
@@ -3604,8 +3604,8 @@ msgid ""
 "No path for the %1 executable specified. Please provide the correct path in "
 "the application settings and try again."
 msgstr ""
-"%1 çalıştırılabiliri için bir yol belirtilmedi. Uygulama ayarlarında doğru "
-"yolu sağlayın ve yeniden deneyin."
+"%1 yürütülebiliri için bir yol belirtilmedi. Uygulama ayarlarında doğru yolu "
+"sağlayın ve yeniden deneyin."
 
 #: lib/backend.cpp:173
 #, kde-format
@@ -3613,7 +3613,7 @@ msgid ""
 "The specified file '%1' for the %2 executable doesn't exist. Please provide "
 "the correct path in the application settings and try again."
 msgstr ""
-"%2 çalıştırılabiliri için '%1' yolu yok. Uygulama ayarlarında doğru yolu "
+"%2 yürütülebiliri için '%1' yolu yok. Uygulama ayarlarında doğru yolu "
 "sağlayın ve yeniden deneyin."
 
 #: lib/backend.cpp:182
@@ -3622,7 +3622,7 @@ msgid ""
 "The specified file '%1' doesn't point to an executable. Please provide the "
 "correct path in the application settings and try again."
 msgstr ""
-"Belirtilen '%1' dosyası, bir çalıştırılabilire işaret etmiyor. Uygulama "
+"Belirtilen '%1' dosyası, bir yürütülebilire işaret etmiyor. Uygulama "
 "ayarlarında doğru yolu sağlayın ve yeniden deneyin."
 
 #: lib/backend.cpp:201
@@ -3648,13 +3648,13 @@ msgstr "Çizim tümleştirme sınaması sırasında sonuç ayrıştırılamadı.
 #: lib/cantor_libs.kcfg:10
 #, kde-format
 msgid "Path to the latex executable"
-msgstr "latex çalıştırılabilirinin yolu"
+msgstr "LaTeX yürütülebilirinin yolu"
 
 #. i18n: ectx: label, entry (dvipsCommand), group (Cantor)
 #: lib/cantor_libs.kcfg:14
 #, kde-format
 msgid "Path to the dvips executable"
-msgstr "dvips çalıştırılabilirinin yolu"
+msgstr "dvips yürütülebilirinin yolu"
 
 #: lib/defaultvariablemodel.cpp:71
 #, kde-format
