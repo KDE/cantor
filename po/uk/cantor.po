@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: cantor\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-08-27 00:41+0000\n"
-"PO-Revision-Date: 2023-08-02 17:09+0300\n"
+"PO-Revision-Date: 2023-08-27 08:56+0300\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian <kde-i18n-uk@kde.org>\n"
 "Language: uk\n"
@@ -1507,13 +1507,21 @@ msgid ""
 "equations), arbitrary precision, uncertainty propagation, interval "
 "arithmetic, plotting,"
 msgstr ""
+"<b>Qalculate!</b> є стільничним калькулятором широкого призначення, який "
+"працює на багатьох платформах. Він є простим у користуванні, але потужним і "
+"багатобічним, зазвичай призначеним для складних математичних пакунків, а "
+"також має корисні інструменти для щоденних потреб (зокрема перетворення сум "
+"у валютах та обчислення відсотків за вкладами). Серед можливостей бібліотека "
+"налаштовуваних функцій, обчислення і перетворення значень у різних одиницях "
+"виміру, робота з фізичними сталими, символічні обчислення (включно з "
+"інтегралами та розв'язанням рівнянь), довільна точність обчислень, поширення "
+"невизначеності, інтервальна арифметика, побудова графіків."
 
 #. i18n: ectx: label, entry (Path), group (QalculateBackend)
 #: backends/qalculate/qalculatebackend.kcfg:9
-#, fuzzy, kde-format
-#| msgid "Path to the latex executable"
+#, kde-format
 msgid "Path to the Qalculate! executable"
-msgstr "Шлях до виконуваного файла latex"
+msgstr "Шлях до виконуваного файла Qalculate!"
 
 #. i18n: ectx: label, entry (postConversion), group (QalculateBackend)
 #: backends/qalculate/qalculatebackend.kcfg:21

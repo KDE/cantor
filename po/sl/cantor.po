@@ -9,15 +9,15 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-08-27 00:41+0000\n"
-"PO-Revision-Date: 2023-08-02 07:34+0200\n"
+"PO-Revision-Date: 2023-08-27 06:45+0200\n"
 "Last-Translator: Matjaž Jeran <matjaz.jeran@amis.net>\n"
 "Language-Team: Slovenian <lugos-slo@lugos.si>\n"
 "Language: sl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=4; plural=(n%100==1 ? 1 : n%100==2 ? 2 : n%100==3 || n"
-"%100==4 ? 3 : 0);\n"
+"Plural-Forms: nplurals=4; plural=(n%100==1 ? 0 : n%100==2 ? 1 : n%100>=3 && n"
+"%100<=4 ? 2 : 3);\n"
 "Translator: Andrej Mernik <andrejm@ubuntu.si>\n"
 "X-Generator: Poedit 3.3.2\n"
 
@@ -1493,13 +1493,20 @@ msgid ""
 "equations), arbitrary precision, uncertainty propagation, interval "
 "arithmetic, plotting,"
 msgstr ""
+"<b>Qalculate!</b> je večnamenski namizni kalkulator za več platform. Je "
+"preprost za uporabo, vendar zagotavlja moč in vsestranskost, ki je običajno "
+"rezervirana za zapletene matematične pakete, ter uporabna orodja za "
+"vsakodnevne potrebe (kot je pretvorba valut in izračun odstotkov). Funkcije "
+"vključujejo veliko knjižnico prilagodljivih funkcij, izračune in pretvorbo "
+"enot, fizikalne konstante, simbolne izračune (vključno z integrali in "
+"enačbami), poljubno natančnost, širjenje negotovosti, intervalno aritmetiko, "
+"risanje,"
 
 #. i18n: ectx: label, entry (Path), group (QalculateBackend)
 #: backends/qalculate/qalculatebackend.kcfg:9
-#, fuzzy, kde-format
-#| msgid "Path to the latex executable"
+#, kde-format
 msgid "Path to the Qalculate! executable"
-msgstr "Pot do izvedljive datoteke latex"
+msgstr "Pot do izvedljive datoteke Qalculate!"
 
 #. i18n: ectx: label, entry (postConversion), group (QalculateBackend)
 #: backends/qalculate/qalculatebackend.kcfg:21

@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: mathematik\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-08-27 00:41+0000\n"
-"PO-Revision-Date: 2023-08-13 00:55+0200\n"
+"PO-Revision-Date: 2023-08-27 03:58+0200\n"
 "Last-Translator: Eloy Cuadra <ecuadra@eloihr.net>\n"
 "Language-Team: Spanish <kde-l10n-es@kde.org>\n"
 "Language: es\n"
@@ -1510,13 +1510,21 @@ msgid ""
 "equations), arbitrary precision, uncertainty propagation, interval "
 "arithmetic, plotting,"
 msgstr ""
+"<b>Qalculate!</b> es una calculadora de escritorio multiplataforma y "
+"multipropósito. Es fácil de usar, aunque proporciona la potencia y la "
+"versatilidad que normalmente están reservadas para paquetes de matemáticas "
+"complejos, así como útiles herramientas para las necesidades de cada día "
+"(como conversión de divisas y cálculos de porcentajes). Contiene una gran "
+"biblioteca de funciones personalizables, cálculos y conversiones de "
+"unidades, constantes físicas, cálculos simbólicos (incluidas integrales y "
+"ecuaciones), precisión aleatoria, propagación de incertidumbre, aritmética "
+"de intervalos y gráficos."
 
 #. i18n: ectx: label, entry (Path), group (QalculateBackend)
 #: backends/qalculate/qalculatebackend.kcfg:9
-#, fuzzy, kde-format
-#| msgid "Path to the latex executable"
+#, kde-format
 msgid "Path to the Qalculate! executable"
-msgstr "Ruta al ejecutable latex"
+msgstr "Ruta al ejecutable de Qalculate!"
 
 #. i18n: ectx: label, entry (postConversion), group (QalculateBackend)
 #: backends/qalculate/qalculatebackend.kcfg:21

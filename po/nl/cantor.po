@@ -12,7 +12,7 @@ msgstr ""
 "Project-Id-Version: cantor\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-08-27 00:41+0000\n"
-"PO-Revision-Date: 2023-08-02 11:51+0200\n"
+"PO-Revision-Date: 2023-08-27 18:12+0200\n"
 "Last-Translator: Freek de Kruijf <freekdekruijf@kde.nl>\n"
 "Language-Team: \n"
 "Language: nl\n"
@@ -1505,13 +1505,21 @@ msgid ""
 "equations), arbitrary precision, uncertainty propagation, interval "
 "arithmetic, plotting,"
 msgstr ""
+"<b>Qalculate!</b> is een bureaubladrekenmachine voor meerdere doelen op "
+"meerdere platforms. Het is eenvoudig te gebruiken maar biedt kracht en "
+"veelzijdigheid die normaal gereserveerd is voor gecompliceerde mathematische "
+"pakketten, evenals nuttige hulpmiddelen voor dagelijks gebruik (zoals "
+"valutaconversie en percentage berekeningen). Functies omvatten een grote "
+"bibliotheek van aan te passen functies, berekeningen en conversie met "
+"eenheden, fysische constanten, symbolische berekeningen (inclusief "
+"integralen en vergelijkingen), willekeurige precisie, doorgeven van "
+"onzekerheden, intervalberekeningen, plotten,"
 
 #. i18n: ectx: label, entry (Path), group (QalculateBackend)
 #: backends/qalculate/qalculatebackend.kcfg:9
-#, fuzzy, kde-format
-#| msgid "Path to the latex executable"
+#, kde-format
 msgid "Path to the Qalculate! executable"
-msgstr "Path naar het uitvoerbaar bestand voor LaTeX"
+msgstr "Path naar het uitvoerbaar bestand voor Qalculate!"
 
 #. i18n: ectx: label, entry (postConversion), group (QalculateBackend)
 #: backends/qalculate/qalculatebackend.kcfg:21
