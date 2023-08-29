@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: cantor\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-08-27 00:41+0000\n"
-"PO-Revision-Date: 2023-08-03 18:41+0200\n"
+"PO-Revision-Date: 2023-08-28 05:31+0200\n"
 "Last-Translator: Temuri Doghonadze <temuri.doghonadze@gmail.com>\n"
 "Language-Team: Georgian <kde-i18n-doc@kde.org>\n"
 "Language: ka\n"
@@ -404,12 +404,12 @@ msgstr "სამუშაო ფურცელზე ნახაზები�
 #: backends/julia/juliabackend.kcfg:37 backends/python/pythonbackend.kcfg:28
 #, kde-format
 msgid "Graphical package for the Plot-Assistant"
-msgstr ""
+msgstr "გრაფიკული პაკეტი Plot-Assistant-სთვის"
 
 #: backends/julia/juliaextensions.cpp:246
 #, kde-format
 msgid "# Sorry, but Gadfly don't support 3d plots"
-msgstr ""
+msgstr "# უკაცრავად, მაგრამ Gadfly-ის 3დ ნახაზების მხარდაჭერა არ გააჩნია"
 
 #: backends/julia/juliaextensions.cpp:263
 #, kde-format
@@ -435,7 +435,7 @@ msgstr ""
 #: backends/julia/juliasession.cpp:120
 #, kde-format
 msgid "Julia session can't login due unknown internal problem"
-msgstr ""
+msgstr "Julia-ის სესიას შესვლა არ შეუძლია უცნობი შიდა პრობლემის გამო"
 
 #: backends/julia/juliasession.cpp:246
 #, kde-format
@@ -1410,10 +1410,9 @@ msgstr ""
 
 #. i18n: ectx: label, entry (Path), group (QalculateBackend)
 #: backends/qalculate/qalculatebackend.kcfg:9
-#, fuzzy, kde-format
-#| msgid "Path to the latex executable"
+#, kde-format
 msgid "Path to the Qalculate! executable"
-msgstr "ბილიკი latex გამშვებ ფაილამდე"
+msgstr "ბილიკი Qalculate! გამშვებ ფაილამდე"
 
 #. i18n: ectx: label, entry (postConversion), group (QalculateBackend)
 #: backends/qalculate/qalculatebackend.kcfg:21
@@ -1896,7 +1895,7 @@ msgstr "შეფასება"
 #: backends/qalculate/settings.ui:196
 #, kde-format
 msgid "Convert to best SI units:"
-msgstr ""
+msgstr "საუკეთესო SI ერთეულებში გადაყვანა:"
 
 #. i18n: ectx: property (text), item, widget (KComboBox, kcfg_angleUnit)
 #: backends/qalculate/settings.ui:225
@@ -2255,7 +2254,7 @@ msgstr ""
 #: backends/sage/sagebackend.kcfg:10
 #, kde-format
 msgid "Path to the Sage executable"
-msgstr ""
+msgstr "ბილიკი Sage-ის გამშვებ ფაილამდე"
 
 #. i18n: ectx: label, entry (allowLatex), group (SageBackend)
 #: backends/sage/sagebackend.kcfg:14
@@ -2275,6 +2274,9 @@ msgid ""
 "The last output was: \n"
 " %2"
 msgstr ""
+"%1\n"
+"ბოლო გამოტანა იყო: \n"
+" %2"
 
 #: backends/sage/sageextensions.cpp:32
 #, kde-format
@@ -2308,7 +2310,7 @@ msgstr ""
 #: backends/sage/sagesession.cpp:341
 #, kde-format
 msgid "The Sage process crashed"
-msgstr ""
+msgstr "Sage-ის პროცესი ავარიულად დასრულდა"
 
 #: backends/sage/sagesession.cpp:348
 #, kde-format
@@ -2318,7 +2320,7 @@ msgstr ""
 #: backends/sage/sagesession.cpp:352
 #, kde-format
 msgid "The Sage process exited"
-msgstr ""
+msgstr "Sage-ის პროცესი გავიდა"
 
 #: backends/sage/sagesession.cpp:362
 #, kde-format
@@ -2732,7 +2734,7 @@ msgctxt ""
 "so make sure you include it in your translation in order to not to break "
 "anything"
 msgid "%1%"
-msgstr ""
+msgstr "%1%"
 
 #: cantor_part.cpp:227
 #, kde-format

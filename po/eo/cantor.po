@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: cantor\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-08-27 00:41+0000\n"
-"PO-Revision-Date: 2023-08-03 06:51+0100\n"
+"PO-Revision-Date: 2023-08-28 23:10+0100\n"
 "Last-Translator: Oliver Kellogg <okellogg@users.sourceforge.net>\n"
 "Language-Team: esperanto <kde-i18n-eo@kde.org>\n"
 "Language: eo\n"
@@ -1496,13 +1496,19 @@ msgid ""
 "equations), arbitrary precision, uncertainty propagation, interval "
 "arithmetic, plotting,"
 msgstr ""
+"<b>Qalculate!</b> estas multcela plurplatforma surtabla kalkulilo. Ĝi estas "
+"simple uzebla sed provizas potencon kaj ĉiuflankecon kutime rezervitaj "
+"komplikaj matematikaj pakaĵoj, same kiel utilaj iloj por ĉiutagaj bezonoj "
+"(kiel valutokonverto kaj procenta kalkulo). Trajtoj inkluzivas grandan "
+"bibliotekon de agordeblaj funkcioj, unuokalkuloj kaj konvertiĝo, fizikaj "
+"konstantoj, simbolaj kalkuloj (inkluzive de integraloj kaj ekvacioj), "
+"arbitra precizeco, disvastigo de necerteco, intervalo aritmetiko, grafikado,"
 
 #. i18n: ectx: label, entry (Path), group (QalculateBackend)
 #: backends/qalculate/qalculatebackend.kcfg:9
-#, fuzzy, kde-format
-#| msgid "Path to the latex executable"
+#, kde-format
 msgid "Path to the Qalculate! executable"
-msgstr "Vojo al la lateksa efektivigebla"
+msgstr "Vojo al la Qalculate! binarprogramo"
 
 #. i18n: ectx: label, entry (postConversion), group (QalculateBackend)
 #: backends/qalculate/qalculatebackend.kcfg:21
