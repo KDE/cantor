@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: kdeorg\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-08-27 00:41+0000\n"
-"PO-Revision-Date: 2023-08-27 03:40\n"
+"PO-Revision-Date: 2023-09-02 02:56\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Simplified\n"
 "Language: zh_CN\n"
@@ -1437,10 +1437,9 @@ msgstr ""
 
 #. i18n: ectx: label, entry (Path), group (QalculateBackend)
 #: backends/qalculate/qalculatebackend.kcfg:9
-#, fuzzy, kde-format
-#| msgid "Path to the latex executable"
+#, kde-format
 msgid "Path to the Qalculate! executable"
-msgstr "latex 可执行文件路径"
+msgstr ""
 
 #. i18n: ectx: label, entry (postConversion), group (QalculateBackend)
 #: backends/qalculate/qalculatebackend.kcfg:21
@@ -4720,25 +4719,3 @@ msgstr "删除条目"
 #, kde-format
 msgid "Drag Entry"
 msgstr "拖动项目"
-
-#~ msgid ""
-#~ "<b>Qalculate!</b> is not your regular software replication of the "
-#~ "cheapest available calculator. Qalculate! aims to make full use of the "
-#~ "superior interface, power and flexibility of modern computers. The center "
-#~ "of attention in Qalculate! is the expression entry. Instead of entering "
-#~ "each number in a mathematical expression separately, you can directly "
-#~ "write the whole expression and later modify it. The interpretation of "
-#~ "expressions is flexible and fault tolerant, and if you nevertheless do "
-#~ "something wrong, Qalculate! will tell you so. Not fully solvable "
-#~ "expressions are however not errors. Qalculate! will simplify as far as it "
-#~ "can and answer with an expression. In addition to numbers and arithmetic "
-#~ "operators, an expression may contain any combination of variables, units, "
-#~ "and functions."
-#~ msgstr ""
-#~ "<b>Qalculate!</b> 不是您通常意义上最廉价计算器的复刻。Qalculate! 的目的是"
-#~ "充分利用现代计算机优秀的界面、计算能力与灵活性。Qalculate! 关注的中心是表"
-#~ "达式条目，您可以直接写出整个表达式而稍后再改动它，而非分开地输入数学表达式"
-#~ "中的每个数字。表达式的解释是灵活的且容许错误。如果您犯了错误，Qalculate! "
-#~ "会告诉您。不能完全解出的式子不一定是错误。Qalculate! 会尽可能地化简并以一"
-#~ "个表达式作答。不仅是数字与算术运算符，表达式也可以包含变量、单位与函数的任"
-#~ "何组合。"
