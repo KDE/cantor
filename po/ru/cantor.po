@@ -12,7 +12,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-05-22 00:42+0000\n"
-"PO-Revision-Date: 2023-08-15 14:12+0300\n"
+"PO-Revision-Date: 2023-09-05 16:54+0300\n"
 "Last-Translator: Olesya Gerasimenko <translation-team@basealt.ru>\n"
 "Language-Team: Basealt Translation Team\n"
 "Language: ru\n"
@@ -621,7 +621,7 @@ msgstr "GR"
 #: backends/octave/settings.ui:148 backends/sage/settings.ui:83
 #, kde-format
 msgid "Plots"
-msgstr "Plots"
+msgstr "Графики"
 
 #. i18n: ectx: property (text), item, widget (KComboBox, kcfg_plotExtenstionGraphicPackage)
 #: backends/julia/settings.ui:125
