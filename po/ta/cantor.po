@@ -1,13 +1,13 @@
-# Copyright (C) YEAR This file is copyright:
+# Copyright (C) 2023 This file is copyright:
 # This file is distributed under the same license as the cantor package.
 #
-# Kishore G <kishore96@gmail.com>, 2022, 2023.
+# SPDX-FileCopyrightText: 2022, 2023 Kishore G <kishore96@gmail.com>
 msgid ""
 msgstr ""
 "Project-Id-Version: cantor\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-05-22 00:42+0000\n"
-"PO-Revision-Date: 2023-08-06 14:58+0530\n"
+"PO-Revision-Date: 2023-09-10 18:15+0530\n"
 "Last-Translator: Kishore G <kishore96@gmail.com>\n"
 "Language-Team: Tamil <kde-i18n-doc@kde.org>\n"
 "Language: ta\n"
@@ -15,7 +15,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Lokalize 23.04.3\n"
+"X-Generator: Lokalize 23.08.0\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -563,20 +563,20 @@ msgstr "வரைபட ஒருங்கிணைப்பு இயக்க�
 #: backends/python/settings.ui:54 backends/python/settings.ui:90
 #, kde-format
 msgid "Graphic package to be used in the Plot Assistant"
-msgstr ""
+msgstr "வரைபட உதவிநிரலில் பயன்படுத்த வேண்டிய வரைபட நிரலகம்"
 
 #. i18n: ectx: property (text), widget (QLabel, label3)
 #. i18n: ectx: property (text), widget (QLabel, label4)
 #: backends/julia/settings.ui:98 backends/python/settings.ui:57
 #, kde-format
 msgid "Package for Plot Assistant"
-msgstr ""
+msgstr "வரைபட உதவிநிரலுக்கான நிரலகம்"
 
 #. i18n: ectx: property (text), item, widget (KComboBox, kcfg_plotExtenstionGraphicPackage)
 #: backends/julia/settings.ui:115 backends/python/settings.ui:109
 #, kde-format
 msgid "GR"
-msgstr ""
+msgstr "GR"
 
 #. i18n: ectx: property (text), widget (QLabel, label_4)
 #. i18n: ectx: property (text), item, widget (KComboBox, kcfg_plotExtenstionGraphicPackage)
@@ -584,19 +584,19 @@ msgstr ""
 #: backends/octave/settings.ui:148 backends/sage/settings.ui:83
 #, kde-format
 msgid "Plots"
-msgstr ""
+msgstr "Plots"
 
 #. i18n: ectx: property (text), item, widget (KComboBox, kcfg_plotExtenstionGraphicPackage)
 #: backends/julia/settings.ui:125
 #, kde-format
 msgid "PyPlot"
-msgstr ""
+msgstr "PyPlot"
 
 #. i18n: ectx: property (text), item, widget (KComboBox, kcfg_plotExtenstionGraphicPackage)
 #: backends/julia/settings.ui:130
 #, kde-format
 msgid "Gadfly"
-msgstr ""
+msgstr "Gadfly"
 
 #. i18n: ectx: attribute (title), widget (QWidget, tabAutorun)
 #. i18n: ectx: attribute (title), widget (QWidget, tabAutoran)
@@ -673,6 +673,8 @@ msgid ""
 "This autorun commands, which will run on start new worksheet. They can be "
 "useful for loading needed modules, changing environment, etc."
 msgstr ""
+"புதிய பணித்தாளை துவக்கும்போது தானாக இயக்கப்படும் கட்டளைகளை இது அமைக்கும். தேவையான "
+"நிரலகங்களை ஏற்றுவதற்கும் சூழலை அமைப்பதற்கும் இதைப் பயன்படுத்தலாம்."
 
 #: backends/lua/luabackend.cpp:52
 #, kde-format
@@ -786,12 +788,12 @@ msgstr ""
 #: backends/maxima/maximaexpression.cpp:113
 #, kde-format
 msgid "Error: Too many */"
-msgstr ""
+msgstr "சிக்கல்: அதிகப்படியான */"
 
 #: backends/maxima/maximaexpression.cpp:126
 #, kde-format
 msgid "Error: Too many /*"
-msgstr ""
+msgstr "சிக்கல்: அதிகப்படியான /*"
 
 #: backends/maxima/maximaexpression.cpp:132
 #, kde-format
@@ -1008,7 +1010,7 @@ msgstr "bokeh"
 #: backends/qalculate/plotassistant/qalculateplotdialog.ui:14
 #, kde-format
 msgid "Cantor - Plot Dialog"
-msgstr ""
+msgstr "கேண்ட்டொர் - வரைபட சாளரம்"
 
 #. i18n: ectx: attribute (title), widget (QWidget, tab)
 #: backends/qalculate/plotassistant/qalculateplotdialog.ui:24
@@ -1313,7 +1315,7 @@ msgstr ""
 #: backends/qalculate/plotassistant/qalculateplotdialog.ui:463
 #, kde-format
 msgid "Use Colors"
-msgstr ""
+msgstr "நிறங்களைப் பயன்படுத்து"
 
 #. i18n: ectx: property (text), widget (QCheckBox, inlineCheckBox)
 #: backends/qalculate/plotassistant/qalculateplotdialog.ui:470
@@ -2080,28 +2082,28 @@ msgstr ""
 #, kde-format
 msgctxt "@title:column"
 msgid "Name"
-msgstr ""
+msgstr "பெயர்"
 
 #. i18n: ectx: property (text), widget (QTreeWidget, qchTable)
 #: backends/qthelpconfig.ui:54
 #, kde-format
 msgctxt "@title:column"
 msgid "Path"
-msgstr ""
+msgstr "பாதை"
 
 #. i18n: ectx: property (text), widget (QPushButton, addButton)
 #: backends/qthelpconfig.ui:79
 #, kde-format
 msgctxt "@action:button"
 msgid "Add"
-msgstr ""
+msgstr "சேர்"
 
 #. i18n: ectx: property (text), widget (QLabel, lIcon)
 #: backends/qthelpconfigeditdialog.ui:17
 #, kde-format
 msgctxt "@label:chooser"
 msgid "Icon:"
-msgstr ""
+msgstr "சின்னம்:"
 
 #. i18n: ectx: property (toolTip), widget (KIconButton, qchIcon)
 #: backends/qthelpconfigeditdialog.ui:24
@@ -2115,28 +2117,28 @@ msgstr ""
 #, kde-format
 msgctxt "@label:textbox"
 msgid "Name:"
-msgstr ""
+msgstr "பெயர்:"
 
 #. i18n: ectx: property (toolTip), widget (QLineEdit, qchName)
 #: backends/qthelpconfigeditdialog.ui:41
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Enter a name"
-msgstr ""
+msgstr "பெயரை உள்ளிடுக"
 
 #. i18n: ectx: property (placeholderText), widget (QLineEdit, qchName)
 #: backends/qthelpconfigeditdialog.ui:44
 #, kde-format
 msgctxt "@info:placeholder"
 msgid "Select a name..."
-msgstr ""
+msgstr "பெயரைத் தேர்ந்தெடுக்கவும்..."
 
 #. i18n: ectx: property (text), widget (QLabel, lPath)
 #: backends/qthelpconfigeditdialog.ui:51
 #, kde-format
 msgctxt "@label:textbox"
 msgid "Path:"
-msgstr ""
+msgstr "பாதை:"
 
 #. i18n: ectx: property (toolTip), widget (KUrlRequester, qchRequester)
 #: backends/qthelpconfigeditdialog.ui:64
@@ -2202,7 +2204,7 @@ msgstr ""
 #: backends/R/rexpression.cpp:107 backends/R/rexpression.cpp:108
 #, kde-format
 msgid "Error opening file %1"
-msgstr ""
+msgstr "%1 கோப்பைத் திறப்பதில் சிக்கல்"
 
 #: backends/R/rextensions.cpp:22
 #, kde-format
@@ -2284,10 +2286,9 @@ msgid ""
 msgstr ""
 
 #: backends/sage/sagesession.cpp:256 backends/sage/sagesession.cpp:276
-#, fuzzy, kde-format
-#| msgid "All supported files"
+#, kde-format
 msgid "Unsupported Version"
-msgstr "ஆதரிக்கப்படும் அனைத்து கோப்புகள்"
+msgstr "ஆதரிக்கப்படா பதிப்பு"
 
 #: backends/sage/sagesession.cpp:275
 #, kde-format
@@ -2365,7 +2366,7 @@ msgstr ""
 #: cantor.cpp:103
 #, kde-format
 msgid "The file %1 is already opened."
-msgstr ""
+msgstr "%1 எனும் கோப்பு ஏற்கனவே திறக்கப்பட்டுள்ளது."
 
 #: cantor.cpp:103 cantor.cpp:227
 #, kde-format
