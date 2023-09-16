@@ -1,6 +1,7 @@
 /*
     SPDX-License-Identifier: GPL-2.0-or-later
     SPDX-FileCopyrightText: 2016 Ivan Lakhtanov <ivan.lakhtanov@gmail.com>
+    SPDX-FileCopyrightText: 2023 Alexander Semke <alexander.semke@web.de>
 */
 #include "juliaserver.h"
 
@@ -21,39 +22,18 @@ JuliaServer::JuliaServer(QObject *parent) : QObject(parent), m_was_exception(fal
 
 JuliaServer::~JuliaServer()
 {
+     /* strongly recommended: notify Julia that the
+         program is about to terminate. this allows
+         Julia time to cleanup pending write requests
+         and run all finalizers
+    */
     jl_atexit_hook(0);
 }
 
-int JuliaServer::login(const QString &path)
+int JuliaServer::login()
 {
-    static const QLatin1String possibileSysImgPath("../lib/julia/sys.so");
-
-    QString sysimg_path = QLatin1String(jl_get_default_sysimg_path());
-    const QString& dir_path = QFileInfo(path).dir().absolutePath();
-    QFileInfo sysimg_file_info = QFileInfo(dir_path + QLatin1String("/") + sysimg_path);
-    if (!sysimg_file_info.exists())
-    {
-        // This is unexpected, but possible. For example, then used cantor-julia-backend from system packages, which compiled with system julia
-        // And `path` set to portable julia installation with same version, for example `/home/john_doe/julia`
-        // Like in https://bugs.kde.org/show_bug.cgi?id=425695
-
-        // Check another possible path
-        if (QFileInfo::exists(dir_path + QLatin1String("/") + possibileSysImgPath))
-        {
-            qDebug() << "Change sysimg relative path from " << sysimg_path << "to " << possibileSysImgPath << "because original sysimg path from Julia C API is missing";
-            sysimg_path = possibileSysImgPath;
-            sysimg_file_info = QFileInfo(dir_path + QLatin1String("/") + possibileSysImgPath);
-        }
-        else
-        {
-            // Well, we can't run jl_init due missing sys.so, so report about it to user
-            m_error = sysimg_file_info.absoluteFilePath();
-            return 1;
-        }
-    }
-
-    qDebug() << "pass sysimg path to jl_init function: " << sysimg_file_info.absoluteFilePath();
-    jl_init_with_image(dir_path.toLatin1().constData(), sysimg_path.toLatin1().constData());
+    /* required: setup the julia context */
+    jl_init();
 
     jl_eval_string("import REPL;");
 

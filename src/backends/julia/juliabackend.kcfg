@@ -6,12 +6,6 @@
     <include>QStandardPaths</include>
     <kcfgfile name="cantorrc"/>
     <group name="JuliaBackend">
-        <entry name="replPath" type="Url">
-            <label>Path to the Julia native REPL</label>
-            <default code="true">
-                QUrl::fromLocalFile(QStandardPaths::findExecutable(QLatin1String("julia")))
-            </default>
-        </entry>
         <entry name="variableManagement" type="Bool">
             <label>Enable Variable Management</label>
             <default>true</default>

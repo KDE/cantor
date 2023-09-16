@@ -63,7 +63,6 @@ void JuliaSession::login()
     connect(m_process, &QProcess::errorOccurred, this, &JuliaSession::reportServerProcessError);
 
     m_process->start();
-
     m_process->waitForStarted();
     m_process->waitForReadyRead();
     QTextStream stream(m_process->readAllStandardOutput());
@@ -97,9 +96,7 @@ void JuliaSession::login()
         return;
     }
 
-    const QDBusReply<int> &reply = m_interface->call(QLatin1String("login"),
-                                                    JuliaSettings::self()->replPath().path()
-    );
+    const QDBusReply<int> &reply = m_interface->call(QLatin1String("login"));
     if (reply.isValid())
     {
         int errorCode = reply.value();
@@ -120,7 +117,6 @@ void JuliaSession::login()
         KMessageBox::error(nullptr, i18n("Julia session can't login due unknown internal problem"), i18n("Error - Cantor"));
         return;
     }
-
 
     static_cast<JuliaVariableModel*>(variableModel())->setJuliaServer(m_interface);
 

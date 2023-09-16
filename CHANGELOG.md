@@ -5,6 +5,9 @@
 ### New features
     * Export worksheet to PDF
 
+### Bug fixes:
+    * [Julia] removed the dependency on Julia's executable (BUG: 470381)
+
 ## 23.08
 
 ### New features

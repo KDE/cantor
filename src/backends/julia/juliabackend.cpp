@@ -1,7 +1,7 @@
 /*
     SPDX-License-Identifier: GPL-2.0-or-later
     SPDX-FileCopyrightText: 2016 Ivan Lakhtanov <ivan.lakhtanov@gmail.com>
-    SPDX-FileCopyrightText: 2019-2022 Alexander Semke <alexander.semke@web.de>
+    SPDX-FileCopyrightText: 2019-2023 Alexander Semke <alexander.semke@web.de>
 */
 
 #include "juliabackend.h"
@@ -10,10 +10,7 @@
 #include "juliasettingswidget.h"
 #include "settings.h"
 
-#include <QProcess>
 #include <KPluginFactory>
-
-#include <julia_version.h>
 
 JuliaBackend::JuliaBackend(QObject *parent, const QList<QVariant> &args)
     : Cantor::Backend(parent, args)
@@ -34,7 +31,7 @@ QString JuliaBackend::id() const
 
 QString JuliaBackend::version() const
 {
-    return QLatin1String("1.0.0");
+    return QLatin1String("1.6.7");
 }
 
 Cantor::Session *JuliaBackend::createSession()
@@ -74,63 +71,12 @@ QUrl JuliaBackend::helpUrl() const
 
 bool JuliaBackend::requirementsFullfilled(QString* const reason) const
 {
-    const QString& path = JuliaSettings::self()->replPath().toLocalFile();
-    bool valid = Cantor::Backend::checkExecutable(QLatin1String("julia"), path, reason);
-
-    if (!valid)
-        return false;
-
-    QFileInfo info(path);
-    if (info.isSymLink())
-    {
-        if (reason)
-            *reason = i18n("The path to Julia specified in the application settings must point directly to the executable. Symlinks are not allowed. "
-                        "Please provide the correct path in the application settings and try again.");
-        return false;
-    }
-
-    // Julia because of C API can handle only MAJOR.MINOR.* versions corresponding to
-    // version, which used to build cantor_juliaserver
-    // So check it and print info about it to user, if versions don't match
-    QProcess getJuliaVersionProcess;
-    getJuliaVersionProcess.setProgram(path);
-    getJuliaVersionProcess.setArguments(QStringList() << QLatin1String("-v"));
-    getJuliaVersionProcess.start();
-    if (getJuliaVersionProcess.waitForFinished(1000) == false)
-    {
-        if (reason)
-            *reason = i18n("Сantor couldn’t determine the version of Julia for %1. "
-                        "Please specify the correct path to Julia executable (no symlinks allowed) and try again.",
-                        path);
-        return false;
-    }
-
-    QRegularExpression versionExp(QLatin1String("julia version (\\d+)\\.(\\d+).(\\d+)"));
-    QString versionString = QString::fromLocal8Bit(getJuliaVersionProcess.readLine());
-    QRegularExpressionMatch match = versionExp.match(versionString);
-    if (getJuliaVersionProcess.state() != QProcess::NotRunning || !match.hasMatch())
-    {
-        if (reason)
-            *reason = i18n("Сantor couldn’t determine the version of Julia for %1. "
-                        "Please specify the correct path to Julia executable (no symlinks allowed) and try again.",
-                           path);
-        return false;
-    }
-
-    int juliaMajor = match.captured(1).toInt();
-    int juliaMinor = match.captured(2).toInt();
-    int juliaPatch = match.captured(3).toInt();
-
-    if (QT_VERSION_CHECK(juliaMajor, juliaMinor, juliaPatch) != QT_VERSION_CHECK(JULIA_VERSION_MAJOR, JULIA_VERSION_MINOR, JULIA_VERSION_PATCH))
-    {
-        if (reason)
-            *reason = i18n("You are trying to use Cantor with Julia v%1.%2.%3. "
-                        "This version of Cantor was compiled with the support of Julia v%4.%5.%6. "
-                        "Please point to this version of Julia or recompile Cantor using the version %1.%2.%3.",
-                        juliaMajor, juliaMinor, juliaPatch, JULIA_VERSION_MAJOR, JULIA_VERSION_MINOR, JULIA_VERSION_PATCH);
-        return false;
-    }
-    return true;
+#ifdef Q_OS_WIN
+    const QString& path = QStandardPaths::findExecutable(QLatin1String("cantor_juliaserver.exe"));
+#else
+    const QString& path = QStandardPaths::findExecutable(QLatin1String("cantor_juliaserver"));
+#endif
+    return Cantor::Backend::checkExecutable(QLatin1String("Cantor Julia Server"), path, reason);
 }
 
 QWidget* JuliaBackend::settingsWidget(QWidget *parent) const

@@ -1,12 +1,12 @@
 /*
     SPDX-License-Identifier: GPL-2.0-or-later
     SPDX-FileCopyrightText: 2016 Ivan Lakhtanov <ivan.lakhtanov@gmail.com
+    SPDX-FileCopyrightText: 2023 Alexander Semke <alexander.semke@web.de>
 */
 #pragma once
 
 #include <QObject>
 #include <QString>
-#include <QMap>
 #include <QStringList>
 
 #include <julia.h>
@@ -30,9 +30,8 @@ public Q_SLOTS:
      * Initializer for JuliaServer. Call this first before using it
      *
      * @return 0 - if all OK, 1 - if sys.so file missing. For error 1 - the filename of the missing file can be requested via getError()
-     * @param path path to julia executable
      */
-    Q_SCRIPTABLE int login(const QString &path);
+    Q_SCRIPTABLE int login();
 
     /**
      * Runs a piece of julia code. After this returns use getOutput, getError,
