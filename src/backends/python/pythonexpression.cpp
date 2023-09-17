@@ -14,6 +14,9 @@
 #include "settings.h"
 
 #include <QDebug>
+#include <QDir>
+#include <QTemporaryFile>
+#include <QFileSystemWatcher>
 
 #include "pythonsession.h"
 
@@ -22,10 +25,16 @@ PythonExpression::PythonExpression(Cantor::Session* session, bool internal) : Ca
 }
 
 PythonExpression::~PythonExpression() {
+    delete m_tempFile;
 }
 
 void PythonExpression::evaluate()
 {
+    if(m_tempFile) {
+        delete m_tempFile;
+        m_tempFile = nullptr;
+    }
+
     session()->enqueueExpression(this);
 }
 
@@ -33,43 +42,39 @@ QString PythonExpression::internalCommand()
 {
     QString cmd = command();
 
-    if (PythonSettings::integratePlots())
+    if((PythonSettings::integratePlots()) && (command().contains(QLatin1String("show()"))))
     {
-        auto* pySession = static_cast<PythonSession*>(session());
-        const QString& filepath = pySession->plotFilePrefixPath() + QString::number(pySession->plotFileCounter()) + QLatin1String(".png");
+        m_tempFile = new QTemporaryFile(QDir::tempPath() + QLatin1String("/cantor_python-XXXXXX.png"));
+        m_tempFile->open();
+        QString saveFigCommand = QLatin1String("savefig('%1')");
+        cmd.replace(QLatin1String("show()"), saveFigCommand.arg(m_tempFile->fileName()));
 
-        for(const auto& package : session()->enabledGraphicPackages())
-        {
-            if (package.isHavePlotCommand())
-            {
-                cmd.append(QLatin1String("\n"));
-                cmd.append(package.savePlotCommand(filepath, pySession->plotFileCounter()));
-            }
-        }
+        QFileSystemWatcher* watcher = fileWatcher();
+        watcher->removePaths(watcher->files());
+        watcher->addPath(m_tempFile->fileName());
+        connect(watcher, &QFileSystemWatcher::fileChanged, this, &PythonExpression::imageChanged,  Qt::UniqueConnection);
     }
 
     QStringList commandLine = cmd.split(QLatin1String("\n"));
     QString commandProcessing;
 
-    for(const QString& command : commandLine){
+    for(const QString& command : commandLine)
+    {
         const QString firstLineWord = command.trimmed().replace(QLatin1String("("), QLatin1String(" "))
             .split(QLatin1String(" ")).at(0);
 
         // Ignore comments
         if (firstLineWord.length() != 0 && firstLineWord[0] == QLatin1Char('#')){
-
             commandProcessing += command + QLatin1String("\n");
             continue;
         }
 
         if(firstLineWord.contains(QLatin1String("execfile"))){
-
             commandProcessing += command;
             continue;
         }
 
         commandProcessing += command + QLatin1String("\n");
-
     }
 
     return commandProcessing;
@@ -82,33 +87,10 @@ void PythonExpression::parseOutput(const QString& output)
     {
         QString resultStr = output;
         setResult(new Cantor::HelpResult(resultStr.remove(output.lastIndexOf(QLatin1String("None")), 4)));
-    }
-    else if (!output.isEmpty())
-    {
-        auto* pySession = static_cast<PythonSession*>(session());
-        const QString& plotFilePrefixPath = pySession->plotFilePrefixPath();
-        const QString& searchPrefixPath = QLatin1String("INNER PLOT INFO CANTOR: ") + plotFilePrefixPath;
-
-        QStringList buffer;
-        const QStringList& lines = output.split(QLatin1String("\n"));
-        for (const QString& line : lines)
-        {
-            if (line.startsWith(searchPrefixPath))
-            {
-                if (!buffer.isEmpty() && !(buffer.size() == 1 && buffer[0].isEmpty()))
-                    addResult(new Cantor::TextResult(buffer.join(QLatin1String("\n"))));
-
-                QString filepath = plotFilePrefixPath + QString::number(pySession->plotFileCounter()) + QLatin1String(".png");
-                pySession->plotFileCounter()++;
-                addResult(new Cantor::ImageResult(QUrl::fromLocalFile(filepath)));
-                buffer.clear();
-            }
-            else
-                buffer.append(line);
-        }
-        if (!buffer.isEmpty() && !(buffer.size() == 1 && buffer[0].isEmpty()))
-            addResult(new Cantor::TextResult(buffer.join(QLatin1String("\n"))));
-    }
+    } else {
+        if (!output.isEmpty())
+            addResult(new Cantor::TextResult(output));
+     }
 
     setStatus(Cantor::Expression::Done);
 }
@@ -131,3 +113,25 @@ void PythonExpression::parseWarning(const QString& warning)
     }
 }
 
+void PythonExpression::imageChanged()
+{
+    if(m_tempFile->size() <= 0)
+        return;
+
+    auto* newResult = new Cantor::ImageResult(QUrl::fromLocalFile(m_tempFile->fileName()));
+    if (result() == nullptr)
+        setResult(newResult);
+    else
+    {
+        bool found = false;
+        for (int i = 0; i < results().size(); i++)
+            if (results()[i]->type() == newResult->type())
+            {
+                replaceResult(i, newResult);
+                found = true;
+            }
+        if (!found)
+            addResult(newResult);
+    }
+    setStatus(Done);
+}

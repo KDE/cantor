@@ -7,6 +7,7 @@
 #define _PYTHONEXPRESSION_H
 
 #include "expression.h"
+class QTemporaryFile;
 
 class PythonExpression : public Cantor::Expression
 {
@@ -21,6 +22,10 @@ class PythonExpression : public Cantor::Expression
     void parseOutput(const QString&) override;
     void parseWarning(const QString&);
     void parseError(const QString&) override;
+
+private:
+    void imageChanged();
+    QTemporaryFile* m_tempFile{nullptr};
 };
 
 #endif /* _PYTHONEXPRESSION_H */
