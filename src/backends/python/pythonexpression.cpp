@@ -42,18 +42,36 @@ QString PythonExpression::internalCommand()
 {
     QString cmd = command();
 
+    // handle matplotlib's show() command
     if((PythonSettings::integratePlots()) && (command().contains(QLatin1String("show()"))))
     {
-        m_tempFile = new QTemporaryFile(QDir::tempPath() + QLatin1String("/cantor_python-XXXXXX.png"));
+        QString extension;
+        if (PythonSettings::inlinePlotFormat() == 0)
+            extension = QLatin1String("pdf");
+        else if (PythonSettings::inlinePlotFormat() == 1)
+            extension = QLatin1String("svg");
+        else if (PythonSettings::inlinePlotFormat() == 2)
+            extension = QLatin1String("png");
+
+        m_tempFile = new QTemporaryFile(QDir::tempPath() + QLatin1String("/cantor_python-XXXXXX.%1").arg(extension));
         m_tempFile->open();
         QString saveFigCommand = QLatin1String("savefig('%1')");
         cmd.replace(QLatin1String("show()"), saveFigCommand.arg(m_tempFile->fileName()));
+
+        // set the plot size in inches
+        // TODO: matplotlib is usually imported via "import matplotlib.pyplot as plt" and we set
+        // plot size for plt below but it's still possible to name the module differently and we
+        // somehow need to handle such cases, too.
+        const double w = PythonSettings::plotWidth() / 2.54;
+        const double h = PythonSettings::plotHeight() / 2.54;
+        cmd += QLatin1String("\nplt.figure(figsize=(%1, %2))").arg(QString::number(w), QString::number(h));
 
         QFileSystemWatcher* watcher = fileWatcher();
         watcher->removePaths(watcher->files());
         watcher->addPath(m_tempFile->fileName());
         connect(watcher, &QFileSystemWatcher::fileChanged, this, &PythonExpression::imageChanged,  Qt::UniqueConnection);
     }
+    // TODO: handle other plotting frameworks
 
     QStringList commandLine = cmd.split(QLatin1String("\n"));
     QString commandProcessing;
