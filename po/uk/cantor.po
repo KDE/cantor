@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: cantor\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-09-17 00:40+0000\n"
+"POT-Creation-Date: 2023-09-19 00:40+0000\n"
 "PO-Revision-Date: 2023-08-27 08:56+0300\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian <kde-i18n-uk@kde.org>\n"
@@ -380,8 +380,7 @@ msgid "Integrate Plots into the Worksheet"
 msgstr "Інтегрувати графіки до робочого аркуша"
 
 #. i18n: ectx: label, entry (plotExtenstionGraphicPackage), group (JuliaBackend)
-#. i18n: ectx: label, entry (plotExtenstionGraphicPackage), group (PythonBackend)
-#: backends/julia/juliabackend.kcfg:31 backends/python/pythonbackend.kcfg:28
+#: backends/julia/juliabackend.kcfg:31
 #, kde-format
 msgid "Graphical package for the Plot-Assistant"
 msgstr "Графічний пакунок для допоміжного засобу креслення"
@@ -463,64 +462,17 @@ msgstr ""
 msgid "General"
 msgstr "Загальне"
 
-#. i18n: ectx: property (text), widget (QLabel, lPlotIntegration)
-#: backends/julia/settings.ui:40 backends/python/settings.ui:47
-#: backends/R/settings.ui:53 backends/scilab/settings.ui:37
+#. i18n: ectx: property (text), item, widget (QComboBox, kcfg_inlinePlotFormat)
+#: backends/julia/settings.ui:28 backends/maxima/settings.ui:173
+#: backends/octave/settings.ui:196 backends/python/settings.ui:186
+#: backends/sage/settings.ui:203
 #, kde-format
-msgid "Plot Integration:"
-msgstr "Інтеграція графіків:"
-
-#. i18n: ectx: property (toolTip), widget (KComboBox, kcfg_plotExtenstionGraphicPackage)
-#. i18n: ectx: property (toolTip), widget (QLabel, label3)
-#. i18n: ectx: property (toolTip), widget (QLabel, label4)
-#: backends/julia/settings.ui:53 backends/julia/settings.ui:97
-#: backends/python/settings.ui:54 backends/python/settings.ui:90
-#, kde-format
-msgid "Graphic package to be used in the Plot Assistant"
-msgstr "Графічний пакунок для допоміжного засобу креслення"
-
-#. i18n: ectx: property (text), item, widget (KComboBox, kcfg_plotExtenstionGraphicPackage)
-#: backends/julia/settings.ui:57 backends/python/settings.ui:109
-#, kde-format
-msgid "GR"
-msgstr "GR"
-
-#. i18n: ectx: property (text), widget (QLabel, label_4)
-#. i18n: ectx: property (text), item, widget (KComboBox, kcfg_plotExtenstionGraphicPackage)
-#: backends/julia/settings.ui:62 backends/maxima/settings.ui:60
-#: backends/octave/settings.ui:148 backends/sage/settings.ui:83
-#, kde-format
-msgid "Plots"
-msgstr "Креслення"
-
-#. i18n: ectx: property (text), item, widget (KComboBox, kcfg_plotExtenstionGraphicPackage)
-#: backends/julia/settings.ui:67
-#, kde-format
-msgid "PyPlot"
-msgstr "PyPlot"
-
-#. i18n: ectx: property (text), item, widget (KComboBox, kcfg_plotExtenstionGraphicPackage)
-#: backends/julia/settings.ui:72
-#, kde-format
-msgid "Gadfly"
-msgstr "Gadfly"
-
-#. i18n: ectx: property (toolTip), widget (QComboBox, kcfg_inlinePlotFormat)
-#: backends/julia/settings.ui:80
-#, kde-format
-msgid "Inner format of plots, if plots embedding is enabled."
-msgstr "Внутрішній формат креслень, якщо увімкнено вбудовування креслень."
-
-#. i18n: ectx: property (text), widget (QLabel, label3)
-#. i18n: ectx: property (text), widget (QLabel, label4)
-#: backends/julia/settings.ui:100 backends/python/settings.ui:57
-#, kde-format
-msgid "Package for Plot Assistant"
-msgstr "Пакунок для допоміжного засобу креслення"
+msgid "PDF"
+msgstr "PDF"
 
 #. i18n: ectx: property (toolTip), widget (QCheckBox, kcfg_integratePlots)
-#: backends/julia/settings.ui:107 backends/maxima/settings.ui:67
-#: backends/octave/settings.ui:27 backends/python/settings.ui:64
+#: backends/julia/settings.ui:46 backends/maxima/settings.ui:67
+#: backends/octave/settings.ui:27 backends/python/settings.ui:80
 #: backends/R/settings.ui:33 backends/sage/settings.ui:97
 #: backends/scilab/settings.ui:44
 #, kde-format
@@ -542,10 +494,10 @@ msgstr ""
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_coloredPlot)
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_plotGrid)
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_plotBorder)
-#: backends/julia/settings.ui:110 backends/julia/settings.ui:134
+#: backends/julia/settings.ui:49 backends/julia/settings.ui:66
 #: backends/maxima/settings.ui:47 backends/maxima/settings.ui:70
 #: backends/octave/settings.ui:30 backends/octave/settings.ui:128
-#: backends/python/settings.ui:67 backends/python/settings.ui:77
+#: backends/python/settings.ui:37 backends/python/settings.ui:83
 #: backends/qalculate/settings.ui:90 backends/qalculate/settings.ui:131
 #: backends/qalculate/settings.ui:182 backends/qalculate/settings.ui:212
 #: backends/qalculate/settings.ui:318 backends/qalculate/settings.ui:325
@@ -557,23 +509,18 @@ msgstr ""
 msgid "Enabled"
 msgstr "увімкнено"
 
-#. i18n: ectx: property (text), widget (QLabel, label2)
-#: backends/julia/settings.ui:117
+#. i18n: ectx: property (text), widget (QLabel, label_5)
+#. i18n: ectx: property (text), widget (QLabel, label_3)
+#: backends/julia/settings.ui:56 backends/maxima/settings.ui:77
+#: backends/octave/settings.ui:118 backends/python/settings.ui:90
+#: backends/sage/settings.ui:107
 #, kde-format
-msgid "Internal Plot Format:"
-msgstr "Формат вбудованих креслень:"
-
-#. i18n: ectx: property (text), widget (QLabel, lVariableManagement)
-#: backends/julia/settings.ui:124 backends/maxima/settings.ui:37
-#: backends/octave/settings.ui:172 backends/python/settings.ui:27
-#: backends/R/settings.ui:76
-#, kde-format
-msgid "Variable Management:"
-msgstr "Керування змінними:"
+msgid "Size:"
+msgstr "Розмір:"
 
 #. i18n: ectx: property (toolTip), widget (QCheckBox, kcfg_variableManagement)
-#: backends/julia/settings.ui:131 backends/maxima/settings.ui:44
-#: backends/octave/settings.ui:125 backends/python/settings.ui:74
+#: backends/julia/settings.ui:63 backends/maxima/settings.ui:44
+#: backends/octave/settings.ui:125 backends/python/settings.ui:34
 #: backends/R/settings.ui:43
 #, kde-format
 msgid ""
@@ -583,11 +530,106 @@ msgstr ""
 "Стежити за створенням і знищенням змінних і показувати наявні змінні на "
 "панелі змінних."
 
+#. i18n: ectx: property (text), widget (QLabel, lPlotIntegration)
+#: backends/julia/settings.ui:73 backends/maxima/settings.ui:220
+#: backends/octave/settings.ui:135 backends/python/settings.ui:73
+#: backends/sage/settings.ui:90
+#, kde-format
+msgid "Integrated:"
+msgstr "Інтегрована:"
+
+#. i18n: ectx: property (text), widget (QLabel, lVariableManagement)
+#: backends/julia/settings.ui:80 backends/maxima/settings.ui:37
+#: backends/octave/settings.ui:172 backends/python/settings.ui:27
+#: backends/R/settings.ui:76
+#, kde-format
+msgid "Variable Management:"
+msgstr "Керування змінними:"
+
+#. i18n: ectx: property (text), widget (QLabel, lPlotWidth)
+#: backends/julia/settings.ui:108 backends/maxima/settings.ui:105
+#: backends/octave/settings.ui:58 backends/python/settings.ui:118
+#: backends/sage/settings.ui:135
+#, kde-format
+msgid "width:"
+msgstr "ширина:"
+
+#. i18n: ectx: property (suffix), widget (QDoubleSpinBox, kcfg_plotWidth)
+#. i18n: ectx: property (suffix), widget (QDoubleSpinBox, kcfg_plotHeight)
+#: backends/julia/settings.ui:115 backends/julia/settings.ui:145
+#: backends/maxima/settings.ui:112 backends/maxima/settings.ui:142
+#: backends/octave/settings.ui:65 backends/octave/settings.ui:95
+#: backends/python/settings.ui:125 backends/python/settings.ui:155
+#: backends/sage/settings.ui:142 backends/sage/settings.ui:172
+#, kde-format
+msgid "cm"
+msgstr "см"
+
+#. i18n: ectx: property (text), widget (QLabel, lPlotHeight)
+#: backends/julia/settings.ui:138 backends/maxima/settings.ui:135
+#: backends/octave/settings.ui:88 backends/python/settings.ui:148
+#: backends/sage/settings.ui:165
+#, kde-format
+msgid "height:"
+msgstr "висота:"
+
+#. i18n: ectx: property (text), widget (QLabel, label_4)
+#. i18n: ectx: property (text), item, widget (KComboBox, kcfg_plotExtenstionGraphicPackage)
+#: backends/julia/settings.ui:174 backends/julia/settings.ui:232
+#: backends/maxima/settings.ui:60 backends/octave/settings.ui:148
+#: backends/python/settings.ui:66 backends/sage/settings.ui:83
+#, kde-format
+msgid "Plots"
+msgstr "Креслення"
+
+#. i18n: ectx: property (text), widget (QLabel, label_3)
+#. i18n: ectx: property (text), widget (QLabel, label_2)
+#: backends/julia/settings.ui:197 backends/maxima/settings.ui:165
+#: backends/octave/settings.ui:155 backends/python/settings.ui:178
+#: backends/sage/settings.ui:195
+#, kde-format
+msgid "Image Format:"
+msgstr "Формат зображення:"
+
+#. i18n: ectx: property (toolTip), widget (KComboBox, kcfg_plotExtenstionGraphicPackage)
+#. i18n: ectx: property (toolTip), widget (QLabel, label3)
+#. i18n: ectx: property (toolTip), widget (QLabel, label4)
+#: backends/julia/settings.ui:223 backends/julia/settings.ui:250
+#: backends/python/settings.ui:204 backends/python/settings.ui:220
+#, kde-format
+msgid "Graphic package to be used in the Plot Assistant"
+msgstr "Графічний пакунок для допоміжного засобу креслення"
+
+#. i18n: ectx: property (text), item, widget (KComboBox, kcfg_plotExtenstionGraphicPackage)
+#: backends/julia/settings.ui:227 backends/python/settings.ui:239
+#, kde-format
+msgid "GR"
+msgstr "GR"
+
+#. i18n: ectx: property (text), item, widget (KComboBox, kcfg_plotExtenstionGraphicPackage)
+#: backends/julia/settings.ui:237
+#, kde-format
+msgid "PyPlot"
+msgstr "PyPlot"
+
+#. i18n: ectx: property (text), item, widget (KComboBox, kcfg_plotExtenstionGraphicPackage)
+#: backends/julia/settings.ui:242
+#, kde-format
+msgid "Gadfly"
+msgstr "Gadfly"
+
+#. i18n: ectx: property (text), widget (QLabel, label3)
+#: backends/julia/settings.ui:253
+#, fuzzy, kde-format
+#| msgid "Package for Plot Assistant"
+msgid "Package for Plot Assistant:"
+msgstr "Пакунок для допоміжного засобу креслення"
+
 #. i18n: ectx: attribute (title), widget (QWidget, tabAutorun)
 #. i18n: ectx: attribute (title), widget (QWidget, tabAutoran)
-#: backends/julia/settings.ui:142 backends/lua/settings.ui:51
+#: backends/julia/settings.ui:261 backends/lua/settings.ui:51
 #: backends/maxima/settings.ui:228 backends/octave/settings.ui:231
-#: backends/python/settings.ui:123 backends/qalculate/settings.ui:566
+#: backends/python/settings.ui:266 backends/qalculate/settings.ui:566
 #: backends/R/settings.ui:84 backends/sage/settings.ui:230
 #: backends/scilab/settings.ui:68
 #, kde-format
@@ -597,9 +639,9 @@ msgstr "Автозапуск"
 #. i18n: ectx: property (text), widget (QLabel, lAutorun)
 #. i18n: ectx: property (title), widget (QGroupBox, groupBox)
 #. i18n: ectx: property (text), widget (QLabel, label_2)
-#: backends/julia/settings.ui:148 backends/kalgebra/settings.ui:20
+#: backends/julia/settings.ui:267 backends/kalgebra/settings.ui:20
 #: backends/lua/settings.ui:57 backends/maxima/settings.ui:234
-#: backends/octave/settings.ui:237 backends/python/settings.ui:129
+#: backends/octave/settings.ui:237 backends/python/settings.ui:272
 #: backends/qalculate/settings.ui:572 backends/R/settings.ui:90
 #: backends/sage/settings.ui:236 backends/scilab/settings.ui:74
 #, kde-format
@@ -607,9 +649,9 @@ msgid "Commands to autorun"
 msgstr "Команди для автоматичного запуску"
 
 #. i18n: ectx: attribute (title), widget (QWidget, tabDocumentation)
-#: backends/julia/settings.ui:162 backends/lua/settings.ui:71
+#: backends/julia/settings.ui:281 backends/lua/settings.ui:71
 #: backends/maxima/settings.ui:248 backends/octave/settings.ui:251
-#: backends/python/settings.ui:143 backends/qalculate/settings.ui:585
+#: backends/python/settings.ui:286 backends/qalculate/settings.ui:585
 #: backends/R/settings.ui:104 backends/sage/settings.ui:250
 #: backends/scilab/settings.ui:88
 #, kde-format
@@ -804,15 +846,19 @@ msgid "Path to the Maxima executable"
 msgstr "Шлях до виконуваного файла Maxima"
 
 #. i18n: ectx: label, entry (plotWidth), group (SageBackend)
+#. i18n: ectx: label, entry (plotWidth), group (PythonBackend)
 #. i18n: ectx: label, entry (plotWidth), group (MaximaBackend)
-#: backends/maxima/maximabackend.kcfg:41 backends/sage/sagebackend.kcfg:29
+#: backends/maxima/maximabackend.kcfg:41 backends/python/pythonbackend.kcfg:29
+#: backends/sage/sagebackend.kcfg:29
 #, kde-format
 msgid "Default plot width"
 msgstr "Типова ширина креслення"
 
 #. i18n: ectx: label, entry (plotHeight), group (SageBackend)
+#. i18n: ectx: label, entry (plotHeight), group (PythonBackend)
 #. i18n: ectx: label, entry (plotHeight), group (MaximaBackend)
-#: backends/maxima/maximabackend.kcfg:45 backends/sage/sagebackend.kcfg:33
+#: backends/maxima/maximabackend.kcfg:45 backends/python/pythonbackend.kcfg:33
+#: backends/sage/sagebackend.kcfg:33
 #, kde-format
 msgid "Default plot height"
 msgstr "Типова висота креслення"
@@ -867,59 +913,6 @@ msgstr ""
 #, kde-format
 msgid "Executable:"
 msgstr "Виконуваний файл:"
-
-#. i18n: ectx: property (text), widget (QLabel, label_5)
-#. i18n: ectx: property (text), widget (QLabel, label_3)
-#: backends/maxima/settings.ui:77 backends/octave/settings.ui:118
-#: backends/sage/settings.ui:107
-#, kde-format
-msgid "Size:"
-msgstr "Розмір:"
-
-#. i18n: ectx: property (text), widget (QLabel, lPlotWidth)
-#: backends/maxima/settings.ui:105 backends/octave/settings.ui:58
-#: backends/sage/settings.ui:135
-#, kde-format
-msgid "width:"
-msgstr "ширина:"
-
-#. i18n: ectx: property (suffix), widget (QDoubleSpinBox, kcfg_plotWidth)
-#. i18n: ectx: property (suffix), widget (QDoubleSpinBox, kcfg_plotHeight)
-#: backends/maxima/settings.ui:112 backends/maxima/settings.ui:142
-#: backends/octave/settings.ui:65 backends/octave/settings.ui:95
-#: backends/sage/settings.ui:142 backends/sage/settings.ui:172
-#, kde-format
-msgid "cm"
-msgstr "см"
-
-#. i18n: ectx: property (text), widget (QLabel, lPlotHeight)
-#: backends/maxima/settings.ui:135 backends/octave/settings.ui:88
-#: backends/sage/settings.ui:165
-#, kde-format
-msgid "height:"
-msgstr "висота:"
-
-#. i18n: ectx: property (text), widget (QLabel, label_3)
-#. i18n: ectx: property (text), widget (QLabel, label_2)
-#: backends/maxima/settings.ui:165 backends/octave/settings.ui:155
-#: backends/sage/settings.ui:195
-#, kde-format
-msgid "Image Format:"
-msgstr "Формат зображення:"
-
-#. i18n: ectx: property (text), item, widget (QComboBox, kcfg_inlinePlotFormat)
-#: backends/maxima/settings.ui:173 backends/octave/settings.ui:196
-#: backends/sage/settings.ui:203
-#, kde-format
-msgid "PDF"
-msgstr "PDF"
-
-#. i18n: ectx: property (text), widget (QLabel, lPlotIntegration)
-#: backends/maxima/settings.ui:220 backends/octave/settings.ui:135
-#: backends/sage/settings.ui:90
-#, kde-format
-msgid "Integrated:"
-msgstr "Інтегрована:"
 
 #: backends/octave/octavebackend.cpp:63
 #, kde-format
@@ -993,6 +986,13 @@ msgstr ""
 "використовується у багатьох комплектах програм. Існує декілька пакунків "
 "Python для наукового програмування."
 
+#. i18n: ectx: label, entry (plotExtenstionGraphicPackage), group (PythonBackend)
+#: backends/python/pythonbackend.kcfg:44
+#, fuzzy, kde-format
+#| msgid "Graphic package to be used in the Plot Assistant"
+msgid "Graphical package to be used for the Plot Assistant"
+msgstr "Графічний пакунок для допоміжного засобу креслення"
+
 #: backends/python/pythonextensions.cpp:285
 #, kde-format
 msgid "# Sorry, but Bokeh doesn't support 3d plotting"
@@ -1041,26 +1041,33 @@ msgstr ""
 "виконуваний файл Plot.ly. Докладніший опис можна знайти у розділі «Static "
 "Image Export» документації до Plot.ly."
 
+#. i18n: ectx: property (text), widget (QLabel, label4)
+#: backends/python/settings.ui:207
+#, fuzzy, kde-format
+#| msgid "Package for Plot Assistant"
+msgid "Plot Assistant"
+msgstr "Пакунок для допоміжного засобу креслення"
+
 #. i18n: ectx: property (text), item, widget (KComboBox, kcfg_plotExtenstionGraphicPackage)
-#: backends/python/settings.ui:94
+#: backends/python/settings.ui:224
 #, kde-format
 msgid "matplotlib"
 msgstr "matplotlib"
 
 #. i18n: ectx: property (text), item, widget (KComboBox, kcfg_plotExtenstionGraphicPackage)
-#: backends/python/settings.ui:99
+#: backends/python/settings.ui:229
 #, kde-format
 msgid "pylab"
 msgstr "pylab"
 
 #. i18n: ectx: property (text), item, widget (KComboBox, kcfg_plotExtenstionGraphicPackage)
-#: backends/python/settings.ui:104
+#: backends/python/settings.ui:234
 #, kde-format
 msgid "plot.ly"
 msgstr "plot.ly"
 
 #. i18n: ectx: property (text), item, widget (KComboBox, kcfg_plotExtenstionGraphicPackage)
-#: backends/python/settings.ui:114
+#: backends/python/settings.ui:244
 #, kde-format
 msgid "bokeh"
 msgstr "bokeh"
@@ -2370,6 +2377,12 @@ msgstr ""
 #, kde-format
 msgid "*.R *.r|R source files (*.R, *.r)"
 msgstr "*.R *.r|файли кодів R (*.R, *.r)"
+
+#. i18n: ectx: property (text), widget (QLabel, lPlotIntegration)
+#: backends/R/settings.ui:53 backends/scilab/settings.ui:37
+#, kde-format
+msgid "Plot Integration:"
+msgstr "Інтеграція графіків:"
 
 #: backends/sage/sagebackend.cpp:79
 #, kde-format
@@ -4893,6 +4906,12 @@ msgstr "Вилучити запис"
 #, kde-format
 msgid "Drag Entry"
 msgstr "Перетягнути запис"
+
+#~ msgid "Inner format of plots, if plots embedding is enabled."
+#~ msgstr "Внутрішній формат креслень, якщо увімкнено вбудовування креслень."
+
+#~ msgid "Internal Plot Format:"
+#~ msgstr "Формат вбудованих креслень:"
 
 #~ msgid ""
 #~ "The path to Julia specified in the application settings must point "
