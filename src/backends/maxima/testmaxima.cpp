@@ -479,6 +479,9 @@ void TestMaxima::testTextQuotes()
     QVERIFY(e2->result() != nullptr);
     QCOMPARE(e2->result()->type(), (int)Cantor::TextResult::Type );
     QCOMPARE(e2->result()->data().toString(), QLatin1String("this is a \"quoted string\""));
+
+    auto* e = evalExp(QLatin1String("kill(t1, t2)"));
+    QVERIFY(e != nullptr);
 }
 
 void TestMaxima::testVariableModel()
@@ -547,6 +550,11 @@ void TestMaxima::testLispMode01()
     //evaluate a simple Maxima command
     auto* e4 = evalExp(QLatin1String("5+5"));
     QVERIFY(e4 != nullptr);
+
+    // wait until we got the result before proceeding with the next test,
+    // switch to maxima can take longer...
+    if(!e4->result())
+        waitForSignal(e4, SIGNAL(gotResult()));
 
     //TODO: doesn't work in the test, works in Cantor though...
 //     QVERIFY(e4->result() != nullptr);
