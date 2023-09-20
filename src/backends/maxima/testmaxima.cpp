@@ -523,6 +523,9 @@ void TestMaxima::testVariableModel()
 
     QVariant value3 = model->index(3,1).data();
     QCOMPARE(value3.toString(),QLatin1String("this is a \"quoted string\""));
+
+    auto* e = evalExp(QLatin1String("kill(all)"));
+    QVERIFY(e != nullptr);
 }
 
 void TestMaxima::testLispMode01()
