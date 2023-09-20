@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: cantor\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-09-19 00:40+0000\n"
-"PO-Revision-Date: 2023-08-27 08:56+0300\n"
+"PO-Revision-Date: 2023-09-19 08:47+0300\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian <kde-i18n-uk@kde.org>\n"
 "Language: uk\n"
@@ -620,10 +620,9 @@ msgstr "Gadfly"
 
 #. i18n: ectx: property (text), widget (QLabel, label3)
 #: backends/julia/settings.ui:253
-#, fuzzy, kde-format
-#| msgid "Package for Plot Assistant"
+#, kde-format
 msgid "Package for Plot Assistant:"
-msgstr "Пакунок для допоміжного засобу креслення"
+msgstr "Пакунок для допоміжного засобу креслення:"
 
 #. i18n: ectx: attribute (title), widget (QWidget, tabAutorun)
 #. i18n: ectx: attribute (title), widget (QWidget, tabAutoran)
@@ -988,10 +987,10 @@ msgstr ""
 
 #. i18n: ectx: label, entry (plotExtenstionGraphicPackage), group (PythonBackend)
 #: backends/python/pythonbackend.kcfg:44
-#, fuzzy, kde-format
-#| msgid "Graphic package to be used in the Plot Assistant"
+#, kde-format
 msgid "Graphical package to be used for the Plot Assistant"
-msgstr "Графічний пакунок для допоміжного засобу креслення"
+msgstr ""
+"Графічний пакунок, який буде використано для допоміжного засобу креслення"
 
 #: backends/python/pythonextensions.cpp:285
 #, kde-format
@@ -1043,10 +1042,9 @@ msgstr ""
 
 #. i18n: ectx: property (text), widget (QLabel, label4)
 #: backends/python/settings.ui:207
-#, fuzzy, kde-format
-#| msgid "Package for Plot Assistant"
+#, kde-format
 msgid "Plot Assistant"
-msgstr "Пакунок для допоміжного засобу креслення"
+msgstr "Допоміжний засіб креслення"
 
 #. i18n: ectx: property (text), item, widget (KComboBox, kcfg_plotExtenstionGraphicPackage)
 #: backends/python/settings.ui:224

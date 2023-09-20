@@ -10,14 +10,14 @@ msgstr ""
 "Project-Id-Version: cantor\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-09-19 00:40+0000\n"
-"PO-Revision-Date: 2023-08-27 10:52+0200\n"
+"PO-Revision-Date: 2023-09-19 13:23+0200\n"
 "Last-Translator: Josep M. Ferrer <txemaq@gmail.com>\n"
 "Language-Team: Catalan <kde-i18n-ca@kde.org>\n"
 "Language: ca\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Lokalize 23.04.3\n"
+"X-Generator: Lokalize 22.12.3\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Accelerator-Marker: &\n"
 
@@ -620,10 +620,9 @@ msgstr "Gadfly"
 
 #. i18n: ectx: property (text), widget (QLabel, label3)
 #: backends/julia/settings.ui:253
-#, fuzzy, kde-format
-#| msgid "Package for Plot Assistant"
+#, kde-format
 msgid "Package for Plot Assistant:"
-msgstr "Paquet per a l'assistent «Plot»"
+msgstr "Paquet de l'assistent «Plot»:"
 
 #. i18n: ectx: attribute (title), widget (QWidget, tabAutorun)
 #. i18n: ectx: attribute (title), widget (QWidget, tabAutoran)
@@ -991,10 +990,9 @@ msgstr ""
 
 #. i18n: ectx: label, entry (plotExtenstionGraphicPackage), group (PythonBackend)
 #: backends/python/pythonbackend.kcfg:44
-#, fuzzy, kde-format
-#| msgid "Graphic package to be used in the Plot Assistant"
+#, kde-format
 msgid "Graphical package to be used for the Plot Assistant"
-msgstr "Paquet gràfic a utilitzar a l'assistent «Plot»"
+msgstr "Paquet gràfic a utilitzar en l'assistent «Plot»"
 
 #: backends/python/pythonextensions.cpp:285
 #, kde-format
@@ -1046,10 +1044,9 @@ msgstr ""
 
 #. i18n: ectx: property (text), widget (QLabel, label4)
 #: backends/python/settings.ui:207
-#, fuzzy, kde-format
-#| msgid "Package for Plot Assistant"
+#, kde-format
 msgid "Plot Assistant"
-msgstr "Paquet per a l'assistent «Plot»"
+msgstr "Assistent «Plot»"
 
 #. i18n: ectx: property (text), item, widget (KComboBox, kcfg_plotExtenstionGraphicPackage)
 #: backends/python/settings.ui:224
@@ -4902,41 +4899,3 @@ msgstr "Elimina l'entrada"
 #, kde-format
 msgid "Drag Entry"
 msgstr "Arrossega l'entrada"
-
-#~ msgid "Inner format of plots, if plots embedding is enabled."
-#~ msgstr ""
-#~ "Format intern de les gràfiques, si s'ha activat la incrustació de les "
-#~ "gràfiques."
-
-#~ msgid "Internal Plot Format:"
-#~ msgstr "Format intern de les gràfiques:"
-
-#~ msgid ""
-#~ "The path to Julia specified in the application settings must point "
-#~ "directly to the executable. Symlinks are not allowed. Please provide the "
-#~ "correct path in the application settings and try again."
-#~ msgstr ""
-#~ "El camí al Julia especificat a la configuració de l'aplicació cal que "
-#~ "apunti directament a l'executable. No es permeten els enllaços simbòlics. "
-#~ "Proporcioneu el camí correcte a la configuració de l'aplicació i torneu-"
-#~ "ho a intentar."
-
-#~ msgid ""
-#~ "Сantor couldn’t determine the version of Julia for %1. Please specify the "
-#~ "correct path to Julia executable (no symlinks allowed) and try again."
-#~ msgstr ""
-#~ "El Сantor no ha pogut determinar la versió del Julia per a %1. "
-#~ "Especifiqueu el camí correcte a l'executable del Julia (no es permeten "
-#~ "enllaços simbòlics) i torneu a provar-ho."
-
-#~ msgid ""
-#~ "You are trying to use Cantor with Julia v%1.%2.%3. This version of Cantor "
-#~ "was compiled with the support of Julia v%4.%5.%6. Please point to this "
-#~ "version of Julia or recompile Cantor using the version %1.%2.%3."
-#~ msgstr ""
-#~ "Esteu intentant usar el Cantor amb el Julia v%1.%2.%3. Aquesta versió del "
-#~ "Cantor es va compilar amb el Julia v%4.%5.%6. Apunteu a aquesta versió "
-#~ "del Julia o recompileu el Cantor usant la versió %1.%2.%3."
-
-#~ msgid "Path to the Julia native REPL"
-#~ msgstr "Camí al Julia natiu REPL"
