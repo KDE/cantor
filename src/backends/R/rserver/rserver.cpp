@@ -2,20 +2,23 @@
     SPDX-License-Identifier: GPL-2.0-or-later
     SPDX-FileCopyrightText: 2009 Alexander Rieder <alexanderrieder@gmail.com>
     SPDX-FileCopyrightText: 2010 Oleksiy Protas <elfy.ua@gmail.com>
+    SPDX-FileCopyrightText: 2023 by Alexander Semke (alexander.semke@web.de)
 */
 
 // TODO: setStatus in syntax and completions, to be or not to be?
 // on the one hand comme il faut, on another, causes flickering in UI
 
 #include "rserver.h"
-#include <KIO/DeleteJob>
 #include "radaptor.h"
 #include "rcallbacks.h"
 #include "settings.h"
 
+#include <QApplication>
+#include <QDesktopWidget>
 #include <QDir>
 #include <QUrl>
-#include <QDebug>
+
+#include <KIO/DeleteJob>
 #include <KLocalizedString>
 
 #ifdef Q_OS_WIN
@@ -537,16 +540,44 @@ void RServer::answerRequest(const QString& answer)
 
 void RServer::newPlotDevice()
 {
-    static int deviceNum=0;
-    //For some reason, the PostScript returned by R doesn't seem to render,
-    //so fallback to png
+    static int deviceNum = 0;
 
-    /*static const QString psCommand=QString("pdf(horizontal = FALSE, onefile = TRUE, " \
-                                           "paper=\"special\", width=5, height=4,"\
-                                           "print.it=FALSE, bg=\"white\", file=\"%1\" )");*/
-    static const QString command=QLatin1String("png(filename=\"%1\", width = 480, height = 480, units = \"px\")");
-    m_curPlotFile=QString::fromLatin1("%1/Rplot%2.png").arg(m_tmpDir, QString::number(deviceNum++));
+    QString extension;
+    QString command;
+    int w = RServerSettings::self()->plotWidth();
+    int h = RServerSettings::self()->plotHeight();
+    auto format = RServerSettings::self()->inlinePlotFormat();
+
+    if (format == 0 || format == 1) // PDF and SVG
+    {
+        // convert the size from cm to inches
+        w =  w / 2.54;
+        h = h / 2.54;
+
+        if (format == 0)
+        {
+            // TODO: pdf produces corrupted output!
+            command = QLatin1String("pdf(\"%1\", width = %2, height = %3)");
+            extension = QLatin1String("pdf");
+        }
+        else
+        {
+            command = QLatin1String("svg(\"%1\", width = %2, height = %3)");
+            extension = QLatin1String("svg");
+        }
+    }
+    else // PNG
+    {
+        // convert the size from cm to pixels with the current desktop resolution
+        w = w / 2.54 * QApplication::desktop()->physicalDpiX();
+        h = h / 2.54 * QApplication::desktop()->physicalDpiX();
+        command = QLatin1String("png(\"%1\", width = %2, height = %3)");
+        extension = QLatin1String("png");
+    }
+
+    m_curPlotFile = QString::fromLatin1("%1/Rplot%2.%3").arg(m_tmpDir, QString::number(deviceNum++), extension);
     if(m_isInitialized)
         runCommand(QLatin1String("dev.off()"), true);
-    runCommand(command.arg(m_curPlotFile), true);
+
+    runCommand(command.arg(m_curPlotFile, QString::number(w), QString::number(h)), true);
 }

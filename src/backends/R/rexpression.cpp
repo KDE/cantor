@@ -78,12 +78,13 @@ void RExpression::showFilesAsResult(const QStringList& files)
         QMimeDatabase db;
         auto type = db.mimeTypeForUrl(QUrl(file));
         qDebug()<<"MimeType: "<<type.name();
-        if(type.inherits(QLatin1String("application/postscript")))
+        if(type.name() == QLatin1String("application/pdf"))
         {
-            qDebug()<<"it's PostScript";
-            setResult(new Cantor::EpsResult(QUrl::fromLocalFile(file)));
+            setResult(new Cantor::ImageResult(QUrl::fromLocalFile(file)));
+            setStatus(Cantor::Expression::Done);
         }
-        else if (type.name().contains(QLatin1String("image")))
+        else
+            if (type.name().contains(QLatin1String("image")))
         {
             setResult(new Cantor::ImageResult(QUrl::fromLocalFile(file)));
             setStatus(Cantor::Expression::Done);

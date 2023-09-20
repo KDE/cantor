@@ -5,6 +5,7 @@
 ### New features
     * Export worksheet to PDF
     * [python] allow to specify plot format and size in the application settings
+    * [R] allow to specify plot format and size in the application settings
 
 ### Bug fixes:
     * [Julia] removed the dependency on Julia's executable (BUG: 470381)

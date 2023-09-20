@@ -19,5 +19,21 @@
     <entry name="autorunScripts" type="StringList">
       <label>List of scripts to autorun at the beginning of session</label>
     </entry>
+    <entry name="inlinePlotFormat" type="Enum">
+      <choices>
+        <choice name="pdf"/>
+        <choice name="svg"/>
+        <choice name="png"/>
+      </choices>
+      <default>2</default>
+    </entry>
+    <entry name="plotWidth" type="Double">
+      <label>Default plot width</label>
+      <default>12.0</default>
+    </entry>
+    <entry name="plotHeight" type="Double">
+      <label>Default plot height</label>
+      <default>8.0</default>
+    </entry>
   </group>
 </kcfg>
