@@ -208,7 +208,8 @@ QString MaximaExpression::internalCommand()
 
     }
 
-    if (!cmd.endsWith(QLatin1Char('$')))
+    // properly end the input in the Maxima mode
+    if (static_cast<MaximaSession*>(session())->mode() == MaximaSession::Maxima && !cmd.endsWith(QLatin1Char('$')))
     {
         if (!cmd.endsWith(QLatin1String(";")))
             cmd += QLatin1Char(';');
@@ -305,17 +306,7 @@ void MaximaExpression::parseOutput(const QString& out)
     {
         qDebug() << "error content: " << errorContent;
 
-        if (out.contains(QLatin1String("cantor-value-separator"))
-            || (out.contains(QLatin1String("<cantor-result>")) && !(isHelpRequest() || m_isHelpRequestAdditional)) )
-        {
-            //we don't interpret the error output as an error in the following cases:
-            //1. when fetching variables, in addition to the actual result with variable names and values,
-            //  Maxima also writes out the names of the variables to the error buffer.
-            //2. when there is a valid result produced, in this case the error string
-            //  contains actually a warning that is handled above
-            setStatus(Cantor::Expression::Done);
-        }
-        else if (prompt.trimmed() == QLatin1String("MAXIMA>") )
+        if (prompt.trimmed() == QLatin1String("MAXIMA>") )
         {
             //prompt is "MAXIMA>", i.e. we're switching to the Lisp-mode triggered by to_lisp(). The output in this case is:
             //   "Type (to-maxima) to restart, ($quit) to quit Maxima.\n<cantor-prompt>\nMAXIMA> </cantor-prompt>\n"
@@ -335,6 +326,16 @@ void MaximaExpression::parseOutput(const QString& out)
             static_cast<MaximaSession*>(session())->setMode(MaximaSession::Maxima);
             auto* result = new Cantor::TextResult(errorContent.trimmed());
             addResult(result);
+            setStatus(Cantor::Expression::Done);
+        }
+        else if (out.contains(QLatin1String("cantor-value-separator"))
+            || (out.contains(QLatin1String("<cantor-result>")) && !(isHelpRequest() || m_isHelpRequestAdditional)) )
+        {
+            //we don't interpret the error output as an error in the following cases:
+            //1. when fetching variables, in addition to the actual result with variable names and values,
+            //  Maxima also writes out the names of the variables to the error buffer.
+            //2. when there is a valid result produced, in this case the error string
+            //  contains actually a warning that is handled above
             setStatus(Cantor::Expression::Done);
         }
         else if(isHelpRequest() || m_isHelpRequestAdditional) //help messages are also part of the error output
