@@ -551,14 +551,8 @@ void TestMaxima::testLispMode01()
     auto* e4 = evalExp(QLatin1String("5+5"));
     QVERIFY(e4 != nullptr);
 
-    // wait until we got the result before proceeding with the next test,
-    // switch to maxima can take longer...
-    if(!e4->result())
-        waitForSignal(e4, SIGNAL(gotResult()));
-
-    //TODO: doesn't work in the test, works in Cantor though...
-//     QVERIFY(e4->result() != nullptr);
-//     QCOMPARE(cleanOutput(e4->result()->data().toString()), QLatin1String("10"));
+    QVERIFY(e4->result() != nullptr);
+    QCOMPARE(cleanOutput(e4->result()->data().toString()), QLatin1String("10"));
 }
 
 void TestMaxima::testLoginLogout()
