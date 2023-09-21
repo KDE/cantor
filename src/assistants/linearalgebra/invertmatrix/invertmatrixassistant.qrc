@@ -1,0 +1,6 @@
+<!DOCTYPE RCC>
+<RCC version="1.0">
+    <qresource prefix="/kxmlgui5/cantor">
+        <file>cantor_invert_matrix_assistant.rc</file>
+    </qresource>
+</RCC>

@@ -1,5 +1,6 @@
 set( QalculatePlotAssistant_SRCS
      qalculateplotassistant.cpp
+     qalculateplotassistant.qrc
 )
 
 kconfig_add_kcfg_files(QalculatePlotAssistant_SRCS ../settings.kcfgc)
@@ -10,5 +11,3 @@ kcoreaddons_add_plugin(cantor_qalculateplotassistant
     INSTALL_NAMESPACE "cantor/assistants")
 
 target_link_libraries(cantor_qalculateplotassistant cantorlibs)
-
-install( FILES cantor_qalculateplotassistant.rc  DESTINATION  ${KDE_INSTALL_KXMLGUI5DIR}/cantor )

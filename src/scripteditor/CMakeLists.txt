@@ -1,6 +1,8 @@
 set( scripteditor_SRCS
     main.cpp
     scripteditorwidget.cpp
+
+    scripteditor.qrc
 )
 
 add_executable( cantor_scripteditor ${scripteditor_SRCS} )
