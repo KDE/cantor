@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: cantor\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-09-19 00:40+0000\n"
+"POT-Creation-Date: 2023-09-21 00:40+0000\n"
 "PO-Revision-Date: 2023-09-19 08:47+0300\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian <kde-i18n-uk@kde.org>\n"
@@ -465,7 +465,7 @@ msgstr "Загальне"
 #. i18n: ectx: property (text), item, widget (QComboBox, kcfg_inlinePlotFormat)
 #: backends/julia/settings.ui:28 backends/maxima/settings.ui:173
 #: backends/octave/settings.ui:196 backends/python/settings.ui:186
-#: backends/sage/settings.ui:203
+#: backends/R/settings.ui:169 backends/sage/settings.ui:203
 #, kde-format
 msgid "PDF"
 msgstr "PDF"
@@ -473,7 +473,7 @@ msgstr "PDF"
 #. i18n: ectx: property (toolTip), widget (QCheckBox, kcfg_integratePlots)
 #: backends/julia/settings.ui:46 backends/maxima/settings.ui:67
 #: backends/octave/settings.ui:27 backends/python/settings.ui:80
-#: backends/R/settings.ui:33 backends/sage/settings.ui:97
+#: backends/R/settings.ui:158 backends/sage/settings.ui:97
 #: backends/scilab/settings.ui:44
 #, kde-format
 msgid ""
@@ -502,7 +502,7 @@ msgstr ""
 #: backends/qalculate/settings.ui:182 backends/qalculate/settings.ui:212
 #: backends/qalculate/settings.ui:318 backends/qalculate/settings.ui:325
 #: backends/qalculate/settings.ui:332 backends/qalculate/settings.ui:349
-#: backends/R/settings.ui:36 backends/R/settings.ui:46
+#: backends/R/settings.ui:161 backends/R/settings.ui:190
 #: backends/sage/settings.ui:54 backends/sage/settings.ui:100
 #: backends/scilab/settings.ui:47 commandentry.cpp:349
 #, kde-format
@@ -513,7 +513,7 @@ msgstr "увімкнено"
 #. i18n: ectx: property (text), widget (QLabel, label_3)
 #: backends/julia/settings.ui:56 backends/maxima/settings.ui:77
 #: backends/octave/settings.ui:118 backends/python/settings.ui:90
-#: backends/sage/settings.ui:107
+#: backends/R/settings.ui:108 backends/sage/settings.ui:107
 #, kde-format
 msgid "Size:"
 msgstr "Розмір:"
@@ -521,7 +521,7 @@ msgstr "Розмір:"
 #. i18n: ectx: property (toolTip), widget (QCheckBox, kcfg_variableManagement)
 #: backends/julia/settings.ui:63 backends/maxima/settings.ui:44
 #: backends/octave/settings.ui:125 backends/python/settings.ui:34
-#: backends/R/settings.ui:43
+#: backends/R/settings.ui:187
 #, kde-format
 msgid ""
 "Monitor the creation and destruction of variables and show the existing "
@@ -533,7 +533,7 @@ msgstr ""
 #. i18n: ectx: property (text), widget (QLabel, lPlotIntegration)
 #: backends/julia/settings.ui:73 backends/maxima/settings.ui:220
 #: backends/octave/settings.ui:135 backends/python/settings.ui:73
-#: backends/sage/settings.ui:90
+#: backends/R/settings.ui:131 backends/sage/settings.ui:90
 #, kde-format
 msgid "Integrated:"
 msgstr "Інтегрована:"
@@ -541,7 +541,7 @@ msgstr "Інтегрована:"
 #. i18n: ectx: property (text), widget (QLabel, lVariableManagement)
 #: backends/julia/settings.ui:80 backends/maxima/settings.ui:37
 #: backends/octave/settings.ui:172 backends/python/settings.ui:27
-#: backends/R/settings.ui:76
+#: backends/R/settings.ui:151
 #, kde-format
 msgid "Variable Management:"
 msgstr "Керування змінними:"
@@ -549,7 +549,7 @@ msgstr "Керування змінними:"
 #. i18n: ectx: property (text), widget (QLabel, lPlotWidth)
 #: backends/julia/settings.ui:108 backends/maxima/settings.ui:105
 #: backends/octave/settings.ui:58 backends/python/settings.ui:118
-#: backends/sage/settings.ui:135
+#: backends/R/settings.ui:48 backends/sage/settings.ui:135
 #, kde-format
 msgid "width:"
 msgstr "ширина:"
@@ -560,6 +560,7 @@ msgstr "ширина:"
 #: backends/maxima/settings.ui:112 backends/maxima/settings.ui:142
 #: backends/octave/settings.ui:65 backends/octave/settings.ui:95
 #: backends/python/settings.ui:125 backends/python/settings.ui:155
+#: backends/R/settings.ui:55 backends/R/settings.ui:85
 #: backends/sage/settings.ui:142 backends/sage/settings.ui:172
 #, kde-format
 msgid "cm"
@@ -568,7 +569,7 @@ msgstr "см"
 #. i18n: ectx: property (text), widget (QLabel, lPlotHeight)
 #: backends/julia/settings.ui:138 backends/maxima/settings.ui:135
 #: backends/octave/settings.ui:88 backends/python/settings.ui:148
-#: backends/sage/settings.ui:165
+#: backends/R/settings.ui:78 backends/sage/settings.ui:165
 #, kde-format
 msgid "height:"
 msgstr "висота:"
@@ -577,7 +578,8 @@ msgstr "висота:"
 #. i18n: ectx: property (text), item, widget (KComboBox, kcfg_plotExtenstionGraphicPackage)
 #: backends/julia/settings.ui:174 backends/julia/settings.ui:232
 #: backends/maxima/settings.ui:60 backends/octave/settings.ui:148
-#: backends/python/settings.ui:66 backends/sage/settings.ui:83
+#: backends/python/settings.ui:66 backends/R/settings.ui:144
+#: backends/sage/settings.ui:83
 #, kde-format
 msgid "Plots"
 msgstr "Креслення"
@@ -586,7 +588,7 @@ msgstr "Креслення"
 #. i18n: ectx: property (text), widget (QLabel, label_2)
 #: backends/julia/settings.ui:197 backends/maxima/settings.ui:165
 #: backends/octave/settings.ui:155 backends/python/settings.ui:178
-#: backends/sage/settings.ui:195
+#: backends/R/settings.ui:197 backends/sage/settings.ui:195
 #, kde-format
 msgid "Image Format:"
 msgstr "Формат зображення:"
@@ -629,7 +631,7 @@ msgstr "Пакунок для допоміжного засобу креслен
 #: backends/julia/settings.ui:261 backends/lua/settings.ui:51
 #: backends/maxima/settings.ui:228 backends/octave/settings.ui:231
 #: backends/python/settings.ui:266 backends/qalculate/settings.ui:566
-#: backends/R/settings.ui:84 backends/sage/settings.ui:230
+#: backends/R/settings.ui:221 backends/sage/settings.ui:230
 #: backends/scilab/settings.ui:68
 #, kde-format
 msgid "Autorun"
@@ -641,7 +643,7 @@ msgstr "Автозапуск"
 #: backends/julia/settings.ui:267 backends/kalgebra/settings.ui:20
 #: backends/lua/settings.ui:57 backends/maxima/settings.ui:234
 #: backends/octave/settings.ui:237 backends/python/settings.ui:272
-#: backends/qalculate/settings.ui:572 backends/R/settings.ui:90
+#: backends/qalculate/settings.ui:572 backends/R/settings.ui:227
 #: backends/sage/settings.ui:236 backends/scilab/settings.ui:74
 #, kde-format
 msgid "Commands to autorun"
@@ -651,7 +653,7 @@ msgstr "Команди для автоматичного запуску"
 #: backends/julia/settings.ui:281 backends/lua/settings.ui:71
 #: backends/maxima/settings.ui:248 backends/octave/settings.ui:251
 #: backends/python/settings.ui:286 backends/qalculate/settings.ui:585
-#: backends/R/settings.ui:104 backends/sage/settings.ui:250
+#: backends/R/settings.ui:241 backends/sage/settings.ui:250
 #: backends/scilab/settings.ui:88
 #, kde-format
 msgid "Documentation"
@@ -846,18 +848,20 @@ msgstr "Шлях до виконуваного файла Maxima"
 
 #. i18n: ectx: label, entry (plotWidth), group (SageBackend)
 #. i18n: ectx: label, entry (plotWidth), group (PythonBackend)
+#. i18n: ectx: label, entry (plotWidth), group (RBackend)
 #. i18n: ectx: label, entry (plotWidth), group (MaximaBackend)
 #: backends/maxima/maximabackend.kcfg:41 backends/python/pythonbackend.kcfg:29
-#: backends/sage/sagebackend.kcfg:29
+#: backends/R/rserver/rserver.kcfg:31 backends/sage/sagebackend.kcfg:29
 #, kde-format
 msgid "Default plot width"
 msgstr "Типова ширина креслення"
 
 #. i18n: ectx: label, entry (plotHeight), group (SageBackend)
 #. i18n: ectx: label, entry (plotHeight), group (PythonBackend)
+#. i18n: ectx: label, entry (plotHeight), group (RBackend)
 #. i18n: ectx: label, entry (plotHeight), group (MaximaBackend)
 #: backends/maxima/maximabackend.kcfg:45 backends/python/pythonbackend.kcfg:33
-#: backends/sage/sagebackend.kcfg:33
+#: backends/R/rserver/rserver.kcfg:35 backends/sage/sagebackend.kcfg:33
 #, kde-format
 msgid "Default plot height"
 msgstr "Типова висота креслення"
@@ -2344,7 +2348,7 @@ msgstr ""
 "надає вам змогу виконувати подібні дослідження за допомогою вільного "
 "програмного забезпечення."
 
-#: backends/R/rexpression.cpp:107 backends/R/rexpression.cpp:108
+#: backends/R/rexpression.cpp:108 backends/R/rexpression.cpp:109
 #, kde-format
 msgid "Error opening file %1"
 msgstr "Помилка під час відкриття файла %1"
@@ -2354,7 +2358,7 @@ msgstr "Помилка під час відкриття файла %1"
 msgid "R script file (*.R)"
 msgstr "файл скрипту R (*.R)"
 
-#: backends/R/rserver/rserver.cpp:362
+#: backends/R/rserver/rserver.cpp:365
 #, kde-format
 msgid "Error Parsing Command"
 msgstr "Помилка під час обробки команди"
@@ -2375,12 +2379,6 @@ msgstr ""
 #, kde-format
 msgid "*.R *.r|R source files (*.R, *.r)"
 msgstr "*.R *.r|файли кодів R (*.R, *.r)"
-
-#. i18n: ectx: property (text), widget (QLabel, lPlotIntegration)
-#: backends/R/settings.ui:53 backends/scilab/settings.ui:37
-#, kde-format
-msgid "Plot Integration:"
-msgstr "Інтеграція графіків:"
 
 #: backends/sage/sagebackend.cpp:79
 #, kde-format
@@ -2530,6 +2528,12 @@ msgstr "Шлях до виконуваного файла Scilab"
 #, kde-format
 msgid ";;Scilab script file (*.sce);;Scilab function file (*.sci)"
 msgstr ";;файл скрипту Scilab (*.sce);;файл функції Scilab (*.sci)"
+
+#. i18n: ectx: property (text), widget (QLabel, lPlotIntegration)
+#: backends/scilab/settings.ui:37
+#, kde-format
+msgid "Plot Integration:"
+msgstr "Інтеграція графіків:"
 
 #: cantor.cpp:103
 #, kde-format

@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kdeedu-kde4\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-09-19 00:40+0000\n"
+"POT-Creation-Date: 2023-09-21 00:40+0000\n"
 "PO-Revision-Date: 2023-08-27 21:53+0300\n"
 "Last-Translator: Emir SARI <emir_sari@icloud.com>\n"
 "Language-Team: Turkish <kde-l10n-tr@kde.org>\n"
@@ -463,7 +463,7 @@ msgstr "Genel"
 #. i18n: ectx: property (text), item, widget (QComboBox, kcfg_inlinePlotFormat)
 #: backends/julia/settings.ui:28 backends/maxima/settings.ui:173
 #: backends/octave/settings.ui:196 backends/python/settings.ui:186
-#: backends/sage/settings.ui:203
+#: backends/R/settings.ui:169 backends/sage/settings.ui:203
 #, kde-format
 msgid "PDF"
 msgstr "PDF"
@@ -471,7 +471,7 @@ msgstr "PDF"
 #. i18n: ectx: property (toolTip), widget (QCheckBox, kcfg_integratePlots)
 #: backends/julia/settings.ui:46 backends/maxima/settings.ui:67
 #: backends/octave/settings.ui:27 backends/python/settings.ui:80
-#: backends/R/settings.ui:33 backends/sage/settings.ui:97
+#: backends/R/settings.ui:158 backends/sage/settings.ui:97
 #: backends/scilab/settings.ui:44
 #, kde-format
 msgid ""
@@ -500,7 +500,7 @@ msgstr ""
 #: backends/qalculate/settings.ui:182 backends/qalculate/settings.ui:212
 #: backends/qalculate/settings.ui:318 backends/qalculate/settings.ui:325
 #: backends/qalculate/settings.ui:332 backends/qalculate/settings.ui:349
-#: backends/R/settings.ui:36 backends/R/settings.ui:46
+#: backends/R/settings.ui:161 backends/R/settings.ui:190
 #: backends/sage/settings.ui:54 backends/sage/settings.ui:100
 #: backends/scilab/settings.ui:47 commandentry.cpp:349
 #, kde-format
@@ -511,7 +511,7 @@ msgstr "Etkin"
 #. i18n: ectx: property (text), widget (QLabel, label_3)
 #: backends/julia/settings.ui:56 backends/maxima/settings.ui:77
 #: backends/octave/settings.ui:118 backends/python/settings.ui:90
-#: backends/sage/settings.ui:107
+#: backends/R/settings.ui:108 backends/sage/settings.ui:107
 #, kde-format
 msgid "Size:"
 msgstr "Boyut:"
@@ -519,7 +519,7 @@ msgstr "Boyut:"
 #. i18n: ectx: property (toolTip), widget (QCheckBox, kcfg_variableManagement)
 #: backends/julia/settings.ui:63 backends/maxima/settings.ui:44
 #: backends/octave/settings.ui:125 backends/python/settings.ui:34
-#: backends/R/settings.ui:43
+#: backends/R/settings.ui:187
 #, kde-format
 msgid ""
 "Monitor the creation and destruction of variables and show the existing "
@@ -531,7 +531,7 @@ msgstr ""
 #. i18n: ectx: property (text), widget (QLabel, lPlotIntegration)
 #: backends/julia/settings.ui:73 backends/maxima/settings.ui:220
 #: backends/octave/settings.ui:135 backends/python/settings.ui:73
-#: backends/sage/settings.ui:90
+#: backends/R/settings.ui:131 backends/sage/settings.ui:90
 #, kde-format
 msgid "Integrated:"
 msgstr "Tümleştirilmiş:"
@@ -539,7 +539,7 @@ msgstr "Tümleştirilmiş:"
 #. i18n: ectx: property (text), widget (QLabel, lVariableManagement)
 #: backends/julia/settings.ui:80 backends/maxima/settings.ui:37
 #: backends/octave/settings.ui:172 backends/python/settings.ui:27
-#: backends/R/settings.ui:76
+#: backends/R/settings.ui:151
 #, kde-format
 msgid "Variable Management:"
 msgstr "Değişken Yönetimi:"
@@ -547,7 +547,7 @@ msgstr "Değişken Yönetimi:"
 #. i18n: ectx: property (text), widget (QLabel, lPlotWidth)
 #: backends/julia/settings.ui:108 backends/maxima/settings.ui:105
 #: backends/octave/settings.ui:58 backends/python/settings.ui:118
-#: backends/sage/settings.ui:135
+#: backends/R/settings.ui:48 backends/sage/settings.ui:135
 #, kde-format
 msgid "width:"
 msgstr "genişlik:"
@@ -558,6 +558,7 @@ msgstr "genişlik:"
 #: backends/maxima/settings.ui:112 backends/maxima/settings.ui:142
 #: backends/octave/settings.ui:65 backends/octave/settings.ui:95
 #: backends/python/settings.ui:125 backends/python/settings.ui:155
+#: backends/R/settings.ui:55 backends/R/settings.ui:85
 #: backends/sage/settings.ui:142 backends/sage/settings.ui:172
 #, kde-format
 msgid "cm"
@@ -566,7 +567,7 @@ msgstr "cm"
 #. i18n: ectx: property (text), widget (QLabel, lPlotHeight)
 #: backends/julia/settings.ui:138 backends/maxima/settings.ui:135
 #: backends/octave/settings.ui:88 backends/python/settings.ui:148
-#: backends/sage/settings.ui:165
+#: backends/R/settings.ui:78 backends/sage/settings.ui:165
 #, kde-format
 msgid "height:"
 msgstr "yükseklik:"
@@ -575,7 +576,8 @@ msgstr "yükseklik:"
 #. i18n: ectx: property (text), item, widget (KComboBox, kcfg_plotExtenstionGraphicPackage)
 #: backends/julia/settings.ui:174 backends/julia/settings.ui:232
 #: backends/maxima/settings.ui:60 backends/octave/settings.ui:148
-#: backends/python/settings.ui:66 backends/sage/settings.ui:83
+#: backends/python/settings.ui:66 backends/R/settings.ui:144
+#: backends/sage/settings.ui:83
 #, kde-format
 msgid "Plots"
 msgstr "Çizimler"
@@ -584,7 +586,7 @@ msgstr "Çizimler"
 #. i18n: ectx: property (text), widget (QLabel, label_2)
 #: backends/julia/settings.ui:197 backends/maxima/settings.ui:165
 #: backends/octave/settings.ui:155 backends/python/settings.ui:178
-#: backends/sage/settings.ui:195
+#: backends/R/settings.ui:197 backends/sage/settings.ui:195
 #, kde-format
 msgid "Image Format:"
 msgstr "Görsel Biçimi:"
@@ -618,17 +620,16 @@ msgstr "Gadfly"
 
 #. i18n: ectx: property (text), widget (QLabel, label3)
 #: backends/julia/settings.ui:253
-#, fuzzy, kde-format
-#| msgid "Package for Plot Assistant"
+#, kde-format
 msgid "Package for Plot Assistant:"
-msgstr "Çizim Yardımcısı için Paket"
+msgstr "Çizim Yardımcısı için paket:"
 
 #. i18n: ectx: attribute (title), widget (QWidget, tabAutorun)
 #. i18n: ectx: attribute (title), widget (QWidget, tabAutoran)
 #: backends/julia/settings.ui:261 backends/lua/settings.ui:51
 #: backends/maxima/settings.ui:228 backends/octave/settings.ui:231
 #: backends/python/settings.ui:266 backends/qalculate/settings.ui:566
-#: backends/R/settings.ui:84 backends/sage/settings.ui:230
+#: backends/R/settings.ui:221 backends/sage/settings.ui:230
 #: backends/scilab/settings.ui:68
 #, kde-format
 msgid "Autorun"
@@ -640,7 +641,7 @@ msgstr "Otomatik Çalıştır"
 #: backends/julia/settings.ui:267 backends/kalgebra/settings.ui:20
 #: backends/lua/settings.ui:57 backends/maxima/settings.ui:234
 #: backends/octave/settings.ui:237 backends/python/settings.ui:272
-#: backends/qalculate/settings.ui:572 backends/R/settings.ui:90
+#: backends/qalculate/settings.ui:572 backends/R/settings.ui:227
 #: backends/sage/settings.ui:236 backends/scilab/settings.ui:74
 #, kde-format
 msgid "Commands to autorun"
@@ -650,7 +651,7 @@ msgstr "Otomatik çalıştırılacak komutlar"
 #: backends/julia/settings.ui:281 backends/lua/settings.ui:71
 #: backends/maxima/settings.ui:248 backends/octave/settings.ui:251
 #: backends/python/settings.ui:286 backends/qalculate/settings.ui:585
-#: backends/R/settings.ui:104 backends/sage/settings.ui:250
+#: backends/R/settings.ui:241 backends/sage/settings.ui:250
 #: backends/scilab/settings.ui:88
 #, kde-format
 msgid "Documentation"
@@ -841,18 +842,20 @@ msgstr "Maxima yürütülebilirinin yolu"
 
 #. i18n: ectx: label, entry (plotWidth), group (SageBackend)
 #. i18n: ectx: label, entry (plotWidth), group (PythonBackend)
+#. i18n: ectx: label, entry (plotWidth), group (RBackend)
 #. i18n: ectx: label, entry (plotWidth), group (MaximaBackend)
 #: backends/maxima/maximabackend.kcfg:41 backends/python/pythonbackend.kcfg:29
-#: backends/sage/sagebackend.kcfg:29
+#: backends/R/rserver/rserver.kcfg:31 backends/sage/sagebackend.kcfg:29
 #, kde-format
 msgid "Default plot width"
 msgstr "Öntanımlı çizim genişliği"
 
 #. i18n: ectx: label, entry (plotHeight), group (SageBackend)
 #. i18n: ectx: label, entry (plotHeight), group (PythonBackend)
+#. i18n: ectx: label, entry (plotHeight), group (RBackend)
 #. i18n: ectx: label, entry (plotHeight), group (MaximaBackend)
 #: backends/maxima/maximabackend.kcfg:45 backends/python/pythonbackend.kcfg:33
-#: backends/sage/sagebackend.kcfg:33
+#: backends/R/rserver/rserver.kcfg:35 backends/sage/sagebackend.kcfg:33
 #, kde-format
 msgid "Default plot height"
 msgstr "Öntanımlı çizim yüksekliği"
@@ -980,8 +983,7 @@ msgstr ""
 
 #. i18n: ectx: label, entry (plotExtenstionGraphicPackage), group (PythonBackend)
 #: backends/python/pythonbackend.kcfg:44
-#, fuzzy, kde-format
-#| msgid "Graphic package to be used in the Plot Assistant"
+#, kde-format
 msgid "Graphical package to be used for the Plot Assistant"
 msgstr "Çizim Yardımcısı'nda kullanılacak grafiksel paket"
 
@@ -1034,10 +1036,9 @@ msgstr ""
 
 #. i18n: ectx: property (text), widget (QLabel, label4)
 #: backends/python/settings.ui:207
-#, fuzzy, kde-format
-#| msgid "Package for Plot Assistant"
+#, kde-format
 msgid "Plot Assistant"
-msgstr "Çizim Yardımcısı için Paket"
+msgstr "Çizim Yardımcısı"
 
 #. i18n: ectx: property (text), item, widget (KComboBox, kcfg_plotExtenstionGraphicPackage)
 #: backends/python/settings.ui:224
@@ -2325,7 +2326,7 @@ msgstr ""
 "üzerine yapılan araştırmalarda kullanılan bir araçtır, R dili ise buna açık "
 "kaynaklı bir çözüm getirmektedir."
 
-#: backends/R/rexpression.cpp:107 backends/R/rexpression.cpp:108
+#: backends/R/rexpression.cpp:108 backends/R/rexpression.cpp:109
 #, kde-format
 msgid "Error opening file %1"
 msgstr "%1 dosyası açılırken hata"
@@ -2335,7 +2336,7 @@ msgstr "%1 dosyası açılırken hata"
 msgid "R script file (*.R)"
 msgstr "R betik dosyası (*.R)"
 
-#: backends/R/rserver/rserver.cpp:362
+#: backends/R/rserver/rserver.cpp:365
 #, kde-format
 msgid "Error Parsing Command"
 msgstr "Komut Ayrıştırılırken Hata"
@@ -2355,12 +2356,6 @@ msgstr "Dosya seçim penceresini açmak için çift tıklayın"
 #, kde-format
 msgid "*.R *.r|R source files (*.R, *.r)"
 msgstr "*.R *.r|R Kaynak Dosyaları (*.R, *.r)"
-
-#. i18n: ectx: property (text), widget (QLabel, lPlotIntegration)
-#: backends/R/settings.ui:53 backends/scilab/settings.ui:37
-#, kde-format
-msgid "Plot Integration:"
-msgstr "Çizim Tümleştirmesi:"
 
 #: backends/sage/sagebackend.cpp:79
 #, kde-format
@@ -2507,6 +2502,12 @@ msgstr "Scilab yürütülebilirinin yolu"
 #, kde-format
 msgid ";;Scilab script file (*.sce);;Scilab function file (*.sci)"
 msgstr ";;Scilab betik dosyası (*.sce);;Scilab işlev dosyası (*.sci)"
+
+#. i18n: ectx: property (text), widget (QLabel, lPlotIntegration)
+#: backends/scilab/settings.ui:37
+#, kde-format
+msgid "Plot Integration:"
+msgstr "Çizim Tümleştirmesi:"
 
 #: cantor.cpp:103
 #, kde-format
@@ -4868,83 +4869,3 @@ msgstr "Girdiyi Kaldır"
 #, kde-format
 msgid "Drag Entry"
 msgstr "Girdiyi Sürükle"
-
-#~ msgid "Inner format of plots, if plots embedding is enabled."
-#~ msgstr "Çizim gömme etkinleştirilmişse çizimlerin iç biçimi."
-
-#~ msgid "Internal Plot Format:"
-#~ msgstr "İç Çizim Biçimi:"
-
-#~ msgid ""
-#~ "The path to Julia specified in the application settings must point "
-#~ "directly to the executable. Symlinks are not allowed. Please provide the "
-#~ "correct path in the application settings and try again."
-#~ msgstr ""
-#~ "Uygulama ayarlarında belirtilen Julia yolu, doğrudan yürütülebiliri "
-#~ "gösteriyor olmalıdır. Sembolik bağlantılara izin verilmez. Uygulama "
-#~ "ayarlarında doğru yolu sağlayın ve yeniden deneyin."
-
-#~ msgid ""
-#~ "Сantor couldn’t determine the version of Julia for %1. Please specify the "
-#~ "correct path to Julia executable (no symlinks allowed) and try again."
-#~ msgstr ""
-#~ "Cantor, %1 için Julia sürümünü algılayamıyor. Lütfen, Julia "
-#~ "yürütülebilirine olan doğru yolu sağlayın (sembolik bağlantılara izin "
-#~ "verilmez) ve yeniden deneyin."
-
-#~ msgid ""
-#~ "You are trying to use Cantor with Julia v%1.%2.%3. This version of Cantor "
-#~ "was compiled with the support of Julia v%4.%5.%6. Please point to this "
-#~ "version of Julia or recompile Cantor using the version %1.%2.%3."
-#~ msgstr ""
-#~ "Cantor'u Julia sürüm %1.%2.%3 ile kullanmaya çalışıyorsunuz. Cantor'un bu "
-#~ "sürümü, Julia sürüm %4.%5.%6 kullanılarak derlendi. Lütfen Julia'nın bu "
-#~ "sürümünü sağlayın veya Cantor'u %1.%2.%3 kullanarak yeniden derleyin."
-
-#~ msgid "Path to the Julia native REPL"
-#~ msgstr "Julia yerel REPL'i için yol"
-
-#~ msgid ""
-#~ "<b>Qalculate!</b> is not your regular software replication of the "
-#~ "cheapest available calculator. Qalculate! aims to make full use of the "
-#~ "superior interface, power and flexibility of modern computers. The center "
-#~ "of attention in Qalculate! is the expression entry. Instead of entering "
-#~ "each number in a mathematical expression separately, you can directly "
-#~ "write the whole expression and later modify it. The interpretation of "
-#~ "expressions is flexible and fault tolerant, and if you nevertheless do "
-#~ "something wrong, Qalculate! will tell you so. Not fully solvable "
-#~ "expressions are however not errors. Qalculate! will simplify as far as it "
-#~ "can and answer with an expression. In addition to numbers and arithmetic "
-#~ "operators, an expression may contain any combination of variables, units, "
-#~ "and functions."
-#~ msgstr ""
-#~ "<b>Qalculate!</b>, basit hesap makinenizin bir yenilemesi değildir. "
-#~ "Qalculate! günümüz bilgisayarlarının bütün gücünü ve esnekliğini "
-#~ "kullanması için tasarlanmıştır. Qalculate!'in odağında ifade girdileri "
-#~ "vardır. Bir matematiksel ifadenin her sayısını ayrı ayrı girmek yerine "
-#~ "tüm ifadeyi yazıp daha sonra düzenleyebilirsiniz. İfadelerin yorumlanması "
-#~ "esnek ve hata toleranslıdır ve yine de hatalı bir şey yaparsanız "
-#~ "Qalculate! bunu size bildirecektir. Tamamen çözülemeyen ifadeler hata "
-#~ "sayılmazlar. Qalculate! yapabildiği kadar onları yalınlaştırır ve sonuç "
-#~ "olarak gösterir. Sayılar ve aritmetik işlemlerin yanı sıra bir ifade "
-#~ "değişkenler, birimler ve işlevlerden oluşabilir."
-
-#~ msgid ""
-#~ "The plot integration doesn't work because Cantor found, that Octave can't "
-#~ "create plots, because there are no graphical backends for it: this "
-#~ "conclusion was made on the basis of empty output from "
-#~ "available_graphics_toolkits() function. Looks like you should install "
-#~ "some additional OS packages, like gnuplot, fltk or qt for possibility to "
-#~ "create plots."
-#~ msgstr ""
-#~ "Çizim tümleştirmesi çalışmıyor; çünkü Cantor, Octave için bir grafiksel "
-#~ "çizim oluşturma arka ucu bulunmadığını algıladı: Bu sonuca, "
-#~ "available_graphics_toolkits() işlevinden gelen boş çıktıya istinaden "
-#~ "ulaşıldı. Çizim oluşturabilmek için ek birkaç işletim sistemi paketi "
-#~ "kurmanız gerek gibi görünüyor; örneğin gnuplot, fltk veya qt gibi."
-
-#~ msgid "<%1 bytes>"
-#~ msgstr "<%1 bayt>"
-
-#~ msgid "<too big variable>"
-#~ msgstr "<pek büyük değişken>"
