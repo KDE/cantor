@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: cantor\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-09-21 00:40+0000\n"
+"POT-Creation-Date: 2023-09-22 00:39+0000\n"
 "PO-Revision-Date: 2023-09-18 09:59-0300\n"
 "Last-Translator: Luiz Fernando Ranghetti <elchevive@opensuse.org>\n"
 "Language-Team: Brazilian Portuguese <kde-i18n-pt_BR@kde.org>\n"
@@ -886,7 +886,7 @@ msgstr "Erro: Existem muitos /*"
 msgid "Error: expected \" before ;"
 msgstr "Erro: Era esperado um \" antes do ;"
 
-#: backends/maxima/maximaexpression.cpp:431
+#: backends/maxima/maximaexpression.cpp:432
 #, kde-format
 msgid "Waiting for the plot result"
 msgstr "Aguardando pelo resultado do gráfico"

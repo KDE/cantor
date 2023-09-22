@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-09-21 00:40+0000\n"
+"POT-Creation-Date: 2023-09-22 00:39+0000\n"
 "PO-Revision-Date: 2016-05-28 16:30+0100\n"
 "Last-Translator: Martin Schlander <mschlander@opensuse.org>\n"
 "Language-Team: Danish <kde-i18n-doc@kde.org>\n"
@@ -870,7 +870,7 @@ msgstr "Fejl: For mange /*"
 msgid "Error: expected \" before ;"
 msgstr "Fejl: Forventede \" før ;"
 
-#: backends/maxima/maximaexpression.cpp:431
+#: backends/maxima/maximaexpression.cpp:432
 #, kde-format
 msgid "Waiting for the plot result"
 msgstr ""

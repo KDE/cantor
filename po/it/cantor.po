@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: cantor\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-09-21 00:40+0000\n"
+"POT-Creation-Date: 2023-09-22 00:39+0000\n"
 "PO-Revision-Date: 2023-09-01 17:49+0200\n"
 "Last-Translator: Vincenzo Reale <smart2128vr@gmail.com>\n"
 "Language-Team: Italian <kde-i18n-it@kde.org>\n"
@@ -883,7 +883,7 @@ msgstr "Errore: troppi /*"
 msgid "Error: expected \" before ;"
 msgstr "Errore: atteso \" prima di ;"
 
-#: backends/maxima/maximaexpression.cpp:431
+#: backends/maxima/maximaexpression.cpp:432
 #, kde-format
 msgid "Waiting for the plot result"
 msgstr "In attesa del risultato del grafico"

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: mathematik\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-09-21 00:40+0000\n"
+"POT-Creation-Date: 2023-09-22 00:39+0000\n"
 "PO-Revision-Date: 2023-08-27 07:17+0200\n"
 "Last-Translator: Stefan Asserhäll <stefan.asserhall@bredband.net>\n"
 "Language-Team: Swedish <kde-i18n-doc@kde.org>\n"
@@ -876,7 +876,7 @@ msgstr "Fel: För många /*"
 msgid "Error: expected \" before ;"
 msgstr "Fel: Förväntade \" innan ;"
 
-#: backends/maxima/maximaexpression.cpp:431
+#: backends/maxima/maximaexpression.cpp:432
 #, kde-format
 msgid "Waiting for the plot result"
 msgstr "Väntar på diagramresultatet"

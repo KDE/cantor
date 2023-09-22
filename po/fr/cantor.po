@@ -12,8 +12,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: cantor\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-09-21 00:40+0000\n"
-"PO-Revision-Date: 2023-09-14 19:21+0200\n"
+"POT-Creation-Date: 2023-09-22 00:39+0000\n"
+"PO-Revision-Date: 2023-09-20 17:39+0200\n"
 "Last-Translator: Xavier BESNARD <xavier.besnard@neuf.fr>\n"
 "Language-Team: fr\n"
 "Language: fr\n"
@@ -21,7 +21,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"X-Generator: Lokalize 23.08.0\n"
+"X-Generator: Lokalize 23.08.1\n"
 "X-Environment: kde\n"
 "X-Accelerator-Marker: &\n"
 "X-Text-Markup: kde4\n"
@@ -634,10 +634,9 @@ msgstr "Gadfly"
 
 #. i18n: ectx: property (text), widget (QLabel, label3)
 #: backends/julia/settings.ui:253
-#, fuzzy, kde-format
-#| msgid "Package for Plot Assistant"
+#, kde-format
 msgid "Package for Plot Assistant:"
-msgstr "Paquet pour l'assistant « Traçage »"
+msgstr "Paquet pour l'assistant de tracés"
 
 #. i18n: ectx: attribute (title), widget (QWidget, tabAutorun)
 #. i18n: ectx: attribute (title), widget (QWidget, tabAutoran)
@@ -897,7 +896,7 @@ msgstr "Erreur : trop de « /* »"
 msgid "Error: expected \" before ;"
 msgstr "Erreur: « \" » était attendu avant ;"
 
-#: backends/maxima/maximaexpression.cpp:431
+#: backends/maxima/maximaexpression.cpp:432
 #, kde-format
 msgid "Waiting for the plot result"
 msgstr "En attente du résultat du tracé"
@@ -1007,10 +1006,9 @@ msgstr ""
 
 #. i18n: ectx: label, entry (plotExtenstionGraphicPackage), group (PythonBackend)
 #: backends/python/pythonbackend.kcfg:44
-#, fuzzy, kde-format
-#| msgid "Graphic package to be used in the Plot Assistant"
+#, kde-format
 msgid "Graphical package to be used for the Plot Assistant"
-msgstr "Paquet de graphique à utiliser pour l'assistant « Traçage »"
+msgstr "Paquet de graphiques à utiliser pour l'assistant de tracés"
 
 #: backends/python/pythonextensions.cpp:285
 #, kde-format
@@ -1062,10 +1060,9 @@ msgstr ""
 
 #. i18n: ectx: property (text), widget (QLabel, label4)
 #: backends/python/settings.ui:207
-#, fuzzy, kde-format
-#| msgid "Package for Plot Assistant"
+#, kde-format
 msgid "Plot Assistant"
-msgstr "Paquet pour l'assistant « Traçage »"
+msgstr "Assistant de tracé"
 
 #. i18n: ectx: property (text), item, widget (KComboBox, kcfg_plotExtenstionGraphicPackage)
 #: backends/python/settings.ui:224
