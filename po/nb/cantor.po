@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-08-27 00:41+0000\n"
+"POT-Creation-Date: 2023-09-22 00:39+0000\n"
 "PO-Revision-Date: 2014-01-07 14:17+0100\n"
 "Last-Translator: Bjørn Steensrud <bjornst@skogkatt.homelinux.org>\n"
 "Language-Team: Norwegian Bokmål <l10n-no@lister.huftis.org>\n"
@@ -326,7 +326,7 @@ msgstr ""
 msgid "Make this the default backend"
 msgstr "Bruk denne bakgrunnsmotoren som standard"
 
-#: backends/julia/juliabackend.cpp:58
+#: backends/julia/juliabackend.cpp:55
 #, kde-format
 msgid ""
 "<b>Julia</b> is a high-level, high-performance dynamic programming language "
@@ -336,7 +336,7 @@ msgid ""
 "mathematical function library."
 msgstr ""
 
-#: backends/julia/juliabackend.cpp:71
+#: backends/julia/juliabackend.cpp:68
 #, kde-format
 msgctxt ""
 "The url to the documentation of Julia, please check if there is a translated "
@@ -344,40 +344,11 @@ msgctxt ""
 msgid "https://docs.julialang.org/en/latest/"
 msgstr ""
 
-#: backends/julia/juliabackend.cpp:87
-#, kde-format
-msgid ""
-"The path to Julia specified in the application settings must point directly "
-"to the executable. Symlinks are not allowed. Please provide the correct path "
-"in the application settings and try again."
-msgstr ""
-
-#: backends/julia/juliabackend.cpp:102 backends/julia/juliabackend.cpp:114
-#, kde-format
-msgid ""
-"Сantor couldn’t determine the version of Julia for %1. Please specify the "
-"correct path to Julia executable (no symlinks allowed) and try again."
-msgstr ""
-
-#: backends/julia/juliabackend.cpp:127
-#, kde-format
-msgid ""
-"You are trying to use Cantor with Julia v%1.%2.%3. This version of Cantor "
-"was compiled with the support of Julia v%4.%5.%6. Please point to this "
-"version of Julia or recompile Cantor using the version %1.%2.%3."
-msgstr ""
-
-#. i18n: ectx: label, entry (replPath), group (JuliaBackend)
-#: backends/julia/juliabackend.kcfg:10
-#, kde-format
-msgid "Path to the Julia native REPL"
-msgstr ""
-
 #. i18n: ectx: label, entry (variableManagement), group (JuliaBackend)
 #. i18n: ectx: label, entry (variableManagement), group (PythonBackend)
 #. i18n: ectx: label, entry (variableManagement), group (RBackend)
 #. i18n: ectx: label, entry (variableManagement), group (MaximaBackend)
-#: backends/julia/juliabackend.kcfg:16 backends/maxima/maximabackend.kcfg:26
+#: backends/julia/juliabackend.kcfg:10 backends/maxima/maximabackend.kcfg:26
 #: backends/python/pythonbackend.kcfg:14 backends/R/rserver/rserver.kcfg:16
 #, kde-format
 msgid "Enable Variable Management"
@@ -389,7 +360,7 @@ msgstr "Slå på håndtering av variabler"
 #. i18n: ectx: label, entry (integratePlots), group (RBackend)
 #. i18n: ectx: label, entry (integratePlots), group (ScilabBackend)
 #. i18n: ectx: label, entry (integratePlots), group (MaximaBackend)
-#: backends/julia/juliabackend.kcfg:20 backends/maxima/maximabackend.kcfg:22
+#: backends/julia/juliabackend.kcfg:14 backends/maxima/maximabackend.kcfg:22
 #: backends/python/pythonbackend.kcfg:10 backends/R/rserver/rserver.kcfg:12
 #: backends/sage/sagebackend.kcfg:18 backends/scilab/scilabbackend.kcfg:22
 #, kde-format
@@ -397,8 +368,7 @@ msgid "Integrate Plots into the Worksheet"
 msgstr "Bygg inn plott i arbeidsarket"
 
 #. i18n: ectx: label, entry (plotExtenstionGraphicPackage), group (JuliaBackend)
-#. i18n: ectx: label, entry (plotExtenstionGraphicPackage), group (PythonBackend)
-#: backends/julia/juliabackend.kcfg:37 backends/python/pythonbackend.kcfg:28
+#: backends/julia/juliabackend.kcfg:31
 #, kde-format
 msgid "Graphical package for the Plot-Assistant"
 msgstr ""
@@ -413,7 +383,7 @@ msgstr ""
 msgid "Julia script file (*.jl)"
 msgstr ""
 
-#: backends/julia/juliasession.cpp:111 backends/julia/juliasession.cpp:120
+#: backends/julia/juliasession.cpp:108 backends/julia/juliasession.cpp:117
 #: backends/maxima/maximasession.cpp:265 cantor_part.cpp:964
 #: lib/session.cpp:313 lib/session.cpp:315 worksheet.cpp:1193
 #: worksheet.cpp:1221 worksheet.cpp:1236 worksheet.cpp:1252 worksheet.cpp:1296
@@ -422,34 +392,34 @@ msgstr ""
 msgid "Error - Cantor"
 msgstr "Feil – Cantor"
 
-#: backends/julia/juliasession.cpp:111
+#: backends/julia/juliasession.cpp:108
 #, kde-format
 msgid ""
 "Julia session can't login due internal julia problem with missing internal "
 "file - \"%1\""
 msgstr ""
 
-#: backends/julia/juliasession.cpp:120
+#: backends/julia/juliasession.cpp:117
 #, kde-format
 msgid "Julia session can't login due unknown internal problem"
 msgstr ""
 
-#: backends/julia/juliasession.cpp:246
+#: backends/julia/juliasession.cpp:242
 #, kde-format
 msgid "Julia process stopped working."
 msgstr ""
 
-#: backends/julia/juliasession.cpp:249
+#: backends/julia/juliasession.cpp:245
 #, kde-format
 msgid "Failed to start Julia process."
 msgstr ""
 
-#: backends/julia/juliasession.cpp:252
+#: backends/julia/juliasession.cpp:248
 #, kde-format
 msgid "Communication with Julia process failed for unknown reasons."
 msgstr ""
 
-#: backends/julia/juliasession.cpp:322
+#: backends/julia/juliasession.cpp:318
 #, kde-format
 msgid ""
 "For Julia only GR (https://gr-framework.org/), a framework for visualization "
@@ -471,26 +441,18 @@ msgstr ""
 msgid "General"
 msgstr "Generelt"
 
-#. i18n: ectx: property (text), widget (QLabel, label)
-#. i18n: ectx: property (text), widget (QLabel, label_19)
-#: backends/julia/settings.ui:27 backends/maxima/settings.ui:27
-#: backends/octave/settings.ui:165 backends/qalculate/settings.ui:151
-#: backends/sage/settings.ui:27 backends/scilab/settings.ui:27
+#. i18n: ectx: property (text), item, widget (QComboBox, kcfg_inlinePlotFormat)
+#: backends/julia/settings.ui:28 backends/maxima/settings.ui:173
+#: backends/octave/settings.ui:196 backends/python/settings.ui:186
+#: backends/R/settings.ui:169 backends/sage/settings.ui:203
 #, kde-format
-msgid "Executable:"
-msgstr ""
-
-#. i18n: ectx: property (text), widget (QLabel, lPlotIntegration)
-#: backends/julia/settings.ui:37 backends/python/settings.ui:47
-#: backends/R/settings.ui:53 backends/scilab/settings.ui:37
-#, kde-format
-msgid "Plot Integration:"
+msgid "PDF"
 msgstr ""
 
 #. i18n: ectx: property (toolTip), widget (QCheckBox, kcfg_integratePlots)
-#: backends/julia/settings.ui:44 backends/maxima/settings.ui:67
-#: backends/octave/settings.ui:27 backends/python/settings.ui:64
-#: backends/R/settings.ui:33 backends/sage/settings.ui:97
+#: backends/julia/settings.ui:46 backends/maxima/settings.ui:67
+#: backends/octave/settings.ui:27 backends/python/settings.ui:80
+#: backends/R/settings.ui:158 backends/sage/settings.ui:97
 #: backends/scilab/settings.ui:44
 #, kde-format
 msgid ""
@@ -509,99 +471,142 @@ msgstr ""
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_coloredPlot)
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_plotGrid)
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_plotBorder)
-#: backends/julia/settings.ui:47 backends/julia/settings.ui:64
+#: backends/julia/settings.ui:49 backends/julia/settings.ui:66
 #: backends/maxima/settings.ui:47 backends/maxima/settings.ui:70
 #: backends/octave/settings.ui:30 backends/octave/settings.ui:128
-#: backends/python/settings.ui:67 backends/python/settings.ui:77
+#: backends/python/settings.ui:37 backends/python/settings.ui:83
 #: backends/qalculate/settings.ui:90 backends/qalculate/settings.ui:131
 #: backends/qalculate/settings.ui:182 backends/qalculate/settings.ui:212
 #: backends/qalculate/settings.ui:318 backends/qalculate/settings.ui:325
 #: backends/qalculate/settings.ui:332 backends/qalculate/settings.ui:349
-#: backends/R/settings.ui:36 backends/R/settings.ui:46
+#: backends/R/settings.ui:161 backends/R/settings.ui:190
 #: backends/sage/settings.ui:54 backends/sage/settings.ui:100
 #: backends/scilab/settings.ui:47 commandentry.cpp:349
 #, kde-format
 msgid "Enabled"
 msgstr "Slått på"
 
-#. i18n: ectx: property (text), widget (QLabel, lVariableManagement)
-#: backends/julia/settings.ui:54 backends/maxima/settings.ui:37
-#: backends/octave/settings.ui:172 backends/python/settings.ui:27
-#: backends/R/settings.ui:76
+#. i18n: ectx: property (text), widget (QLabel, label_5)
+#. i18n: ectx: property (text), widget (QLabel, label_3)
+#: backends/julia/settings.ui:56 backends/maxima/settings.ui:77
+#: backends/octave/settings.ui:118 backends/python/settings.ui:90
+#: backends/R/settings.ui:108 backends/sage/settings.ui:107
 #, kde-format
-msgid "Variable Management:"
+msgid "Size:"
 msgstr ""
 
 #. i18n: ectx: property (toolTip), widget (QCheckBox, kcfg_variableManagement)
-#: backends/julia/settings.ui:61 backends/maxima/settings.ui:44
-#: backends/octave/settings.ui:125 backends/python/settings.ui:74
-#: backends/R/settings.ui:43
+#: backends/julia/settings.ui:63 backends/maxima/settings.ui:44
+#: backends/octave/settings.ui:125 backends/python/settings.ui:34
+#: backends/R/settings.ui:187
 #, kde-format
 msgid ""
 "Monitor the creation and destruction of variables and show the existing "
 "variables in the variable panel."
 msgstr ""
 
-#. i18n: ectx: property (text), widget (QLabel, label2)
-#: backends/julia/settings.ui:71
+#. i18n: ectx: property (text), widget (QLabel, lPlotIntegration)
+#: backends/julia/settings.ui:73 backends/maxima/settings.ui:220
+#: backends/octave/settings.ui:135 backends/python/settings.ui:73
+#: backends/R/settings.ui:131 backends/sage/settings.ui:90
 #, kde-format
-msgid "Internal Plot Format:"
+msgid "Integrated:"
 msgstr ""
 
-#. i18n: ectx: property (toolTip), widget (QComboBox, kcfg_inlinePlotFormat)
-#: backends/julia/settings.ui:78
+#. i18n: ectx: property (text), widget (QLabel, lVariableManagement)
+#: backends/julia/settings.ui:80 backends/maxima/settings.ui:37
+#: backends/octave/settings.ui:172 backends/python/settings.ui:27
+#: backends/R/settings.ui:151
 #, kde-format
-msgid "Inner format of plots, if plots embedding is enabled."
+msgid "Variable Management:"
 msgstr ""
 
-#. i18n: ectx: property (toolTip), widget (QLabel, label3)
-#. i18n: ectx: property (toolTip), widget (KComboBox, kcfg_plotExtenstionGraphicPackage)
-#. i18n: ectx: property (toolTip), widget (QLabel, label4)
-#: backends/julia/settings.ui:95 backends/julia/settings.ui:111
-#: backends/python/settings.ui:54 backends/python/settings.ui:90
+#. i18n: ectx: property (text), widget (QLabel, lPlotWidth)
+#: backends/julia/settings.ui:108 backends/maxima/settings.ui:105
+#: backends/octave/settings.ui:58 backends/python/settings.ui:118
+#: backends/R/settings.ui:48 backends/sage/settings.ui:135
 #, kde-format
-msgid "Graphic package to be used in the Plot Assistant"
+msgid "width:"
 msgstr ""
 
-#. i18n: ectx: property (text), widget (QLabel, label3)
-#. i18n: ectx: property (text), widget (QLabel, label4)
-#: backends/julia/settings.ui:98 backends/python/settings.ui:57
+#. i18n: ectx: property (suffix), widget (QDoubleSpinBox, kcfg_plotWidth)
+#. i18n: ectx: property (suffix), widget (QDoubleSpinBox, kcfg_plotHeight)
+#: backends/julia/settings.ui:115 backends/julia/settings.ui:145
+#: backends/maxima/settings.ui:112 backends/maxima/settings.ui:142
+#: backends/octave/settings.ui:65 backends/octave/settings.ui:95
+#: backends/python/settings.ui:125 backends/python/settings.ui:155
+#: backends/R/settings.ui:55 backends/R/settings.ui:85
+#: backends/sage/settings.ui:142 backends/sage/settings.ui:172
 #, kde-format
-msgid "Package for Plot Assistant"
+msgid "cm"
 msgstr ""
 
-#. i18n: ectx: property (text), item, widget (KComboBox, kcfg_plotExtenstionGraphicPackage)
-#: backends/julia/settings.ui:115 backends/python/settings.ui:109
+#. i18n: ectx: property (text), widget (QLabel, lPlotHeight)
+#: backends/julia/settings.ui:138 backends/maxima/settings.ui:135
+#: backends/octave/settings.ui:88 backends/python/settings.ui:148
+#: backends/R/settings.ui:78 backends/sage/settings.ui:165
 #, kde-format
-msgid "GR"
+msgid "height:"
 msgstr ""
 
 #. i18n: ectx: property (text), widget (QLabel, label_4)
 #. i18n: ectx: property (text), item, widget (KComboBox, kcfg_plotExtenstionGraphicPackage)
-#: backends/julia/settings.ui:120 backends/maxima/settings.ui:60
-#: backends/octave/settings.ui:148 backends/sage/settings.ui:83
+#: backends/julia/settings.ui:174 backends/julia/settings.ui:232
+#: backends/maxima/settings.ui:60 backends/octave/settings.ui:148
+#: backends/python/settings.ui:66 backends/R/settings.ui:144
+#: backends/sage/settings.ui:83
 #, kde-format
 msgid "Plots"
 msgstr ""
 
+#. i18n: ectx: property (text), widget (QLabel, label_3)
+#. i18n: ectx: property (text), widget (QLabel, label_2)
+#: backends/julia/settings.ui:197 backends/maxima/settings.ui:165
+#: backends/octave/settings.ui:155 backends/python/settings.ui:178
+#: backends/R/settings.ui:197 backends/sage/settings.ui:195
+#, kde-format
+msgid "Image Format:"
+msgstr ""
+
+#. i18n: ectx: property (toolTip), widget (KComboBox, kcfg_plotExtenstionGraphicPackage)
+#. i18n: ectx: property (toolTip), widget (QLabel, label3)
+#. i18n: ectx: property (toolTip), widget (QLabel, label4)
+#: backends/julia/settings.ui:223 backends/julia/settings.ui:250
+#: backends/python/settings.ui:204 backends/python/settings.ui:220
+#, kde-format
+msgid "Graphic package to be used in the Plot Assistant"
+msgstr ""
+
 #. i18n: ectx: property (text), item, widget (KComboBox, kcfg_plotExtenstionGraphicPackage)
-#: backends/julia/settings.ui:125
+#: backends/julia/settings.ui:227 backends/python/settings.ui:239
+#, kde-format
+msgid "GR"
+msgstr ""
+
+#. i18n: ectx: property (text), item, widget (KComboBox, kcfg_plotExtenstionGraphicPackage)
+#: backends/julia/settings.ui:237
 #, kde-format
 msgid "PyPlot"
 msgstr ""
 
 #. i18n: ectx: property (text), item, widget (KComboBox, kcfg_plotExtenstionGraphicPackage)
-#: backends/julia/settings.ui:130
+#: backends/julia/settings.ui:242
 #, kde-format
 msgid "Gadfly"
 msgstr ""
 
+#. i18n: ectx: property (text), widget (QLabel, label3)
+#: backends/julia/settings.ui:253
+#, kde-format
+msgid "Package for Plot Assistant:"
+msgstr ""
+
 #. i18n: ectx: attribute (title), widget (QWidget, tabAutorun)
 #. i18n: ectx: attribute (title), widget (QWidget, tabAutoran)
-#: backends/julia/settings.ui:152 backends/lua/settings.ui:51
+#: backends/julia/settings.ui:261 backends/lua/settings.ui:51
 #: backends/maxima/settings.ui:228 backends/octave/settings.ui:231
-#: backends/python/settings.ui:123 backends/qalculate/settings.ui:566
-#: backends/R/settings.ui:84 backends/sage/settings.ui:230
+#: backends/python/settings.ui:266 backends/qalculate/settings.ui:566
+#: backends/R/settings.ui:221 backends/sage/settings.ui:230
 #: backends/scilab/settings.ui:68
 #, kde-format
 msgid "Autorun"
@@ -610,20 +615,20 @@ msgstr ""
 #. i18n: ectx: property (text), widget (QLabel, lAutorun)
 #. i18n: ectx: property (title), widget (QGroupBox, groupBox)
 #. i18n: ectx: property (text), widget (QLabel, label_2)
-#: backends/julia/settings.ui:158 backends/kalgebra/settings.ui:20
+#: backends/julia/settings.ui:267 backends/kalgebra/settings.ui:20
 #: backends/lua/settings.ui:57 backends/maxima/settings.ui:234
-#: backends/octave/settings.ui:237 backends/python/settings.ui:129
-#: backends/qalculate/settings.ui:572 backends/R/settings.ui:90
+#: backends/octave/settings.ui:237 backends/python/settings.ui:272
+#: backends/qalculate/settings.ui:572 backends/R/settings.ui:227
 #: backends/sage/settings.ui:236 backends/scilab/settings.ui:74
 #, kde-format
 msgid "Commands to autorun"
 msgstr ""
 
 #. i18n: ectx: attribute (title), widget (QWidget, tabDocumentation)
-#: backends/julia/settings.ui:172 backends/lua/settings.ui:71
+#: backends/julia/settings.ui:281 backends/lua/settings.ui:71
 #: backends/maxima/settings.ui:248 backends/octave/settings.ui:251
-#: backends/python/settings.ui:143 backends/qalculate/settings.ui:585
-#: backends/R/settings.ui:104 backends/sage/settings.ui:250
+#: backends/python/settings.ui:286 backends/qalculate/settings.ui:585
+#: backends/R/settings.ui:241 backends/sage/settings.ui:250
 #: backends/scilab/settings.ui:88
 #, kde-format
 msgid "Documentation"
@@ -769,15 +774,21 @@ msgid "Path to the Maxima executable"
 msgstr "Sti til Maxima-programmet"
 
 #. i18n: ectx: label, entry (plotWidth), group (SageBackend)
+#. i18n: ectx: label, entry (plotWidth), group (PythonBackend)
+#. i18n: ectx: label, entry (plotWidth), group (RBackend)
 #. i18n: ectx: label, entry (plotWidth), group (MaximaBackend)
-#: backends/maxima/maximabackend.kcfg:41 backends/sage/sagebackend.kcfg:29
+#: backends/maxima/maximabackend.kcfg:41 backends/python/pythonbackend.kcfg:29
+#: backends/R/rserver/rserver.kcfg:31 backends/sage/sagebackend.kcfg:29
 #, kde-format
 msgid "Default plot width"
 msgstr ""
 
 #. i18n: ectx: label, entry (plotHeight), group (SageBackend)
+#. i18n: ectx: label, entry (plotHeight), group (PythonBackend)
+#. i18n: ectx: label, entry (plotHeight), group (RBackend)
 #. i18n: ectx: label, entry (plotHeight), group (MaximaBackend)
-#: backends/maxima/maximabackend.kcfg:45 backends/sage/sagebackend.kcfg:33
+#: backends/maxima/maximabackend.kcfg:45 backends/python/pythonbackend.kcfg:33
+#: backends/R/rserver/rserver.kcfg:35 backends/sage/sagebackend.kcfg:33
 #, kde-format
 msgid "Default plot height"
 msgstr ""
@@ -797,7 +808,7 @@ msgstr "Feil: For mange /*"
 msgid "Error: expected \" before ;"
 msgstr "Feil: forventet \" før :"
 
-#: backends/maxima/maximaexpression.cpp:431
+#: backends/maxima/maximaexpression.cpp:432
 #, kde-format
 msgid "Waiting for the plot result"
 msgstr ""
@@ -822,57 +833,13 @@ msgstr "Maxima krasjet, starter om …"
 msgid "Maxima crashed twice within a short time. Stopping to try starting"
 msgstr "Maxima krasjet to ganger på kort tid. Stopper startforsøk"
 
-#. i18n: ectx: property (text), widget (QLabel, label_5)
-#. i18n: ectx: property (text), widget (QLabel, label_3)
-#: backends/maxima/settings.ui:77 backends/octave/settings.ui:118
-#: backends/sage/settings.ui:107
+#. i18n: ectx: property (text), widget (QLabel, label)
+#. i18n: ectx: property (text), widget (QLabel, label_19)
+#: backends/maxima/settings.ui:27 backends/octave/settings.ui:165
+#: backends/qalculate/settings.ui:151 backends/sage/settings.ui:27
+#: backends/scilab/settings.ui:27
 #, kde-format
-msgid "Size:"
-msgstr ""
-
-#. i18n: ectx: property (text), widget (QLabel, lPlotWidth)
-#: backends/maxima/settings.ui:105 backends/octave/settings.ui:58
-#: backends/sage/settings.ui:135
-#, kde-format
-msgid "width:"
-msgstr ""
-
-#. i18n: ectx: property (suffix), widget (QDoubleSpinBox, kcfg_plotWidth)
-#. i18n: ectx: property (suffix), widget (QDoubleSpinBox, kcfg_plotHeight)
-#: backends/maxima/settings.ui:112 backends/maxima/settings.ui:142
-#: backends/octave/settings.ui:65 backends/octave/settings.ui:95
-#: backends/sage/settings.ui:142 backends/sage/settings.ui:172
-#, kde-format
-msgid "cm"
-msgstr ""
-
-#. i18n: ectx: property (text), widget (QLabel, lPlotHeight)
-#: backends/maxima/settings.ui:135 backends/octave/settings.ui:88
-#: backends/sage/settings.ui:165
-#, kde-format
-msgid "height:"
-msgstr ""
-
-#. i18n: ectx: property (text), widget (QLabel, label_3)
-#. i18n: ectx: property (text), widget (QLabel, label_2)
-#: backends/maxima/settings.ui:165 backends/octave/settings.ui:155
-#: backends/sage/settings.ui:195
-#, kde-format
-msgid "Image Format:"
-msgstr ""
-
-#. i18n: ectx: property (text), item, widget (QComboBox, kcfg_inlinePlotFormat)
-#: backends/maxima/settings.ui:173 backends/octave/settings.ui:196
-#: backends/sage/settings.ui:203
-#, kde-format
-msgid "PDF"
-msgstr ""
-
-#. i18n: ectx: property (text), widget (QLabel, lPlotIntegration)
-#: backends/maxima/settings.ui:220 backends/octave/settings.ui:135
-#: backends/sage/settings.ui:90
-#, kde-format
-msgid "Integrated:"
+msgid "Executable:"
 msgstr ""
 
 #: backends/octave/octavebackend.cpp:63
@@ -939,6 +906,12 @@ msgid ""
 "packages to scientific programming."
 msgstr ""
 
+#. i18n: ectx: label, entry (plotExtenstionGraphicPackage), group (PythonBackend)
+#: backends/python/pythonbackend.kcfg:44
+#, kde-format
+msgid "Graphical package to be used for the Plot Assistant"
+msgstr ""
+
 #: backends/python/pythonextensions.cpp:285
 #, kde-format
 msgid "# Sorry, but Bokeh doesn't support 3d plotting"
@@ -979,26 +952,32 @@ msgid ""
 "\"Static Image Export\" article in Plot.ly documentation for details."
 msgstr ""
 
+#. i18n: ectx: property (text), widget (QLabel, label4)
+#: backends/python/settings.ui:207
+#, kde-format
+msgid "Plot Assistant"
+msgstr ""
+
 #. i18n: ectx: property (text), item, widget (KComboBox, kcfg_plotExtenstionGraphicPackage)
-#: backends/python/settings.ui:94
+#: backends/python/settings.ui:224
 #, kde-format
 msgid "matplotlib"
 msgstr ""
 
 #. i18n: ectx: property (text), item, widget (KComboBox, kcfg_plotExtenstionGraphicPackage)
-#: backends/python/settings.ui:99
+#: backends/python/settings.ui:229
 #, kde-format
 msgid "pylab"
 msgstr ""
 
 #. i18n: ectx: property (text), item, widget (KComboBox, kcfg_plotExtenstionGraphicPackage)
-#: backends/python/settings.ui:104
+#: backends/python/settings.ui:234
 #, kde-format
 msgid "plot.ly"
 msgstr ""
 
 #. i18n: ectx: property (text), item, widget (KComboBox, kcfg_plotExtenstionGraphicPackage)
-#: backends/python/settings.ui:114
+#: backends/python/settings.ui:244
 #, kde-format
 msgid "bokeh"
 msgstr ""
@@ -2225,7 +2204,7 @@ msgid ""
 "provides an Open Source route to participation in that activity."
 msgstr ""
 
-#: backends/R/rexpression.cpp:107 backends/R/rexpression.cpp:108
+#: backends/R/rexpression.cpp:108 backends/R/rexpression.cpp:109
 #, kde-format
 msgid "Error opening file %1"
 msgstr "Feil ved åpning av fil %1"
@@ -2235,7 +2214,7 @@ msgstr "Feil ved åpning av fil %1"
 msgid "R script file (*.R)"
 msgstr ""
 
-#: backends/R/rserver/rserver.cpp:362
+#: backends/R/rserver/rserver.cpp:365
 #, kde-format
 msgid "Error Parsing Command"
 msgstr "Feil ved tolking av kommando"
@@ -2388,6 +2367,12 @@ msgstr ""
 #: backends/scilab/scilabextensions.cpp:23
 #, kde-format
 msgid ";;Scilab script file (*.sce);;Scilab function file (*.sci)"
+msgstr ""
+
+#. i18n: ectx: property (text), widget (QLabel, lPlotIntegration)
+#: backends/scilab/settings.ui:37
+#, kde-format
+msgid "Plot Integration:"
 msgstr ""
 
 #: cantor.cpp:103
