@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: mathematik\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-05-22 00:42+0000\n"
+"POT-Creation-Date: 2023-10-01 02:47+0000\n"
 "PO-Revision-Date: 2019-11-17 09:29+0100\n"
 "Last-Translator: Adrián Chaves (Gallaecio) <adrian@chaves.io>\n"
 "Language-Team: Galician <proxecto@trasno.gal>\n"
@@ -464,7 +464,7 @@ msgstr "O proceso de Julia deixou de funcionar."
 #: backends/julia/juliasession.cpp:249
 #, kde-format
 msgid "Failed to start Julia process."
-msgstr "Non se puido iniciar o proceso de Julia."
+msgstr "Non foi posíbel iniciar o proceso de Julia."
 
 #: backends/julia/juliasession.cpp:252
 #, kde-format
@@ -845,7 +845,7 @@ msgstr "Erro: Demasiados /*"
 msgid "Error: expected \" before ;"
 msgstr "Erro: agardábase \" antes do ;"
 
-#: backends/maxima/maximaexpression.cpp:431
+#: backends/maxima/maximaexpression.cpp:432
 #, kde-format
 msgid "Waiting for the plot result"
 msgstr "Agardando polo resultado da gráfica"
@@ -858,7 +858,7 @@ msgstr "Ficheiro de lotes de Maxima (*.mac)"
 #: backends/maxima/maximasession.cpp:184
 #, kde-format
 msgid "Failed to start Maxima"
-msgstr "Non se puido iniciar Maxima"
+msgstr "Non foi posíbel iniciar Maxima"
 
 #: backends/maxima/maximasession.cpp:251
 #, kde-format
@@ -1031,7 +1031,7 @@ msgstr "O servidor de Python de Cantor deixou de funcionar."
 #: backends/python/pythonsession.cpp:278
 #, kde-format
 msgid "Failed to start Cantor python server."
-msgstr "Non se puido iniciar o servidor de Python de Cantor."
+msgstr "Non foi posíbel iniciar o servidor de Python de Cantor."
 
 #: backends/python/pythonsession.cpp:282
 #, kde-format
@@ -2470,7 +2470,7 @@ msgstr "O proceso de Sage saíu"
 #: backends/sage/sagesession.cpp:362
 #, kde-format
 msgid "Failed to start Sage"
-msgstr "Non se puido iniciar Sage"
+msgstr "Non foi posíbel iniciar Sage"
 
 #. i18n: ectx: property (text), widget (QLabel, label_2)
 #: backends/sage/settings.ui:44
@@ -2610,12 +2610,12 @@ msgstr "Sesión %1"
 #: cantor.cpp:388
 #, kde-format
 msgid "Failed to find the Cantor Part with error %1"
-msgstr "Non se puido atopar a compoñente de Cantor co erro %1"
+msgstr "Non foi posíbel atopar a compoñente de Cantor co erro %1"
 
 #: cantor.cpp:435 cantor_part.cpp:627
 #, kde-format
 msgid "Calculating..."
-msgstr "Estase a calcular…"
+msgstr "Calculando…"
 
 #: cantor.cpp:438 cantor_part.cpp:638 cantor_part.cpp:701
 #, kde-format
@@ -3496,7 +3496,7 @@ msgstr "Prema dúas veces para abrir o diálogo de selección de ficheiros"
 #: imageentry.cpp:288
 #, kde-format
 msgid "Cannot load image %1"
-msgstr "Non se pode cargar a imaxe %1"
+msgstr "Non é posíbel cargar a imaxe %1"
 
 #: imageresultitem.cpp:90
 #, kde-format
@@ -3834,7 +3834,7 @@ msgstr "Documentos para abrir."
 #: main.cpp:130
 #, kde-format
 msgid "Couldn't open the file %1"
-msgstr "Non se puido abrir o ficheiro %1."
+msgstr "Non foi posíbel abrir o ficheiro %1."
 
 #: markdownentry.cpp:70
 #, kde-format
@@ -4042,7 +4042,7 @@ msgid ""
 "A KDE text-editor component could not be found;\n"
 "please check your KDE installation."
 msgstr ""
-"Non se puido atopar ningún compoñente de editor de textos de KDE;\n"
+"Non foi posíbel atopar ningún compoñente de editor de textos de KDE;\n"
 "comprobe a instalación de KDE."
 
 #: scripteditor/scripteditorwidget.cpp:139
@@ -4365,7 +4365,7 @@ msgstr "Amosar o HTML"
 #, kde-format
 msgid "Cannot render Eps file. You may need additional packages"
 msgstr ""
-"Non se pode amosar o ficheiro Eps. Quizais precise de paquetes adicionais"
+"Non é posíbel amosar o ficheiro Eps. Quizais precise de paquetes adicionais"
 
 #: textresultitem.cpp:212
 #, fuzzy, kde-format
@@ -4381,12 +4381,12 @@ msgstr ""
 #: worksheet.cpp:1192
 #, kde-format
 msgid "Cannot write file %1."
-msgstr "Non se pode escribir no ficheiro %1."
+msgstr "Non é posíbel escribir no ficheiro %1."
 
 #: worksheet.cpp:1220 worksheet.cpp:1235
 #, kde-format
 msgid "Cannot write file."
-msgstr "Non se pode escribir no ficheiro."
+msgstr "Non é posíbel escribir no ficheiro."
 
 #: worksheet.cpp:1252 worksheet.cpp:1296
 #, kde-format
@@ -4410,7 +4410,7 @@ msgstr "Produciuse un erro ao cargar a folla de estilo latex.xsl"
 #: worksheet.cpp:1327
 #, kde-format
 msgid "Couldn't open the file %1."
-msgstr "Non se puido abrir o ficheiro %1."
+msgstr "Non foi posíbel abrir o ficheiro %1."
 
 #: worksheet.cpp:1327 worksheet.cpp:1350 worksheet.cpp:1370 worksheet.cpp:1387
 #: worksheet.cpp:1419 worksheet.cpp:1430 worksheet.cpp:1539 worksheet.cpp:1554
@@ -4422,7 +4422,7 @@ msgstr "Abrir un ficheiro"
 #: worksheet.cpp:1350
 #, kde-format
 msgid "Couldn't open the selected file for reading."
-msgstr "Non se puido abrir o ficheiro seleccionado para lectura."
+msgstr "Non foi posíbel abrir o ficheiro seleccionado para lectura."
 
 #: worksheet.cpp:1370
 #, kde-format

@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-05-22 00:42+0000\n"
+"POT-Creation-Date: 2023-10-01 02:47+0000\n"
 "PO-Revision-Date: 2021-10-09 08:16+0300\n"
 "Last-Translator: Stelios <sstavra@gmail.com>\n"
 "Language-Team: Greek <kde-i18n-el@kde.org>\n"
@@ -849,7 +849,7 @@ msgstr "Σφάλμα: πάρα πολλά /*"
 msgid "Error: expected \" before ;"
 msgstr "Σφάλμα: αναμενόταν \" πριν το ;"
 
-#: backends/maxima/maximaexpression.cpp:431
+#: backends/maxima/maximaexpression.cpp:432
 #, kde-format
 msgid "Waiting for the plot result"
 msgstr "Αναμονή για το αποτέλεσμα της γραφικής παράστασης"
