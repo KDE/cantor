@@ -108,7 +108,7 @@ parts:
         - libreadline-dev
         - libgl-dev
         - libeigen3-dev
-        source: https://invent.kde.org/education/analitza
+        source: https://invent.kde.org/education/analitza.git
         source-branch: release/23.08
         cmake-parameters:
         - "-DCMAKE_INSTALL_PREFIX=/usr"
