@@ -75,7 +75,7 @@ bool FileBrowserPanelPlugin::showOnStartup()
 void FileBrowserPanelPlugin::handleDoubleClicked(const QModelIndex& index)
 {
     QVariant data = m_model->data(index, QFileSystemModel::FilePathRole);
-    if (data.isValid() && data.type() == QVariant::String)
+    if (data.isValid() && data.typeId() == QMetaType::QString)
     {
         const QString& filename = data.value<QString>();
         if (m_model->isDir(index))
@@ -86,7 +86,7 @@ void FileBrowserPanelPlugin::handleDoubleClicked(const QModelIndex& index)
         {
             const QUrl& url = QUrl::fromLocalFile(filename);
             if (filename.endsWith(QLatin1String(".cws")) || filename.endsWith(QLatin1String(".ipynb")))
-                emit requestOpenWorksheet(url);
+                Q_EMIT requestOpenWorksheet(url);
             else
                 QDesktopServices::openUrl(url);
         }
@@ -150,7 +150,7 @@ void FileBrowserPanelPlugin::constructMainWidget()
     horizontalLayout->addWidget(dirNextButton);
     horizontalLayout->addWidget(m_pathEdit);
     horizontalLayout->addWidget(m_filterCombobox);
-    horizontalLayout->setMargin(0);
+    horizontalLayout->setContentsMargins({});
 
     buttonContainer->setLayout(horizontalLayout);
     buttonContainer->setSizePolicy(QSizePolicy::Minimum, QSizePolicy::Preferred);

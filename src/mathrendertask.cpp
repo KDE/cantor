@@ -187,7 +187,7 @@ void MathRenderTask::run()
 
 void MathRenderTask::finalize(QSharedPointer<MathRenderResult> result)
 {
-    emit finish(result);
+    Q_EMIT finish(result);
     deleteLater();
 }
 

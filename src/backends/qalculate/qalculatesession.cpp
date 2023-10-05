@@ -60,7 +60,7 @@ void QalculateSession::login()
     if (m_process)
         return;
 
-    emit loginStarted();
+    Q_EMIT loginStarted();
     qDebug() << "login started";
 
     /* we will , most probably, use autoscripts for setting the mode , evaluate options, print options etc */
@@ -89,7 +89,7 @@ void QalculateSession::login()
     m_process->start();
 
     changeStatus(Session::Done);
-    emit loginDone();
+    Q_EMIT loginDone();
 }
 
 void QalculateSession::readOutput()
@@ -236,8 +236,8 @@ void QalculateSession::interrupt()
 
 void QalculateSession::runExpression()
 {
-    const QString& command = m_currentExpression->command();
-    foreach(const QString& cmd, command.split(QLatin1Char('\n'))) {
+    const auto commands = m_currentExpression->command().split(QLatin1Char('\n'));
+    for(const QString& cmd : commands) {
         m_commandQueue.enqueue(cmd);
     }
     runCommandQueue();

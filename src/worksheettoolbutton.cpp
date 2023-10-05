@@ -58,11 +58,11 @@ void WorksheetToolButton::mousePressEvent(QGraphicsSceneMouseEvent* event)
 {
     Q_UNUSED(event);
 
-    emit pressed();
+    Q_EMIT pressed();
 }
 
 void WorksheetToolButton::mouseReleaseEvent(QGraphicsSceneMouseEvent* event)
 {
     if (boundingRect().contains(event->pos()))
-        emit clicked();
+        Q_EMIT clicked();
 }

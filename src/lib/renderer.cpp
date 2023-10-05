@@ -11,7 +11,7 @@
 
 #include <config-cantorlib.h>
 
-#include <poppler-qt5.h>
+#include <poppler-qt6.h>
 #ifdef LIBSPECTRE_FOUND
   #include "libspectre/spectre.h"
 #endif
@@ -160,7 +160,7 @@ QImage Renderer::epsRenderToImage(const QUrl& url, double scale, bool useHighRes
 QImage Renderer::pdfRenderToImage(const QUrl& url, double scale, bool highResolution, QSizeF* size, QString* errorReason)
 {
     popplerMutex.lock();
-    Poppler::Document* document = Poppler::Document::load(url.toLocalFile());
+    auto document = Poppler::Document::load(url.toLocalFile());
     popplerMutex.unlock();
     if (document == nullptr)
     {
@@ -169,12 +169,11 @@ QImage Renderer::pdfRenderToImage(const QUrl& url, double scale, bool highResolu
         return QImage();
     }
 
-    Poppler::Page* pdfPage = document->page(0);
+    auto pdfPage = document->page(0);
     if (pdfPage == nullptr) {
         if (errorReason)
             *errorReason = QString::fromLatin1("Poppler library failed to access first page of %1 document").arg(url.toLocalFile());
 
-        delete document;
         return QImage();
     }
 
@@ -191,9 +190,7 @@ QImage Renderer::pdfRenderToImage(const QUrl& url, double scale, bool highResolu
 
     QImage image = pdfPage->renderToImage(72.0*realScale, 72.0*realScale);
 
-    delete pdfPage;
     popplerMutex.lock();
-    delete document;
     popplerMutex.unlock();
 
     if (image.isNull())

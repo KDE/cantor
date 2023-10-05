@@ -25,7 +25,7 @@ QString PythonLinearAlgebraExtension::createVector(const QStringList& entries, C
     QString command;
     command += QLatin1String("numpy.matrix([");
 
-    foreach (const QString& entry, entries)
+    for (const QString& entry : entries)
     {
         command += entry + QLatin1String(", ");
     }
@@ -41,10 +41,8 @@ QString PythonLinearAlgebraExtension::createMatrix(const Cantor::LinearAlgebraEx
     QString command;
     command += QLatin1String("numpy.matrix([[");
 
-    foreach (const QStringList row, matrix)
-    {
-        foreach (const QString entry, row)
-        {
+    for (const QStringList &row : matrix) {
+        for (const QString &entry : row) {
             command += entry;
             command += QLatin1String(", ");
         }

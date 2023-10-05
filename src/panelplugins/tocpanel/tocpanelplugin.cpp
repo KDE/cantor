@@ -50,7 +50,7 @@ void TableOfContentPanelPlugin::handleDoubleClicked(const QModelIndex& index)
 {
     qDebug() << "TableOfContentPanelPlugin::handleDoubleClicked";
     const QString& searchStringIndex = m_hierarchyPositionStringList[index.row()];
-    emit requestScrollToHierarchyEntry(searchStringIndex);
+    Q_EMIT requestScrollToHierarchyEntry(searchStringIndex);
 }
 
 void TableOfContentPanelPlugin::constructMainWidget()

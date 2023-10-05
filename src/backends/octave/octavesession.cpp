@@ -25,7 +25,7 @@
 #include <QTimer>
 #include <QFile>
 #include <QDir>
-#include <QStringRef>
+#include <QStringView>
 
 #ifndef Q_OS_WIN
 #include <signal.h>
@@ -58,7 +58,7 @@ void OctaveSession::login()
     if (m_process)
         return;
 
-    emit loginStarted();
+    Q_EMIT loginStarted();
 
     m_process = new QProcess(this);
     QStringList args;
@@ -141,7 +141,7 @@ void OctaveSession::login()
     }
 
     changeStatus(Cantor::Session::Done);
-    emit loginDone();
+    Q_EMIT loginDone();
     qDebug()<<"login done";
 }
 
@@ -231,7 +231,7 @@ void OctaveSession::interrupt()
 void OctaveSession::processError()
 {
     qDebug() << "processError";
-    emit error(m_process->errorString());
+    Q_EMIT error(m_process->errorString());
 }
 
 Cantor::Expression* OctaveSession::evaluateExpression(const QString& cmd, Cantor::Expression::FinishingBehavior behavior, bool internal)
@@ -293,7 +293,7 @@ void OctaveSession::readOutput()
         {
             const int promptNumber = match.captured(1).toInt();
             // Add all text before prompt, if exists
-            m_output += QStringRef(&line, 0, match.capturedStart(0)).toString();
+            m_output += line.left(match.capturedStart(0));
             if (!expressionQueue().isEmpty())
             {
                 const QString& command = expressionQueue().first()->command();

@@ -107,7 +107,7 @@ void SageSession::login()
     qDebug()<<"login";
     if (m_process)
         return;
-    emit loginStarted();
+    Q_EMIT loginStarted();
 
     updateSageVersion();
 
@@ -176,7 +176,7 @@ void SageSession::login()
     }
 
     changeStatus(Session::Done);
-    emit loginDone();
+    Q_EMIT loginDone();
 }
 
 void SageSession::logout()
@@ -359,7 +359,7 @@ void SageSession::reportProcessError(QProcess::ProcessError e)
     if(e == QProcess::FailedToStart)
     {
         changeStatus(Cantor::Session::Done);
-        emit error(i18n("Failed to start Sage"));
+        Q_EMIT error(i18n("Failed to start Sage"));
     }
 }
 

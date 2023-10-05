@@ -28,7 +28,7 @@ void ScilabCompletionObject::fetchCompletions()
 
     setCompletions(allCompletions);
 
-    emit fetchingDone();
+    Q_EMIT fetchingDone();
 }
 
 void ScilabCompletionObject::fetchIdentifierType()
@@ -38,12 +38,12 @@ void ScilabCompletionObject::fetchIdentifierType()
 
     if (std::binary_search(ScilabKeywords::instance()->functions().begin(), ScilabKeywords::instance()->functions().end(),
             identifier()))
-        emit fetchingTypeDone(FunctionType);
+        Q_EMIT fetchingTypeDone(FunctionType);
     else if (std::binary_search(ScilabKeywords::instance()->keywords().begin(),ScilabKeywords::instance()->keywords().end(),
             identifier()))
-        emit fetchingTypeDone(KeywordType);
+        Q_EMIT fetchingTypeDone(KeywordType);
     else
-        emit fetchingTypeDone(VariableType);
+        Q_EMIT fetchingTypeDone(VariableType);
 }
 
 bool ScilabCompletionObject::mayIdentifierContain(QChar c) const

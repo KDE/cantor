@@ -20,7 +20,7 @@ class QLineEdit;
 class QStackedWidget;
 class QToolButton;
 class QUrl;
-class QWebEngineDownloadItem;
+class QWebEngineDownloadRequest;
 class QWebEngineView;
 
 class DocumentationPanelWidget : public QWidget
@@ -48,7 +48,7 @@ class DocumentationPanelWidget : public QWidget
     void searchForward();
     void searchBackward();
 
-    void downloadResource(QWebEngineDownloadItem*); // slot for saving the image or html to local disk
+    void downloadResource(QWebEngineDownloadRequest *); // slot for saving the image or html to local disk
 
   private:
     void updateDocumentation();

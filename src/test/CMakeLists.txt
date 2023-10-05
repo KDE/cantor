@@ -61,12 +61,13 @@ add_executable( testworksheet ${worksheettest_SRCS})
 target_link_libraries( testworksheet
     cantorlibs
     cantor_config
-    Qt5::Test
-    Qt5::PrintSupport
-    Qt5::Xml
-    ${Qt5XmlPatterns_LIBRARIES}
-    KF5::TextEditor
-    Poppler::Qt5
+    Qt6::Test
+    Qt6::PrintSupport
+    Qt6::Xml
+    KF6::TextEditor
+    Poppler::Qt6
+    LibXslt::LibXslt
+    LibXml2::LibXml2
 )
 
 if(LIBSPECTRE_FOUND)

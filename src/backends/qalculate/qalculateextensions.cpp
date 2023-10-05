@@ -138,12 +138,13 @@ QString QalculateLinearAlgebraExtension::createVector(const QStringList& entries
 
 QString QalculateLinearAlgebraExtension::createMatrix(const Matrix& matrix)
 {
-  QString cmd=QLatin1String("[");
-    foreach(const QStringList& row, matrix)
+    QString cmd = QLatin1String("[");
+    for(const QStringList& row : matrix)
     {
         cmd+=QLatin1Char('[');
-        foreach(const QString& entry, row)
+        for(const QString& entry : row) {
             cmd+=entry+QLatin1Char(',');
+        }
         cmd.chop(1);
         cmd+=QLatin1String("],");
     }

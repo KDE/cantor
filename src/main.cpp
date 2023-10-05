@@ -8,7 +8,6 @@
 #include <QApplication>
 #include <KAboutData>
 #include <KCrash>
-#include <Kdelibs4ConfigMigrator>
 #include <KLocalizedString>
 #include <KConfigGroup>
 #include <KMessageBox>
@@ -17,18 +16,15 @@
 #include <QFileInfo>
 #include <QDir>
 #include <QDebug>
-#include <QtWebEngine>
+#include <QtWebEngineWidgets>
 
 
 int main(int argc, char **argv)
 {
-    QtWebEngine::initialize();
     // Register custom scheme handler for qthelp:// scheme
     QWebEngineUrlScheme qthelp("qthelp");
     QWebEngineUrlScheme::registerScheme(qthelp);
 
-    QApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
-    QApplication::setAttribute(Qt::AA_UseHighDpiPixmaps);
     QApplication app(argc, argv);
 
     // Add our custom plugins path, where we install our plugins, if it isn't default path
@@ -53,12 +49,6 @@ int main(int argc, char **argv)
             << QLatin1String("cantor_plot3d_assistant.rc") << QLatin1String("cantor_runscript_assistant.rc")
             << QLatin1String("cantor_solve_assistant.rc") << QLatin1String("cantor_qalculateplotassistant.rc");
 
-    Kdelibs4ConfigMigrator migrator(QLatin1String("cantor"));
-
-    migrator.setConfigFiles(configFiles);
-    migrator.setUiFiles(rcFiles);
-    migrator.migrate();
-    //**********************************
 
     KLocalizedString::setApplicationDomain("cantor");
     app.setApplicationName(QLatin1String("cantor"));
@@ -101,7 +91,7 @@ int main(int argc, char **argv)
 
     // see if we are starting with session management
     if (app.isSessionRestored())
-        RESTORE(CantorShell)
+        kRestoreMainWindows<CantorShell>();
     else
     {
         // no session.. just start up normally

@@ -41,6 +41,8 @@
 #include "backendchoosedialog.h"
 #include <QMetaObject>
 
+using namespace Qt::Literals::StringLiterals;
+
 CantorShell::CantorShell() : KParts::MainWindow(), m_tabWidget(new QTabWidget(this))
 {
     // set the shell's ui resource file
@@ -152,7 +154,7 @@ void CantorShell::setupActions()
 
     QAction* toPreviousTab = new QAction(i18n("Go to previous worksheet"), actionCollection());
     actionCollection()->addAction(QLatin1String("go_to_previous_tab"), toPreviousTab);
-    actionCollection()->setDefaultShortcut(toPreviousTab, Qt::CTRL+Qt::Key_PageDown);
+    actionCollection()->setDefaultShortcut(toPreviousTab, Qt::CTRL | Qt::Key_PageDown);
     connect(toPreviousTab, &QAction::triggered, toPreviousTab, [this](){
         const int index = m_tabWidget->currentIndex()-1;
         if (index >= 0)
@@ -164,7 +166,7 @@ void CantorShell::setupActions()
 
     QAction* toNextTab = new QAction(i18n("Go to next worksheet"), actionCollection());
     actionCollection()->addAction(QLatin1String("go_to_next_tab"), toNextTab);
-    actionCollection()->setDefaultShortcut(toNextTab, Qt::CTRL+Qt::Key_PageUp);
+    actionCollection()->setDefaultShortcut(toNextTab, Qt::CTRL | Qt::Key_PageUp);
     connect(toNextTab, &QAction::triggered, toNextTab, [this](){
         const int index = m_tabWidget->currentIndex()+1;
         if (index < m_tabWidget->count())
@@ -379,7 +381,7 @@ void CantorShell::addWorksheet(const QString& backendName)
 
         //all panels initialized, show the default help string in the help panel
         if (backend)
-            emit showHelp(backend->defaultHelp());
+            Q_EMIT showHelp(backend->defaultHelp());
     }
     else
     {
@@ -562,13 +564,16 @@ bool CantorShell::reallyClose(bool checkAllParts) {
             }
         }
         if(!modified) return true;
-        int want_save = KMessageBox::warningYesNo( this,
+        int want_save = KMessageBox::warningTwoActions( this,
             i18n("Multiple unsaved Worksheets are opened. Do you want to close them?"),
-            i18n("Close Cantor"));
+            i18n("Close Cantor"),
+            KStandardGuiItem::close(),
+            KStandardGuiItem::cancel()
+        );
         switch (want_save) {
-            case KMessageBox::Yes:
+            case KMessageBox::PrimaryAction:
                 return true;
-            case KMessageBox::No:
+            case KMessageBox::SecondaryAction:
                 return false;
         }
     }
@@ -579,11 +584,14 @@ bool CantorShell::reallyClose(bool checkAllParts) {
 bool CantorShell::reallyCloseThisPart(KParts::ReadWritePart* part)
 {
      if (part && part->isModified() ) {
-        int want_save = KMessageBox::warningYesNoCancel( this,
+        const int want_save = KMessageBox::warningTwoActionsCancel(this,
             i18n("The current project has been modified. Do you want to save it?"),
-            i18n("Save Project"));
+            i18n("Save Project"),
+            KStandardGuiItem::save(),
+            KStandardGuiItem::dontSave()
+        );
         switch (want_save) {
-            case KMessageBox::Yes:
+            case KMessageBox::PrimaryAction:
                 part->save();
                 if(part->waitSaveComplete()) {
                     return true;
@@ -593,7 +601,7 @@ bool CantorShell::reallyCloseThisPart(KParts::ReadWritePart* part)
                 }
             case KMessageBox::Cancel:
                 return false;
-            case KMessageBox::No:
+            case KMessageBox::SecondaryAction:
                 return true;
         }
     }
@@ -898,7 +906,7 @@ void CantorShell::updateBackendForPart(const QString& backendName)
         if (backend)
         {
             //show the default help string in the help panel
-            emit showHelp(backend->defaultHelp());
+            Q_EMIT showHelp(backend->defaultHelp());
         }
     }
 }

@@ -381,7 +381,7 @@ void RServer::runCommand(const QString& cmd, bool internal)
     }
 
     qDebug()<<"RServer: " << "files: " << neededFiles+m_expressionFiles;
-    emit expressionFinished(returnCode, returnText, neededFiles+m_expressionFiles);
+    Q_EMIT expressionFinished(returnCode, returnText, neededFiles+m_expressionFiles);
 
     setStatus(Idle);
 }
@@ -423,7 +423,7 @@ void RServer::completeCommand(const QString& cmd)
     UNPROTECT(2);
 
     const QString output = qToken + unitSep + completionOptions.join(recordSep);
-    emit expressionFinished(RServer::SuccessCode, output, QStringList());
+    Q_EMIT expressionFinished(RServer::SuccessCode, output, QStringList());
     setStatus(RServer::Idle);
 }
 
@@ -506,7 +506,7 @@ void RServer::listSymbols()
     UNPROTECT(1);
 
     const QString output = vars.join(recordSep) + unitSep + values.join(recordSep) + unitSep + funcs.join(recordSep) + unitSep + constants.join(recordSep);
-    emit expressionFinished(RServer::SuccessCode, output, QStringList());
+    Q_EMIT expressionFinished(RServer::SuccessCode, output, QStringList());
     setStatus(Idle);
 }
 
@@ -516,13 +516,13 @@ void RServer::setStatus(Status status)
     {
         m_status=status;
         if(m_isInitialized)
-            emit statusChanged(status);
+            Q_EMIT statusChanged(status);
     }
 }
 
 QString RServer::requestInput(const QString& prompt)
 {
-    emit inputRequested(prompt);
+    Q_EMIT inputRequested(prompt);
 
     //Wait until the input arrives over dbus
     QEventLoop loop;
@@ -535,7 +535,7 @@ QString RServer::requestInput(const QString& prompt)
 void RServer::answerRequest(const QString& answer)
 {
     m_requestCache=answer;
-    emit requestAnswered();
+    Q_EMIT requestAnswered();
 }
 
 void RServer::newPlotDevice()

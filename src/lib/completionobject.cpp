@@ -108,7 +108,7 @@ void CompletionObject::completeLine(const QString& comp, CompletionObject::LineC
     d->identifier = comp;
     if (comp.isEmpty()) {
 	int index = d->position + d->command.length();
-	emit lineDone(d->line, index);
+	Q_EMIT lineDone(d->line, index);
     } else if (mode == PreliminaryCompletion) {
 	completeUnknownLine();
     } else /* mode == FinalCompletion */ {
@@ -118,7 +118,7 @@ void CompletionObject::completeLine(const QString& comp, CompletionObject::LineC
 
 void CompletionObject::fetchIdentifierType()
 {
-    emit fetchingTypeDone(UnknownType);
+    Q_EMIT fetchingTypeDone(UnknownType);
 }
 
 
@@ -167,7 +167,7 @@ void CompletionObject::findCompletion()
 	return;
     }
     d->completion = makeCompletion(command());
-    emit done();
+    Q_EMIT done();
 }
 
 void CompletionObject::handleParenCompletionWithType(IdentifierType type)
@@ -177,7 +177,7 @@ void CompletionObject::handleParenCompletionWithType(IdentifierType type)
 
     if (type == FunctionWithArguments || type == FunctionWithoutArguments) {
 	d->completion = d->command;
-	emit done();
+	Q_EMIT done();
     }
 }
 
@@ -243,7 +243,7 @@ void CompletionObject::completeFunctionLine(IdentifierType type)
 	    newindex = index+1;
 	}
     }
-    emit lineDone(newline, newindex);
+    Q_EMIT lineDone(newline, newindex);
 }
 
 void CompletionObject::completeKeywordLine()
@@ -254,9 +254,9 @@ void CompletionObject::completeKeywordLine()
     QString part1 = d->line.left(d->position) + keyword;
     QString part2 = d->line.mid(after_command);
     if (after_command < d->line.length() && d->line.at(after_command) == QLatin1Char(' '))
-	emit lineDone(part1+part2, newindex);
+	Q_EMIT lineDone(part1+part2, newindex);
     else
-	emit lineDone(part1+QLatin1Char(' ')+part2, newindex);
+	Q_EMIT lineDone(part1+QLatin1Char(' ')+part2, newindex);
 }
 
 void CompletionObject::completeVariableLine()
@@ -265,7 +265,7 @@ void CompletionObject::completeVariableLine()
     int after_command = d->position + d->command.length();
     QString newline = d->line.left(d->position) + var + d->line.mid(after_command);
     int newindex = d->position + var.length();
-    emit lineDone(newline, newindex);
+    Q_EMIT lineDone(newline, newindex);
 }
 
 void CompletionObject::completeUnknownLine()

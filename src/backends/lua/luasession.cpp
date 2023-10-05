@@ -36,7 +36,7 @@ LuaSession::~LuaSession()
 
 void LuaSession::login()
 {
-    emit loginStarted();
+    Q_EMIT loginStarted();
 
     m_process = new QProcess(this);
 
@@ -62,7 +62,7 @@ void LuaSession::login()
     luaL_openlibs(m_L);
 
     changeStatus(Cantor::Session::Done);
-    emit loginDone();
+    Q_EMIT loginDone();
 }
 
 bool LuaSession::isLuaJIT() const

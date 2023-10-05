@@ -214,7 +214,7 @@ Cantor::Session::Status Session::status()
 void Session::changeStatus(Session::Status newStatus)
 {
     d->status = newStatus;
-    emit statusChanged(newStatus);
+    Q_EMIT statusChanged(newStatus);
 }
 
 void Session::setTypesettingEnabled(bool enable)

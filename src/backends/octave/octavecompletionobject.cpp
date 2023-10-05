@@ -36,7 +36,7 @@ void OctaveCompletionObject::fetchCompletions()
 
         setCompletions(allCompletions);
 
-        emit fetchingDone();
+        Q_EMIT fetchingDone();
     }
     else
     {
@@ -59,7 +59,7 @@ void OctaveCompletionObject::extractCompletions(Cantor::Expression::Status statu
             if (result)
             {
                 QString res = result->data().toString();
-                QStringList completions = res.split(QLatin1String("\n"), QString::SkipEmptyParts);
+                QStringList completions = res.split(QLatin1String("\n"), Qt::SkipEmptyParts);
                 qDebug() << "Adding" << completions.size() << "completions";
                 setCompletions( completions );
             }
@@ -77,7 +77,7 @@ void OctaveCompletionObject::extractCompletions(Cantor::Expression::Status statu
 
     m_expression->deleteLater();
     m_expression=nullptr;
-    emit fetchingDone();
+    Q_EMIT fetchingDone();
 }
 
 void OctaveCompletionObject::fetchIdentifierType()
@@ -86,11 +86,11 @@ void OctaveCompletionObject::fetchIdentifierType()
     {
         qDebug() << "Fetching type of " << identifier();
         if (OctaveKeywords::instance()->keywords().contains(identifier()))
-            emit fetchingTypeDone(KeywordType);
+            Q_EMIT fetchingTypeDone(KeywordType);
         else if (OctaveKeywords::instance()->functions().contains(identifier()))
-            emit fetchingTypeDone(FunctionType);
+            Q_EMIT fetchingTypeDone(FunctionType);
         else
-            emit fetchingTypeDone(UnknownType);
+            Q_EMIT fetchingTypeDone(UnknownType);
     }
     else
     {
@@ -109,12 +109,12 @@ void OctaveCompletionObject::extractIdentifierType(Cantor::Expression::Status st
     {
         case Cantor::Expression::Error:
             qDebug() << "Error with OctaveCompletionObject" << m_expression->errorMessage();
-            emit fetchingTypeDone(UnknownType);
+            Q_EMIT fetchingTypeDone(UnknownType);
             break;
 
         case Cantor::Expression::Interrupted:
             qDebug() << "OctaveCompletionObject was interrupted";
-            emit fetchingTypeDone(UnknownType);
+            Q_EMIT fetchingTypeDone(UnknownType);
             break;
 
         case Cantor::Expression::Done:
@@ -125,17 +125,17 @@ void OctaveCompletionObject::extractIdentifierType(Cantor::Expression::Status st
                 // size("__cantor_tmp__ = \n") == 18
                 res.remove(0,18);
 
-                const QStringList& ints = res.split(QLatin1String(" "), QString::SkipEmptyParts);
+                const QStringList& ints = res.split(QLatin1String(" "), Qt::SkipEmptyParts);
                 if (ints.size() != 2)
-                    emit fetchingTypeDone(UnknownType);
+                    Q_EMIT fetchingTypeDone(UnknownType);
                 else if (ints[1].toInt() == 1)
-                    emit fetchingTypeDone(KeywordType);
+                    Q_EMIT fetchingTypeDone(KeywordType);
                 else if (ints[0].toInt() == 1)
-                    emit fetchingTypeDone(VariableType);
+                    Q_EMIT fetchingTypeDone(VariableType);
                 else if (ints[0].toInt() == 5 || ints[0].toInt() == 103)
-                    emit fetchingTypeDone(FunctionType);
+                    Q_EMIT fetchingTypeDone(FunctionType);
                 else
-                    emit fetchingTypeDone(UnknownType);
+                    Q_EMIT fetchingTypeDone(UnknownType);
             }
             break;
 

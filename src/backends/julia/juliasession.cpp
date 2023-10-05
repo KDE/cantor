@@ -47,7 +47,7 @@ void JuliaSession::login()
 {
     if (m_process)
         return;
-    emit loginStarted();
+    Q_EMIT loginStarted();
 
     m_process = new KProcess(this);
     m_process->setOutputChannelMode(KProcess::OnlyStdoutChannel);
@@ -134,7 +134,7 @@ void JuliaSession::login()
     updateVariables();
 
     changeStatus(Session::Done);
-    emit loginDone();
+    Q_EMIT loginDone();
     qDebug() << "login to julia done";
 }
 
@@ -239,13 +239,13 @@ void JuliaSession::reportServerProcessError(QProcess::ProcessError serverError)
     switch(serverError)
     {
         case QProcess::Crashed:
-            emit error(i18n("Julia process stopped working."));
+            Q_EMIT error(i18n("Julia process stopped working."));
             break;
         case QProcess::FailedToStart:
-            emit error(i18n("Failed to start Julia process."));
+            Q_EMIT error(i18n("Failed to start Julia process."));
             break;
         default:
-            emit error(i18n("Communication with Julia process failed for unknown reasons."));
+            Q_EMIT error(i18n("Communication with Julia process failed for unknown reasons."));
             break;
     }
     qDebug() << "reportSessionCrash" << serverError;

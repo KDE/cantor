@@ -36,7 +36,7 @@ void JuliaCompletionObject::fetchCompletions()
         allCompletions << JuliaKeywords::instance()->functions();
 
         setCompletions(allCompletions);
-        emit fetchingDone();
+        Q_EMIT fetchingDone();
     }
     else
     {
@@ -90,7 +90,7 @@ void JuliaCompletionObject::extractCompletions(Cantor::Expression::Status status
 
     m_expression->deleteLater();
     m_expression = nullptr;
-    emit fetchingDone();
+    Q_EMIT fetchingDone();
 }
 
 bool JuliaCompletionObject::mayIdentifierContain(QChar c) const

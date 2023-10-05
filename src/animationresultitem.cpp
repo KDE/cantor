@@ -102,7 +102,7 @@ void AnimationResultItem::updateSize(QSize size)
 {
     if (m_height != size.height()) {
         m_height = size.height();
-        emit sizeChanged();
+        Q_EMIT sizeChanged();
     }
 }
 

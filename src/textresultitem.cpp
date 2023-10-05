@@ -255,7 +255,7 @@ void TextResultItem::mouseDoubleClickEvent(QGraphicsSceneMouseEvent* event)
             m_isCollapsed = false;
             collapseExtraLines();
         }
-        emit collapseActionSizeChanged();
+        Q_EMIT collapseActionSizeChanged();
     }
     QGraphicsTextItem::mouseDoubleClickEvent(event);
 }

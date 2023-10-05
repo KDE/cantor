@@ -22,6 +22,9 @@
 #include <KSharedConfig>
 #include <KTextEditor/View>
 #include <KTextEditor/Editor>
+#include <KTextEditor/Document>
+
+using namespace Qt::Literals::StringLiterals;
 
 ScriptEditorWidget::ScriptEditorWidget(const QString& filter, const QString& highlightingMode, QWidget* parent) : KXmlGuiWindow(parent),
 m_filter(filter),
@@ -34,8 +37,8 @@ m_tmpFile(nullptr)
     KStandardAction::openNew(this, SLOT(newScript()), actionCollection());
     KStandardAction::open(this, SLOT(open()), actionCollection());
     KStandardAction::close(this, SLOT(close()), actionCollection());
-    QAction * runAction = actionCollection()->addAction(QStringLiteral("file_execute"), this, SLOT(run()));
-    runAction->setIcon(QIcon::fromTheme(QStringLiteral("system-run")));
+    QAction * runAction = actionCollection()->addAction(u"file_execute"_s, this, SLOT(run()));
+    runAction->setIcon(QIcon::fromTheme(u"system-run"_s));
     runAction->setText(i18n("Run Script"));
 
     KTextEditor::Editor* editor = KTextEditor::Editor::instance();
@@ -51,11 +54,11 @@ m_tmpFile(nullptr)
 
         m_script->setHighlightingMode(highlightingMode);
 
-        KConfigGroup cg(KSharedConfig::openConfig(), "ScriptEditor");
+        KConfigGroup cg(KSharedConfig::openConfig(), u"ScriptEditor"_s);
         setAutoSaveSettings(cg, true);
 
         setCentralWidget(m_editor);
-        setupGUI(QSize(500,600), Default, QStringLiteral("cantor_scripteditor.rc"));
+        setupGUI(QSize(500,600), Default, u"cantor_scripteditor.rc"_s);
         guiFactory()->addClient(m_editor);
 
         KWindowConfig::restoreWindowSize(this->windowHandle(), cg);
@@ -119,7 +122,7 @@ void ScriptEditorWidget::run()
     }
 
     qDebug()<<"running "<<filename;
-    emit runScript(filename);
+    Q_EMIT runScript(filename);
 }
 
 bool ScriptEditorWidget::queryClose()

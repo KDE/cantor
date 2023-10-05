@@ -141,14 +141,14 @@ void Expression::addResult(Result* result)
     }
 
     d->results << result;
-    emit gotResult();
+    Q_EMIT gotResult();
 }
 
 void Expression::clearResults()
 {
     qDeleteAll(d->results);
     d->results.clear();
-    emit resultsCleared();
+    Q_EMIT resultsCleared();
 }
 
 void Expression::removeResult(Result* result)
@@ -156,7 +156,7 @@ void Expression::removeResult(Result* result)
     int index = d->results.indexOf(result);
     d->results.remove(index);
     delete result;
-    emit resultRemoved(index);
+    Q_EMIT resultRemoved(index);
 }
 
 void Expression::replaceResult(int index, Result* result)
@@ -172,7 +172,7 @@ void Expression::replaceResult(int index, Result* result)
         delete oldResult;
 
         //notify about the replacement
-        emit resultReplaced(index);
+        Q_EMIT resultReplaced(index);
     }
 }
 
@@ -192,12 +192,12 @@ const QVector<Result*>& Expression::results() const
 void Expression::setStatus(Expression::Status status)
 {
     d->status=status;
-    emit statusChanged(status);
+    Q_EMIT statusChanged(status);
 
     bool isFinished = status == Expression::Done || status == Expression::Error || status == Expression::Interrupted;
     if (isFinished)
     {
-        emit expressionFinished(status);
+        Q_EMIT expressionFinished(status);
         if(d->finishingBehavior==Expression::DeleteOnFinish)
             deleteLater();
     }
@@ -283,7 +283,7 @@ int Expression::id()
 void Expression::setId(int id)
 {
     d->id=id;
-    emit idChanged();
+    Q_EMIT idChanged();
 }
 
 void Expression::setFinishingBehavior(Expression::FinishingBehavior behavior)

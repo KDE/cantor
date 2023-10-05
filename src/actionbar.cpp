@@ -54,7 +54,7 @@ void ActionBar::updatePosition()
                    parentEntry()->mapFromScene(p).x());
     setPos(w, 0);
     const qreal scale = worksheet()->renderer()->scale();
-    foreach(WorksheetToolButton* button, m_buttons) {
+    for (WorksheetToolButton* button : std::as_const(m_buttons)) {
         button->setIconScale(scale);
     }
 }

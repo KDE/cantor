@@ -16,7 +16,7 @@ set(PythonServer_SRCS
   pythonserver.cpp
 )
 
-qt5_add_resources(PythonBackend_RSCS python.qrc)
+qt_add_resources(PythonBackend_RSCS python.qrc)
 ki18n_wrap_ui(PythonBackend_SRCS settings.ui)
 kconfig_add_kcfg_files(PythonBackend_SRCS settings.kcfgc)
 
@@ -24,10 +24,10 @@ add_backend(pythonbackend ${PythonBackend_SRCS} ${PythonBackend_RSCS})
 target_link_libraries(cantor_pythonbackend
   cantorlibs
   cantor_help
-  KF5::KIOCore
-  KF5::ConfigCore
-  KF5::ConfigGui
-  KF5::SyntaxHighlighting
+  KF6::KIOCore
+  KF6::ConfigCore
+  KF6::ConfigGui
+  KF6::SyntaxHighlighting
 )
 
 add_executable(cantor_pythonserver ${PythonServer_SRCS})
@@ -41,9 +41,9 @@ if(BUILD_TESTING)
   add_executable(testpython testpython.cpp settings.cpp)
   add_test(NAME testpython COMMAND testpython)
   target_link_libraries(testpython
-    Qt5::Test
-    KF5::ConfigCore
-    KF5::ConfigGui
+    Qt6::Test
+    KF6::ConfigCore
+    KF6::ConfigGui
     cantorlibs
     cantortest
   )

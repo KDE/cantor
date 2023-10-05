@@ -30,7 +30,7 @@ void KAlgebraSyntaxHelpObject::fetchInformation()
         }
 
         setHtml(result);
-        emit done();
+        Q_EMIT done();
     }
 }
 

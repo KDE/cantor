@@ -84,7 +84,7 @@ WorksheetEntry::WorksheetEntry(Worksheet* worksheet) : QGraphicsObject(), m_cont
 
 WorksheetEntry::~WorksheetEntry()
 {
-    emit aboutToBeDeleted();
+    Q_EMIT aboutToBeDeleted();
     if (next())
         next()->setPrevious(previous());
     if (previous())
@@ -421,7 +421,7 @@ void WorksheetEntry::populateMenu(QMenu* menu, QPointF pos)
         action = new QAction(QIcon::fromTheme(QLatin1String("go-up")), i18n("Move Up"));
     //     connect(action, &QAction::triggered, this, &WorksheetEntry::moveToPrevious); //TODO: doesn't work
         connect(action, SIGNAL(triggered()), this, SLOT(moveToPrevious()));
-        action->setShortcut(Qt::CTRL + Qt::Key_Up);
+        action->setShortcut(Qt::CTRL | Qt::Key_Up);
         menu->insertAction(firstAction, action);
     }
 
@@ -429,14 +429,14 @@ void WorksheetEntry::populateMenu(QMenu* menu, QPointF pos)
         action = new QAction(QIcon::fromTheme(QLatin1String("go-down")), i18n("Move Down"));
     //     connect(action, &QAction::triggered, this, &WorksheetEntry::moveToNext); //TODO: doesn't work
         connect(action, SIGNAL(triggered()), this, SLOT(moveToNext()));
-        action->setShortcut(Qt::CTRL + Qt::Key_Down);
+        action->setShortcut(Qt::CTRL | Qt::Key_Down);
         menu->insertAction(firstAction, action);
         menu->insertSeparator(firstAction);
     }
 
     action = new QAction(QIcon::fromTheme(QLatin1String("edit-delete")), i18n("Remove"));
     connect(action, &QAction::triggered, this, &WorksheetEntry::startRemoving);
-    action->setShortcut(Qt::ShiftModifier + Qt::Key_Delete);
+    action->setShortcut(Qt::ShiftModifier | Qt::Key_Delete);
     menu->insertAction(firstAction, action);
     menu->insertSeparator(firstAction);
 
@@ -716,8 +716,8 @@ void WorksheetEntry::startRemoving()
 
     if (Settings::warnAboutEntryDelete())
     {
-        int rc = KMessageBox::warningYesNo(nullptr, i18n("Do you really want to remove this entry?"), i18n("Remove Entry"));
-        if (rc == KMessageBox::No)
+        int rc = KMessageBox::warningTwoActions(nullptr, i18n("Do you really want to remove this entry?"), i18n("Remove Entry"), KStandardGuiItem::remove(), KStandardGuiItem::cancel());
+        if (rc == KMessageBox::SecondaryAction)
             return;
     }
 

@@ -25,7 +25,7 @@ if(BUILD_TESTING)
   add_executable( testmaxima testmaxima.cpp)
   add_test(NAME testmaxima COMMAND testmaxima)
   target_link_libraries( testmaxima
-    Qt5::Test
+    Qt6::Test
     cantorlibs
     cantortest
   )

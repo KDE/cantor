@@ -38,7 +38,6 @@
 #include <QTimer>
 #include <QActionGroup>
 #include <QFile>
-#include <QXmlQuery>
 
 #include <kcoreaddons_version.h>
 #include <KMessageBox>
@@ -48,6 +47,11 @@
 #include <KToggleAction>
 #include <KLocalizedString>
 #include <KZip>
+
+#include <libxslt/xslt.h>
+#include <libxslt/xsltInternals.h>
+#include <libxslt/xsltutils.h>
+#include <libxslt/transform.h>
 
 const double Worksheet::LeftMargin = 4;
 const double Worksheet::RightMargin = 4;
@@ -120,7 +124,7 @@ void Worksheet::print(QPrinter* printer)
     m_mathRenderer.useHighResolution(true);
     m_isPrinting = true;
 
-    QRect pageRect = printer->pageRect();
+    QRectF pageRect = printer->pageRect(QPrinter::Point);
     qreal scale = 1; // todo: find good scale for page size
     // todo: use epsRenderer()->scale() for printing ?
     const qreal width = pageRect.width()/scale;
@@ -238,7 +242,7 @@ void Worksheet::updateHierarchyLayout()
         }
     }
 
-    emit hierarchyChanged(names, searchStrings, depths);
+    Q_EMIT hierarchyChanged(names, searchStrings, depths);
 }
 
 void Worksheet::updateHierarchyControlsLayout(WorksheetEntry* startEntry)
@@ -426,7 +430,7 @@ WorksheetView* Worksheet::worksheetView()
 void Worksheet::setModified()
 {
     if (!m_isClosing && !m_isLoadingFromFile)
-        emit modified();
+        Q_EMIT modified();
 }
 
 WorksheetCursor Worksheet::worksheetCursor()
@@ -966,7 +970,7 @@ void Worksheet::interrupt()
     if (m_session->status() == Cantor::Session::Running)
     {
         m_session->interrupt();
-        emit updatePrompt();
+        Q_EMIT updatePrompt();
     }
 }
 
@@ -1129,7 +1133,7 @@ void Worksheet::enableEmbeddedMath(bool enable)
 void Worksheet::enableExpressionNumbering(bool enable)
 {
     m_showExpressionIds=enable;
-    emit updatePrompt();
+    Q_EMIT updatePrompt();
     if (views().size() != 0)
         updateLayout();
 }
@@ -1297,26 +1301,47 @@ void Worksheet::saveLatex(const QString& filename)
         return;
     }
 
-    QString xml = toXML().toString();
-    QTextStream stream(&file);
-    QXmlQuery query(QXmlQuery::XSLT20);
-    query.setFocus(xml);
+    xmlSubstituteEntitiesDefault(1);
+    xmlLoadExtDtdDefaultValue = 1;
 
-    QString stylesheet = QStandardPaths::locate(QStandardPaths::DataLocation, QLatin1String("xslt/latex.xsl"));
-    if (stylesheet.isEmpty())
-    {
+    QString stylesheet = QStandardPaths::locate(QStandardPaths::AppDataLocation, QLatin1String("xslt/latex.xsl"));
+    if (stylesheet.isEmpty()) {
         KMessageBox::error(worksheetView(), i18n("Error loading latex.xsl stylesheet"), i18n("Error - Cantor"));
         return;
     }
 
-    query.setQuery(QUrl(stylesheet));
-    QString out;
-    if (query.evaluateTo(&out))
-        // Transform HTML escaped special characters to valid LaTeX characters (&, <, >)
-        stream << out.replace(QLatin1String("&amp;"), QLatin1String("&"))
-                     .replace(QLatin1String("&gt;"), QLatin1String(">"))
-                     .replace(QLatin1String("&lt;"), QLatin1String("<"));
-    file.close();
+    static std::string encoding("utf-8");
+
+    xsltStylesheetPtr xsltStyleSheet = xsltParseStylesheetFile((const xmlChar *)stylesheet.toLocal8Bit().constData());
+    xmlDocPtr output = xmlReadDoc((const xmlChar *)toXML().toString().toStdString().c_str(), nullptr, encoding.c_str(), XML_PARSE_RECOVER);
+
+    const char *params[16+1];
+    params[0] = NULL;
+    auto res = xsltApplyStylesheet(xsltStyleSheet, output, params);
+    if (res) {
+        xmlChar *xmlResultBuffer = nullptr;
+        int xmlResultLength = 0;
+        int res = xsltSaveResultToString(&xmlResultBuffer, &xmlResultLength, output, xsltStyleSheet);
+        if (res != -1) {
+            QString outString = QString::fromUtf8((char *)xmlResultBuffer);
+
+            // Transform HTML escaped special characters to valid LaTeX characters (&, <, >)
+            QTextStream stream(&file);
+            stream << outString.replace(QLatin1String("&amp;"), QLatin1String("&"))
+                         .replace(QLatin1String("&gt;"), QLatin1String(">"))
+                         .replace(QLatin1String("&lt;"), QLatin1String("<"));
+            file.close();
+        }
+
+        xmlFree(xmlResultBuffer);
+    }
+
+    xsltFreeStylesheet(xsltStyleSheet);
+    xmlFreeDoc(res);
+    xmlFreeDoc(output);
+
+    xsltCleanupGlobals();
+    xmlCleanupParser();
 }
 
 bool Worksheet::load(const QString& filename )
@@ -1478,7 +1503,7 @@ bool Worksheet::loadCantorWorksheet(const KZip& archive)
     //If the session isn't logged in, use the default
     enableHighlighting( m_highlighter!=nullptr || Settings::highlightDefault() );
 
-    emit loaded();
+    Q_EMIT loaded();
     return true;
 }
 
@@ -1717,7 +1742,7 @@ bool Worksheet::loadJupyterNotebook(const QJsonDocument& doc)
 
     enableHighlighting( m_highlighter!=nullptr || Settings::highlightDefault() );
 
-    emit loaded();
+    Q_EMIT loaded();
     return true;
 }
 
@@ -1748,7 +1773,7 @@ void Worksheet::gotResult(Cantor::Expression* expr)
             help.replace(QRegularExpression(QStringLiteral("\\\\code\\{([^\\}]*)\\}")), QStringLiteral("<b>\\1</b>"));
             help.replace(QRegularExpression(QStringLiteral("\\$([^\\$])\\$")), QStringLiteral("<i>\\1</i>"));
 
-            emit showHelp(help);
+            Q_EMIT showHelp(help);
 
             //TODO: break after the first help result found, not clear yet how to handle multiple requests for help within one single command (e.g. ??ev;??int).
             break;
@@ -1916,14 +1941,14 @@ void Worksheet::populateMenu(QMenu* menu, QPointF pos)
         auto* view = worksheetView();
 
         auto* action = zoomMenu->addAction(QIcon::fromTheme(QLatin1String("zoom-in")), i18n("Zoom In"), view, &WorksheetView::zoomIn);
-        action->setShortcut(Qt::CTRL+Qt::Key_Plus);
+        action->setShortcut(Qt::CTRL | Qt::Key_Plus);
 
         action = zoomMenu->addAction(QIcon::fromTheme(QLatin1String("zoom-out")), i18n("Zoom Out"), view, &WorksheetView::zoomOut);
-        action->setShortcut(Qt::CTRL+Qt::Key_Minus);
+        action->setShortcut(Qt::CTRL | Qt::Key_Minus);
         zoomMenu->addSeparator();
 
         action = zoomMenu->addAction(QIcon::fromTheme(QLatin1String("zoom-original")), i18n("Original Size"), view, &WorksheetView::actualSize);
-        action->setShortcut(Qt::CTRL+Qt::Key_1);
+        action->setShortcut(Qt::CTRL | Qt::Key_1);
 
         menu->addMenu(zoomMenu);
     }
@@ -2177,13 +2202,13 @@ void Worksheet::initActions()
         m_collection->addAction(QLatin1String("format_font_family"), m_fontAction);
         m_collection->addAction(QLatin1String("format_font_size"), m_fontSizeAction);
         m_collection->addAction(QLatin1String("format_text_bold"), m_boldAction);
-        m_collection->setDefaultShortcut(m_boldAction, Qt::CTRL + Qt::Key_B);
+        m_collection->setDefaultShortcut(m_boldAction, Qt::CTRL | Qt::Key_B);
         m_collection->addAction(QLatin1String("format_text_italic"), m_italicAction);
-        m_collection->setDefaultShortcut(m_italicAction, Qt::CTRL + Qt::Key_I);
+        m_collection->setDefaultShortcut(m_italicAction, Qt::CTRL | Qt::Key_I);
         m_collection->addAction(QLatin1String("format_text_underline"), m_underlineAction);
-        m_collection->setDefaultShortcut(m_underlineAction, Qt::CTRL + Qt::Key_U);
+        m_collection->setDefaultShortcut(m_underlineAction, Qt::CTRL | Qt::Key_U);
         m_collection->addAction(QLatin1String("format_text_strikeout"), m_strikeOutAction);
-        m_collection->setDefaultShortcut(m_strikeOutAction, Qt::CTRL + Qt::Key_L);
+        m_collection->setDefaultShortcut(m_strikeOutAction, Qt::CTRL | Qt::Key_L);
         m_collection->addAction(QLatin1String("format_align_left"), m_alignLeftAction);
         m_collection->addAction(QLatin1String("format_align_center"), m_alignCenterAction);
         m_collection->addAction(QLatin1String("format_align_right"), m_alignRightAction);
@@ -2243,7 +2268,7 @@ WorksheetTextItem* Worksheet::lastFocusedTextItem()
 
 void Worksheet::updateFocusedTextItem(WorksheetTextItem* newItem)
 {
-    // No need update and emit signals about editing actions in readonly
+    // No need update and Q_EMIT signals about editing actions in readonly
     // So support only copy action and reset selection
     if (m_readOnly)
     {
@@ -2256,11 +2281,11 @@ void Worksheet::updateFocusedTextItem(WorksheetTextItem* newItem)
         if (newItem && m_lastFocusedTextItem != newItem)
         {
             connect(this, SIGNAL(copy()), newItem, SLOT(copy()));
-            emit copyAvailable(newItem->isCopyAvailable());
+            Q_EMIT copyAvailable(newItem->isCopyAvailable());
         }
         else if (!newItem)
         {
-            emit copyAvailable(false);
+            Q_EMIT copyAvailable(false);
         }
 
         m_lastFocusedTextItem = newItem;
@@ -2288,17 +2313,17 @@ void Worksheet::updateFocusedTextItem(WorksheetTextItem* newItem)
 
     if (newItem && m_lastFocusedTextItem != newItem) {
         setAcceptRichText(newItem->richTextEnabled());
-        emit undoAvailable(newItem->isUndoAvailable());
-        emit redoAvailable(newItem->isRedoAvailable());
+        Q_EMIT undoAvailable(newItem->isUndoAvailable());
+        Q_EMIT redoAvailable(newItem->isRedoAvailable());
         connect(newItem, SIGNAL(undoAvailable(bool)),
                 this, SIGNAL(undoAvailable(bool)));
         connect(newItem, SIGNAL(redoAvailable(bool)),
                 this, SIGNAL(redoAvailable(bool)));
         connect(this, SIGNAL(undo()), newItem, SLOT(undo()));
         connect(this, SIGNAL(redo()), newItem, SLOT(redo()));
-        emit cutAvailable(newItem->isCutAvailable());
-        emit copyAvailable(newItem->isCopyAvailable());
-        emit pasteAvailable(newItem->isPasteAvailable());
+        Q_EMIT cutAvailable(newItem->isCutAvailable());
+        Q_EMIT copyAvailable(newItem->isCopyAvailable());
+        Q_EMIT pasteAvailable(newItem->isPasteAvailable());
         connect(newItem, SIGNAL(cutAvailable(bool)),
                 this, SIGNAL(cutAvailable(bool)));
         connect(newItem, SIGNAL(copyAvailable(bool)),
@@ -2308,11 +2333,11 @@ void Worksheet::updateFocusedTextItem(WorksheetTextItem* newItem)
         connect(this, SIGNAL(cut()), newItem, SLOT(cut()));
         connect(this, SIGNAL(copy()), newItem, SLOT(copy()));
     } else if (!newItem) {
-        emit undoAvailable(false);
-        emit redoAvailable(false);
-        emit cutAvailable(false);
-        emit copyAvailable(false);
-        emit pasteAvailable(false);
+        Q_EMIT undoAvailable(false);
+        Q_EMIT redoAvailable(false);
+        Q_EMIT cutAvailable(false);
+        Q_EMIT copyAvailable(false);
+        Q_EMIT pasteAvailable(false);
     }
     m_lastFocusedTextItem = newItem;
 }

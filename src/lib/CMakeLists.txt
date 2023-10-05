@@ -72,25 +72,20 @@ configure_file (config-cantorlib.h.cmake ${CMAKE_CURRENT_BINARY_DIR}/config-cant
 add_library( cantorlibs  SHARED ${cantor_LIB_SRCS} )
 generate_export_header(cantorlibs BASE_NAME cantor)
 
-kcoreaddons_desktop_to_json(cantorlibs cantor_assistant.desktop DEFAULT_SERVICE_TYPE)
-kcoreaddons_desktop_to_json(cantorlibs cantor_backend.desktop DEFAULT_SERVICE_TYPE)
-kcoreaddons_desktop_to_json(cantorlibs cantor_panelplugin.desktop DEFAULT_SERVICE_TYPE)
-
 target_link_libraries( cantorlibs
-  KF5::Completion
-  KF5::IconThemes
-  KF5::KIOCore
-  KF5::KIOFileWidgets
-  KF5::KIOWidgets
-  KF5::Archive
-  KF5::ConfigCore
-  KF5::ConfigGui
-  KF5::I18n
-  KF5::XmlGui
-  ${QT5_LIBRARIES}
-  Qt5::Xml
-  Qt5::Svg
-  Poppler::Qt5
+  KF6::Completion
+  KF6::IconThemes
+  KF6::KIOCore
+  KF6::KIOFileWidgets
+  KF6::KIOWidgets
+  KF6::Archive
+  KF6::ConfigCore
+  KF6::ConfigGui
+  KF6::I18n
+  KF6::XmlGui
+  Qt6::Xml
+  Qt6::Svg
+  Poppler::Qt6
 )
 
 if(LIBSPECTRE_FOUND)

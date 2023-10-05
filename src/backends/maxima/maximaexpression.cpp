@@ -17,7 +17,6 @@
 #include "settings.h"
 
 #include <QApplication>
-#include <QDesktopWidget>
 #include <QDebug>
 #include <QDir>
 #include <QRegularExpression>
@@ -186,8 +185,8 @@ QString MaximaExpression::internalCommand()
             else // png
             {
                 // png terminal accepts the sizes in pixels
-                w = MaximaSettings::plotWidth() / 2.54 * QApplication::desktop()->physicalDpiX();
-                h = MaximaSettings::plotHeight() / 2.54 * QApplication::desktop()->physicalDpiX();
+                w = MaximaSettings::plotWidth() / 2.54 * 300;
+                h = MaximaSettings::plotHeight() / 2.54 * 300;
                 params = QLatin1String("[gnuplot_png_term_command, \"set term png size %2,%3\"], [png_file, \"%1\"]");
             }
 
@@ -250,7 +249,7 @@ void MaximaExpression::parseOutput(const QString& out)
         QString textContent = prompt.mid(textContentStart + 13, textContentEnd - textContentStart - 13).trimmed();
 
         qDebug()<<"asking for additional input for " << textContent;
-        emit needsAdditionalInformation(textContent);
+        Q_EMIT needsAdditionalInformation(textContent);
         return;
     }
 
@@ -346,7 +345,7 @@ void MaximaExpression::parseOutput(const QString& out)
                 // No input label found in the prompt -> additional info is required
                 qDebug()<<"asking for additional input for the help request" << prompt;
                 m_isHelpRequestAdditional = true;
-                emit needsAdditionalInformation(prompt);
+                Q_EMIT needsAdditionalInformation(prompt);
             }
 
             //set the help result

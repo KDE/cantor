@@ -14,6 +14,7 @@
 #include <QDebug>
 #include <QDir>
 #include <QFile>
+#include <QRandomGenerator>
 
 #include <KIconLoader>
 
@@ -42,8 +43,9 @@ void ScilabExpression::evaluate()
         for(int count = 0; count < commandList.size(); count++){
 
             if(commandList.at(count).toLocal8Bit().contains("plot")){
+                auto generator = QRandomGenerator::system();
 
-                exportCommand = QString::fromLatin1("\nxs2png(gcf(), 'cantor-export-scilab-figure-%1.png');\ndelete(gcf());").arg(qrand());
+                exportCommand = QString::fromLatin1("\nxs2png(gcf(), 'cantor-export-scilab-figure-%1.png');\ndelete(gcf());").arg(generator->generate());
 
                 commandList[count].append(exportCommand);
 
@@ -115,9 +117,9 @@ void ScilabExpression::parsePlotFile(QString filename)
 
 void ScilabExpression::evalFinished()
 {
-    qDebug()<<"evaluation finished";
-
-    foreach (const QString& line, m_output.simplified().split(QLatin1Char('\n'), QString::SkipEmptyParts)){
+    qDebug() << "evaluation finished";
+    const auto lines = m_output.simplified().split(QLatin1Char('\n'), Qt::SkipEmptyParts);
+    for (const QString& line : lines) {
         if (m_output.contains(QLatin1Char('='))){
 
             qDebug() << line;

@@ -283,7 +283,7 @@ void WorksheetView::animFinished()
     else
         m_numScheduledScalings++;
     sender()->~QObject();
-    emit scaleFactorChanged(m_scale);
+    Q_EMIT scaleFactorChanged(m_scale);
 }
 
 qreal WorksheetView::scaleFactor() const
@@ -297,7 +297,7 @@ void WorksheetView::setScaleFactor(qreal zoom, bool emitSignal)
     m_scale = zoom;
     updateSceneSize();
     if (emitSignal)
-        emit scaleFactorChanged(m_scale);
+        Q_EMIT scaleFactorChanged(m_scale);
 }
 
 void WorksheetView::updateSceneSize()
@@ -320,7 +320,7 @@ void WorksheetView::sceneRectChanged(const QRectF& sceneRect) const
 
 void WorksheetView::sendViewRectChange() const
 {
-    emit viewRectChanged(viewRect());
+    Q_EMIT viewRectChanged(viewRect());
 }
 
 void WorksheetView::zoomIn()
@@ -328,7 +328,7 @@ void WorksheetView::zoomIn()
     m_scale *= 1.1;
     scale(1.1, 1.1);
     updateSceneSize();
-    emit scaleFactorChanged(m_scale);
+    Q_EMIT scaleFactorChanged(m_scale);
 }
 
 void WorksheetView::zoomOut()
@@ -336,7 +336,7 @@ void WorksheetView::zoomOut()
     m_scale /= 1.1;
     scale(1/1.1, 1/1.1);
     updateSceneSize();
-    emit scaleFactorChanged(m_scale);
+    Q_EMIT scaleFactorChanged(m_scale);
 }
 
 void WorksheetView::actualSize()
@@ -344,5 +344,5 @@ void WorksheetView::actualSize()
     scale (1/m_scale, 1/m_scale);
     m_scale = 1.0;
     updateSceneSize();
-    emit scaleFactorChanged(m_scale);
+    Q_EMIT scaleFactorChanged(m_scale);
 }

@@ -129,7 +129,7 @@ void QalculateSyntaxHelpObject::fetchInformation()
 
         m_answer = title + desc + syntax + arguments;
 	setHtml(QLatin1String("<p style='white-space:pre'>") + syntax + QLatin1String("</p>"));
-	emit done();
+	Q_EMIT done();
     }
 }
 

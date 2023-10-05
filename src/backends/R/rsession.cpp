@@ -37,7 +37,7 @@ void RSession::login()
     qDebug()<<"login";
     if (m_process)
         return;
-    emit loginStarted();
+    Q_EMIT loginStarted();
 
     m_process = new QProcess(this);
     m_process->setProcessChannelMode(QProcess::ForwardedErrorChannel);
@@ -58,7 +58,7 @@ void RSession::login()
     connect(m_rServer, &org::kde::Cantor::R::inputRequested, this, &RSession::inputRequested);
 
     changeStatus(Session::Done);
-    emit loginDone();
+    Q_EMIT loginDone();
     qDebug()<<"login done";
 }
 
@@ -183,5 +183,5 @@ void RSession::inputRequested(QString info)
     if (expressionQueue().isEmpty())
         return;
 
-    emit expressionQueue().first()->needsAdditionalInformation(info);
+    Q_EMIT expressionQueue().first()->needsAdditionalInformation(info);
 }

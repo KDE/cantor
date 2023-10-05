@@ -9,7 +9,6 @@
 using namespace Cantor;
 
 #include <QApplication>
-#include <QDesktopWidget>
 #include <QDebug>
 #include <QFile>
 #include <QImage>
@@ -20,7 +19,7 @@ using namespace Cantor;
 
 #include <KZip>
 
-#include <poppler-qt5.h>
+#include <poppler-qt6.h>
 
 class Cantor::ImageResultPrivate
 {
@@ -56,17 +55,15 @@ ImageResult::ImageResult(const QUrl &url, const QString& alt) :  d(new ImageResu
 
         if (d->extension == QLatin1String("pdf"))
         {
-            auto* document = Poppler::Document::loadFromData(d->data);
+            auto document = Poppler::Document::loadFromData(d->data);
             if (!document) {
                 qDebug()<< "Failed to process the byte array of the PDF file " << url.toLocalFile();
-                delete document;
                 return;
             }
 
-            auto* page = document->page(0);
+            auto page = document->page(0);
             if (!page) {
                 qDebug() << "Failed to process the first page in the PDF file.";
-                delete document;
                 return;
             }
 
@@ -76,11 +73,8 @@ ImageResult::ImageResult(const QUrl &url, const QString& alt) :  d(new ImageResu
             document->setRenderHint(Poppler::Document::TextSlightHinting);
             document->setRenderHint(Poppler::Document::ThinLineSolid);
 
-            const static int dpi = QApplication::desktop()->logicalDpiX();
+            const static int dpi = 300;
             d->img = page->renderToImage(dpi, dpi);
-
-            delete page;
-            delete document;
         }
         else
         {
@@ -88,8 +82,8 @@ ImageResult::ImageResult(const QUrl &url, const QString& alt) :  d(new ImageResu
 
             // SVG document size is in points, convert to pixels
             const auto& size = renderer.defaultSize();
-            int w = size.width() / 72 * QApplication::desktop()->physicalDpiX();
-            int h = size.height() / 72 * QApplication::desktop()->physicalDpiX();
+            int w = size.width() / 72 * 300;
+            int h = size.height() / 72 * 300;
             d->img = QImage(w, h, QImage::Format_ARGB32);
 
             // render

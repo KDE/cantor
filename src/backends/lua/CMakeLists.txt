@@ -20,14 +20,14 @@ add_backend(luabackend ${LuaBackend_SRCS})
 
 include_directories(${LUAJIT_INCLUDE_DIR})
 
-target_link_libraries(cantor_luabackend cantor_help ${LUAJIT_LIBRARY} KF5::SyntaxHighlighting)
+target_link_libraries(cantor_luabackend cantor_help ${LUAJIT_LIBRARY} KF6::SyntaxHighlighting)
 
 if(BUILD_TESTING)
   add_executable( testlua testlua.cpp)
   add_test(NAME testlua COMMAND testlua)
   ecm_mark_as_test(testlua)
   target_link_libraries( testlua
-    Qt5::Test
+    Qt6::Test
     cantorlibs
     cantortest
   )

@@ -22,15 +22,15 @@ add_backend(juliabackend ${JuliaBackend_SRCS})
 
 target_link_libraries(cantor_juliabackend cantor_help
   ${JULIA_LIBRARY}
-  Qt5::DBus
-  KF5::SyntaxHighlighting
+  Qt6::DBus
+  KF6::SyntaxHighlighting
 )
 
 if(BUILD_TESTING)
   add_executable(testjulia testjulia.cpp settings.cpp)
   add_test(NAME testjulia COMMAND testjulia)
   target_link_libraries(testjulia
-    Qt5::Test
+    Qt6::Test
     cantorlibs
     cantortest
   )

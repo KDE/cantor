@@ -63,8 +63,8 @@ void QalculateExpression::evaluate()
     }
 
 
-    QStringList commands = command().split(QLatin1Char('\n'));
-    foreach(const QString& command, commands)
+    const QStringList commands = command().split(QLatin1Char('\n'));
+    for (const QString& command : commands)
     {
         if (command.contains(QLatin1String("help"))) {
             QalculateSyntaxHelpObject* helper = new QalculateSyntaxHelpObject(command, (QalculateSession*) session());
@@ -837,7 +837,7 @@ QSharedPointer<PrintOptions> QalculateExpression::printOptions()
 
     po->lower_case_e = true;
     po->base = QalculateSettings::base();
-    po->decimalpoint_sign = QLocale().decimalPoint().toLatin1();
+    po->decimalpoint_sign = QLocale().decimalPoint().toLatin1().toStdString();
 
     switch (QalculateSettings::minExp()) {
     case 0:

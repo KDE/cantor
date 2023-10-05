@@ -7,6 +7,6 @@ set( scripteditor_SRCS
 
 add_executable( cantor_scripteditor ${scripteditor_SRCS} )
 
-target_link_libraries(cantor_scripteditor KF5::TextEditor)
+target_link_libraries(cantor_scripteditor KF6::TextEditor KF6::I18n)
 
 install(TARGETS cantor_scripteditor ${KDE_INSTALL_TARGETS_DEFAULT_ARGS} )

@@ -46,7 +46,7 @@ void MaximaSession::login()
     if (m_process)
         return; //TODO: why do we call login() again?!?
 
-    emit loginStarted();
+    Q_EMIT loginStarted();
     QStringList arguments;
     arguments << QLatin1String("--quiet"); //Suppress Maxima start-up message
     const QString initFile = locateCantorFile(QLatin1String("maximabackend/cantor-initmaxima.lisp"));
@@ -83,7 +83,7 @@ void MaximaSession::login()
     }
 
     changeStatus(Session::Done);
-    emit loginDone();
+    Q_EMIT loginDone();
     qDebug()<<"login done";
 }
 
@@ -181,7 +181,7 @@ void MaximaSession::reportProcessError(QProcess::ProcessError e)
     if(e==QProcess::FailedToStart)
     {
         changeStatus(Cantor::Session::Done);
-        emit error(i18n("Failed to start Maxima"));
+        Q_EMIT error(i18n("Failed to start Maxima"));
     }
 }
 
@@ -248,7 +248,7 @@ void MaximaSession::restartMaxima()
 
     if(!m_justRestarted)
     {
-        emit error(i18n("Maxima crashed. restarting..."));
+        Q_EMIT error(i18n("Maxima crashed. restarting..."));
         //remove the command that caused maxima to crash (to avoid infinite loops)
         if(!expressionQueue().isEmpty())
             expressionQueue().removeFirst();

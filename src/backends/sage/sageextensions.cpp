@@ -88,7 +88,7 @@ SAGE_EXTENSION_CONSTRUCTORS(LinearAlgebra)
 QString SageLinearAlgebraExtension::createVector(const QStringList& entries, VectorType type)
 {
     QString cmd=QLatin1String("vector(");
-    foreach(const QString& e, entries)
+    for(const QString& e : entries)
         cmd+=e+QLatin1Char(',');
     cmd.chop(1);
     cmd+=QLatin1Char(')');
@@ -111,10 +111,10 @@ QString SageLinearAlgebraExtension::nullVector(int size, VectorType type)
 QString SageLinearAlgebraExtension::createMatrix(const Matrix& matrix)
 {
     QString cmd=QLatin1String("matrix([");
-    foreach(const QStringList& row, matrix)
+    for(const QStringList& row : matrix)
     {
         cmd+=QLatin1Char('[');
-        foreach(const QString& entry, row)
+        for(const QString& entry : row)
             cmd+=entry+QLatin1Char(',');
         cmd.chop(1);
         cmd+=QLatin1String("],");

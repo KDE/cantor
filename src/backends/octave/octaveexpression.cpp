@@ -14,7 +14,6 @@
 #include "textresult.h"
 
 #include <QApplication>
-#include <QDesktopWidget>
 #include <QDebug>
 #include <QFile>
 #include <QDir>
@@ -76,7 +75,7 @@ QString OctaveExpression::internalCommand()
 
     if (!isInternal())
     {
-        QStringList cmdWords = cmd.split(QRegularExpression(QStringLiteral("\\b")), QString::SkipEmptyParts);
+        QStringList cmdWords = cmd.split(QRegularExpression(QStringLiteral("\\b")), Qt::SkipEmptyParts);
         if (!cmdWords.contains(QLatin1String("help")) && !cmdWords.contains(QLatin1String("completion_matches")))
         {
             for (const QString& plotCmd : plotCommands)
@@ -99,8 +98,8 @@ QString OctaveExpression::internalCommand()
                     }
                     else // for raster formats the size for 'print' is provided in pixels
                     {
-                        w = OctaveSettings::plotWidth() / 2.54 * QApplication::desktop()->physicalDpiX();
-                        h = OctaveSettings::plotHeight() / 2.54 * QApplication::desktop()->physicalDpiX();
+                        w = OctaveSettings::plotWidth() / 2.54 * 300;
+                        h = OctaveSettings::plotHeight() / 2.54 * 300;
                     }
                     cmd += printCommandTemplate.arg(m_plotFilename, QString::number(w), QString::number(h));
 

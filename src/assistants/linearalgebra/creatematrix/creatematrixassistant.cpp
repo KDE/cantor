@@ -9,13 +9,14 @@
 
 #include <QDialog>
 #include <QPushButton>
+#include <QPointer>
 #include <KActionCollection>
-#include "cantor_macros.h"
+#include <KPluginFactory>
 #include "backend.h"
 #include "extension.h"
 #include "creatematrixdlg.h"
 
-CreateMatrixAssistant::CreateMatrixAssistant(QObject* parent, QList<QVariant> args) : Assistant(parent)
+CreateMatrixAssistant::CreateMatrixAssistant(QObject* parent, const QVariantList &args) : Assistant(parent)
 {
     Q_UNUSED(args)
 }
@@ -30,7 +31,7 @@ void CreateMatrixAssistant::initActions()
 
 QStringList CreateMatrixAssistant::run(QWidget* parent)
 {
-    QPointer<CreateMatrixDlg> dlg=new CreateMatrixDlg(parent);
+    QPointer<CreateMatrixDlg> dlg = new CreateMatrixDlg(parent);
 
     QStringList result;
     if( dlg->exec())
@@ -54,5 +55,5 @@ QStringList CreateMatrixAssistant::run(QWidget* parent)
     return result;
 }
 
-K_PLUGIN_FACTORY_WITH_JSON(creatematrixassistant, "creatematrixassistant.json", registerPlugin<CreateMatrixAssistant>();)
+K_PLUGIN_FACTORY_WITH_JSON(CreateMatrixAssistantFactory, "creatematrixassistant.json", registerPlugin<CreateMatrixAssistant>();)
 #include "creatematrixassistant.moc"

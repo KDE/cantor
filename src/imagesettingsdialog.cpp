@@ -135,7 +135,7 @@ void ImageSettingsDialog::sendChanges()
     printSize.widthUnit = m_ui.printWidthCombo->currentIndex();
     printSize.heightUnit = m_ui.printHeightCombo->currentIndex();
 
-    emit dataChanged(m_ui.pathEdit->text(), displaySize, printSize, m_ui.useDisplaySize->isChecked());
+    Q_EMIT dataChanged(m_ui.pathEdit->text(), displaySize, printSize, m_ui.useDisplaySize->isChecked());
 }
 
 void ImageSettingsDialog::openDialog()

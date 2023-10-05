@@ -10,9 +10,10 @@ set (RELEASE_SERVICE_VERSION "${RELEASE_SERVICE_VERSION_MAJOR}.${RELEASE_SERVICE
 
 project(cantor VERSION ${RELEASE_SERVICE_VERSION})
 
-set(KF5_MIN_VERSION "5.91.0")
+set(QT_MIN_VERSION "6.5.0")
+set(KF_MIN_VERSION "5.240.0")
 
-find_package(ECM 5.15.0 REQUIRED CONFIG)
+find_package(ECM ${KF_MIN_VERSION} REQUIRED CONFIG)
 set(CMAKE_MODULE_PATH ${cantor_SOURCE_DIR}/cmake ${CMAKE_MODULE_PATH} ${ECM_MODULE_PATH} )
 
 include(KDEInstallDirs)
@@ -29,19 +30,18 @@ include(FeatureSummary)
 set( SharedMimeInfo_MINIMUM_VERSION "1.3" ) #TODO: What is the minimum required version?
 find_package(SharedMimeInfo ${SharedMimeInfo_MINIMUM_VERSION} REQUIRED)
 
-find_package(Qt5 5.8.0 CONFIG REQUIRED
+find_package(Qt6 ${QT_MIN_VERSION} CONFIG REQUIRED
     Core
+    Core5Compat
     Widgets
     PrintSupport
     Svg
     Xml
-    XmlPatterns
     Test
     Help
-    WebEngine
     WebEngineWidgets)
 
-find_package(KF5 ${KF5_MIN_VERSION} REQUIRED
+find_package(KF6 ${KF_MIN_VERSION} REQUIRED
     Config
     Crash
     Completion
@@ -59,7 +59,10 @@ find_package(KF5 ${KF5_MIN_VERSION} REQUIRED
     I18n
 )
 
-find_package(Poppler "0.62.0" REQUIRED COMPONENTS Qt5)
+find_package(LibXml2 REQUIRED)
+find_package(LibXslt REQUIRED)
+
+find_package(Poppler "0.62.0" REQUIRED COMPONENTS Qt6)
 
 option(USE_LIBSPECTRE "Use libspectre library" ON)
 
@@ -159,7 +162,7 @@ install(EXPORT CantorTargets
 
 
 ki18n_install(po)
-if (KF5DocTools_FOUND)
+if (KF6DocTools_FOUND)
     kdoctools_install(po)
 endif()
 install(FILES org.kde.cantor.appdata.xml DESTINATION ${KDE_INSTALL_METAINFODIR})

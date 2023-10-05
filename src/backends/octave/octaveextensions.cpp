@@ -79,10 +79,8 @@ QString OctaveLinearAlgebraExtension::createMatrix(const Cantor::LinearAlgebraEx
 {
     QString command;
     command += QLatin1Char('[');
-    foreach (const QStringList row, matrix)
-    {
-        foreach (const QString entry, row)
-        {
+    for (const QStringList &row : matrix) {
+        for (const QString &entry : row) {
             command += entry;
             command += QLatin1String(", ");
         }
@@ -107,8 +105,7 @@ QString OctaveLinearAlgebraExtension::createVector(const QStringList& entries, C
     }
     QString command;
     command += QLatin1Char('[');
-    foreach (const QString& entry, entries)
-    {
+    for (const QString& entry : entries) {
         command += entry;
         command += separator;
     }

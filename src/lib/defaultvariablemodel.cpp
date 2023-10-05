@@ -132,7 +132,7 @@ bool DefaultVariableModel::setData(const QModelIndex& index, const QVariant& val
         // Changing values
         QString name = data(index.sibling(index.row(), NameColumn)).toString();
         d->session->evaluateExpression(d->extension->setValue(name, value.toString()), Expression::DeleteOnFinish);
-        emit dataChanged(index, index);
+        Q_EMIT dataChanged(index, index);
         return true;
     }
     else if(index.column() == NameColumn)
@@ -142,7 +142,7 @@ bool DefaultVariableModel::setData(const QModelIndex& index, const QVariant& val
         QString variableValue = data(index.sibling(index.row(), ValueColumn)).toString();
         d->session->evaluateExpression(d->extension->addVariable(value.toString(), variableValue), Expression::DeleteOnFinish);
         d->session->evaluateExpression(d->extension->removeVariable(oldName), Expression::DeleteOnFinish);
-        emit dataChanged(index, index);
+        Q_EMIT dataChanged(index, index);
         return true;
     }
 
@@ -163,13 +163,13 @@ void DefaultVariableModel::addVariable(const Cantor::DefaultVariableModel::Varia
     {
         d->variables[index].value = variable.value;
         QModelIndex modelIdx = createIndex(index, ValueColumn);
-        emit dataChanged(modelIdx, modelIdx);
+        Q_EMIT dataChanged(modelIdx, modelIdx);
     }
     else
     {
         beginInsertRows(QModelIndex(), d->variables.size(), d->variables.size());
         d->variables.append(variable);
-        emit variablesAdded(QStringList(variable.name));
+        Q_EMIT variablesAdded(QStringList(variable.name));
         endInsertRows();
     }
 }
@@ -190,7 +190,7 @@ void DefaultVariableModel::removeVariable(const Cantor::DefaultVariableModel::Va
     beginRemoveRows(QModelIndex(), row, row);
     d->variables.removeAt(row);
     endRemoveRows();
-    emit variablesRemoved(QStringList(name));
+    Q_EMIT variablesRemoved(QStringList(name));
 }
 
 void DefaultVariableModel::clearVariables()
@@ -205,7 +205,7 @@ void DefaultVariableModel::clearVariables()
     d->variables.clear();
     endResetModel();
 
-    emit variablesRemoved(names);
+    Q_EMIT variablesRemoved(names);
 }
 
 void DefaultVariableModel::clearFunctions()
@@ -213,7 +213,7 @@ void DefaultVariableModel::clearFunctions()
     Q_D(DefaultVariableModel);
     QStringList names = d->functions;
     d->functions.clear();
-    emit functionsRemoved(names);
+    Q_EMIT functionsRemoved(names);
 }
 
 void DefaultVariableModel::setVariables(const QList<DefaultVariableModel::Variable>& newVars)
@@ -263,7 +263,7 @@ void DefaultVariableModel::setVariables(const QList<DefaultVariableModel::Variab
                     var.value = newvar.value;
                     var.size = newvar.size;
                     var.type = newvar.type;
-                    emit dataChanged(createIndex(i, NameColumn), createIndex(i, SizeColumn));
+                    Q_EMIT dataChanged(createIndex(i, NameColumn), createIndex(i, SizeColumn));
                 }
                 break;
             }
@@ -278,8 +278,8 @@ void DefaultVariableModel::setVariables(const QList<DefaultVariableModel::Variab
         }
     }
 
-    emit variablesAdded(addedVars);
-    emit variablesRemoved(removedVars);
+    Q_EMIT variablesAdded(addedVars);
+    Q_EMIT variablesRemoved(removedVars);
 }
 
 void DefaultVariableModel::setFunctions(const QStringList& newFuncs)
@@ -319,8 +319,8 @@ void DefaultVariableModel::setFunctions(const QStringList& newFuncs)
         }
     }
 
-    emit functionsAdded(addedFuncs);
-    emit functionsRemoved(removedFuncs);
+    Q_EMIT functionsAdded(addedFuncs);
+    Q_EMIT functionsRemoved(removedFuncs);
 }
 
 Session* DefaultVariableModel::session() const

@@ -184,7 +184,7 @@ void DefaultHighlighter::highlightPairs(const QString& text)
 
 QStringList Cantor::DefaultHighlighter::parseBlockTextToWords(const QString& text)
 {
-    return text.split(QRegularExpression(QStringLiteral("\\b")), QString::SkipEmptyParts);
+    return text.split(QRegularExpression(QStringLiteral("\\b")), Qt::SkipEmptyParts);
 }
 
 void DefaultHighlighter::highlightWords(const QString& text)
@@ -381,7 +381,7 @@ void DefaultHighlighter::addRule(const QString& word, const QTextCharFormat& for
 {
     d->wordRules[word] = format;
     if (!d->suppressRuleChangedSignal)
-        emit rulesChanged();
+        Q_EMIT rulesChanged();
 }
 
 void DefaultHighlighter::addRule(const QRegularExpression& regexp, const QTextCharFormat& format)
@@ -390,14 +390,14 @@ void DefaultHighlighter::addRule(const QRegularExpression& regexp, const QTextCh
     d->regExpRules.removeAll(rule);
     d->regExpRules.append(rule);
     if (!d->suppressRuleChangedSignal)
-        emit rulesChanged();
+        Q_EMIT rulesChanged();
 }
 
 void DefaultHighlighter::removeRule(const QString& word)
 {
     d->wordRules.remove(word);
     if (!d->suppressRuleChangedSignal)
-        emit rulesChanged();
+        Q_EMIT rulesChanged();
 }
 
 void DefaultHighlighter::removeRule(const QRegularExpression& regexp)
@@ -405,7 +405,7 @@ void DefaultHighlighter::removeRule(const QRegularExpression& regexp)
     HighlightingRule rule = { regexp, QTextCharFormat() };
     d->regExpRules.removeAll(rule);
     if (!d->suppressRuleChangedSignal)
-        emit rulesChanged();
+        Q_EMIT rulesChanged();
 }
 
 void DefaultHighlighter::addRules(const QStringList& conditions, const QTextCharFormat& format)
@@ -417,7 +417,7 @@ void DefaultHighlighter::addRules(const QStringList& conditions, const QTextChar
         addRule(*i, format);
     }
     d->suppressRuleChangedSignal = false;
-    emit rulesChanged();
+    Q_EMIT rulesChanged();
 }
 
 void DefaultHighlighter::addFunctions(const QStringList& functions)
@@ -444,7 +444,7 @@ void DefaultHighlighter::removeRules(const QStringList& conditions)
         removeRule(*i);
     }
     d->suppressRuleChangedSignal = false;
-    emit rulesChanged();
+    Q_EMIT rulesChanged();
 }
 
 QString DefaultHighlighter::nonSeparatingCharacters() const

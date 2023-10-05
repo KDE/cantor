@@ -80,12 +80,8 @@ QString JupyterUtils::fromJupyterMultiline(const QJsonValue& source)
 
 bool JupyterUtils::isJupyterNotebook(const QJsonDocument& doc)
 {
-    static const QSet<QString> notebookScheme
-        = QSet<QString>::fromList({cellsKey, metadataKey, nbformatKey, nbformatMinorKey});
-
-    bool isNotebook =
-            doc.isObject()
-        && QSet<QString>::fromList(doc.object().keys()) == notebookScheme
+    bool isNotebook = doc.isObject()
+        && doc.object().keys().length() == 4
         && doc.object().value(cellsKey).isArray()
         && doc.object().value(metadataKey).isObject()
         && doc.object().value(nbformatKey).isDouble()

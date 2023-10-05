@@ -26,7 +26,7 @@ void OctaveSyntaxHelpObject::fetchInformation()
         connect(m_expression, &Cantor::Expression::statusChanged, this, &OctaveSyntaxHelpObject::fetchingDone);
     }
     else
-        emit done();
+        Q_EMIT done();
 }
 
 void OctaveSyntaxHelpObject::fetchingDone(Cantor::Expression::Status status)
@@ -58,5 +58,5 @@ void OctaveSyntaxHelpObject::fetchingDone(Cantor::Expression::Status status)
     }
     m_expression->deleteLater();
     m_expression = nullptr;
-    emit done();
+    Q_EMIT done();
 }

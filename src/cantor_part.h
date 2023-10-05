@@ -41,7 +41,7 @@ public:
     /**
      * Default constructor
      */
-    CantorPart(QWidget* , QObject*, const QVariantList& args);
+    CantorPart(QObject *parent, const QVariantList &args);
 
     /**
      * Destructor

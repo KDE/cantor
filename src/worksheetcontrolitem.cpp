@@ -76,7 +76,7 @@ void WorksheetControlItem::paint(QPainter* painter, const QStyleOptionGraphicsIt
 
 void WorksheetControlItem::mouseDoubleClickEvent(QGraphicsSceneMouseEvent* event)
 {
-    emit doubleClick();
+    Q_EMIT doubleClick();
     QGraphicsItem::mouseDoubleClickEvent(event);
 }
 
@@ -89,7 +89,7 @@ void WorksheetControlItem::mouseMoveEvent(QGraphicsSceneMouseEvent* event)
     if (contains(buttonDownPos) && (event->pos() - buttonDownPos).manhattanLength() >= QApplication::startDragDistance())
     {
         ungrabMouse();
-        emit drag(mapToParent(buttonDownPos), mapToParent(event->pos()));
+        Q_EMIT drag(mapToParent(buttonDownPos), mapToParent(event->pos()));
         event->accept();
     }
 }

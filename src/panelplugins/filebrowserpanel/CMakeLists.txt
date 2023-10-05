@@ -4,4 +4,4 @@ set(FileBrowserPanelPlugin_SRCS
 
 add_panel(filebrowserpanelplugin ${FileBrowserPanelPlugin_SRCS})
 
-target_link_libraries(cantor_filebrowserpanelplugin KF5::Parts)
+target_link_libraries(cantor_filebrowserpanelplugin KF6::Parts)

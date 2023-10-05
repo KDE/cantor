@@ -31,7 +31,7 @@
 
 const QChar recordSep(30);
 const QChar unitSep(31);
-const QChar messageEnd = 29;
+const QChar messageEnd(29);
 
 PythonSession::PythonSession(Cantor::Backend* backend) : Session(backend)
 {
@@ -51,7 +51,7 @@ PythonSession::~PythonSession()
 void PythonSession::login()
 {
     qDebug()<<"login";
-    emit loginStarted();
+    Q_EMIT loginStarted();
 
     if (m_process)
         m_process->deleteLater();
@@ -111,7 +111,7 @@ void PythonSession::login()
     }
 
     changeStatus(Session::Done);
-    emit loginDone();
+    Q_EMIT loginDone();
 }
 
 void PythonSession::logout()
@@ -229,7 +229,7 @@ void PythonSession::readOutput()
     if (!m_output.contains(messageEnd))
         return;
 
-    const QStringList packages = m_output.split(messageEnd, QString::SkipEmptyParts);
+    const QStringList packages = m_output.split(messageEnd, Qt::SkipEmptyParts);
     if (m_output.endsWith(messageEnd))
         m_output.clear();
     else
@@ -271,15 +271,15 @@ void PythonSession::reportServerProcessError(QProcess::ProcessError serverError)
     switch(serverError)
     {
         case QProcess::Crashed:
-            emit error(i18n("Cantor Python server stopped working."));
+            Q_EMIT error(i18n("Cantor Python server stopped working."));
             break;
 
         case QProcess::FailedToStart:
-            emit error(i18n("Failed to start Cantor python server."));
+            Q_EMIT error(i18n("Failed to start Cantor python server."));
             break;
 
         default:
-            emit error(i18n("Communication with Cantor python server failed for unknown reasons."));
+            Q_EMIT error(i18n("Communication with Cantor python server failed for unknown reasons."));
             break;
     }
     reportSessionCrash();

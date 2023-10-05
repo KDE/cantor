@@ -18,15 +18,15 @@ ki18n_wrap_ui(ScilabBackend_SRCS settings.ui)
 add_backend(scilabbackend ${ScilabBackend_SRCS})
 
 target_link_libraries(cantor_scilabbackend cantor_help
-  KF5::KIOCore
-  KF5::SyntaxHighlighting
+  KF6::KIOCore
+  KF6::SyntaxHighlighting
 )
 
 if(BUILD_TESTING)
   add_executable(testscilab testscilab.cpp)
   add_test(NAME testscilab COMMAND testscilab)
   target_link_libraries(testscilab
-    Qt5::Test
+    Qt6::Test
     cantorlibs
     cantortest
   )

@@ -78,14 +78,14 @@ void WorksheetTextItem::testSize()
 {
     qreal h = document()->size().height();
     if (h != m_size.height()) {
-        emit sizeChanged();
+        Q_EMIT sizeChanged();
         m_size.setHeight(h);
     }
 
     qreal w = document()->size().width();
     if (w != m_size.width()) {
         m_size.setWidth(w);
-        emit sizeChanged();
+        Q_EMIT sizeChanged();
 
         qreal newWidth = scenePos().x() + m_size.width() - 10;
         worksheet()->setRequestedWidth(this, newWidth);
@@ -139,7 +139,7 @@ void WorksheetTextItem::populateMenu(QMenu* menu, QPointF pos)
     if (actionAdded)
         menu->addSeparator();
 
-    emit menuCreated(menu, mapToParent(pos));
+    Q_EMIT menuCreated(menu, mapToParent(pos));
 }
 
 QKeyEvent* WorksheetTextItem::eventForStandardAction(KStandardAction::StandardAction actionID)
@@ -211,14 +211,14 @@ void WorksheetTextItem::redo()
 void WorksheetTextItem::clipboardChanged()
 {
     if (isEditable())
-        emit pasteAvailable(!QApplication::clipboard()->text().isEmpty());
+        Q_EMIT pasteAvailable(!QApplication::clipboard()->text().isEmpty());
 }
 
 void WorksheetTextItem::selectionChanged()
 {
-    emit copyAvailable(textCursor().hasSelection());
+    Q_EMIT copyAvailable(textCursor().hasSelection());
     if (isEditable())
-        emit cutAvailable(textCursor().hasSelection());
+        Q_EMIT cutAvailable(textCursor().hasSelection());
 }
 
 QString WorksheetTextItem::resolveImages(const QTextCursor& cursor)
@@ -255,7 +255,7 @@ void WorksheetTextItem::setCursorPosition(QPointF pos)
 {
     QTextCursor cursor = cursorForPosition(pos);
     setTextCursor(cursor);
-    emit cursorPositionChanged(cursor);
+    Q_EMIT cursorPositionChanged(cursor);
     //setLocalCursorPosition(mapFromParent(pos));
 }
 
@@ -270,7 +270,7 @@ void WorksheetTextItem::setLocalCursorPosition(QPointF pos)
     QTextCursor cursor = textCursor();
     cursor.setPosition(p);
     setTextCursor(cursor);
-    emit cursorPositionChanged(cursor);
+    Q_EMIT cursorPositionChanged(cursor);
 }
 
 QPointF WorksheetTextItem::localCursorPosition() const
@@ -395,7 +395,7 @@ void WorksheetTextItem::setFocusAt(int pos, qreal xCoord)
                 ;
     }
     setTextCursor(cursor);
-    emit cursorPositionChanged(cursor);
+    Q_EMIT cursorPositionChanged(cursor);
     setFocus();
 }
 
@@ -409,14 +409,14 @@ void WorksheetTextItem::keyPressEvent(QKeyEvent *event)
     switch (event->key()) {
     case Qt::Key_Left:
         if (event->modifiers() == Qt::NoModifier && textCursor().atStart()) {
-            emit moveToPrevious(BottomRight, 0);
+            Q_EMIT moveToPrevious(BottomRight, 0);
             qDebug()<<"Reached leftmost valid position";
             return;
         }
         break;
     case Qt::Key_Right:
         if (event->modifiers() == Qt::NoModifier && textCursor().atEnd()) {
-            emit moveToNext(TopLeft, 0);
+            Q_EMIT moveToNext(TopLeft, 0);
             qDebug()<<"Reached rightmost valid position";
             return;
         }
@@ -424,7 +424,7 @@ void WorksheetTextItem::keyPressEvent(QKeyEvent *event)
     case Qt::Key_Up:
         if (event->modifiers() == Qt::NoModifier && !textCursor().movePosition(QTextCursor::Up)) {
             qreal x = mapToScene(localCursorPosition()).x();
-            emit moveToPrevious(BottomCoord, x);
+            Q_EMIT moveToPrevious(BottomCoord, x);
             qDebug()<<"Reached topmost valid position" << localCursorPosition().x();
             return;
         }
@@ -432,7 +432,7 @@ void WorksheetTextItem::keyPressEvent(QKeyEvent *event)
     case Qt::Key_Down:
         if (event->modifiers() == Qt::NoModifier && !textCursor().movePosition(QTextCursor::Down)) {
             qreal x = mapToScene(localCursorPosition()).x();
-            emit moveToNext(TopCoord, x);
+            Q_EMIT moveToNext(TopCoord, x);
             qDebug()<<"Reached bottommost valid position" << localCursorPosition().x();
             return;
         }
@@ -440,7 +440,7 @@ void WorksheetTextItem::keyPressEvent(QKeyEvent *event)
     case Qt::Key_Enter:
     case Qt::Key_Return:
         if (event->modifiers() == Qt::NoModifier && m_completionActive) {
-            emit applyCompletion();
+            Q_EMIT applyCompletion();
             return;
         }
         break;
@@ -451,7 +451,7 @@ void WorksheetTextItem::keyPressEvent(QKeyEvent *event)
         if(textCursor().hasSelection())
         {
             QString keyword = textCursor().selectedText();
-            emit worksheet()->requestDocumentation(keyword);
+            Q_EMIT worksheet()->requestDocumentation(keyword);
         }
         break;
     default:
@@ -463,7 +463,7 @@ void WorksheetTextItem::keyPressEvent(QKeyEvent *event)
     QGraphicsTextItem::keyPressEvent(event);
 
     if (p != textCursor().position())
-        emit cursorPositionChanged(textCursor());
+        Q_EMIT cursorPositionChanged(textCursor());
 
     if (b != textCursor().hasSelection())
         selectionChanged();
@@ -477,17 +477,17 @@ bool WorksheetTextItem::sceneEvent(QEvent *event)
         // that here.
         QKeyEvent* kev = static_cast<QKeyEvent*>(event);
         if (kev->key() == Qt::Key_Tab && kev->modifiers() == Qt::NoModifier) {
-            emit tabPressed();
+            Q_EMIT tabPressed();
             return true;
         } else if ((kev->key() == Qt::Key_Tab &&
                     kev->modifiers() == Qt::ShiftModifier) ||
                    kev->key() == Qt::Key_Backtab) {
-            emit backtabPressed();
+            Q_EMIT backtabPressed();
             return true;
         }
     } else if (event->type() == QEvent::ShortcutOverride) {
         QKeyEvent* kev = static_cast<QKeyEvent*>(event);
-        QKeySequence seq(kev->key() + kev->modifiers());
+        QKeySequence seq(kev->key() | kev->modifiers());
         if (worksheet()->isShortcut(seq)) {
             qDebug() << "ShortcutOverride" << kev->key() << kev->modifiers();
             kev->ignore();
@@ -510,14 +510,14 @@ void WorksheetTextItem::focusInEvent(QFocusEvent *event)
     worksheet()->updateFocusedTextItem(this);
     connect(QApplication::clipboard(), &QClipboard::dataChanged, this,
             &WorksheetTextItem::clipboardChanged);
-    emit receivedFocus(this);
-    emit cursorPositionChanged(textCursor());
+    Q_EMIT receivedFocus(this);
+    Q_EMIT cursorPositionChanged(textCursor());
 }
 
 void WorksheetTextItem::focusOutEvent(QFocusEvent *event)
 {
     QGraphicsTextItem::focusOutEvent(event);
-    emit cursorPositionChanged(QTextCursor());
+    Q_EMIT cursorPositionChanged(QTextCursor());
 }
 
 void WorksheetTextItem::mousePressEvent(QGraphicsSceneMouseEvent *event)
@@ -536,7 +536,7 @@ void WorksheetTextItem::mousePressEvent(QGraphicsSceneMouseEvent *event)
         event->accept();
 
     if (p != textCursor().position())
-        emit cursorPositionChanged(textCursor());
+        Q_EMIT cursorPositionChanged(textCursor());
     if (b != textCursor().hasSelection())
         selectionChanged();
 }
@@ -548,7 +548,7 @@ void WorksheetTextItem::mouseMoveEvent(QGraphicsSceneMouseEvent* event)
         contains(buttonDownPos) &&
         (event->pos() - buttonDownPos).manhattanLength() >= QApplication::startDragDistance()) {
         ungrabMouse();
-        emit drag(mapToParent(buttonDownPos), mapToParent(event->pos()));
+        Q_EMIT drag(mapToParent(buttonDownPos), mapToParent(event->pos()));
         event->accept();
     } else {
         bool b = textCursor().hasSelection();
@@ -574,7 +574,7 @@ void WorksheetTextItem::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
     }
 
     if (p != textCursor().position())
-        emit cursorPositionChanged(textCursor());
+        Q_EMIT cursorPositionChanged(textCursor());
 }
 
 void WorksheetTextItem::mouseDoubleClickEvent(QGraphicsSceneMouseEvent *event)
@@ -590,19 +590,19 @@ void WorksheetTextItem::mouseDoubleClickEvent(QGraphicsSceneMouseEvent *event)
             for (int i = 2; i; --i) {
                 if (document()->characterAt(cursor.position()-1) == repl) {
                     setTextCursor(cursor);
-                    emit doubleClick();
+                    Q_EMIT doubleClick();
                     return;
                 }
                 cursor.movePosition(QTextCursor::NextCharacter);
             }
         } else if (cursor.selectedText().contains(repl)) {
-            emit doubleClick();
+            Q_EMIT doubleClick();
             return;
         }
     }
     else if (m_eventBehaviour == DoubleClickEventBehaviour::Simple)
     {
-        emit doubleClick();
+        Q_EMIT doubleClick();
         return;
     }
 
@@ -695,7 +695,7 @@ void WorksheetTextItem::insertTab()
         cursor.insertText(insertBlankSpace.repeated(i));
     }
     setTextCursor(cursor);
-    emit cursorPositionChanged(textCursor());
+    Q_EMIT cursorPositionChanged(textCursor());
 }
 
 void WorksheetTextItem::paint(QPainter* painter, const QStyleOptionGraphicsItem* o, QWidget* w) {

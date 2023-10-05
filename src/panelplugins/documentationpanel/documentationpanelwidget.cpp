@@ -29,7 +29,6 @@
 #include <QStackedWidget>
 #include <QToolButton>
 #include <QVBoxLayout>
-#include <QWebEngineDownloadItem>
 #include <QWebEngineProfile>
 #include <QWebEngineUrlScheme>
 #include <QWebEngineView>
@@ -91,7 +90,7 @@ DocumentationPanelWidget::DocumentationPanelWidget(QWidget* parent) : QWidget(pa
 
     connect(zoomIn, &QShortcut::activated, this, [=]{
         m_webEngineView->setZoomFactor(m_webEngineView->zoomFactor() + 0.1);
-        emit zoomFactorChanged();
+        Q_EMIT zoomFactorChanged();
     });
 
     auto zoomOut = new QShortcut(QKeySequence(Qt::SHIFT + Qt::Key_Minus), this);
@@ -99,7 +98,7 @@ DocumentationPanelWidget::DocumentationPanelWidget(QWidget* parent) : QWidget(pa
 
     connect(zoomOut, &QShortcut::activated, this, [=]{
         m_webEngineView->setZoomFactor(m_webEngineView->zoomFactor() - 0.1);
-        emit zoomFactorChanged();
+        Q_EMIT zoomFactorChanged();
     });
 
     connect(this, &DocumentationPanelWidget::zoomFactorChanged, [=]{
@@ -399,7 +398,7 @@ void DocumentationPanelWidget::searchBackward()
                                m_webEngineView->findText(m_findText->text(), QWebEnginePage::FindBackward);
 }
 
-void DocumentationPanelWidget::downloadResource(QWebEngineDownloadItem* resource)
+void DocumentationPanelWidget::downloadResource(QWebEngineDownloadRequest* resource)
 {
     // default download directory is ~/Downloads on Linux
     m_webEngineView->page()->download(resource->url());

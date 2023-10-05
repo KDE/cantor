@@ -14,6 +14,7 @@
 #include <KLocalizedString>
 #include <KMessageBox>
 #include <KNSWidgets/Button>
+#include <KNSCore/Entry>
 #include <KSharedConfig>
 
 #include "qthelpconfig.h"
@@ -121,7 +122,7 @@ void QtHelpConfig::add()
                                   dialog->qchRequester->text(),
                                   QStringLiteral("0"));
         m_treeWidget->setCurrentItem(item);
-        emit settingsChanged();
+        Q_EMIT settingsChanged();
     }
 
     delete dialog;
@@ -158,7 +159,7 @@ void QtHelpConfig::modify(QTreeWidgetItem* item)
         if(item->text(GhnsColumn) == QLatin1String("0"))
             item->setText(PathColumn, dialog->qchRequester->text());
 
-        emit settingsChanged();
+        Q_EMIT settingsChanged();
     }
 
     delete dialog;
@@ -191,7 +192,7 @@ void QtHelpConfig::remove(QTreeWidgetItem* item)
         return;
 
     delete item;
-    emit settingsChanged();
+    Q_EMIT settingsChanged();
 }
 
 void QtHelpConfig::knsUpdate(const QList<KNSCore::Entry>& list)
@@ -201,7 +202,7 @@ void QtHelpConfig::knsUpdate(const QList<KNSCore::Entry>& list)
 
     for (const auto& e : list)
     {
-        if(e.status() == KNS3::Entry::Installed && e.installedFiles().size() == 1)
+        if(e.status() == KNSCore::Entry::Installed && e.installedFiles().size() == 1)
         {
             //we're downloading a zip archive and after unpacking KSN::Entry::installedFiles()
             //returns one single entry for the path with the wildcard standing for all file like in
@@ -231,7 +232,7 @@ void QtHelpConfig::knsUpdate(const QList<KNSCore::Entry>& list)
                 m_treeWidget->setCurrentItem(item);
             }
         }
-        else if(e.status() ==  KNS3::Entry::Deleted && e.uninstalledFiles().size() > 0) {
+        else if(e.status() ==  KNSCore::Entry::Deleted && e.uninstalledFiles().size() > 0) {
             //determine the path for the qch file
             QString path = e.uninstalledFiles().at(0);
             path.chop(1);//remove '*' at the end
@@ -247,7 +248,7 @@ void QtHelpConfig::knsUpdate(const QList<KNSCore::Entry>& list)
         }
     }
 
-    emit settingsChanged();
+    Q_EMIT settingsChanged();
 }
 
 QTreeWidgetItem* QtHelpConfig::addTableItem(const QString& icon, const QString& name,
@@ -276,7 +277,7 @@ QTreeWidgetItem* QtHelpConfig::addTableItem(const QString& icon, const QString& 
 
     if (item->text(GhnsColumn) != QLatin1String("0"))
     {
-        // KNS3 currently does not provide API to uninstall entries
+        // KNS currently does not provide API to uninstall entries
         // just removing the files results in wrong installed states in the KNS3 dialog
         // TODO: add API to KNS to remove files without UI interaction
         removeBtn->setEnabled(false);

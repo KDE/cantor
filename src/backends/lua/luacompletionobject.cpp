@@ -32,7 +32,7 @@ void LuaCompletionObject::fetchCompletions()
         allCompletions << LuaKeywords::instance()->variables();
 
         setCompletions(allCompletions);
-        emit fetchingDone();
+        Q_EMIT fetchingDone();
     }
     else
     {
@@ -44,7 +44,7 @@ void LuaCompletionObject::fetchCompletions()
             name = name.mid(idx+1).trimmed();
 
         setCompletions( luahelper_completion(m_L, name) );
-        emit fetchingDone();
+        Q_EMIT fetchingDone();
     }
 }
 

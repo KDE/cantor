@@ -21,13 +21,13 @@ void KAlgebraCompletionObject::fetchCompletions()
 {
     OperatorsModel* opm=static_cast<KAlgebraSession*>(session())->operatorsModel();
 
-    QModelIndexList idxs=opm->match(opm->index(0,0), Qt::DisplayRole, command(), 5, Qt::MatchStartsWith);
+    const QModelIndexList idxs = opm->match(opm->index(0,0), Qt::DisplayRole, command(), 5, Qt::MatchStartsWith);
     QStringList comp;
-    foreach(const QModelIndex& idx, idxs)
+    for(const QModelIndex& idx : idxs)
         comp << idx.data().toString();
 
     setCompletions(comp);
-    emit fetchingDone();
+    Q_EMIT fetchingDone();
 }
 
 bool KAlgebraCompletionObject::mayIdentifierBeginWith(QChar c) const

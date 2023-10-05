@@ -25,11 +25,11 @@
 #include <KActionCollection>
 #include <KLocalizedString>
 #include <KMessageBox>
-#include <KNS3/UploadDialog>
 #include <KParts/GUIActivateEvent>
 #include <KPluginFactory>
 #include <KIO/OpenUrlJob>
 #include <KIO/JobUiDelegate>
+#include <KIO/JobUiDelegateFactory>
 #include <KStandardAction>
 #include <KToggleAction>
 #include <KSelectAction>
@@ -46,6 +46,11 @@
 #include <QProgressDialog>
 #include <QTextStream>
 #include <QTimer>
+#include <kmessagebox.h>
+
+using namespace Qt::Literals::StringLiterals;
+
+K_PLUGIN_FACTORY_WITH_JSON(CantorPartFactory, "cantor_part.json", registerPlugin<CantorPart>();)
 
 //A concrete implementation of the WorksheetAccesssInterface
 class WorksheetAccessInterfaceImpl : public Cantor::WorksheetAccessInterface
@@ -89,7 +94,8 @@ class WorksheetAccessInterfaceImpl : public Cantor::WorksheetAccessInterface
     Worksheet* m_worksheet;
 };
 
-CantorPart::CantorPart(QWidget* parentWidget, QObject* parent, const QVariantList& args ): KParts::ReadWritePart(parent)
+CantorPart::CantorPart(QObject* parent, const QVariantList& args)
+    : KParts::ReadWritePart(parent)
 {
     QString backendName;
     if(!args.isEmpty())
@@ -103,11 +109,10 @@ CantorPart::CantorPart(QWidget* parentWidget, QObject* parent, const QVariantLis
             qDebug()<<"Backend "<<b->name()<<" offers extensions: "<<b->extensions();
     }
 
-    //central widget
-    QWidget* widget = new QWidget(parentWidget);
-    QVBoxLayout* layout = new QVBoxLayout(widget);
-    m_worksheet = new Worksheet(b, widget);
-    m_worksheetview = new WorksheetView(m_worksheet, widget);
+    QWidget* centralWidget = new QWidget(widget());
+    QVBoxLayout* layout = new QVBoxLayout(centralWidget);
+    m_worksheet = new Worksheet(b, centralWidget);
+    m_worksheetview = new WorksheetView(m_worksheet, centralWidget);
     m_worksheetview->setEnabled(false); //disable input until the session has successfully logged in and emits the ready signal
     connect(m_worksheet, &Worksheet::modified, this, static_cast<void (KParts::ReadWritePart::*)()>(&KParts::ReadWritePart::setModified));
     connect(m_worksheet, &Worksheet::modified, this, &CantorPart::updateCaption);
@@ -120,7 +125,7 @@ CantorPart::CantorPart(QWidget* parentWidget, QObject* parent, const QVariantLis
     connect(m_worksheet, &Worksheet::requestDocumentation, this, &CantorPart::documentationRequested);
 
     layout->addWidget(m_worksheetview);
-    setWidget(widget);
+    setWidget(centralWidget);
 
     //create WorksheetAccessInterface, used at the moment by LabPlot only to access Worksheet's API
     Cantor::WorksheetAccessInterface* iface = new WorksheetAccessInterfaceImpl(this, m_worksheet);
@@ -197,7 +202,7 @@ CantorPart::CantorPart(QWidget* parentWidget, QObject* parent, const QVariantLis
 
     m_evaluate = new QAction(QIcon::fromTheme(QLatin1String("system-run")), i18n("Evaluate Worksheet"), collection);
     collection->addAction(QLatin1String("evaluate_worksheet"), m_evaluate);
-    collection->setDefaultShortcut(m_evaluate, Qt::CTRL+Qt::Key_E);
+    collection->setDefaultShortcut(m_evaluate, Qt::CTRL | Qt::Key_E);
     connect(m_evaluate, &QAction::triggered, this, &CantorPart::evaluateOrInterrupt);
     m_editActions.push_back(m_evaluate);
 
@@ -265,13 +270,13 @@ CantorPart::CantorPart(QWidget* parentWidget, QObject* parent, const QVariantLis
 
     QAction* evaluateCurrent = new QAction(QIcon::fromTheme(QLatin1String("media-playback-start")), i18n("Evaluate Entry"), collection);
     collection->addAction(QLatin1String("evaluate_current"),  evaluateCurrent);
-    collection->setDefaultShortcut(evaluateCurrent, Qt::SHIFT + Qt::Key_Return);
+    collection->setDefaultShortcut(evaluateCurrent, Qt::SHIFT | Qt::Key_Return);
     connect(evaluateCurrent, &QAction::triggered, m_worksheet, &Worksheet::evaluateCurrentEntry);
     m_editActions.push_back(evaluateCurrent);
 
     QAction* insertCommandEntry = new QAction(QIcon::fromTheme(QLatin1String("run-build")), i18n("Insert Command Entry"), collection);
     collection->addAction(QLatin1String("insert_command_entry"),  insertCommandEntry);
-    collection->setDefaultShortcut(insertCommandEntry, Qt::CTRL + Qt::Key_Return);
+    collection->setDefaultShortcut(insertCommandEntry, Qt::CTRL | Qt::Key_Return);
     connect(insertCommandEntry, SIGNAL(triggered()), m_worksheet, SLOT(insertCommandEntry()));
     m_editActions.push_back(insertCommandEntry);
 
@@ -321,7 +326,7 @@ CantorPart::CantorPart(QWidget* parentWidget, QObject* parent, const QVariantLis
 
     QAction* removeCurrent = new QAction(QIcon::fromTheme(QLatin1String("edit-delete")), i18n("Remove current Entry"), collection);
     collection->addAction(QLatin1String("remove_current"), removeCurrent);
-    collection->setDefaultShortcut(removeCurrent, Qt::ShiftModifier + Qt::Key_Delete);
+    collection->setDefaultShortcut(removeCurrent, Qt::ShiftModifier | Qt::Key_Delete);
     connect(removeCurrent, &QAction::triggered, m_worksheet, &Worksheet::removeCurrentEntry);
     m_editActions.push_back(removeCurrent);
 
@@ -342,7 +347,7 @@ CantorPart::CantorPart(QWidget* parentWidget, QObject* parent, const QVariantLis
 
     QAction* showCompletion = new QAction(i18n("Show Completion"), collection);
     collection->addAction(QLatin1String("show_completion"), showCompletion);
-    collection->setDefaultShortcut(showCompletion, Qt::CTRL + Qt::Key_Space);
+    collection->setDefaultShortcut(showCompletion, Qt::CTRL | Qt::Key_Space);
     connect(showCompletion, &QAction::triggered, m_worksheet, &Worksheet::showCompletion);
     m_editActions.push_back(showCompletion);
 
@@ -458,7 +463,7 @@ bool CantorPart::saveFile()
     setModified(false);
     updateCaption();
 
-    emit worksheetSave(QUrl::fromLocalFile(localFilePath()));
+    Q_EMIT worksheetSave(QUrl::fromLocalFile(localFilePath()));
     return true;
 }
 
@@ -511,14 +516,14 @@ void CantorPart::fileSaveAs()
         m_worksheet->setType(Worksheet::CantorWorksheet);
         const QUrl& url = QUrl::fromLocalFile(file_name);
         saveAs(url);
-        emit worksheetSave(url);
+        Q_EMIT worksheetSave(url);
     }
     else if (selectedFilter == notebookFilter)
     {
         m_worksheet->setType(Worksheet::JupyterNotebook);
         const QUrl& url = QUrl::fromLocalFile(file_name);
         saveAs(url);
-        emit worksheetSave(url);
+        Q_EMIT worksheetSave(url);
     }
     else
         m_worksheet->savePlain(file_name);
@@ -587,15 +592,15 @@ void CantorPart::restartBackend()
         KMessageBox::ButtonCode tmp;
 
         // If we want the question box, but it is disable, then enable it
-        if (!KMessageBox::shouldBeShownYesNo(QLatin1String("WarnAboutSessionRestart"), tmp))
+        if (!KMessageBox::shouldBeShownTwoActions(QLatin1String("WarnAboutSessionRestart"), tmp))
             KMessageBox::enableMessage(QLatin1String("WarnAboutSessionRestart"));
 
         const QString& name = m_worksheet->session()->backend()->name();
-        KMessageBox::ButtonCode rc = KMessageBox::questionYesNo(widget(),
+        KMessageBox::ButtonCode rc = KMessageBox::questionTwoActions(widget(),
             i18n("All the available calculation results will be lost. Do you really want to restart %1?", name),
             i18n("Restart %1?", name),
-            KStandardGuiItem::yes(),
-            KStandardGuiItem::no(),
+            KStandardGuiItem::discard(),
+            KStandardGuiItem::cancel(),
             QLatin1String("WarnAboutSessionRestart")
         );
 
@@ -603,12 +608,12 @@ void CantorPart::restartBackend()
         // I don't know, that should I do with "No" with "Don't ask me again"
         // So hide warning only on "Yes"
         Settings::self()->setWarnAboutSessionRestart(
-               KMessageBox::shouldBeShownYesNo(QLatin1String("WarnAboutSessionRestart"), tmp)
-            || rc == KMessageBox::ButtonCode::No
+               KMessageBox::shouldBeShownTwoActions(QLatin1String("WarnAboutSessionRestart"), tmp)
+            || rc == KMessageBox::ButtonCode::SecondaryAction
         );
         Settings::self()->save();
 
-        restart = (rc == KMessageBox::ButtonCode::Yes);
+        restart = (rc == KMessageBox::ButtonCode::PrimaryAction);
     }
     else
     {
@@ -634,7 +639,7 @@ void CantorPart::worksheetStatusChanged(Cantor::Session::Status status)
             if(m_worksheet->session()->status() == Cantor::Session::Running && m_sessionStatusCounter == count)
             {
                 m_evaluate->setText(i18n("Interrupt"));
-                m_evaluate->setShortcut(Qt::CTRL+Qt::Key_I);
+                m_evaluate->setShortcut(Qt::CTRL | Qt::Key_I);
                 m_evaluate->setIcon(QIcon::fromTheme(QLatin1String("dialog-close")));
                 setStatusMessage(i18n("Calculating..."));
             }
@@ -644,7 +649,7 @@ void CantorPart::worksheetStatusChanged(Cantor::Session::Status status)
     case Cantor::Session::Done:
     {
         m_evaluate->setText(i18n("Evaluate Worksheet"));
-        m_evaluate->setShortcut(Qt::CTRL+Qt::Key_E);
+        m_evaluate->setShortcut(Qt::CTRL | Qt::Key_E);
         m_evaluate->setIcon(QIcon::fromTheme(QLatin1String("system-run")));
 
         setStatusMessage(i18n("Ready"));
@@ -732,7 +737,7 @@ void CantorPart::documentationRequested(const QString& keyword) {
     const auto& group = KSharedConfig::openConfig(QStringLiteral("cantorrc"))->group(backend->name().toLower());
     const auto& docNames = group.readEntry(QLatin1String("Names"), QStringList());
     if (!docNames.isEmpty())
-        emit requestDocumentation(keyword);
+        Q_EMIT requestDocumentation(keyword);
     else
         showBackendHelp();
 }
@@ -741,7 +746,7 @@ void CantorPart::showBackendHelp()
 {
     auto* backend = m_worksheet->session()->backend();
     auto* job = new KIO::OpenUrlJob(backend->helpUrl());
-    job->setUiDelegate(new KIO::JobUiDelegate(KJobUiDelegate::AutoHandlingEnabled, widget()));
+    job->setUiDelegate(KIO::createDefaultJobUiDelegate(KJobUiDelegate::AutoHandlingEnabled, widget()));
     job->start();
     delete job;
 }
@@ -760,10 +765,10 @@ void CantorPart::updateCaption()
     if (!m_worksheet->isReadOnly())
     {
         if (m_worksheet->session())
-            emit setCaption(filename, QIcon::fromTheme(m_worksheet->session()->backend()->icon()));
+            Q_EMIT setCaption(filename, QIcon::fromTheme(m_worksheet->session()->backend()->icon()));
     }
     else
-        emit setCaption(filename+QLatin1Char(' ') + i18n("[read-only]"), QIcon());
+        Q_EMIT setCaption(filename+QLatin1Char(' ') + i18n("[read-only]"), QIcon());
 }
 
 void CantorPart::loadAssistants()
@@ -880,10 +885,13 @@ void CantorPart::adjustGuiToSession()
 
 void CantorPart::publishWorksheet()
 {
-    int ret = KMessageBox::questionYesNo(widget(),
+    int ret = KMessageBox::questionTwoActions(widget(),
                                          i18n("Do you want to upload current Worksheet to public web server?"),
-                                         i18n("Question - Cantor"));
-    if (ret != KMessageBox::Yes) return;
+                                         i18n("Question - Cantor"),
+                                         KGuiItem(i18nc("@action:button", "Upload"), u"cloud-upload"_s),
+                                         KStandardGuiItem::cancel()
+    );
+    if (ret != KMessageBox::PrimaryAction) return;
 
     if (isModified()||url().isEmpty())
     {
@@ -899,9 +907,9 @@ void CantorPart::publishWorksheet()
     // upload
     //HACK: use different .knsrc files for each category
     //remove this once KNS3 gains the ability to select category
-    KNS3::UploadDialog dialog(QString::fromLatin1("cantor_%1.knsrc").arg(m_worksheet->session()->backend()->id().toLower()), widget());
-    dialog.setUploadFile(url());
-    Q_UNUSED(dialog.exec());
+    //KNS3::UploadDialog dialog(QString::fromLatin1("cantor_%1.knsrc").arg(m_worksheet->session()->backend()->id().toLower()), widget());
+    //dialog.setUploadFile(url());
+    //Q_UNUSED(dialog.exec());
 }
 
 void CantorPart::print()
@@ -986,7 +994,7 @@ void CantorPart::unblockStatusBar()
 void CantorPart::setStatusMessage(const QString& message)
 {
     if(!m_statusBarBlocked)
-        emit setStatusBarText(message);
+        Q_EMIT setStatusBarText(message);
     else
         m_cachedStatusMessage = message;
 }
@@ -1024,5 +1032,4 @@ void CantorPart::updateZoomWidgetValue(double zoom)
     }
 }
 
-K_PLUGIN_FACTORY_WITH_JSON(CantorPartFactory, "cantor_part.json", registerPlugin<CantorPart>();)
 #include "cantor_part.moc"

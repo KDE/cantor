@@ -174,7 +174,7 @@ void LatexRenderer::renderBlocking()
     connect(this, &LatexRenderer::error, &event, &QEventLoop::quit);
 
     bool success = render();
-    // We can't emit error before running event loop, so exit by passing false as an error indicator
+    // We can't Q_EMIT error before running event loop, so exit by passing false as an error indicator
     if (success)
         event.exec();
     else
@@ -267,7 +267,7 @@ void LatexRenderer::convertToPs()
     else
     {
         setErrorMessage(QStringLiteral("failed to find dvips executable"));
-        emit error();
+        Q_EMIT error();
     }
 }
 
@@ -287,20 +287,20 @@ void LatexRenderer::convertingDone()
         d->texFile = nullptr;
 
         d->success=true;
-        emit done();
+        Q_EMIT done();
     }
     else
     {
         d->success=false;
         setErrorMessage(QStringLiteral("failed to create the latex preview image"));
-        emit error();
+        Q_EMIT error();
     }
 }
 
 bool LatexRenderer::renderWithMml()
 {
     qWarning()<<"WARNING: MML rendering not implemented yet!";
-    emit error();
+    Q_EMIT error();
     return false;
 }
 

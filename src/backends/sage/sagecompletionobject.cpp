@@ -37,7 +37,7 @@ void SageCompletionObject::fetchCompletions()
         allCompletions << SageKeywords::instance()->variables();
 
         setCompletions(allCompletions);
-        emit fetchingDone();
+        Q_EMIT fetchingDone();
     }
     else
     {
@@ -82,11 +82,10 @@ void SageCompletionObject::extractCompletionsNew()
 
     qDebug()<<"completion string: "<<txt;
 
-    QStringList tmp=txt.split(QLatin1Char(','));
+    const QStringList tmp = txt.split(QLatin1Char(','));
     QStringList completions;
 
-    foreach(QString c, tmp) // krazy:exclude=foreach
-    {
+    for(QString c : tmp) {
         c=c.trimmed();
         c.chop(1);
         completions<<c.mid(1);
@@ -95,7 +94,7 @@ void SageCompletionObject::extractCompletionsNew()
     completions << SageKeywords::instance()->keywords();
     setCompletions(completions);
 
-    emit fetchingDone();
+    Q_EMIT fetchingDone();
 }
 
 void SageCompletionObject::extractCompletionsLegacy()
@@ -116,10 +115,10 @@ void SageCompletionObject::extractCompletionsLegacy()
     txt=txt.mid(1); //remove [
     txt.chop(1); //remove ]
 
-    QStringList tmp=txt.split(QLatin1Char(','));
+    const QStringList tmp = txt.split(QLatin1Char(','));
     QStringList completions;
 
-    foreach(QString c, tmp) // krazy:exclude=foreach
+    for (QString c : tmp)
     {
         c=c.trimmed();
         c.chop(1);
@@ -129,7 +128,7 @@ void SageCompletionObject::extractCompletionsLegacy()
     completions << SageKeywords::instance()->keywords();
     setCompletions(completions);
 
-    emit fetchingDone();
+    Q_EMIT fetchingDone();
 }
 
 
@@ -137,18 +136,18 @@ void SageCompletionObject::fetchIdentifierType()
 {
     if (SageKeywords::instance()->keywords().contains(identifier()))
     {
-        emit fetchingTypeDone(KeywordType);
+        Q_EMIT fetchingTypeDone(KeywordType);
         return;
     }
 
     if (session()->status() != Cantor::Session::Done)
     {
         if (SageKeywords::instance()->functions().contains(identifier()))
-            emit fetchingTypeDone(FunctionType);
+            Q_EMIT fetchingTypeDone(FunctionType);
         else if (SageKeywords::instance()->variables().contains(identifier()))
-            emit fetchingTypeDone(VariableType);
+            Q_EMIT fetchingTypeDone(VariableType);
         else
-            emit fetchingTypeDone(UnknownType);
+            Q_EMIT fetchingTypeDone(UnknownType);
     }
     else
     {
@@ -167,12 +166,12 @@ void SageCompletionObject::extractIdentifierType(Cantor::Expression::Status stat
     {
         case Cantor::Expression::Error:
             qDebug() << "Error with SageCompletionObject" << m_expression->errorMessage();
-            emit fetchingTypeDone(UnknownType);
+            Q_EMIT fetchingTypeDone(UnknownType);
             break;
 
         case Cantor::Expression::Interrupted:
             qDebug() << "SageCompletionObject was interrupted";
-            emit fetchingTypeDone(UnknownType);
+            Q_EMIT fetchingTypeDone(UnknownType);
             break;
 
         case Cantor::Expression::Done:
@@ -182,12 +181,12 @@ void SageCompletionObject::extractIdentifierType(Cantor::Expression::Status stat
             {
                 QString res = result->data().toString();
                 if (res.contains(QLatin1String("function")) || res.contains(QLatin1String("method")))
-                    emit fetchingTypeDone(FunctionType);
+                    Q_EMIT fetchingTypeDone(FunctionType);
                 else
-                    emit fetchingTypeDone(VariableType);
+                    Q_EMIT fetchingTypeDone(VariableType);
             }
             else
-                emit fetchingTypeDone(UnknownType);
+                Q_EMIT fetchingTypeDone(UnknownType);
             break;
         }
 

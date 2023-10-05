@@ -21,7 +21,8 @@ ki18n_wrap_ui(cantor_HELP qthelpconfig.ui)
 ki18n_wrap_ui(cantor_HELP qthelpconfigeditdialog.ui)
 
 add_library(cantor_help STATIC ${cantor_HELP})
-target_link_libraries(cantor_help KF5::SyntaxHighlighting KF5::I18n KF5::IconThemes KF5::NewStuffWidgets KF5::KIOWidgets Qt5::Help)
+set_target_properties(cantor_help PROPERTIES POSITION_INDEPENDENT_CODE ON)
+target_link_libraries(cantor_help KF6::SyntaxHighlighting KF6::I18n KF6::IconWidgets KF6::NewStuffWidgets KF6::KIOWidgets Qt6::Help)
 
 if(NOT WIN32)
     add_subdirectory(sage)
@@ -32,10 +33,10 @@ set_package_properties(Analitza5 PROPERTIES DESCRIPTION "A library provided by K
     TYPE OPTIONAL
     PURPOSE "Backend to use KAlgebra with Cantor.")
 
-find_package(Analitza5)
-if(Analitza5_FOUND)
+find_package(Analitza6)
+if(Analitza6_FOUND)
     add_subdirectory(kalgebra)
-endif(Analitza5_FOUND)
+endif(Analitza6_FOUND)
 
 set_package_properties(R PROPERTIES DESCRIPTION "A free software environment for statistical computing and graphics."
   URL "https://www.r-project.org/"

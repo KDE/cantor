@@ -48,12 +48,12 @@ void MaximaSyntaxHelpObject::fetchInformation()
         }
         else
             // We can't get function's detailed description, because session not login yet, so do nothing
-            emit done();
+            Q_EMIT done();
 
     }else
     {
         qDebug()<<"invalid syntax request";
-        emit done();
+        Q_EMIT done();
     }
 }
 
@@ -82,7 +82,7 @@ void MaximaSyntaxHelpObject::expressionChangedStatus(Cantor::Expression::Status 
             }
 
             setHtml(QLatin1String("<p style='white-space:pre'>")+syntax+QLatin1String("</p>"));
-            emit done();
+            Q_EMIT done();
 
             m_expression->deleteLater();
             m_expression=nullptr;
@@ -91,7 +91,7 @@ void MaximaSyntaxHelpObject::expressionChangedStatus(Cantor::Expression::Status 
         case Cantor::Expression::Error:
         {
             qWarning() << "syntax object error" << m_expression->result()->toHtml();
-            emit done();
+            Q_EMIT done();
 
             m_expression->deleteLater();
             m_expression=nullptr;

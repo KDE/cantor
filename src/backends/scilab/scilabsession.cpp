@@ -49,7 +49,7 @@ void ScilabSession::login()
     if (m_process)
         return;
 
-    emit loginStarted();
+    Q_EMIT loginStarted();
 
     QStringList args;
 
@@ -102,7 +102,7 @@ void ScilabSession::login()
 
     changeStatus(Cantor::Session::Done);
 
-    emit loginDone();
+    Q_EMIT loginDone();
 }
 
 void ScilabSession::logout()
@@ -148,7 +148,8 @@ void ScilabSession::interrupt()
             ; //TODO: interrupt the process on windows
 #endif
         }
-        foreach (Cantor::Expression* expression, expressionQueue())
+        const auto expressions = expressionQueue();
+        for (Cantor::Expression* expression : expressions)
             expression->setStatus(Cantor::Expression::Interrupted);
         expressionQueue().clear();
 

@@ -8,4 +8,4 @@ generate_export_header(cantortest)
 
 target_link_libraries( cantortest
     cantorlibs
-    Qt5::Test)
+    Qt6::Test)

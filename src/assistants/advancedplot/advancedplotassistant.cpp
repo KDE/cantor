@@ -10,6 +10,7 @@
 #include <QPushButton>
 #include <QStyle>
 #include <QVBoxLayout>
+#include <QPointer>
 
 #include <KActionCollection>
 #include <KConfigGroup>
@@ -34,7 +35,7 @@ void AdvancedPlotAssistant::initActions()
 
 QStringList AdvancedPlotAssistant::run(QWidget* parent)
 {
-    QPointer<QDialog> dlg=new QDialog(parent);
+    QPointer<QDialog> dlg = new QDialog(parent);
     QWidget *widget=new QWidget(dlg);
     Ui::AdvancedPlotAssistantBase base;
     base.setupUi(widget);
@@ -62,9 +63,10 @@ QStringList AdvancedPlotAssistant::run(QWidget* parent)
     QVector<Cantor::AdvancedPlotExtension::DirectiveProducer *> controls;
     if (acceptor!=nullptr)
     {
-        foreach (const Cantor::AdvancedPlotExtension::AcceptorBase::widgetProc& wProc, acceptor->widgets())
+        const auto widgets = acceptor->widgets();
+        for (const Cantor::AdvancedPlotExtension::AcceptorBase::widgetProc& wProc : widgets)
         {
-            QGroupBox *container=new QGroupBox(nullptr);
+            auto container = new QGroupBox(nullptr);
             Cantor::AdvancedPlotExtension::DirectiveProducer *cargo=wProc(nullptr);
             Ui::directiveContainer uicont;
             uicont.setupUi(container);

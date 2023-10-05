@@ -19,7 +19,7 @@ add_subdirectory(panelplugins)
 #build the config object in a separate library, shared between shell and part
 kconfig_add_kcfg_files(config_SRCS settings.kcfgc)
 add_library( cantor_config  SHARED ${config_SRCS} )
-target_link_libraries( cantor_config  KF5::Parts KF5::NewStuff )
+target_link_libraries( cantor_config  KF6::Parts KF6::NewStuffWidgets )
 install( TARGETS cantor_config  ${KDE_INSTALL_TARGETS_DEFAULT_ARGS} )
 
 set(cantor_SRCS
@@ -38,13 +38,13 @@ ki18n_wrap_ui(cantor_SRCS backendchooser.ui)
 
 file(GLOB ICONS_SRCS "${CMAKE_CURRENT_SOURCE_DIR}/../icons/*-apps-cantor.png")
 ecm_add_app_icon(cantor_SRCS ICONS ${ICONS_SRCS})
-add_executable(cantor ${cantor_SRCS})
+add_executable(cantor_bin ${cantor_SRCS})
 
-target_link_libraries(cantor KF5::Parts KF5::NewStuffWidgets KF5::ConfigCore KF5::CoreAddons KF5::ConfigGui
-    KF5::Crash KF5::XmlGui Qt5::WebEngine cantorlibs cantor_config)
+target_link_libraries(cantor_bin KF6::Parts KF6::NewStuffWidgets KF6::ConfigCore KF6::CoreAddons KF6::ConfigGui
+    KF6::Crash KF6::XmlGui Qt6::WebEngineWidgets cantorlibs cantor_config)
 
 ########### install files ###############
-install(TARGETS cantor ${KDE_INSTALL_TARGETS_DEFAULT_ARGS} )
+install(TARGETS cantor_bin ${KDE_INSTALL_TARGETS_DEFAULT_ARGS} RENAME cantor)
 install( PROGRAMS org.kde.cantor.desktop  DESTINATION  ${KDE_INSTALL_APPDIR} )
 install( FILES cantor.knsrc cantor-documentation.knsrc DESTINATION  ${KDE_INSTALL_KNSRCDIR} )
 install( FILES cantor.xml DESTINATION ${KDE_INSTALL_MIMEDIR} )
@@ -99,12 +99,12 @@ configure_file (config-cantor.h.cmake ${CMAKE_CURRENT_BINARY_DIR}/config-cantor.
 
 kcoreaddons_add_plugin(cantorpart
     SOURCES ${cantor_PART_SRCS}
-    INSTALL_NAMESPACE "kf5/parts")
+    INSTALL_NAMESPACE "kf6/parts")
 
-target_link_libraries(cantorpart KF5::Parts KF5::NewStuff
-                     KF5::TextEditor ${Qt5XmlPatterns_LIBRARIES}
-                     KF5::KIOCore KF5::KIOFileWidgets KF5::KIOWidgets
-                     Qt5::PrintSupport cantorlibs cantor_config )
+target_link_libraries(cantorpart KF6::Parts KF6::NewStuffWidgets
+                     KF6::TextEditor
+                     KF6::KIOCore KF6::KIOFileWidgets KF6::KIOWidgets 
+                     Qt6::PrintSupport cantorlibs cantor_config LibXslt::LibXslt LibXml2::LibXml2)
 
 # if(Discount_FOUND)
     target_link_libraries(cantorpart Discount::Lib)

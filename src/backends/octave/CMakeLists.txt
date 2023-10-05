@@ -26,18 +26,18 @@ ki18n_wrap_ui(OctaveBackend_SRCS settings.ui)
 add_backend(octavebackend ${OctaveBackend_SRCS})
 
 target_link_libraries(cantor_octavebackend cantor_help
-  KF5::KIOCore
-  KF5::ConfigCore
-  KF5::ConfigGui
-  KF5::SyntaxHighlighting
+  KF6::KIOCore
+  KF6::ConfigCore
+  KF6::ConfigGui
+  KF6::SyntaxHighlighting
 )
 
 if(BUILD_TESTING)
   add_executable( testoctave testoctave.cpp ${OctaveBackend_SRCS})
   add_test(NAME testoctave COMMAND testoctave)
   target_link_libraries( testoctave
-    Qt5::Test
-    KF5::SyntaxHighlighting
+    Qt6::Test
+    KF6::SyntaxHighlighting
     cantorlibs
     cantortest
     cantor_help

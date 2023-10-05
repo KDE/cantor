@@ -38,7 +38,7 @@ void PythonCompletionObject::fetchCompletions()
 
         setCompletions(allCompletions);
 
-        emit fetchingDone();
+        Q_EMIT fetchingDone();
     }
     else
     {
@@ -64,12 +64,12 @@ void PythonCompletionObject::fetchIdentifierType()
     {
         if (std::binary_search(PythonKeywords::instance()->functions().begin(),
                 PythonKeywords::instance()->functions().end(), identifier()))
-        emit fetchingTypeDone(FunctionType);
+        Q_EMIT fetchingTypeDone(FunctionType);
         else if (std::binary_search(PythonKeywords::instance()->keywords().begin(),
                 PythonKeywords::instance()->keywords().end(), identifier()))
-        emit fetchingTypeDone(KeywordType);
+        Q_EMIT fetchingTypeDone(KeywordType);
         else
-        emit fetchingTypeDone(VariableType);
+        Q_EMIT fetchingTypeDone(VariableType);
     }
     else
     {
@@ -103,7 +103,7 @@ void PythonCompletionObject::extractCompletions(Cantor::Expression::Status statu
     }
     m_expression->deleteLater();
     m_expression = nullptr;
-    emit fetchingDone();
+    Q_EMIT fetchingDone();
 }
 
 void PythonCompletionObject::extractIdentifierType(Cantor::Expression::Status status)
@@ -113,29 +113,29 @@ void PythonCompletionObject::extractIdentifierType(Cantor::Expression::Status st
         case Cantor::Expression::Error:
 
             if (m_expression->errorMessage().contains(QLatin1String("SyntaxError: invalid syntax")))
-                emit fetchingTypeDone(KeywordType);
+                Q_EMIT fetchingTypeDone(KeywordType);
             else
             {
                 qDebug() << "Error with PythonCompletionObject" << (m_expression->result() ? m_expression->result()->toHtml() : QLatin1String("extractIdentifierType"));
-                emit fetchingTypeDone(UnknownType);
+                Q_EMIT fetchingTypeDone(UnknownType);
             }
             break;
 
         case Cantor::Expression::Interrupted:
             qDebug() << "PythonCompletionObject was interrupted";
-            emit fetchingTypeDone(UnknownType);
+            Q_EMIT fetchingTypeDone(UnknownType);
             break;
 
         case Cantor::Expression::Done:
             if (m_expression->result())
             {
                 if (m_expression->result()->data().toString() == QLatin1String("True"))
-                    emit fetchingTypeDone(FunctionType);
+                    Q_EMIT fetchingTypeDone(FunctionType);
                 else
-                    emit fetchingTypeDone(VariableType);
+                    Q_EMIT fetchingTypeDone(VariableType);
             }
             else
-                emit fetchingTypeDone(UnknownType);
+                Q_EMIT fetchingTypeDone(UnknownType);
             break;
         default:
             return;

@@ -125,7 +125,7 @@ QPixmap WorksheetImageItem::pixmap() const
 
 void WorksheetImageItem::populateMenu(QMenu* menu, QPointF pos)
 {
-    emit menuCreated(menu, mapToParent(pos));
+    Q_EMIT menuCreated(menu, mapToParent(pos));
 }
 
 void WorksheetImageItem::contextMenuEvent(QGraphicsSceneContextMenuEvent *event)

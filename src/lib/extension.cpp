@@ -89,14 +89,14 @@ QString LinearAlgebraExtension::nullMatrix(int rows, int columns)
 
 QString AdvancedPlotExtension::plotFunction2d(const QString& expression, const QVector<PlotDirective*>& directives) const
 {
-    QString params = QLatin1String("");
-    foreach (PlotDirective* dir, directives)
+    QString params;
+    for (PlotDirective* dir : directives)
     {
         QString param=dispatchDirective(*dir);
         if (param.length()>0)
             params+=separatorSymbol()+param;
     }
-    return plotCommand() + QLatin1String("(") + expression + params + QLatin1String(")");
+    return plotCommand() + QLatin1Char('(') + expression + params + QLatin1Char(')');
 }
 
 QString AdvancedPlotExtension::dispatchDirective(const PlotDirective& directive) const

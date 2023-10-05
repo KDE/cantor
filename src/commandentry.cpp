@@ -513,7 +513,7 @@ void CommandEntry::setContent(const QDomElement& content, const KZip& file)
             QFont font;
             font.setFamily(fontElem.attribute(QLatin1String("family")));
             font.setPointSize(fontElem.attribute(QLatin1String("pointSize")).toInt());
-            font.setWeight(fontElem.attribute(QLatin1String("weight")).toInt());
+            font.setWeight(static_cast<QFont::Weight>(fontElem.attribute(QLatin1String("weight")).toInt()));
             font.setItalic(fontElem.attribute(QLatin1String("italic")).toInt());
             m_commandItem->setFont(font);
         }
@@ -1583,7 +1583,7 @@ void CommandEntry::showHelp()
         keyword = cursor.block().text();
 
     if (!keyword.simplified().isEmpty())
-        emit worksheet()->requestDocumentation(keyword);
+        Q_EMIT worksheet()->requestDocumentation(keyword);
 }
 
 void CommandEntry::toggleEnabled() {

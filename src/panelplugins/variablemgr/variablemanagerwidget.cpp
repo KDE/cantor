@@ -12,6 +12,7 @@
 #include "ui_newvardlg.h"
 
 #include <QAction>
+#include <QActionGroup>
 #include <QClipboard>
 #include <QContextMenuEvent>
 #include <QDialog>
@@ -37,7 +38,7 @@ VariableManagerWidget::VariableManagerWidget(Cantor::Session* session, QWidget* 
 
     auto* btnLayout = new QHBoxLayout();
     btnLayout->setSpacing(0);
-    btnLayout->setMargin(0);
+    btnLayout->setContentsMargins({});
 
     //Buttons to save/load the variables
     int size = KIconLoader::global()->currentSize(KIconLoader::MainToolbar);
@@ -138,32 +139,36 @@ void VariableManagerWidget::setSession(Cantor::Session* session)
 
 void VariableManagerWidget::clearVariables()
 {
-    int btn = KMessageBox::questionYesNo(this,
+    int btn = KMessageBox::questionTwoActions(this,
                                          i18n("Are you sure you want to remove all variables?"),
-                                         i18n("Remove Variables"));
-    if (btn == KMessageBox::Yes)
-    {
-        m_model->removeRows(0, m_model->rowCount());
-
-        //evaluate the "clear" command
-        auto* ext = dynamic_cast<Cantor::VariableManagementExtension*>(m_session->backend()->extension(QLatin1String("VariableManagementExtension")));
-        if (ext)
-        {
-            const QString& cmd = ext->clearVariables();
-            emit runCommand(cmd);
-        }
-
-        //HACK? should the model detect that this happened on its own?
-        //inform the model that all variables have been removed.
-        //Do so by trying to evaluate the clearVariables slot of
-        //DefaultVariableModel. If our model isn't one of those,
-        //this call will just do nothing.
-        QMetaObject::invokeMethod(m_model,  "clearVariables", Qt::QueuedConnection);
-
-        //QAbstractItemModel::rowsRemoved() doesn't seem to be sent in this case,
-        //call updateButtons explicitly
-        QTimer::singleShot(0, this, [=] () { updateButtons(); });
+                                         i18n("Remove Variables"),
+                                         KStandardGuiItem::remove(),
+                                         KStandardGuiItem::cancel()
+                                     );
+    if (btn == KMessageBox::SecondaryAction) {
+        return;
     }
+
+    m_model->removeRows(0, m_model->rowCount());
+
+    //evaluate the "clear" command
+    auto* ext = dynamic_cast<Cantor::VariableManagementExtension*>(m_session->backend()->extension(QLatin1String("VariableManagementExtension")));
+    if (ext)
+    {
+        const QString& cmd = ext->clearVariables();
+        Q_EMIT runCommand(cmd);
+    }
+
+    //HACK? should the model detect that this happened on its own?
+    //inform the model that all variables have been removed.
+    //Do so by trying to evaluate the clearVariables slot of
+    //DefaultVariableModel. If our model isn't one of those,
+    //this call will just do nothing.
+    QMetaObject::invokeMethod(m_model,  "clearVariables", Qt::QueuedConnection);
+
+    //QAbstractItemModel::rowsRemoved() doesn't seem to be sent in this case,
+    //call updateButtons explicitly
+    QTimer::singleShot(0, this, [=] () { updateButtons(); });
 }
 
 void VariableManagerWidget::save()
@@ -176,7 +181,7 @@ void VariableManagerWidget::save()
     if (ext)
     {
         const QString& cmd = ext->saveVariables(file);
-        emit runCommand(cmd);
+        Q_EMIT runCommand(cmd);
     }
 }
 
@@ -190,7 +195,7 @@ void VariableManagerWidget::load()
     if (ext)
     {
         const QString& cmd = ext->loadVariables(file);
-        emit runCommand(cmd);
+        Q_EMIT runCommand(cmd);
     }
 }
 
@@ -224,7 +229,7 @@ void VariableManagerWidget::newVariable()
         if (ext)
         {
             const QString& cmd = ext->addVariable(name, val);
-            emit runCommand(cmd);
+            Q_EMIT runCommand(cmd);
         }
     }
 

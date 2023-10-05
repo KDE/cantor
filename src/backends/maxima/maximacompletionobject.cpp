@@ -22,17 +22,17 @@ void MaximaCompletionObject::fetchIdentifierType()
     QStringList userVariableNames=session()->variableModel()->variableNames();
     QStringList userFunctionNames=session()->variableModel()->functions();
     if (std::binary_search(userVariableNames.begin(), userVariableNames.end(), identifier()))
-        emit fetchingTypeDone(VariableType);
+        Q_EMIT fetchingTypeDone(VariableType);
     else if (std::binary_search(userFunctionNames.begin(), userFunctionNames.end(), identifier()))
-        emit fetchingTypeDone(FunctionType);
+        Q_EMIT fetchingTypeDone(FunctionType);
     else if (std::binary_search(MaximaKeywords::instance()->functions().begin(),
             MaximaKeywords::instance()->functions().end(), identifier()))
-        emit fetchingTypeDone(FunctionType);
+        Q_EMIT fetchingTypeDone(FunctionType);
     else if (std::binary_search(MaximaKeywords::instance()->keywords().begin(),
             MaximaKeywords::instance()->keywords().end(), identifier()))
-        emit fetchingTypeDone(KeywordType);
+        Q_EMIT fetchingTypeDone(KeywordType);
     else
-        emit fetchingTypeDone(VariableType);
+        Q_EMIT fetchingTypeDone(VariableType);
 }
 
 void MaximaCompletionObject::fetchCompletions()
@@ -52,7 +52,7 @@ void MaximaCompletionObject::fetchCompletions()
 
     setCompletions(prefixCompletion);
 
-    emit fetchingDone();
+    Q_EMIT fetchingDone();
 }
 
 bool MaximaCompletionObject::mayIdentifierContain(QChar c) const
