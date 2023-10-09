@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-09-22 00:39+0000\n"
-"PO-Revision-Date: 2023-08-06 19:37+0200\n"
+"PO-Revision-Date: 2023-10-08 22:27+0200\n"
 "Last-Translator: Shinjo Park <kde@peremen.name>\n"
 "Language-Team: Korean <kde-kr@kde.org>\n"
 "Language: ko\n"
@@ -610,10 +610,9 @@ msgstr "Gadfly"
 
 #. i18n: ectx: property (text), widget (QLabel, label3)
 #: backends/julia/settings.ui:253
-#, fuzzy, kde-format
-#| msgid "Package for Plot Assistant"
+#, kde-format
 msgid "Package for Plot Assistant:"
-msgstr "플롯 도우미용 패키지"
+msgstr "플롯 도우미용 패키지:"
 
 #. i18n: ectx: attribute (title), widget (QWidget, tabAutorun)
 #. i18n: ectx: attribute (title), widget (QWidget, tabAutoran)
@@ -935,8 +934,7 @@ msgstr ""
 
 #. i18n: ectx: label, entry (plotExtenstionGraphicPackage), group (PythonBackend)
 #: backends/python/pythonbackend.kcfg:44
-#, fuzzy, kde-format
-#| msgid "Graphic package to be used in the Plot Assistant"
+#, kde-format
 msgid "Graphical package to be used for the Plot Assistant"
 msgstr "플롯 도우미에서 사용할 그래픽 패키지"
 
@@ -987,10 +985,9 @@ msgstr ""
 
 #. i18n: ectx: property (text), widget (QLabel, label4)
 #: backends/python/settings.ui:207
-#, fuzzy, kde-format
-#| msgid "Package for Plot Assistant"
+#, kde-format
 msgid "Plot Assistant"
-msgstr "플롯 도우미용 패키지"
+msgstr "플롯 도우미"
 
 #. i18n: ectx: property (text), item, widget (KComboBox, kcfg_plotExtenstionGraphicPackage)
 #: backends/python/settings.ui:224
@@ -1421,10 +1418,9 @@ msgstr ""
 
 #. i18n: ectx: label, entry (Path), group (QalculateBackend)
 #: backends/qalculate/qalculatebackend.kcfg:9
-#, fuzzy, kde-format
-#| msgid "Path to the latex executable"
+#, kde-format
 msgid "Path to the Qalculate! executable"
-msgstr "latex 실행 파일 경로"
+msgstr "Qalculate! 실행 파일 경로"
 
 #. i18n: ectx: label, entry (postConversion), group (QalculateBackend)
 #: backends/qalculate/qalculatebackend.kcfg:21
