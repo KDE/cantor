@@ -2402,7 +2402,7 @@ msgstr "Fitxer de script d'R (*.R)"
 #: backends/R/rserver/rserver.cpp:362
 #, kde-format
 msgid "Error Parsing Command"
-msgstr "S'ha produït un error en analitzar l'ordre"
+msgstr "S'ha produït un error en l'anàlisi sintàctica de l'ordre"
 
 #. i18n: ectx: label, entry (localDoc), group (RBackend)
 #: backends/R/rserver/rserver.kcfg:9
