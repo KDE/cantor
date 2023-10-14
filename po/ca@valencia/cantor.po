@@ -362,10 +362,10 @@ msgid ""
 "to the executable. Symlinks are not allowed. Please provide the correct path "
 "in the application settings and try again."
 msgstr ""
-"El camí a Julia especificat en la configuració de l'aplicació cal que apunte "
-"directament cap a l'executable. No es permeten els enllaços simbòlics. "
-"Proporcioneu el camí correcte cap a la configuració de l'aplicació i torneu-"
-"ho a intentar."
+"El camí cap a Julia especificat en la configuració de l'aplicació cal que "
+"apunte directament cap a l'executable. No es permeten els enllaços "
+"simbòlics. Proporcioneu el camí correcte en la configuració de l'aplicació i "
+"torneu-ho a intentar."
 
 #: backends/julia/juliabackend.cpp:102 backends/julia/juliabackend.cpp:114
 #, kde-format
@@ -385,14 +385,14 @@ msgid ""
 "version of Julia or recompile Cantor using the version %1.%2.%3."
 msgstr ""
 "Esteu intentant utilitzar Cantor amb Julia v%1.%2.%3. Esta versió de Cantor "
-"es va compilar amb Julia v%4.%5.%6. Apunteu a esta versió de Julia o "
+"es va compilar amb Julia v%4.%5.%6. Apunteu cap a esta versió de Julia o "
 "recompileu Cantor utilitzant la versió %1.%2.%3."
 
 #. i18n: ectx: label, entry (replPath), group (JuliaBackend)
 #: backends/julia/juliabackend.kcfg:10
 #, kde-format
 msgid "Path to the Julia native REPL"
-msgstr "Camí a Julia natiu REPL"
+msgstr "Camí cap a Julia natiu REPL"
 
 #. i18n: ectx: label, entry (variableManagement), group (JuliaBackend)
 #. i18n: ectx: label, entry (variableManagement), group (PythonBackend)
@@ -745,7 +745,7 @@ msgstr "Fitxer de script de Lua (*.lua)"
 #: backends/lua/settings.ui:27
 #, kde-format
 msgid "Path to luajit:"
-msgstr "Camí a «luajit»:"
+msgstr "Camí cap a «luajit»:"
 
 #: backends/maxima/maximabackend.cpp:72
 #, kde-format
@@ -2591,12 +2591,12 @@ msgstr "O&bri un exemple"
 #: cantor.cpp:153
 #, kde-format
 msgid "Go to previous worksheet"
-msgstr "Ves al full de treball anterior"
+msgstr "Ves fins al full de treball anterior"
 
 #: cantor.cpp:165
 #, kde-format
 msgid "Go to next worksheet"
-msgstr "Ves al full de treball següent"
+msgstr "Ves fins al full de treball següent"
 
 #: cantor.cpp:226
 #, kde-format
@@ -3641,7 +3641,7 @@ msgid ""
 "the application settings and try again."
 msgstr ""
 "No s'ha especificat cap camí cap a l'executable «%1». Proporcioneu el camí "
-"correcte cap a la configuració de l'aplicació i torneu-ho a intentar."
+"correcte en la configuració de l'aplicació i torneu-ho a intentar."
 
 #: lib/backend.cpp:173
 #, kde-format
@@ -3650,7 +3650,7 @@ msgid ""
 "the correct path in the application settings and try again."
 msgstr ""
 "El fitxer «%1» especificat com a executable de %2 no existix. Proporcioneu "
-"el camí correcte cap a la configuració de l'aplicació i torneu-ho a intentar."
+"el camí correcte en la configuració de l'aplicació i torneu-ho a intentar."
 
 #: lib/backend.cpp:182
 #, kde-format
@@ -3659,7 +3659,7 @@ msgid ""
 "correct path in the application settings and try again."
 msgstr ""
 "El fitxer «%1» especificat no apunta a cap executable. Proporcioneu el camí "
-"correcte cap a la configuració de l'aplicació i torneu-ho a intentar."
+"correcte en la configuració de l'aplicació i torneu-ho a intentar."
 
 #: lib/backend.cpp:201
 #, kde-format
@@ -3903,7 +3903,7 @@ msgstr "--- Salt de pàgina ---"
 #, kde-format
 msgctxt "@button go to contents page"
 msgid "Go to the contents"
-msgstr "Ves al contingut"
+msgstr "Ves fins al contingut"
 
 #: panelplugins/documentationpanel/documentationpanelwidget.cpp:58
 #, kde-format
