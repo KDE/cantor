@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: cantor\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-10-01 02:47+0000\n"
-"PO-Revision-Date: 2023-09-10 18:15+0530\n"
+"PO-Revision-Date: 2023-10-15 14:09+0530\n"
 "Last-Translator: Kishore G <kishore96@gmail.com>\n"
 "Language-Team: Tamil <kde-i18n-doc@kde.org>\n"
 "Language: ta\n"
@@ -15,7 +15,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Lokalize 23.08.0\n"
+"X-Generator: Lokalize 23.08.2\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -188,13 +188,13 @@ msgstr ""
 #: assistants/linearalgebra/creatematrix/creatematrixdlg.ui:19
 #, kde-format
 msgid "Columns:"
-msgstr ""
+msgstr "நெடுவரிசைகள்:"
 
 #. i18n: ectx: property (text), widget (QLabel, label)
 #: assistants/linearalgebra/creatematrix/creatematrixdlg.ui:37
 #, kde-format
 msgid "Rows:"
-msgstr ""
+msgstr "வரிகள்:"
 
 #: assistants/linearalgebra/eigenvalues/eigenvaluesassistant.cpp:28
 #, kde-format
@@ -803,7 +803,7 @@ msgstr ""
 #: backends/maxima/maximaexpression.cpp:432
 #, kde-format
 msgid "Waiting for the plot result"
-msgstr ""
+msgstr "வரைபடத்திற்கு காத்திருக்கிறது"
 
 #: backends/maxima/maximaextensions.cpp:31
 #, kde-format
@@ -1139,7 +1139,7 @@ msgstr ""
 #: backends/qalculate/settings.ui:244 backends/qalculate/settings.ui:391
 #, kde-format
 msgid "None"
-msgstr ""
+msgstr "ஏதுமில்லை"
 
 #. i18n: ectx: property (text), item, widget (KComboBox, smoothingBox)
 #. i18n: ectx: property (text), item, widget (KComboBox, kcfg_plotSmoothing)
@@ -1187,19 +1187,19 @@ msgstr ""
 #: backends/qalculate/plotassistant/qalculateplotdialog.ui:254
 #, kde-format
 msgid "0"
-msgstr ""
+msgstr "0"
 
 #. i18n: ectx: property (text), widget (QLabel, label_2)
 #: backends/qalculate/plotassistant/qalculateplotdialog.ui:261
 #, kde-format
 msgid "-"
-msgstr ""
+msgstr "-"
 
 #. i18n: ectx: property (text), widget (KLineEdit, xMaxEdit)
 #: backends/qalculate/plotassistant/qalculateplotdialog.ui:274
 #, kde-format
 msgid "10"
-msgstr ""
+msgstr "10"
 
 #. i18n: ectx: property (text), widget (QRadioButton, stepsButton)
 #: backends/qalculate/plotassistant/qalculateplotdialog.ui:283
@@ -1309,7 +1309,7 @@ msgstr ""
 #: backends/qalculate/plotassistant/qalculateplotdialog.ui:452
 #, kde-format
 msgid "Display full border"
-msgstr ""
+msgstr "முழு விளிம்பைக் காட்டு"
 
 #. i18n: ectx: property (text), widget (QCheckBox, colorCheckBox)
 #: backends/qalculate/plotassistant/qalculateplotdialog.ui:463
@@ -1321,7 +1321,7 @@ msgstr "நிறங்களைப் பயன்படுத்து"
 #: backends/qalculate/plotassistant/qalculateplotdialog.ui:470
 #, kde-format
 msgid "Display inline"
-msgstr ""
+msgstr "உள்ளமைந்தே காட்டு"
 
 #. i18n: ectx: property (text), widget (QCheckBox, xLogCheckBox)
 #: backends/qalculate/plotassistant/qalculateplotdialog.ui:481
@@ -1339,62 +1339,62 @@ msgstr ""
 #: backends/qalculate/plotassistant/qalculateplotdialog.ui:521
 #, kde-format
 msgid "File Options"
-msgstr ""
+msgstr "கோப்பு விருப்பங்கள்"
 
 #. i18n: ectx: property (text), widget (QCheckBox, saveCheckBox)
 #: backends/qalculate/plotassistant/qalculateplotdialog.ui:527
 #, kde-format
 msgid "Save plot to file"
-msgstr ""
+msgstr "வரைபடத்தை கோப்புக்கு சேமி"
 
 #. i18n: ectx: property (text), widget (QLabel, label_23)
 #: backends/qalculate/plotassistant/qalculateplotdialog.ui:547
 #, kde-format
 msgid "File type"
-msgstr ""
+msgstr "கோப்பு வகை"
 
 #. i18n: ectx: property (text), item, widget (KComboBox, saveFileBox)
 #: backends/qalculate/plotassistant/qalculateplotdialog.ui:555
 #, kde-format
 msgid "Detect from filename"
-msgstr ""
+msgstr "கோப்புப்பெயரிலிருந்து கண்டறி"
 
 #. i18n: ectx: property (text), item, widget (KComboBox, saveFileBox)
 #: backends/qalculate/plotassistant/qalculateplotdialog.ui:560
 #, kde-format
 msgid "PNG"
-msgstr ""
+msgstr "PNG"
 
 #. i18n: ectx: property (text), item, widget (KComboBox, saveFileBox)
 #: backends/qalculate/plotassistant/qalculateplotdialog.ui:565
 #, kde-format
 msgid "PS"
-msgstr ""
+msgstr "PS"
 
 #. i18n: ectx: property (text), item, widget (KComboBox, saveFileBox)
 #: backends/qalculate/plotassistant/qalculateplotdialog.ui:570
 #, kde-format
 msgid "EPS"
-msgstr ""
+msgstr "EPS"
 
 #. i18n: ectx: property (text), item, widget (KComboBox, saveFileBox)
 #: backends/qalculate/plotassistant/qalculateplotdialog.ui:575
 #: worksheet.cpp:1822 worksheet.cpp:1848 worksheet.cpp:1868 worksheet.cpp:1886
 #, kde-format
 msgid "LaTeX"
-msgstr ""
+msgstr "LaTeX"
 
 #. i18n: ectx: property (text), item, widget (KComboBox, saveFileBox)
 #: backends/qalculate/plotassistant/qalculateplotdialog.ui:580
 #, kde-format
 msgid "SVG"
-msgstr ""
+msgstr "SVG"
 
 #. i18n: ectx: property (text), item, widget (KComboBox, saveFileBox)
 #: backends/qalculate/plotassistant/qalculateplotdialog.ui:585
 #, kde-format
 msgid "FIG"
-msgstr ""
+msgstr "FIG"
 
 #: backends/qalculate/qalculatebackend.cpp:51
 #, kde-format
