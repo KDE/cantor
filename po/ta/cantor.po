@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: cantor\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-09-22 00:39+0000\n"
-"PO-Revision-Date: 2023-10-15 14:09+0530\n"
+"PO-Revision-Date: 2023-10-22 17:54+0530\n"
 "Last-Translator: Kishore G <kishore96@gmail.com>\n"
 "Language-Team: Tamil <kde-i18n-doc@kde.org>\n"
 "Language: ta\n"
@@ -1211,13 +1211,13 @@ msgstr "வரைபடத்திற்கான தலைப்பு"
 #: backends/qalculate/plotassistant/qalculateplotdialog.ui:353
 #, kde-format
 msgid "X-axis label"
-msgstr ""
+msgstr "கிடைமட்ட அச்சுப்பான உரை"
 
 #. i18n: ectx: property (text), widget (QLabel, label_21)
 #: backends/qalculate/plotassistant/qalculateplotdialog.ui:374
 #, kde-format
 msgid "Y-axis label"
-msgstr ""
+msgstr "செங்குத்தான அச்சுக்கான உரை"
 
 #. i18n: ectx: property (text), widget (QLabel, label_22)
 #: backends/qalculate/plotassistant/qalculateplotdialog.ui:395
@@ -1285,7 +1285,7 @@ msgstr "வெளியே"
 #: backends/qalculate/plotassistant/qalculateplotdialog.ui:445
 #, kde-format
 msgid "Display Grid"
-msgstr ""
+msgstr "ஆயக்கோடுகளைக் காட்டு"
 
 #. i18n: ectx: property (text), widget (QCheckBox, borderCheckBox)
 #: backends/qalculate/plotassistant/qalculateplotdialog.ui:452
@@ -1309,13 +1309,13 @@ msgstr "உள்ளமைந்தே காட்டு"
 #: backends/qalculate/plotassistant/qalculateplotdialog.ui:481
 #, kde-format
 msgid "Logarithmic x scale"
-msgstr ""
+msgstr "கிடைமட்ட அச்சுக்கு மடக்கை அளவுத்திட்டம்"
 
 #. i18n: ectx: property (text), widget (QCheckBox, yLogCheckBox)
 #: backends/qalculate/plotassistant/qalculateplotdialog.ui:502
 #, kde-format
 msgid "Logarithmic y scale"
-msgstr ""
+msgstr "செங்குத்து அச்சுக்கு மடக்கை அளவுத்திட்டம்"
 
 #. i18n: ectx: property (title), widget (QGroupBox, groupBox_3)
 #: backends/qalculate/plotassistant/qalculateplotdialog.ui:521
@@ -2000,68 +2000,68 @@ msgstr ""
 #, kde-format
 msgctxt "@title:window"
 msgid "Modify Entry"
-msgstr ""
+msgstr "பதிவைத் திருத்து"
 
 #: backends/qthelpconfig.cpp:47
 #, kde-format
 msgctxt "@title:window"
 msgid "Add New Entry"
-msgstr ""
+msgstr "புதிய பதிவைச் சேர்"
 
 #: backends/qthelpconfig.cpp:64
 #, kde-format
 msgid "Name cannot be empty."
-msgstr ""
+msgstr "பெயர் காலியாக இருக்க முடியாது."
 
 #: backends/qthelpconfig.cpp:84
 #, kde-format
 msgid "Add local documentation"
-msgstr ""
+msgstr "கணினியிலுள்ள கையேடுகளை சேர்"
 
 #: backends/qthelpconfig.cpp:100
 #, kde-format
 msgctxt "@action:button Allow user to get some API documentation with GHNS"
 msgid "Get New Documentation"
-msgstr ""
+msgstr "புதிய கையேடுகளை பெறு"
 
 #: backends/qthelpconfig.cpp:103
 #, kde-format
 msgid "Download additional documentations"
-msgstr ""
+msgstr "கூடுதல் கையேடுகளைப் பதிவிறக்கும்"
 
 #: backends/qthelpconfig.cpp:171
 #, kde-format
 msgid "Qt Compressed Help file is not valid."
-msgstr ""
+msgstr "சுருக்கப்பட்டுள்ள Qt உதவிக்கோப்பு செல்லுபடியாகாத‍து."
 
 #: backends/qthelpconfig.cpp:180
 #, kde-format
 msgid "Documentation already imported"
-msgstr ""
+msgstr "கையேடு ஏற்கனவே இறக்குமதி செய்யப்பட்டுள்ளது"
 
 #: backends/qthelpconfig.cpp:270
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Modify"
-msgstr ""
+msgstr "திருத்து"
 
 #: backends/qthelpconfig.cpp:275
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Delete"
-msgstr ""
+msgstr "நீக்கு"
 
 #: backends/qthelpconfig.cpp:283
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Please uninstall this via GHNS."
-msgstr ""
+msgstr "GHNS மூலம் இதை நிறுவல் நீக்கவும்."
 
 #. i18n: ectx: property (text), widget (QLabel, label)
 #: backends/qthelpconfig.ui:20
 #, kde-format
 msgid "Install Additional Documentation Files"
-msgstr ""
+msgstr "கூடுதல் கையேடுகளை நிறுவு"
 
 #. i18n: ectx: property (text), widget (QTreeWidget, qchTable)
 #: backends/qthelpconfig.ui:49 lib/defaultvariablemodel.cpp:69
@@ -2096,7 +2096,7 @@ msgstr "சின்னம்:"
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Select an icon"
-msgstr ""
+msgstr "சின்னத்தைத் தேர்வு செய்"
 
 #. i18n: ectx: property (text), widget (QLabel, lName)
 #: backends/qthelpconfigeditdialog.ui:34
@@ -2131,14 +2131,14 @@ msgstr "பாதை:"
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Select a Qt Help file..."
-msgstr ""
+msgstr "Qt உதவிக்கோப்பைத் தேர்ந்தெடு..."
 
 #. i18n: ectx: property (placeholderText), widget (KUrlRequester, qchRequester)
 #: backends/qthelpconfigeditdialog.ui:70
 #, kde-format
 msgctxt "@info:placeholder"
 msgid "Select a Qt Help file..."
-msgstr ""
+msgstr "Qt உதவிக்கோப்பைத் தேர்ந்தெடு..."
 
 #: backends/R/rbackend.cpp:81
 #, kde-format
@@ -2195,12 +2195,12 @@ msgstr "%1 கோப்பைத் திறப்பதில் சிக்�
 #: backends/R/rextensions.cpp:22
 #, kde-format
 msgid "R script file (*.R)"
-msgstr ""
+msgstr "R சிறுநிரல் கோப்பு (*.R)"
 
 #: backends/R/rserver/rserver.cpp:365
 #, kde-format
 msgid "Error Parsing Command"
-msgstr ""
+msgstr "கட்டளை புரிந்துகொள்வதில் சிக்கல்"
 
 #. i18n: ectx: label, entry (localDoc), group (RBackend)
 #: backends/R/rserver/rserver.kcfg:9
@@ -2211,12 +2211,12 @@ msgstr ""
 #: backends/R/rsettingswidget.cpp:24
 #, kde-format
 msgid "Double click to open file selection dialog"
-msgstr ""
+msgstr "கோப்புத்தேர்வு பெட்டியைத் திறக்க இரட்டைக் கிளிக் செய்யவும்"
 
 #: backends/R/rsettingswidget.cpp:44
 #, kde-format
 msgid "*.R *.r|R source files (*.R, *.r)"
-msgstr ""
+msgstr "*.R *.r|R மூலக்கோப்புகள் (*.R, *.r)"
 
 #: backends/sage/sagebackend.cpp:79
 #, kde-format
@@ -2262,7 +2262,7 @@ msgstr ""
 #: backends/sage/sageextensions.cpp:32
 #, kde-format
 msgid "Python script file (*.py);;Sage script file (*.sage)"
-msgstr ""
+msgstr "பைத்தன் சிறுநிரல் கோப்பு (*.py);;Sage சிறுநிரல் கோப்பு (*.sage)"
 
 #: backends/sage/sagesession.cpp:254
 #, kde-format
@@ -2270,6 +2270,8 @@ msgid ""
 "Sage version %1.%2 is unsupported. Please update your installation to the "
 "versions 9.2 or higher."
 msgstr ""
+"Sage பதிப்பு %1.%2 ஆதரிக்கப்படாத‍து. நிறுவியுள்ள பதிப்பை 9.2 அல்லது அதைவிடப் "
+"புதியதானதாக அமைக்கவும்."
 
 #: backends/sage/sagesession.cpp:256 backends/sage/sagesession.cpp:276
 #, kde-format
@@ -2282,6 +2284,8 @@ msgid ""
 "Failed to determine the version of Sage. Please check your installation and "
 "the output of 'sage -v'."
 msgstr ""
+"Sage-இன் பதிப்பை தீர்மானிக்க முடியவில்லை. நிறுவியுள்ளதையும், 'sage -v' எனும் "
+"முனையக்கட்டளையின் வெளியீட்டையும் சரிபார்க்கவும்."
 
 #: backends/sage/sagesession.cpp:337
 #, kde-format
@@ -2490,7 +2494,7 @@ msgstr "இயல்பிருப்பாக பயன்படுத்த�
 #: cantor.kcfg:16
 #, kde-format
 msgid "Do Typesetting by default"
-msgstr ""
+msgstr "இயல்பிருப்பாக அச்சுக்கோர்வை செய்"
 
 #. i18n: ectx: label, entry (HighlightDefault), group (Cantor)
 #: cantor.kcfg:20
@@ -2528,10 +2532,9 @@ msgstr ""
 
 #. i18n: ectx: label, entry (WarnAboutEntryDelete), group (Cantor)
 #: cantor.kcfg:40
-#, fuzzy, kde-format
-#| msgid "Ask for confirmation when restarting the backend"
+#, kde-format
 msgid "Ask for confirmation when deleting an entry"
-msgstr "பின்நிலையை மீள்துவக்கும்போது உறுதிப்படுத்து"
+msgstr "பதிவை நீக்கும்போது உறுதிகோரு"
 
 #. i18n: ectx: label, entry (AutoEval), group (Cantor)
 #: cantor.kcfg:44
@@ -2564,7 +2567,7 @@ msgstr ""
 #: cantor.kcfg:60
 #, kde-format
 msgid "Show embedded math render error"
-msgstr ""
+msgstr "உட்பொதிந்த கணிதசரத்தை வரைவதில் சிக்கல் நேர்ந்தால் விவரங்களைக் காட்டு"
 
 #. i18n: ectx: label, entry (VisibleLinesLimit), group (Cantor)
 #: cantor.kcfg:64
@@ -2702,10 +2705,9 @@ msgid "Save Plain Text"
 msgstr "வெறும் உரையாக செமி"
 
 #: cantor_part.cpp:179 cantor_part.cpp:538
-#, fuzzy, kde-format
-#| msgid "Export to LaTeX"
+#, kde-format
 msgid "Export to PDF"
-msgstr "LaTeX-ஆக ஏற்றுமதி செய்"
+msgstr "PDF-ஆக ஏற்றுமதி செய்"
 
 #: cantor_part.cpp:183 cantor_part.cpp:550
 #, kde-format
@@ -2729,7 +2731,7 @@ msgctxt ""
 "so make sure you include it in your translation in order to not to break "
 "anything"
 msgid "%1%"
-msgstr ""
+msgstr "%1%"
 
 #: cantor_part.cpp:227
 #, kde-format
@@ -2879,16 +2881,14 @@ msgid "Text Files (*.txt)"
 msgstr "உரை கோப்புகள் (*.txt)"
 
 #: cantor_part.cpp:538
-#, fuzzy, kde-format
-#| msgid "EPS files (*.eps)"
+#, kde-format
 msgid "PDF Files (*.pdf)"
-msgstr "EPS கோப்புகள் (*.eps)"
+msgstr "PDF கோப்புகள் (*.pdf)"
 
 #: cantor_part.cpp:550
-#, fuzzy, kde-format
-#| msgid "Text Files (*.txt)"
+#, kde-format
 msgid "TeX Files (*.tex)"
-msgstr "உரை கோப்புகள் (*.txt)"
+msgstr "TeX கோப்புகள் (*.tex)"
 
 #: cantor_part.cpp:595
 #, kde-format
@@ -3167,7 +3167,7 @@ msgstr ""
 #: formating.ui:37
 #, kde-format
 msgid "Chapter Font"
-msgstr ""
+msgstr "அத்தியாயத்திற்கான எழுத்துரு"
 
 #. i18n: ectx: property (text), widget (QLabel, label_2)
 #. i18n: ectx: property (text), widget (QLabel, label_4)
@@ -3197,31 +3197,31 @@ msgstr "எழுத்துருவின் அளவு:"
 #: formating.ui:96
 #, kde-format
 msgid "Subchapter Font"
-msgstr ""
+msgstr "துணை அத்தியாயத்திற்கான எழுத்துரு"
 
 #. i18n: ectx: attribute (title), widget (QWidget, SectionTab)
 #: formating.ui:155
 #, kde-format
 msgid "Section Font"
-msgstr ""
+msgstr "பிரிவுக்கான எழுத்துரு"
 
 #. i18n: ectx: attribute (title), widget (QWidget, SubsectionTab)
 #: formating.ui:214
 #, kde-format
 msgid "Subsection Font"
-msgstr ""
+msgstr "உட்பிரிவுக்கான எழுத்துரு"
 
 #. i18n: ectx: attribute (title), widget (QWidget, ParagraphTab)
 #: formating.ui:273
 #, kde-format
 msgid "Paragraph Font"
-msgstr ""
+msgstr "பத்திக்கான எழுத்துரு"
 
 #. i18n: ectx: attribute (title), widget (QWidget, SubparagraphTab)
 #: formating.ui:332
 #, kde-format
 msgid "Subparagraph Font"
-msgstr ""
+msgstr "துணைப்பத்திக்கான எழுத்துரு"
 
 #: hierarchyentry.cpp:22
 #, kde-format
@@ -4116,10 +4116,10 @@ msgstr "உரைப்பதிவாக மாற்று"
 #: textentry.cpp:81
 #, kde-format
 msgid "Convert to Raw Cell"
-msgstr ""
+msgstr "சாதாரண பெட்டியாக மாற்று"
 
 #: textentry.cpp:553
-#, fuzzy, kde-format
+#, kde-format
 msgid "Target MIME type:"
 msgstr "இலக்கின் மைம் வகை:"
 
@@ -4200,7 +4200,7 @@ msgstr ""
 #: worksheet.cpp:1327
 #, kde-format
 msgid "Couldn't open the file %1."
-msgstr ""
+msgstr "%1 எனும் கோப்பைத் திறக்க முடியவில்லை."
 
 #: worksheet.cpp:1327 worksheet.cpp:1350 worksheet.cpp:1370 worksheet.cpp:1387
 #: worksheet.cpp:1419 worksheet.cpp:1430 worksheet.cpp:1539 worksheet.cpp:1554
@@ -4212,7 +4212,7 @@ msgstr "கோப்பை திற"
 #: worksheet.cpp:1350
 #, kde-format
 msgid "Couldn't open the selected file for reading."
-msgstr ""
+msgstr "தேர்ந்தெடுத்த கோப்பை படிப்பதற்காக திறக்க முடியவில்லை."
 
 #: worksheet.cpp:1370
 #, kde-format
@@ -4230,17 +4230,19 @@ msgid ""
 "This worksheet was created using Python2 which is not supported anymore. "
 "Python3 will be used."
 msgstr ""
+"இப்போது ஆதரிக்கப்படாத பைத்தன் 2-ஐக் கொண்டு இப்பணித்தாள் உருவாக்கப்பட்டுள்ளது. பைத்தன் 3 "
+"பயன்படுத்தப்படும்."
 
 #: worksheet.cpp:1410 worksheet.cpp:1578
 #, kde-format
 msgid "Python2 not supported anymore"
-msgstr ""
+msgstr "Python2 ஆதரவில்லாத‍து"
 
 #: worksheet.cpp:1419 worksheet.cpp:1595
 #, kde-format
 msgid ""
 "%1 backend was not found. Editing and executing entries is not possible."
-msgstr ""
+msgstr "%1 பின்நிலை கண்டுபிடிக்கப்படவில்லை. பதிவுகளை திருத்தவோ இயக்கவோ முடியாது."
 
 #: worksheet.cpp:1428 worksheet.cpp:1605
 #, kde-format
@@ -4284,17 +4286,17 @@ msgstr ""
 #: worksheet.cpp:1650
 #, kde-format
 msgid "found incorrect data (%1) that is not Jupyter cell"
-msgstr ""
+msgstr "ஜூப்பிட்டர் பெட்டியாக இல்லாத முறையற்ற தரவு (%1) கண்டுபிடிக்கப்பட்டுள்ளது"
 
 #: worksheet.cpp:1727
 #, kde-format
 msgid "The file is not valid Jupyter notebook"
-msgstr ""
+msgstr "இக்கோப்பு முறையான ஜூப்பிட்டர் பணித்தாள் இல்லை"
 
 #: worksheet.cpp:1729
 #, kde-format
 msgid "Invalid Jupyter notebook scheme: %1"
-msgstr ""
+msgstr "செல்லுபடியாகாத ஜூப்பிட்டர் பணித்தாள் திட்டம்: %1"
 
 #: worksheet.cpp:1806
 #, kde-format
@@ -4304,7 +4306,7 @@ msgstr "இதற்கு மாற்று"
 #: worksheet.cpp:1811 worksheet.cpp:1842 worksheet.cpp:1862 worksheet.cpp:1880
 #, kde-format
 msgid "Command"
-msgstr ""
+msgstr "கட்டளை"
 
 #: worksheet.cpp:1818 worksheet.cpp:1845 worksheet.cpp:1865 worksheet.cpp:1883
 #, kde-format
@@ -4364,37 +4366,37 @@ msgstr "உண்மையான அளவு"
 #: worksheet.cpp:1933
 #, kde-format
 msgid "Move Entries Up"
-msgstr ""
+msgstr "பதிவுகளை மேலே நகர்த்து"
 
 #: worksheet.cpp:1934
 #, kde-format
 msgid "Move Entries Down"
-msgstr ""
+msgstr "பதிவுகளை கீழே நகர்த்து"
 
 #: worksheet.cpp:1935
 #, kde-format
 msgid "Evaluate Entries"
-msgstr ""
+msgstr "பதிவுகளை மதிப்பிடு"
 
 #: worksheet.cpp:1936
 #, kde-format
 msgid "Remove Entries"
-msgstr ""
+msgstr "பதிவுகளை நீக்கு"
 
 #: worksheet.cpp:1949
 #, kde-format
 msgid "Collapse Command Entry Results"
-msgstr ""
+msgstr "கட்டளையின் வெளியீட்டை சுருக்கு"
 
 #: worksheet.cpp:1950
 #, kde-format
 msgid "Expand Command Entry Results"
-msgstr ""
+msgstr "கட்டளையின் வெளியீட்டை விரி"
 
 #: worksheet.cpp:1951
 #, kde-format
 msgid "Remove Command Entry Results"
-msgstr ""
+msgstr "கட்டளையின் வெளியீட்டை நீக்கு"
 
 #: worksheet.cpp:1952
 #, kde-format
@@ -4410,91 +4412,91 @@ msgstr ""
 #, kde-format
 msgctxt "@action"
 msgid "Text &Color..."
-msgstr ""
+msgstr "&உரையின் நிறம்..."
 
 #: worksheet.cpp:2062
 #, kde-format
 msgctxt "@label text color"
 msgid "Color"
-msgstr ""
+msgstr "நிறம்"
 
 #: worksheet.cpp:2069
-#, kde-format
+#, fuzzy, kde-format
 msgctxt "@action"
 msgid "Text &Highlight..."
-msgstr ""
+msgstr "உரையை முன்னிலைப்படுத்து"
 
 #: worksheet.cpp:2075
 #, kde-format
 msgctxt "@action"
 msgid "&Font"
-msgstr ""
+msgstr "&எழுத்துரு"
 
 #: worksheet.cpp:2084
 #, kde-format
 msgctxt "@action"
 msgid "Font &Size"
-msgstr ""
+msgstr "எழுத்துருவின் &அளவு"
 
 #: worksheet.cpp:2090
 #, kde-format
 msgctxt "@action boldify selected text"
 msgid "&Bold"
-msgstr ""
+msgstr "&தடித்தது"
 
 #: worksheet.cpp:2101
 #, kde-format
 msgctxt "@action italicize selected text"
 msgid "&Italic"
-msgstr ""
+msgstr "&சாய்வெழுத்து"
 
 #: worksheet.cpp:2113
 #, kde-format
 msgctxt "@action underline selected text"
 msgid "&Underline"
-msgstr ""
+msgstr "அ&டிக்கோடு"
 
 #: worksheet.cpp:2124
 #, kde-format
 msgctxt "@action"
 msgid "&Strike Out"
-msgstr ""
+msgstr "&குறுக்கடி"
 
 #: worksheet.cpp:2135
 #, kde-format
 msgctxt "@action"
 msgid "Align &Left"
-msgstr ""
+msgstr "&இடப்புறமாக சீரமை"
 
 #: worksheet.cpp:2138
 #, kde-format
 msgctxt "@label left justify"
 msgid "Left"
-msgstr ""
+msgstr "இடதில்"
 
 #: worksheet.cpp:2145
 #, kde-format
 msgctxt "@action"
 msgid "Align &Center"
-msgstr ""
+msgstr "&நடுப்பகுதிக்கு சீரமை"
 
 #: worksheet.cpp:2148
 #, kde-format
 msgctxt "@label center justify"
 msgid "Center"
-msgstr ""
+msgstr "நடுவில்"
 
 #: worksheet.cpp:2155
 #, kde-format
 msgctxt "@action"
 msgid "Align &Right"
-msgstr ""
+msgstr "&வலதுபுறமாக சீரமை"
 
 #: worksheet.cpp:2158
 #, kde-format
 msgctxt "@label right justify"
 msgid "Right"
-msgstr ""
+msgstr "வலதாக"
 
 #: worksheet.cpp:2165
 #, kde-format
@@ -4514,81 +4516,82 @@ msgid ""
 "This action will remove all results without the possibility of cancellation. "
 "Are you sure?"
 msgstr ""
+"செயல்நீக்க முடியாத வித‍த்தில் அனைத்து விடைகளையும் இது நீக்கும். உறுதியாக தொடர வேண்டுமா?"
 
 #: worksheet.cpp:2863
 #, kde-format
 msgid "Remove all results"
-msgstr ""
+msgstr "அனைத்து விடைகளையும் நீக்கு"
 
 #: worksheetentry.cpp:67
 #, kde-format
 msgid "White"
-msgstr ""
+msgstr "வெள்ளை"
 
 #: worksheetentry.cpp:67
 #, kde-format
 msgid "Black"
-msgstr ""
+msgstr "கருப்பு"
 
 #: worksheetentry.cpp:68
 #, kde-format
 msgid "Dark Red"
-msgstr ""
+msgstr "கரும் சிவப்பு"
 
 #: worksheetentry.cpp:68
 #, kde-format
 msgid "Red"
-msgstr ""
+msgstr "சிவப்பு"
 
 #: worksheetentry.cpp:68
 #, kde-format
 msgid "Light Red"
-msgstr ""
+msgstr "வெளிர் சிவப்பு"
 
 #: worksheetentry.cpp:69
 #, kde-format
 msgid "Dark Green"
-msgstr ""
+msgstr "கரும் பச்சை"
 
 #: worksheetentry.cpp:69
 #, kde-format
 msgid "Green"
-msgstr ""
+msgstr "பச்சை"
 
 #: worksheetentry.cpp:69
 #, kde-format
 msgid "Light Green"
-msgstr ""
+msgstr "வெளிர் பச்சை"
 
 #: worksheetentry.cpp:70
 #, kde-format
 msgid "Dark Blue"
-msgstr ""
+msgstr "கருநீலம்"
 
 #: worksheetentry.cpp:70
 #, kde-format
 msgid "Blue"
-msgstr ""
+msgstr "நீலம்"
 
 #: worksheetentry.cpp:70
 #, kde-format
 msgid "Light Blue"
-msgstr ""
+msgstr "வெளிர் நீலம்"
 
 #: worksheetentry.cpp:71
 #, kde-format
 msgid "Dark Yellow"
-msgstr ""
+msgstr "கருமஞ்சள்"
 
 #: worksheetentry.cpp:71
 #, kde-format
 msgid "Yellow"
-msgstr ""
+msgstr "மஞ்சள்"
 
 #: worksheetentry.cpp:71
 #, kde-format
 msgid "Light Yellow"
-msgstr ""
+msgstr "வெளிர் மஞ்சல்"
 
 #: worksheetentry.cpp:72
 #, kde-format
@@ -4638,17 +4641,17 @@ msgstr ""
 #: worksheetentry.cpp:75
 #, kde-format
 msgid "Dark Grey"
-msgstr ""
+msgstr "கரும் சாம்பல்"
 
 #: worksheetentry.cpp:75
 #, kde-format
 msgid "Grey"
-msgstr ""
+msgstr "சாம்பல்"
 
 #: worksheetentry.cpp:75
 #, kde-format
 msgid "Light Grey"
-msgstr ""
+msgstr "வெளிர் சாம்பல்"
 
 #: worksheetentry.cpp:421
 #, kde-format
