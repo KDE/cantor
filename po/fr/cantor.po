@@ -13,7 +13,7 @@ msgstr ""
 "Project-Id-Version: cantor\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-09-22 00:39+0000\n"
-"PO-Revision-Date: 2023-10-25 14:32+0200\n"
+"PO-Revision-Date: 2023-10-30 09:03+0100\n"
 "Last-Translator: Xavier BESNARD <xavier.besnard@neuf.fr>\n"
 "Language-Team: fr\n"
 "Language: fr\n"
@@ -21,7 +21,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"X-Generator: Lokalize 23.08.1\n"
+"X-Generator: Lokalize 23.08.2\n"
 "X-Environment: kde\n"
 "X-Accelerator-Marker: &\n"
 "X-Text-Markup: kde4\n"
@@ -1563,7 +1563,7 @@ msgid ""
 "Use all decimal SI prefixes. If false, prefixes which is not a multiple of "
 "thousand (centi, deci, deca, hecto) will not be used automatically."
 msgstr ""
-"Utilisez tous les préfixes décimaux du SI. Si cette valeur est « false », "
+"Utilisez tous les préfixes décimaux du SI. Si cette valeur est « False », "
 "les préfixes n'étant pas un multiple de mille (centi, déci, déca, hecto) "
 "seront employés automatiquement."
 
@@ -1859,7 +1859,7 @@ msgstr ""
 msgid "Plot smoothing. One of none, unique, csplines, bezier, sbezier"
 msgstr ""
 "Lissage du tracé. Une valeur parmi « none », « unique », « csplines », "
-"« bezier », « sbezier »"
+"« Bézier », « sBézier »"
 
 #: backends/qalculate/qalculatesyntaxhelpobject.cpp:228
 #, kde-format
@@ -2538,7 +2538,7 @@ msgid ""
 msgstr ""
 "<b>Scilab</b> est un ensemble de logiciels libres et multi-plate-forme de "
 "calcul numérique ainsi qu'un langage de programmation de haut niveau. Scilab "
-"est distribué sous licence CeCILL (compatible GPL)."
+"est distribué sous licence » CeCILL » (compatible GPL)."
 
 #. i18n: ectx: label, entry (Path), group (ScilabBackend)
 #: backends/scilab/scilabbackend.kcfg:10
@@ -3061,7 +3061,7 @@ msgstr "CantorPart"
 #: cantor_part.cpp:412
 #, kde-format
 msgid "(C) 2009-2015 Alexander Rieder"
-msgstr "(C) 2009-2015 Alexander Rieder"
+msgstr "(C) 2009 - 2015 Alexander Rieder"
 
 #: cantor_part.cpp:416 main.cpp:81
 #, kde-format
@@ -3806,7 +3806,7 @@ msgstr "Interface KDE pour des applications mathématiques"
 #: main.cpp:74
 #, kde-format
 msgid "(C) 2016 Filipe Saraiva<br/>(C) 2009-2015 Alexander Rieder"
-msgstr "(C) 2016 Filipe Saraiva<br/>(C) 2009-2015 Alexander Rieder"
+msgstr "(C) 2016 Filipe Saraiva<br/>(C) 2009 - 2015 Alexander Rieder"
 
 #: main.cpp:78
 #, kde-format
@@ -3816,7 +3816,7 @@ msgstr "Filipe Saraiva"
 #: main.cpp:78
 #, kde-format
 msgid "Maintainer<br/>Qt5/KF5 port, Scilab and Python backends"
-msgstr "Mainteneur<br/>Port vers Qt5/KF5, moteur Scilab et Python"
+msgstr "Mainteneur<br/>Portage vers Qt5 / KF5, moteur Scilab et Python"
 
 #: main.cpp:79
 #, kde-format
@@ -3837,7 +3837,7 @@ msgstr "Alexander Semke"
 #: main.cpp:81
 #, kde-format
 msgid "Original author<br/>Maintainer (2009 - 2015)"
-msgstr "Auteur initial<br/> Mainteneur (2009 - 2015)"
+msgstr "Auteur initial<br/>Mainteneur (2009 - 2015)"
 
 #: main.cpp:82
 #, kde-format
@@ -3852,7 +3852,7 @@ msgstr "Moteur KAlgebra"
 #: main.cpp:83
 #, kde-format
 msgid "Miha Čančula"
-msgstr "Miha Čančula"
+msgstr "Miha Cancula"
 
 #: main.cpp:83
 #, kde-format
