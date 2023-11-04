@@ -29,7 +29,6 @@
         "Description[ta]": "தற்போதைய அமர்விலுள்ள மாறிகளைக் காட்டும் பலகை",
         "Description[tr]": "Bir oturumun değişkenleri yönetmek için bir panel",
         "Description[uk]": "Панель керування змінними сеансу",
-        "Description[x-test]": "xxA panel to manage the variables of a sessionxx",
         "Description[zh_CN]": "管理会话中变量的面板",
         "Description[zh_TW]": "管理工作階段內的變數的面板",
         "Icon": "",
@@ -60,8 +59,7 @@
         "Name[sv]": "Variabler",
         "Name[ta]": "மாறிகள்",
         "Name[tr]": "Değişkenler",
-        "Name[uk]": "Змінні",
-        "Name[x-test]": "xxVariablesxx"
+        "Name[uk]": "Змінні"
     },
     "RequiredExtensions": "VariableManagementExtension"
 }

@@ -26,7 +26,6 @@
         "Description[ta]": "பணித்தாளின் வடிவமைப்பைக் காட்டும் பலகை",
         "Description[tr]": "Çalışma sayfası yapısını gösteren bir panel",
         "Description[uk]": "Панель для показу структури робочого аркуша",
-        "Description[x-test]": "xxA panel for showing worksheet structurexx",
         "Description[zh_CN]": "显示工作表结构的面板",
         "Icon": "",
         "Id": "TOC",
@@ -59,7 +58,6 @@
         "Name[ta]": "பொருளடக்கம்",
         "Name[tr]": "İçindekiler",
         "Name[uk]": "Зміст",
-        "Name[x-test]": "xxTable Of Contentsxx",
         "Name[zh_CN]": "目录"
     },
     "RequiredExtensions": ""

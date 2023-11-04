@@ -28,7 +28,6 @@
         "Description[sv]": "En guide för att rita med bakgrundsprogrammet Qalculate.",
         "Description[tr]": "Qalculate arka ucu ile bir grafik yardımcısı.",
         "Description[uk]": "Допоміжна програма для креслення за допомогою модуля Qalculate.",
-        "Description[x-test]": "xxAn Assistant for plotting with the Qalculate backend.xx",
         "Description[zh_CN]": "用 Qalculate 后端画图的助手。",
         "Description[zh_TW]": "使用 Qalculate 後端介面的繪圖助手。",
         "Id": "Plot2d",
@@ -61,7 +60,6 @@
         "Name[sv]": "Rita med Qalculate",
         "Name[tr]": "QalculatePlot",
         "Name[uk]": "QalculatePlot",
-        "Name[x-test]": "xxQalculatePlotxx",
         "Name[zh_CN]": "QalculatePlot",
         "Name[zh_TW]": "QalculatePlot"
     },

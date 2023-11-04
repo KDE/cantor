@@ -28,7 +28,6 @@
         "Description[sv]": "Bakgrundsprogram för luajit",
         "Description[tr]": "Luajit için arka uç",
         "Description[uk]": "Модуль для luajit",
-        "Description[x-test]": "xxBackend for luajitxx",
         "Description[zh_CN]": "luajia 后端",
         "Description[zh_TW]": "luajit 後端介面",
         "Icon": "luabackend",
@@ -64,7 +63,6 @@
         "Name[sv]": "Lua",
         "Name[tr]": "Lua",
         "Name[uk]": "Lua",
-        "Name[x-test]": "xxLuaxx",
         "Name[zh_CN]": "Lua",
         "Name[zh_TW]": "Lua",
         "Website": "https://luajit.org"

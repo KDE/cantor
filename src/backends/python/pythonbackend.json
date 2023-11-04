@@ -27,7 +27,6 @@
         "Description[sv]": "Bakgrundsprogram för Python vetenskaplig programmeringsmiljö",
         "Description[tr]": "Python Bilimsel Programlaması için arka uç",
         "Description[uk]": "Модуль наукового програмування мовою Python",
-        "Description[x-test]": "xxBackend for Python Scientific Programmingxx",
         "Description[zh_CN]": "Python 科学编程环境的后端",
         "Icon": "pythonbackend",
         "Id": "Python",
@@ -61,7 +60,6 @@
         "Name[sv]": "Python",
         "Name[tr]": "Python",
         "Name[uk]": "Python",
-        "Name[x-test]": "xxPythonxx",
         "Name[zh_CN]": "Python",
         "Website": "https://python.org/"
     }
