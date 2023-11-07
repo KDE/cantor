@@ -29,6 +29,7 @@
         "Description[ta]": "உதவியைக் காட்டும் பலகை",
         "Description[tr]": "Yardımı görüntülemek üzere bir panel",
         "Description[uk]": "Панель для показу довідки",
+        "Description[x-test]": "xxA panel to display helpxx",
         "Description[zh_CN]": "显示帮助的面板",
         "Description[zh_TW]": "顯示說明的面板",
         "Icon": "",
@@ -65,6 +66,7 @@
         "Name[ta]": "உதவி",
         "Name[tr]": "Yardım",
         "Name[uk]": "Довідка",
+        "Name[x-test]": "xxHelpxx",
         "Name[zh_CN]": "帮助",
         "Name[zh_TW]": "求助"
     },

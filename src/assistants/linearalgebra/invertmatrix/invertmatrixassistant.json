@@ -28,6 +28,7 @@
         "Description[sv]": "En dialogruta med en guide för att förenkla invertering av matriser",
         "Description[tr]": "Ters matris almayı kolaylaştıran yardımcı penceresi",
         "Description[uk]": "Діалогове вікно помічника обчислення оберненої матриці",
+        "Description[x-test]": "xxAn Assistant dialog to simplify inverting of matricesxx",
         "Description[zh_CN]": "用于简化逆矩阵计算的助手对话框",
         "Description[zh_TW]": "簡化逆變換矩陣的小助手對話框",
         "Id": "Create Matrix",
@@ -60,6 +61,7 @@
         "Name[sv]": "Invertera matris",
         "Name[tr]": "Matrisi Tersine Çevir",
         "Name[uk]": "Знайти обернену матрицю",
+        "Name[x-test]": "xxInvert Matrixxx",
         "Name[zh_CN]": "逆矩阵",
         "Name[zh_TW]": "逆矩陣"
     },

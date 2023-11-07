@@ -28,6 +28,7 @@
         "Description[sv]": "Bakgrundsprogram för matematikprogramvaran Sage",
         "Description[tr]": "Sage Matematik Yazılımı için arka uç",
         "Description[uk]": "Модуль математичного програмного забезпечення Sage",
+        "Description[x-test]": "xxBackend for the Sage Mathematics Softwarexx",
         "Description[zh_CN]": "Sage 数学软件的后端",
         "Description[zh_TW]": "Sage 數學系統的後端介面",
         "Icon": "sagebackend",
@@ -63,6 +64,7 @@
         "Name[sv]": "Sage",
         "Name[tr]": "Sage",
         "Name[uk]": "Sage",
+        "Name[x-test]": "xxSagexx",
         "Name[zh_CN]": "Sage",
         "Name[zh_TW]": "Sage",
         "Website": "https://www.sagemath.org/"
