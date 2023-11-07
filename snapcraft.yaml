@@ -56,8 +56,8 @@ plugs:
         target: $SNAP_DATA/foo
 environment:
     SNAP_DESKTOP_RUNTIME: $SNAP/kf5
-    PATH_TO_CANTOR_PLUGINS: $SNAP/usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR/qt5/plugins/cantor/backends
-    QTWEBENGINEPROCESS_PATH: "$SNAP/kf5/usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR/qt5/libexec/QtWebEngineProcess"
+    PATH_TO_CANTOR_PLUGINS: $SNAP/usr/lib/$CRAFT_ARCH_TRIPLET/qt5/plugins/cantor/backends
+    QTWEBENGINEPROCESS_PATH: "$SNAP/kf5/usr/lib/$CRAFT_ARCH_TRIPLET/qt5/libexec/QtWebEngineProcess"
 hooks:
     configure:
         plugs:
@@ -170,7 +170,10 @@ parts:
         - libreadline8
         - libgl1
         - libglx-dev
+        - libpoppler-qt5-1
         - lua-any
+        - texlive-binaries
+        - texlive-latex-base
         - maxima
         - octave
         - sagemath
