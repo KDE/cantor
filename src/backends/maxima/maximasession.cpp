@@ -46,7 +46,6 @@ void MaximaSession::login()
     if (m_process)
         return; //TODO: why do we call login() again?!?
 
-    qDebug()<<"prepare the arguments";
     emit loginStarted();
     QStringList arguments;
     arguments << QLatin1String("--quiet"); //Suppress Maxima start-up message
@@ -54,11 +53,8 @@ void MaximaSession::login()
     arguments << QLatin1String("--init-lisp=") + initFile; //Set the name of the Lisp initialization file
 
     m_process = new QProcess(this);
-    qDebug()<<"start new process";
     m_process->start(MaximaSettings::self()->path().toLocalFile(), arguments);
-    qDebug()<<"start waiting";
     m_process->waitForStarted();
-    qDebug()<<"process started";
 
     // Wait until first maxima prompt
     QString input;
