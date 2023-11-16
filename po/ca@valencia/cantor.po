@@ -446,9 +446,9 @@ msgid ""
 msgstr ""
 "Actualment està implementat el GR per a Julia (https://gr-framework.org/), "
 "un entorn de treball d'aplicacions de visualització. Primer cal instal·lar "
-"este paquet, si encara no s'ha fet. Per açò, executeu Pkg.install(\"GR\") en "
-"Cantor o en un REPL de Julia. Cal tindre en compte que esta operació pot "
-"tardar una estona i és millor portar-la a terme al REPL de Julia que pot "
+"este paquet, si encara no s'ha fet. Per a fer açò, executeu Pkg.install(\"GR"
+"\") en Cantor o en un REPL de Julia. Cal tindre en compte que esta operació "
+"pot tardar una estona i és millor portar-la a terme al REPL de Julia que pot "
 "mostrar el progrés actual de la instal·lació del paquet."
 
 #. i18n: ectx: attribute (title), widget (QWidget, tabGeneral)
@@ -480,7 +480,7 @@ msgid ""
 "If enabled, plots will be shown inside of the worksheet. Otherwise, plots "
 "will be shown in an external window."
 msgstr ""
-"Si està activada, les gràfiques es mostraran dins del full de treball. "
+"Si se selecciona, les gràfiques es mostraran dins del full de treball. "
 "Altrament apareixeran en una finestra externa."
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_allowLatex)
@@ -4215,7 +4215,8 @@ msgstr "Expressions matemàtiques via LaTeX"
 msgid ""
 "If enabled, all entries below the current one will be evaluated automatically"
 msgstr ""
-"Si s'activa, totes les entrades davall de l'actual s'avaluaran automàticament"
+"Si se selecciona, s'avaluaran automàticament totes les entrades davall de "
+"l'actual"
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_AutoEval)
 #: settings.ui:171
@@ -4251,7 +4252,7 @@ msgid ""
 "If enabled, text entries are aligned at the worksheet border and not at the "
 "prompt border"
 msgstr ""
-"Si està activada, les entrades de text s'alinearan amb la vora del full de "
+"Si se selecciona, les entrades de text s'alinearan amb la vora del full de "
 "treball i no amb la vora de l'indicatiu"
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_UseOldCantorEntriesIndent)
@@ -4267,7 +4268,7 @@ msgid ""
 "If enabled, the user will be asked for confirmation prior to restarting the "
 "backend system"
 msgstr ""
-"Si s'activa, es demanarà confirmació a l'usuari abans de reiniciar el "
+"Si se selecciona, es demanarà confirmació a l'usuari abans de reiniciar el "
 "sistema del dorsal"
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_ShowMathRenderError)
