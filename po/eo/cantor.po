@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: cantor\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-11-05 12:22+0000\n"
-"PO-Revision-Date: 2023-09-19 06:40+0100\n"
+"PO-Revision-Date: 2023-11-26 20:12+0100\n"
 "Last-Translator: Oliver Kellogg <okellogg@users.sourceforge.net>\n"
 "Language-Team: esperanto <kde-i18n-eo@kde.org>\n"
 "Language: eo\n"
@@ -345,7 +345,8 @@ msgstr ""
 "<b>Julia</b> estas altnivela, alt-efikeca dinamika programlingvo por teknika "
 "komputado, kun sintakso konata al uzantoj de aliaj teknikaj komputikaj "
 "medioj. Ĝi disponigas sofistikan kompililon, distribuitan paralelan "
-"ekzekuton, nombran precizecon, kaj ampleksan matematikan funkciobibliotekon."
+"efektivigon, numeran precizecon, kaj ampleksan matematikan "
+"funkciobibliotekon."
 
 #: backends/julia/juliabackend.cpp:68
 #, kde-format
@@ -3617,7 +3618,7 @@ msgid ""
 "The program %1 didn't finish the execution after %2 milliseconds during the "
 "plot integration test."
 msgstr ""
-"La programo %1 ne finis la ekzekuton post %2 milisekundoj dum la provo de "
+"La programo %1 ne finis la efektivigon post %2 milisekundoj dum la provo de "
 "integriĝo de la desegno."
 
 #: lib/backend.cpp:210
