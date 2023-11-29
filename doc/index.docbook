@@ -27,8 +27,8 @@
 </copyright>
 <legalnotice>&FDLNotice;</legalnotice>
 
-<date>2020-12-16</date>
-<releaseinfo>Applications 20.12</releaseinfo>
+<date>2023-11-29</date>
+<releaseinfo>Applications 23.08</releaseinfo>
 
 <abstract>
 <para>
@@ -42,6 +42,7 @@ nice worksheet view to other Free Software Math packages.
 <keyword>kdeedu</keyword>
 <keyword>mathematics</keyword>
 <keyword>math</keyword>
+<keyword>statistics</keyword>
 <keyword>Cantor</keyword>
 <keyword>Julia</keyword>
 <keyword>Lua</keyword>
@@ -92,7 +93,7 @@ Screenshot:
   <listitem><para>Intuitive worksheet view for evaluating expressions.</para></listitem>
   <listitem><para>Results of graph plotting shown inside the worksheet.</para></listitem>
   <listitem><para>Easy plugin-based structure to allow different backends to be added.</para></listitem>
-  <listitem><para>GetHotNewStuff integration to allow example worksheets to be downloaded (or uploaded.)</para></listitem>
+  <listitem><para>GetHotNewStuff integration to allow example worksheets to be downloaded (or uploaded).</para></listitem>
   <listitem><para>Mathematical formula typesetting using &latex;.</para></listitem>
   <listitem><para>Backend-aware syntax highlighting.</para></listitem>
   <listitem><para>Plugin-based assistant dialogs to help with common tasks, such as integrating a function, or entering a matrix.</para></listitem>
@@ -138,7 +139,7 @@ Screenshot:
 	<para>
 	  R is a language and environment for statistical computing and graphics, similar to the S language and environment.
 	  It provides a wide variety of statistical (linear and nonlinear modelling,
-	  classical statistical tests, time-series analysis, classification, clustering, ...)
+	  classical statistical tests, time-series analysis, classification, clustering, data science, ...)
 	  and graphical techniques, and is highly extensible. The S language is often the
 	  vehicle of choice for research in statistical methodology,
 	  and R provides an open-source route to this.
@@ -150,12 +151,12 @@ Screenshot:
       <term>Julia:</term>
       <listitem>
 	<para>
-    Julia is a high-level, high-performance dynamic programming
+    Julia is a high-level, high-performance, general-purpose dynamic programming
     language for technical computing, with syntax that is familiar to users of
     other technical computing environments. It provides a sophisticated
     compiler, distributed parallel execution, numerical accuracy, and an
     extensive mathematical function library.
-	  See <ulink url="https://docs.julialang.org/en/">Julia documentation</ulink> for more information.
+	  See <ulink url="https://julialang.org/">Julia website</ulink> for more information.
 	</para>
       </listitem>
     </varlistentry>
@@ -230,7 +231,7 @@ to scientific programming.
     computations. It provides a convenient command line interface for
     solving linear and nonlinear problems numerically, and for performing other
     numerical experiments using a language that is mostly compatible with <ulink url="https://www.mathworks.com/products/matlab.html">MATLAB</ulink>.
-    See <ulink url="https://www.gnu.org/software/octave/">https://www.gnu.org/software/octave/</ulink> for more information.
+    See <ulink url="https://octave.org/">https://octave.org/</ulink> for more information.
     </para>
       </listitem>
     </varlistentry>
@@ -244,7 +245,7 @@ to scientific programming.
     See <ulink url="https://www.lua.org/">https://www.lua.org/</ulink> for more information.
   </para>
   <para>
-    This backend supports <ulink url="https://luajit.org/">luajit 2</ulink>.
+    This backend supports <ulink url="https://luajit.org/">LuaJIT 2</ulink>.
   </para>
       </listitem>
     </varlistentry>
