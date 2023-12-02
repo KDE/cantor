@@ -39,9 +39,9 @@
 >&FDLNotice;</legalnotice>
 
 <date
->2020-12-16</date>
+>2023-11-29</date>
 <releaseinfo
->Applicaties 20.12</releaseinfo>
+>Applications 23.08</releaseinfo>
 
 <abstract>
 <para
@@ -57,6 +57,8 @@
 >wiskunde</keyword>
 <keyword
 >wiskunde</keyword>
+<keyword
+>statistieken</keyword>
 <keyword
 >Cantor</keyword>
 <keyword
@@ -177,7 +179,7 @@
 >R:</term>
       <listitem>
 	<para
->R is een taal en omgeving voor statistische berekeningen en grafieken, te vergelijken met die van S. Het levert een grote verscheidenheid aan statistische (lineaire en niet- lineaire modellen, klassieke statistische tests, analyse van tijdreeksen, klassificeren, clusteranalyse, ...) en grafische technieken, en kan heel goed worden uitgebreid. De S-taal wordt vaak gebruikt voor onderzoek in statistische methoden, en R is de open-source mogelijkheid hiervoor.  Zie <ulink url="https://www.r-project.org"
+>R is een taal en omgeving voor statistische berekeningen en grafieken, te vergelijken met die van S. Het levert een grote verscheidenheid aan statistische (lineaire en niet- lineaire modellen, klassieke statistische tests, analyse van tijdreeksen, classificeren, clusteranalyse, gegevenswetenschap, ...) en grafische technieken en kan heel goed worden uitgebreid. De S-taal wordt vaak gebruikt voor onderzoek in statistische methoden, en R is de open-source mogelijkheid hiervoor.  Zie <ulink url="https://www.r-project.org"
 >https://www.r-project.org</ulink
 > voor meer informatie. </para>
       </listitem>
@@ -187,8 +189,8 @@
 >Julia:</term>
       <listitem>
 	<para
->Julia is een zeer krachtige dynamische programmeertaal van hoog niveau voor technische berekeningen. De syntax is bekend voor wie ervaring heeft met andere technische omgevingen. De compiler is geavanceerd, kent een verdeelde parallelle verwerking, en is numeriek  nauwkeurig, Er is een uitvoerige wiskundige bibliotheek aanwezig. Meer informatie vindt u op <ulink url="https://docs.julialang.org/en/"
->Julia documentation</ulink
+>Julia is een zeer krachtige dynamische programmeertaal voor algemeen gebruik, van hoog niveau voor technische berekeningen. De syntax is bekend voor wie ervaring heeft met andere technische omgevingen. De compiler is geavanceerd, kent een verdeelde parallelle verwerking en is numeriek  nauwkeurig, Er is een uitvoerige wiskundige bibliotheek aanwezig. Meer informatie vindt u op <ulink url="https://julialang.org/"
+>Julia website</ulink
 >. </para>
       </listitem>
     </varlistentry>
@@ -261,8 +263,8 @@
 >MATLAB</ulink
 >. Zie <ulink url="https://www.mathworks.com/products/matlab.html"
 >MATLAB</ulink
->. Zie <ulink url="https://www.gnu.org/software/octave/"
->https://www.gnu.org/software/octave/</ulink
+>. Zie <ulink url="https://octave.org/"
+>https://octave.org/</ulink
 > voor meer informatie. </para>
       </listitem>
     </varlistentry>
@@ -278,7 +280,7 @@
 > voor meer  informatie. </para>
   <para
 >Deze backend ondersteunt <ulink url="https://luajit.org/"
->luajit 2</ulink
+>LuaJIT 2</ulink
 >. </para>
       </listitem>
     </varlistentry>

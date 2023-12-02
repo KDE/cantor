@@ -53,9 +53,9 @@
 >&FDLNotice;</legalnotice>
 
 <date
->2020-12-16</date>
+>2023-11-29</date>
 <releaseinfo
->Aplicaciones 20.12</releaseinfo>
+>Aplicaciones 23.08</releaseinfo>
 
 <abstract>
 <para
@@ -71,6 +71,8 @@
 >matemáticas</keyword>
 <keyword
 >matemáticas</keyword>
+<keyword
+>estadísticas</keyword>
 <keyword
 >Cantor</keyword>
 <keyword
@@ -191,9 +193,9 @@
 >R:</term>
       <listitem>
 	<para
->R es un lenguaje y entorno de programación para análisis estadístico y gráfico, similar al lenguaje y entorno S. Proporciona una amplia variedad de herramientas estadísticas (modelos lineales y no lineales, pruebas estadísticas clásicas, análisis de series temporales, algoritmos de clasificación y agrupamiento, etc.) y gráficas, y es altamente configurable. El lenguaje S es una de las herramientas más usadas en la investigación sobre metodología estadística y en este sentido, R proporciona una alternativa de código abierta. Vea <ulink url="https://www.r-project.org"
+>R es un lenguaje y entorno de programación para análisis estadístico y gráfico, similar al lenguaje y entorno S. Proporciona una amplia variedad de herramientas estadísticas (modelos lineales y no lineales, pruebas estadísticas clásicas, análisis de series temporales, algoritmos de clasificación, agrupamiento, datos científicos, etc.) y gráficas, y es altamente extensible. El lenguaje S es una de las herramientas más usadas en la investigación sobre metodología estadística y, en este sentido, R proporciona una alternativa de código abierta. Consulte <ulink url="https://www.r-project.org"
 >https://www.r-project.org</ulink
-> si desea obtener más información. </para>
+> para obtener más información. </para>
       </listitem>
     </varlistentry>
     <varlistentry>
@@ -201,8 +203,8 @@
 >Julia:</term>
       <listitem>
 	<para
->Julia es un lenguaje de programación de alto nivel y de alto rendimiento para cálculos técnicos, con sintaxis que resulta familiar a los usuarios de otros entornos de cálculo técnico. Proporciona un sofisticado compilador, ejecución paralela distribuida, precisión numérica y una amplia biblioteca de funciones matemáticas. Consulte la <ulink url="https://docs.julialang.org/en/"
->documentación de Julia</ulink
+>Julia es un lenguaje de programación dinámico de alto nivel, de alto rendimiento y de propósito general para cálculos técnicos, con una sintaxis que resulta familiar a los usuarios de otros entornos de cálculo técnico. Proporciona un sofisticado compilador, ejecución paralela distribuida, precisión numérica y una amplia biblioteca de funciones matemáticas. Consulte el <ulink url="https://julialang.org/"
+>sitio web de Julia</ulink
 > para más información. </para>
       </listitem>
     </varlistentry>
@@ -273,8 +275,8 @@
   <para
 >&GNU; Octave es un lenguaje de alto nivel, principalmente concebido para cálculos numéricos. Proporciona una interfaz de línea de órdenes apropiada para resolver numéricamente problemas lineales y no lineales, y para realizar otros experimentos numéricos usando un lenguaje que es muy compatible con <ulink url="https://www.mathworks.com/products/matlab.html"
 >MATLAB</ulink
->. Consulte <ulink url="https://www.gnu.org/software/octave/"
->https://www.gnu.org/software/octave/</ulink
+>. Consulte <ulink url="https://octave.org/"
+>https://octave.org/</ulink
 > para más información. </para>
       </listitem>
     </varlistentry>
@@ -290,7 +292,7 @@
 > para obtener más información. </para>
   <para
 >Este motor permite el uso de <ulink url="https://luajit.org/"
->luajit 2</ulink
+>LuaJIT 2</ulink
 >. </para>
       </listitem>
     </varlistentry>

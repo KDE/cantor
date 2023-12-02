@@ -39,9 +39,9 @@
 >&FDLNotice;</legalnotice>
 
 <date
->16 de desembre de 2020</date>
+>29 de novembre de 2023</date>
 <releaseinfo
->Aplicacions 20.12</releaseinfo>
+>Aplicacions 23.08</releaseinfo>
 
 <abstract>
 <para
@@ -57,6 +57,8 @@
 >matemàtiques</keyword>
 <keyword
 >matemàtica</keyword>
+<keyword
+>estadística</keyword>
 <keyword
 >Cantor</keyword>
 <keyword
@@ -177,7 +179,7 @@
 >R:</term>
       <listitem>
 	<para
->L'«R» és un llenguatge i un entorn per a computació i gràfiques estadístiques, similar al llenguatge i entorn «S». Ofereix una àmplia varietat de tècniques estadístiques (modelatge lineal i no lineal, proves estadístiques clàssiques, anàlisi de sèries temporals, classificació, clustering...) i gràfiques, i és altament extensible. El llenguatge «S» sovint és el vehicle escollit per a la recerca en metodologia estadística, i «R» ofereix una via de codi obert per a participar en aquesta activitat. Per a més informació, vegeu <ulink url="https://www.r-project.org"
+>L'«R» és un llenguatge i un entorn per a computació i gràfiques estadístiques, similar al llenguatge i entorn «S». Ofereix una àmplia varietat de tècniques estadístiques (modelatge lineal i no lineal, proves estadístiques clàssiques, anàlisi de sèries temporals, classificació, anàlisi de clústers, ciència de dades...) i gràfiques, i és altament ampliable. El llenguatge «S» sovint és el vehicle escollit per a la recerca en metodologia estadística, i «R» ofereix una via de codi obert per a participar en aquesta activitat. Per a més informació, vegeu <ulink url="https://www.r-project.org"
 >https://www.r-project.org</ulink
 >. </para>
       </listitem>
@@ -187,7 +189,7 @@
 >Julia:</term>
       <listitem>
 	<para
->El «Julia» és un llenguatge de programació d'alt nivell i rendiment per a la computació tècnica, amb una sintaxi que és familiar per als usuaris d'altres entorns de computació tècnica. Proporciona un compilador sofisticat, execució en paral·lel distribuïda, precisió numèrica i una extensa biblioteca de funcions matemàtiques. Per a més informació, vegeu la <ulink url="https://docs.julialang.org/en/"
+>El «Julia» és un llenguatge de programació dinàmica d'alt nivell i rendiment de propòsit general per a la computació tècnica, amb una sintaxi que és familiar als usuaris d'altres entorns de computació tècnica. Proporciona un compilador sofisticat, execució en paral·lel distribuïda, precisió numèrica i una extensa biblioteca de funcions matemàtiques. Per a més informació, vegeu la <ulink url="https://julialang.org/"
 >documentació de Julia</ulink
 >. </para>
       </listitem>
@@ -259,8 +261,8 @@
   <para
 >L'«Octave» de &GNU; és un llenguatge d'alt nivell orientat principalment al càlcul numèric. Ofereix una línia d'ordres còmoda per tal de resoldre problemes lineals i no lineals numèricament, i per a efectuar altres experiments numèrics utilitzant un llenguatge que és altament compatible amb «<ulink url="https://www.mathworks.com/products/matlab/"
 >MATLAB</ulink
->». Per a més informació, vegeu <ulink url="https://www.gnu.org/software/octave/"
->https://www.gnu.org/software/octave/</ulink
+>». Per a més informació, vegeu <ulink url="https://octave.org/"
+>https://octave.org/</ulink
 >. </para>
       </listitem>
     </varlistentry>
@@ -276,7 +278,7 @@
 >. </para>
   <para
 >Aquest dorsal només admet <ulink url="https://luajit.org/"
->luajit 2</ulink
+>LuaJIT 2</ulink
 >. </para>
       </listitem>
     </varlistentry>
