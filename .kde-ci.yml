@@ -4,22 +4,22 @@
 Dependencies:
 - 'on': ['@all']
   'require':
-    'frameworks/extra-cmake-modules': '@stable'
-    'frameworks/kconfig': '@stable'
-    'frameworks/kcrash': '@stable'
-    'frameworks/kcompletion': '@stable'
-    'frameworks/kdoctools': '@stable'
-    'frameworks/knewstuff': '@stable'
-    'frameworks/kiconthemes': '@stable'
-    'frameworks/ktexteditor': '@stable'
-    'frameworks/kcoreaddons': '@stable'
-    'frameworks/karchive': '@stable'
-    'frameworks/kparts': '@stable'
-    'frameworks/syntax-highlighting': '@stable'
-    'frameworks/ktextwidgets': '@stable'
-    'frameworks/kio': '@stable'
-    'frameworks/kxmlgui': '@stable'
-    'frameworks/ki18n': '@stable'
+    'frameworks/extra-cmake-modules': '@lastest-kf6'
+    'frameworks/kconfig': '@latest-kf6'
+    'frameworks/kcrash': '@latest-kf6'
+    'frameworks/kcompletion': '@latest-kf6'
+    'frameworks/kdoctools': '@latest-kf6'
+    'frameworks/knewstuff': '@latest-kf6'
+    'frameworks/kiconthemes': '@latest-kf6'
+    'frameworks/ktexteditor': '@latest-kf6'
+    'frameworks/kcoreaddons': '@latest-kf6'
+    'frameworks/karchive': '@latest-kf6'
+    'frameworks/kparts': '@latest-kf6'
+    'frameworks/syntax-highlighting': '@latest-kf6'
+    'frameworks/ktextwidgets': '@latest-kf6'
+    'frameworks/kio': '@latest-kf6'
+    'frameworks/kxmlgui': '@latest-kf6'
+    'frameworks/ki18n': '@latest-kf6'
 
 Options:
   require-passing-tests-on: ['@all']
