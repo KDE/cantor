@@ -43,6 +43,7 @@ void BackendSettingsWidget::tabChanged(int index) {
         {
             m_docWidget = new QtHelpConfig(m_id);
             auto hboxLayout = new QHBoxLayout(m_tabDocumentation);
+            hboxLayout->setContentsMargins({});
             hboxLayout->addWidget(m_docWidget);
         }
     }

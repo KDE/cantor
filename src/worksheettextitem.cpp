@@ -795,7 +795,8 @@ void WorksheetTextItem::updateRichTextActions(QTextCursor cursor)
     info.italic = fmt.fontItalic();
     info.underline = fmt.fontUnderline();
     info.strikeOut = fmt.fontStrikeOut();
-    info.font = fmt.fontFamily();
+    const auto families = fmt.fontFamilies().toStringList();
+    info.font = families.isEmpty() ? qApp->font().families().first() : families.first();
     info.fontSize = fmt.font().pointSize();
 
     QTextBlockFormat bfmt = cursor.blockFormat();

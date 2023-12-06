@@ -325,7 +325,7 @@ void CantorShell::addWorksheet(const QString& backendName)
     // name which is a bad idea usually.. but it's alright in this
     // case since our Part is made for this Shell
 
-    const auto partResult = KPluginFactory::instantiatePlugin<KParts::ReadWritePart>(KPluginMetaData(QStringLiteral("kf5/parts/cantorpart")), m_tabWidget, {backendName});
+    const auto partResult = KPluginFactory::instantiatePlugin<KParts::ReadWritePart>(KPluginMetaData(QStringLiteral("kf6/parts/cantorpart")), m_tabWidget, {backendName});
 
     if (partResult)
     {
@@ -623,6 +623,8 @@ void CantorShell::closeEvent(QCloseEvent* event) {
 void CantorShell::showSettings()
 {
     KConfigDialog *dialog = new KConfigDialog(this,  QLatin1String("settings"), Settings::self());
+    dialog->setFaceType(KPageDialog::FlatList);
+    dialog->resize(1000, 700);
 
     QWidget *generalSettings = new QWidget;
     Ui::SettingsBase base;

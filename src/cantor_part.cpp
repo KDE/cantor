@@ -111,6 +111,7 @@ CantorPart::CantorPart(QObject* parent, const QVariantList& args)
 
     QWidget* centralWidget = new QWidget(widget());
     QVBoxLayout* layout = new QVBoxLayout(centralWidget);
+    layout->setContentsMargins({});
     m_worksheet = new Worksheet(b, centralWidget);
     m_worksheetview = new WorksheetView(m_worksheet, centralWidget);
     m_worksheetview->setEnabled(false); //disable input until the session has successfully logged in and emits the ready signal
