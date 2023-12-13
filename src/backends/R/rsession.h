@@ -6,7 +6,6 @@
 #ifndef _RSESSION_H
 #define _RSESSION_H
 
-#include <QRegExp>
 #include <QStringList>
 
 #include "session.h"

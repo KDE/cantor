@@ -31,9 +31,9 @@ RHighlighter::RHighlighter(QObject* parent, RSession* session) : Cantor::Default
 
     addKeywords(RKeywords::instance()->keywords());
 
-    foreach (const QString& s, operators_list)
+    for (const QString& s : std::as_const(operators_list))
         addRule(QRegularExpression(s), operatorFormat());
-    foreach (const QString& s, specials_list)
+    for (const QString& s : std::as_const(specials_list))
         addRule(QRegularExpression(QLatin1String("\\b")+s+QLatin1String("\\b")), commentFormat());
 
     addRule(QRegularExpression(QStringLiteral("\"[^\"]*\"")), stringFormat());

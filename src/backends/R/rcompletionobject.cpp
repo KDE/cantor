@@ -69,7 +69,7 @@ void RCompletionObject::receiveCompletions(Cantor::Expression::Status status)
                 /* Adding previous symbol to token, ugly but effective */
                 QString lastchar(command().at(command().length()-1));
                 setCommand(lastchar);
-                setCompletions(QStringList(options).replaceInStrings(QRegExp(QLatin1String("^")), lastchar));
+                setCompletions(QStringList(options).replaceInStrings(QRegularExpression(QLatin1String("^")), lastchar));
             }
             else
             {

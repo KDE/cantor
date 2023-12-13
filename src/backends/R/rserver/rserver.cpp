@@ -14,7 +14,6 @@
 #include "settings.h"
 
 #include <QApplication>
-#include <QDesktopWidget>
 #include <QDir>
 #include <QUrl>
 
@@ -93,7 +92,8 @@ void RServer::initR()
     }
 
     //Loading automatic run scripts
-    foreach (const QString& path, RServerSettings::self()->autorunScripts())
+    const auto scripts = RServerSettings::self()->autorunScripts();
+    for (const QString& path : scripts)
     {
         int errorOccurred=0;
         if (QFile::exists(path))
@@ -569,8 +569,8 @@ void RServer::newPlotDevice()
     else // PNG
     {
         // convert the size from cm to pixels with the current desktop resolution
-        w = w / 2.54 * QApplication::desktop()->physicalDpiX();
-        h = h / 2.54 * QApplication::desktop()->physicalDpiX();
+        w = w / 2.54 * qApp->devicePixelRatio();
+        h = h / 2.54 * qApp->devicePixelRatio();
         command = QLatin1String("png(\"%1\", width = %2, height = %3)");
         extension = QLatin1String("png");
     }

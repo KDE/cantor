@@ -8,7 +8,7 @@
 
 #include "defaulthighlighter.h"
 
-#include <QRegExp>
+#include <QRegularExpression>
 
 class RSession;
 
@@ -24,15 +24,15 @@ class RHighlighter : public Cantor::DefaultHighlighter
     QStringList parseBlockTextToWords(const QString& text) override;
 
   private:
-    inline void formatRule(const QRegExp &p, const QTextCharFormat &fmt, const QString& text,bool shift=false);
-    inline void massFormat(const QVector<QRegExp>& rules, const QTextCharFormat &fmt, const QString& text,bool shift=false);
+    inline void formatRule(const QRegularExpression &p, const QTextCharFormat &fmt, const QString& text,bool shift=false);
+    inline void massFormat(const QVector<QRegularExpression>& rules, const QTextCharFormat &fmt, const QString& text,bool shift=false);
 
     static const QStringList operators_list;
     static const QStringList specials_list;
-    QVector<QRegExp> operators;
-    QVector<QRegExp> specials;
-    QVector<QRegExp> functions;
-    QVector<QRegExp> variables;
+    QVector<QRegularExpression> operators;
+    QVector<QRegularExpression> specials;
+    QVector<QRegularExpression> functions;
+    QVector<QRegularExpression> variables;
 };
 
 #endif /* _RHIGHLIGHTER_H */

@@ -1316,7 +1316,7 @@ void Worksheet::saveLatex(const QString& filename)
     xmlDocPtr output = xmlReadDoc((const xmlChar *)toXML().toString().toStdString().c_str(), nullptr, encoding.c_str(), XML_PARSE_RECOVER);
 
     const char *params[16+1];
-    params[0] = NULL;
+    params[0] = nullptr;
     auto res = xsltApplyStylesheet(xsltStyleSheet, output, params);
     if (res) {
         xmlChar *xmlResultBuffer = nullptr;

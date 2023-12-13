@@ -16,6 +16,7 @@
 #include <KLocalizedString>
 #include <QMimeType>
 #include <QMimeDatabase>
+#include <QRegularExpression>
 #include <QFile>
 
 RExpression::RExpression( Cantor::Session* session, bool internal ) : Cantor::Expression(session, internal)
@@ -115,7 +116,7 @@ void RExpression::showFilesAsResult(const QStringList& files)
                 //Escape whitespace
                 content.replace( QLatin1Char(' '), QLatin1String("&nbsp;"));
                 //replace appearing backspaces, as they mess the whole output up
-                content.remove(QRegExp(QLatin1String(".\b")));
+                content.remove(QRegularExpression(QLatin1String(".\b")));
             }
             else
                 content.remove(QLatin1String("_\b"));
