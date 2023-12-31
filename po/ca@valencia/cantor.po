@@ -471,8 +471,7 @@ msgstr "No s'ha pogut iniciar el procés de Julia."
 #: backends/julia/juliasession.cpp:252
 #, kde-format
 msgid "Communication with Julia process failed for unknown reasons."
-msgstr ""
-"Ha fallat la comunicació amb el procés de Julia per motius desconeguts."
+msgstr "No s'ha pogut comunicar amb el procés de Julia per motius desconeguts."
 
 #: backends/julia/juliasession.cpp:322
 #, kde-format
@@ -1061,7 +1060,7 @@ msgstr "No s'ha pogut iniciar el servidor de Python de Cantor."
 #, kde-format
 msgid "Communication with Cantor python server failed for unknown reasons."
 msgstr ""
-"Ha fallat la comunicació amb el servidor de Python de Cantor per motius "
+"No s'ha pogut comunicar amb el servidor de Python de Cantor per motius "
 "desconeguts."
 
 #: backends/python/pythonsession.cpp:308
