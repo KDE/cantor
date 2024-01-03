@@ -100,8 +100,8 @@
             "sources": [
                 {
                     "type": "git",
-                    "url": "https://invent.kde.org/kde/analitza.git",
-                    "branch": "master"
+                    "url": "https://invent.kde.org/education/analitza.git",
+                    "branch": "release/23.08"
                 }
             ]
         },
