@@ -1,0 +1,495 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<QtHelpProject version="1.0">
+    <namespace>org.kde.R-intro.4.2.0</namespace>
+
+    <virtualFolder>doc</virtualFolder>
+
+    <customFilter name="R">
+        <filterAttribute>R</filterAttribute>
+        <filterAttribute>4.2.0</filterAttribute>
+    </customFilter>
+
+    <filterSection>
+        <toc>
+            <section title="An Introduction to R" ref="R-intro.html">
+                <section title="Preface" ref="R-intro.html#Preface"></section>
+                <section title="1 Introduction and preliminaries" ref="R-intro.html#Introduction-and-preliminaries">
+                    <section title="1.1 The R environment" ref="R-intro.html#The-R-environment">1.1 </section>
+                    <section title="1.2 Related software and documentation" ref="R-intro.html#Related-software-and-documentation"></section>
+                    <section title="1.3 R and statistics" ref="R-intro.html#R-and-statistics"></section>
+                    <section title="1.4 R and the window system" ref="R-intro.html#R-and-the-window-system"></section>
+                    <section title="1.5 Using R interactively" ref="R-intro.html#Using-R-interactively"></section>
+                    <section title="1.6 An introductory session" ref="R-intro.html#An-introductory-session"></section>
+                    <section title="1.7 Getting help with functions and features" ref="R-intro.html#Getting-help"></section>
+                    <section title="1.8 R commands, case sensitivity, etc." ref="R-intro.html#R-commands_003b-case-sensitivity-etc"></section>
+                    <section title="1.9 Recall and correction of previous commands" ref="R-intro.html#Recall-and-correction-of-previous-commands"></section>
+                    <section title="1.10 Executing commands from or diverting output to a file" ref="R-intro.html#Executing-commands-from-or-diverting-output-to-a-file"></section>
+                    <section title="1.11 Data permanency and removing objects" ref="R-intro.html#Data-permanency-and-removing-objects"></section>
+                </section>
+                
+                <section title="2 Simple manipulations; numbers and vectors" ref="R-intro.html#Simple-manipulations-numbers-and-vectors">
+                    <section title="2.1 Vectors and assignment" ref="R-intro.html#Vectors-and-assignment"></section>
+                    <section title="2.2 Vector arithmetic" ref="R-intro.html#Vector-arithmetic"></section>
+                    <section title="2.3 Generating regular sequences" ref="R-intro.html#Generating-regular-sequences"></section>
+                    <section title="2.4 Logical vectors" ref="R-intro.html#Logical-vectors"></section>
+                    <section title="2.5 Missing value" ref="R-intro.html#Missing-values">s</section>
+                    <section title="2.6 Character vectors" ref="R-intro.html#Character-vectors"></section>
+                    <section title="2.7 Index vectors; selecting and modifying subsets of a data set" ref="R-intro.html#Index-vectors"></section>
+                    <section title="2.8 Other types of objects" ref="R-intro.html#Other-types-of-objects"></section>
+                </section>
+  
+                <section title="3 Objects, their modes and attributes" ref="R-intro.html#Objects">
+                    <section title="3.1 Intrinsic attributes: mode and length" ref="R-intro.html#The-intrinsic-attributes-mode-and-length"></section>
+                    <section title="3.2 Changing the length of an object" ref="R-intro.html#Changing-the-length-of-an-object"></section>
+                    <section title="3.3 Getting and setting attributes" ref="R-intro.html#Getting-and-setting-attributes"></section>
+                    <section title="3.4 The class of an object" ref="R-intro.html#The-class-of-an-object"></section>
+                </section>
+  
+                <section title="4 Ordered and unordered factors" ref="R-intro.html#Factors">
+                    <section title="4.1 A specific example" ref="R-intro.html#A-specific-example"></section>
+                    <section title="4.2 The function tapply() and ragged arrays" ref="R-intro.html#The-function-tapply_0028_0029-and-ragged-arrays"></section>
+                    <section title="4.3 Ordered factors" ref="R-intro.html#Ordered-factors"></section>
+                </section>
+
+                <section title="5 Arrays and matrices" ref="R-intro.html#Arrays-and-matrices">
+                    <section title="5.1 Arrays" ref="R-intro.html#Arrays"></section>
+                    <section title="5.2 Array indexing.  Subsections of an array" ref="R-intro.html#Array-indexing"></section>
+                    <section title="5.3 Index matrices" ref="R-intro.html#Index-matrices"></section>
+                    <section title="5.4 The array() function" ref="R-intro.html#The-array_0028_0029-function">
+                        <section title="5.4.1 Mixed vector and array arithmetic. The recycling rule" ref="R-intro.html#The-recycling-rule"></section>
+                    </section>
+                    <section title="5.5 The outer product of two arrays" ref="R-intro.html#The-outer-product-of-two-arrays"></section>
+                    <section title="5.6 Generalized transpose of an array" ref="R-intro.html#Generalized-transpose-of-an-array"></section>
+                    <section title="5.7 Matrix facilities" ref="R-intro.html#Matrix-facilities">
+                        <section title="5.7.1 Matrix multiplication" ref="R-intro.html#Multiplication"></section>
+                        <section title="5.7.2 Linear equations and inversion" ref="R-intro.html#Linear-equations-and-inversion"></section>
+                        <section title="5.7.3 Eigenvalues and eigenvectors" ref="R-intro.html#Eigenvalues-and-eigenvectors"></section>
+                        <section title="5.7.4 Singular value decomposition and determinants" ref="R-intro.html#Singular-value-decomposition-and-determinants"></section>
+                        <section title="5.7.5 Least squares fitting and the QR decomposition" ref="R-intro.html#Least-squares-fitting-and-the-QR-decomposition"></section>
+                    </section>
+                    <section title="5.8 Forming partitioned matrices, cbind() and rbind()" ref="R-intro.html#Forming-partitioned-matrices"></section>
+                    <section title="5.9 The concatenation function, c(), with arrays" ref="R-intro.html#The-concatenation-function-c_0028_0029-with-arrays"></section>
+                    <section title="5.10 Frequency tables from factors" ref="R-intro.html#Frequency-tables-from-factors"></section>
+                </section>
+  
+                <section title="6 Lists and data frames" ref="R-intro.html#Lists-and-data-frames">
+                    <section title="6.1 Lists" ref="R-intro.html#Lists">
+                        <section title="6.2 Constructing and modifying lists" ref="R-intro.html#Constructing-and-modifying-lists"></section>
+                    </section>
+                    <section title="6.2.1 Concatenating lists" ref="R-intro.html#Concatenating-lists"></section>
+                    <section title="6.3 Data frames" ref="R-intro.html#Data-frames">
+                        <section title="6.3.1 Making data frames" ref="R-intro.html#Making-data-frames"></section>
+                        <section title="6.3.2 attach() and detach()" ref="R-intro.html#attach_0028_0029-and-detach_0028_0029"></section>
+                        <section title="6.3.3 Working with data frames" ref="R-intro.html#Working-with-data-frames"></section>
+                        <section title="6.3.4 Attaching arbitrary lists" ref="R-intro.html#Attaching-arbitrary-lists"></section>
+                        <section title="6.3.5 Managing the search path" ref="R-intro.html#Managing-the-search-path"></section>
+                    </section>
+                </section>
+
+                <section title="7 Reading data from files" ref="R-intro.html#Reading-data-from-files">
+                    <section title="7.1 The read.table() function" ref="R-intro.html#The-read_002etable_0028_0029-function"></section>
+                    <section title="7.2 The scan() function" ref="R-intro.html#The-scan_0028_0029-function"></section>
+                    <section title="7.3 Accessing builtin datasets" ref="R-intro.html#Accessing-builtin-datasets">
+                        <section title="7.3.1 Loading data from other R packages" ref="R-intro.html#Loading-data-from-other-R-packages"></section>
+                    </section>
+                    <section title="7.4 Editing data" ref="R-intro.html#Editing-data"></section>
+                </section>
+    
+                <section title="8 Probability distributions" ref="R-intro.html#Probability-distributions">
+                    <section title="8.1 R as a set of statistical tables" ref="R-intro.html#R-as-a-set-of-statistical-tables"></section>
+                    <section title="8.2 Examining the distribution of a set of data" ref="R-intro.html#Examining-the-distribution-of-a-set-of-data"></section>
+                    <section title="8.3 One- and two-sample tests" ref="R-intro.html#One_002d-and-two_002dsample-tests"></section>
+                </section>
+            
+                <section title="9 Grouping, loops and conditional execution" ref="R-intro.html#Loops-and-conditional-execution">
+                    <section title="9.1 Grouped expressions" ref="R-intro.html#Grouped-expressions"></section>
+                    <section title="9.2 Control statements" ref="R-intro.html#Control-statements">
+                        <section title="9.2.1 Conditional execution: if statements" ref="R-intro.html#Conditional-execution"></section>
+                        <section title="9.2.2 Repetitive execution: for loops, repeat and while" ref="R-intro.html#Repetitive-execution"></section>
+                    </section>
+                </section>
+            
+                <section title="10 Writing your own functions" ref="R-intro.html#Writing-your-own-functions">
+                    <section title="10.1 Simple examples" ref="R-intro.html#Simple-examples"></section>
+                    <section title="10.2 Defining new binary operators" ref="R-intro.html#Defining-new-binary-operators"></section>
+                    <section title="10.3 Named arguments and defaults" ref="R-intro.html#Named-arguments-and-defaults"></section>
+                    <section title="10.4 The ‘…’ argument" ref="R-intro.html#The-three-dots-argument"></section>
+                    <section title="10.5 Assignments within functions" ref="R-intro.html#Assignment-within-functions"></section>
+                    <section title="10.6 More advanced examples" ref="R-intro.html#More-advanced-examples">
+                        <section title="10.6.1 Efficiency factors in block designs" ref="R-intro.html#Efficiency-factors-in-block-designs"></section>
+                        <section title="10.6.2 Dropping all names in a printed array" ref="R-intro.html#Dropping-all-names-in-a-printed-array"></section>
+                        <section title="10.6.3 Recursive numerical integration" ref="R-intro.html#Recursive-numerical-integration"></section>
+                    </section>
+                    <section title="10.7 Scope" ref="R-intro.html#Scope"></section>
+                    <section title="10.8 Customizing the environment" ref="R-intro.html#Customizing-the-environment"></section>
+                    <section title="10.9 Classes, generic functions and object orientation" ref="R-intro.html#Object-orientation"></section>
+                </section>
+            
+                <section title="11 Statistical models in R" ref="R-intro.html#Statistical-models-in-R">
+                    <section title="11.1 Defining statistical models; formulae" ref="R-intro.html#Formulae-for-statistical-models">
+                        <section title="11.1.1 Contrasts" ref="R-intro.html#Contrasts"></section>
+                    </section>
+                    <section title="11.2 Linear models" ref="R-intro.html#Linear-models"></section>
+                    <section title="11.3 Generic functions for extracting model information" ref="R-intro.html#Generic-functions-for-extracting-model-information"></section>
+                    <section title="11.4 Analysis of variance and model comparison" ref="R-intro.html#Analysis-of-variance-and-model-comparison">
+                        <section title="11.4.1 ANOVA tables" ref="R-intro.html#ANOVA-tables"></section>
+                    </section>
+                    <section title="11.5 Updating fitted models" ref="R-intro.html#Updating-fitted-models"></section>
+                    <section title="11.6 Generalized linear models" ref="R-intro.html#Generalized-linear-models">
+                        <section title="11.6.1 Families" ref="R-intro.html#Families"></section>
+                        <section title="11.6.2 The glm() function" ref="R-intro.html#The-glm_0028_0029-function"></section>
+                    </section>
+                    <section title="11.7 Nonlinear least squares and maximum likelihood models" ref="R-intro.html#Nonlinear-least-squares-and-maximum-likelihood-models">
+                        <section title="11.7.1 Least squares" ref="R-intro.html#Least-squares"></section>
+                        <section title="11.7.2 Maximum likelihood" ref="R-intro.html#Maximum-likelihood"></section>
+                    </section>
+                    <section title="11.8 Some non-standard models" ref="R-intro.html#Some-non_002dstandard-models"></section>
+                </section>
+                
+                <section title="12 Graphical procedures" ref="R-intro.html#Graphics">
+                    <section title="12.1 High-level plotting commands" ref="R-intro.html#High_002dlevel-plotting-commands">
+                        <section title="12.1.1 The plot() function" ref="R-intro.html#The-plot_0028_0029-function"></section>
+                        <section title="12.1.2 Displaying multivariate data" ref="R-intro.html#Displaying-multivariate-data"></section>
+                        <section title="12.1.3 Display graphics" ref="R-intro.html#Display-graphics"></section>
+                        <section title="12.1.4 Arguments to high-level plotting functions" ref="R-intro.html#Arguments-to-high_002dlevel-plotting-functions"></section>
+                    </section>
+                    <section title="12.2 Low-level plotting commands" ref="R-intro.html#Low_002dlevel-plotting-commands">
+                        <section title="12.2.1 Mathematical annotation" ref="R-intro.html#Mathematical-annotation"></section>
+                        <section title="12.2.2 Hershey vector fonts" ref="R-intro.html#Hershey-vector-fonts"></section>
+                    </section>
+                    <section title="12.3 Interacting with graphics" ref="R-intro.html#Interacting-with-graphics"></section>
+                    <section title="12.4 Using graphics parameters" ref="R-intro.html#Using-graphics-parameters">
+                        <section title="12.4.1 Permanent changes: The par() function" ref="R-intro.html#The-par_0028_0029-function"></section>
+                        <section title="12.4.2 Temporary changes: Arguments to graphics functions" ref="R-intro.html#Arguments-to-graphics-functions"></section>
+                    </section>
+                    <section title="12.5 Graphics parameters list" ref="R-intro.html#Graphics-parameters">
+                        <section title="12.5.1 Graphical elements" ref="R-intro.html#Graphical-elements"></section>
+                        <section title="12.5.2 Axes and tick marks" ref="R-intro.html#Axes-and-tick-marks"></section>
+                        <section title="12.5.3 Figure margins" ref="R-intro.html#Figure-margins"></section>
+                        <section title="12.5.4 Multiple figure environment" ref="R-intro.html#Multiple-figure-environment"></section>
+                    </section>
+                    <section title="12.6 Device drivers" ref="R-intro.html#Device-drivers">
+                        <section title="12.6.1 PostScript diagrams for typeset documents" ref="R-intro.html#PostScript-diagrams-for-typeset-documents"></section>
+                        <section title="12.6.2 Multiple graphics devices" ref="R-intro.html#Multiple-graphics-devices"></section>
+                    </section>
+                    <section title="12.7 Dynamic graphics" ref="R-intro.html#Dynamic-graphics"></section>
+                </section>
+            
+                <section title="13 Packages" ref="R-intro.html#Packages">
+                    <section title="13.1 Standard packages" ref="R-intro.html#Standard-packages"></section>
+                    <section title="13.2 Contributed packages and CRAN" ref="R-intro.html#Contributed-packages-and-CRAN"></section>
+                    <section title="13.3 Namespaces" ref="R-intro.html#Namespaces"></section>
+                </section>
+            
+                <section title="14 OS facilities" ref="R-intro.html#OS-facilities">
+                    <section title="14.1 Files and directories" ref="R-intro.html#Files-and-directories"></section>
+                    <section title="14.2 Filepaths" ref="R-intro.html#Filepaths"></section>
+                    <section title="14.3 System commands" ref="R-intro.html#System-commands"></section>
+                    <section title="14.4 Compression and Archives" ref="R-intro.html#Compression-and-Archives"></section>
+                </section>
+                
+                <section title="Appendix A: A sample session" ref="R-intro.html#A-sample-session"></section>
+                <section title="Appendix B: Invoking R" ref="R-intro.html#Invoking-R">
+                    <section title="B.1 Invoking R from the command line" ref="R-intro.html#Invoking-R-from-the-command-line"></section>
+                    <section title="B.2 Invoking R under Windows" ref="R-intro.html#Invoking-R-under-Windows"></section>
+                    <section title="B.3 Invoking R under macOS" ref="R-intro.html#Invoking-R-under-macOS"></section>
+                    <section title="B.4 Scripting with R" ref="R-intro.html#Scripting-with-R"></section>
+                </section>
+                <section title="Appendix C: The command-line editor" ref="R-intro.html#The-command_002dline-editor">
+                    <section title="C.1 Preliminaries" ref="R-intro.html#Preliminaries"></section>
+                    <section title="C.2 Editing actions" ref="R-intro.html#Editing-actions"></section>
+                    <section title="C.3 Command-line editor summary" ref="R-intro.html#Command_002dline-editor-summary"></section>
+                </section>
+                <section title="Appendix D: Function and variable index" ref="R-intro.html#Function-and-variable-index" rel="index"></section>
+                <section title="Appendix E: Concept index" ref="R-intro.html#Concept-index" rel="index"></section>
+                <section title="Appendix F: References" ref="R-intro.html#References"></section>
+                    
+                </section>
+        </toc>
+        
+        <keywords>
+            <keyword name="!" ref="R-intro.html#Logical-vectors"/>
+            <keyword name="!=" ref="R-intro.html#Logical-vectors"/>
+            <keyword name="*%" ref="R-intro.html#Multiplication"/>
+            <keyword name="%o%" ref="R-intro.html#The-outer-product-of-two-arrays"/>
+            <keyword name="&amp;" ref="R-intro.html#Logical-vectors"/>
+            <keyword name="&amp;&amp;" ref="R-intro.html#Conditional-execution"/>
+            <keyword name="*" ref="R-intro.html#Vector-arithmetic"/>
+            <keyword name="+" ref="R-intro.html#Vector-arithmetic"/>
+            <keyword name="-" ref="R-intro.html#Vector-arithmetic"/>
+            <keyword name="." ref="R-intro.html#Updating-fitted-models"/>
+            <keyword name=".First" ref="R-intro.html#Customizing-the-environment"/>
+            <keyword name=".Last" ref="R-intro.html#Customizing-the-environment"/>
+            <keyword name="/" ref="R-intro.html#Vector-arithmetic"/>
+            <keyword name=":" ref="R-intro.html#Generating-regular-sequences"/>
+            <keyword name="::" ref="R-intro.html#Namespaces"/>
+            <keyword name=":::" ref="R-intro.html#Namespaces"/>
+            <keyword name="&lt;" ref="R-intro.html#Logical-vectors"/>
+            <keyword name="&lt;&lt;-" ref="R-intro.html#Scope"/>
+            <keyword name="&lt;=" ref="R-intro.html#Logical-vectors"/>
+            <keyword name="=="  ref="R-intro.html#Logical-vectors"/>
+            <keyword name="&gt;" ref="R-intro.html#Logical-vectors"/>
+            <keyword name="&gt;=" ref="R-intro.html#Logical-vectors"/>
+            <keyword name="?" ref="R-intro.html#Getting-help"/>
+            <keyword name="??" ref="R-intro.html#Getting-help"/>
+            <keyword name="^" ref="R-intro.html#Vector-arithmetic"/>
+            <keyword name="|" ref="R-intro.html#Logical-vectors"/>
+            <keyword name="||" ref="R-intro.html#Conditional-execution"/>
+            <keyword name="~" ref="R-intro.html#Formulae-for-statistical-models"/>
+            <keyword name="abline" ref="R-intro.html#Low_002dlevel-plotting-commands"/>
+            <keyword name="ace" ref="R-intro.html#Some-non_002dstandard-models"/>
+            <keyword name="add1" ref="R-intro.html#Updating-fitted-models"/>
+            <keyword name="anova" ref="R-intro.html#Generic-functions-for-extracting-model-information"/>
+            <keyword name="anova" ref="R-intro.html#ANOVA-tables"/>
+            <keyword name="aov" ref="R-intro.html#Analysis-of-variance-and-model-comparison"/>
+            <keyword name="aperm" ref="R-intro.html#Generalized-transpose-of-an-array"/>
+            <keyword name="array" ref="R-intro.html#The-array_0028_0029-function"/>
+            <keyword name="as.data.frame" ref="R-intro.html#Making-data-frames"/>
+            <keyword name="as.vector" ref="R-intro.html#The-concatenation-function-c_0028_0029-with-arrays"/>
+            <keyword name="attach" ref="R-intro.html#attach_0028_0029-and-detach_0028_0029"/>
+            <keyword name="attr" ref="R-intro.html#Getting-and-setting-attributes"/>
+            <keyword name="attributes" ref="R-intro.html#Getting-and-setting-attributes"/>
+            <keyword name="avas" ref="R-intro.html#Some-non_002dstandard-models"/>
+            <keyword name="axis" ref="R-intro.html#Low_002dlevel-plotting-commands"/>
+            <keyword name="boxplot" ref="R-intro.html#One_002d-and-two_002dsample-tests"/>
+            <keyword name="break" ref="R-intro.html#Repetitive-execution"/>
+            <keyword name="bruto" ref="R-intro.html#Some-non_002dstandard-models"/>
+            <keyword name="c" ref="R-intro.html#Vectors-and-assignment"/>
+            <keyword name="C" ref="R-intro.html#Contrasts"/>
+            <keyword name="cbind" ref="R-intro.html#Forming-partitioned-matrices"/>
+            <keyword name="coef" ref="R-intro.html#Generic-functions-for-extracting-model-information"/>
+            <keyword name="coefficients" ref="R-intro.html#Generic-functions-for-extracting-model-information"/>
+            <keyword name="contour" ref="R-intro.html#Display-graphics"/>
+            <keyword name="contrasts" ref="R-intro.html#Contrasts"/>
+            <keyword name="coplot" ref="R-intro.html#Displaying-multivariate-data"/>
+            <keyword name="cos" ref="R-intro.html#Vector-arithmetic"/>
+            <keyword name="crossprod" ref="R-intro.html#Index-matrices"/>
+            <keyword name="crossprod" ref="R-intro.html#Multiplication"/>
+            <keyword name="cut" ref="R-intro.html#Frequency-tables-from-factors"/>
+            <keyword name="data" ref="R-intro.html#Accessing-builtin-datasets"/>
+            <keyword name="data.frame" ref="R-intro.html#Making-data-frames"/>
+            <keyword name="density" ref="R-intro.html#Examining-the-distribution-of-a-set-of-data"/>
+            <keyword name="det" ref="R-intro.html#Singular-value-decomposition-and-determinants"/>
+            <keyword name="detach" ref="R-intro.html#attach_0028_0029-and-detach_0028_0029"/>
+            <keyword name="determinant" ref="R-intro.html#Singular-value-decomposition-and-determinants"/>
+            <keyword name="dev.list" ref="R-intro.html#Multiple-graphics-devices"/>
+            <keyword name="dev.next" ref="R-intro.html#Multiple-graphics-devices"/>
+            <keyword name="dev.off" ref="R-intro.html#Multiple-graphics-devices"/>
+            <keyword name="dev.prev" ref="R-intro.html#Multiple-graphics-devices"/>
+            <keyword name="dev.set" ref="R-intro.html#Multiple-graphics-devices"/>
+            <keyword name="deviance" ref="R-intro.html#Generic-functions-for-extracting-model-information"/>
+            <keyword name="diag" ref="R-intro.html#Multiplication"/>
+            <keyword name="dim" ref="R-intro.html#Arrays"/>
+            <keyword name="dotchart" ref="R-intro.html#Display-graphics"/>
+            <keyword name="drop1" ref="R-intro.html#Updating-fitted-models"/>
+            <keyword name="ecdf" ref="R-intro.html#Examining-the-distribution-of-a-set-of-data"/>
+            <keyword name="edit" ref="R-intro.html#Editing-data"/>
+            <keyword name="eigen" ref="R-intro.html#Eigenvalues-and-eigenvectors"/>
+            <keyword name="else" ref="R-intro.html#Conditional-execution"/>
+            <keyword name="Error" ref="R-intro.html#Analysis-of-variance-and-model-comparison"/>
+            <keyword name="example" ref="R-intro.html#Getting-help"/>
+            <keyword name="exp" ref="R-intro.html#Vector-arithmetic"/>
+            <keyword name="F" ref="R-intro.html#Logical-vectors"/>
+            <keyword name="factor" ref="R-intro.html#Factors"/>
+            <keyword name="FALSE" ref="R-intro.html#Logical-vectors"/>
+            <keyword name="fivenum" ref="R-intro.html#Examining-the-distribution-of-a-set-of-data"/>
+            <keyword name="for" ref="R-intro.html#Repetitive-execution"/>
+            <keyword name="formula" ref="R-intro.html#Generic-functions-for-extracting-model-information"/>
+            <keyword name="function" ref="R-intro.html#Writing-your-own-functions"/>
+            <keyword name="getAnywhere" ref="R-intro.html#Object-orientation"/>
+            <keyword name="getS3method" ref="R-intro.html#Object-orientation"/>
+            <keyword name="glm" ref="R-intro.html#The-glm_0028_0029-function"/>
+            <keyword name="help" ref="R-intro.html#Getting-help"/>
+            <keyword name="help.search" ref="R-intro.html#Getting-help"/>
+            <keyword name="help.start" ref="R-intro.html#Getting-help"/>
+            <keyword name="hist" ref="R-intro.html#Examining-the-distribution-of-a-set-of-data"/>
+            <keyword name="identify" ref="R-intro.html#Interacting-with-graphics"/>
+            <keyword name="if" ref="R-intro.html#Conditional-execution"/>
+            <keyword name="ifelse" ref="R-intro.html#Conditional-execution"/>
+            <keyword name="image" ref="R-intro.html#Display-graphics"/>
+            <keyword name="is.na" ref="R-intro.html#Missing-values"/>
+            <keyword name="is.nan" ref="R-intro.html#Missing-values"/>
+            <keyword name="jpeg" ref="R-intro.html#Device-drivers"/>
+            <keyword name="ks.test" ref="R-intro.html#Examining-the-distribution-of-a-set-of-data"/>
+            <keyword name="legend" ref="R-intro.html#Low_002dlevel-plotting-commands"/>
+            <keyword name="length" ref="R-intro.html#The-intrinsic-attributes-mode-and-length"/>
+            <keyword name="levels" ref="R-intro.html#Factors"/>
+            <keyword name="lines" ref="R-intro.html#Low_002dlevel-plotting-commands"/>
+            <keyword name="list" ref="R-intro.html#Lists"/>
+            <keyword name="lm" ref="R-intro.html#Linear-models"/>
+            <keyword name="lme" ref="R-intro.html#Some-non_002dstandard-models"/>
+            <keyword name="locator" ref="R-intro.html#Interacting-with-graphics"/>
+            <keyword name="loess" ref="R-intro.html#Some-non_002dstandard-models"/>
+            <keyword name="log" ref="R-intro.html#Vector-arithmetic"/>
+            <keyword name="lqs" ref="R-intro.html#Some-non_002dstandard-models"/>
+            <keyword name="lsfit" ref="R-intro.html#Least-squares-fitting-and-the-QR-decomposition"/>
+            <keyword name="mars" ref="R-intro.html#Some-non_002dstandard-models"/>
+            <keyword name="max" ref="R-intro.html#Vector-arithmetic"/>
+            <keyword name="mean" ref="R-intro.html#Vector-arithmetic"/>
+            <keyword name="methods" ref="R-intro.html#Object-orientation"/>
+            <keyword name="min" ref="R-intro.html#Vector-arithmetic"/>
+            <keyword name="mode" ref="R-intro.html#The-intrinsic-attributes-mode-and-length"/>
+            <keyword name="NA" ref="R-intro.html#Missing-values"/>
+            <keyword name="NaN" ref="R-intro.html#Missing-values"/>
+            <keyword name="ncol" ref="R-intro.html#Matrix-facilities"/>
+            <keyword name="next" ref="R-intro.html#Repetitive-execution"/>
+            <keyword name="nlm" ref="R-intro.html#Nonlinear-least-squares-and-maximum-likelihood-models"/>
+            <keyword name="nlme" ref="R-intro.html#Some-non_002dstandard-models"/>
+            <keyword name="nlminb" ref="R-intro.html#Nonlinear-least-squares-and-maximum-likelihood-models"/>
+            <keyword name="nrow" ref="R-intro.html#Matrix-facilities"/>
+            <keyword name="optim" ref="R-intro.html#Nonlinear-least-squares-and-maximum-likelihood-models"/>
+            <keyword name="order" ref="R-intro.html#Vector-arithmetic"/>
+            <keyword name="ordered" ref="R-intro.html#Ordered-factors"/>
+            <keyword name="outer" ref="R-intro.html#The-outer-product-of-two-arrays"/>
+            <keyword name="pairs" ref="R-intro.html#Displaying-multivariate-data"/>
+            <keyword name="par" ref="R-intro.html#The-par_0028_0029-function"/>
+            <keyword name="paste" ref="R-intro.html#Character-vectors"/>
+            <keyword name="pdf" ref="R-intro.html#Device-drivers"/>
+            <keyword name="persp" ref="R-intro.html#Display-graphics"/>
+            <keyword name="plot" ref="R-intro.html#The-plot_0028_0029-function"/>
+            <keyword name="pmax" ref="R-intro.html#Vector-arithmetic"/>
+            <keyword name="pmin" ref="R-intro.html#Vector-arithmetic"/>
+            <keyword name="png" ref="R-intro.html#Device-drivers"/>
+            <keyword name="points" ref="R-intro.html#Low_002dlevel-plotting-commands"/>
+            <keyword name="polygon" ref="R-intro.html#Low_002dlevel-plotting-commands"/>
+            <keyword name="postscript" ref="R-intro.html#Device-drivers"/>
+            <keyword name="predict" ref="R-intro.html#Generic-functions-for-extracting-model-information"/>
+            <keyword name="print" ref="R-intro.html#Generic-functions-for-extracting-model-information"/>
+            <keyword name="prod2" ref="R-intro.html#Vector-arithmetic"/>
+            <keyword name="qqline" ref="R-intro.html#Display-graphics"/>
+            <keyword name="qqnorm" ref="R-intro.html#Display-graphics"/>
+            <keyword name="qqplot" ref="R-intro.html#Display-graphics"/>
+            <keyword name="qr" ref="R-intro.html#Least-squares-fitting-and-the-QR-decomposition"/>
+            <keyword name="quartz" ref="R-intro.html#Device-drivers"/>
+            <keyword name="range" ref="R-intro.html#Vector-arithmetic"/>
+            <keyword name="rbind" ref="R-intro.html#Forming-partitioned-matrices"/>
+            <keyword name="read.table" ref="R-intro.html#The-read_002etable_0028_0029-function"/>
+            <keyword name="rep" ref="R-intro.html#Generating-regular-sequences"/>
+            <keyword name="repeat" ref="R-intro.html#Repetitive-execution"/>
+            <keyword name="resid" ref="R-intro.html#Generic-functions-for-extracting-model-information"/>
+            <keyword name="residuals" ref="R-intro.html#Generic-functions-for-extracting-model-information"/>
+            <keyword name="rlm" ref="R-intro.html#Some-non_002dstandard-models"/>
+            <keyword name="rm" ref="R-intro.html#Data-permanency-and-removing-objects"/>
+            <keyword name="scan" ref="R-intro.html#The-scan_0028_0029-function"/>
+            <keyword name="sd" ref="R-intro.html#The-function-tapply_0028_0029-and-ragged-arrays"/>
+            <keyword name="search" ref="R-intro.html#Managing-the-search-path"/>
+            <keyword name="seq" ref="R-intro.html#Generating-regular-sequences"/>
+            <keyword name="shapiro.test" ref="R-intro.html#Examining-the-distribution-of-a-set-of-data"/>
+            <keyword name="sin" ref="R-intro.html#Vector-arithmetic"/>
+            <keyword name="sink" ref="R-intro.html#Executing-commands-from-or-diverting-output-to-a-file"/>
+            <keyword name="solve" ref="R-intro.html#Linear-equations-and-inversion"/>
+            <keyword name="sort" ref="R-intro.html#Vector-arithmetic"/>
+            <keyword name="source" ref="R-intro.html#Executing-commands-from-or-diverting-output-to-a-file"/>
+            <keyword name="split" ref="R-intro.html#Repetitive-execution"/>
+            <keyword name="sqrt" ref="R-intro.html#Vector-arithmetic"/>
+            <keyword name="stem" ref="R-intro.html#Examining-the-distribution-of-a-set-of-data"/>
+            <keyword name="step" ref="R-intro.html#Generic-functions-for-extracting-model-information"/>
+            <keyword name="sum" ref="R-intro.html#Vector-arithmetic"/>
+            <keyword name="summary" ref="R-intro.html#Generic-functions-for-extracting-model-information"/>
+            <keyword name="svd" ref="R-intro.html#Singular-value-decomposition-and-determinants"/>
+            <keyword name="T" ref="R-intro.html#Logical-vectors"/>
+            <keyword name="t" ref="R-intro.html#Generalized-transpose-of-an-array"/>
+            <keyword name="t.test" ref="R-intro.html#One_002d-and-two_002dsample-tests"/>
+            <keyword name="table" ref="R-intro.html#Index-matrices"/>
+            <keyword name="tan" ref="R-intro.html#Vector-arithmetic"/>
+            <keyword name="tapply" ref="R-intro.html#The-function-tapply_0028_0029-and-ragged-arrays"/>
+            <keyword name="text" ref="R-intro.html#Low_002dlevel-plotting-commands"/>
+            <keyword name="title" ref="R-intro.html#Low_002dlevel-plotting-commands"/>
+            <keyword name="tree" ref="R-intro.html#Some-non_002dstandard-models"/>
+            <keyword name="TRUE" ref="R-intro.html#Logical-vectors"/>
+            <keyword name="unclass" ref="R-intro.html#The-class-of-an-object"/>
+            <keyword name="update" ref="R-intro.html#Updating-fitted-models"/>
+            <keyword name="var" ref="R-intro.html#Vector-arithmetic"/>
+            <keyword name="var" ref="R-intro.html#The-function-tapply_0028_0029-and-ragged-arrays"/>
+            <keyword name="var.test" ref="R-intro.html#One_002d-and-two_002dsample-tests"/>
+            <keyword name="vcov" ref="R-intro.html#Generic-functions-for-extracting-model-information"/>
+            <keyword name="vector" ref="R-intro.html#Vectors-and-assignment"/>
+            <keyword name="while" ref="R-intro.html#Repetitive-execution"/>
+            <keyword name="wilcox.test" ref="R-intro.html#One_002d-and-two_002dsample-tests"/>
+            <keyword name="windows" ref="R-intro.html#Device-drivers"/>
+            <keyword name="X11" ref="R-intro.html#Device-drivers"/>
+            <keyword name="Accessing builtin datasets" ref="R-intro.html#Accessing-builtin-datasets"/>
+            <keyword name="Additive models" ref="R-intro.html#Some-non_002dstandard-models"/>
+            <keyword name="Analysis of variance" ref="R-intro.html#Analysis-of-variance-and-model-comparison"/>
+            <keyword name="Arithmetic functions and operators" ref="R-intro.html#Vector-arithmetic"/>
+            <keyword name="Arrays" ref="R-intro.html#Arrays"/>
+            <keyword name="Assignment" ref="R-intro.html#Vectors-and-assignment"/>
+            <keyword name="Attributes" ref="R-intro.html#Objects"/>
+            <keyword name="Binary operators" ref="R-intro.html#Defining-new-binary-operators"/>
+            <keyword name="Box plots" ref="R-intro.html#One_002d-and-two_002dsample-tests"/>
+            <keyword name="Character vectors" ref="R-intro.html#Character-vectors"/>
+            <keyword name="Classes" ref="R-intro.html#Object-orientation"/>
+            <keyword name="Concatenating lists" ref="R-intro.html#Concatenating-lists"/>
+            <keyword name="Contrasts" ref="R-intro.html#Contrasts"/>
+            <keyword name="Control statements" ref="R-intro.html#Control-statements"/>
+            <keyword name="CRAN" ref="R-intro.html#Contributed-packages-and-CRAN"/>
+            <keyword name="Customizing the environment" ref="R-intro.html#Customizing-the-environment"/>
+            <keyword name="Data frames" ref="R-intro.html#Data-frames"/>
+            <keyword name="Default values" ref="R-intro.html#Named-arguments-and-defaults"/>
+            <keyword name="Density estimation" ref="R-intro.html#Examining-the-distribution-of-a-set-of-data"/>
+            <keyword name="Determinants" ref="R-intro.html#Singular-value-decomposition-and-determinants"/>
+            <keyword name="Diverting input and output" ref="R-intro.html#Executing-commands-from-or-diverting-output-to-a-file"/>
+            <keyword name="Dynamic graphics" ref="R-intro.html#Dynamic-graphics"/>
+            <keyword name="Eigenvalues and eigenvectors" ref="R-intro.html#Eigenvalues-and-eigenvectors"/>
+            <keyword name="Empirical CDFs" ref="R-intro.html#Examining-the-distribution-of-a-set-of-data"/>
+            <keyword name="Factors" ref="R-intro.html#Factors"/>
+            <keyword name="Families" ref="R-intro.html#Families"/>
+            <keyword name="Formulae" ref="R-intro.html#Formulae-for-statistical-models"/>
+            <keyword name="Generalized linear models" ref="R-intro.html#Generalized-linear-models"/>
+            <keyword name="index-Generalized-transpose-of-an-array" ref="R-intro.html#Generalized-transpose-of-an-array"/>
+            <keyword name="Generic functions" ref="R-intro.html#Object-orientation"/>
+            <keyword name="Graphics device drivers" ref="R-intro.html#Device-drivers"/>
+            <keyword name="Graphics parameters" ref="R-intro.html#The-par_0028_0029-function"/>
+            <keyword name="Grouped expressions" ref="R-intro.html#Grouped-expressions"/>
+            <keyword name="Indexing of and by arrays" ref="R-intro.html#Array-indexing"/>
+            <keyword name="Indexing vectors" ref="R-intro.html#Index-vectors"/>
+            <keyword name="Kolmogorov-Smirnov test" ref="R-intro.html#Examining-the-distribution-of-a-set-of-data"/>
+            <keyword name="Least squares fitting" ref="R-intro.html#Least-squares-fitting-and-the-QR-decomposition"/>
+            <keyword name="Linear equations" ref="R-intro.html#Linear-equations-and-inversion"/>
+            <keyword name="Linear models" ref="R-intro.html#Linear-models"/>
+            <keyword name="Lists" ref="R-intro.html#Lists"/>
+            <keyword name="Local approximating regressions" ref="R-intro.html#Some-non_002dstandard-models"/>
+            <keyword name="Loops and conditional execution" ref="R-intro.html#Loops-and-conditional-execution"/>
+            <keyword name="Matrices" ref="R-intro.html#Arrays"/>
+            <keyword name="Matrix multiplication" ref="R-intro.html#Multiplication"/>
+            <keyword name="Maximum likelihood" ref="R-intro.html#Maximum-likelihood"/>
+            <keyword name="Missing values" ref="R-intro.html#Missing-values"/>
+            <keyword name="Mixed models" ref="R-intro.html#Some-non_002dstandard-models"/>
+            <keyword name="Named arguments" ref="R-intro.html#Named-arguments-and-defaults"/>
+            <keyword name="Namespace" ref="R-intro.html#Namespaces"/>
+            <keyword name="Nonlinear least squares" ref="R-intro.html#Nonlinear-least-squares-and-maximum-likelihood-models"/>
+            <keyword name="Object orientation" ref="R-intro.html#Object-orientation"/>
+            <keyword name="Objects" ref="R-intro.html#Objects"/>
+            <keyword name="One- and two-sample tests" ref="R-intro.html#One_002d-and-two_002dsample-tests"/>
+            <keyword name="Ordered factors" ref="R-intro.html#Factors"/>
+            <keyword name="Outer products of arrays" ref="R-intro.html#The-outer-product-of-two-arrays"/>
+            <keyword name="Packages" ref="R-intro.html#Packages"/>
+            <keyword name="Probability distributions" ref="R-intro.html#Probability-distributions"/>
+            <keyword name="QR decomposition" ref="R-intro.html#Least-squares-fitting-and-the-QR-decomposition"/>
+            <keyword name="Quantile-quantile plots" ref="R-intro.html#Examining-the-distribution-of-a-set-of-data"/>
+            <keyword name="Reading data from files" ref="R-intro.html#Reading-data-from-files"/>
+            <keyword name="Recycling rule" ref="R-intro.html#The-recycling-rule"/>
+            <keyword name="Regular sequences" ref="R-intro.html#Generating-regular-sequences"/>
+            <keyword name="Removing objects" ref="R-intro.html#Data-permanency-and-removing-objects"/>
+            <keyword name="Robust regression" ref="R-intro.html#Some-non_002dstandard-models"/>
+            <keyword name="Scope" ref="R-intro.html#Scope"/>
+            <keyword name="Search path" ref="R-intro.html#Managing-the-search-path"/>
+            <keyword name="Shapiro-Wilk test" ref="R-intro.html#Examining-the-distribution-of-a-set-of-data"/>
+            <keyword name="Singular value decomposition" ref="R-intro.html#Singular-value-decomposition-and-determinants"/>
+            <keyword name="Statistical models" ref="R-intro.html#Statistical-models-in-R"/>
+            <keyword name="Student’s t test" ref="R-intro.html#One_002d-and-two_002dsample-tests"/>
+            <keyword name="Tabulation" ref="R-intro.html#Frequency-tables-from-factors"/>
+            <keyword name="Tree-based models" ref="R-intro.html#Some-non_002dstandard-models"/>
+            <keyword name="Updating fitted models" ref="R-intro.html#Updating-fitted-models"/>
+            <keyword name="Vectors" ref="R-intro.html#Simple-manipulations-numbers-and-vectors"/>
+            <keyword name="Wilcoxon test" ref="R-intro.html#One_002d-and-two_002dsample-tests"/>
+            <keyword name="Workspace" ref="R-intro.html#Data-permanency-and-removing-objects"/>
+            <keyword name="Writing functions" ref="R-intro.html#Writing-your-own-functions"/>
+        </keywords>
+        
+        <files>
+            <file>*.html</file>
+            <file>images/*.png</file>
+        </files>
+    </filterSection>
+</QtHelpProject>
