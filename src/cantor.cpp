@@ -19,6 +19,7 @@
 #include <KParts/ReadWritePart>
 #include <KRecentFilesAction>
 #include <KPluginFactory>
+#include <KXMLGUIFactory>
 
 #include <QApplication>
 #include <QCloseEvent>
@@ -30,6 +31,7 @@
 #include <QGraphicsView>
 #include <QPushButton>
 #include <QRegularExpression>
+#include <QMenuBar>
 
 #include "lib/backend.h"
 #include "lib/worksheetaccess.h"
@@ -425,6 +427,18 @@ void CantorShell::activateWorksheet(int index)
         {
             createGUI(m_part);
 
+            // Keep the tabs of the active backend visible
+            const auto& menuBarActions = menuBar()->actions();
+            for (auto* action : menuBarActions) {
+                if (!action) continue;
+
+                if (action->menu() && action->menu()->actions().isEmpty()) {
+                    action->setVisible(false);
+                } else {
+                    action->setVisible(true);
+                }
+            }
+
             //update the status bar
             auto* wa = m_part->findChild<Cantor::WorksheetAccessInterface*>(Cantor::WorksheetAccessInterface::Name);
             if (wa->session())
@@ -539,6 +553,8 @@ void CantorShell::closeTab(int index)
 
             if (m_part == part)
                 m_part = nullptr; //the current worksheet/part is being closed, set to null
+
+            factory()->removeClient(part);
 
             delete part;
         }
