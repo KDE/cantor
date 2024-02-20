@@ -1,0 +1,175 @@
+a.copiable-anchor {
+    visibility: hidden;
+    text-decoration: none;
+    line-height: 0em
+}
+
+a.summary-letter {
+    text-decoration: none;
+    color: #008080;
+}
+
+blockquote.indentedblock {
+    margin-right: 0em;
+    padding: 1em;
+
+}
+
+div.display {
+    margin-left: 3.2em;
+    color: #800080;
+}
+
+div.example {
+    margin-left: 3.2em;
+    font-size: 90%;
+}
+
+kbd {
+    font-style: italic;
+}
+
+pre.display {
+    font-family: inherit;
+    font-size: 90%;
+}
+
+pre.format {
+    font-family: inherit;
+    color: #008000;
+}
+
+pre.menu-comment {
+    font-family: serif;
+    font-style: italic;
+}
+
+pre.menu-preformatted {
+    font-family: serif;
+    padding: 1em;
+}
+
+span.nolinebreak {
+    white-space: nowrap;
+    color: #800000;
+}
+
+span.roman {
+    font-family: initial;
+    font-weight: normal;
+    font-size: 110%;
+}
+
+span.sansserif {
+    font-family: sans-serif;
+    font-weight: normal;
+    color: #000080;
+}
+
+span:hover a.copiable-anchor {
+    visibility: visible;
+}
+
+ul.no-bullet {
+    list-style: none;
+    padding-left: 0;
+}
+
+body {
+    color: #333333;
+    background: #f4f4f4;
+    margin-left: 8%;
+    margin-right: 13%;
+    font-family: "Arial", sans-serif;
+}
+
+h1 {
+    font-size: 200%;
+    font-family: "Arial", sans-serif;
+}
+
+h2 {
+    font-size: 175%;
+
+    font-family: "Arial", sans-serif;
+
+}
+
+h3 {
+    font-size: 150%;
+
+    font-family: "Arial", sans-serif;
+
+}
+
+a[href] {
+    color: #0066cc;
+
+    text-decoration: none;
+}
+
+a[href]:hover {
+    background: #e6e6e6;
+
+}
+
+div.textbox {
+    border: solid;
+    border-width: thin;
+    padding: 2em;
+
+}
+
+div.titlebox {
+    border: none;
+    padding: 2em;
+
+    background: #e0ffff;
+
+    font-family: sans-serif;
+}
+
+div.synopsisbox {
+    border: none;
+    padding: 2em;
+
+    background: #ffd1ff;
+
+}
+
+pre.example {
+    border: 1px solid #b4b4b4;
+    padding: 2em;
+
+    background-color: #eeeeff;
+
+}
+
+div.spacerbox {
+    border: none;
+    padding: 3em;
+
+}
+
+div.image {
+    margin: 0;
+    padding: 2em;
+
+    text-align: center;
+}
+
+div.categorybox {
+    border: 1px solid gray;
+    padding: 2em;
+
+    background: #f7f2dc;
+
+}
+
+img {
+    max-width: 80%;
+    max-height: 80%;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
