@@ -27,9 +27,9 @@ LuaKeywords* LuaKeywords::instance()
 
     if(inst == nullptr){
         inst = new LuaKeywords();
-        qSort(inst->m_functions);
-        qSort(inst->m_keywords);
-        qSort(inst->m_variables);
+        std::sort(inst->m_functions.begin(), inst->m_functions.end());
+        std::sort(inst->m_keywords.begin(), inst->m_keywords.end());
+        std::sort(inst->m_variables.begin(), inst->m_variables.end());
     }
 
     return inst;

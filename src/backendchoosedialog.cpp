@@ -77,7 +77,7 @@ BackendChooseDialog::BackendChooseDialog(QWidget* parent) : QDialog(parent)
 
     //restore saved settings if available
     create(); // ensure there's a window created
-    KConfigGroup conf(KSharedConfig::openConfig(), "BackendChooseDialog");
+    KConfigGroup conf(KSharedConfig::openConfig(), QStringLiteral("BackendChooseDialog"));
     if (conf.exists()) {
         KWindowConfig::restoreWindowSize(windowHandle(), conf);
         resize(windowHandle()->size()); // workaround for QTBUG-40584
@@ -86,7 +86,7 @@ BackendChooseDialog::BackendChooseDialog(QWidget* parent) : QDialog(parent)
 }
 
 BackendChooseDialog::~BackendChooseDialog() {
-	KConfigGroup conf(KSharedConfig::openConfig(), "BackendChooseDialog");
+	KConfigGroup conf(KSharedConfig::openConfig(), QStringLiteral("BackendChooseDialog"));
 	KWindowConfig::saveWindowSize(windowHandle(), conf);
 }
 

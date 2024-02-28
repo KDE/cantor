@@ -74,7 +74,7 @@ ImageSettingsDialog::ImageSettingsDialog(QWidget* parent) : QDialog(parent)
 }
 
 ImageSettingsDialog::~ImageSettingsDialog() {
-    KConfigGroup dialogConfig = KSharedConfig::openConfig()->group("ImageSettingsDialog");
+    KConfigGroup dialogConfig = KSharedConfig::openConfig()->group(QStringLiteral("ImageSettingsDialog"));
     KWindowConfig::saveWindowSize(windowHandle(), dialogConfig);
 }
 
@@ -109,7 +109,7 @@ void ImageSettingsDialog::setData(const QString& file, const ImageSize& displayS
 
     //restore saved settings if available
     create(); // ensure there's a window created
-    KConfigGroup conf(KSharedConfig::openConfig(), "ImageSettingsDialog");
+    KConfigGroup conf(KSharedConfig::openConfig(), QStringLiteral("ImageSettingsDialog"));
     if (conf.exists()) {
         KWindowConfig::restoreWindowSize(windowHandle(), conf);
         resize(windowHandle()->size()); // workaround for QTBUG-40584

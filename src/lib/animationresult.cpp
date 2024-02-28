@@ -6,12 +6,14 @@
 #include "animationresult.h"
 using namespace Cantor;
 
+#include <QFile>
 #include <QImage>
 #include <QImageWriter>
 #include <KZip>
 #include <QMimeDatabase>
 #include <QDebug>
 #include <KIO/Job>
+#include <KIO/FileCopyJob>
 #include <QMovie>
 
 class Cantor::AnimationResultPrivate

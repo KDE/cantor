@@ -13,6 +13,7 @@ using namespace Cantor;
 
 #include <KZip>
 #include <KIO/Job>
+#include <KIO/FileCopyJob>
 #include <QBuffer>
 #include <QJsonObject>
 
