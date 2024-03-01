@@ -2,12 +2,13 @@
 # This file is distributed under the same license as the cantor package.
 #
 # SPDX-FileCopyrightText: 2020, 2021, 2022, 2023 Giovanni Sora <g.sora@tiscali.it>
+# giovanni <g.sora@tiscali.it>, 2024.
 msgid ""
 msgstr ""
 "Project-Id-Version: cantor\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-11-05 12:22+0000\n"
-"PO-Revision-Date: 2023-10-16 13:43+0200\n"
+"PO-Revision-Date: 2024-02-29 15:45+0100\n"
 "Last-Translator: giovanni <g.sora@tiscali.it>\n"
 "Language-Team: Interlingua <kde-i18n-doc@kde.org>\n"
 "Language: ia\n"
@@ -15,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Lokalize 23.08.2\n"
+"X-Generator: Lokalize 22.12.3\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -1470,6 +1471,15 @@ msgid ""
 "equations), arbitrary precision, uncertainty propagation, interval "
 "arithmetic, plotting,"
 msgstr ""
+"<b>Qalculate!</b>es un calculator de scriptorio universal inter "
+"platteforma.  Il es simple a usar ma forni potentia e versatilitate "
+"normalmente reservate a pacchettos mathematic complicate, e anque "
+"instrumentos util per necessitates de omne dies (tal como conversion de  "
+"valuta e calculation de percentage). Su characteristicas include un grande "
+"bibliotheca de functiones adaptabile, calculationes de unitates and "
+"conversion, constantes physic, calculationes symbolic  (includente "
+"integrales a equationes), precision arbitrari, propagation de incertituide, "
+"intervallo arithmetic, traciar (plotting),"
 
 #. i18n: ectx: label, entry (Path), group (QalculateBackend)
 #: backends/qalculate/qalculatebackend.kcfg:9
