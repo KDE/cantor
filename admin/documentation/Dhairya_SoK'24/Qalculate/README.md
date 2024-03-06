@@ -1,3 +1,5 @@
 ### Steps for adding custom style to the Qalculate documentation
 
-Add your custom styles to `main.css`. To apply custom them, place the python script named `qthelp_generator.py` in the same location as that of all the Qalculate's documentation's HTML files. Then run the script. It will inject code into HTML files to link them to `main.css` file.
+1. Copy and paste the main.css file as it is in the Qalculate folder
+2. Link this file with the HTML files of Qalculte Documentation
+3. Using this main.css file one can customize the Qalculte Documentation by adding custom css rules in it

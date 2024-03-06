@@ -1,3 +1,20 @@
-### Steps for adding custom style to the R documentation
+### Steps for adding custom style to the Qalculate documentation
 
-Add your custom styles to `main.css`. To apply custom them, place the python script named `qthelp_generator.py` in the same location as that of all the R's documentation's HTML files. Then run the script. It will inject code into HTML files to link them to `main.css` file.
+1. Copy and paste the main.css file as it is in the Qalculate folder
+2. Add below mentioned CSS rules in the copied file
+
+```css
+.calibre1 {
+  font-size: 1em;
+}
+
+.top-level-extent {
+  margin: 20px;
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 5px;
+}
+```
+
+3. Link this file with the HTML files of Qalculte Documentation
+4. Using this main.css file one can customize the Qalculte Documentation by adding custom css rules in it
