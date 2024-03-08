@@ -3,30 +3,31 @@
 # Tsung-en Hsiao <joshua841025@gmail.com>, 2015.
 # Jeff Huang <s8321414@gmail.com>, 2016.
 # pan93412 <pan93412@gmail.com>, 2018, 2019.
+# SPDX-FileCopyrightText: 2024 Kisaragi Hiu <mail@kisaragi-hiu.com>
 msgid ""
 msgstr ""
 "Project-Id-Version: mathematik\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-11-05 12:22+0000\n"
-"PO-Revision-Date: 2019-09-22 19:06+0800\n"
-"Last-Translator: pan93412 <pan93412@gmail.com>\n"
-"Language-Team: Chinese <zh-l10n@lists.linux.org.tw>\n"
+"PO-Revision-Date: 2024-03-07 20:07+0900\n"
+"Last-Translator: Kisaragi Hiu <mail@kisaragi-hiu.com>\n"
+"Language-Team: Traditional Chinese <zh-l10n@lists.slat.org>\n"
 "Language: zh_TW\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Lokalize 19.08.1\n"
+"X-Generator: Lokalize 24.04.70\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
 msgid "Your names"
-msgstr "Franklin Weng, Jeff Huang"
+msgstr "Franklin Weng, Jeff Huang, Kisaragi Hiu"
 
 #, kde-format
 msgctxt "EMAIL OF TRANSLATORS"
 msgid "Your emails"
-msgstr "franklin@goodhorse.idv.tw, s8321414@gmail.com"
+msgstr "franklin@goodhorse.idv.tw, s8321414@gmail.com, mail@kisaragi-hiu.com"
 
 #: animationresultitem.cpp:38
 #, kde-format
@@ -44,15 +45,14 @@ msgid "Stop"
 msgstr "停止"
 
 #: animationresultitem.cpp:111
-#, fuzzy, kde-format
-#| msgid "Save result"
+#, kde-format
 msgid "Save animation result"
-msgstr "儲存結果"
+msgstr "儲存動畫結果"
 
 #: animationresultitem.cpp:111
 #, kde-format
 msgid "Animations (*.gif)"
-msgstr ""
+msgstr "動畫 (*.gif)"
 
 #: assistants/advancedplot/advancedplotassistant.cpp:30
 #, kde-format
@@ -452,7 +452,7 @@ msgstr "一般"
 #: backends/R/settings.ui:169 backends/sage/settings.ui:203
 #, kde-format
 msgid "PDF"
-msgstr ""
+msgstr "PDF"
 
 #. i18n: ectx: property (toolTip), widget (QCheckBox, kcfg_integratePlots)
 #: backends/julia/settings.ui:46 backends/maxima/settings.ui:67
@@ -499,11 +499,9 @@ msgstr "已開啟"
 #: backends/julia/settings.ui:56 backends/maxima/settings.ui:77
 #: backends/octave/settings.ui:118 backends/python/settings.ui:90
 #: backends/R/settings.ui:108 backends/sage/settings.ui:107
-#, fuzzy, kde-format
-#| msgctxt "@action"
-#| msgid "Font &Size"
+#, kde-format
 msgid "Size:"
-msgstr "字型大小(&S)"
+msgstr "大小："
 
 #. i18n: ectx: property (toolTip), widget (QCheckBox, kcfg_variableManagement)
 #: backends/julia/settings.ui:63 backends/maxima/settings.ui:44
@@ -528,19 +526,17 @@ msgstr "積分"
 #: backends/julia/settings.ui:80 backends/maxima/settings.ui:37
 #: backends/octave/settings.ui:172 backends/python/settings.ui:27
 #: backends/R/settings.ui:151
-#, fuzzy, kde-format
-#| msgid "Enable Variable Management"
+#, kde-format
 msgid "Variable Management:"
-msgstr "開啟變數管理"
+msgstr "變數管理："
 
 #. i18n: ectx: property (text), widget (QLabel, lPlotWidth)
 #: backends/julia/settings.ui:108 backends/maxima/settings.ui:105
 #: backends/octave/settings.ui:58 backends/python/settings.ui:118
 #: backends/R/settings.ui:48 backends/sage/settings.ui:135
-#, fuzzy, kde-format
-#| msgid "Width"
+#, kde-format
 msgid "width:"
-msgstr "寬度"
+msgstr "寬度："
 
 #. i18n: ectx: property (suffix), widget (QDoubleSpinBox, kcfg_plotWidth)
 #. i18n: ectx: property (suffix), widget (QDoubleSpinBox, kcfg_plotHeight)
@@ -552,16 +548,15 @@ msgstr "寬度"
 #: backends/sage/settings.ui:142 backends/sage/settings.ui:172
 #, kde-format
 msgid "cm"
-msgstr ""
+msgstr "公分"
 
 #. i18n: ectx: property (text), widget (QLabel, lPlotHeight)
 #: backends/julia/settings.ui:138 backends/maxima/settings.ui:135
 #: backends/octave/settings.ui:88 backends/python/settings.ui:148
 #: backends/R/settings.ui:78 backends/sage/settings.ui:165
-#, fuzzy, kde-format
-#| msgid "Height"
+#, kde-format
 msgid "height:"
-msgstr "高度"
+msgstr "高度："
 
 #. i18n: ectx: property (text), widget (QLabel, label_4)
 #. i18n: ectx: property (text), item, widget (KComboBox, kcfg_plotExtenstionGraphicPackage)
@@ -626,7 +621,7 @@ msgstr ""
 #: backends/scilab/settings.ui:68
 #, kde-format
 msgid "Autorun"
-msgstr ""
+msgstr "自動執行"
 
 #. i18n: ectx: property (text), widget (QLabel, lAutorun)
 #. i18n: ectx: property (title), widget (QGroupBox, groupBox)
@@ -636,10 +631,9 @@ msgstr ""
 #: backends/octave/settings.ui:237 backends/python/settings.ui:272
 #: backends/qalculate/settings.ui:572 backends/R/settings.ui:227
 #: backends/sage/settings.ui:236 backends/scilab/settings.ui:74
-#, fuzzy, kde-format
-#| msgid "Scripts to autorun"
+#, kde-format
 msgid "Commands to autorun"
-msgstr "要自動執行的文稿"
+msgstr "要自動執行的指令"
 
 #. i18n: ectx: attribute (title), widget (QWidget, tabDocumentation)
 #: backends/julia/settings.ui:281 backends/lua/settings.ui:71
@@ -647,22 +641,17 @@ msgstr "要自動執行的文稿"
 #: backends/python/settings.ui:286 backends/qalculate/settings.ui:585
 #: backends/R/settings.ui:241 backends/sage/settings.ui:250
 #: backends/scilab/settings.ui:88
-#, fuzzy, kde-format
-#| msgid "Documents to open."
+#, kde-format
 msgid "Documentation"
-msgstr "要開啟的文件。"
+msgstr "說明文件"
 
 #: backends/kalgebra/kalgebrabackend.cpp:58
-#, fuzzy, kde-format
-#| msgctxt ""
-#| "The url to the documentation of KAlgebra, please check if there is a "
-#| "translated version and use the correct url"
-#| msgid "https://docs.kde.org/stable/en/kdeedu/kalgebra/"
+#, kde-format
 msgctxt ""
 "The url to the documentation of KAlgebra, please check if there is a "
 "translated version and use the correct url"
 msgid "https://docs.kde.org/?application=kalgebra"
-msgstr "https://docs.kde.org/stable/en/kdeedu/kalgebra/"
+msgstr "https://docs.kde.org/?application=kalgebra"
 
 #. i18n: ectx: label, entry (autorunScripts), group (SageBackend)
 #. i18n: ectx: label, entry (autorunScripts), group (KAlgebraBackend)
@@ -728,10 +717,9 @@ msgstr "Lua 文稿檔 (*.lua)"
 
 #. i18n: ectx: property (text), widget (QLabel, label)
 #: backends/lua/settings.ui:27
-#, fuzzy, kde-format
-#| msgid "Path to luajit command:"
+#, kde-format
 msgid "Path to luajit:"
-msgstr "luajit 指令位置："
+msgstr "luajit 路徑："
 
 #: backends/maxima/maximabackend.cpp:72
 #, kde-format
@@ -778,6 +766,31 @@ msgid ""
 "i> returns <i>done</i> unless no examples are found or there is no argument, "
 "in which case <i>example</i> returns the list of all recognized topics."
 msgstr ""
+"<h1>Maxima 的說明系統</h1><h2>函數<i>搜尋</i></h2>搜尋名稱包含提供字串的 "
+"Maxima 名稱；<i>名稱</i>必須是字串或符號。例如，<i>apropos(exp)</i> 回傳所有"
+"名稱包含 \"exp\" 的旗標和函數，像是 <i>expand</i>、<i>exp</i> 及 "
+"<i>exponentialize</i>。您如果只記得某 Maxima 指令或變數的名稱的一部分，可以使"
+"用此指令來找到名稱剩下的部分。同樣的，您也可以輸入 <i>apropos(tr_)</i> 來尋找"
+"與翻譯器相關的許多開關，因為它們大部分都以 <i>tr_</i> 開頭。"
+"<br><br><i>apropos(\"\")</i> 會回傳所有 Maxima 名稱的列表。"
+"<br><br><i>apropos</i> 沒有找到名稱時會回傳空白列表 []。<br><br><h2>函數<i>描"
+"述</i></h2><i>describe(string)</i> 等同於 describe(string, exact)。"
+"<br><br><i>describe(string, exact)</i> 尋找標題等同於 string 的項目（不分大小"
+"寫），如果有的話。<br><br><i>describe(string, inexact)</i> 尋找所有標題中包"
+"含 string 且有說明文件的項目。如果有超過一個，Maxima 會詢問使用者要顯示哪一個"
+"或是哪一些。<br><br><i>? foo</i>（<i>?</i> 與 <i>foo</i> 間有空格）等同於 "
+"<i>describe(\"foo\", exact)</i>，而 <i>?? foo</i> 等同於 <i>describe(\"foo"
+"\", inexact)</i>。<br><br><i>describe(, inexact)</i> 會 yield 線上手冊中有說"
+"明的所有主題的列表。<br><br><i>describe</i> 會為它的引數加上引號。"
+"<i>describe</i> 在找到說明時會回傳 <i>true</i>，否則回傳 <i>false</i>。"
+"<br><h2>函數<i>範例</i></h2><i>example(topic)</i> 會顯示主題 <i>topic</i> 的"
+"一些範例。主題需為符號或字串。要取得 <i>if</i>、<i>do</i> 或 <i>lambda</i> 等"
+"運算子的範例時，參數必須是字串，例如 <i>example(\"do\")</i>。<i>example</i> "
+"不分大小寫。大部分主題都是函數名稱。<br><br><i>example()</i> 會回傳所有已知主"
+"題的列表。<br><br>包含範例的檔案的名稱以全域選項變數 <i>manual_demo</i> 指"
+"定，預設值為 <i>\"manual.demo\"</i>。<br><br><i>example</i> 會為它的引數加上"
+"引號。<i>example</i> 通常會回傳 <i>done</i> 除非沒有找到任何範例或沒有引數，"
+"這個情況下 <i>example</i> 會回傳所有已知主題的列表。"
 
 #: backends/maxima/maximabackend.cpp:111
 #, kde-format
@@ -1432,10 +1445,9 @@ msgstr ""
 
 #. i18n: ectx: label, entry (Path), group (QalculateBackend)
 #: backends/qalculate/qalculatebackend.kcfg:9
-#, fuzzy, kde-format
-#| msgid "Path to the latex executable"
+#, kde-format
 msgid "Path to the Qalculate! executable"
-msgstr "latex 執行檔路徑"
+msgstr "Qalculate! 執行檔路徑"
 
 #. i18n: ectx: label, entry (postConversion), group (QalculateBackend)
 #: backends/qalculate/qalculatebackend.kcfg:21
@@ -2045,76 +2057,71 @@ msgid "Plot Style:"
 msgstr "繪圖樣式："
 
 #: backends/qthelpconfig.cpp:45
-#, fuzzy, kde-format
-#| msgid "Command Entry"
+#, kde-format
 msgctxt "@title:window"
 msgid "Modify Entry"
-msgstr "指令項目"
+msgstr "修改項目"
 
 #: backends/qthelpconfig.cpp:47
-#, fuzzy, kde-format
-#| msgid "Add new variable"
+#, kde-format
 msgctxt "@title:window"
 msgid "Add New Entry"
-msgstr "新增變數"
+msgstr "新增項目"
 
 #: backends/qthelpconfig.cpp:64
 #, kde-format
 msgid "Name cannot be empty."
-msgstr ""
+msgstr "名稱不能是空的。"
 
 #: backends/qthelpconfig.cpp:84
-#, fuzzy, kde-format
-#| msgid "Path to local documentation:"
+#, kde-format
 msgid "Add local documentation"
-msgstr "本機文件路徑："
+msgstr "新增本機說明文件"
 
 #: backends/qthelpconfig.cpp:100
-#, fuzzy, kde-format
-#| msgid "Documents to open."
+#, kde-format
 msgctxt "@action:button Allow user to get some API documentation with GHNS"
 msgid "Get New Documentation"
-msgstr "要開啟的文件。"
+msgstr "取得新的說明文件"
 
 #: backends/qthelpconfig.cpp:103
-#, fuzzy, kde-format
-#| msgid "Path to local documentation:"
+#, kde-format
 msgid "Download additional documentations"
-msgstr "本機文件路徑："
+msgstr "下載額外說明文件"
 
 #: backends/qthelpconfig.cpp:171
 #, kde-format
 msgid "Qt Compressed Help file is not valid."
-msgstr ""
+msgstr "Qt 已壓縮說明檔案無效。"
 
 #: backends/qthelpconfig.cpp:180
 #, kde-format
 msgid "Documentation already imported"
-msgstr ""
+msgstr "說明文件已經被匯入"
 
 #: backends/qthelpconfig.cpp:270
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Modify"
-msgstr ""
+msgstr "修改"
 
 #: backends/qthelpconfig.cpp:275
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Delete"
-msgstr ""
+msgstr "刪除"
 
 #: backends/qthelpconfig.cpp:283
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Please uninstall this via GHNS."
-msgstr ""
+msgstr "請透過 GHNS 解除安裝它。"
 
 #. i18n: ectx: property (text), widget (QLabel, label)
 #: backends/qthelpconfig.ui:20
 #, kde-format
 msgid "Install Additional Documentation Files"
-msgstr ""
+msgstr "安裝額外說明文件檔案"
 
 #. i18n: ectx: property (text), widget (QTreeWidget, qchTable)
 #: backends/qthelpconfig.ui:49 lib/defaultvariablemodel.cpp:69
@@ -2128,12 +2135,11 @@ msgstr "名稱"
 #, kde-format
 msgctxt "@title:column"
 msgid "Path"
-msgstr ""
+msgstr "路徑"
 
 #. i18n: ectx: property (text), widget (QPushButton, addButton)
 #: backends/qthelpconfig.ui:79
-#, fuzzy, kde-format
-#| msgid "Add"
+#, kde-format
 msgctxt "@action:button"
 msgid "Add"
 msgstr "新增"
@@ -2143,20 +2149,18 @@ msgstr "新增"
 #, kde-format
 msgctxt "@label:chooser"
 msgid "Icon:"
-msgstr ""
+msgstr "圖示："
 
 #. i18n: ectx: property (toolTip), widget (KIconButton, qchIcon)
 #: backends/qthelpconfigeditdialog.ui:24
-#, fuzzy, kde-format
-#| msgid "Select the Backend"
+#, kde-format
 msgctxt "@info:tooltip"
 msgid "Select an icon"
-msgstr "選擇後端"
+msgstr "選取圖示"
 
 #. i18n: ectx: property (text), widget (QLabel, lName)
 #: backends/qthelpconfigeditdialog.ui:34
-#, fuzzy, kde-format
-#| msgid "Name:"
+#, kde-format
 msgctxt "@label:textbox"
 msgid "Name:"
 msgstr "名稱："
@@ -2166,35 +2170,35 @@ msgstr "名稱："
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Enter a name"
-msgstr ""
+msgstr "請輸入名稱"
 
 #. i18n: ectx: property (placeholderText), widget (QLineEdit, qchName)
 #: backends/qthelpconfigeditdialog.ui:44
 #, kde-format
 msgctxt "@info:placeholder"
 msgid "Select a name..."
-msgstr ""
+msgstr "選擇名稱..."
 
 #. i18n: ectx: property (text), widget (QLabel, lPath)
 #: backends/qthelpconfigeditdialog.ui:51
 #, kde-format
 msgctxt "@label:textbox"
 msgid "Path:"
-msgstr ""
+msgstr "路徑："
 
 #. i18n: ectx: property (toolTip), widget (KUrlRequester, qchRequester)
 #: backends/qthelpconfigeditdialog.ui:64
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Select a Qt Help file..."
-msgstr ""
+msgstr "選擇 Qt 說明檔案..."
 
 #. i18n: ectx: property (placeholderText), widget (KUrlRequester, qchRequester)
 #: backends/qthelpconfigeditdialog.ui:70
 #, kde-format
 msgctxt "@info:placeholder"
 msgid "Select a Qt Help file..."
-msgstr ""
+msgstr "選擇 Qt 說明檔案..."
 
 #: backends/R/rbackend.cpp:81
 #, kde-format
@@ -2230,6 +2234,22 @@ msgid ""
 "these examples in the current R session via the <i>example()</i> command: e."
 "g., <i>example(lm)</i>."
 msgstr ""
+"<h1>R 的說明系統：<i>help()</i> 及 <i>?</i>：</h1><br>R 當中的 <i>help()</i> "
+"函數和 <i>?</i> 說明運算子提供 R 函數、資料集以及其他物件的說明文件的存取。它"
+"們支援標準 R 發行內的套件及任何貢獻的套件。<br><br>舉例來說，要存取標準 "
+"<i>lm</i>（線性模型，linear model）函數的說明文件，可以使用指令 "
+"<b><i>help(lm)</i></b> 或 <i>help(\"lm\")</i>，又或是使用 <i>?lm</i> 或 <i>?"
+"\"lm\"</i>（引號不是必要的）。<br><br>要存取目前尚未載入的套件內的函數的說"
+"明，請在函數名稱以外也指定套件名稱。舉例來說，要取得 MASS 套件內的 <i>rlm()</"
+"i>（耐用線性模型，robust linear model）函數的說明，請使用 <i>help(rlm, "
+"package=\"MASS\")</i>。<br><br>R 當中的標準名稱包含大寫字母、小寫字母、數字 "
+"(0-9)、底線 (_) 及句點 (.)，並且必須以字母或句點開頭。要取得名稱包含其他字元"
+"的物件的說明（例如說明運算子 <i>?</i> 本身），名稱則必須要加上引號：例如 "
+"<i>help('?')</i> 或是 <i>?\"?\"</i>。<br><br>您也可以使用 <i>help()</i> 函數"
+"來取得您的軟體庫中某套件的資訊 — 例如 <i>help(package=\"MASS)</i> — 這種時候"
+"它會顯示可用的說明頁面的目錄，以及其他一些資訊。<br><br>函數的說明頁面通常會"
+"包含可以執行的範例，展示該函數如何運作。您可以使用 <i>example()</i> 指令在目"
+"前的 R 工作階段內執行這些範例：例如 <i>example(lm)</i>。"
 
 #: backends/R/rbackend.cpp:99
 #, kde-format
@@ -2280,16 +2300,12 @@ msgid "*.R *.r|R source files (*.R, *.r)"
 msgstr "*.R *.r|R 語言源碼檔 (*.R, *.r)"
 
 #: backends/sage/sagebackend.cpp:79
-#, fuzzy, kde-format
-#| msgctxt ""
-#| "the url to the documentation of Sage, please check if there is a "
-#| "translated version and use the correct url"
-#| msgid "http://doc.sagemath.org/html/en/reference/index.html"
+#, kde-format
 msgctxt ""
 "the url to the documentation of Sage, please check if there is a translated "
 "version and use the correct url"
 msgid "https://doc.sagemath.org/html/en/reference/index.html"
-msgstr "http://doc.sagemath.org/html/en/reference/index.html"
+msgstr "https://doc.sagemath.org/html/en/reference/index.html"
 
 #: backends/sage/sagebackend.cpp:84
 #, kde-format
@@ -2311,7 +2327,7 @@ msgstr "Sage 執行檔路徑"
 #: backends/sage/sagebackend.kcfg:14
 #, kde-format
 msgid "Enable LaTeX typesetting for Sage backend"
-msgstr ""
+msgstr "為 Sage 後端啟用 LaTeX 排版"
 
 #: backends/sage/sageexpression.cpp:230 backends/sage/sageexpression.cpp:235
 #, kde-format
@@ -2349,7 +2365,7 @@ msgstr ""
 #: backends/sage/sagesession.cpp:256 backends/sage/sagesession.cpp:276
 #, kde-format
 msgid "Unsupported Version"
-msgstr ""
+msgstr "不支援的版本"
 
 #: backends/sage/sagesession.cpp:275
 #, kde-format
@@ -2388,7 +2404,7 @@ msgstr "啟動 Sage 失敗"
 #: backends/sage/settings.ui:44
 #, kde-format
 msgid "LaTeX typesetting:"
-msgstr ""
+msgstr "LaTeX 排版："
 
 #. i18n: ectx: property (toolTip), widget (QCheckBox, kcfg_allowLatex)
 #: backends/sage/settings.ui:51
@@ -2396,7 +2412,7 @@ msgstr ""
 msgid ""
 "Sage LaTeX output not always correct, so latex typesetting can be disabled "
 "for better experience"
-msgstr ""
+msgstr "Sage 的 LaTeX 不一定是正確的，所以可以停用 LaTeX 排版來改善使用體驗"
 
 #: backends/scilab/scilabbackend.cpp:68
 #, kde-format
@@ -2418,10 +2434,9 @@ msgstr ""
 
 #. i18n: ectx: label, entry (Path), group (ScilabBackend)
 #: backends/scilab/scilabbackend.kcfg:10
-#, fuzzy, kde-format
-#| msgid "Path to the Sage executable"
+#, kde-format
 msgid "Path to the Scilab executable"
-msgstr "Sage 執行檔路徑"
+msgstr "Scilab 執行檔路徑"
 
 #: backends/scilab/scilabextensions.cpp:23
 #, kde-format
@@ -2438,7 +2453,7 @@ msgstr "積分"
 #: cantor.cpp:103
 #, kde-format
 msgid "The file %1 is already opened."
-msgstr ""
+msgstr "檔案 %1 已經被開啟。"
 
 #: cantor.cpp:103 cantor.cpp:227
 #, kde-format
@@ -2446,10 +2461,9 @@ msgid "Open file"
 msgstr "開啟檔案"
 
 #: cantor.cpp:145
-#, fuzzy, kde-format
-#| msgid "Download Example Worksheets"
+#, kde-format
 msgid "Download Examples"
-msgstr "下載範例工作表"
+msgstr "下載範例"
 
 #: cantor.cpp:148
 #, kde-format
@@ -2531,10 +2545,9 @@ msgid "Ready"
 msgstr "已就緒"
 
 #: cantor.cpp:482
-#, fuzzy, kde-format
-#| msgid "Orange"
+#, kde-format
 msgid "Changed"
-msgstr "橘色"
+msgstr "已變更"
 
 #: cantor.cpp:566
 #, kde-format
@@ -2557,10 +2570,9 @@ msgid "Save Project"
 msgstr "儲存專案"
 
 #: cantor.cpp:630
-#, fuzzy, kde-format
-#| msgid "Plotting"
+#, kde-format
 msgid "Formatting"
-msgstr "繪製"
+msgstr "格式"
 
 #. i18n: ectx: label, entry (DefaultBackend), group (Cantor)
 #: cantor.kcfg:12
@@ -2782,15 +2794,14 @@ msgid "Save Plain Text"
 msgstr "存成純文字檔"
 
 #: cantor_part.cpp:179 cantor_part.cpp:538
-#, fuzzy, kde-format
-#| msgid "Export to LaTeX"
+#, kde-format
 msgid "Export to PDF"
-msgstr "匯出到 Latex"
+msgstr "匯出到 PDF"
 
 #: cantor_part.cpp:183 cantor_part.cpp:550
 #, kde-format
 msgid "Export to LaTeX"
-msgstr "匯出到 Latex"
+msgstr "匯出到 LaTeX"
 
 #: cantor_part.cpp:198 cantor_part.cpp:646 worksheet.cpp:1906
 #, kde-format
@@ -2800,7 +2811,7 @@ msgstr "計算工作表"
 #: cantor_part.cpp:205 worksheet.cpp:1914
 #, kde-format
 msgid "Zoom"
-msgstr ""
+msgstr "縮放"
 
 #: cantor_part.cpp:212
 #, kde-format
@@ -2809,7 +2820,7 @@ msgctxt ""
 "so make sure you include it in your translation in order to not to break "
 "anything"
 msgid "%1%"
-msgstr ""
+msgstr "%1%"
 
 #: cantor_part.cpp:227
 #, kde-format
@@ -2834,10 +2845,9 @@ msgstr "行號"
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_AnimationDefault)
 #: cantor_part.cpp:247 settings.ui:138
-#, fuzzy, kde-format
-#| msgid "Functions"
+#, kde-format
 msgid "Animations"
-msgstr "函數"
+msgstr "動畫"
 
 #: cantor_part.cpp:254
 #, kde-format
@@ -2887,19 +2897,17 @@ msgstr "插入影像"
 #: cantor_part.cpp:307
 #, kde-format
 msgid "Collapse All Results"
-msgstr ""
+msgstr "收起所有結果"
 
 #: cantor_part.cpp:312
-#, fuzzy, kde-format
-#| msgid "Hide Results"
+#, kde-format
 msgid "Expand All Results"
-msgstr "隱藏結果"
+msgstr "展開所有結果"
 
 #: cantor_part.cpp:317
-#, fuzzy, kde-format
-#| msgid "Remove result"
+#, kde-format
 msgid "Remove All Results"
-msgstr "移除結果"
+msgstr "移除所有結果"
 
 #: cantor_part.cpp:322
 #, kde-format
@@ -3053,10 +3061,9 @@ msgstr "工作表(&W)"
 
 #. i18n: ectx: Menu (settings)
 #: cantor_part.rc:51
-#, fuzzy, kde-format
-#| msgid "&Settings"
+#, kde-format
 msgid "Settings"
-msgstr "設定(&S)"
+msgstr "設定"
 
 #. i18n: ectx: Menu (file)
 #: cantor_shell.rc:4
@@ -3088,10 +3095,9 @@ msgid "Background Color"
 msgstr "背景顏色"
 
 #: commandentry.cpp:129 commandentry.cpp:156 horizontalruleentry.cpp:328
-#, fuzzy, kde-format
-#| msgid "Defaults"
+#, kde-format
 msgid "Default"
-msgstr "預設值"
+msgstr "預設"
 
 #: commandentry.cpp:151
 #, kde-format
@@ -3145,7 +3151,7 @@ msgstr "選擇"
 #: commandentry.cpp:207
 #, kde-format
 msgid "Reset to Default"
-msgstr ""
+msgstr "重設為預設值"
 
 #: commandentry.cpp:336
 #, kde-format
@@ -3158,15 +3164,14 @@ msgid "Hide Results"
 msgstr "隱藏結果"
 
 #: commandentry.cpp:343 worksheet.cpp:1899
-#, fuzzy, kde-format
-#| msgid "Show %1 Help"
+#, kde-format
 msgid "Show Help"
-msgstr "顯示 %1 說明"
+msgstr "顯示說明"
 
 #: commandentry.cpp:356
 #, kde-format
 msgid "Appearance"
-msgstr ""
+msgstr "外觀"
 
 #: commandentry.cpp:597 commandentry.cpp:992
 #, kde-format
@@ -3245,13 +3250,13 @@ msgstr "符合大小寫(&M)"
 #: formating.ui:27
 #, kde-format
 msgid "Hierarchy Fonts"
-msgstr ""
+msgstr "階層字型"
 
 #. i18n: ectx: attribute (title), widget (QWidget, ChapterTab)
 #: formating.ui:37
 #, kde-format
 msgid "Chapter Font"
-msgstr ""
+msgstr "章節字型"
 
 #. i18n: ectx: property (text), widget (QLabel, label_2)
 #. i18n: ectx: property (text), widget (QLabel, label_4)
@@ -3263,7 +3268,7 @@ msgstr ""
 #: formating.ui:281 formating.ui:340
 #, kde-format
 msgid "Font Family:"
-msgstr ""
+msgstr "字型家族："
 
 #. i18n: ectx: property (text), widget (QLabel, label_3)
 #. i18n: ectx: property (text), widget (QLabel, label_5)
@@ -3273,17 +3278,15 @@ msgstr ""
 #. i18n: ectx: property (text), widget (QLabel, label_12)
 #: formating.ui:59 formating.ui:118 formating.ui:177 formating.ui:236
 #: formating.ui:295 formating.ui:354
-#, fuzzy, kde-format
-#| msgctxt "@action"
-#| msgid "Font &Size"
+#, kde-format
 msgid "Font Size:"
-msgstr "字型大小(&S)"
+msgstr "字型大小："
 
 #. i18n: ectx: attribute (title), widget (QWidget, SubchapterTab)
 #: formating.ui:96
 #, kde-format
 msgid "Subchapter Font"
-msgstr ""
+msgstr "子章節字型"
 
 #. i18n: ectx: attribute (title), widget (QWidget, SectionTab)
 #: formating.ui:155
@@ -3301,55 +3304,53 @@ msgstr ""
 #: formating.ui:273
 #, kde-format
 msgid "Paragraph Font"
-msgstr ""
+msgstr "段落字型"
 
 #. i18n: ectx: attribute (title), widget (QWidget, SubparagraphTab)
 #: formating.ui:332
 #, kde-format
 msgid "Subparagraph Font"
-msgstr ""
+msgstr "子段落字型"
 
 #: hierarchyentry.cpp:22
 #, kde-format
 msgid "Chapter"
-msgstr ""
+msgstr "章節"
 
 #: hierarchyentry.cpp:22
 #, kde-format
 msgid "Subchapter"
+msgstr "子章節"
+
+#: hierarchyentry.cpp:22
+#, kde-format
+msgid "Section"
 msgstr ""
 
 #: hierarchyentry.cpp:22
-#, fuzzy, kde-format
-#| msgid "Functions"
-msgid "Section"
-msgstr "函數"
-
-#: hierarchyentry.cpp:22
-#, fuzzy, kde-format
-#| msgid "Functions"
+#, kde-format
 msgid "Subsection"
-msgstr "函數"
+msgstr ""
 
 #: hierarchyentry.cpp:22
 #, kde-format
 msgid "Paragraph"
-msgstr ""
+msgstr "段落"
 
 #: hierarchyentry.cpp:22
 #, kde-format
 msgid "Subparagraph"
-msgstr ""
+msgstr "子段落"
 
 #: hierarchyentry.cpp:48
 #, kde-format
 msgid "Set Hierarchy Level"
-msgstr ""
+msgstr "設定階層等級"
 
 #: horizontalruleentry.cpp:20
 #, kde-format
 msgid "Solid Line Style"
-msgstr ""
+msgstr "實線樣式"
 
 #: horizontalruleentry.cpp:20
 #, kde-format
@@ -3357,10 +3358,9 @@ msgid "Dash Line Style"
 msgstr ""
 
 #: horizontalruleentry.cpp:20
-#, fuzzy, kde-format
-#| msgid "Plot Style:"
+#, kde-format
 msgid "Dot Line Style"
-msgstr "繪圖樣式："
+msgstr "點線樣式"
 
 #: horizontalruleentry.cpp:20
 #, kde-format
@@ -3375,34 +3375,32 @@ msgstr ""
 #: horizontalruleentry.cpp:297
 #, kde-format
 msgid "Line Thickness"
-msgstr ""
+msgstr "線條粗細"
 
 #: horizontalruleentry.cpp:299
 #, kde-format
 msgid "Thin"
-msgstr ""
+msgstr "細"
 
 #: horizontalruleentry.cpp:303
 #, kde-format
 msgid "Medium"
-msgstr ""
+msgstr "中"
 
 #: horizontalruleentry.cpp:307
 #, kde-format
 msgid "Thick"
-msgstr ""
+msgstr "粗"
 
 #: horizontalruleentry.cpp:320
-#, fuzzy, kde-format
-#| msgid "Use Colors"
+#, kde-format
 msgid "Line Color"
-msgstr "使用顏色"
+msgstr "線條顏色"
 
 #: horizontalruleentry.cpp:351
-#, fuzzy, kde-format
-#| msgid "Style"
+#, kde-format
 msgid "Line Style"
-msgstr "樣式"
+msgstr "線條樣式"
 
 #: imageentry.cpp:47 imageentry.cpp:371
 #, kde-format
@@ -3410,10 +3408,9 @@ msgid "Configure Image"
 msgstr "設定影像"
 
 #: imageentry.cpp:256
-#, fuzzy, kde-format
-#| msgid "Double click to open file selection dialog"
+#, kde-format
 msgid "Double click here to configure image settings"
-msgstr "雙擊以開啟檔案選擇對話框"
+msgstr "在此雙擊以調整影像設定"
 
 #: imageentry.cpp:288
 #, kde-format
@@ -3423,18 +3420,17 @@ msgstr "無法載入影像 %1"
 #: imageresultitem.cpp:90
 #, kde-format
 msgid "%1 files (*.%2)"
-msgstr ""
+msgstr "%1 檔案 (*.%2)"
 
 #: imageresultitem.cpp:93
 #, kde-format
 msgid "EPS files (*.eps)"
-msgstr ""
+msgstr "EPS 檔案 (*.eps)"
 
 #: imageresultitem.cpp:96
-#, fuzzy, kde-format
-#| msgid "Save result"
+#, kde-format
 msgid "Save image result"
-msgstr "儲存結果"
+msgstr "儲存影像結果"
 
 #. i18n: ectx: property (windowTitle), widget (QWidget, ImageSettingsBase)
 #: imagesettings.ui:14
@@ -3487,8 +3483,7 @@ msgid "Use Display Size"
 msgstr "使用顯示大小"
 
 #: imagesettingsdialog.cpp:23
-#, fuzzy, kde-format
-#| msgid "Image Settings"
+#, kde-format
 msgctxt "@title:window"
 msgid "Image Settings"
 msgstr "影像設定"
@@ -3514,10 +3509,9 @@ msgid "Open image file"
 msgstr "開啟影像檔"
 
 #: imagesettingsdialog.cpp:153 markdownentry.cpp:775
-#, fuzzy, kde-format
-#| msgid "Image"
+#, kde-format
 msgid "Images (%1)"
-msgstr "影像"
+msgstr "影像 (%1)"
 
 #: latexentry.cpp:61 textentry.cpp:111
 #, kde-format
@@ -3578,19 +3572,19 @@ msgstr "dvips 執行檔路徑"
 #, kde-format
 msgctxt "@title:column"
 msgid "Type"
-msgstr ""
+msgstr "類型"
 
 #: lib/defaultvariablemodel.cpp:73
 #, kde-format
 msgctxt "@title:column"
 msgid "Size [Bytes]"
-msgstr ""
+msgstr "大小（位元組）"
 
 #: lib/defaultvariablemodel.cpp:75
 #, kde-format
 msgctxt "@title:column"
 msgid "Dimension"
-msgstr ""
+msgstr "尺寸"
 
 #: lib/defaultvariablemodel.cpp:77
 #, kde-format
@@ -3639,14 +3633,14 @@ msgstr ""
 #: lib/session.cpp:313
 #, kde-format
 msgid "%1 process has died unexpectedly. All calculation results are lost."
-msgstr "%1 個執行程序非預期地被中止。將遺失所有計算結果。"
+msgstr "%1 執行程序突然停止了。已喪失所有計算結果。"
 
 #: lib/session.cpp:315
-#, fuzzy, kde-format
+#, kde-format
 msgid ""
 "%1 process has died unexpectedly with message \"%2\". All calculation "
 "results are lost."
-msgstr "%1 個執行程序非預期地被中止，中止訊息為「%2」。將遺失所有計算結果。"
+msgstr "%1 執行程序突然停止了，其訊息為「%2」。已喪失所有計算結果。"
 
 #: lib/session.cpp:381
 #, kde-format
@@ -3750,7 +3744,7 @@ msgstr "無法開啟檔案 %1"
 #: markdownentry.cpp:70
 #, kde-format
 msgid "Enter Edit Mode"
-msgstr ""
+msgstr "進入編輯模式"
 
 #: markdownentry.cpp:78
 #, kde-format
@@ -3763,10 +3757,9 @@ msgid "Cantor Math Error"
 msgstr "Cantor 數學錯誤"
 
 #: markdownentry.cpp:796
-#, fuzzy, kde-format
-#| msgid "Cantor failed to read image with error \"%1\""
+#, kde-format
 msgid "Failed to read the image \"%1\". Error \"%2\""
-msgstr "Cantor 無法讀取影像，錯誤為「%1」"
+msgstr "無法讀取影像「%1」。錯誤為「%2」"
 
 #: pagebreakentry.cpp:28
 #, kde-format
@@ -3777,84 +3770,79 @@ msgstr "--- 頁面中斷 ---"
 #, kde-format
 msgctxt "@button go to contents page"
 msgid "Go to the contents"
-msgstr ""
+msgstr "跳到內容"
 
 #: panelplugins/documentationpanel/documentationpanelwidget.cpp:58
 #, kde-format
 msgctxt "@info:placeholder"
 msgid "Search through keywords..."
-msgstr ""
+msgstr "搜尋關鍵字..."
 
 #: panelplugins/documentationpanel/documentationpanelwidget.cpp:69
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Find in text of current documentation page"
-msgstr ""
+msgstr "在目前說明文件頁面的文本內尋找"
 
 #: panelplugins/documentationpanel/documentationpanelwidget.cpp:75
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Reset zoom level to 100%"
-msgstr ""
+msgstr "重設縮放等級至 100%"
 
 #: panelplugins/documentationpanel/documentationpanelwidget.cpp:123
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Close"
-msgstr ""
+msgstr "關閉"
 
 #: panelplugins/documentationpanel/documentationpanelwidget.cpp:133
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Jump to next match"
-msgstr ""
+msgstr "跳至下一個符合"
 
 #: panelplugins/documentationpanel/documentationpanelwidget.cpp:137
-#, fuzzy, kde-format
-#| msgid "Go to previous worksheet"
+#, kde-format
 msgctxt "@info:tooltip"
 msgid "Jump to previous match"
-msgstr "前往上個工作表格"
+msgstr "跳至上一個符合"
 
 #: panelplugins/documentationpanel/documentationpanelwidget.cpp:141
-#, fuzzy, kde-format
-#| msgid "&Match case"
+#, kde-format
 msgctxt "@info:tooltip"
 msgid "Match case sensitively"
-msgstr "符合大小寫(&M)"
+msgstr "區分大小寫"
 
 #: panelplugins/documentationpanel/documentationpanelwidget.cpp:408
 #, kde-format
 msgid "The file has been downloaded successfully at Downloads."
-msgstr ""
+msgstr "檔案已成功下載至「下載」。"
 
 #: panelplugins/documentationpanel/documentationpanelwidget.cpp:408
 #, kde-format
 msgid "Download Successful"
-msgstr ""
+msgstr "下載成功"
 
 #: panelplugins/filebrowserpanel/filebrowserpanelplugin.cpp:137
-#, fuzzy, kde-format
-#| msgid "Cantor icon"
+#, kde-format
 msgid "Cantor files"
-msgstr "Cantor 圖示"
+msgstr "Cantor 檔案"
 
 #: panelplugins/filebrowserpanel/filebrowserpanelplugin.cpp:138
-#, fuzzy, kde-format
-#| msgid "Jupyter"
+#, kde-format
 msgid "Jupyter files"
-msgstr "Jupyter"
+msgstr "Jupyter 檔案"
 
 #: panelplugins/filebrowserpanel/filebrowserpanelplugin.cpp:139
 #, kde-format
 msgid "All supported files"
-msgstr ""
+msgstr "所有支援的檔案"
 
 #: panelplugins/filebrowserpanel/filebrowserpanelplugin.cpp:140
-#, fuzzy, kde-format
-#| msgid "file"
+#, kde-format
 msgid "All files"
-msgstr "檔案"
+msgstr "所有檔案"
 
 #. i18n: ectx: property (text), widget (QLabel, label)
 #: panelplugins/variablemgr/newvardlg.ui:17
@@ -3870,8 +3858,7 @@ msgstr "值："
 
 #: panelplugins/variablemgr/variablemanagerwidget.cpp:47
 #: panelplugins/variablemgr/variablemanagerwidget.cpp:200
-#, fuzzy, kde-format
-#| msgid "Add new variable"
+#, kde-format
 msgid "Add New Variable"
 msgstr "新增變數"
 
@@ -3881,33 +3868,30 @@ msgid "Load Variables"
 msgstr "載入變數"
 
 #: panelplugins/variablemgr/variablemanagerwidget.cpp:59
-#, fuzzy, kde-format
-#| msgid "Store Variables"
+#, kde-format
 msgid "Save Variables"
 msgstr "儲存變數"
 
 #: panelplugins/variablemgr/variablemanagerwidget.cpp:65
 #: panelplugins/variablemgr/variablemanagerwidget.cpp:143
-#, fuzzy, kde-format
-#| msgid "Store Variables"
+#, kde-format
 msgid "Remove Variables"
-msgstr "儲存變數"
+msgstr "移除變數"
 
 #: panelplugins/variablemgr/variablemanagerwidget.cpp:75
-#, fuzzy, kde-format
-#| msgid "SearchBar"
+#, kde-format
 msgid "Search/Filter"
-msgstr "搜尋列"
+msgstr "搜尋/過濾"
 
 #: panelplugins/variablemgr/variablemanagerwidget.cpp:86
 #, kde-format
 msgid "Case Sensitive"
-msgstr ""
+msgstr "區分大小寫"
 
 #: panelplugins/variablemgr/variablemanagerwidget.cpp:90
 #, kde-format
 msgid "Match Complete Word"
-msgstr ""
+msgstr "符合完整單字"
 
 #: panelplugins/variablemgr/variablemanagerwidget.cpp:142
 #, kde-format
@@ -3920,22 +3904,19 @@ msgid "Load file"
 msgstr "載入檔案"
 
 #: panelplugins/variablemgr/variablemanagerwidget.cpp:286
-#, fuzzy, kde-format
-#| msgid "Name"
+#, kde-format
 msgid "Copy Name"
-msgstr "名稱"
+msgstr "複製名稱"
 
 #: panelplugins/variablemgr/variablemanagerwidget.cpp:287
-#, fuzzy, kde-format
-#| msgctxt "@title:column"
-#| msgid "Value"
+#, kde-format
 msgid "Copy Value"
-msgstr "數值"
+msgstr "複製數值"
 
 #: panelplugins/variablemgr/variablemanagerwidget.cpp:288
 #, kde-format
 msgid "Copy Name and Value"
-msgstr ""
+msgstr "複製名稱和數值"
 
 #: resultitem.cpp:48
 #, kde-format
@@ -4015,24 +3996,21 @@ msgstr "LaTeX 碼"
 
 #. i18n: ectx: property (text), widget (QLabel, label_4)
 #: settings.ui:23
-#, fuzzy, kde-format
-#| msgid "Equations:"
+#, kde-format
 msgid "Evaluation:"
-msgstr "方程式："
+msgstr "計算："
 
 #. i18n: ectx: property (toolTip), widget (QCheckBox, kcfg_CompletionDefault)
 #: settings.ui:43
-#, fuzzy, kde-format
-#| msgid "Enable Completion"
+#, kde-format
 msgid "Enable syntax completion"
-msgstr "開啟補完功能"
+msgstr "開啟語法補完"
 
 #. i18n: ectx: property (text), widget (QLabel, label_2)
 #: settings.ui:59
-#, fuzzy, kde-format
-#| msgid "Start"
+#, kde-format
 msgid "Startup:"
-msgstr "開始"
+msgstr "啟動："
 
 #. i18n: ectx: property (toolTip), widget (QLabel, label)
 #. i18n: ectx: property (toolTip), widget (KComboBox, kcfg_DefaultBackend)
@@ -4063,13 +4041,13 @@ msgstr ""
 msgid ""
 "Enable LaTeX typesetting for the results of the calculations, if supported "
 "by the backend system"
-msgstr ""
+msgstr "後端系統支援時為計算結果使用 LaTeX 排版"
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_TypesetDefault)
 #: settings.ui:92
 #, kde-format
 msgid "LaTeX typesetting"
-msgstr ""
+msgstr "LaTeX 排版"
 
 #. i18n: ectx: property (text), widget (QLabel, VisibleLinesLimit_label)
 #: settings.ui:102
@@ -4079,17 +4057,16 @@ msgstr ""
 
 #. i18n: ectx: property (toolTip), widget (QCheckBox, kcfg_AnimationDefault)
 #: settings.ui:135
-#, fuzzy, kde-format
-#| msgid "Integrate Plots into the Worksheet"
+#, kde-format
 msgid "Enable animation effects in the worksheet"
-msgstr "將 Plots 整合進工作表"
+msgstr "啟用工作表中的動畫效果"
 
 #. i18n: ectx: property (toolTip), widget (QCheckBox, kcfg_EmbeddedMathDefault)
 #: settings.ui:158
 #, kde-format
 msgid ""
 "Enable LaTeX typesetting for mathematical expressions in Markdown entries"
-msgstr ""
+msgstr "在 Markdown 項目中為數學式使用 LaTeX 排版"
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_EmbeddedMathDefault)
 #: settings.ui:161
@@ -4106,31 +4083,28 @@ msgstr ""
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_AutoEval)
 #: settings.ui:171
-#, fuzzy, kde-format
-#| msgid "Reevaluate Entries automatically"
+#, kde-format
 msgid "Reevaluate entries automatically"
 msgstr "自動重新計算項目"
 
 #. i18n: ectx: property (text), widget (QLabel, label_3)
 #: settings.ui:184
-#, fuzzy, kde-format
-#| msgid "&Worksheet"
+#, kde-format
 msgid "Worksheet:"
-msgstr "工作表(&W)"
+msgstr "工作表："
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_StoreTextEntryFormatting)
 #: settings.ui:223
 #, kde-format
 msgid ""
 "Use rich text format for text entries when saving in Jupyter Notebook Format"
-msgstr ""
+msgstr "儲存 Jupyter Notebook 格式時為文字項目使用富文字格式"
 
 #. i18n: ectx: property (text), widget (QLabel, label_5)
 #: settings.ui:236
-#, fuzzy, kde-format
-#| msgid "Markdown Entry"
+#, kde-format
 msgid "Markdown:"
-msgstr "Markdown 項目"
+msgstr "Markdown："
 
 #. i18n: ectx: property (toolTip), widget (QCheckBox, kcfg_UseOldCantorEntriesIndent)
 #: settings.ui:243
@@ -4144,57 +4118,51 @@ msgstr ""
 #: settings.ui:246
 #, kde-format
 msgid "Don't indent text entries"
-msgstr ""
+msgstr "不要縮排文字項目"
 
 #. i18n: ectx: property (toolTip), widget (QCheckBox, kcfg_WarnAboutSessionRestart)
 #: settings.ui:266
-#, fuzzy, kde-format
-#| msgid "Ask for confirmation when restarting the backend"
+#, kde-format
 msgid ""
 "If enabled, the user will be asked for confirmation prior to restarting the "
 "backend system"
-msgstr "當重新啟動後端時詢問確認"
+msgstr "啟用時，重新啟動後端系統前會詢問確認"
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_ShowMathRenderError)
 #: settings.ui:276
 #, kde-format
 msgid "Notify about render failures for mathematical expressions"
-msgstr ""
+msgstr "數學式繪製失敗時通知"
 
 #. i18n: ectx: property (toolTip), widget (QCheckBox, kcfg_ExpressionNumberingDefault)
 #: settings.ui:283
-#, fuzzy, kde-format
-#| msgid "Line Numbers"
+#, kde-format
 msgid "Show line numbers"
-msgstr "行號"
+msgstr "顯示行號"
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_ExpressionNumberingDefault)
 #: settings.ui:286
-#, fuzzy, kde-format
-#| msgid "Line Numbers"
+#, kde-format
 msgid "Line numbers"
 msgstr "行號"
 
 #. i18n: ectx: property (toolTip), widget (QCheckBox, kcfg_HighlightDefault)
 #: settings.ui:293
-#, fuzzy, kde-format
-#| msgid "Enable Syntax Highlighting"
+#, kde-format
 msgid "Enable syntax highlighting"
-msgstr "開啟語法突顯功能"
+msgstr "開啟語法突顯"
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_HighlightDefault)
 #: settings.ui:296
-#, fuzzy, kde-format
-#| msgid "Syntax Highlighting"
+#, kde-format
 msgid "Syntax highlighting"
 msgstr "語法突顯"
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_WarnAboutEntryDelete)
 #: settings.ui:303
-#, fuzzy, kde-format
-#| msgid "Ask for confirmation when restarting the backend"
+#, kde-format
 msgid "Ask for confirmation when deleting entries"
-msgstr "當重新啟動後端時詢問確認"
+msgstr "刪除項目時詢問確認"
 
 #. i18n: ectx: property (placeholderText), widget (KLineEdit, pattern)
 #: standardsearchbar.ui:35
@@ -4218,9 +4186,9 @@ msgid "Convert to Text Entry"
 msgstr "轉換成文字項目"
 
 #: textentry.cpp:81
-#, kde-format
+#, fuzzy, kde-format
 msgid "Convert to Raw Cell"
-msgstr ""
+msgstr "轉換成原始欄位"
 
 #: textentry.cpp:553
 #, kde-format
@@ -4228,10 +4196,9 @@ msgid "Target MIME type:"
 msgstr "目標 MIME 類型："
 
 #: textresultitem.cpp:60
-#, fuzzy, kde-format
-#| msgid "Remove result"
+#, kde-format
 msgid "Copy result"
-msgstr "移除結果"
+msgstr "複製結果"
 
 #: textresultitem.cpp:69
 #, kde-format
@@ -4251,7 +4218,7 @@ msgstr "顯示 HTML 程式碼"
 #: textresultitem.cpp:81 textresultitem.cpp:87
 #, kde-format
 msgid "Show Plain Alternative"
-msgstr ""
+msgstr "顯示純文字替代"
 
 #: textresultitem.cpp:85
 #, kde-format
@@ -4269,10 +4236,9 @@ msgid "Cannot render Eps file. You may need additional packages"
 msgstr "無法繪製 Eps 檔。您可能需要額外的套件"
 
 #: textresultitem.cpp:212
-#, fuzzy, kde-format
-#| msgid "Save result"
+#, kde-format
 msgid "Save text result"
-msgstr "儲存結果"
+msgstr "儲存文字結果"
 
 #: worksheet.cpp:1192
 #, kde-format
@@ -4333,12 +4299,12 @@ msgstr "選擇的檔案不是有效的 Cantor 專案檔案。"
 msgid ""
 "This worksheet was created using Python2 which is not supported anymore. "
 "Python3 will be used."
-msgstr ""
+msgstr "這個工作表建立時使用已不再支援的 Python2。將會改用 Python3。"
 
 #: worksheet.cpp:1410 worksheet.cpp:1578
 #, kde-format
 msgid "Python2 not supported anymore"
-msgstr ""
+msgstr "不再支援 Python2"
 
 #: worksheet.cpp:1419 worksheet.cpp:1595
 #, kde-format
@@ -4376,12 +4342,12 @@ msgstr "不支援 Jupyter notebooks 高於 4.5 的版本（偵測到 %1.%2 版�
 msgid ""
 "This notebook was created using Python2 which is not supported anymore. "
 "Python3 will be used."
-msgstr ""
+msgstr "這個筆記本建立時使用已不再支援的 Python2。將會改用 Python3。"
 
 #: worksheet.cpp:1645
 #, kde-format
 msgid "an object with keys: %1"
-msgstr ""
+msgstr "一個物件，鍵值：%1"
 
 #: worksheet.cpp:1647
 #, kde-format
@@ -4391,7 +4357,7 @@ msgstr "非物件 JSON 值"
 #: worksheet.cpp:1650
 #, kde-format
 msgid "found incorrect data (%1) that is not Jupyter cell"
-msgstr ""
+msgstr "找到不是 Jupyter 欄位的不正確資料 (%1)"
 
 #: worksheet.cpp:1727
 #, kde-format
@@ -4401,25 +4367,22 @@ msgstr "這個檔案並不是有效的 Jupyter notebook 格式"
 #: worksheet.cpp:1729
 #, kde-format
 msgid "Invalid Jupyter notebook scheme: %1"
-msgstr ""
+msgstr "無效的 Jypyter 筆記本機制：%1"
 
 #: worksheet.cpp:1806
-#, fuzzy, kde-format
-#| msgid "Convert to Text Entry"
+#, kde-format
 msgid "Convert To"
-msgstr "轉換成文字項目"
+msgstr "轉換為"
 
 #: worksheet.cpp:1811 worksheet.cpp:1842 worksheet.cpp:1862 worksheet.cpp:1880
-#, fuzzy, kde-format
-#| msgid "Commands"
+#, kde-format
 msgid "Command"
 msgstr "指令"
 
 #: worksheet.cpp:1818 worksheet.cpp:1845 worksheet.cpp:1865 worksheet.cpp:1883
-#, fuzzy, kde-format
-#| msgid "Markdown Entry"
+#, kde-format
 msgid "Markdown"
-msgstr "Markdown 項目"
+msgstr "Markdown"
 
 #: worksheet.cpp:1825 worksheet.cpp:1850 worksheet.cpp:1870 worksheet.cpp:1888
 #, kde-format
@@ -4432,102 +4395,89 @@ msgid "Page Break"
 msgstr "頁面中斷"
 
 #: worksheet.cpp:1831 worksheet.cpp:1852 worksheet.cpp:1872 worksheet.cpp:1890
-#, fuzzy, kde-format
-#| msgid "Points and Lines"
+#, kde-format
 msgid "Horizontal Line"
-msgstr "點與線"
+msgstr "水平線"
 
 #: worksheet.cpp:1834 worksheet.cpp:1855 worksheet.cpp:1875 worksheet.cpp:1893
-#, fuzzy, kde-format
-#| msgid "Drag Entry"
+#, kde-format
 msgid "Hierarchy Entry"
-msgstr "拖曳項目"
+msgstr "階層項目"
 
 #: worksheet.cpp:1837
-#, fuzzy, kde-format
-#| msgid "Insert Entry After"
+#, kde-format
 msgid "Insert After"
-msgstr "插入項目於以下項目之後"
+msgstr "在後方插入"
 
 #: worksheet.cpp:1858
-#, fuzzy, kde-format
-#| msgid "Insert Entry Before"
+#, kde-format
 msgid "Insert Before"
-msgstr "插入項目於以下項目之前"
+msgstr "在前方插入"
 
 #: worksheet.cpp:1877
-#, fuzzy, kde-format
-#| msgid "Insert Image"
+#, kde-format
 msgid "Insert"
-msgstr "插入影像"
+msgstr "插入"
 
 #: worksheet.cpp:1918
 #, kde-format
 msgid "Zoom In"
-msgstr ""
+msgstr "放大"
 
 #: worksheet.cpp:1921
 #, kde-format
 msgid "Zoom Out"
-msgstr ""
+msgstr "縮小"
 
 #: worksheet.cpp:1925
-#, fuzzy, kde-format
-#| msgid "Print Size"
+#, kde-format
 msgid "Original Size"
-msgstr "列印大小"
+msgstr "原始大小"
 
 #: worksheet.cpp:1933
 #, kde-format
 msgid "Move Entries Up"
-msgstr ""
+msgstr "將項目上移"
 
 #: worksheet.cpp:1934
-#, fuzzy, kde-format
-#| msgid "Convert to Text Entry"
+#, kde-format
 msgid "Move Entries Down"
-msgstr "轉換成文字項目"
+msgstr "將項目下移"
 
 #: worksheet.cpp:1935
-#, fuzzy, kde-format
-#| msgid "Evaluate Entry"
+#, kde-format
 msgid "Evaluate Entries"
 msgstr "計算項目"
 
 #: worksheet.cpp:1936
-#, fuzzy, kde-format
-#| msgid "Remove Entry"
+#, kde-format
 msgid "Remove Entries"
 msgstr "移除項目"
 
 #: worksheet.cpp:1949
-#, fuzzy, kde-format
-#| msgid "Insert Command Entry"
+#, kde-format
 msgid "Collapse Command Entry Results"
-msgstr "插入指令項目"
+msgstr "收起指令項目結果"
 
 #: worksheet.cpp:1950
-#, fuzzy, kde-format
-#| msgid "Command Entry"
+#, kde-format
 msgid "Expand Command Entry Results"
-msgstr "指令項目"
+msgstr "展開指令項目結果"
 
 #: worksheet.cpp:1951
-#, fuzzy, kde-format
-#| msgid "Command Entry"
+#, kde-format
 msgid "Remove Command Entry Results"
-msgstr "指令項目"
+msgstr "移除指令項目結果"
 
 #: worksheet.cpp:1952
 #, kde-format
 msgid "Exclude Command Entry From Execution"
-msgstr ""
+msgstr "將指令項目從執行清單中排除"
 
 #: worksheet.cpp:1953
-#, fuzzy, kde-format
-#| msgid "Scripts to autorun"
+#, kde-format
 msgid "Add Command Entry To Execution"
-msgstr "要自動執行的文稿"
+msgstr "將指令項目加入執行清單"
 
 #: worksheet.cpp:2061
 #, kde-format
@@ -4636,13 +4586,12 @@ msgstr "兩邊對齊"
 msgid ""
 "This action will remove all results without the possibility of cancellation. "
 "Are you sure?"
-msgstr ""
+msgstr "這個動作會移除所有結果，並且不能取消。您確定嗎？"
 
 #: worksheet.cpp:2863
-#, fuzzy, kde-format
-#| msgid "Remove result"
+#, kde-format
 msgid "Remove all results"
-msgstr "移除結果"
+msgstr "移除所有結果"
 
 #: worksheetentry.cpp:67
 #, kde-format
@@ -4777,18 +4726,17 @@ msgstr "亮灰色"
 #: worksheetentry.cpp:421
 #, kde-format
 msgid "Move Up"
-msgstr ""
+msgstr "上移"
 
 #: worksheetentry.cpp:429
 #, kde-format
 msgid "Move Down"
-msgstr ""
+msgstr "下移"
 
 #: worksheetentry.cpp:719
-#, fuzzy, kde-format
-#| msgid "Are you sure you want to remove all variables?"
+#, kde-format
 msgid "Do you really want to remove this entry?"
-msgstr "您確定要移除所有的變數嗎？"
+msgstr "您確定要移除這個項目嗎？"
 
 #: worksheetentry.cpp:719 worksheetentry.cpp:849
 #, kde-format
