@@ -26,6 +26,7 @@
         "Description[uk]": "Панель для показу офіційної документації до різних модулів обробки",
         "Description[x-test]": "xxA panel to display the official documentation of various backendsxx",
         "Description[zh_CN]": "显示各种后端官方文档的面板",
+        "Description[zh_TW]": "顯示各個後端的官方說明文件用的面板",
         "Icon": "",
         "Id": "DocumentationPanel",
         "License": "GPL",
@@ -57,6 +58,7 @@
         "Name[uk]": "Документація",
         "Name[x-test]": "xxDocumentationxx",
         "Name[zh_CN]": "文档",
+        "Name[zh_TW]": "說明文件",
         "ServiceTypes": [
             "Cantor/PanelPlugin"
         ]

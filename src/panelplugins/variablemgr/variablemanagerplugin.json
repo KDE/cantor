@@ -62,7 +62,8 @@
         "Name[ta]": "மாறிகள்",
         "Name[tr]": "Değişkenler",
         "Name[uk]": "Змінні",
-        "Name[x-test]": "xxVariablesxx"
+        "Name[x-test]": "xxVariablesxx",
+        "Name[zh_TW]": "變數"
     },
     "RequiredExtensions": "VariableManagementExtension"
 }
