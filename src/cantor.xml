@@ -29,6 +29,7 @@
     <comment xml:lang="tr">Cantor çalışma sayfası</comment>
     <comment xml:lang="uk">робочий аркуш Cantor</comment>
     <comment xml:lang="zh_CN">Cantor 工作表</comment>
+    <comment xml:lang="zh_TW">Cantor 工作表</comment>
     <glob pattern="*.cws"/>
     <generic-icon name="cantor"/>
     <sub-class-of type="application/zip"/>
