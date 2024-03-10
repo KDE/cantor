@@ -52,17 +52,36 @@ void MaximaSession::login()
     const QString initFile = locateCantorFile(QLatin1String("maximabackend/cantor-initmaxima.lisp"));
     arguments << QLatin1String("--init-lisp=") + initFile; //Set the name of the Lisp initialization file
 
+    // start the process
     m_process = new QProcess(this);
     m_process->start(MaximaSettings::self()->path().toLocalFile(), arguments);
-    m_process->waitForStarted();
+    if (!m_process->waitForStarted())
+    {
+        changeStatus(Session::Disable);
+        emit error(i18n("Failed to start Maxima, please check Maxima's installation."));
+        emit loginDone();
+        delete m_process;
+        m_process = nullptr;
+        return;
+    }
 
     // Wait until first maxima prompt
     QString input;
     while (!input.contains(QLatin1String("</cantor-prompt>")))
     {
-        m_process->waitForReadyRead();
+        if (!m_process->waitForReadyRead())
+            break;
         input += QString::fromLatin1(m_process->readAllStandardOutput());
-        qDebug() << input;
+    }
+
+    if (input.isEmpty())
+    {
+        changeStatus(Session::Disable);
+        emit error(i18n("Maxima didn't respond with the proper prompt, please check Maxima's installation."));
+        emit loginDone();
+        delete m_process;
+        m_process = nullptr;
+        return;
     }
 
     connect(m_process, SIGNAL(finished(int,QProcess::ExitStatus)), this, SLOT(restartMaxima()));

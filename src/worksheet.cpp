@@ -131,7 +131,7 @@ void Worksheet::print(QPrinter* printer)
     painter.scale(scale, scale);
     painter.setRenderHint(QPainter::Antialiasing);
 
-    WorksheetEntry* entry = firstEntry();
+    auto* entry = firstEntry();
     qreal y = TopMargin;
 
     while (entry) {
@@ -431,8 +431,8 @@ void Worksheet::setModified()
 
 WorksheetCursor Worksheet::worksheetCursor()
 {
-    WorksheetEntry* entry = currentEntry();
-    WorksheetTextItem* item = currentTextItem();
+    auto* entry = currentEntry();
+    auto* item = currentTextItem();
 
     if (!entry || !item)
         return WorksheetCursor();
@@ -458,7 +458,7 @@ WorksheetEntry* Worksheet::currentEntry()
     if (m_choosenCursorEntry || m_isCursorEntryAfterLastEntry)
         return nullptr;
 
-    QGraphicsItem* item = focusItem();
+    auto* item = focusItem();
     if (!item /*&& !hasFocus()*/)
         item = m_lastFocusedTextItem;
     /*else
@@ -467,7 +467,7 @@ WorksheetEntry* Worksheet::currentEntry()
                     item->type() >= QGraphicsItem::UserType + 100))
         item = item->parentItem();
     if (item) {
-        WorksheetEntry* entry = qobject_cast<WorksheetEntry*>(item->toGraphicsObject());
+        auto* entry = qobject_cast<WorksheetEntry*>(item->toGraphicsObject());
         if (entry && entry->aboutToBeRemoved()) {
             if (entry->isAncestorOf(m_lastFocusedTextItem))
                 m_lastFocusedTextItem = nullptr;
@@ -693,23 +693,31 @@ void Worksheet::startDragWithHierarchy(HierarchyEntry* entry, QDrag* drag, QSize
 void Worksheet::evaluate()
 {
     qDebug()<<"evaluate worksheet";
+    // login if not done yet
     if (!m_readOnly && m_session && m_session->status() == Cantor::Session::Disable)
         loginToSession();
 
-    firstEntry()->evaluate(WorksheetEntry::EvaluateNext);
-
-    setModified();
+    // evaluate the worksheet if the login was successfull
+    if (m_session->status() == Cantor::Session::Done) {
+        firstEntry()->evaluate(WorksheetEntry::EvaluateNext);
+        setModified();
+    }
 }
 
 void Worksheet::evaluateCurrentEntry()
 {
+    // login if not done yet
     if (!m_readOnly && m_session && m_session->status() == Cantor::Session::Disable)
         loginToSession();
 
-    WorksheetEntry* entry = currentEntry();
-    if(!entry)
-        return;
-    entry->evaluateCurrentItem();
+    // evaluate the current entry if the login was successfull
+    if (m_session->status() == Cantor::Session::Done)
+    {
+        auto* entry = currentEntry();
+        if(!entry)
+            return;
+        entry->evaluateCurrentItem();
+    }
 }
 
 bool Worksheet::completionEnabled()
@@ -719,14 +727,14 @@ bool Worksheet::completionEnabled()
 
 void Worksheet::showCompletion()
 {
-    WorksheetEntry* current = currentEntry();
+    auto* current = currentEntry();
     if (current)
         current->showCompletion();
 }
 
 WorksheetEntry* Worksheet::appendEntry(const int type, bool focus)
 {
-    WorksheetEntry* entry = WorksheetEntry::create(type, this);
+    auto* entry = WorksheetEntry::create(type, this);
 
     if (entry)
     {
@@ -1170,7 +1178,7 @@ QJsonDocument Worksheet::toJupyterJson()
     root.insert(QLatin1String("nbformat_minor"), 5);
 
     QJsonArray cells;
-    for( WorksheetEntry* entry = firstEntry(); entry; entry = entry->next())
+    for( auto* entry = firstEntry(); entry; entry = entry->next())
     {
         const QJsonValue entryJson = entry->toJupyterJson();
 
@@ -1936,7 +1944,7 @@ void Worksheet::populateMenu(QMenu* menu, QPointF pos)
         menu->addAction(QIcon::fromTheme(QLatin1String("edit-delete")), i18n("Remove Entries"), this, &Worksheet::selectionRemove);
 
         bool isAnyCommandEntryInSelection = false;
-        for (WorksheetEntry* entry : m_selectedEntries)
+        for (auto* entry : m_selectedEntries)
             if (entry->type() == CommandEntry::Type)
             {
                 isAnyCommandEntryInSelection = true;
@@ -2002,7 +2010,7 @@ void Worksheet::mousePressEvent(QGraphicsSceneMouseEvent* event)
                     m_circularFocusBuffer.clear();
                 }
 
-                for (WorksheetEntry* entry : {selectedEntry, lastSelectedEntry})
+                for (auto* entry : {selectedEntry, lastSelectedEntry})
                     if (entry)
                     {
                         if (entry->isCellSelected())
