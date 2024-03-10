@@ -1518,6 +1518,8 @@ void Worksheet::initSession(Cantor::Backend* backend)
     m_session = backend->createSession();
     if (m_useDefaultWorksheetParameters)
     {
+        if (Cantor::LatexRenderer::isLatexAvailable())
+            m_session->setTypesettingEnabled(Settings::self()->typesetDefault());
         enableHighlighting(Settings::self()->highlightDefault());
         enableCompletion(Settings::self()->completionDefault());
         enableExpressionNumbering(Settings::self()->expressionNumberingDefault());
