@@ -1,7 +1,8 @@
 ### Steps for adding custom style to the Qalculate documentation
 
-1. Copy and paste the main.css file as it is in the Qalculate folder
-2. Add below mentioned CSS rules in the copied file
+1. Copy and paste the `main.css` and `script.py` files in the R folder.
+
+2. Add below mentioned CSS rules in the copied file.
 
 ```css
 .calibre1 {
@@ -16,5 +17,8 @@
 }
 ```
 
-3. Link this file with the HTML files of Qalculte Documentation
-4. Using this main.css file one can customize the Qalculte Documentation by adding custom css rules in it
+3. Link this file with the HTML files of R Documentation.
+
+4. This can be done by running the `script.py` file. 
+
+5. Using this `main.css` file one can customize the R Documentation by adding custom css rules in it.
