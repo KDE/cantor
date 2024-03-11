@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: cantor\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-11-05 12:22+0000\n"
+"POT-Creation-Date: 2024-03-11 01:32+0000\n"
 "PO-Revision-Date: 2023-09-19 09:58+0200\n"
 "Last-Translator: Freek de Kruijf <freekdekruijf@kde.nl>\n"
 "Language-Team: \n"
@@ -396,10 +396,10 @@ msgid "Julia script file (*.jl)"
 msgstr "Julia script-bestand (*.jl)"
 
 #: backends/julia/juliasession.cpp:108 backends/julia/juliasession.cpp:117
-#: backends/maxima/maximasession.cpp:265 cantor_part.cpp:964
-#: lib/session.cpp:313 lib/session.cpp:315 worksheet.cpp:1193
-#: worksheet.cpp:1221 worksheet.cpp:1236 worksheet.cpp:1252 worksheet.cpp:1296
-#: worksheet.cpp:1308
+#: backends/maxima/maximasession.cpp:284 cantor_part.cpp:964
+#: lib/session.cpp:256 lib/session.cpp:258 worksheet.cpp:1201
+#: worksheet.cpp:1229 worksheet.cpp:1244 worksheet.cpp:1260 worksheet.cpp:1304
+#: worksheet.cpp:1316
 #, kde-format
 msgid "Error - Cantor"
 msgstr "Fout - Cantor"
@@ -891,17 +891,29 @@ msgstr "Wachten op plotresultaat"
 msgid "Maxima batch file (*.mac)"
 msgstr "Maxima batchbestand (*.mac)"
 
-#: backends/maxima/maximasession.cpp:184
+#: backends/maxima/maximasession.cpp:61
+#, kde-format
+msgid "Failed to start Maxima, please check Maxima's installation."
+msgstr ""
+
+#: backends/maxima/maximasession.cpp:80
+#, kde-format
+msgid ""
+"Maxima didn't respond with the proper prompt, please check Maxima's "
+"installation."
+msgstr ""
+
+#: backends/maxima/maximasession.cpp:203
 #, kde-format
 msgid "Failed to start Maxima"
 msgstr "Starten van Maxima mislukt"
 
-#: backends/maxima/maximasession.cpp:251
+#: backends/maxima/maximasession.cpp:270
 #, kde-format
 msgid "Maxima crashed. restarting..."
 msgstr "Maxima liep vast, wordt herstart..."
 
-#: backends/maxima/maximasession.cpp:265
+#: backends/maxima/maximasession.cpp:284
 #, kde-format
 msgid "Maxima crashed twice within a short time. Stopping to try starting"
 msgstr ""
@@ -966,8 +978,8 @@ msgstr "Het integreren (samenvoegen?) van plots wordt uitgezet."
 
 #: backends/octave/octavesession.cpp:399 backends/sage/sagesession.cpp:341
 #: backends/sage/sagesession.cpp:352 cantor.cpp:215 cantor.cpp:217
-#: cantor.cpp:336 cantor.cpp:343 lib/session.cpp:383 main.cpp:66 main.cpp:130
-#: markdownentry.cpp:797 textentry.cpp:553 worksheet.cpp:1275
+#: cantor.cpp:336 cantor.cpp:343 lib/session.cpp:326 main.cpp:66 main.cpp:130
+#: markdownentry.cpp:797 textentry.cpp:553 worksheet.cpp:1283
 #, kde-format
 msgid "Cantor"
 msgstr "Cantor"
@@ -1445,7 +1457,7 @@ msgstr "EPS"
 
 #. i18n: ectx: property (text), item, widget (KComboBox, saveFileBox)
 #: backends/qalculate/plotassistant/qalculateplotdialog.ui:575
-#: worksheet.cpp:1822 worksheet.cpp:1848 worksheet.cpp:1868 worksheet.cpp:1886
+#: worksheet.cpp:1832 worksheet.cpp:1858 worksheet.cpp:1878 worksheet.cpp:1896
 #, kde-format
 msgid "LaTeX"
 msgstr "LaTeX"
@@ -2888,12 +2900,12 @@ msgstr "Naar PDF exporteren"
 msgid "Export to LaTeX"
 msgstr "Exporteren naar LaTeX"
 
-#: cantor_part.cpp:198 cantor_part.cpp:646 worksheet.cpp:1906
+#: cantor_part.cpp:198 cantor_part.cpp:646 worksheet.cpp:1916
 #, kde-format
 msgid "Evaluate Worksheet"
 msgstr "Werkblad doorrekenen"
 
-#: cantor_part.cpp:205 worksheet.cpp:1914
+#: cantor_part.cpp:205 worksheet.cpp:1924
 #, kde-format
 msgid "Zoom"
 msgstr "Zoomen"
@@ -3078,7 +3090,7 @@ msgstr ""
 msgid "Restart %1?"
 msgstr "%1 herstarten?"
 
-#: cantor_part.cpp:636 worksheet.cpp:1909
+#: cantor_part.cpp:636 worksheet.cpp:1919
 #, kde-format
 msgid "Interrupt"
 msgstr "Onderbreking"
@@ -3251,7 +3263,7 @@ msgstr "Resultaten tonen"
 msgid "Hide Results"
 msgstr "Resultaten verbergen"
 
-#: commandentry.cpp:343 worksheet.cpp:1899
+#: commandentry.cpp:343 worksheet.cpp:1909
 #, kde-format
 msgid "Show Help"
 msgstr "Toon help"
@@ -3728,13 +3740,13 @@ msgstr "Plotnaam:"
 msgid "This is unsupported Jupyter content of types ('%1')"
 msgstr "Dit is niet ondersteunde Jupyter content van types ('%1')"
 
-#: lib/session.cpp:313
+#: lib/session.cpp:256
 #, kde-format
 msgid "%1 process has died unexpectedly. All calculation results are lost."
 msgstr ""
 "Proces %1 stopte onverwacht. Alle rekenresultaten zijn verloren gegaan."
 
-#: lib/session.cpp:315
+#: lib/session.cpp:258
 #, kde-format
 msgid ""
 "%1 process has died unexpectedly with message \"%2\". All calculation "
@@ -3743,7 +3755,7 @@ msgstr ""
 "Proces %1 stopte onverwacht, met melding \"%2\". Alle rekenresultaten zijn "
 "verloren gegaan."
 
-#: lib/session.cpp:381
+#: lib/session.cpp:324
 #, kde-format
 msgid ""
 "You choose support for %1 graphic package, but the support can't be "
@@ -4088,8 +4100,8 @@ msgstr "Resultaten"
 msgid "Errors"
 msgstr "Fouten"
 
-#: searchbar.cpp:334 searchbar.cpp:363 worksheet.cpp:1814 worksheet.cpp:1843
-#: worksheet.cpp:1863 worksheet.cpp:1881
+#: searchbar.cpp:334 searchbar.cpp:363 worksheet.cpp:1824 worksheet.cpp:1853
+#: worksheet.cpp:1873 worksheet.cpp:1891
 #, kde-format
 msgid "Text"
 msgstr "Tekst"
@@ -4361,22 +4373,22 @@ msgstr "Kan Eps-bestand niet weergeven. Mogelijk ontbreken er pakketten."
 msgid "Save text result"
 msgstr "Tekstresultaat opslaan"
 
-#: worksheet.cpp:1192
+#: worksheet.cpp:1200
 #, kde-format
 msgid "Cannot write file %1."
 msgstr "Kan bestand %1 niet schrijven."
 
-#: worksheet.cpp:1220 worksheet.cpp:1235
+#: worksheet.cpp:1228 worksheet.cpp:1243
 #, kde-format
 msgid "Cannot write file."
 msgstr "Kan bestand niet schrijven."
 
-#: worksheet.cpp:1252 worksheet.cpp:1296
+#: worksheet.cpp:1260 worksheet.cpp:1304
 #, kde-format
 msgid "Error saving file %1"
 msgstr "Fout bij schrijven bestand %1"
 
-#: worksheet.cpp:1275
+#: worksheet.cpp:1283
 #, kde-format
 msgid ""
 "In read-only mode Cantor couldn't guarantee, that the export will be valid "
@@ -4385,41 +4397,41 @@ msgstr ""
 "In de modus alleen-lezen kan Cantor niet garanderen dat exporteren geldig is "
 "voor %1"
 
-#: worksheet.cpp:1308
+#: worksheet.cpp:1316
 #, kde-format
 msgid "Error loading latex.xsl stylesheet"
 msgstr "Fout bij het inlezen van de latex.xsl-stylesheet"
 
-#: worksheet.cpp:1327
+#: worksheet.cpp:1335
 #, kde-format
 msgid "Couldn't open the file %1."
 msgstr "Kon bestand %1 niet openen."
 
-#: worksheet.cpp:1327 worksheet.cpp:1350 worksheet.cpp:1370 worksheet.cpp:1387
-#: worksheet.cpp:1419 worksheet.cpp:1430 worksheet.cpp:1539 worksheet.cpp:1554
-#: worksheet.cpp:1596 worksheet.cpp:1607 worksheet.cpp:1727 worksheet.cpp:1729
+#: worksheet.cpp:1335 worksheet.cpp:1358 worksheet.cpp:1378 worksheet.cpp:1395
+#: worksheet.cpp:1427 worksheet.cpp:1438 worksheet.cpp:1549 worksheet.cpp:1564
+#: worksheet.cpp:1606 worksheet.cpp:1617 worksheet.cpp:1737 worksheet.cpp:1739
 #, kde-format
 msgid "Open File"
 msgstr "Bestand openen"
 
-#: worksheet.cpp:1350
+#: worksheet.cpp:1358
 #, kde-format
 msgid "Couldn't open the selected file for reading."
 msgstr "Kon geselecteerd bestand niet openen voor lezen."
 
-#: worksheet.cpp:1370
+#: worksheet.cpp:1378
 #, kde-format
 msgid "The selected file is not a valid Cantor or Jupyter project file."
 msgstr ""
 "Het geselecteerde bestand is geen geldig projectbestand van Cantor of "
 "Jupyter."
 
-#: worksheet.cpp:1387
+#: worksheet.cpp:1395
 #, kde-format
 msgid "The selected file is not a valid Cantor project file."
 msgstr "Het geselecteerde bestand is geen geldig projectbestand van Cantor."
 
-#: worksheet.cpp:1409
+#: worksheet.cpp:1417
 #, kde-format
 msgid ""
 "This worksheet was created using Python2 which is not supported anymore. "
@@ -4428,19 +4440,19 @@ msgstr ""
 "Dit werkblad werd aangemaakt met het Python2, dat niet meer wordt "
 "ondersteund. Nu wordt Python3 gebruikt."
 
-#: worksheet.cpp:1410 worksheet.cpp:1578
+#: worksheet.cpp:1418 worksheet.cpp:1588
 #, kde-format
 msgid "Python2 not supported anymore"
 msgstr "Python2 wordt niet meer ondersteund"
 
-#: worksheet.cpp:1419 worksheet.cpp:1595
+#: worksheet.cpp:1427 worksheet.cpp:1605
 #, kde-format
 msgid ""
 "%1 backend was not found. Editing and executing entries is not possible."
 msgstr ""
 "Backend %1 niet gevonden. Bewerken en uitvoeren van invoer is niet mogelijk."
 
-#: worksheet.cpp:1428 worksheet.cpp:1605
+#: worksheet.cpp:1436 worksheet.cpp:1615
 #, kde-format
 msgid ""
 "There are some problems with the %1 backend,\n"
@@ -4452,7 +4464,7 @@ msgstr ""
 "de nodige pakketten.\n"
 "U kunt alleen dit werkblad zien."
 
-#: worksheet.cpp:1538
+#: worksheet.cpp:1548
 #, kde-format
 msgid ""
 "Jupyter notebooks with versions lower than 4.5 (detected version %1.%2) are "
@@ -4461,7 +4473,7 @@ msgstr ""
 "Cantor ondersteunt geen Jupyter notebooks met een versie lager dan 4.5 "
 "(gevonden %1.%2)."
 
-#: worksheet.cpp:1553
+#: worksheet.cpp:1563
 #, kde-format
 msgid ""
 "Jupyter notebooks with versions higher than 4.5 (detected version %1.%2) are "
@@ -4470,7 +4482,7 @@ msgstr ""
 "Cantor ondersteunt geen Jupyter notebooks met een versie hoger dan 4.5 "
 "(gevonden %1.%2)."
 
-#: worksheet.cpp:1577
+#: worksheet.cpp:1587
 #, kde-format
 msgid ""
 "This notebook was created using Python2 which is not supported anymore. "
@@ -4479,244 +4491,244 @@ msgstr ""
 "Dit notebook werd aangemaakt met het Python2, dat niet meer wordt "
 "ondersteund. Nu wordt Python3 gebruikt."
 
-#: worksheet.cpp:1645
+#: worksheet.cpp:1655
 #, kde-format
 msgid "an object with keys: %1"
 msgstr "een object met keys: %1"
 
-#: worksheet.cpp:1647
+#: worksheet.cpp:1657
 #, kde-format
 msgid "non object JSON value"
 msgstr "geen object JSON-waarde"
 
-#: worksheet.cpp:1650
+#: worksheet.cpp:1660
 #, kde-format
 msgid "found incorrect data (%1) that is not Jupyter cell"
 msgstr "onjuiste gegevens gevonden (%1) die geen Jupyter cel zijn"
 
-#: worksheet.cpp:1727
+#: worksheet.cpp:1737
 #, kde-format
 msgid "The file is not valid Jupyter notebook"
 msgstr "Het bestand is geen geldig Jupyter notebook"
 
-#: worksheet.cpp:1729
+#: worksheet.cpp:1739
 #, kde-format
 msgid "Invalid Jupyter notebook scheme: %1"
 msgstr "Ongeldig Jupyter notebook-schema: %1"
 
-#: worksheet.cpp:1806
+#: worksheet.cpp:1816
 #, kde-format
 msgid "Convert To"
 msgstr "Omzetten naar"
 
-#: worksheet.cpp:1811 worksheet.cpp:1842 worksheet.cpp:1862 worksheet.cpp:1880
+#: worksheet.cpp:1821 worksheet.cpp:1852 worksheet.cpp:1872 worksheet.cpp:1890
 #, kde-format
 msgid "Command"
 msgstr "Opdracht"
 
-#: worksheet.cpp:1818 worksheet.cpp:1845 worksheet.cpp:1865 worksheet.cpp:1883
+#: worksheet.cpp:1828 worksheet.cpp:1855 worksheet.cpp:1875 worksheet.cpp:1893
 #, kde-format
 msgid "Markdown"
 msgstr "Markdown"
 
-#: worksheet.cpp:1825 worksheet.cpp:1850 worksheet.cpp:1870 worksheet.cpp:1888
+#: worksheet.cpp:1835 worksheet.cpp:1860 worksheet.cpp:1880 worksheet.cpp:1898
 #, kde-format
 msgid "Image"
 msgstr "Afbeelding"
 
-#: worksheet.cpp:1828 worksheet.cpp:1853 worksheet.cpp:1873 worksheet.cpp:1891
+#: worksheet.cpp:1838 worksheet.cpp:1863 worksheet.cpp:1883 worksheet.cpp:1901
 #, kde-format
 msgid "Page Break"
 msgstr "Paginaeinde"
 
-#: worksheet.cpp:1831 worksheet.cpp:1852 worksheet.cpp:1872 worksheet.cpp:1890
+#: worksheet.cpp:1841 worksheet.cpp:1862 worksheet.cpp:1882 worksheet.cpp:1900
 #, kde-format
 msgid "Horizontal Line"
 msgstr "Horizontale lijn"
 
-#: worksheet.cpp:1834 worksheet.cpp:1855 worksheet.cpp:1875 worksheet.cpp:1893
+#: worksheet.cpp:1844 worksheet.cpp:1865 worksheet.cpp:1885 worksheet.cpp:1903
 #, kde-format
 msgid "Hierarchy Entry"
 msgstr "Invoer hiërarchie"
 
-#: worksheet.cpp:1837
+#: worksheet.cpp:1847
 #, kde-format
 msgid "Insert After"
 msgstr "Invoegen na"
 
-#: worksheet.cpp:1858
+#: worksheet.cpp:1868
 #, kde-format
 msgid "Insert Before"
 msgstr "Invoegen voor"
 
-#: worksheet.cpp:1877
+#: worksheet.cpp:1887
 #, kde-format
 msgid "Insert"
 msgstr "Invoegen"
 
-#: worksheet.cpp:1918
+#: worksheet.cpp:1928
 #, kde-format
 msgid "Zoom In"
 msgstr "Inzoomen"
 
-#: worksheet.cpp:1921
+#: worksheet.cpp:1931
 #, kde-format
 msgid "Zoom Out"
 msgstr "Uitzoomen"
 
-#: worksheet.cpp:1925
+#: worksheet.cpp:1935
 #, kde-format
 msgid "Original Size"
 msgstr "Originele grootte"
 
-#: worksheet.cpp:1933
+#: worksheet.cpp:1943
 #, kde-format
 msgid "Move Entries Up"
 msgstr "Invoer omhoog verplaatsen"
 
-#: worksheet.cpp:1934
+#: worksheet.cpp:1944
 #, kde-format
 msgid "Move Entries Down"
 msgstr "Invoer omlaag verplaatsen"
 
-#: worksheet.cpp:1935
+#: worksheet.cpp:1945
 #, kde-format
 msgid "Evaluate Entries"
 msgstr "Invoer berekenen"
 
-#: worksheet.cpp:1936
+#: worksheet.cpp:1946
 #, kde-format
 msgid "Remove Entries"
 msgstr "Invoer wissen"
 
-#: worksheet.cpp:1949
+#: worksheet.cpp:1959
 #, kde-format
 msgid "Collapse Command Entry Results"
 msgstr "Resultaten opdrachtinvoer inklappen"
 
-#: worksheet.cpp:1950
+#: worksheet.cpp:1960
 #, kde-format
 msgid "Expand Command Entry Results"
 msgstr "Resultaten opdrachtinvoer uitvouwen"
 
-#: worksheet.cpp:1951
+#: worksheet.cpp:1961
 #, kde-format
 msgid "Remove Command Entry Results"
 msgstr "Resultaten opdrachtinvoer verwijderen"
 
-#: worksheet.cpp:1952
+#: worksheet.cpp:1962
 #, kde-format
 msgid "Exclude Command Entry From Execution"
 msgstr "Verhinderen uitvoeren opdrachtinvoer"
 
-#: worksheet.cpp:1953
+#: worksheet.cpp:1963
 #, kde-format
 msgid "Add Command Entry To Execution"
 msgstr "Opdrachtinvoer ook uitvoeren"
 
-#: worksheet.cpp:2061
+#: worksheet.cpp:2071
 #, kde-format
 msgctxt "@action"
 msgid "Text &Color..."
 msgstr "Tekst&kleur..."
 
-#: worksheet.cpp:2062
+#: worksheet.cpp:2072
 #, kde-format
 msgctxt "@label text color"
 msgid "Color"
 msgstr "Kleur"
 
-#: worksheet.cpp:2069
+#: worksheet.cpp:2079
 #, kde-format
 msgctxt "@action"
 msgid "Text &Highlight..."
 msgstr "Tekst&accentuering..."
 
-#: worksheet.cpp:2075
+#: worksheet.cpp:2085
 #, kde-format
 msgctxt "@action"
 msgid "&Font"
 msgstr "&Lettertype"
 
-#: worksheet.cpp:2084
+#: worksheet.cpp:2094
 #, kde-format
 msgctxt "@action"
 msgid "Font &Size"
 msgstr "Grootte &lettertype"
 
-#: worksheet.cpp:2090
+#: worksheet.cpp:2100
 #, kde-format
 msgctxt "@action boldify selected text"
 msgid "&Bold"
 msgstr "&Vet"
 
-#: worksheet.cpp:2101
+#: worksheet.cpp:2111
 #, kde-format
 msgctxt "@action italicize selected text"
 msgid "&Italic"
 msgstr "&Cursief"
 
-#: worksheet.cpp:2113
+#: worksheet.cpp:2123
 #, kde-format
 msgctxt "@action underline selected text"
 msgid "&Underline"
 msgstr "&Onderstrepen"
 
-#: worksheet.cpp:2124
+#: worksheet.cpp:2134
 #, kde-format
 msgctxt "@action"
 msgid "&Strike Out"
 msgstr "&Doorhalen"
 
-#: worksheet.cpp:2135
+#: worksheet.cpp:2145
 #, kde-format
 msgctxt "@action"
 msgid "Align &Left"
 msgstr "&Links uitlijnen"
 
-#: worksheet.cpp:2138
+#: worksheet.cpp:2148
 #, kde-format
 msgctxt "@label left justify"
 msgid "Left"
 msgstr "Links"
 
-#: worksheet.cpp:2145
+#: worksheet.cpp:2155
 #, kde-format
 msgctxt "@action"
 msgid "Align &Center"
 msgstr "&Midden uitlijnen"
 
-#: worksheet.cpp:2148
+#: worksheet.cpp:2158
 #, kde-format
 msgctxt "@label center justify"
 msgid "Center"
 msgstr "Midden"
 
-#: worksheet.cpp:2155
+#: worksheet.cpp:2165
 #, kde-format
 msgctxt "@action"
 msgid "Align &Right"
 msgstr "&Rechts uitlijnen"
 
-#: worksheet.cpp:2158
+#: worksheet.cpp:2168
 #, kde-format
 msgctxt "@label right justify"
 msgid "Right"
 msgstr "Rechts"
 
-#: worksheet.cpp:2165
+#: worksheet.cpp:2175
 #, kde-format
 msgctxt "@action"
 msgid "&Justify"
 msgstr "&Uitlijnen"
 
-#: worksheet.cpp:2168
+#: worksheet.cpp:2178
 #, kde-format
 msgctxt "@label justify fill"
 msgid "Justify"
 msgstr "Uitlijnen"
 
-#: worksheet.cpp:2862
+#: worksheet.cpp:2872
 #, kde-format
 msgid ""
 "This action will remove all results without the possibility of cancellation. "
@@ -4725,7 +4737,7 @@ msgstr ""
 "Met deze actie worden alle resultaten verwijderd, zonder dat dit ongedaan "
 "kan worden gemaakt. Weet u het zeker?"
 
-#: worksheet.cpp:2863
+#: worksheet.cpp:2873
 #, kde-format
 msgid "Remove all results"
 msgstr "Alle resultaten verwijderen"
