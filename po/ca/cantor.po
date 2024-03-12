@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: cantor\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-03-11 01:32+0000\n"
-"PO-Revision-Date: 2024-01-28 18:31+0100\n"
+"PO-Revision-Date: 2024-03-11 12:58+0100\n"
 "Last-Translator: Josep M. Ferrer <txemaq@gmail.com>\n"
 "Language-Team: Catalan <kde-i18n-ca@kde.org>\n"
 "Language: ca\n"
@@ -897,7 +897,7 @@ msgstr "Fitxer de procés per lots del Maxima (*.mac)"
 #: backends/maxima/maximasession.cpp:61
 #, kde-format
 msgid "Failed to start Maxima, please check Maxima's installation."
-msgstr ""
+msgstr "Ha fallat en iniciar el Maxima. Verifiqueu la instal·lació del Maxima."
 
 #: backends/maxima/maximasession.cpp:80
 #, kde-format
@@ -905,6 +905,8 @@ msgid ""
 "Maxima didn't respond with the proper prompt, please check Maxima's "
 "installation."
 msgstr ""
+"El Maxima no ha respost amb l'indicatiu adequat. Verifiqueu la instal·lació "
+"del Maxima."
 
 #: backends/maxima/maximasession.cpp:203
 #, kde-format
