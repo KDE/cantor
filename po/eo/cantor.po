@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: cantor\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-03-11 01:32+0000\n"
-"PO-Revision-Date: 2024-01-04 19:55+0100\n"
+"PO-Revision-Date: 2024-03-19 07:25+0100\n"
 "Last-Translator: Oliver Kellogg <okellogg@users.sourceforge.net>\n"
 "Language-Team: esperanto <kde-i18n-eo@kde.org>\n"
 "Language: eo\n"
@@ -891,7 +891,7 @@ msgstr "Maxima bata dosiero (*.mac)"
 #: backends/maxima/maximasession.cpp:61
 #, kde-format
 msgid "Failed to start Maxima, please check Maxima's installation."
-msgstr ""
+msgstr "Malsukcesis lanĉi Maxima, bonvolu kontroli ties instalon."
 
 #: backends/maxima/maximasession.cpp:80
 #, kde-format
@@ -899,6 +899,8 @@ msgid ""
 "Maxima didn't respond with the proper prompt, please check Maxima's "
 "installation."
 msgstr ""
+"Maxima ne respondis per konvena instigilo, bonvolu kontroli la instalon de "
+"Maxima."
 
 #: backends/maxima/maximasession.cpp:203
 #, kde-format
