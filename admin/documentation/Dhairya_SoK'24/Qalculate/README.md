@@ -7,3 +7,5 @@
 3. This can be done by running the `script.py` file. 
 
 4. Using this main.css file one can customize the Qalculte Documentation by adding custom css rules in it.
+
+5. Along with that `script.py` will also run the code for converting the Qalculate documentation in Qt Help files.
