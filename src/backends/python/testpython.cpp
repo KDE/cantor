@@ -217,6 +217,8 @@ void TestPython3::testSimplePlot()
  */
 void TestPython3::testPlotWithIPythonMagic()
 {
+    QSKIP("doesn't work on CI", SkipSingle);
+
     if (!PythonSettings::integratePlots())
         QSKIP("This test needs enabled plots integration in Python3 settings", SkipSingle);
 

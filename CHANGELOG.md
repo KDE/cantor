@@ -3,9 +3,9 @@
 ## 24.05
 
 ### Bug fixes:
-    * [Python] ignore IPython's magic functions in imported Jupytor notebooks, not relevant for Cantor
+    * [python] ignore IPython's magic functions in imported Jupytor notebooks, not relevant for Cantor
 
-## 23.12
+## 24.02
 
 ### New features
     * Export worksheet to PDF
@@ -13,7 +13,9 @@
     * [R] allow to specify plot format and size in the application settings
 
 ### Bug fixes:
-    * [Julia] removed the dependency on Julia's executable (BUG: 470381)
+    * [maxima] don't send any semicolon at the end of the input when being in the Lisp mode
+    * [julia] removed the dependency on Julia's executable (BUG: 470381)
+    * [python] fixed the embedding of plots produced by matplotlib
 
 ## 23.08
 
