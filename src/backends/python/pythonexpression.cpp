@@ -92,7 +92,12 @@ QString PythonExpression::internalCommand()
             continue;
         }
 
-        commandProcessing += command + QLatin1String("\n");
+        // ignore IPython's magic commands (https://ipython.readthedocs.io/en/stable/interactive/magics.html):
+        // when a Jupytor notebook is loaded, we might get IPython's magics that are not relevant for us and that are also invalid syntax for Python
+        // and we need to ignore them if the user wants to execute them again.
+        // all these magic commands start with '%' which is invalid syntax in Python.
+        if (!command.trimmed().startsWith(QLatin1Char('%')))
+            commandProcessing += command + QLatin1String("\n");
     }
 
     return commandProcessing;

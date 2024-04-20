@@ -1,5 +1,10 @@
 # Changelog
 
+## 24.05
+
+### Bug fixes:
+    * [Python] ignore IPython's magic functions in imported Jupytor notebooks, not relevant for Cantor
+
 ## 23.12
 
 ### New features

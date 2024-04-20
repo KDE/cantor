@@ -18,6 +18,7 @@ class TestPython3 : public BackendTest
     void testCommandQueue();
 
     void testSimplePlot();
+    void testPlotWithIPythonMagic();
 
     void testImportStatement();
     void testPython3Code();
