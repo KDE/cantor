@@ -192,8 +192,6 @@ void OctaveSession::logout()
     m_previousPromptNumber = 1;
 
     Session::logout();
-
-    qDebug()<<"logout done";
 }
 
 void OctaveSession::interrupt()

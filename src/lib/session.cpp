@@ -71,6 +71,7 @@ void Session::logout()
     d->enabledGraphicPackages.clear();
     d->ignorableGraphicPackageIds.clear();
     d->usableGraphicPackages.clear();
+    qDebug()<<"logout done";
 }
 
 QList<Expression*>& Cantor::Session::expressionQueue() const

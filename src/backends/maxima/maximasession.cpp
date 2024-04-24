@@ -130,8 +130,6 @@ void MaximaSession::logout()
     m_process = nullptr;
 
     Session::logout();
-
-    qDebug()<<"logout done";
 }
 
 MaximaSession::Mode MaximaSession::mode() const {
@@ -145,6 +143,7 @@ void MaximaSession::setMode(MaximaSession::Mode mode)
 
 Cantor::Expression* MaximaSession::evaluateExpression(const QString& cmd, Cantor::Expression::FinishingBehavior behave, bool internal)
 {
+    qDebug()<<"################################## EXPRESSION START ###############################################";
     qDebug() << "evaluating: " << cmd;
     auto* expr = new MaximaExpression(this, internal);
     expr->setFinishingBehavior(behave);
@@ -320,7 +319,6 @@ QSyntaxHighlighter* MaximaSession::syntaxHighlighter(QObject* parent)
 }
 
 void MaximaSession::write(const QString& exp) {
-    qDebug()<<"################################## EXPRESSION START ###############################################";
     qDebug()<<"sending expression to maxima process: " << exp;
     m_process->write(exp.toUtf8());
 }
