@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: cantor\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-03-11 01:32+0000\n"
+"POT-Creation-Date: 2024-04-25 01:37+0000\n"
 "PO-Revision-Date: 2023-09-20 02:49+0200\n"
 "Last-Translator: Temuri Doghonadze <temuri.doghonadze@gmail.com>\n"
 "Language-Team: Georgian <kde-i18n-doc@kde.org>\n"
@@ -387,8 +387,8 @@ msgid "Julia script file (*.jl)"
 msgstr "Julia -ის სკრიპტის ფაილი (*.jl)"
 
 #: backends/julia/juliasession.cpp:108 backends/julia/juliasession.cpp:117
-#: backends/maxima/maximasession.cpp:284 cantor_part.cpp:964
-#: lib/session.cpp:256 lib/session.cpp:258 worksheet.cpp:1201
+#: backends/maxima/maximasession.cpp:283 cantor_part.cpp:964
+#: lib/session.cpp:257 lib/session.cpp:259 worksheet.cpp:1201
 #: worksheet.cpp:1229 worksheet.cpp:1244 worksheet.cpp:1260 worksheet.cpp:1304
 #: worksheet.cpp:1316
 #, kde-format
@@ -439,7 +439,7 @@ msgstr ""
 #: backends/maxima/settings.ui:21 backends/octave/settings.ui:21
 #: backends/python/settings.ui:21 backends/qalculate/settings.ui:21
 #: backends/R/settings.ui:21 backends/sage/settings.ui:21
-#: backends/scilab/settings.ui:21 cantor.cpp:629
+#: backends/scilab/settings.ui:21 cantor.cpp:645
 #, kde-format
 msgid "General"
 msgstr "მთავარი"
@@ -832,17 +832,17 @@ msgid ""
 "installation."
 msgstr ""
 
-#: backends/maxima/maximasession.cpp:203
+#: backends/maxima/maximasession.cpp:202
 #, kde-format
 msgid "Failed to start Maxima"
 msgstr "Maxima-ის გაშვების შეცდომა"
 
-#: backends/maxima/maximasession.cpp:270
+#: backends/maxima/maximasession.cpp:269
 #, kde-format
 msgid "Maxima crashed. restarting..."
 msgstr "Maxima ავარიულად დასრულდა. თავიდან გაშვება..."
 
-#: backends/maxima/maximasession.cpp:284
+#: backends/maxima/maximasession.cpp:283
 #, kde-format
 msgid "Maxima crashed twice within a short time. Stopping to try starting"
 msgstr ""
@@ -883,24 +883,24 @@ msgstr "გენერირებული გამოსახულებ�
 msgid "Octave script file (*.m)"
 msgstr "Octave -ის სკრიპტის ფაილები (*.m)"
 
-#: backends/octave/octavesession.cpp:275 backends/sage/sageexpression.cpp:49
+#: backends/octave/octavesession.cpp:273 backends/sage/sageexpression.cpp:49
 #, kde-format
 msgid "Syntax Error"
 msgstr "სინტაქსური შეცდომა"
 
-#: backends/octave/octavesession.cpp:394
+#: backends/octave/octavesession.cpp:392
 #, kde-format
 msgid "Plot integration test failed."
 msgstr ""
 
-#: backends/octave/octavesession.cpp:398
+#: backends/octave/octavesession.cpp:396
 #, kde-format
 msgid "The integration of plots will be disabled."
 msgstr ""
 
-#: backends/octave/octavesession.cpp:399 backends/sage/sagesession.cpp:341
-#: backends/sage/sagesession.cpp:352 cantor.cpp:215 cantor.cpp:217
-#: cantor.cpp:336 cantor.cpp:343 lib/session.cpp:326 main.cpp:66 main.cpp:130
+#: backends/octave/octavesession.cpp:397 backends/sage/sagesession.cpp:341
+#: backends/sage/sagesession.cpp:352 cantor.cpp:217 cantor.cpp:219
+#: cantor.cpp:338 cantor.cpp:345 lib/session.cpp:327 main.cpp:66 main.cpp:130
 #: markdownentry.cpp:797 textentry.cpp:553 worksheet.cpp:1283
 #, kde-format
 msgid "Cantor"
@@ -2365,44 +2365,44 @@ msgstr ""
 msgid "Plot Integration:"
 msgstr "გრაფიკის ინტეგრაცია:"
 
-#: cantor.cpp:103
+#: cantor.cpp:105
 #, kde-format
 msgid "The file %1 is already opened."
 msgstr "ფაილი %1 უკვე ღიაა."
 
-#: cantor.cpp:103 cantor.cpp:227
+#: cantor.cpp:105 cantor.cpp:229
 #, kde-format
 msgid "Open file"
 msgstr "ფაილის გახსნა"
 
-#: cantor.cpp:145
+#: cantor.cpp:147
 #, kde-format
 msgid "Download Examples"
 msgstr "მაგალითების გადმოწერა"
 
-#: cantor.cpp:148
+#: cantor.cpp:150
 #, kde-format
 msgid "&Open Example"
 msgstr "&მაგალითის გახსნა"
 
-#: cantor.cpp:153
+#: cantor.cpp:155
 #, kde-format
 msgid "Go to previous worksheet"
 msgstr "წინა სამუშაო ცხრილზე გადასვლა"
 
-#: cantor.cpp:165
+#: cantor.cpp:167
 #, kde-format
 msgid "Go to next worksheet"
 msgstr "შემდეგ სამუშაო ცხრილზე გადასვლა"
 
-#: cantor.cpp:226
+#: cantor.cpp:228
 #, kde-format
 msgid ""
 "All supported files (*.cws *ipynb);;Cantor Worksheet (*.cws);;Jupyter "
 "Notebook (*.ipynb)"
 msgstr ""
 
-#: cantor.cpp:294
+#: cantor.cpp:296
 #, kde-format
 msgid ""
 "<h1>No Backend Found</h1>\n"
@@ -2419,69 +2419,69 @@ msgid_plural ""
 msgstr[0] ""
 msgstr[1] ""
 
-#: cantor.cpp:314
+#: cantor.cpp:316
 #, kde-format
 msgid "Error"
 msgstr "შეცდომა"
 
-#: cantor.cpp:336
+#: cantor.cpp:338
 #, kde-format
 msgid "Backend %1 is not installed"
 msgstr "უკანაბოლო %1 დაყენებული არაა"
 
-#: cantor.cpp:343
+#: cantor.cpp:345
 #, kde-format
 msgid ""
 "%1 backend installed, but inactive. Please check installation and Cantor "
 "settings"
 msgstr ""
 
-#: cantor.cpp:371
+#: cantor.cpp:373
 #, kde-format
 msgid "Session %1"
 msgstr "სესია %1"
 
-#: cantor.cpp:388
+#: cantor.cpp:390
 #, kde-format
 msgid "Failed to find the Cantor Part with error %1"
 msgstr ""
 
-#: cantor.cpp:435 cantor_part.cpp:639
+#: cantor.cpp:449 cantor_part.cpp:639
 #, kde-format
 msgid "Calculating..."
 msgstr "გაანგარიშება..."
 
-#: cantor.cpp:438 cantor_part.cpp:650 cantor_part.cpp:713
+#: cantor.cpp:452 cantor_part.cpp:650 cantor_part.cpp:713
 #, kde-format
 msgid "Ready"
 msgstr "მზადაა"
 
-#: cantor.cpp:482
+#: cantor.cpp:496
 #, kde-format
 msgid "Changed"
 msgstr "შეცვლილია"
 
-#: cantor.cpp:566
+#: cantor.cpp:582
 #, kde-format
 msgid "Multiple unsaved Worksheets are opened. Do you want to close them?"
 msgstr ""
 
-#: cantor.cpp:567
+#: cantor.cpp:583
 #, kde-format
 msgid "Close Cantor"
 msgstr "Cantor-ისდახურვა"
 
-#: cantor.cpp:583
+#: cantor.cpp:599
 #, kde-format
 msgid "The current project has been modified. Do you want to save it?"
 msgstr ""
 
-#: cantor.cpp:584
+#: cantor.cpp:600
 #, kde-format
 msgid "Save Project"
 msgstr "პროექტის შენახვა"
 
-#: cantor.cpp:630
+#: cantor.cpp:646
 #, kde-format
 msgid "Formatting"
 msgstr "ფორმატირება"
@@ -3541,19 +3541,19 @@ msgstr "გრაფიკის სათაური:"
 msgid "This is unsupported Jupyter content of types ('%1')"
 msgstr ""
 
-#: lib/session.cpp:256
+#: lib/session.cpp:257
 #, kde-format
 msgid "%1 process has died unexpectedly. All calculation results are lost."
 msgstr ""
 
-#: lib/session.cpp:258
+#: lib/session.cpp:259
 #, kde-format
 msgid ""
 "%1 process has died unexpectedly with message \"%2\". All calculation "
 "results are lost."
 msgstr ""
 
-#: lib/session.cpp:324
+#: lib/session.cpp:325
 #, kde-format
 msgid ""
 "You choose support for %1 graphic package, but the support can't be "
