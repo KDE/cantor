@@ -34,7 +34,7 @@
 > <affiliation
 ><address
 ><email
->stefan.asserhall@bredband.net</email
+>stefan.asserhall@gmail.com</email
 ></address
 ></affiliation
 > <contrib
@@ -53,9 +53,9 @@
 >&FDLNotice;</legalnotice>
 
 <date
->2020-12-16</date>
+>2023-11-29</date>
 <releaseinfo
->Program 20.12</releaseinfo>
+>Program 23.08</releaseinfo>
 
 <abstract>
 <para
@@ -71,6 +71,8 @@
 >matematik</keyword>
 <keyword
 >matte</keyword>
+<keyword
+>statistik</keyword>
 <keyword
 >Cantor</keyword>
 <keyword
@@ -191,7 +193,7 @@
 >R:</term>
       <listitem>
 	<para
->R är ett språk och en miljö för statistiska beräkningar och diagram, som liknar språket och miljön S. Det tillhandahåller en stor mängd statistiska och grafiska tekniker (linjär och icke-linjär modellering, klassiska statistiska prov, analys av tidserier, klassificering, ...), och är mycket utökningsbart. Språket S är ofta förstahandsvalet för forskning i statistiska metoder, och R tillhandahåller en väg med öppen källkod för det. Se <ulink url="https://www.r-project.org"
+>R är ett språk och en miljö för statistiska beräkningar och diagram, som liknar språket och miljön S. Det tillhandahåller en stor mängd statistiska och grafiska tekniker (linjär och icke-linjär modellering, klassiska statistiska prov, analys av tidserier, klassificering, klustring, datavetenskap, ...) samt grafiska tekniker, och är mycket utökningsbart. Språket S är ofta förstahandsvalet för forskning i statistiska metoder, och R tillhandahåller en väg med öppen källkod för det. Se <ulink url="https://www.r-project.org"
 >https://www.r-project.org</ulink
 > för mer information. </para>
       </listitem>
@@ -201,8 +203,8 @@
 >Julia:</term>
       <listitem>
 	<para
->Julia är ett högnivå och högprestanda dynamiskt programspråk för teknisk databehandling, med en syntax som är bekant för användare av andra tekniska databehandlingsmiljöer. Det tillhandahåller en sofistikerad kompilator, distribuerad parallell exekvering, numerisk noggrannhet och ett omfattande matematiskt funktionsbibliotek. Se <ulink url="https://docs.julialang.org/en/"
->Julias dokumentation</ulink
+>Julia är ett högnivå och högprestanda dynamiskt programspråk för teknisk databehandling, med en syntax som är bekant för användare av andra tekniska databehandlingsmiljöer. Det tillhandahåller en sofistikerad kompilator, distribuerad parallell exekvering, numerisk noggrannhet och ett omfattande matematiskt funktionsbibliotek. Se <ulink url="https://julialang.org/"
+>Julias webbplats</ulink
 > för mer information. </para>
       </listitem>
     </varlistentry>
@@ -273,8 +275,8 @@
   <para
 >&GNU; Octave är ett högnivåspråk, i huvudsak avsett för numeriska beräkningar. Det tillhandahåller ett bekvämt kommandoradsgränssnitt för att lösa linjära och icke-linjära problem numeriskt, och för att utföra andra numeriska experiment med ett språk som i huvudsak är kompatibelt med <ulink url="https://www.mathworks.com/products/matlab.html"
 >MATLAB</ulink
->. Se <ulink url="https://www.gnu.org/software/octave/"
->https://www.gnu.org/software/octave/</ulink
+>. Se <ulink url="https://octave.org/"
+>https://octave.org/</ulink
 > för mer information. </para>
       </listitem>
     </varlistentry>
@@ -290,7 +292,7 @@
 > för mer information. </para>
   <para
 >Bakgrundsprogrammet stöder <ulink url="https://luajit.org/"
->luajit 2</ulink
+>LuaJIT 2</ulink
 >. </para>
       </listitem>
     </varlistentry>
@@ -1562,7 +1564,7 @@
 
 <para
 >Översättning Stefan Asserhäll <email
->stefan.asserhall@bredband.net</email
+>stefan.asserhall@gmail.com</email
 ></para
 > &underFDL; &underGPL; </chapter>
 
