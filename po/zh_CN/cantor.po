@@ -4457,7 +4457,7 @@ msgstr "颜色"
 #, kde-format
 msgctxt "@action"
 msgid "Text &Highlight..."
-msgstr "文本加亮(&H)..."
+msgstr "文本高亮(&H)..."
 
 #: worksheet.cpp:2085
 #, kde-format
