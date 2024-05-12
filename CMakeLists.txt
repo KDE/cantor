@@ -59,6 +59,16 @@ find_package(KF5 ${KF5_MIN_VERSION} REQUIRED
     I18n
 )
 
+option(ENABLE_EMBEDDED_DOCUMENTATION "Enable the emedded documentation depending on QtHelp and QtWebEngine" ON)
+if (ENABLE_EMBEDDED_DOCUMENTATION)
+    find_package(Qt5 5.8.0 CONFIG REQUIRED
+        Help
+        WebEngine
+        WebEngineWidgets)
+    add_definitions (-DHAVE_EMBEDDED_DOCUMENTATION)
+endif ()
+
+
 find_package(Poppler "0.62.0" REQUIRED COMPONENTS Qt5)
 
 option(USE_LIBSPECTRE "Use libspectre library" ON)

@@ -1905,9 +1905,11 @@ void Worksheet::populateMenu(QMenu* menu, QPointF pos)
             menu->addMenu(insertMenu);
 
             //"Show help" for backend's documentation
+#ifdef HAVE_EMBEDDED_DOCUMENTATION
             menu->addSeparator();
             menu->addAction(QIcon::fromTheme(QLatin1String("help-hint")), i18n("Show Help"), this,
                                         [=] () { requestDocumentation(QString()); });
+#endif
         }
 
         //evaluate the whole worksheet or interrupt the current calculation

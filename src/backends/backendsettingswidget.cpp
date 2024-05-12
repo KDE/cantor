@@ -20,7 +20,7 @@
 
 #include "backendsettingswidget.h"
 
-#ifdef ENABLE_EMBEDDED_DOCUMENTATION
+#ifdef HAVE_EMBEDDED_DOCUMENTATION
 #include "qthelpconfig.h"
 #endif
 
@@ -39,7 +39,7 @@ void BackendSettingsWidget::tabChanged(int index) {
     if (!m_tabWidget)
         return;
 
-#ifdef ENABLE_EMBEDDED_DOCUMENTATION
+#ifdef HAVE_EMBEDDED_DOCUMENTATION
     if (!m_tabDocumentation)
         return;
 

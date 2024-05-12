@@ -26,7 +26,7 @@ SageSettingsWidget::SageSettingsWidget(QWidget* parent, const QString& id) : Bac
     setupUi(this);
 
     m_tabWidget = tabWidget;
-#ifdef ENABLE_EMBEDDED_DOCUMENTATION
+#ifdef HAVE_EMBEDDED_DOCUMENTATION
     m_tabDocumentation = tabDocumentation;
 #endif
     m_urlRequester = kcfg_Path;

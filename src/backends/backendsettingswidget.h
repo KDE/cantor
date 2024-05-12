@@ -24,7 +24,7 @@
 #include <QWidget>
 
 class QTabWidget;
-#ifdef ENABLE_EMBEDDED_DOCUMENTATION
+#ifdef HAVE_EMBEDDED_DOCUMENTATION
 class QtHelpConfig;
 #endif
 class KUrlRequester;
@@ -37,14 +37,14 @@ public:
     explicit BackendSettingsWidget(QWidget* parent = nullptr, const QString& id = QString());
 
 private:
-#ifdef ENABLE_EMBEDDED_DOCUMENTATION
+#ifdef HAVE_EMBEDDED_DOCUMENTATION
     QtHelpConfig* m_docWidget = nullptr;
 #endif
 
 protected:
     QString m_id;
     QTabWidget* m_tabWidget = nullptr;
-#ifdef ENABLE_EMBEDDED_DOCUMENTATION
+#ifdef HAVE_EMBEDDED_DOCUMENTATION
     QWidget* m_tabDocumentation = nullptr;
 #endif
     KUrlRequester* m_urlRequester = nullptr;

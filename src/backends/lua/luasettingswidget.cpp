@@ -25,6 +25,8 @@ LuaSettingsWidget::LuaSettingsWidget(QWidget* parent, const QString& id) : Backe
     setupUi(this);
 
     m_tabWidget = tabWidget;
+#ifdef HAVE_EMBEDDED_DOCUMENTATION
     m_tabDocumentation = tabDocumentation;
+#endif
     connect(tabWidget, &QTabWidget::currentChanged, this, &BackendSettingsWidget::tabChanged);
 }

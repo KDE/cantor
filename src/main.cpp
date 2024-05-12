@@ -20,13 +20,13 @@
 #include <QFileInfo>
 #include <QDir>
 #include <QDebug>
-#ifdef ENABLE_EMBEDDED_DOCUMENTATION
+#ifdef HAVE_EMBEDDED_DOCUMENTATION
 #include <QtWebEngine>
 #endif
 
 int main(int argc, char **argv)
 {
-#ifdef ENABLE_EMBEDDED_DOCUMENTATION
+#ifdef HAVE_EMBEDDED_DOCUMENTATION
     QtWebEngine::initialize();
     // Register custom scheme handler for qthelp:// scheme
     QWebEngineUrlScheme qthelp("qthelp");
