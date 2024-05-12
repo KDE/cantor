@@ -479,7 +479,7 @@ msgid ""
 "If enabled, plots will be shown inside of the worksheet. Otherwise, plots "
 "will be shown in an external window."
 msgstr ""
-"Si se selecciona, les gràfiques es mostraran dins del full de treball. "
+"Si està marcada, les gràfiques es mostraran dins del full de treball. "
 "Altrament apareixeran en una finestra externa."
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_allowLatex)
@@ -916,7 +916,7 @@ msgstr "No s'ha pogut iniciar Maxima"
 #: backends/maxima/maximasession.cpp:270
 #, kde-format
 msgid "Maxima crashed. restarting..."
-msgstr "Maxima ha fallat. S'està reiniciant..."
+msgstr "Maxima ha fallat. S'està reiniciant…"
 
 #: backends/maxima/maximasession.cpp:284
 #, kde-format
@@ -1554,7 +1554,7 @@ msgid ""
 "instead of rounding (ex. 2/3 displays as 0.666666... instead of 0.666667)."
 msgstr ""
 "Mostra que la sèrie de dígits d'un número continua indefinidament emprant "
-"tres punts en lloc d'arredonir-lo (p. ex.: 2/3 es mostra com 0,666666... en "
+"tres punts en lloc d'arredonir-lo (p. ex.: 2/3 es mostra com 0,666666… en "
 "lloc de 0,666667)."
 
 #. i18n: ectx: label, entry (useAllPrefixes), group (QalculateBackend)
@@ -2266,7 +2266,7 @@ msgstr "Introduïu un nom"
 #, kde-format
 msgctxt "@info:placeholder"
 msgid "Select a name..."
-msgstr "Seleccioneu un nom..."
+msgstr "Seleccioneu un nom…"
 
 #. i18n: ectx: property (text), widget (QLabel, lPath)
 #: backends/qthelpconfigeditdialog.ui:51
@@ -2280,14 +2280,14 @@ msgstr "Camí:"
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Select a Qt Help file..."
-msgstr "Seleccioneu un fitxer d'ajuda de les Qt..."
+msgstr "Seleccioneu un fitxer d'ajuda de les Qt…"
 
 #. i18n: ectx: property (placeholderText), widget (KUrlRequester, qchRequester)
 #: backends/qthelpconfigeditdialog.ui:70
 #, kde-format
 msgctxt "@info:placeholder"
 msgid "Select a Qt Help file..."
-msgstr "Seleccioneu un fitxer d'ajuda de les Qt..."
+msgstr "Seleccioneu un fitxer d'ajuda de les Qt…"
 
 #: backends/R/rbackend.cpp:81
 #, kde-format
@@ -2364,7 +2364,7 @@ msgstr ""
 "estadístiques, similar al llenguatge i entorn «S». <br/>Oferix una àmplia "
 "varietat de tècniques estadístiques (modelatge lineal i no lineal, tests "
 "estadístics clàssics, anàlisi de sèries temporals, classificació, "
-"clustering...) i gràfiques, i és altament extensible. El llenguatge S és "
+"clustering…) i gràfiques, i és altament extensible. El llenguatge S és "
 "sovint el vehicle escollit per a la recerca en metodologia estadística, i R "
 "oferix una via de codi obert per a participar en esta activitat."
 
@@ -2650,7 +2650,7 @@ msgstr "No s'ha pogut buscar la Part de Cantor amb l'error %1"
 #: cantor.cpp:435 cantor_part.cpp:639
 #, kde-format
 msgid "Calculating..."
-msgstr "S'està calculant..."
+msgstr "S'està calculant…"
 
 #: cantor.cpp:438 cantor_part.cpp:650 cantor_part.cpp:713
 #, kde-format
@@ -3129,7 +3129,7 @@ msgstr "Inicialització completa"
 #: cantor_part.cpp:708
 #, kde-format
 msgid "Initializing..."
-msgstr "S'està inicialitzant..."
+msgstr "S'està inicialitzant…"
 
 #: cantor_part.cpp:766
 #, kde-format
@@ -3315,7 +3315,7 @@ msgstr "Barra de busques"
 #: extendedsearchbar.ui:166 standardsearchbar.ui:22 standardsearchbar.ui:85
 #, kde-format
 msgid "..."
-msgstr "..."
+msgstr "…"
 
 #. i18n: ectx: property (text), widget (QLabel, label)
 #: extendedsearchbar.ui:47
@@ -3914,7 +3914,7 @@ msgstr "Ves fins al contingut"
 #, kde-format
 msgctxt "@info:placeholder"
 msgid "Search through keywords..."
-msgstr "Busca mitjançant les paraules clau..."
+msgstr "Busca mitjançant les paraules clau…"
 
 #: panelplugins/documentationpanel/documentationpanelwidget.cpp:69
 #, kde-format
@@ -4228,8 +4228,7 @@ msgstr "Expressions matemàtiques via LaTeX"
 msgid ""
 "If enabled, all entries below the current one will be evaluated automatically"
 msgstr ""
-"Si se selecciona, s'avaluaran automàticament totes les entrades davall de "
-"l'actual"
+"Si s'activa, totes les entrades davall de l'actual s'avaluaran automàticament"
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_AutoEval)
 #: settings.ui:171
@@ -4265,7 +4264,7 @@ msgid ""
 "If enabled, text entries are aligned at the worksheet border and not at the "
 "prompt border"
 msgstr ""
-"Si se selecciona, les entrades de text s'alinearan amb la vora del full de "
+"Si està marcada, les entrades de text s'alinearan amb la vora del full de "
 "treball i no amb la vora de l'indicatiu"
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_UseOldCantorEntriesIndent)
@@ -4281,7 +4280,7 @@ msgid ""
 "If enabled, the user will be asked for confirmation prior to restarting the "
 "backend system"
 msgstr ""
-"Si se selecciona, es demanarà confirmació a l'usuari abans de reiniciar el "
+"Si s'activa, es demanarà confirmació a l'usuari abans de reiniciar el "
 "sistema del dorsal"
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_ShowMathRenderError)
@@ -4655,7 +4654,7 @@ msgstr "Afig una entrada d'ordre a l'execució"
 #, kde-format
 msgctxt "@action"
 msgid "Text &Color..."
-msgstr "&Color del text..."
+msgstr "&Color del text…"
 
 #: worksheet.cpp:2072
 #, kde-format
@@ -4667,7 +4666,7 @@ msgstr "Color"
 #, kde-format
 msgctxt "@action"
 msgid "Text &Highlight..."
-msgstr "&Ressaltat de text..."
+msgstr "&Ressaltat de text…"
 
 #: worksheet.cpp:2085
 #, kde-format
