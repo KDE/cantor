@@ -30,7 +30,12 @@ ki18n_wrap_ui(RBackend_SRCS settings.ui)
 add_backend(rbackend ${RBackend_SRCS})
 
 set_target_properties( cantor_rbackend PROPERTIES INSTALL_RPATH_USE_LINK_PATH false)
-target_link_libraries( cantor_rbackend cantor_help ${R_USED_LIBS} KF5::SyntaxHighlighting)
+target_link_libraries( cantor_rbackend ${R_USED_LIBS} KF5::SyntaxHighlighting)
+
+if (ENABLE_EMBEDDED_DOCUMENTATION)
+    target_link_libraries(cantor_rbackend cantor_help)
+endif ()
+
 if(MSVC)
 # When compiling with MSVC, we have to create a .lib file for R.dll, first
 find_package(Python3 COMPONENTS Interpreter REQUIRED)

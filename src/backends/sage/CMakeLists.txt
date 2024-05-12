@@ -17,7 +17,11 @@ ki18n_wrap_ui(SageBackend_SRCS settings.ui)
 
 add_backend(sagebackend ${SageBackend_SRCS})
 
-target_link_libraries( cantor_sagebackend cantor_help KF5::SyntaxHighlighting)
+target_link_libraries( cantor_sagebackend KF5::SyntaxHighlighting)
+
+if (ENABLE_EMBEDDED_DOCUMENTATION)
+    target_link_libraries(cantor_sagebackend cantor_help)
+endif ()
 
 if(BUILD_TESTING)
   add_executable( testsage testsage.cpp)

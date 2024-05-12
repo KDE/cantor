@@ -13,15 +13,16 @@ add_subdirectory(maxima)
 add_subdirectory(octave)
 add_subdirectory(scilab)
 
-set(cantor_HELP
-   qthelpconfig.cpp
-)
+if (ENABLE_EMBEDDED_DOCUMENTATION)
+    set(cantor_HELP
+        qthelpconfig.cpp
+    )
 
-ki18n_wrap_ui(cantor_HELP qthelpconfig.ui)
-ki18n_wrap_ui(cantor_HELP qthelpconfigeditdialog.ui)
-
-add_library(cantor_help STATIC ${cantor_HELP})
-target_link_libraries(cantor_help KF5::SyntaxHighlighting KF5::I18n KF5::IconThemes KF5::NewStuffWidgets KF5::KIOWidgets Qt5::Help)
+    ki18n_wrap_ui(cantor_HELP qthelpconfig.ui)
+    ki18n_wrap_ui(cantor_HELP qthelpconfigeditdialog.ui)
+    add_library(cantor_help STATIC ${cantor_HELP})
+    target_link_libraries(cantor_help KF5::SyntaxHighlighting KF5::I18n KF5::IconThemes KF5::NewStuffWidgets KF5::KIOWidgets Qt5::Help)
+endif()
 
 if(NOT WIN32)
     add_subdirectory(sage)

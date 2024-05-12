@@ -23,12 +23,15 @@ kconfig_add_kcfg_files(PythonBackend_SRCS settings.kcfgc)
 add_backend(pythonbackend ${PythonBackend_SRCS} ${PythonBackend_RSCS})
 target_link_libraries(cantor_pythonbackend
   cantorlibs
-  cantor_help
   KF5::KIOCore
   KF5::ConfigCore
   KF5::ConfigGui
   KF5::SyntaxHighlighting
 )
+
+if (ENABLE_EMBEDDED_DOCUMENTATION)
+    target_link_libraries(cantor_pythonbackend cantor_help)
+endif ()
 
 add_executable(cantor_pythonserver ${PythonServer_SRCS})
 set_target_properties(cantor_pythonserver PROPERTIES INSTALL_RPATH_USE_LINK_PATH false)

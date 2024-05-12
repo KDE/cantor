@@ -1,10 +1,12 @@
 /*
     SPDX-License-Identifier: GPL-2.0-or-later
     SPDX-FileCopyrightText: 2009 Alexander Rieder <alexanderrieder@gmail.com>
+    SPDX-FileCopyrightText: 2016-2024 Alexander Semke <alexander.semke@web.de>
 */
 
 #include "cantor.h"
 #include <config-cantor.h>
+
 #include <QApplication>
 #include <KAboutData>
 #include <KCrash>
@@ -12,20 +14,24 @@
 #include <KLocalizedString>
 #include <KConfigGroup>
 #include <KMessageBox>
+
 #include <QCommandLineParser>
 #include <QUrl>
 #include <QFileInfo>
 #include <QDir>
 #include <QDebug>
+#ifdef ENABLE_EMBEDDED_DOCUMENTATION
 #include <QtWebEngine>
-
+#endif
 
 int main(int argc, char **argv)
 {
+#ifdef ENABLE_EMBEDDED_DOCUMENTATION
     QtWebEngine::initialize();
     // Register custom scheme handler for qthelp:// scheme
     QWebEngineUrlScheme qthelp("qthelp");
     QWebEngineUrlScheme::registerScheme(qthelp);
+#endif
 
     QApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
     QApplication::setAttribute(Qt::AA_UseHighDpiPixmaps);
@@ -105,22 +111,17 @@ int main(int argc, char **argv)
     else
     {
         // no session.. just start up normally
-
-        CantorShell *widget = new CantorShell();
+        auto* widget = new CantorShell();
         if ( parser.positionalArguments().count() == 0 )
         {
             if(parser.isSet(QLatin1String("backend")))
-            {
                 widget->addWorksheet(parser.value(QLatin1String("backend")));
-            }
             else
-            {
                 widget->addWorksheet();
-            }
         }
         else
         {
-            const QStringList& args=parser.positionalArguments();
+            const auto& args = parser.positionalArguments();
             for (const QString& filename : args)
             {
                 const QUrl url = QUrl::fromUserInput(filename, QDir::currentPath(), QUrl::AssumeLocalFile);
@@ -129,9 +130,7 @@ int main(int argc, char **argv)
                     if (url.isLocalFile() && !QFileInfo(url.toLocalFile()).exists())
                         KMessageBox::error(widget, i18n("Couldn't open the file %1", filename), i18n("Cantor"));
                     else
-                    {
                         widget->load(url);
-                    }
                 }
             }
         }

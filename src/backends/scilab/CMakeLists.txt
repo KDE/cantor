@@ -17,10 +17,14 @@ ki18n_wrap_ui(ScilabBackend_SRCS settings.ui)
 
 add_backend(scilabbackend ${ScilabBackend_SRCS})
 
-target_link_libraries(cantor_scilabbackend cantor_help
+target_link_libraries(cantor_scilabbackend
   KF5::KIOCore
   KF5::SyntaxHighlighting
 )
+
+if (ENABLE_EMBEDDED_DOCUMENTATION)
+    target_link_libraries(cantor_scilabbackend cantor_help)
+endif ()
 
 if(BUILD_TESTING)
   add_executable(testscilab testscilab.cpp)

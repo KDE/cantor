@@ -16,7 +16,9 @@ RSettingsWidget::RSettingsWidget(QWidget *parent, const QString& id) : BackendSe
     setupUi(this);
 
     m_tabWidget = tabWidget;
+#ifdef ENABLE_EMBEDDED_DOCUMENTATION
     m_tabDocumentation = tabDocumentation;
+#endif
     connect(tabWidget, &QTabWidget::currentChanged, this, &BackendSettingsWidget::tabChanged);
 
     kcfg_autorunScripts->lineEdit()->setReadOnly(true);
