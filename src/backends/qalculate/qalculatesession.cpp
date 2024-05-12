@@ -16,20 +16,11 @@
 #include <QProcess>
 #include <QRegularExpression>
 
-#include <libqalculate/Calculator.h>
-#include <libqalculate/ExpressionItem.h>
-#include <libqalculate/Unit.h>
-#include <libqalculate/Prefix.h>
-#include <libqalculate/Function.h>
-
 #include "qalculatesyntaxhelpobject.h"
 
 QalculateSession::QalculateSession( Cantor::Backend* backend)
     : Session(backend),
-      m_variableModel(new Cantor::DefaultVariableModel(this)),
-      m_process(nullptr),
-      m_currentExpression(nullptr),
-      m_isSaveCommand(false)
+      m_variableModel(new Cantor::DefaultVariableModel(this))
 {
     /*
         qalc does all of this by default but we still need the CALCULATOR instance for plotting
@@ -95,7 +86,7 @@ void QalculateSession::login()
 void QalculateSession::readOutput()
 {
         while(m_process->bytesAvailable()) {
-                m_output.append(QString::fromLocal8Bit(m_process->readLine()));
+                m_output.append(QString::fromUtf8(m_process->readLine()));
                 qDebug() << m_output;
         }
 

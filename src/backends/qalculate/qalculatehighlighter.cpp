@@ -1,20 +1,12 @@
 /*
     SPDX-FileCopyrightText: 2009 Milian Wolff <mail@milianw.de>
-
     SPDX-License-Identifier: GPL-2.0-or-later
 */
 
 #include "qalculatehighlighter.h"
-
 #include <libqalculate/Calculator.h>
-#include <libqalculate/Variable.h>
-#include <libqalculate/Function.h>
-#include <libqalculate/Unit.h>
-
-#include <KColorScheme>
 #include <KLocalizedString>
 #include <QLocale>
-#include <QDebug>
 #include <QRegularExpression>
 
 QalculateHighlighter::QalculateHighlighter(QObject* parent)
@@ -37,7 +29,7 @@ void QalculateHighlighter::highlightBlock(const QString& text)
     ///      MathStructur and position+length in @p text
     const QStringList words = text.split(QRegularExpression(QStringLiteral("\\b")), QString::SkipEmptyParts);
 
-    qDebug() << "highlight block:" << text;
+    // qDebug() << "highlight block:" << text;
 
     CALCULATOR->beginTemporaryStopMessages();
 
@@ -49,13 +41,10 @@ void QalculateHighlighter::highlightBlock(const QString& text)
             continue;
         }
 
-        qDebug() << "highlight word:" << words[i];
-
-        QTextCharFormat format = errorFormat();
+        auto format = errorFormat();
 
         if ( i < words.size() - 1 && words[i+1].trimmed() == QLatin1String("(") && CALCULATOR->getFunction(words[i].toUtf8().constData()) ) {
             // should be a function
-            qDebug() << "function";
             format = functionFormat();
         } else if ( isOperatorAndWhitespace(words[i]) ) {
             // stuff like ") * (" is an invalid expression, but actually OK
@@ -67,7 +56,6 @@ void QalculateHighlighter::highlightBlock(const QString& text)
                     // lookbehind
                     QString lastWord = words[i-1].trimmed();
                     if ( !lastWord.isEmpty() && lastWord.at(lastWord.size()-1).isNumber() ) {
-                        qDebug() << "actually float";
                         isFloat = true;
                     }
                 }
@@ -75,13 +63,11 @@ void QalculateHighlighter::highlightBlock(const QString& text)
                     // lookahead
                     QString nextWord = words[i+1].trimmed();
                     if ( !nextWord.isEmpty() && nextWord.at(0).isNumber() ) {
-                        qDebug() << "float coming";
                         isFloat = true;
                     }
                 }
             }
             if ( !isFloat ) {
-                qDebug() << "operator / whitespace";
                 format = operatorFormat();
             } else {
                 format = numberFormat();
@@ -89,15 +75,11 @@ void QalculateHighlighter::highlightBlock(const QString& text)
         } else {
             MathStructure expr = CALCULATOR->parse(words[i].toLatin1().constData());
             if ( expr.isNumber() || expr.isNumber_exp() ) {
-                qDebug() << "number";
                 format = numberFormat();
             } else if ( expr.isVariable() ) {
-                qDebug() << "variable";
                 format = variableFormat();
             } else if ( expr.isUndefined() ) {
-                qDebug() << "undefined";
             } else if ( expr.isUnit() || expr.isUnit_exp() ) {
-                qDebug() << "unit";
                 format = keywordFormat();
             }
         }
@@ -106,15 +88,14 @@ void QalculateHighlighter::highlightBlock(const QString& text)
     }
 
     CALCULATOR->endTemporaryStopMessages();
-
 }
 
 bool QalculateHighlighter::isOperatorAndWhitespace(const QString& word) const
 {
-    foreach ( const QChar& c, word ) {
-        if ( c.isLetterOrNumber() ) {
+    for (const auto& c : word ) {
+        if ( c.isLetterOrNumber() )
             return false;
-        }
     }
+
     return true;
 }
