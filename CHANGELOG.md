@@ -4,6 +4,7 @@
 
 ### Bug fixes:
     * [python] ignore IPython's magic functions in imported Jupytor notebooks, not relevant for Cantor
+    * Fixed the export to LaTeX (BUG: 483482)
 
 ## 24.02
 
