@@ -1472,10 +1472,10 @@ void CommandEntry::layOutForWidth(qreal entry_zone_x, qreal w, bool force)
     }
 }
 
-void CommandEntry::startRemoving()
+void CommandEntry::startRemoving(bool warn)
 {
     m_promptItem->setItemDragable(false);
-    WorksheetEntry::startRemoving();
+    WorksheetEntry::startRemoving(warn);
 }
 
 WorksheetTextItem* CommandEntry::highlightItem()

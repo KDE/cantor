@@ -49,7 +49,7 @@ WorksheetTextItem::WorksheetTextItem(WorksheetEntry* parent, Qt::TextInteraction
     connect(document(), &QTextDocument::undoAvailable, this, &WorksheetTextItem::undoAvailable);
     connect(document(), &QTextDocument::redoAvailable, this, &WorksheetTextItem::redoAvailable);
     connect(this, &WorksheetTextItem::menuCreated, parent, &WorksheetEntry::populateMenu, Qt::DirectConnection);
-    connect(this, &WorksheetTextItem::deleteEntry, parent, &WorksheetEntry::startRemoving);
+    connect(this, &WorksheetTextItem::deleteEntry, [=]() {parent->startRemoving();});
     connect(this, &WorksheetTextItem::cursorPositionChanged, this, &WorksheetTextItem::updateRichTextActions);
 }
 
