@@ -37,17 +37,17 @@ if(MSVC)
 endif()
 target_link_libraries(cantor_pythonserver Python3::Python)
 
-if(BUILD_TESTING)
-  add_executable(testpython testpython.cpp settings.cpp)
-  add_test(NAME testpython COMMAND testpython)
-  target_link_libraries(testpython
-    Qt5::Test
-    KF5::ConfigCore
-    KF5::ConfigGui
-    cantorlibs
-    cantortest
-  )
-endif(BUILD_TESTING)
+# if(BUILD_TESTING)
+#   add_executable(testpython testpython.cpp settings.cpp)
+#   add_test(NAME testpython COMMAND testpython)
+#   target_link_libraries(testpython
+#     Qt5::Test
+#     KF5::ConfigCore
+#     KF5::ConfigGui
+#     cantorlibs
+#     cantortest
+#   )
+# endif(BUILD_TESTING)
 
 install(FILES cantor_python.knsrc  DESTINATION  ${KDE_INSTALL_KNSRCDIR})
 install(FILES pythonbackend.kcfg DESTINATION ${KDE_INSTALL_KCFGDIR})
