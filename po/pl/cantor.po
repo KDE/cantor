@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-04-25 01:37+0000\n"
+"POT-Creation-Date: 2024-05-14 01:44+0000\n"
 "PO-Revision-Date: 2024-04-28 11:21+0200\n"
 "Last-Translator: Łukasz Wojniłowicz <lukasz.wojnilowicz@gmail.com>\n"
 "Language-Team: Polish <kde-i18n-doc@kde.org>\n"
@@ -383,12 +383,12 @@ msgstr "Zintegruj wykresy do arkusza pracy"
 msgid "Graphical package for the Plot-Assistant"
 msgstr "Pakiet graficzny dla pomocnika wykresów"
 
-#: backends/julia/juliaextensions.cpp:246
+#: backends/julia/juliaextensions.cpp:239
 #, kde-format
 msgid "# Sorry, but Gadfly don't support 3d plots"
 msgstr "# Wybacz, lecz Gadfly nie obsługuje rysowania wykresów 3d"
 
-#: backends/julia/juliaextensions.cpp:263
+#: backends/julia/juliaextensions.cpp:256
 #, kde-format
 msgid "Julia script file (*.jl)"
 msgstr "Plik skryptu Julia (*.jl)"
@@ -1670,14 +1670,14 @@ msgstr "znaleziono wiele wyrażeń w jednym poleceniu rysowania (%1 i %2)."
 
 #: backends/qalculate/qalculateexpression.cpp:677
 #: backends/qalculate/qalculateexpression.cpp:785
-#: backends/qalculate/qalculatehighlighter.cpp:29
+#: backends/qalculate/qalculatehighlighter.cpp:21
 #, kde-format
 msgid "ERROR"
 msgstr "BŁĄD"
 
 #: backends/qalculate/qalculateexpression.cpp:679
 #: backends/qalculate/qalculateexpression.cpp:787
-#: backends/qalculate/qalculatehighlighter.cpp:29
+#: backends/qalculate/qalculatehighlighter.cpp:21
 #, kde-format
 msgid "WARNING"
 msgstr "OSTRZEŻENIE"
