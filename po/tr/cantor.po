@@ -13,7 +13,7 @@ msgstr ""
 "Project-Id-Version: kdeedu-kde4\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-05-15 01:42+0000\n"
-"PO-Revision-Date: 2024-03-22 16:18+0300\n"
+"PO-Revision-Date: 2024-05-15 13:58+0300\n"
 "Last-Translator: Emir SARI <emir_sari@icloud.com>\n"
 "Language-Team: Turkish <kde-l10n-tr@kde.org>\n"
 "Language: tr\n"
@@ -21,7 +21,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"X-Generator: Lokalize 24.02.1\n"
+"X-Generator: Lokalize 24.07.70\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -2991,16 +2991,14 @@ msgid "Expand All Results"
 msgstr "Tüm Sonuçları Genişlet"
 
 #: cantor_part.cpp:317
-#, fuzzy, kde-format
-#| msgid "Remove All Results"
+#, kde-format
 msgid "Delete All Results"
-msgstr "Tüm Sonuçları Kaldır"
+msgstr "Tüm Sonuçları Sil"
 
 #: cantor_part.cpp:322
-#, fuzzy, kde-format
-#| msgid "Remove current Entry"
+#, kde-format
 msgid "Delete current Entry"
-msgstr "Geçerli Girdiyi Kaldır"
+msgstr "Geçerli Girdiyi Sil"
 
 #. i18n("Publish Worksheet"), collection);
 #. publishWorksheet->setIcon(QIcon::fromTheme(QLatin1String("get-hot-new-stuff")));
@@ -4585,10 +4583,9 @@ msgid "Evaluate Entries"
 msgstr "Girdileri Değerlendir"
 
 #: worksheet.cpp:1946 worksheet.cpp:2795
-#, fuzzy, kde-format
-#| msgid "Evaluate Entries"
+#, kde-format
 msgid "Delete Entries"
-msgstr "Girdileri Değerlendir"
+msgstr "Girdileri Sil"
 
 #: worksheet.cpp:1959
 #, kde-format
@@ -4601,10 +4598,9 @@ msgid "Expand Command Entry Results"
 msgstr "Komut Satırı Girdilerini Genişlet"
 
 #: worksheet.cpp:1962
-#, fuzzy, kde-format
-#| msgid "Remove Command Entry Results"
+#, kde-format
 msgid "Delete Command Entry Results"
-msgstr "Komut Satırı Girdilerini Kaldır"
+msgstr "Komut Girdisi Sonuçlarını Sil"
 
 #: worksheet.cpp:1964
 #, kde-format
@@ -4724,17 +4720,18 @@ msgid ""
 "This step cannot be undone. Do you really want to delete the selected "
 "entries?"
 msgstr ""
+"Bu adım geri alınamaz. Seçili girdileri silmeyi gerçekten istiyor musunuz?"
 
 #: worksheet.cpp:2884
 #, kde-format
 msgid "This step cannot be undone. Do you really want to delete all results?"
 msgstr ""
+"Bu adım geri alınamaz. Tüm sonuçları silmeyi gerçekten istiyor musunuz?"
 
 #: worksheet.cpp:2885
-#, fuzzy, kde-format
-#| msgid "Remove all results"
+#, kde-format
 msgid "Delete all results"
-msgstr "Tüm sonuçları kaldır"
+msgstr "Tüm sonuçları sil"
 
 #: worksheetentry.cpp:67
 #, kde-format
@@ -4877,23 +4874,19 @@ msgid "Move Down"
 msgstr "Aşağı Taşı"
 
 #: worksheetentry.cpp:435
-#, fuzzy, kde-format
-#| msgctxt "@info:tooltip"
-#| msgid "Delete"
+#, kde-format
 msgid "Delete"
 msgstr "Sil"
 
 #: worksheetentry.cpp:717
-#, fuzzy, kde-format
-#| msgid "Do you really want to remove this entry?"
+#, kde-format
 msgid "This step cannot be undone. Do you really want to delete this entry?"
-msgstr "Bu girdiyi kaldırmayı gerçekten istiyor musunuz?"
+msgstr "Bu adım geri alınamaz. Bu girdiyi silmeyi gerçekten istiyor musunuz?"
 
 #: worksheetentry.cpp:717 worksheetentry.cpp:847
-#, fuzzy, kde-format
-#| msgid "Evaluate Entry"
+#, kde-format
 msgid "Delete Entry"
-msgstr "Girdiyi Değerlendir"
+msgstr "Girdiyi Sil"
 
 #: worksheetentry.cpp:852
 #, kde-format

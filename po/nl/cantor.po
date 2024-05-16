@@ -12,14 +12,14 @@ msgstr ""
 "Project-Id-Version: cantor\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-05-15 01:42+0000\n"
-"PO-Revision-Date: 2024-03-11 10:30+0100\n"
+"PO-Revision-Date: 2024-05-15 09:41+0200\n"
 "Last-Translator: Freek de Kruijf <freekdekruijf@kde.nl>\n"
 "Language-Team: \n"
 "Language: nl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Lokalize 23.08.4\n"
+"X-Generator: Lokalize 24.02.2\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 
 #, kde-format
@@ -3003,16 +3003,14 @@ msgid "Expand All Results"
 msgstr "Alle resultaten uitvouwen"
 
 #: cantor_part.cpp:317
-#, fuzzy, kde-format
-#| msgid "Remove All Results"
+#, kde-format
 msgid "Delete All Results"
 msgstr "Alle resultaten verwijderen"
 
 #: cantor_part.cpp:322
-#, fuzzy, kde-format
-#| msgid "Remove current Entry"
+#, kde-format
 msgid "Delete current Entry"
-msgstr "Huidige invoer verwijderen"
+msgstr "Huidig item verwijderen"
 
 #. i18n("Publish Worksheet"), collection);
 #. publishWorksheet->setIcon(QIcon::fromTheme(QLatin1String("get-hot-new-stuff")));
@@ -4600,10 +4598,9 @@ msgid "Evaluate Entries"
 msgstr "Invoer berekenen"
 
 #: worksheet.cpp:1946 worksheet.cpp:2795
-#, fuzzy, kde-format
-#| msgid "Evaluate Entries"
+#, kde-format
 msgid "Delete Entries"
-msgstr "Invoer berekenen"
+msgstr "Wis items"
 
 #: worksheet.cpp:1959
 #, kde-format
@@ -4616,8 +4613,7 @@ msgid "Expand Command Entry Results"
 msgstr "Resultaten opdrachtinvoer uitvouwen"
 
 #: worksheet.cpp:1962
-#, fuzzy, kde-format
-#| msgid "Remove Command Entry Results"
+#, kde-format
 msgid "Delete Command Entry Results"
 msgstr "Resultaten opdrachtinvoer verwijderen"
 
@@ -4739,15 +4735,17 @@ msgid ""
 "This step cannot be undone. Do you really want to delete the selected "
 "entries?"
 msgstr ""
+"Deze stap kan niet ongedaan worden. Wilt u de geselecteerde items "
+"verwijderen?"
 
 #: worksheet.cpp:2884
 #, kde-format
 msgid "This step cannot be undone. Do you really want to delete all results?"
 msgstr ""
+"Deze stap kan niet ongedaan worden. Wilt u alle resultaten verwijderen?"
 
 #: worksheet.cpp:2885
-#, fuzzy, kde-format
-#| msgid "Remove all results"
+#, kde-format
 msgid "Delete all results"
 msgstr "Alle resultaten verwijderen"
 
@@ -4892,23 +4890,19 @@ msgid "Move Down"
 msgstr "Omlaag"
 
 #: worksheetentry.cpp:435
-#, fuzzy, kde-format
-#| msgctxt "@info:tooltip"
-#| msgid "Delete"
+#, kde-format
 msgid "Delete"
-msgstr "Wissen"
+msgstr "Verwijderen"
 
 #: worksheetentry.cpp:717
-#, fuzzy, kde-format
-#| msgid "Do you really want to remove this entry?"
+#, kde-format
 msgid "This step cannot be undone. Do you really want to delete this entry?"
-msgstr "Wilt u dit item verwijderen?"
+msgstr "Deze stap kan niet ongedaan worden. Wilt u dit item verwijderen?"
 
 #: worksheetentry.cpp:717 worksheetentry.cpp:847
-#, fuzzy, kde-format
-#| msgid "Text Entry"
+#, kde-format
 msgid "Delete Entry"
-msgstr "Tekstinvoer"
+msgstr "Item verwijderen"
 
 #: worksheetentry.cpp:852
 #, kde-format

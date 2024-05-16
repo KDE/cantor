@@ -2865,16 +2865,14 @@ msgid "Expand All Results"
 msgstr "展开所有结果"
 
 #: cantor_part.cpp:317
-#, fuzzy, kde-format
-#| msgid "Remove All Results"
+#, kde-format
 msgid "Delete All Results"
-msgstr "删除所有结果"
+msgstr ""
 
 #: cantor_part.cpp:322
-#, fuzzy, kde-format
-#| msgid "Remove current Entry"
+#, kde-format
 msgid "Delete current Entry"
-msgstr "删除当前项"
+msgstr ""
 
 #. i18n("Publish Worksheet"), collection);
 #. publishWorksheet->setIcon(QIcon::fromTheme(QLatin1String("get-hot-new-stuff")));
@@ -4413,10 +4411,9 @@ msgid "Evaluate Entries"
 msgstr "计算条目"
 
 #: worksheet.cpp:1946 worksheet.cpp:2795
-#, fuzzy, kde-format
-#| msgid "Evaluate Entries"
+#, kde-format
 msgid "Delete Entries"
-msgstr "计算条目"
+msgstr ""
 
 #: worksheet.cpp:1959
 #, kde-format
@@ -4429,10 +4426,9 @@ msgid "Expand Command Entry Results"
 msgstr "展开命令条目结果"
 
 #: worksheet.cpp:1962
-#, fuzzy, kde-format
-#| msgid "Remove Command Entry Results"
+#, kde-format
 msgid "Delete Command Entry Results"
-msgstr "删除命令条目结果"
+msgstr ""
 
 #: worksheet.cpp:1964
 #, kde-format
@@ -4559,10 +4555,9 @@ msgid "This step cannot be undone. Do you really want to delete all results?"
 msgstr ""
 
 #: worksheet.cpp:2885
-#, fuzzy, kde-format
-#| msgid "Remove all results"
+#, kde-format
 msgid "Delete all results"
-msgstr "删除所有结果"
+msgstr ""
 
 #: worksheetentry.cpp:67
 #, kde-format
@@ -4705,36 +4700,21 @@ msgid "Move Down"
 msgstr "下移"
 
 #: worksheetentry.cpp:435
-#, fuzzy, kde-format
-#| msgctxt "@info:tooltip"
-#| msgid "Delete"
+#, kde-format
 msgid "Delete"
-msgstr "删除"
+msgstr ""
 
 #: worksheetentry.cpp:717
-#, fuzzy, kde-format
-#| msgid "Do you really want to remove this entry?"
+#, kde-format
 msgid "This step cannot be undone. Do you really want to delete this entry?"
-msgstr "你真的想要删除该条目吗？"
+msgstr ""
 
 #: worksheetentry.cpp:717 worksheetentry.cpp:847
-#, fuzzy, kde-format
-#| msgid "Evaluate Entry"
+#, kde-format
 msgid "Delete Entry"
-msgstr "计算条目"
+msgstr ""
 
 #: worksheetentry.cpp:852
 #, kde-format
 msgid "Drag Entry"
 msgstr "拖动项目"
-
-#~ msgid "Remove Entries"
-#~ msgstr "删除条目"
-
-#~ msgid ""
-#~ "This action will remove all results without the possibility of "
-#~ "cancellation. Are you sure?"
-#~ msgstr "此操作将删除所有结果并无法取消。你确定要这么做吗？"
-
-#~ msgid "Remove Entry"
-#~ msgstr "删除条目"

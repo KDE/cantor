@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-05-15 01:42+0000\n"
-"PO-Revision-Date: 2024-03-11 09:08+0100\n"
+"PO-Revision-Date: 2024-05-15 07:08+0200\n"
 "Last-Translator: Matjaž Jeran <matjaz.jeran@amis.net>\n"
 "Language-Team: Slovenian <lugos-slo@lugos.si>\n"
 "Language: sl\n"
@@ -2994,16 +2994,14 @@ msgid "Expand All Results"
 msgstr "Razširi vse rezultate"
 
 #: cantor_part.cpp:317
-#, fuzzy, kde-format
-#| msgid "Remove All Results"
+#, kde-format
 msgid "Delete All Results"
-msgstr "Odstrani vse rezultate"
+msgstr "Izbriši vse rezultate"
 
 #: cantor_part.cpp:322
-#, fuzzy, kde-format
-#| msgid "Remove current Entry"
+#, kde-format
 msgid "Delete current Entry"
-msgstr "Odstrani trenutni vnos"
+msgstr "Izbriši trenutni vnos"
 
 #. i18n("Publish Worksheet"), collection);
 #. publishWorksheet->setIcon(QIcon::fromTheme(QLatin1String("get-hot-new-stuff")));
@@ -4585,10 +4583,9 @@ msgid "Evaluate Entries"
 msgstr "Ovrednoti vnose"
 
 #: worksheet.cpp:1946 worksheet.cpp:2795
-#, fuzzy, kde-format
-#| msgid "Evaluate Entries"
+#, kde-format
 msgid "Delete Entries"
-msgstr "Ovrednoti vnose"
+msgstr "Izbriši vnose"
 
 #: worksheet.cpp:1959
 #, kde-format
@@ -4601,10 +4598,9 @@ msgid "Expand Command Entry Results"
 msgstr "Razširi rezultate ukaznega vnosa"
 
 #: worksheet.cpp:1962
-#, fuzzy, kde-format
-#| msgid "Remove Command Entry Results"
+#, kde-format
 msgid "Delete Command Entry Results"
-msgstr "Odstrani rezultate ukaznega vnosa"
+msgstr "Izbriši rezultate ukaznega vnosa"
 
 #: worksheet.cpp:1964
 #, kde-format
@@ -4724,17 +4720,18 @@ msgid ""
 "This step cannot be undone. Do you really want to delete the selected "
 "entries?"
 msgstr ""
+"Tega koraka ni mogoče razveljaviti. Ali res želite izbrisati izbrane vnose?"
 
 #: worksheet.cpp:2884
 #, kde-format
 msgid "This step cannot be undone. Do you really want to delete all results?"
 msgstr ""
+"Tega koraka ni mogoče razveljaviti. Ali res želite izbrisati vse rezultate?"
 
 #: worksheet.cpp:2885
-#, fuzzy, kde-format
-#| msgid "Remove all results"
+#, kde-format
 msgid "Delete all results"
-msgstr "Odstrani vse rezultate"
+msgstr "Izbriši vse rezultate"
 
 #: worksheetentry.cpp:67
 #, kde-format
@@ -4877,23 +4874,19 @@ msgid "Move Down"
 msgstr "Pojdi dol"
 
 #: worksheetentry.cpp:435
-#, fuzzy, kde-format
-#| msgctxt "@info:tooltip"
-#| msgid "Delete"
+#, kde-format
 msgid "Delete"
-msgstr "Zbriši"
+msgstr "Izbriši"
 
 #: worksheetentry.cpp:717
-#, fuzzy, kde-format
-#| msgid "Do you really want to remove this entry?"
+#, kde-format
 msgid "This step cannot be undone. Do you really want to delete this entry?"
-msgstr "Ali zares želite odstraniti ta vnos?"
+msgstr "Tega koraka ni mogoče razveljaviti. Ali res želite izbrisati ta vnos?"
 
 #: worksheetentry.cpp:717 worksheetentry.cpp:847
-#, fuzzy, kde-format
-#| msgid "Text Entry"
+#, kde-format
 msgid "Delete Entry"
-msgstr "Besedilni vnos"
+msgstr "Izbriši vnos"
 
 #: worksheetentry.cpp:852
 #, kde-format

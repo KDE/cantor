@@ -2858,10 +2858,9 @@ msgid "Delete All Results"
 msgstr ""
 
 #: cantor_part.cpp:322
-#, fuzzy, kde-format
-#| msgid "Remove current Entry"
+#, kde-format
 msgid "Delete current Entry"
-msgstr "Odstranit současnou položku"
+msgstr ""
 
 #. i18n("Publish Worksheet"), collection);
 #. publishWorksheet->setIcon(QIcon::fromTheme(QLatin1String("get-hot-new-stuff")));
@@ -4401,10 +4400,9 @@ msgid "Evaluate Entries"
 msgstr ""
 
 #: worksheet.cpp:1946 worksheet.cpp:2795
-#, fuzzy, kde-format
-#| msgid "Remove Entries"
+#, kde-format
 msgid "Delete Entries"
-msgstr "Odstranit záznamy"
+msgstr "Smazat záznamy"
 
 #: worksheet.cpp:1959
 #, kde-format
@@ -4417,10 +4415,9 @@ msgid "Expand Command Entry Results"
 msgstr ""
 
 #: worksheet.cpp:1962
-#, fuzzy, kde-format
-#| msgid "Insert Command Entry"
+#, kde-format
 msgid "Delete Command Entry Results"
-msgstr "Vložit příkaz"
+msgstr ""
 
 #: worksheet.cpp:1964
 #, kde-format
@@ -4692,28 +4689,21 @@ msgid "Move Down"
 msgstr "Přesunout dolů"
 
 #: worksheetentry.cpp:435
-#, fuzzy, kde-format
-#| msgctxt "@info:tooltip"
-#| msgid "Delete"
+#, kde-format
 msgid "Delete"
 msgstr "Smazat"
 
 #: worksheetentry.cpp:717
-#, fuzzy, kde-format
-#| msgid "Do you really want to remove this entry?"
+#, kde-format
 msgid "This step cannot be undone. Do you really want to delete this entry?"
-msgstr "Opravdu si přejete odstranit tento záznam?"
+msgstr ""
 
 #: worksheetentry.cpp:717 worksheetentry.cpp:847
-#, fuzzy, kde-format
-#| msgid "Evaluate Entry"
+#, kde-format
 msgid "Delete Entry"
-msgstr "Vyhodnotit záznam"
+msgstr "Smazat záznam"
 
 #: worksheetentry.cpp:852
 #, kde-format
 msgid "Drag Entry"
 msgstr "Přesunout záznam"
-
-#~ msgid "Remove Entry"
-#~ msgstr "Odstranit záznam"

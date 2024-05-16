@@ -9,14 +9,14 @@ msgstr ""
 "Project-Id-Version: mathematik\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-05-15 01:42+0000\n"
-"PO-Revision-Date: 2024-03-11 17:33+0100\n"
+"PO-Revision-Date: 2024-05-16 00:00+0200\n"
 "Last-Translator: Eloy Cuadra <ecuadra@eloihr.net>\n"
 "Language-Team: Spanish <kde-l10n-es@kde.org>\n"
 "Language: es\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Lokalize 23.08.4\n"
+"X-Generator: Lokalize 24.02.2\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 
 #, kde-format
@@ -3015,16 +3015,14 @@ msgid "Expand All Results"
 msgstr "Expandir todos los resultados"
 
 #: cantor_part.cpp:317
-#, fuzzy, kde-format
-#| msgid "Remove All Results"
+#, kde-format
 msgid "Delete All Results"
-msgstr "Eliminar todos los resultados"
+msgstr "Borrar todos los resultados"
 
 #: cantor_part.cpp:322
-#, fuzzy, kde-format
-#| msgid "Remove current Entry"
+#, kde-format
 msgid "Delete current Entry"
-msgstr "Eliminar la entrada actual"
+msgstr "Borrar la entrada actual"
 
 #. i18n("Publish Worksheet"), collection);
 #. publishWorksheet->setIcon(QIcon::fromTheme(QLatin1String("get-hot-new-stuff")));
@@ -4618,10 +4616,9 @@ msgid "Evaluate Entries"
 msgstr "Evaluar entradas"
 
 #: worksheet.cpp:1946 worksheet.cpp:2795
-#, fuzzy, kde-format
-#| msgid "Evaluate Entries"
+#, kde-format
 msgid "Delete Entries"
-msgstr "Evaluar entradas"
+msgstr "Borrar entradas"
 
 #: worksheet.cpp:1959
 #, kde-format
@@ -4634,10 +4631,9 @@ msgid "Expand Command Entry Results"
 msgstr "Expandir el resultado de la entrada de orden"
 
 #: worksheet.cpp:1962
-#, fuzzy, kde-format
-#| msgid "Remove Command Entry Results"
+#, kde-format
 msgid "Delete Command Entry Results"
-msgstr "Eliminar el resultado de la entrada de orden"
+msgstr "Borrar el resultado de la entrada de la orden"
 
 #: worksheet.cpp:1964
 #, kde-format
@@ -4757,17 +4753,20 @@ msgid ""
 "This step cannot be undone. Do you really want to delete the selected "
 "entries?"
 msgstr ""
+"Este paso no se puede deshacer. ¿Realmente quiere borrar las entradas "
+"seleccionadas?"
 
 #: worksheet.cpp:2884
 #, kde-format
 msgid "This step cannot be undone. Do you really want to delete all results?"
 msgstr ""
+"Este paso no se puede deshacer. ¿Realmente quiere borrar todos los "
+"resultados?"
 
 #: worksheet.cpp:2885
-#, fuzzy, kde-format
-#| msgid "Remove all results"
+#, kde-format
 msgid "Delete all results"
-msgstr "Eliminar todos los resultados"
+msgstr "Borrar todos los resultados"
 
 #: worksheetentry.cpp:67
 #, kde-format
@@ -4910,23 +4909,19 @@ msgid "Move Down"
 msgstr "Bajar"
 
 #: worksheetentry.cpp:435
-#, fuzzy, kde-format
-#| msgctxt "@info:tooltip"
-#| msgid "Delete"
+#, kde-format
 msgid "Delete"
 msgstr "Borrar"
 
 #: worksheetentry.cpp:717
-#, fuzzy, kde-format
-#| msgid "Do you really want to remove this entry?"
+#, kde-format
 msgid "This step cannot be undone. Do you really want to delete this entry?"
-msgstr "¿Realmente desea eliminar esta entrada?"
+msgstr "Este paso no se puede deshacer. ¿Realmente desea borrar esta entrada?"
 
 #: worksheetentry.cpp:717 worksheetentry.cpp:847
-#, fuzzy, kde-format
-#| msgid "Evaluate Entry"
+#, kde-format
 msgid "Delete Entry"
-msgstr "Evaluar entrada"
+msgstr "Borrar entrada"
 
 #: worksheetentry.cpp:852
 #, kde-format
