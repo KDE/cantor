@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: cantor\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-05-15 01:42+0000\n"
-"PO-Revision-Date: 2024-03-11 12:58+0100\n"
+"PO-Revision-Date: 2024-05-15 09:36+0200\n"
 "Last-Translator: Josep M. Ferrer <txemaq@gmail.com>\n"
 "Language-Team: Catalan <kde-i18n-ca@kde.org>\n"
 "Language: ca\n"
@@ -3018,16 +3018,14 @@ msgid "Expand All Results"
 msgstr "Expandeix tots els resultats"
 
 #: cantor_part.cpp:317
-#, fuzzy, kde-format
-#| msgid "Remove All Results"
+#, kde-format
 msgid "Delete All Results"
-msgstr "Elimina tots els resultats"
+msgstr "Suprimeix tots els resultats"
 
 #: cantor_part.cpp:322
-#, fuzzy, kde-format
-#| msgid "Remove current Entry"
+#, kde-format
 msgid "Delete current Entry"
-msgstr "Elimina l'entrada actual"
+msgstr "Suprimeix l'entrada actual"
 
 #. i18n("Publish Worksheet"), collection);
 #. publishWorksheet->setIcon(QIcon::fromTheme(QLatin1String("get-hot-new-stuff")));
@@ -4032,7 +4030,7 @@ msgstr "Coincideix tota la paraula"
 #: panelplugins/variablemgr/variablemanagerwidget.cpp:142
 #, kde-format
 msgid "Are you sure you want to remove all variables?"
-msgstr "Esteu segur/a que voleu eliminar totes les variables?"
+msgstr "Segur que voleu eliminar totes les variables?"
 
 #: panelplugins/variablemgr/variablemanagerwidget.cpp:185
 #, kde-format
@@ -4619,10 +4617,9 @@ msgid "Evaluate Entries"
 msgstr "Avalua les entrades"
 
 #: worksheet.cpp:1946 worksheet.cpp:2795
-#, fuzzy, kde-format
-#| msgid "Evaluate Entries"
+#, kde-format
 msgid "Delete Entries"
-msgstr "Avalua les entrades"
+msgstr "Suprimeix les entrades"
 
 #: worksheet.cpp:1959
 #, kde-format
@@ -4635,10 +4632,9 @@ msgid "Expand Command Entry Results"
 msgstr "Expandeix els resultats de l'entrada d'ordres"
 
 #: worksheet.cpp:1962
-#, fuzzy, kde-format
-#| msgid "Remove Command Entry Results"
+#, kde-format
 msgid "Delete Command Entry Results"
-msgstr "Elimina els resultats de l'entrada d'ordres"
+msgstr "Suprimeix els resultats de l'entrada d'ordres"
 
 #: worksheet.cpp:1964
 #, kde-format
@@ -4758,17 +4754,19 @@ msgid ""
 "This step cannot be undone. Do you really want to delete the selected "
 "entries?"
 msgstr ""
+"Aquest pas no es pot desfer. Segur que voleu suprimir les entrades "
+"seleccionades?"
 
 #: worksheet.cpp:2884
 #, kde-format
 msgid "This step cannot be undone. Do you really want to delete all results?"
 msgstr ""
+"Aquest pas no es pot desfer. Segur que voleu suprimir tots els resultats?"
 
 #: worksheet.cpp:2885
-#, fuzzy, kde-format
-#| msgid "Remove all results"
+#, kde-format
 msgid "Delete all results"
-msgstr "Elimina tots els resultats"
+msgstr "Suprimeix tots els resultats"
 
 #: worksheetentry.cpp:67
 #, kde-format
@@ -4911,23 +4909,19 @@ msgid "Move Down"
 msgstr "Mou avall"
 
 #: worksheetentry.cpp:435
-#, fuzzy, kde-format
-#| msgctxt "@info:tooltip"
-#| msgid "Delete"
+#, kde-format
 msgid "Delete"
 msgstr "Suprimeix"
 
 #: worksheetentry.cpp:717
-#, fuzzy, kde-format
-#| msgid "Do you really want to remove this entry?"
+#, kde-format
 msgid "This step cannot be undone. Do you really want to delete this entry?"
-msgstr "Esteu segur/a que voleu eliminar aquesta entrada?"
+msgstr "Aquest pas no es pot desfer. Segur que voleu suprimir aquesta entrada?"
 
 #: worksheetentry.cpp:717 worksheetentry.cpp:847
-#, fuzzy, kde-format
-#| msgid "Evaluate Entry"
+#, kde-format
 msgid "Delete Entry"
-msgstr "Avalua l'entrada"
+msgstr "Suprimeix l'entrada"
 
 #: worksheetentry.cpp:852
 #, kde-format
