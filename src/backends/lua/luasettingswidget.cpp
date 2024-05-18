@@ -27,6 +27,8 @@ LuaSettingsWidget::LuaSettingsWidget(QWidget* parent, const QString& id) : Backe
     m_tabWidget = tabWidget;
 #ifdef HAVE_EMBEDDED_DOCUMENTATION
     m_tabDocumentation = tabDocumentation;
+#else
+    tabWidget->removeTab(2);
 #endif
     connect(tabWidget, &QTabWidget::currentChanged, this, &BackendSettingsWidget::tabChanged);
 }

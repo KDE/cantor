@@ -37,9 +37,7 @@ find_package(Qt5 5.8.0 CONFIG REQUIRED
     Xml
     XmlPatterns
     Test
-    Help
-    WebEngine
-    WebEngineWidgets)
+)
 
 find_package(KF5 ${KF5_MIN_VERSION} REQUIRED
     Config
