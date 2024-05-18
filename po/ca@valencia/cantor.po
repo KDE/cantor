@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: cantor\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-05-15 01:42+0000\n"
-"PO-Revision-Date: 2024-03-11 12:58+0100\n"
+"PO-Revision-Date: 2024-05-15 09:36+0200\n"
 "Last-Translator: Josep M. Ferrer <txemaq@gmail.com>\n"
 "Language-Team: Catalan <kde-i18n-ca@kde.org>\n"
 "Language: ca@valencia\n"
@@ -3022,16 +3022,14 @@ msgid "Expand All Results"
 msgstr "Expandix tots els resultats"
 
 #: cantor_part.cpp:317
-#, fuzzy, kde-format
-#| msgid "Remove All Results"
+#, kde-format
 msgid "Delete All Results"
-msgstr "Elimina tots els resultats"
+msgstr "Suprimix tots els resultats"
 
 #: cantor_part.cpp:322
-#, fuzzy, kde-format
-#| msgid "Remove current Entry"
+#, kde-format
 msgid "Delete current Entry"
-msgstr "Elimina l'entrada actual"
+msgstr "Suprimix l'entrada actual"
 
 #. i18n("Publish Worksheet"), collection);
 #. publishWorksheet->setIcon(QIcon::fromTheme(QLatin1String("get-hot-new-stuff")));
@@ -3883,7 +3881,7 @@ msgstr "No s'ha pogut obrir el fitxer %1"
 #: markdownentry.cpp:70
 #, kde-format
 msgid "Enter Edit Mode"
-msgstr "Entra en el mode d'edició"
+msgstr "Entra en el mode edició"
 
 #: markdownentry.cpp:78
 #, kde-format
@@ -3921,7 +3919,7 @@ msgstr "Busca mitjançant les paraules clau…"
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Find in text of current documentation page"
-msgstr "Busca al text de la pàgina de documentació actual"
+msgstr "Busca en el text de la pàgina de documentació actual"
 
 #: panelplugins/documentationpanel/documentationpanelwidget.cpp:75
 #, kde-format
@@ -4035,7 +4033,7 @@ msgstr "Coincidix tota la paraula"
 #: panelplugins/variablemgr/variablemanagerwidget.cpp:142
 #, kde-format
 msgid "Are you sure you want to remove all variables?"
-msgstr "Esteu segur/a que voleu eliminar totes les variables?"
+msgstr "Segur que voleu eliminar totes les variables?"
 
 #: panelplugins/variablemgr/variablemanagerwidget.cpp:185
 #, kde-format
@@ -4622,10 +4620,9 @@ msgid "Evaluate Entries"
 msgstr "Avalua les entrades"
 
 #: worksheet.cpp:1946 worksheet.cpp:2795
-#, fuzzy, kde-format
-#| msgid "Evaluate Entries"
+#, kde-format
 msgid "Delete Entries"
-msgstr "Avalua les entrades"
+msgstr "Suprimix les entrades"
 
 #: worksheet.cpp:1959
 #, kde-format
@@ -4638,10 +4635,9 @@ msgid "Expand Command Entry Results"
 msgstr "Expandix els resultats de l'entrada d'ordres"
 
 #: worksheet.cpp:1962
-#, fuzzy, kde-format
-#| msgid "Remove Command Entry Results"
+#, kde-format
 msgid "Delete Command Entry Results"
-msgstr "Elimina els resultats de l'entrada d'ordres"
+msgstr "Suprimix els resultats de l'entrada d'ordres"
 
 #: worksheet.cpp:1964
 #, kde-format
@@ -4761,17 +4757,19 @@ msgid ""
 "This step cannot be undone. Do you really want to delete the selected "
 "entries?"
 msgstr ""
+"Este pas no es podrà desfer. Segur que voleu suprimir les entrades "
+"seleccionades?"
 
 #: worksheet.cpp:2884
 #, kde-format
 msgid "This step cannot be undone. Do you really want to delete all results?"
 msgstr ""
+"Este pas no es podrà desfer. Segur que voleu suprimir tots els resultats?"
 
 #: worksheet.cpp:2885
-#, fuzzy, kde-format
-#| msgid "Remove all results"
+#, kde-format
 msgid "Delete all results"
-msgstr "Elimina tots els resultats"
+msgstr "Suprimix tots els resultats"
 
 #: worksheetentry.cpp:67
 #, kde-format
@@ -4914,38 +4912,21 @@ msgid "Move Down"
 msgstr "Mou cap avall"
 
 #: worksheetentry.cpp:435
-#, fuzzy, kde-format
-#| msgctxt "@info:tooltip"
-#| msgid "Delete"
+#, kde-format
 msgid "Delete"
 msgstr "Suprimix"
 
 #: worksheetentry.cpp:717
-#, fuzzy, kde-format
-#| msgid "Do you really want to remove this entry?"
+#, kde-format
 msgid "This step cannot be undone. Do you really want to delete this entry?"
-msgstr "Esteu segur/a que voleu eliminar esta entrada?"
+msgstr "Este pas no es podrà desfer. Segur que voleu suprimir esta entrada?"
 
 #: worksheetentry.cpp:717 worksheetentry.cpp:847
-#, fuzzy, kde-format
-#| msgid "Evaluate Entry"
+#, kde-format
 msgid "Delete Entry"
-msgstr "Avalua l'entrada"
+msgstr "Suprimix l'entrada"
 
 #: worksheetentry.cpp:852
 #, kde-format
 msgid "Drag Entry"
 msgstr "Arrossega l'entrada"
-
-#~ msgid "Remove Entries"
-#~ msgstr "Elimina entrades"
-
-#~ msgid ""
-#~ "This action will remove all results without the possibility of "
-#~ "cancellation. Are you sure?"
-#~ msgstr ""
-#~ "Esta acció eliminarà tots els resultats sense la possibilitat de "
-#~ "cancel·lar. Esteu segur?"
-
-#~ msgid "Remove Entry"
-#~ msgstr "Elimina l'entrada"

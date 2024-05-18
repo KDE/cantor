@@ -13,8 +13,8 @@ msgstr ""
 "Project-Id-Version: cantor\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-05-15 01:42+0000\n"
-"PO-Revision-Date: 2024-03-12 09:18+0100\n"
-"Last-Translator: xavier <xyz@yahoo.com>\n"
+"PO-Revision-Date: 2024-05-16 11:07+0200\n"
+"Last-Translator: Xavier Besnard <xavier.besnard@kde.org>\n"
 "Language-Team: French <French <kde-francophone@kde.org>>\n"
 "Language: fr\n"
 "MIME-Version: 1.0\n"
@@ -1661,8 +1661,8 @@ msgstr "Position de la légende dans les tracés."
 #, kde-format
 msgid "Qalculate reports it cannot print. Is gnuplot installed?"
 msgstr ""
-"Qalculate signale qu'il lui est impossible d'imprimer. Gnuplot est-il "
-"installé ?"
+"Qalculate signale qu'il lui est impossible d'imprimer. Le paquet « gnuplot » "
+"est-il installé ?"
 
 #: backends/qalculate/qalculateexpression.cpp:158
 #, kde-format
@@ -3043,16 +3043,14 @@ msgid "Expand All Results"
 msgstr "Développer tous les résultats"
 
 #: cantor_part.cpp:317
-#, fuzzy, kde-format
-#| msgid "Remove All Results"
+#, kde-format
 msgid "Delete All Results"
 msgstr "Supprimer tous les résultats"
 
 #: cantor_part.cpp:322
-#, fuzzy, kde-format
-#| msgid "Remove current Entry"
+#, kde-format
 msgid "Delete current Entry"
-msgstr "Supprimer l'élément actuel"
+msgstr "Supprimer l'entrée actuelle"
 
 #. i18n("Publish Worksheet"), collection);
 #. publishWorksheet->setIcon(QIcon::fromTheme(QLatin1String("get-hot-new-stuff")));
@@ -4651,10 +4649,9 @@ msgid "Evaluate Entries"
 msgstr "Évaluer les entrées"
 
 #: worksheet.cpp:1946 worksheet.cpp:2795
-#, fuzzy, kde-format
-#| msgid "Evaluate Entries"
+#, kde-format
 msgid "Delete Entries"
-msgstr "Évaluer les entrées"
+msgstr "Supprimer les entrées"
 
 #: worksheet.cpp:1959
 #, kde-format
@@ -4667,8 +4664,7 @@ msgid "Expand Command Entry Results"
 msgstr "Développer les résultats de la commande saisie"
 
 #: worksheet.cpp:1962
-#, fuzzy, kde-format
-#| msgid "Remove Command Entry Results"
+#, kde-format
 msgid "Delete Command Entry Results"
 msgstr "Supprimer les résultats de la commande saisie"
 
@@ -4790,15 +4786,18 @@ msgid ""
 "This step cannot be undone. Do you really want to delete the selected "
 "entries?"
 msgstr ""
+"Il est impossible d'annuler cette action. Voulez-vous vraiment supprimer les "
+"entrées sélectionnées ?"
 
 #: worksheet.cpp:2884
 #, kde-format
 msgid "This step cannot be undone. Do you really want to delete all results?"
 msgstr ""
+"Il est impossible d'annuler cette action. Voulez-vous vraiment supprimer "
+"tous les résultats ?"
 
 #: worksheet.cpp:2885
-#, fuzzy, kde-format
-#| msgid "Remove all results"
+#, kde-format
 msgid "Delete all results"
 msgstr "Supprimer tous les résultats"
 
@@ -4943,23 +4942,21 @@ msgid "Move Down"
 msgstr "Déplacer vers le bas"
 
 #: worksheetentry.cpp:435
-#, fuzzy, kde-format
-#| msgctxt "@info:tooltip"
-#| msgid "Delete"
+#, kde-format
 msgid "Delete"
 msgstr "Supprimer"
 
 #: worksheetentry.cpp:717
-#, fuzzy, kde-format
-#| msgid "Do you really want to remove this entry?"
+#, kde-format
 msgid "This step cannot be undone. Do you really want to delete this entry?"
-msgstr "Voulez-vous vraiment supprimer cette entrée ?"
+msgstr ""
+"Il est impossible d'annuler cette action. Voulez-vous vraiment supprimer "
+"cette entrée ?"
 
 #: worksheetentry.cpp:717 worksheetentry.cpp:847
-#, fuzzy, kde-format
-#| msgid "Text Entry"
+#, kde-format
 msgid "Delete Entry"
-msgstr "Élément de texte"
+msgstr "Supprimer l'entrée"
 
 #: worksheetentry.cpp:852
 #, kde-format

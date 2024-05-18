@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: cantor\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-05-15 01:42+0000\n"
-"PO-Revision-Date: 2024-03-19 07:25+0100\n"
+"PO-Revision-Date: 2024-05-17 13:51+0100\n"
 "Last-Translator: Oliver Kellogg <okellogg@users.sourceforge.net>\n"
 "Language-Team: esperanto <kde-i18n-eo@kde.org>\n"
 "Language: eo\n"
@@ -98,7 +98,7 @@ msgstr "&Grafiki"
 #: assistants/advancedplot/directivecontainer.ui:14
 #, kde-format
 msgid "Option active"
-msgstr "Opcio aktiva"
+msgstr "Elekteblo aktiva"
 
 #. i18n: ectx: Menu (calculate)
 #: assistants/differentiate/cantor_differentiate_assistant.rc:4
@@ -1288,7 +1288,7 @@ msgstr "Paŝgrande&co"
 #: backends/qalculate/plotassistant/qalculateplotdialog.ui:324
 #, kde-format
 msgid "Options"
-msgstr "Opcioj"
+msgstr "Elektebloj"
 
 #. i18n: ectx: property (text), widget (QLabel, label_19)
 #: backends/qalculate/plotassistant/qalculateplotdialog.ui:332
@@ -1410,7 +1410,7 @@ msgstr "Logaritma y skalo"
 #: backends/qalculate/plotassistant/qalculateplotdialog.ui:521
 #, kde-format
 msgid "File Options"
-msgstr "Dosieraj Opcioj"
+msgstr "Dosieraj Elektebloj"
 
 #. i18n: ectx: property (text), widget (QCheckBox, saveCheckBox)
 #: backends/qalculate/plotassistant/qalculateplotdialog.ui:527
@@ -1598,7 +1598,7 @@ msgstr "Ĉu plenaj limoj devus esti desegnitaj ĉirkaŭ la desegno."
 #: backends/qalculate/qalculatebackend.kcfg:96
 #, kde-format
 msgid "Width of lines, in pixels."
-msgstr "Larĝeco de linioj, en pikseloj."
+msgstr "Larĝeco de linioj, en rastrumeroj."
 
 #. i18n: ectx: label, entry (plotSteps), group (QalculateBackend)
 #: backends/qalculate/qalculatebackend.kcfg:100
@@ -1652,7 +1652,7 @@ msgstr "%1 devas esti buleano."
 #: backends/qalculate/qalculateexpression.cpp:251
 #, kde-format
 msgid "invalid option for %1: %2"
-msgstr "nevalida opcio por %1: %2"
+msgstr "nevalida elekteblo por %1: %2"
 
 #: backends/qalculate/qalculateexpression.cpp:578
 #, kde-format
@@ -1701,7 +1701,7 @@ msgstr "esprimo"
 #: backends/qalculate/qalculatesyntaxhelpobject.cpp:141
 #, kde-format
 msgid "option"
-msgstr "opcio"
+msgstr "elekteblo"
 
 #: backends/qalculate/qalculatesyntaxhelpobject.cpp:142
 #, kde-format
@@ -1755,7 +1755,7 @@ msgid ""
 "inline=true the image is shown regardless of this option."
 msgstr ""
 "Bildo por konservi la desegnon. Se malplena montras desegnon en fenestro sur "
-"la ekrano. Se inline=true la bildo montriĝas sendepende de ĉi tiu opcio."
+"la ekrano. Se inline=true la bildo montriĝas sendepende de ĉi tiu elekteblo."
 
 #: backends/qalculate/qalculatesyntaxhelpobject.cpp:215
 #, kde-format
@@ -2205,14 +2205,14 @@ msgstr "Aldoni"
 #, kde-format
 msgctxt "@label:chooser"
 msgid "Icon:"
-msgstr "Ikono:"
+msgstr "Piktogramo:"
 
 #. i18n: ectx: property (toolTip), widget (KIconButton, qchIcon)
 #: backends/qthelpconfigeditdialog.ui:24
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Select an icon"
-msgstr "Elekti ikonon"
+msgstr "Elekti piktogramon"
 
 #. i18n: ectx: property (text), widget (QLabel, lName)
 #: backends/qthelpconfigeditdialog.ui:34
@@ -2982,16 +2982,14 @@ msgid "Expand All Results"
 msgstr "Vastigi Ĉiujn Rezultojn"
 
 #: cantor_part.cpp:317
-#, fuzzy, kde-format
-#| msgid "Remove All Results"
+#, kde-format
 msgid "Delete All Results"
 msgstr "Forigi Ĉiujn Rezultojn"
 
 #: cantor_part.cpp:322
-#, fuzzy, kde-format
-#| msgid "Remove current Entry"
+#, kde-format
 msgid "Delete current Entry"
-msgstr "Forigi nunan Eniron"
+msgstr "Forigi aktualan Eron"
 
 #. i18n("Publish Worksheet"), collection);
 #. publishWorksheet->setIcon(QIcon::fromTheme(QLatin1String("get-hot-new-stuff")));
@@ -3820,7 +3818,7 @@ msgstr "Interfaco"
 #: main.cpp:86 main.cpp:87
 #, kde-format
 msgid "Cantor icon"
-msgstr "Kantora ikono"
+msgstr "Kantora piktogramo"
 
 #: main.cpp:92
 #, kde-format
@@ -4377,7 +4375,7 @@ msgstr ""
 #: worksheet.cpp:1316
 #, kde-format
 msgid "Error loading latex.xsl stylesheet"
-msgstr "Eraro dum ŝarĝo de latex.xsl stilfolio"
+msgstr "Eraro dum ŝargo de latex.xsl stilfolio"
 
 #: worksheet.cpp:1335
 #, kde-format
@@ -4572,10 +4570,9 @@ msgid "Evaluate Entries"
 msgstr "Taksi Enirojn"
 
 #: worksheet.cpp:1946 worksheet.cpp:2795
-#, fuzzy, kde-format
-#| msgid "Evaluate Entries"
+#, kde-format
 msgid "Delete Entries"
-msgstr "Taksi Enirojn"
+msgstr "Forigi Erojn"
 
 #: worksheet.cpp:1959
 #, kde-format
@@ -4588,10 +4585,9 @@ msgid "Expand Command Entry Results"
 msgstr "Plivastigi komandajn rezultojn"
 
 #: worksheet.cpp:1962
-#, fuzzy, kde-format
-#| msgid "Remove Command Entry Results"
+#, kde-format
 msgid "Delete Command Entry Results"
-msgstr "Forigi komandajn rezultojn"
+msgstr "Forigi Komanderajn Rezultojn"
 
 #: worksheet.cpp:1964
 #, kde-format
@@ -4718,8 +4714,7 @@ msgid "This step cannot be undone. Do you really want to delete all results?"
 msgstr ""
 
 #: worksheet.cpp:2885
-#, fuzzy, kde-format
-#| msgid "Remove all results"
+#, kde-format
 msgid "Delete all results"
 msgstr "Forigi ĉiujn rezultojn"
 
@@ -4864,37 +4859,22 @@ msgid "Move Down"
 msgstr "Movi Malsupren"
 
 #: worksheetentry.cpp:435
-#, fuzzy, kde-format
-#| msgctxt "@info:tooltip"
-#| msgid "Delete"
+#, kde-format
 msgid "Delete"
 msgstr "Forigi"
 
 #: worksheetentry.cpp:717
-#, fuzzy, kde-format
-#| msgid "Do you really want to remove this entry?"
+#, kde-format
 msgid "This step cannot be undone. Do you really want to delete this entry?"
-msgstr "Ĉu vi vere volas forigi ĉi tiun enskribon?"
+msgstr ""
+"Ĉi tiu paŝo ne povas esti malfarata. Ĉu vi vere volas forigi ĉi tiun eron?"
 
 #: worksheetentry.cpp:717 worksheetentry.cpp:847
-#, fuzzy, kde-format
-#| msgid "Evaluate Entry"
+#, kde-format
 msgid "Delete Entry"
-msgstr "Taksi Eniron"
+msgstr "Forigi Eron"
 
 #: worksheetentry.cpp:852
 #, kde-format
 msgid "Drag Entry"
-msgstr "Treni Eniron"
-
-#~ msgid "Remove Entries"
-#~ msgstr "Forigi Enirojn"
-
-#~ msgid ""
-#~ "This action will remove all results without the possibility of "
-#~ "cancellation. Are you sure?"
-#~ msgstr ""
-#~ "Ĉi tiu ago forigos ĉiujn rezultojn sen la ebleco de nuligo. Ĉu vi certas?"
-
-#~ msgid "Remove Entry"
-#~ msgstr "Forigi Eniron"
+msgstr "Treni Eron"
