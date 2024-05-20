@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-05-15 01:42+0000\n"
+"POT-Creation-Date: 2024-05-20 01:42+0000\n"
 "PO-Revision-Date: 2023-11-05 00:59+0100\n"
 "Last-Translator: Shinjo Park <kde@peremen.name>\n"
 "Language-Team: Korean <kde-kr@kde.org>\n"
@@ -954,7 +954,7 @@ msgstr "플롯 통합이 비활성화됩니다."
 
 #: backends/octave/octavesession.cpp:397 backends/sage/sagesession.cpp:341
 #: backends/sage/sagesession.cpp:352 cantor.cpp:217 cantor.cpp:219
-#: cantor.cpp:338 cantor.cpp:345 lib/session.cpp:327 main.cpp:66 main.cpp:130
+#: cantor.cpp:338 cantor.cpp:345 lib/session.cpp:327 main.cpp:72 main.cpp:131
 #: markdownentry.cpp:797 textentry.cpp:553 worksheet.cpp:1283
 #, kde-format
 msgid "Cantor"
@@ -2092,62 +2092,62 @@ msgstr "격자 표시:"
 msgid "Plot Style:"
 msgstr "플롯 스타일:"
 
-#: backends/qthelpconfig.cpp:45
+#: backends/qthelpconfig.cpp:44
 #, kde-format
 msgctxt "@title:window"
 msgid "Modify Entry"
 msgstr "항목 수정"
 
-#: backends/qthelpconfig.cpp:47
+#: backends/qthelpconfig.cpp:46
 #, kde-format
 msgctxt "@title:window"
 msgid "Add New Entry"
 msgstr "새 항목 추가"
 
-#: backends/qthelpconfig.cpp:64
+#: backends/qthelpconfig.cpp:63
 #, kde-format
 msgid "Name cannot be empty."
 msgstr "이름을 비워둘 수 없습니다."
 
-#: backends/qthelpconfig.cpp:84
+#: backends/qthelpconfig.cpp:83
 #, kde-format
 msgid "Add local documentation"
 msgstr "로컬 문서 추가"
 
-#: backends/qthelpconfig.cpp:100
+#: backends/qthelpconfig.cpp:99
 #, kde-format
 msgctxt "@action:button Allow user to get some API documentation with GHNS"
 msgid "Get New Documentation"
 msgstr "새 문서 가져오기"
 
-#: backends/qthelpconfig.cpp:103
+#: backends/qthelpconfig.cpp:102
 #, kde-format
 msgid "Download additional documentations"
 msgstr "추가 문서 다운로드"
 
-#: backends/qthelpconfig.cpp:171
+#: backends/qthelpconfig.cpp:170
 #, kde-format
 msgid "Qt Compressed Help file is not valid."
 msgstr "Qt 압축된 도움말 파일이 잘못되었습니다."
 
-#: backends/qthelpconfig.cpp:180
+#: backends/qthelpconfig.cpp:179
 #, kde-format
 msgid "Documentation already imported"
 msgstr "문서를 이미 가져옴"
 
-#: backends/qthelpconfig.cpp:270
+#: backends/qthelpconfig.cpp:269
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Modify"
 msgstr "수정"
 
-#: backends/qthelpconfig.cpp:275
+#: backends/qthelpconfig.cpp:274
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Delete"
 msgstr "삭제"
 
-#: backends/qthelpconfig.cpp:283
+#: backends/qthelpconfig.cpp:282
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Please uninstall this via GHNS."
@@ -2326,12 +2326,12 @@ msgstr "명령 처리 중 오류 발생"
 msgid "Url to the local R documentation"
 msgstr "로컬 R 문서의 URL"
 
-#: backends/R/rsettingswidget.cpp:24
+#: backends/R/rsettingswidget.cpp:28
 #, kde-format
 msgid "Double click to open file selection dialog"
 msgstr "파일 선택 대화 상자를 열려면 두 번 클릭하십시오"
 
-#: backends/R/rsettingswidget.cpp:44
+#: backends/R/rsettingswidget.cpp:48
 #, kde-format
 msgid "*.R *.r|R source files (*.R, *.r)"
 msgstr "*.R *.r|R 소스 파일 (*.R, *.r)"
@@ -2844,12 +2844,12 @@ msgstr "PDF로 내보내기"
 msgid "Export to LaTeX"
 msgstr "LaTeX으로 내보내기"
 
-#: cantor_part.cpp:198 cantor_part.cpp:646 worksheet.cpp:1915
+#: cantor_part.cpp:198 cantor_part.cpp:646 worksheet.cpp:1917
 #, kde-format
 msgid "Evaluate Worksheet"
 msgstr "워크시트 계산"
 
-#: cantor_part.cpp:205 worksheet.cpp:1923
+#: cantor_part.cpp:205 worksheet.cpp:1925
 #, kde-format
 msgid "Zoom"
 msgstr "확대/축소"
@@ -2982,7 +2982,7 @@ msgstr "CantorPart"
 msgid "(C) 2009-2015 Alexander Rieder"
 msgstr "(C) 2009-2015 Alexander Rieder"
 
-#: cantor_part.cpp:416 main.cpp:81
+#: cantor_part.cpp:416 main.cpp:87
 #, kde-format
 msgid "Alexander Rieder"
 msgstr "Alexander Rieder"
@@ -3034,7 +3034,7 @@ msgstr "모든 계산 결과가 손실됩니다. %1을(를) 다시 시작하시�
 msgid "Restart %1?"
 msgstr "%1을(를) 다시 시작하시겠습니까?"
 
-#: cantor_part.cpp:636 worksheet.cpp:1918
+#: cantor_part.cpp:636 worksheet.cpp:1920
 #, kde-format
 msgid "Interrupt"
 msgstr "중지"
@@ -3206,7 +3206,7 @@ msgstr "결과 표시"
 msgid "Hide Results"
 msgstr "결과 숨기기"
 
-#: commandentry.cpp:343 worksheet.cpp:1908
+#: commandentry.cpp:343 worksheet.cpp:1909
 #, kde-format
 msgid "Show Help"
 msgstr "도움말 표시"
@@ -3705,93 +3705,93 @@ msgstr ""
 "%1 그래픽 패키지 지원을 선택했지만 필요한 항목이 없어서 지원을 활성화할 수 없"
 "습니다. 이 패키지 통합이 비활성화됩니다. %2"
 
-#: main.cpp:72
+#: main.cpp:78
 #, kde-format
 msgid "KDE Frontend to mathematical applications"
 msgstr "KDE 수학 앱 프론트엔드"
 
-#: main.cpp:74
+#: main.cpp:80
 #, kde-format
 msgid "(C) 2016 Filipe Saraiva<br/>(C) 2009-2015 Alexander Rieder"
 msgstr "(C) 2016 Filipe Saraiva<br/>(C) 2009-2015 Alexander Rieder"
 
-#: main.cpp:78
+#: main.cpp:84
 #, kde-format
 msgid "Filipe Saraiva"
 msgstr "Filipe Saraiva"
 
-#: main.cpp:78
+#: main.cpp:84
 #, kde-format
 msgid "Maintainer<br/>Qt5/KF5 port, Scilab and Python backends"
 msgstr "관리자<br />Qt5/KF5 이식, Scilab 및 Python 백엔드"
 
-#: main.cpp:79
+#: main.cpp:85
 #, kde-format
 msgid "Nikita Sirgienko"
 msgstr "Nikita Sirgienko"
 
-#: main.cpp:79 main.cpp:80
+#: main.cpp:85 main.cpp:86
 #, kde-format
 msgctxt "@info:credit"
 msgid "Developer"
 msgstr "개발자"
 
-#: main.cpp:80
+#: main.cpp:86
 #, kde-format
 msgid "Alexander Semke"
 msgstr "Alexander Semke"
 
-#: main.cpp:81
+#: main.cpp:87
 #, kde-format
 msgid "Original author<br/>Maintainer (2009 - 2015)"
 msgstr "원 작성자<br/>관리자(2009년-2015년)"
 
-#: main.cpp:82
+#: main.cpp:88
 #, kde-format
 msgid "Aleix Pol Gonzalez"
 msgstr "Aleix Pol Gonzalez"
 
-#: main.cpp:82
+#: main.cpp:88
 #, kde-format
 msgid "KAlgebra backend"
 msgstr "KAlgebra 백엔드"
 
-#: main.cpp:83
+#: main.cpp:89
 #, kde-format
 msgid "Miha Čančula"
 msgstr "Miha Čančula"
 
-#: main.cpp:83
+#: main.cpp:89
 #, kde-format
 msgid "Octave backend"
 msgstr "Octave 백엔드"
 
-#: main.cpp:84
+#: main.cpp:90
 #, kde-format
 msgid "Martin Küttler"
 msgstr "Martin Küttler"
 
-#: main.cpp:84
+#: main.cpp:90
 #, kde-format
 msgid "Interface"
 msgstr "인터페이스"
 
-#: main.cpp:86 main.cpp:87
+#: main.cpp:92 main.cpp:93
 #, kde-format
 msgid "Cantor icon"
 msgstr "Cantor 아이콘"
 
-#: main.cpp:92
+#: main.cpp:98
 #, kde-format
 msgid "Use  backend <backend>"
 msgstr "<backend> 백엔드 사용"
 
-#: main.cpp:95
+#: main.cpp:101
 #, kde-format
 msgid "Documents to open."
 msgstr "열 문서입니다."
 
-#: main.cpp:130
+#: main.cpp:131
 #, kde-format
 msgid "Couldn't open the file %1"
 msgstr "%1 파일을 열 수 없음"
@@ -4484,183 +4484,183 @@ msgstr "이전에 삽입"
 msgid "Insert"
 msgstr "삽입"
 
-#: worksheet.cpp:1927
+#: worksheet.cpp:1929
 #, kde-format
 msgid "Zoom In"
 msgstr "확대"
 
-#: worksheet.cpp:1930
+#: worksheet.cpp:1932
 #, kde-format
 msgid "Zoom Out"
 msgstr "축소"
 
-#: worksheet.cpp:1934
+#: worksheet.cpp:1936
 #, kde-format
 msgid "Original Size"
 msgstr "원래 크기"
 
-#: worksheet.cpp:1942
+#: worksheet.cpp:1944
 #, kde-format
 msgid "Move Entries Up"
 msgstr "항목 위로 이동"
 
-#: worksheet.cpp:1943
+#: worksheet.cpp:1945
 #, kde-format
 msgid "Move Entries Down"
 msgstr "항목 아래로 이동"
 
-#: worksheet.cpp:1944
+#: worksheet.cpp:1946
 #, kde-format
 msgid "Evaluate Entries"
 msgstr "항목 계산"
 
-#: worksheet.cpp:1946 worksheet.cpp:2795
+#: worksheet.cpp:1948 worksheet.cpp:2797
 #, fuzzy, kde-format
 #| msgid "Evaluate Entries"
 msgid "Delete Entries"
 msgstr "항목 계산"
 
-#: worksheet.cpp:1959
+#: worksheet.cpp:1961
 #, kde-format
 msgid "Collapse Command Entry Results"
 msgstr "명령 항목 결과 접기"
 
-#: worksheet.cpp:1960
+#: worksheet.cpp:1962
 #, kde-format
 msgid "Expand Command Entry Results"
 msgstr "명령 항목 결과 펴기"
 
-#: worksheet.cpp:1962
+#: worksheet.cpp:1964
 #, fuzzy, kde-format
 #| msgid "Remove Command Entry Results"
 msgid "Delete Command Entry Results"
 msgstr "명령 항목 결과 삭제"
 
-#: worksheet.cpp:1964
+#: worksheet.cpp:1966
 #, kde-format
 msgid "Exclude Command Entry From Execution"
 msgstr "명령 항목을 실행에서 제외"
 
-#: worksheet.cpp:1965
+#: worksheet.cpp:1967
 #, kde-format
 msgid "Add Command Entry To Execution"
 msgstr "명령 항목을 실행에 추가"
 
-#: worksheet.cpp:2073
+#: worksheet.cpp:2075
 #, kde-format
 msgctxt "@action"
 msgid "Text &Color..."
 msgstr "글자색(&C)..."
 
-#: worksheet.cpp:2074
+#: worksheet.cpp:2076
 #, kde-format
 msgctxt "@label text color"
 msgid "Color"
 msgstr "색상"
 
-#: worksheet.cpp:2081
+#: worksheet.cpp:2083
 #, kde-format
 msgctxt "@action"
 msgid "Text &Highlight..."
 msgstr "텍스트 구문 강조(&H)..."
 
-#: worksheet.cpp:2087
+#: worksheet.cpp:2089
 #, kde-format
 msgctxt "@action"
 msgid "&Font"
 msgstr "글꼴(&F)"
 
-#: worksheet.cpp:2096
+#: worksheet.cpp:2098
 #, kde-format
 msgctxt "@action"
 msgid "Font &Size"
 msgstr "글꼴 크기(&S)"
 
-#: worksheet.cpp:2102
+#: worksheet.cpp:2104
 #, kde-format
 msgctxt "@action boldify selected text"
 msgid "&Bold"
 msgstr "굵게(&B)"
 
-#: worksheet.cpp:2113
+#: worksheet.cpp:2115
 #, kde-format
 msgctxt "@action italicize selected text"
 msgid "&Italic"
 msgstr "이탤릭(&I)"
 
-#: worksheet.cpp:2125
+#: worksheet.cpp:2127
 #, kde-format
 msgctxt "@action underline selected text"
 msgid "&Underline"
 msgstr "밑줄(&U)"
 
-#: worksheet.cpp:2136
+#: worksheet.cpp:2138
 #, kde-format
 msgctxt "@action"
 msgid "&Strike Out"
 msgstr "취소선(&S)"
 
-#: worksheet.cpp:2147
+#: worksheet.cpp:2149
 #, kde-format
 msgctxt "@action"
 msgid "Align &Left"
 msgstr "왼쪽 정렬(&L)"
 
-#: worksheet.cpp:2150
+#: worksheet.cpp:2152
 #, kde-format
 msgctxt "@label left justify"
 msgid "Left"
 msgstr "왼쪽"
 
-#: worksheet.cpp:2157
+#: worksheet.cpp:2159
 #, kde-format
 msgctxt "@action"
 msgid "Align &Center"
 msgstr "가운데 정렬(&C)"
 
-#: worksheet.cpp:2160
+#: worksheet.cpp:2162
 #, kde-format
 msgctxt "@label center justify"
 msgid "Center"
 msgstr "가운데"
 
-#: worksheet.cpp:2167
+#: worksheet.cpp:2169
 #, kde-format
 msgctxt "@action"
 msgid "Align &Right"
 msgstr "오른쪽 정렬(&R)"
 
-#: worksheet.cpp:2170
+#: worksheet.cpp:2172
 #, kde-format
 msgctxt "@label right justify"
 msgid "Right"
 msgstr "오른쪽"
 
-#: worksheet.cpp:2177
+#: worksheet.cpp:2179
 #, kde-format
 msgctxt "@action"
 msgid "&Justify"
 msgstr "양쪽 정렬(&J)"
 
-#: worksheet.cpp:2180
+#: worksheet.cpp:2182
 #, kde-format
 msgctxt "@label justify fill"
 msgid "Justify"
 msgstr "맞춤"
 
-#: worksheet.cpp:2795
+#: worksheet.cpp:2797
 #, kde-format
 msgid ""
 "This step cannot be undone. Do you really want to delete the selected "
 "entries?"
 msgstr ""
 
-#: worksheet.cpp:2884
+#: worksheet.cpp:2886
 #, kde-format
 msgid "This step cannot be undone. Do you really want to delete all results?"
 msgstr ""
 
-#: worksheet.cpp:2885
+#: worksheet.cpp:2887
 #, fuzzy, kde-format
 #| msgid "Remove all results"
 msgid "Delete all results"
