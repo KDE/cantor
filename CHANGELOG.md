@@ -4,6 +4,7 @@
 
 ### Bug fixes:
     * [python] ignore IPython's magic functions in imported Jupytor notebooks, not relevant for Cantor
+    * Fixed the export to LaTeX (BUG: 483482)
 
 ## 24.02
 
@@ -11,6 +12,9 @@
     * Export worksheet to PDF
     * [python] allow to specify plot format and size in the application settings
     * [R] allow to specify plot format and size in the application settings
+    * [qalculate] set the recommended version to the current version 4.8
+    * [qalculate] set the minimal version to 3.11 that was released in 2020
+    * [qalculate] added the parameter for the executable path and make it hard requirement to start this backend in Cantor
 
 ### Bug fixes:
     * [maxima] don't send any semicolon at the end of the input when being in the Lisp mode

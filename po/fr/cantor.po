@@ -12,9 +12,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: cantor\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-04-25 01:37+0000\n"
-"PO-Revision-Date: 2024-03-12 09:18+0100\n"
-"Last-Translator: xavier <xyz@yahoo.com>\n"
+"POT-Creation-Date: 2024-05-15 01:42+0000\n"
+"PO-Revision-Date: 2024-05-16 11:07+0200\n"
+"Last-Translator: Xavier Besnard <xavier.besnard@kde.org>\n"
 "Language-Team: French <French <kde-francophone@kde.org>>\n"
 "Language: fr\n"
 "MIME-Version: 1.0\n"
@@ -391,12 +391,12 @@ msgstr "Intégrer des graphes dans la feuille de calcul"
 msgid "Graphical package for the Plot-Assistant"
 msgstr "Paquet de graphique pour l'assistant « Traçage »"
 
-#: backends/julia/juliaextensions.cpp:246
+#: backends/julia/juliaextensions.cpp:239
 #, kde-format
 msgid "# Sorry, but Gadfly don't support 3d plots"
 msgstr "# Désolé mais Gadfly ne prend pas en charge le tracé en 3D"
 
-#: backends/julia/juliaextensions.cpp:263
+#: backends/julia/juliaextensions.cpp:256
 #, kde-format
 msgid "Julia script file (*.jl)"
 msgstr "Fichier de script Julia (*.jl)"
@@ -1135,7 +1135,6 @@ msgstr "Ajouter"
 
 #. i18n: ectx: property (text), widget (QPushButton, removeButton)
 #: backends/qalculate/plotassistant/qalculateplotdialog.ui:82
-#: worksheetentry.cpp:437
 #, kde-format
 msgid "Remove"
 msgstr "Supprimer"
@@ -1476,7 +1475,7 @@ msgstr "EPS"
 
 #. i18n: ectx: property (text), item, widget (KComboBox, saveFileBox)
 #: backends/qalculate/plotassistant/qalculateplotdialog.ui:575
-#: worksheet.cpp:1832 worksheet.cpp:1858 worksheet.cpp:1878 worksheet.cpp:1896
+#: worksheet.cpp:1831 worksheet.cpp:1857 worksheet.cpp:1877 worksheet.cpp:1895
 #, kde-format
 msgid "LaTeX"
 msgstr "LaTeX"
@@ -1662,8 +1661,8 @@ msgstr "Position de la légende dans les tracés."
 #, kde-format
 msgid "Qalculate reports it cannot print. Is gnuplot installed?"
 msgstr ""
-"Qalculate signale qu'il lui est impossible d'imprimer. Gnuplot est-il "
-"installé ?"
+"Qalculate signale qu'il lui est impossible d'imprimer. Le paquet « gnuplot » "
+"est-il installé ?"
 
 #: backends/qalculate/qalculateexpression.cpp:158
 #, kde-format
@@ -1699,14 +1698,14 @@ msgstr ""
 
 #: backends/qalculate/qalculateexpression.cpp:677
 #: backends/qalculate/qalculateexpression.cpp:785
-#: backends/qalculate/qalculatehighlighter.cpp:29
+#: backends/qalculate/qalculatehighlighter.cpp:21
 #, kde-format
 msgid "ERROR"
 msgstr "ERREUR"
 
 #: backends/qalculate/qalculateexpression.cpp:679
 #: backends/qalculate/qalculateexpression.cpp:787
-#: backends/qalculate/qalculatehighlighter.cpp:29
+#: backends/qalculate/qalculatehighlighter.cpp:21
 #, kde-format
 msgid "WARNING"
 msgstr "AVERTISSEMENT"
@@ -2942,12 +2941,12 @@ msgstr "Exporter vers le format « PDF »"
 msgid "Export to LaTeX"
 msgstr "Exporter en LaTeX"
 
-#: cantor_part.cpp:198 cantor_part.cpp:646 worksheet.cpp:1916
+#: cantor_part.cpp:198 cantor_part.cpp:646 worksheet.cpp:1915
 #, kde-format
 msgid "Evaluate Worksheet"
 msgstr "Évaluer une feuille de calcul"
 
-#: cantor_part.cpp:205 worksheet.cpp:1924
+#: cantor_part.cpp:205 worksheet.cpp:1923
 #, kde-format
 msgid "Zoom"
 msgstr "Zoomer"
@@ -2998,7 +2997,7 @@ msgstr "Module Math intégré"
 msgid "Restart Backend"
 msgstr "Redémarrer le moteur"
 
-#: cantor_part.cpp:266 worksheetentry.cpp:858
+#: cantor_part.cpp:266 worksheetentry.cpp:856
 #, kde-format
 msgid "Evaluate Entry"
 msgstr "Évaluer un élément"
@@ -3045,13 +3044,13 @@ msgstr "Développer tous les résultats"
 
 #: cantor_part.cpp:317
 #, kde-format
-msgid "Remove All Results"
+msgid "Delete All Results"
 msgstr "Supprimer tous les résultats"
 
 #: cantor_part.cpp:322
 #, kde-format
-msgid "Remove current Entry"
-msgstr "Supprimer l'élément actuel"
+msgid "Delete current Entry"
+msgstr "Supprimer l'entrée actuelle"
 
 #. i18n("Publish Worksheet"), collection);
 #. publishWorksheet->setIcon(QIcon::fromTheme(QLatin1String("get-hot-new-stuff")));
@@ -3132,7 +3131,7 @@ msgstr ""
 msgid "Restart %1?"
 msgstr "Re-démarrer %1 ?"
 
-#: cantor_part.cpp:636 worksheet.cpp:1919
+#: cantor_part.cpp:636 worksheet.cpp:1918
 #, kde-format
 msgid "Interrupt"
 msgstr "Interrompre"
@@ -3307,7 +3306,7 @@ msgstr "Afficher les résultats"
 msgid "Hide Results"
 msgstr "Cacher les résultats"
 
-#: commandentry.cpp:343 worksheet.cpp:1909
+#: commandentry.cpp:343 worksheet.cpp:1908
 #, kde-format
 msgid "Show Help"
 msgstr "Afficher l'aide"
@@ -4148,8 +4147,8 @@ msgstr "Résultats"
 msgid "Errors"
 msgstr "Erreurs"
 
-#: searchbar.cpp:334 searchbar.cpp:363 worksheet.cpp:1824 worksheet.cpp:1853
-#: worksheet.cpp:1873 worksheet.cpp:1891
+#: searchbar.cpp:334 searchbar.cpp:363 worksheet.cpp:1823 worksheet.cpp:1852
+#: worksheet.cpp:1872 worksheet.cpp:1890
 #, kde-format
 msgid "Text"
 msgstr "Texte"
@@ -4569,90 +4568,90 @@ msgstr "Le fichier n'est pas un fichier de notebook Jupyter"
 msgid "Invalid Jupyter notebook scheme: %1"
 msgstr "Schéma de notebook Jupyter non valable : %1"
 
-#: worksheet.cpp:1816
+#: worksheet.cpp:1815
 #, kde-format
 msgid "Convert To"
 msgstr "Convertir en"
 
-#: worksheet.cpp:1821 worksheet.cpp:1852 worksheet.cpp:1872 worksheet.cpp:1890
+#: worksheet.cpp:1820 worksheet.cpp:1851 worksheet.cpp:1871 worksheet.cpp:1889
 #, kde-format
 msgid "Command"
 msgstr "Commande"
 
-#: worksheet.cpp:1828 worksheet.cpp:1855 worksheet.cpp:1875 worksheet.cpp:1893
+#: worksheet.cpp:1827 worksheet.cpp:1854 worksheet.cpp:1874 worksheet.cpp:1892
 #, kde-format
 msgid "Markdown"
 msgstr "Markdown"
 
-#: worksheet.cpp:1835 worksheet.cpp:1860 worksheet.cpp:1880 worksheet.cpp:1898
+#: worksheet.cpp:1834 worksheet.cpp:1859 worksheet.cpp:1879 worksheet.cpp:1897
 #, kde-format
 msgid "Image"
 msgstr "Image"
 
-#: worksheet.cpp:1838 worksheet.cpp:1863 worksheet.cpp:1883 worksheet.cpp:1901
+#: worksheet.cpp:1837 worksheet.cpp:1862 worksheet.cpp:1882 worksheet.cpp:1900
 #, kde-format
 msgid "Page Break"
 msgstr "Saut de page"
 
-#: worksheet.cpp:1841 worksheet.cpp:1862 worksheet.cpp:1882 worksheet.cpp:1900
+#: worksheet.cpp:1840 worksheet.cpp:1861 worksheet.cpp:1881 worksheet.cpp:1899
 #, kde-format
 msgid "Horizontal Line"
 msgstr "Ligne horizontale"
 
-#: worksheet.cpp:1844 worksheet.cpp:1865 worksheet.cpp:1885 worksheet.cpp:1903
+#: worksheet.cpp:1843 worksheet.cpp:1864 worksheet.cpp:1884 worksheet.cpp:1902
 #, kde-format
 msgid "Hierarchy Entry"
 msgstr "Entrée hiérarchique"
 
-#: worksheet.cpp:1847
+#: worksheet.cpp:1846
 #, kde-format
 msgid "Insert After"
 msgstr "Insérer après"
 
-#: worksheet.cpp:1868
+#: worksheet.cpp:1867
 #, kde-format
 msgid "Insert Before"
 msgstr "Insérer avant"
 
-#: worksheet.cpp:1887
+#: worksheet.cpp:1886
 #, kde-format
 msgid "Insert"
 msgstr "Insérer"
 
-#: worksheet.cpp:1928
+#: worksheet.cpp:1927
 #, kde-format
 msgid "Zoom In"
 msgstr "Zoomer en avant"
 
-#: worksheet.cpp:1931
+#: worksheet.cpp:1930
 #, kde-format
 msgid "Zoom Out"
 msgstr "Zoomer en arrière"
 
-#: worksheet.cpp:1935
+#: worksheet.cpp:1934
 #, kde-format
 msgid "Original Size"
 msgstr "Taille originale"
 
-#: worksheet.cpp:1943
+#: worksheet.cpp:1942
 #, kde-format
 msgid "Move Entries Up"
 msgstr "Déplacer les entrées vers le haut"
 
-#: worksheet.cpp:1944
+#: worksheet.cpp:1943
 #, kde-format
 msgid "Move Entries Down"
 msgstr "Déplacer les entrées vers le bas"
 
-#: worksheet.cpp:1945
+#: worksheet.cpp:1944
 #, kde-format
 msgid "Evaluate Entries"
 msgstr "Évaluer les entrées"
 
-#: worksheet.cpp:1946
+#: worksheet.cpp:1946 worksheet.cpp:2795
 #, kde-format
-msgid "Remove Entries"
-msgstr "Supprimer des entrées"
+msgid "Delete Entries"
+msgstr "Supprimer les entrées"
 
 #: worksheet.cpp:1959
 #, kde-format
@@ -4664,135 +4663,142 @@ msgstr "Réduire les résultats de la commande saisie"
 msgid "Expand Command Entry Results"
 msgstr "Développer les résultats de la commande saisie"
 
-#: worksheet.cpp:1961
+#: worksheet.cpp:1962
 #, kde-format
-msgid "Remove Command Entry Results"
+msgid "Delete Command Entry Results"
 msgstr "Supprimer les résultats de la commande saisie"
 
-#: worksheet.cpp:1962
+#: worksheet.cpp:1964
 #, kde-format
 msgid "Exclude Command Entry From Execution"
 msgstr "Exclure l'entrée de la commande de l'exécution"
 
-#: worksheet.cpp:1963
+#: worksheet.cpp:1965
 #, kde-format
 msgid "Add Command Entry To Execution"
 msgstr "Ajouter une commande saisie pour exécution"
 
-#: worksheet.cpp:2071
+#: worksheet.cpp:2073
 #, kde-format
 msgctxt "@action"
 msgid "Text &Color..."
 msgstr "&Couleur du texte..."
 
-#: worksheet.cpp:2072
+#: worksheet.cpp:2074
 #, kde-format
 msgctxt "@label text color"
 msgid "Color"
 msgstr "Couleur"
 
-#: worksheet.cpp:2079
+#: worksheet.cpp:2081
 #, kde-format
 msgctxt "@action"
 msgid "Text &Highlight..."
 msgstr "Surligner du texte..."
 
-#: worksheet.cpp:2085
+#: worksheet.cpp:2087
 #, kde-format
 msgctxt "@action"
 msgid "&Font"
 msgstr "&Police"
 
-#: worksheet.cpp:2094
+#: worksheet.cpp:2096
 #, kde-format
 msgctxt "@action"
 msgid "Font &Size"
 msgstr "Taille de poli&ce"
 
-#: worksheet.cpp:2100
+#: worksheet.cpp:2102
 #, kde-format
 msgctxt "@action boldify selected text"
 msgid "&Bold"
 msgstr "&Gras"
 
-#: worksheet.cpp:2111
+#: worksheet.cpp:2113
 #, kde-format
 msgctxt "@action italicize selected text"
 msgid "&Italic"
 msgstr "&Italique"
 
-#: worksheet.cpp:2123
+#: worksheet.cpp:2125
 #, kde-format
 msgctxt "@action underline selected text"
 msgid "&Underline"
 msgstr "&Souligné"
 
-#: worksheet.cpp:2134
+#: worksheet.cpp:2136
 #, kde-format
 msgctxt "@action"
 msgid "&Strike Out"
 msgstr "&Barré"
 
-#: worksheet.cpp:2145
+#: worksheet.cpp:2147
 #, kde-format
 msgctxt "@action"
 msgid "Align &Left"
 msgstr "Aligné à &gauche"
 
-#: worksheet.cpp:2148
+#: worksheet.cpp:2150
 #, kde-format
 msgctxt "@label left justify"
 msgid "Left"
 msgstr "Gauche"
 
-#: worksheet.cpp:2155
+#: worksheet.cpp:2157
 #, kde-format
 msgctxt "@action"
 msgid "Align &Center"
 msgstr "&Centrer"
 
-#: worksheet.cpp:2158
+#: worksheet.cpp:2160
 #, kde-format
 msgctxt "@label center justify"
 msgid "Center"
 msgstr "Centrer"
 
-#: worksheet.cpp:2165
+#: worksheet.cpp:2167
 #, kde-format
 msgctxt "@action"
 msgid "Align &Right"
 msgstr "Aligner à d&roite"
 
-#: worksheet.cpp:2168
+#: worksheet.cpp:2170
 #, kde-format
 msgctxt "@label right justify"
 msgid "Right"
 msgstr "Droite"
 
-#: worksheet.cpp:2175
+#: worksheet.cpp:2177
 #, kde-format
 msgctxt "@action"
 msgid "&Justify"
 msgstr "&Justifier"
 
-#: worksheet.cpp:2178
+#: worksheet.cpp:2180
 #, kde-format
 msgctxt "@label justify fill"
 msgid "Justify"
 msgstr "Justifier"
 
-#: worksheet.cpp:2872
+#: worksheet.cpp:2795
 #, kde-format
 msgid ""
-"This action will remove all results without the possibility of cancellation. "
-"Are you sure?"
+"This step cannot be undone. Do you really want to delete the selected "
+"entries?"
 msgstr ""
-"Cette action supprimera tous les résultats sans annulation possible. Voulez-"
-"vous vraiment continuer ?"
+"Il est impossible d'annuler cette action. Voulez-vous vraiment supprimer les "
+"entrées sélectionnées ?"
 
-#: worksheet.cpp:2873
+#: worksheet.cpp:2884
 #, kde-format
-msgid "Remove all results"
+msgid "This step cannot be undone. Do you really want to delete all results?"
+msgstr ""
+"Il est impossible d'annuler cette action. Voulez-vous vraiment supprimer "
+"tous les résultats ?"
+
+#: worksheet.cpp:2885
+#, kde-format
+msgid "Delete all results"
 msgstr "Supprimer tous les résultats"
 
 #: worksheetentry.cpp:67
@@ -4930,25 +4936,45 @@ msgstr "Gris clair"
 msgid "Move Up"
 msgstr "Déplacer vers le haut"
 
-#: worksheetentry.cpp:429
+#: worksheetentry.cpp:428
 #, kde-format
 msgid "Move Down"
 msgstr "Déplacer vers le bas"
 
-#: worksheetentry.cpp:719
+#: worksheetentry.cpp:435
 #, kde-format
-msgid "Do you really want to remove this entry?"
-msgstr "Voulez-vous vraiment supprimer cette entrée ?"
+msgid "Delete"
+msgstr "Supprimer"
 
-#: worksheetentry.cpp:719 worksheetentry.cpp:849
+#: worksheetentry.cpp:717
 #, kde-format
-msgid "Remove Entry"
-msgstr "Supprimer une entrée"
+msgid "This step cannot be undone. Do you really want to delete this entry?"
+msgstr ""
+"Il est impossible d'annuler cette action. Voulez-vous vraiment supprimer "
+"cette entrée ?"
 
-#: worksheetentry.cpp:854
+#: worksheetentry.cpp:717 worksheetentry.cpp:847
+#, kde-format
+msgid "Delete Entry"
+msgstr "Supprimer l'entrée"
+
+#: worksheetentry.cpp:852
 #, kde-format
 msgid "Drag Entry"
 msgstr "Faire glisser une entrée"
+
+#~ msgid "Remove Entries"
+#~ msgstr "Supprimer des entrées"
+
+#~ msgid ""
+#~ "This action will remove all results without the possibility of "
+#~ "cancellation. Are you sure?"
+#~ msgstr ""
+#~ "Cette action supprimera tous les résultats sans annulation possible. "
+#~ "Voulez-vous vraiment continuer ?"
+
+#~ msgid "Remove Entry"
+#~ msgstr "Supprimer une entrée"
 
 #~ msgid "Inner format of plots, if plots embedding is enabled."
 #~ msgstr "Formats internes des tracés si leur intégration est activée."
@@ -5263,9 +5289,6 @@ msgstr "Faire glisser une entrée"
 
 #~ msgid "Confirmation - Cantor"
 #~ msgstr "Confirmation - Cantor"
-
-#~ msgid "Text Entry"
-#~ msgstr "Élément de texte"
 
 #~ msgid "LaTeX Entry"
 #~ msgstr "Élément LaTeX"

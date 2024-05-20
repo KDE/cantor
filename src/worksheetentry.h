@@ -146,7 +146,7 @@ class WorksheetEntry : public QGraphicsObject
     void convertToHierarchyEntry();
 
     virtual void sizeAnimated();
-    virtual void startRemoving();
+    virtual void startRemoving(bool warn = true);
     bool stopRemoving();
     void moveToPreviousEntry(int pos = WorksheetTextItem::BottomRight, qreal x = 0);
     void moveToNextEntry(int pos = WorksheetTextItem::TopLeft, qreal x = 0);

@@ -419,23 +419,21 @@ void WorksheetEntry::populateMenu(QMenu* menu, QPointF pos)
 
     if (m_prev) {
         action = new QAction(QIcon::fromTheme(QLatin1String("go-up")), i18n("Move Up"));
-    //     connect(action, &QAction::triggered, this, &WorksheetEntry::moveToPrevious); //TODO: doesn't work
-        connect(action, SIGNAL(triggered()), this, SLOT(moveToPrevious()));
+        connect(action, &QAction::triggered, [=]() {moveToPrevious();});
         action->setShortcut(Qt::CTRL + Qt::Key_Up);
         menu->insertAction(firstAction, action);
     }
 
     if (m_next) {
         action = new QAction(QIcon::fromTheme(QLatin1String("go-down")), i18n("Move Down"));
-    //     connect(action, &QAction::triggered, this, &WorksheetEntry::moveToNext); //TODO: doesn't work
-        connect(action, SIGNAL(triggered()), this, SLOT(moveToNext()));
+        connect(action, &QAction::triggered, [=]() {moveToNext();});
         action->setShortcut(Qt::CTRL + Qt::Key_Down);
         menu->insertAction(firstAction, action);
         menu->insertSeparator(firstAction);
     }
 
-    action = new QAction(QIcon::fromTheme(QLatin1String("edit-delete")), i18n("Remove"));
-    connect(action, &QAction::triggered, this, &WorksheetEntry::startRemoving);
+    action = new QAction(QIcon::fromTheme(QLatin1String("edit-delete")), i18n("Delete"));
+    connect(action, &QAction::triggered, [=]() {startRemoving();});
     action->setShortcut(Qt::ShiftModifier + Qt::Key_Delete);
     menu->insertAction(firstAction, action);
     menu->insertSeparator(firstAction);
@@ -709,14 +707,14 @@ bool WorksheetEntry::aboutToBeRemoved()
     return m_aboutToBeRemoved;
 }
 
-void WorksheetEntry::startRemoving()
+void WorksheetEntry::startRemoving(bool warn)
 {
     if (type() == PlaceHolderEntry::Type) //don't do anything if a PlaceholderEntry is being removed in Worksheet::drageMoveEvent()
         return;
 
-    if (Settings::warnAboutEntryDelete())
+    if (warn && Settings::warnAboutEntryDelete())
     {
-        int rc = KMessageBox::warningYesNo(nullptr, i18n("Do you really want to remove this entry?"), i18n("Remove Entry"));
+        int rc = KMessageBox::warningYesNo(nullptr, i18n("This step cannot be undone. Do you really want to delete this entry?"), i18n("Delete Entry"));
         if (rc == KMessageBox::No)
             return;
     }
@@ -846,7 +844,7 @@ void WorksheetEntry::showActionBar()
     if (!m_actionBar) {
         m_actionBar = new ActionBar(this);
 
-        m_actionBar->addButton(QIcon::fromTheme(QLatin1String("edit-delete")), i18n("Remove Entry"),
+        m_actionBar->addButton(QIcon::fromTheme(QLatin1String("edit-delete")), i18n("Delete Entry"),
                                this, SLOT(startRemoving()));
 
         WorksheetToolButton* dragButton;

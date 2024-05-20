@@ -8,12 +8,10 @@
 #include <KLocalizedString>
 
 #include "settings.h"
-
 #include "juliascriptloading.h"
 
 #define JULIA_EXT_CDTOR(name) Julia##name##Extension::Julia##name##Extension(QObject *parent) : name##Extension(parent) {} \
                               Julia##name##Extension::~Julia##name##Extension() {}
-
 
 JULIA_EXT_CDTOR(LinearAlgebra)
 
@@ -21,12 +19,10 @@ QString JuliaLinearAlgebraExtension::createVector(
     const QStringList &entries,
     Cantor::LinearAlgebraExtension::VectorType type)
 {
-    QString command;
-    command += QLatin1String("[");
-
+    QString command = QLatin1String("[");
     QString separator = QLatin1String(type == ColumnVector ? ", " : " ");
 
-    for (const QString &entry : entries) {
+    for (const auto& entry : entries) {
         command += entry + separator;
     }
 
@@ -39,11 +35,10 @@ QString JuliaLinearAlgebraExtension::createVector(
 QString JuliaLinearAlgebraExtension::createMatrix(
     const Cantor::LinearAlgebraExtension::Matrix &matrix)
 {
-    QString command;
-    command += QLatin1String("[");
+    QString command = QLatin1String("[");
 
-    for (const QStringList row : matrix) {
-        for (const QString entry : row) {
+    for (const auto& row : matrix) {
+        for (const auto& entry : row) {
             command += entry;
             command += QLatin1String(" ");
         }
@@ -106,14 +101,12 @@ QString JuliaLinearAlgebraExtension::charPoly(const QString &matrix)
     return QString::fromLatin1("poly(%1)").arg(matrix);
 }
 
-
 JULIA_EXT_CDTOR(Packaging)
 
 QString JuliaPackagingExtension::importPackage(const QString &package)
 {
     return QString::fromLatin1("import %1").arg(package);
 }
-
 
 JULIA_EXT_CDTOR(Plot)
 

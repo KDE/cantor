@@ -102,7 +102,7 @@ class CommandEntry : public WorksheetEntry
     void showSyntaxHelp();
     void completeLineTo(const QString& line, int index);
 
-    void startRemoving() override;
+    void startRemoving(bool warn = true) override;
 
     void moveToNextItem(int pos, qreal x);
     void moveToPreviousItem(int pos, qreal x);

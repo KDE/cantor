@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: cantor\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-04-25 01:37+0000\n"
+"POT-Creation-Date: 2024-05-15 01:42+0000\n"
 "PO-Revision-Date: 2013-09-08 07:05+0900\n"
 "Last-Translator: Gheyret Kenji <gheyret@gmail.com>\n"
 "Language-Team: Uyghur Computer Science Association <UKIJ@yahoogroups.com>\n"
@@ -382,12 +382,12 @@ msgstr ""
 msgid "Graphical package for the Plot-Assistant"
 msgstr ""
 
-#: backends/julia/juliaextensions.cpp:246
+#: backends/julia/juliaextensions.cpp:239
 #, kde-format
 msgid "# Sorry, but Gadfly don't support 3d plots"
 msgstr ""
 
-#: backends/julia/juliaextensions.cpp:263
+#: backends/julia/juliaextensions.cpp:256
 #, kde-format
 msgid "Julia script file (*.jl)"
 msgstr ""
@@ -1043,7 +1043,6 @@ msgstr "قوش"
 
 #. i18n: ectx: property (text), widget (QPushButton, removeButton)
 #: backends/qalculate/plotassistant/qalculateplotdialog.ui:82
-#: worksheetentry.cpp:437
 #, kde-format
 msgid "Remove"
 msgstr "چىقىرىۋەت"
@@ -1385,7 +1384,7 @@ msgstr "EPS"
 
 #. i18n: ectx: property (text), item, widget (KComboBox, saveFileBox)
 #: backends/qalculate/plotassistant/qalculateplotdialog.ui:575
-#: worksheet.cpp:1832 worksheet.cpp:1858 worksheet.cpp:1878 worksheet.cpp:1896
+#: worksheet.cpp:1831 worksheet.cpp:1857 worksheet.cpp:1877 worksheet.cpp:1895
 #, kde-format
 msgid "LaTeX"
 msgstr "LaTeX"
@@ -1578,14 +1577,14 @@ msgstr ""
 
 #: backends/qalculate/qalculateexpression.cpp:677
 #: backends/qalculate/qalculateexpression.cpp:785
-#: backends/qalculate/qalculatehighlighter.cpp:29
+#: backends/qalculate/qalculatehighlighter.cpp:21
 #, kde-format
 msgid "ERROR"
 msgstr "ERROR"
 
 #: backends/qalculate/qalculateexpression.cpp:679
 #: backends/qalculate/qalculateexpression.cpp:787
-#: backends/qalculate/qalculatehighlighter.cpp:29
+#: backends/qalculate/qalculatehighlighter.cpp:21
 #, kde-format
 msgid "WARNING"
 msgstr "ئاگاھلاندۇرۇش"
@@ -2737,12 +2736,12 @@ msgstr ""
 msgid "Export to LaTeX"
 msgstr ""
 
-#: cantor_part.cpp:198 cantor_part.cpp:646 worksheet.cpp:1916
+#: cantor_part.cpp:198 cantor_part.cpp:646 worksheet.cpp:1915
 #, kde-format
 msgid "Evaluate Worksheet"
 msgstr ""
 
-#: cantor_part.cpp:205 worksheet.cpp:1924
+#: cantor_part.cpp:205 worksheet.cpp:1923
 #, kde-format
 msgid "Zoom"
 msgstr ""
@@ -2795,7 +2794,7 @@ msgstr ""
 msgid "Restart Backend"
 msgstr "ئارقا ئۇچنى قايتا باشلاش"
 
-#: cantor_part.cpp:266 worksheetentry.cpp:858
+#: cantor_part.cpp:266 worksheetentry.cpp:856
 #, kde-format
 msgid "Evaluate Entry"
 msgstr ""
@@ -2845,12 +2844,12 @@ msgstr "نەتىجە"
 #: cantor_part.cpp:317
 #, fuzzy, kde-format
 #| msgid "Results"
-msgid "Remove All Results"
+msgid "Delete All Results"
 msgstr "نەتىجە"
 
 #: cantor_part.cpp:322
 #, kde-format
-msgid "Remove current Entry"
+msgid "Delete current Entry"
 msgstr ""
 
 #. i18n("Publish Worksheet"), collection);
@@ -2931,7 +2930,7 @@ msgstr ""
 msgid "Restart %1?"
 msgstr "ئارقا ئۇچنى قايتا باشلاش"
 
-#: cantor_part.cpp:636 worksheet.cpp:1919
+#: cantor_part.cpp:636 worksheet.cpp:1918
 #, kde-format
 msgid "Interrupt"
 msgstr "ئۈزۈلۈش"
@@ -3115,7 +3114,7 @@ msgstr "نەتىجە"
 msgid "Hide Results"
 msgstr "نەتىجە"
 
-#: commandentry.cpp:343 worksheet.cpp:1909
+#: commandentry.cpp:343 worksheet.cpp:1908
 #, fuzzy, kde-format
 #| msgid "Results"
 msgid "Show Help"
@@ -3965,8 +3964,8 @@ msgstr "نەتىجە"
 msgid "Errors"
 msgstr "خاتالىق"
 
-#: searchbar.cpp:334 searchbar.cpp:363 worksheet.cpp:1824 worksheet.cpp:1853
-#: worksheet.cpp:1873 worksheet.cpp:1891
+#: searchbar.cpp:334 searchbar.cpp:363 worksheet.cpp:1823 worksheet.cpp:1852
+#: worksheet.cpp:1872 worksheet.cpp:1890
 #, kde-format
 msgid "Text"
 msgstr "تېكىست"
@@ -4360,99 +4359,99 @@ msgstr ""
 msgid "Invalid Jupyter notebook scheme: %1"
 msgstr ""
 
-#: worksheet.cpp:1816
+#: worksheet.cpp:1815
 #, fuzzy, kde-format
 #| msgid "Text Entry"
 msgid "Convert To"
 msgstr "تېكىست كىرگۈ"
 
-#: worksheet.cpp:1821 worksheet.cpp:1852 worksheet.cpp:1872 worksheet.cpp:1890
+#: worksheet.cpp:1820 worksheet.cpp:1851 worksheet.cpp:1871 worksheet.cpp:1889
 #, fuzzy, kde-format
 #| msgid "Commands"
 msgid "Command"
 msgstr "بۇيرۇقلار"
 
-#: worksheet.cpp:1828 worksheet.cpp:1855 worksheet.cpp:1875 worksheet.cpp:1893
+#: worksheet.cpp:1827 worksheet.cpp:1854 worksheet.cpp:1874 worksheet.cpp:1892
 #, fuzzy, kde-format
 #| msgid "Insert Before"
 msgid "Markdown"
 msgstr "ئالدىغا قىستۇر"
 
-#: worksheet.cpp:1835 worksheet.cpp:1860 worksheet.cpp:1880 worksheet.cpp:1898
+#: worksheet.cpp:1834 worksheet.cpp:1859 worksheet.cpp:1879 worksheet.cpp:1897
 #, kde-format
 msgid "Image"
 msgstr "سۈرەت"
 
-#: worksheet.cpp:1838 worksheet.cpp:1863 worksheet.cpp:1883 worksheet.cpp:1901
+#: worksheet.cpp:1837 worksheet.cpp:1862 worksheet.cpp:1882 worksheet.cpp:1900
 #, kde-format
 msgid "Page Break"
 msgstr "بەت ئايرىش بەلگىسى"
 
-#: worksheet.cpp:1841 worksheet.cpp:1862 worksheet.cpp:1882 worksheet.cpp:1900
+#: worksheet.cpp:1840 worksheet.cpp:1861 worksheet.cpp:1881 worksheet.cpp:1899
 #, kde-format
 msgid "Horizontal Line"
 msgstr ""
 
-#: worksheet.cpp:1844 worksheet.cpp:1865 worksheet.cpp:1885 worksheet.cpp:1903
+#: worksheet.cpp:1843 worksheet.cpp:1864 worksheet.cpp:1884 worksheet.cpp:1902
 #, kde-format
 msgid "Hierarchy Entry"
 msgstr ""
 
-#: worksheet.cpp:1847
+#: worksheet.cpp:1846
 #, fuzzy, kde-format
 #| msgid "Insert Image"
 msgid "Insert After"
 msgstr "سۈرەت قىستۇر"
 
-#: worksheet.cpp:1868
+#: worksheet.cpp:1867
 #, fuzzy, kde-format
 #| msgid "Insert Before"
 msgid "Insert Before"
 msgstr "ئالدىغا قىستۇر"
 
-#: worksheet.cpp:1887
+#: worksheet.cpp:1886
 #, kde-format
 msgid "Insert"
 msgstr "قىستۇر"
 
-#: worksheet.cpp:1928
+#: worksheet.cpp:1927
 #, kde-format
 msgid "Zoom In"
 msgstr ""
 
-#: worksheet.cpp:1931
+#: worksheet.cpp:1930
 #, kde-format
 msgid "Zoom Out"
 msgstr ""
 
-#: worksheet.cpp:1935
+#: worksheet.cpp:1934
 #, fuzzy, kde-format
 #| msgid "Print Size"
 msgid "Original Size"
 msgstr "بېسىش چوڭلۇقى"
 
-#: worksheet.cpp:1943
+#: worksheet.cpp:1942
 #, kde-format
 msgid "Move Entries Up"
 msgstr ""
 
-#: worksheet.cpp:1944
+#: worksheet.cpp:1943
 #, fuzzy, kde-format
 #| msgid "Text Entry"
 msgid "Move Entries Down"
 msgstr "تېكىست كىرگۈ"
 
-#: worksheet.cpp:1945
+#: worksheet.cpp:1944
 #, fuzzy, kde-format
 #| msgid "Evaluate"
 msgid "Evaluate Entries"
 msgstr "باھا"
 
-#: worksheet.cpp:1946
+#: worksheet.cpp:1946 worksheet.cpp:2795
 #, fuzzy, kde-format
-#| msgid "Remove Entry"
-msgid "Remove Entries"
-msgstr "تۈرنى چىقىرىۋەت"
+#| msgid "Evaluate"
+msgid "Delete Entries"
+msgstr "باھا"
 
 #: worksheet.cpp:1959
 #, kde-format
@@ -4464,135 +4463,140 @@ msgstr ""
 msgid "Expand Command Entry Results"
 msgstr ""
 
-#: worksheet.cpp:1961
+#: worksheet.cpp:1962
 #, fuzzy, kde-format
 #| msgid "Remove Entry"
-msgid "Remove Command Entry Results"
+msgid "Delete Command Entry Results"
 msgstr "تۈرنى چىقىرىۋەت"
 
-#: worksheet.cpp:1962
+#: worksheet.cpp:1964
 #, kde-format
 msgid "Exclude Command Entry From Execution"
 msgstr ""
 
-#: worksheet.cpp:1963
+#: worksheet.cpp:1965
 #, kde-format
 msgid "Add Command Entry To Execution"
 msgstr ""
 
-#: worksheet.cpp:2071
+#: worksheet.cpp:2073
 #, kde-format
 msgctxt "@action"
 msgid "Text &Color..."
 msgstr "تېكىست رېڭى(&C)…"
 
-#: worksheet.cpp:2072
+#: worksheet.cpp:2074
 #, kde-format
 msgctxt "@label text color"
 msgid "Color"
 msgstr "رەڭ"
 
-#: worksheet.cpp:2079
+#: worksheet.cpp:2081
 #, kde-format
 msgctxt "@action"
 msgid "Text &Highlight..."
 msgstr "تېكىستنى يورۇت(&H)…"
 
-#: worksheet.cpp:2085
+#: worksheet.cpp:2087
 #, kde-format
 msgctxt "@action"
 msgid "&Font"
 msgstr "خەت نۇسخا(&F)"
 
-#: worksheet.cpp:2094
+#: worksheet.cpp:2096
 #, kde-format
 msgctxt "@action"
 msgid "Font &Size"
 msgstr "خەت نۇسخا چوڭلۇقى(&S)"
 
-#: worksheet.cpp:2100
+#: worksheet.cpp:2102
 #, kde-format
 msgctxt "@action boldify selected text"
 msgid "&Bold"
 msgstr "توم(&B)"
 
-#: worksheet.cpp:2111
+#: worksheet.cpp:2113
 #, kde-format
 msgctxt "@action italicize selected text"
 msgid "&Italic"
 msgstr "يانتۇ(&I)"
 
-#: worksheet.cpp:2123
+#: worksheet.cpp:2125
 #, kde-format
 msgctxt "@action underline selected text"
 msgid "&Underline"
 msgstr "ئاستى سىزىق(&U)"
 
-#: worksheet.cpp:2134
+#: worksheet.cpp:2136
 #, kde-format
 msgctxt "@action"
 msgid "&Strike Out"
 msgstr "ئۆچۈرۈش سىزىقى(&S)"
 
-#: worksheet.cpp:2145
+#: worksheet.cpp:2147
 #, kde-format
 msgctxt "@action"
 msgid "Align &Left"
 msgstr "سولغا توغرىلا(&L)"
 
-#: worksheet.cpp:2148
+#: worksheet.cpp:2150
 #, kde-format
 msgctxt "@label left justify"
 msgid "Left"
 msgstr "سول"
 
-#: worksheet.cpp:2155
+#: worksheet.cpp:2157
 #, kde-format
 msgctxt "@action"
 msgid "Align &Center"
 msgstr "ئوتتۇرىغا توغرىلا(&C)"
 
-#: worksheet.cpp:2158
+#: worksheet.cpp:2160
 #, kde-format
 msgctxt "@label center justify"
 msgid "Center"
 msgstr "مەركەز"
 
-#: worksheet.cpp:2165
+#: worksheet.cpp:2167
 #, kde-format
 msgctxt "@action"
 msgid "Align &Right"
 msgstr "ئوڭغا توغرىلا(&R)"
 
-#: worksheet.cpp:2168
+#: worksheet.cpp:2170
 #, kde-format
 msgctxt "@label right justify"
 msgid "Right"
 msgstr "ئوڭ"
 
-#: worksheet.cpp:2175
+#: worksheet.cpp:2177
 #, kde-format
 msgctxt "@action"
 msgid "&Justify"
 msgstr "ئوڭ-سول تەرىپى تەكشى(&J)"
 
-#: worksheet.cpp:2178
+#: worksheet.cpp:2180
 #, kde-format
 msgctxt "@label justify fill"
 msgid "Justify"
 msgstr "ئوڭ-سول تەرىپى تەكشى"
 
-#: worksheet.cpp:2872
+#: worksheet.cpp:2795
 #, kde-format
 msgid ""
-"This action will remove all results without the possibility of cancellation. "
-"Are you sure?"
+"This step cannot be undone. Do you really want to delete the selected "
+"entries?"
 msgstr ""
 
-#: worksheet.cpp:2873
+#: worksheet.cpp:2884
+#, kde-format
+msgid "This step cannot be undone. Do you really want to delete all results?"
+msgstr ""
+
+#: worksheet.cpp:2885
 #, fuzzy, kde-format
 #| msgid "Remove Entry"
-msgid "Remove all results"
+msgid "Delete all results"
 msgstr "تۈرنى چىقىرىۋەت"
 
 #: worksheetentry.cpp:67
@@ -4731,25 +4735,39 @@ msgstr ""
 msgid "Move Up"
 msgstr ""
 
-#: worksheetentry.cpp:429
+#: worksheetentry.cpp:428
 #, kde-format
 msgid "Move Down"
 msgstr ""
 
-#: worksheetentry.cpp:719
+#: worksheetentry.cpp:435
 #, kde-format
-msgid "Do you really want to remove this entry?"
+msgid "Delete"
 msgstr ""
 
-#: worksheetentry.cpp:719 worksheetentry.cpp:849
+#: worksheetentry.cpp:717
 #, kde-format
-msgid "Remove Entry"
-msgstr "تۈرنى چىقىرىۋەت"
+msgid "This step cannot be undone. Do you really want to delete this entry?"
+msgstr ""
 
-#: worksheetentry.cpp:854
+#: worksheetentry.cpp:717 worksheetentry.cpp:847
+#, fuzzy, kde-format
+#| msgid "Text Entry"
+msgid "Delete Entry"
+msgstr "تېكىست كىرگۈ"
+
+#: worksheetentry.cpp:852
 #, kde-format
 msgid "Drag Entry"
 msgstr ""
+
+#, fuzzy
+#~| msgid "Remove Entry"
+#~ msgid "Remove Entries"
+#~ msgstr "تۈرنى چىقىرىۋەت"
+
+#~ msgid "Remove Entry"
+#~ msgstr "تۈرنى چىقىرىۋەت"
 
 #~ msgid "Defaults"
 #~ msgstr "كۆڭۈلدىكى قىممەتلەر"
@@ -4768,9 +4786,6 @@ msgstr ""
 #~| msgid "Insert Image"
 #~ msgid "Choose Image"
 #~ msgstr "سۈرەت قىستۇر"
-
-#~ msgid "Text Entry"
-#~ msgstr "تېكىست كىرگۈ"
 
 #, fuzzy
 #~| msgid "Insert Before"

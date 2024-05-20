@@ -1768,7 +1768,6 @@ void Worksheet::gotResult(Cantor::Expression* expr)
 
 void Worksheet::removeCurrentEntry()
 {
-    qDebug()<<"removing current entry";
     auto* entry = currentEntry();
     if(!entry)
         return;
@@ -1800,7 +1799,7 @@ QMenu* Worksheet::createContextMenu()
 
 void Worksheet::populateMenu(QMenu* menu, QPointF pos)
 {
-    // Two menu: for particular entry and for selection (multiple entry)
+    // Two different context menus - 1. for the current entry, 2. for multiple selected entries
     if (m_selectedEntries.isEmpty())
     {
         auto* entry = entryAt(pos);
@@ -1945,7 +1944,8 @@ void Worksheet::populateMenu(QMenu* menu, QPointF pos)
         menu->addAction(QIcon::fromTheme(QLatin1String("go-up")), i18n("Move Entries Up"), this, &Worksheet::selectionMoveUp);
         menu->addAction(QIcon::fromTheme(QLatin1String("go-down")), i18n("Move Entries Down"), this, &Worksheet::selectionMoveDown);
         menu->addAction(QIcon::fromTheme(QLatin1String("media-playback-start")), i18n("Evaluate Entries"), this, &Worksheet::selectionEvaluate);
-        menu->addAction(QIcon::fromTheme(QLatin1String("edit-delete")), i18n("Remove Entries"), this, &Worksheet::selectionRemove);
+        menu->addSeparator();
+        menu->addAction(QIcon::fromTheme(QLatin1String("edit-delete")), i18n("Delete Entries"), this, &Worksheet::selectionRemove);
 
         bool isAnyCommandEntryInSelection = false;
         for (auto* entry : m_selectedEntries)
@@ -1960,7 +1960,9 @@ void Worksheet::populateMenu(QMenu* menu, QPointF pos)
             menu->addSeparator();
             menu->addAction(QIcon(), i18n("Collapse Command Entry Results"), this, &Worksheet::collapseSelectionResults);
             menu->addAction(QIcon(), i18n("Expand Command Entry Results"), this, &Worksheet::uncollapseSelectionResults);
-            menu->addAction(QIcon(), i18n("Remove Command Entry Results"), this, &Worksheet::removeSelectionResults);
+            menu->addSeparator();
+            menu->addAction(QIcon(), i18n("Delete Command Entry Results"), this, &Worksheet::removeSelectionResults);
+            menu->addSeparator();
             menu->addAction(QIcon(), i18n("Exclude Command Entry From Execution"), this, &Worksheet::excludeFromExecutionSelection);
             menu->addAction(QIcon(), i18n("Add Command Entry To Execution"), this, &Worksheet::addToExectuionSelection);
         }
@@ -2787,9 +2789,19 @@ bool Worksheet::isValidEntry(WorksheetEntry* entry)
 
 void Worksheet::selectionRemove()
 {
+    if (m_selectedEntries.isEmpty())
+        return;
+
+    if (Settings::warnAboutEntryDelete())
+    {
+        int rc = KMessageBox::warningYesNo(nullptr, i18n("This step cannot be undone. Do you really want to delete the selected entries?"), i18n("Delete Entries"));
+        if (rc == KMessageBox::No)
+            return;
+    }
+
     for (auto* entry : m_selectedEntries)
         if (isValidEntry(entry))
-            entry->startRemoving();
+            entry->startRemoving(false);
 
     m_selectedEntries.clear();
 }
@@ -2871,8 +2883,8 @@ void Worksheet::removeAllResults()
     {
         KMessageBox::ButtonCode btn = KMessageBox::warningContinueCancel(
             views().first(),
-            i18n("This action will remove all results without the possibility of cancellation. Are you sure?"),
-            i18n("Remove all results"),
+            i18n("This step cannot be undone. Do you really want to delete all results?"),
+            i18n("Delete all results"),
             KStandardGuiItem::cont(),
             KStandardGuiItem::cancel(),
             QLatin1String("WarnAboutAllResultsRemoving")

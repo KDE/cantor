@@ -10,37 +10,30 @@
 #include "session.h"
 #include "qalculateexpression.h"
 
-#include <QSharedPointer>
 #include <QQueue>
 #include <QMap>
-
-#include <libqalculate/Variable.h>
-#include <libqalculate/MathStructure.h>
 
 namespace Cantor {
 class DefaultVariableModel;
 }
 
-class QalculateEngine;
 class QProcess;
-
 
 class QalculateSession : public Cantor::Session
 {
     Q_OBJECT
 
 private:
-    Cantor::DefaultVariableModel* m_variableModel;
-    QProcess* m_process;
-    QalculateExpression* m_currentExpression;
+    Cantor::DefaultVariableModel* m_variableModel{nullptr};
+    QProcess* m_process{nullptr};
+    QalculateExpression* m_currentExpression{nullptr};
     QString m_output;
     QString m_finalOutput;
     QString m_currentCommand;
     QString m_saveError;
     QQueue<QalculateExpression*> m_expressionQueue;
     QQueue<QString> m_commandQueue;
-    bool m_isSaveCommand;
-
+    bool m_isSaveCommand{false};
 
 private:
     void runExpressionQueue();
@@ -49,7 +42,7 @@ private:
     void storeVariables(QString& currentCmd, QString output);
 
 public:
-    explicit QalculateSession( Cantor::Backend* backend);
+    explicit QalculateSession(Cantor::Backend*);
     ~QalculateSession() override;
 
     void login() override;
