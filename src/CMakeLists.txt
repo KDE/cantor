@@ -110,9 +110,9 @@ target_link_libraries(cantorpart KF5::Parts KF5::NewStuff
                      KF5::KIOCore KF5::KIOFileWidgets KF5::KIOWidgets
                      Qt5::PrintSupport cantorlibs cantor_config )
 
-# if(Discount_FOUND)
+if(Discount_FOUND)
     target_link_libraries(cantorpart Discount::Lib)
-# endif(Discount_FOUND)
+endif(Discount_FOUND)
 
 if(BUILD_TESTING)
   add_subdirectory(test)

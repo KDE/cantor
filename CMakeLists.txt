@@ -93,13 +93,26 @@ else()
     set(WITH_EPS Off)
 endif()
 
-#[[
-find_package(Discount 2.2.0)
-set_package_properties(Discount PROPERTIES DESCRIPTION "A C implementation of the Markdown markup language"
-    URL "https://www.pell.portland.or.us/~orc/Code/discount/"
-    TYPE OPTIONAL
-    PURPOSE "Used for Markdown entries in Cantor")
-]]#
+### Discount (optional) #############################
+option(ENABLE_DISCOUNT "Build with Discount support" ON)
+IF (ENABLE_DISCOUNT)
+	FIND_PACKAGE(Discount)
+	SET_PACKAGE_PROPERTIES (Discount PROPERTIES
+		DESCRIPTION "A C implementation of the Markdown markup language"
+		URL "https://www.pell.portland.or.us/~orc/Code/discount/"
+		TYPE OPTIONAL)
+	IF (Discount_FOUND)
+		add_definitions (-DHAVE_DISCOUNT)
+		MESSAGE (STATUS "Found Markdown Library Discount ${Discount_VERSION}")
+		IF (DEFINED Discount_VERSION AND Discount_VERSION VERSION_GREATER_EQUAL 3)
+			add_definitions (-DHAVE_DISCOUNT3)
+		ENDIF ()
+	ELSE ()
+		MESSAGE (STATUS "Discount library NOT FOUND.")
+	ENDIF ()
+ELSE ()
+	MESSAGE (STATUS "Discount DISABLED")
+ENDIF ()
 
 add_definitions(
     -DQT_NO_CAST_TO_ASCII
