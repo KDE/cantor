@@ -52,7 +52,7 @@ QStringList RHighlighter::parseBlockTextToWords(const QString& originalText)
     text.replace(QLatin1String("-"), replacer1);
     text.replace(QLatin1String("."), replacer2);
 
-    QStringList words = text.split(QRegularExpression(QStringLiteral("\\b")), QString::SkipEmptyParts);
+    QStringList words = text.split(QRegularExpression(QStringLiteral("\\b")), Qt::SkipEmptyParts);
 
     for (int i = 0; i < words.size(); i++)
     {

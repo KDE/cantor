@@ -37,14 +37,18 @@ if (ENABLE_EMBEDDED_DOCUMENTATION)
 endif ()
 
 if(BUILD_TESTING)
-  add_executable( testoctave testoctave.cpp ${OctaveBackend_SRCS})
+  add_executable(testoctave testoctave.cpp ${OctaveBackend_SRCS})
   add_test(NAME testoctave COMMAND testoctave)
-  target_link_libraries( testoctave
+  target_link_libraries(testoctave
     Qt5::Test
     KF5::SyntaxHighlighting
+    KF5::NewStuffCore
     cantorlibs
     cantortest
   )
+  if (ENABLE_EMBEDDED_DOCUMENTATION)
+      target_link_libraries(testoctave cantor_help)
+  endif ()
 endif()
 
 

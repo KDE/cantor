@@ -36,7 +36,7 @@ int main(int argc, char *argv[])
         QDBusConnection::ExportAllSlots
     );
 
-    QTextStream(stdout) << "ready" << endl;
+    QTextStream(stdout) << "ready" << Qt::endl;
 
     return app.exec();
 }

@@ -44,10 +44,10 @@ void RVariableModel::parseResult(Cantor::Expression::Status status)
 
             const QString output = m_expression->result()->data().toString();
 
-            const QStringList& names = output.section(unitSep, 0, 0).split(recordSep, QString::SkipEmptyParts);
-            const QStringList& values = output.section(unitSep, 1, 1).split(recordSep, QString::SkipEmptyParts);
-            QStringList funcs = output.section(unitSep, 2, 2).split(recordSep, QString::SkipEmptyParts);
-            const QStringList& constants = output.section(unitSep, 3, 3).split(recordSep, QString::SkipEmptyParts);
+            const QStringList& names = output.section(unitSep, 0, 0).split(recordSep, Qt::SkipEmptyParts);
+            const QStringList& values = output.section(unitSep, 1, 1).split(recordSep, Qt::SkipEmptyParts);
+            QStringList funcs = output.section(unitSep, 2, 2).split(recordSep, Qt::SkipEmptyParts);
+            const QStringList& constants = output.section(unitSep, 3, 3).split(recordSep, Qt::SkipEmptyParts);
 
             QList<Variable> vars;
             if (!values.isEmpty()) // Variables management disabled

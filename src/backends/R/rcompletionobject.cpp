@@ -60,7 +60,7 @@ void RCompletionObject::receiveCompletions(Cantor::Expression::Status status)
             const QString output = m_expression->result()->data().toString();
 
             const QString& token = output.section(unitSep, 0, 0);
-            const QStringList& options = output.section(unitSep, 1, 1).split(recordSep, QString::SkipEmptyParts);
+            const QStringList& options = output.section(unitSep, 1, 1).split(recordSep, Qt::SkipEmptyParts);
 
             // TODO: investigate the empty token problem
             /* Not so fast, evidently KCompletion requires a nonempty token, hence this stub */

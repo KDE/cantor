@@ -229,7 +229,7 @@ void PythonSession::readOutput()
     if (!m_output.contains(messageEnd))
         return;
 
-    const QStringList packages = m_output.split(messageEnd, QString::SkipEmptyParts);
+    const QStringList packages = m_output.split(messageEnd, Qt::SkipEmptyParts);
     if (m_output.endsWith(messageEnd))
         m_output.clear();
     else

@@ -76,7 +76,7 @@ QString OctaveExpression::internalCommand()
 
     if (!isInternal())
     {
-        QStringList cmdWords = cmd.split(QRegularExpression(QStringLiteral("\\b")), QString::SkipEmptyParts);
+        QStringList cmdWords = cmd.split(QRegularExpression(QStringLiteral("\\b")), Qt::SkipEmptyParts);
         if (!cmdWords.contains(QLatin1String("help")) && !cmdWords.contains(QLatin1String("completion_matches")))
         {
             for (const QString& plotCmd : plotCommands)

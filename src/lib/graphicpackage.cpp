@@ -110,7 +110,7 @@ QList<GraphicPackage> Cantor::GraphicPackage::loadFromFile(const QString& filena
                 const QDomElement& delimiterElement = root.firstChildElement(QLatin1String("PlotPrecenseKeywordsDelimiter"));
                 if (!delimiterElement.isNull())
                     delimiter = delimiterElement.text().trimmed();
-                package.d->plotPrecenseKeywords = root.firstChildElement(QLatin1String("PlotPrecenseKeywords")).text().trimmed().split(delimiter, QString::SkipEmptyParts);
+                package.d->plotPrecenseKeywords = root.firstChildElement(QLatin1String("PlotPrecenseKeywords")).text().trimmed().split(delimiter, Qt::SkipEmptyParts);
                 for (QString& name : package.d->plotPrecenseKeywords)
                     name = name.trimmed();
 

@@ -117,7 +117,7 @@ void ScilabExpression::evalFinished()
 {
     qDebug()<<"evaluation finished";
 
-    foreach (const QString& line, m_output.simplified().split(QLatin1Char('\n'), QString::SkipEmptyParts)){
+    foreach (const QString& line, m_output.simplified().split(QLatin1Char('\n'), Qt::SkipEmptyParts)){
         if (m_output.contains(QLatin1Char('='))){
 
             qDebug() << line;
