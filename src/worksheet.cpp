@@ -1822,7 +1822,7 @@ void Worksheet::populateMenu(QMenu* menu, QPointF pos)
             if (entry->type() != TextEntry::Type)
                 convertTo->addAction(QIcon::fromTheme(QLatin1String("draw-text")), i18n("Text"), entry, &WorksheetEntry::convertToTextEntry);
 
-    #ifdef Discount_FOUND
+    #ifdef HAVE_DISCOUNT
             if (entry->type() != MarkdownEntry::Type)
                 convertTo->addAction(QIcon::fromTheme(QLatin1String("text-x-markdown")), i18n("Markdown"), entry, &WorksheetEntry::convertToMarkdownEntry);
     #endif
@@ -1850,7 +1850,7 @@ void Worksheet::populateMenu(QMenu* menu, QPointF pos)
 
             insert->addAction(QIcon::fromTheme(QLatin1String("run-build")), i18n("Command"), entry, SLOT(insertCommandEntry()));
             insert->addAction(QIcon::fromTheme(QLatin1String("draw-text")), i18n("Text"), entry, SLOT(insertTextEntry()));
-    #ifdef Discount_FOUND
+    #ifdef HAVE_DISCOUNT
             insert->addAction(QIcon::fromTheme(QLatin1String("text-x-markdown")), i18n("Markdown"), entry, SLOT(insertMarkdownEntry()));
     #endif
     #ifdef WITH_EPS
@@ -1870,7 +1870,7 @@ void Worksheet::populateMenu(QMenu* menu, QPointF pos)
 
             insertBefore->addAction(QIcon::fromTheme(QLatin1String("run-build")), i18n("Command"), entry, SLOT(insertCommandEntryBefore()));
             insertBefore->addAction(QIcon::fromTheme(QLatin1String("draw-text")), i18n("Text"), entry, SLOT(insertTextEntryBefore()));
-    #ifdef Discount_FOUND
+    #ifdef HAVE_DISCOUNT
             insertBefore->addAction(QIcon::fromTheme(QLatin1String("text-x-markdown")), i18n("Markdown"), entry, SLOT(insertMarkdownEntryBefore()));
     #endif
     #ifdef WITH_EPS
@@ -1888,7 +1888,7 @@ void Worksheet::populateMenu(QMenu* menu, QPointF pos)
 
             insertMenu->addAction(QIcon::fromTheme(QLatin1String("run-build")), i18n("Command"), this, SLOT(appendCommandEntry()));
             insertMenu->addAction(QIcon::fromTheme(QLatin1String("draw-text")), i18n("Text"), this, &Worksheet::appendTextEntry);
-    #ifdef Discount_FOUND
+    #ifdef HAVE_DISCOUNT
             insertMenu->addAction(QIcon::fromTheme(QLatin1String("text-x-markdown")), i18n("Markdown"), this, &Worksheet::appendMarkdownEntry);
     #endif
     #ifdef WITH_EPS

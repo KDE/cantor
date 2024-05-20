@@ -32,7 +32,7 @@
 #include <KZip>
 #include <KMessageBox>
 
-#ifdef Discount_FOUND
+#ifdef HAVE_DISCOUNT
 extern "C" {
 #include <mkdio.h>
 }
@@ -387,7 +387,7 @@ bool MarkdownEntry::evaluate(EvaluationOption evalOp)
 
 bool MarkdownEntry::renderMarkdown(QString& plain)
 {
-#ifdef Discount_FOUND
+#ifdef HAVE_DISCOUNT
     QByteArray mdCharArray = plain.toUtf8();
     MMIOT* mdHandle = mkd_string(mdCharArray.data(), mdCharArray.size()+1, 0);
     if(!mkd_compile(mdHandle, MKD_LATEX | MKD_FENCEDCODE | MKD_GITHUBTAGS))

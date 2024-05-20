@@ -280,7 +280,7 @@ CantorPart::CantorPart(QWidget* parentWidget, QObject* parent, const QVariantLis
     connect(insertTextEntry, SIGNAL(triggered()), m_worksheet, SLOT(insertTextEntry()));
     m_editActions.push_back(insertTextEntry);
 
-#ifdef Discount_FOUND
+#ifdef HAVE_DISCOUNT
     QAction* insertMarkdownEntry = new QAction(QIcon::fromTheme(QLatin1String("text-x-markdown")), i18n("Insert Markdown Entry"), collection);
     collection->addAction(QLatin1String("insert_markdown_entry"),  insertMarkdownEntry);
     connect(insertMarkdownEntry, SIGNAL(triggered()), m_worksheet, SLOT(insertMarkdownEntry()));
