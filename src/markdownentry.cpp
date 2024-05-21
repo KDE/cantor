@@ -388,14 +388,27 @@ bool MarkdownEntry::evaluate(EvaluationOption evalOp)
 bool MarkdownEntry::renderMarkdown(QString& plain)
 {
 #ifdef HAVE_DISCOUNT
-    QByteArray mdCharArray = plain.toUtf8();
-    MMIOT* mdHandle = mkd_string(mdCharArray.data(), mdCharArray.size()+1, 0);
-    if(!mkd_compile(mdHandle, MKD_LATEX | MKD_FENCEDCODE | MKD_GITHUBTAGS))
-    {
+    auto mdCharArray = plain.toUtf8();
+#ifdef HAVE_DISCOUNT3
+    MMIOT* mdHandle = mkd_string(mdCharArray.data(), mdCharArray.size() + 1, nullptr);
+
+    mkd_flag_t* v3flags = mkd_flags();
+    mkd_set_flag_num(v3flags, MKD_LATEX);
+    mkd_set_flag_num(v3flags, MKD_FENCEDCODE);
+    mkd_set_flag_num(v3flags, MKD_GITHUBTAGS);
+
+    if (!mkd_compile(mdHandle, v3flags)) {
+#else
+    MMIOT* mdHandle = mkd_string(mdCharArray.data(), mdCharArray.size() + 1, nullptr);
+
+    unsigned int flags = MKD_LATEX | MKD_FENCEDCODE | MKD_GITHUBTAGS;
+    if (!mkd_compile(mdHandle, flags)) {
+#endif
         qDebug()<<"Failed to compile the markdown document";
         mkd_cleanup(mdHandle);
         return false;
     }
+
     char *htmlDocument;
     int htmlSize = mkd_document(mdHandle, &htmlDocument);
     html = QString::fromUtf8(htmlDocument, htmlSize);
