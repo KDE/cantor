@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: cantor\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-05-20 01:42+0000\n"
-"PO-Revision-Date: 2024-05-17 13:51+0100\n"
+"PO-Revision-Date: 2024-05-26 07:22+0200\n"
 "Last-Translator: Oliver Kellogg <okellogg@users.sourceforge.net>\n"
 "Language-Team: esperanto <kde-i18n-eo@kde.org>\n"
 "Language: eo\n"
@@ -4707,11 +4707,14 @@ msgid ""
 "This step cannot be undone. Do you really want to delete the selected "
 "entries?"
 msgstr ""
+"Ĉi tiu paŝo ne povas esti malfarata. Ĉu vi vere volas forigi la elektitajn "
+"erojn?"
 
 #: worksheet.cpp:2886
 #, kde-format
 msgid "This step cannot be undone. Do you really want to delete all results?"
 msgstr ""
+"Ĉi tiu paŝo ne povas esti malfarata. Ĉu vi vere volas forigi ĉiujn rezultojn?"
 
 #: worksheet.cpp:2887
 #, kde-format
