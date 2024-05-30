@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-05-20 01:42+0000\n"
-"PO-Revision-Date: 2024-04-30 15:54+0200\n"
+"PO-Revision-Date: 2024-05-29 11:31+0200\n"
 "Last-Translator: Vit Pelcak <vpelcak@suse.cz>\n"
 "Language-Team: Czech <kde-i18n-doc@kde.org>\n"
 "Language: cs\n"
@@ -2855,12 +2855,12 @@ msgstr ""
 #: cantor_part.cpp:317
 #, kde-format
 msgid "Delete All Results"
-msgstr ""
+msgstr "Smazat všechny výsledky"
 
 #: cantor_part.cpp:322
 #, kde-format
 msgid "Delete current Entry"
-msgstr ""
+msgstr "Odstranit aktuální položku"
 
 #. i18n("Publish Worksheet"), collection);
 #. publishWorksheet->setIcon(QIcon::fromTheme(QLatin1String("get-hot-new-stuff")));
@@ -4546,7 +4546,7 @@ msgstr ""
 #: worksheet.cpp:2887
 #, kde-format
 msgid "Delete all results"
-msgstr ""
+msgstr "Smazat všechny výsledky"
 
 #: worksheetentry.cpp:67
 #, kde-format
