@@ -952,7 +952,7 @@ QJsonObject WorksheetEntry::jupyterMetadata() const
     return m_jupyterMetadata ? *m_jupyterMetadata : QJsonObject();
 }
 
-void WorksheetEntry::setJupyterMetadata(QJsonObject metadata)
+void WorksheetEntry::setJupyterMetadata(const QJsonObject& metadata)
 {
     if (m_jupyterMetadata == nullptr)
         m_jupyterMetadata = new QJsonObject();

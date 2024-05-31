@@ -698,7 +698,7 @@ void Worksheet::evaluate()
         loginToSession();
 
     // evaluate the worksheet if the login was successfull
-    if (m_session->status() == Cantor::Session::Done) {
+    if (m_session && m_session->status() == Cantor::Session::Done) {
         firstEntry()->evaluate(WorksheetEntry::EvaluateNext);
         setModified();
     }
@@ -711,7 +711,7 @@ void Worksheet::evaluateCurrentEntry()
         loginToSession();
 
     // evaluate the current entry if the login was successfull
-    if (m_session->status() == Cantor::Session::Done)
+    if (m_session && m_session->status() == Cantor::Session::Done)
     {
         auto* entry = currentEntry();
         if(!entry)

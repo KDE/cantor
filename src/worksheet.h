@@ -253,7 +253,7 @@ class Worksheet : public QGraphicsScene
     void modified();
     void loaded();
     void showHelp(const QString&);
-    void hierarchyChanged(QStringList, QStringList, QList<int>);
+    void hierarchyChanged(const QStringList&, const QStringList&, const QList<int>&);
     void hierarhyEntryNameChange(QString name, QString searchName, int depth);
     void updatePrompt();
     void undoAvailable(bool);

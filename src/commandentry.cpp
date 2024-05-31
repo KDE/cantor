@@ -228,7 +228,7 @@ void CommandEntry::backgroundColorChanged(QAction* action) {
     if (m_isExecutionEnabled)
         m_commandItem->setBackgroundColor(color);
     else
-        m_activeExecutionBackgroundColor = color;
+        m_activeExecutionBackgroundColor = std::move(color);
 }
 
 void CommandEntry::textColorChanged(QAction* action) {
@@ -247,7 +247,7 @@ void CommandEntry::textColorChanged(QAction* action) {
     if (m_isExecutionEnabled)
         m_commandItem->setDefaultTextColor(color);
     else
-        m_activeExecutionTextColor = color;
+        m_activeExecutionTextColor = std::move(color);
 }
 
 void CommandEntry::fontBoldTriggered()

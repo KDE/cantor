@@ -65,8 +65,7 @@ QSizeF WorksheetImageItem::size()
 void WorksheetImageItem::setSize(QSizeF size)
 {
     m_size = size;
-
-    qreal width = scenePos().x() + size.width();
+    const qreal width = scenePos().x() + size.width();
     worksheet()->setRequestedWidth(this, width);
 }
 
@@ -101,19 +100,19 @@ void WorksheetImageItem::setEps(const QUrl& url)
     m_pixmap = QPixmap::fromImage(img.convertToFormat(QImage::Format_ARGB32));
 }
 
-void WorksheetImageItem::setImage(QImage img)
+void WorksheetImageItem::setImage(const QImage& img)
 {
     m_pixmap = QPixmap::fromImage(img);
     setSize(m_pixmap.size());
 }
 
-void WorksheetImageItem::setImage(QImage img, QSize displaySize)
+void WorksheetImageItem::setImage(const QImage& img, QSize displaySize)
 {
     m_pixmap = QPixmap::fromImage(img);
     setSize(displaySize);
 }
 
-void WorksheetImageItem::setPixmap(QPixmap pixmap)
+void WorksheetImageItem::setPixmap(const QPixmap& pixmap)
 {
     m_pixmap = pixmap;
 }
@@ -130,9 +129,8 @@ void WorksheetImageItem::populateMenu(QMenu* menu, QPointF pos)
 
 void WorksheetImageItem::contextMenuEvent(QGraphicsSceneContextMenuEvent *event)
 {
-    QMenu *menu = worksheet()->createContextMenu();
+    auto* menu = worksheet()->createContextMenu();
     populateMenu(menu, event->pos());
-
     menu->popup(event->screenPos());
 }
 

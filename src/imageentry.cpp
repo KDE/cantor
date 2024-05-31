@@ -272,8 +272,7 @@ void ImageEntry::updateEntry()
             if (imagePath.endsWith(QLatin1String(".eps"), Qt::CaseInsensitive)) {
                 m_imageItem->setEps(QUrl::fromLocalFile(imagePath));
             } else {
-                QImage img(imagePath);
-                m_imageItem->setImage(img);
+                m_imageItem->setImage(QImage(imagePath));
             }
         } else {
             if (m_imagePath.endsWith(QLatin1String(".eps"), Qt::CaseInsensitive)) {

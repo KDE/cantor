@@ -193,7 +193,7 @@ class WorksheetEntry : public QGraphicsObject
     virtual bool wantFocus();
 
     QJsonObject jupyterMetadata() const;
-    void setJupyterMetadata(QJsonObject);
+    void setJupyterMetadata(const QJsonObject&);
 
     virtual void recalculateControlGeometry();
 

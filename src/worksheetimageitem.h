@@ -41,9 +41,9 @@ class WorksheetImageItem : public QGraphicsObject
                QWidget *widget = nullptr) override;
 
     void setEps(const QUrl &url);
-    void setImage(QImage img);
-    void setImage(QImage img, QSize displaySize);
-    void setPixmap(QPixmap pixmap);
+    void setImage(const QImage& img);
+    void setImage(const QImage& img, QSize displaySize);
+    void setPixmap(const QPixmap& pixmap);
     QPixmap pixmap() const;
 
     virtual void populateMenu(QMenu* menu, QPointF pos);

@@ -407,17 +407,16 @@ void CantorShell::activateWorksheet(int index)
             if (doc->widget() && doc->widget()->isVisible())
                 visiblePanelNames << doc->objectName();
         }
-        m_pluginsVisibility[m_part] = visiblePanelNames;
+        m_pluginsVisibility[m_part] = std::move(visiblePanelNames);
 
         auto* wa = m_part->findChild<Cantor::WorksheetAccessInterface*>(Cantor::WorksheetAccessInterface::Name);
         assert(wa);
         Cantor::PanelPluginHandler::PanelStates states;
         auto plugins = m_panelHandler.plugins(wa->session());
         for(auto* plugin : plugins)
-        {
             states.insert(plugin->name(), plugin->saveState());
-        }
-        m_pluginsStates[m_part] = states;
+
+        m_pluginsStates[m_part] = std::move(states);
     }
 
     if (index != -1)

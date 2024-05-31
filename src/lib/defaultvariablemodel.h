@@ -45,7 +45,7 @@ public:
     struct Variable
     {
         Variable(): size(0) {}
-        Variable(QString name, QString value, size_t size = 0, QString type = QString(), QString dimension = QString()) :
+        Variable(const QString& name, const QString& value, size_t size = 0, const QString& type = QString(), const QString& dimension = QString()) :
             name(name), value(value), size(size), type(type), dimension(dimension) {}
 
         QString name;

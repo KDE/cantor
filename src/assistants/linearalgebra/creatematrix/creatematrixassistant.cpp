@@ -5,8 +5,6 @@
 
 #include "creatematrixassistant.h"
 
-#include <QAction>
-
 #include <QDialog>
 #include <QPushButton>
 #include <KActionCollection>
@@ -23,32 +21,31 @@ CreateMatrixAssistant::CreateMatrixAssistant(QObject* parent, QList<QVariant> ar
 void CreateMatrixAssistant::initActions()
 {
     setXMLFile(QLatin1String("cantor_create_matrix_assistant.rc"));
-    QAction* creatematrix=new QAction(i18n("Create Matrix"), actionCollection());
+    auto* creatematrix = new QAction(i18n("Create Matrix"), actionCollection());
     actionCollection()->addAction(QLatin1String("creatematrix_assistant"), creatematrix);
     connect(creatematrix, &QAction::triggered, this, &CreateMatrixAssistant::requested);
 }
 
 QStringList CreateMatrixAssistant::run(QWidget* parent)
 {
-    QPointer<CreateMatrixDlg> dlg=new CreateMatrixDlg(parent);
+    QPointer<CreateMatrixDlg> dlg = new CreateMatrixDlg(parent);
 
     QStringList result;
-    if( dlg->exec())
+    if (dlg->exec())
     {
         Cantor::LinearAlgebraExtension::Matrix m;
-        for (int i=0;i<dlg->numRows();i++)
+        for (int i = 0; i < dlg->numRows(); i++)
         {
             QStringList row;
-            for(int j=0;j<dlg->numCols();j++)
-                row<<dlg->value(i, j);
-             m<<row;
+            for(int j=0; j<dlg->numCols(); j++)
+                row << dlg->value(i, j);
+             m << row;
         }
 
-        Cantor::LinearAlgebraExtension* ext=
-            dynamic_cast<Cantor::LinearAlgebraExtension*>(backend()->extension(QLatin1String("LinearAlgebraExtension")));
-        result<<ext->createMatrix(m);
+        auto* ext = dynamic_cast<Cantor::LinearAlgebraExtension*>(backend()->extension(QLatin1String("LinearAlgebraExtension")));
+        if (ext)
+            result<<ext->createMatrix(m);
     }
-
 
     delete dlg;
     return result;

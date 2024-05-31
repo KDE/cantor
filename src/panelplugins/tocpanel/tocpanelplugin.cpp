@@ -95,7 +95,7 @@ void TableOfContentPanelPlugin::handleHierarchyChanges(QStringList names, QStrin
         fullNames.append(QString::fromLatin1("  ").repeated(depths[i]) + searchStrings[i] + QLatin1String(" ") + names[i]);
 
     m_model.setStringList(fullNames);
-    m_hierarchyPositionStringList = searchStrings;
+    m_hierarchyPositionStringList = std::move(searchStrings);
 }
 
 void TableOfContentPanelPlugin::handleHierarhyEntryNameChange(QString name, QString searchString, int deapth)

@@ -136,9 +136,7 @@ void MathRenderTask::run()
     p.setArguments({QStringLiteral("-jobname=cantor_") + uuid, QStringLiteral("-halt-on-error"), texFile.fileName()});
 
     p.start();
-    p.waitForFinished();
-
-    if (p.exitCode() != 0)
+    if (!p.waitForFinished() || p.exitCode() != 0)
     {
         // pdflatex render failed and we haven't pdf file
         result->successful = false;
@@ -147,7 +145,7 @@ void MathRenderTask::run()
         renderErrorText.remove(0, renderErrorText.indexOf(QLatin1Char('!')));
         renderErrorText.remove(renderErrorText.indexOf(QLatin1String("!  ==> Fatal error occurred")), renderErrorText.size());
         renderErrorText = renderErrorText.trimmed();
-        result->errorMessage = renderErrorText;
+        result->errorMessage = std::move(renderErrorText);
 
         finalize(result);
         texFile.setAutoRemove(false); //Useful for debug
@@ -162,12 +160,8 @@ void MathRenderTask::run()
     // We shouldn't remove pdf file, because this file used in future in an another parts of Cantor
     // For example, this pdf will copied into .cws file on save
     const QString& pdfFileName = pathWithoutExtension + QLatin1String(".pdf");
-
-    bool success; QString errorMessage;
-    const auto& data = renderPdfToFormat(pdfFileName, m_code, uuid, m_type, m_scale, m_highResolution, &success, &errorMessage);
-    result->successful = success;
-    result->errorMessage = errorMessage;
-    if (success == false)
+    const auto& data = renderPdfToFormat(pdfFileName, m_code, uuid, m_type, m_scale, m_highResolution, &result->successful, &result->errorMessage);
+    if (!result->successful)
     {
         finalize(result);
         return;
@@ -187,7 +181,7 @@ void MathRenderTask::run()
 
 void MathRenderTask::finalize(QSharedPointer<MathRenderResult> result)
 {
-    emit finish(result);
+    emit finish(std::move(result));
     deleteLater();
 }
 

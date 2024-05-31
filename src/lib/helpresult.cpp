@@ -29,7 +29,7 @@ HelpResult::HelpResult(const QString& text, bool isHtml) : d(new HelpResultPriva
     else
         html = text;
 
-    d->html = html;
+    d->html = std::move(html);
 }
 
 Cantor::HelpResult::~HelpResult()

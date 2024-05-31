@@ -60,7 +60,7 @@ QJsonObject Cantor::Result::jupyterMetadata() const
     return d->jupyterMetadata ? *d->jupyterMetadata : QJsonObject();
 }
 
-void Cantor::Result::setJupyterMetadata(QJsonObject metadata)
+void Cantor::Result::setJupyterMetadata(const QJsonObject& metadata)
 {
     if (!d->jupyterMetadata)
         d->jupyterMetadata = new QJsonObject();
