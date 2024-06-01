@@ -152,6 +152,9 @@ void TestMaxima::testPlotWithWhitespaces()
     if(session()->status() == Cantor::Session::Running)
         waitForSignal(session(), SIGNAL(statusChanged(Cantor::Session::Status)));
 
+    qDebug()<<"session status " << session()->status();
+    qDebug()<<"expression status " << e->status();
+
     QCOMPARE(e->result()->type(), (int)Cantor::ImageResult::Type);
     QVERIFY(!e->result()->data().isNull());
     QVERIFY(e->errorMessage().isNull());
