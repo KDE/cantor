@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kdeedu\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-05-20 01:42+0000\n"
+"POT-Creation-Date: 2024-06-01 01:39+0000\n"
 "PO-Revision-Date: 2014-01-31 20:51+0100\n"
 "Last-Translator: Samir Ribić <megaribi@epn.ba>\n"
 "Language-Team: Bosnian <bs@li.org>\n"
@@ -108,7 +108,7 @@ msgstr "Aktivna opcija"
 msgid "&Calculate"
 msgstr "&Izračunaj"
 
-#: assistants/differentiate/differentiateassistant.cpp:29
+#: assistants/differentiate/differentiateassistant.cpp:26
 #, kde-format
 msgid "Differentiate"
 msgstr "Nađi izvod"
@@ -141,7 +141,7 @@ msgstr "Puta: "
 msgid "&Package"
 msgstr "&Paket"
 
-#: assistants/importpackage/importpackageassistant.cpp:29
+#: assistants/importpackage/importpackageassistant.cpp:27
 #, kde-format
 msgid "Import Package"
 msgstr "Uvezi paket"
@@ -152,7 +152,7 @@ msgstr "Uvezi paket"
 msgid "Package:"
 msgstr "Paket:"
 
-#: assistants/integrate/integrateassistant.cpp:29
+#: assistants/integrate/integrateassistant.cpp:27
 #, kde-format
 msgid "Integrate"
 msgstr "Integriši"
@@ -184,7 +184,7 @@ msgstr "određen integral"
 msgid "&Linear Algebra"
 msgstr "&Linearna Algebra"
 
-#: assistants/linearalgebra/creatematrix/creatematrixassistant.cpp:26
+#: assistants/linearalgebra/creatematrix/creatematrixassistant.cpp:24
 #, kde-format
 msgid "Create Matrix"
 msgstr "Kreiraj matricu"
@@ -201,7 +201,7 @@ msgstr "Kolone:"
 msgid "Rows:"
 msgstr "Redovi:"
 
-#: assistants/linearalgebra/eigenvalues/eigenvaluesassistant.cpp:28
+#: assistants/linearalgebra/eigenvalues/eigenvaluesassistant.cpp:26
 #, kde-format
 msgid "Compute Eigenvalues"
 msgstr "Izračunaj svojstvene vrijednosti"
@@ -214,17 +214,17 @@ msgstr "Izračunaj svojstvene vrijednosti"
 msgid "Matrix:"
 msgstr "Matrica:"
 
-#: assistants/linearalgebra/eigenvectors/eigenvectorsassistant.cpp:28
+#: assistants/linearalgebra/eigenvectors/eigenvectorsassistant.cpp:26
 #, kde-format
 msgid "Compute Eigenvectors"
 msgstr "Izračunaj svojstvene vektore"
 
-#: assistants/linearalgebra/invertmatrix/invertmatrixassistant.cpp:28
+#: assistants/linearalgebra/invertmatrix/invertmatrixassistant.cpp:26
 #, kde-format
 msgid "Invert Matrix"
 msgstr "Invertuj matricu"
 
-#: assistants/plot2d/plot2dassistant.cpp:28
+#: assistants/plot2d/plot2dassistant.cpp:26
 #, kde-format
 msgid "Plot 2D"
 msgstr "2D prikaz"
@@ -259,7 +259,7 @@ msgstr "Minimum:"
 msgid "Maximum:"
 msgstr "Maksimum:"
 
-#: assistants/plot3d/plot3dassistant.cpp:28
+#: assistants/plot3d/plot3dassistant.cpp:26
 #, kde-format
 msgid "Plot 3D"
 msgstr "3D prikaz"
@@ -276,7 +276,7 @@ msgstr "Prva promjenljiva"
 msgid "2nd Variable"
 msgstr "druga promjenljiva"
 
-#: assistants/runscript/runscriptassistant.cpp:28
+#: assistants/runscript/runscriptassistant.cpp:26
 #: scripteditor/scripteditorwidget.cpp:39
 #, kde-format
 msgid "Run Script"
@@ -454,7 +454,7 @@ msgstr ""
 #: backends/maxima/settings.ui:21 backends/octave/settings.ui:21
 #: backends/python/settings.ui:21 backends/qalculate/settings.ui:21
 #: backends/R/settings.ui:21 backends/sage/settings.ui:21
-#: backends/scilab/settings.ui:21 cantor.cpp:645
+#: backends/scilab/settings.ui:21 cantor.cpp:644
 #, kde-format
 msgid "General"
 msgstr "Opšte"
@@ -1629,131 +1629,131 @@ msgstr "Stil crteža"
 msgid "Legend position in plots."
 msgstr "Legenda pozicije u crtežima"
 
-#: backends/qalculate/qalculateexpression.cpp:137
+#: backends/qalculate/qalculateexpression.cpp:142
 #, kde-format
 msgid "Qalculate reports it cannot print. Is gnuplot installed?"
 msgstr "Qalculate izvještava da ne može štampati. Da li je gnuplot instaliran?"
 
-#: backends/qalculate/qalculateexpression.cpp:158
+#: backends/qalculate/qalculateexpression.cpp:163
 #, kde-format
 msgid "missing %1"
 msgstr "nedostaje %1"
 
-#: backends/qalculate/qalculateexpression.cpp:248
+#: backends/qalculate/qalculateexpression.cpp:253
 #, kde-format
 msgid "%1 must be a number."
 msgstr "%1 mora biti broj"
 
-#: backends/qalculate/qalculateexpression.cpp:249
+#: backends/qalculate/qalculateexpression.cpp:254
 #, kde-format
 msgid "%1 must be a integer."
 msgstr "%1 mora biti cijeli broj"
 
-#: backends/qalculate/qalculateexpression.cpp:250
+#: backends/qalculate/qalculateexpression.cpp:255
 #, kde-format
 msgid "%1 must be a boolean."
 msgstr "%1 mora biti tipa bool"
 
-#: backends/qalculate/qalculateexpression.cpp:251
+#: backends/qalculate/qalculateexpression.cpp:256
 #, kde-format
 msgid "invalid option for %1: %2"
 msgstr "Nemoguća opcija za %1:%2"
 
-#: backends/qalculate/qalculateexpression.cpp:578
+#: backends/qalculate/qalculateexpression.cpp:583
 #, kde-format
 msgid "found multiple expressions in one plot command (%1 and %2)."
 msgstr "pronađeno više izraza u jednoj komandi za crtanje (%1 i %2)."
 
-#: backends/qalculate/qalculateexpression.cpp:677
-#: backends/qalculate/qalculateexpression.cpp:785
+#: backends/qalculate/qalculateexpression.cpp:682
+#: backends/qalculate/qalculateexpression.cpp:790
 #: backends/qalculate/qalculatehighlighter.cpp:21
 #, kde-format
 msgid "ERROR"
 msgstr "GREŠKA"
 
-#: backends/qalculate/qalculateexpression.cpp:679
-#: backends/qalculate/qalculateexpression.cpp:787
+#: backends/qalculate/qalculateexpression.cpp:684
+#: backends/qalculate/qalculateexpression.cpp:792
 #: backends/qalculate/qalculatehighlighter.cpp:21
 #, kde-format
 msgid "WARNING"
 msgstr "UPOZORENJE"
 
-#: backends/qalculate/qalculatesyntaxhelpobject.cpp:46
+#: backends/qalculate/qalculatesyntaxhelpobject.cpp:47
 #, kde-format
 msgid "No function, variable or unit with specified name exist."
 msgstr "Nema funkcije, promjenjive ili mjerne jedinici sa navedenim imenom"
 
-#: backends/qalculate/qalculatesyntaxhelpobject.cpp:53
+#: backends/qalculate/qalculatesyntaxhelpobject.cpp:54
 #, kde-format
 msgid "Function: %1"
 msgstr "Funkcija: %1"
 
-#: backends/qalculate/qalculatesyntaxhelpobject.cpp:138
+#: backends/qalculate/qalculatesyntaxhelpobject.cpp:139
 #, kde-format
 msgid "Plotting interface"
 msgstr "Interfejs za ctanje"
 
-#: backends/qalculate/qalculatesyntaxhelpobject.cpp:139
+#: backends/qalculate/qalculatesyntaxhelpobject.cpp:140
 #, kde-format
 msgid "Plots one or more functions either inline or in a separate window."
 msgstr "Crta jednu ili više funkcija ili zajedno ili u odvojenom prozoru"
 
-#: backends/qalculate/qalculatesyntaxhelpobject.cpp:140
+#: backends/qalculate/qalculatesyntaxhelpobject.cpp:141
 #, kde-format
 msgid "expression"
 msgstr "izraz"
 
-#: backends/qalculate/qalculatesyntaxhelpobject.cpp:141
+#: backends/qalculate/qalculatesyntaxhelpobject.cpp:142
 #, kde-format
 msgid "option"
 msgstr "Opcija"
 
-#: backends/qalculate/qalculatesyntaxhelpobject.cpp:142
+#: backends/qalculate/qalculatesyntaxhelpobject.cpp:143
 #, kde-format
 msgid "value"
 msgstr "vrijednost"
 
-#: backends/qalculate/qalculatesyntaxhelpobject.cpp:146
+#: backends/qalculate/qalculatesyntaxhelpobject.cpp:147
 #, kde-format
 msgid "integer"
 msgstr "cijeli broj"
 
-#: backends/qalculate/qalculatesyntaxhelpobject.cpp:147
+#: backends/qalculate/qalculatesyntaxhelpobject.cpp:148
 #, kde-format
 msgid "boolean"
 msgstr "logička vrijednost"
 
-#: backends/qalculate/qalculatesyntaxhelpobject.cpp:148
+#: backends/qalculate/qalculatesyntaxhelpobject.cpp:149
 #, kde-format
 msgid "number"
 msgstr "broj"
 
-#: backends/qalculate/qalculatesyntaxhelpobject.cpp:149
+#: backends/qalculate/qalculatesyntaxhelpobject.cpp:150
 #, kde-format
 msgid "default: %1"
 msgstr "Podrazumjevano: %1"
 
-#: backends/qalculate/qalculatesyntaxhelpobject.cpp:209
+#: backends/qalculate/qalculatesyntaxhelpobject.cpp:210
 #, kde-format
 msgid "The function's name"
 msgstr "Ime funkcije"
 
-#: backends/qalculate/qalculatesyntaxhelpobject.cpp:211
+#: backends/qalculate/qalculatesyntaxhelpobject.cpp:212
 #, kde-format
 msgid "Title label"
 msgstr "Naziv oznake"
 
-#: backends/qalculate/qalculatesyntaxhelpobject.cpp:212
+#: backends/qalculate/qalculatesyntaxhelpobject.cpp:213
 #, kde-format
 msgid "x-axis label"
 msgstr "oznake na x osi"
 
-#: backends/qalculate/qalculatesyntaxhelpobject.cpp:213
+#: backends/qalculate/qalculatesyntaxhelpobject.cpp:214
 #, kde-format
 msgid "y-axis label"
 msgstr "oznake na y osi"
 
-#: backends/qalculate/qalculatesyntaxhelpobject.cpp:214
+#: backends/qalculate/qalculatesyntaxhelpobject.cpp:215
 #, kde-format
 msgid ""
 "Image to save plot to. If empty shows plot in a window on the screen. If "
@@ -1762,64 +1762,64 @@ msgstr ""
 "Slika  za spasiti crtež u. Ako je prazna pokazuje crtež u prozoru na "
 "zaslonu. Ako je inline = istinito prikazuje se bez obzira na tu opciju."
 
-#: backends/qalculate/qalculatesyntaxhelpobject.cpp:215
+#: backends/qalculate/qalculatesyntaxhelpobject.cpp:216
 #, kde-format
 msgid "The image type to save as. One of auto, png, ps, eps, latex, svg, fig."
 msgstr ""
 "Format slike za snimanje. (jedno od auto, png, ps, eps, latex, svg, fig.)"
 
-#: backends/qalculate/qalculatesyntaxhelpobject.cpp:216
+#: backends/qalculate/qalculatesyntaxhelpobject.cpp:217
 #, kde-format
 msgid "Set to true for colored plot, false for monochrome."
 msgstr "Postaviti na Tačno za štampanje boja, Netačno za jednobojnu štampu"
 
-#: backends/qalculate/qalculatesyntaxhelpobject.cpp:217
+#: backends/qalculate/qalculatesyntaxhelpobject.cpp:218
 #, kde-format
 msgid "Minimum x-axis value."
 msgstr "najmanja vrijednost na x osi"
 
-#: backends/qalculate/qalculatesyntaxhelpobject.cpp:218
+#: backends/qalculate/qalculatesyntaxhelpobject.cpp:219
 #, kde-format
 msgid "Maximum x-axis value."
 msgstr "Najveća vrijednost na x osi"
 
-#: backends/qalculate/qalculatesyntaxhelpobject.cpp:219
+#: backends/qalculate/qalculatesyntaxhelpobject.cpp:220
 #, kde-format
 msgid "If a logarithmic scale shall be used for the x-axis."
 msgstr "Da li će logaritamska skala biti korištena za x osu."
 
-#: backends/qalculate/qalculatesyntaxhelpobject.cpp:220
+#: backends/qalculate/qalculatesyntaxhelpobject.cpp:221
 #, kde-format
 msgid "If a logarithmic scale shall be used for the y-axis."
 msgstr "Da li će logaritamska skala biti korištena za y osu."
 
-#: backends/qalculate/qalculatesyntaxhelpobject.cpp:221
+#: backends/qalculate/qalculatesyntaxhelpobject.cpp:222
 #, kde-format
 msgid "Logarithmic base for the x-axis."
 msgstr "Logaritamska osnova za x osu."
 
-#: backends/qalculate/qalculatesyntaxhelpobject.cpp:222
+#: backends/qalculate/qalculatesyntaxhelpobject.cpp:223
 #, kde-format
 msgid "Logarithmic base for the y-axis."
 msgstr "Logaritamska osnova za y osu."
 
-#: backends/qalculate/qalculatesyntaxhelpobject.cpp:223
+#: backends/qalculate/qalculatesyntaxhelpobject.cpp:224
 #, kde-format
 msgid "If a grid shall be shown in the plot."
 msgstr "Da li je biti prikazana mreža na crtežu"
 
-#: backends/qalculate/qalculatesyntaxhelpobject.cpp:224
+#: backends/qalculate/qalculatesyntaxhelpobject.cpp:225
 #, kde-format
 msgid ""
 "If the plot shall be surrounded by borders on all sides (not just axis)."
 msgstr "Ako crtež će biti okružen granicama na sve strane (a ne samo ose)."
 
-#: backends/qalculate/qalculatesyntaxhelpobject.cpp:225
+#: backends/qalculate/qalculatesyntaxhelpobject.cpp:226
 #, kde-format
 msgid "Width of lines."
 msgstr "Širina linija"
 
-#: backends/qalculate/qalculatesyntaxhelpobject.cpp:226
+#: backends/qalculate/qalculatesyntaxhelpobject.cpp:227
 #, kde-format
 msgid ""
 "Where the plot legend shall be placed. One of none, top_left, top_right, "
@@ -1828,7 +1828,7 @@ msgstr ""
 "Mjesto gdje će legenda biti smještena. Jedno od nigdje, gore_lijevo, "
 "dolje_desno, dolje_lijevo, dolje_desno, ispot, vani"
 
-#: backends/qalculate/qalculatesyntaxhelpobject.cpp:227
+#: backends/qalculate/qalculatesyntaxhelpobject.cpp:228
 #, kde-format
 msgid "Plot smoothing. One of none, unique, csplines, bezier, sbezier"
 msgstr ""
@@ -1836,7 +1836,7 @@ msgstr ""
 "svih tačaka glatko), berizier,sbezier (učini funkciju glatkom i "
 "jednoznačnom, a zatim na nju primjenjuje berierov algoritam)"
 
-#: backends/qalculate/qalculatesyntaxhelpobject.cpp:228
+#: backends/qalculate/qalculatesyntaxhelpobject.cpp:229
 #, kde-format
 msgid ""
 "Plot style. One of lines, points, points_lines, boxes, histogram, steps, "
@@ -1845,42 +1845,42 @@ msgstr ""
 "Vrsta crteža. Jedno od linija, tačaka, tačkastih_linija, okvira, histograma, "
 "koraka, svijećnika, tačaka."
 
-#: backends/qalculate/qalculatesyntaxhelpobject.cpp:229
+#: backends/qalculate/qalculatesyntaxhelpobject.cpp:230
 #, kde-format
 msgid "Use scale on second x-axis."
 msgstr "Upotreba skale na drugoj x osi."
 
-#: backends/qalculate/qalculatesyntaxhelpobject.cpp:230
+#: backends/qalculate/qalculatesyntaxhelpobject.cpp:231
 #, kde-format
 msgid "Use scale on second y-axis."
 msgstr "Upotreba skale na drugoj y osi."
 
-#: backends/qalculate/qalculatesyntaxhelpobject.cpp:231
+#: backends/qalculate/qalculatesyntaxhelpobject.cpp:232
 #, kde-format
 msgid "If the plot is to be drawn inline, instead of in a new window."
 msgstr "Ako crtež mora biti izvučeni u istom prozoru, umjesto u novom prozoru."
 
-#: backends/qalculate/qalculatesyntaxhelpobject.cpp:232
+#: backends/qalculate/qalculatesyntaxhelpobject.cpp:233
 #, kde-format
 msgid "Distance between two interpolation points. See also steps."
 msgstr "Udaljenost između dvije interpolirane tačke. Takođe pogledajte korake"
 
-#: backends/qalculate/qalculatesyntaxhelpobject.cpp:233
+#: backends/qalculate/qalculatesyntaxhelpobject.cpp:234
 #, kde-format
 msgid "Number of interpolation points. See also step."
 msgstr "Broj interpoliranih tački. Takođe pogledajte korak."
 
-#: backends/qalculate/qalculatesyntaxhelpobject.cpp:234
+#: backends/qalculate/qalculatesyntaxhelpobject.cpp:235
 #, kde-format
 msgid "The name of the x variable. This must be an unknown variable"
 msgstr "Ime promjenjive x. Ovo mora biti nepoznata vrijednost."
 
-#: backends/qalculate/qalculatesyntaxhelpobject.cpp:243
+#: backends/qalculate/qalculatesyntaxhelpobject.cpp:242
 #, kde-format
 msgid "Save variables to a file"
 msgstr "Snimi promjenjive u datoteku"
 
-#: backends/qalculate/qalculatesyntaxhelpobject.cpp:244
+#: backends/qalculate/qalculatesyntaxhelpobject.cpp:243
 #, kde-format
 msgid ""
 "Save all currently defined variables to a file. They can be reloaded with %1."
@@ -1888,28 +1888,28 @@ msgstr ""
 "Snimi sve trenutno definisane promjenjive u datoteku. One mogu biti ponovo "
 "očitane sa %1"
 
-#: backends/qalculate/qalculatesyntaxhelpobject.cpp:245
-#: backends/qalculate/qalculatesyntaxhelpobject.cpp:254
+#: backends/qalculate/qalculatesyntaxhelpobject.cpp:244
+#: backends/qalculate/qalculatesyntaxhelpobject.cpp:253
 #, kde-format
 msgid "file"
 msgstr "datoteka"
 
-#: backends/qalculate/qalculatesyntaxhelpobject.cpp:246
+#: backends/qalculate/qalculatesyntaxhelpobject.cpp:245
 #, kde-format
 msgid "file: the file to save to"
 msgstr "datoteka: datoteka za snimanje u"
 
-#: backends/qalculate/qalculatesyntaxhelpobject.cpp:252
+#: backends/qalculate/qalculatesyntaxhelpobject.cpp:251
 #, kde-format
 msgid "Load variables from a file"
 msgstr "Očitaj promjenjive iz datoteke"
 
-#: backends/qalculate/qalculatesyntaxhelpobject.cpp:253
+#: backends/qalculate/qalculatesyntaxhelpobject.cpp:252
 #, kde-format
 msgid "Load variables from a file that has previously been created by %1."
 msgstr "Očitaj promjenjive iz datoteke koja je ranije napravljena s %1"
 
-#: backends/qalculate/qalculatesyntaxhelpobject.cpp:255
+#: backends/qalculate/qalculatesyntaxhelpobject.cpp:254
 #, kde-format
 msgid "file: the file to load"
 msgstr "Datoteka: datoteka za očitavanje"
@@ -2641,45 +2641,45 @@ msgstr "Sesija %1"
 msgid "Failed to find the Cantor Part with error %1"
 msgstr "Nemogu da nađem Cantor dio."
 
-#: cantor.cpp:449 cantor_part.cpp:639
+#: cantor.cpp:448 cantor_part.cpp:639
 #, kde-format
 msgid "Calculating..."
 msgstr "Računam..."
 
-#: cantor.cpp:452 cantor_part.cpp:650 cantor_part.cpp:713
+#: cantor.cpp:451 cantor_part.cpp:650 cantor_part.cpp:713
 #, kde-format
 msgid "Ready"
 msgstr "Spreman"
 
-#: cantor.cpp:496
+#: cantor.cpp:495
 #, fuzzy, kde-format
 #| msgid "X range"
 msgid "Changed"
 msgstr "Rang X"
 
-#: cantor.cpp:582
+#: cantor.cpp:581
 #, kde-format
 msgid "Multiple unsaved Worksheets are opened. Do you want to close them?"
 msgstr ""
 
-#: cantor.cpp:583
+#: cantor.cpp:582
 #, fuzzy, kde-format
 #| msgid "Cantor"
 msgid "Close Cantor"
 msgstr "Cantor"
 
-#: cantor.cpp:599
+#: cantor.cpp:598
 #, kde-format
 msgid "The current project has been modified. Do you want to save it?"
 msgstr ""
 
-#: cantor.cpp:600
+#: cantor.cpp:599
 #, fuzzy, kde-format
 #| msgid "Save result"
 msgid "Save Project"
 msgstr "Spasi rezultat"
 
-#: cantor.cpp:646
+#: cantor.cpp:645
 #, fuzzy, kde-format
 #| msgid "Plotting"
 msgid "Formatting"
@@ -3544,7 +3544,7 @@ msgstr "Upotrijebi boje"
 msgid "Line Style"
 msgstr "Stil"
 
-#: imageentry.cpp:47 imageentry.cpp:371
+#: imageentry.cpp:47 imageentry.cpp:370
 #, kde-format
 msgid "Configure Image"
 msgstr "konfigurisati sliku"
@@ -3555,7 +3555,7 @@ msgstr "konfigurisati sliku"
 msgid "Double click here to configure image settings"
 msgstr "Dvaput kliknite da biste otvorili dijalog za izbor datoteke"
 
-#: imageentry.cpp:288
+#: imageentry.cpp:287
 #, kde-format
 msgid "Cannot load image %1"
 msgstr "Ne mogu učitati sliku %1"

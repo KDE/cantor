@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: mathematik\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-05-20 01:42+0000\n"
+"POT-Creation-Date: 2024-06-01 01:39+0000\n"
 "PO-Revision-Date: 2024-05-17 21:37+0200\n"
 "Last-Translator: Adrián Chaves (Gallaecio) <adrian@chaves.io>\n"
 "Language-Team: Proxecto Trasno (proxecto@trasno.gal)\n"
@@ -109,7 +109,7 @@ msgstr "Opción activa"
 msgid "&Calculate"
 msgstr "&Calcular"
 
-#: assistants/differentiate/differentiateassistant.cpp:29
+#: assistants/differentiate/differentiateassistant.cpp:26
 #, kde-format
 msgid "Differentiate"
 msgstr "Derivar"
@@ -142,7 +142,7 @@ msgstr "Veces: "
 msgid "&Package"
 msgstr "&Paquete"
 
-#: assistants/importpackage/importpackageassistant.cpp:29
+#: assistants/importpackage/importpackageassistant.cpp:27
 #, kde-format
 msgid "Import Package"
 msgstr "Importar un paquete"
@@ -153,7 +153,7 @@ msgstr "Importar un paquete"
 msgid "Package:"
 msgstr "Paquete:"
 
-#: assistants/integrate/integrateassistant.cpp:29
+#: assistants/integrate/integrateassistant.cpp:27
 #, kde-format
 msgid "Integrate"
 msgstr "Integrar"
@@ -185,7 +185,7 @@ msgstr "integral definida"
 msgid "&Linear Algebra"
 msgstr "Álxebra &lineal"
 
-#: assistants/linearalgebra/creatematrix/creatematrixassistant.cpp:26
+#: assistants/linearalgebra/creatematrix/creatematrixassistant.cpp:24
 #, kde-format
 msgid "Create Matrix"
 msgstr "Crear unha matriz"
@@ -202,7 +202,7 @@ msgstr "Columnas:"
 msgid "Rows:"
 msgstr "Filas:"
 
-#: assistants/linearalgebra/eigenvalues/eigenvaluesassistant.cpp:28
+#: assistants/linearalgebra/eigenvalues/eigenvaluesassistant.cpp:26
 #, kde-format
 msgid "Compute Eigenvalues"
 msgstr "Calcular os valores propios"
@@ -215,17 +215,17 @@ msgstr "Calcular os valores propios"
 msgid "Matrix:"
 msgstr "Matriz:"
 
-#: assistants/linearalgebra/eigenvectors/eigenvectorsassistant.cpp:28
+#: assistants/linearalgebra/eigenvectors/eigenvectorsassistant.cpp:26
 #, kde-format
 msgid "Compute Eigenvectors"
 msgstr "Calcular os vectores propios"
 
-#: assistants/linearalgebra/invertmatrix/invertmatrixassistant.cpp:28
+#: assistants/linearalgebra/invertmatrix/invertmatrixassistant.cpp:26
 #, kde-format
 msgid "Invert Matrix"
 msgstr "Inverter a matriz"
 
-#: assistants/plot2d/plot2dassistant.cpp:28
+#: assistants/plot2d/plot2dassistant.cpp:26
 #, kde-format
 msgid "Plot 2D"
 msgstr "Representar en 2D"
@@ -260,7 +260,7 @@ msgstr "Mínimo:"
 msgid "Maximum:"
 msgstr "Máximo:"
 
-#: assistants/plot3d/plot3dassistant.cpp:28
+#: assistants/plot3d/plot3dassistant.cpp:26
 #, kde-format
 msgid "Plot 3D"
 msgstr "Representar en 3D"
@@ -277,7 +277,7 @@ msgstr "1ª variábel"
 msgid "2nd Variable"
 msgstr "2ª variábel"
 
-#: assistants/runscript/runscriptassistant.cpp:28
+#: assistants/runscript/runscriptassistant.cpp:26
 #: scripteditor/scripteditorwidget.cpp:39
 #, kde-format
 msgid "Run Script"
@@ -457,7 +457,7 @@ msgstr ""
 #: backends/maxima/settings.ui:21 backends/octave/settings.ui:21
 #: backends/python/settings.ui:21 backends/qalculate/settings.ui:21
 #: backends/R/settings.ui:21 backends/sage/settings.ui:21
-#: backends/scilab/settings.ui:21 cantor.cpp:645
+#: backends/scilab/settings.ui:21 cantor.cpp:644
 #, kde-format
 msgid "General"
 msgstr "Xeral"
@@ -1636,134 +1636,134 @@ msgstr "O estilo das gráficas."
 msgid "Legend position in plots."
 msgstr "A posición da lenda nas gráficas."
 
-#: backends/qalculate/qalculateexpression.cpp:137
+#: backends/qalculate/qalculateexpression.cpp:142
 #, kde-format
 msgid "Qalculate reports it cannot print. Is gnuplot installed?"
 msgstr "Qalculate di que non pode imprimir. Está instalado o gnuplot?"
 
-#: backends/qalculate/qalculateexpression.cpp:158
+#: backends/qalculate/qalculateexpression.cpp:163
 #, kde-format
 msgid "missing %1"
 msgstr "falta un %1"
 
-#: backends/qalculate/qalculateexpression.cpp:248
+#: backends/qalculate/qalculateexpression.cpp:253
 #, kde-format
 msgid "%1 must be a number."
 msgstr "%1 ten que ser un número."
 
-#: backends/qalculate/qalculateexpression.cpp:249
+#: backends/qalculate/qalculateexpression.cpp:254
 #, kde-format
 msgid "%1 must be a integer."
 msgstr "%1 ten que ser un enteiro."
 
-#: backends/qalculate/qalculateexpression.cpp:250
+#: backends/qalculate/qalculateexpression.cpp:255
 #, kde-format
 msgid "%1 must be a boolean."
 msgstr "%1 ten que ser un booleano."
 
-#: backends/qalculate/qalculateexpression.cpp:251
+#: backends/qalculate/qalculateexpression.cpp:256
 #, kde-format
 msgid "invalid option for %1: %2"
 msgstr "opción incorrecta para %1: %2"
 
-#: backends/qalculate/qalculateexpression.cpp:578
+#: backends/qalculate/qalculateexpression.cpp:583
 #, kde-format
 msgid "found multiple expressions in one plot command (%1 and %2)."
 msgstr "atopáronse varias expresións nunha orde de representación (%1 e %2)."
 
-#: backends/qalculate/qalculateexpression.cpp:677
-#: backends/qalculate/qalculateexpression.cpp:785
+#: backends/qalculate/qalculateexpression.cpp:682
+#: backends/qalculate/qalculateexpression.cpp:790
 #: backends/qalculate/qalculatehighlighter.cpp:21
 #, kde-format
 msgid "ERROR"
 msgstr "ERRO"
 
-#: backends/qalculate/qalculateexpression.cpp:679
-#: backends/qalculate/qalculateexpression.cpp:787
+#: backends/qalculate/qalculateexpression.cpp:684
+#: backends/qalculate/qalculateexpression.cpp:792
 #: backends/qalculate/qalculatehighlighter.cpp:21
 #, kde-format
 msgid "WARNING"
 msgstr "ADVERTENCIA"
 
-#: backends/qalculate/qalculatesyntaxhelpobject.cpp:46
+#: backends/qalculate/qalculatesyntaxhelpobject.cpp:47
 #, kde-format
 msgid "No function, variable or unit with specified name exist."
 msgstr ""
 "Non hai ningunha función, variábel nin unidade co nome que se especificou."
 
-#: backends/qalculate/qalculatesyntaxhelpobject.cpp:53
+#: backends/qalculate/qalculatesyntaxhelpobject.cpp:54
 #, kde-format
 msgid "Function: %1"
 msgstr "Función: %1"
 
-#: backends/qalculate/qalculatesyntaxhelpobject.cpp:138
+#: backends/qalculate/qalculatesyntaxhelpobject.cpp:139
 #, kde-format
 msgid "Plotting interface"
 msgstr "Interface de debuxo"
 
-#: backends/qalculate/qalculatesyntaxhelpobject.cpp:139
+#: backends/qalculate/qalculatesyntaxhelpobject.cpp:140
 #, kde-format
 msgid "Plots one or more functions either inline or in a separate window."
 msgstr ""
 "Representa unha ou máis funcións tanto intercalándoa como nunha xanela "
 "separada."
 
-#: backends/qalculate/qalculatesyntaxhelpobject.cpp:140
+#: backends/qalculate/qalculatesyntaxhelpobject.cpp:141
 #, kde-format
 msgid "expression"
 msgstr "expresión"
 
-#: backends/qalculate/qalculatesyntaxhelpobject.cpp:141
+#: backends/qalculate/qalculatesyntaxhelpobject.cpp:142
 #, kde-format
 msgid "option"
 msgstr "opción"
 
-#: backends/qalculate/qalculatesyntaxhelpobject.cpp:142
+#: backends/qalculate/qalculatesyntaxhelpobject.cpp:143
 #, kde-format
 msgid "value"
 msgstr "valor"
 
-#: backends/qalculate/qalculatesyntaxhelpobject.cpp:146
+#: backends/qalculate/qalculatesyntaxhelpobject.cpp:147
 #, kde-format
 msgid "integer"
 msgstr "enteiro"
 
-#: backends/qalculate/qalculatesyntaxhelpobject.cpp:147
+#: backends/qalculate/qalculatesyntaxhelpobject.cpp:148
 #, kde-format
 msgid "boolean"
 msgstr "lóxico"
 
-#: backends/qalculate/qalculatesyntaxhelpobject.cpp:148
+#: backends/qalculate/qalculatesyntaxhelpobject.cpp:149
 #, kde-format
 msgid "number"
 msgstr "número"
 
-#: backends/qalculate/qalculatesyntaxhelpobject.cpp:149
+#: backends/qalculate/qalculatesyntaxhelpobject.cpp:150
 #, kde-format
 msgid "default: %1"
 msgstr "predeterminado: %1"
 
-#: backends/qalculate/qalculatesyntaxhelpobject.cpp:209
+#: backends/qalculate/qalculatesyntaxhelpobject.cpp:210
 #, kde-format
 msgid "The function's name"
 msgstr "O nome da función"
 
-#: backends/qalculate/qalculatesyntaxhelpobject.cpp:211
+#: backends/qalculate/qalculatesyntaxhelpobject.cpp:212
 #, kde-format
 msgid "Title label"
 msgstr "Etiqueta de título"
 
-#: backends/qalculate/qalculatesyntaxhelpobject.cpp:212
+#: backends/qalculate/qalculatesyntaxhelpobject.cpp:213
 #, kde-format
 msgid "x-axis label"
 msgstr "etiqueta do eixo X"
 
-#: backends/qalculate/qalculatesyntaxhelpobject.cpp:213
+#: backends/qalculate/qalculatesyntaxhelpobject.cpp:214
 #, kde-format
 msgid "y-axis label"
 msgstr "etiqueta do eixo Y"
 
-#: backends/qalculate/qalculatesyntaxhelpobject.cpp:214
+#: backends/qalculate/qalculatesyntaxhelpobject.cpp:215
 #, kde-format
 msgid ""
 "Image to save plot to. If empty shows plot in a window on the screen. If "
@@ -1773,67 +1773,67 @@ msgstr ""
 "pantalla. Se inline=true a imaxe amósase con independencia do que diga esta "
 "opción."
 
-#: backends/qalculate/qalculatesyntaxhelpobject.cpp:215
+#: backends/qalculate/qalculatesyntaxhelpobject.cpp:216
 #, kde-format
 msgid "The image type to save as. One of auto, png, ps, eps, latex, svg, fig."
 msgstr ""
 "O tipo co que se debe gardar a imaxe. Os valores admitidos son auto, png, "
 "ps, eps, latex, svg e fig."
 
-#: backends/qalculate/qalculatesyntaxhelpobject.cpp:216
+#: backends/qalculate/qalculatesyntaxhelpobject.cpp:217
 #, kde-format
 msgid "Set to true for colored plot, false for monochrome."
 msgstr ""
 "Defínao como certo para que a gráfica colorada, ou falso para monocromo."
 
-#: backends/qalculate/qalculatesyntaxhelpobject.cpp:217
+#: backends/qalculate/qalculatesyntaxhelpobject.cpp:218
 #, kde-format
 msgid "Minimum x-axis value."
 msgstr "Valor mínimo do eixo X."
 
-#: backends/qalculate/qalculatesyntaxhelpobject.cpp:218
+#: backends/qalculate/qalculatesyntaxhelpobject.cpp:219
 #, kde-format
 msgid "Maximum x-axis value."
 msgstr "Valor máximo do eixo X."
 
-#: backends/qalculate/qalculatesyntaxhelpobject.cpp:219
+#: backends/qalculate/qalculatesyntaxhelpobject.cpp:220
 #, kde-format
 msgid "If a logarithmic scale shall be used for the x-axis."
 msgstr "Indica se debe usarse unha escala logarítmica para o eixo X."
 
-#: backends/qalculate/qalculatesyntaxhelpobject.cpp:220
+#: backends/qalculate/qalculatesyntaxhelpobject.cpp:221
 #, kde-format
 msgid "If a logarithmic scale shall be used for the y-axis."
 msgstr "Indica se debe usarse unha escala logarítmica para o eixo Y."
 
-#: backends/qalculate/qalculatesyntaxhelpobject.cpp:221
+#: backends/qalculate/qalculatesyntaxhelpobject.cpp:222
 #, kde-format
 msgid "Logarithmic base for the x-axis."
 msgstr "A base do logaritmo do eixo X."
 
-#: backends/qalculate/qalculatesyntaxhelpobject.cpp:222
+#: backends/qalculate/qalculatesyntaxhelpobject.cpp:223
 #, kde-format
 msgid "Logarithmic base for the y-axis."
 msgstr "A base do logaritmo do eixo Y."
 
-#: backends/qalculate/qalculatesyntaxhelpobject.cpp:223
+#: backends/qalculate/qalculatesyntaxhelpobject.cpp:224
 #, kde-format
 msgid "If a grid shall be shown in the plot."
 msgstr "Indica se debe usarse unha grade no debuxo."
 
-#: backends/qalculate/qalculatesyntaxhelpobject.cpp:224
+#: backends/qalculate/qalculatesyntaxhelpobject.cpp:225
 #, kde-format
 msgid ""
 "If the plot shall be surrounded by borders on all sides (not just axis)."
 msgstr ""
 "Indica se o debuxo debe rodearse por un bordo por cada lado (non só o eixo)."
 
-#: backends/qalculate/qalculatesyntaxhelpobject.cpp:225
+#: backends/qalculate/qalculatesyntaxhelpobject.cpp:226
 #, kde-format
 msgid "Width of lines."
 msgstr "Anchura das liñas."
 
-#: backends/qalculate/qalculatesyntaxhelpobject.cpp:226
+#: backends/qalculate/qalculatesyntaxhelpobject.cpp:227
 #, kde-format
 msgid ""
 "Where the plot legend shall be placed. One of none, top_left, top_right, "
@@ -1844,12 +1844,12 @@ msgstr ""
 "(abaixo á esquerda), bottom_right (abaixo á dereita), below (abaixo), "
 "outside (fóra)."
 
-#: backends/qalculate/qalculatesyntaxhelpobject.cpp:227
+#: backends/qalculate/qalculatesyntaxhelpobject.cpp:228
 #, kde-format
 msgid "Plot smoothing. One of none, unique, csplines, bezier, sbezier"
 msgstr "O suavizado da gráfica. Pode ser único, csplines, bezier ou sbezier"
 
-#: backends/qalculate/qalculatesyntaxhelpobject.cpp:228
+#: backends/qalculate/qalculatesyntaxhelpobject.cpp:229
 #, kde-format
 msgid ""
 "Plot style. One of lines, points, points_lines, boxes, histogram, steps, "
@@ -1858,42 +1858,42 @@ msgstr ""
 "O estilo da gráfica. Pode ser puntos, liñas e puntos, caixas, histograma, "
 "pasos, velas ou puntos."
 
-#: backends/qalculate/qalculatesyntaxhelpobject.cpp:229
+#: backends/qalculate/qalculatesyntaxhelpobject.cpp:230
 #, kde-format
 msgid "Use scale on second x-axis."
 msgstr "Pór unha escala no segundo eixo X."
 
-#: backends/qalculate/qalculatesyntaxhelpobject.cpp:230
+#: backends/qalculate/qalculatesyntaxhelpobject.cpp:231
 #, kde-format
 msgid "Use scale on second y-axis."
 msgstr "Pór unha escala no segundo eixo Y."
 
-#: backends/qalculate/qalculatesyntaxhelpobject.cpp:231
+#: backends/qalculate/qalculatesyntaxhelpobject.cpp:232
 #, kde-format
 msgid "If the plot is to be drawn inline, instead of in a new window."
 msgstr "Indica se o debuxo vai debuxarse intercalado ou nunha nova xanela."
 
-#: backends/qalculate/qalculatesyntaxhelpobject.cpp:232
+#: backends/qalculate/qalculatesyntaxhelpobject.cpp:233
 #, kde-format
 msgid "Distance between two interpolation points. See also steps."
 msgstr "A distancia entre dous puntos de interpolación."
 
-#: backends/qalculate/qalculatesyntaxhelpobject.cpp:233
+#: backends/qalculate/qalculatesyntaxhelpobject.cpp:234
 #, kde-format
 msgid "Number of interpolation points. See also step."
 msgstr "O número de puntos de interpolación. Consulte tamén o paso."
 
-#: backends/qalculate/qalculatesyntaxhelpobject.cpp:234
+#: backends/qalculate/qalculatesyntaxhelpobject.cpp:235
 #, kde-format
 msgid "The name of the x variable. This must be an unknown variable"
 msgstr "O nome da variábel x. Esta variábel debe ser unha incógnita."
 
-#: backends/qalculate/qalculatesyntaxhelpobject.cpp:243
+#: backends/qalculate/qalculatesyntaxhelpobject.cpp:242
 #, kde-format
 msgid "Save variables to a file"
 msgstr "Gardar as variábeis nun ficheiro"
 
-#: backends/qalculate/qalculatesyntaxhelpobject.cpp:244
+#: backends/qalculate/qalculatesyntaxhelpobject.cpp:243
 #, kde-format
 msgid ""
 "Save all currently defined variables to a file. They can be reloaded with %1."
@@ -1901,28 +1901,28 @@ msgstr ""
 "Garda nun ficheiro todas as variábeis definidas. Poden cargarse de novo con "
 "%1."
 
-#: backends/qalculate/qalculatesyntaxhelpobject.cpp:245
-#: backends/qalculate/qalculatesyntaxhelpobject.cpp:254
+#: backends/qalculate/qalculatesyntaxhelpobject.cpp:244
+#: backends/qalculate/qalculatesyntaxhelpobject.cpp:253
 #, kde-format
 msgid "file"
 msgstr "ficheiro"
 
-#: backends/qalculate/qalculatesyntaxhelpobject.cpp:246
+#: backends/qalculate/qalculatesyntaxhelpobject.cpp:245
 #, kde-format
 msgid "file: the file to save to"
 msgstr "ficheiro: o ficheiro onde gardar"
 
-#: backends/qalculate/qalculatesyntaxhelpobject.cpp:252
+#: backends/qalculate/qalculatesyntaxhelpobject.cpp:251
 #, kde-format
 msgid "Load variables from a file"
 msgstr "Cargar as variábeis dun ficheiro"
 
-#: backends/qalculate/qalculatesyntaxhelpobject.cpp:253
+#: backends/qalculate/qalculatesyntaxhelpobject.cpp:252
 #, kde-format
 msgid "Load variables from a file that has previously been created by %1."
 msgstr "Carga as variábeis dun ficheiro previamente creado con %1."
 
-#: backends/qalculate/qalculatesyntaxhelpobject.cpp:255
+#: backends/qalculate/qalculatesyntaxhelpobject.cpp:254
 #, kde-format
 msgid "file: the file to load"
 msgstr "ficheiro: o ficheiro que se vai cargar"
@@ -2631,42 +2631,42 @@ msgstr "Sesión %1"
 msgid "Failed to find the Cantor Part with error %1"
 msgstr "Non foi posíbel atopar a compoñente de Cantor co erro %1"
 
-#: cantor.cpp:449 cantor_part.cpp:639
+#: cantor.cpp:448 cantor_part.cpp:639
 #, kde-format
 msgid "Calculating..."
 msgstr "Calculando…"
 
-#: cantor.cpp:452 cantor_part.cpp:650 cantor_part.cpp:713
+#: cantor.cpp:451 cantor_part.cpp:650 cantor_part.cpp:713
 #, kde-format
 msgid "Ready"
 msgstr "Preparado"
 
-#: cantor.cpp:496
+#: cantor.cpp:495
 #, kde-format
 msgid "Changed"
 msgstr "Cambiado"
 
-#: cantor.cpp:582
+#: cantor.cpp:581
 #, kde-format
 msgid "Multiple unsaved Worksheets are opened. Do you want to close them?"
 msgstr "Hai varias follas de traballo abertas e sen gardar. Quere pechalas?"
 
-#: cantor.cpp:583
+#: cantor.cpp:582
 #, kde-format
 msgid "Close Cantor"
 msgstr "Pechar Cantor"
 
-#: cantor.cpp:599
+#: cantor.cpp:598
 #, kde-format
 msgid "The current project has been modified. Do you want to save it?"
 msgstr "Modificouse o proxecto actual. Quere gardalo?"
 
-#: cantor.cpp:600
+#: cantor.cpp:599
 #, kde-format
 msgid "Save Project"
 msgstr "Gardar o proxecto"
 
-#: cantor.cpp:646
+#: cantor.cpp:645
 #, kde-format
 msgid "Formatting"
 msgstr "Formato"
@@ -3504,7 +3504,7 @@ msgstr "Cor de liña"
 msgid "Line Style"
 msgstr "Estilo de liña"
 
-#: imageentry.cpp:47 imageentry.cpp:371
+#: imageentry.cpp:47 imageentry.cpp:370
 #, kde-format
 msgid "Configure Image"
 msgstr "Configurar a imaxe"
@@ -3514,7 +3514,7 @@ msgstr "Configurar a imaxe"
 msgid "Double click here to configure image settings"
 msgstr "Prema duplo para configurar as imaxes"
 
-#: imageentry.cpp:288
+#: imageentry.cpp:287
 #, kde-format
 msgid "Cannot load image %1"
 msgstr "Non é posíbel cargar a imaxe %1"

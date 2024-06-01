@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-05-20 01:42+0000\n"
+"POT-Creation-Date: 2024-06-01 01:39+0000\n"
 "PO-Revision-Date: 2014-06-15 00:51+0200\n"
 "Last-Translator: Balázs Úr <urbalazs@gmail.com>\n"
 "Language-Team: Hungarian <kde-l10n-hu@kde.org>\n"
@@ -107,7 +107,7 @@ msgstr "Aktív beállítás"
 msgid "&Calculate"
 msgstr "K&iszámítás"
 
-#: assistants/differentiate/differentiateassistant.cpp:29
+#: assistants/differentiate/differentiateassistant.cpp:26
 #, kde-format
 msgid "Differentiate"
 msgstr "Differenciálás"
@@ -140,7 +140,7 @@ msgstr "Idők: "
 msgid "&Package"
 msgstr "&Csomag"
 
-#: assistants/importpackage/importpackageassistant.cpp:29
+#: assistants/importpackage/importpackageassistant.cpp:27
 #, kde-format
 msgid "Import Package"
 msgstr "Csomag importálása"
@@ -151,7 +151,7 @@ msgstr "Csomag importálása"
 msgid "Package:"
 msgstr "Csomag:"
 
-#: assistants/integrate/integrateassistant.cpp:29
+#: assistants/integrate/integrateassistant.cpp:27
 #, kde-format
 msgid "Integrate"
 msgstr "Integrálás"
@@ -183,7 +183,7 @@ msgstr "határozott integrál"
 msgid "&Linear Algebra"
 msgstr "&Lineáris algebra"
 
-#: assistants/linearalgebra/creatematrix/creatematrixassistant.cpp:26
+#: assistants/linearalgebra/creatematrix/creatematrixassistant.cpp:24
 #, kde-format
 msgid "Create Matrix"
 msgstr "Mátrix létrehozása"
@@ -200,7 +200,7 @@ msgstr "Oszlopok:"
 msgid "Rows:"
 msgstr "Sorok:"
 
-#: assistants/linearalgebra/eigenvalues/eigenvaluesassistant.cpp:28
+#: assistants/linearalgebra/eigenvalues/eigenvaluesassistant.cpp:26
 #, kde-format
 msgid "Compute Eigenvalues"
 msgstr "Sajátértékek számítása"
@@ -213,17 +213,17 @@ msgstr "Sajátértékek számítása"
 msgid "Matrix:"
 msgstr "Mátrix:"
 
-#: assistants/linearalgebra/eigenvectors/eigenvectorsassistant.cpp:28
+#: assistants/linearalgebra/eigenvectors/eigenvectorsassistant.cpp:26
 #, kde-format
 msgid "Compute Eigenvectors"
 msgstr "Sajátvektorok számítása"
 
-#: assistants/linearalgebra/invertmatrix/invertmatrixassistant.cpp:28
+#: assistants/linearalgebra/invertmatrix/invertmatrixassistant.cpp:26
 #, kde-format
 msgid "Invert Matrix"
 msgstr "Mátrix invertálása"
 
-#: assistants/plot2d/plot2dassistant.cpp:28
+#: assistants/plot2d/plot2dassistant.cpp:26
 #, kde-format
 msgid "Plot 2D"
 msgstr "2D-s ábrázolás"
@@ -258,7 +258,7 @@ msgstr "Minimum:"
 msgid "Maximum:"
 msgstr "Maximum:"
 
-#: assistants/plot3d/plot3dassistant.cpp:28
+#: assistants/plot3d/plot3dassistant.cpp:26
 #, kde-format
 msgid "Plot 3D"
 msgstr "3D-s ábrázolás"
@@ -275,7 +275,7 @@ msgstr "Első változó"
 msgid "2nd Variable"
 msgstr "Második változó"
 
-#: assistants/runscript/runscriptassistant.cpp:28
+#: assistants/runscript/runscriptassistant.cpp:26
 #: scripteditor/scripteditorwidget.cpp:39
 #, kde-format
 msgid "Run Script"
@@ -453,7 +453,7 @@ msgstr ""
 #: backends/maxima/settings.ui:21 backends/octave/settings.ui:21
 #: backends/python/settings.ui:21 backends/qalculate/settings.ui:21
 #: backends/R/settings.ui:21 backends/sage/settings.ui:21
-#: backends/scilab/settings.ui:21 cantor.cpp:645
+#: backends/scilab/settings.ui:21 cantor.cpp:644
 #, kde-format
 msgid "General"
 msgstr "Általános"
@@ -1631,131 +1631,131 @@ msgstr "Az ábrák stílusa."
 msgid "Legend position in plots."
 msgstr "A jelmagyarázat helyzete az ábrákon."
 
-#: backends/qalculate/qalculateexpression.cpp:137
+#: backends/qalculate/qalculateexpression.cpp:142
 #, kde-format
 msgid "Qalculate reports it cannot print. Is gnuplot installed?"
 msgstr "A Qalculate nem tud nyomtatni. Telepítve van a gnuplot?"
 
-#: backends/qalculate/qalculateexpression.cpp:158
+#: backends/qalculate/qalculateexpression.cpp:163
 #, kde-format
 msgid "missing %1"
 msgstr "hiányzó %1"
 
-#: backends/qalculate/qalculateexpression.cpp:248
+#: backends/qalculate/qalculateexpression.cpp:253
 #, kde-format
 msgid "%1 must be a number."
 msgstr "%1 szám kell hogy legyen."
 
-#: backends/qalculate/qalculateexpression.cpp:249
+#: backends/qalculate/qalculateexpression.cpp:254
 #, kde-format
 msgid "%1 must be a integer."
 msgstr "%1 egész kell hogy legyen."
 
-#: backends/qalculate/qalculateexpression.cpp:250
+#: backends/qalculate/qalculateexpression.cpp:255
 #, kde-format
 msgid "%1 must be a boolean."
 msgstr "%1 logikai érték kell hogy legyen."
 
-#: backends/qalculate/qalculateexpression.cpp:251
+#: backends/qalculate/qalculateexpression.cpp:256
 #, kde-format
 msgid "invalid option for %1: %2"
 msgstr "érvénytelen beállítás ehhez: %1 (%2)"
 
-#: backends/qalculate/qalculateexpression.cpp:578
+#: backends/qalculate/qalculateexpression.cpp:583
 #, kde-format
 msgid "found multiple expressions in one plot command (%1 and %2)."
 msgstr "több kifejezés található egy rajzoló parancsban (%1 és %2)."
 
-#: backends/qalculate/qalculateexpression.cpp:677
-#: backends/qalculate/qalculateexpression.cpp:785
+#: backends/qalculate/qalculateexpression.cpp:682
+#: backends/qalculate/qalculateexpression.cpp:790
 #: backends/qalculate/qalculatehighlighter.cpp:21
 #, kde-format
 msgid "ERROR"
 msgstr "HIBA"
 
-#: backends/qalculate/qalculateexpression.cpp:679
-#: backends/qalculate/qalculateexpression.cpp:787
+#: backends/qalculate/qalculateexpression.cpp:684
+#: backends/qalculate/qalculateexpression.cpp:792
 #: backends/qalculate/qalculatehighlighter.cpp:21
 #, kde-format
 msgid "WARNING"
 msgstr "FIGYELMEZTETÉS"
 
-#: backends/qalculate/qalculatesyntaxhelpobject.cpp:46
+#: backends/qalculate/qalculatesyntaxhelpobject.cpp:47
 #, kde-format
 msgid "No function, variable or unit with specified name exist."
 msgstr "Nem létezik függvény. változó vagy egység a megadott névvel."
 
-#: backends/qalculate/qalculatesyntaxhelpobject.cpp:53
+#: backends/qalculate/qalculatesyntaxhelpobject.cpp:54
 #, kde-format
 msgid "Function: %1"
 msgstr "Függvény: %1"
 
-#: backends/qalculate/qalculatesyntaxhelpobject.cpp:138
+#: backends/qalculate/qalculatesyntaxhelpobject.cpp:139
 #, kde-format
 msgid "Plotting interface"
 msgstr "Megjelenítő felület"
 
-#: backends/qalculate/qalculatesyntaxhelpobject.cpp:139
+#: backends/qalculate/qalculatesyntaxhelpobject.cpp:140
 #, kde-format
 msgid "Plots one or more functions either inline or in a separate window."
 msgstr "Kirajzol egy vagy több függvényt beágyazva vagy külön ablakban."
 
-#: backends/qalculate/qalculatesyntaxhelpobject.cpp:140
+#: backends/qalculate/qalculatesyntaxhelpobject.cpp:141
 #, kde-format
 msgid "expression"
 msgstr "kifejezés"
 
-#: backends/qalculate/qalculatesyntaxhelpobject.cpp:141
+#: backends/qalculate/qalculatesyntaxhelpobject.cpp:142
 #, kde-format
 msgid "option"
 msgstr "opció"
 
-#: backends/qalculate/qalculatesyntaxhelpobject.cpp:142
+#: backends/qalculate/qalculatesyntaxhelpobject.cpp:143
 #, kde-format
 msgid "value"
 msgstr "érték"
 
-#: backends/qalculate/qalculatesyntaxhelpobject.cpp:146
+#: backends/qalculate/qalculatesyntaxhelpobject.cpp:147
 #, kde-format
 msgid "integer"
 msgstr "egész"
 
-#: backends/qalculate/qalculatesyntaxhelpobject.cpp:147
+#: backends/qalculate/qalculatesyntaxhelpobject.cpp:148
 #, kde-format
 msgid "boolean"
 msgstr "logikai"
 
-#: backends/qalculate/qalculatesyntaxhelpobject.cpp:148
+#: backends/qalculate/qalculatesyntaxhelpobject.cpp:149
 #, kde-format
 msgid "number"
 msgstr "szám"
 
-#: backends/qalculate/qalculatesyntaxhelpobject.cpp:149
+#: backends/qalculate/qalculatesyntaxhelpobject.cpp:150
 #, kde-format
 msgid "default: %1"
 msgstr "alapértelmezés: %1"
 
-#: backends/qalculate/qalculatesyntaxhelpobject.cpp:209
+#: backends/qalculate/qalculatesyntaxhelpobject.cpp:210
 #, kde-format
 msgid "The function's name"
 msgstr "A függvény neve"
 
-#: backends/qalculate/qalculatesyntaxhelpobject.cpp:211
+#: backends/qalculate/qalculatesyntaxhelpobject.cpp:212
 #, kde-format
 msgid "Title label"
 msgstr "Címfelirat"
 
-#: backends/qalculate/qalculatesyntaxhelpobject.cpp:212
+#: backends/qalculate/qalculatesyntaxhelpobject.cpp:213
 #, kde-format
 msgid "x-axis label"
 msgstr "x-tengely felirata"
 
-#: backends/qalculate/qalculatesyntaxhelpobject.cpp:213
+#: backends/qalculate/qalculatesyntaxhelpobject.cpp:214
 #, kde-format
 msgid "y-axis label"
 msgstr "y-tengely felirata"
 
-#: backends/qalculate/qalculatesyntaxhelpobject.cpp:214
+#: backends/qalculate/qalculatesyntaxhelpobject.cpp:215
 #, kde-format
 msgid ""
 "Image to save plot to. If empty shows plot in a window on the screen. If "
@@ -1764,65 +1764,65 @@ msgstr ""
 "A kép amelybe az ábrát menteni kell. Ha üres, az ábra egy ablakban jelenik "
 "meg. Ha inline=true, a kép ettől a beállítástól függetlenül megjelenik."
 
-#: backends/qalculate/qalculatesyntaxhelpobject.cpp:215
+#: backends/qalculate/qalculatesyntaxhelpobject.cpp:216
 #, kde-format
 msgid "The image type to save as. One of auto, png, ps, eps, latex, svg, fig."
 msgstr ""
 "A képtípus amelybe menteni kell (automatikus, *.png, *.ps, *.eps, *.latex, *."
 "svg, *.fig)."
 
-#: backends/qalculate/qalculatesyntaxhelpobject.cpp:216
+#: backends/qalculate/qalculatesyntaxhelpobject.cpp:217
 #, kde-format
 msgid "Set to true for colored plot, false for monochrome."
 msgstr "Állítsa true-ra színes, false-ra monokróm ábrához."
 
-#: backends/qalculate/qalculatesyntaxhelpobject.cpp:217
+#: backends/qalculate/qalculatesyntaxhelpobject.cpp:218
 #, kde-format
 msgid "Minimum x-axis value."
 msgstr "Az x-tengely minimális értéke."
 
-#: backends/qalculate/qalculatesyntaxhelpobject.cpp:218
+#: backends/qalculate/qalculatesyntaxhelpobject.cpp:219
 #, kde-format
 msgid "Maximum x-axis value."
 msgstr "Az x-tengely maximális értéke."
 
-#: backends/qalculate/qalculatesyntaxhelpobject.cpp:219
+#: backends/qalculate/qalculatesyntaxhelpobject.cpp:220
 #, kde-format
 msgid "If a logarithmic scale shall be used for the x-axis."
 msgstr "Logaritmikus skálát kell-e használni az x-tengelyen."
 
-#: backends/qalculate/qalculatesyntaxhelpobject.cpp:220
+#: backends/qalculate/qalculatesyntaxhelpobject.cpp:221
 #, kde-format
 msgid "If a logarithmic scale shall be used for the y-axis."
 msgstr "Logaritmikus skálát kell-e használni az y-tengelyen."
 
-#: backends/qalculate/qalculatesyntaxhelpobject.cpp:221
+#: backends/qalculate/qalculatesyntaxhelpobject.cpp:222
 #, kde-format
 msgid "Logarithmic base for the x-axis."
 msgstr "Logaritmikus alap az x-tengelyen."
 
-#: backends/qalculate/qalculatesyntaxhelpobject.cpp:222
+#: backends/qalculate/qalculatesyntaxhelpobject.cpp:223
 #, kde-format
 msgid "Logarithmic base for the y-axis."
 msgstr "Logaritmikus alap az y-tengelyen."
 
-#: backends/qalculate/qalculatesyntaxhelpobject.cpp:223
+#: backends/qalculate/qalculatesyntaxhelpobject.cpp:224
 #, kde-format
 msgid "If a grid shall be shown in the plot."
 msgstr "Kell-e rácsot megjeleníteni az ábrában."
 
-#: backends/qalculate/qalculatesyntaxhelpobject.cpp:224
+#: backends/qalculate/qalculatesyntaxhelpobject.cpp:225
 #, kde-format
 msgid ""
 "If the plot shall be surrounded by borders on all sides (not just axis)."
 msgstr "Kell-e keret az ábra körül (nem csak a tengelyek)."
 
-#: backends/qalculate/qalculatesyntaxhelpobject.cpp:225
+#: backends/qalculate/qalculatesyntaxhelpobject.cpp:226
 #, kde-format
 msgid "Width of lines."
 msgstr "Vonatvastagság."
 
-#: backends/qalculate/qalculatesyntaxhelpobject.cpp:226
+#: backends/qalculate/qalculatesyntaxhelpobject.cpp:227
 #, kde-format
 msgid ""
 "Where the plot legend shall be placed. One of none, top_left, top_right, "
@@ -1831,13 +1831,13 @@ msgstr ""
 "Hol helyezkedjen el az ábra jelmagyarázata, a következők egyike: none, "
 "top_left, top_right, bottom_left, bottom_right, below, outside"
 
-#: backends/qalculate/qalculatesyntaxhelpobject.cpp:227
+#: backends/qalculate/qalculatesyntaxhelpobject.cpp:228
 #, kde-format
 msgid "Plot smoothing. One of none, unique, csplines, bezier, sbezier"
 msgstr ""
 "Ábrasimítás, a következők egyike: none, unique, csplines, bezier, sbezier"
 
-#: backends/qalculate/qalculatesyntaxhelpobject.cpp:228
+#: backends/qalculate/qalculatesyntaxhelpobject.cpp:229
 #, kde-format
 msgid ""
 "Plot style. One of lines, points, points_lines, boxes, histogram, steps, "
@@ -1846,42 +1846,42 @@ msgstr ""
 "Ábrastílus, a következők egyike: points, points_lines, boxes, histogram, "
 "steps, candlesticks, dots"
 
-#: backends/qalculate/qalculatesyntaxhelpobject.cpp:229
+#: backends/qalculate/qalculatesyntaxhelpobject.cpp:230
 #, kde-format
 msgid "Use scale on second x-axis."
 msgstr "Skála használata a második x-tengelyen."
 
-#: backends/qalculate/qalculatesyntaxhelpobject.cpp:230
+#: backends/qalculate/qalculatesyntaxhelpobject.cpp:231
 #, kde-format
 msgid "Use scale on second y-axis."
 msgstr "Skála használata a második y-tengelyen."
 
-#: backends/qalculate/qalculatesyntaxhelpobject.cpp:231
+#: backends/qalculate/qalculatesyntaxhelpobject.cpp:232
 #, kde-format
 msgid "If the plot is to be drawn inline, instead of in a new window."
 msgstr "Beágyazva legyen-e rajzolva az ábra új ablak helyett."
 
-#: backends/qalculate/qalculatesyntaxhelpobject.cpp:232
+#: backends/qalculate/qalculatesyntaxhelpobject.cpp:233
 #, kde-format
 msgid "Distance between two interpolation points. See also steps."
 msgstr "Két interpolációs pont távolsága, lásd még steps."
 
-#: backends/qalculate/qalculatesyntaxhelpobject.cpp:233
+#: backends/qalculate/qalculatesyntaxhelpobject.cpp:234
 #, kde-format
 msgid "Number of interpolation points. See also step."
 msgstr "Az interpolációs pontok száma, lásd még step."
 
-#: backends/qalculate/qalculatesyntaxhelpobject.cpp:234
+#: backends/qalculate/qalculatesyntaxhelpobject.cpp:235
 #, kde-format
 msgid "The name of the x variable. This must be an unknown variable"
 msgstr "Az x változó neve. Ismeretlen változónak kell lennie"
 
-#: backends/qalculate/qalculatesyntaxhelpobject.cpp:243
+#: backends/qalculate/qalculatesyntaxhelpobject.cpp:242
 #, kde-format
 msgid "Save variables to a file"
 msgstr "Változók mentése fájlba"
 
-#: backends/qalculate/qalculatesyntaxhelpobject.cpp:244
+#: backends/qalculate/qalculatesyntaxhelpobject.cpp:243
 #, kde-format
 msgid ""
 "Save all currently defined variables to a file. They can be reloaded with %1."
@@ -1889,28 +1889,28 @@ msgstr ""
 "Az összes jelenleg definiált változó mentése fájlba. A változók "
 "újratölthetők a következővel: %1."
 
-#: backends/qalculate/qalculatesyntaxhelpobject.cpp:245
-#: backends/qalculate/qalculatesyntaxhelpobject.cpp:254
+#: backends/qalculate/qalculatesyntaxhelpobject.cpp:244
+#: backends/qalculate/qalculatesyntaxhelpobject.cpp:253
 #, kde-format
 msgid "file"
 msgstr "fájl"
 
-#: backends/qalculate/qalculatesyntaxhelpobject.cpp:246
+#: backends/qalculate/qalculatesyntaxhelpobject.cpp:245
 #, kde-format
 msgid "file: the file to save to"
 msgstr "fájl: ebbe a fájlba kell menteni"
 
-#: backends/qalculate/qalculatesyntaxhelpobject.cpp:252
+#: backends/qalculate/qalculatesyntaxhelpobject.cpp:251
 #, kde-format
 msgid "Load variables from a file"
 msgstr "Változók betöltése fájlból"
 
-#: backends/qalculate/qalculatesyntaxhelpobject.cpp:253
+#: backends/qalculate/qalculatesyntaxhelpobject.cpp:252
 #, kde-format
 msgid "Load variables from a file that has previously been created by %1."
 msgstr "Változók betöltése a(z) %1 által korábban létrehozott fájlból."
 
-#: backends/qalculate/qalculatesyntaxhelpobject.cpp:255
+#: backends/qalculate/qalculatesyntaxhelpobject.cpp:254
 #, kde-format
 msgid "file: the file to load"
 msgstr "fájl: a betöltendő fájl"
@@ -2638,45 +2638,45 @@ msgstr "%1. munkamenet"
 msgid "Failed to find the Cantor Part with error %1"
 msgstr "A Cantor Part nem található."
 
-#: cantor.cpp:449 cantor_part.cpp:639
+#: cantor.cpp:448 cantor_part.cpp:639
 #, kde-format
 msgid "Calculating..."
 msgstr "Számolás…"
 
-#: cantor.cpp:452 cantor_part.cpp:650 cantor_part.cpp:713
+#: cantor.cpp:451 cantor_part.cpp:650 cantor_part.cpp:713
 #, kde-format
 msgid "Ready"
 msgstr "Kész"
 
-#: cantor.cpp:496
+#: cantor.cpp:495
 #, fuzzy, kde-format
 #| msgid "X range"
 msgid "Changed"
 msgstr "X tartomány"
 
-#: cantor.cpp:582
+#: cantor.cpp:581
 #, kde-format
 msgid "Multiple unsaved Worksheets are opened. Do you want to close them?"
 msgstr ""
 
-#: cantor.cpp:583
+#: cantor.cpp:582
 #, fuzzy, kde-format
 #| msgid "Cantor"
 msgid "Close Cantor"
 msgstr "Cantor"
 
-#: cantor.cpp:599
+#: cantor.cpp:598
 #, kde-format
 msgid "The current project has been modified. Do you want to save it?"
 msgstr ""
 
-#: cantor.cpp:600
+#: cantor.cpp:599
 #, fuzzy, kde-format
 #| msgid "Save result"
 msgid "Save Project"
 msgstr "Eredmény mentése"
 
-#: cantor.cpp:646
+#: cantor.cpp:645
 #, fuzzy, kde-format
 #| msgid "Plotting"
 msgid "Formatting"
@@ -3543,7 +3543,7 @@ msgstr "Színek használata"
 msgid "Line Style"
 msgstr "Stílus"
 
-#: imageentry.cpp:47 imageentry.cpp:371
+#: imageentry.cpp:47 imageentry.cpp:370
 #, kde-format
 msgid "Configure Image"
 msgstr "Kép beállítása"
@@ -3554,7 +3554,7 @@ msgstr "Kép beállítása"
 msgid "Double click here to configure image settings"
 msgstr "Kattintson duplán a fájlkiválasztó párbeszédablak megnyitásához"
 
-#: imageentry.cpp:288
+#: imageentry.cpp:287
 #, kde-format
 msgid "Cannot load image %1"
 msgstr "Nem sikerült betölteni a képet: %1"
