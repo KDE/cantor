@@ -9,16 +9,14 @@
 
 #include <defaultvariablemodel.h>
 
-#include <QProcess>
-#include <KDirWatch>
-
+#include <QByteArray>
 #include <QDebug>
 #include <QDir>
-#include <QFile>
+#include <QProcess>
 #include <QTextEdit>
-#include <QListIterator>
-#include <QIODevice>
-#include <QByteArray>
+
+#include <KDirWatch>
+#include <KLocalizedString>
 
 #include <settings.h>
 
@@ -27,8 +25,6 @@
 #endif
 
 ScilabSession::ScilabSession( Cantor::Backend* backend) : Session(backend),
-m_process(nullptr),
-m_watch(nullptr),
 m_variableModel(new Cantor::DefaultVariableModel(this))
 {
 }
@@ -64,6 +60,16 @@ void ScilabSession::login()
     m_process->setProcessChannelMode(QProcess::SeparateChannels);
     m_process->start();
     m_process->waitForStarted();
+
+    if (!m_process->waitForStarted())
+    {
+        changeStatus(Session::Disable);
+        emit error(i18n("Failed to start Scilab, please check Scilab installation."));
+        emit loginDone();
+        delete m_process;
+        m_process = nullptr;
+        return;
+    }
 
     if(ScilabSettings::integratePlots()){
 

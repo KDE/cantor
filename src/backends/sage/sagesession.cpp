@@ -117,7 +117,16 @@ void SageSession::login()
 
     m_process = new QProcess(this);
     m_process->start(SageSettings::self()->path().toLocalFile(), arguments);
-    m_process->waitForStarted();
+
+    if (!m_process->waitForStarted())
+    {
+        changeStatus(Session::Disable);
+        emit error(i18n("Failed to start Sage, please check Sage installation."));
+        emit loginDone();
+        delete m_process;
+        m_process = nullptr;
+        return;
+    }
 
     connect(m_process, &QProcess::readyRead, this, &SageSession::readStdOut);
     connect(m_process, &QProcess::readyReadStandardOutput, this, &SageSession::readStdOut);

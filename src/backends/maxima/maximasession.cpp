@@ -77,7 +77,7 @@ void MaximaSession::login()
     if (input.isEmpty())
     {
         changeStatus(Session::Disable);
-        emit error(i18n("Maxima didn't respond with the proper prompt, please check Maxima's installation."));
+        emit error(i18n("Maxima didn't respond with the proper prompt, please check Maxima installation."));
         emit loginDone();
         delete m_process;
         m_process = nullptr;

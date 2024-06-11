@@ -91,8 +91,17 @@ void OctaveSession::login()
 
     m_process->start(OctaveSettings::path().toLocalFile(), args);
     qDebug() << "starting " << m_process->program();
-    bool rc = m_process->waitForStarted();
-    qDebug() << "octave process started " << rc;
+
+    if (!m_process->waitForStarted())
+    {
+        changeStatus(Session::Disable);
+        emit error(i18n("Failed to start Octave, please check Octave installation."));
+        emit loginDone();
+        delete m_process;
+        m_process = nullptr;
+        return;
+    }
+
 
     connect(m_process, &QProcess::readyReadStandardOutput, this, &OctaveSession::readOutput);
     connect(m_process, &QProcess::readyReadStandardError, this, &OctaveSession::readError);

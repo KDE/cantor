@@ -52,7 +52,17 @@ void LuaSession::login()
     connect(m_process, &QProcess::readyReadStandardOutput, this, &LuaSession::readIntroMessage);
     connect(m_process, &QProcess::started, this, &LuaSession::processStarted);
     m_process->start();
-    m_process->waitForStarted();
+
+    if (!m_process->waitForStarted())
+    {
+        changeStatus(Session::Disable);
+        emit error(i18n("Failed to start Lua, please check Lua installation."));
+        emit loginDone();
+        delete m_process;
+        m_process = nullptr;
+        return;
+    }
+
     m_process->waitForReadyRead();
 
     // TODO: load the auto-scripts

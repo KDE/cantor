@@ -47,7 +47,16 @@ void RSession::login()
     m_process->start(QStandardPaths::findExecutable(QLatin1String("cantor_rserver")));
 #endif
 
-    m_process->waitForStarted();
+    if (!m_process->waitForStarted())
+    {
+        changeStatus(Session::Disable);
+        emit error(i18n("Failed to start R, please check R installation."));
+        emit loginDone();
+        delete m_process;
+        m_process = nullptr;
+        return;
+    }
+
     m_process->waitForReadyRead();
     qDebug()<<m_process->readAllStandardOutput();
 

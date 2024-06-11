@@ -9,7 +9,6 @@
 #include "session.h"
 #include "scilabexpression.h"
 #include <QStringList>
-#include <QQueue>
 
 namespace Cantor {
     class DefaultVariableModel;
@@ -46,8 +45,8 @@ class ScilabSession : public Cantor::Session
         void plotFileChanged(const QString& filename);
 
     private:
-        QProcess* m_process;
-        KDirWatch* m_watch;
+        QProcess* m_process = nullptr;
+        KDirWatch* m_watch = nullptr;
         QStringList m_listPlotName;
         QString m_output;
         Cantor::DefaultVariableModel* m_variableModel;
