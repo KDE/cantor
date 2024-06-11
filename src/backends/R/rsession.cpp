@@ -14,6 +14,7 @@
 #include <QTimer>
 #include <QDebug>
 #include <KProcess>
+#include <KLocalizedString>
 
 #ifndef Q_OS_WIN
 #include <signal.h>
