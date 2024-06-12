@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: cantor\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-06-01 01:39+0000\n"
+"POT-Creation-Date: 2024-06-12 01:46+0000\n"
 "PO-Revision-Date: 2024-05-26 07:22+0200\n"
 "Last-Translator: Oliver Kellogg <okellogg@users.sourceforge.net>\n"
 "Language-Team: esperanto <kde-i18n-eo@kde.org>\n"
@@ -395,7 +395,13 @@ msgstr "# Pardonu, sed Gadfly ne subtenas 3d-desegnojn"
 msgid "Julia script file (*.jl)"
 msgstr "Julia skriptodosiero (*.jl)"
 
-#: backends/julia/juliasession.cpp:108 backends/julia/juliasession.cpp:117
+#: backends/julia/juliasession.cpp:70
+#, fuzzy, kde-format
+#| msgid "Failed to start Maxima, please check Maxima's installation."
+msgid "Failed to start Julia, please check Julia installation."
+msgstr "Malsukcesis lanĉi Maxima, bonvolu kontroli ties instalon."
+
+#: backends/julia/juliasession.cpp:119 backends/julia/juliasession.cpp:128
 #: backends/maxima/maximasession.cpp:283 cantor_part.cpp:964
 #: lib/session.cpp:257 lib/session.cpp:259 worksheet.cpp:1201
 #: worksheet.cpp:1229 worksheet.cpp:1244 worksheet.cpp:1260 worksheet.cpp:1304
@@ -404,7 +410,7 @@ msgstr "Julia skriptodosiero (*.jl)"
 msgid "Error - Cantor"
 msgstr "Eraro - Kantoro"
 
-#: backends/julia/juliasession.cpp:108
+#: backends/julia/juliasession.cpp:119
 #, kde-format
 msgid ""
 "Julia session can't login due internal julia problem with missing internal "
@@ -413,27 +419,27 @@ msgstr ""
 "Julia sesio ne povas ensaluti pro interna julia problemo kun mankanta "
 "interna dosiero - \"%1\""
 
-#: backends/julia/juliasession.cpp:117
+#: backends/julia/juliasession.cpp:128
 #, kde-format
 msgid "Julia session can't login due unknown internal problem"
 msgstr "Julia sesio ne povas ensaluti pro nekonata interna problemo"
 
-#: backends/julia/juliasession.cpp:242
+#: backends/julia/juliasession.cpp:253
 #, kde-format
 msgid "Julia process stopped working."
 msgstr "Julia procezo ĉesis funkcii."
 
-#: backends/julia/juliasession.cpp:245
+#: backends/julia/juliasession.cpp:256
 #, kde-format
 msgid "Failed to start Julia process."
 msgstr "Malsukcesis komenci Julian procezon."
 
-#: backends/julia/juliasession.cpp:248
+#: backends/julia/juliasession.cpp:259
 #, kde-format
 msgid "Communication with Julia process failed for unknown reasons."
 msgstr "Komunikado kun Julia procezo malsukcesis pro nekonataj kialoj."
 
-#: backends/julia/juliasession.cpp:318
+#: backends/julia/juliasession.cpp:329
 #, kde-format
 msgid ""
 "For Julia only GR (https://gr-framework.org/), a framework for visualization "
@@ -730,6 +736,12 @@ msgstr "Vojo al luajit komando"
 msgid "Lua script file (*.lua)"
 msgstr "Lua-skriptodosiero (*.lua)"
 
+#: backends/lua/luasession.cpp:59
+#, fuzzy, kde-format
+#| msgid "Failed to start Maxima, please check Maxima's installation."
+msgid "Failed to start Lua, please check Lua installation."
+msgstr "Malsukcesis lanĉi Maxima, bonvolu kontroli ties instalon."
+
 #. i18n: ectx: property (text), widget (QLabel, label)
 #: backends/lua/settings.ui:27
 #, kde-format
@@ -894,9 +906,12 @@ msgid "Failed to start Maxima, please check Maxima's installation."
 msgstr "Malsukcesis lanĉi Maxima, bonvolu kontroli ties instalon."
 
 #: backends/maxima/maximasession.cpp:80
-#, kde-format
+#, fuzzy, kde-format
+#| msgid ""
+#| "Maxima didn't respond with the proper prompt, please check Maxima's "
+#| "installation."
 msgid ""
-"Maxima didn't respond with the proper prompt, please check Maxima's "
+"Maxima didn't respond with the proper prompt, please check Maxima "
 "installation."
 msgstr ""
 "Maxima ne respondis per konvena instigilo, bonvolu kontroli la instalon de "
@@ -957,23 +972,29 @@ msgstr "Nevalida bilddosiero generita."
 msgid "Octave script file (*.m)"
 msgstr "Oktava skriptodosiero (*.m)"
 
-#: backends/octave/octavesession.cpp:273 backends/sage/sageexpression.cpp:49
+#: backends/octave/octavesession.cpp:98
+#, fuzzy, kde-format
+#| msgid "Failed to start Maxima, please check Maxima's installation."
+msgid "Failed to start Octave, please check Octave installation."
+msgstr "Malsukcesis lanĉi Maxima, bonvolu kontroli ties instalon."
+
+#: backends/octave/octavesession.cpp:282 backends/sage/sageexpression.cpp:49
 #, kde-format
 msgid "Syntax Error"
 msgstr "Sintakso Eraro"
 
-#: backends/octave/octavesession.cpp:392
+#: backends/octave/octavesession.cpp:401
 #, kde-format
 msgid "Plot integration test failed."
 msgstr "Testo de integriĝo de desegno malsukcesis."
 
-#: backends/octave/octavesession.cpp:396
+#: backends/octave/octavesession.cpp:405
 #, kde-format
 msgid "The integration of plots will be disabled."
 msgstr "La integriĝo de desegnoj estos malŝaltita."
 
-#: backends/octave/octavesession.cpp:397 backends/sage/sagesession.cpp:341
-#: backends/sage/sagesession.cpp:352 cantor.cpp:217 cantor.cpp:219
+#: backends/octave/octavesession.cpp:406 backends/sage/sagesession.cpp:350
+#: backends/sage/sagesession.cpp:361 cantor.cpp:217 cantor.cpp:219
 #: cantor.cpp:338 cantor.cpp:345 lib/session.cpp:327 main.cpp:72 main.cpp:131
 #: markdownentry.cpp:797 textentry.cpp:553 worksheet.cpp:1283
 #, kde-format
@@ -1013,22 +1034,28 @@ msgstr "# Pardonu, sed Bokeh ne subtenas 3d-planadon"
 msgid "Python script file (*.py)"
 msgstr "Python-skriptodosiero (*.py)"
 
-#: backends/python/pythonsession.cpp:274
+#: backends/python/pythonsession.cpp:74
+#, fuzzy, kde-format
+#| msgid "Failed to start Maxima, please check Maxima's installation."
+msgid "Failed to start Python, please check Python installation."
+msgstr "Malsukcesis lanĉi Maxima, bonvolu kontroli ties instalon."
+
+#: backends/python/pythonsession.cpp:283
 #, kde-format
 msgid "Cantor Python server stopped working."
 msgstr "Cantor Python-servilo ĉesis funkcii."
 
-#: backends/python/pythonsession.cpp:278
+#: backends/python/pythonsession.cpp:287
 #, kde-format
 msgid "Failed to start Cantor python server."
 msgstr "Malsukcesis lanĉi Cantor-python-servilon."
 
-#: backends/python/pythonsession.cpp:282
+#: backends/python/pythonsession.cpp:291
 #, kde-format
 msgid "Communication with Cantor python server failed for unknown reasons."
 msgstr "Komunikado kun Cantor python-servilo malsukcesis pro nekonataj kialoj."
 
-#: backends/python/pythonsession.cpp:308
+#: backends/python/pythonsession.cpp:317
 #, kde-format
 msgid ""
 "For using integrated graphics with Matplotlib package, you need to install "
@@ -1037,7 +1064,7 @@ msgstr ""
 "Por uzi integrajn grafikaĵojn kun Matplotlib-pakaĵo, vi unue devas instali "
 "\"matplotlib\"-pitonan pakaĵon."
 
-#: backends/python/pythonsession.cpp:314
+#: backends/python/pythonsession.cpp:323
 #, kde-format
 msgid ""
 "For using integrated graphic with Plot.ly, you need to install \"plotly\" "
@@ -2352,6 +2379,12 @@ msgstr "Erara Analiza Komando"
 msgid "Url to the local R documentation"
 msgstr "Url al la loka R-dokumentado"
 
+#: backends/R/rsession.cpp:54
+#, fuzzy, kde-format
+#| msgid "Failed to start Maxima, please check Maxima's installation."
+msgid "Failed to start R, please check R installation."
+msgstr "Malsukcesis lanĉi Maxima, bonvolu kontroli ties instalon."
+
 #: backends/R/rsettingswidget.cpp:28
 #, kde-format
 msgid "Double click to open file selection dialog"
@@ -2414,7 +2447,13 @@ msgstr ""
 msgid "Python script file (*.py);;Sage script file (*.sage)"
 msgstr "Python-skriptodosiero (*.py);;Sage-skriptodosiero (*.sage)"
 
-#: backends/sage/sagesession.cpp:254
+#: backends/sage/sagesession.cpp:124
+#, fuzzy, kde-format
+#| msgid "Failed to start Maxima, please check Maxima's installation."
+msgid "Failed to start Sage, please check Sage installation."
+msgstr "Malsukcesis lanĉi Maxima, bonvolu kontroli ties instalon."
+
+#: backends/sage/sagesession.cpp:263
 #, kde-format
 msgid ""
 "Sage version %1.%2 is unsupported. Please update your installation to the "
@@ -2423,12 +2462,12 @@ msgstr ""
 "Sage versio %1.%2 estas nesubtenata. Bonvolu ĝisdatigi vian instaladon al la "
 "versioj 9.2 aŭ pli altaj."
 
-#: backends/sage/sagesession.cpp:256 backends/sage/sagesession.cpp:276
+#: backends/sage/sagesession.cpp:265 backends/sage/sagesession.cpp:285
 #, kde-format
 msgid "Unsupported Version"
 msgstr "Nesubtenata Versio"
 
-#: backends/sage/sagesession.cpp:275
+#: backends/sage/sagesession.cpp:284
 #, kde-format
 msgid ""
 "Failed to determine the version of Sage. Please check your installation and "
@@ -2437,27 +2476,27 @@ msgstr ""
 "Malsukcesis determini la version de Sage. Bonvolu kontroli vian instaladon "
 "kaj la eligon de 'sage -v'."
 
-#: backends/sage/sagesession.cpp:337
+#: backends/sage/sagesession.cpp:346
 #, kde-format
 msgid "The Sage process crashed while evaluating this expression"
 msgstr "La Sage-procezo paneis dum taksado de ĉi tiu esprimo"
 
-#: backends/sage/sagesession.cpp:341
+#: backends/sage/sagesession.cpp:350
 #, kde-format
 msgid "The Sage process crashed"
 msgstr "La procezo de Sage paneis"
 
-#: backends/sage/sagesession.cpp:348
+#: backends/sage/sagesession.cpp:357
 #, kde-format
 msgid "The Sage process exited while evaluating this expression"
 msgstr "La Sage-procezo eliris dum taksado de ĉi tiu esprimo"
 
-#: backends/sage/sagesession.cpp:352
+#: backends/sage/sagesession.cpp:361
 #, kde-format
 msgid "The Sage process exited"
 msgstr "La procezo de Sage eliris"
 
-#: backends/sage/sagesession.cpp:362
+#: backends/sage/sagesession.cpp:371
 #, kde-format
 msgid "Failed to start Sage"
 msgstr "Malsukcesis lanĉi Sage"
@@ -2507,6 +2546,12 @@ msgstr "Vojo al la ruligebla Scilab"
 #, kde-format
 msgid ";;Scilab script file (*.sce);;Scilab function file (*.sci)"
 msgstr ";;Scilab-skriptodosiero (*.sce);;Scilab-funkcidosiero (*.sci)"
+
+#: backends/scilab/scilabsession.cpp:67
+#, fuzzy, kde-format
+#| msgid "Failed to start Maxima, please check Maxima's installation."
+msgid "Failed to start Scilab, please check Scilab installation."
+msgstr "Malsukcesis lanĉi Maxima, bonvolu kontroli ties instalon."
 
 #. i18n: ectx: property (text), widget (QLabel, lPlotIntegration)
 #: backends/scilab/settings.ui:37

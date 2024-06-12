@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-06-01 01:39+0000\n"
+"POT-Creation-Date: 2024-06-12 01:46+0000\n"
 "PO-Revision-Date: 2023-11-05 00:59+0100\n"
 "Last-Translator: Shinjo Park <kde@peremen.name>\n"
 "Language-Team: Korean <kde-kr@kde.org>\n"
@@ -388,7 +388,13 @@ msgstr "# 죄송합니다. Gadfly에서는 3D 플롯을 지원하지 않습니�
 msgid "Julia script file (*.jl)"
 msgstr "Julia 스크립트 파일 (*.jl)"
 
-#: backends/julia/juliasession.cpp:108 backends/julia/juliasession.cpp:117
+#: backends/julia/juliasession.cpp:70
+#, fuzzy, kde-format
+#| msgid "Failed to start Julia process."
+msgid "Failed to start Julia, please check Julia installation."
+msgstr "Julia 프로세스를 시작할 수 없습니다."
+
+#: backends/julia/juliasession.cpp:119 backends/julia/juliasession.cpp:128
 #: backends/maxima/maximasession.cpp:283 cantor_part.cpp:964
 #: lib/session.cpp:257 lib/session.cpp:259 worksheet.cpp:1201
 #: worksheet.cpp:1229 worksheet.cpp:1244 worksheet.cpp:1260 worksheet.cpp:1304
@@ -397,7 +403,7 @@ msgstr "Julia 스크립트 파일 (*.jl)"
 msgid "Error - Cantor"
 msgstr "오류 - Cantor"
 
-#: backends/julia/juliasession.cpp:108
+#: backends/julia/juliasession.cpp:119
 #, kde-format
 msgid ""
 "Julia session can't login due internal julia problem with missing internal "
@@ -406,27 +412,27 @@ msgstr ""
 "Julia 세션에 로그인할 수 없습니다. 다음 내부 파일이 없어서 Julia 내부 오류가 "
 "발생했습니다 - \"%1\""
 
-#: backends/julia/juliasession.cpp:117
+#: backends/julia/juliasession.cpp:128
 #, kde-format
 msgid "Julia session can't login due unknown internal problem"
 msgstr "알 수 없는 내부 오류로 Julia 세션에 로그인할 수 없음"
 
-#: backends/julia/juliasession.cpp:242
+#: backends/julia/juliasession.cpp:253
 #, kde-format
 msgid "Julia process stopped working."
 msgstr "Julia 프로세스가 중단되었습니다."
 
-#: backends/julia/juliasession.cpp:245
+#: backends/julia/juliasession.cpp:256
 #, kde-format
 msgid "Failed to start Julia process."
 msgstr "Julia 프로세스를 시작할 수 없습니다."
 
-#: backends/julia/juliasession.cpp:248
+#: backends/julia/juliasession.cpp:259
 #, kde-format
 msgid "Communication with Julia process failed for unknown reasons."
 msgstr "알 수 없는 이유로 Julia 프로세스와 통신할 수 없습니다."
 
-#: backends/julia/juliasession.cpp:318
+#: backends/julia/juliasession.cpp:329
 #, kde-format
 msgid ""
 "For Julia only GR (https://gr-framework.org/), a framework for visualization "
@@ -719,6 +725,11 @@ msgstr "luajit 명령 경로"
 msgid "Lua script file (*.lua)"
 msgstr "Lua 스크립트 파일 (*.lua)"
 
+#: backends/lua/luasession.cpp:59
+#, kde-format
+msgid "Failed to start Lua, please check Lua installation."
+msgstr ""
+
 #. i18n: ectx: property (text), widget (QLabel, label)
 #: backends/lua/settings.ui:27
 #, kde-format
@@ -879,7 +890,7 @@ msgstr ""
 #: backends/maxima/maximasession.cpp:80
 #, kde-format
 msgid ""
-"Maxima didn't respond with the proper prompt, please check Maxima's "
+"Maxima didn't respond with the proper prompt, please check Maxima "
 "installation."
 msgstr ""
 
@@ -937,23 +948,28 @@ msgstr "잘못된 그림 파일이 생성되었습니다."
 msgid "Octave script file (*.m)"
 msgstr "Octave 스크립트 파일 (*.m)"
 
-#: backends/octave/octavesession.cpp:273 backends/sage/sageexpression.cpp:49
+#: backends/octave/octavesession.cpp:98
+#, kde-format
+msgid "Failed to start Octave, please check Octave installation."
+msgstr ""
+
+#: backends/octave/octavesession.cpp:282 backends/sage/sageexpression.cpp:49
 #, kde-format
 msgid "Syntax Error"
 msgstr "구문 오류"
 
-#: backends/octave/octavesession.cpp:392
+#: backends/octave/octavesession.cpp:401
 #, kde-format
 msgid "Plot integration test failed."
 msgstr "플롯 통합 시험이 실패했습니다."
 
-#: backends/octave/octavesession.cpp:396
+#: backends/octave/octavesession.cpp:405
 #, kde-format
 msgid "The integration of plots will be disabled."
 msgstr "플롯 통합이 비활성화됩니다."
 
-#: backends/octave/octavesession.cpp:397 backends/sage/sagesession.cpp:341
-#: backends/sage/sagesession.cpp:352 cantor.cpp:217 cantor.cpp:219
+#: backends/octave/octavesession.cpp:406 backends/sage/sagesession.cpp:350
+#: backends/sage/sagesession.cpp:361 cantor.cpp:217 cantor.cpp:219
 #: cantor.cpp:338 cantor.cpp:345 lib/session.cpp:327 main.cpp:72 main.cpp:131
 #: markdownentry.cpp:797 textentry.cpp:553 worksheet.cpp:1283
 #, kde-format
@@ -992,22 +1008,27 @@ msgstr "# 죄송합니다. Bokeh에서는 3D 플롯을 지원하지 않습니다
 msgid "Python script file (*.py)"
 msgstr "Python 스크립트 파일 (*.py)"
 
-#: backends/python/pythonsession.cpp:274
+#: backends/python/pythonsession.cpp:74
+#, kde-format
+msgid "Failed to start Python, please check Python installation."
+msgstr ""
+
+#: backends/python/pythonsession.cpp:283
 #, kde-format
 msgid "Cantor Python server stopped working."
 msgstr "Cantor Python 서버가 중단되었습니다."
 
-#: backends/python/pythonsession.cpp:278
+#: backends/python/pythonsession.cpp:287
 #, kde-format
 msgid "Failed to start Cantor python server."
 msgstr "Cantor Python 서버를 시작할 수 없습니다."
 
-#: backends/python/pythonsession.cpp:282
+#: backends/python/pythonsession.cpp:291
 #, kde-format
 msgid "Communication with Cantor python server failed for unknown reasons."
 msgstr "알 수 없는 이유로 Cantor Python 서버 프로세스와 통신할 수 없습니다."
 
-#: backends/python/pythonsession.cpp:308
+#: backends/python/pythonsession.cpp:317
 #, kde-format
 msgid ""
 "For using integrated graphics with Matplotlib package, you need to install "
@@ -1016,7 +1037,7 @@ msgstr ""
 "Matplotlib 패키지의 내장 그래픽을 사용하려면 \"matplotlib\" Python 패키지를 "
 "먼저 설치하십시오."
 
-#: backends/python/pythonsession.cpp:314
+#: backends/python/pythonsession.cpp:323
 #, kde-format
 msgid ""
 "For using integrated graphic with Plot.ly, you need to install \"plotly\" "
@@ -2326,6 +2347,11 @@ msgstr "명령 처리 중 오류 발생"
 msgid "Url to the local R documentation"
 msgstr "로컬 R 문서의 URL"
 
+#: backends/R/rsession.cpp:54
+#, kde-format
+msgid "Failed to start R, please check R installation."
+msgstr ""
+
 #: backends/R/rsettingswidget.cpp:28
 #, kde-format
 msgid "Double click to open file selection dialog"
@@ -2387,7 +2413,12 @@ msgstr ""
 msgid "Python script file (*.py);;Sage script file (*.sage)"
 msgstr "Python 스크립트 파일 (*.py);;Sage 스크립트 파일 (*.sage)"
 
-#: backends/sage/sagesession.cpp:254
+#: backends/sage/sagesession.cpp:124
+#, kde-format
+msgid "Failed to start Sage, please check Sage installation."
+msgstr ""
+
+#: backends/sage/sagesession.cpp:263
 #, kde-format
 msgid ""
 "Sage version %1.%2 is unsupported. Please update your installation to the "
@@ -2395,12 +2426,12 @@ msgid ""
 msgstr ""
 "Sage 버전 %1.%2은(는) 지원하지 않습니다. 9.2 이상으로 업그레이드하십시오."
 
-#: backends/sage/sagesession.cpp:256 backends/sage/sagesession.cpp:276
+#: backends/sage/sagesession.cpp:265 backends/sage/sagesession.cpp:285
 #, kde-format
 msgid "Unsupported Version"
 msgstr "지원하지 않는 버전"
 
-#: backends/sage/sagesession.cpp:275
+#: backends/sage/sagesession.cpp:284
 #, kde-format
 msgid ""
 "Failed to determine the version of Sage. Please check your installation and "
@@ -2409,27 +2440,27 @@ msgstr ""
 "Sage의 버전을 알 수 없습니다. 설치 상태와 'sage -v' 명령의 출력을 확인하십시"
 "오."
 
-#: backends/sage/sagesession.cpp:337
+#: backends/sage/sagesession.cpp:346
 #, kde-format
 msgid "The Sage process crashed while evaluating this expression"
 msgstr "이 수식을 처리하는 중 Sage 프로세스가 충돌함"
 
-#: backends/sage/sagesession.cpp:341
+#: backends/sage/sagesession.cpp:350
 #, kde-format
 msgid "The Sage process crashed"
 msgstr "Sage 프로세스가 충돌함"
 
-#: backends/sage/sagesession.cpp:348
+#: backends/sage/sagesession.cpp:357
 #, kde-format
 msgid "The Sage process exited while evaluating this expression"
 msgstr "이 수식을 처리하는 중 Sage 프로세스가 종료됨"
 
-#: backends/sage/sagesession.cpp:352
+#: backends/sage/sagesession.cpp:361
 #, kde-format
 msgid "The Sage process exited"
 msgstr "Sage 프로세스 종료됨"
 
-#: backends/sage/sagesession.cpp:362
+#: backends/sage/sagesession.cpp:371
 #, kde-format
 msgid "Failed to start Sage"
 msgstr "Sage를 시작할 수 없음"
@@ -2479,6 +2510,11 @@ msgstr "Scilab 실행 파일 경로"
 #, kde-format
 msgid ";;Scilab script file (*.sce);;Scilab function file (*.sci)"
 msgstr ";;Scilab 스크립트 파일 (*.sce);;Scilab 함수 파일 (*.sci)"
+
+#: backends/scilab/scilabsession.cpp:67
+#, kde-format
+msgid "Failed to start Scilab, please check Scilab installation."
+msgstr ""
 
 #. i18n: ectx: property (text), widget (QLabel, lPlotIntegration)
 #: backends/scilab/settings.ui:37

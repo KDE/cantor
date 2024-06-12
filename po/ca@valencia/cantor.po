@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: cantor\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-06-01 01:39+0000\n"
+"POT-Creation-Date: 2024-06-12 01:46+0000\n"
 "PO-Revision-Date: 2024-05-15 09:36+0200\n"
 "Last-Translator: Josep M. Ferrer <txemaq@gmail.com>\n"
 "Language-Team: Catalan <kde-i18n-ca@kde.org>\n"
@@ -394,7 +394,13 @@ msgstr "# El Gadfly no admet les gràfiques en 3D"
 msgid "Julia script file (*.jl)"
 msgstr "Fitxer de script de Julia (*.jl)"
 
-#: backends/julia/juliasession.cpp:108 backends/julia/juliasession.cpp:117
+#: backends/julia/juliasession.cpp:70
+#, fuzzy, kde-format
+#| msgid "Failed to start Maxima, please check Maxima's installation."
+msgid "Failed to start Julia, please check Julia installation."
+msgstr "No s'ha pogut iniciar Maxima. Verifiqueu la instal·lació de Maxima."
+
+#: backends/julia/juliasession.cpp:119 backends/julia/juliasession.cpp:128
 #: backends/maxima/maximasession.cpp:283 cantor_part.cpp:964
 #: lib/session.cpp:257 lib/session.cpp:259 worksheet.cpp:1201
 #: worksheet.cpp:1229 worksheet.cpp:1244 worksheet.cpp:1260 worksheet.cpp:1304
@@ -403,7 +409,7 @@ msgstr "Fitxer de script de Julia (*.jl)"
 msgid "Error - Cantor"
 msgstr "Error - Cantor"
 
-#: backends/julia/juliasession.cpp:108
+#: backends/julia/juliasession.cpp:119
 #, kde-format
 msgid ""
 "Julia session can't login due internal julia problem with missing internal "
@@ -412,28 +418,28 @@ msgstr ""
 "No s'ha pogut iniciar la sessió amb Julia per un problema intern de «julia», "
 "ja que falta el fitxer intern - «%1»"
 
-#: backends/julia/juliasession.cpp:117
+#: backends/julia/juliasession.cpp:128
 #, kde-format
 msgid "Julia session can't login due unknown internal problem"
 msgstr ""
 "No s'ha pogut iniciar la sessió amb Julia per un problema intern desconegut"
 
-#: backends/julia/juliasession.cpp:242
+#: backends/julia/juliasession.cpp:253
 #, kde-format
 msgid "Julia process stopped working."
 msgstr "El procés de Julia ha parat el seu funcionament."
 
-#: backends/julia/juliasession.cpp:245
+#: backends/julia/juliasession.cpp:256
 #, kde-format
 msgid "Failed to start Julia process."
 msgstr "No s'ha pogut iniciar el procés de Julia."
 
-#: backends/julia/juliasession.cpp:248
+#: backends/julia/juliasession.cpp:259
 #, kde-format
 msgid "Communication with Julia process failed for unknown reasons."
 msgstr "No s'ha pogut comunicar amb el procés de Julia per motius desconeguts."
 
-#: backends/julia/juliasession.cpp:318
+#: backends/julia/juliasession.cpp:329
 #, kde-format
 msgid ""
 "For Julia only GR (https://gr-framework.org/), a framework for visualization "
@@ -734,6 +740,12 @@ msgstr "Camí cap a l'ordre «luajit»"
 msgid "Lua script file (*.lua)"
 msgstr "Fitxer de script de Lua (*.lua)"
 
+#: backends/lua/luasession.cpp:59
+#, fuzzy, kde-format
+#| msgid "Failed to start Maxima, please check Maxima's installation."
+msgid "Failed to start Lua, please check Lua installation."
+msgstr "No s'ha pogut iniciar Maxima. Verifiqueu la instal·lació de Maxima."
+
 #. i18n: ectx: property (text), widget (QLabel, label)
 #: backends/lua/settings.ui:27
 #, kde-format
@@ -900,9 +912,12 @@ msgid "Failed to start Maxima, please check Maxima's installation."
 msgstr "No s'ha pogut iniciar Maxima. Verifiqueu la instal·lació de Maxima."
 
 #: backends/maxima/maximasession.cpp:80
-#, kde-format
+#, fuzzy, kde-format
+#| msgid ""
+#| "Maxima didn't respond with the proper prompt, please check Maxima's "
+#| "installation."
 msgid ""
-"Maxima didn't respond with the proper prompt, please check Maxima's "
+"Maxima didn't respond with the proper prompt, please check Maxima "
 "installation."
 msgstr ""
 "Maxima no ha respost amb l'indicatiu adequat. Verifiqueu la instal·lació de "
@@ -966,23 +981,29 @@ msgstr "Fitxer generat d'imatge no vàlid."
 msgid "Octave script file (*.m)"
 msgstr "Fitxer script d'Octave (*.m)"
 
-#: backends/octave/octavesession.cpp:273 backends/sage/sageexpression.cpp:49
+#: backends/octave/octavesession.cpp:98
+#, fuzzy, kde-format
+#| msgid "Failed to start Maxima, please check Maxima's installation."
+msgid "Failed to start Octave, please check Octave installation."
+msgstr "No s'ha pogut iniciar Maxima. Verifiqueu la instal·lació de Maxima."
+
+#: backends/octave/octavesession.cpp:282 backends/sage/sageexpression.cpp:49
 #, kde-format
 msgid "Syntax Error"
 msgstr "S'ha produït un error de sintaxi"
 
-#: backends/octave/octavesession.cpp:392
+#: backends/octave/octavesession.cpp:401
 #, kde-format
 msgid "Plot integration test failed."
 msgstr "Ha fallat la prova d'integració de les gràfiques."
 
-#: backends/octave/octavesession.cpp:396
+#: backends/octave/octavesession.cpp:405
 #, kde-format
 msgid "The integration of plots will be disabled."
 msgstr "Es desactivarà la integració de les gràfiques."
 
-#: backends/octave/octavesession.cpp:397 backends/sage/sagesession.cpp:341
-#: backends/sage/sagesession.cpp:352 cantor.cpp:217 cantor.cpp:219
+#: backends/octave/octavesession.cpp:406 backends/sage/sagesession.cpp:350
+#: backends/sage/sagesession.cpp:361 cantor.cpp:217 cantor.cpp:219
 #: cantor.cpp:338 cantor.cpp:345 lib/session.cpp:327 main.cpp:72 main.cpp:131
 #: markdownentry.cpp:797 textentry.cpp:553 worksheet.cpp:1283
 #, kde-format
@@ -1022,24 +1043,30 @@ msgstr "# El Bokeh no admet les gràfiques en 3D"
 msgid "Python script file (*.py)"
 msgstr "Fitxer de script en Python (*.py)"
 
-#: backends/python/pythonsession.cpp:274
+#: backends/python/pythonsession.cpp:74
+#, fuzzy, kde-format
+#| msgid "Failed to start Maxima, please check Maxima's installation."
+msgid "Failed to start Python, please check Python installation."
+msgstr "No s'ha pogut iniciar Maxima. Verifiqueu la instal·lació de Maxima."
+
+#: backends/python/pythonsession.cpp:283
 #, kde-format
 msgid "Cantor Python server stopped working."
 msgstr "El servidor de Python de Cantor ha parat el seu funcionament."
 
-#: backends/python/pythonsession.cpp:278
+#: backends/python/pythonsession.cpp:287
 #, kde-format
 msgid "Failed to start Cantor python server."
 msgstr "No s'ha pogut iniciar el servidor de Python de Cantor."
 
-#: backends/python/pythonsession.cpp:282
+#: backends/python/pythonsession.cpp:291
 #, kde-format
 msgid "Communication with Cantor python server failed for unknown reasons."
 msgstr ""
 "No s'ha pogut comunicar amb el servidor de Python de Cantor per motius "
 "desconeguts."
 
-#: backends/python/pythonsession.cpp:308
+#: backends/python/pythonsession.cpp:317
 #, kde-format
 msgid ""
 "For using integrated graphics with Matplotlib package, you need to install "
@@ -1048,7 +1075,7 @@ msgstr ""
 "Per a utilitzar els gràfics integrats amb el paquet Matplotlib, primer cal "
 "instal·lar el paquet de Python «matplotlib»."
 
-#: backends/python/pythonsession.cpp:314
+#: backends/python/pythonsession.cpp:323
 #, kde-format
 msgid ""
 "For using integrated graphic with Plot.ly, you need to install \"plotly\" "
@@ -2388,6 +2415,12 @@ msgstr "S'ha produït un error en l'anàlisi sintàctica de l'ordre"
 msgid "Url to the local R documentation"
 msgstr "URL cap a la documentació local d'R"
 
+#: backends/R/rsession.cpp:54
+#, fuzzy, kde-format
+#| msgid "Failed to start Maxima, please check Maxima's installation."
+msgid "Failed to start R, please check R installation."
+msgstr "No s'ha pogut iniciar Maxima. Verifiqueu la instal·lació de Maxima."
+
 #: backends/R/rsettingswidget.cpp:28
 #, kde-format
 msgid "Double click to open file selection dialog"
@@ -2450,7 +2483,13 @@ msgstr ""
 msgid "Python script file (*.py);;Sage script file (*.sage)"
 msgstr "Fitxer de script en Python (*.py);;Fitxer de script de Sage (*.sage)"
 
-#: backends/sage/sagesession.cpp:254
+#: backends/sage/sagesession.cpp:124
+#, fuzzy, kde-format
+#| msgid "Failed to start Maxima, please check Maxima's installation."
+msgid "Failed to start Sage, please check Sage installation."
+msgstr "No s'ha pogut iniciar Maxima. Verifiqueu la instal·lació de Maxima."
+
+#: backends/sage/sagesession.cpp:263
 #, kde-format
 msgid ""
 "Sage version %1.%2 is unsupported. Please update your installation to the "
@@ -2459,12 +2498,12 @@ msgstr ""
 "No s'admet la versió %1.%2 de Sage. Actualitzeu la instal·lació a la versió "
 "9.2 o superior."
 
-#: backends/sage/sagesession.cpp:256 backends/sage/sagesession.cpp:276
+#: backends/sage/sagesession.cpp:265 backends/sage/sagesession.cpp:285
 #, kde-format
 msgid "Unsupported Version"
 msgstr "Versió no admesa"
 
-#: backends/sage/sagesession.cpp:275
+#: backends/sage/sagesession.cpp:284
 #, kde-format
 msgid ""
 "Failed to determine the version of Sage. Please check your installation and "
@@ -2473,27 +2512,27 @@ msgstr ""
 "No s'ha pogut determinar la versió de Sage. Comproveu la instal·lació i "
 "l'eixida de «sage -v»."
 
-#: backends/sage/sagesession.cpp:337
+#: backends/sage/sagesession.cpp:346
 #, kde-format
 msgid "The Sage process crashed while evaluating this expression"
 msgstr "El procés Sage ha fallat mentre s'avaluava esta expressió"
 
-#: backends/sage/sagesession.cpp:341
+#: backends/sage/sagesession.cpp:350
 #, kde-format
 msgid "The Sage process crashed"
 msgstr "El procés Sage ha fallat"
 
-#: backends/sage/sagesession.cpp:348
+#: backends/sage/sagesession.cpp:357
 #, kde-format
 msgid "The Sage process exited while evaluating this expression"
 msgstr "El procés Sage ha fallat mentre s'avaluava esta expressió"
 
-#: backends/sage/sagesession.cpp:352
+#: backends/sage/sagesession.cpp:361
 #, kde-format
 msgid "The Sage process exited"
 msgstr "El procés Sage ha fallat"
 
-#: backends/sage/sagesession.cpp:362
+#: backends/sage/sagesession.cpp:371
 #, kde-format
 msgid "Failed to start Sage"
 msgstr "No s'ha pogut iniciar Sage"
@@ -2545,6 +2584,12 @@ msgstr "Camí cap a l'executable «scilab»"
 msgid ";;Scilab script file (*.sce);;Scilab function file (*.sci)"
 msgstr ""
 "::Fitxer de script de Scilab (*.sce);;Fitxer de funció de Scilab (*.sci)"
+
+#: backends/scilab/scilabsession.cpp:67
+#, fuzzy, kde-format
+#| msgid "Failed to start Maxima, please check Maxima's installation."
+msgid "Failed to start Scilab, please check Scilab installation."
+msgstr "No s'ha pogut iniciar Maxima. Verifiqueu la instal·lació de Maxima."
 
 #. i18n: ectx: property (text), widget (QLabel, lPlotIntegration)
 #: backends/scilab/settings.ui:37

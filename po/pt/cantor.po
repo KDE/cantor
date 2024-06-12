@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: mathematik\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-06-01 01:39+0000\n"
+"POT-Creation-Date: 2024-06-12 01:46+0000\n"
 "PO-Revision-Date: 2023-05-06 11:51+0100\n"
 "Last-Translator: José Nuno Coelho Pires <zepires@gmail.com>\n"
 "Language-Team: Portuguese <kde-i18n-pt@kde.org>\n"
@@ -407,7 +407,13 @@ msgstr "# Infelizmente, o Gadfly não suporta gráficos em 3D"
 msgid "Julia script file (*.jl)"
 msgstr "Ficheiro de programa do Julia (*.jl)"
 
-#: backends/julia/juliasession.cpp:108 backends/julia/juliasession.cpp:117
+#: backends/julia/juliasession.cpp:70
+#, fuzzy, kde-format
+#| msgid "Failed to start Julia process."
+msgid "Failed to start Julia, please check Julia installation."
+msgstr "Não foi possível iniciar o processo do Julia."
+
+#: backends/julia/juliasession.cpp:119 backends/julia/juliasession.cpp:128
 #: backends/maxima/maximasession.cpp:283 cantor_part.cpp:964
 #: lib/session.cpp:257 lib/session.cpp:259 worksheet.cpp:1201
 #: worksheet.cpp:1229 worksheet.cpp:1244 worksheet.cpp:1260 worksheet.cpp:1304
@@ -416,7 +422,7 @@ msgstr "Ficheiro de programa do Julia (*.jl)"
 msgid "Error - Cantor"
 msgstr "Erro - Cantor"
 
-#: backends/julia/juliasession.cpp:108
+#: backends/julia/juliasession.cpp:119
 #, kde-format
 msgid ""
 "Julia session can't login due internal julia problem with missing internal "
@@ -425,28 +431,28 @@ msgstr ""
 "Não é possível autenticar-se na sessão do Julia devido a um problema interno "
 "com o Julia por falta de um ficheiro interno - \"%1\""
 
-#: backends/julia/juliasession.cpp:117
+#: backends/julia/juliasession.cpp:128
 #, kde-format
 msgid "Julia session can't login due unknown internal problem"
 msgstr ""
 "Não é possível autenticar-se na sessão do Julia devido a um problema interno"
 
-#: backends/julia/juliasession.cpp:242
+#: backends/julia/juliasession.cpp:253
 #, kde-format
 msgid "Julia process stopped working."
 msgstr "O processo do Julia deixou de funcionar."
 
-#: backends/julia/juliasession.cpp:245
+#: backends/julia/juliasession.cpp:256
 #, kde-format
 msgid "Failed to start Julia process."
 msgstr "Não foi possível iniciar o processo do Julia."
 
-#: backends/julia/juliasession.cpp:248
+#: backends/julia/juliasession.cpp:259
 #, kde-format
 msgid "Communication with Julia process failed for unknown reasons."
 msgstr "A comunicação com o processo do Julia falhou por razões desconhecidas."
 
-#: backends/julia/juliasession.cpp:318
+#: backends/julia/juliasession.cpp:329
 #, kde-format
 msgid ""
 "For Julia only GR (https://gr-framework.org/), a framework for visualization "
@@ -746,6 +752,11 @@ msgstr "Localização do comando 'luajit'"
 msgid "Lua script file (*.lua)"
 msgstr "Ficheiro de programa em Lua (*.lua)"
 
+#: backends/lua/luasession.cpp:59
+#, kde-format
+msgid "Failed to start Lua, please check Lua installation."
+msgstr ""
+
 #. i18n: ectx: property (text), widget (QLabel, label)
 #: backends/lua/settings.ui:27
 #, kde-format
@@ -914,7 +925,7 @@ msgstr ""
 #: backends/maxima/maximasession.cpp:80
 #, kde-format
 msgid ""
-"Maxima didn't respond with the proper prompt, please check Maxima's "
+"Maxima didn't respond with the proper prompt, please check Maxima "
 "installation."
 msgstr ""
 
@@ -976,23 +987,28 @@ msgstr "Foi gerado um ficheiro de imagem inválido."
 msgid "Octave script file (*.m)"
 msgstr "Ficheiro de programa em Octave (*.m)"
 
-#: backends/octave/octavesession.cpp:273 backends/sage/sageexpression.cpp:49
+#: backends/octave/octavesession.cpp:98
+#, kde-format
+msgid "Failed to start Octave, please check Octave installation."
+msgstr ""
+
+#: backends/octave/octavesession.cpp:282 backends/sage/sageexpression.cpp:49
 #, kde-format
 msgid "Syntax Error"
 msgstr "Erro de Sintaxe"
 
-#: backends/octave/octavesession.cpp:392
+#: backends/octave/octavesession.cpp:401
 #, kde-format
 msgid "Plot integration test failed."
 msgstr "O teste de integração do gráfico foi mal-sucedido."
 
-#: backends/octave/octavesession.cpp:396
+#: backends/octave/octavesession.cpp:405
 #, kde-format
 msgid "The integration of plots will be disabled."
 msgstr "Será desactivada a integração dos gráficos."
 
-#: backends/octave/octavesession.cpp:397 backends/sage/sagesession.cpp:341
-#: backends/sage/sagesession.cpp:352 cantor.cpp:217 cantor.cpp:219
+#: backends/octave/octavesession.cpp:406 backends/sage/sagesession.cpp:350
+#: backends/sage/sagesession.cpp:361 cantor.cpp:217 cantor.cpp:219
 #: cantor.cpp:338 cantor.cpp:345 lib/session.cpp:327 main.cpp:72 main.cpp:131
 #: markdownentry.cpp:797 textentry.cpp:553 worksheet.cpp:1283
 #, kde-format
@@ -1033,24 +1049,29 @@ msgstr "# Infelizmente, o Bokeh não suporta gráficos em 3D"
 msgid "Python script file (*.py)"
 msgstr "Ficheiro de programa em Python (*.py)"
 
-#: backends/python/pythonsession.cpp:274
+#: backends/python/pythonsession.cpp:74
+#, kde-format
+msgid "Failed to start Python, please check Python installation."
+msgstr ""
+
+#: backends/python/pythonsession.cpp:283
 #, kde-format
 msgid "Cantor Python server stopped working."
 msgstr "O servidor de Python do Cantor deixou de funcionar."
 
-#: backends/python/pythonsession.cpp:278
+#: backends/python/pythonsession.cpp:287
 #, kde-format
 msgid "Failed to start Cantor python server."
 msgstr "Não foi possível iniciar o servidor de Python do Cantor."
 
-#: backends/python/pythonsession.cpp:282
+#: backends/python/pythonsession.cpp:291
 #, kde-format
 msgid "Communication with Cantor python server failed for unknown reasons."
 msgstr ""
 "A comunicação com o servidor de Python do Cantor falhou por razões "
 "desconhecidas."
 
-#: backends/python/pythonsession.cpp:308
+#: backends/python/pythonsession.cpp:317
 #, kde-format
 msgid ""
 "For using integrated graphics with Matplotlib package, you need to install "
@@ -1059,7 +1080,7 @@ msgstr ""
 "Para usar os gráficos integrados com o pacote Matplotlib, tem de instalar o "
 "pacote de Python \"matplotlib\" em primeiro lugar."
 
-#: backends/python/pythonsession.cpp:314
+#: backends/python/pythonsession.cpp:323
 #, kde-format
 msgid ""
 "For using integrated graphic with Plot.ly, you need to install \"plotly\" "
@@ -2392,6 +2413,11 @@ msgstr "Erro ao Processar o Comando"
 msgid "Url to the local R documentation"
 msgstr "URL para a documentação local do R"
 
+#: backends/R/rsession.cpp:54
+#, kde-format
+msgid "Failed to start R, please check R installation."
+msgstr ""
+
 #: backends/R/rsettingswidget.cpp:28
 #, kde-format
 msgid "Double click to open file selection dialog"
@@ -2454,7 +2480,12 @@ msgstr ""
 msgid "Python script file (*.py);;Sage script file (*.sage)"
 msgstr "Programa em Python (*.py);;|Programa em Sage (*.sage)"
 
-#: backends/sage/sagesession.cpp:254
+#: backends/sage/sagesession.cpp:124
+#, kde-format
+msgid "Failed to start Sage, please check Sage installation."
+msgstr ""
+
+#: backends/sage/sagesession.cpp:263
 #, kde-format
 msgid ""
 "Sage version %1.%2 is unsupported. Please update your installation to the "
@@ -2463,12 +2494,12 @@ msgstr ""
 "A versão do Sage %1.%2 não é suportada. Por favor, actualize a sua "
 "instalação para a versão 9.2 ou posteriores."
 
-#: backends/sage/sagesession.cpp:256 backends/sage/sagesession.cpp:276
+#: backends/sage/sagesession.cpp:265 backends/sage/sagesession.cpp:285
 #, kde-format
 msgid "Unsupported Version"
 msgstr "Versão Não Suportada"
 
-#: backends/sage/sagesession.cpp:275
+#: backends/sage/sagesession.cpp:284
 #, kde-format
 msgid ""
 "Failed to determine the version of Sage. Please check your installation and "
@@ -2477,27 +2508,27 @@ msgstr ""
 "Não foi possível determinar a versão do Sage. Por favor, verifique a sua "
 "instalação e o resultado do 'sage -v'."
 
-#: backends/sage/sagesession.cpp:337
+#: backends/sage/sagesession.cpp:346
 #, kde-format
 msgid "The Sage process crashed while evaluating this expression"
 msgstr "O processo Sage estoirou ao avaliar esta expressão"
 
-#: backends/sage/sagesession.cpp:341
+#: backends/sage/sagesession.cpp:350
 #, kde-format
 msgid "The Sage process crashed"
 msgstr "O processo Sage estoirou"
 
-#: backends/sage/sagesession.cpp:348
+#: backends/sage/sagesession.cpp:357
 #, kde-format
 msgid "The Sage process exited while evaluating this expression"
 msgstr "O processo Sage saiu ao avaliar esta expressão"
 
-#: backends/sage/sagesession.cpp:352
+#: backends/sage/sagesession.cpp:361
 #, kde-format
 msgid "The Sage process exited"
 msgstr "O processo Sage saiu"
 
-#: backends/sage/sagesession.cpp:362
+#: backends/sage/sagesession.cpp:371
 #, kde-format
 msgid "Failed to start Sage"
 msgstr "Não foi possível iniciar o Sage"
@@ -2549,6 +2580,11 @@ msgid ";;Scilab script file (*.sce);;Scilab function file (*.sci)"
 msgstr ""
 ";;Ficheiro de programa em Scilab (*.sce);;Ficheiro de funções em Scilab (*."
 "sci)"
+
+#: backends/scilab/scilabsession.cpp:67
+#, kde-format
+msgid "Failed to start Scilab, please check Scilab installation."
+msgstr ""
 
 #. i18n: ectx: property (text), widget (QLabel, lPlotIntegration)
 #: backends/scilab/settings.ui:37
