@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: cantor\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-06-12 01:46+0000\n"
-"PO-Revision-Date: 2024-05-15 09:32+0300\n"
+"PO-Revision-Date: 2024-06-12 18:48+0300\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian\n"
 "Language: uk\n"
@@ -396,12 +396,11 @@ msgid "Julia script file (*.jl)"
 msgstr "файл скрипту Julia (*.jl)"
 
 #: backends/julia/juliasession.cpp:70
-#, fuzzy, kde-format
-#| msgid "Failed to start Maxima, please check Maxima's installation."
+#, kde-format
 msgid "Failed to start Julia, please check Julia installation."
 msgstr ""
-"Не вдалося запустити Maxima. Будь ласка, перевірте, чи належним чином "
-"встановлено Maxima."
+"Не вдалося запустити Julia. Будь ласка, перевірте, чи належним чином "
+"встановлено Julia."
 
 #: backends/julia/juliasession.cpp:119 backends/julia/juliasession.cpp:128
 #: backends/maxima/maximasession.cpp:283 cantor_part.cpp:964
@@ -742,12 +741,11 @@ msgid "Lua script file (*.lua)"
 msgstr "файл скрипту Lua (*.lua)"
 
 #: backends/lua/luasession.cpp:59
-#, fuzzy, kde-format
-#| msgid "Failed to start Maxima, please check Maxima's installation."
+#, kde-format
 msgid "Failed to start Lua, please check Lua installation."
 msgstr ""
-"Не вдалося запустити Maxima. Будь ласка, перевірте, чи належним чином "
-"встановлено Maxima."
+"Не вдалося запустити Lua. Будь ласка, перевірте, чи належним чином "
+"встановлено Lua."
 
 #. i18n: ectx: property (text), widget (QLabel, label)
 #: backends/lua/settings.ui:27
@@ -915,10 +913,7 @@ msgstr ""
 "встановлено Maxima."
 
 #: backends/maxima/maximasession.cpp:80
-#, fuzzy, kde-format
-#| msgid ""
-#| "Maxima didn't respond with the proper prompt, please check Maxima's "
-#| "installation."
+#, kde-format
 msgid ""
 "Maxima didn't respond with the proper prompt, please check Maxima "
 "installation."
@@ -985,12 +980,11 @@ msgid "Octave script file (*.m)"
 msgstr "файл скрипту Octave (*.m)"
 
 #: backends/octave/octavesession.cpp:98
-#, fuzzy, kde-format
-#| msgid "Failed to start Maxima, please check Maxima's installation."
+#, kde-format
 msgid "Failed to start Octave, please check Octave installation."
 msgstr ""
-"Не вдалося запустити Maxima. Будь ласка, перевірте, чи належним чином "
-"встановлено Maxima."
+"Не вдалося запустити Octave. Будь ласка, перевірте, чи належним чином "
+"встановлено Octave."
 
 #: backends/octave/octavesession.cpp:282 backends/sage/sageexpression.cpp:49
 #, kde-format
@@ -1050,12 +1044,11 @@ msgid "Python script file (*.py)"
 msgstr "файл скрипту Python (*.py)"
 
 #: backends/python/pythonsession.cpp:74
-#, fuzzy, kde-format
-#| msgid "Failed to start Maxima, please check Maxima's installation."
+#, kde-format
 msgid "Failed to start Python, please check Python installation."
 msgstr ""
-"Не вдалося запустити Maxima. Будь ласка, перевірте, чи належним чином "
-"встановлено Maxima."
+"Не вдалося запустити Python. Будь ласка, перевірте, чи належним чином "
+"встановлено Python."
 
 #: backends/python/pythonsession.cpp:283
 #, kde-format
@@ -2420,12 +2413,11 @@ msgid "Url to the local R documentation"
 msgstr "Адреса локальної документації до R"
 
 #: backends/R/rsession.cpp:54
-#, fuzzy, kde-format
-#| msgid "Failed to start Maxima, please check Maxima's installation."
+#, kde-format
 msgid "Failed to start R, please check R installation."
 msgstr ""
-"Не вдалося запустити Maxima. Будь ласка, перевірте, чи належним чином "
-"встановлено Maxima."
+"Не вдалося запустити R. Будь ласка, перевірте, чи належним чином встановлено "
+"R."
 
 #: backends/R/rsettingswidget.cpp:28
 #, kde-format
@@ -2492,12 +2484,11 @@ msgid "Python script file (*.py);;Sage script file (*.sage)"
 msgstr "файл скрипту Python (*.py);;файл скрипту Sage (*.sage)"
 
 #: backends/sage/sagesession.cpp:124
-#, fuzzy, kde-format
-#| msgid "Failed to start Maxima, please check Maxima's installation."
+#, kde-format
 msgid "Failed to start Sage, please check Sage installation."
 msgstr ""
-"Не вдалося запустити Maxima. Будь ласка, перевірте, чи належним чином "
-"встановлено Maxima."
+"Не вдалося запустити Sage. Будь ласка, перевірте, чи належним чином "
+"встановлено Sage."
 
 #: backends/sage/sagesession.cpp:263
 #, kde-format
@@ -2596,12 +2587,11 @@ msgid ";;Scilab script file (*.sce);;Scilab function file (*.sci)"
 msgstr ";;файл скрипту Scilab (*.sce);;файл функції Scilab (*.sci)"
 
 #: backends/scilab/scilabsession.cpp:67
-#, fuzzy, kde-format
-#| msgid "Failed to start Maxima, please check Maxima's installation."
+#, kde-format
 msgid "Failed to start Scilab, please check Scilab installation."
 msgstr ""
-"Не вдалося запустити Maxima. Будь ласка, перевірте, чи належним чином "
-"встановлено Maxima."
+"Не вдалося запустити Scilab. Будь ласка, перевірте, чи належним чином "
+"встановлено Scilab."
 
 #. i18n: ectx: property (text), widget (QLabel, lPlotIntegration)
 #: backends/scilab/settings.ui:37

@@ -387,10 +387,9 @@ msgid "Julia script file (*.jl)"
 msgstr "Julia 脚本文件 (*.jl)"
 
 #: backends/julia/juliasession.cpp:70
-#, fuzzy, kde-format
-#| msgid "Failed to start Julia process."
+#, kde-format
 msgid "Failed to start Julia, please check Julia installation."
-msgstr "启动 Julia 进程失败。"
+msgstr ""
 
 #: backends/julia/juliasession.cpp:119 backends/julia/juliasession.cpp:128
 #: backends/maxima/maximasession.cpp:283 cantor_part.cpp:964

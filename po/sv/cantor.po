@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: mathematik\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-06-12 01:46+0000\n"
-"PO-Revision-Date: 2024-05-19 11:44+0200\n"
+"PO-Revision-Date: 2024-06-12 20:31+0200\n"
 "Last-Translator: Stefan Asserhäll <stefan.asserhall@bredband.net>\n"
 "Language-Team: Swedish <kde-i18n-doc@kde.org>\n"
 "Language: sv\n"
@@ -392,10 +392,9 @@ msgid "Julia script file (*.jl)"
 msgstr "Julia-skriptfil (*.jl)"
 
 #: backends/julia/juliasession.cpp:70
-#, fuzzy, kde-format
-#| msgid "Failed to start Maxima, please check Maxima's installation."
+#, kde-format
 msgid "Failed to start Julia, please check Julia installation."
-msgstr "Misslyckades starta Maxima. Kontrollera Maximas installation."
+msgstr "Misslyckades starta Julia. Kontrollera Julias installation."
 
 #: backends/julia/juliasession.cpp:119 backends/julia/juliasession.cpp:128
 #: backends/maxima/maximasession.cpp:283 cantor_part.cpp:964
@@ -735,10 +734,9 @@ msgid "Lua script file (*.lua)"
 msgstr "Lua-skriptfil (*.lua)"
 
 #: backends/lua/luasession.cpp:59
-#, fuzzy, kde-format
-#| msgid "Failed to start Maxima, please check Maxima's installation."
+#, kde-format
 msgid "Failed to start Lua, please check Lua installation."
-msgstr "Misslyckades starta Maxima. Kontrollera Maximas installation."
+msgstr "Misslyckades starta Lua. Kontrollera Luas installation."
 
 #. i18n: ectx: property (text), widget (QLabel, label)
 #: backends/lua/settings.ui:27
@@ -903,10 +901,7 @@ msgid "Failed to start Maxima, please check Maxima's installation."
 msgstr "Misslyckades starta Maxima. Kontrollera Maximas installation."
 
 #: backends/maxima/maximasession.cpp:80
-#, fuzzy, kde-format
-#| msgid ""
-#| "Maxima didn't respond with the proper prompt, please check Maxima's "
-#| "installation."
+#, kde-format
 msgid ""
 "Maxima didn't respond with the proper prompt, please check Maxima "
 "installation."
@@ -970,10 +965,9 @@ msgid "Octave script file (*.m)"
 msgstr "Octave-skriptfil (*.m)"
 
 #: backends/octave/octavesession.cpp:98
-#, fuzzy, kde-format
-#| msgid "Failed to start Maxima, please check Maxima's installation."
+#, kde-format
 msgid "Failed to start Octave, please check Octave installation."
-msgstr "Misslyckades starta Maxima. Kontrollera Maximas installation."
+msgstr "Misslyckades starta Octave. Kontrollera Octaves installation."
 
 #: backends/octave/octavesession.cpp:282 backends/sage/sageexpression.cpp:49
 #, kde-format
@@ -1032,10 +1026,9 @@ msgid "Python script file (*.py)"
 msgstr "Python-skriptfil (*.py)"
 
 #: backends/python/pythonsession.cpp:74
-#, fuzzy, kde-format
-#| msgid "Failed to start Maxima, please check Maxima's installation."
+#, kde-format
 msgid "Failed to start Python, please check Python installation."
-msgstr "Misslyckades starta Maxima. Kontrollera Maximas installation."
+msgstr "Misslyckades starta Python. Kontrollera Pythons installation."
 
 #: backends/python/pythonsession.cpp:283
 #, kde-format
@@ -2384,10 +2377,9 @@ msgid "Url to the local R documentation"
 msgstr "Webbadress till den lokala dokumentationen av R"
 
 #: backends/R/rsession.cpp:54
-#, fuzzy, kde-format
-#| msgid "Failed to start Maxima, please check Maxima's installation."
+#, kde-format
 msgid "Failed to start R, please check R installation."
-msgstr "Misslyckades starta Maxima. Kontrollera Maximas installation."
+msgstr "Misslyckades starta R. Kontrollera R:s installation."
 
 #: backends/R/rsettingswidget.cpp:28
 #, kde-format
@@ -2452,10 +2444,9 @@ msgid "Python script file (*.py);;Sage script file (*.sage)"
 msgstr "Python-skriptfil (*.py);;Sage-skriptfil (*.sage)"
 
 #: backends/sage/sagesession.cpp:124
-#, fuzzy, kde-format
-#| msgid "Failed to start Maxima, please check Maxima's installation."
+#, kde-format
 msgid "Failed to start Sage, please check Sage installation."
-msgstr "Misslyckades starta Maxima. Kontrollera Maximas installation."
+msgstr "Misslyckades starta Sage. Kontrollera Sages installation."
 
 #: backends/sage/sagesession.cpp:263
 #, kde-format
@@ -2552,10 +2543,9 @@ msgid ";;Scilab script file (*.sce);;Scilab function file (*.sci)"
 msgstr ";;Scilab-skriptfil (*.sce);;Scilab-funktionsfil (*.sci)"
 
 #: backends/scilab/scilabsession.cpp:67
-#, fuzzy, kde-format
-#| msgid "Failed to start Maxima, please check Maxima's installation."
+#, kde-format
 msgid "Failed to start Scilab, please check Scilab installation."
-msgstr "Misslyckades starta Maxima. Kontrollera Maximas installation."
+msgstr "Misslyckades starta Scilab. Kontrollera Scilabs installation."
 
 #. i18n: ectx: property (text), widget (QLabel, lPlotIntegration)
 #: backends/scilab/settings.ui:37

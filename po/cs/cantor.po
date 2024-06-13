@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-06-12 01:46+0000\n"
-"PO-Revision-Date: 2024-05-29 11:31+0200\n"
+"PO-Revision-Date: 2024-06-12 14:35+0200\n"
 "Last-Translator: Vit Pelcak <vpelcak@suse.cz>\n"
 "Language-Team: Czech <kde-i18n-doc@kde.org>\n"
 "Language: cs\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
-"X-Generator: Lokalize 24.02.2\n"
+"X-Generator: Lokalize 24.05.0\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -385,10 +385,9 @@ msgid "Julia script file (*.jl)"
 msgstr "Soubor se skriptem julia (*.jl)"
 
 #: backends/julia/juliasession.cpp:70
-#, fuzzy, kde-format
-#| msgid "Failed to start Maxima, please check Maxima's installation."
+#, kde-format
 msgid "Failed to start Julia, please check Julia installation."
-msgstr "Nelze spustit Maxima proces. Prosím ověřte si instalaci Maxima."
+msgstr "Julia nelze spustit. Prosím ověřte si instalaci Julia."
 
 #: backends/julia/juliasession.cpp:119 backends/julia/juliasession.cpp:128
 #: backends/maxima/maximasession.cpp:283 cantor_part.cpp:964
@@ -710,10 +709,9 @@ msgid "Lua script file (*.lua)"
 msgstr "Soubor se skriptem Lua (*.lua)"
 
 #: backends/lua/luasession.cpp:59
-#, fuzzy, kde-format
-#| msgid "Failed to start Maxima, please check Maxima's installation."
+#, kde-format
 msgid "Failed to start Lua, please check Lua installation."
-msgstr "Nelze spustit Maxima proces. Prosím ověřte si instalaci Maxima."
+msgstr "Lua nelze spustit. Prosím ověřte si instalaci Lua."
 
 #. i18n: ectx: property (text), widget (QLabel, label)
 #: backends/lua/settings.ui:27
@@ -843,12 +841,12 @@ msgid "Failed to start Maxima, please check Maxima's installation."
 msgstr "Nelze spustit Maxima proces. Prosím ověřte si instalaci Maxima."
 
 #: backends/maxima/maximasession.cpp:80
-#, fuzzy, kde-format
-#| msgid "Failed to start Maxima, please check Maxima's installation."
+#, kde-format
 msgid ""
 "Maxima didn't respond with the proper prompt, please check Maxima "
 "installation."
-msgstr "Nelze spustit Maxima proces. Prosím ověřte si instalaci Maxima."
+msgstr ""
+"Maxima nereaguje na správné zavolání. Prosím ověřte si instalaci Maxima."
 
 #: backends/maxima/maximasession.cpp:202
 #, kde-format
@@ -909,10 +907,9 @@ msgid "Octave script file (*.m)"
 msgstr "Soubor se skriptem Octave (*.m)"
 
 #: backends/octave/octavesession.cpp:98
-#, fuzzy, kde-format
-#| msgid "Failed to start Maxima, please check Maxima's installation."
+#, kde-format
 msgid "Failed to start Octave, please check Octave installation."
-msgstr "Nelze spustit Maxima proces. Prosím ověřte si instalaci Maxima."
+msgstr "Octave nelze spustit. Prosím ověřte si instalaci Octave."
 
 #: backends/octave/octavesession.cpp:282 backends/sage/sageexpression.cpp:49
 #, kde-format
@@ -968,10 +965,9 @@ msgid "Python script file (*.py)"
 msgstr "Soubor se skriptem v Pythonu (*.py)"
 
 #: backends/python/pythonsession.cpp:74
-#, fuzzy, kde-format
-#| msgid "Failed to start Maxima, please check Maxima's installation."
+#, kde-format
 msgid "Failed to start Python, please check Python installation."
-msgstr "Nelze spustit Maxima proces. Prosím ověřte si instalaci Maxima."
+msgstr "Python nelze spustit. Prosím ověřte si instalaci Pythonu."
 
 #: backends/python/pythonsession.cpp:283
 #, kde-format
@@ -2259,10 +2255,9 @@ msgid "Url to the local R documentation"
 msgstr ""
 
 #: backends/R/rsession.cpp:54
-#, fuzzy, kde-format
-#| msgid "Failed to start Maxima, please check Maxima's installation."
+#, kde-format
 msgid "Failed to start R, please check R installation."
-msgstr "Nelze spustit Maxima proces. Prosím ověřte si instalaci Maxima."
+msgstr "R nelze spustit. Prosím ověřte si instalaci R."
 
 #: backends/R/rsettingswidget.cpp:28
 #, kde-format
@@ -2327,10 +2322,9 @@ msgid "Python script file (*.py);;Sage script file (*.sage)"
 msgstr "Soubor se skriptem v Pythonu (*.py);;Soubor se skriptem Sage (*.sage)"
 
 #: backends/sage/sagesession.cpp:124
-#, fuzzy, kde-format
-#| msgid "Failed to start Maxima, please check Maxima's installation."
+#, kde-format
 msgid "Failed to start Sage, please check Sage installation."
-msgstr "Nelze spustit Maxima proces. Prosím ověřte si instalaci Maxima."
+msgstr "Sage nelze spustit. Prosím ověřte si instalaci Sage."
 
 #: backends/sage/sagesession.cpp:263
 #, kde-format
@@ -2420,10 +2414,9 @@ msgid ";;Scilab script file (*.sce);;Scilab function file (*.sci)"
 msgstr ";;Soubor se skriptem v Scilab (*.sce);;Funkční soubor Scilab (*.sci)"
 
 #: backends/scilab/scilabsession.cpp:67
-#, fuzzy, kde-format
-#| msgid "Failed to start Maxima, please check Maxima's installation."
+#, kde-format
 msgid "Failed to start Scilab, please check Scilab installation."
-msgstr "Nelze spustit Maxima proces. Prosím ověřte si instalaci Maxima."
+msgstr "Scilab nelze spustit. Prosím ověřte si instalaci Scilab."
 
 #. i18n: ectx: property (text), widget (QLabel, lPlotIntegration)
 #: backends/scilab/settings.ui:37

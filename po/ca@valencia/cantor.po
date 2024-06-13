@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: cantor\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-06-12 01:46+0000\n"
-"PO-Revision-Date: 2024-05-15 09:36+0200\n"
+"PO-Revision-Date: 2024-06-12 13:08+0200\n"
 "Last-Translator: Josep M. Ferrer <txemaq@gmail.com>\n"
 "Language-Team: Catalan <kde-i18n-ca@kde.org>\n"
 "Language: ca@valencia\n"
@@ -395,10 +395,9 @@ msgid "Julia script file (*.jl)"
 msgstr "Fitxer de script de Julia (*.jl)"
 
 #: backends/julia/juliasession.cpp:70
-#, fuzzy, kde-format
-#| msgid "Failed to start Maxima, please check Maxima's installation."
+#, kde-format
 msgid "Failed to start Julia, please check Julia installation."
-msgstr "No s'ha pogut iniciar Maxima. Verifiqueu la instal·lació de Maxima."
+msgstr "No s'ha pogut iniciar Julia. Verifiqueu la seua instal·lació."
 
 #: backends/julia/juliasession.cpp:119 backends/julia/juliasession.cpp:128
 #: backends/maxima/maximasession.cpp:283 cantor_part.cpp:964
@@ -741,10 +740,9 @@ msgid "Lua script file (*.lua)"
 msgstr "Fitxer de script de Lua (*.lua)"
 
 #: backends/lua/luasession.cpp:59
-#, fuzzy, kde-format
-#| msgid "Failed to start Maxima, please check Maxima's installation."
+#, kde-format
 msgid "Failed to start Lua, please check Lua installation."
-msgstr "No s'ha pogut iniciar Maxima. Verifiqueu la instal·lació de Maxima."
+msgstr "No s'ha pogut iniciar Lua. Verifiqueu la seua instal·lació."
 
 #. i18n: ectx: property (text), widget (QLabel, label)
 #: backends/lua/settings.ui:27
@@ -909,19 +907,16 @@ msgstr "Fitxer de procés per lots de Maxima (*.mac)"
 #: backends/maxima/maximasession.cpp:61
 #, kde-format
 msgid "Failed to start Maxima, please check Maxima's installation."
-msgstr "No s'ha pogut iniciar Maxima. Verifiqueu la instal·lació de Maxima."
+msgstr "No s'ha pogut iniciar Maxima. Verifiqueu la seua instal·lació."
 
 #: backends/maxima/maximasession.cpp:80
-#, fuzzy, kde-format
-#| msgid ""
-#| "Maxima didn't respond with the proper prompt, please check Maxima's "
-#| "installation."
+#, kde-format
 msgid ""
 "Maxima didn't respond with the proper prompt, please check Maxima "
 "installation."
 msgstr ""
-"Maxima no ha respost amb l'indicatiu adequat. Verifiqueu la instal·lació de "
-"Maxima."
+"Maxima no ha respost amb l'indicatiu adequat. Verifiqueu la seua "
+"instal·lació."
 
 #: backends/maxima/maximasession.cpp:202
 #, kde-format
@@ -982,10 +977,9 @@ msgid "Octave script file (*.m)"
 msgstr "Fitxer script d'Octave (*.m)"
 
 #: backends/octave/octavesession.cpp:98
-#, fuzzy, kde-format
-#| msgid "Failed to start Maxima, please check Maxima's installation."
+#, kde-format
 msgid "Failed to start Octave, please check Octave installation."
-msgstr "No s'ha pogut iniciar Maxima. Verifiqueu la instal·lació de Maxima."
+msgstr "No s'ha pogut iniciar Octave. Verifiqueu la seua instal·lació."
 
 #: backends/octave/octavesession.cpp:282 backends/sage/sageexpression.cpp:49
 #, kde-format
@@ -1044,10 +1038,9 @@ msgid "Python script file (*.py)"
 msgstr "Fitxer de script en Python (*.py)"
 
 #: backends/python/pythonsession.cpp:74
-#, fuzzy, kde-format
-#| msgid "Failed to start Maxima, please check Maxima's installation."
+#, kde-format
 msgid "Failed to start Python, please check Python installation."
-msgstr "No s'ha pogut iniciar Maxima. Verifiqueu la instal·lació de Maxima."
+msgstr "No s'ha pogut iniciar Python. Verifiqueu la seua instal·lació."
 
 #: backends/python/pythonsession.cpp:283
 #, kde-format
@@ -2416,10 +2409,9 @@ msgid "Url to the local R documentation"
 msgstr "URL cap a la documentació local d'R"
 
 #: backends/R/rsession.cpp:54
-#, fuzzy, kde-format
-#| msgid "Failed to start Maxima, please check Maxima's installation."
+#, kde-format
 msgid "Failed to start R, please check R installation."
-msgstr "No s'ha pogut iniciar Maxima. Verifiqueu la instal·lació de Maxima."
+msgstr "No s'ha pogut iniciar R. Verifiqueu la seua instal·lació."
 
 #: backends/R/rsettingswidget.cpp:28
 #, kde-format
@@ -2484,10 +2476,9 @@ msgid "Python script file (*.py);;Sage script file (*.sage)"
 msgstr "Fitxer de script en Python (*.py);;Fitxer de script de Sage (*.sage)"
 
 #: backends/sage/sagesession.cpp:124
-#, fuzzy, kde-format
-#| msgid "Failed to start Maxima, please check Maxima's installation."
+#, kde-format
 msgid "Failed to start Sage, please check Sage installation."
-msgstr "No s'ha pogut iniciar Maxima. Verifiqueu la instal·lació de Maxima."
+msgstr "No s'ha pogut iniciar Sage. Verifiqueu la seua instal·lació."
 
 #: backends/sage/sagesession.cpp:263
 #, kde-format
@@ -2586,10 +2577,9 @@ msgstr ""
 "::Fitxer de script de Scilab (*.sce);;Fitxer de funció de Scilab (*.sci)"
 
 #: backends/scilab/scilabsession.cpp:67
-#, fuzzy, kde-format
-#| msgid "Failed to start Maxima, please check Maxima's installation."
+#, kde-format
 msgid "Failed to start Scilab, please check Scilab installation."
-msgstr "No s'ha pogut iniciar Maxima. Verifiqueu la instal·lació de Maxima."
+msgstr "No s'ha pogut iniciar Scilab. Verifiqueu la seua instal·lació."
 
 #. i18n: ectx: property (text), widget (QLabel, lPlotIntegration)
 #: backends/scilab/settings.ui:37
@@ -3690,7 +3680,7 @@ msgid ""
 "the application settings and try again."
 msgstr ""
 "No s'ha especificat cap camí cap a l'executable «%1». Proporcioneu el camí "
-"correcte en la configuració de l'aplicació i torneu-ho a intentar."
+"correcte en la configuració de l'aplicació i torneu-ho a provar."
 
 #: lib/backend.cpp:173
 #, kde-format
@@ -3699,7 +3689,7 @@ msgid ""
 "the correct path in the application settings and try again."
 msgstr ""
 "El fitxer «%1» especificat com a executable de %2 no existix. Proporcioneu "
-"el camí correcte en la configuració de l'aplicació i torneu-ho a intentar."
+"el camí correcte en la configuració de l'aplicació i torneu-ho a provar."
 
 #: lib/backend.cpp:182
 #, kde-format
@@ -3708,7 +3698,7 @@ msgid ""
 "correct path in the application settings and try again."
 msgstr ""
 "El fitxer «%1» especificat no apunta a cap executable. Proporcioneu el camí "
-"correcte en la configuració de l'aplicació i torneu-ho a intentar."
+"correcte en la configuració de l'aplicació i torneu-ho a provar."
 
 #: lib/backend.cpp:201
 #, kde-format

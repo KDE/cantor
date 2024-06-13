@@ -13,7 +13,7 @@ msgstr ""
 "Project-Id-Version: kdeedu-kde4\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-06-12 01:46+0000\n"
-"PO-Revision-Date: 2024-05-15 13:58+0300\n"
+"PO-Revision-Date: 2024-06-12 14:12+0300\n"
 "Last-Translator: Emir SARI <emir_sari@icloud.com>\n"
 "Language-Team: Turkish <kde-l10n-tr@kde.org>\n"
 "Language: tr\n"
@@ -396,10 +396,9 @@ msgid "Julia script file (*.jl)"
 msgstr "Julia betik dosyası (*.jl)"
 
 #: backends/julia/juliasession.cpp:70
-#, fuzzy, kde-format
-#| msgid "Failed to start Maxima, please check Maxima's installation."
+#, kde-format
 msgid "Failed to start Julia, please check Julia installation."
-msgstr "Maxima başlatılamadı, lütfen Maxima kurulumunu denetleyin."
+msgstr "Julia başlatılamadı, lütfen Julia kurulumunu denetleyin."
 
 #: backends/julia/juliasession.cpp:119 backends/julia/juliasession.cpp:128
 #: backends/maxima/maximasession.cpp:283 cantor_part.cpp:964
@@ -737,10 +736,9 @@ msgid "Lua script file (*.lua)"
 msgstr "Lua betik dosyası (*.lua)"
 
 #: backends/lua/luasession.cpp:59
-#, fuzzy, kde-format
-#| msgid "Failed to start Maxima, please check Maxima's installation."
+#, kde-format
 msgid "Failed to start Lua, please check Lua installation."
-msgstr "Maxima başlatılamadı, lütfen Maxima kurulumunu denetleyin."
+msgstr "Lua başlatılamadı, lütfen Lua kurulumunu denetleyin."
 
 #. i18n: ectx: property (text), widget (QLabel, label)
 #: backends/lua/settings.ui:27
@@ -903,10 +901,7 @@ msgid "Failed to start Maxima, please check Maxima's installation."
 msgstr "Maxima başlatılamadı, lütfen Maxima kurulumunu denetleyin."
 
 #: backends/maxima/maximasession.cpp:80
-#, fuzzy, kde-format
-#| msgid ""
-#| "Maxima didn't respond with the proper prompt, please check Maxima's "
-#| "installation."
+#, kde-format
 msgid ""
 "Maxima didn't respond with the proper prompt, please check Maxima "
 "installation."
@@ -970,10 +965,9 @@ msgid "Octave script file (*.m)"
 msgstr "Octave betik dosyası (*.m)"
 
 #: backends/octave/octavesession.cpp:98
-#, fuzzy, kde-format
-#| msgid "Failed to start Maxima, please check Maxima's installation."
+#, kde-format
 msgid "Failed to start Octave, please check Octave installation."
-msgstr "Maxima başlatılamadı, lütfen Maxima kurulumunu denetleyin."
+msgstr "Octave başlatılamadı, lütfen Octave kurulumunu denetleyin."
 
 #: backends/octave/octavesession.cpp:282 backends/sage/sageexpression.cpp:49
 #, kde-format
@@ -1032,10 +1026,9 @@ msgid "Python script file (*.py)"
 msgstr "Python betik dosyası (*.py)"
 
 #: backends/python/pythonsession.cpp:74
-#, fuzzy, kde-format
-#| msgid "Failed to start Maxima, please check Maxima's installation."
+#, kde-format
 msgid "Failed to start Python, please check Python installation."
-msgstr "Maxima başlatılamadı, lütfen Maxima kurulumunu denetleyin."
+msgstr "Python başlatılamadı, lütfen Python kurulumunu denetleyin."
 
 #: backends/python/pythonsession.cpp:283
 #, kde-format
@@ -2387,10 +2380,9 @@ msgid "Url to the local R documentation"
 msgstr "Yerel R belgelendirmesi URL'si"
 
 #: backends/R/rsession.cpp:54
-#, fuzzy, kde-format
-#| msgid "Failed to start Maxima, please check Maxima's installation."
+#, kde-format
 msgid "Failed to start R, please check R installation."
-msgstr "Maxima başlatılamadı, lütfen Maxima kurulumunu denetleyin."
+msgstr "R başlatılamadı, lütfen R kurulumunu denetleyin."
 
 #: backends/R/rsettingswidget.cpp:28
 #, kde-format
@@ -2455,10 +2447,9 @@ msgid "Python script file (*.py);;Sage script file (*.sage)"
 msgstr "Python betik dosyası (*.py);;Sage betik dosyası (*.sage)"
 
 #: backends/sage/sagesession.cpp:124
-#, fuzzy, kde-format
-#| msgid "Failed to start Maxima, please check Maxima's installation."
+#, kde-format
 msgid "Failed to start Sage, please check Sage installation."
-msgstr "Maxima başlatılamadı, lütfen Maxima kurulumunu denetleyin."
+msgstr "Sage başlatılamadı, lütfen Sage kurulumunu denetleyin."
 
 #: backends/sage/sagesession.cpp:263
 #, kde-format
@@ -2555,10 +2546,9 @@ msgid ";;Scilab script file (*.sce);;Scilab function file (*.sci)"
 msgstr ";;Scilab betik dosyası (*.sce);;Scilab işlev dosyası (*.sci)"
 
 #: backends/scilab/scilabsession.cpp:67
-#, fuzzy, kde-format
-#| msgid "Failed to start Maxima, please check Maxima's installation."
+#, kde-format
 msgid "Failed to start Scilab, please check Scilab installation."
-msgstr "Maxima başlatılamadı, lütfen Maxima kurulumunu denetleyin."
+msgstr "Scilab başlatılamadı, lütfen Scilab kurulumunu denetleyin."
 
 #. i18n: ectx: property (text), widget (QLabel, lPlotIntegration)
 #: backends/scilab/settings.ui:37

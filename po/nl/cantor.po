@@ -12,14 +12,14 @@ msgstr ""
 "Project-Id-Version: cantor\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-06-12 01:46+0000\n"
-"PO-Revision-Date: 2024-05-15 09:41+0200\n"
+"PO-Revision-Date: 2024-06-12 10:11+0200\n"
 "Last-Translator: Freek de Kruijf <freekdekruijf@kde.nl>\n"
 "Language-Team: \n"
 "Language: nl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Lokalize 24.02.2\n"
+"X-Generator: Lokalize 24.05.0\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 
 #, kde-format
@@ -396,10 +396,9 @@ msgid "Julia script file (*.jl)"
 msgstr "Julia script-bestand (*.jl)"
 
 #: backends/julia/juliasession.cpp:70
-#, fuzzy, kde-format
-#| msgid "Failed to start Maxima, please check Maxima's installation."
+#, kde-format
 msgid "Failed to start Julia, please check Julia installation."
-msgstr "Maxima starten is mislukt, controleer de installatie van Maxima."
+msgstr "Julia starten is mislukt, controleer de installatie van Julia."
 
 #: backends/julia/juliasession.cpp:119 backends/julia/juliasession.cpp:128
 #: backends/maxima/maximasession.cpp:283 cantor_part.cpp:964
@@ -738,10 +737,9 @@ msgid "Lua script file (*.lua)"
 msgstr "Lua scriptbestand (*.lua)"
 
 #: backends/lua/luasession.cpp:59
-#, fuzzy, kde-format
-#| msgid "Failed to start Maxima, please check Maxima's installation."
+#, kde-format
 msgid "Failed to start Lua, please check Lua installation."
-msgstr "Maxima starten is mislukt, controleer de installatie van Maxima."
+msgstr "Lua starten is mislukt, controleer de installatie van Lua."
 
 #. i18n: ectx: property (text), widget (QLabel, label)
 #: backends/lua/settings.ui:27
@@ -909,10 +907,7 @@ msgid "Failed to start Maxima, please check Maxima's installation."
 msgstr "Maxima starten is mislukt, controleer de installatie van Maxima."
 
 #: backends/maxima/maximasession.cpp:80
-#, fuzzy, kde-format
-#| msgid ""
-#| "Maxima didn't respond with the proper prompt, please check Maxima's "
-#| "installation."
+#, kde-format
 msgid ""
 "Maxima didn't respond with the proper prompt, please check Maxima "
 "installation."
@@ -979,10 +974,9 @@ msgid "Octave script file (*.m)"
 msgstr "Octave scriptbestand (*.m)"
 
 #: backends/octave/octavesession.cpp:98
-#, fuzzy, kde-format
-#| msgid "Failed to start Maxima, please check Maxima's installation."
+#, kde-format
 msgid "Failed to start Octave, please check Octave installation."
-msgstr "Maxima starten is mislukt, controleer de installatie van Maxima."
+msgstr "Octave starten is mislukt, controleer de installatie van Octave."
 
 #: backends/octave/octavesession.cpp:282 backends/sage/sageexpression.cpp:49
 #, kde-format
@@ -1041,10 +1035,9 @@ msgid "Python script file (*.py)"
 msgstr "Python scriptbestand (*.py)"
 
 #: backends/python/pythonsession.cpp:74
-#, fuzzy, kde-format
-#| msgid "Failed to start Maxima, please check Maxima's installation."
+#, kde-format
 msgid "Failed to start Python, please check Python installation."
-msgstr "Maxima starten is mislukt, controleer de installatie van Maxima."
+msgstr "Python starten is mislukt, controleer de installatie van Python."
 
 #: backends/python/pythonsession.cpp:283
 #, kde-format
@@ -2398,10 +2391,9 @@ msgid "Url to the local R documentation"
 msgstr "Url documentatie van R op de computer"
 
 #: backends/R/rsession.cpp:54
-#, fuzzy, kde-format
-#| msgid "Failed to start Maxima, please check Maxima's installation."
+#, kde-format
 msgid "Failed to start R, please check R installation."
-msgstr "Maxima starten is mislukt, controleer de installatie van Maxima."
+msgstr "R starten is mislukt, controleer de installatie van R."
 
 #: backends/R/rsettingswidget.cpp:28
 #, kde-format
@@ -2466,10 +2458,9 @@ msgid "Python script file (*.py);;Sage script file (*.sage)"
 msgstr "Python scriptbestand (*.py);;Sage scriptbestand( *.sage)"
 
 #: backends/sage/sagesession.cpp:124
-#, fuzzy, kde-format
-#| msgid "Failed to start Maxima, please check Maxima's installation."
+#, kde-format
 msgid "Failed to start Sage, please check Sage installation."
-msgstr "Maxima starten is mislukt, controleer de installatie van Maxima."
+msgstr "Sage starten is mislukt, controleer de installatie van Sage."
 
 #: backends/sage/sagesession.cpp:263
 #, kde-format
@@ -2567,10 +2558,9 @@ msgid ";;Scilab script file (*.sce);;Scilab function file (*.sci)"
 msgstr ";;Scilab scriptbestand (*.sce);;Scilab functiebestand (*.sci)"
 
 #: backends/scilab/scilabsession.cpp:67
-#, fuzzy, kde-format
-#| msgid "Failed to start Maxima, please check Maxima's installation."
+#, kde-format
 msgid "Failed to start Scilab, please check Scilab installation."
-msgstr "Maxima starten is mislukt, controleer de installatie van Maxima."
+msgstr "Scilab starten is mislukt, controleer de installatie van Scilab."
 
 #. i18n: ectx: property (text), widget (QLabel, lPlotIntegration)
 #: backends/scilab/settings.ui:37
