@@ -26,14 +26,12 @@ class PythonSession : public Cantor::Session
     Cantor::Expression* evaluateExpression(const QString& command, Cantor::Expression::FinishingBehavior behave = Cantor::Expression::FinishingBehavior::DoNotDelete, bool internal = false) override;
     Cantor::CompletionObject* completionFor(const QString& command, int index=-1) override;
     QSyntaxHighlighter* syntaxHighlighter(QObject* parent) override;
-    void setWorksheetPath(const QString&) override;
 
     QString plotFilePrefixPath();
     int& plotFileCounter();
 
   private:
     QProcess* m_process{nullptr};
-    QString m_worksheetPath;
     QString m_output;
     QString m_plotFilePrefixPath;
     int m_plotFileCounter{0};

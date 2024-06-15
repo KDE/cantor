@@ -102,16 +102,12 @@ string PythonServer::getOutput() const
 
 void PythonServer::setFilePath(const string& path, const string& dir)
 {
-    PyRun_SimpleString(("import sys; sys.argv = ['" + path + "']").c_str());
-    if (path.length() == 0) // New session, not from file
-    {
-        PyRun_SimpleString("import sys; sys.path.insert(0, '')");
-    }
-    else
+    if (path.length() != 0)
     {
         this->filePath = path;
         PyRun_SimpleString(("import sys; sys.path.insert(0, '" + dir + "')").c_str());
-        PyRun_SimpleString(("__file__ = '"+path+"'").c_str());
+        PyRun_SimpleString(("__file__ = '" + path + "'").c_str());
+        PyRun_SimpleString(("import os; os.chdir('" + dir + "')").c_str());
     }
 }
 

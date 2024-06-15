@@ -102,7 +102,6 @@ void OctaveSession::login()
         return;
     }
 
-
     connect(m_process, &QProcess::readyReadStandardOutput, this, &OctaveSession::readOutput);
     connect(m_process, &QProcess::readyReadStandardError, this, &OctaveSession::readError);
     connect(m_process, &QProcess::errorOccurred, this, &OctaveSession::processError);
@@ -124,7 +123,8 @@ void OctaveSession::login()
         updateVariables();
     }
 
-    if (!m_worksheetPath.isEmpty())
+    const auto& path = worksheetPath();
+    if (!path.isEmpty())
     {
         static const QString mfilenameTemplate = QLatin1String(
             "function retval = mfilename(arg_mem = \"\")\n"
@@ -142,21 +142,16 @@ void OctaveSession::login()
                 "endif\n"
             "endfunction"
         );
-        const QString& worksheetDirPath = QFileInfo(m_worksheetPath).absoluteDir().absolutePath();
-        const QString& worksheetPathWithoutExtension = m_worksheetPath.mid(0, m_worksheetPath.lastIndexOf(QLatin1Char('.')));
+        const QString& worksheetDirPath = QFileInfo(path).absoluteDir().absolutePath();
+        const QString& worksheetPathWithoutExtension = path.mid(0, path.lastIndexOf(QLatin1Char('.')));
 
         evaluateExpression(QLatin1String("cd ")+worksheetDirPath, OctaveExpression::DeleteOnFinish, true);
-        evaluateExpression(mfilenameTemplate.arg(worksheetPathWithoutExtension, m_worksheetPath), OctaveExpression::DeleteOnFinish, true);
+        evaluateExpression(mfilenameTemplate.arg(worksheetPathWithoutExtension, path), OctaveExpression::DeleteOnFinish, true);
     }
 
     changeStatus(Cantor::Session::Done);
     emit loginDone();
     qDebug()<<"login done";
-}
-
-void OctaveSession::setWorksheetPath(const QString& path)
-{
-    m_worksheetPath = path;
 }
 
 void OctaveSession::logout()

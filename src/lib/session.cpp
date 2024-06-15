@@ -35,6 +35,7 @@ class Cantor::SessionPrivate
     QList<GraphicPackage> enabledGraphicPackages;
     QList<QString> ignorableGraphicPackageIds;
     bool needUpdate{false};
+    QString worksheetPath;
 };
 
 Session::Session(Backend* backend ) : QObject(backend), d(new SessionPrivate)
@@ -171,7 +172,14 @@ bool Session::isTypesettingEnabled()
     return d->typesettingEnabled;
 }
 
-void Session::setWorksheetPath(const QString&) { }
+QString Session::worksheetPath() const {
+    return d->worksheetPath;
+}
+
+void Session::setWorksheetPath(const QString& path)
+{
+    d->worksheetPath = path;
+}
 
 CompletionObject* Session::completionFor(const QString&, int)
 {

@@ -57,7 +57,6 @@ class SageSession : public Cantor::Session
     void sendInputToProcess(const QString& input);
 
     void setTypesettingEnabled(bool) override;
-    void setWorksheetPath(const QString&) override;
 
     Cantor::CompletionObject* completionFor(const QString& command, int index=-1) override;
     QSyntaxHighlighter* syntaxHighlighter(QObject* parent) override;
@@ -85,7 +84,6 @@ class SageSession : public Cantor::Session
     QString m_outputCache;
     VersionInfo m_sageVersion;
     bool m_haveSentInitCmd{false};
-    QString m_worksheetPath;
 };
 
 #endif /* _SAGESESSION_H */

@@ -33,7 +33,6 @@ class OctaveSession : public Cantor::Session
         Cantor::SyntaxHelpObject* syntaxHelpFor(const QString& cmd) override;
         QSyntaxHighlighter* syntaxHighlighter(QObject* parent) override;
         void runFirstExpression() override;
-        void setWorksheetPath(const QString&) override;
 
         bool isIntegratedPlotsEnabled() const;
         QString plotFilePrefixPath() const;
@@ -50,7 +49,6 @@ class OctaveSession : public Cantor::Session
         bool m_syntaxError{false};
         QString m_output;
         QString m_plotFilePrefixPath;
-        QString m_worksheetPath;
         bool m_isIntegratedPlotsEnabled{false}; // Better move it in worksheet, like isCompletion, etc.
         bool m_writableTempFolder{false};
 

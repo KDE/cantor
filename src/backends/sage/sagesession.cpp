@@ -11,6 +11,8 @@
 #include "settings.h"
 
 #include <QDebug>
+#include <QDir>
+#include <QFileInfo>
 #include <QRegularExpression>
 
 #include <KLocalizedString>
@@ -167,10 +169,15 @@ void SageSession::login()
     //save the path to the worksheet as variable "__file__"
     //this variable is usually set by the "os" package when running a script
     //but when it is run in an interpreter (like sage server) it is not set
-    if (!m_worksheetPath.isEmpty())
+    const auto& path = worksheetPath();
+    if (!path.isEmpty())
     {
-        const QString cmd = QLatin1String("__file__ = '%1'");
-        evaluateExpression(cmd.arg(m_worksheetPath), Cantor::Expression::DeleteOnFinish, true);
+        auto cmd = QLatin1String("__file__ = '%1'").arg(path);
+        evaluateExpression(cmd, Cantor::Expression::DeleteOnFinish, true);
+
+        const auto& dir = QFileInfo(path).absoluteDir().absolutePath();
+        cmd = QLatin1String("cd '%1'").arg(dir);
+        evaluateExpression(cmd, Cantor::Expression::DeleteOnFinish, true);
     }
 
     //enable latex typesetting if needed
@@ -456,11 +463,6 @@ void SageSession::setTypesettingEnabled(bool enable)
     }
 
     Cantor::Session::setTypesettingEnabled(enable);
-}
-
-void SageSession::setWorksheetPath(const QString& path)
-{
-    m_worksheetPath = path;
 }
 
 Cantor::CompletionObject* SageSession::completionFor(const QString& command, int index)
