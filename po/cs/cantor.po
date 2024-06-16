@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-06-12 01:46+0000\n"
+"POT-Creation-Date: 2024-06-16 01:42+0000\n"
 "PO-Revision-Date: 2024-06-12 14:35+0200\n"
 "Last-Translator: Vit Pelcak <vpelcak@suse.cz>\n"
 "Language-Team: Czech <kde-i18n-doc@kde.org>\n"
@@ -391,7 +391,7 @@ msgstr "Julia nelze spustit. Prosím ověřte si instalaci Julia."
 
 #: backends/julia/juliasession.cpp:119 backends/julia/juliasession.cpp:128
 #: backends/maxima/maximasession.cpp:283 cantor_part.cpp:964
-#: lib/session.cpp:257 lib/session.cpp:259 worksheet.cpp:1201
+#: lib/session.cpp:265 lib/session.cpp:267 worksheet.cpp:1201
 #: worksheet.cpp:1229 worksheet.cpp:1244 worksheet.cpp:1260 worksheet.cpp:1304
 #: worksheet.cpp:1316
 #, kde-format
@@ -911,24 +911,24 @@ msgstr "Soubor se skriptem Octave (*.m)"
 msgid "Failed to start Octave, please check Octave installation."
 msgstr "Octave nelze spustit. Prosím ověřte si instalaci Octave."
 
-#: backends/octave/octavesession.cpp:282 backends/sage/sageexpression.cpp:49
+#: backends/octave/octavesession.cpp:277 backends/sage/sageexpression.cpp:49
 #, kde-format
 msgid "Syntax Error"
 msgstr "Chyba ve skladbě"
 
-#: backends/octave/octavesession.cpp:401
+#: backends/octave/octavesession.cpp:396
 #, kde-format
 msgid "Plot integration test failed."
 msgstr ""
 
-#: backends/octave/octavesession.cpp:405
+#: backends/octave/octavesession.cpp:400
 #, kde-format
 msgid "The integration of plots will be disabled."
 msgstr ""
 
-#: backends/octave/octavesession.cpp:406 backends/sage/sagesession.cpp:350
-#: backends/sage/sagesession.cpp:361 cantor.cpp:217 cantor.cpp:219
-#: cantor.cpp:338 cantor.cpp:345 lib/session.cpp:327 main.cpp:72 main.cpp:131
+#: backends/octave/octavesession.cpp:401 backends/sage/sagesession.cpp:357
+#: backends/sage/sagesession.cpp:368 cantor.cpp:217 cantor.cpp:219
+#: cantor.cpp:338 cantor.cpp:345 lib/session.cpp:335 main.cpp:72 main.cpp:131
 #: markdownentry.cpp:797 textentry.cpp:553 worksheet.cpp:1283
 #, kde-format
 msgid "Cantor"
@@ -969,29 +969,29 @@ msgstr "Soubor se skriptem v Pythonu (*.py)"
 msgid "Failed to start Python, please check Python installation."
 msgstr "Python nelze spustit. Prosím ověřte si instalaci Pythonu."
 
-#: backends/python/pythonsession.cpp:283
+#: backends/python/pythonsession.cpp:280
 #, kde-format
 msgid "Cantor Python server stopped working."
 msgstr ""
 
-#: backends/python/pythonsession.cpp:287
+#: backends/python/pythonsession.cpp:284
 #, kde-format
 msgid "Failed to start Cantor python server."
 msgstr ""
 
-#: backends/python/pythonsession.cpp:291
+#: backends/python/pythonsession.cpp:288
 #, kde-format
 msgid "Communication with Cantor python server failed for unknown reasons."
 msgstr ""
 
-#: backends/python/pythonsession.cpp:317
+#: backends/python/pythonsession.cpp:314
 #, kde-format
 msgid ""
 "For using integrated graphics with Matplotlib package, you need to install "
 "\"matplotlib\" python package first."
 msgstr ""
 
-#: backends/python/pythonsession.cpp:323
+#: backends/python/pythonsession.cpp:320
 #, kde-format
 msgid ""
 "For using integrated graphic with Plot.ly, you need to install \"plotly\" "
@@ -2321,12 +2321,12 @@ msgstr ""
 msgid "Python script file (*.py);;Sage script file (*.sage)"
 msgstr "Soubor se skriptem v Pythonu (*.py);;Soubor se skriptem Sage (*.sage)"
 
-#: backends/sage/sagesession.cpp:124
+#: backends/sage/sagesession.cpp:126
 #, kde-format
 msgid "Failed to start Sage, please check Sage installation."
 msgstr "Sage nelze spustit. Prosím ověřte si instalaci Sage."
 
-#: backends/sage/sagesession.cpp:263
+#: backends/sage/sagesession.cpp:270
 #, kde-format
 msgid ""
 "Sage version %1.%2 is unsupported. Please update your installation to the "
@@ -2335,39 +2335,39 @@ msgstr ""
 "Sage ve verzi %1.%2 je nepodporován. Prosím, aktualizujte jej na verzi 9.2 "
 "nebo vyšší."
 
-#: backends/sage/sagesession.cpp:265 backends/sage/sagesession.cpp:285
+#: backends/sage/sagesession.cpp:272 backends/sage/sagesession.cpp:292
 #, kde-format
 msgid "Unsupported Version"
 msgstr "Nepodporovaná verze"
 
-#: backends/sage/sagesession.cpp:284
+#: backends/sage/sagesession.cpp:291
 #, kde-format
 msgid ""
 "Failed to determine the version of Sage. Please check your installation and "
 "the output of 'sage -v'."
 msgstr ""
 
-#: backends/sage/sagesession.cpp:346
+#: backends/sage/sagesession.cpp:353
 #, kde-format
 msgid "The Sage process crashed while evaluating this expression"
 msgstr "Během počítání tohoto výrazu proces Sage spadl"
 
-#: backends/sage/sagesession.cpp:350
+#: backends/sage/sagesession.cpp:357
 #, kde-format
 msgid "The Sage process crashed"
 msgstr "Proces Sage spadl"
 
-#: backends/sage/sagesession.cpp:357
+#: backends/sage/sagesession.cpp:364
 #, kde-format
 msgid "The Sage process exited while evaluating this expression"
 msgstr "Během počítání tohoto výrazu byl proces Sage ukončen"
 
-#: backends/sage/sagesession.cpp:361
+#: backends/sage/sagesession.cpp:368
 #, kde-format
 msgid "The Sage process exited"
 msgstr "Proces Sage byl ukončen"
 
-#: backends/sage/sagesession.cpp:371
+#: backends/sage/sagesession.cpp:378
 #, kde-format
 msgid "Failed to start Sage"
 msgstr "Sage nelze spustit"
@@ -3614,19 +3614,19 @@ msgstr "Název grafu:"
 msgid "This is unsupported Jupyter content of types ('%1')"
 msgstr ""
 
-#: lib/session.cpp:257
+#: lib/session.cpp:265
 #, kde-format
 msgid "%1 process has died unexpectedly. All calculation results are lost."
 msgstr ""
 
-#: lib/session.cpp:259
+#: lib/session.cpp:267
 #, kde-format
 msgid ""
 "%1 process has died unexpectedly with message \"%2\". All calculation "
 "results are lost."
 msgstr ""
 
-#: lib/session.cpp:325
+#: lib/session.cpp:333
 #, kde-format
 msgid ""
 "You choose support for %1 graphic package, but the support can't be "

@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-06-12 01:46+0000\n"
+"POT-Creation-Date: 2024-06-16 01:42+0000\n"
 "PO-Revision-Date: 2023-11-05 00:59+0100\n"
 "Last-Translator: Shinjo Park <kde@peremen.name>\n"
 "Language-Team: Korean <kde-kr@kde.org>\n"
@@ -396,7 +396,7 @@ msgstr "Julia 프로세스를 시작할 수 없습니다."
 
 #: backends/julia/juliasession.cpp:119 backends/julia/juliasession.cpp:128
 #: backends/maxima/maximasession.cpp:283 cantor_part.cpp:964
-#: lib/session.cpp:257 lib/session.cpp:259 worksheet.cpp:1201
+#: lib/session.cpp:265 lib/session.cpp:267 worksheet.cpp:1201
 #: worksheet.cpp:1229 worksheet.cpp:1244 worksheet.cpp:1260 worksheet.cpp:1304
 #: worksheet.cpp:1316
 #, kde-format
@@ -953,24 +953,24 @@ msgstr "Octave 스크립트 파일 (*.m)"
 msgid "Failed to start Octave, please check Octave installation."
 msgstr ""
 
-#: backends/octave/octavesession.cpp:282 backends/sage/sageexpression.cpp:49
+#: backends/octave/octavesession.cpp:277 backends/sage/sageexpression.cpp:49
 #, kde-format
 msgid "Syntax Error"
 msgstr "구문 오류"
 
-#: backends/octave/octavesession.cpp:401
+#: backends/octave/octavesession.cpp:396
 #, kde-format
 msgid "Plot integration test failed."
 msgstr "플롯 통합 시험이 실패했습니다."
 
-#: backends/octave/octavesession.cpp:405
+#: backends/octave/octavesession.cpp:400
 #, kde-format
 msgid "The integration of plots will be disabled."
 msgstr "플롯 통합이 비활성화됩니다."
 
-#: backends/octave/octavesession.cpp:406 backends/sage/sagesession.cpp:350
-#: backends/sage/sagesession.cpp:361 cantor.cpp:217 cantor.cpp:219
-#: cantor.cpp:338 cantor.cpp:345 lib/session.cpp:327 main.cpp:72 main.cpp:131
+#: backends/octave/octavesession.cpp:401 backends/sage/sagesession.cpp:357
+#: backends/sage/sagesession.cpp:368 cantor.cpp:217 cantor.cpp:219
+#: cantor.cpp:338 cantor.cpp:345 lib/session.cpp:335 main.cpp:72 main.cpp:131
 #: markdownentry.cpp:797 textentry.cpp:553 worksheet.cpp:1283
 #, kde-format
 msgid "Cantor"
@@ -1013,22 +1013,22 @@ msgstr "Python 스크립트 파일 (*.py)"
 msgid "Failed to start Python, please check Python installation."
 msgstr ""
 
-#: backends/python/pythonsession.cpp:283
+#: backends/python/pythonsession.cpp:280
 #, kde-format
 msgid "Cantor Python server stopped working."
 msgstr "Cantor Python 서버가 중단되었습니다."
 
-#: backends/python/pythonsession.cpp:287
+#: backends/python/pythonsession.cpp:284
 #, kde-format
 msgid "Failed to start Cantor python server."
 msgstr "Cantor Python 서버를 시작할 수 없습니다."
 
-#: backends/python/pythonsession.cpp:291
+#: backends/python/pythonsession.cpp:288
 #, kde-format
 msgid "Communication with Cantor python server failed for unknown reasons."
 msgstr "알 수 없는 이유로 Cantor Python 서버 프로세스와 통신할 수 없습니다."
 
-#: backends/python/pythonsession.cpp:317
+#: backends/python/pythonsession.cpp:314
 #, kde-format
 msgid ""
 "For using integrated graphics with Matplotlib package, you need to install "
@@ -1037,7 +1037,7 @@ msgstr ""
 "Matplotlib 패키지의 내장 그래픽을 사용하려면 \"matplotlib\" Python 패키지를 "
 "먼저 설치하십시오."
 
-#: backends/python/pythonsession.cpp:323
+#: backends/python/pythonsession.cpp:320
 #, kde-format
 msgid ""
 "For using integrated graphic with Plot.ly, you need to install \"plotly\" "
@@ -2413,12 +2413,12 @@ msgstr ""
 msgid "Python script file (*.py);;Sage script file (*.sage)"
 msgstr "Python 스크립트 파일 (*.py);;Sage 스크립트 파일 (*.sage)"
 
-#: backends/sage/sagesession.cpp:124
+#: backends/sage/sagesession.cpp:126
 #, kde-format
 msgid "Failed to start Sage, please check Sage installation."
 msgstr ""
 
-#: backends/sage/sagesession.cpp:263
+#: backends/sage/sagesession.cpp:270
 #, kde-format
 msgid ""
 "Sage version %1.%2 is unsupported. Please update your installation to the "
@@ -2426,12 +2426,12 @@ msgid ""
 msgstr ""
 "Sage 버전 %1.%2은(는) 지원하지 않습니다. 9.2 이상으로 업그레이드하십시오."
 
-#: backends/sage/sagesession.cpp:265 backends/sage/sagesession.cpp:285
+#: backends/sage/sagesession.cpp:272 backends/sage/sagesession.cpp:292
 #, kde-format
 msgid "Unsupported Version"
 msgstr "지원하지 않는 버전"
 
-#: backends/sage/sagesession.cpp:284
+#: backends/sage/sagesession.cpp:291
 #, kde-format
 msgid ""
 "Failed to determine the version of Sage. Please check your installation and "
@@ -2440,27 +2440,27 @@ msgstr ""
 "Sage의 버전을 알 수 없습니다. 설치 상태와 'sage -v' 명령의 출력을 확인하십시"
 "오."
 
-#: backends/sage/sagesession.cpp:346
+#: backends/sage/sagesession.cpp:353
 #, kde-format
 msgid "The Sage process crashed while evaluating this expression"
 msgstr "이 수식을 처리하는 중 Sage 프로세스가 충돌함"
 
-#: backends/sage/sagesession.cpp:350
+#: backends/sage/sagesession.cpp:357
 #, kde-format
 msgid "The Sage process crashed"
 msgstr "Sage 프로세스가 충돌함"
 
-#: backends/sage/sagesession.cpp:357
+#: backends/sage/sagesession.cpp:364
 #, kde-format
 msgid "The Sage process exited while evaluating this expression"
 msgstr "이 수식을 처리하는 중 Sage 프로세스가 종료됨"
 
-#: backends/sage/sagesession.cpp:361
+#: backends/sage/sagesession.cpp:368
 #, kde-format
 msgid "The Sage process exited"
 msgstr "Sage 프로세스 종료됨"
 
-#: backends/sage/sagesession.cpp:371
+#: backends/sage/sagesession.cpp:378
 #, kde-format
 msgid "Failed to start Sage"
 msgstr "Sage를 시작할 수 없음"
@@ -3716,13 +3716,13 @@ msgstr "그래프 제목:"
 msgid "This is unsupported Jupyter content of types ('%1')"
 msgstr "지원하지 않는 Jupyter 내용 형식('%1')"
 
-#: lib/session.cpp:257
+#: lib/session.cpp:265
 #, kde-format
 msgid "%1 process has died unexpectedly. All calculation results are lost."
 msgstr ""
 "%1 프로세스가 예상하지 못하게 종료되었습니다. 모든 계산 결과가 손실됩니다."
 
-#: lib/session.cpp:259
+#: lib/session.cpp:267
 #, kde-format
 msgid ""
 "%1 process has died unexpectedly with message \"%2\". All calculation "
@@ -3731,7 +3731,7 @@ msgstr ""
 "%1 프로세스가 예상하지 못하게 종료되면서 메시지 \"%2\"을(를) 반환했습니다. 모"
 "든 계산 결과가 손실됩니다."
 
-#: lib/session.cpp:325
+#: lib/session.cpp:333
 #, kde-format
 msgid ""
 "You choose support for %1 graphic package, but the support can't be "

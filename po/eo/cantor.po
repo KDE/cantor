@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: cantor\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-06-12 01:46+0000\n"
+"POT-Creation-Date: 2024-06-16 01:42+0000\n"
 "PO-Revision-Date: 2024-05-26 07:22+0200\n"
 "Last-Translator: Oliver Kellogg <okellogg@users.sourceforge.net>\n"
 "Language-Team: esperanto <kde-i18n-eo@kde.org>\n"
@@ -403,7 +403,7 @@ msgstr "Malsukcesis lanĉi Maxima, bonvolu kontroli ties instalon."
 
 #: backends/julia/juliasession.cpp:119 backends/julia/juliasession.cpp:128
 #: backends/maxima/maximasession.cpp:283 cantor_part.cpp:964
-#: lib/session.cpp:257 lib/session.cpp:259 worksheet.cpp:1201
+#: lib/session.cpp:265 lib/session.cpp:267 worksheet.cpp:1201
 #: worksheet.cpp:1229 worksheet.cpp:1244 worksheet.cpp:1260 worksheet.cpp:1304
 #: worksheet.cpp:1316
 #, kde-format
@@ -978,24 +978,24 @@ msgstr "Oktava skriptodosiero (*.m)"
 msgid "Failed to start Octave, please check Octave installation."
 msgstr "Malsukcesis lanĉi Maxima, bonvolu kontroli ties instalon."
 
-#: backends/octave/octavesession.cpp:282 backends/sage/sageexpression.cpp:49
+#: backends/octave/octavesession.cpp:277 backends/sage/sageexpression.cpp:49
 #, kde-format
 msgid "Syntax Error"
 msgstr "Sintakso Eraro"
 
-#: backends/octave/octavesession.cpp:401
+#: backends/octave/octavesession.cpp:396
 #, kde-format
 msgid "Plot integration test failed."
 msgstr "Testo de integriĝo de desegno malsukcesis."
 
-#: backends/octave/octavesession.cpp:405
+#: backends/octave/octavesession.cpp:400
 #, kde-format
 msgid "The integration of plots will be disabled."
 msgstr "La integriĝo de desegnoj estos malŝaltita."
 
-#: backends/octave/octavesession.cpp:406 backends/sage/sagesession.cpp:350
-#: backends/sage/sagesession.cpp:361 cantor.cpp:217 cantor.cpp:219
-#: cantor.cpp:338 cantor.cpp:345 lib/session.cpp:327 main.cpp:72 main.cpp:131
+#: backends/octave/octavesession.cpp:401 backends/sage/sagesession.cpp:357
+#: backends/sage/sagesession.cpp:368 cantor.cpp:217 cantor.cpp:219
+#: cantor.cpp:338 cantor.cpp:345 lib/session.cpp:335 main.cpp:72 main.cpp:131
 #: markdownentry.cpp:797 textentry.cpp:553 worksheet.cpp:1283
 #, kde-format
 msgid "Cantor"
@@ -1040,22 +1040,22 @@ msgstr "Python-skriptodosiero (*.py)"
 msgid "Failed to start Python, please check Python installation."
 msgstr "Malsukcesis lanĉi Maxima, bonvolu kontroli ties instalon."
 
-#: backends/python/pythonsession.cpp:283
+#: backends/python/pythonsession.cpp:280
 #, kde-format
 msgid "Cantor Python server stopped working."
 msgstr "Cantor Python-servilo ĉesis funkcii."
 
-#: backends/python/pythonsession.cpp:287
+#: backends/python/pythonsession.cpp:284
 #, kde-format
 msgid "Failed to start Cantor python server."
 msgstr "Malsukcesis lanĉi Cantor-python-servilon."
 
-#: backends/python/pythonsession.cpp:291
+#: backends/python/pythonsession.cpp:288
 #, kde-format
 msgid "Communication with Cantor python server failed for unknown reasons."
 msgstr "Komunikado kun Cantor python-servilo malsukcesis pro nekonataj kialoj."
 
-#: backends/python/pythonsession.cpp:317
+#: backends/python/pythonsession.cpp:314
 #, kde-format
 msgid ""
 "For using integrated graphics with Matplotlib package, you need to install "
@@ -1064,7 +1064,7 @@ msgstr ""
 "Por uzi integrajn grafikaĵojn kun Matplotlib-pakaĵo, vi unue devas instali "
 "\"matplotlib\"-pitonan pakaĵon."
 
-#: backends/python/pythonsession.cpp:323
+#: backends/python/pythonsession.cpp:320
 #, kde-format
 msgid ""
 "For using integrated graphic with Plot.ly, you need to install \"plotly\" "
@@ -2447,13 +2447,13 @@ msgstr ""
 msgid "Python script file (*.py);;Sage script file (*.sage)"
 msgstr "Python-skriptodosiero (*.py);;Sage-skriptodosiero (*.sage)"
 
-#: backends/sage/sagesession.cpp:124
+#: backends/sage/sagesession.cpp:126
 #, fuzzy, kde-format
 #| msgid "Failed to start Maxima, please check Maxima's installation."
 msgid "Failed to start Sage, please check Sage installation."
 msgstr "Malsukcesis lanĉi Maxima, bonvolu kontroli ties instalon."
 
-#: backends/sage/sagesession.cpp:263
+#: backends/sage/sagesession.cpp:270
 #, kde-format
 msgid ""
 "Sage version %1.%2 is unsupported. Please update your installation to the "
@@ -2462,12 +2462,12 @@ msgstr ""
 "Sage versio %1.%2 estas nesubtenata. Bonvolu ĝisdatigi vian instaladon al la "
 "versioj 9.2 aŭ pli altaj."
 
-#: backends/sage/sagesession.cpp:265 backends/sage/sagesession.cpp:285
+#: backends/sage/sagesession.cpp:272 backends/sage/sagesession.cpp:292
 #, kde-format
 msgid "Unsupported Version"
 msgstr "Nesubtenata Versio"
 
-#: backends/sage/sagesession.cpp:284
+#: backends/sage/sagesession.cpp:291
 #, kde-format
 msgid ""
 "Failed to determine the version of Sage. Please check your installation and "
@@ -2476,27 +2476,27 @@ msgstr ""
 "Malsukcesis determini la version de Sage. Bonvolu kontroli vian instaladon "
 "kaj la eligon de 'sage -v'."
 
-#: backends/sage/sagesession.cpp:346
+#: backends/sage/sagesession.cpp:353
 #, kde-format
 msgid "The Sage process crashed while evaluating this expression"
 msgstr "La Sage-procezo paneis dum taksado de ĉi tiu esprimo"
 
-#: backends/sage/sagesession.cpp:350
+#: backends/sage/sagesession.cpp:357
 #, kde-format
 msgid "The Sage process crashed"
 msgstr "La procezo de Sage paneis"
 
-#: backends/sage/sagesession.cpp:357
+#: backends/sage/sagesession.cpp:364
 #, kde-format
 msgid "The Sage process exited while evaluating this expression"
 msgstr "La Sage-procezo eliris dum taksado de ĉi tiu esprimo"
 
-#: backends/sage/sagesession.cpp:361
+#: backends/sage/sagesession.cpp:368
 #, kde-format
 msgid "The Sage process exited"
 msgstr "La procezo de Sage eliris"
 
-#: backends/sage/sagesession.cpp:371
+#: backends/sage/sagesession.cpp:378
 #, kde-format
 msgid "Failed to start Sage"
 msgstr "Malsukcesis lanĉi Sage"
@@ -3764,12 +3764,12 @@ msgstr "Titolo de la desegno:"
 msgid "This is unsupported Jupyter content of types ('%1')"
 msgstr "Ĉi tio estas nesubtenata Jupyter-enhavo de tipoj ('%1')"
 
-#: lib/session.cpp:257
+#: lib/session.cpp:265
 #, kde-format
 msgid "%1 process has died unexpectedly. All calculation results are lost."
 msgstr "%1 procezo mortis neatendite. Ĉiuj kalkulrezultoj estas perditaj."
 
-#: lib/session.cpp:259
+#: lib/session.cpp:267
 #, kde-format
 msgid ""
 "%1 process has died unexpectedly with message \"%2\". All calculation "
@@ -3778,7 +3778,7 @@ msgstr ""
 "%1 procezo mortis neatendite kun mesaĝo \"%2\". Ĉiuj kalkulrezultoj estas "
 "perditaj."
 
-#: lib/session.cpp:325
+#: lib/session.cpp:333
 #, kde-format
 msgid ""
 "You choose support for %1 graphic package, but the support can't be "

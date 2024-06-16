@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: cantor\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-06-12 01:46+0000\n"
+"POT-Creation-Date: 2024-06-16 01:42+0000\n"
 "PO-Revision-Date: 2024-06-12 13:08+0200\n"
 "Last-Translator: Josep M. Ferrer <txemaq@gmail.com>\n"
 "Language-Team: Catalan <kde-i18n-ca@kde.org>\n"
@@ -401,7 +401,7 @@ msgstr "Ha fallat en iniciar el Julia. Verifiqueu la instal·lació del Julia."
 
 #: backends/julia/juliasession.cpp:119 backends/julia/juliasession.cpp:128
 #: backends/maxima/maximasession.cpp:283 cantor_part.cpp:964
-#: lib/session.cpp:257 lib/session.cpp:259 worksheet.cpp:1201
+#: lib/session.cpp:265 lib/session.cpp:267 worksheet.cpp:1201
 #: worksheet.cpp:1229 worksheet.cpp:1244 worksheet.cpp:1260 worksheet.cpp:1304
 #: worksheet.cpp:1316
 #, kde-format
@@ -981,24 +981,24 @@ msgstr "Fitxer script de l'Octave (*.m)"
 msgid "Failed to start Octave, please check Octave installation."
 msgstr "Ha fallat en iniciar l'Octave. Verifiqueu la instal·lació de l'Octave."
 
-#: backends/octave/octavesession.cpp:282 backends/sage/sageexpression.cpp:49
+#: backends/octave/octavesession.cpp:277 backends/sage/sageexpression.cpp:49
 #, kde-format
 msgid "Syntax Error"
 msgstr "Error de sintaxi"
 
-#: backends/octave/octavesession.cpp:401
+#: backends/octave/octavesession.cpp:396
 #, kde-format
 msgid "Plot integration test failed."
 msgstr "Ha fallat la prova d'integració de les gràfiques."
 
-#: backends/octave/octavesession.cpp:405
+#: backends/octave/octavesession.cpp:400
 #, kde-format
 msgid "The integration of plots will be disabled."
 msgstr "Es desactivarà la integració de les gràfiques."
 
-#: backends/octave/octavesession.cpp:406 backends/sage/sagesession.cpp:350
-#: backends/sage/sagesession.cpp:361 cantor.cpp:217 cantor.cpp:219
-#: cantor.cpp:338 cantor.cpp:345 lib/session.cpp:327 main.cpp:72 main.cpp:131
+#: backends/octave/octavesession.cpp:401 backends/sage/sagesession.cpp:357
+#: backends/sage/sagesession.cpp:368 cantor.cpp:217 cantor.cpp:219
+#: cantor.cpp:338 cantor.cpp:345 lib/session.cpp:335 main.cpp:72 main.cpp:131
 #: markdownentry.cpp:797 textentry.cpp:553 worksheet.cpp:1283
 #, kde-format
 msgid "Cantor"
@@ -1042,24 +1042,24 @@ msgstr "Fitxer de script en Python (*.py)"
 msgid "Failed to start Python, please check Python installation."
 msgstr "Ha fallat en iniciar el Python. Verifiqueu la instal·lació del Python."
 
-#: backends/python/pythonsession.cpp:283
+#: backends/python/pythonsession.cpp:280
 #, kde-format
 msgid "Cantor Python server stopped working."
 msgstr "El servidor de Python del Cantor ha aturat el seu funcionament."
 
-#: backends/python/pythonsession.cpp:287
+#: backends/python/pythonsession.cpp:284
 #, kde-format
 msgid "Failed to start Cantor python server."
 msgstr "Ha fallat en iniciar el servidor de Python del Cantor."
 
-#: backends/python/pythonsession.cpp:291
+#: backends/python/pythonsession.cpp:288
 #, kde-format
 msgid "Communication with Cantor python server failed for unknown reasons."
 msgstr ""
 "Ha fallat la comunicació amb el servidor de Python del Cantor per motius "
 "desconeguts."
 
-#: backends/python/pythonsession.cpp:317
+#: backends/python/pythonsession.cpp:314
 #, kde-format
 msgid ""
 "For using integrated graphics with Matplotlib package, you need to install "
@@ -1068,7 +1068,7 @@ msgstr ""
 "Per a usar els gràfics integrats amb el paquet Matplotlib, primer cal "
 "instal·lar el paquet de Python «matplotlib»."
 
-#: backends/python/pythonsession.cpp:323
+#: backends/python/pythonsession.cpp:320
 #, kde-format
 msgid ""
 "For using integrated graphic with Plot.ly, you need to install \"plotly\" "
@@ -2472,12 +2472,12 @@ msgstr ""
 msgid "Python script file (*.py);;Sage script file (*.sage)"
 msgstr "Fitxer de script en Python (*.py);;Fitxer de script del Sage (*.sage)"
 
-#: backends/sage/sagesession.cpp:124
+#: backends/sage/sagesession.cpp:126
 #, kde-format
 msgid "Failed to start Sage, please check Sage installation."
 msgstr "Ha fallat en iniciar el Sage. Verifiqueu la instal·lació del Sage."
 
-#: backends/sage/sagesession.cpp:263
+#: backends/sage/sagesession.cpp:270
 #, kde-format
 msgid ""
 "Sage version %1.%2 is unsupported. Please update your installation to the "
@@ -2486,12 +2486,12 @@ msgstr ""
 "No s'admet la versió %1.%2 del Sage. Actualitzeu la instal·lació a la versió "
 "9.2 o superior."
 
-#: backends/sage/sagesession.cpp:265 backends/sage/sagesession.cpp:285
+#: backends/sage/sagesession.cpp:272 backends/sage/sagesession.cpp:292
 #, kde-format
 msgid "Unsupported Version"
 msgstr "Versió no admesa"
 
-#: backends/sage/sagesession.cpp:284
+#: backends/sage/sagesession.cpp:291
 #, kde-format
 msgid ""
 "Failed to determine the version of Sage. Please check your installation and "
@@ -2500,27 +2500,27 @@ msgstr ""
 "Ha fallat en determinar la versió del Sage. Si us plau, comproveu la "
 "instal·lació i la sortida de «sage -v»."
 
-#: backends/sage/sagesession.cpp:346
+#: backends/sage/sagesession.cpp:353
 #, kde-format
 msgid "The Sage process crashed while evaluating this expression"
 msgstr "El procés Sage ha fallat mentre s'avaluava aquesta expressió"
 
-#: backends/sage/sagesession.cpp:350
+#: backends/sage/sagesession.cpp:357
 #, kde-format
 msgid "The Sage process crashed"
 msgstr "El procés Sage ha fallat"
 
-#: backends/sage/sagesession.cpp:357
+#: backends/sage/sagesession.cpp:364
 #, kde-format
 msgid "The Sage process exited while evaluating this expression"
 msgstr "El procés Sage ha fallat mentre s'avaluava aquesta expressió"
 
-#: backends/sage/sagesession.cpp:361
+#: backends/sage/sagesession.cpp:368
 #, kde-format
 msgid "The Sage process exited"
 msgstr "El procés Sage ha fallat"
 
-#: backends/sage/sagesession.cpp:371
+#: backends/sage/sagesession.cpp:378
 #, kde-format
 msgid "Failed to start Sage"
 msgstr "No s'ha pogut iniciar el Sage"
@@ -3793,12 +3793,12 @@ msgstr "Títol de la gràfica:"
 msgid "This is unsupported Jupyter content of types ('%1')"
 msgstr "Aquest és un contingut no admès pel Jupyter de tipus («%1»)"
 
-#: lib/session.cpp:257
+#: lib/session.cpp:265
 #, kde-format
 msgid "%1 process has died unexpectedly. All calculation results are lost."
 msgstr "El procés %1 ha mort inesperadament. S'han perdut tots els càlculs."
 
-#: lib/session.cpp:259
+#: lib/session.cpp:267
 #, kde-format
 msgid ""
 "%1 process has died unexpectedly with message \"%2\". All calculation "
@@ -3807,7 +3807,7 @@ msgstr ""
 "El procés %1 ha mort inesperadament amb el missatge «%2». S'han perdut tots "
 "els càlculs."
 
-#: lib/session.cpp:325
+#: lib/session.cpp:333
 #, kde-format
 msgid ""
 "You choose support for %1 graphic package, but the support can't be "
