@@ -29,6 +29,13 @@ void PythonServer::login()
     Py_Initialize();
     m_pModule = PyImport_AddModule("__main__");
     PyRun_SimpleString("import sys");
+
+    if (PyErr_Occurred())
+    {
+        m_error = true;
+        PyErr_PrintEx(0);
+    }
+
     filePath = "python_cantor_worksheet";
 }
 
