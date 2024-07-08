@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: cantor\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-06-16 01:42+0000\n"
-"PO-Revision-Date: 2023-09-20 02:49+0200\n"
+"PO-Revision-Date: 2024-07-07 06:49+0200\n"
 "Last-Translator: Temuri Doghonadze <temuri.doghonadze@gmail.com>\n"
 "Language-Team: Georgian <kde-i18n-doc@kde.org>\n"
 "Language: ka\n"
@@ -387,10 +387,9 @@ msgid "Julia script file (*.jl)"
 msgstr "Julia -ის სკრიპტის ფაილი (*.jl)"
 
 #: backends/julia/juliasession.cpp:70
-#, fuzzy, kde-format
-#| msgid "Failed to start Julia process."
+#, kde-format
 msgid "Failed to start Julia, please check Julia installation."
-msgstr "Julia-ის პროცესის გაშვების შეცდომა."
+msgstr "Julia-ის პროცესის გაშვების შეცდომა. შეამოწმეთ Julia-ის ფაილები."
 
 #: backends/julia/juliasession.cpp:119 backends/julia/juliasession.cpp:128
 #: backends/maxima/maximasession.cpp:283 cantor_part.cpp:964
@@ -2851,14 +2850,12 @@ msgid "Expand All Results"
 msgstr "ყველა შედეგის ამოკეცვა"
 
 #: cantor_part.cpp:317
-#, fuzzy, kde-format
-#| msgid "Remove All Results"
+#, kde-format
 msgid "Delete All Results"
 msgstr "ყველა შედეგის წაშლა"
 
 #: cantor_part.cpp:322
-#, fuzzy, kde-format
-#| msgid "Remove current Entry"
+#, kde-format
 msgid "Delete current Entry"
 msgstr "მიმდინარე ჩანაწერის წაშლა"
 
@@ -4338,7 +4335,7 @@ msgstr "სურათი"
 #: worksheet.cpp:1837 worksheet.cpp:1862 worksheet.cpp:1882 worksheet.cpp:1900
 #, kde-format
 msgid "Page Break"
-msgstr ""
+msgstr "ფურცლის დაყოფა"
 
 #: worksheet.cpp:1840 worksheet.cpp:1861 worksheet.cpp:1881 worksheet.cpp:1899
 #, kde-format
@@ -4398,7 +4395,7 @@ msgstr ""
 #: worksheet.cpp:1948 worksheet.cpp:2797
 #, kde-format
 msgid "Delete Entries"
-msgstr ""
+msgstr "ჩანაწერების წაშლა"
 
 #: worksheet.cpp:1961
 #, kde-format
@@ -4411,10 +4408,9 @@ msgid "Expand Command Entry Results"
 msgstr ""
 
 #: worksheet.cpp:1964
-#, fuzzy, kde-format
-#| msgid "Insert Command Entry"
+#, kde-format
 msgid "Delete Command Entry Results"
-msgstr "ბრძანების ჩანაწერის ჩასმა"
+msgstr "ბრძანების ჩანაწერის შედეგების წაშლა"
 
 #: worksheet.cpp:1966
 #, kde-format
@@ -4541,8 +4537,7 @@ msgid "This step cannot be undone. Do you really want to delete all results?"
 msgstr ""
 
 #: worksheet.cpp:2887
-#, fuzzy, kde-format
-#| msgid "Remove all results"
+#, kde-format
 msgid "Delete all results"
 msgstr "ყველა შედეგის წაშლა"
 
@@ -4687,23 +4682,19 @@ msgid "Move Down"
 msgstr "ჩამოწევა"
 
 #: worksheetentry.cpp:435
-#, fuzzy, kde-format
-#| msgctxt "@info:tooltip"
-#| msgid "Delete"
+#, kde-format
 msgid "Delete"
 msgstr "წაშლა"
 
 #: worksheetentry.cpp:717
-#, fuzzy, kde-format
-#| msgid "Do you really want to remove this entry?"
+#, kde-format
 msgid "This step cannot be undone. Do you really want to delete this entry?"
-msgstr "ნამდვილად გსურთ ამ ჩანაწერის წაშლა?"
+msgstr "ეს საფეხური შეუქცევადია. ნამდვილად გსურთ ამ ჩანაწერის წაშლა?"
 
 #: worksheetentry.cpp:717 worksheetentry.cpp:847
-#, fuzzy, kde-format
-#| msgid "Evaluate Entry"
+#, kde-format
 msgid "Delete Entry"
-msgstr "გამოსახულების დათვლა"
+msgstr "ჩანაწერის წაშლა"
 
 #: worksheetentry.cpp:852
 #, kde-format
