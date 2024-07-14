@@ -58,8 +58,8 @@ void MaximaSession::login()
     if (!m_process->waitForStarted())
     {
         changeStatus(Session::Disable);
-        emit error(i18n("Failed to start Maxima, please check Maxima's installation."));
-        emit loginDone();
+        Q_EMIT error(i18n("Failed to start Maxima, please check Maxima's installation."));
+        Q_EMIT loginDone();
         delete m_process;
         m_process = nullptr;
         return;
@@ -77,8 +77,8 @@ void MaximaSession::login()
     if (input.isEmpty())
     {
         changeStatus(Session::Disable);
-        emit error(i18n("Maxima didn't respond with the proper prompt, please check Maxima installation."));
-        emit loginDone();
+        Q_EMIT error(i18n("Maxima didn't respond with the proper prompt, please check Maxima installation."));
+        Q_EMIT loginDone();
         delete m_process;
         m_process = nullptr;
         return;

@@ -64,8 +64,8 @@ void ScilabSession::login()
     if (!m_process->waitForStarted())
     {
         changeStatus(Session::Disable);
-        emit error(i18n("Failed to start Scilab, please check Scilab installation."));
-        emit loginDone();
+        Q_EMIT error(i18n("Failed to start Scilab, please check Scilab installation."));
+        Q_EMIT loginDone();
         delete m_process;
         m_process = nullptr;
         return;
