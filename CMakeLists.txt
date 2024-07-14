@@ -64,7 +64,7 @@ find_package(LibXslt REQUIRED)
 
 option(ENABLE_EMBEDDED_DOCUMENTATION "Enable the emedded documentation depending on QtHelp and QtWebEngine" ON)
 if (ENABLE_EMBEDDED_DOCUMENTATION)
-    find_package(Qt5 5.8.0 CONFIG REQUIRED
+    find_package(Qt6 ${QT_MIN_VERSION} CONFIG REQUIRED
         Help
         WebEngine
         WebEngineWidgets)

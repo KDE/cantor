@@ -18,12 +18,13 @@ if (ENABLE_EMBEDDED_DOCUMENTATION)
         qthelpconfig.cpp
     )
 
-ki18n_wrap_ui(cantor_HELP qthelpconfig.ui)
-ki18n_wrap_ui(cantor_HELP qthelpconfigeditdialog.ui)
+    ki18n_wrap_ui(cantor_HELP qthelpconfig.ui)
+    ki18n_wrap_ui(cantor_HELP qthelpconfigeditdialog.ui)
 
-add_library(cantor_help STATIC ${cantor_HELP})
-set_target_properties(cantor_help PROPERTIES POSITION_INDEPENDENT_CODE ON)
-target_link_libraries(cantor_help KF6::SyntaxHighlighting KF6::I18n KF6::IconWidgets KF6::NewStuffWidgets KF6::KIOWidgets Qt6::Help)
+    add_library(cantor_help STATIC ${cantor_HELP})
+    set_target_properties(cantor_help PROPERTIES POSITION_INDEPENDENT_CODE ON)
+    target_link_libraries(cantor_help KF6::SyntaxHighlighting KF6::I18n KF6::IconWidgets KF6::NewStuffWidgets KF6::KIOWidgets Qt6::Help)
+endif()
 
 if(NOT WIN32)
     add_subdirectory(sage)
