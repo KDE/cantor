@@ -20,6 +20,7 @@
 #include <QDebug>
 #include <QDir>
 #include <QRegularExpression>
+#include <QScreen>
 #include <QTemporaryFile>
 #include <QTimer>
 #include <QUrl>
@@ -185,8 +186,9 @@ QString MaximaExpression::internalCommand()
             else // png
             {
                 // png terminal accepts the sizes in pixels
-                w = MaximaSettings::plotWidth() / 2.54 * 300;
-                h = MaximaSettings::plotHeight() / 2.54 * 300;
+                const int dpi = QGuiApplication::primaryScreen()->logicalDotsPerInchX();
+                w = MaximaSettings::plotWidth() / 2.54 * dpi;
+                h = MaximaSettings::plotHeight() / 2.54 * dpi;
                 params = QLatin1String("[gnuplot_png_term_command, \"set term png size %2,%3\"], [png_file, \"%1\"]");
             }
 

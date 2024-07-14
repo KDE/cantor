@@ -19,6 +19,7 @@
 #include <QDir>
 #include <QFileSystemWatcher>
 #include <QRegularExpression>
+#include <QScreen>
 
 #include <KLocalizedString>
 
@@ -98,8 +99,9 @@ QString OctaveExpression::internalCommand()
                     }
                     else // for raster formats the size for 'print' is provided in pixels
                     {
-                        w = OctaveSettings::plotWidth() / 2.54 * 300;
-                        h = OctaveSettings::plotHeight() / 2.54 * 300;
+                        const int dpi = QGuiApplication::primaryScreen()->logicalDotsPerInchX();
+                        w = OctaveSettings::plotWidth() / 2.54 * dpi;
+                        h = OctaveSettings::plotHeight() / 2.54 * dpi;
                     }
                     cmd += printCommandTemplate.arg(m_plotFilename, QString::number(w), QString::number(h));
 

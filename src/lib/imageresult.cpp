@@ -14,6 +14,7 @@ using namespace Cantor;
 #include <QImage>
 #include <QImageWriter>
 #include <QPainter>
+#include <QScreen>
 #include <QSvgRenderer>
 #include <QTemporaryFile>
 
@@ -53,6 +54,8 @@ ImageResult::ImageResult(const QUrl &url, const QString& alt) :  d(new ImageResu
         if (d->data.isEmpty())
             return;
 
+        const int dpi = QGuiApplication::primaryScreen()->logicalDotsPerInchX();
+
         if (d->extension == QLatin1String("pdf"))
         {
             auto document = Poppler::Document::loadFromData(d->data);
@@ -73,7 +76,6 @@ ImageResult::ImageResult(const QUrl &url, const QString& alt) :  d(new ImageResu
             document->setRenderHint(Poppler::Document::TextSlightHinting);
             document->setRenderHint(Poppler::Document::ThinLineSolid);
 
-            const static int dpi = 300;
             d->img = page->renderToImage(dpi, dpi);
         }
         else
@@ -82,8 +84,8 @@ ImageResult::ImageResult(const QUrl &url, const QString& alt) :  d(new ImageResu
 
             // SVG document size is in points, convert to pixels
             const auto& size = renderer.defaultSize();
-            int w = size.width() / 72 * 300;
-            int h = size.height() / 72 * 300;
+            int w = size.width() / 72 * dpi;
+            int h = size.height() / 72 * dpi;
             d->img = QImage(w, h, QImage::Format_ARGB32);
 
             // render
