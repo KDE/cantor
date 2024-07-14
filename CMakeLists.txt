@@ -72,7 +72,7 @@ if (ENABLE_EMBEDDED_DOCUMENTATION)
 endif ()
 
 
-find_package(Poppler "0.62.0" REQUIRED COMPONENTS Qt5)
+find_package(Poppler "22.02.0" COMPONENTS Qt6)
 
 option(USE_LIBSPECTRE "Use libspectre library" ON)
 
