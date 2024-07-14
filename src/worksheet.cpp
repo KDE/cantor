@@ -2819,8 +2819,10 @@ void Worksheet::selectionRemove()
 
     if (Settings::warnAboutEntryDelete())
     {
-        int rc = KMessageBox::warningYesNo(nullptr, i18n("This step cannot be undone. Do you really want to delete the selected entries?"), i18n("Delete Entries"));
-        if (rc == KMessageBox::No)
+        int rc = KMessageBox::warningContinueCancel(nullptr,
+                                                i18n("This step cannot be undone. Do you really want to delete the selected entries?"),
+                                                i18n("Delete Entries"));
+        if (rc == KMessageBox::SecondaryAction)
             return;
     }
 

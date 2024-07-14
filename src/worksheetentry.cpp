@@ -428,14 +428,14 @@ void WorksheetEntry::populateMenu(QMenu* menu, QPointF pos)
     if (m_next) {
         action = new QAction(QIcon::fromTheme(QLatin1String("go-down")), i18n("Move Down"));
         connect(action, &QAction::triggered, [=]() {moveToNext();});
-        action->setShortcut(Qt::CTRL + Qt::Key_Down);
+        action->setShortcut(Qt::CTRL | Qt::Key_Down);
         menu->insertAction(firstAction, action);
         menu->insertSeparator(firstAction);
     }
 
     action = new QAction(QIcon::fromTheme(QLatin1String("edit-delete")), i18n("Delete"));
     connect(action, &QAction::triggered, [=]() {startRemoving();});
-    action->setShortcut(Qt::ShiftModifier + Qt::Key_Delete);
+    action->setShortcut(Qt::ShiftModifier | Qt::Key_Delete);
     menu->insertAction(firstAction, action);
     menu->insertSeparator(firstAction);
 
