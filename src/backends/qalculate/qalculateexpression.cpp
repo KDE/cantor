@@ -62,9 +62,8 @@ void QalculateExpression::evaluate()
         return;
     }
 
-
-    const QStringList commands = command().split(QLatin1Char('\n'));
-    for (const QString& command : commands)
+    const auto& commands = command().split(QLatin1Char('\n'));
+    for(const auto& command : commands)
     {
         if (command.contains(QLatin1String("help"))) {
             QalculateSyntaxHelpObject* helper = new QalculateSyntaxHelpObject(command, (QalculateSession*) session());
@@ -80,8 +79,10 @@ void QalculateExpression::evaluate()
         }
     }
     // we are here because the commands entered by user are regular commands. We would have returned by now otherwise
-    QalculateSession* currentSession = dynamic_cast<QalculateSession*>(session());
-    currentSession->runExpression();
+    // TODO: use Session::enqueExpression()
+    auto* currentSession = dynamic_cast<QalculateSession*>(session());
+    if (currentSession)
+        currentSession->runExpression();
 }
 
 void QalculateExpression::parseOutput(const QString& output)
@@ -100,6 +101,9 @@ void QalculateExpression::parseOutput(const QString& output)
 void QalculateExpression::updateVariables()
 {
     auto* currentSession = dynamic_cast<QalculateSession*>(session());
+    if (!currentSession)
+        return;
+
     auto& variables = currentSession->variables;
     auto it = variables.constBegin();
     while (it != variables.constEnd()) {
@@ -331,7 +335,7 @@ void QalculateExpression::evaluatePlotCommand()
 		else if (option == QLatin1String("fig"))
 		    plotParameters.filetype = PLOT_FILETYPE_FIG;
 		else {
-		    QString msg = invalidOption.arg(QLatin1String("filetype"), option);
+		    const auto& msg = invalidOption.arg(QLatin1String("filetype"), option);
 		    showMessage(msg, MESSAGE_ERROR);
 		    deletePlotDataParameters(plotDataParameterList);
 		    return;
@@ -575,7 +579,7 @@ void QalculateExpression::evaluatePlotCommand()
 		lastExpressionEntry = j;
 	    }
 	    else {
-		QString msg = i18n("found multiple expressions in one plot command (%1 and %2).", QLatin1String(expression.c_str()), argument);
+		const auto& msg = i18n("found multiple expressions in one plot command (%1 and %2).", QLatin1String(expression.c_str()), argument);
 		showMessage(msg, MESSAGE_ERROR);
 		deletePlotDataParameters(plotDataParameterList);
 		return;

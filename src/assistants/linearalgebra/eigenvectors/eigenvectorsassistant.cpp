@@ -5,13 +5,11 @@
 
 #include "eigenvectorsassistant.h"
 
-#include <QAction>
 #include <QDialog>
 #include <QPushButton>
 #include <QStyle>
 
 #include <KActionCollection>
-#include <KConfigGroup>
 #include "cantor_macros.h"
 #include "backend.h"
 #include "extension.h"
@@ -25,37 +23,36 @@ EigenVectorsAssistant::EigenVectorsAssistant(QObject* parent, QList<QVariant> ar
 void EigenVectorsAssistant::initActions()
 {
     setXMLFile(QLatin1String("cantor_eigenvectors_assistant.rc"));
-    QAction* eigenvectors=new QAction(i18n("Compute Eigenvectors"), actionCollection());
+    auto* eigenvectors=new QAction(i18n("Compute Eigenvectors"), actionCollection());
     actionCollection()->addAction(QLatin1String("eigenvectors_assistant"), eigenvectors);
     connect(eigenvectors, &QAction::triggered, this, &EigenVectorsAssistant::requested);
 }
 
 QStringList EigenVectorsAssistant::run(QWidget* parent)
 {
-    QPointer<QDialog> dlg=new QDialog(parent);
-    QWidget* widget=new QWidget(dlg);
+    QPointer<QDialog> dlg = new QDialog(parent);
+    auto* widget = new QWidget(dlg);
     Ui::EigenVectorsAssistantBase base;
     base.setupUi(widget);
-    QVBoxLayout *mainLayout = new QVBoxLayout;
+    auto* mainLayout = new QVBoxLayout;
     dlg->setLayout(mainLayout);
     mainLayout->addWidget(widget);
 
     base.buttonBox->button(QDialogButtonBox::Ok)->setIcon(QApplication::style()->standardIcon(QStyle::SP_DialogOkButton));
     base.buttonBox->button(QDialogButtonBox::Cancel)->setIcon(QApplication::style()->standardIcon(QStyle::SP_DialogCancelButton));
-    connect(base.buttonBox, SIGNAL(accepted()), dlg, SLOT(accept()));
-    connect(base.buttonBox, SIGNAL(rejected()), dlg, SLOT(reject()));
+    connect(base.buttonBox, &QDialogButtonBox::accepted, dlg, &QDialog::accept);
+    connect(base.buttonBox, &QDialogButtonBox::rejected, dlg, &QDialog::reject);
 
-    Cantor::HistoryExtension* hist=
-        dynamic_cast<Cantor::HistoryExtension*>(backend()->extension(QLatin1String("HistoryExtension")));
-    base.matrix->setText(hist->lastResult());
+    auto* hist = dynamic_cast<Cantor::HistoryExtension*>(backend()->extension(QLatin1String("HistoryExtension")));
+    if (hist)
+        base.matrix->setText(hist->lastResult());
 
     QStringList result;
     if( dlg->exec())
     {
-        const QString& m=base.matrix->text();
-        Cantor::LinearAlgebraExtension* ext=
-            dynamic_cast<Cantor::LinearAlgebraExtension*>(backend()->extension(QLatin1String("LinearAlgebraExtension")));
-        result<<ext->eigenVectors(m);
+        auto* ext = dynamic_cast<Cantor::LinearAlgebraExtension*>(backend()->extension(QLatin1String("LinearAlgebraExtension")));
+        if (ext)
+            result<<ext->eigenVectors(base.matrix->text());
     }
 
     delete dlg;

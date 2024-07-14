@@ -15,7 +15,7 @@
     Boston, MA  02110-1301, USA.
 
     ---
-    Copyright (C) 2020-2022 Alexander Semke <alexander.semke@web.de>
+    Copyright (C) 2020-2024 Alexander Semke <alexander.semke@web.de>
  */
 
 #ifndef BACKENDSETTINGSWIDGET_H
@@ -24,7 +24,9 @@
 #include <QWidget>
 
 class QTabWidget;
+#ifdef HAVE_EMBEDDED_DOCUMENTATION
 class QtHelpConfig;
+#endif
 class KUrlRequester;
 
 class BackendSettingsWidget : public QWidget
@@ -35,12 +37,16 @@ public:
     explicit BackendSettingsWidget(QWidget* parent = nullptr, const QString& id = QString());
 
 private:
+#ifdef HAVE_EMBEDDED_DOCUMENTATION
     QtHelpConfig* m_docWidget = nullptr;
+#endif
 
 protected:
     QString m_id;
     QTabWidget* m_tabWidget = nullptr;
+#ifdef HAVE_EMBEDDED_DOCUMENTATION
     QWidget* m_tabDocumentation = nullptr;
+#endif
     KUrlRequester* m_urlRequester = nullptr;
 
 public Q_SLOTS:

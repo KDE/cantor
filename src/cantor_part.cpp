@@ -320,12 +320,12 @@ CantorPart::CantorPart(QObject* parent, const QVariantList& args)
     connect(uncollapseAllEntries , &QAction::triggered, m_worksheet, &Worksheet::uncollapseAllResults);
     m_editActions.push_back(uncollapseAllEntries);
 
-    QAction* removeAllResults = new QAction(QIcon(), i18n("Remove All Results"), collection);
+    QAction* removeAllResults = new QAction(QIcon(), i18n("Delete All Results"), collection);
     collection->addAction(QLatin1String("all_entries_remove_all_results"), removeAllResults);
     connect(removeAllResults, &QAction::triggered, m_worksheet, &Worksheet::removeAllResults);
     m_editActions.push_back(removeAllResults);
 
-    QAction* removeCurrent = new QAction(QIcon::fromTheme(QLatin1String("edit-delete")), i18n("Remove current Entry"), collection);
+    QAction* removeCurrent = new QAction(QIcon::fromTheme(QLatin1String("edit-delete")), i18n("Delete current Entry"), collection);
     collection->addAction(QLatin1String("remove_current"), removeCurrent);
     collection->setDefaultShortcut(removeCurrent, Qt::ShiftModifier | Qt::Key_Delete);
     connect(removeCurrent, &QAction::triggered, m_worksheet, &Worksheet::removeCurrentEntry);

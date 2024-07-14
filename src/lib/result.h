@@ -99,7 +99,7 @@ class CANTOR_EXPORT Result
      * This functions handle Jupyter metadata of
      */
     QJsonObject jupyterMetadata() const;
-    void setJupyterMetadata(QJsonObject metadata);
+    void setJupyterMetadata(const QJsonObject&);
 
     /**
      * Allow to set execution result index, on this moment useful only for Jupyter

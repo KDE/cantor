@@ -5,7 +5,6 @@
         "Description[ca]": "Un plafó per a treballar amb fitxers dins del Cantor",
         "Description[de]": "Eine Kontrollleiste zur Verwaltung von Dateien in Cantor",
         "Description[el]": "Ένας πίνακας για την εργασία με αρχεία μέσα στο Cantor",
-        "Description[en_GB]": "A panel for working with files inside Cantor",
         "Description[eo]": "Panelo por labori kun dosieroj ene de Cantor",
         "Description[es]": "Un panel para trabajar con archivos dentro de Cantor",
         "Description[fi]": "Paneeli tiedostojen käsittelemiseksi Cantorista",
@@ -28,6 +27,7 @@
         "Description[uk]": "Панель для роботи з файлами у вікні Cantor",
         "Description[x-test]": "xxA panel for working with files inside Cantorxx",
         "Description[zh_CN]": "用于在 Cantor 内处理文件的面板",
+        "Description[zh_TW]": "在 Cantor 裡面瀏覽檔案的面板",
         "Icon": "",
         "Id": "FileBrowserPanel",
         "License": "GPL",
@@ -37,7 +37,6 @@
         "Name[cs]": "Prohlížeč souborů",
         "Name[de]": "Dateibrowser",
         "Name[el]": "Περιηγητής αρχείων",
-        "Name[en_GB]": "File Browser",
         "Name[eo]": "Dosiera Retumilo",
         "Name[es]": "Navegador de archivos",
         "Name[fi]": "Tiedostoselain",
@@ -59,7 +58,8 @@
         "Name[tr]": "Dosya Tarayıcısı",
         "Name[uk]": "Навігація файлами",
         "Name[x-test]": "xxFile Browserxx",
-        "Name[zh_CN]": "文件浏览器"
+        "Name[zh_CN]": "文件浏览器",
+        "Name[zh_TW]": "檔案瀏覽器"
     },
     "RequiredExtensions": ""
 }

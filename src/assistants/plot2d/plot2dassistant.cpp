@@ -5,13 +5,11 @@
 
 #include "plot2dassistant.h"
 
-#include <QAction>
 #include <QDialog>
 #include <QPushButton>
 #include <QStyle>
 
 #include <KActionCollection>
-#include <KConfigGroup>
 #include "ui_plot2ddlg.h"
 #include "cantor_macros.h"
 #include "backend.h"
@@ -25,38 +23,38 @@ Plot2dAssistant::Plot2dAssistant(QObject* parent, QList<QVariant> args) : Assist
 void Plot2dAssistant::initActions()
 {
     setXMLFile(QLatin1String("cantor_plot2d_assistant.rc"));
-    QAction* plot2d=new QAction(i18n("Plot 2D"), actionCollection());
+    auto* plot2d = new QAction(i18n("Plot 2D"), actionCollection());
     actionCollection()->addAction(QLatin1String("plot2d_assistant"), plot2d);
     connect(plot2d, &QAction::triggered, this, &Plot2dAssistant::requested);
 }
 
 QStringList Plot2dAssistant::run(QWidget* parent)
 {
-    QPointer<QDialog> dlg=new QDialog(parent);
-    QWidget *widget=new QWidget(dlg);
+    QPointer<QDialog> dlg = new QDialog(parent);
+    auto* widget = new QWidget(dlg);
     Ui::Plot2dAssistantBase base;
     base.setupUi(widget);
-    QVBoxLayout *mainLayout = new QVBoxLayout;
+    auto* mainLayout = new QVBoxLayout;
     dlg->setLayout(mainLayout);
     mainLayout->addWidget(widget);
 
     base.buttonBox->button(QDialogButtonBox::Ok)->setIcon(QApplication::style()->standardIcon(QStyle::SP_DialogOkButton));
     base.buttonBox->button(QDialogButtonBox::Cancel)->setIcon(QApplication::style()->standardIcon(QStyle::SP_DialogCancelButton));
-    connect(base.buttonBox, SIGNAL(accepted()), dlg, SLOT(accept()));
-    connect(base.buttonBox, SIGNAL(rejected()), dlg, SLOT(reject()));
+    connect(base.buttonBox, &QDialogButtonBox::accepted, dlg, &QDialog::accept);
+    connect(base.buttonBox, &QDialogButtonBox::rejected, dlg, &QDialog::reject);
 
     QStringList result;
     if( dlg->exec())
     {
-        const QString expression=base.expression->text();
-        const QString variable=base.variable->text();
-        const QString min=base.min->text();
-        const QString max=base.max->text();
-
-        Cantor::PlotExtension* ext=
-            dynamic_cast<Cantor::PlotExtension*>(backend()->extension(QLatin1String("PlotExtension")));
-
-        result<<ext->plotFunction2d(expression, variable, min, max);
+        auto* ext = dynamic_cast<Cantor::PlotExtension*>(backend()->extension(QLatin1String("PlotExtension")));
+        if (ext)
+        {
+            const auto& expression = base.expression->text();
+            const auto& variable = base.variable->text();
+            const auto& min = base.min->text();
+            const auto& max = base.max->text();
+            result<<ext->plotFunction2d(expression, variable, min, max);
+        }
     }
 
     delete dlg;

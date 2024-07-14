@@ -68,7 +68,16 @@ void PythonSession::login()
     m_process->start(serverExecutablePath);
 #endif
 
-    m_process->waitForStarted();
+    if (!m_process->waitForStarted())
+    {
+        changeStatus(Session::Disable);
+        emit error(i18n("Failed to start Python, please check Python installation."));
+        emit loginDone();
+        delete m_process;
+        m_process = nullptr;
+        return;
+    }
+
     m_process->waitForReadyRead();
     QTextStream stream(m_process->readAllStandardOutput());
 
@@ -84,10 +93,12 @@ void PythonSession::login()
     connect(m_process, &QProcess::errorOccurred, this, &PythonSession::reportServerProcessError);
 
     sendCommand(QLatin1String("login"));
-    QString dir;
-    if (!m_worksheetPath.isEmpty())
-        dir = QFileInfo(m_worksheetPath).absoluteDir().absolutePath();
-    sendCommand(QLatin1String("setFilePath"), QStringList() << m_worksheetPath << dir);
+    const auto& path = worksheetPath();
+    if (!path.isEmpty())
+    {
+        const auto& dir = QFileInfo(path).absoluteDir().absolutePath();
+        sendCommand(QLatin1String("setFilePath"), QStringList() << path << dir);
+    }
 
     std::random_device rd;
     std::mt19937 mt(rd());
@@ -259,11 +270,6 @@ void PythonSession::readOutput()
         }
         finishFirstExpression(true);
     }
-}
-
-void PythonSession::setWorksheetPath(const QString& path)
-{
-    m_worksheetPath = path;
 }
 
 void PythonSession::reportServerProcessError(QProcess::ProcessError serverError)

@@ -5,14 +5,12 @@
 
 #include "integrateassistant.h"
 
-#include <QAction>
 #include <QIcon>
 #include <QDialog>
 #include <QPushButton>
 #include <QStyle>
 
 #include <KActionCollection>
-#include <KConfigGroup>
 #include "ui_integratedlg.h"
 #include "cantor_macros.h"
 #include "backend.h"
@@ -34,8 +32,8 @@ void IntegrateAssistant::initActions()
 
 QStringList IntegrateAssistant::run(QWidget* parent)
 {
-    QPointer<QDialog> dlg=new QDialog(parent);
-    QWidget* widget=new QWidget(dlg);
+    QPointer<QDialog> dlg = new QDialog(parent);
+    auto* widget = new QWidget(dlg);
     Ui::IntegrateAssistantBase base;
     base.setupUi(widget);
     QVBoxLayout *mainLayout = new QVBoxLayout;
@@ -44,26 +42,26 @@ QStringList IntegrateAssistant::run(QWidget* parent)
 
     base.buttonBox->button(QDialogButtonBox::Ok)->setIcon(QApplication::style()->standardIcon(QStyle::SP_DialogOkButton));
     base.buttonBox->button(QDialogButtonBox::Cancel)->setIcon(QApplication::style()->standardIcon(QStyle::SP_DialogCancelButton));
-    connect(base.buttonBox, SIGNAL(accepted()), dlg, SLOT(accept()));
-    connect(base.buttonBox, SIGNAL(rejected()), dlg, SLOT(reject()));
+    connect(base.buttonBox, &QDialogButtonBox::accepted, dlg, &QDialog::accept);
+    connect(base.buttonBox, &QDialogButtonBox::rejected, dlg, &QDialog::reject);
 
     QStringList result;
     if( dlg->exec())
     {
-        QString expression=base.expression->text();
-        QString variable=base.variable->text();
 
-        Cantor::CalculusExtension* ext=
-            dynamic_cast<Cantor::CalculusExtension*>(backend()->extension(QLatin1String("CalculusExtension")));
-        if (base.isDefinite->isChecked())
+        auto* ext = dynamic_cast<Cantor::CalculusExtension*>(backend()->extension(QLatin1String("CalculusExtension")));
+        if (ext)
         {
-            QString lower=base.lowerLimit->text();
-            QString upper=base.upperLimit->text();
-
-            result<<ext->integrate(expression, variable, lower, upper);
-        }else
-        {
-            result<<ext->integrate(expression, variable);
+            const auto& expression = base.expression->text();
+            const auto& variable = base.variable->text();
+            if (base.isDefinite->isChecked())
+            {
+                const auto& lower = base.lowerLimit->text();
+                const auto& upper = base.upperLimit->text();
+                result << ext->integrate(expression, variable, lower, upper);
+            }
+            else
+                result << ext->integrate(expression, variable);
         }
     }
 

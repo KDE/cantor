@@ -26,7 +26,11 @@ SageSettingsWidget::SageSettingsWidget(QWidget* parent, const QString& id) : Bac
     setupUi(this);
 
     m_tabWidget = tabWidget;
+#ifdef HAVE_EMBEDDED_DOCUMENTATION
     m_tabDocumentation = tabDocumentation;
+#else
+    tabWidget->removeTab(2);
+#endif
     m_urlRequester = kcfg_Path;
 
     connect(tabWidget, &QTabWidget::currentChanged, this, &BackendSettingsWidget::tabChanged);

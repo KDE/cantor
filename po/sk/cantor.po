@@ -1,20 +1,20 @@
 # translation of cantor.po to Slovak
 # Richard Fric <Richard.Fric@kdemail.net>, 2009.
-# Roman Paholík <wizzardsk@gmail.com>, 2012, 2013, 2014, 2015, 2016, 2017, 2019, 2020.
+# SPDX-FileCopyrightText: 2012, 2013, 2014, 2015, 2016, 2017, 2019, 2020, 2023 Roman Paholík <wizzardsk@gmail.com>
 # Matej Mrenica <matejm98mthw@gmail.com>, 2019.
 msgid ""
 msgstr ""
 "Project-Id-Version: cantor\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-11-05 12:22+0000\n"
-"PO-Revision-Date: 2020-12-02 18:11+0100\n"
-"Last-Translator: Roman Paholík <wizzardsk@gmail.com>\n"
+"POT-Creation-Date: 2024-06-16 01:42+0000\n"
+"PO-Revision-Date: 2023-12-06 19:20+0100\n"
+"Last-Translator: Roman Paholik <wizzardsk@gmail.com>\n"
 "Language-Team: Slovak <kde-sk@linux.sk>\n"
 "Language: sk\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Lokalize 20.08.2\n"
+"X-Generator: Lokalize 23.08.3\n"
 "Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
 
 #, kde-format
@@ -104,7 +104,7 @@ msgstr "Voľba aktívna"
 msgid "&Calculate"
 msgstr "Vypočítať"
 
-#: assistants/differentiate/differentiateassistant.cpp:29
+#: assistants/differentiate/differentiateassistant.cpp:26
 #, kde-format
 msgid "Differentiate"
 msgstr "Diferencovať"
@@ -137,7 +137,7 @@ msgstr "Časy:"
 msgid "&Package"
 msgstr "Balík"
 
-#: assistants/importpackage/importpackageassistant.cpp:29
+#: assistants/importpackage/importpackageassistant.cpp:27
 #, kde-format
 msgid "Import Package"
 msgstr "Importovať balík"
@@ -148,7 +148,7 @@ msgstr "Importovať balík"
 msgid "Package:"
 msgstr "Balíček:"
 
-#: assistants/integrate/integrateassistant.cpp:29
+#: assistants/integrate/integrateassistant.cpp:27
 #, kde-format
 msgid "Integrate"
 msgstr "Integrovať"
@@ -180,7 +180,7 @@ msgstr "Určitý integrál"
 msgid "&Linear Algebra"
 msgstr "Lineárna algebra"
 
-#: assistants/linearalgebra/creatematrix/creatematrixassistant.cpp:26
+#: assistants/linearalgebra/creatematrix/creatematrixassistant.cpp:24
 #, kde-format
 msgid "Create Matrix"
 msgstr "Vytvoriť maticu"
@@ -197,7 +197,7 @@ msgstr "Stĺpce:"
 msgid "Rows:"
 msgstr "Riadky:"
 
-#: assistants/linearalgebra/eigenvalues/eigenvaluesassistant.cpp:28
+#: assistants/linearalgebra/eigenvalues/eigenvaluesassistant.cpp:26
 #, kde-format
 msgid "Compute Eigenvalues"
 msgstr "Vypočítať vlastné hodnoty"
@@ -210,17 +210,17 @@ msgstr "Vypočítať vlastné hodnoty"
 msgid "Matrix:"
 msgstr "Matica:"
 
-#: assistants/linearalgebra/eigenvectors/eigenvectorsassistant.cpp:28
+#: assistants/linearalgebra/eigenvectors/eigenvectorsassistant.cpp:26
 #, kde-format
 msgid "Compute Eigenvectors"
 msgstr "Vypočítať vlastné vektory"
 
-#: assistants/linearalgebra/invertmatrix/invertmatrixassistant.cpp:28
+#: assistants/linearalgebra/invertmatrix/invertmatrixassistant.cpp:26
 #, kde-format
 msgid "Invert Matrix"
 msgstr "Invertovať maticu"
 
-#: assistants/plot2d/plot2dassistant.cpp:28
+#: assistants/plot2d/plot2dassistant.cpp:26
 #, kde-format
 msgid "Plot 2D"
 msgstr "2D graf"
@@ -255,7 +255,7 @@ msgstr "Minimum:"
 msgid "Maximum:"
 msgstr "Maximum:"
 
-#: assistants/plot3d/plot3dassistant.cpp:28
+#: assistants/plot3d/plot3dassistant.cpp:26
 #, kde-format
 msgid "Plot 3D"
 msgstr "3D graf"
@@ -272,7 +272,7 @@ msgstr "Prvá premenná"
 msgid "2nd Variable"
 msgstr "Druhá premenná"
 
-#: assistants/runscript/runscriptassistant.cpp:28
+#: assistants/runscript/runscriptassistant.cpp:26
 #: scripteditor/scripteditorwidget.cpp:39
 #, kde-format
 msgid "Run Script"
@@ -384,53 +384,59 @@ msgstr "Integrovať grafy do pracovného listu"
 msgid "Graphical package for the Plot-Assistant"
 msgstr ""
 
-#: backends/julia/juliaextensions.cpp:246
+#: backends/julia/juliaextensions.cpp:239
 #, kde-format
 msgid "# Sorry, but Gadfly don't support 3d plots"
 msgstr ""
 
-#: backends/julia/juliaextensions.cpp:263
+#: backends/julia/juliaextensions.cpp:256
 #, kde-format
 msgid "Julia script file (*.jl)"
 msgstr "Súbor skriptu Julia (*.jl)"
 
-#: backends/julia/juliasession.cpp:108 backends/julia/juliasession.cpp:117
-#: backends/maxima/maximasession.cpp:265 cantor_part.cpp:964
-#: lib/session.cpp:313 lib/session.cpp:315 worksheet.cpp:1193
-#: worksheet.cpp:1221 worksheet.cpp:1236 worksheet.cpp:1252 worksheet.cpp:1296
-#: worksheet.cpp:1308
+#: backends/julia/juliasession.cpp:70
+#, fuzzy, kde-format
+#| msgid "Failed to start Julia process."
+msgid "Failed to start Julia, please check Julia installation."
+msgstr "Zlyhalo spustenie procesu Julia."
+
+#: backends/julia/juliasession.cpp:119 backends/julia/juliasession.cpp:128
+#: backends/maxima/maximasession.cpp:283 cantor_part.cpp:964
+#: lib/session.cpp:265 lib/session.cpp:267 worksheet.cpp:1201
+#: worksheet.cpp:1229 worksheet.cpp:1244 worksheet.cpp:1260 worksheet.cpp:1304
+#: worksheet.cpp:1316
 #, kde-format
 msgid "Error - Cantor"
 msgstr "Chyba - Cantor"
 
-#: backends/julia/juliasession.cpp:108
+#: backends/julia/juliasession.cpp:119
 #, kde-format
 msgid ""
 "Julia session can't login due internal julia problem with missing internal "
 "file - \"%1\""
 msgstr ""
 
-#: backends/julia/juliasession.cpp:117
+#: backends/julia/juliasession.cpp:128
 #, kde-format
 msgid "Julia session can't login due unknown internal problem"
 msgstr ""
 
-#: backends/julia/juliasession.cpp:242
+#: backends/julia/juliasession.cpp:253
 #, kde-format
 msgid "Julia process stopped working."
 msgstr "Proces Julia prestal pracovať."
 
-#: backends/julia/juliasession.cpp:245
+#: backends/julia/juliasession.cpp:256
 #, kde-format
 msgid "Failed to start Julia process."
 msgstr "Zlyhalo spustenie procesu Julia."
 
-#: backends/julia/juliasession.cpp:248
+#: backends/julia/juliasession.cpp:259
 #, kde-format
 msgid "Communication with Julia process failed for unknown reasons."
 msgstr "Komunikácia s procesom Julia zlyhala z neznámeho dôvodu."
 
-#: backends/julia/juliasession.cpp:318
+#: backends/julia/juliasession.cpp:329
 #, kde-format
 msgid ""
 "For Julia only GR (https://gr-framework.org/), a framework for visualization "
@@ -447,7 +453,7 @@ msgstr ""
 #: backends/maxima/settings.ui:21 backends/octave/settings.ui:21
 #: backends/python/settings.ui:21 backends/qalculate/settings.ui:21
 #: backends/R/settings.ui:21 backends/sage/settings.ui:21
-#: backends/scilab/settings.ui:21 cantor.cpp:629
+#: backends/scilab/settings.ui:21 cantor.cpp:644
 #, kde-format
 msgid "General"
 msgstr "Všeobecné"
@@ -458,7 +464,7 @@ msgstr "Všeobecné"
 #: backends/R/settings.ui:169 backends/sage/settings.ui:203
 #, kde-format
 msgid "PDF"
-msgstr ""
+msgstr "PDF"
 
 #. i18n: ectx: property (toolTip), widget (QCheckBox, kcfg_integratePlots)
 #: backends/julia/settings.ui:46 backends/maxima/settings.ui:67
@@ -507,10 +513,9 @@ msgstr "Zapnuté"
 #: backends/julia/settings.ui:56 backends/maxima/settings.ui:77
 #: backends/octave/settings.ui:118 backends/python/settings.ui:90
 #: backends/R/settings.ui:108 backends/sage/settings.ui:107
-#, fuzzy, kde-format
-#| msgid "Font Size:"
+#, kde-format
 msgid "Size:"
-msgstr "Veľkosť písma:"
+msgstr "Veľkosť:"
 
 #. i18n: ectx: property (toolTip), widget (QCheckBox, kcfg_variableManagement)
 #: backends/julia/settings.ui:63 backends/maxima/settings.ui:44
@@ -544,10 +549,9 @@ msgstr "Povoliť správu premenných"
 #: backends/julia/settings.ui:108 backends/maxima/settings.ui:105
 #: backends/octave/settings.ui:58 backends/python/settings.ui:118
 #: backends/R/settings.ui:48 backends/sage/settings.ui:135
-#, fuzzy, kde-format
-#| msgid "Width"
+#, kde-format
 msgid "width:"
-msgstr "Šírka"
+msgstr "šírka:"
 
 #. i18n: ectx: property (suffix), widget (QDoubleSpinBox, kcfg_plotWidth)
 #. i18n: ectx: property (suffix), widget (QDoubleSpinBox, kcfg_plotHeight)
@@ -559,16 +563,15 @@ msgstr "Šírka"
 #: backends/sage/settings.ui:142 backends/sage/settings.ui:172
 #, kde-format
 msgid "cm"
-msgstr ""
+msgstr "cm"
 
 #. i18n: ectx: property (text), widget (QLabel, lPlotHeight)
 #: backends/julia/settings.ui:138 backends/maxima/settings.ui:135
 #: backends/octave/settings.ui:88 backends/python/settings.ui:148
 #: backends/R/settings.ui:78 backends/sage/settings.ui:165
-#, fuzzy, kde-format
-#| msgid "Height"
+#, kde-format
 msgid "height:"
-msgstr "Výška"
+msgstr "výška:"
 
 #. i18n: ectx: property (text), widget (QLabel, label_4)
 #. i18n: ectx: property (text), item, widget (KComboBox, kcfg_plotExtenstionGraphicPackage)
@@ -588,7 +591,7 @@ msgstr "Kresliť"
 #: backends/R/settings.ui:197 backends/sage/settings.ui:195
 #, kde-format
 msgid "Image Format:"
-msgstr ""
+msgstr "Formát obrázka:"
 
 #. i18n: ectx: property (toolTip), widget (KComboBox, kcfg_plotExtenstionGraphicPackage)
 #. i18n: ectx: property (toolTip), widget (QLabel, label3)
@@ -603,7 +606,7 @@ msgstr ""
 #: backends/julia/settings.ui:227 backends/python/settings.ui:239
 #, kde-format
 msgid "GR"
-msgstr ""
+msgstr "GR"
 
 #. i18n: ectx: property (text), item, widget (KComboBox, kcfg_plotExtenstionGraphicPackage)
 #: backends/julia/settings.ui:237
@@ -616,7 +619,7 @@ msgstr "Kresliť"
 #: backends/julia/settings.ui:242
 #, kde-format
 msgid "Gadfly"
-msgstr ""
+msgstr "Gadfly"
 
 #. i18n: ectx: property (text), widget (QLabel, label3)
 #: backends/julia/settings.ui:253
@@ -654,10 +657,9 @@ msgstr "Automaticky spustené skripty"
 #: backends/python/settings.ui:286 backends/qalculate/settings.ui:585
 #: backends/R/settings.ui:241 backends/sage/settings.ui:250
 #: backends/scilab/settings.ui:88
-#, fuzzy, kde-format
-#| msgid "Documentation:"
+#, kde-format
 msgid "Documentation"
-msgstr "Dokumentácia:"
+msgstr "Dokumentácia"
 
 #: backends/kalgebra/kalgebrabackend.cpp:58
 #, fuzzy, kde-format
@@ -732,6 +734,11 @@ msgstr "Cesta k príkazu luajit"
 #, kde-format
 msgid "Lua script file (*.lua)"
 msgstr "Súbor skriptu Lua (*.lua)"
+
+#: backends/lua/luasession.cpp:59
+#, kde-format
+msgid "Failed to start Lua, please check Lua installation."
+msgstr ""
 
 #. i18n: ectx: property (text), widget (QLabel, label)
 #: backends/lua/settings.ui:27
@@ -856,17 +863,29 @@ msgstr "Čakám na vykreslenie výsledku"
 msgid "Maxima batch file (*.mac)"
 msgstr "Dávkový súbor Maxima (*.mac)"
 
-#: backends/maxima/maximasession.cpp:184
+#: backends/maxima/maximasession.cpp:61
+#, kde-format
+msgid "Failed to start Maxima, please check Maxima's installation."
+msgstr ""
+
+#: backends/maxima/maximasession.cpp:80
+#, kde-format
+msgid ""
+"Maxima didn't respond with the proper prompt, please check Maxima "
+"installation."
+msgstr ""
+
+#: backends/maxima/maximasession.cpp:202
 #, kde-format
 msgid "Failed to start Maxima"
 msgstr "Zlyhalo spustenie Maxima"
 
-#: backends/maxima/maximasession.cpp:251
+#: backends/maxima/maximasession.cpp:269
 #, kde-format
 msgid "Maxima crashed. restarting..."
 msgstr "Aplikácia Maxima spadla. reštartovanie..."
 
-#: backends/maxima/maximasession.cpp:265
+#: backends/maxima/maximasession.cpp:283
 #, kde-format
 msgid "Maxima crashed twice within a short time. Stopping to try starting"
 msgstr ""
@@ -878,7 +897,7 @@ msgstr ""
 #: backends/maxima/settings.ui:27 backends/octave/settings.ui:165
 #: backends/qalculate/settings.ui:151 backends/sage/settings.ui:27
 #: backends/scilab/settings.ui:27
-#, fuzzy, kde-format
+#, kde-format
 msgid "Executable:"
 msgstr "Spustiteľný súbor:"
 
@@ -918,25 +937,30 @@ msgstr ""
 msgid "Octave script file (*.m)"
 msgstr "Súbor skriptu Octave (*.m)"
 
-#: backends/octave/octavesession.cpp:275 backends/sage/sageexpression.cpp:49
+#: backends/octave/octavesession.cpp:98
+#, kde-format
+msgid "Failed to start Octave, please check Octave installation."
+msgstr ""
+
+#: backends/octave/octavesession.cpp:277 backends/sage/sageexpression.cpp:49
 #, kde-format
 msgid "Syntax Error"
 msgstr "Syntaktická chyba"
 
-#: backends/octave/octavesession.cpp:394
+#: backends/octave/octavesession.cpp:396
 #, kde-format
 msgid "Plot integration test failed."
 msgstr ""
 
-#: backends/octave/octavesession.cpp:398
+#: backends/octave/octavesession.cpp:400
 #, kde-format
 msgid "The integration of plots will be disabled."
 msgstr ""
 
-#: backends/octave/octavesession.cpp:399 backends/sage/sagesession.cpp:341
-#: backends/sage/sagesession.cpp:352 cantor.cpp:215 cantor.cpp:217
-#: cantor.cpp:336 cantor.cpp:343 lib/session.cpp:383 main.cpp:66 main.cpp:130
-#: markdownentry.cpp:797 textentry.cpp:553 worksheet.cpp:1275
+#: backends/octave/octavesession.cpp:401 backends/sage/sagesession.cpp:357
+#: backends/sage/sagesession.cpp:368 cantor.cpp:217 cantor.cpp:219
+#: cantor.cpp:338 cantor.cpp:345 lib/session.cpp:335 main.cpp:72 main.cpp:131
+#: markdownentry.cpp:797 textentry.cpp:553 worksheet.cpp:1283
 #, kde-format
 msgid "Cantor"
 msgstr "Cantor"
@@ -980,29 +1004,34 @@ msgstr ""
 msgid "Python script file (*.py)"
 msgstr "Súbor skriptu Python (*.py)"
 
-#: backends/python/pythonsession.cpp:274
+#: backends/python/pythonsession.cpp:74
+#, kde-format
+msgid "Failed to start Python, please check Python installation."
+msgstr ""
+
+#: backends/python/pythonsession.cpp:280
 #, kde-format
 msgid "Cantor Python server stopped working."
 msgstr "Python server Cantor prestal pracovať."
 
-#: backends/python/pythonsession.cpp:278
+#: backends/python/pythonsession.cpp:284
 #, kde-format
 msgid "Failed to start Cantor python server."
 msgstr "Nepodarilo sa spustiť Cantor python server."
 
-#: backends/python/pythonsession.cpp:282
+#: backends/python/pythonsession.cpp:288
 #, kde-format
 msgid "Communication with Cantor python server failed for unknown reasons."
 msgstr "Komunikácia s python serverom Cantor zlyhala z neznámeho dôvodu."
 
-#: backends/python/pythonsession.cpp:308
+#: backends/python/pythonsession.cpp:314
 #, kde-format
 msgid ""
 "For using integrated graphics with Matplotlib package, you need to install "
 "\"matplotlib\" python package first."
 msgstr ""
 
-#: backends/python/pythonsession.cpp:314
+#: backends/python/pythonsession.cpp:320
 #, kde-format
 msgid ""
 "For using integrated graphic with Plot.ly, you need to install \"plotly\" "
@@ -1020,13 +1049,13 @@ msgstr ""
 #: backends/python/settings.ui:224
 #, kde-format
 msgid "matplotlib"
-msgstr ""
+msgstr "matplotlib"
 
 #. i18n: ectx: property (text), item, widget (KComboBox, kcfg_plotExtenstionGraphicPackage)
 #: backends/python/settings.ui:229
 #, kde-format
 msgid "pylab"
-msgstr ""
+msgstr "pylab"
 
 #. i18n: ectx: property (text), item, widget (KComboBox, kcfg_plotExtenstionGraphicPackage)
 #: backends/python/settings.ui:234
@@ -1039,7 +1068,7 @@ msgstr "Kresliť"
 #: backends/python/settings.ui:244
 #, kde-format
 msgid "bokeh"
-msgstr ""
+msgstr "bokeh"
 
 #. i18n: ectx: property (windowTitle), widget (QWidget, QalculatePlotAssistantBase)
 #: backends/qalculate/plotassistant/qalculateplotdialog.ui:14
@@ -1073,7 +1102,6 @@ msgstr "Pridať"
 
 #. i18n: ectx: property (text), widget (QPushButton, removeButton)
 #: backends/qalculate/plotassistant/qalculateplotdialog.ui:82
-#: worksheetentry.cpp:437
 #, kde-format
 msgid "Remove"
 msgstr "Odstrániť"
@@ -1414,7 +1442,7 @@ msgstr "EPS"
 
 #. i18n: ectx: property (text), item, widget (KComboBox, saveFileBox)
 #: backends/qalculate/plotassistant/qalculateplotdialog.ui:575
-#: worksheet.cpp:1822 worksheet.cpp:1848 worksheet.cpp:1868 worksheet.cpp:1886
+#: worksheet.cpp:1831 worksheet.cpp:1857 worksheet.cpp:1877 worksheet.cpp:1895
 #, kde-format
 msgid "LaTeX"
 msgstr "LaTeX"
@@ -1583,133 +1611,133 @@ msgstr "Štýl grafov."
 msgid "Legend position in plots."
 msgstr "Pozícia legendy v grafoch."
 
-#: backends/qalculate/qalculateexpression.cpp:137
+#: backends/qalculate/qalculateexpression.cpp:142
 #, kde-format
 msgid "Qalculate reports it cannot print. Is gnuplot installed?"
 msgstr ""
 "Qalculate hlási, že nemožno tlačiť. Je nainštalovaná aplikácia gnuplot?"
 
-#: backends/qalculate/qalculateexpression.cpp:158
+#: backends/qalculate/qalculateexpression.cpp:163
 #, kde-format
 msgid "missing %1"
 msgstr "chýba %1"
 
-#: backends/qalculate/qalculateexpression.cpp:248
+#: backends/qalculate/qalculateexpression.cpp:253
 #, kde-format
 msgid "%1 must be a number."
 msgstr "%1 musí byť číslo."
 
-#: backends/qalculate/qalculateexpression.cpp:249
+#: backends/qalculate/qalculateexpression.cpp:254
 #, kde-format
 msgid "%1 must be a integer."
 msgstr "%1 musí byť integer."
 
-#: backends/qalculate/qalculateexpression.cpp:250
+#: backends/qalculate/qalculateexpression.cpp:255
 #, kde-format
 msgid "%1 must be a boolean."
 msgstr "%1 musí byť boolean."
 
-#: backends/qalculate/qalculateexpression.cpp:251
+#: backends/qalculate/qalculateexpression.cpp:256
 #, kde-format
 msgid "invalid option for %1: %2"
 msgstr "Neplatná možnosť pre %1: %2"
 
-#: backends/qalculate/qalculateexpression.cpp:578
+#: backends/qalculate/qalculateexpression.cpp:583
 #, kde-format
 msgid "found multiple expressions in one plot command (%1 and %2)."
 msgstr "nájdených viac výrazov v jednom príkaze vykreslenia (%1 a %2)."
 
-#: backends/qalculate/qalculateexpression.cpp:677
-#: backends/qalculate/qalculateexpression.cpp:785
-#: backends/qalculate/qalculatehighlighter.cpp:29
+#: backends/qalculate/qalculateexpression.cpp:682
+#: backends/qalculate/qalculateexpression.cpp:790
+#: backends/qalculate/qalculatehighlighter.cpp:21
 #, kde-format
 msgid "ERROR"
 msgstr "CHYBA"
 
-#: backends/qalculate/qalculateexpression.cpp:679
-#: backends/qalculate/qalculateexpression.cpp:787
-#: backends/qalculate/qalculatehighlighter.cpp:29
+#: backends/qalculate/qalculateexpression.cpp:684
+#: backends/qalculate/qalculateexpression.cpp:792
+#: backends/qalculate/qalculatehighlighter.cpp:21
 #, kde-format
 msgid "WARNING"
 msgstr "UPOZORNENIE"
 
-#: backends/qalculate/qalculatesyntaxhelpobject.cpp:46
+#: backends/qalculate/qalculatesyntaxhelpobject.cpp:47
 #, kde-format
 msgid "No function, variable or unit with specified name exist."
 msgstr "Žiadna funkcia, premenná alebo jednotka s daným názvom neexistuje."
 
-#: backends/qalculate/qalculatesyntaxhelpobject.cpp:53
+#: backends/qalculate/qalculatesyntaxhelpobject.cpp:54
 #, kde-format
 msgid "Function: %1"
 msgstr "Funkcia: %1"
 
-#: backends/qalculate/qalculatesyntaxhelpobject.cpp:138
+#: backends/qalculate/qalculatesyntaxhelpobject.cpp:139
 #, kde-format
 msgid "Plotting interface"
 msgstr "Rozhranie kreslenia"
 
-#: backends/qalculate/qalculatesyntaxhelpobject.cpp:139
+#: backends/qalculate/qalculatesyntaxhelpobject.cpp:140
 #, kde-format
 msgid "Plots one or more functions either inline or in a separate window."
 msgstr ""
 "Zakreslí jednu alebo viac funkcií buď ako vložené alebo v samostatnom okne."
 
-#: backends/qalculate/qalculatesyntaxhelpobject.cpp:140
+#: backends/qalculate/qalculatesyntaxhelpobject.cpp:141
 #, kde-format
 msgid "expression"
 msgstr "výraz"
 
-#: backends/qalculate/qalculatesyntaxhelpobject.cpp:141
+#: backends/qalculate/qalculatesyntaxhelpobject.cpp:142
 #, kde-format
 msgid "option"
 msgstr "voľba"
 
-#: backends/qalculate/qalculatesyntaxhelpobject.cpp:142
+#: backends/qalculate/qalculatesyntaxhelpobject.cpp:143
 #, kde-format
 msgid "value"
 msgstr "hodnota"
 
-#: backends/qalculate/qalculatesyntaxhelpobject.cpp:146
+#: backends/qalculate/qalculatesyntaxhelpobject.cpp:147
 #, kde-format
 msgid "integer"
 msgstr "celé číslo"
 
-#: backends/qalculate/qalculatesyntaxhelpobject.cpp:147
+#: backends/qalculate/qalculatesyntaxhelpobject.cpp:148
 #, kde-format
 msgid "boolean"
 msgstr "boolean"
 
-#: backends/qalculate/qalculatesyntaxhelpobject.cpp:148
+#: backends/qalculate/qalculatesyntaxhelpobject.cpp:149
 #, kde-format
 msgid "number"
 msgstr "číslo"
 
-#: backends/qalculate/qalculatesyntaxhelpobject.cpp:149
+#: backends/qalculate/qalculatesyntaxhelpobject.cpp:150
 #, kde-format
 msgid "default: %1"
 msgstr "predvolené: %1"
 
-#: backends/qalculate/qalculatesyntaxhelpobject.cpp:209
+#: backends/qalculate/qalculatesyntaxhelpobject.cpp:210
 #, kde-format
 msgid "The function's name"
 msgstr "Názov funkcie"
 
-#: backends/qalculate/qalculatesyntaxhelpobject.cpp:211
+#: backends/qalculate/qalculatesyntaxhelpobject.cpp:212
 #, kde-format
 msgid "Title label"
 msgstr "Poúis titulku"
 
-#: backends/qalculate/qalculatesyntaxhelpobject.cpp:212
+#: backends/qalculate/qalculatesyntaxhelpobject.cpp:213
 #, kde-format
 msgid "x-axis label"
 msgstr "Popis osi y"
 
-#: backends/qalculate/qalculatesyntaxhelpobject.cpp:213
+#: backends/qalculate/qalculatesyntaxhelpobject.cpp:214
 #, kde-format
 msgid "y-axis label"
 msgstr "Popis osi y"
 
-#: backends/qalculate/qalculatesyntaxhelpobject.cpp:214
+#: backends/qalculate/qalculatesyntaxhelpobject.cpp:215
 #, kde-format
 msgid ""
 "Image to save plot to. If empty shows plot in a window on the screen. If "
@@ -1718,64 +1746,64 @@ msgstr ""
 "Obrázok, do ktorého sa uloží graf. Ak je to prázdne, ukazuje graf v okne na "
 "obrazovke. Ak je vložený=pravda, obrázok sa zobrazí bez ohľadu na túto voľbu."
 
-#: backends/qalculate/qalculatesyntaxhelpobject.cpp:215
+#: backends/qalculate/qalculatesyntaxhelpobject.cpp:216
 #, kde-format
 msgid "The image type to save as. One of auto, png, ps, eps, latex, svg, fig."
 msgstr ""
 "Typ obrázka pre uloženie ako. Jeden z auto, png, ps, eps, latex, svg, fig."
 
-#: backends/qalculate/qalculatesyntaxhelpobject.cpp:216
+#: backends/qalculate/qalculatesyntaxhelpobject.cpp:217
 #, kde-format
 msgid "Set to true for colored plot, false for monochrome."
 msgstr "Nastaviť pravda pre farebný graf, nepravda pre monochromatický."
 
-#: backends/qalculate/qalculatesyntaxhelpobject.cpp:217
+#: backends/qalculate/qalculatesyntaxhelpobject.cpp:218
 #, kde-format
 msgid "Minimum x-axis value."
 msgstr "Minimálna hodnota osi x."
 
-#: backends/qalculate/qalculatesyntaxhelpobject.cpp:218
+#: backends/qalculate/qalculatesyntaxhelpobject.cpp:219
 #, kde-format
 msgid "Maximum x-axis value."
 msgstr "Maximálna hodnota osi x."
 
-#: backends/qalculate/qalculatesyntaxhelpobject.cpp:219
+#: backends/qalculate/qalculatesyntaxhelpobject.cpp:220
 #, kde-format
 msgid "If a logarithmic scale shall be used for the x-axis."
 msgstr "Či bude použitá logaritmická stupnica pre os x."
 
-#: backends/qalculate/qalculatesyntaxhelpobject.cpp:220
+#: backends/qalculate/qalculatesyntaxhelpobject.cpp:221
 #, kde-format
 msgid "If a logarithmic scale shall be used for the y-axis."
 msgstr "Či bude použitá logaritmická stupnica pre os y."
 
-#: backends/qalculate/qalculatesyntaxhelpobject.cpp:221
+#: backends/qalculate/qalculatesyntaxhelpobject.cpp:222
 #, kde-format
 msgid "Logarithmic base for the x-axis."
 msgstr "Logaritmický základ pre os x."
 
-#: backends/qalculate/qalculatesyntaxhelpobject.cpp:222
+#: backends/qalculate/qalculatesyntaxhelpobject.cpp:223
 #, kde-format
 msgid "Logarithmic base for the y-axis."
 msgstr "Logaritmický základ pre os y."
 
-#: backends/qalculate/qalculatesyntaxhelpobject.cpp:223
+#: backends/qalculate/qalculatesyntaxhelpobject.cpp:224
 #, kde-format
 msgid "If a grid shall be shown in the plot."
 msgstr "Či bude mriežka zobrazená v grafe."
 
-#: backends/qalculate/qalculatesyntaxhelpobject.cpp:224
+#: backends/qalculate/qalculatesyntaxhelpobject.cpp:225
 #, kde-format
 msgid ""
 "If the plot shall be surrounded by borders on all sides (not just axis)."
 msgstr "Či bude graf ohraničený zo všetkých strán (nielen os)."
 
-#: backends/qalculate/qalculatesyntaxhelpobject.cpp:225
+#: backends/qalculate/qalculatesyntaxhelpobject.cpp:226
 #, kde-format
 msgid "Width of lines."
 msgstr "Šírka čiar."
 
-#: backends/qalculate/qalculatesyntaxhelpobject.cpp:226
+#: backends/qalculate/qalculatesyntaxhelpobject.cpp:227
 #, kde-format
 msgid ""
 "Where the plot legend shall be placed. One of none, top_left, top_right, "
@@ -1784,14 +1812,14 @@ msgstr ""
 "Kde sa umiestni legenda grafu. Jedno zo žiadneho, hore vľavo, hore vpravo, "
 "dole vľavo, dole vpravo, pod grafom, mimo grafu"
 
-#: backends/qalculate/qalculatesyntaxhelpobject.cpp:227
+#: backends/qalculate/qalculatesyntaxhelpobject.cpp:228
 #, kde-format
 msgid "Plot smoothing. One of none, unique, csplines, bezier, sbezier"
 msgstr ""
 "Vyhladzovanie grafu. Jedno zo žiadneho, jedinečného, csplajn, bézieroveho, "
 "sbézieroveho"
 
-#: backends/qalculate/qalculatesyntaxhelpobject.cpp:228
+#: backends/qalculate/qalculatesyntaxhelpobject.cpp:229
 #, kde-format
 msgid ""
 "Plot style. One of lines, points, points_lines, boxes, histogram, steps, "
@@ -1800,42 +1828,42 @@ msgstr ""
 "Štýl grafu. Jeden z čiarového, bodového, bodovo-čiarového, krabicového, "
 "histogramu, krokového, sviečkového, bodkového"
 
-#: backends/qalculate/qalculatesyntaxhelpobject.cpp:229
+#: backends/qalculate/qalculatesyntaxhelpobject.cpp:230
 #, kde-format
 msgid "Use scale on second x-axis."
 msgstr "Použiť stupnicu na druhej osi x."
 
-#: backends/qalculate/qalculatesyntaxhelpobject.cpp:230
+#: backends/qalculate/qalculatesyntaxhelpobject.cpp:231
 #, kde-format
 msgid "Use scale on second y-axis."
 msgstr "Použiť stupnicu na druhej osi y."
 
-#: backends/qalculate/qalculatesyntaxhelpobject.cpp:231
+#: backends/qalculate/qalculatesyntaxhelpobject.cpp:232
 #, kde-format
 msgid "If the plot is to be drawn inline, instead of in a new window."
 msgstr "Či je graf vykreslený ako vložený, namiesto v novom okne."
 
-#: backends/qalculate/qalculatesyntaxhelpobject.cpp:232
+#: backends/qalculate/qalculatesyntaxhelpobject.cpp:233
 #, kde-format
 msgid "Distance between two interpolation points. See also steps."
 msgstr "Vzdialenosť medzi dvoma interpolačnými bodmi. Tiež pozrieť kroky."
 
-#: backends/qalculate/qalculatesyntaxhelpobject.cpp:233
+#: backends/qalculate/qalculatesyntaxhelpobject.cpp:234
 #, kde-format
 msgid "Number of interpolation points. See also step."
 msgstr "Počet interpolačných bodov. Tiež pozrieť krok."
 
-#: backends/qalculate/qalculatesyntaxhelpobject.cpp:234
+#: backends/qalculate/qalculatesyntaxhelpobject.cpp:235
 #, kde-format
 msgid "The name of the x variable. This must be an unknown variable"
 msgstr "Názov premennej x. Musí to byť neznáma premenná"
 
-#: backends/qalculate/qalculatesyntaxhelpobject.cpp:243
+#: backends/qalculate/qalculatesyntaxhelpobject.cpp:242
 #, kde-format
 msgid "Save variables to a file"
 msgstr "Uložiť premenné do súboru"
 
-#: backends/qalculate/qalculatesyntaxhelpobject.cpp:244
+#: backends/qalculate/qalculatesyntaxhelpobject.cpp:243
 #, kde-format
 msgid ""
 "Save all currently defined variables to a file. They can be reloaded with %1."
@@ -1843,28 +1871,28 @@ msgstr ""
 "Uložiť všetky aktuálne definované premenné do súboru. Môžu byť znovu "
 "načítané s %1."
 
-#: backends/qalculate/qalculatesyntaxhelpobject.cpp:245
-#: backends/qalculate/qalculatesyntaxhelpobject.cpp:254
+#: backends/qalculate/qalculatesyntaxhelpobject.cpp:244
+#: backends/qalculate/qalculatesyntaxhelpobject.cpp:253
 #, kde-format
 msgid "file"
 msgstr "súbor"
 
-#: backends/qalculate/qalculatesyntaxhelpobject.cpp:246
+#: backends/qalculate/qalculatesyntaxhelpobject.cpp:245
 #, kde-format
 msgid "file: the file to save to"
 msgstr "súbor: súbor, do ktorého sa ukladá"
 
-#: backends/qalculate/qalculatesyntaxhelpobject.cpp:252
+#: backends/qalculate/qalculatesyntaxhelpobject.cpp:251
 #, kde-format
 msgid "Load variables from a file"
 msgstr "Načítať premenné zo súboru"
 
-#: backends/qalculate/qalculatesyntaxhelpobject.cpp:253
+#: backends/qalculate/qalculatesyntaxhelpobject.cpp:252
 #, kde-format
 msgid "Load variables from a file that has previously been created by %1."
 msgstr "Načítať premenné zo súboru, ktorý bol už predtým vytvorený s %1."
 
-#: backends/qalculate/qalculatesyntaxhelpobject.cpp:255
+#: backends/qalculate/qalculatesyntaxhelpobject.cpp:254
 #, kde-format
 msgid "file: the file to load"
 msgstr "súbor: súbor pre načítanie"
@@ -2074,77 +2102,74 @@ msgstr "Zobraziť mriežku:"
 msgid "Plot Style:"
 msgstr "Štýl nákresu:"
 
-#: backends/qthelpconfig.cpp:45
-#, fuzzy, kde-format
-#| msgid "Command Entry"
+#: backends/qthelpconfig.cpp:44
+#, kde-format
 msgctxt "@title:window"
 msgid "Modify Entry"
-msgstr "Položka príkazu"
+msgstr "Upraviť položku"
 
-#: backends/qthelpconfig.cpp:47
-#, fuzzy, kde-format
-#| msgid "Add new variable"
+#: backends/qthelpconfig.cpp:46
+#, kde-format
 msgctxt "@title:window"
 msgid "Add New Entry"
-msgstr "Pridať novú premennú"
+msgstr "Pridať novú položku"
 
-#: backends/qthelpconfig.cpp:64
+#: backends/qthelpconfig.cpp:63
 #, kde-format
 msgid "Name cannot be empty."
-msgstr ""
+msgstr "Názov nesmie byť prázdny."
 
-#: backends/qthelpconfig.cpp:84
+#: backends/qthelpconfig.cpp:83
 #, fuzzy, kde-format
 #| msgid "Path to local documentation:"
 msgid "Add local documentation"
 msgstr "Cesta k miestnej dokumentácií:"
 
-#: backends/qthelpconfig.cpp:100
-#, fuzzy, kde-format
-#| msgid "Documentation:"
+#: backends/qthelpconfig.cpp:99
+#, kde-format
 msgctxt "@action:button Allow user to get some API documentation with GHNS"
 msgid "Get New Documentation"
-msgstr "Dokumentácia:"
+msgstr "Získať novú dokumentáciu"
 
-#: backends/qthelpconfig.cpp:103
+#: backends/qthelpconfig.cpp:102
 #, fuzzy, kde-format
 #| msgid "Path to local documentation:"
 msgid "Download additional documentations"
 msgstr "Cesta k miestnej dokumentácií:"
 
-#: backends/qthelpconfig.cpp:171
+#: backends/qthelpconfig.cpp:170
 #, kde-format
 msgid "Qt Compressed Help file is not valid."
-msgstr ""
+msgstr "Komprimovaný súbor pomocníka Qt nie je platný."
 
-#: backends/qthelpconfig.cpp:180
+#: backends/qthelpconfig.cpp:179
 #, kde-format
 msgid "Documentation already imported"
-msgstr ""
+msgstr "Dokumentácia je už importovaná"
 
-#: backends/qthelpconfig.cpp:270
+#: backends/qthelpconfig.cpp:269
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Modify"
-msgstr ""
+msgstr "Zmeniť"
 
-#: backends/qthelpconfig.cpp:275
+#: backends/qthelpconfig.cpp:274
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Delete"
-msgstr ""
+msgstr "Vymazať"
 
-#: backends/qthelpconfig.cpp:283
+#: backends/qthelpconfig.cpp:282
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Please uninstall this via GHNS."
-msgstr ""
+msgstr "Prosím, odinštalujte to cez GHNS."
 
 #. i18n: ectx: property (text), widget (QLabel, label)
 #: backends/qthelpconfig.ui:20
 #, kde-format
 msgid "Install Additional Documentation Files"
-msgstr ""
+msgstr "Nainštalovať ďalšie súbory dokumentácie"
 
 #. i18n: ectx: property (text), widget (QTreeWidget, qchTable)
 #: backends/qthelpconfig.ui:49 lib/defaultvariablemodel.cpp:69
@@ -2158,12 +2183,11 @@ msgstr "Názov"
 #, kde-format
 msgctxt "@title:column"
 msgid "Path"
-msgstr ""
+msgstr "Cesta"
 
 #. i18n: ectx: property (text), widget (QPushButton, addButton)
 #: backends/qthelpconfig.ui:79
-#, fuzzy, kde-format
-#| msgid "Add"
+#, kde-format
 msgctxt "@action:button"
 msgid "Add"
 msgstr "Pridať"
@@ -2173,20 +2197,18 @@ msgstr "Pridať"
 #, kde-format
 msgctxt "@label:chooser"
 msgid "Icon:"
-msgstr ""
+msgstr "Ikona:"
 
 #. i18n: ectx: property (toolTip), widget (KIconButton, qchIcon)
 #: backends/qthelpconfigeditdialog.ui:24
-#, fuzzy, kde-format
-#| msgid "Select the Backend"
+#, kde-format
 msgctxt "@info:tooltip"
 msgid "Select an icon"
-msgstr "Vybrať backend"
+msgstr "Vyberte ikonu"
 
 #. i18n: ectx: property (text), widget (QLabel, lName)
 #: backends/qthelpconfigeditdialog.ui:34
-#, fuzzy, kde-format
-#| msgid "Name:"
+#, kde-format
 msgctxt "@label:textbox"
 msgid "Name:"
 msgstr "Názov:"
@@ -2196,35 +2218,35 @@ msgstr "Názov:"
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Enter a name"
-msgstr ""
+msgstr "Vyberte názov"
 
 #. i18n: ectx: property (placeholderText), widget (QLineEdit, qchName)
 #: backends/qthelpconfigeditdialog.ui:44
 #, kde-format
 msgctxt "@info:placeholder"
 msgid "Select a name..."
-msgstr ""
+msgstr "Vyberte názov..."
 
 #. i18n: ectx: property (text), widget (QLabel, lPath)
 #: backends/qthelpconfigeditdialog.ui:51
 #, kde-format
 msgctxt "@label:textbox"
 msgid "Path:"
-msgstr ""
+msgstr "Cesta:"
 
 #. i18n: ectx: property (toolTip), widget (KUrlRequester, qchRequester)
 #: backends/qthelpconfigeditdialog.ui:64
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Select a Qt Help file..."
-msgstr ""
+msgstr "Vyberte súbor QtHelp..."
 
 #. i18n: ectx: property (placeholderText), widget (KUrlRequester, qchRequester)
 #: backends/qthelpconfigeditdialog.ui:70
 #, kde-format
 msgctxt "@info:placeholder"
 msgid "Select a Qt Help file..."
-msgstr ""
+msgstr "Vyberte súbor QtHelp..."
 
 #: backends/R/rbackend.cpp:81
 #, kde-format
@@ -2301,12 +2323,17 @@ msgstr "Chyba príkazu analýzy"
 msgid "Url to the local R documentation"
 msgstr "URL k miestnej dokumentácii R"
 
-#: backends/R/rsettingswidget.cpp:24
+#: backends/R/rsession.cpp:54
+#, kde-format
+msgid "Failed to start R, please check R installation."
+msgstr ""
+
+#: backends/R/rsettingswidget.cpp:28
 #, kde-format
 msgid "Double click to open file selection dialog"
 msgstr "Dvojitým kliknutím otvoriť dialóg pre výber súboru"
 
-#: backends/R/rsettingswidget.cpp:44
+#: backends/R/rsettingswidget.cpp:48
 #, kde-format
 msgid "*.R *.r|R source files (*.R, *.r)"
 msgstr "*.R *.r|Zdrojové súbory R (*.R, *.r)"
@@ -2368,7 +2395,12 @@ msgstr ""
 msgid "Python script file (*.py);;Sage script file (*.sage)"
 msgstr "Súbor skriptu Python (*.py);;Súbor skriptu Sage (*.sage)"
 
-#: backends/sage/sagesession.cpp:254
+#: backends/sage/sagesession.cpp:126
+#, kde-format
+msgid "Failed to start Sage, please check Sage installation."
+msgstr ""
+
+#: backends/sage/sagesession.cpp:270
 #, fuzzy, kde-format
 #| msgid ""
 #| "Sage version %1.%2 is unsupported. Please update your installation to the "
@@ -2380,12 +2412,12 @@ msgstr ""
 "Sage verzie %1.%2 je nepodporované. Prosím, aktualizujte vašu inštaláciu na "
 "podporované verzie, aby fungovali s Cantorom."
 
-#: backends/sage/sagesession.cpp:256 backends/sage/sagesession.cpp:276
+#: backends/sage/sagesession.cpp:272 backends/sage/sagesession.cpp:292
 #, fuzzy, kde-format
 msgid "Unsupported Version"
 msgstr "Všetky podporované súbory"
 
-#: backends/sage/sagesession.cpp:275
+#: backends/sage/sagesession.cpp:291
 #, kde-format
 msgid ""
 "Failed to determine the version of Sage. Please check your installation and "
@@ -2394,27 +2426,27 @@ msgstr ""
 "Zlyhalo určenie verzie Sage. Prosím, skontrolujte vašu inštaláciu a výstup "
 "'sage -v'."
 
-#: backends/sage/sagesession.cpp:337
+#: backends/sage/sagesession.cpp:353
 #, kde-format
 msgid "The Sage process crashed while evaluating this expression"
 msgstr "Proces Sage počas vyhodnocovania tohto výrazu spadol"
 
-#: backends/sage/sagesession.cpp:341
+#: backends/sage/sagesession.cpp:357
 #, kde-format
 msgid "The Sage process crashed"
 msgstr "Proces Sage spadol"
 
-#: backends/sage/sagesession.cpp:348
+#: backends/sage/sagesession.cpp:364
 #, kde-format
 msgid "The Sage process exited while evaluating this expression"
 msgstr "Proces Sage bol počas vyhodnocovania tohto výrazu ukončený"
 
-#: backends/sage/sagesession.cpp:352
+#: backends/sage/sagesession.cpp:368
 #, kde-format
 msgid "The Sage process exited"
 msgstr "Proces Sage bol ukončený"
 
-#: backends/sage/sagesession.cpp:362
+#: backends/sage/sagesession.cpp:378
 #, kde-format
 msgid "Failed to start Sage"
 msgstr "Zlyhalo spustenie Sage"
@@ -2465,6 +2497,11 @@ msgstr "Cesta k spustiteľnému súboru Sage"
 msgid ";;Scilab script file (*.sce);;Scilab function file (*.sci)"
 msgstr ";;Súbor skriptu Scilab (*.sce);;Súbor funkcie Scilab (*.sci)"
 
+#: backends/scilab/scilabsession.cpp:67
+#, kde-format
+msgid "Failed to start Scilab, please check Scilab installation."
+msgstr ""
+
 #. i18n: ectx: property (text), widget (QLabel, lPlotIntegration)
 #: backends/scilab/settings.ui:37
 #, fuzzy, kde-format
@@ -2472,45 +2509,45 @@ msgstr ";;Súbor skriptu Scilab (*.sce);;Súbor funkcie Scilab (*.sci)"
 msgid "Plot Integration:"
 msgstr "Integrovať"
 
-#: cantor.cpp:103
+#: cantor.cpp:105
 #, kde-format
 msgid "The file %1 is already opened."
 msgstr ""
 
-#: cantor.cpp:103 cantor.cpp:227
+#: cantor.cpp:105 cantor.cpp:229
 #, kde-format
 msgid "Open file"
 msgstr "Otvoriť súbor"
 
-#: cantor.cpp:145
+#: cantor.cpp:147
 #, fuzzy, kde-format
 #| msgid "Download Example Worksheets"
 msgid "Download Examples"
 msgstr "Stiahnuť vzorové pracovné listy"
 
-#: cantor.cpp:148
+#: cantor.cpp:150
 #, kde-format
 msgid "&Open Example"
 msgstr "Otvoriť príklad"
 
-#: cantor.cpp:153
+#: cantor.cpp:155
 #, kde-format
 msgid "Go to previous worksheet"
 msgstr "Prejsť na predošlý pracovný list"
 
-#: cantor.cpp:165
+#: cantor.cpp:167
 #, kde-format
 msgid "Go to next worksheet"
 msgstr "Prejsť na ďalší pracovný list"
 
-#: cantor.cpp:226
+#: cantor.cpp:228
 #, kde-format
 msgid ""
 "All supported files (*.cws *ipynb);;Cantor Worksheet (*.cws);;Jupyter "
 "Notebook (*.ipynb)"
 msgstr ""
 
-#: cantor.cpp:294
+#: cantor.cpp:296
 #, kde-format
 msgid ""
 "<h1>No Backend Found</h1>\n"
@@ -2540,17 +2577,17 @@ msgstr[2] ""
 "  <ul>    <li>Zmena nastavení v konfiguračnom dialógu;</li>    "
 "<li>Inštalácia balíčkov pre nasledujúce programy:</li>     %2   </ul> </div> "
 
-#: cantor.cpp:314
+#: cantor.cpp:316
 #, kde-format
 msgid "Error"
 msgstr "Chyba"
 
-#: cantor.cpp:336
+#: cantor.cpp:338
 #, kde-format
 msgid "Backend %1 is not installed"
 msgstr "Backend %1 nie je nainštalovaný"
 
-#: cantor.cpp:343
+#: cantor.cpp:345
 #, kde-format
 msgid ""
 "%1 backend installed, but inactive. Please check installation and Cantor "
@@ -2559,55 +2596,53 @@ msgstr ""
 "Backend %1 je nainštalovaný, ale neaktívny. Prosím, skontrolujte inštaláciu "
 "a nastavenia Cantor."
 
-#: cantor.cpp:371
+#: cantor.cpp:373
 #, kde-format
 msgid "Session %1"
 msgstr "Sedenie %1"
 
-#: cantor.cpp:388
+#: cantor.cpp:390
 #, kde-format
 msgid "Failed to find the Cantor Part with error %1"
 msgstr "Nepodarilo sa nájsť časť Cantor s chybou %1"
 
-#: cantor.cpp:435 cantor_part.cpp:639
+#: cantor.cpp:448 cantor_part.cpp:639
 #, kde-format
 msgid "Calculating..."
 msgstr "Vypočítava sa..."
 
-#: cantor.cpp:438 cantor_part.cpp:650 cantor_part.cpp:713
+#: cantor.cpp:451 cantor_part.cpp:650 cantor_part.cpp:713
 #, kde-format
 msgid "Ready"
 msgstr "Pripravený"
 
-#: cantor.cpp:482
-#, fuzzy, kde-format
-#| msgid "Orange"
+#: cantor.cpp:495
+#, kde-format
 msgid "Changed"
-msgstr "Oranžová"
+msgstr "Zmenené"
 
-#: cantor.cpp:566
+#: cantor.cpp:581
 #, kde-format
 msgid "Multiple unsaved Worksheets are opened. Do you want to close them?"
 msgstr "Je otvorených viac neuložených pracovných listov. Chcete ich zatvoriť?"
 
-#: cantor.cpp:567
+#: cantor.cpp:582
 #, kde-format
 msgid "Close Cantor"
 msgstr "Zatvoriť Cantor"
 
-#: cantor.cpp:583
+#: cantor.cpp:598
 #, kde-format
 msgid "The current project has been modified. Do you want to save it?"
 msgstr "Aktuálny projekt bol zmenený. Chcete ho uložiť?"
 
-#: cantor.cpp:584
+#: cantor.cpp:599
 #, kde-format
 msgid "Save Project"
 msgstr "Uloženie projektu"
 
-#: cantor.cpp:630
-#, fuzzy, kde-format
-#| msgid "Plotting"
+#: cantor.cpp:645
+#, kde-format
 msgid "Formatting"
 msgstr "Formátovanie"
 
@@ -2833,35 +2868,33 @@ msgid "Save Plain Text"
 msgstr "Uložiť jednoduchý text"
 
 #: cantor_part.cpp:179 cantor_part.cpp:538
-#, fuzzy, kde-format
-#| msgid "Export to LaTeX"
+#, kde-format
 msgid "Export to PDF"
-msgstr "Exportovať do LaTeX"
+msgstr "Exportovať to PDF"
 
 #: cantor_part.cpp:183 cantor_part.cpp:550
 #, kde-format
 msgid "Export to LaTeX"
 msgstr "Exportovať do LaTeX"
 
-#: cantor_part.cpp:198 cantor_part.cpp:646 worksheet.cpp:1906
+#: cantor_part.cpp:198 cantor_part.cpp:646 worksheet.cpp:1917
 #, kde-format
 msgid "Evaluate Worksheet"
 msgstr "Vyhodnotiť pracovný zošit"
 
-#: cantor_part.cpp:205 worksheet.cpp:1914
-#, fuzzy, kde-format
+#: cantor_part.cpp:205 worksheet.cpp:1925
+#, kde-format
 msgid "Zoom"
 msgstr "Lupa"
 
 #: cantor_part.cpp:212
-#, fuzzy, kde-format
-#| msgid "%1: %2"
+#, kde-format
 msgctxt ""
 "Zoom percentage value %1 will be replaced by the actual zoom factor value, "
 "so make sure you include it in your translation in order to not to break "
 "anything"
 msgid "%1%"
-msgstr "%1: %2"
+msgstr "%1%"
 
 #: cantor_part.cpp:227
 #, kde-format
@@ -2886,10 +2919,9 @@ msgstr "Čísla riadkov"
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_AnimationDefault)
 #: cantor_part.cpp:247 settings.ui:138
-#, fuzzy, kde-format
-#| msgid "Functions"
+#, kde-format
 msgid "Animations"
-msgstr "Funkcie"
+msgstr "Animácie"
 
 #: cantor_part.cpp:254
 #, kde-format
@@ -2901,7 +2933,7 @@ msgstr "Zabudovaná matematika"
 msgid "Restart Backend"
 msgstr "Reštartovať backend"
 
-#: cantor_part.cpp:266 worksheetentry.cpp:858
+#: cantor_part.cpp:266 worksheetentry.cpp:856
 #, kde-format
 msgid "Evaluate Entry"
 msgstr "Vyhodnotiť položku"
@@ -2950,12 +2982,13 @@ msgstr "Skryť výsledky"
 #: cantor_part.cpp:317
 #, fuzzy, kde-format
 #| msgid "Remove result"
-msgid "Remove All Results"
+msgid "Delete All Results"
 msgstr "Odstrániť výsledok"
 
 #: cantor_part.cpp:322
-#, kde-format
-msgid "Remove current Entry"
+#, fuzzy, kde-format
+#| msgid "Remove current Entry"
+msgid "Delete current Entry"
 msgstr "Odstrániť súčasnú položku"
 
 #. i18n("Publish Worksheet"), collection);
@@ -2983,7 +3016,7 @@ msgstr "CantorPart"
 msgid "(C) 2009-2015 Alexander Rieder"
 msgstr "(C) 2009-2015 Alexander Rieder"
 
-#: cantor_part.cpp:416 main.cpp:81
+#: cantor_part.cpp:416 main.cpp:87
 #, kde-format
 msgid "Alexander Rieder"
 msgstr "Alexander Rieder"
@@ -3011,12 +3044,12 @@ msgstr "Uložiť"
 #: cantor_part.cpp:531 textresultitem.cpp:212
 #, kde-format
 msgid "Text Files (*.txt)"
-msgstr ""
+msgstr "Textové súbory (*.txt)"
 
 #: cantor_part.cpp:538
 #, kde-format
 msgid "PDF Files (*.pdf)"
-msgstr ""
+msgstr "PDF súbory (*.pdf)"
 
 #: cantor_part.cpp:550
 #, kde-format
@@ -3037,7 +3070,7 @@ msgstr ""
 msgid "Restart %1?"
 msgstr "Reštartovať %1?"
 
-#: cantor_part.cpp:636 worksheet.cpp:1909
+#: cantor_part.cpp:636 worksheet.cpp:1920
 #, kde-format
 msgid "Interrupt"
 msgstr "Prerušenie"
@@ -3107,10 +3140,9 @@ msgstr "Pracovný list"
 
 #. i18n: ectx: Menu (settings)
 #: cantor_part.rc:51
-#, fuzzy, kde-format
-#| msgid "&Settings"
+#, kde-format
 msgid "Settings"
-msgstr "Na&stavenia"
+msgstr "Nastavenia"
 
 #. i18n: ectx: Menu (file)
 #: cantor_shell.rc:4
@@ -3142,8 +3174,7 @@ msgid "Background Color"
 msgstr "Farba pozadia"
 
 #: commandentry.cpp:129 commandentry.cpp:156 horizontalruleentry.cpp:328
-#, fuzzy, kde-format
-#| msgid "Defaults"
+#, kde-format
 msgid "Default"
 msgstr "Predvolené"
 
@@ -3211,7 +3242,7 @@ msgstr "Zobraziť výsledky"
 msgid "Hide Results"
 msgstr "Skryť výsledky"
 
-#: commandentry.cpp:343 worksheet.cpp:1899
+#: commandentry.cpp:343 worksheet.cpp:1909
 #, kde-format
 msgid "Show Help"
 msgstr "Zobraziť pomocníka"
@@ -3219,7 +3250,7 @@ msgstr "Zobraziť pomocníka"
 #: commandentry.cpp:356
 #, kde-format
 msgid "Appearance"
-msgstr ""
+msgstr "Vzhľad"
 
 #: commandentry.cpp:597 commandentry.cpp:992
 #, kde-format
@@ -3376,20 +3407,19 @@ msgid "Section"
 msgstr "Oblasť"
 
 #: hierarchyentry.cpp:22
-#, fuzzy, kde-format
-#| msgid "function"
+#, kde-format
 msgid "Subsection"
 msgstr "Podsekcia"
 
 #: hierarchyentry.cpp:22
-#, fuzzy, kde-format
+#, kde-format
 msgid "Paragraph"
 msgstr "Odstavec"
 
 #: hierarchyentry.cpp:22
-#, fuzzy, kde-format
+#, kde-format
 msgid "Subparagraph"
-msgstr "Podod&sek"
+msgstr "Pododsek"
 
 #: hierarchyentry.cpp:48
 #, kde-format
@@ -3433,14 +3463,14 @@ msgid "Thin"
 msgstr "Tenké"
 
 #: horizontalruleentry.cpp:303
-#, fuzzy, kde-format
+#, kde-format
 msgid "Medium"
 msgstr "Stredné"
 
 #: horizontalruleentry.cpp:307
-#, fuzzy, kde-format
+#, kde-format
 msgid "Thick"
-msgstr "hrubý"
+msgstr "Hrubý"
 
 #: horizontalruleentry.cpp:320
 #, kde-format
@@ -3452,7 +3482,7 @@ msgstr "Farba čiary"
 msgid "Line Style"
 msgstr "Štýl čiary"
 
-#: imageentry.cpp:47 imageentry.cpp:371
+#: imageentry.cpp:47 imageentry.cpp:370
 #, kde-format
 msgid "Configure Image"
 msgstr "Konfigurovať obrázok"
@@ -3463,15 +3493,15 @@ msgstr "Konfigurovať obrázok"
 msgid "Double click here to configure image settings"
 msgstr "Dvojitým kliknutím otvoriť dialóg pre výber súboru"
 
-#: imageentry.cpp:288
+#: imageentry.cpp:287
 #, kde-format
 msgid "Cannot load image %1"
 msgstr "Nemožno načítať obrázok %1"
 
 #: imageresultitem.cpp:90
-#, kde-format
+#, fuzzy, kde-format
 msgid "%1 files (*.%2)"
-msgstr ""
+msgstr "Súbory"
 
 #: imageresultitem.cpp:93
 #, kde-format
@@ -3535,8 +3565,7 @@ msgid "Use Display Size"
 msgstr "Použiť veľkosť displeja"
 
 #: imagesettingsdialog.cpp:23
-#, fuzzy, kde-format
-#| msgid "Image Settings"
+#, kde-format
 msgctxt "@title:window"
 msgid "Image Settings"
 msgstr "Nastavenia obrázku"
@@ -3562,10 +3591,9 @@ msgid "Open image file"
 msgstr "Otvoriť súbor obrázka"
 
 #: imagesettingsdialog.cpp:153 markdownentry.cpp:775
-#, fuzzy, kde-format
-#| msgid "Image"
+#, kde-format
 msgid "Images (%1)"
-msgstr "Obrázok"
+msgstr "Obrázky (%1)"
 
 #: latexentry.cpp:61 textentry.cpp:111
 #, kde-format
@@ -3632,19 +3660,19 @@ msgstr "Cesta k spustiteľnému súboru dvips"
 #, kde-format
 msgctxt "@title:column"
 msgid "Type"
-msgstr ""
+msgstr "Typ"
 
 #: lib/defaultvariablemodel.cpp:73
-#, kde-format
+#, fuzzy, kde-format
 msgctxt "@title:column"
 msgid "Size [Bytes]"
-msgstr ""
+msgstr "Veľkosť (bajtov):"
 
 #: lib/defaultvariablemodel.cpp:75
 #, kde-format
 msgctxt "@title:column"
 msgid "Dimension"
-msgstr ""
+msgstr "Rozmer"
 
 #: lib/defaultvariablemodel.cpp:77
 #, kde-format
@@ -3690,12 +3718,12 @@ msgstr "Titulok grafu"
 msgid "This is unsupported Jupyter content of types ('%1')"
 msgstr "Toto nie je podporovaný obsah typu Jupyter ('%1')"
 
-#: lib/session.cpp:313
+#: lib/session.cpp:265
 #, kde-format
 msgid "%1 process has died unexpectedly. All calculation results are lost."
 msgstr "Proces %1 sa nečakane zastavil. Všetky výsledky výpočtov sú stratené."
 
-#: lib/session.cpp:315
+#: lib/session.cpp:267
 #, kde-format
 msgid ""
 "%1 process has died unexpectedly with message \"%2\". All calculation "
@@ -3704,7 +3732,7 @@ msgstr ""
 "Proces %1 sa nečakane zastavil so správou \"%2\". Všetky výsledky výpočtov "
 "sú stratené."
 
-#: lib/session.cpp:381
+#: lib/session.cpp:333
 #, kde-format
 msgid ""
 "You choose support for %1 graphic package, but the support can't be "
@@ -3712,93 +3740,93 @@ msgid ""
 "will be disabled. %2"
 msgstr ""
 
-#: main.cpp:72
+#: main.cpp:78
 #, kde-format
 msgid "KDE Frontend to mathematical applications"
 msgstr "Rozhranie KDE pre matematické aplikácie"
 
-#: main.cpp:74
+#: main.cpp:80
 #, kde-format
 msgid "(C) 2016 Filipe Saraiva<br/>(C) 2009-2015 Alexander Rieder"
 msgstr "(C) 2016 Filipe Saraiva<br/>(C) 2009-2015 Alexander Rieder"
 
-#: main.cpp:78
+#: main.cpp:84
 #, kde-format
 msgid "Filipe Saraiva"
 msgstr "Filipe Saraiva"
 
-#: main.cpp:78
+#: main.cpp:84
 #, kde-format
 msgid "Maintainer<br/>Qt5/KF5 port, Scilab and Python backends"
 msgstr "Správca<br/>Port Qt5/KF5, backendy Scilab a Python"
 
-#: main.cpp:79
+#: main.cpp:85
 #, kde-format
 msgid "Nikita Sirgienko"
 msgstr "Nikita Sirgienko"
 
-#: main.cpp:79 main.cpp:80
+#: main.cpp:85 main.cpp:86
 #, kde-format
 msgctxt "@info:credit"
 msgid "Developer"
 msgstr "Vývojár"
 
-#: main.cpp:80
+#: main.cpp:86
 #, kde-format
 msgid "Alexander Semke"
 msgstr "Alexander Semke"
 
-#: main.cpp:81
+#: main.cpp:87
 #, kde-format
 msgid "Original author<br/>Maintainer (2009 - 2015)"
 msgstr "Pôvodný autor<br/>Správca (2009 - 2015)"
 
-#: main.cpp:82
+#: main.cpp:88
 #, kde-format
 msgid "Aleix Pol Gonzalez"
 msgstr "Aleix Pol Gonzalez"
 
-#: main.cpp:82
+#: main.cpp:88
 #, kde-format
 msgid "KAlgebra backend"
 msgstr "KAlgebra backend"
 
-#: main.cpp:83
+#: main.cpp:89
 #, kde-format
 msgid "Miha Čančula"
 msgstr "Miha Čančula"
 
-#: main.cpp:83
+#: main.cpp:89
 #, kde-format
 msgid "Octave backend"
 msgstr "Octave backend"
 
-#: main.cpp:84
+#: main.cpp:90
 #, kde-format
 msgid "Martin Küttler"
 msgstr "Martin Küttler"
 
-#: main.cpp:84
+#: main.cpp:90
 #, kde-format
 msgid "Interface"
 msgstr "Rozhranie"
 
-#: main.cpp:86 main.cpp:87
+#: main.cpp:92 main.cpp:93
 #, kde-format
 msgid "Cantor icon"
 msgstr "Ikona Cantor"
 
-#: main.cpp:92
+#: main.cpp:98
 #, kde-format
 msgid "Use  backend <backend>"
 msgstr "Použiť backend <backend>"
 
-#: main.cpp:95
+#: main.cpp:101
 #, kde-format
 msgid "Documents to open."
 msgstr "Dokument na otvorenie."
 
-#: main.cpp:130
+#: main.cpp:131
 #, kde-format
 msgid "Couldn't open the file %1"
 msgstr "Súbor %1 sa nepodarilo otvoriť"
@@ -3806,7 +3834,7 @@ msgstr "Súbor %1 sa nepodarilo otvoriť"
 #: markdownentry.cpp:70
 #, kde-format
 msgid "Enter Edit Mode"
-msgstr ""
+msgstr "Prejsť do režimu úprav"
 
 #: markdownentry.cpp:78
 #, kde-format
@@ -3857,20 +3885,19 @@ msgstr ""
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Close"
-msgstr ""
+msgstr "Zavrieť"
 
 #: panelplugins/documentationpanel/documentationpanelwidget.cpp:133
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Jump to next match"
-msgstr ""
+msgstr "Prejsť na ďaľšiu zhodu"
 
 #: panelplugins/documentationpanel/documentationpanelwidget.cpp:137
-#, fuzzy, kde-format
-#| msgid "Go to previous worksheet"
+#, kde-format
 msgctxt "@info:tooltip"
 msgid "Jump to previous match"
-msgstr "Prejsť na predošlý pracovný list"
+msgstr "Prejsť na predchádzajúcu zhodu"
 
 #: panelplugins/documentationpanel/documentationpanelwidget.cpp:141
 #, fuzzy, kde-format
@@ -3902,7 +3929,7 @@ msgid "Jupyter files"
 msgstr "Jupyter"
 
 #: panelplugins/filebrowserpanel/filebrowserpanelplugin.cpp:139
-#, fuzzy, kde-format
+#, kde-format
 msgid "All supported files"
 msgstr "Všetky podporované súbory"
 
@@ -3925,8 +3952,7 @@ msgstr "Hodnota:"
 
 #: panelplugins/variablemgr/variablemanagerwidget.cpp:47
 #: panelplugins/variablemgr/variablemanagerwidget.cpp:200
-#, fuzzy, kde-format
-#| msgid "Add new variable"
+#, kde-format
 msgid "Add New Variable"
 msgstr "Pridať novú premennú"
 
@@ -3952,12 +3978,12 @@ msgstr "Uložiť premenné"
 #, fuzzy, kde-format
 #| msgid "SearchBar"
 msgid "Search/Filter"
-msgstr "Vyhľadávací panel"
+msgstr "Filter hľadania"
 
 #: panelplugins/variablemgr/variablemanagerwidget.cpp:86
 #, kde-format
 msgid "Case Sensitive"
-msgstr ""
+msgstr "Rozlišovať veľkosť písmen"
 
 #: panelplugins/variablemgr/variablemanagerwidget.cpp:90
 #, kde-format
@@ -3981,11 +4007,9 @@ msgid "Copy Name"
 msgstr "Názov"
 
 #: panelplugins/variablemgr/variablemanagerwidget.cpp:287
-#, fuzzy, kde-format
-#| msgctxt "@title:column"
-#| msgid "Value"
+#, kde-format
 msgid "Copy Value"
-msgstr "Hodnota"
+msgstr "Kopírovať hodnotu"
 
 #: panelplugins/variablemgr/variablemanagerwidget.cpp:288
 #, kde-format
@@ -4059,8 +4083,8 @@ msgstr "Výsledky"
 msgid "Errors"
 msgstr "Chyby"
 
-#: searchbar.cpp:334 searchbar.cpp:363 worksheet.cpp:1814 worksheet.cpp:1843
-#: worksheet.cpp:1863 worksheet.cpp:1881
+#: searchbar.cpp:334 searchbar.cpp:363 worksheet.cpp:1823 worksheet.cpp:1852
+#: worksheet.cpp:1872 worksheet.cpp:1890
 #, kde-format
 msgid "Text"
 msgstr "Text"
@@ -4086,10 +4110,9 @@ msgstr "Povoliť dokončovanie"
 
 #. i18n: ectx: property (text), widget (QLabel, label_2)
 #: settings.ui:59
-#, fuzzy, kde-format
-#| msgid "Start"
+#, kde-format
 msgid "Startup:"
-msgstr "Spustiť"
+msgstr "Spustenie:"
 
 #. i18n: ectx: property (toolTip), widget (QLabel, label)
 #. i18n: ectx: property (toolTip), widget (KComboBox, kcfg_DefaultBackend)
@@ -4173,10 +4196,9 @@ msgstr "Znovu vyhodnotiť položky automaticky"
 
 #. i18n: ectx: property (text), widget (QLabel, label_3)
 #: settings.ui:184
-#, fuzzy, kde-format
-#| msgid "&Worksheet"
+#, kde-format
 msgid "Worksheet:"
-msgstr "Pracovný list"
+msgstr "Pracovný list:"
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_StoreTextEntryFormatting)
 #: settings.ui:223
@@ -4187,10 +4209,9 @@ msgstr ""
 
 #. i18n: ectx: property (text), widget (QLabel, label_5)
 #: settings.ui:236
-#, fuzzy, kde-format
-#| msgid "Markdown Entry"
+#, kde-format
 msgid "Markdown:"
-msgstr "Zľavnená položka"
+msgstr "Markdown:"
 
 #. i18n: ectx: property (toolTip), widget (QCheckBox, kcfg_UseOldCantorEntriesIndent)
 #: settings.ui:243
@@ -4223,15 +4244,13 @@ msgstr ""
 
 #. i18n: ectx: property (toolTip), widget (QCheckBox, kcfg_ExpressionNumberingDefault)
 #: settings.ui:283
-#, fuzzy, kde-format
-#| msgid "Line Numbers"
+#, kde-format
 msgid "Show line numbers"
-msgstr "Čísla riadkov"
+msgstr "Zobraziť čísla riadkov"
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_ExpressionNumberingDefault)
 #: settings.ui:286
-#, fuzzy, kde-format
-#| msgid "Line Numbers"
+#, kde-format
 msgid "Line numbers"
 msgstr "Čísla riadkov"
 
@@ -4244,8 +4263,7 @@ msgstr "Povoliť zvýrazňovanie syntaxe"
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_HighlightDefault)
 #: settings.ui:296
-#, fuzzy, kde-format
-#| msgid "Syntax Highlighting"
+#, kde-format
 msgid "Syntax highlighting"
 msgstr "Zvýrazňovanie syntaxe"
 
@@ -4334,79 +4352,79 @@ msgstr "Nemožno vykresliť súbor Eps. Budete možno potrebovať ďalšie balí
 msgid "Save text result"
 msgstr "Uložiť výsledok"
 
-#: worksheet.cpp:1192
+#: worksheet.cpp:1200
 #, kde-format
 msgid "Cannot write file %1."
 msgstr "Nemožno zapisovať do súboru %1."
 
-#: worksheet.cpp:1220 worksheet.cpp:1235
+#: worksheet.cpp:1228 worksheet.cpp:1243
 #, kde-format
 msgid "Cannot write file."
 msgstr "Nemožno zapisovať do súboru."
 
-#: worksheet.cpp:1252 worksheet.cpp:1296
+#: worksheet.cpp:1260 worksheet.cpp:1304
 #, kde-format
 msgid "Error saving file %1"
 msgstr "chyba pri ukladaní súboru %1"
 
-#: worksheet.cpp:1275
+#: worksheet.cpp:1283
 #, kde-format
 msgid ""
 "In read-only mode Cantor couldn't guarantee, that the export will be valid "
 "for %1"
 msgstr "V read only režime Cantor nemôže zaručiť, že export bude platný pre %1"
 
-#: worksheet.cpp:1308
+#: worksheet.cpp:1316
 #, kde-format
 msgid "Error loading latex.xsl stylesheet"
 msgstr "Chyba pri načítaní súboru štýlov latex.xsl"
 
-#: worksheet.cpp:1327
+#: worksheet.cpp:1335
 #, kde-format
 msgid "Couldn't open the file %1."
 msgstr "Nepodarilo sa otvoriť súbor %1."
 
-#: worksheet.cpp:1327 worksheet.cpp:1350 worksheet.cpp:1370 worksheet.cpp:1387
-#: worksheet.cpp:1419 worksheet.cpp:1430 worksheet.cpp:1539 worksheet.cpp:1554
-#: worksheet.cpp:1596 worksheet.cpp:1607 worksheet.cpp:1727 worksheet.cpp:1729
+#: worksheet.cpp:1335 worksheet.cpp:1358 worksheet.cpp:1378 worksheet.cpp:1395
+#: worksheet.cpp:1427 worksheet.cpp:1438 worksheet.cpp:1549 worksheet.cpp:1564
+#: worksheet.cpp:1606 worksheet.cpp:1617 worksheet.cpp:1737 worksheet.cpp:1739
 #, kde-format
 msgid "Open File"
 msgstr "Otvoriť súbor"
 
-#: worksheet.cpp:1350
+#: worksheet.cpp:1358
 #, kde-format
 msgid "Couldn't open the selected file for reading."
 msgstr "Nepodarilo sa otvoriť vybraný súbor na čítanie."
 
-#: worksheet.cpp:1370
+#: worksheet.cpp:1378
 #, kde-format
 msgid "The selected file is not a valid Cantor or Jupyter project file."
 msgstr "Vybraný súbor nie je platný súbor Cantor alebo Jupyter projekt."
 
-#: worksheet.cpp:1387
+#: worksheet.cpp:1395
 #, kde-format
 msgid "The selected file is not a valid Cantor project file."
 msgstr "Vybraný súbor nie je platný súbor projektu Cantor."
 
-#: worksheet.cpp:1409
+#: worksheet.cpp:1417
 #, kde-format
 msgid ""
 "This worksheet was created using Python2 which is not supported anymore. "
 "Python3 will be used."
 msgstr ""
 
-#: worksheet.cpp:1410 worksheet.cpp:1578
+#: worksheet.cpp:1418 worksheet.cpp:1588
 #, kde-format
 msgid "Python2 not supported anymore"
 msgstr ""
 
-#: worksheet.cpp:1419 worksheet.cpp:1595
+#: worksheet.cpp:1427 worksheet.cpp:1605
 #, kde-format
 msgid ""
 "%1 backend was not found. Editing and executing entries is not possible."
 msgstr "Backend %1 sa nenašiel. Úprava a spustenie položiek nie je možné."
 
-#: worksheet.cpp:1428 worksheet.cpp:1605
+#: worksheet.cpp:1436 worksheet.cpp:1615
 #, kde-format
 msgid ""
 "There are some problems with the %1 backend,\n"
@@ -4417,7 +4435,7 @@ msgstr ""
 "skontrolujte si vašu konfiguráciu alebo nainštalujte potrebné balíčky.\n"
 "Budete môcť zobraziť iba tento pracovný list."
 
-#: worksheet.cpp:1538
+#: worksheet.cpp:1548
 #, kde-format
 msgid ""
 "Jupyter notebooks with versions lower than 4.5 (detected version %1.%2) are "
@@ -4426,7 +4444,7 @@ msgstr ""
 "Notebooky Jupyter s verziou nižšou ako 4.5 (zistená verzia %1.%2) nie sú "
 "podporované."
 
-#: worksheet.cpp:1553
+#: worksheet.cpp:1563
 #, kde-format
 msgid ""
 "Jupyter notebooks with versions higher than 4.5 (detected version %1.%2) are "
@@ -4435,275 +4453,274 @@ msgstr ""
 "Notebooky Jupyter s verziou vyššou ako 4.5 (zistená verzia %1.%2) nie sú "
 "podporované."
 
-#: worksheet.cpp:1577
+#: worksheet.cpp:1587
 #, kde-format
 msgid ""
 "This notebook was created using Python2 which is not supported anymore. "
 "Python3 will be used."
 msgstr ""
 
-#: worksheet.cpp:1645
+#: worksheet.cpp:1655
 #, kde-format
 msgid "an object with keys: %1"
 msgstr ""
 
-#: worksheet.cpp:1647
+#: worksheet.cpp:1657
 #, kde-format
 msgid "non object JSON value"
 msgstr ""
 
-#: worksheet.cpp:1650
+#: worksheet.cpp:1660
 #, kde-format
 msgid "found incorrect data (%1) that is not Jupyter cell"
 msgstr "našli sa nesprávne údaje (%1), ktoré nie sú bunkou Jupyter"
 
-#: worksheet.cpp:1727
+#: worksheet.cpp:1737
 #, kde-format
 msgid "The file is not valid Jupyter notebook"
 msgstr "Súbor nie je platný Jupyter notebook"
 
-#: worksheet.cpp:1729
+#: worksheet.cpp:1739
 #, kde-format
 msgid "Invalid Jupyter notebook scheme: %1"
 msgstr "Neplatná schéma Jupyter notebook: %1"
 
-#: worksheet.cpp:1806
-#, fuzzy, kde-format
-#| msgid "Convert Entry To"
+#: worksheet.cpp:1815
+#, kde-format
 msgid "Convert To"
-msgstr "Konvertovať položku na"
+msgstr "Previesť do"
 
-#: worksheet.cpp:1811 worksheet.cpp:1842 worksheet.cpp:1862 worksheet.cpp:1880
-#, fuzzy, kde-format
-#| msgid "Commands"
+#: worksheet.cpp:1820 worksheet.cpp:1851 worksheet.cpp:1871 worksheet.cpp:1889
+#, kde-format
 msgid "Command"
-msgstr "Príkazy"
+msgstr "Príkaz"
 
-#: worksheet.cpp:1818 worksheet.cpp:1845 worksheet.cpp:1865 worksheet.cpp:1883
-#, fuzzy, kde-format
-#| msgid "Markdown Entry"
+#: worksheet.cpp:1827 worksheet.cpp:1854 worksheet.cpp:1874 worksheet.cpp:1892
+#, kde-format
 msgid "Markdown"
-msgstr "Zľavnená položka"
+msgstr "Markdown"
 
-#: worksheet.cpp:1825 worksheet.cpp:1850 worksheet.cpp:1870 worksheet.cpp:1888
+#: worksheet.cpp:1834 worksheet.cpp:1859 worksheet.cpp:1879 worksheet.cpp:1897
 #, kde-format
 msgid "Image"
 msgstr "Obrázok"
 
-#: worksheet.cpp:1828 worksheet.cpp:1853 worksheet.cpp:1873 worksheet.cpp:1891
+#: worksheet.cpp:1837 worksheet.cpp:1862 worksheet.cpp:1882 worksheet.cpp:1900
 #, kde-format
 msgid "Page Break"
 msgstr "Koniec strany"
 
-#: worksheet.cpp:1831 worksheet.cpp:1852 worksheet.cpp:1872 worksheet.cpp:1890
+#: worksheet.cpp:1840 worksheet.cpp:1861 worksheet.cpp:1881 worksheet.cpp:1899
 #, kde-format
 msgid "Horizontal Line"
 msgstr "Vodorovná čiara"
 
-#: worksheet.cpp:1834 worksheet.cpp:1855 worksheet.cpp:1875 worksheet.cpp:1893
+#: worksheet.cpp:1843 worksheet.cpp:1864 worksheet.cpp:1884 worksheet.cpp:1902
 #, fuzzy, kde-format
 #| msgid "Drag Entry"
 msgid "Hierarchy Entry"
 msgstr "Presunúť položku"
 
-#: worksheet.cpp:1837
-#, fuzzy, kde-format
-#| msgid "Insert Entry After"
+#: worksheet.cpp:1846
+#, kde-format
 msgid "Insert After"
-msgstr "Vložiť záznam za"
+msgstr "Vložiť za"
 
-#: worksheet.cpp:1858
-#, fuzzy, kde-format
-#| msgid "Insert Entry Before"
+#: worksheet.cpp:1867
+#, kde-format
 msgid "Insert Before"
-msgstr "Vložiť záznam pred"
+msgstr "Vložiť pred"
 
-#: worksheet.cpp:1877
+#: worksheet.cpp:1886
 #, kde-format
 msgid "Insert"
 msgstr "Vložiť"
 
-#: worksheet.cpp:1918
-#, fuzzy, kde-format
+#: worksheet.cpp:1929
+#, kde-format
 msgid "Zoom In"
-msgstr "Lupa"
+msgstr "Priblížiť"
 
-#: worksheet.cpp:1921
-#, fuzzy, kde-format
+#: worksheet.cpp:1932
+#, kde-format
 msgid "Zoom Out"
-msgstr "Lupa"
+msgstr "Oddialiť"
 
-#: worksheet.cpp:1925
-#, fuzzy, kde-format
-#| msgid "Print Size"
+#: worksheet.cpp:1936
+#, kde-format
 msgid "Original Size"
-msgstr "Veľkosť tlače"
+msgstr "Originálna veľkosť"
 
-#: worksheet.cpp:1933
+#: worksheet.cpp:1944
 #, kde-format
 msgid "Move Entries Up"
 msgstr ""
 
-#: worksheet.cpp:1934
+#: worksheet.cpp:1945
 #, fuzzy, kde-format
 #| msgid "Convert Entry To"
 msgid "Move Entries Down"
 msgstr "Konvertovať položku na"
 
-#: worksheet.cpp:1935
+#: worksheet.cpp:1946
 #, fuzzy, kde-format
 #| msgid "Evaluate Entry"
 msgid "Evaluate Entries"
 msgstr "Vyhodnotiť položku"
 
-#: worksheet.cpp:1936
+#: worksheet.cpp:1948 worksheet.cpp:2797
 #, fuzzy, kde-format
-#| msgid "Remove Entry"
-msgid "Remove Entries"
-msgstr "Odstrániť položku"
+#| msgid "Evaluate Entry"
+msgid "Delete Entries"
+msgstr "Vyhodnotiť položku"
 
-#: worksheet.cpp:1949
+#: worksheet.cpp:1961
 #, fuzzy, kde-format
 #| msgid "Insert Command Entry"
 msgid "Collapse Command Entry Results"
 msgstr "Vložiť  položku príkazu"
 
-#: worksheet.cpp:1950
+#: worksheet.cpp:1962
 #, fuzzy, kde-format
 #| msgid "Command Entry"
 msgid "Expand Command Entry Results"
 msgstr "Položka príkazu"
 
-#: worksheet.cpp:1951
+#: worksheet.cpp:1964
 #, fuzzy, kde-format
 #| msgid "Command Entry"
-msgid "Remove Command Entry Results"
+msgid "Delete Command Entry Results"
 msgstr "Položka príkazu"
 
-#: worksheet.cpp:1952
+#: worksheet.cpp:1966
 #, kde-format
 msgid "Exclude Command Entry From Execution"
 msgstr ""
 
-#: worksheet.cpp:1953
+#: worksheet.cpp:1967
 #, fuzzy, kde-format
 #| msgid "Scripts to autorun"
 msgid "Add Command Entry To Execution"
 msgstr "Automaticky spustené skripty"
 
-#: worksheet.cpp:2061
+#: worksheet.cpp:2075
 #, kde-format
 msgctxt "@action"
 msgid "Text &Color..."
 msgstr "Farba &textu..."
 
-#: worksheet.cpp:2062
+#: worksheet.cpp:2076
 #, kde-format
 msgctxt "@label text color"
 msgid "Color"
 msgstr "Farba"
 
-#: worksheet.cpp:2069
+#: worksheet.cpp:2083
 #, kde-format
 msgctxt "@action"
 msgid "Text &Highlight..."
 msgstr "Zvýraznenie &textu..."
 
-#: worksheet.cpp:2075
+#: worksheet.cpp:2089
 #, kde-format
 msgctxt "@action"
 msgid "&Font"
 msgstr "&Písmo"
 
-#: worksheet.cpp:2084
+#: worksheet.cpp:2098
 #, kde-format
 msgctxt "@action"
 msgid "Font &Size"
 msgstr "Veľko&sť písma"
 
-#: worksheet.cpp:2090
+#: worksheet.cpp:2104
 #, kde-format
 msgctxt "@action boldify selected text"
 msgid "&Bold"
 msgstr "&Tučné"
 
-#: worksheet.cpp:2101
+#: worksheet.cpp:2115
 #, kde-format
 msgctxt "@action italicize selected text"
 msgid "&Italic"
 msgstr "&Kurzíva"
 
-#: worksheet.cpp:2113
+#: worksheet.cpp:2127
 #, kde-format
 msgctxt "@action underline selected text"
 msgid "&Underline"
 msgstr "Podčiark&nuté"
 
-#: worksheet.cpp:2124
+#: worksheet.cpp:2138
 #, kde-format
 msgctxt "@action"
 msgid "&Strike Out"
 msgstr "Preš&krtnuté"
 
-#: worksheet.cpp:2135
+#: worksheet.cpp:2149
 #, kde-format
 msgctxt "@action"
 msgid "Align &Left"
 msgstr "Zarovnať &vľavo"
 
-#: worksheet.cpp:2138
+#: worksheet.cpp:2152
 #, kde-format
 msgctxt "@label left justify"
 msgid "Left"
 msgstr "Vľavo"
 
-#: worksheet.cpp:2145
+#: worksheet.cpp:2159
 #, kde-format
 msgctxt "@action"
 msgid "Align &Center"
 msgstr "Zarovnať na &stred"
 
-#: worksheet.cpp:2148
+#: worksheet.cpp:2162
 #, kde-format
 msgctxt "@label center justify"
 msgid "Center"
 msgstr "Na stred"
 
-#: worksheet.cpp:2155
+#: worksheet.cpp:2169
 #, kde-format
 msgctxt "@action"
 msgid "Align &Right"
 msgstr "Zarovnať vpr&avo"
 
-#: worksheet.cpp:2158
+#: worksheet.cpp:2172
 #, kde-format
 msgctxt "@label right justify"
 msgid "Right"
 msgstr "Vpravo"
 
-#: worksheet.cpp:2165
+#: worksheet.cpp:2179
 #, kde-format
 msgctxt "@action"
 msgid "&Justify"
 msgstr "Do &bloku"
 
-#: worksheet.cpp:2168
+#: worksheet.cpp:2182
 #, kde-format
 msgctxt "@label justify fill"
 msgid "Justify"
 msgstr "Do bloku"
 
-#: worksheet.cpp:2862
+#: worksheet.cpp:2797
 #, kde-format
 msgid ""
-"This action will remove all results without the possibility of cancellation. "
-"Are you sure?"
+"This step cannot be undone. Do you really want to delete the selected "
+"entries?"
 msgstr ""
 
-#: worksheet.cpp:2863
+#: worksheet.cpp:2886
+#, kde-format
+msgid "This step cannot be undone. Do you really want to delete all results?"
+msgstr ""
+
+#: worksheet.cpp:2887
 #, fuzzy, kde-format
 #| msgid "Remove result"
-msgid "Remove all results"
+msgid "Delete all results"
 msgstr "Odstrániť výsledok"
 
 #: worksheetentry.cpp:67
@@ -4837,30 +4854,46 @@ msgid "Light Grey"
 msgstr "Svetlošedá"
 
 #: worksheetentry.cpp:421
-#, fuzzy, kde-format
+#, kde-format
 msgid "Move Up"
 msgstr "Posunúť hore"
 
-#: worksheetentry.cpp:429
-#, fuzzy, kde-format
+#: worksheetentry.cpp:428
+#, kde-format
 msgid "Move Down"
 msgstr "Posunúť dole"
 
-#: worksheetentry.cpp:719
+#: worksheetentry.cpp:435
+#, fuzzy, kde-format
+#| msgctxt "@info:tooltip"
+#| msgid "Delete"
+msgid "Delete"
+msgstr "Vymazať"
+
+#: worksheetentry.cpp:717
 #, fuzzy, kde-format
 #| msgid "Are you sure you want to remove all variables?"
-msgid "Do you really want to remove this entry?"
+msgid "This step cannot be undone. Do you really want to delete this entry?"
 msgstr "Ste si istý, že chcete odstrániť všetky premenné?"
 
-#: worksheetentry.cpp:719 worksheetentry.cpp:849
-#, kde-format
-msgid "Remove Entry"
-msgstr "Odstrániť položku"
+#: worksheetentry.cpp:717 worksheetentry.cpp:847
+#, fuzzy, kde-format
+#| msgid "Text Entry"
+msgid "Delete Entry"
+msgstr "Textový vstup"
 
-#: worksheetentry.cpp:854
+#: worksheetentry.cpp:852
 #, kde-format
 msgid "Drag Entry"
 msgstr "Presunúť položku"
+
+#, fuzzy
+#~| msgid "Remove Entry"
+#~ msgid "Remove Entries"
+#~ msgstr "Odstrániť položku"
+
+#~ msgid "Remove Entry"
+#~ msgstr "Odstrániť položku"
 
 #, fuzzy
 #~| msgid "Integrate Plots in Worksheet"
@@ -5007,9 +5040,6 @@ msgstr "Presunúť položku"
 
 #~ msgid "Confirmation - Cantor"
 #~ msgstr "Potvrdenie - Cantor"
-
-#~ msgid "Text Entry"
-#~ msgstr "Textový vstup"
 
 #~ msgid "LaTeX Entry"
 #~ msgstr "Položka LaTeX"

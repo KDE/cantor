@@ -8,7 +8,7 @@
 #define QTHELPCONFIG_H
 
 #include <QWidget>
-#include <KNSWidgets/Button>
+#include <KNSWidgets/Button>	// this defines KNSCore::Entry!
 
 class QTreeWidget;
 class QTreeWidgetItem;

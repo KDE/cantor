@@ -19,7 +19,9 @@ ki18n_wrap_ui(MaximaBackend_SRCS settings.ui)
 
 add_backend(maximabackend ${MaximaBackend_SRCS})
 
-target_link_libraries(cantor_maximabackend cantor_help)
+if (ENABLE_EMBEDDED_DOCUMENTATION)
+    target_link_libraries(cantor_maximabackend cantor_help)
+endif ()
 
 if(BUILD_TESTING)
   add_executable( testmaxima testmaxima.cpp)

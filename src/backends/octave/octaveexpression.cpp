@@ -177,7 +177,7 @@ QString OctaveExpression::internalCommand()
     while(tmpCmd[0] == QLatin1Char('\n'))
         tmpCmd.remove(0, 1);
 
-    cmd = tmpCmd;
+    cmd = std::move(tmpCmd);
     cmd.replace(QLatin1String(";\n"), QLatin1String(";"));
     cmd.replace(QLatin1Char('\n'), QLatin1Char(','));
     cmd += QLatin1Char('\n');

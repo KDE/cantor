@@ -63,7 +63,18 @@ void JuliaSession::login()
     connect(m_process, &QProcess::errorOccurred, this, &JuliaSession::reportServerProcessError);
 
     m_process->start();
-    m_process->waitForStarted();
+
+    if (!m_process->waitForStarted())
+    {
+        changeStatus(Session::Disable);
+        emit error(i18n("Failed to start Julia, please check Julia installation."));
+        emit loginDone();
+        delete m_process;
+        m_process = nullptr;
+        return;
+    }
+
+
     m_process->waitForReadyRead();
     QTextStream stream(m_process->readAllStandardOutput());
 

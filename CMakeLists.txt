@@ -4,8 +4,8 @@ set(CMAKE_CXX_STANDARD 11)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 set (RELEASE_SERVICE_VERSION_MAJOR "24")
-set (RELEASE_SERVICE_VERSION_MINOR "01")
-set (RELEASE_SERVICE_VERSION_MICRO "80")
+set (RELEASE_SERVICE_VERSION_MINOR "07")
+set (RELEASE_SERVICE_VERSION_MICRO "70")
 set (RELEASE_SERVICE_VERSION "${RELEASE_SERVICE_VERSION_MAJOR}.${RELEASE_SERVICE_VERSION_MINOR}.${RELEASE_SERVICE_VERSION_MICRO}")
 
 project(cantor VERSION ${RELEASE_SERVICE_VERSION})
@@ -38,14 +38,14 @@ find_package(Qt6 ${QT_MIN_VERSION} CONFIG REQUIRED
     Svg
     Xml
     Test
-    Help
-    WebEngineWidgets)
+)
 
 find_package(KF6 ${KF_MIN_VERSION} REQUIRED
     Config
     Crash
     Completion
     DocTools
+    NewStuffCore
     NewStuff
     IconThemes
     TextEditor
@@ -62,7 +62,17 @@ find_package(KF6 ${KF_MIN_VERSION} REQUIRED
 find_package(LibXml2 REQUIRED)
 find_package(LibXslt REQUIRED)
 
-find_package(Poppler "0.62.0" REQUIRED COMPONENTS Qt6)
+option(ENABLE_EMBEDDED_DOCUMENTATION "Enable the emedded documentation depending on QtHelp and QtWebEngine" ON)
+if (ENABLE_EMBEDDED_DOCUMENTATION)
+    find_package(Qt5 5.8.0 CONFIG REQUIRED
+        Help
+        WebEngine
+        WebEngineWidgets)
+    add_definitions (-DHAVE_EMBEDDED_DOCUMENTATION)
+endif ()
+
+
+find_package(Poppler "0.62.0" REQUIRED COMPONENTS Qt5)
 
 option(USE_LIBSPECTRE "Use libspectre library" ON)
 

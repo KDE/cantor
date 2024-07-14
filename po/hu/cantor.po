@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-11-05 12:22+0000\n"
+"POT-Creation-Date: 2024-06-16 01:42+0000\n"
 "PO-Revision-Date: 2014-06-15 00:51+0200\n"
 "Last-Translator: Balázs Úr <urbalazs@gmail.com>\n"
 "Language-Team: Hungarian <kde-l10n-hu@kde.org>\n"
@@ -107,7 +107,7 @@ msgstr "Aktív beállítás"
 msgid "&Calculate"
 msgstr "K&iszámítás"
 
-#: assistants/differentiate/differentiateassistant.cpp:29
+#: assistants/differentiate/differentiateassistant.cpp:26
 #, kde-format
 msgid "Differentiate"
 msgstr "Differenciálás"
@@ -140,7 +140,7 @@ msgstr "Idők: "
 msgid "&Package"
 msgstr "&Csomag"
 
-#: assistants/importpackage/importpackageassistant.cpp:29
+#: assistants/importpackage/importpackageassistant.cpp:27
 #, kde-format
 msgid "Import Package"
 msgstr "Csomag importálása"
@@ -151,7 +151,7 @@ msgstr "Csomag importálása"
 msgid "Package:"
 msgstr "Csomag:"
 
-#: assistants/integrate/integrateassistant.cpp:29
+#: assistants/integrate/integrateassistant.cpp:27
 #, kde-format
 msgid "Integrate"
 msgstr "Integrálás"
@@ -183,7 +183,7 @@ msgstr "határozott integrál"
 msgid "&Linear Algebra"
 msgstr "&Lineáris algebra"
 
-#: assistants/linearalgebra/creatematrix/creatematrixassistant.cpp:26
+#: assistants/linearalgebra/creatematrix/creatematrixassistant.cpp:24
 #, kde-format
 msgid "Create Matrix"
 msgstr "Mátrix létrehozása"
@@ -200,7 +200,7 @@ msgstr "Oszlopok:"
 msgid "Rows:"
 msgstr "Sorok:"
 
-#: assistants/linearalgebra/eigenvalues/eigenvaluesassistant.cpp:28
+#: assistants/linearalgebra/eigenvalues/eigenvaluesassistant.cpp:26
 #, kde-format
 msgid "Compute Eigenvalues"
 msgstr "Sajátértékek számítása"
@@ -213,17 +213,17 @@ msgstr "Sajátértékek számítása"
 msgid "Matrix:"
 msgstr "Mátrix:"
 
-#: assistants/linearalgebra/eigenvectors/eigenvectorsassistant.cpp:28
+#: assistants/linearalgebra/eigenvectors/eigenvectorsassistant.cpp:26
 #, kde-format
 msgid "Compute Eigenvectors"
 msgstr "Sajátvektorok számítása"
 
-#: assistants/linearalgebra/invertmatrix/invertmatrixassistant.cpp:28
+#: assistants/linearalgebra/invertmatrix/invertmatrixassistant.cpp:26
 #, kde-format
 msgid "Invert Matrix"
 msgstr "Mátrix invertálása"
 
-#: assistants/plot2d/plot2dassistant.cpp:28
+#: assistants/plot2d/plot2dassistant.cpp:26
 #, kde-format
 msgid "Plot 2D"
 msgstr "2D-s ábrázolás"
@@ -258,7 +258,7 @@ msgstr "Minimum:"
 msgid "Maximum:"
 msgstr "Maximum:"
 
-#: assistants/plot3d/plot3dassistant.cpp:28
+#: assistants/plot3d/plot3dassistant.cpp:26
 #, kde-format
 msgid "Plot 3D"
 msgstr "3D-s ábrázolás"
@@ -275,7 +275,7 @@ msgstr "Első változó"
 msgid "2nd Variable"
 msgstr "Második változó"
 
-#: assistants/runscript/runscriptassistant.cpp:28
+#: assistants/runscript/runscriptassistant.cpp:26
 #: scripteditor/scripteditorwidget.cpp:39
 #, kde-format
 msgid "Run Script"
@@ -388,55 +388,61 @@ msgstr "Ábrák integrálása a munkalapba"
 msgid "Graphical package for the Plot-Assistant"
 msgstr ""
 
-#: backends/julia/juliaextensions.cpp:246
+#: backends/julia/juliaextensions.cpp:239
 #, kde-format
 msgid "# Sorry, but Gadfly don't support 3d plots"
 msgstr ""
 
-#: backends/julia/juliaextensions.cpp:263
+#: backends/julia/juliaextensions.cpp:256
 #, fuzzy, kde-format
 #| msgid "*.lua|Lua script file"
 msgid "Julia script file (*.jl)"
 msgstr "*.lua|Lua parancsfájl"
 
-#: backends/julia/juliasession.cpp:108 backends/julia/juliasession.cpp:117
-#: backends/maxima/maximasession.cpp:265 cantor_part.cpp:964
-#: lib/session.cpp:313 lib/session.cpp:315 worksheet.cpp:1193
-#: worksheet.cpp:1221 worksheet.cpp:1236 worksheet.cpp:1252 worksheet.cpp:1296
-#: worksheet.cpp:1308
+#: backends/julia/juliasession.cpp:70
+#, fuzzy, kde-format
+#| msgid "Failed to start Sage"
+msgid "Failed to start Julia, please check Julia installation."
+msgstr "Nem sikerült elindítani a Sage-t"
+
+#: backends/julia/juliasession.cpp:119 backends/julia/juliasession.cpp:128
+#: backends/maxima/maximasession.cpp:283 cantor_part.cpp:964
+#: lib/session.cpp:265 lib/session.cpp:267 worksheet.cpp:1201
+#: worksheet.cpp:1229 worksheet.cpp:1244 worksheet.cpp:1260 worksheet.cpp:1304
+#: worksheet.cpp:1316
 #, kde-format
 msgid "Error - Cantor"
 msgstr "Hiba - Cantor"
 
-#: backends/julia/juliasession.cpp:108
+#: backends/julia/juliasession.cpp:119
 #, kde-format
 msgid ""
 "Julia session can't login due internal julia problem with missing internal "
 "file - \"%1\""
 msgstr ""
 
-#: backends/julia/juliasession.cpp:117
+#: backends/julia/juliasession.cpp:128
 #, kde-format
 msgid "Julia session can't login due unknown internal problem"
 msgstr ""
 
-#: backends/julia/juliasession.cpp:242
+#: backends/julia/juliasession.cpp:253
 #, kde-format
 msgid "Julia process stopped working."
 msgstr ""
 
-#: backends/julia/juliasession.cpp:245
+#: backends/julia/juliasession.cpp:256
 #, fuzzy, kde-format
 #| msgid "Failed to start Sage"
 msgid "Failed to start Julia process."
 msgstr "Nem sikerült elindítani a Sage-t"
 
-#: backends/julia/juliasession.cpp:248
+#: backends/julia/juliasession.cpp:259
 #, kde-format
 msgid "Communication with Julia process failed for unknown reasons."
 msgstr ""
 
-#: backends/julia/juliasession.cpp:318
+#: backends/julia/juliasession.cpp:329
 #, kde-format
 msgid ""
 "For Julia only GR (https://gr-framework.org/), a framework for visualization "
@@ -453,7 +459,7 @@ msgstr ""
 #: backends/maxima/settings.ui:21 backends/octave/settings.ui:21
 #: backends/python/settings.ui:21 backends/qalculate/settings.ui:21
 #: backends/R/settings.ui:21 backends/sage/settings.ui:21
-#: backends/scilab/settings.ui:21 cantor.cpp:629
+#: backends/scilab/settings.ui:21 cantor.cpp:644
 #, kde-format
 msgid "General"
 msgstr "Általános"
@@ -748,6 +754,11 @@ msgstr "A luajit parancs elérési útja"
 msgid "Lua script file (*.lua)"
 msgstr "*.lua|Lua parancsfájl"
 
+#: backends/lua/luasession.cpp:59
+#, kde-format
+msgid "Failed to start Lua, please check Lua installation."
+msgstr ""
+
 #. i18n: ectx: property (text), widget (QLabel, label)
 #: backends/lua/settings.ui:27
 #, fuzzy, kde-format
@@ -881,17 +892,29 @@ msgstr ""
 msgid "Maxima batch file (*.mac)"
 msgstr "*.mac|Maxima kötegelt fájl"
 
-#: backends/maxima/maximasession.cpp:184
+#: backends/maxima/maximasession.cpp:61
+#, kde-format
+msgid "Failed to start Maxima, please check Maxima's installation."
+msgstr ""
+
+#: backends/maxima/maximasession.cpp:80
+#, kde-format
+msgid ""
+"Maxima didn't respond with the proper prompt, please check Maxima "
+"installation."
+msgstr ""
+
+#: backends/maxima/maximasession.cpp:202
 #, kde-format
 msgid "Failed to start Maxima"
 msgstr "Nem sikerült elindítani a Maximát"
 
-#: backends/maxima/maximasession.cpp:251
+#: backends/maxima/maximasession.cpp:269
 #, kde-format
 msgid "Maxima crashed. restarting..."
 msgstr "A Maxima összeomlott, újraindítás…"
 
-#: backends/maxima/maximasession.cpp:265
+#: backends/maxima/maximasession.cpp:283
 #, kde-format
 msgid "Maxima crashed twice within a short time. Stopping to try starting"
 msgstr ""
@@ -949,25 +972,30 @@ msgstr ""
 msgid "Octave script file (*.m)"
 msgstr "*.m|Octave szkriptfájl"
 
-#: backends/octave/octavesession.cpp:275 backends/sage/sageexpression.cpp:49
+#: backends/octave/octavesession.cpp:98
+#, kde-format
+msgid "Failed to start Octave, please check Octave installation."
+msgstr ""
+
+#: backends/octave/octavesession.cpp:277 backends/sage/sageexpression.cpp:49
 #, kde-format
 msgid "Syntax Error"
 msgstr "Szintaktikai hiba"
 
-#: backends/octave/octavesession.cpp:394
+#: backends/octave/octavesession.cpp:396
 #, kde-format
 msgid "Plot integration test failed."
 msgstr ""
 
-#: backends/octave/octavesession.cpp:398
+#: backends/octave/octavesession.cpp:400
 #, kde-format
 msgid "The integration of plots will be disabled."
 msgstr ""
 
-#: backends/octave/octavesession.cpp:399 backends/sage/sagesession.cpp:341
-#: backends/sage/sagesession.cpp:352 cantor.cpp:215 cantor.cpp:217
-#: cantor.cpp:336 cantor.cpp:343 lib/session.cpp:383 main.cpp:66 main.cpp:130
-#: markdownentry.cpp:797 textentry.cpp:553 worksheet.cpp:1275
+#: backends/octave/octavesession.cpp:401 backends/sage/sagesession.cpp:357
+#: backends/sage/sagesession.cpp:368 cantor.cpp:217 cantor.cpp:219
+#: cantor.cpp:338 cantor.cpp:345 lib/session.cpp:335 main.cpp:72 main.cpp:131
+#: markdownentry.cpp:797 textentry.cpp:553 worksheet.cpp:1283
 #, kde-format
 msgid "Cantor"
 msgstr "Cantor"
@@ -1014,30 +1042,35 @@ msgstr ""
 msgid "Python script file (*.py)"
 msgstr "*.py|Python parancsfájl"
 
-#: backends/python/pythonsession.cpp:274
+#: backends/python/pythonsession.cpp:74
+#, kde-format
+msgid "Failed to start Python, please check Python installation."
+msgstr ""
+
+#: backends/python/pythonsession.cpp:280
 #, kde-format
 msgid "Cantor Python server stopped working."
 msgstr ""
 
-#: backends/python/pythonsession.cpp:278
+#: backends/python/pythonsession.cpp:284
 #, fuzzy, kde-format
 #| msgid "Failed to start Sage"
 msgid "Failed to start Cantor python server."
 msgstr "Nem sikerült elindítani a Sage-t"
 
-#: backends/python/pythonsession.cpp:282
+#: backends/python/pythonsession.cpp:288
 #, kde-format
 msgid "Communication with Cantor python server failed for unknown reasons."
 msgstr ""
 
-#: backends/python/pythonsession.cpp:308
+#: backends/python/pythonsession.cpp:314
 #, kde-format
 msgid ""
 "For using integrated graphics with Matplotlib package, you need to install "
 "\"matplotlib\" python package first."
 msgstr ""
 
-#: backends/python/pythonsession.cpp:314
+#: backends/python/pythonsession.cpp:320
 #, kde-format
 msgid ""
 "For using integrated graphic with Plot.ly, you need to install \"plotly\" "
@@ -1108,7 +1141,6 @@ msgstr "Hozzáadás"
 
 #. i18n: ectx: property (text), widget (QPushButton, removeButton)
 #: backends/qalculate/plotassistant/qalculateplotdialog.ui:82
-#: worksheetentry.cpp:437
 #, kde-format
 msgid "Remove"
 msgstr "Eltávolítás"
@@ -1451,7 +1483,7 @@ msgstr "EPS"
 
 #. i18n: ectx: property (text), item, widget (KComboBox, saveFileBox)
 #: backends/qalculate/plotassistant/qalculateplotdialog.ui:575
-#: worksheet.cpp:1822 worksheet.cpp:1848 worksheet.cpp:1868 worksheet.cpp:1886
+#: worksheet.cpp:1831 worksheet.cpp:1857 worksheet.cpp:1877 worksheet.cpp:1895
 #, kde-format
 msgid "LaTeX"
 msgstr "LaTeX"
@@ -1620,131 +1652,131 @@ msgstr "Az ábrák stílusa."
 msgid "Legend position in plots."
 msgstr "A jelmagyarázat helyzete az ábrákon."
 
-#: backends/qalculate/qalculateexpression.cpp:137
+#: backends/qalculate/qalculateexpression.cpp:142
 #, kde-format
 msgid "Qalculate reports it cannot print. Is gnuplot installed?"
 msgstr "A Qalculate nem tud nyomtatni. Telepítve van a gnuplot?"
 
-#: backends/qalculate/qalculateexpression.cpp:158
+#: backends/qalculate/qalculateexpression.cpp:163
 #, kde-format
 msgid "missing %1"
 msgstr "hiányzó %1"
 
-#: backends/qalculate/qalculateexpression.cpp:248
+#: backends/qalculate/qalculateexpression.cpp:253
 #, kde-format
 msgid "%1 must be a number."
 msgstr "%1 szám kell hogy legyen."
 
-#: backends/qalculate/qalculateexpression.cpp:249
+#: backends/qalculate/qalculateexpression.cpp:254
 #, kde-format
 msgid "%1 must be a integer."
 msgstr "%1 egész kell hogy legyen."
 
-#: backends/qalculate/qalculateexpression.cpp:250
+#: backends/qalculate/qalculateexpression.cpp:255
 #, kde-format
 msgid "%1 must be a boolean."
 msgstr "%1 logikai érték kell hogy legyen."
 
-#: backends/qalculate/qalculateexpression.cpp:251
+#: backends/qalculate/qalculateexpression.cpp:256
 #, kde-format
 msgid "invalid option for %1: %2"
 msgstr "érvénytelen beállítás ehhez: %1 (%2)"
 
-#: backends/qalculate/qalculateexpression.cpp:578
+#: backends/qalculate/qalculateexpression.cpp:583
 #, kde-format
 msgid "found multiple expressions in one plot command (%1 and %2)."
 msgstr "több kifejezés található egy rajzoló parancsban (%1 és %2)."
 
-#: backends/qalculate/qalculateexpression.cpp:677
-#: backends/qalculate/qalculateexpression.cpp:785
-#: backends/qalculate/qalculatehighlighter.cpp:29
+#: backends/qalculate/qalculateexpression.cpp:682
+#: backends/qalculate/qalculateexpression.cpp:790
+#: backends/qalculate/qalculatehighlighter.cpp:21
 #, kde-format
 msgid "ERROR"
 msgstr "HIBA"
 
-#: backends/qalculate/qalculateexpression.cpp:679
-#: backends/qalculate/qalculateexpression.cpp:787
-#: backends/qalculate/qalculatehighlighter.cpp:29
+#: backends/qalculate/qalculateexpression.cpp:684
+#: backends/qalculate/qalculateexpression.cpp:792
+#: backends/qalculate/qalculatehighlighter.cpp:21
 #, kde-format
 msgid "WARNING"
 msgstr "FIGYELMEZTETÉS"
 
-#: backends/qalculate/qalculatesyntaxhelpobject.cpp:46
+#: backends/qalculate/qalculatesyntaxhelpobject.cpp:47
 #, kde-format
 msgid "No function, variable or unit with specified name exist."
 msgstr "Nem létezik függvény. változó vagy egység a megadott névvel."
 
-#: backends/qalculate/qalculatesyntaxhelpobject.cpp:53
+#: backends/qalculate/qalculatesyntaxhelpobject.cpp:54
 #, kde-format
 msgid "Function: %1"
 msgstr "Függvény: %1"
 
-#: backends/qalculate/qalculatesyntaxhelpobject.cpp:138
+#: backends/qalculate/qalculatesyntaxhelpobject.cpp:139
 #, kde-format
 msgid "Plotting interface"
 msgstr "Megjelenítő felület"
 
-#: backends/qalculate/qalculatesyntaxhelpobject.cpp:139
+#: backends/qalculate/qalculatesyntaxhelpobject.cpp:140
 #, kde-format
 msgid "Plots one or more functions either inline or in a separate window."
 msgstr "Kirajzol egy vagy több függvényt beágyazva vagy külön ablakban."
 
-#: backends/qalculate/qalculatesyntaxhelpobject.cpp:140
+#: backends/qalculate/qalculatesyntaxhelpobject.cpp:141
 #, kde-format
 msgid "expression"
 msgstr "kifejezés"
 
-#: backends/qalculate/qalculatesyntaxhelpobject.cpp:141
+#: backends/qalculate/qalculatesyntaxhelpobject.cpp:142
 #, kde-format
 msgid "option"
 msgstr "opció"
 
-#: backends/qalculate/qalculatesyntaxhelpobject.cpp:142
+#: backends/qalculate/qalculatesyntaxhelpobject.cpp:143
 #, kde-format
 msgid "value"
 msgstr "érték"
 
-#: backends/qalculate/qalculatesyntaxhelpobject.cpp:146
+#: backends/qalculate/qalculatesyntaxhelpobject.cpp:147
 #, kde-format
 msgid "integer"
 msgstr "egész"
 
-#: backends/qalculate/qalculatesyntaxhelpobject.cpp:147
+#: backends/qalculate/qalculatesyntaxhelpobject.cpp:148
 #, kde-format
 msgid "boolean"
 msgstr "logikai"
 
-#: backends/qalculate/qalculatesyntaxhelpobject.cpp:148
+#: backends/qalculate/qalculatesyntaxhelpobject.cpp:149
 #, kde-format
 msgid "number"
 msgstr "szám"
 
-#: backends/qalculate/qalculatesyntaxhelpobject.cpp:149
+#: backends/qalculate/qalculatesyntaxhelpobject.cpp:150
 #, kde-format
 msgid "default: %1"
 msgstr "alapértelmezés: %1"
 
-#: backends/qalculate/qalculatesyntaxhelpobject.cpp:209
+#: backends/qalculate/qalculatesyntaxhelpobject.cpp:210
 #, kde-format
 msgid "The function's name"
 msgstr "A függvény neve"
 
-#: backends/qalculate/qalculatesyntaxhelpobject.cpp:211
+#: backends/qalculate/qalculatesyntaxhelpobject.cpp:212
 #, kde-format
 msgid "Title label"
 msgstr "Címfelirat"
 
-#: backends/qalculate/qalculatesyntaxhelpobject.cpp:212
+#: backends/qalculate/qalculatesyntaxhelpobject.cpp:213
 #, kde-format
 msgid "x-axis label"
 msgstr "x-tengely felirata"
 
-#: backends/qalculate/qalculatesyntaxhelpobject.cpp:213
+#: backends/qalculate/qalculatesyntaxhelpobject.cpp:214
 #, kde-format
 msgid "y-axis label"
 msgstr "y-tengely felirata"
 
-#: backends/qalculate/qalculatesyntaxhelpobject.cpp:214
+#: backends/qalculate/qalculatesyntaxhelpobject.cpp:215
 #, kde-format
 msgid ""
 "Image to save plot to. If empty shows plot in a window on the screen. If "
@@ -1753,65 +1785,65 @@ msgstr ""
 "A kép amelybe az ábrát menteni kell. Ha üres, az ábra egy ablakban jelenik "
 "meg. Ha inline=true, a kép ettől a beállítástól függetlenül megjelenik."
 
-#: backends/qalculate/qalculatesyntaxhelpobject.cpp:215
+#: backends/qalculate/qalculatesyntaxhelpobject.cpp:216
 #, kde-format
 msgid "The image type to save as. One of auto, png, ps, eps, latex, svg, fig."
 msgstr ""
 "A képtípus amelybe menteni kell (automatikus, *.png, *.ps, *.eps, *.latex, *."
 "svg, *.fig)."
 
-#: backends/qalculate/qalculatesyntaxhelpobject.cpp:216
+#: backends/qalculate/qalculatesyntaxhelpobject.cpp:217
 #, kde-format
 msgid "Set to true for colored plot, false for monochrome."
 msgstr "Állítsa true-ra színes, false-ra monokróm ábrához."
 
-#: backends/qalculate/qalculatesyntaxhelpobject.cpp:217
+#: backends/qalculate/qalculatesyntaxhelpobject.cpp:218
 #, kde-format
 msgid "Minimum x-axis value."
 msgstr "Az x-tengely minimális értéke."
 
-#: backends/qalculate/qalculatesyntaxhelpobject.cpp:218
+#: backends/qalculate/qalculatesyntaxhelpobject.cpp:219
 #, kde-format
 msgid "Maximum x-axis value."
 msgstr "Az x-tengely maximális értéke."
 
-#: backends/qalculate/qalculatesyntaxhelpobject.cpp:219
+#: backends/qalculate/qalculatesyntaxhelpobject.cpp:220
 #, kde-format
 msgid "If a logarithmic scale shall be used for the x-axis."
 msgstr "Logaritmikus skálát kell-e használni az x-tengelyen."
 
-#: backends/qalculate/qalculatesyntaxhelpobject.cpp:220
+#: backends/qalculate/qalculatesyntaxhelpobject.cpp:221
 #, kde-format
 msgid "If a logarithmic scale shall be used for the y-axis."
 msgstr "Logaritmikus skálát kell-e használni az y-tengelyen."
 
-#: backends/qalculate/qalculatesyntaxhelpobject.cpp:221
+#: backends/qalculate/qalculatesyntaxhelpobject.cpp:222
 #, kde-format
 msgid "Logarithmic base for the x-axis."
 msgstr "Logaritmikus alap az x-tengelyen."
 
-#: backends/qalculate/qalculatesyntaxhelpobject.cpp:222
+#: backends/qalculate/qalculatesyntaxhelpobject.cpp:223
 #, kde-format
 msgid "Logarithmic base for the y-axis."
 msgstr "Logaritmikus alap az y-tengelyen."
 
-#: backends/qalculate/qalculatesyntaxhelpobject.cpp:223
+#: backends/qalculate/qalculatesyntaxhelpobject.cpp:224
 #, kde-format
 msgid "If a grid shall be shown in the plot."
 msgstr "Kell-e rácsot megjeleníteni az ábrában."
 
-#: backends/qalculate/qalculatesyntaxhelpobject.cpp:224
+#: backends/qalculate/qalculatesyntaxhelpobject.cpp:225
 #, kde-format
 msgid ""
 "If the plot shall be surrounded by borders on all sides (not just axis)."
 msgstr "Kell-e keret az ábra körül (nem csak a tengelyek)."
 
-#: backends/qalculate/qalculatesyntaxhelpobject.cpp:225
+#: backends/qalculate/qalculatesyntaxhelpobject.cpp:226
 #, kde-format
 msgid "Width of lines."
 msgstr "Vonatvastagság."
 
-#: backends/qalculate/qalculatesyntaxhelpobject.cpp:226
+#: backends/qalculate/qalculatesyntaxhelpobject.cpp:227
 #, kde-format
 msgid ""
 "Where the plot legend shall be placed. One of none, top_left, top_right, "
@@ -1820,13 +1852,13 @@ msgstr ""
 "Hol helyezkedjen el az ábra jelmagyarázata, a következők egyike: none, "
 "top_left, top_right, bottom_left, bottom_right, below, outside"
 
-#: backends/qalculate/qalculatesyntaxhelpobject.cpp:227
+#: backends/qalculate/qalculatesyntaxhelpobject.cpp:228
 #, kde-format
 msgid "Plot smoothing. One of none, unique, csplines, bezier, sbezier"
 msgstr ""
 "Ábrasimítás, a következők egyike: none, unique, csplines, bezier, sbezier"
 
-#: backends/qalculate/qalculatesyntaxhelpobject.cpp:228
+#: backends/qalculate/qalculatesyntaxhelpobject.cpp:229
 #, kde-format
 msgid ""
 "Plot style. One of lines, points, points_lines, boxes, histogram, steps, "
@@ -1835,42 +1867,42 @@ msgstr ""
 "Ábrastílus, a következők egyike: points, points_lines, boxes, histogram, "
 "steps, candlesticks, dots"
 
-#: backends/qalculate/qalculatesyntaxhelpobject.cpp:229
+#: backends/qalculate/qalculatesyntaxhelpobject.cpp:230
 #, kde-format
 msgid "Use scale on second x-axis."
 msgstr "Skála használata a második x-tengelyen."
 
-#: backends/qalculate/qalculatesyntaxhelpobject.cpp:230
+#: backends/qalculate/qalculatesyntaxhelpobject.cpp:231
 #, kde-format
 msgid "Use scale on second y-axis."
 msgstr "Skála használata a második y-tengelyen."
 
-#: backends/qalculate/qalculatesyntaxhelpobject.cpp:231
+#: backends/qalculate/qalculatesyntaxhelpobject.cpp:232
 #, kde-format
 msgid "If the plot is to be drawn inline, instead of in a new window."
 msgstr "Beágyazva legyen-e rajzolva az ábra új ablak helyett."
 
-#: backends/qalculate/qalculatesyntaxhelpobject.cpp:232
+#: backends/qalculate/qalculatesyntaxhelpobject.cpp:233
 #, kde-format
 msgid "Distance between two interpolation points. See also steps."
 msgstr "Két interpolációs pont távolsága, lásd még steps."
 
-#: backends/qalculate/qalculatesyntaxhelpobject.cpp:233
+#: backends/qalculate/qalculatesyntaxhelpobject.cpp:234
 #, kde-format
 msgid "Number of interpolation points. See also step."
 msgstr "Az interpolációs pontok száma, lásd még step."
 
-#: backends/qalculate/qalculatesyntaxhelpobject.cpp:234
+#: backends/qalculate/qalculatesyntaxhelpobject.cpp:235
 #, kde-format
 msgid "The name of the x variable. This must be an unknown variable"
 msgstr "Az x változó neve. Ismeretlen változónak kell lennie"
 
-#: backends/qalculate/qalculatesyntaxhelpobject.cpp:243
+#: backends/qalculate/qalculatesyntaxhelpobject.cpp:242
 #, kde-format
 msgid "Save variables to a file"
 msgstr "Változók mentése fájlba"
 
-#: backends/qalculate/qalculatesyntaxhelpobject.cpp:244
+#: backends/qalculate/qalculatesyntaxhelpobject.cpp:243
 #, kde-format
 msgid ""
 "Save all currently defined variables to a file. They can be reloaded with %1."
@@ -1878,28 +1910,28 @@ msgstr ""
 "Az összes jelenleg definiált változó mentése fájlba. A változók "
 "újratölthetők a következővel: %1."
 
-#: backends/qalculate/qalculatesyntaxhelpobject.cpp:245
-#: backends/qalculate/qalculatesyntaxhelpobject.cpp:254
+#: backends/qalculate/qalculatesyntaxhelpobject.cpp:244
+#: backends/qalculate/qalculatesyntaxhelpobject.cpp:253
 #, kde-format
 msgid "file"
 msgstr "fájl"
 
-#: backends/qalculate/qalculatesyntaxhelpobject.cpp:246
+#: backends/qalculate/qalculatesyntaxhelpobject.cpp:245
 #, kde-format
 msgid "file: the file to save to"
 msgstr "fájl: ebbe a fájlba kell menteni"
 
-#: backends/qalculate/qalculatesyntaxhelpobject.cpp:252
+#: backends/qalculate/qalculatesyntaxhelpobject.cpp:251
 #, kde-format
 msgid "Load variables from a file"
 msgstr "Változók betöltése fájlból"
 
-#: backends/qalculate/qalculatesyntaxhelpobject.cpp:253
+#: backends/qalculate/qalculatesyntaxhelpobject.cpp:252
 #, kde-format
 msgid "Load variables from a file that has previously been created by %1."
 msgstr "Változók betöltése a(z) %1 által korábban létrehozott fájlból."
 
-#: backends/qalculate/qalculatesyntaxhelpobject.cpp:255
+#: backends/qalculate/qalculatesyntaxhelpobject.cpp:254
 #, kde-format
 msgid "file: the file to load"
 msgstr "fájl: a betöltendő fájl"
@@ -2109,67 +2141,67 @@ msgstr "Rács megjelenítése:"
 msgid "Plot Style:"
 msgstr "Kirajzolási stílus:"
 
-#: backends/qthelpconfig.cpp:45
+#: backends/qthelpconfig.cpp:44
 #, fuzzy, kde-format
 #| msgid "Command Entry"
 msgctxt "@title:window"
 msgid "Modify Entry"
 msgstr "Parancsbejegyzés"
 
-#: backends/qthelpconfig.cpp:47
+#: backends/qthelpconfig.cpp:46
 #, fuzzy, kde-format
 #| msgid "Append Text Entry"
 msgctxt "@title:window"
 msgid "Add New Entry"
 msgstr "Szövegbeviteli mező hozzáfűzése"
 
-#: backends/qthelpconfig.cpp:64
+#: backends/qthelpconfig.cpp:63
 #, kde-format
 msgid "Name cannot be empty."
 msgstr ""
 
-#: backends/qthelpconfig.cpp:84
+#: backends/qthelpconfig.cpp:83
 #, fuzzy, kde-format
 #| msgid "Path to luajit command:"
 msgid "Add local documentation"
 msgstr "A luajit parancs elérési útja:"
 
-#: backends/qthelpconfig.cpp:100
+#: backends/qthelpconfig.cpp:99
 #, fuzzy, kde-format
 #| msgid "Document to open"
 msgctxt "@action:button Allow user to get some API documentation with GHNS"
 msgid "Get New Documentation"
 msgstr "A megnyitandó dokumentum"
 
-#: backends/qthelpconfig.cpp:103
+#: backends/qthelpconfig.cpp:102
 #, fuzzy, kde-format
 #| msgid "Path to luajit command:"
 msgid "Download additional documentations"
 msgstr "A luajit parancs elérési útja:"
 
-#: backends/qthelpconfig.cpp:171
+#: backends/qthelpconfig.cpp:170
 #, kde-format
 msgid "Qt Compressed Help file is not valid."
 msgstr ""
 
-#: backends/qthelpconfig.cpp:180
+#: backends/qthelpconfig.cpp:179
 #, kde-format
 msgid "Documentation already imported"
 msgstr ""
 
-#: backends/qthelpconfig.cpp:270
+#: backends/qthelpconfig.cpp:269
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Modify"
 msgstr ""
 
-#: backends/qthelpconfig.cpp:275
+#: backends/qthelpconfig.cpp:274
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Delete"
 msgstr ""
 
-#: backends/qthelpconfig.cpp:283
+#: backends/qthelpconfig.cpp:282
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Please uninstall this via GHNS."
@@ -2345,12 +2377,17 @@ msgstr "Hiba történt a parancs értelmezése közben"
 msgid "Url to the local R documentation"
 msgstr ""
 
-#: backends/R/rsettingswidget.cpp:24
+#: backends/R/rsession.cpp:54
+#, kde-format
+msgid "Failed to start R, please check R installation."
+msgstr ""
+
+#: backends/R/rsettingswidget.cpp:28
 #, kde-format
 msgid "Double click to open file selection dialog"
 msgstr "Kattintson duplán a fájlkiválasztó párbeszédablak megnyitásához"
 
-#: backends/R/rsettingswidget.cpp:44
+#: backends/R/rsettingswidget.cpp:48
 #, kde-format
 msgid "*.R *.r|R source files (*.R, *.r)"
 msgstr "*.R *.r|R forrásfájlok (*.R, *.r)"
@@ -2421,46 +2458,51 @@ msgstr ""
 "*.py|Python szkriptfájl\n"
 "*.sage|Sage szkriptfájl"
 
-#: backends/sage/sagesession.cpp:254
+#: backends/sage/sagesession.cpp:126
+#, kde-format
+msgid "Failed to start Sage, please check Sage installation."
+msgstr ""
+
+#: backends/sage/sagesession.cpp:270
 #, kde-format
 msgid ""
 "Sage version %1.%2 is unsupported. Please update your installation to the "
 "versions 9.2 or higher."
 msgstr ""
 
-#: backends/sage/sagesession.cpp:256 backends/sage/sagesession.cpp:276
+#: backends/sage/sagesession.cpp:272 backends/sage/sagesession.cpp:292
 #, kde-format
 msgid "Unsupported Version"
 msgstr ""
 
-#: backends/sage/sagesession.cpp:275
+#: backends/sage/sagesession.cpp:291
 #, kde-format
 msgid ""
 "Failed to determine the version of Sage. Please check your installation and "
 "the output of 'sage -v'."
 msgstr ""
 
-#: backends/sage/sagesession.cpp:337
+#: backends/sage/sagesession.cpp:353
 #, kde-format
 msgid "The Sage process crashed while evaluating this expression"
 msgstr "A Sage folyamat összeomlott a kifejezés kiértékelése közben"
 
-#: backends/sage/sagesession.cpp:341
+#: backends/sage/sagesession.cpp:357
 #, kde-format
 msgid "The Sage process crashed"
 msgstr "A Sage folyamat összeomlott"
 
-#: backends/sage/sagesession.cpp:348
+#: backends/sage/sagesession.cpp:364
 #, kde-format
 msgid "The Sage process exited while evaluating this expression"
 msgstr "A Sage folyamat kilépett ezen kifejezés kiértékelése közben"
 
-#: backends/sage/sagesession.cpp:352
+#: backends/sage/sagesession.cpp:368
 #, kde-format
 msgid "The Sage process exited"
 msgstr "A Sage folyamat kilépett"
 
-#: backends/sage/sagesession.cpp:362
+#: backends/sage/sagesession.cpp:378
 #, kde-format
 msgid "Failed to start Sage"
 msgstr "Nem sikerült elindítani a Sage-t"
@@ -2526,6 +2568,11 @@ msgstr ""
 "*.sce|Scilab parancsfájl\n"
 "*.sci|Scilab függvény fájl"
 
+#: backends/scilab/scilabsession.cpp:67
+#, kde-format
+msgid "Failed to start Scilab, please check Scilab installation."
+msgstr ""
+
 #. i18n: ectx: property (text), widget (QLabel, lPlotIntegration)
 #: backends/scilab/settings.ui:37
 #, fuzzy, kde-format
@@ -2533,46 +2580,46 @@ msgstr ""
 msgid "Plot Integration:"
 msgstr "Integrálás"
 
-#: cantor.cpp:103
+#: cantor.cpp:105
 #, kde-format
 msgid "The file %1 is already opened."
 msgstr ""
 
-#: cantor.cpp:103 cantor.cpp:227
+#: cantor.cpp:105 cantor.cpp:229
 #, fuzzy, kde-format
 #| msgid "Open image file"
 msgid "Open file"
 msgstr "Képfájl megnyitása"
 
-#: cantor.cpp:145
+#: cantor.cpp:147
 #, fuzzy, kde-format
 #| msgid "Download Example Worksheets"
 msgid "Download Examples"
 msgstr "Mintamunkalapok letöltése"
 
-#: cantor.cpp:148
+#: cantor.cpp:150
 #, kde-format
 msgid "&Open Example"
 msgstr "Példa &megnyitása"
 
-#: cantor.cpp:153
+#: cantor.cpp:155
 #, kde-format
 msgid "Go to previous worksheet"
 msgstr ""
 
-#: cantor.cpp:165
+#: cantor.cpp:167
 #, kde-format
 msgid "Go to next worksheet"
 msgstr ""
 
-#: cantor.cpp:226
+#: cantor.cpp:228
 #, kde-format
 msgid ""
 "All supported files (*.cws *ipynb);;Cantor Worksheet (*.cws);;Jupyter "
 "Notebook (*.ipynb)"
 msgstr ""
 
-#: cantor.cpp:294
+#: cantor.cpp:296
 #, kde-format
 msgid ""
 "<h1>No Backend Found</h1>\n"
@@ -2599,73 +2646,73 @@ msgstr[1] ""
 "<li>vagy a következő programok csomagjait telepíteni:</li>     %2   </ul></"
 "div> "
 
-#: cantor.cpp:314
+#: cantor.cpp:316
 #, kde-format
 msgid "Error"
 msgstr "Hiba"
 
-#: cantor.cpp:336
+#: cantor.cpp:338
 #, kde-format
 msgid "Backend %1 is not installed"
 msgstr "A(z) %1 modul nincsen telepítve"
 
-#: cantor.cpp:343
+#: cantor.cpp:345
 #, kde-format
 msgid ""
 "%1 backend installed, but inactive. Please check installation and Cantor "
 "settings"
 msgstr ""
 
-#: cantor.cpp:371
+#: cantor.cpp:373
 #, kde-format
 msgid "Session %1"
 msgstr "%1. munkamenet"
 
-#: cantor.cpp:388
+#: cantor.cpp:390
 #, fuzzy, kde-format
 #| msgid "Could not find the Cantor Part."
 msgid "Failed to find the Cantor Part with error %1"
 msgstr "A Cantor Part nem található."
 
-#: cantor.cpp:435 cantor_part.cpp:639
+#: cantor.cpp:448 cantor_part.cpp:639
 #, kde-format
 msgid "Calculating..."
 msgstr "Számolás…"
 
-#: cantor.cpp:438 cantor_part.cpp:650 cantor_part.cpp:713
+#: cantor.cpp:451 cantor_part.cpp:650 cantor_part.cpp:713
 #, kde-format
 msgid "Ready"
 msgstr "Kész"
 
-#: cantor.cpp:482
+#: cantor.cpp:495
 #, fuzzy, kde-format
 #| msgid "X range"
 msgid "Changed"
 msgstr "X tartomány"
 
-#: cantor.cpp:566
+#: cantor.cpp:581
 #, kde-format
 msgid "Multiple unsaved Worksheets are opened. Do you want to close them?"
 msgstr ""
 
-#: cantor.cpp:567
+#: cantor.cpp:582
 #, fuzzy, kde-format
 #| msgid "Cantor"
 msgid "Close Cantor"
 msgstr "Cantor"
 
-#: cantor.cpp:583
+#: cantor.cpp:598
 #, kde-format
 msgid "The current project has been modified. Do you want to save it?"
 msgstr ""
 
-#: cantor.cpp:584
+#: cantor.cpp:599
 #, fuzzy, kde-format
 #| msgid "Save result"
 msgid "Save Project"
 msgstr "Eredmény mentése"
 
-#: cantor.cpp:630
+#: cantor.cpp:645
 #, fuzzy, kde-format
 #| msgid "Plotting"
 msgid "Formatting"
@@ -2900,12 +2947,12 @@ msgstr "Exportálás LateX-fájlba"
 msgid "Export to LaTeX"
 msgstr "Exportálás LateX-fájlba"
 
-#: cantor_part.cpp:198 cantor_part.cpp:646 worksheet.cpp:1906
+#: cantor_part.cpp:198 cantor_part.cpp:646 worksheet.cpp:1917
 #, kde-format
 msgid "Evaluate Worksheet"
 msgstr "Munkalap kiértékelése"
 
-#: cantor_part.cpp:205 worksheet.cpp:1914
+#: cantor_part.cpp:205 worksheet.cpp:1925
 #, kde-format
 msgid "Zoom"
 msgstr ""
@@ -2958,7 +3005,7 @@ msgstr ""
 msgid "Restart Backend"
 msgstr "Modul újraindítása"
 
-#: cantor_part.cpp:266 worksheetentry.cpp:858
+#: cantor_part.cpp:266 worksheetentry.cpp:856
 #, kde-format
 msgid "Evaluate Entry"
 msgstr "Bejegyzés kiértékelése"
@@ -3008,12 +3055,13 @@ msgstr "Eredmények"
 #: cantor_part.cpp:317
 #, fuzzy, kde-format
 #| msgid "Remove result"
-msgid "Remove All Results"
+msgid "Delete All Results"
 msgstr "Eredmény törlése"
 
 #: cantor_part.cpp:322
-#, kde-format
-msgid "Remove current Entry"
+#, fuzzy, kde-format
+#| msgid "Remove current Entry"
+msgid "Delete current Entry"
 msgstr "Aktuális bejegyzés eltávolítása"
 
 #. i18n("Publish Worksheet"), collection);
@@ -3042,7 +3090,7 @@ msgstr "CantorPart"
 msgid "(C) 2009-2015 Alexander Rieder"
 msgstr "© Alexander Rieder, 2009-2013."
 
-#: cantor_part.cpp:416 main.cpp:81
+#: cantor_part.cpp:416 main.cpp:87
 #, kde-format
 msgid "Alexander Rieder"
 msgstr "Alexander Rieder"
@@ -3097,7 +3145,7 @@ msgstr ""
 msgid "Restart %1?"
 msgstr "Modul újraindítása"
 
-#: cantor_part.cpp:636 worksheet.cpp:1909
+#: cantor_part.cpp:636 worksheet.cpp:1920
 #, kde-format
 msgid "Interrupt"
 msgstr "Megszakítás"
@@ -3283,7 +3331,7 @@ msgstr "Eredmények"
 msgid "Hide Results"
 msgstr "Eredmények"
 
-#: commandentry.cpp:343 worksheet.cpp:1899
+#: commandentry.cpp:343 worksheet.cpp:1909
 #, fuzzy, kde-format
 #| msgid "Show %1 Help"
 msgid "Show Help"
@@ -3531,7 +3579,7 @@ msgstr "Színek használata"
 msgid "Line Style"
 msgstr "Stílus"
 
-#: imageentry.cpp:47 imageentry.cpp:371
+#: imageentry.cpp:47 imageentry.cpp:370
 #, kde-format
 msgid "Configure Image"
 msgstr "Kép beállítása"
@@ -3542,7 +3590,7 @@ msgstr "Kép beállítása"
 msgid "Double click here to configure image settings"
 msgstr "Kattintson duplán a fájlkiválasztó párbeszédablak megnyitásához"
 
-#: imageentry.cpp:288
+#: imageentry.cpp:287
 #, kde-format
 msgid "Cannot load image %1"
 msgstr "Nem sikerült betölteni a képet: %1"
@@ -3764,19 +3812,19 @@ msgstr "Ábracím:"
 msgid "This is unsupported Jupyter content of types ('%1')"
 msgstr ""
 
-#: lib/session.cpp:313
+#: lib/session.cpp:265
 #, kde-format
 msgid "%1 process has died unexpectedly. All calculation results are lost."
 msgstr ""
 
-#: lib/session.cpp:315
+#: lib/session.cpp:267
 #, kde-format
 msgid ""
 "%1 process has died unexpectedly with message \"%2\". All calculation "
 "results are lost."
 msgstr ""
 
-#: lib/session.cpp:381
+#: lib/session.cpp:333
 #, kde-format
 msgid ""
 "You choose support for %1 graphic package, but the support can't be "
@@ -3784,99 +3832,99 @@ msgid ""
 "will be disabled. %2"
 msgstr ""
 
-#: main.cpp:72
+#: main.cpp:78
 #, kde-format
 msgid "KDE Frontend to mathematical applications"
 msgstr "KDE előtétprogram matematikai alkalmazásokhoz"
 
-#: main.cpp:74
+#: main.cpp:80
 #, fuzzy, kde-format
 #| msgid "(C) 2009-2013 Alexander Rieder"
 msgid "(C) 2016 Filipe Saraiva<br/>(C) 2009-2015 Alexander Rieder"
 msgstr "© Alexander Rieder, 2009-2013."
 
-#: main.cpp:78
+#: main.cpp:84
 #, kde-format
 msgid "Filipe Saraiva"
 msgstr "Filipe Saraiva"
 
-#: main.cpp:78
+#: main.cpp:84
 #, fuzzy, kde-format
 #| msgid "Scilab and Python backends"
 msgid "Maintainer<br/>Qt5/KF5 port, Scilab and Python backends"
 msgstr "Scilab és Python háttérprogramok"
 
-#: main.cpp:79
+#: main.cpp:85
 #, kde-format
 msgid "Nikita Sirgienko"
 msgstr ""
 
-#: main.cpp:79 main.cpp:80
+#: main.cpp:85 main.cpp:86
 #, kde-format
 msgctxt "@info:credit"
 msgid "Developer"
 msgstr ""
 
-#: main.cpp:80
+#: main.cpp:86
 #, fuzzy, kde-format
 #| msgid "Alexander Rieder"
 msgid "Alexander Semke"
 msgstr "Alexander Rieder"
 
-#: main.cpp:81
+#: main.cpp:87
 #, kde-format
 msgid "Original author<br/>Maintainer (2009 - 2015)"
 msgstr ""
 
-#: main.cpp:82
+#: main.cpp:88
 #, kde-format
 msgid "Aleix Pol Gonzalez"
 msgstr "Aleix Pol Gonzalez"
 
-#: main.cpp:82
+#: main.cpp:88
 #, kde-format
 msgid "KAlgebra backend"
 msgstr "KAlgebra-modul"
 
-#: main.cpp:83
+#: main.cpp:89
 #, kde-format
 msgid "Miha Čančula"
 msgstr "Miha Čančula"
 
-#: main.cpp:83
+#: main.cpp:89
 #, kde-format
 msgid "Octave backend"
 msgstr "Octave-modul"
 
-#: main.cpp:84
+#: main.cpp:90
 #, kde-format
 msgid "Martin Küttler"
 msgstr "Martin Küttler"
 
-#: main.cpp:84
+#: main.cpp:90
 #, kde-format
 msgid "Interface"
 msgstr "Felület"
 
-#: main.cpp:86 main.cpp:87
+#: main.cpp:92 main.cpp:93
 #, fuzzy, kde-format
 #| msgid "Cantor"
 msgid "Cantor icon"
 msgstr "Cantor"
 
-#: main.cpp:92
+#: main.cpp:98
 #, fuzzy, kde-format
 #| msgid "Use this backend"
 msgid "Use  backend <backend>"
 msgstr "Ezen modul használata"
 
-#: main.cpp:95
+#: main.cpp:101
 #, fuzzy, kde-format
 #| msgid "Document to open"
 msgid "Documents to open."
 msgstr "A megnyitandó dokumentum"
 
-#: main.cpp:130
+#: main.cpp:131
 #, fuzzy, kde-format
 #| msgid "Error opening file %1"
 msgid "Couldn't open the file %1"
@@ -4139,8 +4187,8 @@ msgstr "Eredmények"
 msgid "Errors"
 msgstr "Hibák"
 
-#: searchbar.cpp:334 searchbar.cpp:363 worksheet.cpp:1814 worksheet.cpp:1843
-#: worksheet.cpp:1863 worksheet.cpp:1881
+#: searchbar.cpp:334 searchbar.cpp:363 worksheet.cpp:1823 worksheet.cpp:1852
+#: worksheet.cpp:1872 worksheet.cpp:1890
 #, kde-format
 msgid "Text"
 msgstr "Szöveg"
@@ -4417,83 +4465,83 @@ msgstr "Nem lehet Eps fájlt renderelni, további csomagokra lehet szükség"
 msgid "Save text result"
 msgstr "Eredmény mentése"
 
-#: worksheet.cpp:1192
+#: worksheet.cpp:1200
 #, kde-format
 msgid "Cannot write file %1."
 msgstr "Nem sikerült írni a(z) %1 fájlt."
 
-#: worksheet.cpp:1220 worksheet.cpp:1235
+#: worksheet.cpp:1228 worksheet.cpp:1243
 #, fuzzy, kde-format
 #| msgid "Cannot write file %1."
 msgid "Cannot write file."
 msgstr "Nem sikerült írni a(z) %1 fájlt."
 
-#: worksheet.cpp:1252 worksheet.cpp:1296
+#: worksheet.cpp:1260 worksheet.cpp:1304
 #, kde-format
 msgid "Error saving file %1"
 msgstr "Hiba történt a(z) %1 fájlba mentés közben"
 
-#: worksheet.cpp:1275
+#: worksheet.cpp:1283
 #, kde-format
 msgid ""
 "In read-only mode Cantor couldn't guarantee, that the export will be valid "
 "for %1"
 msgstr ""
 
-#: worksheet.cpp:1308
+#: worksheet.cpp:1316
 #, kde-format
 msgid "Error loading latex.xsl stylesheet"
 msgstr "Hiba a latex.xsl stíluslap betöltése közben"
 
-#: worksheet.cpp:1327
+#: worksheet.cpp:1335
 #, fuzzy, kde-format
 #| msgid "Error opening file %1"
 msgid "Couldn't open the file %1."
 msgstr "Hiba történt a(z) %1 fájl megnyitásakor"
 
-#: worksheet.cpp:1327 worksheet.cpp:1350 worksheet.cpp:1370 worksheet.cpp:1387
-#: worksheet.cpp:1419 worksheet.cpp:1430 worksheet.cpp:1539 worksheet.cpp:1554
-#: worksheet.cpp:1596 worksheet.cpp:1607 worksheet.cpp:1727 worksheet.cpp:1729
+#: worksheet.cpp:1335 worksheet.cpp:1358 worksheet.cpp:1378 worksheet.cpp:1395
+#: worksheet.cpp:1427 worksheet.cpp:1438 worksheet.cpp:1549 worksheet.cpp:1564
+#: worksheet.cpp:1606 worksheet.cpp:1617 worksheet.cpp:1737 worksheet.cpp:1739
 #, fuzzy, kde-format
 #| msgid "Open image file"
 msgid "Open File"
 msgstr "Képfájl megnyitása"
 
-#: worksheet.cpp:1350
+#: worksheet.cpp:1358
 #, fuzzy, kde-format
 #| msgid "Error opening file %1"
 msgid "Couldn't open the selected file for reading."
 msgstr "Hiba történt a(z) %1 fájl megnyitásakor"
 
-#: worksheet.cpp:1370
+#: worksheet.cpp:1378
 #, kde-format
 msgid "The selected file is not a valid Cantor or Jupyter project file."
 msgstr ""
 
-#: worksheet.cpp:1387
+#: worksheet.cpp:1395
 #, kde-format
 msgid "The selected file is not a valid Cantor project file."
 msgstr ""
 
-#: worksheet.cpp:1409
+#: worksheet.cpp:1417
 #, kde-format
 msgid ""
 "This worksheet was created using Python2 which is not supported anymore. "
 "Python3 will be used."
 msgstr ""
 
-#: worksheet.cpp:1410 worksheet.cpp:1578
+#: worksheet.cpp:1418 worksheet.cpp:1588
 #, kde-format
 msgid "Python2 not supported anymore"
 msgstr ""
 
-#: worksheet.cpp:1419 worksheet.cpp:1595
+#: worksheet.cpp:1427 worksheet.cpp:1605
 #, kde-format
 msgid ""
 "%1 backend was not found. Editing and executing entries is not possible."
 msgstr ""
 
-#: worksheet.cpp:1428 worksheet.cpp:1605
+#: worksheet.cpp:1436 worksheet.cpp:1615
 #, kde-format
 msgid ""
 "There are some problems with the %1 backend,\n"
@@ -4504,289 +4552,294 @@ msgstr ""
 "ellenőrizze a telepítését vagy telepítse a szükséges csomagokat.\n"
 "Csak megnézni tudja ezt a munkalapot."
 
-#: worksheet.cpp:1538
+#: worksheet.cpp:1548
 #, kde-format
 msgid ""
 "Jupyter notebooks with versions lower than 4.5 (detected version %1.%2) are "
 "not supported."
 msgstr ""
 
-#: worksheet.cpp:1553
+#: worksheet.cpp:1563
 #, kde-format
 msgid ""
 "Jupyter notebooks with versions higher than 4.5 (detected version %1.%2) are "
 "not supported."
 msgstr ""
 
-#: worksheet.cpp:1577
+#: worksheet.cpp:1587
 #, kde-format
 msgid ""
 "This notebook was created using Python2 which is not supported anymore. "
 "Python3 will be used."
 msgstr ""
 
-#: worksheet.cpp:1645
+#: worksheet.cpp:1655
 #, kde-format
 msgid "an object with keys: %1"
 msgstr ""
 
-#: worksheet.cpp:1647
+#: worksheet.cpp:1657
 #, kde-format
 msgid "non object JSON value"
 msgstr ""
 
-#: worksheet.cpp:1650
+#: worksheet.cpp:1660
 #, kde-format
 msgid "found incorrect data (%1) that is not Jupyter cell"
 msgstr ""
 
-#: worksheet.cpp:1727
+#: worksheet.cpp:1737
 #, kde-format
 msgid "The file is not valid Jupyter notebook"
 msgstr ""
 
-#: worksheet.cpp:1729
+#: worksheet.cpp:1739
 #, kde-format
 msgid "Invalid Jupyter notebook scheme: %1"
 msgstr ""
 
-#: worksheet.cpp:1806
+#: worksheet.cpp:1815
 #, fuzzy, kde-format
 #| msgid "Insert Text Entry"
 msgid "Convert To"
 msgstr "Szövegbejegyzés beszúrása"
 
-#: worksheet.cpp:1811 worksheet.cpp:1842 worksheet.cpp:1862 worksheet.cpp:1880
+#: worksheet.cpp:1820 worksheet.cpp:1851 worksheet.cpp:1871 worksheet.cpp:1889
 #, fuzzy, kde-format
 #| msgid "Commands"
 msgid "Command"
 msgstr "Parancsok"
 
-#: worksheet.cpp:1818 worksheet.cpp:1845 worksheet.cpp:1865 worksheet.cpp:1883
+#: worksheet.cpp:1827 worksheet.cpp:1854 worksheet.cpp:1874 worksheet.cpp:1892
 #, fuzzy, kde-format
 #| msgid "Insert Command Entry"
 msgid "Markdown"
 msgstr "Parancsbejegyzés beszúrása"
 
-#: worksheet.cpp:1825 worksheet.cpp:1850 worksheet.cpp:1870 worksheet.cpp:1888
+#: worksheet.cpp:1834 worksheet.cpp:1859 worksheet.cpp:1879 worksheet.cpp:1897
 #, kde-format
 msgid "Image"
 msgstr "Kép"
 
-#: worksheet.cpp:1828 worksheet.cpp:1853 worksheet.cpp:1873 worksheet.cpp:1891
+#: worksheet.cpp:1837 worksheet.cpp:1862 worksheet.cpp:1882 worksheet.cpp:1900
 #, kde-format
 msgid "Page Break"
 msgstr "Oldaltörés"
 
-#: worksheet.cpp:1831 worksheet.cpp:1852 worksheet.cpp:1872 worksheet.cpp:1890
+#: worksheet.cpp:1840 worksheet.cpp:1861 worksheet.cpp:1881 worksheet.cpp:1899
 #, fuzzy, kde-format
 #| msgid "Points and Lines"
 msgid "Horizontal Line"
 msgstr "Pontok és vonalak"
 
-#: worksheet.cpp:1834 worksheet.cpp:1855 worksheet.cpp:1875 worksheet.cpp:1893
+#: worksheet.cpp:1843 worksheet.cpp:1864 worksheet.cpp:1884 worksheet.cpp:1902
 #, fuzzy, kde-format
 #| msgid "Drag Entry"
 msgid "Hierarchy Entry"
 msgstr "Bejegyzés húzása"
 
-#: worksheet.cpp:1837
+#: worksheet.cpp:1846
 #, fuzzy, kde-format
 #| msgid "Insert Text Entry"
 msgid "Insert After"
 msgstr "Szövegbejegyzés beszúrása"
 
-#: worksheet.cpp:1858
+#: worksheet.cpp:1867
 #, kde-format
 msgid "Insert Before"
 msgstr "Beszúrás elé"
 
-#: worksheet.cpp:1877
+#: worksheet.cpp:1886
 #, kde-format
 msgid "Insert"
 msgstr "Beszúrás"
 
-#: worksheet.cpp:1918
+#: worksheet.cpp:1929
 #, kde-format
 msgid "Zoom In"
 msgstr ""
 
-#: worksheet.cpp:1921
+#: worksheet.cpp:1932
 #, kde-format
 msgid "Zoom Out"
 msgstr ""
 
-#: worksheet.cpp:1925
+#: worksheet.cpp:1936
 #, fuzzy, kde-format
 #| msgid "Print Size"
 msgid "Original Size"
 msgstr "Nyomtatási méret"
 
-#: worksheet.cpp:1933
+#: worksheet.cpp:1944
 #, kde-format
 msgid "Move Entries Up"
 msgstr ""
 
-#: worksheet.cpp:1934
+#: worksheet.cpp:1945
 #, fuzzy, kde-format
 #| msgid "Insert Text Entry"
 msgid "Move Entries Down"
 msgstr "Szövegbejegyzés beszúrása"
 
-#: worksheet.cpp:1935
+#: worksheet.cpp:1946
 #, fuzzy, kde-format
 #| msgid "Evaluate Entry"
 msgid "Evaluate Entries"
 msgstr "Bejegyzés kiértékelése"
 
-#: worksheet.cpp:1936
+#: worksheet.cpp:1948 worksheet.cpp:2797
 #, fuzzy, kde-format
-#| msgid "Remove Entry"
-msgid "Remove Entries"
-msgstr "Bejegyzés törlése"
+#| msgid "Evaluate Entry"
+msgid "Delete Entries"
+msgstr "Bejegyzés kiértékelése"
 
-#: worksheet.cpp:1949
+#: worksheet.cpp:1961
 #, fuzzy, kde-format
 #| msgid "Insert Command Entry"
 msgid "Collapse Command Entry Results"
 msgstr "Parancsbejegyzés beszúrása"
 
-#: worksheet.cpp:1950
+#: worksheet.cpp:1962
 #, fuzzy, kde-format
 #| msgid "Append Command Entry"
 msgid "Expand Command Entry Results"
 msgstr "Parancsbeviteli mező hozzáfűzése"
 
-#: worksheet.cpp:1951
+#: worksheet.cpp:1964
 #, fuzzy, kde-format
 #| msgid "Command Entry"
-msgid "Remove Command Entry Results"
+msgid "Delete Command Entry Results"
 msgstr "Parancsbejegyzés"
 
-#: worksheet.cpp:1952
+#: worksheet.cpp:1966
 #, kde-format
 msgid "Exclude Command Entry From Execution"
 msgstr ""
 
-#: worksheet.cpp:1953
+#: worksheet.cpp:1967
 #, fuzzy, kde-format
 #| msgid "Append Command Entry"
 msgid "Add Command Entry To Execution"
 msgstr "Parancsbeviteli mező hozzáfűzése"
 
-#: worksheet.cpp:2061
+#: worksheet.cpp:2075
 #, kde-format
 msgctxt "@action"
 msgid "Text &Color..."
 msgstr "S&zövegszín…"
 
-#: worksheet.cpp:2062
+#: worksheet.cpp:2076
 #, kde-format
 msgctxt "@label text color"
 msgid "Color"
 msgstr "Szín"
 
-#: worksheet.cpp:2069
+#: worksheet.cpp:2083
 #, kde-format
 msgctxt "@action"
 msgid "Text &Highlight..."
 msgstr "Szöveg&kiemelés…"
 
-#: worksheet.cpp:2075
+#: worksheet.cpp:2089
 #, kde-format
 msgctxt "@action"
 msgid "&Font"
 msgstr "B&etűtípus"
 
-#: worksheet.cpp:2084
+#: worksheet.cpp:2098
 #, kde-format
 msgctxt "@action"
 msgid "Font &Size"
 msgstr "Betűmé&ret"
 
-#: worksheet.cpp:2090
+#: worksheet.cpp:2104
 #, kde-format
 msgctxt "@action boldify selected text"
 msgid "&Bold"
 msgstr "&Félkövér"
 
-#: worksheet.cpp:2101
+#: worksheet.cpp:2115
 #, kde-format
 msgctxt "@action italicize selected text"
 msgid "&Italic"
 msgstr "&Dőlt"
 
-#: worksheet.cpp:2113
+#: worksheet.cpp:2127
 #, kde-format
 msgctxt "@action underline selected text"
 msgid "&Underline"
 msgstr "&Aláhúzott"
 
-#: worksheet.cpp:2124
+#: worksheet.cpp:2138
 #, kde-format
 msgctxt "@action"
 msgid "&Strike Out"
 msgstr "Át&húzott"
 
-#: worksheet.cpp:2135
+#: worksheet.cpp:2149
 #, kde-format
 msgctxt "@action"
 msgid "Align &Left"
 msgstr "&Balra igazítás"
 
-#: worksheet.cpp:2138
+#: worksheet.cpp:2152
 #, kde-format
 msgctxt "@label left justify"
 msgid "Left"
 msgstr "Balra"
 
-#: worksheet.cpp:2145
+#: worksheet.cpp:2159
 #, kde-format
 msgctxt "@action"
 msgid "Align &Center"
 msgstr "&Középre igazítás"
 
-#: worksheet.cpp:2148
+#: worksheet.cpp:2162
 #, kde-format
 msgctxt "@label center justify"
 msgid "Center"
 msgstr "Középre"
 
-#: worksheet.cpp:2155
+#: worksheet.cpp:2169
 #, kde-format
 msgctxt "@action"
 msgid "Align &Right"
 msgstr "&Jobbra igazítás"
 
-#: worksheet.cpp:2158
+#: worksheet.cpp:2172
 #, kde-format
 msgctxt "@label right justify"
 msgid "Right"
 msgstr "Jobbra"
 
-#: worksheet.cpp:2165
+#: worksheet.cpp:2179
 #, kde-format
 msgctxt "@action"
 msgid "&Justify"
 msgstr "&Sorkizárt"
 
-#: worksheet.cpp:2168
+#: worksheet.cpp:2182
 #, kde-format
 msgctxt "@label justify fill"
 msgid "Justify"
 msgstr "Sorkizárt"
 
-#: worksheet.cpp:2862
+#: worksheet.cpp:2797
 #, kde-format
 msgid ""
-"This action will remove all results without the possibility of cancellation. "
-"Are you sure?"
+"This step cannot be undone. Do you really want to delete the selected "
+"entries?"
 msgstr ""
 
-#: worksheet.cpp:2863
+#: worksheet.cpp:2886
+#, kde-format
+msgid "This step cannot be undone. Do you really want to delete all results?"
+msgstr ""
+
+#: worksheet.cpp:2887
 #, fuzzy, kde-format
 #| msgid "Remove result"
-msgid "Remove all results"
+msgid "Delete all results"
 msgstr "Eredmény törlése"
 
 #: worksheetentry.cpp:67
@@ -4928,26 +4981,40 @@ msgstr ""
 msgid "Move Up"
 msgstr ""
 
-#: worksheetentry.cpp:429
+#: worksheetentry.cpp:428
 #, kde-format
 msgid "Move Down"
 msgstr ""
 
-#: worksheetentry.cpp:719
+#: worksheetentry.cpp:435
+#, kde-format
+msgid "Delete"
+msgstr ""
+
+#: worksheetentry.cpp:717
 #, fuzzy, kde-format
 #| msgid "Do you also want to export the images?"
-msgid "Do you really want to remove this entry?"
+msgid "This step cannot be undone. Do you really want to delete this entry?"
 msgstr "Szeretné exportálni a képeket is?"
 
-#: worksheetentry.cpp:719 worksheetentry.cpp:849
-#, kde-format
-msgid "Remove Entry"
-msgstr "Bejegyzés törlése"
+#: worksheetentry.cpp:717 worksheetentry.cpp:847
+#, fuzzy, kde-format
+#| msgid "Text Entry"
+msgid "Delete Entry"
+msgstr "Szövegbejegyzés"
 
-#: worksheetentry.cpp:854
+#: worksheetentry.cpp:852
 #, kde-format
 msgid "Drag Entry"
 msgstr "Bejegyzés húzása"
+
+#, fuzzy
+#~| msgid "Remove Entry"
+#~ msgid "Remove Entries"
+#~ msgstr "Bejegyzés törlése"
+
+#~ msgid "Remove Entry"
+#~ msgstr "Bejegyzés törlése"
 
 #, fuzzy
 #~| msgid "Integrate Plots in Worksheet"
@@ -5059,9 +5126,6 @@ msgstr "Bejegyzés húzása"
 
 #~ msgid "Confirmation - Cantor"
 #~ msgstr "Megerősítés - Cantor"
-
-#~ msgid "Text Entry"
-#~ msgstr "Szövegbejegyzés"
 
 #~ msgid "LaTeX Entry"
 #~ msgstr "LaTeX bejegyzés"

@@ -5,13 +5,11 @@
 
 #include "invertmatrixassistant.h"
 
-#include <QAction>
 #include <QDialog>
 #include <QPushButton>
 #include <QStyle>
 
 #include <KActionCollection>
-#include <KConfigGroup>
 #include "cantor_macros.h"
 #include "backend.h"
 #include "extension.h"
@@ -25,7 +23,7 @@ InvertMatrixAssistant::InvertMatrixAssistant(QObject* parent, QList<QVariant> ar
 void InvertMatrixAssistant::initActions()
 {
     setXMLFile(QLatin1String("cantor_invert_matrix_assistant.rc"));
-    QAction* invertmatrix=new QAction(i18n("Invert Matrix"), actionCollection());
+    auto* invertmatrix = new QAction(i18n("Invert Matrix"), actionCollection());
     actionCollection()->addAction(QLatin1String("invertmatrix_assistant"), invertmatrix);
     connect(invertmatrix, &QAction::triggered, this, &InvertMatrixAssistant::requested);
 }
@@ -33,29 +31,28 @@ void InvertMatrixAssistant::initActions()
 QStringList InvertMatrixAssistant::run(QWidget* parent)
 {
     QPointer<QDialog> dlg=new QDialog(parent);
-    QWidget* widget=new QWidget(dlg);
+    auto* widget = new QWidget(dlg);
     Ui::InvertMatrixAssistantBase base;
     base.setupUi(widget);
-    QVBoxLayout *mainLayout = new QVBoxLayout;
+    auto* mainLayout = new QVBoxLayout;
     dlg->setLayout(mainLayout);
     mainLayout->addWidget(widget);
 
     base.buttonBox->button(QDialogButtonBox::Ok)->setIcon(QApplication::style()->standardIcon(QStyle::SP_DialogOkButton));
     base.buttonBox->button(QDialogButtonBox::Cancel)->setIcon(QApplication::style()->standardIcon(QStyle::SP_DialogCancelButton));
-    connect(base.buttonBox, SIGNAL(accepted()), dlg, SLOT(accept()));
-    connect(base.buttonBox, SIGNAL(rejected()), dlg, SLOT(reject()));
+    connect(base.buttonBox, &QDialogButtonBox::accepted, dlg, &QDialog::accept);
+    connect(base.buttonBox, &QDialogButtonBox::rejected, dlg, &QDialog::reject);
 
-    Cantor::HistoryExtension* hist=
-        dynamic_cast<Cantor::HistoryExtension*>(backend()->extension(QLatin1String("HistoryExtension")));
-    base.matrix->setText(hist->lastResult());
+    auto* hist = dynamic_cast<Cantor::HistoryExtension*>(backend()->extension(QLatin1String("HistoryExtension")));
+    if (hist)
+        base.matrix->setText(hist->lastResult());
 
     QStringList result;
     if( dlg->exec())
     {
-        const QString& m=base.matrix->text();
-        Cantor::LinearAlgebraExtension* ext=
-            dynamic_cast<Cantor::LinearAlgebraExtension*>(backend()->extension(QLatin1String("LinearAlgebraExtension")));
-        result<<ext->invertMatrix(m);
+        auto* ext = dynamic_cast<Cantor::LinearAlgebraExtension*>(backend()->extension(QLatin1String("LinearAlgebraExtension")));
+        if (ext)
+            result << ext->invertMatrix(base.matrix->text());
     }
 
     delete dlg;

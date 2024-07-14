@@ -228,7 +228,7 @@ void CommandEntry::backgroundColorChanged(QAction* action) {
     if (m_isExecutionEnabled)
         m_commandItem->setBackgroundColor(color);
     else
-        m_activeExecutionBackgroundColor = color;
+        m_activeExecutionBackgroundColor = std::move(color);
 }
 
 void CommandEntry::textColorChanged(QAction* action) {
@@ -247,7 +247,7 @@ void CommandEntry::textColorChanged(QAction* action) {
     if (m_isExecutionEnabled)
         m_commandItem->setDefaultTextColor(color);
     else
-        m_activeExecutionTextColor = color;
+        m_activeExecutionTextColor = std::move(color);
 }
 
 void CommandEntry::fontBoldTriggered()
@@ -1472,10 +1472,10 @@ void CommandEntry::layOutForWidth(qreal entry_zone_x, qreal w, bool force)
     }
 }
 
-void CommandEntry::startRemoving()
+void CommandEntry::startRemoving(bool warn)
 {
     m_promptItem->setItemDragable(false);
-    WorksheetEntry::startRemoving();
+    WorksheetEntry::startRemoving(warn);
 }
 
 WorksheetTextItem* CommandEntry::highlightItem()

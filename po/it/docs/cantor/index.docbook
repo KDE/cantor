@@ -53,9 +53,9 @@
 >&FDLNotice;</legalnotice>
 
 <date
->16/12/2020</date>
+>29/11/2023</date>
 <releaseinfo
->Applications 20.12</releaseinfo>
+>Applications 23.08</releaseinfo>
 
 <abstract>
 <para
@@ -71,6 +71,8 @@
 >matematica</keyword>
 <keyword
 >matematica</keyword>
+<keyword
+>statistiche</keyword>
 <keyword
 >Cantor</keyword>
 <keyword
@@ -142,7 +144,7 @@
 ></listitem>
   <listitem
 ><para
->Integrazione con il sistema «Scarica le novità» di &kde; che permette di scaricare o inviare fogli di lavoro.</para
+>Integrazione con il sistema «Scarica le novità» che permette di scaricare o inviare fogli di lavoro.</para
 ></listitem>
   <listitem
 ><para
@@ -191,7 +193,7 @@
 >R:</term>
       <listitem>
 	<para
->R è un linguaggio di programmazione e un ambiente per l'analisi e il disegno statistico, simile al linguaggio di programmazione e ambiente S. Dispone di un'ampia varietà di tecniche statistiche (modellazione lineare e non lineare, classici test di statistica, analisi di serie storiche, classificazione, clustering, ...) e di disegno; inoltre è altamente estensibile. Spesso il linguaggio S è scelto per le ricerche statistiche, e R fornisce un modo open source per prendere parte a quella attività. Per maggiori informazioni, consulta <ulink url="https://www.r-project.org"
+>R è un linguaggio di programmazione e un ambiente per l'analisi e il disegno statistico, simile al linguaggio di programmazione e ambiente S. Dispone di un'ampia varietà di tecniche statistiche (modellazione lineare e non lineare, classici test di statistica, analisi di serie storiche, classificazione, clustering,analisi dei dati, ...) e di disegno; inoltre è altamente estensibile. Spesso il linguaggio S è scelto per le ricerche statistiche, e R fornisce un modo open source per prendere parte a quella attività. Per maggiori informazioni, consulta <ulink url="https://www.r-project.org"
 >https://www.r-project.org</ulink
 > </para>
       </listitem>
@@ -201,8 +203,8 @@
 >Julia:</term>
       <listitem>
 	<para
->Julia è un linguaggio di programmazione dinamico di alto livello ed elevate prestazioni per il calcolo tecnico, con una sintassi familiare agli utenti di altri ambienti simili. Fornisce un compilatore avanzato, un'esecuzione parallela e distribuita, un'accuratezza numerica e una completa libreria di funzioni matematiche. Per maggiori informazioni, consulta la <ulink url="https://docs.julialang.org/en/"
->documentazione di Julia</ulink
+>Julia è un linguaggio di programmazione dinamico di alto livello ed elevate prestazioni per il calcolo tecnico, con una sintassi familiare agli utenti di altri ambienti simili. Fornisce un compilatore avanzato, un'esecuzione parallela e distribuita, un'accuratezza numerica e una completa libreria di funzioni matematiche. Per maggiori informazioni, consulta il <ulink url="https://docs.julialang.org/"
+>sito web di Julia</ulink
 >. </para>
       </listitem>
     </varlistentry>
@@ -271,10 +273,10 @@
 >Octave:</term>
       <listitem>
   <para
->&GNU; Octave è un linguaggio di alto livello, orientato principalmente al calcolo numerico. Fornisce una conveniente interfaccia a riga di comando per risolvere in modo numerico problemi lineari e non lineari, e per effettuare altri esperimenti numerici usando un linguaggio molto compatibile con <ulink url="https://www.mathworks.com/products/matlab.html"
+>&GNU; Octave è un linguaggio di alto livello, orientato principalmente al calcolo numerico. Fornisce una comoda interfaccia a riga di comando per risolvere in modo numerico problemi lineari e non lineari, e per effettuare altri esperimenti numerici usando un linguaggio molto compatibile con <ulink url="https://www.mathworks.com/products/matlab.html"
 >MATLAB</ulink
->. Per maggiori informazioni, consulta <ulink url="https://www.gnu.org/software/octave/"
->https://www.gnu.org/software/octave/</ulink
+>. Per maggiori informazioni, consulta <ulink url="https://octave.org/"
+>https://octave.org/</ulink
 >. </para>
       </listitem>
     </varlistentry>
@@ -290,7 +292,7 @@
 >. </para>
   <para
 >Questo motore supporta <ulink url="https://luajit.org/"
->luajit 2</ulink
+>LuaJIT 2</ulink
 >. </para>
       </listitem>
     </varlistentry>

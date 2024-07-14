@@ -205,10 +205,46 @@ void TestPython3::testSimplePlot()
 
     //there must be one single image result
     QVERIFY(e->results().size() == 1);
-    const Cantor::ImageResult* result = dynamic_cast<const Cantor::ImageResult*>(e->result());
+    const auto* result = dynamic_cast<const Cantor::ImageResult*>(e->result());
     QVERIFY(result != nullptr);
 
     evalExp(QLatin1String("del t; del s"));
+}
+
+/*!
+ * tests a command containing an IPython's magic functions that is only relevant for IPhython/Jupytor
+ * and needs to be ignored.
+ */
+void TestPython3::testPlotWithIPythonMagic()
+{
+    QSKIP("doesn't work on CI", SkipSingle);
+
+    if (!PythonSettings::integratePlots())
+        QSKIP("This test needs enabled plots integration in Python3 settings", SkipSingle);
+
+    auto* e = evalExp(QLatin1String(
+        "import matplotlib\n"
+        "import matplotlib.pyplot as plt\n"
+    ));
+    QVERIFY(e != nullptr);
+    QVERIFY(e->errorMessage().isEmpty() == true);
+
+    //plot the data and check the results
+    e = evalExp(QLatin1String(
+        "%matplotlib inline\n"
+        "plt.plot([1,2,3])\n"
+        "plt.show()"
+    ));
+
+    QVERIFY(e != nullptr);
+    if (e->result() == nullptr)
+        waitForSignal(e, SIGNAL(gotResult()));
+
+    //there must be one single image result
+    QVERIFY(e->errorMessage().isEmpty() == true);
+    QVERIFY(e->results().size() == 1);
+    const auto* result = dynamic_cast<const Cantor::ImageResult*>(e->result());
+    QVERIFY(result != nullptr);
 }
 
 void TestPython3::testVariablesCreatingFromCode()

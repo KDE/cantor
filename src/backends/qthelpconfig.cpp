@@ -13,8 +13,6 @@
 #include <KConfigGroup>
 #include <KLocalizedString>
 #include <KMessageBox>
-#include <KNSWidgets/Button>
-#include <KNSCore/Entry>
 #include <KSharedConfig>
 
 #include "qthelpconfig.h"

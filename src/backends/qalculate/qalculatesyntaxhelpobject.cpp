@@ -28,20 +28,21 @@ void QalculateSyntaxHelpObject::fetchInformation()
     qDebug() << "HELP CALLED FOR:" << QLatin1String(cmd.c_str());
 
     if (cmd == "plot") {
-	setPlotInformation();
-	return;
+        setPlotInformation();
+        return;
     }
+
     if (cmd == "saveVariables") {
-	setSaveVariablesInformation();
-	return;
+        setSaveVariablesInformation();
+        return;
     }
+
     if (cmd == "loadVariables") {
-	setLoadVariablesInformation();
-	return;
+        setLoadVariablesInformation();
+        return;
     }
 
-    ExpressionItem *item = CALCULATOR->getActiveExpressionItem(cmd);
-
+    auto* item = CALCULATOR->getActiveExpressionItem(std::move(cmd));
     if (!item) {
         m_answer = i18n("No function, variable or unit with specified name exist.");
         return;
@@ -234,8 +235,6 @@ void QalculateSyntaxHelpObject::setPlotInformation()
     arguments += optionFormat3.arg(QLatin1String("xvar"), i18n("The name of the x variable. This must be an unknown variable"), defaultValue.arg(QLatin1String("x")));
 
     m_answer = title + desc + syntax + arguments;
-
-
 }
 
 void QalculateSyntaxHelpObject::setSaveVariablesInformation()
@@ -256,10 +255,8 @@ void QalculateSyntaxHelpObject::setLoadVariablesInformation()
     m_answer = title + desc + syntax + arguments;
 }
 
-
 QString QalculateSyntaxHelpObject::answer()
 {
     fetchInformation();
     return m_answer;
 }
-

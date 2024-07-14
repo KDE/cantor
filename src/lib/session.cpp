@@ -1,7 +1,7 @@
 /*
     SPDX-License-Identifier: GPL-2.0-or-later
     SPDX-FileCopyrightText: 2009 Alexander Rieder <alexanderrieder@gmail.com>
-    SPDX-FileCopyrightText: 2019 Alexander Semke <alexander.semke@web.de>
+    SPDX-FileCopyrightText: 2019-2024 Alexander Semke <alexander.semke@web.de>
 */
 
 #include "session.h"
@@ -35,79 +35,23 @@ class Cantor::SessionPrivate
     QList<GraphicPackage> enabledGraphicPackages;
     QList<QString> ignorableGraphicPackageIds;
     bool needUpdate{false};
+    QString worksheetPath;
 };
 
 Session::Session(Backend* backend ) : QObject(backend), d(new SessionPrivate)
 {
     d->backend = backend;
-
-#ifdef WITH_EPS
-    if (Cantor::LatexRenderer::isLatexAvailable())
-        d->typesettingEnabled = Settings::self()->typesetDefault();
-#endif
 }
 
 Session::Session(Backend* backend, DefaultVariableModel* model) : QObject(backend), d(new SessionPrivate)
 {
     d->backend = backend;
     d->variableModel = model;
-
-#ifdef WITH_EPS
-    if (Cantor::LatexRenderer::isLatexAvailable())
-        d->typesettingEnabled = Settings::self()->typesetDefault();
-#endif
 }
 
 Session::~Session()
 {
     delete d;
-}
-
-void Cantor::Session::testGraphicsPackages(QList<GraphicPackage> packages)
-{
-    std::map<QString, bool> handlingStatus;
-
-    QEventLoop loop;
-    for (GraphicPackage& package : packages)
-    {
-        if (GraphicPackage::findById(package, d->usableGraphicPackages) != -1)
-            continue;
-
-        handlingStatus[package.id()] = false;
-        Expression* expr = package.isAvailable(this);
-
-        connect(expr, &Expression::expressionFinished, [this, expr, &package, &loop, &handlingStatus](Expression::Status status) {
-            if (status == Expression::Status::Done) {
-                if (expr->result() != nullptr
-                    && expr->result()->type() == TextResult::Type
-                    && expr->result()->data().toString() == QLatin1String("1")) {
-                    this->d->usableGraphicPackages.push_back(package);
-                }
-            } else {
-                qDebug() << "test presence command for" << package.id() << "finished because of" << (status == Expression::Error ? "error" : "interrupt");
-                if (status == Expression::Error && expr)
-                    qDebug() << "error message:" << expr->errorMessage();
-            }
-
-            handlingStatus[package.id()] = true;
-
-            bool allExpersionsFinished = true;
-            for (auto& iter : handlingStatus)
-            {
-                if (iter.second == false)
-                {
-                    allExpersionsFinished = false;
-                    break;
-                }
-            }
-
-            if (allExpersionsFinished)
-                loop.exit();
-        });
-    }
-    // If handlingStatus size is empty (it means, that no connections have been done), then we will stay in the 'loop' event loop forever
-    if (handlingStatus.size() != 0)
-        loop.exec();
 }
 
 void Session::logout()
@@ -128,6 +72,7 @@ void Session::logout()
     d->enabledGraphicPackages.clear();
     d->ignorableGraphicPackageIds.clear();
     d->usableGraphicPackages.clear();
+    qDebug()<<"logout done";
 }
 
 QList<Expression*>& Cantor::Session::expressionQueue() const
@@ -227,7 +172,14 @@ bool Session::isTypesettingEnabled()
     return d->typesettingEnabled;
 }
 
-void Session::setWorksheetPath(const QString&) { }
+QString Session::worksheetPath() const {
+    return d->worksheetPath;
+}
+
+void Session::setWorksheetPath(const QString& path)
+{
+    d->worksheetPath = path;
+}
 
 CompletionObject* Session::completionFor(const QString&, int)
 {
@@ -387,4 +339,51 @@ void Cantor::Session::updateEnabledGraphicPackages(const QList<Cantor::GraphicPa
             }
         }
     }
+}
+
+void Cantor::Session::testGraphicsPackages(QList<GraphicPackage> packages)
+{
+    std::map<QString, bool> handlingStatus;
+
+    QEventLoop loop;
+    for (GraphicPackage& package : packages)
+    {
+        if (GraphicPackage::findById(package, d->usableGraphicPackages) != -1)
+            continue;
+
+        handlingStatus[package.id()] = false;
+        Expression* expr = package.isAvailable(this);
+
+        connect(expr, &Expression::expressionFinished, [this, expr, &package, &loop, &handlingStatus](Expression::Status status) {
+            if (status == Expression::Status::Done) {
+                if (expr->result() != nullptr
+                    && expr->result()->type() == TextResult::Type
+                    && expr->result()->data().toString() == QLatin1String("1")) {
+                    this->d->usableGraphicPackages.push_back(package);
+                }
+            } else {
+                qDebug() << "test presence command for" << package.id() << "finished because of" << (status == Expression::Error ? "error" : "interrupt");
+                if (status == Expression::Error && expr)
+                    qDebug() << "error message:" << expr->errorMessage();
+            }
+
+            handlingStatus[package.id()] = true;
+
+            bool allExpersionsFinished = true;
+            for (auto& iter : handlingStatus)
+            {
+                if (iter.second == false)
+                {
+                    allExpersionsFinished = false;
+                    break;
+                }
+            }
+
+            if (allExpersionsFinished)
+                loop.exit();
+        });
+    }
+    // If handlingStatus size is empty (it means, that no connections have been done), then we will stay in the 'loop' event loop forever
+    if (handlingStatus.size() != 0)
+        loop.exec();
 }

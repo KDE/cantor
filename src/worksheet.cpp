@@ -135,7 +135,7 @@ void Worksheet::print(QPrinter* printer)
     painter.scale(scale, scale);
     painter.setRenderHint(QPainter::Antialiasing);
 
-    WorksheetEntry* entry = firstEntry();
+    auto* entry = firstEntry();
     qreal y = TopMargin;
 
     while (entry) {
@@ -179,7 +179,7 @@ void Worksheet::setViewSize(qreal w, qreal h, qreal s, bool forceUpdate)
     if (s != m_epsRenderer.scale() || forceUpdate) {
         m_epsRenderer.setScale(s);
         m_mathRenderer.setScale(s);
-        for (WorksheetEntry *entry = firstEntry(); entry; entry = entry->next())
+        for (auto* entry = firstEntry(); entry; entry = entry->next())
             entry->updateEntry();
     }
     updateLayout();
@@ -197,7 +197,7 @@ void Worksheet::updateLayout()
     m_maxPromptWidth = 0;
     if (Settings::useOldCantorEntriesIndent() == false)
     {
-        for (WorksheetEntry *entry = firstEntry(); entry; entry = entry->next())
+        for (auto* entry = firstEntry(); entry; entry = entry->next())
             if (entry->type() == CommandEntry::Type)
                 m_maxPromptWidth = std::max(static_cast<CommandEntry*>(entry)->promptItemWidth(), m_maxPromptWidth);
             else if (entry->type() == HierarchyEntry::Type)
@@ -207,7 +207,7 @@ void Worksheet::updateLayout()
     const qreal w = m_viewWidth - LeftMargin - RightMargin - (WorksheetEntry::ControlElementWidth + WorksheetEntry::ControlElementBorder) * m_hierarchyMaxDepth;
     qreal y = TopMargin;
     const qreal x = LeftMargin;
-    for (WorksheetEntry *entry = firstEntry(); entry; entry = entry->next())
+    for (auto* entry = firstEntry(); entry; entry = entry->next())
         y += entry->setGeometry(x, x+m_maxPromptWidth, y, w);
 
     updateHierarchyControlsLayout();
@@ -228,7 +228,7 @@ void Worksheet::updateHierarchyLayout()
 
     m_hierarchyMaxDepth = 0;
     std::vector<int> hierarchyNumbers;
-    for (WorksheetEntry *entry = firstEntry(); entry; entry = entry->next())
+    for (auto* entry = firstEntry(); entry; entry = entry->next())
     {
         if (entry->type() == HierarchyEntry::Type)
         {
@@ -256,7 +256,7 @@ void Worksheet::updateHierarchyControlsLayout(WorksheetEntry* startEntry)
     for (int i = numerationBegin; i < (int)HierarchyEntry::HierarchyLevel::EndValue; i++)
         levelsEntries.push_back(nullptr);
 
-    for (WorksheetEntry *entry = startEntry; entry; entry = entry->next())
+    for (auto* entry = startEntry; entry; entry = entry->next())
     {
         if (entry->type() == HierarchyEntry::Type)
         {
@@ -298,7 +298,7 @@ std::vector<WorksheetEntry*> Worksheet::hierarchySubelements(HierarchyEntry* hie
 
     bool subentriesEnd = false;
     int level = (int)hierarchyEntry->level();
-    for (WorksheetEntry *entry = hierarchyEntry->next(); entry && !subentriesEnd; entry = entry->next())
+    for (auto* entry = hierarchyEntry->next(); entry && !subentriesEnd; entry = entry->next())
     {
         if (entry->type() == HierarchyEntry::Type)
         {
@@ -435,8 +435,8 @@ void Worksheet::setModified()
 
 WorksheetCursor Worksheet::worksheetCursor()
 {
-    WorksheetEntry* entry = currentEntry();
-    WorksheetTextItem* item = currentTextItem();
+    auto* entry = currentEntry();
+    auto* item = currentTextItem();
 
     if (!entry || !item)
         return WorksheetCursor();
@@ -462,7 +462,7 @@ WorksheetEntry* Worksheet::currentEntry()
     if (m_choosenCursorEntry || m_isCursorEntryAfterLastEntry)
         return nullptr;
 
-    QGraphicsItem* item = focusItem();
+    auto* item = focusItem();
     if (!item /*&& !hasFocus()*/)
         item = m_lastFocusedTextItem;
     /*else
@@ -471,7 +471,7 @@ WorksheetEntry* Worksheet::currentEntry()
                     item->type() >= QGraphicsItem::UserType + 100))
         item = item->parentItem();
     if (item) {
-        WorksheetEntry* entry = qobject_cast<WorksheetEntry*>(item->toGraphicsObject());
+        auto* entry = qobject_cast<WorksheetEntry*>(item->toGraphicsObject());
         if (entry && entry->aboutToBeRemoved()) {
             if (entry->isAncestorOf(m_lastFocusedTextItem))
                 m_lastFocusedTextItem = nullptr;
@@ -528,7 +528,7 @@ void Worksheet::invalidateLastEntry()
 
 WorksheetEntry* Worksheet::entryAt(qreal x, qreal y)
 {
-    QGraphicsItem* item = itemAt(x, y, QTransform());
+    auto* item = itemAt(x, y, QTransform());
     while (item && (item->type() <= QGraphicsItem::UserType ||
                     item->type() >= QGraphicsItem::UserType + 100))
         item = item->parentItem();
@@ -542,7 +542,7 @@ WorksheetEntry* Worksheet::entryAt(QPointF p)
     return entryAt(p.x(), p.y());
 }
 
-void Worksheet::focusEntry(WorksheetEntry *entry)
+void Worksheet::focusEntry(WorksheetEntry* entry)
 {
     if (!entry)
         return;
@@ -618,7 +618,7 @@ void Worksheet::startDragWithHierarchy(HierarchyEntry* entry, QDrag* drag, QSize
 
     resetEntryCursor();
     m_dragEntry = entry;
-    WorksheetEntry* prev = entry->previous();
+    auto* prev = entry->previous();
     m_hierarchySubentriesDrag = hierarchySubelements(entry);
 
     WorksheetEntry* next;
@@ -641,7 +641,7 @@ void Worksheet::startDragWithHierarchy(HierarchyEntry* entry, QDrag* drag, QSize
         setLastEntry(m_placeholderEntry);
 
     m_dragEntry->hide();
-    for(WorksheetEntry* subEntry : m_hierarchySubentriesDrag)
+    for(auto* subEntry : m_hierarchySubentriesDrag)
         subEntry->hide();
 
     Qt::DropAction action = drag->exec();
@@ -673,7 +673,7 @@ void Worksheet::startDragWithHierarchy(HierarchyEntry* entry, QDrag* drag, QSize
         setLastEntry(lastDraggingEntry);
 
     m_dragEntry->show();
-     for(WorksheetEntry* subEntry : m_hierarchySubentriesDrag)
+     for(auto* subEntry : m_hierarchySubentriesDrag)
         subEntry->show();
 
     updateHierarchyLayout();
@@ -697,23 +697,31 @@ void Worksheet::startDragWithHierarchy(HierarchyEntry* entry, QDrag* drag, QSize
 void Worksheet::evaluate()
 {
     qDebug()<<"evaluate worksheet";
+    // login if not done yet
     if (!m_readOnly && m_session && m_session->status() == Cantor::Session::Disable)
         loginToSession();
 
-    firstEntry()->evaluate(WorksheetEntry::EvaluateNext);
-
-    setModified();
+    // evaluate the worksheet if the login was successfull
+    if (m_session && m_session->status() == Cantor::Session::Done) {
+        firstEntry()->evaluate(WorksheetEntry::EvaluateNext);
+        setModified();
+    }
 }
 
 void Worksheet::evaluateCurrentEntry()
 {
+    // login if not done yet
     if (!m_readOnly && m_session && m_session->status() == Cantor::Session::Disable)
         loginToSession();
 
-    WorksheetEntry* entry = currentEntry();
-    if(!entry)
-        return;
-    entry->evaluateCurrentItem();
+    // evaluate the current entry if the login was successfull
+    if (m_session && m_session->status() == Cantor::Session::Done)
+    {
+        auto* entry = currentEntry();
+        if(!entry)
+            return;
+        entry->evaluateCurrentItem();
+    }
 }
 
 bool Worksheet::completionEnabled()
@@ -723,14 +731,14 @@ bool Worksheet::completionEnabled()
 
 void Worksheet::showCompletion()
 {
-    WorksheetEntry* current = currentEntry();
+    auto* current = currentEntry();
     if (current)
         current->showCompletion();
 }
 
 WorksheetEntry* Worksheet::appendEntry(const int type, bool focus)
 {
-    WorksheetEntry* entry = WorksheetEntry::create(type, this);
+    auto* entry = WorksheetEntry::create(type, this);
 
     if (entry)
     {
@@ -879,12 +887,12 @@ WorksheetEntry* Worksheet::insertLatexEntry(WorksheetEntry* current)
     return insertEntry(LatexEntry::Type, current);
 }
 
-WorksheetEntry * Worksheet::insertHorizontalRuleEntry(WorksheetEntry* current)
+WorksheetEntry* Worksheet::insertHorizontalRuleEntry(WorksheetEntry* current)
 {
     return insertEntry(HorizontalRuleEntry::Type, current);
 }
 
-WorksheetEntry * Worksheet::insertHierarchyEntry(WorksheetEntry* current)
+WorksheetEntry* Worksheet::insertHierarchyEntry(WorksheetEntry* current)
 {
     return insertEntry(HierarchyEntry::Type, current);
 }
@@ -898,7 +906,7 @@ WorksheetEntry* Worksheet::insertEntryBefore(int type, WorksheetEntry* current)
         return nullptr;
 
     auto* prev = current->previous();
-    WorksheetEntry *entry = nullptr;
+    WorksheetEntry* entry = nullptr;
 
     if(!prev || prev->type() != type || !prev->isEmpty())
     {
@@ -1071,7 +1079,7 @@ void Worksheet::enableHighlighting(bool highlight)
             m_highlighter=nullptr;
 
         if(!m_highlighter)
-            m_highlighter=new Cantor::DefaultHighlighter(this);
+            m_highlighter = new Cantor::DefaultHighlighter(this);
 
         //TODO: new syntax
         connect(m_highlighter, SIGNAL(rulesChanged()), this, SLOT(rehighlight()));
@@ -1174,7 +1182,7 @@ QJsonDocument Worksheet::toJupyterJson()
     root.insert(QLatin1String("nbformat_minor"), 5);
 
     QJsonArray cells;
-    for( WorksheetEntry* entry = firstEntry(); entry; entry = entry->next())
+    for( auto* entry = firstEntry(); entry; entry = entry->next())
     {
         const QJsonValue entryJson = entry->toJupyterJson();
 
@@ -1280,7 +1288,7 @@ void Worksheet::savePlain(const QString& filename)
 
     QTextStream stream(&file);
 
-    for(WorksheetEntry * entry = firstEntry(); entry; entry = entry->next())
+    for(auto* entry = firstEntry(); entry; entry = entry->next())
     {
         const QString& str=entry->toPlain(cmdSep, commentStartingSeq, commentEndingSeq);
         if(!str.isEmpty())
@@ -1535,6 +1543,8 @@ void Worksheet::initSession(Cantor::Backend* backend)
     m_session = backend->createSession();
     if (m_useDefaultWorksheetParameters)
     {
+        if (Cantor::LatexRenderer::isLatexAvailable())
+            m_session->setTypesettingEnabled(Settings::self()->typesetDefault());
         enableHighlighting(Settings::self()->highlightDefault());
         enableCompletion(Settings::self()->completionDefault());
         enableExpressionNumbering(Settings::self()->expressionNumberingDefault());
@@ -1783,7 +1793,6 @@ void Worksheet::gotResult(Cantor::Expression* expr)
 
 void Worksheet::removeCurrentEntry()
 {
-    qDebug()<<"removing current entry";
     auto* entry = currentEntry();
     if(!entry)
         return;
@@ -1815,7 +1824,7 @@ QMenu* Worksheet::createContextMenu()
 
 void Worksheet::populateMenu(QMenu* menu, QPointF pos)
 {
-    // Two menu: for particular entry and for selection (multiple entry)
+    // Two different context menus - 1. for the current entry, 2. for multiple selected entries
     if (m_selectedEntries.isEmpty())
     {
         auto* entry = entryAt(pos);
@@ -1920,9 +1929,11 @@ void Worksheet::populateMenu(QMenu* menu, QPointF pos)
             menu->addMenu(insertMenu);
 
             //"Show help" for backend's documentation
+#ifdef HAVE_EMBEDDED_DOCUMENTATION
             menu->addSeparator();
             menu->addAction(QIcon::fromTheme(QLatin1String("help-hint")), i18n("Show Help"), this,
                                         [=] () { requestDocumentation(QString()); });
+#endif
         }
 
         //evaluate the whole worksheet or interrupt the current calculation
@@ -1958,10 +1969,11 @@ void Worksheet::populateMenu(QMenu* menu, QPointF pos)
         menu->addAction(QIcon::fromTheme(QLatin1String("go-up")), i18n("Move Entries Up"), this, &Worksheet::selectionMoveUp);
         menu->addAction(QIcon::fromTheme(QLatin1String("go-down")), i18n("Move Entries Down"), this, &Worksheet::selectionMoveDown);
         menu->addAction(QIcon::fromTheme(QLatin1String("media-playback-start")), i18n("Evaluate Entries"), this, &Worksheet::selectionEvaluate);
-        menu->addAction(QIcon::fromTheme(QLatin1String("edit-delete")), i18n("Remove Entries"), this, &Worksheet::selectionRemove);
+        menu->addSeparator();
+        menu->addAction(QIcon::fromTheme(QLatin1String("edit-delete")), i18n("Delete Entries"), this, &Worksheet::selectionRemove);
 
         bool isAnyCommandEntryInSelection = false;
-        for (WorksheetEntry* entry : m_selectedEntries)
+        for (auto* entry : m_selectedEntries)
             if (entry->type() == CommandEntry::Type)
             {
                 isAnyCommandEntryInSelection = true;
@@ -1973,7 +1985,9 @@ void Worksheet::populateMenu(QMenu* menu, QPointF pos)
             menu->addSeparator();
             menu->addAction(QIcon(), i18n("Collapse Command Entry Results"), this, &Worksheet::collapseSelectionResults);
             menu->addAction(QIcon(), i18n("Expand Command Entry Results"), this, &Worksheet::uncollapseSelectionResults);
-            menu->addAction(QIcon(), i18n("Remove Command Entry Results"), this, &Worksheet::removeSelectionResults);
+            menu->addSeparator();
+            menu->addAction(QIcon(), i18n("Delete Command Entry Results"), this, &Worksheet::removeSelectionResults);
+            menu->addSeparator();
             menu->addAction(QIcon(), i18n("Exclude Command Entry From Execution"), this, &Worksheet::excludeFromExecutionSelection);
             menu->addAction(QIcon(), i18n("Add Command Entry To Execution"), this, &Worksheet::addToExectuionSelection);
         }
@@ -2019,7 +2033,7 @@ void Worksheet::mousePressEvent(QGraphicsSceneMouseEvent* event)
                 selectedEntry->setCellSelected(!selectedEntry->isCellSelected());
                 selectedEntry->update();
 
-                WorksheetEntry* lastSelectedEntry = m_circularFocusBuffer.size() > 0 ? m_circularFocusBuffer.last() : nullptr;
+                auto* lastSelectedEntry = m_circularFocusBuffer.size() > 0 ? m_circularFocusBuffer.last() : nullptr;
                 if (lastSelectedEntry)
                 {
                     lastSelectedEntry->setCellSelected(!lastSelectedEntry->isCellSelected());
@@ -2027,7 +2041,7 @@ void Worksheet::mousePressEvent(QGraphicsSceneMouseEvent* event)
                     m_circularFocusBuffer.clear();
                 }
 
-                for (WorksheetEntry* entry : {selectedEntry, lastSelectedEntry})
+                for (auto* entry : {selectedEntry, lastSelectedEntry})
                     if (entry)
                     {
                         if (entry->isCellSelected())
@@ -2551,7 +2565,7 @@ void Worksheet::dragMoveEvent(QGraphicsSceneDragDropEvent* event)
             next = entry->next();
         }
     } else {
-        WorksheetEntry* last = lastEntry();
+        auto* last = lastEntry();
         if (last && pos.y() > last->y() + last->size().height()) {
             prev = last;
             next = nullptr;
@@ -2800,9 +2814,19 @@ bool Worksheet::isValidEntry(WorksheetEntry* entry)
 
 void Worksheet::selectionRemove()
 {
+    if (m_selectedEntries.isEmpty())
+        return;
+
+    if (Settings::warnAboutEntryDelete())
+    {
+        int rc = KMessageBox::warningYesNo(nullptr, i18n("This step cannot be undone. Do you really want to delete the selected entries?"), i18n("Delete Entries"));
+        if (rc == KMessageBox::No)
+            return;
+    }
+
     for (auto* entry : m_selectedEntries)
         if (isValidEntry(entry))
-            entry->startRemoving();
+            entry->startRemoving(false);
 
     m_selectedEntries.clear();
 }
@@ -2884,8 +2908,8 @@ void Worksheet::removeAllResults()
     {
         KMessageBox::ButtonCode btn = KMessageBox::warningContinueCancel(
             views().first(),
-            i18n("This action will remove all results without the possibility of cancellation. Are you sure?"),
-            i18n("Remove all results"),
+            i18n("This step cannot be undone. Do you really want to delete all results?"),
+            i18n("Delete all results"),
             KStandardGuiItem::cont(),
             KStandardGuiItem::cancel(),
             QLatin1String("WarnAboutAllResultsRemoving")
@@ -2951,7 +2975,7 @@ void Worksheet::requestScrollToHierarchyEntry(QString hierarchyText)
     }
 }
 
-WorksheetEntry * Worksheet::cutSubentriesForHierarchy(HierarchyEntry* hierarchyEntry)
+WorksheetEntry* Worksheet::cutSubentriesForHierarchy(HierarchyEntry* hierarchyEntry)
 {
     Q_ASSERT(hierarchyEntry->next());
     auto* cutBegin = hierarchyEntry->next();

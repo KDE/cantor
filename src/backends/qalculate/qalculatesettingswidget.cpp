@@ -25,6 +25,10 @@ QalculateSettingsWidget::QalculateSettingsWidget(QWidget* parent, const QString&
     setupUi(this);
 
     m_tabWidget = tabWidget;
+#ifdef HAVE_EMBEDDED_DOCUMENTATION
     m_tabDocumentation = tabDocumentation;
+#else
+    tabWidget->removeTab(4);
+#endif
     connect(tabWidget, &QTabWidget::currentChanged, this, &BackendSettingsWidget::tabChanged);
 }

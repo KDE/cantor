@@ -112,7 +112,7 @@ void OctaveVariableModel::parseNewVariables(Expression::Status status)
                 }
 
                 value = value.replace(QStringLiteral("   "), QStringLiteral(" ")); // for vectors Octave is separating the values with three blanks, replace with one
-                vars << Variable(name, value, size.toULongLong(), type, rows + QStringLiteral("x") + columns);
+                vars << Variable(name, std::move(value), size.toULongLong(), type, rows + QStringLiteral("x") + columns);
             }
 
             setVariables(vars);

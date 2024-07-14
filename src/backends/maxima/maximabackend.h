@@ -8,7 +8,6 @@
 
 #include "backend.h"
 #include "ui_settings.h"
-#include "ui_qthelpconfigeditdialog.h"
 
 class QDialog;
 class QTreeWidgetItem;

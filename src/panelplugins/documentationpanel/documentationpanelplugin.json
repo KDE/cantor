@@ -5,7 +5,6 @@
         "Description[ca]": "Un plafó per a mostrar la documentació oficial de diversos dorsals",
         "Description[de]": "Eine Leiste zur Anzeige der offiziellen Dokumentation für verschiedene Module",
         "Description[el]": "Ένας πίνακας για την εμφάνιση της επίσημης τεκμηρίωσης διαφόρων συστημάτων υποστήριξης",
-        "Description[en_GB]": "A panel to display the official documentation of various backends",
         "Description[eo]": "Panelo por montri la oficialan dokumentaron de diversaj backends",
         "Description[es]": "Un panel para mostrar la documentación oficial de diversos motores",
         "Description[fr]": "Un panneau pour afficher la documentation officielle des différents moteurs.",
@@ -26,6 +25,7 @@
         "Description[uk]": "Панель для показу офіційної документації до різних модулів обробки",
         "Description[x-test]": "xxA panel to display the official documentation of various backendsxx",
         "Description[zh_CN]": "显示各种后端官方文档的面板",
+        "Description[zh_TW]": "顯示各個後端的官方說明文件用的面板",
         "Icon": "",
         "Id": "DocumentationPanel",
         "License": "GPL",
@@ -36,12 +36,9 @@
         "Name[cs]": "Dokumentace",
         "Name[de]": "Dokumentation",
         "Name[el]": "Τεκμηρίωση",
-        "Name[en_GB]": "Documentation",
         "Name[eo]": "Dokumentado",
         "Name[es]": "Documentación",
-        "Name[fr]": "Documentation",
         "Name[gl]": "Documentación",
-        "Name[ia]": "Documentation",
         "Name[it]": "Documentazione",
         "Name[ka]": "დოკუმენტაცია",
         "Name[ko]": "문서",
@@ -57,6 +54,7 @@
         "Name[uk]": "Документація",
         "Name[x-test]": "xxDocumentationxx",
         "Name[zh_CN]": "文档",
+        "Name[zh_TW]": "說明文件",
         "ServiceTypes": [
             "Cantor/PanelPlugin"
         ]

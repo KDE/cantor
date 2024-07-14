@@ -41,7 +41,11 @@ ecm_add_app_icon(cantor_SRCS ICONS ${ICONS_SRCS})
 add_executable(cantor_bin ${cantor_SRCS})
 
 target_link_libraries(cantor_bin KF6::Parts KF6::NewStuffWidgets KF6::ConfigCore KF6::CoreAddons KF6::ConfigGui
-    KF6::Crash KF6::XmlGui Qt6::WebEngineWidgets cantorlibs cantor_config)
+    KF6::Crash KF6::XmlGui  cantorlibs cantor_config)
+
+if (ENABLE_EMBEDDED_DOCUMENTATION)
+    target_link_libraries(cantor Qt6::WebEngineWidgets)
+endif()
 
 ########### install files ###############
 install(TARGETS cantor_bin ${KDE_INSTALL_TARGETS_DEFAULT_ARGS} RENAME cantor)
@@ -103,7 +107,7 @@ kcoreaddons_add_plugin(cantorpart
 
 target_link_libraries(cantorpart KF6::Parts KF6::NewStuffWidgets
                      KF6::TextEditor
-                     KF6::KIOCore KF6::KIOFileWidgets KF6::KIOWidgets 
+                     KF6::KIOCore KF6::KIOFileWidgets KF6::KIOWidgets
                      Qt6::PrintSupport cantorlibs cantor_config LibXslt::LibXslt LibXml2::LibXml2)
 
 # if(Discount_FOUND)

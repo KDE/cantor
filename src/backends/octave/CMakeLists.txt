@@ -25,23 +25,31 @@ ki18n_wrap_ui(OctaveBackend_SRCS settings.ui)
 
 add_backend(octavebackend ${OctaveBackend_SRCS})
 
-target_link_libraries(cantor_octavebackend cantor_help
+
+target_link_libraries(cantor_octavebackend
   KF6::KIOCore
   KF6::ConfigCore
   KF6::ConfigGui
   KF6::SyntaxHighlighting
+
 )
 
+if (ENABLE_EMBEDDED_DOCUMENTATION)
+    target_link_libraries(cantor_octavebackend cantor_help)
+endif ()
+
 if(BUILD_TESTING)
-  add_executable( testoctave testoctave.cpp ${OctaveBackend_SRCS})
+  add_executable(testoctave testoctave.cpp ${OctaveBackend_SRCS})
   add_test(NAME testoctave COMMAND testoctave)
   target_link_libraries( testoctave
     Qt6::Test
     KF6::SyntaxHighlighting
     cantorlibs
     cantortest
-    cantor_help
   )
+  if (ENABLE_EMBEDDED_DOCUMENTATION)
+      target_link_libraries(testoctave cantor_help)
+  endif ()
 endif()
 
 

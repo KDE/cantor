@@ -91,8 +91,16 @@ void OctaveSession::login()
 
     m_process->start(OctaveSettings::path().toLocalFile(), args);
     qDebug() << "starting " << m_process->program();
-    bool rc = m_process->waitForStarted();
-    qDebug() << "octave process started " << rc;
+
+    if (!m_process->waitForStarted())
+    {
+        changeStatus(Session::Disable);
+        emit error(i18n("Failed to start Octave, please check Octave installation."));
+        emit loginDone();
+        delete m_process;
+        m_process = nullptr;
+        return;
+    }
 
     connect(m_process, &QProcess::readyReadStandardOutput, this, &OctaveSession::readOutput);
     connect(m_process, &QProcess::readyReadStandardError, this, &OctaveSession::readError);
@@ -115,7 +123,8 @@ void OctaveSession::login()
         updateVariables();
     }
 
-    if (!m_worksheetPath.isEmpty())
+    const auto& path = worksheetPath();
+    if (!path.isEmpty())
     {
         static const QString mfilenameTemplate = QLatin1String(
             "function retval = mfilename(arg_mem = \"\")\n"
@@ -133,21 +142,16 @@ void OctaveSession::login()
                 "endif\n"
             "endfunction"
         );
-        const QString& worksheetDirPath = QFileInfo(m_worksheetPath).absoluteDir().absolutePath();
-        const QString& worksheetPathWithoutExtension = m_worksheetPath.mid(0, m_worksheetPath.lastIndexOf(QLatin1Char('.')));
+        const QString& worksheetDirPath = QFileInfo(path).absoluteDir().absolutePath();
+        const QString& worksheetPathWithoutExtension = path.mid(0, path.lastIndexOf(QLatin1Char('.')));
 
         evaluateExpression(QLatin1String("cd ")+worksheetDirPath, OctaveExpression::DeleteOnFinish, true);
-        evaluateExpression(mfilenameTemplate.arg(worksheetPathWithoutExtension, m_worksheetPath), OctaveExpression::DeleteOnFinish, true);
+        evaluateExpression(mfilenameTemplate.arg(worksheetPathWithoutExtension, path), OctaveExpression::DeleteOnFinish, true);
     }
 
     changeStatus(Cantor::Session::Done);
     Q_EMIT loginDone();
     qDebug()<<"login done";
-}
-
-void OctaveSession::setWorksheetPath(const QString& path)
-{
-    m_worksheetPath = path;
 }
 
 void OctaveSession::logout()
@@ -192,8 +196,6 @@ void OctaveSession::logout()
     m_previousPromptNumber = 1;
 
     Session::logout();
-
-    qDebug()<<"logout done";
 }
 
 void OctaveSession::interrupt()

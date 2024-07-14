@@ -13,9 +13,10 @@ add_subdirectory(maxima)
 add_subdirectory(octave)
 add_subdirectory(scilab)
 
-set(cantor_HELP
-   qthelpconfig.cpp
-)
+if (ENABLE_EMBEDDED_DOCUMENTATION)
+    set(cantor_HELP
+        qthelpconfig.cpp
+    )
 
 ki18n_wrap_ui(cantor_HELP qthelpconfig.ui)
 ki18n_wrap_ui(cantor_HELP qthelpconfigeditdialog.ui)

@@ -10,7 +10,7 @@ Backends.
 - Julia Programming Language: http://julialang.org/
 - KAlgebra for Calculation and Plotting: http://edu.kde.org/kalgebra/
 - Lua Programming Language: http://lua.org/
-- Maxima Computer Algebra System: http://maxima.sourceforge.net/
+- Maxima Computer Algebra System: https://maxima.sourceforge.io/
 - Octave for Numerical Computation: https://gnu.org/software/octave/
 - Python 2 Programming Language: http://python.org/
 - Python 3 Programming Language: http://python.org/

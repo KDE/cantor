@@ -92,7 +92,14 @@ QString PythonExpression::internalCommand()
             continue;
         }
 
-        commandProcessing += command + QLatin1String("\n");
+        // ignore IPython's magic commands (https://ipython.readthedocs.io/en/stable/interactive/magics.html):
+        // when a Jupytor notebook is loaded, we might get IPython's magics that are not relevant for us and that are also invalid syntax for Python
+        // and we need to ignore them if the user wants to execute them again.
+        // all these magic commands start with '%' which is invalid syntax in Python.
+        // the only exception is "%variables" that we use internally to get the list of variables from the interprepter,
+        // s.a. PythonVariableModel::update() and PythonSession::runFirstExpression(). TODO: redesign this part to get rid of % internally.
+        if (!command.trimmed().startsWith(QLatin1Char('%')) || command.trimmed().startsWith(QLatin1String("%variables")) )
+            commandProcessing += command + QLatin1String("\n");
     }
 
     return commandProcessing;

@@ -10,3 +10,4 @@ include:
 
       # enable when kf6 runtime is available
       #- /gitlab-templates/flatpak.yml
+

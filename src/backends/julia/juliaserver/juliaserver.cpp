@@ -175,10 +175,10 @@ void JuliaServer::parseJlModule(jl_module_t* module, bool parseValue)
         if (isBindingResolved)
         {
 
-            const QString& name = fromJuliaString(jl_call1(jl_string_function, data[i]));
+            const auto& name = fromJuliaString(jl_call1(jl_string_function, data[i]));
             jl_value_t* value = jl_get_binding_or_error(module, (jl_sym_t*)(data[i]))->value;
             jl_datatype_t* datetype = (jl_datatype_t*)jl_typeof(value);
-            QString type = QString::fromUtf8(jl_typeof_str(value));
+            const auto& type = QString::fromUtf8(jl_typeof_str(value));
 
             // Module
             if (jl_is_module(value))
