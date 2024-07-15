@@ -32,7 +32,6 @@
         "Description[zh_CN]": "用于简化积分运算的助手对话框",
         "Description[zh_TW]": "簡化積分計算的小助手對話框",
         "Icon": "office-chart-area",
-        "Id": "Integrate",
         "License": "GPL",
         "Name": "Integrate",
         "Name[ca@valencia]": "Integra",

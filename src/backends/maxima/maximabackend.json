@@ -31,7 +31,6 @@
         "Description[zh_CN]": "Maxima 计算器代数系统后端",
         "Description[zh_TW]": "Maxima 電腦代數系統的後端介面",
         "Icon": "maximabackend",
-        "Id": "Maxima",
         "License": "GPL",
         "Name": "Maxima",
         "Name[ar]": "ماكسيما",

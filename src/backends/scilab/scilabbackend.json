@@ -31,7 +31,6 @@
         "Description[zh_CN]": "Scilab 科学编程环境的后端",
         "Description[zh_TW]": "Scilab 科學程式環境的後端介面",
         "Icon": "scilabbackend",
-        "Id": "Scilab",
         "License": "GPL",
         "Name": "Scilab",
         "Name[ar]": "سايلاب",

@@ -31,7 +31,6 @@
         "Description[zh_CN]": "luajia 后端",
         "Description[zh_TW]": "luajit 後端介面",
         "Icon": "luabackend",
-        "Id": "Lua",
         "License": "GPL",
         "Name": "Lua",
         "Name[ar]": "لوا",

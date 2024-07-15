@@ -31,7 +31,6 @@
         "Description[x-test]": "xxAn Assistant dialog to simplify plotting of 2D functionsxx",
         "Description[zh_CN]": "用于简化二维函数图绘制的助手对话框",
         "Description[zh_TW]": "簡化繪製二維函式小助手對話框",
-        "Id": "Plot2d",
         "License": "GPL",
         "Name": "Plot2d",
         "Name[cs]": "Graf2d",

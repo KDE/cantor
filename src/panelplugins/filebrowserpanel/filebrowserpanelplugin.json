@@ -29,7 +29,6 @@
         "Description[zh_CN]": "用于在 Cantor 内处理文件的面板",
         "Description[zh_TW]": "在 Cantor 裡面瀏覽檔案的面板",
         "Icon": "",
-        "Id": "FileBrowserPanel",
         "License": "GPL",
         "Name": "File Browser",
         "Name[ca@valencia]": "Navegador de fitxers",

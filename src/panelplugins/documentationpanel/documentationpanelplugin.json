@@ -27,7 +27,6 @@
         "Description[zh_CN]": "显示各种后端官方文档的面板",
         "Description[zh_TW]": "顯示各個後端的官方說明文件用的面板",
         "Icon": "",
-        "Id": "DocumentationPanel",
         "License": "GPL",
         "Name": "Documentation",
         "Name[ar]": "التّوثيق",

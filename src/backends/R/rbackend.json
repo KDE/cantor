@@ -31,7 +31,6 @@
         "Description[zh_CN]": "R 计算器统计工程的后端",
         "Description[zh_TW]": "R 統計計算專案的後端介面",
         "Icon": "rbackend",
-        "Id": "R",
         "License": "GPL",
         "Name": "R",
         "Name[x-test]": "xxRxx",

@@ -31,7 +31,6 @@
         "Description[zh_CN]": "Qalculate 的 Cantor 后端，可以使用 Qalculate 的高级功能",
         "Description[zh_TW]": "Cantor 的 Qalculate 後端介面。讓您使用 Qalculate 的進階功能",
         "Icon": "qalculatebackend",
-        "Id": "qalculatebackend",
         "License": "GPL",
         "Name": "Qalculate",
         "Name[eo]": "Kalkuli",

@@ -29,7 +29,6 @@
         "Description[zh_CN]": "显示工作表结构的面板",
         "Description[zh_TW]": "顯示工作表結構的面板",
         "Icon": "",
-        "Id": "TOC",
         "License": "GPL",
         "Name": "Table Of Contents",
         "Name[ar]": "جدول المحتويات",

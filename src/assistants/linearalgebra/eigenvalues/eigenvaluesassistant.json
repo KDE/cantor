@@ -31,7 +31,6 @@
         "Description[x-test]": "xxAn Assistant dialog to simplify calculating of Eigenvaluesxx",
         "Description[zh_CN]": "用于简化特征值计算的助手对话框",
         "Description[zh_TW]": "簡化特徵值計算的小助手對話框",
-        "Id": "Create Matrix",
         "License": "GPL",
         "Name": "Eigenvalues",
         "Name[ca@valencia]": "Valors propis (autovalors)",

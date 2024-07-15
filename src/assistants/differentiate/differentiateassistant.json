@@ -32,7 +32,6 @@
         "Description[zh_CN]": "用于简化微分表达式计算的助手对话框",
         "Description[zh_TW]": "簡化多項式導數計算的小助手對話框",
         "Icon": "office-chart-area",
-        "Id": "Differentiate",
         "License": "GPL",
         "Name": "Differentiate",
         "Name[ca@valencia]": "Deriva",

@@ -31,7 +31,6 @@
         "Description[zh_CN]": "用于运行外部脚本文件的助手",
         "Description[zh_TW]": "執行外部文稿檔的小助手",
         "Icon": "system-run",
-        "Id": "RunScript",
         "License": "GPL",
         "Name": "RunScript",
         "Name[ca@valencia]": "ExecutaScript",

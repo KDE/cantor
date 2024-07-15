@@ -32,7 +32,6 @@
         "Description[zh_CN]": "管理会话中变量的面板",
         "Description[zh_TW]": "管理工作階段內的變數的面板",
         "Icon": "",
-        "Id": "VariableManager",
         "License": "GPL",
         "Name": "Variables",
         "Name[ar]": "المتغيّرات",

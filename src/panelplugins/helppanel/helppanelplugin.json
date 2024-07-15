@@ -32,7 +32,6 @@
         "Description[zh_CN]": "显示帮助的面板",
         "Description[zh_TW]": "顯示說明的面板",
         "Icon": "",
-        "Id": "HelpPanel",
         "License": "GPL",
         "Name": "Help",
         "Name[ar]": "مساعدة",

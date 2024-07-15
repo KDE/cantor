@@ -30,7 +30,6 @@
         "Description[x-test]": "xxAn Assistant dialog to import a specific package (or library or module) to Cantor workspacexx",
         "Description[zh_CN]": "用于导入指定包 (或者库和模块) 到 Cantor 工作空间的助手对话框",
         "Description[zh_TW]": "匯入特定套件（或是函式庫與模組）到 Cantor 工作空間的小助手對話框",
-        "Id": "Import package",
         "License": "GPL",
         "Name": "Import Package",
         "Name[ca@valencia]": "Importació de paquet",

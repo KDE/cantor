@@ -31,7 +31,6 @@
         "Description[zh_CN]": "GNU Octave 后端",
         "Description[zh_TW]": "GNU Octave 後端介面",
         "Icon": "octavebackend",
-        "Id": "Octave",
         "License": "GPL",
         "Name": "Octave",
         "Name[eo]": "Oktavo",
