@@ -54,6 +54,8 @@ void BackendSettingsWidget::tabChanged(int index) {
             hboxLayout->addWidget(m_docWidget);
         }
     }
+#else
+    Q_UNUSED(index)
 #endif
 }
 

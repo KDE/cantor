@@ -99,7 +99,7 @@ QString OctaveExpression::internalCommand()
                     }
                     else // for raster formats the size for 'print' is provided in pixels
                     {
-                        const int dpi = QGuiApplication::primaryScreen()->logicalDotsPerInchX();
+                        const int dpi = QGuiApplication::primaryScreen()->physicalDotsPerInchX();
                         w = OctaveSettings::plotWidth() / 2.54 * dpi;
                         h = OctaveSettings::plotHeight() / 2.54 * dpi;
                     }

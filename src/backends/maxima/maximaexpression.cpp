@@ -186,7 +186,7 @@ QString MaximaExpression::internalCommand()
             else // png
             {
                 // png terminal accepts the sizes in pixels
-                const int dpi = QGuiApplication::primaryScreen()->logicalDotsPerInchX();
+                const int dpi = QGuiApplication::primaryScreen()->physicalDotsPerInchX();
                 w = MaximaSettings::plotWidth() / 2.54 * dpi;
                 h = MaximaSettings::plotHeight() / 2.54 * dpi;
                 params = QLatin1String("[gnuplot_png_term_command, \"set term png size %2,%3\"], [png_file, \"%1\"]");

@@ -13,9 +13,8 @@
 #include "rcallbacks.h"
 #include "settings.h"
 
-#include <QApplication>
-#include <QDir>
-#include <QUrl>
+#include <QGuiApplication>
+#include <QScreen>
 
 #include <KIO/DeleteJob>
 #include <KLocalizedString>
@@ -569,8 +568,9 @@ void RServer::newPlotDevice()
     else // PNG
     {
         // convert the size from cm to pixels with the current desktop resolution
-        w = w / 2.54 * qApp->devicePixelRatio();
-        h = h / 2.54 * qApp->devicePixelRatio();
+        const int dpi = QGuiApplication::primaryScreen()->physicalDotsPerInchX();
+        w = w / 2.54 * dpi;
+        h = h / 2.54 * dpi;
         command = QLatin1String("png(\"%1\", width = %2, height = %3)");
         extension = QLatin1String("png");
     }
