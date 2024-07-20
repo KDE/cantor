@@ -5,8 +5,8 @@
 
 #include "maximakeywords.h"
 
-// #include <KSyntaxHighlighting/Repository>
-// #include <KSyntaxHighlighting/Definition>
+#include <KSyntaxHighlighting/Repository>
+#include <KSyntaxHighlighting/Definition>
 
 MaximaKeywords* MaximaKeywords::instance()
 {
@@ -22,11 +22,11 @@ MaximaKeywords* MaximaKeywords::instance()
 
 void MaximaKeywords::loadKeywords()
 {
-    // KSyntaxHighlighting::Repository m_repository;
-    // KSyntaxHighlighting::Definition definition = m_repository.definitionForName(QLatin1String("Maxima"));
-    // m_keywords = definition.keywordList(QLatin1String("MaximaKeyword"));
-    // m_functions = definition.keywordList(QLatin1String("MaximaFunction"));
-    // m_variables = definition.keywordList(QLatin1String("MaximaVariable"));
+    KSyntaxHighlighting::Repository m_repository;
+    KSyntaxHighlighting::Definition definition = m_repository.definitionForName(QLatin1String("Maxima"));
+    m_keywords = definition.keywordList(QLatin1String("MaximaKeyword"));
+    m_functions = definition.keywordList(QLatin1String("MaximaFunction"));
+    m_variables = definition.keywordList(QLatin1String("MaximaVariable"));
 
     // We use qBinarySearch with this lists
     std::sort(m_keywords.begin(), m_keywords.end());
