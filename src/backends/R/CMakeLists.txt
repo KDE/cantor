@@ -23,6 +23,7 @@ set( RBackend_SRCS
 kconfig_add_kcfg_files(RBackend_SRCS rserver/settings.kcfgc)
 
 set(network_xml rserver/org.kde.Cantor.R.xml)
+find_package(Qt6 REQUIRED COMPONENTS DBus)
 qt_add_dbus_interface(RBackend_SRCS ${network_xml} rserver_interface )
 
 ki18n_wrap_ui(RBackend_SRCS settings.ui)
