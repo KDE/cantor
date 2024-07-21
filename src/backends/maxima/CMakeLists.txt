@@ -23,6 +23,8 @@ if (ENABLE_EMBEDDED_DOCUMENTATION)
     target_link_libraries(cantor_maximabackend cantor_help)
 endif ()
 
+target_link_libraries(cantor_maximabackend KF6::SyntaxHighlighting)
+
 if(BUILD_TESTING)
   add_executable( testmaxima testmaxima.cpp)
   add_test(NAME testmaxima COMMAND testmaxima)
