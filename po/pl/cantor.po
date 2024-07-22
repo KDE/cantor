@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-06-16 01:42+0000\n"
-"PO-Revision-Date: 2024-04-28 11:21+0200\n"
+"PO-Revision-Date: 2024-07-21 12:41+0200\n"
 "Last-Translator: Łukasz Wojniłowicz <lukasz.wojnilowicz@gmail.com>\n"
 "Language-Team: Polish <kde-i18n-doc@kde.org>\n"
 "Language: pl\n"
@@ -19,6 +19,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 "
 "|| n%100>=20) ? 1 : 2);\n"
+"X-Generator: Lokalize 23.08.5\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -393,10 +394,9 @@ msgid "Julia script file (*.jl)"
 msgstr "Plik skryptu Julia (*.jl)"
 
 #: backends/julia/juliasession.cpp:70
-#, fuzzy, kde-format
-#| msgid "Failed to start Maxima, please check Maxima's installation."
+#, kde-format
 msgid "Failed to start Julia, please check Julia installation."
-msgstr "Nie udało się uruchomić Maksimy. Sprawdź czy jest wgrana."
+msgstr "Nie udało się uruchomić Julii. Sprawdź czy jest wgrana."
 
 #: backends/julia/juliasession.cpp:119 backends/julia/juliasession.cpp:128
 #: backends/maxima/maximasession.cpp:283 cantor_part.cpp:964
@@ -734,10 +734,9 @@ msgid "Lua script file (*.lua)"
 msgstr "Plik skryptu Lua (*.lua)"
 
 #: backends/lua/luasession.cpp:59
-#, fuzzy, kde-format
-#| msgid "Failed to start Maxima, please check Maxima's installation."
+#, kde-format
 msgid "Failed to start Lua, please check Lua installation."
-msgstr "Nie udało się uruchomić Maksimy. Sprawdź czy jest wgrana."
+msgstr "Nie udało się uruchomić Lua. Sprawdź czy jest wgrane."
 
 #. i18n: ectx: property (text), widget (QLabel, label)
 #: backends/lua/settings.ui:27
@@ -904,10 +903,7 @@ msgid "Failed to start Maxima, please check Maxima's installation."
 msgstr "Nie udało się uruchomić Maksimy. Sprawdź czy jest wgrana."
 
 #: backends/maxima/maximasession.cpp:80
-#, fuzzy, kde-format
-#| msgid ""
-#| "Maxima didn't respond with the proper prompt, please check Maxima's "
-#| "installation."
+#, kde-format
 msgid ""
 "Maxima didn't respond with the proper prompt, please check Maxima "
 "installation."
@@ -973,10 +969,9 @@ msgid "Octave script file (*.m)"
 msgstr "Plik skryptu Octave (*.m)"
 
 #: backends/octave/octavesession.cpp:98
-#, fuzzy, kde-format
-#| msgid "Failed to start Maxima, please check Maxima's installation."
+#, kde-format
 msgid "Failed to start Octave, please check Octave installation."
-msgstr "Nie udało się uruchomić Maksimy. Sprawdź czy jest wgrana."
+msgstr "Nie udało się uruchomić Octave. Sprawdź czy jest wgrane."
 
 #: backends/octave/octavesession.cpp:277 backends/sage/sageexpression.cpp:49
 #, kde-format
@@ -1035,10 +1030,9 @@ msgid "Python script file (*.py)"
 msgstr "Plik skryptu Python (*.py)"
 
 #: backends/python/pythonsession.cpp:74
-#, fuzzy, kde-format
-#| msgid "Failed to start Maxima, please check Maxima's installation."
+#, kde-format
 msgid "Failed to start Python, please check Python installation."
-msgstr "Nie udało się uruchomić Maksimy. Sprawdź czy jest wgrana."
+msgstr "Nie udało się uruchomić Pythona. Sprawdź czy jest wgrane."
 
 #: backends/python/pythonsession.cpp:280
 #, kde-format
@@ -2389,10 +2383,9 @@ msgid "Url to the local R documentation"
 msgstr "Adres URL do lokalnej dokumentacji R"
 
 #: backends/R/rsession.cpp:54
-#, fuzzy, kde-format
-#| msgid "Failed to start Maxima, please check Maxima's installation."
+#, kde-format
 msgid "Failed to start R, please check R installation."
-msgstr "Nie udało się uruchomić Maksimy. Sprawdź czy jest wgrana."
+msgstr "Nie udało się uruchomić R. Sprawdź czy jest wgrane."
 
 #: backends/R/rsettingswidget.cpp:28
 #, kde-format
@@ -2457,10 +2450,9 @@ msgid "Python script file (*.py);;Sage script file (*.sage)"
 msgstr "Plik skryptu Pythona (*.py);;Plik skryptu Sage (*.sage)"
 
 #: backends/sage/sagesession.cpp:126
-#, fuzzy, kde-format
-#| msgid "Failed to start Maxima, please check Maxima's installation."
+#, kde-format
 msgid "Failed to start Sage, please check Sage installation."
-msgstr "Nie udało się uruchomić Maksimy. Sprawdź czy jest wgrana."
+msgstr "Nie udało się uruchomić Sage. Sprawdź czy jest wgrane."
 
 #: backends/sage/sagesession.cpp:270
 #, kde-format
@@ -2558,10 +2550,9 @@ msgid ";;Scilab script file (*.sce);;Scilab function file (*.sci)"
 msgstr ";;Plik skryptu Scilab (*.sce);;Plik funkcji Scilab (*.sci)"
 
 #: backends/scilab/scilabsession.cpp:67
-#, fuzzy, kde-format
-#| msgid "Failed to start Maxima, please check Maxima's installation."
+#, kde-format
 msgid "Failed to start Scilab, please check Scilab installation."
-msgstr "Nie udało się uruchomić Maksimy. Sprawdź czy jest wgrana."
+msgstr "Nie udało się uruchomić Scilab. Sprawdź czy jest wgrane."
 
 #. i18n: ectx: property (text), widget (QLabel, lPlotIntegration)
 #: backends/scilab/settings.ui:37
@@ -3044,16 +3035,14 @@ msgid "Expand All Results"
 msgstr "Rozwiń wszystkie wyniki"
 
 #: cantor_part.cpp:317
-#, fuzzy, kde-format
-#| msgid "Remove All Results"
+#, kde-format
 msgid "Delete All Results"
 msgstr "Usuń wszystkie wynik"
 
 #: cantor_part.cpp:322
-#, fuzzy, kde-format
-#| msgid "Remove current Entry"
+#, kde-format
 msgid "Delete current Entry"
-msgstr "Usuń bieżący wiersz"
+msgstr "Usuń bieżący wpis"
 
 #. i18n("Publish Worksheet"), collection);
 #. publishWorksheet->setIcon(QIcon::fromTheme(QLatin1String("get-hot-new-stuff")));
@@ -4634,10 +4623,9 @@ msgid "Evaluate Entries"
 msgstr "Przelicz wpisy"
 
 #: worksheet.cpp:1948 worksheet.cpp:2797
-#, fuzzy, kde-format
-#| msgid "Evaluate Entries"
+#, kde-format
 msgid "Delete Entries"
-msgstr "Przelicz wpisy"
+msgstr "Usuń wpisy"
 
 #: worksheet.cpp:1961
 #, kde-format
@@ -4650,10 +4638,9 @@ msgid "Expand Command Entry Results"
 msgstr "Rozwiń wyniki poleceń"
 
 #: worksheet.cpp:1964
-#, fuzzy, kde-format
-#| msgid "Remove Command Entry Results"
+#, kde-format
 msgid "Delete Command Entry Results"
-msgstr "Usuń wyniki polecenia"
+msgstr "Usuń wyniki wpisu polecenia"
 
 #: worksheet.cpp:1966
 #, kde-format
@@ -4773,15 +4760,18 @@ msgid ""
 "This step cannot be undone. Do you really want to delete the selected "
 "entries?"
 msgstr ""
+"Nie będzie można wycofać się z tego kroku. Czy na pewno usunąć zaznaczone "
+"wpisy?"
 
 #: worksheet.cpp:2886
 #, kde-format
 msgid "This step cannot be undone. Do you really want to delete all results?"
 msgstr ""
+"Nie będzie można wycofać się z tego kroku. Czy na pewno usunąć wszystkie "
+"wyniki?"
 
 #: worksheet.cpp:2887
-#, fuzzy, kde-format
-#| msgid "Remove all results"
+#, kde-format
 msgid "Delete all results"
 msgstr "Usuń wszystkie wyniki"
 
@@ -4926,23 +4916,20 @@ msgid "Move Down"
 msgstr "Przesuń w dół"
 
 #: worksheetentry.cpp:435
-#, fuzzy, kde-format
-#| msgctxt "@info:tooltip"
-#| msgid "Delete"
+#, kde-format
 msgid "Delete"
 msgstr "Usuń"
 
 #: worksheetentry.cpp:717
-#, fuzzy, kde-format
-#| msgid "Do you really want to remove this entry?"
+#, kde-format
 msgid "This step cannot be undone. Do you really want to delete this entry?"
-msgstr "Czy na pewno usunąć ten wpis?"
+msgstr ""
+"Nie będzie można wycofać się z tego kroku. Czy na pewno usunąć ten wpis?"
 
 #: worksheetentry.cpp:717 worksheetentry.cpp:847
-#, fuzzy, kde-format
-#| msgid "Text Entry"
+#, kde-format
 msgid "Delete Entry"
-msgstr "Wiersz tekstu"
+msgstr "Usuń wpis"
 
 #: worksheetentry.cpp:852
 #, kde-format
