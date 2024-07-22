@@ -32,7 +32,7 @@ add_backend(rbackend ${RBackend_SRCS})
 
 set_target_properties( cantor_rbackend PROPERTIES INSTALL_RPATH_USE_LINK_PATH false)
 
-target_link_libraries( cantor_rbackend ${R_USED_LIBS} KF6::SyntaxHighlighting)
+target_link_libraries( cantor_rbackend ${R_USED_LIBS} Qt6::DBus KF6::SyntaxHighlighting)
 
 if (ENABLE_EMBEDDED_DOCUMENTATION)
     target_link_libraries(cantor_rbackend cantor_help)
