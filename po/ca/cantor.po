@@ -4962,16 +4962,3 @@ msgstr "Suprimeix l'entrada"
 #, kde-format
 msgid "Drag Entry"
 msgstr "Arrossega l'entrada"
-
-#~ msgid "Remove Entries"
-#~ msgstr "Elimina entrades"
-
-#~ msgid ""
-#~ "This action will remove all results without the possibility of "
-#~ "cancellation. Are you sure?"
-#~ msgstr ""
-#~ "Aquesta acció eliminarà tots els resultats sense la possibilitat de "
-#~ "cancel·lar. Esteu segur?"
-
-#~ msgid "Remove Entry"
-#~ msgstr "Elimina l'entrada"
