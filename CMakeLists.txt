@@ -1,6 +1,6 @@
 cmake_minimum_required (VERSION 3.13 FATAL_ERROR)
 
-set(CMAKE_CXX_STANDARD 11)
+set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 set (RELEASE_SERVICE_VERSION_MAJOR "24")
@@ -137,7 +137,7 @@ set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} -DQT_NO_DEBUG_OUTPUT")
 
 kde_enable_exceptions()
 
-# FIXME Looks like docbook on Windows don't buildable at all, so it are temporarily disabled
+# FIXME Looks like docbook on Windows isn't buildable at all, so it is temporarily disabled
 if(NOT WIN32)
     add_subdirectory(doc)
 endif(NOT WIN32)
