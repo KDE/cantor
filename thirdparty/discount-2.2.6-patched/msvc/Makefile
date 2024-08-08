@@ -31,7 +31,7 @@ version.c: version.c.in
 	powershell.exe -Command "(gc version.c.in) -replace '@TABSTOP@', 'TABSTOP' | Out-File version.c"
 
 version.obj: version.c VERSION config.h
-	$(CC) $(CFLAGS) -DBRANCH="" -DVERSION=\"$(VERSION)\" /c version.c
+	$(CC) $(CFLAGS) -DBRANCH="" -DDVERSION=\"$(VERSION)\" /c version.c
 
 mkdio.h: mkdio.h.in
 	powershell.exe -Command "(gc mkdio.h.in) -replace '@DWORD@', 'unsigned long' | Out-File mkdio.h"

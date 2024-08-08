@@ -105,7 +105,7 @@ configure_file("${_ROOT}/version.c.in"
     @ONLY)
 set_property(SOURCE "${_ROOT}/version.c" APPEND PROPERTY COMPILE_DEFINITIONS
     BRANCH=""
-    VERSION="${${PROJECT_NAME}_VERSION}")
+    DVERSION="${${PROJECT_NAME}_VERSION}")
 
 configure_file("${_ROOT}/mkdio.h.in"
     "${_ROOT}/mkdio.h"
