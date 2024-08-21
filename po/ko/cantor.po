@@ -1,13 +1,13 @@
 # Copyright (C) YEAR This_file_is_part_of_KDE
 # This file is distributed under the same license as the PACKAGE package.
-# SPDX-FileCopyrightText: 2011, 2015, 2020, 2021, 2022, 2023 Shinjo Park <kde@peremen.name>
+# SPDX-FileCopyrightText: 2011, 2015, 2020, 2021, 2022, 2023, 2024 Shinjo Park <kde@peremen.name>
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-06-16 01:42+0000\n"
-"PO-Revision-Date: 2023-11-05 00:59+0100\n"
+"PO-Revision-Date: 2024-08-20 21:41+0200\n"
 "Last-Translator: Shinjo Park <kde@peremen.name>\n"
 "Language-Team: Korean <kde-kr@kde.org>\n"
 "Language: ko\n"
@@ -15,7 +15,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Lokalize 23.08.1\n"
+"X-Generator: Lokalize 23.08.5\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -389,10 +389,9 @@ msgid "Julia script file (*.jl)"
 msgstr "Julia 스크립트 파일 (*.jl)"
 
 #: backends/julia/juliasession.cpp:70
-#, fuzzy, kde-format
-#| msgid "Failed to start Julia process."
+#, kde-format
 msgid "Failed to start Julia, please check Julia installation."
-msgstr "Julia 프로세스를 시작할 수 없습니다."
+msgstr "Julia 프로세스를 시작할 수 없습니다. 설치 상태를 확인하십시오."
 
 #: backends/julia/juliasession.cpp:119 backends/julia/juliasession.cpp:128
 #: backends/maxima/maximasession.cpp:283 cantor_part.cpp:964
@@ -728,7 +727,7 @@ msgstr "Lua 스크립트 파일 (*.lua)"
 #: backends/lua/luasession.cpp:59
 #, kde-format
 msgid "Failed to start Lua, please check Lua installation."
-msgstr ""
+msgstr "Lua를 시작할 수 없습니다. 설치 상태를 확인하십시오."
 
 #. i18n: ectx: property (text), widget (QLabel, label)
 #: backends/lua/settings.ui:27
@@ -885,7 +884,7 @@ msgstr "Maxima 배치 파일 (*.mac)"
 #: backends/maxima/maximasession.cpp:61
 #, kde-format
 msgid "Failed to start Maxima, please check Maxima's installation."
-msgstr ""
+msgstr "Maxima를 시작할 수 없습니다. 설치 상태를 확인하십시오."
 
 #: backends/maxima/maximasession.cpp:80
 #, kde-format
@@ -893,6 +892,7 @@ msgid ""
 "Maxima didn't respond with the proper prompt, please check Maxima "
 "installation."
 msgstr ""
+"Maxima가 올바른 프롬프트로 응답하지 않았습니다. 설치 상태를 확인하십시오."
 
 #: backends/maxima/maximasession.cpp:202
 #, kde-format
@@ -951,7 +951,7 @@ msgstr "Octave 스크립트 파일 (*.m)"
 #: backends/octave/octavesession.cpp:98
 #, kde-format
 msgid "Failed to start Octave, please check Octave installation."
-msgstr ""
+msgstr "Octave를 시작할 수 없습니다. 설치 상태를 확인하십시오."
 
 #: backends/octave/octavesession.cpp:277 backends/sage/sageexpression.cpp:49
 #, kde-format
@@ -1011,7 +1011,7 @@ msgstr "Python 스크립트 파일 (*.py)"
 #: backends/python/pythonsession.cpp:74
 #, kde-format
 msgid "Failed to start Python, please check Python installation."
-msgstr ""
+msgstr "Python을 시작할 수 없습니다. 설치 상태를 확인하십시오."
 
 #: backends/python/pythonsession.cpp:280
 #, kde-format
@@ -2350,7 +2350,7 @@ msgstr "로컬 R 문서의 URL"
 #: backends/R/rsession.cpp:54
 #, kde-format
 msgid "Failed to start R, please check R installation."
-msgstr ""
+msgstr "R을 시작할 수 없습니다. 설치 상태를 확인하십시오."
 
 #: backends/R/rsettingswidget.cpp:28
 #, kde-format
@@ -2416,7 +2416,7 @@ msgstr "Python 스크립트 파일 (*.py);;Sage 스크립트 파일 (*.sage)"
 #: backends/sage/sagesession.cpp:126
 #, kde-format
 msgid "Failed to start Sage, please check Sage installation."
-msgstr ""
+msgstr "Sage를 시작할 수 없습니다. 설치 상태를 확인하십시오."
 
 #: backends/sage/sagesession.cpp:270
 #, kde-format
@@ -2514,7 +2514,7 @@ msgstr ";;Scilab 스크립트 파일 (*.sce);;Scilab 함수 파일 (*.sci)"
 #: backends/scilab/scilabsession.cpp:67
 #, kde-format
 msgid "Failed to start Scilab, please check Scilab installation."
-msgstr ""
+msgstr "Scilab을 시작할 수 없습니다. 설치 상태를 확인하십시오."
 
 #. i18n: ectx: property (text), widget (QLabel, lPlotIntegration)
 #: backends/scilab/settings.ui:37
@@ -2982,14 +2982,12 @@ msgid "Expand All Results"
 msgstr "모든 결과 펴기"
 
 #: cantor_part.cpp:317
-#, fuzzy, kde-format
-#| msgid "Remove All Results"
+#, kde-format
 msgid "Delete All Results"
 msgstr "모든 결과 삭제"
 
 #: cantor_part.cpp:322
-#, fuzzy, kde-format
-#| msgid "Remove current Entry"
+#, kde-format
 msgid "Delete current Entry"
 msgstr "현재 항목 삭제"
 
@@ -4551,10 +4549,9 @@ msgid "Evaluate Entries"
 msgstr "항목 계산"
 
 #: worksheet.cpp:1948 worksheet.cpp:2797
-#, fuzzy, kde-format
-#| msgid "Evaluate Entries"
+#, kde-format
 msgid "Delete Entries"
-msgstr "항목 계산"
+msgstr "항목 삭제"
 
 #: worksheet.cpp:1961
 #, kde-format
@@ -4567,8 +4564,7 @@ msgid "Expand Command Entry Results"
 msgstr "명령 항목 결과 펴기"
 
 #: worksheet.cpp:1964
-#, fuzzy, kde-format
-#| msgid "Remove Command Entry Results"
+#, kde-format
 msgid "Delete Command Entry Results"
 msgstr "명령 항목 결과 삭제"
 
@@ -4689,16 +4685,15 @@ msgstr "맞춤"
 msgid ""
 "This step cannot be undone. Do you really want to delete the selected "
 "entries?"
-msgstr ""
+msgstr "이 작업은 실행 취소할 수 없습니다. 선택한 항목을 삭제하시겠습니까?"
 
 #: worksheet.cpp:2886
 #, kde-format
 msgid "This step cannot be undone. Do you really want to delete all results?"
-msgstr ""
+msgstr "이 작업은 실행 취소할 수 없습니다. 모든 결과를 삭제하시겠습니까?"
 
 #: worksheet.cpp:2887
-#, fuzzy, kde-format
-#| msgid "Remove all results"
+#, kde-format
 msgid "Delete all results"
 msgstr "모든 결과 삭제"
 
@@ -4843,23 +4838,19 @@ msgid "Move Down"
 msgstr "아래로 이동"
 
 #: worksheetentry.cpp:435
-#, fuzzy, kde-format
-#| msgctxt "@info:tooltip"
-#| msgid "Delete"
+#, kde-format
 msgid "Delete"
 msgstr "삭제"
 
 #: worksheetentry.cpp:717
-#, fuzzy, kde-format
-#| msgid "Do you really want to remove this entry?"
+#, kde-format
 msgid "This step cannot be undone. Do you really want to delete this entry?"
-msgstr "이 항목을 삭제하시겠습니까?"
+msgstr "이 작업은 실행 취소할 수 없습니다. 이 항목을 삭제하시겠습니까?"
 
 #: worksheetentry.cpp:717 worksheetentry.cpp:847
-#, fuzzy, kde-format
-#| msgid "Text Entry"
+#, kde-format
 msgid "Delete Entry"
-msgstr "텍스트 항목"
+msgstr "항목 삭제"
 
 #: worksheetentry.cpp:852
 #, kde-format
