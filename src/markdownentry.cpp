@@ -390,7 +390,11 @@ bool MarkdownEntry::renderMarkdown(QString& plain)
 #ifdef Discount_FOUND
     QByteArray mdCharArray = plain.toUtf8();
     MMIOT* mdHandle = mkd_string(mdCharArray.data(), mdCharArray.size()+1, 0);
-    if(!mkd_compile(mdHandle, MKD_LATEX | MKD_FENCEDCODE | MKD_GITHUBTAGS))
+    mkd_flag_t *mdFlags = mkd_flags();
+    mkd_set_flag_num(mdFlags, MKD_LATEX);
+    mkd_set_flag_num(mdFlags, MKD_FENCEDCODE);
+    mkd_set_flag_num(mdFlags, MKD_GITHUBTAGS);
+    if(!mkd_compile(mdHandle,  mdFlags))
     {
         qDebug()<<"Failed to compile the markdown document";
         mkd_cleanup(mdHandle);
@@ -403,9 +407,11 @@ bool MarkdownEntry::renderMarkdown(QString& plain)
     char *latexData;
     int latexDataSize = mkd_latextext(mdHandle, &latexData);
     QStringList latexUnits = QString::fromUtf8(latexData, latexDataSize).split(QLatin1Char(31), Qt::SkipEmptyParts);
+
     foundMath.clear();
 
     mkd_cleanup(mdHandle);
+    mkd_free_flags(mdFlags);
 
     setRenderedHtml(html);
 

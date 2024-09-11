@@ -1,0 +1,5 @@
+commit 827bedd96c0ac2bdda0e565e0ddd3e8f8b8309c2
+Author: david parsons <orc@pell.portland.or.us>
+Date:   Sun Sep 8 15:53:52 2024 -0700
+
+    further tweak the formatting for theme -V+ output

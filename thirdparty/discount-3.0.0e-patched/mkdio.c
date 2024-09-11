@@ -1,0 +1,531 @@
+/*
+ * mkdio -- markdown front end input functions
+ *
+ * Copyright (C) 2007 Jessica L Parsons.
+ * The redistribution terms are provided in the COPYRIGHT file that must
+ * be distributed with this source code.
+ */
+#include "config.h"
+#include <stdio.h>
+#include <stdlib.h>
+#include <ctype.h>
+
+#include "cstring.h"
+#include "markdown.h"
+#include "amalloc.h"
+
+typedef ANCHOR(Line) LineAnchor;
+
+
+/* create a new blank Document
+ */
+Document*
+__mkd_new_Document(void)
+{
+    Document *ret = calloc(sizeof(Document), 1);
+
+    if ( ret ) {
+	if ( ret->ctx = calloc(sizeof(MMIOT), 1) ) {
+	    ret->magic = VALID_DOCUMENT;
+	    return ret;
+	}
+	free(ret);
+    }
+    return 0;
+}
+
+
+/* add a line to the markdown input chain, expanding tabs and
+ * noting the presence of special characters as we go.
+ */
+void
+__mkd_enqueue(Document* a, Cstring *line)
+{
+    Line *p = calloc(sizeof *p, 1);
+    unsigned char c;
+    int xp = 0;
+    int           size = S(*line);
+    unsigned char *str = (unsigned char*)T(*line);
+
+    CREATE(p->text);
+    ATTACH(a->content, p);
+
+    while ( size-- ) {
+	if ( (c = *str++) == '\t' ) {
+	    /* expand tabs into ->tabstop spaces.  We use ->tabstop
+	     * because the ENTIRE FREAKING COMPUTER WORLD uses editors
+	     * that don't do ^T/^D, but instead use tabs for indentation,
+	     * and, of course, set their tabs down to 4 spaces 
+	     */
+	    do {
+		EXPAND(p->text) = ' ';
+	    } while ( ++xp % a->tabstop );
+	}
+	else if ( c >= ' ' ) {
+	    if ( c == '|' )
+		p->has_pipechar = 1;
+	    EXPAND(p->text) = c;
+	    ++xp;
+	}
+    }
+    EXPAND(p->text) = 0;
+    S(p->text)--;
+    p->dle = mkd_firstnonblank(p);
+}
+
+
+/* trim leading characters from a line, then adjust the dle.
+ */
+void
+__mkd_trim_line(Line *p, int clip)
+{
+    if ( clip >= S(p->text) ) {
+	S(p->text) = p->dle = 0;
+	T(p->text)[0] = 0;
+    }
+    else if ( clip > 0 ) {
+	CLIP(p->text, 0, clip);
+	p->dle = mkd_firstnonblank(p);
+    }
+}
+
+
+/* build a Document from any old input.
+ */
+typedef int (*getc_func)(void*);
+
+Document *
+populate(getc_func getc, void* ctx, mkd_flag_t *flags)
+{
+    Cstring line;
+    Document *a = __mkd_new_Document();
+    int c;
+    int pandoc = 0;
+
+    if ( flags && (is_flag_set(flags, MKD_NOHEADER) || is_flag_set(flags, MKD_STRICT)) )
+	pandoc= EOF;
+
+    if ( !a ) return 0;
+
+
+    if ( flags && (is_flag_set(flags, MKD_TABSTOP) || is_flag_set(flags, MKD_STRICT)) )
+	a->tabstop = 4;
+    else
+	a->tabstop = TABSTOP;
+
+    CREATE(line);
+
+    while ( (c = (*getc)(ctx)) != EOF ) {
+	if ( c == '\n' ) {
+	    if ( pandoc != EOF && pandoc < 3 ) {
+		if ( S(line) && (T(line)[0] == '%') )
+		    pandoc++;
+		else
+		    pandoc = EOF;
+	    }
+	    __mkd_enqueue(a, &line);
+	    S(line) = 0;
+	}
+	else if ( (c & 0x80) || isprint(c) || isspace(c) )
+	    EXPAND(line) = c;
+    }
+
+    if ( S(line) )
+	__mkd_enqueue(a, &line);
+
+    DELETE(line);
+
+    if ( pandoc == 3 ) {
+	/* the first three lines started with %, so we have a header.
+	 * clip the first three lines out of content and hang them
+	 * off header.
+	 */
+	Line *headers = T(a->content);
+
+	a->title = headers;             __mkd_trim_line(a->title, 1);
+	a->author= headers->next;       __mkd_trim_line(a->author, 1);
+	a->date  = headers->next->next; __mkd_trim_line(a->date, 1);
+
+	T(a->content) = headers->next->next->next;
+    }
+
+    return a;
+}
+
+
+/* convert a file into a linked list
+ */
+Document *
+mkd_in(FILE *f, mkd_flag_t *flags)
+{
+    return populate((getc_func)fgetc, f, flags);
+}
+
+
+/* return a single character out of a buffer
+ */
+int
+__mkd_io_strget(struct string_stream *in)
+{
+    if ( !in->size ) return EOF;
+
+    --(in->size);
+
+    return *(in->data)++;
+}
+
+
+/* convert a block of text into a linked list
+ */
+Document *
+mkd_string(const char *buf, int len, mkd_flag_t* flags)
+{
+    struct string_stream about;
+
+    about.data = buf;
+    about.size = len;
+
+    return populate((getc_func)__mkd_io_strget, &about, flags);
+}
+
+
+/* write the html to a file (xmlified if necessary)
+ */
+int
+mkd_generatehtml(Document *p, FILE *output)
+{
+    char *doc;
+    int szdoc;
+
+    DO_OR_DIE( szdoc = mkd_document(p,&doc) );
+    if ( is_flag_set( &(p->ctx->flags), MKD_CDATA ) )
+	DO_OR_DIE( mkd_generatexml(doc, szdoc, output) );
+    else if ( fwrite(doc, szdoc, 1, output) != 1 )
+	return EOF;
+    DO_OR_DIE( putc('\n', output) );
+    return 0;
+}
+
+
+/* convert some markdown text to html
+ */
+int
+markdown(Document *document, FILE *out, mkd_flag_t* flags)
+{
+    if ( mkd_compile(document, flags) ) {
+	mkd_generatehtml(document, out);
+	mkd_cleanup(document);
+	return 0;
+    }
+    return -1;
+}
+
+
+/* anchor_format a string, returning the formatted string in malloc()ed space
+ * MKD_URLENCODEDANCHOR is now perverted to being a html5 anchor
+ *
+ * !labelformat:  print all characters
+ * labelformat && h4anchor: prefix nonalpha label with L,
+ *                          expand all nonalnum, _, ':', '.' to hex
+ *                          except space which maps to -
+ * labelformat && !h4anchor:expand space to -, other isspace() & '%' to hex
+ */
+static char *
+mkd_anchor_format(char *s, int len, int labelformat, mkd_flag_t *flags)
+{
+    char *res;
+    unsigned char c;
+    int i, needed, out = 0;
+    int h4anchor = !is_flag_set(flags, MKD_URLENCODEDANCHOR);
+    static const unsigned char hexchars[] = "0123456789abcdef";
+
+    needed = (labelformat ? (4*len) : len) + 2;	/* +2 for L & \0 */
+
+    if ( (res = malloc(needed)) == NULL )
+	return NULL;
+
+    if ( h4anchor && labelformat && !isalpha(s[0]) )
+	res[out++] = 'L';
+	
+    
+    for ( i=0; i < len ; i++ ) {
+	c = s[i];
+	if ( labelformat ) {
+	    if ( h4anchor
+		    ? (isalnum(c) || (c == '_') || (c == ':') || (c == '.' ) )
+		    : !(isspace(c) || c == '%') )
+		res[out++] = c;
+	    else if ( c == ' ' )
+		res[out++] = '-';
+	    else {
+		    res[out++] = h4anchor ? '-' : '%';
+		    res[out++] = hexchars[c >> 4 & 0xf];
+		    res[out++] = hexchars[c      & 0xf];
+		    if ( h4anchor )
+			res[out++] = '-';
+	    }
+	}
+	else
+	    res[out++] = c;
+    }
+    
+    res[out++] = 0;
+    return res;
+} /* mkd_anchor_format */
+
+
+/* write out a Cstring, mangled into a form suitable for `<a href=` or `<a id=`
+ */
+void
+mkd_string_to_anchor(char *s, int len, mkd_sta_function_t outchar,
+				       void *out, int labelformat,
+				       MMIOT *f)
+{
+    char *res;
+    char *line;
+    int size;
+    mkd_flag_t flags;
+
+    int i;
+
+    mkd_init_flags(&flags);
+    set_mkd_flag(&flags,IS_LABEL);
+    size = mkd_line(s, len, &line, &flags);
+
+    if ( !line )
+	return;
+
+    if ( f->cb->e_anchor.func )
+	res = (*(f->cb->e_anchor.func))(line, size, f->cb->e_anchor.data);
+    else
+	res = mkd_anchor_format(line, size, labelformat, &(f->flags));
+
+    free(line);
+
+    if ( res ) {
+	for ( i=0; res[i]; i++ )
+	    (*outchar)(res[i], out);
+
+	if ( f->cb->e_anchor.free )
+	    (*f->cb->e_anchor.free)(res, i, f);
+	else
+	    free(res);
+    }
+}
+
+
+/*  ___mkd_reparse() a line
+ */
+static void
+mkd_parse_line(char *bfr, int size, MMIOT *f, mkd_flag_t *flags)
+{
+    ___mkd_initmmiot(f, 0);
+    if ( flags )
+	COPY_FLAGS(f->flags, *flags);
+    else
+	mkd_init_flags(&f->flags);
+    ___mkd_reparse(bfr, size, NULL, f, 0);
+    ___mkd_emblock(f);
+}
+
+
+/* ___mkd_reparse() a line, returning it in malloc()ed memory
+ */
+int
+mkd_line(char *bfr, int size, char **res, mkd_flag_t* flags)
+{
+    MMIOT f;
+    int len;
+    
+    mkd_parse_line(bfr, size, &f, flags);
+
+    if ( len = S(f.out) ) {
+	EXPAND(f.out) = 0;
+	/* strdup() doesn't use amalloc(), so in an amalloc()ed
+	 * build this copies the string safely out of our memory
+	 * paranoia arena.  In a non-amalloc world, it's a spurious
+	 * memory allocation, but it avoids unintentional hilarity
+	 * with amalloc()
+	 */
+	*res = strdup(T(f.out));
+    }
+    else {
+	 *res = 0;
+	 len = EOF;
+     }
+    ___mkd_freemmiot(&f, 0);
+    return len;
+}
+
+
+/* ___mkd_reparse() a line, writing it to a FILE
+ */
+int
+mkd_generateline(char *bfr, int size, FILE *output, mkd_flag_t* flags)
+{
+    MMIOT f;
+    int status;
+
+    mkd_parse_line(bfr, size, &f, flags);
+    if ( flags && is_flag_set(flags, MKD_CDATA) )
+	status = mkd_generatexml(T(f.out), S(f.out), output) != EOF;
+    else
+	status = fwrite(T(f.out), S(f.out), 1, output) == S(f.out);
+
+    ___mkd_freemmiot(&f, 0);
+    return status ? 0 : EOF;
+}
+
+
+/* set the url display callback
+ */
+void
+mkd_e_url(Document *f, mkd_callback_t edit, mkd_callback_t free, void *data)
+{
+    if ( f ) {
+	if ( f->cb.e_url.func != edit )
+	    f->dirty = 1;
+	f->cb.e_url.func = edit;
+	f->cb.e_url.data = data;
+	f->cb.e_url.free = free;
+    }
+}
+
+
+/* set the url options callback
+ */
+void
+mkd_e_flags(Document *f, mkd_callback_t edit, mkd_callback_t free, void *data)
+{
+    if ( f ) {
+	if ( f->cb.e_flags.func != edit )
+	    f->dirty = 1;
+	f->cb.e_flags.func = edit;
+	f->cb.e_flags.free = free;
+	f->cb.e_flags.data = data;
+    }
+}
+
+
+/* set the anchor formatter
+ */
+void
+mkd_e_anchor(Document *f, mkd_callback_t format, mkd_callback_t free, void *data)
+{
+    if ( f ) {
+	if ( f->cb.e_anchor.func != format )
+	    f->dirty = 1;
+	f->cb.e_anchor.func = format;
+	f->cb.e_anchor.free = free;
+	f->cb.e_anchor.data = data;
+    }
+}
+
+
+/* set the code block display callback
+ */
+void
+mkd_e_code_format(Document *f, mkd_callback_t codefmt, mkd_callback_t free, void *data)
+{
+    if ( f && (f->cb.e_codefmt.func != codefmt) ) {
+	f->dirty = 1;
+	f->cb.e_codefmt.func = codefmt;
+	f->cb.e_codefmt.free = free;
+	f->cb.e_codefmt.data = data;
+    }
+}
+
+
+/* set the href prefix for markdown extra style footnotes
+ */
+void
+mkd_ref_prefix(Document *f, char *data)
+{
+    if ( f ) {
+	if ( f->ref_prefix != data )
+	    f->dirty = 1;
+	f->ref_prefix = data;
+    }
+}
+
+#if 0
+static void
+sayflags(char *pfx, mkd_flag_t* flags, FILE *output)
+{
+    int i;
+
+    fprintf(output, "%.*s/", (int)strlen(pfx), "            ");
+    for (i=0; i<MKD_NR_FLAGS; i++)
+	fputc( (i==0) || (i % 10) ? ' ' : (i/10)+'0', output);
+    fputc('\\', output);
+    fputc('\n', output);
+    fprintf(output, "%s|", pfx);
+    for (i=0; i<MKD_NR_FLAGS; i++)
+	fputc((i%10)+'0', output);
+    fputc('|', output);
+    fputc('\n', output);
+    fprintf(output, "%.*s\\", (int)strlen(pfx), "            ");
+    for (i=0;i<MKD_NR_FLAGS; i++)
+	fputc(is_flag_set(flags, i)?'X':' ', output);
+    fputc('/', output);
+    fputc('\n', output);
+}
+#else
+#define sayflags(pfx,flags,output) 1
+#endif
+
+
+
+void
+___mkd_or_flags(mkd_flag_t *dst, mkd_flag_t *src)
+{
+    int i;
+
+    for (i=0; i<MKD_NR_FLAGS; i++)
+	if ( is_flag_set(src,i) )
+	    set_mkd_flag(dst, i);
+}
+
+
+int
+___mkd_different(mkd_flag_t *dst, mkd_flag_t *src)
+{
+    int i;
+    mkd_flag_t zeroes;
+
+    if ( dst == 0 || src == 0 ) {
+	mkd_init_flags(&zeroes);
+	if ( !dst )
+	    dst = &zeroes;
+	if ( !src )
+	    src = &zeroes;
+    }
+
+    for (i=0; i < MKD_NR_FLAGS; i++)
+	if ( is_flag_set(src,i) != is_flag_set(dst,i) )
+	    return 1;
+
+    return 0;
+}
+
+int
+___mkd_any_flags(mkd_flag_t *dst, mkd_flag_t *src)
+{
+    int i;
+    int count = 0;
+    mkd_flag_t zeroes;
+
+    if ( dst == 0 || src == 0 ) {
+	mkd_init_flags(&zeroes);
+	if ( !dst )
+	    dst = &zeroes;
+	if ( !src )
+	    src = &zeroes;
+    }
+
+    for (i=0; i < MKD_NR_FLAGS; i++)
+	if ( is_flag_set(src,i) && is_flag_set(dst,i) )
+	    ++count;
+
+    return count;
+}
