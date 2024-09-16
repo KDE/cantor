@@ -40,8 +40,10 @@ file(GLOB ICONS_SRCS "${CMAKE_CURRENT_SOURCE_DIR}/../icons/*-apps-cantor.png")
 ecm_add_app_icon(cantor_SRCS ICONS ${ICONS_SRCS})
 add_executable(cantor_bin ${cantor_SRCS})
 
-file(READ "C:\\builds\\education\\cantor\\_build\\thirdparty\\src\\discount_project\\version" VERSION_FILE_CONTENT)
-message(WARNING "${VERSION_FILE_CONTENT}")
+if(WIN32)
+  file(READ "C:\\builds\\education\\cantor\\_build\\thirdparty\\src\\discount_project\\version.c" VERSION_FILE_CONTENT)
+  message(WARNING "${VERSION_FILE_CONTENT}")
+endif()
 
 target_link_libraries(cantor_bin KF6::Parts KF6::NewStuffWidgets KF6::ConfigCore KF6::CoreAddons KF6::ConfigGui
     KF6::Crash KF6::XmlGui Discount::Lib cantorlibs cantor_config)
