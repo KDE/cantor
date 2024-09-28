@@ -85,7 +85,7 @@ $(DESTDIR)$(LIBDIR):
 @MK_PKGCONFIG@	$(INSTALL_DIR) $(DESTDIR)$(PKGDIR)
 
 version.o: version.c VERSION branch
-	$(BUILD) -DBRANCH=`./branch` -DDVERSION=\"`cat VERSION`\" -c version.c
+	$(BUILD) -DBRANCH=`./branch` -DVERSION="2.2.6" -c version.c
 
 VERSION:
 	@true
@@ -127,7 +127,7 @@ main.o: main.c mkdio.h config.h
 	$(BUILD) -c main.c
 
 $(MKDLIB): $(OBJS)
-	./librarian.sh make $(MKDLIB) VERSION $(OBJS)
+	./librarian.sh make $(MKDLIB) $(OBJS)
 
 verify: echo tools/checkbits.sh
 	@./echo -n "headers ... "; tools/checkbits.sh && echo "GOOD"
@@ -159,7 +159,7 @@ echo:   echo.o
 
 clean:
 	rm -f $(PGMS) $(TESTFRAMEWORK) $(SAMPLE_PGMS) *.o
-	rm -f $(MKDLIB) `./librarian.sh files $(MKDLIB) VERSION`
+	rm -f $(MKDLIB) `./librarian.sh files $(MKDLIB)`
 
 distclean spotless: clean
 	@DISTCLEAN@ @GENERATED_FILES@ @CONFIGURE_FILES@ ./mktags ./blocktags

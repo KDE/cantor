@@ -55,7 +55,8 @@ locals() {
     esac
 }
 
-VERSION=`cat VERSION`
+#VERSION=`cat VERSION`
+VERSION=2.2.6
 TARGET=markdown
 . ./configure.inc
 

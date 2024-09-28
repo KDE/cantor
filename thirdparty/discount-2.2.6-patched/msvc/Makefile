@@ -13,12 +13,11 @@ SAMPLE_PGMS=mkd2html makepage
 COMMON=pgm_options.obj gethopt.obj
 
 # Assumes VERSION is a single-line file
-VERSION = \
-	!INCLUDE <VERSION>
+VERSION = 2.2.6
 
 default:	all
 
-all:	$(MKDLIB) $(PGMS) $(SAMPLE_PGMS) 
+all:	$(MKDLIB) $(PGMS) $(SAMPLE_PGMS)
 
 $(MKDLIB):	$(LIBOBJ)
 	if exist $(MKDLIB) del $(MKDLIB)
@@ -31,7 +30,7 @@ version.c: version.c.in
 	powershell.exe -Command "(gc version.c.in) -replace '@TABSTOP@', 'TABSTOP' | Out-File version.c"
 
 version.obj: version.c VERSION config.h
-	$(CC) $(CFLAGS) -DBRANCH="" -DDVERSION=\"$(VERSION)\" /c version.c
+	$(CC) $(CFLAGS) -DBRANCH="" -DVERSION=\"$(VERSION)\" /c version.c
 
 mkdio.h: mkdio.h.in
 	powershell.exe -Command "(gc mkdio.h.in) -replace '@DWORD@', 'unsigned long' | Out-File mkdio.h"
