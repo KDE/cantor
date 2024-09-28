@@ -13,7 +13,7 @@ msgstr ""
 "Project-Id-Version: cantor\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-06-16 01:42+0000\n"
-"PO-Revision-Date: 2024-06-13 10:25+0200\n"
+"PO-Revision-Date: 2024-08-31 19:48+0200\n"
 "Last-Translator: Xavier Besnard <xavier.besnard@kde.org>\n"
 "Language-Team: French <French <kde-francophone@kde.org>>\n"
 "Language: fr\n"
@@ -811,7 +811,7 @@ msgstr ""
 "les noms de Maxima dont le nom apparaît n'importe où. <i>nom</i> doit être "
 "une chaîne ou un symbole. Ainsi, <i>apropos(exp)</i> renvoie une liste de "
 "toutes les étiquettes et fonctions qui possèdent « exp » dans une partie de "
-"leur nom, comme <i>expand</i>, <i>exp</i> et <i>exponentialize</i>. Donc, si "
+"leur nom, comme <i>expand</i>, <i>exp</i> et <i>exponentielle</i>. Donc, si "
 "vous ne pouvez retenir qu'une partie du nom d'une commande ou d'une variable "
 "de Maxima, vous pouvez utiliser cette commande pour trouver le reste du nom. "
 "De même, vous pouvez saisir <i>apropos(tr_)</i> pour trouver une liste de "
@@ -1551,7 +1551,7 @@ msgid ""
 "best suited SI units (the least amount of units)."
 msgstr ""
 "Indiquez si et comment les unités seront automatiquement converties. Si la "
-"valeur est « true », convertit en unités du SI les mieux appropriées (la "
+"valeur est « True », convertit en unités du SI les mieux appropriées (la "
 "plus petite quantité d'unités)."
 
 #. i18n: ectx: label, entry (angleUnit), group (QalculateBackend)
@@ -1611,7 +1611,7 @@ msgid ""
 "If true, negative exponents will be used instead of division (ex. 5/x^2 "
 "becomes 5*x^-2)."
 msgstr ""
-"Si la valeur est « true », des exposants négatifs seront employés au d'une "
+"Si la valeur est « True », des exposants négatifs seront employés au d'une "
 "division (ex. 5/x^2 devient 5*x^-2)."
 
 #. i18n: ectx: label, entry (minExp), group (QalculateBackend)
@@ -1627,7 +1627,7 @@ msgid ""
 "If true, plots will be displayed inside the worksheet. If not they appear in "
 "a separate window."
 msgstr ""
-"Si la valeur est « true », les tracés seront affichés sur la feuille de "
+"Si la valeur est « True », les tracés seront affichés sur la feuille de "
 "calcul. Dans le cas contraire, ils apparaîtront dans une fenêtre séparée."
 
 #. i18n: ectx: label, entry (coloredPlot), group (QalculateBackend)
@@ -1817,7 +1817,7 @@ msgid ""
 "inline=true the image is shown regardless of this option."
 msgstr ""
 "Image dans laquelle enregistrer. Si elle est vide, affiche un graphe dans "
-"une fenêtre sur l'écran. Si inline=true l'image est affichée sans tenir "
+"une fenêtre sur l'écran. Si inline=True l'image est affichée sans tenir "
 "compte de cette option."
 
 #: backends/qalculate/qalculatesyntaxhelpobject.cpp:216
@@ -1831,7 +1831,7 @@ msgstr ""
 #, kde-format
 msgid "Set to true for colored plot, false for monochrome."
 msgstr ""
-"Associez à « true » pour un graphe en couleurs, « false » pour un monochrome."
+"Associez à « True » pour un graphe en couleurs, « False » pour un monochrome."
 
 #: backends/qalculate/qalculatesyntaxhelpobject.cpp:218
 #, kde-format
@@ -3708,7 +3708,7 @@ msgid ""
 "the application settings and try again."
 msgstr ""
 "Aucun emplacement spécifié pour l'exécutable %1. Veuillez fournir un "
-"emplacement correct dans les paramètres de l'application and essayer de "
+"emplacement correct dans les paramètres de l'application et essayer de "
 "nouveau."
 
 #: lib/backend.cpp:173
