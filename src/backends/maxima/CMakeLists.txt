@@ -19,7 +19,7 @@ ki18n_wrap_ui(MaximaBackend_SRCS settings.ui)
 
 add_backend(maximabackend ${MaximaBackend_SRCS})
 
-target_link_libraries(cantor_maximabackend KF5::SyntaxHighlighting)
+target_link_libraries(cantor_maximabackend KF6::SyntaxHighlighting)
 if (ENABLE_EMBEDDED_DOCUMENTATION)
     target_link_libraries(cantor_maximabackend cantor_help)
 endif ()
