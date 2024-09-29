@@ -12,7 +12,6 @@ SAMPLE_PGMS=mkd2html makepage
 # modules that markdown, makepage, mkd2html, &tc use
 COMMON=pgm_options.obj gethopt.obj
 
-# Assumes VERSION is a single-line file
 VERSION = 2.2.6
 
 default:	all
@@ -29,7 +28,7 @@ config.h: msvc/config.h.vc
 version.c: version.c.in
 	powershell.exe -Command "(gc version.c.in) -replace '@TABSTOP@', 'TABSTOP' | Out-File version.c"
 
-version.obj: version.c VERSION config.h
+version.obj: version.c config.h
 	$(CC) $(CFLAGS) -DBRANCH="" -DVERSION=\"$(VERSION)\" /c version.c
 
 mkdio.h: mkdio.h.in
