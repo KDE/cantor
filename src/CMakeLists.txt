@@ -41,7 +41,7 @@ ecm_add_app_icon(cantor_SRCS ICONS ${ICONS_SRCS})
 add_executable(cantor_bin ${cantor_SRCS})
 
 target_link_libraries(cantor_bin KF6::Parts KF6::NewStuffWidgets KF6::ConfigCore KF6::CoreAddons KF6::ConfigGui
-    KF6::Crash KF6::XmlGui Discount::Lib cantorlibs cantor_config)
+    KF6::Crash KF6::XmlGui  cantorlibs cantor_config)
 
 if (ENABLE_EMBEDDED_DOCUMENTATION)
     target_link_libraries(cantor Qt6::WebEngineWidgets)
