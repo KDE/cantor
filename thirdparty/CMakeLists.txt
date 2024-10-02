@@ -5,6 +5,14 @@
 include(ExternalProject)
 set (DISCOUNT_ONLY_LIBRARY ON)
 set (DISCOUNT_MAKE_INSTALL OFF)
+
+# TODO: MSVC is building libmarkdown.lib but it's being looked for markdown.lib when linking cantorpart.dll
+if(NOT WIN32)
+    SET(DISCONT_LIB_NAME, ${CMAKE_CURRENT_BINARY_DIR}/discount_project-build/${CMAKE_STATIC_LIBRARY_PREFIX}markdown${CMAKE_STATIC_LIBRARY_SUFFIX})
+else()
+    SET(DISCONT_LIB_NAME, ${CMAKE_CURRENT_BINARY_DIR}/discount_project-build/markdown${CMAKE_STATIC_LIBRARY_SUFFIX})
+endif(NOT WIN32)
+
 ExternalProject_Add(
     discount_project
     URL ${CMAKE_CURRENT_SOURCE_DIR}/discount-2.2.6-patched
@@ -14,7 +22,7 @@ ExternalProject_Add(
     PREFIX ${CMAKE_CURRENT_BINARY_DIR}
     INSTALL_COMMAND ""
     BINARY_DIR ${CMAKE_CURRENT_BINARY_DIR}/discount_project-build
-    BUILD_BYPRODUCTS ${CMAKE_CURRENT_BINARY_DIR}/discount_project-build/${CMAKE_STATIC_LIBRARY_PREFIX}markdown${CMAKE_STATIC_LIBRARY_SUFFIX}
+    BUILD_BYPRODUCTS ${DISCOUNT_LIB_NAME}
 )
 
 ExternalProject_Get_Property(discount_project source_dir)
