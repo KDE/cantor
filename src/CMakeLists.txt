@@ -38,9 +38,9 @@ ki18n_wrap_ui(cantor_SRCS backendchooser.ui)
 
 file(GLOB ICONS_SRCS "${CMAKE_CURRENT_SOURCE_DIR}/../icons/*-apps-cantor.png")
 ecm_add_app_icon(cantor_SRCS ICONS ${ICONS_SRCS})
-add_executable(cantor_bin ${cantor_SRCS})
+add_executable(cantor ${cantor_SRCS})
 
-target_link_libraries(cantor_bin KF6::Parts KF6::NewStuffWidgets KF6::ConfigCore KF6::CoreAddons KF6::ConfigGui
+target_link_libraries(cantor KF6::Parts KF6::NewStuffWidgets KF6::ConfigCore KF6::CoreAddons KF6::ConfigGui
     KF6::Crash KF6::XmlGui  cantorlibs cantor_config)
 
 if (ENABLE_EMBEDDED_DOCUMENTATION)
@@ -48,9 +48,7 @@ if (ENABLE_EMBEDDED_DOCUMENTATION)
 endif()
 
 ########### install files ###############
-if(NOT WIN32)
-	install( PROGRAMS ${CMAKE_BINARY_DIR}/bin/cantor_bin DESTINATION ${KDE_INSTALL_BINDIR} RENAME cantor )
-endif()
+install( TARGETS cantor ${KDE_INSTALL_TARGETS_DEFAULT_ARGS} )
 install( FILES org.kde.cantor.desktop  DESTINATION ${KDE_INSTALL_APPDIR} )
 install( FILES cantor.knsrc cantor-documentation.knsrc DESTINATION ${KDE_INSTALL_KNSRCDIR} )
 install( FILES cantor.xml DESTINATION ${KDE_INSTALL_MIMEDIR} )

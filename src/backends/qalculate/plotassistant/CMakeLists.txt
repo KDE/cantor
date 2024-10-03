@@ -8,6 +8,6 @@ ki18n_wrap_ui(QalculatePlotAssistant_SRCS qalculateplotdialog.ui)
 
 kcoreaddons_add_plugin(cantor_qalculateplotassistant
     SOURCES ${QalculatePlotAssistant_SRCS}
-    INSTALL_NAMESPACE "cantor/assistants")
+    INSTALL_NAMESPACE "cantor_plugins/assistants")
 
 target_link_libraries(cantor_qalculateplotassistant cantorlibs)
