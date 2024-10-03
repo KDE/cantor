@@ -48,9 +48,9 @@ if (ENABLE_EMBEDDED_DOCUMENTATION)
 endif()
 
 ########### install files ###############
-install(TARGETS cantor_bin ${KDE_INSTALL_TARGETS_DEFAULT_ARGS} RENAME cantor)
-install( PROGRAMS org.kde.cantor.desktop  DESTINATION  ${KDE_INSTALL_APPDIR} )
-install( FILES cantor.knsrc cantor-documentation.knsrc DESTINATION  ${KDE_INSTALL_KNSRCDIR} )
+install( PROGRAMS ${CMAKE_BINARY_DIR}/bin/cantor_bin DESTINATION ${KDE_INSTALL_BINDIR} RENAME cantor )
+install( FILES org.kde.cantor.desktop  DESTINATION ${KDE_INSTALL_APPDIR} )
+install( FILES cantor.knsrc cantor-documentation.knsrc DESTINATION ${KDE_INSTALL_KNSRCDIR} )
 install( FILES cantor.xml DESTINATION ${KDE_INSTALL_MIMEDIR} )
 update_xdg_mimetypes(${KDE_INSTALL_MIMEDIR})
 
