@@ -105,14 +105,9 @@ kcoreaddons_add_plugin(cantorpart
     SOURCES ${cantor_PART_SRCS}
     INSTALL_NAMESPACE "kf6/parts")
 
-target_link_libraries(cantorpart KF6::Parts KF6::NewStuffWidgets
-                     KF6::TextEditor
-                     KF6::KIOCore KF6::KIOFileWidgets KF6::KIOWidgets
+target_link_libraries(cantorpart KF6::Parts KF6::NewStuffWidgets KF6::TextEditor
+                     KF6::KIOCore KF6::KIOFileWidgets KF6::KIOWidgets Discount::Lib
                      Qt6::PrintSupport cantorlibs cantor_config LibXslt::LibXslt LibXml2::LibXml2)
-
-# if(Discount_FOUND)
-    target_link_libraries(cantorpart Discount::Lib)
-# endif(Discount_FOUND)
 
 if(BUILD_TESTING)
   add_subdirectory(test)
