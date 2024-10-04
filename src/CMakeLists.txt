@@ -18,9 +18,9 @@ add_subdirectory(panelplugins)
 
 #build the config object in a separate library, shared between shell and part
 kconfig_add_kcfg_files(config_SRCS settings.kcfgc)
-add_library( cantor_config  SHARED ${config_SRCS} )
-target_link_libraries( cantor_config  KF6::Parts KF6::NewStuffWidgets )
-install( TARGETS cantor_config  ${KDE_INSTALL_TARGETS_DEFAULT_ARGS} )
+add_library( cantor_config SHARED ${config_SRCS} )
+target_link_libraries( cantor_config KF6::Parts KF6::NewStuffWidgets )
+install( TARGETS cantor_config ${KDE_INSTALL_TARGETS_DEFAULT_ARGS} )
 
 set(cantor_SRCS
    main.cpp
@@ -41,7 +41,7 @@ ecm_add_app_icon(cantor_SRCS ICONS ${ICONS_SRCS})
 add_executable(cantor ${cantor_SRCS})
 
 target_link_libraries(cantor KF6::Parts KF6::NewStuffWidgets KF6::ConfigCore KF6::CoreAddons KF6::ConfigGui
-    KF6::Crash KF6::XmlGui  cantorlibs cantor_config)
+    KF6::Crash KF6::XmlGui cantorlibs cantor_config)
 
 if (ENABLE_EMBEDDED_DOCUMENTATION)
     target_link_libraries(cantor Qt6::WebEngineWidgets)
@@ -105,10 +105,11 @@ kcoreaddons_add_plugin(cantorpart
     SOURCES ${cantor_PART_SRCS}
     INSTALL_NAMESPACE "kf6/parts")
 
+target_include_directories(cantorpart PRIVATE ${CMAKE_BINARY_DIR}/thirdparty/src/discount_project)
 target_link_libraries(cantorpart KF6::Parts KF6::NewStuffWidgets KF6::TextEditor
                      KF6::KIOCore KF6::KIOFileWidgets KF6::KIOWidgets Discount::Lib
                      Qt6::PrintSupport cantorlibs cantor_config LibXslt::LibXslt LibXml2::LibXml2)
 
 if(BUILD_TESTING)
-  add_subdirectory(test)
+    add_subdirectory(test)
 endif(BUILD_TESTING)
