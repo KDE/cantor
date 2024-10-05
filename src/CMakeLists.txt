@@ -105,7 +105,7 @@ kcoreaddons_add_plugin(cantorpart
     SOURCES ${cantor_PART_SRCS}
     INSTALL_NAMESPACE "kf6/parts")
 
-add_dependencies(cantorpart Discount::Lib)
+add_dependencies(cantorpart discount_project)
 target_include_directories(cantorpart PRIVATE ${CMAKE_BINARY_DIR}/thirdparty/src/discount_project)
 target_link_libraries(cantorpart KF6::Parts KF6::NewStuffWidgets KF6::TextEditor
                      KF6::KIOCore KF6::KIOFileWidgets KF6::KIOWidgets Discount::Lib
