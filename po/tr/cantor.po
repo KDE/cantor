@@ -13,7 +13,7 @@ msgstr ""
 "Project-Id-Version: kdeedu-kde4\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-10-04 01:47+0000\n"
-"PO-Revision-Date: 2024-09-23 15:31+0300\n"
+"PO-Revision-Date: 2024-10-05 01:44+0300\n"
 "Last-Translator: Emir SARI <emir_sari@icloud.com>\n"
 "Language-Team: Turkish <kde-l10n-tr@kde.org>\n"
 "Language: tr\n"
@@ -393,7 +393,7 @@ msgstr "# Üzgünüm; ancak Gadfly 3B çizimleri desteklemiyor"
 #: backends/julia/juliaextensions.cpp:256
 #, kde-format
 msgid "Julia script file (*.jl)"
-msgstr "Julia betik dosyası (*.jl)"
+msgstr "Julia betiği dosyası (*.jl)"
 
 #: backends/julia/juliasession.cpp:70
 #, kde-format
@@ -407,7 +407,7 @@ msgstr "Julia başlatılamadı, lütfen Julia kurulumunu denetleyin."
 #: worksheet.cpp:1317
 #, kde-format
 msgid "Error - Cantor"
-msgstr "Hata - Cantor"
+msgstr "Hata — Cantor"
 
 #: backends/julia/juliasession.cpp:119
 #, kde-format
@@ -415,7 +415,7 @@ msgid ""
 "Julia session can't login due internal julia problem with missing internal "
 "file - \"%1\""
 msgstr ""
-"Julia oturumu, eksik Julia iç dosyası sorunu nedeniyle açılamıyor- \"%1\""
+"Julia oturumu, eksik Julia iç dosyası sorunu nedeniyle açılamıyor — “%1”"
 
 #: backends/julia/juliasession.cpp:128
 #, kde-format
@@ -450,9 +450,9 @@ msgid ""
 msgstr ""
 "Julia için şu anda yalnızca GR (https://gr-framework.org/) görselleştirme "
 "kod kitaplığı desteklenmektedir. Henüz yapılmadıysa öncelikle paket "
-"kurulmalıdır. Bunun için Pkg.install(\"GR\") komutunu Cantor'da veya Julia "
-"REPL'de çalıştırın. Bu işlem biraz zaman alabilir ve süreç ilerlemesini "
-"görebilmek için Julia REPL'de yapılması önerilir."
+"kurulmalıdır. Bunun için Pkg.install(\"GR\") komutunu Cantor’da veya Julia "
+"REPL’de çalıştırın. Bu işlem biraz zaman alabilir ve süreç ilerlemesini "
+"görebilmek için Julia REPL’de yapılması önerilir."
 
 #. i18n: ectx: attribute (title), widget (QWidget, tabGeneral)
 #. i18n: ectx: attribute (title), widget (QWidget, tab_3)
@@ -603,7 +603,7 @@ msgstr "Görsel Biçimi:"
 #: backends/python/settings.ui:219 backends/python/settings.ui:235
 #, kde-format
 msgid "Graphic package to be used in the Plot Assistant"
-msgstr "Çizim Yardımcısı'nda kullanılacak grafiksel paket"
+msgstr "Çizim Yardımcısı’nda kullanılacak grafiksel paket"
 
 #. i18n: ectx: property (text), item, widget (KComboBox, kcfg_plotExtenstionGraphicPackage)
 #: backends/julia/settings.ui:227 backends/python/settings.ui:254
@@ -721,7 +721,7 @@ msgid ""
 "science."
 msgstr ""
 "<b>Lua</b>, yalın ve işlevsel bir sözdizime iye, hızlı ve hafif bir betik "
-"yazım dilidir. Lua'da matematik ve bilime yönelik birkaç kitaplık "
+"yazım dilidir. Lua’da matematik ve bilime yönelik birkaç kitaplık "
 "bulunmaktadır."
 
 #. i18n: ectx: label, entry (Path), group (LuaBackend)
@@ -733,7 +733,7 @@ msgstr "luajit komutunun yolu"
 #: backends/lua/luaextensions.cpp:20
 #, kde-format
 msgid "Lua script file (*.lua)"
-msgstr "Lua betik dosyası (*.lua)"
+msgstr "Lua betiği dosyası (*.lua)"
 
 #: backends/lua/luasession.cpp:59
 #, kde-format
@@ -916,7 +916,7 @@ msgstr "Maxima başlatılamadı"
 #: backends/maxima/maximasession.cpp:269
 #, kde-format
 msgid "Maxima crashed. restarting..."
-msgstr "Maxima çöktü. Yeniden başlatılıyor..."
+msgstr "Maxima çöktü. Yeniden başlatılıyor…"
 
 #: backends/maxima/maximasession.cpp:283
 #, kde-format
@@ -962,7 +962,7 @@ msgstr "Geçersiz görsel dosyası oluşturuldu."
 #: backends/octave/octaveextensions.cpp:34
 #, kde-format
 msgid "Octave script file (*.m)"
-msgstr "Octave betik dosyası (*.m)"
+msgstr "Octave betiği dosyası (*.m)"
 
 #: backends/octave/octavesession.cpp:98
 #, kde-format
@@ -1013,7 +1013,7 @@ msgstr ""
 #: backends/python/pythonbackend.kcfg:44
 #, kde-format
 msgid "Graphical package to be used for the Plot Assistant"
-msgstr "Çizim Yardımcısı'nda kullanılacak grafiksel paket"
+msgstr "Çizim Yardımcısı’nda kullanılacak grafiksel paket"
 
 #: backends/python/pythonextensions.cpp:283
 #, kde-format
@@ -1023,7 +1023,7 @@ msgstr "# Üzgünüm; ancak Bokeh 3B çizim desteklemiyor"
 #: backends/python/pythonextensions.cpp:299
 #, kde-format
 msgid "Python script file (*.py)"
-msgstr "Python betik dosyası (*.py)"
+msgstr "Python betiği dosyası (*.py)"
 
 #: backends/python/pythonsession.cpp:74
 #, kde-format
@@ -1054,7 +1054,7 @@ msgid ""
 "\"matplotlib\" python package first."
 msgstr ""
 "Matplotlib paketi ile tümleşik grafikleri kullanmak için öncelikle "
-"\"matplotlib\" python paketini kurmalısınız."
+"“matplotlib” Python paketini kurmalısınız."
 
 #: backends/python/pythonsession.cpp:320
 #, kde-format
@@ -1063,9 +1063,9 @@ msgid ""
 "python package and special Plot.ly-compatible \"orca\" executable. See "
 "\"Static Image Export\" article in Plot.ly documentation for details."
 msgstr ""
-"Plot.ly ile tümleşik grafikleri kullanmak için \"plotly\" python paketini ve "
-"özel Plot.ly uyumlu \"orca\" yürütülebilirini kurmalısınız. Ayrıntılar için "
-"Plot.ly belgelendirmesinde \"Static Image Export\" bölümüne bakın."
+"Plot.ly ile tümleşik grafikleri kullanmak için “plotly” Python paketini ve "
+"özel Plot.ly uyumlu “orca” yürütülebilirini kurmalısınız. Ayrıntılar için "
+"Plot.ly belgelendirmesinde “Static Image Export” bölümüne bakın."
 
 #. i18n: ectx: property (text), widget (QLabel, label4)
 #: backends/python/settings.ui:222
@@ -1101,7 +1101,7 @@ msgstr "bokeh"
 #: backends/qalculate/plotassistant/qalculateplotdialog.ui:14
 #, kde-format
 msgid "Cantor - Plot Dialog"
-msgstr "Cantor - Çizim Penceresi"
+msgstr "Cantor — Çizim İletişim Kutusu"
 
 #. i18n: ectx: attribute (title), widget (QWidget, tab)
 #: backends/qalculate/plotassistant/qalculateplotdialog.ui:24
@@ -1283,7 +1283,7 @@ msgstr "0"
 #: backends/qalculate/plotassistant/qalculateplotdialog.ui:261
 #, kde-format
 msgid "-"
-msgstr "-"
+msgstr "—"
 
 #. i18n: ectx: property (text), widget (KLineEdit, xMaxEdit)
 #: backends/qalculate/plotassistant/qalculateplotdialog.ui:274
@@ -1560,7 +1560,7 @@ msgid ""
 "instead of rounding (ex. 2/3 displays as 0.666666... instead of 0.666667)."
 msgstr ""
 "Sonsuza kadar süren ondalıklı sayıları yuvarlamak yerine üç nokta ile göster "
-"(2/3 ifadesi 0.666667 yerine 0.666666... olarak görüntülenir)."
+"(2/3 ifadesi 0.666667 yerine 0.666666… olarak görüntülenir)."
 
 #. i18n: ectx: label, entry (useAllPrefixes), group (QalculateBackend)
 #: backends/qalculate/qalculatebackend.kcfg:62
@@ -1580,7 +1580,7 @@ msgid ""
 "becomes 5*x^-2)."
 msgstr ""
 "Eğer true olarak ayarlanırsa bölme yerine negatif kuvvetler kullanılır (5/"
-"x^2 yerine 5*x^-2 yazılır)."
+"x^2 yerine 5*x^−2 yazılır)."
 
 #. i18n: ectx: label, entry (minExp), group (QalculateBackend)
 #: backends/qalculate/qalculatebackend.kcfg:76
@@ -2045,7 +2045,7 @@ msgstr "Gradiyantler"
 #: backends/qalculate/settings.ui:258
 #, kde-format
 msgid "Structuring Mode:"
-msgstr "Yapılandırma Kipi:"
+msgstr "Yapılandırma kipi:"
 
 #. i18n: ectx: property (text), item, widget (KComboBox, kcfg_structuring)
 #: backends/qalculate/settings.ui:274
@@ -2118,13 +2118,13 @@ msgstr "Adımlar"
 #: backends/qalculate/settings.ui:488
 #, kde-format
 msgid "Legend Position:"
-msgstr "Açıklama Konumu:"
+msgstr "Açıklama konumu:"
 
 #. i18n: ectx: property (text), widget (QLabel, label_15)
 #: backends/qalculate/settings.ui:550
 #, kde-format
 msgid "Colored Plots:"
-msgstr "Renkli Çizimler:"
+msgstr "Renkli çizimler:"
 
 #. i18n: ectx: property (text), widget (QLabel, label_11)
 #: backends/qalculate/settings.ui:560
@@ -2136,7 +2136,7 @@ msgstr "Izgarayı göster:"
 #: backends/qalculate/settings.ui:570
 #, kde-format
 msgid "Plot Style:"
-msgstr "Çizim Biçemi:"
+msgstr "Çizim biçemi:"
 
 #: backends/qthelpconfig.cpp:44
 #, kde-format
@@ -2259,7 +2259,7 @@ msgstr "Bir ad girin"
 #, kde-format
 msgctxt "@info:placeholder"
 msgid "Select a name..."
-msgstr "Bir ad seç..."
+msgstr "Bir ad seç…"
 
 #. i18n: ectx: property (text), widget (QLabel, lPath)
 #: backends/qthelpconfigeditdialog.ui:51
@@ -2273,14 +2273,14 @@ msgstr "Yol:"
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Select a Qt Help file..."
-msgstr "Bir Qt Yardım dosyası seçin..."
+msgstr "Bir Qt Yardım dosyası seç…"
 
 #. i18n: ectx: property (placeholderText), widget (KUrlRequester, qchRequester)
 #: backends/qthelpconfigeditdialog.ui:70
 #, kde-format
 msgctxt "@info:placeholder"
 msgid "Select a Qt Help file..."
-msgstr "Bir Qt yardım dosyası seç..."
+msgstr "Bir Qt yardım dosyası seç…"
 
 #: backends/R/rbackend.cpp:81
 #, kde-format
@@ -2326,7 +2326,7 @@ msgstr ""
 "işlev yardımına erişmek için ek olarak paketin adını sağlayın: Örneğin, MASS "
 "paketindeki <i>rlm()</i> (hatasız doğrular model) işlevi yardımına erişmek "
 "için <i>help(rlm, package=\"MASS\")</i>yazın.<br><br>R'deki standart adlar "
-"BÜYÜK ve küçük harfler, sayılar (0-9), alt çizgiler ve noktalar (.) içerir "
+"BÜYÜK ve küçük harfler, sayılar (0–9), alt çizgiler ve noktalar (.) içerir "
 "ve bir nokta veya harf ile başlamalıdır. Standart adı olmayan bir nesne "
 "yardımını almak için (örneğin <i>?</i> yardım işleci), ad tırnak içine "
 "alınmalıdır: Örneğin, <i>help('?')</i> veya <i>?\"?\"<i>."
@@ -2353,7 +2353,7 @@ msgstr ""
 "hesaplamalar ve grafikler için kullanılan bir programlama dili ve ortamıdır. "
 "<br/>Çok çeşitli istatistiksel ve grafiksel teknikler (doğrusal ve doğrusal "
 "olmayan modelleme, klasik istatistiksel testler, zaman-dizi çözümlemesi, "
-"sınıflandırma, kümelendirme, ...)  içerir ve oldukça genişletilebilir bir "
+"sınıflandırma, kümelendirme, …)  içerir ve oldukça genişletilebilir bir "
 "yapıya sahiptir. S programalama dili sıklıkla istatistiksel metodoloji "
 "üzerine yapılan araştırmalarda kullanılan bir araçtır, R dili ise buna açık "
 "kaynaklı bir çözüm getirmektedir."
@@ -2366,7 +2366,7 @@ msgstr "%1 dosyası açılırken hata"
 #: backends/R/rextensions.cpp:22
 #, kde-format
 msgid "R script file (*.R)"
-msgstr "R betik dosyası (*.R)"
+msgstr "R betiği dosyası (*.R)"
 
 #: backends/R/rserver/rserver.cpp:364
 #, kde-format
@@ -2377,7 +2377,7 @@ msgstr "Komut Ayrıştırılırken Hata"
 #: backends/R/rserver/rserver.kcfg:9
 #, kde-format
 msgid "Url to the local R documentation"
-msgstr "Yerel R belgelendirmesi URL'si"
+msgstr "Yerel R belgelendirmesi URL’si"
 
 #: backends/R/rsession.cpp:54
 #, kde-format
@@ -2392,7 +2392,7 @@ msgstr "Dosya seçim penceresini açmak için çift tıklayın"
 #: backends/R/rsettingswidget.cpp:48
 #, kde-format
 msgid "*.R *.r|R source files (*.R, *.r)"
-msgstr "*.R *.r|R Kaynak Dosyaları (*.R, *.r)"
+msgstr "*.R *.r|R kaynağı dosyaları (*.R, *.r)"
 
 #: backends/sage/sagebackend.cpp:79
 #, kde-format
@@ -2444,7 +2444,7 @@ msgstr ""
 #: backends/sage/sageextensions.cpp:32
 #, kde-format
 msgid "Python script file (*.py);;Sage script file (*.sage)"
-msgstr "Python betik dosyası (*.py);;Sage betik dosyası (*.sage)"
+msgstr "Python betiği dosyası (*.py);;Sage betiği dosyası (*.sage)"
 
 #: backends/sage/sagesession.cpp:126
 #, kde-format
@@ -2471,7 +2471,7 @@ msgid ""
 "Failed to determine the version of Sage. Please check your installation and "
 "the output of 'sage -v'."
 msgstr ""
-"Sage sürümü algılanamadı. Lütfen kurulumunuzu ve 'sage -v' çıktısını "
+"Sage sürümü algılanamadı. Lütfen kurulumunuzu ve “sage -v” çıktısını "
 "denetleyin."
 
 #: backends/sage/sagesession.cpp:353
@@ -2543,7 +2543,7 @@ msgstr "Scilab yürütülebilirinin yolu"
 #: backends/scilab/scilabextensions.cpp:23
 #, kde-format
 msgid ";;Scilab script file (*.sce);;Scilab function file (*.sci)"
-msgstr ";;Scilab betik dosyası (*.sce);;Scilab işlev dosyası (*.sci)"
+msgstr ";;Scilab betiği dosyası (*.sce);;Scilab işlevi dosyası (*.sci)"
 
 #: backends/scilab/scilabsession.cpp:67
 #, kde-format
@@ -2554,7 +2554,7 @@ msgstr "Scilab başlatılamadı, lütfen Scilab kurulumunu denetleyin."
 #: backends/scilab/settings.ui:37
 #, kde-format
 msgid "Plot Integration:"
-msgstr "Çizim Tümleştirmesi:"
+msgstr "Çizim tümleştirmesi:"
 
 #: cantor.cpp:107
 #, kde-format
@@ -2652,7 +2652,7 @@ msgstr "Cantor parçacığı bulunamadı, hata %1"
 #: cantor.cpp:450 cantor_part.cpp:645
 #, kde-format
 msgid "Calculating..."
-msgstr "Hesaplanıyor..."
+msgstr "Hesaplanıyor…"
 
 #: cantor.cpp:453 cantor_part.cpp:656 cantor_part.cpp:719
 #, kde-format
@@ -2674,7 +2674,7 @@ msgstr ""
 #: cantor.cpp:584
 #, kde-format
 msgid "Close Cantor"
-msgstr "Cantor'u Kapat"
+msgstr "Cantor’u Kapat"
 
 #: cantor.cpp:603
 #, kde-format
@@ -2764,7 +2764,7 @@ msgid ""
 "Save rich text formatting of TextEntry, when save Worksheet in Jupyter "
 "notebook format"
 msgstr ""
-"Çalışma sayfasını Jupyter defteri biçiminde kaydederken TextEntry'nin zengin "
+"Çalışma sayfasını Jupyter defteri biçiminde kaydederken TextEntry’nin zengin "
 "metin biçimlendirmesini sakla"
 
 #. i18n: ectx: label, entry (UseOldCantorEntriesIndent), group (Cantor)
@@ -2917,12 +2917,12 @@ msgstr "Düz Metin Kaydet"
 #: cantor_part.cpp:185 cantor_part.cpp:544
 #, kde-format
 msgid "Export to PDF"
-msgstr "PDF'ye Dışa Aktar"
+msgstr "PDF Olarak Dışa Aktar"
 
 #: cantor_part.cpp:189 cantor_part.cpp:556
 #, kde-format
 msgid "Export to LaTeX"
-msgstr "LaTex'e Dışa Aktar"
+msgstr "LaTex Olarak Dışa Aktar"
 
 #: cantor_part.cpp:204 cantor_part.cpp:652 worksheet.cpp:1942
 #, kde-format
@@ -3088,17 +3088,17 @@ msgstr "Kaydet"
 #: cantor_part.cpp:537 textresultitem.cpp:212
 #, kde-format
 msgid "Text Files (*.txt)"
-msgstr "Metin Dosyaları (*.txt)"
+msgstr "Metin dosyaları (*.txt)"
 
 #: cantor_part.cpp:544
 #, kde-format
 msgid "PDF Files (*.pdf)"
-msgstr "PDF Dosyaları (*.pdf)"
+msgstr "PDF dosyaları (*.pdf)"
 
 #: cantor_part.cpp:556
 #, kde-format
 msgid "TeX Files (*.tex)"
-msgstr "TeX Dosyaları (*.tex)"
+msgstr "TeX dosyaları (*.tex)"
 
 #: cantor_part.cpp:601
 #, kde-format
@@ -3122,7 +3122,7 @@ msgstr "Yarıda Kes"
 #: cantor_part.cpp:668
 #, kde-format
 msgid "Session Error: %1"
-msgstr "Oturum Hatası: %1"
+msgstr "Oturum hatası: %1"
 
 #: cantor_part.cpp:709
 #, kde-format
@@ -3132,7 +3132,7 @@ msgstr "İlklendirme tamamlandı"
 #: cantor_part.cpp:714
 #, kde-format
 msgid "Initializing..."
-msgstr "İlklendiriliyor..."
+msgstr "İlklendiriliyor…"
 
 #: cantor_part.cpp:772
 #, kde-format
@@ -3149,13 +3149,13 @@ msgstr ""
 #: cantor_part.cpp:891
 #, kde-format
 msgid "Question - Cantor"
-msgstr "Soru - Cantor"
+msgstr "Soru — Cantor"
 
 #: cantor_part.cpp:892
 #, kde-format
 msgctxt "@action:button"
 msgid "Upload"
-msgstr ""
+msgstr "Karşıya Yükle"
 
 #: cantor_part.cpp:900
 #, kde-format
@@ -3165,7 +3165,7 @@ msgstr "Çalışma sayfası kaydedilmedi. Karşıya yüklemeden önce kaydetmeli
 #: cantor_part.cpp:901
 #, kde-format
 msgid "Warning - Cantor"
-msgstr "Uyarı - Cantor"
+msgstr "Uyarı — Cantor"
 
 #: cantor_part.cpp:973
 #, kde-format
@@ -3325,7 +3325,7 @@ msgstr "Arama Çubuğu"
 #: extendedsearchbar.ui:166 standardsearchbar.ui:22 standardsearchbar.ui:85
 #, kde-format
 msgid "..."
-msgstr "..."
+msgstr "…"
 
 #. i18n: ectx: property (text), widget (QLabel, label)
 #: extendedsearchbar.ui:47
@@ -3388,14 +3388,14 @@ msgstr "Fasıl Yazıtipi"
 #: formating.ui:276 formating.ui:333
 #, kde-format
 msgid "Font Family:"
-msgstr "Yazıtipi Ailesi:"
+msgstr "Yazıtipi ailesi:"
 
 #. i18n: ectx: property (text), widget (QLabel, label_3)
 #: formating.ui:61 formating.ui:118 formating.ui:175 formating.ui:232
 #: formating.ui:289 formating.ui:346
 #, kde-format
 msgid "Font Size:"
-msgstr "Yazıtipi Boyutu:"
+msgstr "Yazıtipi boyutu:"
 
 #. i18n: ectx: attribute (title), widget (QWidget, SubchapterTab)
 #: formating.ui:99
@@ -3535,12 +3535,12 @@ msgstr "%1 görseli yüklenemiyor"
 #: imageresultitem.cpp:90
 #, kde-format
 msgid "%1 files (*.%2)"
-msgstr "%1 Dosyaları (*.%2)"
+msgstr "%1 dosyaları (*.%2)"
 
 #: imageresultitem.cpp:93
 #, kde-format
 msgid "EPS files (*.eps)"
-msgstr "EPS Dosyaları (*.eps)"
+msgstr "EPS dosyaları (*.eps)"
 
 #: imageresultitem.cpp:96
 #, kde-format
@@ -3648,7 +3648,7 @@ msgid ""
 "The specified file '%1' for the %2 executable doesn't exist. Please provide "
 "the correct path in the application settings and try again."
 msgstr ""
-"%2 yürütülebiliri için '%1' yolu yok. Uygulama ayarlarında doğru yolu "
+"%2 yürütülebiliri için “%1” yolu yok. Uygulama ayarlarında doğru yolu "
 "sağlayın ve yeniden deneyin."
 
 #: lib/backend.cpp:182
@@ -3657,7 +3657,7 @@ msgid ""
 "The specified file '%1' doesn't point to an executable. Please provide the "
 "correct path in the application settings and try again."
 msgstr ""
-"Belirtilen '%1' dosyası, bir yürütülebilire işaret etmiyor. Uygulama "
+"Belirtilen “%1” dosyası, bir yürütülebilire işaret etmiyor. Uygulama "
 "ayarlarında doğru yolu sağlayın ve yeniden deneyin."
 
 #: lib/backend.cpp:201
@@ -3751,7 +3751,7 @@ msgstr "Çizim başlığı:"
 #: lib/mimeresult.cpp:33
 #, kde-format
 msgid "This is unsupported Jupyter content of types ('%1')"
-msgstr "Bu, desteklenmeyen Jupyter içerik türü (\"%1\")"
+msgstr "Bu, desteklenmeyen Jupyter içerik türüdür (“%1”)"
 
 #: lib/session.cpp:265
 #, kde-format
@@ -3765,7 +3765,7 @@ msgid ""
 "%1 process has died unexpectedly with message \"%2\". All calculation "
 "results are lost."
 msgstr ""
-"%1 süreci, \"%2\" iletisiyle beklenmedik bir biçimde sonlandı. Tüm hesaplama "
+"%1 süreci, “%2” iletisiyle beklenmedik bir biçimde sonlandı. Tüm hesaplama "
 "sonuçları kayboldu."
 
 #: lib/session.cpp:333
@@ -3818,7 +3818,7 @@ msgstr "Alexander Semke"
 #: main.cpp:80
 #, kde-format
 msgid "Original author<br/>Maintainer (2009 - 2015)"
-msgstr "Özgün yazar<br/>Projeyi Sürdüren (2009 - 2015)"
+msgstr "Özgün yazar<br/>Bakımcı (2009–2015)"
 
 #: main.cpp:81
 #, kde-format
@@ -3888,7 +3888,7 @@ msgstr "Cantor Matematik Hatası"
 #: markdownentry.cpp:796
 #, kde-format
 msgid "Failed to read the image \"%1\". Error \"%2\""
-msgstr "\"%1\" görseli okunamadı. Hata \"%2\""
+msgstr "“%1” görseli okunamadı. “%2” hatası"
 
 #: pagebreakentry.cpp:28
 #, kde-format
@@ -3905,7 +3905,7 @@ msgstr "İçeriğe git"
 #, kde-format
 msgctxt "@info:placeholder"
 msgid "Search through keywords..."
-msgstr "Anahtar sözcüklerde ara..."
+msgstr "Anahtar sözcüklerde ara…"
 
 #: panelplugins/documentationpanel/documentationpanelwidget.cpp:68
 #, kde-format
@@ -3946,7 +3946,7 @@ msgstr "BÜYÜK/küçük harf eşleştir"
 #: panelplugins/documentationpanel/documentationpanelwidget.cpp:407
 #, kde-format
 msgid "The file has been downloaded successfully at Downloads."
-msgstr "Dosya, İndirilenler'e başarıyla indirildi."
+msgstr "Dosya, İndirilenler klasörüne başarıyla indirildi."
 
 #: panelplugins/documentationpanel/documentationpanelwidget.cpp:407
 #, kde-format
@@ -4074,7 +4074,7 @@ msgstr "Betik Düzenleyicisi"
 #: scripteditor/scripteditorwidget.cpp:145
 #, kde-format
 msgid "Script Editor - %1"
-msgstr "Betik Düzenleyicisi - %1"
+msgstr "Betik Düzenleyicisi — %1"
 
 #: searchbar.cpp:130 searchbar.cpp:178
 #, kde-format
@@ -4158,7 +4158,7 @@ msgstr ""
 #: settings.ui:69
 #, kde-format
 msgid "Default Backend:"
-msgstr "Öntanımlı Arka Uç:"
+msgstr "Öntanımlı arka uç:"
 
 #. i18n: ectx: property (toolTip), widget (QSpinBox, kcfg_VisibleLinesLimit)
 #: settings.ui:76
@@ -4240,7 +4240,7 @@ msgstr "Çalışma sayfası:"
 msgid ""
 "Use rich text format for text entries when saving in Jupyter Notebook Format"
 msgstr ""
-"Jupyter Defteri Biçimi'nde kaydederken metin girdileri için zengin metin "
+"Jupyter Defteri biçiminde kaydederken metin girdileri için zengin metin "
 "biçimi kullan"
 
 #. i18n: ectx: property (text), widget (QLabel, label_5)
@@ -4370,12 +4370,12 @@ msgstr "Düz Alternatifi Göster"
 #: textresultitem.cpp:85
 #, kde-format
 msgid "Show Html"
-msgstr "HTML'yi Göster"
+msgstr "HTML’yi Göster"
 
 #: textresultitem.cpp:91
 #, kde-format
 msgid "Show HTML"
-msgstr "HTML'yi Göster"
+msgstr "HTML’yi Göster"
 
 #: textresultitem.cpp:160
 #, kde-format
@@ -4641,7 +4641,7 @@ msgstr "Komut Girdisini Çalıştırmaya Ekle"
 #, kde-format
 msgctxt "@action"
 msgid "Text &Color..."
-msgstr "Metin &Rengi..."
+msgstr "Metin &Rengi…"
 
 #: worksheet.cpp:2101
 #, kde-format
@@ -4653,7 +4653,7 @@ msgstr "Renk"
 #, kde-format
 msgctxt "@action"
 msgid "Text &Highlight..."
-msgstr "Metin &Vurgulama..."
+msgstr "Metin &Vurgulaması…"
 
 #: worksheet.cpp:2114
 #, kde-format
