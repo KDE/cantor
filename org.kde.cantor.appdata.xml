@@ -73,7 +73,7 @@
   <summary xml:lang="sl">KDE-jevo začelje za matematično programsko opremo</summary>
   <summary xml:lang="sv">KDE-gränssnitt till matematisk programvara</summary>
   <summary xml:lang="ta">கணித நிரல்களுக்கான கே.டீ.யீ. இடைமுகப்பு</summary>
-  <summary xml:lang="tr">Matematik Yazılımı KDE Ön Ucu</summary>
+  <summary xml:lang="tr">Matematik yazılımları için KDE ön ucu</summary>
   <summary xml:lang="uk">Графічна оболонка KDE до математичного програмного забезпечення</summary>
   <summary xml:lang="x-test">xxKDE Frontend to Mathematical Softwarexx</summary>
   <summary xml:lang="zh-CN">数学软件的 KDE 前端</summary>
@@ -146,7 +146,7 @@
       <caption xml:lang="sk">Používa sa Maxima backend z Cantor</caption>
       <caption xml:lang="sl">Uporaba Maxima kot zaledja za Cantor</caption>
       <caption xml:lang="sv">Användning av bakgrundsprogrammet Maxima i Cantor</caption>
-      <caption xml:lang="tr">Cantor'un Maxima arka ucu kullanılırken</caption>
+      <caption xml:lang="tr">Cantor’un Maxima arka ucu kullanılırken</caption>
       <caption xml:lang="uk">Використання модуля Maxima Cantor</caption>
       <caption xml:lang="x-test">xxUsing Maxima backend of Cantorxx</caption>
       <caption xml:lang="zh-CN">使用 Cantor 的 Maxima 后端</caption>
