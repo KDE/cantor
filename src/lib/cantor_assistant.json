@@ -1,6 +1,12 @@
 {
     "KPlugin": {
         "Description": "An Assistant for Cantor",
+        "Description[ca@valencia]": "Un assistent per a Cantor",
+        "Description[ca]": "Un assistent per al Cantor",
+        "Description[nl]": "Een assistent voor Cantor",
+        "Description[tr]": "Cantor için bir yardımcı",
+        "Description[uk]": "Помічник Cantor",
+        "Description[x-test]": "xxAn Assistant for Cantorxx",
         "ServiceType": "Cantor/Assistant"
     }
 }

@@ -1,6 +1,12 @@
 {
     "KPlugin": {
         "Description": "A Backend for Cantor",
+        "Description[ca@valencia]": "Un dorsal per a Cantor",
+        "Description[ca]": "Un dorsal per al Cantor",
+        "Description[nl]": "Een backend voor Cantor",
+        "Description[tr]": "Cantor için bir arka uç",
+        "Description[uk]": "Модуль Cantor",
+        "Description[x-test]": "xxA Backend for Cantorxx",
         "ServiceType": "Cantor/Backend"
     }
 }

@@ -1,6 +1,12 @@
 {
     "KPlugin": {
         "Description": "A Plugin for Cantor's Panel",
+        "Description[ca@valencia]": "Un connector per al quadro de Cantor",
+        "Description[ca]": "Un connector per al plafó del Cantor",
+        "Description[nl]": "Een plugin voor het paneel van Cantor",
+        "Description[tr]": "Cantor’un paneli için bir eklenti",
+        "Description[uk]": "Додаток панелі Cantor",
+        "Description[x-test]": "xxA Plugin for Cantor's Panelxx",
         "ServiceType": "Cantor/PanelPlugin"
     }
 }
