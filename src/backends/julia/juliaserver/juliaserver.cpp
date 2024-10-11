@@ -168,7 +168,11 @@ void JuliaServer::parseJlModule(jl_module_t* module, bool parseValue)
 
     jl_function_t* jl_names_function = jl_get_function(jl_base_module, "names");
     jl_value_t* names = jl_call1(jl_names_function, (jl_value_t*)module);
+#if QT_VERSION_CHECK(JULIA_VERSION_MAJOR, JULIA_VERSION_MINOR, 0) >= QT_VERSION_CHECK(1, 11, 0)
+    jl_value_t **data = (jl_value_t**)jl_array_data_(names);
+#else
     jl_value_t **data = (jl_value_t**)jl_array_data(names);
+#endif
     for (size_t i = 0; i < jl_array_len(names); i++)
     {
         bool isBindingResolved = (bool)jl_binding_resolved_p(module, (jl_sym_t*)(data[i]));
