@@ -4743,6 +4743,3 @@ msgstr ""
 #, kde-format
 msgid "Drag Entry"
 msgstr "拖动项目"
-
-#~ msgid "Hierarchy Fonts"
-#~ msgstr "层次结构字体"
