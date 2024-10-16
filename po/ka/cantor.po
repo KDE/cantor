@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: cantor\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-10-04 01:47+0000\n"
-"PO-Revision-Date: 2024-07-07 06:49+0200\n"
+"PO-Revision-Date: 2024-10-15 22:43+0200\n"
 "Last-Translator: Temuri Doghonadze <temuri.doghonadze@gmail.com>\n"
 "Language-Team: Georgian <kde-i18n-doc@kde.org>\n"
 "Language: ka\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 3.3.2\n"
+"X-Generator: Poedit 3.5\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -406,6 +406,8 @@ msgid ""
 "Julia session can't login due internal julia problem with missing internal "
 "file - \"%1\""
 msgstr ""
+"Julia-ის სესიაში შესვლა შეუძლებელია Julia-ის პრობლემის გამო ნაკლულ შიდა "
+"ფაილთან - \"%1\""
 
 #: backends/julia/juliasession.cpp:128
 #, kde-format
@@ -425,7 +427,7 @@ msgstr "Julia-ის პროცესის გაშვების შეც
 #: backends/julia/juliasession.cpp:259
 #, kde-format
 msgid "Communication with Julia process failed for unknown reasons."
-msgstr ""
+msgstr "Julia-ის პროცესთან კომუნიკაცია ჩავარდა უცნობი მიზეზების გამო."
 
 #: backends/julia/juliasession.cpp:329
 #, kde-format
@@ -583,7 +585,7 @@ msgstr "გამოსახულების ფორმატი:"
 #: backends/python/settings.ui:219 backends/python/settings.ui:235
 #, kde-format
 msgid "Graphic package to be used in the Plot Assistant"
-msgstr ""
+msgstr "გრაფიკების დამხმარეში გამოყენებული გრაფიკული პაკეტი"
 
 #. i18n: ectx: property (text), item, widget (KComboBox, kcfg_plotExtenstionGraphicPackage)
 #: backends/julia/settings.ui:227 backends/python/settings.ui:254
@@ -665,7 +667,7 @@ msgstr "https://docs.kde.org/?application=kalgebra"
 #: backends/scilab/scilabbackend.kcfg:26
 #, kde-format
 msgid "List of scripts to autorun at the beginning of session"
-msgstr ""
+msgstr "სესიის დაწყებისას ავტოგასაშვები სკრიპტების სია"
 
 #: backends/kalgebra/kalgebraexpression.cpp:44
 #, kde-format
@@ -713,7 +715,7 @@ msgstr "Lua სკრიპტის ფაილი (*.lua)"
 #: backends/lua/luasession.cpp:59
 #, kde-format
 msgid "Failed to start Lua, please check Lua installation."
-msgstr ""
+msgstr "Lua-ის გაშვება ჩავარდა. შეამოწმეთ Lua-ის ფაილები."
 
 #. i18n: ectx: property (text), widget (QLabel, label)
 #: backends/lua/settings.ui:27
@@ -833,14 +835,14 @@ msgstr "Maxima -ის სცენარის ფაილი (*.mac)"
 #: backends/maxima/maximasession.cpp:61
 #, kde-format
 msgid "Failed to start Maxima, please check Maxima's installation."
-msgstr ""
+msgstr "Maxima-ის გაშვება ჩავარდა. შეამოწმეთ Maxima-ის ფაილები."
 
 #: backends/maxima/maximasession.cpp:80
 #, kde-format
 msgid ""
 "Maxima didn't respond with the proper prompt, please check Maxima "
 "installation."
-msgstr ""
+msgstr "Maxima არ პასუხობს სწორ მოთხოვნას. შეამოწმეთ Maxima-ის ფაილები."
 
 #: backends/maxima/maximasession.cpp:202
 #, kde-format
@@ -856,6 +858,8 @@ msgstr "Maxima ავარიულად დასრულდა. თავ�
 #, kde-format
 msgid "Maxima crashed twice within a short time. Stopping to try starting"
 msgstr ""
+"Maxima ორჯერ დასრულდა ავარიულად მოკლე დროში. ვცდი, გავაჩერო, რომ გაშვება "
+"ვცადო"
 
 #. i18n: ectx: property (text), widget (QLabel, label)
 #. i18n: ectx: property (text), widget (QLabel, label_19)
@@ -896,7 +900,7 @@ msgstr "Octave -ის სკრიპტის ფაილები (*.m)"
 #: backends/octave/octavesession.cpp:98
 #, kde-format
 msgid "Failed to start Octave, please check Octave installation."
-msgstr ""
+msgstr "Octave-ის გაშვება ჩავარდა. შეამოწმეთ Octave-ის ფაილები."
 
 #: backends/octave/octavesession.cpp:277 backends/sage/sageexpression.cpp:49
 #, kde-format
@@ -906,12 +910,12 @@ msgstr "სინტაქსური შეცდომა"
 #: backends/octave/octavesession.cpp:396
 #, kde-format
 msgid "Plot integration test failed."
-msgstr ""
+msgstr "გრაფიკის ინტეგრაციის შემოწმება ჩავარდა."
 
 #: backends/octave/octavesession.cpp:400
 #, kde-format
 msgid "The integration of plots will be disabled."
-msgstr ""
+msgstr "გრაფიკების ინტეგრაცია გაითიშება."
 
 #: backends/octave/octavesession.cpp:401 backends/sage/sagesession.cpp:357
 #: backends/sage/sagesession.cpp:368 cantor.cpp:219 cantor.cpp:221
@@ -945,6 +949,7 @@ msgstr "გრაფიკული პაკეტი Plot-Assistant-სთვ�
 #, kde-format
 msgid "# Sorry, but Bokeh doesn't support 3d plotting"
 msgstr ""
+"# უკაცრავად, მაგრამ Bokeh-ს სამგანზომილებიანი გრაფიკების აგება არ შეუძლია"
 
 #: backends/python/pythonextensions.cpp:299
 #, kde-format
@@ -954,7 +959,7 @@ msgstr "Python -ის სკრიპტის ფაილი (*.py)"
 #: backends/python/pythonsession.cpp:74
 #, kde-format
 msgid "Failed to start Python, please check Python installation."
-msgstr ""
+msgstr "Python-ის გაშვების შეცდომა. შეამოწმეთ Python-ის ფაილები."
 
 #: backends/python/pythonsession.cpp:280
 #, kde-format
@@ -969,7 +974,7 @@ msgstr "Cantor -ის python სერვერს გაშვების შ
 #: backends/python/pythonsession.cpp:288
 #, kde-format
 msgid "Communication with Cantor python server failed for unknown reasons."
-msgstr ""
+msgstr "Cantor python სერვერთან მიერთება უცნობი მიზეზით ჩავარდა."
 
 #: backends/python/pythonsession.cpp:314
 #, kde-format
@@ -977,6 +982,8 @@ msgid ""
 "For using integrated graphics with Matplotlib package, you need to install "
 "\"matplotlib\" python package first."
 msgstr ""
+"ჩაშენებული გრაფიკის Matplotlib პაკეტთან ერთად გამოსაყენებლად ჯერ python-ის "
+"პაკეტი \"matplotlib\" უნდა დააყენოთ."
 
 #: backends/python/pythonsession.cpp:320
 #, kde-format
@@ -985,6 +992,10 @@ msgid ""
 "python package and special Plot.ly-compatible \"orca\" executable. See "
 "\"Static Image Export\" article in Plot.ly documentation for details."
 msgstr ""
+"ჩაშენებული გრაფიკის Plot.ly-სთან ერთად გამოსაყენებლად python-ის პაკეტი "
+"\"plotly\" და სპეციალური Plot.ly-სთან თავსებადი \"orca\" გამშვები ფაილი უნდა "
+"დააყენოთ. დეტალებისთვის Plot.ly-ის დოკუმენტაციაში სტატია \"სტატიკური "
+"გამოსახულების გატანა\" იხილეთ."
 
 #. i18n: ectx: property (text), widget (QLabel, label4)
 #: backends/python/settings.ui:222
@@ -1442,13 +1453,13 @@ msgstr "ტრიგონომეტრიული ფუნქციებ�
 #: backends/qalculate/qalculatebackend.kcfg:35
 #, kde-format
 msgid "Base of parsed and evaluated numbers."
-msgstr ""
+msgstr "ბაზა დამუშავებული და გამოთვლილი რიცხვებისთვის."
 
 #. i18n: ectx: label, entry (structuring), group (QalculateBackend)
 #: backends/qalculate/qalculatebackend.kcfg:44
 #, kde-format
 msgid "If the evaluation result will be simplified or factorized."
-msgstr ""
+msgstr "იქნება თუ არა გამოთვლის შედეგი გამარტივებული, თუ ნამრავლებად დაშლილი."
 
 #. i18n: ectx: label, entry (fractionFormat), group (QalculateBackend)
 #: backends/qalculate/qalculatebackend.kcfg:54
@@ -1456,7 +1467,7 @@ msgstr ""
 msgid ""
 "If rational numbers will be displayed with decimals, as a fraction, or "
 "something in between."
-msgstr ""
+msgstr "ნაჩვენებია რაციონალური რიცხვები წილადებით, ნამრავლებით თუ რაღაც შუაში."
 
 #. i18n: ectx: label, entry (indicateInfiniteSeries), group (QalculateBackend)
 #: backends/qalculate/qalculatebackend.kcfg:58
@@ -1481,6 +1492,8 @@ msgid ""
 "If true, negative exponents will be used instead of division (ex. 5/x^2 "
 "becomes 5*x^-2)."
 msgstr ""
+"თუ ჭეშმარიტია, გაყოფის მაგიერ უარყოფითი ექსპონენტი იქნება გამოყენებული (მაგ: "
+"5/x^2 გახდება 5*x^-2)."
 
 #. i18n: ectx: label, entry (minExp), group (QalculateBackend)
 #: backends/qalculate/qalculatebackend.kcfg:76
@@ -1495,12 +1508,14 @@ msgid ""
 "If true, plots will be displayed inside the worksheet. If not they appear in "
 "a separate window."
 msgstr ""
+"თუ ჭეშმარიტია, გრაფიკები სამუშაო ფურცლის შიგნით გამოჩნდება. თუ არა, ისინი "
+"ცალკე ფანჯარაში იქნება ნაჩვენები."
 
 #. i18n: ectx: label, entry (coloredPlot), group (QalculateBackend)
 #: backends/qalculate/qalculatebackend.kcfg:84
 #, kde-format
 msgid "Whether colors should be used in plots."
-msgstr ""
+msgstr "უნდა იყოს თუ არა ფერები გამოყენებული გრაფიკებში."
 
 #. i18n: ectx: label, entry (plotGrid), group (QalculateBackend)
 #: backends/qalculate/qalculatebackend.kcfg:88
@@ -1512,7 +1527,7 @@ msgstr "დაიხაზება თუ არა ბადე."
 #: backends/qalculate/qalculatebackend.kcfg:92
 #, kde-format
 msgid "Whether full borders should be drawn around the plot."
-msgstr ""
+msgstr "უნდა დაიხატოს თუ არა სრული საზღვრები გრაფიკის გარშემო."
 
 #. i18n: ectx: label, entry (plotLineWidth), group (QalculateBackend)
 #: backends/qalculate/qalculatebackend.kcfg:96
@@ -1524,7 +1539,7 @@ msgstr "ხაზის სიგანე, პიქსელებში."
 #: backends/qalculate/qalculatebackend.kcfg:100
 #, kde-format
 msgid "Number of interpolation steps to be used in plotting."
-msgstr ""
+msgstr "გრაფიის ხატვისას გამოყენებული ინტერპოზაციის ნაბიჯების რაოდენობა."
 
 #. i18n: ectx: label, entry (plotSmoothing), group (QalculateBackend)
 #: backends/qalculate/qalculatebackend.kcfg:111
@@ -1548,6 +1563,7 @@ msgstr "შინაარსის მდებარეობა გრაფ�
 #, kde-format
 msgid "Qalculate reports it cannot print. Is gnuplot installed?"
 msgstr ""
+"Qalculate იუწყება, რომ მას დაბეჭდვა არ შეუძლია. gnuplot დაყენებული გაქვთ?"
 
 #: backends/qalculate/qalculateexpression.cpp:162
 #, kde-format
@@ -1578,6 +1594,7 @@ msgstr "%1-ის არასწორი პარამეტრი: %2"
 #, kde-format
 msgid "found multiple expressions in one plot command (%1 and %2)."
 msgstr ""
+"აღმოჩენილია ერთზე მეტი გამოსახულება ერთი გრაფიკის ბრძანებაში (%1 და %2)."
 
 #: backends/qalculate/qalculateexpression.cpp:681
 #: backends/qalculate/qalculateexpression.cpp:789
@@ -1596,7 +1613,7 @@ msgstr "გაფრთხილება"
 #: backends/qalculate/qalculatesyntaxhelpobject.cpp:47
 #, kde-format
 msgid "No function, variable or unit with specified name exist."
-msgstr ""
+msgstr "მოცემული სახელით ფუნქცია, ცვლადი თუ ერთეული აღმოჩენილი არაა."
 
 #: backends/qalculate/qalculatesyntaxhelpobject.cpp:54
 #, kde-format
@@ -1606,12 +1623,12 @@ msgstr "ფუნქცია: %1"
 #: backends/qalculate/qalculatesyntaxhelpobject.cpp:139
 #, kde-format
 msgid "Plotting interface"
-msgstr ""
+msgstr "გრაფიკის ინტერფეისი"
 
 #: backends/qalculate/qalculatesyntaxhelpobject.cpp:140
 #, kde-format
 msgid "Plots one or more functions either inline or in a separate window."
-msgstr ""
+msgstr "დახაზავს ერთ ან მეტ ფუნქციას, ან ხაზშივე ან ცალკე ფანჯარაში."
 
 #: backends/qalculate/qalculatesyntaxhelpobject.cpp:141
 #, kde-format
@@ -1674,57 +1691,62 @@ msgid ""
 "Image to save plot to. If empty shows plot in a window on the screen. If "
 "inline=true the image is shown regardless of this option."
 msgstr ""
+"გამოსახულება გრაფიკის შესანახად. თუ ცარიელია, აჩვენებს ფანჯარას ეკრანზე. თუ "
+"ხაზში=ჭეშმარიტი, გამოსახულება ამ პარამეტრის მიუხედავად იქნება ნაჩვენები."
 
 #: backends/qalculate/qalculatesyntaxhelpobject.cpp:216
 #, kde-format
 msgid "The image type to save as. One of auto, png, ps, eps, latex, svg, fig."
 msgstr ""
+"გამოსახულების ტიპი შესანახად. ერთ-ერთი სიიდან: auto, png, ps, eps, latex, "
+"svg, fig."
 
 #: backends/qalculate/qalculatesyntaxhelpobject.cpp:217
 #, kde-format
 msgid "Set to true for colored plot, false for monochrome."
-msgstr ""
+msgstr "დააყენეთ ჭეშმარიტზე ფერადი გრაფიკისთვის. ცრუ შავთეთრისთვის."
 
 #: backends/qalculate/qalculatesyntaxhelpobject.cpp:218
 #, kde-format
 msgid "Minimum x-axis value."
-msgstr ""
+msgstr "მინიმალური x- ღერძის მნიშვნელობა."
 
 #: backends/qalculate/qalculatesyntaxhelpobject.cpp:219
 #, kde-format
 msgid "Maximum x-axis value."
-msgstr ""
+msgstr "მაქსიმალური x- ღერძის მნიშვნელობა."
 
 #: backends/qalculate/qalculatesyntaxhelpobject.cpp:220
 #, kde-format
 msgid "If a logarithmic scale shall be used for the x-axis."
-msgstr ""
+msgstr "გამოყენებული იქნება თუ არა ლოგარითმული მასშტაბი X-ღერძისთვის."
 
 #: backends/qalculate/qalculatesyntaxhelpobject.cpp:221
 #, kde-format
 msgid "If a logarithmic scale shall be used for the y-axis."
-msgstr ""
+msgstr "გამოყენებული იქნება თუ არა ლოგარითმული მასშტაბი Y-ღერძისთვის."
 
 #: backends/qalculate/qalculatesyntaxhelpobject.cpp:222
 #, kde-format
 msgid "Logarithmic base for the x-axis."
-msgstr ""
+msgstr "ლოგარითმული ბაზა x- ღერძისთვის."
 
 #: backends/qalculate/qalculatesyntaxhelpobject.cpp:223
 #, kde-format
 msgid "Logarithmic base for the y-axis."
-msgstr ""
+msgstr "ლოგარითმული ბაზა y- ღერძისთვის."
 
 #: backends/qalculate/qalculatesyntaxhelpobject.cpp:224
 #, kde-format
 msgid "If a grid shall be shown in the plot."
-msgstr ""
+msgstr "უნდა იყოს თუ არა ბადე ნაჩვენები გრაფიკზე."
 
 #: backends/qalculate/qalculatesyntaxhelpobject.cpp:225
 #, kde-format
 msgid ""
 "If the plot shall be surrounded by borders on all sides (not just axis)."
 msgstr ""
+"იქნება თუ არა გრაფიკი შემოსაზღვრული ყველა მხრიდან (და არა, მხოლოდ, ღერძი)."
 
 #: backends/qalculate/qalculatesyntaxhelpobject.cpp:226
 #, kde-format
@@ -1737,11 +1759,14 @@ msgid ""
 "Where the plot legend shall be placed. One of none, top_left, top_right, "
 "bottom_left, bottom_right, below, outside"
 msgstr ""
+"სად უნდა იყოს მოთავსებული გრაფიკის ახსნა. ერთ-ერთი სიიდან: none, top_left, "
+"top_right, bottom_left, bottom_right, below, outside"
 
 #: backends/qalculate/qalculatesyntaxhelpobject.cpp:228
 #, kde-format
 msgid "Plot smoothing. One of none, unique, csplines, bezier, sbezier"
 msgstr ""
+"გრაფიკის მოგლუვება. ერთ-ერთი სიიდან: none, unique, csplines, bezier, sbezier"
 
 #: backends/qalculate/qalculatesyntaxhelpobject.cpp:229
 #, kde-format
@@ -1749,36 +1774,38 @@ msgid ""
 "Plot style. One of lines, points, points_lines, boxes, histogram, steps, "
 "candlesticks, dots"
 msgstr ""
+"გრაფიკის სტილი. ერთ-ერთი სიიდან: lines, points, points_lines, boxes, "
+"histogram, steps, candlesticks, dots"
 
 #: backends/qalculate/qalculatesyntaxhelpobject.cpp:230
 #, kde-format
 msgid "Use scale on second x-axis."
-msgstr ""
+msgstr "მეორე X-ღერძის გამოყენება."
 
 #: backends/qalculate/qalculatesyntaxhelpobject.cpp:231
 #, kde-format
 msgid "Use scale on second y-axis."
-msgstr ""
+msgstr "მეორე Y-ღერძის გამოყენება."
 
 #: backends/qalculate/qalculatesyntaxhelpobject.cpp:232
 #, kde-format
 msgid "If the plot is to be drawn inline, instead of in a new window."
-msgstr ""
+msgstr "იქნება თუ არა გრაფიკი დახატული ხაზშივე, მეორე ფანჯრის ნაცვლად."
 
 #: backends/qalculate/qalculatesyntaxhelpobject.cpp:233
 #, kde-format
 msgid "Distance between two interpolation points. See also steps."
-msgstr ""
+msgstr "მანძილი ორ ინტერპოლაციის წერტილებს შორის. ასევე იხილეთ ნაბიჯები."
 
 #: backends/qalculate/qalculatesyntaxhelpobject.cpp:234
 #, kde-format
 msgid "Number of interpolation points. See also step."
-msgstr ""
+msgstr "ინტერპოლაციის წერტილების რაოდენობა. აგრეთვე იხილეთ ნაბიჯი."
 
 #: backends/qalculate/qalculatesyntaxhelpobject.cpp:235
 #, kde-format
 msgid "The name of the x variable. This must be an unknown variable"
-msgstr ""
+msgstr "X ცვლადის სახელი. ეს უცნობი ცვლადი უნდა იყოს"
 
 #: backends/qalculate/qalculatesyntaxhelpobject.cpp:242
 #, kde-format
@@ -1790,6 +1817,8 @@ msgstr "ცვლადების ფაილში ჩაწერა"
 msgid ""
 "Save all currently defined variables to a file. They can be reloaded with %1."
 msgstr ""
+"ამჟამად აღწერილი ყველა ცვლადის ფაილში ჩაწერა. ისინი შეგიძლიათ თავიდან "
+"ჩატვირთოთ %1-ით."
 
 #: backends/qalculate/qalculatesyntaxhelpobject.cpp:244
 #: backends/qalculate/qalculatesyntaxhelpobject.cpp:253
@@ -1810,7 +1839,7 @@ msgstr "ცვლადების ფაილიდან წაკითხ�
 #: backends/qalculate/qalculatesyntaxhelpobject.cpp:252
 #, kde-format
 msgid "Load variables from a file that has previously been created by %1."
-msgstr ""
+msgstr "ცვლადების ჩატვირთვა ფაილიდან, რომელიც %1-მა შექმნა."
 
 #: backends/qalculate/qalculatesyntaxhelpobject.cpp:254
 #, kde-format
@@ -2237,12 +2266,12 @@ msgstr "ბმული R-ის ლოკალურ დოკუმენტ�
 #: backends/R/rsession.cpp:54
 #, kde-format
 msgid "Failed to start R, please check R installation."
-msgstr ""
+msgstr "R-ის გაშვება შეუძლებელია. შეამოწმეთ R-ის ფაილები."
 
 #: backends/R/rsettingswidget.cpp:28
 #, kde-format
 msgid "Double click to open file selection dialog"
-msgstr ""
+msgstr "ორმაგი წყალი ფაილის არჩევის დიალოგის გასახსნელად"
 
 #: backends/R/rsettingswidget.cpp:48
 #, kde-format
@@ -2275,7 +2304,7 @@ msgstr "ბილიკი Sage-ის გამშვებ ფაილამ�
 #: backends/sage/sagebackend.kcfg:14
 #, kde-format
 msgid "Enable LaTeX typesetting for Sage backend"
-msgstr ""
+msgstr "LaTeX-ით გამოტანის ჩართვა Sage-ის უკანაბოლოსთვის"
 
 #: backends/sage/sageexpression.cpp:230 backends/sage/sageexpression.cpp:235
 #, kde-format
@@ -2296,12 +2325,12 @@ msgstr ""
 #: backends/sage/sageextensions.cpp:32
 #, kde-format
 msgid "Python script file (*.py);;Sage script file (*.sage)"
-msgstr ""
+msgstr "Python-ის სკრიპტის ფაილი (*.py);;Sage-ის სკრიპტის ფაილი (*.sage)"
 
 #: backends/sage/sagesession.cpp:126
 #, kde-format
 msgid "Failed to start Sage, please check Sage installation."
-msgstr ""
+msgstr "Sage-ის გაშვება ჩავარდა. შეამოწმეთ Sage-ის ფაილები."
 
 #: backends/sage/sagesession.cpp:270
 #, kde-format
@@ -2309,6 +2338,8 @@ msgid ""
 "Sage version %1.%2 is unsupported. Please update your installation to the "
 "versions 9.2 or higher."
 msgstr ""
+"Sage-ის ვერსია %1.%2 მხარდაჭერილი არაა. განაახლეთ თქვენი პროგრამა ვერსიაზე "
+"9.2 ან უფრო ახალზე."
 
 #: backends/sage/sagesession.cpp:272 backends/sage/sagesession.cpp:292
 #, kde-format
@@ -2321,11 +2352,13 @@ msgid ""
 "Failed to determine the version of Sage. Please check your installation and "
 "the output of 'sage -v'."
 msgstr ""
+"Sage-ის ვერსიის დადგენა ჩავარდა. შეამოწმეთ თქვენი პროგრამის ფაილები და რას "
+"წერს ბრძანება 'sage -v'."
 
 #: backends/sage/sagesession.cpp:353
 #, kde-format
 msgid "The Sage process crashed while evaluating this expression"
-msgstr ""
+msgstr "Sage-ის პროცესი ავარიულად დასრულდა გამოსახულების გამოთვლისას"
 
 #: backends/sage/sagesession.cpp:357
 #, kde-format
@@ -2335,7 +2368,7 @@ msgstr "Sage-ის პროცესი ავარიულად დას�
 #: backends/sage/sagesession.cpp:364
 #, kde-format
 msgid "The Sage process exited while evaluating this expression"
-msgstr ""
+msgstr "Sage-ის პროცესი დასრულდა გამოსახულების გამოთვლისას"
 
 #: backends/sage/sagesession.cpp:368
 #, kde-format
@@ -2345,13 +2378,13 @@ msgstr "Sage-ის პროცესი გავიდა"
 #: backends/sage/sagesession.cpp:378
 #, kde-format
 msgid "Failed to start Sage"
-msgstr ""
+msgstr "Sage-ის გაშვება ჩავარდა"
 
 #. i18n: ectx: property (text), widget (QLabel, label_2)
 #: backends/sage/settings.ui:59
 #, kde-format
 msgid "LaTeX typesetting:"
-msgstr ""
+msgstr "LaTeX-ით გამოტანა:"
 
 #. i18n: ectx: property (toolTip), widget (QCheckBox, kcfg_allowLatex)
 #: backends/sage/settings.ui:66
@@ -2360,6 +2393,8 @@ msgid ""
 "Sage LaTeX output not always correct, so latex typesetting can be disabled "
 "for better experience"
 msgstr ""
+"Sage LaTeX-ის გამოტანილი ყოველთვის სწორი არაა, ასე რომ latex-ით გამოტანა "
+"გაითიშება"
 
 #: backends/scilab/scilabbackend.cpp:68
 #, kde-format
@@ -2381,17 +2416,17 @@ msgstr ""
 #: backends/scilab/scilabbackend.kcfg:10
 #, kde-format
 msgid "Path to the Scilab executable"
-msgstr ""
+msgstr "ბილიკი Scilab-ის გამშვებ ფაილამდე"
 
 #: backends/scilab/scilabextensions.cpp:23
 #, kde-format
 msgid ";;Scilab script file (*.sce);;Scilab function file (*.sci)"
-msgstr ""
+msgstr ";;Scilab-ის სკრიპტის ფაილი (*.sce);;Scilab-ის ფუნქციის ფაილი (*.sci)"
 
 #: backends/scilab/scilabsession.cpp:67
 #, kde-format
 msgid "Failed to start Scilab, please check Scilab installation."
-msgstr ""
+msgstr "Scilab-ის გაშვება ჩავარდა. შეამოწმეთ Scilab-ის ფაილები."
 
 #. i18n: ectx: property (text), widget (QLabel, lPlotIntegration)
 #: backends/scilab/settings.ui:37
@@ -2435,6 +2470,8 @@ msgid ""
 "All supported files (*.cws *ipynb);;Cantor Worksheet (*.cws);;Jupyter "
 "Notebook (*.ipynb)"
 msgstr ""
+"ყველა მხარდაჭერილი ფაილი (*.cws *ipynb);;Cantor-ის სამუშაო ფურცელი (*.cws);;"
+"Jupyter Notebook (*.ipynb)"
 
 #: cantor.cpp:298
 #, kde-format
@@ -2469,6 +2506,8 @@ msgid ""
 "%1 backend installed, but inactive. Please check installation and Cantor "
 "settings"
 msgstr ""
+"უკანაბოლო %1 დაყენებულია, აქტიური კი - არა. შეამოწმეთ პროგრამის ფაილები და "
+"Cantor-ის პარამეტრები"
 
 #: cantor.cpp:375
 #, kde-format
@@ -2478,7 +2517,7 @@ msgstr "სესია %1"
 #: cantor.cpp:392
 #, kde-format
 msgid "Failed to find the Cantor Part with error %1"
-msgstr ""
+msgstr "Cantor Part-ის მოძებნა ჩავარდა შეცდომით %1"
 
 #: cantor.cpp:450 cantor_part.cpp:645
 #, kde-format
@@ -2498,7 +2537,7 @@ msgstr "შეცვლილია"
 #: cantor.cpp:583
 #, kde-format
 msgid "Multiple unsaved Worksheets are opened. Do you want to close them?"
-msgstr ""
+msgstr "გახსნილია ერთზე მეტი შეუნახავი სამუშაო ფურცელი. გნებავთ მათი დახურვა?"
 
 #: cantor.cpp:584
 #, kde-format
@@ -2508,7 +2547,7 @@ msgstr "Cantor-ისდახურვა"
 #: cantor.cpp:603
 #, kde-format
 msgid "The current project has been modified. Do you want to save it?"
-msgstr ""
+msgstr "მიმდინარე პროექტი შეიცვალა. გნებავთ, შეინახოთ ის?"
 
 #: cantor.cpp:604
 #, kde-format
@@ -2524,37 +2563,37 @@ msgstr "ფორმატირება"
 #: cantor.kcfg:12
 #, kde-format
 msgid "The Backend that is used by default"
-msgstr ""
+msgstr "ნაგულისხმევად გამოყენებული უკანაბოლო"
 
 #. i18n: ectx: label, entry (TypesetDefault), group (Cantor)
 #: cantor.kcfg:16
 #, kde-format
 msgid "Do Typesetting by default"
-msgstr ""
+msgstr "LaTeX-ით გამოტანა ნაგულისხმევად"
 
 #. i18n: ectx: label, entry (HighlightDefault), group (Cantor)
 #: cantor.kcfg:20
 #, kde-format
 msgid "Do Syntax Highlighting by default"
-msgstr ""
+msgstr "სინტაქსის გამოკვეთა ნაგულისხმევად"
 
 #. i18n: ectx: label, entry (CompletionDefault), group (Cantor)
 #: cantor.kcfg:24
 #, kde-format
 msgid "Enable Completions by default"
-msgstr ""
+msgstr "დასრულებების ნაგულისხმევად ჩართვა"
 
 #. i18n: ectx: label, entry (ExpressionNumberingDefault), group (Cantor)
 #: cantor.kcfg:28
 #, kde-format
 msgid "Enable Numbering of Expressions by default"
-msgstr ""
+msgstr "გამოსახულებების დანომრვის ნაგულისხმევად ჩართვა"
 
 #. i18n: ectx: label, entry (AnimationDefault), group (Cantor)
 #: cantor.kcfg:32
 #, kde-format
 msgid "Animate changes in the Worksheet by default"
-msgstr ""
+msgstr "სამუშაო ფურცელზე ცვლილებების ანიმაციის ნაგულისხმევად ჩართვა"
 
 #. i18n: ectx: label, entry (EmbeddedMathDefault), group (Cantor)
 #: cantor.kcfg:36
@@ -2568,20 +2607,20 @@ msgstr ""
 #: cantor.kcfg:40
 #, kde-format
 msgid "Ask for confirmation when deleting an entry"
-msgstr ""
+msgstr "დადასტურების მოთხოვნა ჩანაწერის წაშლისას"
 
 #. i18n: ectx: label, entry (AutoEval), group (Cantor)
 #: cantor.kcfg:44
 #, kde-format
 msgid "Automatically reevaluate the entries below the current"
-msgstr ""
+msgstr "მიმდინარეს ქვეშ არსებული ჩანაწერების ავტომატური თავიდან გამოთვლა"
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_WarnAboutSessionRestart)
 #. i18n: ectx: label, entry (WarnAboutSessionRestart), group (Cantor)
 #: cantor.kcfg:48 settings.ui:269
 #, kde-format
 msgid "Ask for confirmation when restarting the backend"
-msgstr ""
+msgstr "დადასტურების მოთხოვნა უკანაბოლოს გადატვირთვისას"
 
 #. i18n: ectx: label, entry (StoreTextEntryFormatting), group (Cantor)
 #: cantor.kcfg:52
@@ -2590,24 +2629,26 @@ msgid ""
 "Save rich text formatting of TextEntry, when save Worksheet in Jupyter "
 "notebook format"
 msgstr ""
+"TextEntry-ის მდიდარი ტექსტის დაფორმატების შენახვა სამუშაო ფურცლის Jupyter "
+"notebook ფორმატში შენახვისას"
 
 #. i18n: ectx: label, entry (UseOldCantorEntriesIndent), group (Cantor)
 #: cantor.kcfg:56
 #, kde-format
 msgid "Use old style Cantor entries placement style"
-msgstr ""
+msgstr "ძველი Cantor-ის ელემენტების განთავსების სტილის გამოყენება"
 
 #. i18n: ectx: label, entry (ShowMathRenderError), group (Cantor)
 #: cantor.kcfg:60
 #, kde-format
 msgid "Show embedded math render error"
-msgstr ""
+msgstr "ჩაშენებული მათემატიკის რენდერის შეცდომის ჩვენება"
 
 #. i18n: ectx: label, entry (VisibleLinesLimit), group (Cantor)
 #: cantor.kcfg:64
 #, kde-format
 msgid "Limit of visible lines for text result"
-msgstr ""
+msgstr "ხილული ხაზების ლიმიტი ტექსტური შედეგისთვის"
 
 #. i18n: ectx: label, entry (ChapterFontFamily), group (Cantor)
 #: cantor.kcfg:68
@@ -2751,7 +2792,7 @@ msgstr "Latex-ად გატანა"
 #: cantor_part.cpp:204 cantor_part.cpp:652 worksheet.cpp:1942
 #, kde-format
 msgid "Evaluate Worksheet"
-msgstr ""
+msgstr "სამუშაო ფურცლის გამოთვლა"
 
 #: cantor_part.cpp:211 worksheet.cpp:1950
 #, kde-format
@@ -2770,7 +2811,7 @@ msgstr "%1%"
 #: cantor_part.cpp:233
 #, kde-format
 msgid "Typeset using LaTeX"
-msgstr ""
+msgstr "შედეგების ჩვენება LaTeX-ით"
 
 #: cantor_part.cpp:238
 #, kde-format
@@ -2897,7 +2938,7 @@ msgstr "Cantor-ის სამუშაო ფურცელი (*.cws)"
 #: cantor_part.cpp:475
 #, kde-format
 msgid "Jupyter Notebook (*.ipynb)"
-msgstr ""
+msgstr "Jupyter Notebook (*.ipynb)"
 
 #: cantor_part.cpp:491
 #, kde-format
@@ -2930,6 +2971,8 @@ msgid ""
 "All the available calculation results will be lost. Do you really want to "
 "restart %1?"
 msgstr ""
+"ყველა ხელმისაწვდომი გამოთვლის შედეგები დაკარგება. მართლა გნებავთ %1-ის "
+"გადატვირთვა?"
 
 #: cantor_part.cpp:602
 #, kde-format
@@ -2964,7 +3007,7 @@ msgstr "[მხოლოდ-კითხვადი]"
 #: cantor_part.cpp:890
 #, kde-format
 msgid "Do you want to upload current Worksheet to public web server?"
-msgstr ""
+msgstr "გნებავთ მიმდინარე სამუშაო ფურცლის საჯარო ვებსერვერზე ატვირთვა?"
 
 #: cantor_part.cpp:891
 #, kde-format
@@ -2975,12 +3018,12 @@ msgstr "კითხვა - Cantor"
 #, kde-format
 msgctxt "@action:button"
 msgid "Upload"
-msgstr ""
+msgstr "ატვირთვა"
 
 #: cantor_part.cpp:900
 #, kde-format
 msgid "The Worksheet is not saved. You should save it before uploading."
-msgstr ""
+msgstr "სამუშაო ფურცელი შენახული არაა. ატვირთვამდე ის უნდა შეინახოთ."
 
 #: cantor_part.cpp:901
 #, kde-format
@@ -2990,7 +3033,7 @@ msgstr "გაფრთხილება - Cantor"
 #: cantor_part.cpp:973
 #, kde-format
 msgid "This backend does not support scripts."
-msgstr ""
+msgstr "ამ უკანაბოლოს სკრიპტების მხარდაჭერა არ აქვს."
 
 #. i18n: ectx: Menu (edit)
 #: cantor_part.rc:15 cantor_shell.rc:19
@@ -3459,6 +3502,8 @@ msgid ""
 "No path for the %1 executable specified. Please provide the correct path in "
 "the application settings and try again."
 msgstr ""
+"%1-ის გამშვებ ფაილამდე ბილიკი მითითებული არაა. შეიყვანეთ სწორი ბილიკი "
+"აპლიკაციის პარამეტრებში და თავიდან სცადეთ."
 
 #: lib/backend.cpp:173
 #, kde-format
@@ -3466,6 +3511,8 @@ msgid ""
 "The specified file '%1' for the %2 executable doesn't exist. Please provide "
 "the correct path in the application settings and try again."
 msgstr ""
+"მითითებული ფაილი '%1' %2-ის გამშვები ფაილისთვის არ არსებობს. შეიყვანეთ სწორი "
+"ბილიკი აპლიკაციის პარამეტრებში და თავიდან სცადეთ."
 
 #: lib/backend.cpp:182
 #, kde-format
@@ -3473,6 +3520,8 @@ msgid ""
 "The specified file '%1' doesn't point to an executable. Please provide the "
 "correct path in the application settings and try again."
 msgstr ""
+"მითითებული ფაილი '%1' გამშვებ ფაილზე არ მიუთითებს. შეიყვანეთ სწორი ბილიკი "
+"აპლიკაციის პარამეტრებში და თავიდან სცადეთ."
 
 #: lib/backend.cpp:201
 #, kde-format
@@ -3480,16 +3529,18 @@ msgid ""
 "The program %1 didn't finish the execution after %2 milliseconds during the "
 "plot integration test."
 msgstr ""
+"პროგრამამ %1 არ დაასრულა მუშაობა %2 მილიწამის შემდეგ გრაფიკის ინტეგრაციის "
+"შემოწმებისას."
 
 #: lib/backend.cpp:210
 #, kde-format
 msgid "Failed to open the file %1 during the plot integration test."
-msgstr ""
+msgstr "ჩავარდა გახსნა ფაილისთვის %1 გრაფიკის ინტეგრაციის შემოწმებისას."
 
 #: lib/backend.cpp:218
 #, kde-format
 msgid "Failed to parse the result during the plot integration test."
-msgstr ""
+msgstr "ჩავარდა შედეგის დამუშავება გრაფიკის ინტეგრაციის შემოწმებისას."
 
 #. i18n: ectx: label, entry (latexCommand), group (Cantor)
 #: lib/cantor_libs.kcfg:10
@@ -3563,12 +3614,12 @@ msgstr "გრაფიკის სათაური:"
 #: lib/mimeresult.cpp:33
 #, kde-format
 msgid "This is unsupported Jupyter content of types ('%1')"
-msgstr ""
+msgstr "ეს მხარდაუჭერელი Jupyter-ის შემცველობაა ტიპებისთვის ('%1')"
 
 #: lib/session.cpp:265
 #, kde-format
 msgid "%1 process has died unexpectedly. All calculation results are lost."
-msgstr ""
+msgstr "პროცესი %1 მოულოდნელად დასრულდა. ყველა გამოთვლის შედეგი დაიკარგა."
 
 #: lib/session.cpp:267
 #, kde-format
@@ -3576,6 +3627,8 @@ msgid ""
 "%1 process has died unexpectedly with message \"%2\". All calculation "
 "results are lost."
 msgstr ""
+"პროცესი %1 მოულოდნელად დასრულდა შეტყობინებით \"%2\". ყველა გამოთვლის შედეგი "
+"დაიკარგა."
 
 #: lib/session.cpp:333
 #, kde-format
@@ -3584,16 +3637,19 @@ msgid ""
 "activated due to the missing requirements, so integration for this package "
 "will be disabled. %2"
 msgstr ""
+"თქვენ აირჩიეთ მხარდაჭერა გრაფიკის პაკეტისთვის %1, მაგრამ მხარდაჭერის "
+"გააქტიურება შეუძლებელია ნაკლული მოთხოვნების გამო. ასე რომ ამ პაკეტისთვის "
+"ინტეგრაცია გაითიშება. %2"
 
 #: main.cpp:71
 #, kde-format
 msgid "KDE Frontend to mathematical applications"
-msgstr ""
+msgstr "KDE-ის წინაბოლო მათემატიკური აპლიკაციებისთვის"
 
 #: main.cpp:73
 #, kde-format
 msgid "(C) 2016 Filipe Saraiva<br/>(C) 2009-2015 Alexander Rieder"
-msgstr ""
+msgstr "(C) 2016 ფილიპე სარაივა<br/>(C) 2009-2015 ალექსანდრე რიდერი"
 
 #: main.cpp:77
 #, kde-format
@@ -3603,7 +3659,7 @@ msgstr "Filipe Saraiva"
 #: main.cpp:77
 #, kde-format
 msgid "Maintainer<br/>Qt5/KF5 port, Scilab and Python backends"
-msgstr ""
+msgstr "წამყვანი<br/>Qt5/KF5-ზე გადატანა, Scilab და Python უკანაბოლოები"
 
 #: main.cpp:78
 #, kde-format
@@ -3624,7 +3680,7 @@ msgstr "Alexander Semke"
 #: main.cpp:80
 #, kde-format
 msgid "Original author<br/>Maintainer (2009 - 2015)"
-msgstr ""
+msgstr "ორიგინალური ავტორი<br/>პროექტის ხელმძღვანელი (2009 - 2015)"
 
 #: main.cpp:81
 #, kde-format
@@ -3694,12 +3750,12 @@ msgstr "Cantor -ის მათემატიკის შეცდომა"
 #: markdownentry.cpp:796
 #, kde-format
 msgid "Failed to read the image \"%1\". Error \"%2\""
-msgstr ""
+msgstr "გამოსახულების \"%1\" წაკითხვა ჩავარდა. შეცდომა \"%2\""
 
 #: pagebreakentry.cpp:28
 #, kde-format
 msgid "--- Page Break ---"
-msgstr ""
+msgstr "--- გვერდის გადატანა ---"
 
 #: panelplugins/documentationpanel/documentationpanelwidget.cpp:50
 #, kde-format
@@ -3711,7 +3767,7 @@ msgstr "შემცველობაზე გაასვლა"
 #, kde-format
 msgctxt "@info:placeholder"
 msgid "Search through keywords..."
-msgstr ""
+msgstr "ძებნა საკვანძო სიტყვებში..."
 
 #: panelplugins/documentationpanel/documentationpanelwidget.cpp:68
 #, kde-format
@@ -3723,7 +3779,7 @@ msgstr "მიმდინარე დოკუმენტაციის გ�
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Reset zoom level to 100%"
-msgstr ""
+msgstr "გადიდების დონის ჩაოყრა 100%-ხზე"
 
 #: panelplugins/documentationpanel/documentationpanelwidget.cpp:122
 #, kde-format
@@ -3752,7 +3808,7 @@ msgstr "რეგისტრზე-დამოკიდებული და�
 #: panelplugins/documentationpanel/documentationpanelwidget.cpp:407
 #, kde-format
 msgid "The file has been downloaded successfully at Downloads."
-msgstr ""
+msgstr "ფაილი გადმოწერილია გადმოწერების საქაღალდეში."
 
 #: panelplugins/documentationpanel/documentationpanelwidget.cpp:407
 #, kde-format
@@ -3901,8 +3957,8 @@ msgstr "მიღწეულია ბოლო"
 #, kde-format
 msgid "Replaced %1 instance"
 msgid_plural "Replaced %1 instances"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "ჩანაცვლდა %1 შემთხვევა"
+msgstr[1] "ჩანაცვლდა %1 შემთხვევა"
 
 #: searchbar.cpp:333 searchbar.cpp:362
 #, kde-format
@@ -3934,13 +3990,13 @@ msgstr "LaTeX-ის კოდი"
 #: settings.ui:23
 #, kde-format
 msgid "Evaluation:"
-msgstr ""
+msgstr "გამოთვლა:"
 
 #. i18n: ectx: property (toolTip), widget (QCheckBox, kcfg_CompletionDefault)
 #: settings.ui:43
 #, kde-format
 msgid "Enable syntax completion"
-msgstr ""
+msgstr "სინტაქსის დასრულების ჩართვა"
 
 #. i18n: ectx: property (text), widget (QLabel, label_2)
 #: settings.ui:59
@@ -3983,19 +4039,19 @@ msgstr ""
 #: settings.ui:92
 #, kde-format
 msgid "LaTeX typesetting"
-msgstr ""
+msgstr "LaTeX-ით გამოტანა"
 
 #. i18n: ectx: property (text), widget (QLabel, VisibleLinesLimit_label)
 #: settings.ui:102
 #, kde-format
 msgid "Number of rows in the result (0 for unlimited):"
-msgstr ""
+msgstr "მწკრივების რაოდენობა შედეგში (0 შეუზღუდავისთვის):"
 
 #. i18n: ectx: property (toolTip), widget (QCheckBox, kcfg_AnimationDefault)
 #: settings.ui:135
 #, kde-format
 msgid "Enable animation effects in the worksheet"
-msgstr ""
+msgstr "ანიმაციის ეფექტების ჩართვა სამუშაო ფურცელზე"
 
 #. i18n: ectx: property (toolTip), widget (QCheckBox, kcfg_EmbeddedMathDefault)
 #: settings.ui:158
@@ -4008,26 +4064,26 @@ msgstr ""
 #: settings.ui:161
 #, kde-format
 msgid "Mathematical expressions via LaTeX"
-msgstr ""
+msgstr "მათემატიკური გამოსახულებები LaTeX-ით"
 
 #. i18n: ectx: property (toolTip), widget (QCheckBox, kcfg_AutoEval)
 #: settings.ui:168
 #, kde-format
 msgid ""
 "If enabled, all entries below the current one will be evaluated automatically"
-msgstr ""
+msgstr "თუ ჩართულია, ყველა ჩანაწერ ამის ქვეშ ავტომატურად გამოითვლება"
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_AutoEval)
 #: settings.ui:171
 #, kde-format
 msgid "Reevaluate entries automatically"
-msgstr ""
+msgstr "ჩანაწერების ავტომატური თავიდან გამოთვლა"
 
 #. i18n: ectx: property (text), widget (QLabel, label_3)
 #: settings.ui:184
 #, kde-format
 msgid "Worksheet:"
-msgstr ""
+msgstr "სამუშაო ფურცელი:"
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_StoreTextEntryFormatting)
 #: settings.ui:223
@@ -4054,7 +4110,7 @@ msgstr ""
 #: settings.ui:246
 #, kde-format
 msgid "Don't indent text entries"
-msgstr ""
+msgstr "ტექსტური ჩანაწერები არ შეიწევა"
 
 #. i18n: ectx: property (toolTip), widget (QCheckBox, kcfg_WarnAboutSessionRestart)
 #: settings.ui:266
@@ -4098,7 +4154,7 @@ msgstr "სინტაქსის გამოკვეთა"
 #: settings.ui:303
 #, kde-format
 msgid "Ask for confirmation when deleting entries"
-msgstr ""
+msgstr "დადასტურების მოთხოვნა ჩანაწერების წაშლისას"
 
 #. i18n: ectx: property (placeholderText), widget (KLineEdit, pattern)
 #: standardsearchbar.ui:35
@@ -4109,7 +4165,7 @@ msgstr "ძებნა…"
 #: textentry.cpp:55
 #, kde-format
 msgid "Raw Cell Targets"
-msgstr ""
+msgstr "სამიზნეები - დაუმუშავებელი უჯრედები"
 
 #: textentry.cpp:62
 #, kde-format
@@ -4124,7 +4180,7 @@ msgstr "ტექსტურ ჩანაწერსი გადაყვა�
 #: textentry.cpp:81
 #, kde-format
 msgid "Convert to Raw Cell"
-msgstr ""
+msgstr "გადაყვანა დაუმუშავებელ უჯრედში"
 
 #: textentry.cpp:553
 #, kde-format
@@ -4154,7 +4210,7 @@ msgstr "HTML კოდის ჩვენება"
 #: textresultitem.cpp:81 textresultitem.cpp:87
 #, kde-format
 msgid "Show Plain Alternative"
-msgstr ""
+msgstr "ჩვეულებრივი ტექსტის ჩვენება"
 
 #: textresultitem.cpp:85
 #, kde-format
@@ -4169,7 +4225,7 @@ msgstr "HTML-ის ჩვენება"
 #: textresultitem.cpp:160
 #, kde-format
 msgid "Cannot render Eps file. You may need additional packages"
-msgstr ""
+msgstr "Eps ფაილის რენდერი შეუძლებელია. შეიძლება, დამატებით პაკეტები გჭირდებათ"
 
 #: textresultitem.cpp:212
 #, kde-format
@@ -4201,7 +4257,7 @@ msgstr ""
 #: worksheet.cpp:1317
 #, kde-format
 msgid "Error loading latex.xsl stylesheet"
-msgstr ""
+msgstr "შეცდომა latex.xsl სტილების ცხრილის ჩატვირთვისას"
 
 #: worksheet.cpp:1360
 #, kde-format
@@ -4218,7 +4274,7 @@ msgstr "ფაილის გახსნა"
 #: worksheet.cpp:1383
 #, kde-format
 msgid "Couldn't open the selected file for reading."
-msgstr ""
+msgstr "მონიშნული ფაილის წასაკითხად გახსნა შეუძლებელია."
 
 #: worksheet.cpp:1403
 #, kde-format
@@ -4280,27 +4336,27 @@ msgstr ""
 #: worksheet.cpp:1680
 #, kde-format
 msgid "an object with keys: %1"
-msgstr ""
+msgstr "ობიექტი გასაღებებით: %1"
 
 #: worksheet.cpp:1682
 #, kde-format
 msgid "non object JSON value"
-msgstr ""
+msgstr "არა-ობიექტის JSON-ის მნიშვნელობა"
 
 #: worksheet.cpp:1685
 #, kde-format
 msgid "found incorrect data (%1) that is not Jupyter cell"
-msgstr ""
+msgstr "აღმოჩენილია არასწორი მონაცემები (%1) რომელიც Jupyter-ის უჯრედი არაა"
 
 #: worksheet.cpp:1762
 #, kde-format
 msgid "The file is not valid Jupyter notebook"
-msgstr ""
+msgstr "ფაილი სწორი Jupyter notebook არაა"
 
 #: worksheet.cpp:1764
 #, kde-format
 msgid "Invalid Jupyter notebook scheme: %1"
-msgstr ""
+msgstr "არასწორი Jupyter notebook-ის სქემა: %1"
 
 #: worksheet.cpp:1840
 #, kde-format
@@ -4335,7 +4391,7 @@ msgstr "ჰორიზონტალური ხაზი"
 #: worksheet.cpp:1868 worksheet.cpp:1889 worksheet.cpp:1909 worksheet.cpp:1927
 #, kde-format
 msgid "Hierarchy Entry"
-msgstr ""
+msgstr "იერარქიის ჩანაწერი"
 
 #: worksheet.cpp:1871
 #, kde-format
@@ -4370,17 +4426,17 @@ msgstr "საწყისი ზომა"
 #: worksheet.cpp:1969
 #, kde-format
 msgid "Move Entries Up"
-msgstr ""
+msgstr "ჩანაწერების ატანა"
 
 #: worksheet.cpp:1970
 #, kde-format
 msgid "Move Entries Down"
-msgstr ""
+msgstr "ჩანაწერების ჩამოტანა"
 
 #: worksheet.cpp:1971
 #, kde-format
 msgid "Evaluate Entries"
-msgstr ""
+msgstr "ჩანაწერების გადათვლა"
 
 #: worksheet.cpp:1973 worksheet.cpp:2824
 #, kde-format
@@ -4410,7 +4466,7 @@ msgstr ""
 #: worksheet.cpp:1992
 #, kde-format
 msgid "Add Command Entry To Execution"
-msgstr ""
+msgstr "ბრძანების ელემენტის დამატება გაშვებაში"
 
 #: worksheet.cpp:2100
 #, kde-format
@@ -4519,12 +4575,12 @@ msgstr "გადამრთეველი"
 msgid ""
 "This step cannot be undone. Do you really want to delete the selected "
 "entries?"
-msgstr ""
+msgstr "ეს ნაბიჯი შეუქცევადია. მართლა გნებავთ მონიშნული ელემენტების წაშლა?"
 
 #: worksheet.cpp:2913
 #, kde-format
 msgid "This step cannot be undone. Do you really want to delete all results?"
-msgstr ""
+msgstr "ეს ნაბიჯი შეუქცევადია. მართლა გნებავთ ყველა შედეგის წაშლა?"
 
 #: worksheet.cpp:2914
 #, kde-format
@@ -4689,7 +4745,7 @@ msgstr "ჩანაწერის წაშლა"
 #: worksheetentry.cpp:853
 #, kde-format
 msgid "Drag Entry"
-msgstr ""
+msgstr "ელემენტის გადათრევა"
 
 #~ msgid "Hierarchy Fonts"
 #~ msgstr "იერარქიის ფონტები"
