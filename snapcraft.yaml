@@ -79,6 +79,7 @@ parts:
         - pkg-config
         - python3-dev
         - r-base-core
+        - libxslt-dev
         stage-packages:
         - libmarkdown2
         - libglib2.0-0
