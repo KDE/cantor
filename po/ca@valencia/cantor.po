@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: cantor\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-10-04 01:47+0000\n"
-"PO-Revision-Date: 2024-10-04 11:28+0200\n"
+"PO-Revision-Date: 2024-10-16 12:58+0200\n"
 "Last-Translator: Josep M. Ferrer <txemaq@gmail.com>\n"
 "Language-Team: Catalan <kde-i18n-ca@kde.org>\n"
 "Language: ca@valencia\n"
@@ -2820,125 +2820,125 @@ msgstr "Límit de línies visibles per al text dels resultats"
 #: cantor.kcfg:68
 #, kde-format
 msgid "Hierarchy font for chapter"
-msgstr "Tipus de lletra de jerarquia per al capítol"
+msgstr "Lletra de jerarquia per al capítol"
 
 #. i18n: ectx: label, entry (ChapterFontSize), group (Cantor)
 #: cantor.kcfg:72
 #, kde-format
 msgid "Hierarchy font size for chapter"
-msgstr "Mida del tipus de lletra de jerarquia per al capítol"
+msgstr "Mida de la lletra de jerarquia per al capítol"
 
 #. i18n: ectx: label, entry (ChapterFontItalic), group (Cantor)
 #: cantor.kcfg:76
 #, kde-format
 msgid "Hierarchy font italic for chapter"
-msgstr "Cursiva del tipus de lletra de jerarquia per al capítol"
+msgstr "Cursiva de la lletra de jerarquia per al capítol"
 
 #. i18n: ectx: label, entry (ChapterFontBold), group (Cantor)
 #: cantor.kcfg:80
 #, kde-format
 msgid "Hierarchy font bold for chapter"
-msgstr "Negreta del tipus de lletra de jerarquia per al capítol"
+msgstr "Negreta de la lletra de jerarquia per al capítol"
 
 #. i18n: ectx: label, entry (SubchapterFontFamily), group (Cantor)
 #: cantor.kcfg:84
 #, kde-format
 msgid "Hierarchy font for subchapter"
-msgstr "Tipus de lletra de jerarquia per al subcapítol"
+msgstr "Lletra de jerarquia per al subcapítol"
 
 #. i18n: ectx: label, entry (SubchapterFontSize), group (Cantor)
 #: cantor.kcfg:88
 #, kde-format
 msgid "Hierarchy font size for subchapter"
-msgstr "Mida del tipus de lletra de jerarquia per al subcapítol"
+msgstr "Mida de la lletra de jerarquia per al subcapítol"
 
 #. i18n: ectx: label, entry (SubchapterFontItalic), group (Cantor)
 #: cantor.kcfg:92
 #, kde-format
 msgid "Hierarchy font italic for subchapter"
-msgstr "Cursiva del tipus de lletra de jerarquia per al subcapítol"
+msgstr "Cursiva de la lletra de jerarquia per al subcapítol"
 
 #. i18n: ectx: label, entry (SubchapterFontBold), group (Cantor)
 #: cantor.kcfg:96
 #, kde-format
 msgid "Hierarchy font bold for subchapter"
-msgstr "Negreta del tipus de lletra de jerarquia per al subcapítol"
+msgstr "Negreta de la lletra de jerarquia per al subcapítol"
 
 #. i18n: ectx: label, entry (SectionFontFamily), group (Cantor)
 #. i18n: ectx: label, entry (SectionFontSize), group (Cantor)
 #: cantor.kcfg:100 cantor.kcfg:104
 #, kde-format
 msgid "Hierarchy font for section"
-msgstr "Tipus de lletra de jerarquia per a la secció"
+msgstr "Lletra de jerarquia per a la secció"
 
 #. i18n: ectx: label, entry (SectionFontItalic), group (Cantor)
 #: cantor.kcfg:108
 #, kde-format
 msgid "Hierarchy font italic for section"
-msgstr "Cursiva del tipus de lletra de jerarquia per a la secció"
+msgstr "Cursiva de la lletra de jerarquia per a la secció"
 
 #. i18n: ectx: label, entry (SectionFontBold), group (Cantor)
 #: cantor.kcfg:112
 #, kde-format
 msgid "Hierarchy font bold for section"
-msgstr "Negreta del tipus de lletra de jerarquia per a la secció"
+msgstr "Negreta de la lletra de jerarquia per a la secció"
 
 #. i18n: ectx: label, entry (SubsectionFontFamily), group (Cantor)
 #. i18n: ectx: label, entry (SubsectionFontSize), group (Cantor)
 #: cantor.kcfg:116 cantor.kcfg:120
 #, kde-format
 msgid "Hierarchy font for subsection"
-msgstr "Tipus de lletra de jerarquia per a la subsecció"
+msgstr "Lletra de jerarquia per a la subsecció"
 
 #. i18n: ectx: label, entry (SubsectionFontItalic), group (Cantor)
 #: cantor.kcfg:124
 #, kde-format
 msgid "Hierarchy font italic for subsection"
-msgstr "Cursiva del tipus de lletra de jerarquia per a la subsecció"
+msgstr "Cursiva de la lletra de jerarquia per a la subsecció"
 
 #. i18n: ectx: label, entry (SubsectionFontBold), group (Cantor)
 #: cantor.kcfg:128
 #, kde-format
 msgid "Hierarchy font bold for subsection"
-msgstr "Negreta del tipus de lletra de jerarquia per a la subsecció"
+msgstr "Negreta de la lletra de jerarquia per a la subsecció"
 
 #. i18n: ectx: label, entry (ParagraphFontFamily), group (Cantor)
 #. i18n: ectx: label, entry (ParagraphFontSize), group (Cantor)
 #: cantor.kcfg:132 cantor.kcfg:136
 #, kde-format
 msgid "Hierarchy font for paragraph"
-msgstr "Tipus de lletra de jerarquia per al paràgraf"
+msgstr "Lletra de jerarquia per al paràgraf"
 
 #. i18n: ectx: label, entry (ParagraphFontItalic), group (Cantor)
 #: cantor.kcfg:140
 #, kde-format
 msgid "Hierarchy font italic for paragraph"
-msgstr "Cursiva del tipus de lletra de jerarquia per al paràgraf"
+msgstr "Cursiva de la lletra de jerarquia per al paràgraf"
 
 #. i18n: ectx: label, entry (ParagraphFontBold), group (Cantor)
 #: cantor.kcfg:144
 #, kde-format
 msgid "Hierarchy font bold for paragraph"
-msgstr "Negreta del tipus de lletra de jerarquia per al paràgraf"
+msgstr "Negreta de la lletra de jerarquia per al paràgraf"
 
 #. i18n: ectx: label, entry (SubparagraphFontFamily), group (Cantor)
 #. i18n: ectx: label, entry (SubparagraphFontSize), group (Cantor)
 #: cantor.kcfg:148 cantor.kcfg:152
 #, kde-format
 msgid "Hierarchy font for subparagraph"
-msgstr "Tipus de lletra de jerarquia per al subparàgraf"
+msgstr "Lletra de jerarquia per al subparàgraf"
 
 #. i18n: ectx: label, entry (SubparagraphFontItalic), group (Cantor)
 #: cantor.kcfg:156
 #, kde-format
 msgid "Hierarchy font italic for subparagraph"
-msgstr "Cursiva del tipus de lletra de jerarquia per al subparàgraf"
+msgstr "Cursiva de la lletra de jerarquia per al subparàgraf"
 
 #. i18n: ectx: label, entry (SubparagraphFontBold), group (Cantor)
 #: cantor.kcfg:160
 #, kde-format
 msgid "Hierarchy font bold for subparagraph"
-msgstr "Negreta del tipus de lletra de jerarquia per al subparàgraf"
+msgstr "Negreta de la lletra de jerarquia per al subparàgraf"
 
 #: cantor_part.cpp:144
 #, kde-format
@@ -3268,7 +3268,7 @@ msgstr "Color del text"
 #: commandentry.cpp:176
 #, kde-format
 msgid "Font"
-msgstr "Tipus de lletra"
+msgstr "Lletra"
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_ChapterFontBold)
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_SubchapterFontBold)
@@ -3411,51 +3411,51 @@ msgstr "Fes coincidir les &majúscules"
 #: formating.ui:42
 #, kde-format
 msgid "Chapter Font"
-msgstr "Tipus de lletra de capítol"
+msgstr "Lletra de capítol"
 
 #. i18n: ectx: property (text), widget (QLabel, label_2)
 #: formating.ui:48 formating.ui:105 formating.ui:162 formating.ui:219
 #: formating.ui:276 formating.ui:333
 #, kde-format
 msgid "Font Family:"
-msgstr "Família del tipus de lletra:"
+msgstr "Família de la lletra:"
 
 #. i18n: ectx: property (text), widget (QLabel, label_3)
 #: formating.ui:61 formating.ui:118 formating.ui:175 formating.ui:232
 #: formating.ui:289 formating.ui:346
 #, kde-format
 msgid "Font Size:"
-msgstr "Mida del tipus de lletra:"
+msgstr "Mida de la lletra:"
 
 #. i18n: ectx: attribute (title), widget (QWidget, SubchapterTab)
 #: formating.ui:99
 #, kde-format
 msgid "Subchapter Font"
-msgstr "Tipus de lletra de subcapítol"
+msgstr "Lletra de subcapítol"
 
 #. i18n: ectx: attribute (title), widget (QWidget, SectionTab)
 #: formating.ui:156
 #, kde-format
 msgid "Section Font"
-msgstr "Tipus de lletra de secció"
+msgstr "Lletra de secció"
 
 #. i18n: ectx: attribute (title), widget (QWidget, SubsectionTab)
 #: formating.ui:213
 #, kde-format
 msgid "Subsection Font"
-msgstr "Tipus de lletra de subsecció"
+msgstr "Lletra de subsecció"
 
 #. i18n: ectx: attribute (title), widget (QWidget, ParagraphTab)
 #: formating.ui:270
 #, kde-format
 msgid "Paragraph Font"
-msgstr "Tipus de lletra de paràgraf"
+msgstr "Lletra de paràgraf"
 
 #. i18n: ectx: attribute (title), widget (QWidget, SubparagraphTab)
 #: formating.ui:327
 #, kde-format
 msgid "Subparagraph Font"
-msgstr "Tipus de lletra de subparàgraf"
+msgstr "Lletra de subparàgraf"
 
 #: hierarchyentry.cpp:22
 #, kde-format
@@ -4696,13 +4696,13 @@ msgstr "&Ressaltat de text…"
 #, kde-format
 msgctxt "@action"
 msgid "&Font"
-msgstr "&Tipus de lletra"
+msgstr "&Lletra"
 
 #: worksheet.cpp:2123
 #, kde-format
 msgctxt "@action"
 msgid "Font &Size"
-msgstr "&Mida del tipus de lletra"
+msgstr "&Mida de la lletra"
 
 #: worksheet.cpp:2129
 #, kde-format

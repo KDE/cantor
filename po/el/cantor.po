@@ -628,10 +628,9 @@ msgstr "Gadfly"
 
 #. i18n: ectx: property (text), widget (QLabel, label3)
 #: backends/julia/settings.ui:253
-#, fuzzy, kde-format
-#| msgid "Package for Plot Assistant"
+#, kde-format
 msgid "Package for Plot Assistant:"
-msgstr "Πακέτο για τη «Γραφική απεικόνιση»"
+msgstr "Πακέτο για τη «Γραφική απεικόνιση»:"
 
 #. i18n: ectx: attribute (title), widget (QWidget, tabAutorun)
 #. i18n: ectx: attribute (title), widget (QWidget, tabAutoran)
@@ -4949,9 +4948,7 @@ msgid "Move Down"
 msgstr "Μετακίνηση κάτω"
 
 #: worksheetentry.cpp:436
-#, fuzzy, kde-format
-#| msgctxt "@info:tooltip"
-#| msgid "Delete"
+#, kde-format
 msgid "Delete"
 msgstr "Διαγραφή"
 

@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: cantor\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-10-04 01:47+0000\n"
-"PO-Revision-Date: 2024-07-25 15:38+0200\n"
+"PO-Revision-Date: 2024-10-20 18:10+0200\n"
 "Last-Translator: giovanni <g.sora@tiscali.it>\n"
 "Language-Team: Interlingua <kde-i18n-doc@kde.org>\n"
 "Language: ia\n"
@@ -3174,7 +3174,7 @@ msgstr "Demanda - Cantor"
 #, kde-format
 msgctxt "@action:button"
 msgid "Upload"
-msgstr ""
+msgstr "Incarga"
 
 #: cantor_part.cpp:900
 #, kde-format

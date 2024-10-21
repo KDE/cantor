@@ -370,7 +370,7 @@
 >Elimina l'entrada</guilabel
 > per a eliminar l'entrada del full de treball actual. </para>
 <para
->La configuració i l'alineació del tipus de lletra de les entrades en el full de treball es poden canviar utilitzant una barra d'eines que hi ha a sobre del full de treball. </para>
+>La configuració i l'alineació de la lletra de les entrades en el full de treball es poden canviar utilitzant una barra d'eines que hi ha a sobre del full de treball. </para>
 <sect3 id="worksheet-settings">
   <title
 >Configuració</title>
@@ -384,9 +384,7 @@
 >Compon emprant LaTeX</term>
       <listitem>
 	<para
->Aquesta opció canvia la manera en què es presentaran els resultats. Si s'activa, el resultat passarà a través del sistema &latex;, per a produir fórmules visualment atractives. Per exemple, <quote
->3*x^2*sqrt(2)*x+2/3</quote
-> es convertirà en <inlinemediaobject>
+>Aquesta opció canvia la manera en què es presentaran els resultats. Si s'activa, el resultat passarà a través del sistema &latex;, per a produir fórmules visualment atractives. Per exemple, «3*x^2*sqrt(2)*x+2/3» es convertirà en <inlinemediaobject>
 	      <imageobject>
 		<imagedata fileref="latex_formula.png" format="PNG"/>
 	      </imageobject>
@@ -419,9 +417,7 @@
 >Números de les línies</term>
     <listitem>
       <para
->Aquesta opció controla si les diferents expressions han de tenir un número al davant. Això us permetrà recuperar més resultats -en el Maxima, per exemple, això es fa amb l'ordre <quote
->%O1</quote
->. </para>
+>Aquesta opció controla si les diferents expressions han de tenir un número al davant. Això us permetrà recuperar més resultats -en el Maxima, per exemple, això es fa amb l'ordre «%O1». </para>
     </listitem>
   </varlistentry>
   <varlistentry>
