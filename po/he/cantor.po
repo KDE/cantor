@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: cantor\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-10-04 01:47+0000\n"
-"PO-Revision-Date: 2024-10-16 15:44+0300\n"
+"PO-Revision-Date: 2024-10-21 08:08+0300\n"
 "Last-Translator: Yaron Shahrabani <sh.yaron@gmail.com>\n"
 "Language-Team: צוות התרגום של KDE ישראל\n"
 "Language: he\n"
@@ -21,12 +21,12 @@ msgstr ""
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
 msgid "Your names"
-msgstr ""
+msgstr "צוות התרגום של KDE ישראל"
 
 #, kde-format
 msgctxt "EMAIL OF TRANSLATORS"
 msgid "Your emails"
-msgstr ""
+msgstr "kde-l10n-he@kde.org"
 
 #: animationresultitem.cpp:38
 #, kde-format
@@ -342,7 +342,7 @@ msgctxt ""
 "The url to the documentation of Julia, please check if there is a translated "
 "version and use the correct url"
 msgid "https://docs.julialang.org/en/latest/"
-msgstr ""
+msgstr "https://docs.julialang.org/en/latest/"
 
 #. i18n: ectx: label, entry (variableManagement), group (JuliaBackend)
 #. i18n: ectx: label, entry (variableManagement), group (PythonBackend)
@@ -376,17 +376,17 @@ msgstr "חבילה גרפית למסייע שרטוט"
 #: backends/julia/juliaextensions.cpp:239
 #, kde-format
 msgid "# Sorry, but Gadfly don't support 3d plots"
-msgstr ""
+msgstr "# Gadfly לא תומך בשרטוטים תלת־ממדיים, עמך הסליחה"
 
 #: backends/julia/juliaextensions.cpp:256
 #, kde-format
 msgid "Julia script file (*.jl)"
-msgstr ""
+msgstr "קובץ סקריפט Julia‏ (‎*.jl)"
 
 #: backends/julia/juliasession.cpp:70
 #, kde-format
 msgid "Failed to start Julia, please check Julia installation."
-msgstr ""
+msgstr "הפעלת Julia נכשלה, נא לבדוק שההתקנה של Julia תקינה."
 
 #: backends/julia/juliasession.cpp:119 backends/julia/juliasession.cpp:128
 #: backends/maxima/maximasession.cpp:283 cantor_part.cpp:973
@@ -395,7 +395,7 @@ msgstr ""
 #: worksheet.cpp:1317
 #, kde-format
 msgid "Error - Cantor"
-msgstr ""
+msgstr "שגיאה - Cantor"
 
 #: backends/julia/juliasession.cpp:119
 #, kde-format
@@ -2446,6 +2446,8 @@ msgid_plural ""
 "ul> </div> "
 msgstr[0] ""
 msgstr[1] ""
+msgstr[2] ""
+msgstr[3] ""
 
 #: cantor.cpp:318
 #, kde-format
@@ -3895,6 +3897,8 @@ msgid "Replaced %1 instance"
 msgid_plural "Replaced %1 instances"
 msgstr[0] ""
 msgstr[1] ""
+msgstr[2] ""
+msgstr[3] ""
 
 #: searchbar.cpp:333 searchbar.cpp:362
 #, kde-format
