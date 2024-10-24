@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: cantor\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-10-04 01:47+0000\n"
-"PO-Revision-Date: 2024-10-21 08:08+0300\n"
+"PO-Revision-Date: 2024-10-22 22:59+0300\n"
 "Last-Translator: Yaron Shahrabani <sh.yaron@gmail.com>\n"
 "Language-Team: צוות התרגום של KDE ישראל\n"
 "Language: he\n"
@@ -498,7 +498,7 @@ msgstr ""
 #: backends/R/settings.ui:108 backends/sage/settings.ui:122
 #, kde-format
 msgid "Size:"
-msgstr ""
+msgstr "גודל:"
 
 #. i18n: ectx: property (toolTip), widget (QCheckBox, kcfg_variableManagement)
 #: backends/julia/settings.ui:63 backends/maxima/settings.ui:59
@@ -508,7 +508,7 @@ msgstr ""
 msgid ""
 "Monitor the creation and destruction of variables and show the existing "
 "variables in the variable panel."
-msgstr ""
+msgstr "מעקב אחר יצירת והשמדת משתנים והצגת המשתנים הקיימים בלוח המשתנים."
 
 #. i18n: ectx: property (text), widget (QLabel, lPlotIntegration)
 #: backends/julia/settings.ui:73 backends/maxima/settings.ui:235
@@ -516,7 +516,7 @@ msgstr ""
 #: backends/R/settings.ui:131 backends/sage/settings.ui:105
 #, kde-format
 msgid "Integrated:"
-msgstr ""
+msgstr "משולב:"
 
 #. i18n: ectx: property (text), widget (QLabel, lVariableManagement)
 #: backends/julia/settings.ui:80 backends/maxima/settings.ui:52
@@ -524,7 +524,7 @@ msgstr ""
 #: backends/R/settings.ui:151
 #, kde-format
 msgid "Variable Management:"
-msgstr ""
+msgstr "ניהול משתנים:"
 
 #. i18n: ectx: property (text), widget (QLabel, lPlotWidth)
 #: backends/julia/settings.ui:108 backends/maxima/settings.ui:120
@@ -532,7 +532,7 @@ msgstr ""
 #: backends/R/settings.ui:48 backends/sage/settings.ui:150
 #, kde-format
 msgid "width:"
-msgstr ""
+msgstr "רוחב:"
 
 #. i18n: ectx: property (suffix), widget (QDoubleSpinBox, kcfg_plotWidth)
 #. i18n: ectx: property (suffix), widget (QDoubleSpinBox, kcfg_plotHeight)
@@ -544,7 +544,7 @@ msgstr ""
 #: backends/sage/settings.ui:157 backends/sage/settings.ui:187
 #, kde-format
 msgid "cm"
-msgstr ""
+msgstr "ס״מ"
 
 #. i18n: ectx: property (text), widget (QLabel, lPlotHeight)
 #: backends/julia/settings.ui:138 backends/maxima/settings.ui:150
@@ -552,7 +552,7 @@ msgstr ""
 #: backends/R/settings.ui:78 backends/sage/settings.ui:180
 #, kde-format
 msgid "height:"
-msgstr ""
+msgstr "גובה:"
 
 #. i18n: ectx: property (text), widget (QLabel, label_4)
 #. i18n: ectx: property (text), item, widget (KComboBox, kcfg_plotExtenstionGraphicPackage)
@@ -562,7 +562,7 @@ msgstr ""
 #: backends/sage/settings.ui:98
 #, kde-format
 msgid "Plots"
-msgstr ""
+msgstr "שרטוטים"
 
 #. i18n: ectx: property (text), widget (QLabel, label_3)
 #. i18n: ectx: property (text), widget (QLabel, label_2)
@@ -571,7 +571,7 @@ msgstr ""
 #: backends/R/settings.ui:197 backends/sage/settings.ui:210
 #, kde-format
 msgid "Image Format:"
-msgstr ""
+msgstr "תסדיר קובץ:"
 
 #. i18n: ectx: property (toolTip), widget (KComboBox, kcfg_plotExtenstionGraphicPackage)
 #. i18n: ectx: property (toolTip), widget (QLabel, label3)
@@ -580,31 +580,31 @@ msgstr ""
 #: backends/python/settings.ui:219 backends/python/settings.ui:235
 #, kde-format
 msgid "Graphic package to be used in the Plot Assistant"
-msgstr ""
+msgstr "חבילה גרפית לשימוש במסייע השרטוטים"
 
 #. i18n: ectx: property (text), item, widget (KComboBox, kcfg_plotExtenstionGraphicPackage)
 #: backends/julia/settings.ui:227 backends/python/settings.ui:254
 #, kde-format
 msgid "GR"
-msgstr ""
+msgstr "GR"
 
 #. i18n: ectx: property (text), item, widget (KComboBox, kcfg_plotExtenstionGraphicPackage)
 #: backends/julia/settings.ui:237
 #, kde-format
 msgid "PyPlot"
-msgstr ""
+msgstr "PyPlot"
 
 #. i18n: ectx: property (text), item, widget (KComboBox, kcfg_plotExtenstionGraphicPackage)
 #: backends/julia/settings.ui:242
 #, kde-format
 msgid "Gadfly"
-msgstr ""
+msgstr "Gadfly"
 
 #. i18n: ectx: property (text), widget (QLabel, label3)
 #: backends/julia/settings.ui:253
 #, kde-format
 msgid "Package for Plot Assistant:"
-msgstr ""
+msgstr "חבילה למסייע שרטוט:"
 
 #. i18n: ectx: attribute (title), widget (QWidget, tabAutorun)
 #. i18n: ectx: attribute (title), widget (QWidget, tabAutoran)
@@ -615,7 +615,7 @@ msgstr ""
 #: backends/scilab/settings.ui:68
 #, kde-format
 msgid "Autorun"
-msgstr ""
+msgstr "הרצה אוטומטית"
 
 #. i18n: ectx: property (text), widget (QLabel, lAutorun)
 #. i18n: ectx: property (title), widget (QGroupBox, groupBox)
@@ -627,7 +627,7 @@ msgstr ""
 #: backends/sage/settings.ui:251 backends/scilab/settings.ui:74
 #, kde-format
 msgid "Commands to autorun"
-msgstr ""
+msgstr "פקודות להרצה אוטומטית"
 
 #. i18n: ectx: attribute (title), widget (QWidget, tabDocumentation)
 #: backends/julia/settings.ui:281 backends/lua/settings.ui:71
@@ -637,7 +637,7 @@ msgstr ""
 #: backends/scilab/settings.ui:88
 #, kde-format
 msgid "Documentation"
-msgstr ""
+msgstr "תיעוד"
 
 #: backends/kalgebra/kalgebrabackend.cpp:58
 #, kde-format
