@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: cantor\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-10-04 01:47+0000\n"
-"PO-Revision-Date: 2024-10-29 08:21+0200\n"
+"PO-Revision-Date: 2024-10-30 12:49+0200\n"
 "Last-Translator: Yaron Shahrabani <sh.yaron@gmail.com>\n"
 "Language-Team: צוות התרגום של KDE ישראל\n"
 "Language: he\n"
@@ -412,17 +412,17 @@ msgstr ""
 #: backends/julia/juliasession.cpp:253
 #, kde-format
 msgid "Julia process stopped working."
-msgstr ""
+msgstr "תהליך Julia הפסיק לתפקד."
 
 #: backends/julia/juliasession.cpp:256
 #, kde-format
 msgid "Failed to start Julia process."
-msgstr ""
+msgstr "הפעלת תהליך julia נכשל."
 
 #: backends/julia/juliasession.cpp:259
 #, kde-format
 msgid "Communication with Julia process failed for unknown reasons."
-msgstr ""
+msgstr "התקשורת עם תהליך julia נכשל מסיבות לא ברורות."
 
 #: backends/julia/juliasession.cpp:329
 #, kde-format
@@ -444,7 +444,7 @@ msgstr ""
 #: backends/scilab/settings.ui:21 cantor.cpp:654
 #, kde-format
 msgid "General"
-msgstr ""
+msgstr "כללי"
 
 #. i18n: ectx: property (text), item, widget (QComboBox, kcfg_inlinePlotFormat)
 #: backends/julia/settings.ui:28 backends/maxima/settings.ui:188
@@ -452,7 +452,7 @@ msgstr ""
 #: backends/R/settings.ui:169 backends/sage/settings.ui:218
 #, kde-format
 msgid "PDF"
-msgstr ""
+msgstr "PDF"
 
 #. i18n: ectx: property (toolTip), widget (QCheckBox, kcfg_integratePlots)
 #: backends/julia/settings.ui:46 backends/maxima/settings.ui:82
@@ -805,32 +805,32 @@ msgstr ""
 #: backends/maxima/maximaexpression.cpp:113
 #, kde-format
 msgid "Error: Too many */"
-msgstr ""
+msgstr "שגיאה: יותר מדי ‎*/‎"
 
 #: backends/maxima/maximaexpression.cpp:126
 #, kde-format
 msgid "Error: Too many /*"
-msgstr ""
+msgstr "שגיאה: יותר מדי ‎/*‎"
 
 #: backends/maxima/maximaexpression.cpp:132
 #, kde-format
 msgid "Error: expected \" before ;"
-msgstr ""
+msgstr "שגיאה: אמור להיות \" לפני ;"
 
 #: backends/maxima/maximaexpression.cpp:433
 #, kde-format
 msgid "Waiting for the plot result"
-msgstr ""
+msgstr "בהמתנה לתוצאת השרטוט"
 
 #: backends/maxima/maximaextensions.cpp:31
 #, kde-format
 msgid "Maxima batch file (*.mac)"
-msgstr ""
+msgstr "קובץ אצווה של Maxima‏ (‎*.mac)"
 
 #: backends/maxima/maximasession.cpp:61
 #, kde-format
 msgid "Failed to start Maxima, please check Maxima's installation."
-msgstr ""
+msgstr "הפעלת Maxima נכשלה, נא לבדוק שההתקנה של Maxima תקינה."
 
 #: backends/maxima/maximasession.cpp:80
 #, kde-format
@@ -842,17 +842,17 @@ msgstr ""
 #: backends/maxima/maximasession.cpp:202
 #, kde-format
 msgid "Failed to start Maxima"
-msgstr ""
+msgstr "הפעלת Maxima נכשלה"
 
 #: backends/maxima/maximasession.cpp:269
 #, kde-format
 msgid "Maxima crashed. restarting..."
-msgstr ""
+msgstr "Maxima קרסה. מופעלת מחדש…"
 
 #: backends/maxima/maximasession.cpp:283
 #, kde-format
 msgid "Maxima crashed twice within a short time. Stopping to try starting"
-msgstr ""
+msgstr "Maxima קרסה פעמיים תוך זמן קצר. לא יתבצע ניסיון נוסף להפעילאותה"
 
 #. i18n: ectx: property (text), widget (QLabel, label)
 #. i18n: ectx: property (text), widget (QLabel, label_19)
@@ -869,7 +869,7 @@ msgctxt ""
 "the url to the documentation of Octave, please check if there is a "
 "translated version and use the correct url"
 msgid "https://octave.org/doc/interpreter/"
-msgstr ""
+msgstr "https://octave.org/doc/interpreter/"
 
 #: backends/octave/octavebackend.cpp:68
 #, kde-format
@@ -898,7 +898,7 @@ msgstr "הפעלת Octave נכשלה, נא לבדוק אם ההתקנה של Oct
 #: backends/octave/octavesession.cpp:277 backends/sage/sageexpression.cpp:49
 #, kde-format
 msgid "Syntax Error"
-msgstr ""
+msgstr "שגיאת תחביר"
 
 #: backends/octave/octavesession.cpp:396
 #, kde-format
@@ -936,7 +936,7 @@ msgstr ""
 #: backends/python/pythonbackend.kcfg:44
 #, kde-format
 msgid "Graphical package to be used for the Plot Assistant"
-msgstr ""
+msgstr "חבילה גרפית לשימוש בסיוע שרטוט"
 
 #: backends/python/pythonextensions.cpp:283
 #, kde-format
@@ -946,27 +946,27 @@ msgstr ""
 #: backends/python/pythonextensions.cpp:299
 #, kde-format
 msgid "Python script file (*.py)"
-msgstr ""
+msgstr "קובץ סקריפט Python‏ (‎*.py)"
 
 #: backends/python/pythonsession.cpp:74
 #, kde-format
 msgid "Failed to start Python, please check Python installation."
-msgstr ""
+msgstr "הפעלת Python נכשלה, נא לבדוק שההתקנה של Python תקינה."
 
 #: backends/python/pythonsession.cpp:280
 #, kde-format
 msgid "Cantor Python server stopped working."
-msgstr ""
+msgstr "שרת ה־Python של Cantor הפסיק לתפקד."
 
 #: backends/python/pythonsession.cpp:284
 #, kde-format
 msgid "Failed to start Cantor python server."
-msgstr ""
+msgstr "הפעלת שרת ה־Python של Cantor נכשלה."
 
 #: backends/python/pythonsession.cpp:288
 #, kde-format
 msgid "Communication with Cantor python server failed for unknown reasons."
-msgstr ""
+msgstr "התקשורת עם שרת ה־Python של Cantor נכשלה מסיבות לא ידועות."
 
 #: backends/python/pythonsession.cpp:314
 #, kde-format
@@ -987,7 +987,7 @@ msgstr ""
 #: backends/python/settings.ui:222
 #, kde-format
 msgid "Plot Assistant"
-msgstr ""
+msgstr "מסייע שרטוט"
 
 #. i18n: ectx: property (text), item, widget (KComboBox, kcfg_plotExtenstionGraphicPackage)
 #: backends/python/settings.ui:239
@@ -1515,31 +1515,31 @@ msgstr ""
 #: backends/qalculate/qalculatebackend.kcfg:96
 #, kde-format
 msgid "Width of lines, in pixels."
-msgstr ""
+msgstr "עובי הקווים, בפיקסלים."
 
 #. i18n: ectx: label, entry (plotSteps), group (QalculateBackend)
 #: backends/qalculate/qalculatebackend.kcfg:100
 #, kde-format
 msgid "Number of interpolation steps to be used in plotting."
-msgstr ""
+msgstr "מספר שלבי האינטרפולציה (ביון) לשימוש לשרטוט."
 
 #. i18n: ectx: label, entry (plotSmoothing), group (QalculateBackend)
 #: backends/qalculate/qalculatebackend.kcfg:111
 #, kde-format
 msgid "Smoothing mode in plots."
-msgstr ""
+msgstr "מצב ריכוך בשרטוטים."
 
 #. i18n: ectx: label, entry (plotStyle), group (QalculateBackend)
 #: backends/qalculate/qalculatebackend.kcfg:125
 #, kde-format
 msgid "Style of plots."
-msgstr ""
+msgstr "סגנון השרטוטים."
 
 #. i18n: ectx: label, entry (plotLegend), group (QalculateBackend)
 #: backends/qalculate/qalculatebackend.kcfg:138
 #, kde-format
 msgid "Legend position in plots."
-msgstr ""
+msgstr "מקום המקרא בשרטוטים."
 
 #: backends/qalculate/qalculateexpression.cpp:141
 #, kde-format
@@ -1581,29 +1581,29 @@ msgstr ""
 #: backends/qalculate/qalculatehighlighter.cpp:21
 #, kde-format
 msgid "ERROR"
-msgstr ""
+msgstr "שגיאה"
 
 #: backends/qalculate/qalculateexpression.cpp:683
 #: backends/qalculate/qalculateexpression.cpp:791
 #: backends/qalculate/qalculatehighlighter.cpp:21
 #, kde-format
 msgid "WARNING"
-msgstr ""
+msgstr "אזהרה"
 
 #: backends/qalculate/qalculatesyntaxhelpobject.cpp:47
 #, kde-format
 msgid "No function, variable or unit with specified name exist."
-msgstr ""
+msgstr "אין פונקציה, משתנה או יחידה בשם שצוין."
 
 #: backends/qalculate/qalculatesyntaxhelpobject.cpp:54
 #, kde-format
 msgid "Function: %1"
-msgstr ""
+msgstr "פונקציה: %1"
 
 #: backends/qalculate/qalculatesyntaxhelpobject.cpp:139
 #, kde-format
 msgid "Plotting interface"
-msgstr ""
+msgstr "ממשק שרטוט"
 
 #: backends/qalculate/qalculatesyntaxhelpobject.cpp:140
 #, kde-format
@@ -2277,7 +2277,7 @@ msgstr ""
 #: backends/sage/sageexpression.cpp:230 backends/sage/sageexpression.cpp:235
 #, kde-format
 msgid "Result of %1"
-msgstr ""
+msgstr "תוצאה של %1"
 
 #: backends/sage/sageexpression.cpp:243
 #, kde-format
@@ -2286,16 +2286,19 @@ msgid ""
 "The last output was: \n"
 " %2"
 msgstr ""
+"%1\n"
+"הפלט האחרון היה: \n"
+" %2"
 
 #: backends/sage/sageextensions.cpp:32
 #, kde-format
 msgid "Python script file (*.py);;Sage script file (*.sage)"
-msgstr ""
+msgstr "קובץ סקריפט Python ‏(‎*.py);;קובץ סקריפט Sage‏ (‎*.sage)"
 
 #: backends/sage/sagesession.cpp:126
 #, kde-format
 msgid "Failed to start Sage, please check Sage installation."
-msgstr ""
+msgstr "הפעלת Sage נכשלה, נא לבדוק שהתקנת Sage תקינה."
 
 #: backends/sage/sagesession.cpp:270
 #, kde-format
@@ -2324,22 +2327,22 @@ msgstr ""
 #: backends/sage/sagesession.cpp:357
 #, kde-format
 msgid "The Sage process crashed"
-msgstr ""
+msgstr "תהליך Sage קרס"
 
 #: backends/sage/sagesession.cpp:364
 #, kde-format
 msgid "The Sage process exited while evaluating this expression"
-msgstr ""
+msgstr "תהליך Sage הסתיים תוך כדי פענוח הביטוי"
 
 #: backends/sage/sagesession.cpp:368
 #, kde-format
 msgid "The Sage process exited"
-msgstr ""
+msgstr "תהליך Sage הסתיים"
 
 #: backends/sage/sagesession.cpp:378
 #, kde-format
 msgid "Failed to start Sage"
-msgstr ""
+msgstr "הפעלת Sage נכשלה"
 
 #. i18n: ectx: property (text), widget (QLabel, label_2)
 #: backends/sage/settings.ui:59
@@ -2385,7 +2388,7 @@ msgstr ""
 #: backends/scilab/scilabsession.cpp:67
 #, kde-format
 msgid "Failed to start Scilab, please check Scilab installation."
-msgstr ""
+msgstr "הפעלת Scilab נכשלה, נא לבדוק שההתקנה של Scilab תקינה."
 
 #. i18n: ectx: property (text), widget (QLabel, lPlotIntegration)
 #: backends/scilab/settings.ui:37
@@ -2452,12 +2455,12 @@ msgstr[3] ""
 #: cantor.cpp:318
 #, kde-format
 msgid "Error"
-msgstr ""
+msgstr "שגיאה"
 
 #: cantor.cpp:340
 #, kde-format
 msgid "Backend %1 is not installed"
-msgstr ""
+msgstr "המנגנון %1 לא מותקן."
 
 #: cantor.cpp:347
 #, kde-format
@@ -2509,7 +2512,7 @@ msgstr ""
 #: cantor.cpp:604
 #, kde-format
 msgid "Save Project"
-msgstr ""
+msgstr "שמירת מיזם"
 
 #: cantor.cpp:655
 #, kde-format
@@ -3093,22 +3096,22 @@ msgstr ""
 #: commandentry.cpp:203
 #, kde-format
 msgid "Select"
-msgstr ""
+msgstr "בחירה"
 
 #: commandentry.cpp:207
 #, kde-format
 msgid "Reset to Default"
-msgstr ""
+msgstr "איפוס לברירת המחדל"
 
 #: commandentry.cpp:336
 #, kde-format
 msgid "Show Results"
-msgstr ""
+msgstr "הצגת תוצאות"
 
 #: commandentry.cpp:338
 #, kde-format
 msgid "Hide Results"
-msgstr ""
+msgstr "הסתרת תוצאות"
 
 #: commandentry.cpp:343 worksheet.cpp:1934
 #, kde-format
@@ -3118,7 +3121,7 @@ msgstr "הצגת עזרה"
 #: commandentry.cpp:356
 #, kde-format
 msgid "Appearance"
-msgstr ""
+msgstr "מראה"
 
 #: commandentry.cpp:597 commandentry.cpp:992
 #, kde-format
@@ -3141,20 +3144,20 @@ msgstr "סרגל חיפוש"
 #: extendedsearchbar.ui:166 standardsearchbar.ui:22 standardsearchbar.ui:85
 #, kde-format
 msgid "..."
-msgstr ""
+msgstr "…"
 
 #. i18n: ectx: property (text), widget (QLabel, label)
 #: extendedsearchbar.ui:47
 #: panelplugins/documentationpanel/documentationpanelwidget.cpp:125
 #, kde-format
 msgid "Find:"
-msgstr ""
+msgstr "איתור:"
 
 #. i18n: ectx: property (text), widget (QPushButton, next)
 #: extendedsearchbar.ui:61 standardsearchbar.ui:48
 #, kde-format
 msgid "&Next"
-msgstr ""
+msgstr "ה&בא"
 
 #. i18n: ectx: property (text), widget (QPushButton, previous)
 #: extendedsearchbar.ui:68 standardsearchbar.ui:55
@@ -3166,102 +3169,102 @@ msgstr "ה&קודם"
 #: extendedsearchbar.ui:102
 #, kde-format
 msgid "Replace:"
-msgstr ""
+msgstr "החלפה:"
 
 #. i18n: ectx: property (text), widget (QPushButton, replace)
 #: extendedsearchbar.ui:116
 #, kde-format
 msgid "&Replace"
-msgstr ""
+msgstr "ה&חלפה"
 
 #. i18n: ectx: property (text), widget (QPushButton, replaceAll)
 #: extendedsearchbar.ui:123
 #, kde-format
 msgid "Replace &All"
-msgstr ""
+msgstr "החלפה של ה&כול"
 
 #. i18n: ectx: property (text), widget (QLabel, label_3)
 #: extendedsearchbar.ui:139
 #, kde-format
 msgid "Search in:"
-msgstr ""
+msgstr "חיפוש ב־:"
 
 #. i18n: ectx: property (text), widget (QToolButton, matchCase)
 #. i18n: ectx: property (text), widget (QCheckBox, matchCase)
 #: extendedsearchbar.ui:173 standardsearchbar.ui:62
 #, kde-format
 msgid "&Match case"
-msgstr ""
+msgstr "התאמת &רישיות"
 
 #. i18n: ectx: attribute (title), widget (QWidget, ChapterTab)
 #: formating.ui:42
 #, kde-format
 msgid "Chapter Font"
-msgstr ""
+msgstr "גופן פרק"
 
 #. i18n: ectx: property (text), widget (QLabel, label_2)
 #: formating.ui:48 formating.ui:105 formating.ui:162 formating.ui:219
 #: formating.ui:276 formating.ui:333
 #, kde-format
 msgid "Font Family:"
-msgstr ""
+msgstr "משפחת גופנים:"
 
 #. i18n: ectx: property (text), widget (QLabel, label_3)
 #: formating.ui:61 formating.ui:118 formating.ui:175 formating.ui:232
 #: formating.ui:289 formating.ui:346
 #, kde-format
 msgid "Font Size:"
-msgstr ""
+msgstr "גודל כתב:"
 
 #. i18n: ectx: attribute (title), widget (QWidget, SubchapterTab)
 #: formating.ui:99
 #, kde-format
 msgid "Subchapter Font"
-msgstr ""
+msgstr "גופן תת־פרק"
 
 #. i18n: ectx: attribute (title), widget (QWidget, SectionTab)
 #: formating.ui:156
 #, kde-format
 msgid "Section Font"
-msgstr ""
+msgstr "גופן סעיף"
 
 #. i18n: ectx: attribute (title), widget (QWidget, SubsectionTab)
 #: formating.ui:213
 #, kde-format
 msgid "Subsection Font"
-msgstr ""
+msgstr "גופן תת־סעיף"
 
 #. i18n: ectx: attribute (title), widget (QWidget, ParagraphTab)
 #: formating.ui:270
 #, kde-format
 msgid "Paragraph Font"
-msgstr ""
+msgstr "גופן פסקה"
 
 #. i18n: ectx: attribute (title), widget (QWidget, SubparagraphTab)
 #: formating.ui:327
 #, kde-format
 msgid "Subparagraph Font"
-msgstr ""
+msgstr "גופן תת־פסקה"
 
 #: hierarchyentry.cpp:22
 #, kde-format
 msgid "Chapter"
-msgstr ""
+msgstr "פרק"
 
 #: hierarchyentry.cpp:22
 #, kde-format
 msgid "Subchapter"
-msgstr ""
+msgstr "תת־פרק"
 
 #: hierarchyentry.cpp:22
 #, kde-format
 msgid "Section"
-msgstr ""
+msgstr "סעיף"
 
 #: hierarchyentry.cpp:22
 #, kde-format
 msgid "Subsection"
-msgstr ""
+msgstr "תת־סעיף"
 
 #: hierarchyentry.cpp:22
 #, kde-format
@@ -3271,183 +3274,183 @@ msgstr "פסקה"
 #: hierarchyentry.cpp:22
 #, kde-format
 msgid "Subparagraph"
-msgstr ""
+msgstr "תת־פסקה"
 
 #: hierarchyentry.cpp:48
 #, kde-format
 msgid "Set Hierarchy Level"
-msgstr ""
+msgstr "הגדרת רמה היררכית"
 
 #: horizontalruleentry.cpp:20
 #, kde-format
 msgid "Solid Line Style"
-msgstr ""
+msgstr "סגנון קו אחיד"
 
 #: horizontalruleentry.cpp:20
 #, kde-format
 msgid "Dash Line Style"
-msgstr ""
+msgstr "סגנון קו מקווקוו"
 
 #: horizontalruleentry.cpp:20
 #, kde-format
 msgid "Dot Line Style"
-msgstr ""
+msgstr "סגנון קו נקודות"
 
 #: horizontalruleentry.cpp:20
 #, kde-format
 msgid "Dash Dot Line Style"
-msgstr ""
+msgstr "סגנון קו מינוס נקודה"
 
 #: horizontalruleentry.cpp:20
 #, kde-format
 msgid "Dash Dot Dot Line Style"
-msgstr ""
+msgstr "סגנון קו מינוס נקודה נקודה"
 
 #: horizontalruleentry.cpp:297
 #, kde-format
 msgid "Line Thickness"
-msgstr ""
+msgstr "עובי קו"
 
 #: horizontalruleentry.cpp:299
 #, kde-format
 msgid "Thin"
-msgstr ""
+msgstr "דק"
 
 #: horizontalruleentry.cpp:303
 #, kde-format
 msgid "Medium"
-msgstr ""
+msgstr "בינוני"
 
 #: horizontalruleentry.cpp:307
 #, kde-format
 msgid "Thick"
-msgstr ""
+msgstr "עבה"
 
 #: horizontalruleentry.cpp:320
 #, kde-format
 msgid "Line Color"
-msgstr ""
+msgstr "צבע קו"
 
 #: horizontalruleentry.cpp:351
 #, kde-format
 msgid "Line Style"
-msgstr ""
+msgstr "סגנון קו"
 
 #: imageentry.cpp:47 imageentry.cpp:370
 #, kde-format
 msgid "Configure Image"
-msgstr ""
+msgstr "הגדרת תמונה"
 
 #: imageentry.cpp:256
 #, kde-format
 msgid "Double click here to configure image settings"
-msgstr ""
+msgstr "לחיצה כפולה כאן להגדרת התמונה"
 
 #: imageentry.cpp:287
 #, kde-format
 msgid "Cannot load image %1"
-msgstr ""
+msgstr "לא ניתן לטעון את התמונה %1"
 
 #: imageresultitem.cpp:90
 #, kde-format
 msgid "%1 files (*.%2)"
-msgstr ""
+msgstr "קובצי %1 ‏(‎*.%2)"
 
 #: imageresultitem.cpp:93
 #, kde-format
 msgid "EPS files (*.eps)"
-msgstr ""
+msgstr "קובצי EPS ‏(‎*.eps)"
 
 #: imageresultitem.cpp:96
 #, kde-format
 msgid "Save image result"
-msgstr ""
+msgstr "שמירת תוצאת תמונה"
 
 #. i18n: ectx: property (windowTitle), widget (QWidget, ImageSettingsBase)
 #: imagesettings.ui:14
 #, kde-format
 msgid "Image Settings"
-msgstr ""
+msgstr "הגדרות תמונה"
 
 #. i18n: ectx: property (text), widget (QPushButton, openDialogButton)
 #: imagesettings.ui:29
 #, kde-format
 msgid "Open"
-msgstr ""
+msgstr "פתיחה"
 
 #. i18n: ectx: property (title), widget (QGroupBox, groupBox)
 #: imagesettings.ui:38
 #, kde-format
 msgid "Display Size"
-msgstr ""
+msgstr "גודל תצוגה"
 
 #. i18n: ectx: property (text), widget (QLabel, label)
 #. i18n: ectx: property (text), widget (QLabel, label_5)
 #: imagesettings.ui:47 imagesettings.ui:101
 #, kde-format
 msgid "Width"
-msgstr ""
+msgstr "רוחב"
 
 #. i18n: ectx: property (text), widget (QLabel, label_2)
 #. i18n: ectx: property (text), widget (QLabel, label_6)
 #: imagesettings.ui:60 imagesettings.ui:114
 #, kde-format
 msgid "Height"
-msgstr ""
+msgstr "גובה"
 
 #. i18n: ectx: property (title), widget (QGroupBox, gbPreview)
 #: imagesettings.ui:76
 #, kde-format
 msgid "Preview"
-msgstr ""
+msgstr "תצוגה מקדימה"
 
 #. i18n: ectx: property (title), widget (QGroupBox, groupBox_2)
 #: imagesettings.ui:88
 #, kde-format
 msgid "Print Size"
-msgstr ""
+msgstr "גודל הדפסה"
 
 #. i18n: ectx: property (text), widget (QCheckBox, useDisplaySize)
 #: imagesettings.ui:94
 #, kde-format
 msgid "Use Display Size"
-msgstr ""
+msgstr "להשתמש בגודל התצוגה"
 
 #: imagesettingsdialog.cpp:23
 #, kde-format
 msgctxt "@title:window"
 msgid "Image Settings"
-msgstr ""
+msgstr "הגדרות תמונה"
 
 #: imagesettingsdialog.cpp:40
 #, kde-format
 msgid "(auto)"
-msgstr ""
+msgstr "(אוטו׳)"
 
 #: imagesettingsdialog.cpp:40
 #, kde-format
 msgid "px"
-msgstr ""
+msgstr "פיקסלים"
 
 #: imagesettingsdialog.cpp:40
 #, kde-format
 msgid "%"
-msgstr ""
+msgstr "%"
 
 #: imagesettingsdialog.cpp:151 markdownentry.cpp:773
 #, kde-format
 msgid "Open image file"
-msgstr ""
+msgstr "פתיחת קובץ תמונה"
 
 #: imagesettingsdialog.cpp:153 markdownentry.cpp:775
 #, kde-format
 msgid "Images (%1)"
-msgstr ""
+msgstr "תמונות (%1)"
 
 #: latexentry.cpp:61 textentry.cpp:111
 #, kde-format
 msgid "Show LaTeX code"
-msgstr ""
+msgstr "הצגת קוד LaTeX"
 
 #: lib/backend.cpp:163
 #, kde-format
@@ -3491,13 +3494,13 @@ msgstr ""
 #: lib/cantor_libs.kcfg:10
 #, kde-format
 msgid "Path to the latex executable"
-msgstr ""
+msgstr "נתיב לקובץ ההפעלה latex"
 
 #. i18n: ectx: label, entry (dvipsCommand), group (Cantor)
 #: lib/cantor_libs.kcfg:14
 #, kde-format
 msgid "Path to the dvips executable"
-msgstr ""
+msgstr "נתיב לקובץ ההפעלה dvips"
 
 #: lib/defaultvariablemodel.cpp:71
 #, kde-format
@@ -3543,12 +3546,12 @@ msgstr "כותרת ראשית"
 #: lib/directives/plotdirectives.cpp:30
 #, kde-format
 msgid "Abscissa scale"
-msgstr ""
+msgstr "שיעור אבסציסה"
 
 #: lib/directives/plotdirectives.cpp:41
 #, kde-format
 msgid "Ordinate scale"
-msgstr ""
+msgstr "שיעור אורדינטה"
 
 #. i18n: ectx: property (text), widget (QLabel, label)
 #: lib/directives/plottitle.ui:19
