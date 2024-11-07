@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: cantor\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-10-04 01:47+0000\n"
-"PO-Revision-Date: 2024-10-30 12:49+0200\n"
+"PO-Revision-Date: 2024-11-05 22:18+0200\n"
 "Last-Translator: Yaron Shahrabani <sh.yaron@gmail.com>\n"
 "Language-Team: צוות התרגום של KDE ישראל\n"
 "Language: he\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=4; plural=(n == 1) ? 0 : ((n == 2) ? 1 : ((n > 10 && "
 "n % 10 == 0) ? 2 : 3));\n"
-"X-Generator: Lokalize 24.05.2\n"
+"X-Generator: Lokalize 24.08.1\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -1780,57 +1780,57 @@ msgstr ""
 #: backends/qalculate/qalculatesyntaxhelpobject.cpp:242
 #, kde-format
 msgid "Save variables to a file"
-msgstr ""
+msgstr "שמירת משתנים לקובץ"
 
 #: backends/qalculate/qalculatesyntaxhelpobject.cpp:243
 #, kde-format
 msgid ""
 "Save all currently defined variables to a file. They can be reloaded with %1."
-msgstr ""
+msgstr "שמירת כל המשתנים שמוגדרים כרגע לקובץ. אפשר לטעון אותם מחדש עם %1."
 
 #: backends/qalculate/qalculatesyntaxhelpobject.cpp:244
 #: backends/qalculate/qalculatesyntaxhelpobject.cpp:253
 #, kde-format
 msgid "file"
-msgstr ""
+msgstr "קובץ"
 
 #: backends/qalculate/qalculatesyntaxhelpobject.cpp:245
 #, kde-format
 msgid "file: the file to save to"
-msgstr ""
+msgstr "file: הקובץ לשמור אליו"
 
 #: backends/qalculate/qalculatesyntaxhelpobject.cpp:251
 #, kde-format
 msgid "Load variables from a file"
-msgstr ""
+msgstr "טעינת משתנים מקובץ"
 
 #: backends/qalculate/qalculatesyntaxhelpobject.cpp:252
 #, kde-format
 msgid "Load variables from a file that has previously been created by %1."
-msgstr ""
+msgstr "טעינת משתנים מקובץ שנוצר בעבר על ידי %1."
 
 #: backends/qalculate/qalculatesyntaxhelpobject.cpp:254
 #, kde-format
 msgid "file: the file to load"
-msgstr ""
+msgstr "file: הקובץ לטעינה"
 
 #. i18n: ectx: property (text), widget (QLabel, label_6)
 #: backends/qalculate/settings.ui:52
 #, kde-format
 msgid "Indicate infinite series:"
-msgstr ""
+msgstr "ציון סדרה אינסופית:"
 
 #. i18n: ectx: property (text), widget (QLabel, label_8)
 #: backends/qalculate/settings.ui:62
 #, kde-format
 msgid "Use negative exponents:"
-msgstr ""
+msgstr "להשתמש במעריכים שליליים:"
 
 #. i18n: ectx: property (text), widget (QLabel, label_9)
 #: backends/qalculate/settings.ui:75
 #, kde-format
 msgid "Numerical display:"
-msgstr ""
+msgstr "תצוגה מספרית:"
 
 #. i18n: ectx: property (text), widget (QLabel, label_7)
 #: backends/qalculate/settings.ui:85
@@ -1842,7 +1842,7 @@ msgstr ""
 #: backends/qalculate/settings.ui:95
 #, kde-format
 msgid "Number base:"
-msgstr ""
+msgstr "בסיס מספרים:"
 
 #. i18n: ectx: property (text), widget (QLabel, label_5)
 #: backends/qalculate/settings.ui:112
@@ -1956,7 +1956,7 @@ msgstr "שרטוט"
 #: backends/qalculate/settings.ui:317
 #, kde-format
 msgid "Display plots inline:"
-msgstr ""
+msgstr "הצגת שרטוטים פנימית:"
 
 #. i18n: ectx: property (text), widget (QLabel, label_12)
 #: backends/qalculate/settings.ui:354
@@ -1980,7 +1980,7 @@ msgstr "קצב דגימה:"
 #: backends/qalculate/settings.ui:405
 #, kde-format
 msgid "Smoothing Mode:"
-msgstr ""
+msgstr "מצב החלקה:"
 
 #. i18n: ectx: property (text), item, widget (KComboBox, kcfg_plotSmoothing)
 #: backends/qalculate/settings.ui:426
@@ -2502,12 +2502,12 @@ msgstr ""
 #: cantor.cpp:584
 #, kde-format
 msgid "Close Cantor"
-msgstr ""
+msgstr "סגירת Cantor"
 
 #: cantor.cpp:603
 #, kde-format
 msgid "The current project has been modified. Do you want to save it?"
-msgstr ""
+msgstr "המיזם הנוכחי השתנה. לשמור אותו?"
 
 #: cantor.cpp:604
 #, kde-format
@@ -2517,13 +2517,13 @@ msgstr "שמירת מיזם"
 #: cantor.cpp:655
 #, kde-format
 msgid "Formatting"
-msgstr ""
+msgstr "עיצוב"
 
 #. i18n: ectx: label, entry (DefaultBackend), group (Cantor)
 #: cantor.kcfg:12
 #, kde-format
 msgid "The Backend that is used by default"
-msgstr ""
+msgstr "המנגנון שמשמש כברירת המחדל"
 
 #. i18n: ectx: label, entry (TypesetDefault), group (Cantor)
 #: cantor.kcfg:16
@@ -2535,25 +2535,25 @@ msgstr ""
 #: cantor.kcfg:20
 #, kde-format
 msgid "Do Syntax Highlighting by default"
-msgstr ""
+msgstr "ביצוע הדגשת תחביר כברירת מחדל"
 
 #. i18n: ectx: label, entry (CompletionDefault), group (Cantor)
 #: cantor.kcfg:24
 #, kde-format
 msgid "Enable Completions by default"
-msgstr ""
+msgstr "הפעלת השלמות כברירת מחדל"
 
 #. i18n: ectx: label, entry (ExpressionNumberingDefault), group (Cantor)
 #: cantor.kcfg:28
 #, kde-format
 msgid "Enable Numbering of Expressions by default"
-msgstr ""
+msgstr "הפעלת מספור ביטויים כברירת מחדל"
 
 #. i18n: ectx: label, entry (AnimationDefault), group (Cantor)
 #: cantor.kcfg:32
 #, kde-format
 msgid "Animate changes in the Worksheet by default"
-msgstr ""
+msgstr "הנפשת שינויים בגיליון העבודה כברירת מחדל"
 
 #. i18n: ectx: label, entry (EmbeddedMathDefault), group (Cantor)
 #: cantor.kcfg:36
@@ -2567,7 +2567,7 @@ msgstr ""
 #: cantor.kcfg:40
 #, kde-format
 msgid "Ask for confirmation when deleting an entry"
-msgstr ""
+msgstr "בקשת אישור בעת מחיקת רשומה"
 
 #. i18n: ectx: label, entry (AutoEval), group (Cantor)
 #: cantor.kcfg:44
@@ -2580,7 +2580,7 @@ msgstr ""
 #: cantor.kcfg:48 settings.ui:269
 #, kde-format
 msgid "Ask for confirmation when restarting the backend"
-msgstr ""
+msgstr "בקשת אישור בהפעלת המנגנון מחדש"
 
 #. i18n: ectx: label, entry (StoreTextEntryFormatting), group (Cantor)
 #: cantor.kcfg:52
@@ -2735,17 +2735,17 @@ msgstr ""
 #: cantor_part.cpp:144
 #, kde-format
 msgid "Save Plain Text"
-msgstr ""
+msgstr "שמירת טקסט פשוט"
 
 #: cantor_part.cpp:185 cantor_part.cpp:544
 #, kde-format
 msgid "Export to PDF"
-msgstr ""
+msgstr "ייצוא ל־PDF"
 
 #: cantor_part.cpp:189 cantor_part.cpp:556
 #, kde-format
 msgid "Export to LaTeX"
-msgstr ""
+msgstr "ייצוא ל־LaTeX (לאטך)"
 
 #: cantor_part.cpp:204 cantor_part.cpp:652 worksheet.cpp:1942
 #, kde-format
@@ -2755,7 +2755,7 @@ msgstr ""
 #: cantor_part.cpp:211 worksheet.cpp:1950
 #, kde-format
 msgid "Zoom"
-msgstr ""
+msgstr "תקריב"
 
 #: cantor_part.cpp:218
 #, kde-format
@@ -2764,7 +2764,7 @@ msgctxt ""
 "so make sure you include it in your translation in order to not to break "
 "anything"
 msgid "%1%"
-msgstr ""
+msgstr "%1%"
 
 #: cantor_part.cpp:233
 #, kde-format
@@ -2774,7 +2774,7 @@ msgstr ""
 #: cantor_part.cpp:238
 #, kde-format
 msgid "Syntax Highlighting"
-msgstr ""
+msgstr "הדגשת תחביר"
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_CompletionDefault)
 #: cantor_part.cpp:243 settings.ui:46
@@ -2785,7 +2785,7 @@ msgstr "השלמה"
 #: cantor_part.cpp:248
 #, kde-format
 msgid "Line Numbers"
-msgstr ""
+msgstr "מספרי שורות"
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_AnimationDefault)
 #: cantor_part.cpp:253 settings.ui:138
@@ -2796,12 +2796,12 @@ msgstr "הנפשות"
 #: cantor_part.cpp:260
 #, kde-format
 msgid "Embedded Math"
-msgstr ""
+msgstr "מתמטיקה משובצת"
 
 #: cantor_part.cpp:266
 #, kde-format
 msgid "Restart Backend"
-msgstr ""
+msgstr "הפעלת מנגנון מחדש"
 
 #: cantor_part.cpp:272 worksheetentry.cpp:857
 #, kde-format
@@ -2811,52 +2811,52 @@ msgstr ""
 #: cantor_part.cpp:278
 #, kde-format
 msgid "Insert Command Entry"
-msgstr ""
+msgstr "הוספת רשומת פקודה"
 
 #: cantor_part.cpp:284
 #, kde-format
 msgid "Insert Text Entry"
-msgstr ""
+msgstr "הוספת רשומת טקסט"
 
 #: cantor_part.cpp:290
 #, kde-format
 msgid "Insert Markdown Entry"
-msgstr ""
+msgstr "הוספת רשומת Markdown"
 
 #: cantor_part.cpp:297
 #, kde-format
 msgid "Insert LaTeX Entry"
-msgstr ""
+msgstr "הוספת רשומת LaTeX"
 
 #: cantor_part.cpp:303
 #, kde-format
 msgid "Insert Page Break"
-msgstr ""
+msgstr "הוספת מעבר עמוד"
 
 #: cantor_part.cpp:308 markdownentry.cpp:63
 #, kde-format
 msgid "Insert Image"
-msgstr ""
+msgstr "הוספת תמונה"
 
 #: cantor_part.cpp:313
 #, kde-format
 msgid "Collapse All Results"
-msgstr ""
+msgstr "צמצום כל התוצאות"
 
 #: cantor_part.cpp:318
 #, kde-format
 msgid "Expand All Results"
-msgstr ""
+msgstr "הרחבת כל התוצאות"
 
 #: cantor_part.cpp:323
 #, kde-format
 msgid "Delete All Results"
-msgstr ""
+msgstr "מחיקת כל התוצאות"
 
 #: cantor_part.cpp:328
 #, kde-format
 msgid "Delete current Entry"
-msgstr ""
+msgstr "מחיקת הרשומה הנוכחית"
 
 #. i18n("Publish Worksheet"), collection);
 #. publishWorksheet->setIcon(QIcon::fromTheme(QLatin1String("get-hot-new-stuff")));
@@ -2866,12 +2866,12 @@ msgstr ""
 #: cantor_part.cpp:344
 #, kde-format
 msgid "Show Script Editor"
-msgstr ""
+msgstr "הצגת עורך סקריפטים"
 
 #: cantor_part.cpp:349
 #, kde-format
 msgid "Show Completion"
-msgstr ""
+msgstr "הצגת השלמה"
 
 #: cantor_part.cpp:416
 #, kde-format
@@ -2881,47 +2881,47 @@ msgstr ""
 #: cantor_part.cpp:418
 #, kde-format
 msgid "(C) 2009-2015 Alexander Rieder"
-msgstr ""
+msgstr "(C) 2009‏-2015 אלכסנדר ריידר"
 
 #: cantor_part.cpp:422 main.cpp:80
 #, kde-format
 msgid "Alexander Rieder"
-msgstr ""
+msgstr "אלכסנדר ריידר"
 
 #: cantor_part.cpp:474
 #, kde-format
 msgid "Cantor Worksheet (*.cws)"
-msgstr ""
+msgstr "גיליון עבודה של Cantor‏ (‎*.cws)"
 
 #: cantor_part.cpp:475
 #, kde-format
 msgid "Jupyter Notebook (*.ipynb)"
-msgstr ""
+msgstr "מחברת Jupyter‏ (‎*.ipynb)"
 
 #: cantor_part.cpp:491
 #, kde-format
 msgid "Save as"
-msgstr ""
+msgstr "שמירה בשם"
 
 #: cantor_part.cpp:537 panelplugins/variablemgr/variablemanagerwidget.cpp:176
 #, kde-format
 msgid "Save"
-msgstr ""
+msgstr "שמירה"
 
 #: cantor_part.cpp:537 textresultitem.cpp:212
 #, kde-format
 msgid "Text Files (*.txt)"
-msgstr ""
+msgstr "קובצי טקסט (‎*.txt)"
 
 #: cantor_part.cpp:544
 #, kde-format
 msgid "PDF Files (*.pdf)"
-msgstr ""
+msgstr "קובצי PDF‏ (‎*.pdf)"
 
 #: cantor_part.cpp:556
 #, kde-format
 msgid "TeX Files (*.tex)"
-msgstr ""
+msgstr "קובצי TeX‏ (‎*.tex)"
 
 #: cantor_part.cpp:601
 #, kde-format
@@ -2933,7 +2933,7 @@ msgstr ""
 #: cantor_part.cpp:602
 #, kde-format
 msgid "Restart %1?"
-msgstr ""
+msgstr "להפעיל את %1 מחדש?"
 
 #: cantor_part.cpp:642 worksheet.cpp:1945
 #, kde-format
@@ -2943,7 +2943,7 @@ msgstr ""
 #: cantor_part.cpp:668
 #, kde-format
 msgid "Session Error: %1"
-msgstr ""
+msgstr "שגיאת הפעלה: %1"
 
 #: cantor_part.cpp:709
 #, kde-format
@@ -2958,7 +2958,7 @@ msgstr ""
 #: cantor_part.cpp:772
 #, kde-format
 msgid "[read-only]"
-msgstr ""
+msgstr "[לקריאה בלבד]"
 
 #: cantor_part.cpp:890
 #, kde-format
@@ -2968,13 +2968,13 @@ msgstr ""
 #: cantor_part.cpp:891
 #, kde-format
 msgid "Question - Cantor"
-msgstr ""
+msgstr "שאלה - Cantor"
 
 #: cantor_part.cpp:892
 #, kde-format
 msgctxt "@action:button"
 msgid "Upload"
-msgstr ""
+msgstr "העלאה"
 
 #: cantor_part.cpp:900
 #, kde-format
@@ -2984,54 +2984,54 @@ msgstr ""
 #: cantor_part.cpp:901
 #, kde-format
 msgid "Warning - Cantor"
-msgstr ""
+msgstr "אזהרה - Cantor"
 
 #: cantor_part.cpp:973
 #, kde-format
 msgid "This backend does not support scripts."
-msgstr ""
+msgstr "המנגנון הזה לא תומך בסקריפטים."
 
 #. i18n: ectx: Menu (edit)
 #: cantor_part.rc:15 cantor_shell.rc:19
 #, kde-format
 msgid "&Edit"
-msgstr ""
+msgstr "&עריכה"
 
 #. i18n: ectx: Menu (view)
 #: cantor_part.rc:28 cantor_shell.rc:22
 #, kde-format
 msgid "&View"
-msgstr ""
+msgstr "ת&צוגה"
 
 #. i18n: ectx: Menu (worksheet)
 #: cantor_part.rc:34
 #, kde-format
 msgid "&Worksheet"
-msgstr ""
+msgstr "&גיליון עבודה"
 
 #. i18n: ectx: Menu (settings)
 #: cantor_part.rc:51
 #, kde-format
 msgid "Settings"
-msgstr ""
+msgstr "הגדרות"
 
 #. i18n: ectx: Menu (file)
 #: cantor_shell.rc:4
 #, kde-format
 msgid "&File"
-msgstr ""
+msgstr "&קובץ"
 
 #. i18n: ectx: Menu (file_new_menu)
 #: cantor_shell.rc:6
 #, kde-format
 msgid "&New"
-msgstr ""
+msgstr "&חדש"
 
 #. i18n: ectx: Menu (panels)
 #: cantor_shell.rc:24
 #, kde-format
 msgid "Panels"
-msgstr ""
+msgstr "לוחות"
 
 #. i18n: ectx: Menu (settings)
 #: cantor_shell.rc:29
@@ -3042,22 +3042,22 @@ msgstr "ה&גדרות"
 #: commandentry.cpp:120
 #, kde-format
 msgid "Background Color"
-msgstr ""
+msgstr "צבע רקע"
 
 #: commandentry.cpp:129 commandentry.cpp:156 horizontalruleentry.cpp:328
 #, kde-format
 msgid "Default"
-msgstr ""
+msgstr "ברירת מחדל"
 
 #: commandentry.cpp:151
 #, kde-format
 msgid "Text Color"
-msgstr ""
+msgstr "צבע כתב"
 
 #: commandentry.cpp:176
 #, kde-format
 msgid "Font"
-msgstr ""
+msgstr "גופן"
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_ChapterFontBold)
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_SubchapterFontBold)
@@ -3069,7 +3069,7 @@ msgstr ""
 #: formating.ui:255 formating.ui:312 formating.ui:369
 #, kde-format
 msgid "Bold"
-msgstr ""
+msgstr "מודגש"
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_ChapterFontItalic)
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_SubchapterFontItalic)
@@ -3081,17 +3081,17 @@ msgstr ""
 #: formating.ui:262 formating.ui:319 formating.ui:376
 #, kde-format
 msgid "Italic"
-msgstr ""
+msgstr "נטוי"
 
 #: commandentry.cpp:194
 #, kde-format
 msgid "Increase Size"
-msgstr ""
+msgstr "הגדלת הגודל"
 
 #: commandentry.cpp:198
 #, kde-format
 msgid "Decrease Size"
-msgstr ""
+msgstr "הקטנת הגודל"
 
 #: commandentry.cpp:203
 #, kde-format
@@ -3587,7 +3587,7 @@ msgstr ""
 #: main.cpp:71
 #, kde-format
 msgid "KDE Frontend to mathematical applications"
-msgstr ""
+msgstr "ממשק KDE חזותי ליישומים מתמטיים"
 
 #: main.cpp:73
 #, kde-format
@@ -3618,32 +3618,32 @@ msgstr "מפתח"
 #: main.cpp:79
 #, kde-format
 msgid "Alexander Semke"
-msgstr ""
+msgstr "אלכסנדר סמקה"
 
 #: main.cpp:80
 #, kde-format
 msgid "Original author<br/>Maintainer (2009 - 2015)"
-msgstr ""
+msgstr "יוצר מקורי, מתחזק (2009 - 2015)"
 
 #: main.cpp:81
 #, kde-format
 msgid "Aleix Pol Gonzalez"
-msgstr ""
+msgstr "אלש פול גונזלז"
 
 #: main.cpp:81
 #, kde-format
 msgid "KAlgebra backend"
-msgstr ""
+msgstr "מנגנון KAlgebra"
 
 #: main.cpp:82
 #, kde-format
 msgid "Miha Čančula"
-msgstr ""
+msgstr "מִיהַה צ׳נצ׳ולה"
 
 #: main.cpp:82
 #, kde-format
 msgid "Octave backend"
-msgstr ""
+msgstr "מנגנון Octave"
 
 #: main.cpp:83
 #, kde-format
@@ -3658,7 +3658,7 @@ msgstr "ממשק"
 #: main.cpp:85 main.cpp:86
 #, kde-format
 msgid "Cantor icon"
-msgstr ""
+msgstr "סמל Cantor"
 
 #: main.cpp:91
 #, kde-format
@@ -3678,7 +3678,7 @@ msgstr ""
 #: markdownentry.cpp:70
 #, kde-format
 msgid "Enter Edit Mode"
-msgstr ""
+msgstr "כניסה למצב עריכה"
 
 #: markdownentry.cpp:78
 #, kde-format
@@ -3698,80 +3698,80 @@ msgstr ""
 #: pagebreakentry.cpp:28
 #, kde-format
 msgid "--- Page Break ---"
-msgstr ""
+msgstr "--- מעבר עמוד ---"
 
 #: panelplugins/documentationpanel/documentationpanelwidget.cpp:50
 #, kde-format
 msgctxt "@button go to contents page"
 msgid "Go to the contents"
-msgstr ""
+msgstr "מעבר לתוכן"
 
 #: panelplugins/documentationpanel/documentationpanelwidget.cpp:57
 #, kde-format
 msgctxt "@info:placeholder"
 msgid "Search through keywords..."
-msgstr ""
+msgstr "חיפוש במילות המפתח…"
 
 #: panelplugins/documentationpanel/documentationpanelwidget.cpp:68
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Find in text of current documentation page"
-msgstr ""
+msgstr "איתור טקסט בעמוד התיעוד הנוכחי"
 
 #: panelplugins/documentationpanel/documentationpanelwidget.cpp:74
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Reset zoom level to 100%"
-msgstr ""
+msgstr "איפוס רמת תקריב ל־100%"
 
 #: panelplugins/documentationpanel/documentationpanelwidget.cpp:122
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Close"
-msgstr ""
+msgstr "סגירה"
 
 #: panelplugins/documentationpanel/documentationpanelwidget.cpp:132
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Jump to next match"
-msgstr ""
+msgstr "דילוג לתוצאה הבאה"
 
 #: panelplugins/documentationpanel/documentationpanelwidget.cpp:136
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Jump to previous match"
-msgstr ""
+msgstr "דילוג לתוצאה הקודמת"
 
 #: panelplugins/documentationpanel/documentationpanelwidget.cpp:140
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Match case sensitively"
-msgstr ""
+msgstr "התאמת רישיות"
 
 #: panelplugins/documentationpanel/documentationpanelwidget.cpp:407
 #, kde-format
 msgid "The file has been downloaded successfully at Downloads."
-msgstr ""
+msgstr "הקובץ ירד בהצלחה להורדות."
 
 #: panelplugins/documentationpanel/documentationpanelwidget.cpp:407
 #, kde-format
 msgid "Download Successful"
-msgstr ""
+msgstr "ההורדה הצליחה"
 
 #: panelplugins/filebrowserpanel/filebrowserpanelplugin.cpp:137
 #, kde-format
 msgid "Cantor files"
-msgstr ""
+msgstr "קובצי Cantor"
 
 #: panelplugins/filebrowserpanel/filebrowserpanelplugin.cpp:138
 #, kde-format
 msgid "Jupyter files"
-msgstr ""
+msgstr "קובצי Jupyter"
 
 #: panelplugins/filebrowserpanel/filebrowserpanelplugin.cpp:139
 #, kde-format
 msgid "All supported files"
-msgstr ""
+msgstr "כל הקבצים הנתמכים"
 
 #: panelplugins/filebrowserpanel/filebrowserpanelplugin.cpp:140
 #, kde-format
@@ -3782,55 +3782,55 @@ msgstr "כל הקבצים"
 #: panelplugins/variablemgr/newvardlg.ui:17
 #, kde-format
 msgid "Name:"
-msgstr ""
+msgstr "שם:"
 
 #. i18n: ectx: property (text), widget (QLabel, label_2)
 #: panelplugins/variablemgr/newvardlg.ui:27
 #, kde-format
 msgid "Value:"
-msgstr ""
+msgstr "ערך:"
 
 #: panelplugins/variablemgr/variablemanagerwidget.cpp:48
 #: panelplugins/variablemgr/variablemanagerwidget.cpp:205
 #, kde-format
 msgid "Add New Variable"
-msgstr ""
+msgstr "הוספת משתנה חדש"
 
 #: panelplugins/variablemgr/variablemanagerwidget.cpp:54
 #, kde-format
 msgid "Load Variables"
-msgstr ""
+msgstr "טעינת משתנים"
 
 #: panelplugins/variablemgr/variablemanagerwidget.cpp:60
 #, kde-format
 msgid "Save Variables"
-msgstr ""
+msgstr "שמירת משתנים"
 
 #: panelplugins/variablemgr/variablemanagerwidget.cpp:66
 #: panelplugins/variablemgr/variablemanagerwidget.cpp:144
 #, kde-format
 msgid "Remove Variables"
-msgstr ""
+msgstr "הסרת משתנים"
 
 #: panelplugins/variablemgr/variablemanagerwidget.cpp:76
 #, kde-format
 msgid "Search/Filter"
-msgstr ""
+msgstr "חיפוש/סינון"
 
 #: panelplugins/variablemgr/variablemanagerwidget.cpp:87
 #, kde-format
 msgid "Case Sensitive"
-msgstr ""
+msgstr "תלוי רישיות"
 
 #: panelplugins/variablemgr/variablemanagerwidget.cpp:91
 #, kde-format
 msgid "Match Complete Word"
-msgstr ""
+msgstr "התאמת מילים שלמות"
 
 #: panelplugins/variablemgr/variablemanagerwidget.cpp:143
 #, kde-format
 msgid "Are you sure you want to remove all variables?"
-msgstr ""
+msgstr "להסיר את כל המשתנים?"
 
 #: panelplugins/variablemgr/variablemanagerwidget.cpp:190
 #, kde-format
@@ -3868,6 +3868,8 @@ msgid ""
 "A KDE text-editor component could not be found;\n"
 "please check your KDE installation."
 msgstr ""
+"אי אפשר למצוא את רכיב עריכת הטקסט של KDE,\n"
+"נא לבדוק שהתקנת KDE שלך תקינה."
 
 #: scripteditor/scripteditorwidget.cpp:142
 #, kde-format
@@ -3898,10 +3900,10 @@ msgstr "הגעת לסוף"
 #, kde-format
 msgid "Replaced %1 instance"
 msgid_plural "Replaced %1 instances"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
-msgstr[3] ""
+msgstr[0] "הוחלף מופע"
+msgstr[1] "הוחלפו שני מופעים"
+msgstr[2] "הוחלפו %1 מופעים"
+msgstr[3] "הוחלפו %1 מופעים"
 
 #: searchbar.cpp:333 searchbar.cpp:362
 #, kde-format
@@ -3911,23 +3913,23 @@ msgstr "פקודות"
 #: searchbar.cpp:333 searchbar.cpp:362
 #, kde-format
 msgid "Results"
-msgstr ""
+msgstr "תוצאות"
 
 #: searchbar.cpp:333 searchbar.cpp:362
 #, kde-format
 msgid "Errors"
-msgstr ""
+msgstr "שגיאות"
 
 #: searchbar.cpp:334 searchbar.cpp:363 worksheet.cpp:1848 worksheet.cpp:1877
 #: worksheet.cpp:1897 worksheet.cpp:1915
 #, kde-format
 msgid "Text"
-msgstr ""
+msgstr "טקסט"
 
 #: searchbar.cpp:334 searchbar.cpp:363
 #, kde-format
 msgid "LaTeX Code"
-msgstr ""
+msgstr "קוד LaTeX"
 
 #. i18n: ectx: property (text), widget (QLabel, label_4)
 #: settings.ui:23
@@ -3939,13 +3941,13 @@ msgstr ""
 #: settings.ui:43
 #, kde-format
 msgid "Enable syntax completion"
-msgstr ""
+msgstr "הפעלת השלמת תחביר"
 
 #. i18n: ectx: property (text), widget (QLabel, label_2)
 #: settings.ui:59
 #, kde-format
 msgid "Startup:"
-msgstr ""
+msgstr "עלייה:"
 
 #. i18n: ectx: property (toolTip), widget (QLabel, label)
 #. i18n: ectx: property (toolTip), widget (KComboBox, kcfg_DefaultBackend)
@@ -3960,7 +3962,7 @@ msgstr ""
 #: settings.ui:69
 #, kde-format
 msgid "Default Backend:"
-msgstr ""
+msgstr "מנגנון ברירת מחדל:"
 
 #. i18n: ectx: property (toolTip), widget (QSpinBox, kcfg_VisibleLinesLimit)
 #: settings.ui:76
@@ -3994,7 +3996,7 @@ msgstr ""
 #: settings.ui:135
 #, kde-format
 msgid "Enable animation effects in the worksheet"
-msgstr ""
+msgstr "הפעלת אפקטים של הנפשה בגיליון הנתונים"
 
 #. i18n: ectx: property (toolTip), widget (QCheckBox, kcfg_EmbeddedMathDefault)
 #: settings.ui:158
@@ -4007,7 +4009,7 @@ msgstr ""
 #: settings.ui:161
 #, kde-format
 msgid "Mathematical expressions via LaTeX"
-msgstr ""
+msgstr "ביטויים מתמטיים דרך LaTeX"
 
 #. i18n: ectx: property (toolTip), widget (QCheckBox, kcfg_AutoEval)
 #: settings.ui:168
@@ -4026,7 +4028,7 @@ msgstr ""
 #: settings.ui:184
 #, kde-format
 msgid "Worksheet:"
-msgstr ""
+msgstr "גיליון עבודה:"
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_StoreTextEntryFormatting)
 #: settings.ui:223
@@ -4053,7 +4055,7 @@ msgstr ""
 #: settings.ui:246
 #, kde-format
 msgid "Don't indent text entries"
-msgstr ""
+msgstr "לא להזיח רשומות טקסט"
 
 #. i18n: ectx: property (toolTip), widget (QCheckBox, kcfg_WarnAboutSessionRestart)
 #: settings.ui:266
@@ -4073,37 +4075,37 @@ msgstr ""
 #: settings.ui:283
 #, kde-format
 msgid "Show line numbers"
-msgstr ""
+msgstr "הצגת מספרי שורות"
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_ExpressionNumberingDefault)
 #: settings.ui:286
 #, kde-format
 msgid "Line numbers"
-msgstr ""
+msgstr "מספרי שורות"
 
 #. i18n: ectx: property (toolTip), widget (QCheckBox, kcfg_HighlightDefault)
 #: settings.ui:293
 #, kde-format
 msgid "Enable syntax highlighting"
-msgstr ""
+msgstr "הפעלת הדגשת תחביר"
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_HighlightDefault)
 #: settings.ui:296
 #, kde-format
 msgid "Syntax highlighting"
-msgstr ""
+msgstr "הדגשת תחביר"
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_WarnAboutEntryDelete)
 #: settings.ui:303
 #, kde-format
 msgid "Ask for confirmation when deleting entries"
-msgstr ""
+msgstr "לבקש אישור למחיקת רשומות"
 
 #. i18n: ectx: property (placeholderText), widget (KLineEdit, pattern)
 #: standardsearchbar.ui:35
 #, kde-format
 msgid "Find…"
-msgstr ""
+msgstr "איתור…"
 
 #: textentry.cpp:55
 #, kde-format
@@ -4118,17 +4120,17 @@ msgstr ""
 #: textentry.cpp:76
 #, kde-format
 msgid "Convert to Text Entry"
-msgstr ""
+msgstr "המרה לרשומת טקסט"
 
 #: textentry.cpp:81
 #, kde-format
 msgid "Convert to Raw Cell"
-msgstr ""
+msgstr "המרה לתא גולמי"
 
 #: textentry.cpp:553
 #, kde-format
 msgid "Target MIME type:"
-msgstr ""
+msgstr "סוג תוכן (MIME) ייעודי:"
 
 #: textresultitem.cpp:60
 #, kde-format
@@ -4138,7 +4140,7 @@ msgstr "העתקת תוצאה"
 #: textresultitem.cpp:69
 #, kde-format
 msgid "Show Rendered"
-msgstr ""
+msgstr "הצגה לאחר תיצוג"
 
 #: textresultitem.cpp:71
 #, kde-format
@@ -4168,7 +4170,7 @@ msgstr "הצגת HTML"
 #: textresultitem.cpp:160
 #, kde-format
 msgid "Cannot render Eps file. You may need additional packages"
-msgstr ""
+msgstr "לא ניתן לתצג קובץ Eps. יכול להיות שצריך חבילות נוספות"
 
 #: textresultitem.cpp:212
 #, kde-format
@@ -4275,42 +4277,42 @@ msgstr ""
 msgid ""
 "This notebook was created using Python2 which is not supported anymore. "
 "Python3 will be used."
-msgstr ""
+msgstr "המחברת הזאת נוצרה בעזרת Python2 שלא נתמך עוד. תתבצע הסבה ל־Python3."
 
 #: worksheet.cpp:1680
 #, kde-format
 msgid "an object with keys: %1"
-msgstr ""
+msgstr "פריט עם מפתחות: %1"
 
 #: worksheet.cpp:1682
 #, kde-format
 msgid "non object JSON value"
-msgstr ""
+msgstr "ערך JSON שאינו פריט"
 
 #: worksheet.cpp:1685
 #, kde-format
 msgid "found incorrect data (%1) that is not Jupyter cell"
-msgstr ""
+msgstr "נמצאו נתונים שגויים (%1) שאינם תא של Jupyter"
 
 #: worksheet.cpp:1762
 #, kde-format
 msgid "The file is not valid Jupyter notebook"
-msgstr ""
+msgstr "הקובץ אינו מחברת Jupyter תקינה"
 
 #: worksheet.cpp:1764
 #, kde-format
 msgid "Invalid Jupyter notebook scheme: %1"
-msgstr ""
+msgstr "סכמת מחברת Jupyter שגויה: %1"
 
 #: worksheet.cpp:1840
 #, kde-format
 msgid "Convert To"
-msgstr ""
+msgstr "המרה אל"
 
 #: worksheet.cpp:1845 worksheet.cpp:1876 worksheet.cpp:1896 worksheet.cpp:1914
 #, kde-format
 msgid "Command"
-msgstr ""
+msgstr "פקודה"
 
 #: worksheet.cpp:1852 worksheet.cpp:1879 worksheet.cpp:1899 worksheet.cpp:1917
 #, kde-format
@@ -4335,7 +4337,7 @@ msgstr "קו אופקי"
 #: worksheet.cpp:1868 worksheet.cpp:1889 worksheet.cpp:1909 worksheet.cpp:1927
 #, kde-format
 msgid "Hierarchy Entry"
-msgstr ""
+msgstr "רשומת היררכיה"
 
 #: worksheet.cpp:1871
 #, kde-format
@@ -4390,33 +4392,33 @@ msgstr "מחיקת רשומות"
 #: worksheet.cpp:1986
 #, kde-format
 msgid "Collapse Command Entry Results"
-msgstr ""
+msgstr "צמצום תוצאות רשומות פקודות"
 
 #: worksheet.cpp:1987
 #, kde-format
 msgid "Expand Command Entry Results"
-msgstr ""
+msgstr "הרחבת תוצאות רשומות פקודות"
 
 #: worksheet.cpp:1989
 #, kde-format
 msgid "Delete Command Entry Results"
-msgstr ""
+msgstr "מחיקת תוצאות רשומות פקודות"
 
 #: worksheet.cpp:1991
 #, kde-format
 msgid "Exclude Command Entry From Execution"
-msgstr ""
+msgstr "החרגת רשומת פקודה מהפעלה"
 
 #: worksheet.cpp:1992
 #, kde-format
 msgid "Add Command Entry To Execution"
-msgstr ""
+msgstr "הוספת רשומת פקודה להפעלה"
 
 #: worksheet.cpp:2100
 #, kde-format
 msgctxt "@action"
 msgid "Text &Color..."
-msgstr ""
+msgstr "צבע &כתב…"
 
 #: worksheet.cpp:2101
 #, kde-format
@@ -4428,7 +4430,7 @@ msgstr "צבע"
 #, kde-format
 msgctxt "@action"
 msgid "Text &Highlight..."
-msgstr ""
+msgstr "ה&דגשת כתב…"
 
 #: worksheet.cpp:2114
 #, kde-format
