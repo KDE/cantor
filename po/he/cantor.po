@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: cantor\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-10-04 01:47+0000\n"
-"PO-Revision-Date: 2024-11-08 13:55+0200\n"
+"PO-Revision-Date: 2024-11-09 11:33+0200\n"
 "Last-Translator: Yaron Shahrabani <sh.yaron@gmail.com>\n"
 "Language-Team: צוות התרגום של KDE ישראל\n"
 "Language: he\n"
@@ -2409,7 +2409,7 @@ msgstr "פתיחת קובץ"
 #: cantor.cpp:149
 #, kde-format
 msgid "Download Examples"
-msgstr ""
+msgstr "הורדת דוגמאות"
 
 #: cantor.cpp:152
 #, kde-format
@@ -2419,12 +2419,12 @@ msgstr "&פתיחת דוגמה"
 #: cantor.cpp:157
 #, kde-format
 msgid "Go to previous worksheet"
-msgstr ""
+msgstr "מעבר לגיליון הנתונים הקודם"
 
 #: cantor.cpp:169
 #, kde-format
 msgid "Go to next worksheet"
-msgstr ""
+msgstr "מעבר לגיליון הנתונים הבא"
 
 #: cantor.cpp:230
 #, kde-format
