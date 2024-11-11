@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: cantor\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-10-04 01:47+0000\n"
-"PO-Revision-Date: 2024-11-09 11:33+0200\n"
+"PO-Revision-Date: 2024-11-10 21:21+0200\n"
 "Last-Translator: Yaron Shahrabani <sh.yaron@gmail.com>\n"
 "Language-Team: צוות התרגום של KDE ישראל\n"
 "Language: he\n"
@@ -1671,57 +1671,59 @@ msgid ""
 "Image to save plot to. If empty shows plot in a window on the screen. If "
 "inline=true the image is shown regardless of this option."
 msgstr ""
+"שמירה לשמירת השרטוט אליה. אם ההגדרה ריקה השרטוט יופיע בחלון במסך. אם "
+"inline=true (כחלק מהמסמך) אז התמונה מופיעה בלי תלות באפשרות הזאת."
 
 #: backends/qalculate/qalculatesyntaxhelpobject.cpp:216
 #, kde-format
 msgid "The image type to save as. One of auto, png, ps, eps, latex, svg, fig."
-msgstr ""
+msgstr "סוג התמונה לשמירה. אחת מהאפשרויות auto,‏ png,‏ ps,‏ eps,‏ latex,‏ svg,‏ fig."
 
 #: backends/qalculate/qalculatesyntaxhelpobject.cpp:217
 #, kde-format
 msgid "Set to true for colored plot, false for monochrome."
-msgstr ""
+msgstr "יש להגדיר לחיובי/true לשרטוט צבעוני, שלילי/false לחד־צבעי/מונוכרום."
 
 #: backends/qalculate/qalculatesyntaxhelpobject.cpp:218
 #, kde-format
 msgid "Minimum x-axis value."
-msgstr ""
+msgstr "ערך מזערי בציר X."
 
 #: backends/qalculate/qalculatesyntaxhelpobject.cpp:219
 #, kde-format
 msgid "Maximum x-axis value."
-msgstr ""
+msgstr "ערך מרבי בציר X."
 
 #: backends/qalculate/qalculatesyntaxhelpobject.cpp:220
 #, kde-format
 msgid "If a logarithmic scale shall be used for the x-axis."
-msgstr ""
+msgstr "האם להשתמש בקנה מידה לוגריתמי לציר X."
 
 #: backends/qalculate/qalculatesyntaxhelpobject.cpp:221
 #, kde-format
 msgid "If a logarithmic scale shall be used for the y-axis."
-msgstr ""
+msgstr "האם להשתמש בקנה מידה לוגריתמי לציר Y."
 
 #: backends/qalculate/qalculatesyntaxhelpobject.cpp:222
 #, kde-format
 msgid "Logarithmic base for the x-axis."
-msgstr ""
+msgstr "בסיס לוגריתמי לציר X."
 
 #: backends/qalculate/qalculatesyntaxhelpobject.cpp:223
 #, kde-format
 msgid "Logarithmic base for the y-axis."
-msgstr ""
+msgstr "בסיס לוגריתמי לציר Y."
 
 #: backends/qalculate/qalculatesyntaxhelpobject.cpp:224
 #, kde-format
 msgid "If a grid shall be shown in the plot."
-msgstr ""
+msgstr "האם תופיע רשת בשרטוט."
 
 #: backends/qalculate/qalculatesyntaxhelpobject.cpp:225
 #, kde-format
 msgid ""
 "If the plot shall be surrounded by borders on all sides (not just axis)."
-msgstr ""
+msgstr "האם השרטוט יוקף במסגרת מכל הצדדים (לא רק הציר)."
 
 #: backends/qalculate/qalculatesyntaxhelpobject.cpp:226
 #, kde-format
@@ -1734,11 +1736,14 @@ msgid ""
 "Where the plot legend shall be placed. One of none, top_left, top_right, "
 "bottom_left, bottom_right, below, outside"
 msgstr ""
+"איפה יוצב המקרא של השרטוט. אחת מהאפשרויות none,‏ top_left,‏ top_right,‏ "
+"bottom_left,‏ bottom_right,‏ below,‏ outside"
 
 #: backends/qalculate/qalculatesyntaxhelpobject.cpp:228
 #, kde-format
 msgid "Plot smoothing. One of none, unique, csplines, bezier, sbezier"
 msgstr ""
+"החלקת שרטוטים. אחת מבין האפשרויות none,‏ unique,‏ csplines,‏ bezier,‏ sbezier"
 
 #: backends/qalculate/qalculatesyntaxhelpobject.cpp:229
 #, kde-format
@@ -1746,21 +1751,23 @@ msgid ""
 "Plot style. One of lines, points, points_lines, boxes, histogram, steps, "
 "candlesticks, dots"
 msgstr ""
+"סגנון שרטוט. אחת מבין האפשרויות lines,‏ points,‏ points_lines,‏ boxes,‏ "
+"histogram,‏ steps,‏ candlesticks,‏ dots"
 
 #: backends/qalculate/qalculatesyntaxhelpobject.cpp:230
 #, kde-format
 msgid "Use scale on second x-axis."
-msgstr ""
+msgstr "להשתמש בקנה מידה על ציר X משני."
 
 #: backends/qalculate/qalculatesyntaxhelpobject.cpp:231
 #, kde-format
 msgid "Use scale on second y-axis."
-msgstr ""
+msgstr "להשתמש בקנה מידה על ציר Y משני."
 
 #: backends/qalculate/qalculatesyntaxhelpobject.cpp:232
 #, kde-format
 msgid "If the plot is to be drawn inline, instead of in a new window."
-msgstr ""
+msgstr "האם השרטוט יצויר בתוך המסמך, במקום בחלון חדש."
 
 #: backends/qalculate/qalculatesyntaxhelpobject.cpp:233
 #, kde-format
