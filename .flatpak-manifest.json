@@ -2,9 +2,9 @@
     "id": "org.kde.cantor",
     "branch": "master",
     "runtime": "org.kde.Platform",
-    "runtime-version": "5.15-22.08",
+    "runtime-version": "6.7",
     "base": "io.qt.qtwebengine.BaseApp",
-    "base-version": "5.15-22.08",
+    "base-version": "6.7",
     "sdk": "org.kde.Sdk",
     "command": "cantor",
     "tags": [
@@ -14,9 +14,16 @@
     "finish-args": [
         "--share=network",
         "--share=ipc",
-        "--socket=x11",
         "--socket=wayland",
-        "--filesystem=host"
+        "--socket=fallback-x11",
+	"--socket=cups",
+	"--socket=session-bus",
+        "--device=dri",
+        "--filesystem=host",
+        "--filesystem=/tmp",
+        "--filesystem=xdg-documents",
+        "--system-talk-name=org.freedesktop.UDisks2",
+        "--talk-name=org.freedesktop.Flatpak"
     ],
     "modules": [
         {
@@ -27,21 +34,17 @@
                 "-DENABLE_CPP=OFF",
                 "-DENABLE_GLIB=OFF",
                 "-DENABLE_GOBJECT_INTROSPECTION=OFF",
-                "-DENABLE_UTILS=OFF"
+                "-DENABLE_UTILS=OFF",
+                "-DENABLE_QT5=OFF",
+                "-DENABLE_QT6=ON"
             ],
             "buildsystem": "cmake-ninja",
             "builddir": true,
             "sources": [
                 {
                     "type": "archive",
-                    "url": "https://poppler.freedesktop.org/poppler-23.04.0.tar.xz",
-                    "sha256": "b6d893dc7dcd4138b9e9df59a13c59695e50e80dc5c2cacee0674670693951a1",
-                    "x-checker-data": {
-                        "type": "anitya",
-                        "project-id": 3686,
-                        "stable-only": true,
-                        "url-template": "https://poppler.freedesktop.org/poppler-$version.tar.xz"
-                    }
+                    "url": "https://poppler.freedesktop.org/poppler-24.10.0.tar.xz",
+                    "sha256": "58ed1849810f04a10b37c7ff6f3e411845c8a57d731d599d0045acc7a7fff09d"
                 }
             ],
             "modules": [
@@ -55,14 +58,8 @@
                     "sources": [
                         {
                             "type": "archive",
-                            "url": "https://boostorg.jfrog.io/artifactory/main/release/1.81.0/source/boost_1_81_0.tar.bz2",
-                            "sha256": "71feeed900fbccca04a3b4f2f84a7c217186f28a940ed8b7ed4725986baf99fa",
-                            "x-checker-data": {
-                                "type": "anitya",
-                                "project-id": 6845,
-                                "stable-only": true,
-                                "url-template": "https://boostorg.jfrog.io/artifactory/main/release/$version/source/boost_${major}_${minor}_$patch.tar.bz2"
-                            }
+                            "url": "https://boostorg.jfrog.io/artifactory/main/release/1.86.0/source/boost_1_86_0.tar.bz2",
+                            "sha256": "1bed88e40401b2cb7a1f76d4bab499e352fa4d0c5f31c0dbae64e24d34d7513b"
                         }
                     ]
                 },
@@ -72,13 +69,9 @@
                     "builddir": true,
                     "sources": [
                         {
-                            "type": "git",
-                            "url": "https://github.com/uclouvain/openjpeg.git",
-                            "tag": "v2.4.0",
-                            "x-checker-data": {
-                                "type": "git",
-                                "tag-pattern": "^v([\\d.]+)$"
-                            }
+                            "type": "archive",
+                            "url": "https://github.com/uclouvain/openjpeg/archive/v2.5.2.tar.gz",
+                            "sha256": "90e3896fed910c376aaf79cdd98bdfdaf98c6472efd8e1debf0a854938cbda6a"
                         }
                     ],
                     "cleanup": [
@@ -99,9 +92,9 @@
             "buildsystem": "cmake-ninja",
             "sources": [
                 {
-                    "type": "git",
-                    "url": "https://invent.kde.org/education/analitza.git",
-                    "branch": "release/23.08"
+		    "type": "archive",
+		    "url": "https://github.com/KDE/analitza/archive/v24.08.1.tar.gz",
+		    "sha256": "ccd18151c49937c606f5446eb3f821d46066be76e6a9d01e96f6494e59c08c81"
                 }
             ]
         },
