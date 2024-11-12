@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: cantor\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-10-04 01:47+0000\n"
-"PO-Revision-Date: 2024-11-10 21:21+0200\n"
+"PO-Revision-Date: 2024-11-11 07:56+0200\n"
 "Last-Translator: Yaron Shahrabani <sh.yaron@gmail.com>\n"
 "Language-Team: צוות התרגום של KDE ישראל\n"
 "Language: he\n"
@@ -403,11 +403,12 @@ msgid ""
 "Julia session can't login due internal julia problem with missing internal "
 "file - \"%1\""
 msgstr ""
+"הפעלת Julia לא יכולה להיכנס עקב שגיאת julia פנימית עם קובץ פנימי חסר - „%1”"
 
 #: backends/julia/juliasession.cpp:128
 #, kde-format
 msgid "Julia session can't login due unknown internal problem"
-msgstr ""
+msgstr "הפעלת Julia לא הצליחה להיכנס עקב תקלה פנימית לא ידועה"
 
 #: backends/julia/juliasession.cpp:253
 #, kde-format
@@ -464,6 +465,8 @@ msgid ""
 "If enabled, plots will be shown inside of the worksheet. Otherwise, plots "
 "will be shown in an external window."
 msgstr ""
+"אם האפשרות פעילה, התרשימים יופיעו בתוך גיליון הנתונים. אחרת, התרשימים יופיעו "
+"בחלון חיצוני."
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_allowLatex)
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_integratePlots)
@@ -489,7 +492,7 @@ msgstr ""
 #: backends/scilab/settings.ui:47 commandentry.cpp:349
 #, kde-format
 msgid "Enabled"
-msgstr ""
+msgstr "פעיל"
 
 #. i18n: ectx: property (text), widget (QLabel, label_5)
 #. i18n: ectx: property (text), widget (QLabel, label_3)
@@ -645,7 +648,7 @@ msgctxt ""
 "The url to the documentation of KAlgebra, please check if there is a "
 "translated version and use the correct url"
 msgid "https://docs.kde.org/?application=kalgebra"
-msgstr ""
+msgstr "https://docs.kde.org/?application=kalgebra"
 
 #. i18n: ectx: label, entry (autorunScripts), group (SageBackend)
 #. i18n: ectx: label, entry (autorunScripts), group (KAlgebraBackend)
@@ -662,7 +665,7 @@ msgstr ""
 #: backends/scilab/scilabbackend.kcfg:26
 #, kde-format
 msgid "List of scripts to autorun at the beginning of session"
-msgstr ""
+msgstr "רשימת סקריפטים להרצה אוטומטית בתחילת הפעלה"
 
 #: backends/kalgebra/kalgebraexpression.cpp:44
 #, kde-format
@@ -681,6 +684,8 @@ msgid ""
 "This autorun commands, which will run on start new worksheet. They can be "
 "useful for loading needed modules, changing environment, etc."
 msgstr ""
+"פקודות ההרצה האוטומטית האלה ירוצו עם כל התחלה של גיליון עבודה חדש. הן יכולות "
+"להיות שימושיות לטעינת מודולים נחוצים, החלפת סביבה וכו׳."
 
 #: backends/lua/luabackend.cpp:52
 #, kde-format
@@ -695,6 +700,8 @@ msgid ""
 "procedural syntax. There are several libraries in Lua aimed at math and "
 "science."
 msgstr ""
+"<b>Lua</b> היא שפת סקריפטים מהירה וקלילה, עם תחביר תהליכי פשוט. יש כמה "
+"ספריות ב־Lua שמוכוונות למתמטיקה ומדע."
 
 #. i18n: ectx: label, entry (Path), group (LuaBackend)
 #: backends/lua/luabackend.kcfg:10
@@ -724,7 +731,7 @@ msgctxt ""
 "the url to the documentation of Maxima, please check if there is a "
 "translated version and use the correct url"
 msgid "http://maxima.sourceforge.net/docs/manual/en/maxima.html"
-msgstr ""
+msgstr "http://maxima.sourceforge.net/docs/manual/en/maxima.html"
 
 #: backends/maxima/maximabackend.cpp:79
 #, kde-format
@@ -763,6 +770,35 @@ msgid ""
 "i> returns <i>done</i> unless no examples are found or there is no argument, "
 "in which case <i>example</i> returns the list of all recognized topics."
 msgstr ""
+"<h1>מערכת העזרה של Maxima</h1><h2>פונקציית <i>apropos</i></h2>מחפשת שמות "
+"Maxima שמכילים את המחרוזת בכל מקום בתוכם, <i>name</i> חייב להיות מחרוזת או "
+"סמל. לפיכך, <i>apropos(exp)</i> מחזירה רשימה של כל הדגלים והפונקציות אשר "
+"מכילים exp כחלק משמם, כגון <i>expand</i>, <i>exp</i>, ו-<i>exponentialize</"
+"i>. לכן, אם זכרת רק חלק משם של פקודת Maxima או משתנה, אפשר להשתמש בפקודה "
+"הזאת כדי למצוא את שאר השם. באופן דומה, ניתן להקליד <i>apropos(tr_)</i> כדי "
+"למצוא רשימה של מתגים רבים שקשורים למתרגם, ורובם מתחילים ב־<i>tr_</i>."
+"<br><br><i>apropos(\"\")</i> מחזירה רשימה עם כל שמות Maxima."
+"<br><br><i>apropos</i> מחזירה את הרשימה הריקה [], אם לא נמצא שם."
+"<br><br><h2>פונקציית <i>describe</i></h2><i>describe(string)</i> שקולה ל־"
+"describe(string, exact).<br><br><i>describe(string, exact)</i> מוצאת פריט עם "
+"כותרת זהה (לא תלוי רישיות) למחרוזת, אם קיים פריט כזה."
+"<br><br><i>describe(string, inexact)</i> מוצאת את כל הפריטים המתועדים "
+"שמכילים את המחרוזת בכותרותיהם. אם יש יותר מפריט אחד כזה, Maxima מבקשת "
+"מהמשתמש לבחור פריט או פריטים להצגה.<br><br><i>? foo</i> (עם רווח בין <i>?</"
+"i> ל־<i>foo</i>) שקולה ל־<i>describe(\"foo\", exact)</i>, ו־<i>?? foo</i> "
+"שקולה ל־<i>describe(\"foo\", inexact)</i>.<br><br><i>describe(, inexact)</i> "
+"מניבה רשימה של כל הנושאים המתועדים במדריך המקוון.<br><br><i>describe</i> "
+"מצטטת את הארגומנט שלה. <i>describe</i> מחזירה <i>true</i> אם נמצא תיעוד "
+"כלשהו, אחרת <i>false</i>.<br><h2>פונקציית <i>example</i></"
+"h2><i>example(topic)</i> מציגה כמה דוגמאות של <i>topic</i>, שהוא סמל או "
+"מחרוזת. כדי לקבל דוגמאות עבור אופרטורים כמו <i>if</i>, <i>do</i>, או "
+"<i>lambda</i> הארגומנט חייב להיות מחרוזת, למשל <i>example(\"do\")</i>. "
+"<i>example</i> אינה רגישה לרישיות. רוב הנושאים הם שמות פונקציות."
+"<br><br><i>example()‎</i> מחזירה את רשימת כל הנושאים המוכרים.<br><br>שם הקובץ "
+"המכיל את הדוגמאות נקבע על ידי משתנה האפשרויות הגלובלי <i>manual_demo</i>, "
+"שברירת המחדל שלו היא <i>\"manual.demo\"</i>.<br><br><i>example</i> מצטטת את "
+"הארגומנט שלה. <i>example</i> מחזירה <i>done</i> אלא אם לא נמצאו דוגמאות או "
+"אין ארגומנט, במקרה זה <i>example</i> מחזירה את רשימת כל הנושאים המוכרים."
 
 #: backends/maxima/maximabackend.cpp:111
 #, kde-format
@@ -775,12 +811,18 @@ msgid ""
 "integers, and variable precision floating point numbers. Maxima can plot "
 "functions and data in two and three dimensions."
 msgstr ""
+"<b>Maxima</b> היא מערכת לטיפול בביטויים סמליים ומספריים, כולל גזירה, "
+"אינטגרציה, טורי טיילור, התמרות לפלאס, משוואות דיפרנציאליות רגילות, מערכות של "
+"משוואות לינאריות, פולינומים, וקבוצות, רשימות, וקטורים, מטריצות, וטנזורים. "
+"Maxima מניבה תוצאות מספריות בדיוק גבוה על ידי שימוש בשברים מדויקים, מספרים "
+"שלמים בדיוק שרירותי, ומספרים עשרוניים בדיוק משתנה. Maxima יכולה לשרטט "
+"פונקציות ונתונים בשני ממדים ובשלושה ממדים."
 
 #. i18n: ectx: label, entry (Path), group (MaximaBackend)
 #: backends/maxima/maximabackend.kcfg:10
 #, kde-format
 msgid "Path to the Maxima executable"
-msgstr ""
+msgstr "נתיב לקובץ ההפעלה של Maxima"
 
 #. i18n: ectx: label, entry (plotWidth), group (SageBackend)
 #. i18n: ectx: label, entry (plotWidth), group (PythonBackend)
@@ -903,12 +945,12 @@ msgstr "שגיאת תחביר"
 #: backends/octave/octavesession.cpp:396
 #, kde-format
 msgid "Plot integration test failed."
-msgstr ""
+msgstr "בדיקת שילוב שרטוט נכשלה."
 
 #: backends/octave/octavesession.cpp:400
 #, kde-format
 msgid "The integration of plots will be disabled."
-msgstr ""
+msgstr "שילוב שרטוטים מושבת."
 
 #: backends/octave/octavesession.cpp:401 backends/sage/sagesession.cpp:357
 #: backends/sage/sagesession.cpp:368 cantor.cpp:219 cantor.cpp:221
@@ -922,7 +964,7 @@ msgstr "Cantor"
 #, kde-format
 msgctxt "The url to the documentation Python"
 msgid "https://docs.python.org/3/"
-msgstr ""
+msgstr "https://docs.python.org/3/"
 
 #: backends/python/pythonbackend.cpp:72
 #, kde-format
@@ -931,6 +973,8 @@ msgid ""
 "used in a wide variety of application domains. There are several Python "
 "packages to scientific programming."
 msgstr ""
+"<b>Python</b> היא שפה דינמית ועוצמתית במיוחד שמשמשת למגוון רחב של תחומי "
+"יישום. יש מגוון חבילות לתכנות מדעי."
 
 #. i18n: ectx: label, entry (plotExtenstionGraphicPackage), group (PythonBackend)
 #: backends/python/pythonbackend.kcfg:44
@@ -941,7 +985,7 @@ msgstr "חבילה גרפית לשימוש בסיוע שרטוט"
 #: backends/python/pythonextensions.cpp:283
 #, kde-format
 msgid "# Sorry, but Bokeh doesn't support 3d plotting"
-msgstr ""
+msgstr "# ב־Bokeh אין תמיכה בשרטוט תלת־ממדי"
 
 #: backends/python/pythonextensions.cpp:299
 #, kde-format
@@ -1119,7 +1163,7 @@ msgstr "צעדים"
 #: backends/qalculate/settings.ui:475
 #, kde-format
 msgid "Candlesticks"
-msgstr ""
+msgstr "נרות יפניים"
 
 #. i18n: ectx: property (text), item, widget (KComboBox, styleBox)
 #. i18n: ectx: property (text), item, widget (KComboBox, kcfg_plotStyle)
@@ -1414,6 +1458,12 @@ msgid ""
 "equations), arbitrary precision, uncertainty propagation, interval "
 "arithmetic, plotting,"
 msgstr ""
+"<b>Qalculate!</b> הוא מחשבון רב־תכליתי וחוצה־פלטפורמות לשולחן העבודה. הוא "
+"פשוט לשימוש אך מספק עוצמה וגמישות השמורות בדרך כלל לחבילות מתמטיות מורכבות, "
+"כמו גם כלים שימושיים לצרכים יומיומיים (כגון המרת מטבעות וחישובי אחוזים). "
+"התכונות כוללות ספרייה גדולה של פונקציות שניתן להתאים אישית, חישובי יחידות "
+"והמרה, קבועים פיזיקליים, חישובים סמליים (כולל אינטגרלים ומשוואות), דיוק "
+"שרירותי, התפשטות אי־ודאות, אריתמטיקת מרווחים, שרטוט,"
 
 #. i18n: ectx: label, entry (Path), group (QalculateBackend)
 #: backends/qalculate/qalculatebackend.kcfg:9
@@ -1428,6 +1478,8 @@ msgid ""
 "If and how units will be automatically converted. If true, convert to the "
 "best suited SI units (the least amount of units)."
 msgstr ""
+"האם וכיצד יחידות תומרנה אוטומטית. אם חיובי/true, להמיר ליחידות ה־SI (המערכת "
+"הבינלאומית) המתאימות ביותר (כמות היחידות הקטנה ביותר)."
 
 #. i18n: ectx: label, entry (angleUnit), group (QalculateBackend)
 #: backends/qalculate/qalculatebackend.kcfg:25
@@ -1439,13 +1491,13 @@ msgstr "יחידת זווית כברירת מחדל לפונקציות טריג�
 #: backends/qalculate/qalculatebackend.kcfg:35
 #, kde-format
 msgid "Base of parsed and evaluated numbers."
-msgstr ""
+msgstr "בסיס המספרים שמפוענחים ומוערכים."
 
 #. i18n: ectx: label, entry (structuring), group (QalculateBackend)
 #: backends/qalculate/qalculatebackend.kcfg:44
 #, kde-format
 msgid "If the evaluation result will be simplified or factorized."
-msgstr ""
+msgstr "האם תוצאה ההערכה תפושט או תפורק לגורמים."
 
 #. i18n: ectx: label, entry (fractionFormat), group (QalculateBackend)
 #: backends/qalculate/qalculatebackend.kcfg:54
@@ -1454,6 +1506,8 @@ msgid ""
 "If rational numbers will be displayed with decimals, as a fraction, or "
 "something in between."
 msgstr ""
+"האם מספרים רציונליים יוצגו עם מספרים אחרי הנקודה העשרונים, כשבר או איזה משהו "
+"בין לבין."
 
 #. i18n: ectx: label, entry (indicateInfiniteSeries), group (QalculateBackend)
 #: backends/qalculate/qalculatebackend.kcfg:58
