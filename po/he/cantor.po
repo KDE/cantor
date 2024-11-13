@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: cantor\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-10-04 01:47+0000\n"
-"PO-Revision-Date: 2024-11-11 07:56+0200\n"
+"PO-Revision-Date: 2024-11-12 07:45+0200\n"
 "Last-Translator: Yaron Shahrabani <sh.yaron@gmail.com>\n"
 "Language-Team: צוות התרגום של KDE ישראל\n"
 "Language: he\n"
@@ -832,7 +832,7 @@ msgstr "נתיב לקובץ ההפעלה של Maxima"
 #: backends/R/rserver/rserver.kcfg:31 backends/sage/sagebackend.kcfg:29
 #, kde-format
 msgid "Default plot width"
-msgstr ""
+msgstr "רוחב שרטוט כברירת מחדל"
 
 #. i18n: ectx: label, entry (plotHeight), group (SageBackend)
 #. i18n: ectx: label, entry (plotHeight), group (PythonBackend)
@@ -842,7 +842,7 @@ msgstr ""
 #: backends/R/rserver/rserver.kcfg:35 backends/sage/sagebackend.kcfg:33
 #, kde-format
 msgid "Default plot height"
-msgstr ""
+msgstr "גובה שרטוט כברירת מחדל"
 
 #: backends/maxima/maximaexpression.cpp:113
 #, kde-format
@@ -1018,6 +1018,8 @@ msgid ""
 "For using integrated graphics with Matplotlib package, you need to install "
 "\"matplotlib\" python package first."
 msgstr ""
+"כדי להשתמש בגרפיקה משולבת עם חבילת Matplotlib, יש להתקין תחילה חבילת Python "
+"בשם „matplotlib”."
 
 #: backends/python/pythonsession.cpp:320
 #, kde-format
@@ -1026,6 +1028,9 @@ msgid ""
 "python package and special Plot.ly-compatible \"orca\" executable. See "
 "\"Static Image Export\" article in Plot.ly documentation for details."
 msgstr ""
+"כדי להשתמש בגרפיקה משולבת עם Plot.ly, יש להתקין חבילת python בשם ‏„plotly” "
+"ואת קובץ ההפעלה תואם Plot.ly בשם „orca”. הערך „Static Image Export” (ייצוא "
+"תמונה סטטית) בתיעוד של Plot.ly יספק מידע נוסף."
 
 #. i18n: ectx: property (text), widget (QLabel, label4)
 #: backends/python/settings.ui:222
@@ -1516,6 +1521,8 @@ msgid ""
 "Show that the digit series of a number continues forever with three dots, "
 "instead of rounding (ex. 2/3 displays as 0.666666... instead of 0.666667)."
 msgstr ""
+"להציג שסדרת ספרות נמשכת לעד בעזרת שלוש נקודות, במקום לעגל (למשל: 2/3 יוצג "
+"בתור ‎0.666666...‎ במקום 0.666667)."
 
 #. i18n: ectx: label, entry (useAllPrefixes), group (QalculateBackend)
 #: backends/qalculate/qalculatebackend.kcfg:62
@@ -1546,6 +1553,8 @@ msgid ""
 "If true, plots will be displayed inside the worksheet. If not they appear in "
 "a separate window."
 msgstr ""
+"אם חיובי (true), השרטוטים יוצגו בתוך גיליון העבודה. אם לא הם יופיעו בחלון "
+"נפרד."
 
 #. i18n: ectx: label, entry (coloredPlot), group (QalculateBackend)
 #: backends/qalculate/qalculatebackend.kcfg:84
@@ -1826,17 +1835,17 @@ msgstr "האם השרטוט יצויר בתוך המסמך, במקום בחלו�
 #: backends/qalculate/qalculatesyntaxhelpobject.cpp:233
 #, kde-format
 msgid "Distance between two interpolation points. See also steps."
-msgstr ""
+msgstr "מרחק בין שתי נקודות ביון/אינטרפולציה. יש גם את צעדים."
 
 #: backends/qalculate/qalculatesyntaxhelpobject.cpp:234
 #, kde-format
 msgid "Number of interpolation points. See also step."
-msgstr ""
+msgstr "מספר נקודות הביון/אינטרפולציה. יש גם את צעד."
 
 #: backends/qalculate/qalculatesyntaxhelpobject.cpp:235
 #, kde-format
 msgid "The name of the x variable. This must be an unknown variable"
-msgstr ""
+msgstr "שם משתנה x. זה חייב להיות משתנה לא ידוע"
 
 #: backends/qalculate/qalculatesyntaxhelpobject.cpp:242
 #, kde-format
@@ -1897,7 +1906,7 @@ msgstr "תצוגה מספרית:"
 #: backends/qalculate/settings.ui:85
 #, kde-format
 msgid "Use all SI prefixes:"
-msgstr ""
+msgstr "להשתמש בכל קידומות SI:"
 
 #. i18n: ectx: property (text), widget (QLabel, label)
 #: backends/qalculate/settings.ui:95
@@ -2230,7 +2239,7 @@ msgctxt ""
 "the url to the documentation of R, please check if there is a translated "
 "version and use the correct url"
 msgid "https://cran.r-project.org/manuals.html"
-msgstr ""
+msgstr "https://cran.r-project.org/manuals.html"
 
 #: backends/R/rbackend.cpp:88
 #, kde-format
@@ -2322,6 +2331,8 @@ msgid ""
 "the GPL. <br/>It combines the power of many existing open-source packages "
 "into a common Python-based interface."
 msgstr ""
+"<b>Sage</b> היא מערכת תוכנה מתמטית חופשית ובקוד פתוח שכפופה לרישיון GPL. <br/"
+">היא משלבת את הכוח שבמגוון חבילות קוד פתוח קיימות לכדי ממשק Python משותף."
 
 #. i18n: ectx: label, entry (Path), group (SageBackend)
 #: backends/sage/sagebackend.kcfg:10
@@ -2493,6 +2504,8 @@ msgid ""
 "All supported files (*.cws *ipynb);;Cantor Worksheet (*.cws);;Jupyter "
 "Notebook (*.ipynb)"
 msgstr ""
+"כל הקבצים הנתמכים (‎*.cws‏ ‎*ipynb);;גיליון עבודה של Cantor‏ (‎*.cws);;מחברת "
+"Jupyter (‎*.ipynb)"
 
 #: cantor.cpp:298
 #, kde-format
@@ -2990,7 +3003,7 @@ msgstr "קובצי TeX‏ (‎*.tex)"
 msgid ""
 "All the available calculation results will be lost. Do you really want to "
 "restart %1?"
-msgstr ""
+msgstr "כל תוצאות החישוב יאבדו. להפעיל את %1 מחדש?"
 
 #: cantor_part.cpp:602
 #, kde-format
@@ -3041,7 +3054,7 @@ msgstr "העלאה"
 #: cantor_part.cpp:900
 #, kde-format
 msgid "The Worksheet is not saved. You should save it before uploading."
-msgstr ""
+msgstr "גיליון העבודה לא נשמר. יש לשמור אותו לפני ההעלאה."
 
 #: cantor_part.cpp:901
 #, kde-format
@@ -3520,6 +3533,8 @@ msgid ""
 "No path for the %1 executable specified. Please provide the correct path in "
 "the application settings and try again."
 msgstr ""
+"לא צוין נתיב לקובץ ההפעלה %1. נא לספק את הנתיב הנכון בהגדרות היישום ולנסות "
+"שוב."
 
 #: lib/backend.cpp:173
 #, kde-format
@@ -3545,12 +3560,12 @@ msgstr ""
 #: lib/backend.cpp:210
 #, kde-format
 msgid "Failed to open the file %1 during the plot integration test."
-msgstr ""
+msgstr "פתיחת הקובץ %1 במהלך בדיקות שילוב השרטוט נכשלה."
 
 #: lib/backend.cpp:218
 #, kde-format
 msgid "Failed to parse the result during the plot integration test."
-msgstr ""
+msgstr "פענוח התוצאה במהלך בדיקת שילוב השרטוט נכשל."
 
 #. i18n: ectx: label, entry (latexCommand), group (Cantor)
 #: lib/cantor_libs.kcfg:10
@@ -3624,19 +3639,19 @@ msgstr "כותרת שרטוט:"
 #: lib/mimeresult.cpp:33
 #, kde-format
 msgid "This is unsupported Jupyter content of types ('%1')"
-msgstr ""
+msgstr "אלו סוגי תוכן Jupyter שאינם נתמכים (‚%1’)"
 
 #: lib/session.cpp:265
 #, kde-format
 msgid "%1 process has died unexpectedly. All calculation results are lost."
-msgstr ""
+msgstr "התהליך %1 נקטע במפתיע. כל תוצאות החישוב אבדו."
 
 #: lib/session.cpp:267
 #, kde-format
 msgid ""
 "%1 process has died unexpectedly with message \"%2\". All calculation "
 "results are lost."
-msgstr ""
+msgstr "התהליך %1 נקטע במפתיע עם ההודעה „%2”. כל תוצאות החישוב אבדו."
 
 #: lib/session.cpp:333
 #, kde-format
@@ -4054,7 +4069,7 @@ msgstr ""
 #: settings.ui:102
 #, kde-format
 msgid "Number of rows in the result (0 for unlimited):"
-msgstr ""
+msgstr "מספר השורות בתוצאה (0 - ללא הגבלה):"
 
 #. i18n: ectx: property (toolTip), widget (QCheckBox, kcfg_AnimationDefault)
 #: settings.ui:135
@@ -4086,7 +4101,7 @@ msgstr ""
 #: settings.ui:171
 #, kde-format
 msgid "Reevaluate entries automatically"
-msgstr ""
+msgstr "להעריך את הרשומות מחדש אוטומטית"
 
 #. i18n: ectx: property (text), widget (QLabel, label_3)
 #: settings.ui:184
@@ -4099,7 +4114,7 @@ msgstr "גיליון עבודה:"
 #, kde-format
 msgid ""
 "Use rich text format for text entries when saving in Jupyter Notebook Format"
-msgstr ""
+msgstr "להשתמש בתבנית טקסט עשיר לרשומות טקסט בעת שמירה בתסדיר מחברת Jupyter"
 
 #. i18n: ectx: property (text), widget (QLabel, label_5)
 #: settings.ui:236
@@ -4330,14 +4345,14 @@ msgstr ""
 msgid ""
 "Jupyter notebooks with versions lower than 4.5 (detected version %1.%2) are "
 "not supported."
-msgstr ""
+msgstr "מחברות Jupyter בגרסאות שלפני 4.5 (הגרסה שזוהתה היא %1.%2) אינן נתמכות."
 
 #: worksheet.cpp:1588
 #, kde-format
 msgid ""
 "Jupyter notebooks with versions higher than 4.5 (detected version %1.%2) are "
 "not supported."
-msgstr ""
+msgstr "מחברות Jupyter בגרסאות שאחרי 4.5 (הגרסה שזוהתה היא %1.%2) אינן נתמכות."
 
 #: worksheet.cpp:1612
 #, kde-format
