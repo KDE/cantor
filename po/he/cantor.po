@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: cantor\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-10-04 01:47+0000\n"
-"PO-Revision-Date: 2024-11-12 07:45+0200\n"
+"PO-Revision-Date: 2024-11-13 08:20+0200\n"
 "Last-Translator: Yaron Shahrabani <sh.yaron@gmail.com>\n"
 "Language-Team: צוות התרגום של KDE ישראל\n"
 "Language: he\n"
@@ -107,7 +107,7 @@ msgstr "&חישוב"
 #: assistants/differentiate/differentiateassistant.cpp:26
 #, kde-format
 msgid "Differentiate"
-msgstr ""
+msgstr "גזירה"
 
 #. i18n: ectx: property (text), widget (QLabel, label_2)
 #: assistants/differentiate/differentiatedlg.ui:29
@@ -879,7 +879,7 @@ msgstr "הפעלת Maxima נכשלה, נא לבדוק שההתקנה של Maxima
 msgid ""
 "Maxima didn't respond with the proper prompt, please check Maxima "
 "installation."
-msgstr ""
+msgstr "Maxima לא הגיבה עם הבקשה המתאימה, נא לבדוק שההתקנה של Maxima תקינה."
 
 #: backends/maxima/maximasession.cpp:202
 #, kde-format
@@ -1208,7 +1208,7 @@ msgstr "מונוטונית"
 #: backends/qalculate/plotassistant/qalculateplotdialog.ui:213
 #, kde-format
 msgid "Natural Cubic Splines"
-msgstr ""
+msgstr "Natural Cubic Splines"
 
 #. i18n: ectx: property (text), item, widget (KComboBox, smoothingBox)
 #. i18n: ectx: property (text), item, widget (KComboBox, kcfg_plotSmoothing)
@@ -1539,6 +1539,8 @@ msgid ""
 "If true, negative exponents will be used instead of division (ex. 5/x^2 "
 "becomes 5*x^-2)."
 msgstr ""
+"אם חיובי (true), ייעשה שימוש במעריכים שליליים במקום חלוקה (למשל: ‎5/x^2 יהפוך "
+"ל־‎5*x^-2)."
 
 #. i18n: ectx: label, entry (minExp), group (QalculateBackend)
 #: backends/qalculate/qalculatebackend.kcfg:76
@@ -1996,7 +1998,7 @@ msgstr "גרדיאנים"
 #: backends/qalculate/settings.ui:258
 #, kde-format
 msgid "Structuring Mode:"
-msgstr ""
+msgstr "מצב בנייה:"
 
 #. i18n: ectx: property (text), item, widget (KComboBox, kcfg_structuring)
 #: backends/qalculate/settings.ui:274
@@ -2056,7 +2058,7 @@ msgstr "מצב החלקה:"
 #: backends/qalculate/settings.ui:426
 #, kde-format
 msgid "Natural cubic Splines"
-msgstr ""
+msgstr "Natural cubic Splines"
 
 #. i18n: ectx: property (text), item, widget (KComboBox, kcfg_plotStyle)
 #: backends/qalculate/settings.ui:470
@@ -2344,7 +2346,7 @@ msgstr "נתיב לקובץ ההפעלה של Sage"
 #: backends/sage/sagebackend.kcfg:14
 #, kde-format
 msgid "Enable LaTeX typesetting for Sage backend"
-msgstr ""
+msgstr "הפעלת סידור LaTeX לדפוס למנגנון Sage"
 
 #: backends/sage/sageexpression.cpp:230 backends/sage/sageexpression.cpp:235
 #, kde-format
@@ -2377,12 +2379,12 @@ msgstr "הפעלת Sage נכשלה, נא לבדוק שהתקנת Sage תקינה
 msgid ""
 "Sage version %1.%2 is unsupported. Please update your installation to the "
 "versions 9.2 or higher."
-msgstr ""
+msgstr "אין תמיכה בגרסה %1.%2 של Sage. נא לעדכן את ההתקנה שלך לגרסה 9.2 ומעלה."
 
 #: backends/sage/sagesession.cpp:272 backends/sage/sagesession.cpp:292
 #, kde-format
 msgid "Unsupported Version"
-msgstr ""
+msgstr "גרסה לא נתמכת"
 
 #: backends/sage/sagesession.cpp:291
 #, kde-format
@@ -2390,11 +2392,13 @@ msgid ""
 "Failed to determine the version of Sage. Please check your installation and "
 "the output of 'sage -v'."
 msgstr ""
+"איתור הגרסה של Sage נכשל. נא לבדוק שההתקנה שלך תקינה ואת הפלט של הפקודה "
+"‚sage -v’."
 
 #: backends/sage/sagesession.cpp:353
 #, kde-format
 msgid "The Sage process crashed while evaluating this expression"
-msgstr ""
+msgstr "תהליך Sage קרס תוך כדי פענוח הביטוי"
 
 #: backends/sage/sagesession.cpp:357
 #, kde-format
@@ -2420,7 +2424,7 @@ msgstr "הפעלת Sage נכשלה"
 #: backends/sage/settings.ui:59
 #, kde-format
 msgid "LaTeX typesetting:"
-msgstr ""
+msgstr "סידור LaTeX לדפוס:"
 
 #. i18n: ectx: property (toolTip), widget (QCheckBox, kcfg_allowLatex)
 #: backends/sage/settings.ui:66
@@ -2429,6 +2433,8 @@ msgid ""
 "Sage LaTeX output not always correct, so latex typesetting can be disabled "
 "for better experience"
 msgstr ""
+"פלט LaTeX של Sage הוא לא תמיד נכון, לכן ניתן להשבית סידור LaTeX לדפוס לשיפור "
+"החוויה"
 
 #: backends/scilab/scilabbackend.cpp:68
 #, kde-format
@@ -2436,7 +2442,7 @@ msgctxt ""
 "The url to the documentation of Scilab, please check if there is a "
 "translated version and use the correct url"
 msgid "https://www.scilab.org/support/documentation"
-msgstr ""
+msgstr "https://www.scilab.org/support/documentation"
 
 #: backends/scilab/scilabbackend.cpp:73
 #, kde-format
@@ -2445,6 +2451,8 @@ msgid ""
 "package and a high-level, numerically oriented programming language.Scilab "
 "is distributed under CeCILL license (GPL compatible)."
 msgstr ""
+"<b>Scilab</b> היא חבילת חישוב מספרית חוצת פלטפורמות במסגרת תוכנה חופשית ושפת "
+"תכנות מוכוונת מספרים ברמה גבוהה. Scilab כפופה לרישיון CeCILL (תואם GPL)."
 
 #. i18n: ectx: label, entry (Path), group (ScilabBackend)
 #: backends/scilab/scilabbackend.kcfg:10
@@ -2455,7 +2463,7 @@ msgstr "נתיב לקובץ ההפעלה של Scilab"
 #: backends/scilab/scilabextensions.cpp:23
 #, kde-format
 msgid ";;Scilab script file (*.sce);;Scilab function file (*.sci)"
-msgstr ""
+msgstr ";;קובץ סקריפט של Scilab‏ (‎*.sce);;קובץ פונקציות של Scilab‏ (‎*.sci)"
 
 #: backends/scilab/scilabsession.cpp:67
 #, kde-format
@@ -2522,9 +2530,25 @@ msgid_plural ""
 "<li>Installing packages for one of the following programs:</li>     %2   </"
 "ul> </div> "
 msgstr[0] ""
+"<h1>לא נמצא מנגנון</h1>\n"
+"<div>אפשר לנסות:\n"
+"  <ul>    <li>לשנות את ההגדרות בחלונית ההגדרות;</li>    <li>להתקין חבילות "
+"לתוכנית הבאה:</li>     %2   </ul> </div> "
 msgstr[1] ""
+"<h1>לא נמצא מנגנון</h1>\n"
+"<div>אפשר לנסות:\n"
+"  <ul>    <li>לשנות את ההגדרות בחלונית ההגדרות;</li>    <li>להתקין חבילות "
+"לאחת מהתוכניות הבאות:</li>     %2   </ul> </div> "
 msgstr[2] ""
+"<h1>לא נמצא מנגנון</h1>\n"
+"<div>אפשר לנסות:\n"
+"  <ul>    <li>לשנות את ההגדרות בחלונית ההגדרות;</li>    <li>להתקין חבילות "
+"לאחת מהתוכניות הבאות:</li>     %2   </ul> </div> "
 msgstr[3] ""
+"<h1>לא נמצא מנגנון</h1>\n"
+"<div>אפשר לנסות:\n"
+"  <ul>    <li>לשנות את ההגדרות בחלונית ההגדרות;</li>    <li>להתקין חבילות "
+"לאחת מהתוכניות הבאות:</li>     %2   </ul> </div> "
 
 #: cantor.cpp:318
 #, kde-format
@@ -2552,7 +2576,7 @@ msgstr "הפעלה %1"
 #: cantor.cpp:392
 #, kde-format
 msgid "Failed to find the Cantor Part with error %1"
-msgstr ""
+msgstr "איתור חלק Cantor נכשל עם השגיאה %1"
 
 #: cantor.cpp:450 cantor_part.cpp:645
 #, kde-format
@@ -2604,7 +2628,7 @@ msgstr "המנגנון שמשמש כברירת המחדל"
 #: cantor.kcfg:16
 #, kde-format
 msgid "Do Typesetting by default"
-msgstr ""
+msgstr "לבצע סידור לדפוס כברירת מחדל"
 
 #. i18n: ectx: label, entry (HighlightDefault), group (Cantor)
 #: cantor.kcfg:20
@@ -2637,6 +2661,8 @@ msgid ""
 "Enable rendering math expressions inside $$..$$ in Text and Markdown entries "
 "by default (needs pdflatex installed)"
 msgstr ""
+"הפעלת עיבוד ביטויים מתמטיים בתוך $$..$$ ברשומות טקסט ו־Markdown כברירת מחדל "
+"(דורש pdflatex מותקן)"
 
 #. i18n: ectx: label, entry (WarnAboutEntryDelete), group (Cantor)
 #: cantor.kcfg:40
@@ -2648,7 +2674,7 @@ msgstr "בקשת אישור בעת מחיקת רשומה"
 #: cantor.kcfg:44
 #, kde-format
 msgid "Automatically reevaluate the entries below the current"
-msgstr ""
+msgstr "להעריך מחדש את הרשומות מתחת לנוכחית אוטומטית"
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_WarnAboutSessionRestart)
 #. i18n: ectx: label, entry (WarnAboutSessionRestart), group (Cantor)
@@ -2664,24 +2690,26 @@ msgid ""
 "Save rich text formatting of TextEntry, when save Worksheet in Jupyter "
 "notebook format"
 msgstr ""
+"לשמור עיצוב טקסט עשיר של TextEntry (רשומת טקסט) בעת שמירת גיליון עבודה "
+"בתסדיר מחברת Jupyter"
 
 #. i18n: ectx: label, entry (UseOldCantorEntriesIndent), group (Cantor)
 #: cantor.kcfg:56
 #, kde-format
 msgid "Use old style Cantor entries placement style"
-msgstr ""
+msgstr "להשתמש בסגנון הצבת רשומות Cantor ישן"
 
 #. i18n: ectx: label, entry (ShowMathRenderError), group (Cantor)
 #: cantor.kcfg:60
 #, kde-format
 msgid "Show embedded math render error"
-msgstr ""
+msgstr "הצגת שגיאת עיבוד מתמטיקה מוטמעת"
 
 #. i18n: ectx: label, entry (VisibleLinesLimit), group (Cantor)
 #: cantor.kcfg:64
 #, kde-format
 msgid "Limit of visible lines for text result"
-msgstr ""
+msgstr "הגבלת השורות הגלויות בתוצאות טקסט"
 
 #. i18n: ectx: label, entry (ChapterFontFamily), group (Cantor)
 #: cantor.kcfg:68
@@ -2844,7 +2872,7 @@ msgstr "%1%"
 #: cantor_part.cpp:233
 #, kde-format
 msgid "Typeset using LaTeX"
-msgstr ""
+msgstr "סידור לדפוס בעזרת LaTeX"
 
 #: cantor_part.cpp:238
 #, kde-format
@@ -2951,7 +2979,7 @@ msgstr "הצגת השלמה"
 #: cantor_part.cpp:416
 #, kde-format
 msgid "CantorPart"
-msgstr ""
+msgstr "חלק Cantor"
 
 #: cantor_part.cpp:418
 #, kde-format
@@ -3013,7 +3041,7 @@ msgstr "להפעיל את %1 מחדש?"
 #: cantor_part.cpp:642 worksheet.cpp:1945
 #, kde-format
 msgid "Interrupt"
-msgstr ""
+msgstr "הפרעה"
 
 #: cantor_part.cpp:668
 #, kde-format
@@ -3201,7 +3229,7 @@ msgstr "מראה"
 #: commandentry.cpp:597 commandentry.cpp:992
 #, kde-format
 msgid "Interrupted"
-msgstr ""
+msgstr "הופרעה"
 
 #. i18n: ectx: property (windowTitle), widget (QWidget, StandardSearchBar)
 #. i18n: ectx: property (windowTitle), widget (QWidget, ExtendedSearchBar)
@@ -3542,6 +3570,8 @@ msgid ""
 "The specified file '%1' for the %2 executable doesn't exist. Please provide "
 "the correct path in the application settings and try again."
 msgstr ""
+"הקובץ שצוין ‚%1’ לקובץ ההפעלה %2 לא קיים. נא לספק את הנתיב הנכון בהגדרות "
+"היישום ולנסות שוב."
 
 #: lib/backend.cpp:182
 #, kde-format
@@ -3549,6 +3579,8 @@ msgid ""
 "The specified file '%1' doesn't point to an executable. Please provide the "
 "correct path in the application settings and try again."
 msgstr ""
+"הקובץ שצוין ‚%1’ לא מצביע על קובץ הפעלה. נא לספק את הנתיב הנכון בהגדרות "
+"היישום ולנסות שוב."
 
 #: lib/backend.cpp:201
 #, kde-format
@@ -3556,6 +3588,7 @@ msgid ""
 "The program %1 didn't finish the execution after %2 milliseconds during the "
 "plot integration test."
 msgstr ""
+"התוכנית %1 לא סיימה את הפעלתה לאחר %2 מילישניות במהלך בדיקת שילוב השרטוט."
 
 #: lib/backend.cpp:210
 #, kde-format
@@ -3660,6 +3693,8 @@ msgid ""
 "activated due to the missing requirements, so integration for this package "
 "will be disabled. %2"
 msgstr ""
+"בחרת בתמיכה בחבילה הגרפית %1, אבל אי אפשר להפעיל את התמיכה עקב דרישות חסרות, "
+"לכן שילוב החבילה הזאת יושבת. %2"
 
 #: main.cpp:71
 #, kde-format
@@ -3725,7 +3760,7 @@ msgstr "מנגנון Octave"
 #: main.cpp:83
 #, kde-format
 msgid "Martin Küttler"
-msgstr ""
+msgstr "מרטין קוטלר"
 
 #: main.cpp:83
 #, kde-format
@@ -3760,7 +3795,7 @@ msgstr "כניסה למצב עריכה"
 #: markdownentry.cpp:78
 #, kde-format
 msgid "Clear Attachments"
-msgstr ""
+msgstr "פינוי קבצים מצורפים"
 
 #: markdownentry.cpp:587
 #, kde-format
@@ -3770,7 +3805,7 @@ msgstr "שגיאה מתמטית ב־Cantor"
 #: markdownentry.cpp:796
 #, kde-format
 msgid "Failed to read the image \"%1\". Error \"%2\""
-msgstr ""
+msgstr "קריאת התמונה „%1” נכשלה. שגיאה „%2”"
 
 #: pagebreakentry.cpp:28
 #, kde-format
@@ -4050,6 +4085,7 @@ msgid ""
 "Maximal number of visible rows in the result of a command entry. Use 0 to "
 "work without limitations."
 msgstr ""
+"כמות השורות הגלויות המרבית למילוי פקודה. יש להשתמש ב־0 כדי לעבוד ללא הגבלות."
 
 #. i18n: ectx: property (toolTip), widget (QCheckBox, kcfg_TypesetDefault)
 #: settings.ui:89
@@ -4057,13 +4093,13 @@ msgstr ""
 msgid ""
 "Enable LaTeX typesetting for the results of the calculations, if supported "
 "by the backend system"
-msgstr ""
+msgstr "להפעיל סידור LaTeX לדפוס לתוצאות החישובים, אם המנגנון תומך בזה"
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_TypesetDefault)
 #: settings.ui:92
 #, kde-format
 msgid "LaTeX typesetting"
-msgstr ""
+msgstr "סידור LaTeX לדפוס"
 
 #. i18n: ectx: property (text), widget (QLabel, VisibleLinesLimit_label)
 #: settings.ui:102
@@ -4082,7 +4118,7 @@ msgstr "הפעלת אפקטים של הנפשה בגיליון הנתונים"
 #, kde-format
 msgid ""
 "Enable LaTeX typesetting for mathematical expressions in Markdown entries"
-msgstr ""
+msgstr "הפעלת סידור LaTeX לדפוס לביטויים מתמטיים ברשומות Markdown"
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_EmbeddedMathDefault)
 #: settings.ui:161
@@ -4095,7 +4131,7 @@ msgstr "ביטויים מתמטיים דרך LaTeX"
 #, kde-format
 msgid ""
 "If enabled, all entries below the current one will be evaluated automatically"
-msgstr ""
+msgstr "אם האפשרות פעילה, כל הרשומות שמתחת לנוכחית תוערכנה אוטומטית"
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_AutoEval)
 #: settings.ui:171
@@ -4129,6 +4165,8 @@ msgid ""
 "If enabled, text entries are aligned at the worksheet border and not at the "
 "prompt border"
 msgstr ""
+"אם האפשרות פעיה, רשומות טקסט מיושרות לפי גבול גיליון העבודה ולא לפי גבול "
+"הבקשה"
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_UseOldCantorEntriesIndent)
 #: settings.ui:246
