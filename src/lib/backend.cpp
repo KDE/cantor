@@ -107,7 +107,7 @@ QList<Backend*> Backend::availableBackends()
         return backendCache;
     }
 
-    const QVector<KPluginMetaData> plugins = KPluginMetaData::findPlugins(QStringLiteral("cantor/backends"));
+    const QVector<KPluginMetaData> plugins = KPluginMetaData::findPlugins(QStringLiteral("cantor_plugins/backends"));
 
     for (const KPluginMetaData &plugin : plugins) {
 
