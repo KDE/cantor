@@ -776,7 +776,7 @@ void CantorPart::loadAssistants()
 {
     qDebug()<<"loading assistants...";
 
-    const QVector<KPluginMetaData> plugins = KPluginMetaData::findPlugins(QStringLiteral("cantor/assistants"));
+    const QVector<KPluginMetaData> plugins = KPluginMetaData::findPlugins(QStringLiteral("cantor_plugins/assistants"));
 
     for (const KPluginMetaData &plugin : plugins) {
 

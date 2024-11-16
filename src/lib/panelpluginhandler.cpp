@@ -36,7 +36,7 @@ PanelPluginHandler::~PanelPluginHandler()
 
 void PanelPluginHandler::loadPlugins()
 {
-    const QVector<KPluginMetaData> plugins = KPluginMetaData::findPlugins(QStringLiteral("cantor/panels"));
+    const QVector<KPluginMetaData> plugins = KPluginMetaData::findPlugins(QStringLiteral("cantor_plugins/panels"));
 
     for (const KPluginMetaData &plugin : plugins) {
 
