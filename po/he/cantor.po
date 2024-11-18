@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: cantor\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-10-04 01:47+0000\n"
-"PO-Revision-Date: 2024-11-14 21:39+0200\n"
+"PO-Revision-Date: 2024-11-16 08:32+0200\n"
 "Last-Translator: Yaron Shahrabani <sh.yaron@gmail.com>\n"
 "Language-Team: צוות התרגום של KDE ישראל\n"
 "Language: he\n"
@@ -921,6 +921,9 @@ msgid ""
 "solving linear and nonlinear problems numerically, and for performing other "
 "numerical experiments using a language that is mostly compatible with Matlab."
 msgstr ""
+"<b>GNU Octave</b> היא שפה עילית שמיועדת בעיקר לחישובים מספריים. <br/>היא "
+"מספקת ממשק שורת פקודה נוח לפתרון בעיות לינאריות וא־לינאריות באופן מספרי "
+"ולביצוע ניסויים מספריים אחרים עם שפה שברובה תואמת ל־Matlab."
 
 #: backends/octave/octaveexpression.cpp:232
 #, kde-format
@@ -1424,13 +1427,13 @@ msgstr "PNG"
 #: backends/qalculate/plotassistant/qalculateplotdialog.ui:565
 #, kde-format
 msgid "PS"
-msgstr ""
+msgstr "PS"
 
 #. i18n: ectx: property (text), item, widget (KComboBox, saveFileBox)
 #: backends/qalculate/plotassistant/qalculateplotdialog.ui:570
 #, kde-format
 msgid "EPS"
-msgstr ""
+msgstr "EPS"
 
 #. i18n: ectx: property (text), item, widget (KComboBox, saveFileBox)
 #: backends/qalculate/plotassistant/qalculateplotdialog.ui:575
@@ -2127,7 +2130,7 @@ msgstr "הורדת תיעוד נוסף"
 #: backends/qthelpconfig.cpp:170
 #, kde-format
 msgid "Qt Compressed Help file is not valid."
-msgstr ""
+msgstr "אין תמיכה בקובצי עזרה דחוסים של Qt"
 
 #: backends/qthelpconfig.cpp:179
 #, kde-format
@@ -2281,6 +2284,11 @@ msgid ""
 "the vehicle of choice for research in statistical methodology, and R "
 "provides an Open Source route to participation in that activity."
 msgstr ""
+"<b>R</b> היא שפה וסביבה לחישוב סטטיסטי וגרפיקה, בדומה לשפת וסביבת S.<br/>היא "
+"מספקת מגוון רחב של טכניקות  סטטיסטיות (מידול לינארי וא־לינארי, בדיקות "
+"סטטיסיות קלסיות, ניתוח של נתונים על ציר זמן, סיווג, קיבוץ, …) וגרפיות, והיא "
+"גמישה מאוד. שפת S היא בדרך כלל המנגנון הנבחר למתודולוגיית מחקר בסטטיסטיקה, ו־"
+"R מספקת ניתוב בקוד פתוח להשתתפות בפעילות הזאת."
 
 #: backends/R/rexpression.cpp:109 backends/R/rexpression.cpp:110
 #, kde-format
