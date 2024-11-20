@@ -66,8 +66,9 @@ option(ENABLE_EMBEDDED_DOCUMENTATION "Enable the emedded documentation depending
 if (ENABLE_EMBEDDED_DOCUMENTATION)
     find_package(Qt6 ${QT_MIN_VERSION} CONFIG REQUIRED
         Help
-        WebEngine
-        WebEngineWidgets)
+        WebEngineCore
+        WebEngineWidgets
+    )
     add_definitions (-DHAVE_EMBEDDED_DOCUMENTATION)
 endif ()
 

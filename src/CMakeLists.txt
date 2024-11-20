@@ -45,7 +45,7 @@ target_link_libraries(cantor KF6::Parts KF6::NewStuffWidgets KF6::ConfigCore KF6
     KF6::Crash KF6::XmlGui cantorlibs cantor_config)
 
 if (ENABLE_EMBEDDED_DOCUMENTATION)
-    target_link_libraries(cantor Qt6::WebEngineWidgets)
+    target_link_libraries(cantor Qt6::WebEngineCore)
 endif()
 
 ########### install files ###############
