@@ -1,5 +1,6 @@
 File=cantor.kcfg
 ClassName=Settings
 Singleton=true
-Visibility=Q_DECL_EXPORT
+Visibility=CANTOR_CONFIG_EXPORT
 Mutators=true
+IncludeFiles=cantor_config_export.h

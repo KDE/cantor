@@ -64,7 +64,7 @@ Set( cantor_LIB_HDRS
 
 ki18n_wrap_ui(cantor_LIB_SRCS directives/axisrange.ui directives/plottitle.ui)
 
-kconfig_add_kcfg_files(cantor_LIB_SRCS settings.kcfgc)
+kconfig_add_kcfg_files(cantor_LIB_SRCS cantor_libs_settings.kcfgc)
 install(FILES cantor_libs.kcfg DESTINATION ${KDE_INSTALL_KCFGDIR})
 
 configure_file (config-cantorlib.h.cmake ${CMAKE_CURRENT_BINARY_DIR}/config-cantorlib.h )
