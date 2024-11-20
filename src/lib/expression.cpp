@@ -14,7 +14,6 @@ using namespace Cantor;
 #include "textresult.h"
 #include "imageresult.h"
 #include "latexresult.h"
-#include "settings.h"
 
 #include <QDebug>
 #include <QFileInfo>

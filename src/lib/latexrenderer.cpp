@@ -17,7 +17,7 @@ using namespace Cantor;
 #include <QApplication>
 
 #include <config-cantorlib.h>
-#include "settings.h"
+#include "cantor_libs_settings.h"
 
 class Cantor::LatexRendererPrivate
 {
@@ -227,11 +227,11 @@ bool LatexRenderer::renderWithLatex()
 
     d->uuid = genUuid();
 
-    qDebug() << Settings::self()->latexCommand();
-    QFileInfo info(Settings::self()->latexCommand());
+    qDebug() << CantorLibsSettings::self()->latexCommand();
+    QFileInfo info(CantorLibsSettings::self()->latexCommand());
     if (info.exists() && info.isExecutable())
     {
-        p->setProgram(Settings::self()->latexCommand());
+        p->setProgram(CantorLibsSettings::self()->latexCommand());
         p->setArguments({QStringLiteral("-jobname=cantor_") + d->uuid, QStringLiteral("-halt-on-error"), fileName});
 
         connect(p, SIGNAL(finished(int,QProcess::ExitStatus)), this, SLOT(convertToPs()) );
@@ -253,12 +253,12 @@ void LatexRenderer::convertToPs()
     d->epsFilename = dir + QDir::separator() + QLatin1String("cantor_")+d->uuid+QLatin1String(".eps");
 
     QProcess *p=new QProcess( this );
-    qDebug()<<"converting to eps: "<<Settings::self()->dvipsCommand()<<"-E"<<"-o"<<d->epsFilename<<dviFile;
+    qDebug()<<"converting to eps: "<<CantorLibsSettings::self()->dvipsCommand()<<"-E"<<"-o"<<d->epsFilename<<dviFile;
 
-    QFileInfo info(Settings::self()->dvipsCommand());
+    QFileInfo info(CantorLibsSettings::self()->dvipsCommand());
     if (info.exists() && info.isExecutable())
     {
-        p->setProgram(Settings::self()->dvipsCommand());
+        p->setProgram(CantorLibsSettings::self()->dvipsCommand());
         p->setArguments({QStringLiteral("-E"), QStringLiteral("-q"), QStringLiteral("-o"), d->epsFilename, dviFile});
 
         connect(p, SIGNAL(finished(int,QProcess::ExitStatus)), this, SLOT(convertingDone()) );
@@ -315,7 +315,7 @@ QString LatexRenderer::genUuid()
 
 bool Cantor::LatexRenderer::isLatexAvailable()
 {
-    QFileInfo infoLatex(Settings::self()->latexCommand());
-    QFileInfo infoPs(Settings::self()->dvipsCommand());
+    QFileInfo infoLatex(CantorLibsSettings::self()->latexCommand());
+    QFileInfo infoPs(CantorLibsSettings::self()->dvipsCommand());
     return infoLatex.exists() && infoLatex.isExecutable() && infoPs.exists() && infoPs.isExecutable();
 }
