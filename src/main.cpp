@@ -21,14 +21,12 @@
 #include <QDebug>
 
 #ifdef HAVE_EMBEDDED_DOCUMENTATION
-#include <QtWebEngine>
+#include <QWebEngineUrlScheme>
 #endif
 
 int main(int argc, char **argv)
 {
 #ifdef HAVE_EMBEDDED_DOCUMENTATION
-    QtWebEngine::initialize();
-
     // Register custom scheme handler for qthelp:// scheme
     QWebEngineUrlScheme qthelp("qthelp");
     QWebEngineUrlScheme::registerScheme(qthelp);
