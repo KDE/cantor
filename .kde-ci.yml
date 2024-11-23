@@ -23,5 +23,4 @@ Dependencies:
     'education/analitza': '@same'
 
 Options:
-  cmake-options: "-DENABLE_EMBEDDED_DOCUMENTATION=ON"
   require-passing-tests-on: ['Linux', 'Windows']

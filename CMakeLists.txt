@@ -62,7 +62,7 @@ find_package(KF6 ${KF_MIN_VERSION} REQUIRED
 find_package(LibXml2 REQUIRED)
 find_package(LibXslt REQUIRED)
 
-option(ENABLE_EMBEDDED_DOCUMENTATION "Enable the emedded documentation depending on QtHelp and QtWebEngine" OFF)
+option(ENABLE_EMBEDDED_DOCUMENTATION "Enable the emedded documentation depending on QtHelp and QtWebEngine" ON)
 if (ENABLE_EMBEDDED_DOCUMENTATION)
     find_package(Qt6 ${QT_MIN_VERSION} CONFIG REQUIRED
         Help
