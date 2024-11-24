@@ -166,9 +166,10 @@ void SageSession::login()
 
     m_process->write(initCmd);
 
-    //save the path to the worksheet as variable "__file__"
-    //this variable is usually set by the "os" package when running a script
-    //but when it is run in an interpreter (like sage server) it is not set
+    // set the current working directory to the project directory
+    // and save the path to the worksheet as variable "__file__"  -
+    // this variable is usually set by the "os" package when running a script
+    // but when it is run in an interpreter (like sage server) it is not set
     const auto& path = worksheetPath();
     if (!path.isEmpty())
     {

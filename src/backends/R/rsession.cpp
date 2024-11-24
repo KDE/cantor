@@ -63,6 +63,14 @@ void RSession::login()
 
     m_rServer = new org::kde::Cantor::R(QString::fromLatin1("org.kde.Cantor.R-%1").arg(m_process->processId()),  QLatin1String("/"), QDBusConnection::sessionBus(), this);
 
+    // set the current working directory to the project directory
+    const auto& path = worksheetPath();
+    if (!path.isEmpty())
+    {
+        const auto& dir = QFileInfo(path).absoluteDir().absolutePath();
+        m_rServer->runCommand(QLatin1String("setwd(\"") + dir + QLatin1String("\")"), true);
+    }
+
     connect(m_rServer, &org::kde::Cantor::R::statusChanged, this, &RSession::serverChangedStatus);
     connect(m_rServer,  &org::kde::Cantor::R::expressionFinished, this, &RSession::expressionFinished);
     connect(m_rServer, &org::kde::Cantor::R::inputRequested, this, &RSession::inputRequested);

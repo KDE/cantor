@@ -10,12 +10,11 @@
 #include "maximasyntaxhelpobject.h"
 #include "maximahighlighter.h"
 #include "maximavariablemodel.h"
-#include "result.h"
 #include "settings.h"
 
 #include <QDebug>
+#include <QDir>
 #include <QTimer>
-#include <QStandardPaths>
 
 #include <KMessageBox>
 #include <KLocalizedString>
@@ -99,6 +98,14 @@ void MaximaSession::login()
         autorunScripts.append(QLatin1String(";kill(labels)")); // Reset labels after running autorun scripts
         evaluateExpression(autorunScripts, MaximaExpression::DeleteOnFinish, true);
         updateVariables();
+    }
+
+    // set the current working directory to the project directory
+    const auto& path = worksheetPath();
+    if (!path.isEmpty())
+    {
+        const auto& dir = QFileInfo(path).absoluteDir().absolutePath();
+        write(QLatin1String("load(\"operatingsystem\"); chdir(\"") + dir + QLatin1String("\");"));
     }
 
     changeStatus(Session::Done);
