@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-10-04 01:47+0000\n"
+"POT-Creation-Date: 2024-11-24 00:37+0000\n"
 "PO-Revision-Date: 2023-07-25 19:54+0300\n"
 "Last-Translator: Theofilos Intzoglou <int.teo@gmail.com>\n"
 "Language-Team: Greek <kde-i18n-el@kde.org>\n"
@@ -999,7 +999,7 @@ msgstr "Η ενσωμάτωση των γραφικών παραστάσεων �
 
 #: backends/octave/octavesession.cpp:401 backends/sage/sagesession.cpp:357
 #: backends/sage/sagesession.cpp:368 cantor.cpp:219 cantor.cpp:221
-#: cantor.cpp:340 cantor.cpp:347 lib/session.cpp:335 main.cpp:65 main.cpp:124
+#: cantor.cpp:340 cantor.cpp:347 lib/session.cpp:335 main.cpp:63 main.cpp:122
 #: markdownentry.cpp:797 textentry.cpp:553 worksheet.cpp:1287
 #, kde-format
 msgid "Cantor"
@@ -2725,43 +2725,43 @@ msgid "Formatting"
 msgstr "Μορφοποίηση"
 
 #. i18n: ectx: label, entry (DefaultBackend), group (Cantor)
-#: cantor.kcfg:12
+#: cantor.kcfg:10
 #, kde-format
 msgid "The Backend that is used by default"
 msgstr "Το σύστημα υποστήριξης που χρησιμοποιείται ως προκαθορισμένο"
 
 #. i18n: ectx: label, entry (TypesetDefault), group (Cantor)
-#: cantor.kcfg:16
+#: cantor.kcfg:14
 #, kde-format
 msgid "Do Typesetting by default"
 msgstr "Προεπιλεγμένη πραγματοποίηση στοιχειοθεσίας"
 
 #. i18n: ectx: label, entry (HighlightDefault), group (Cantor)
-#: cantor.kcfg:20
+#: cantor.kcfg:18
 #, kde-format
 msgid "Do Syntax Highlighting by default"
 msgstr "Προεπιλεγμένη πραγματοποίηση επισήμανσης σύνταξης"
 
 #. i18n: ectx: label, entry (CompletionDefault), group (Cantor)
-#: cantor.kcfg:24
+#: cantor.kcfg:22
 #, kde-format
 msgid "Enable Completions by default"
 msgstr "Προεπιλεγμένη ενεργοποίηση συμπλήρωσης"
 
 #. i18n: ectx: label, entry (ExpressionNumberingDefault), group (Cantor)
-#: cantor.kcfg:28
+#: cantor.kcfg:26
 #, kde-format
 msgid "Enable Numbering of Expressions by default"
 msgstr "Προεπιλεγμένη ενεργοποίηση αρίθμησης εκφράσεων"
 
 #. i18n: ectx: label, entry (AnimationDefault), group (Cantor)
-#: cantor.kcfg:32
+#: cantor.kcfg:30
 #, kde-format
 msgid "Animate changes in the Worksheet by default"
 msgstr "Προεπιλογή εφέ κίνησης αλλαγών στο φύλλο εργασίας"
 
 #. i18n: ectx: label, entry (EmbeddedMathDefault), group (Cantor)
-#: cantor.kcfg:36
+#: cantor.kcfg:34
 #, kde-format
 msgid ""
 "Enable rendering math expressions inside $$..$$ in Text and Markdown entries "
@@ -2771,27 +2771,27 @@ msgstr ""
 "σε εγγραφές κειμένου και Markdown (απαιτεί εγκατάσταση pdflatex)"
 
 #. i18n: ectx: label, entry (WarnAboutEntryDelete), group (Cantor)
-#: cantor.kcfg:40
+#: cantor.kcfg:38
 #, kde-format
 msgid "Ask for confirmation when deleting an entry"
 msgstr "Να γίνεται επιβεβαίωση κατά την διαγραφή μιας καταχώρησης"
 
 #. i18n: ectx: label, entry (AutoEval), group (Cantor)
-#: cantor.kcfg:44
+#: cantor.kcfg:42
 #, kde-format
 msgid "Automatically reevaluate the entries below the current"
 msgstr "Αυτόματος εκ νέου υπολογισμός των καταχωρήσεων κάτω από την τρέχουσα"
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_WarnAboutSessionRestart)
 #. i18n: ectx: label, entry (WarnAboutSessionRestart), group (Cantor)
-#: cantor.kcfg:48 settings.ui:269
+#: cantor.kcfg:46 settings.ui:269
 #, kde-format
 msgid "Ask for confirmation when restarting the backend"
 msgstr ""
 "Να γίνεται ερώτηση επιβεβαίωσης στην επανεκκίνηση του συστήματος υποστήριξης"
 
 #. i18n: ectx: label, entry (StoreTextEntryFormatting), group (Cantor)
-#: cantor.kcfg:52
+#: cantor.kcfg:50
 #, kde-format
 msgid ""
 "Save rich text formatting of TextEntry, when save Worksheet in Jupyter "
@@ -2801,144 +2801,144 @@ msgstr ""
 "αποθήκευση του φύλλου εργασίας σε τύπο αποθήκευσης σημειωματαρίου Jupyter"
 
 #. i18n: ectx: label, entry (UseOldCantorEntriesIndent), group (Cantor)
-#: cantor.kcfg:56
+#: cantor.kcfg:54
 #, kde-format
 msgid "Use old style Cantor entries placement style"
 msgstr ""
 "Να γίνει χρήση του στιλ τοποθέτησης με εγγραφές παλαιού στιλ του Cantor"
 
 #. i18n: ectx: label, entry (ShowMathRenderError), group (Cantor)
-#: cantor.kcfg:60
+#: cantor.kcfg:58
 #, kde-format
 msgid "Show embedded math render error"
 msgstr "Να εμφανίζεται το σφάλμα αποτύπωσης στα ενσωματωμένα μαθηματικά"
 
 #. i18n: ectx: label, entry (VisibleLinesLimit), group (Cantor)
-#: cantor.kcfg:64
+#: cantor.kcfg:62
 #, kde-format
 msgid "Limit of visible lines for text result"
 msgstr "Να περιοριστούν οι ορατές γραμμές για το αποτέλεσμα του κειμένου"
 
 #. i18n: ectx: label, entry (ChapterFontFamily), group (Cantor)
-#: cantor.kcfg:68
+#: cantor.kcfg:66
 #, kde-format
 msgid "Hierarchy font for chapter"
 msgstr "Γραμματοσειρά ιεραρχίας για κεφάλαια"
 
 #. i18n: ectx: label, entry (ChapterFontSize), group (Cantor)
-#: cantor.kcfg:72
+#: cantor.kcfg:70
 #, kde-format
 msgid "Hierarchy font size for chapter"
 msgstr "Μέγεθος γραμματοσειράς ιεραρχίας για κεφάλαια"
 
 #. i18n: ectx: label, entry (ChapterFontItalic), group (Cantor)
-#: cantor.kcfg:76
+#: cantor.kcfg:74
 #, kde-format
 msgid "Hierarchy font italic for chapter"
 msgstr "Πλάγια γραμματοσειρά ιεραρχίας για κεφάλαια"
 
 #. i18n: ectx: label, entry (ChapterFontBold), group (Cantor)
-#: cantor.kcfg:80
+#: cantor.kcfg:78
 #, kde-format
 msgid "Hierarchy font bold for chapter"
 msgstr "Έντονη γραμματοσειρά ιεραρχίας για κεφάλαια"
 
 #. i18n: ectx: label, entry (SubchapterFontFamily), group (Cantor)
-#: cantor.kcfg:84
+#: cantor.kcfg:82
 #, kde-format
 msgid "Hierarchy font for subchapter"
 msgstr "Γραμματοσειρά ιεραρχίας για υποκεφάλαια"
 
 #. i18n: ectx: label, entry (SubchapterFontSize), group (Cantor)
-#: cantor.kcfg:88
+#: cantor.kcfg:86
 #, kde-format
 msgid "Hierarchy font size for subchapter"
 msgstr "Μέγεθος γραμματοσειράς ιεραρχίας για υποκεφάλαια"
 
 #. i18n: ectx: label, entry (SubchapterFontItalic), group (Cantor)
-#: cantor.kcfg:92
+#: cantor.kcfg:90
 #, kde-format
 msgid "Hierarchy font italic for subchapter"
 msgstr "Πλάγια γραμματοσειρά ιεραρχίας για υποκεφάλαια"
 
 #. i18n: ectx: label, entry (SubchapterFontBold), group (Cantor)
-#: cantor.kcfg:96
+#: cantor.kcfg:94
 #, kde-format
 msgid "Hierarchy font bold for subchapter"
 msgstr "Έντονη γραμματοσειρά ιεραρχίας για υποκεφάλαια"
 
 #. i18n: ectx: label, entry (SectionFontFamily), group (Cantor)
 #. i18n: ectx: label, entry (SectionFontSize), group (Cantor)
-#: cantor.kcfg:100 cantor.kcfg:104
+#: cantor.kcfg:98 cantor.kcfg:102
 #, kde-format
 msgid "Hierarchy font for section"
 msgstr "Γραμματοσειρά ιεραρχίας για ενότητες"
 
 #. i18n: ectx: label, entry (SectionFontItalic), group (Cantor)
-#: cantor.kcfg:108
+#: cantor.kcfg:106
 #, kde-format
 msgid "Hierarchy font italic for section"
 msgstr "Πλάγια γραμματοσειρά ιεραρχίας για ενότητες"
 
 #. i18n: ectx: label, entry (SectionFontBold), group (Cantor)
-#: cantor.kcfg:112
+#: cantor.kcfg:110
 #, kde-format
 msgid "Hierarchy font bold for section"
 msgstr "Έντονη γραμματοσειρά ιεραρχίας για ενότητες"
 
 #. i18n: ectx: label, entry (SubsectionFontFamily), group (Cantor)
 #. i18n: ectx: label, entry (SubsectionFontSize), group (Cantor)
-#: cantor.kcfg:116 cantor.kcfg:120
+#: cantor.kcfg:114 cantor.kcfg:118
 #, kde-format
 msgid "Hierarchy font for subsection"
 msgstr "Γραμματοσειρά ιεραρχίας για υποενότητες"
 
 #. i18n: ectx: label, entry (SubsectionFontItalic), group (Cantor)
-#: cantor.kcfg:124
+#: cantor.kcfg:122
 #, kde-format
 msgid "Hierarchy font italic for subsection"
 msgstr "Πλάγια γραμματοσειρά ιεραρχίας για ενότητες"
 
 #. i18n: ectx: label, entry (SubsectionFontBold), group (Cantor)
-#: cantor.kcfg:128
+#: cantor.kcfg:126
 #, kde-format
 msgid "Hierarchy font bold for subsection"
 msgstr "Έντονη γραμματοσειρά ιεραρχίας για υποενότητες"
 
 #. i18n: ectx: label, entry (ParagraphFontFamily), group (Cantor)
 #. i18n: ectx: label, entry (ParagraphFontSize), group (Cantor)
-#: cantor.kcfg:132 cantor.kcfg:136
+#: cantor.kcfg:130 cantor.kcfg:134
 #, kde-format
 msgid "Hierarchy font for paragraph"
 msgstr "Γραμματοσειρά ιεραρχίας για παραγράφους"
 
 #. i18n: ectx: label, entry (ParagraphFontItalic), group (Cantor)
-#: cantor.kcfg:140
+#: cantor.kcfg:138
 #, kde-format
 msgid "Hierarchy font italic for paragraph"
 msgstr "Πλάγια γραμματοσειρά ιεραρχίας για παραγράφους"
 
 #. i18n: ectx: label, entry (ParagraphFontBold), group (Cantor)
-#: cantor.kcfg:144
+#: cantor.kcfg:142
 #, kde-format
 msgid "Hierarchy font bold for paragraph"
 msgstr "Έντονη γραμματοσειρά ιεραρχίας για παραγράφους"
 
 #. i18n: ectx: label, entry (SubparagraphFontFamily), group (Cantor)
 #. i18n: ectx: label, entry (SubparagraphFontSize), group (Cantor)
-#: cantor.kcfg:148 cantor.kcfg:152
+#: cantor.kcfg:146 cantor.kcfg:150
 #, kde-format
 msgid "Hierarchy font for subparagraph"
 msgstr "Γραμματοσειρά ιεραρχίας για υποπαραγράφους"
 
 #. i18n: ectx: label, entry (SubparagraphFontItalic), group (Cantor)
-#: cantor.kcfg:156
+#: cantor.kcfg:154
 #, kde-format
 msgid "Hierarchy font italic for subparagraph"
 msgstr "Πλάγια γραμματοσειρά ιεραρχίας για υποπαραγράφους"
 
 #. i18n: ectx: label, entry (SubparagraphFontBold), group (Cantor)
-#: cantor.kcfg:160
+#: cantor.kcfg:158
 #, kde-format
 msgid "Hierarchy font bold for subparagraph"
 msgstr "Έντονη γραμματοσειρά ιεραρχίας για υποπαραγράφους"
@@ -3097,7 +3097,7 @@ msgstr "Τμήμα του Cantor"
 msgid "(C) 2009-2015 Alexander Rieder"
 msgstr "(C) 2009-2015 Alexander Rieder"
 
-#: cantor_part.cpp:422 main.cpp:80
+#: cantor_part.cpp:422 main.cpp:78
 #, kde-format
 msgid "Alexander Rieder"
 msgstr "Alexander Rieder"
@@ -3824,94 +3824,94 @@ msgstr ""
 "να ενεργοποιηθεί εξαιτίας της έλλειψης απαιτήσεων, έτσι η ολοκλήρωση για το "
 "πακέτο αυτό θα απενεργοποιηθεί. %2"
 
-#: main.cpp:71
+#: main.cpp:69
 #, kde-format
 msgid "KDE Frontend to mathematical applications"
 msgstr "Περιβάλλον του KDE για μαθηματικές εφαρμογές"
 
-#: main.cpp:73
+#: main.cpp:71
 #, kde-format
 msgid "(C) 2016 Filipe Saraiva<br/>(C) 2009-2015 Alexander Rieder"
 msgstr "(C) 2016 Filipe Saraiva<br/>(C) 2009-2015 Alexander Rieder"
 
-#: main.cpp:77
+#: main.cpp:75
 #, kde-format
 msgid "Filipe Saraiva"
 msgstr "Filipe Saraiva"
 
-#: main.cpp:77
+#: main.cpp:75
 #, kde-format
 msgid "Maintainer<br/>Qt5/KF5 port, Scilab and Python backends"
 msgstr ""
 "Συντηρητής<br/>Μεταφορά Qt5/KF5, συστήματα υποστήριξης Scilab και Python"
 
-#: main.cpp:78
+#: main.cpp:76
 #, kde-format
 msgid "Nikita Sirgienko"
 msgstr "Nikita Sirgienko"
 
-#: main.cpp:78 main.cpp:79
+#: main.cpp:76 main.cpp:77
 #, kde-format
 msgctxt "@info:credit"
 msgid "Developer"
 msgstr "Προγραμματιστής"
 
-#: main.cpp:79
+#: main.cpp:77
 #, kde-format
 msgid "Alexander Semke"
 msgstr "Alexander Semke"
 
-#: main.cpp:80
+#: main.cpp:78
 #, kde-format
 msgid "Original author<br/>Maintainer (2009 - 2015)"
 msgstr "Αρχικός συγγραφέας<br/>Συντηρητής (2009-2015)"
 
-#: main.cpp:81
+#: main.cpp:79
 #, kde-format
 msgid "Aleix Pol Gonzalez"
 msgstr "Aleix Pol Gonzalez"
 
-#: main.cpp:81
+#: main.cpp:79
 #, kde-format
 msgid "KAlgebra backend"
 msgstr "Σύστημα υποστήριξης KAlgebra"
 
-#: main.cpp:82
+#: main.cpp:80
 #, kde-format
 msgid "Miha Čančula"
 msgstr "Miha Čančula"
 
-#: main.cpp:82
+#: main.cpp:80
 #, kde-format
 msgid "Octave backend"
 msgstr "Σύστημα υποστήριξης Octave"
 
-#: main.cpp:83
+#: main.cpp:81
 #, kde-format
 msgid "Martin Küttler"
 msgstr "Martin Küttler"
 
-#: main.cpp:83
+#: main.cpp:81
 #, kde-format
 msgid "Interface"
 msgstr "Περιβάλλον"
 
-#: main.cpp:85 main.cpp:86
+#: main.cpp:83 main.cpp:84
 #, kde-format
 msgid "Cantor icon"
 msgstr "Εικονίδιο Cantor"
 
-#: main.cpp:91
+#: main.cpp:89
 #, kde-format
 msgid "Use  backend <backend>"
 msgstr "Χρήση  συστήματος υποστήριξης <backend>"
 
-#: main.cpp:94
+#: main.cpp:92
 #, kde-format
 msgid "Documents to open."
 msgstr "Έγγραφα για άνοιγμα."
 
-#: main.cpp:124
+#: main.cpp:122
 #, kde-format
 msgid "Couldn't open the file %1"
 msgstr "Αδυναμία ανοίγματος του αρχείου %1"
