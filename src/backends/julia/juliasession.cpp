@@ -74,7 +74,6 @@ void JuliaSession::login()
         return;
     }
 
-
     m_process->waitForReadyRead();
     QTextStream stream(m_process->readAllStandardOutput());
 
@@ -127,6 +126,14 @@ void JuliaSession::login()
     {
         KMessageBox::error(nullptr, i18n("Julia session can't login due unknown internal problem"), i18n("Error - Cantor"));
         return;
+    }
+
+    // set the current working directory to the project directory
+    const auto& path = worksheetPath();
+    if (!path.isEmpty())
+    {
+        const auto& dir = QFileInfo(path).absoluteDir().absolutePath();
+        runJuliaCommand(QLatin1String("cd(\"") + dir + QLatin1String("\")"));
     }
 
     static_cast<JuliaVariableModel*>(variableModel())->setJuliaServer(m_interface);

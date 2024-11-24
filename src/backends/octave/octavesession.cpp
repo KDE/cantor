@@ -123,6 +123,7 @@ void OctaveSession::login()
         updateVariables();
     }
 
+    // set the current working directory to the project directory
     const auto& path = worksheetPath();
     if (!path.isEmpty())
     {

@@ -1,5 +1,17 @@
 # Changelog
 
+## 24.12
+    * Port to Qt6/KF6
+    * Set the current working directory to the directory of the project file for Maxima, R, Scilab and Julia projects
+
+## 24.08
+    * [python] Write out the errors also during the initial initializion of the interpreter
+    * Set the current working directory to the directory of the project file for Python, Octave and Sage projects
+    * Added error handling for the case when the backend executable failed to start to all session classes (was done for Maxima only previously)
+    * Added new example projects
+    * Make the dependency on QtWebEngine (required for the embedded documentation only) optional
+    * Fix the build with julia 1.11
+
 ## 24.05
 
 ### Bug fixes:

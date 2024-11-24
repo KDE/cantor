@@ -61,8 +61,8 @@ void PythonSession::login()
 
 #ifdef Q_OS_WIN
     const QString& serverExecutablePath = QStandardPaths::findExecutable(QLatin1String("cantor_pythonserver.exe"));
-	// On Windows QProcess can't handle paths with spaces, so add escaping
-	m_process->start(QLatin1String("\"") + serverExecutablePath + QLatin1String("\""));
+    // On Windows QProcess can't handle paths with spaces, so add escaping
+    m_process->start(QLatin1String("\"") + serverExecutablePath + QLatin1String("\""));
 #else
     const QString& serverExecutablePath = QStandardPaths::findExecutable(QLatin1String("cantor_pythonserver"));
     m_process->start(serverExecutablePath);
@@ -93,6 +93,8 @@ void PythonSession::login()
     connect(m_process, &QProcess::errorOccurred, this, &PythonSession::reportServerProcessError);
 
     sendCommand(QLatin1String("login"));
+
+    // set the current working directory to the project directory
     const auto& path = worksheetPath();
     if (!path.isEmpty())
     {

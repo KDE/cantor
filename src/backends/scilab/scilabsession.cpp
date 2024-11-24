@@ -100,6 +100,15 @@ void ScilabSession::login()
         m_process->write(autorunScripts.toLocal8Bit());
     }
 
+    // set the current working directory to the project directory
+    const auto& path = worksheetPath();
+    if (!path.isEmpty())
+    {
+        const auto& dir = QFileInfo(path).absoluteDir().absolutePath();
+        const auto& cmd = QLatin1String("chdir(\"") + dir + QLatin1String("\")");
+        m_process->write(cmd.toLocal8Bit());
+    }
+
     QObject::connect(m_process, &QProcess::readyReadStandardOutput, this, &ScilabSession::readOutput);
     QObject::connect(m_process, &QProcess::readyReadStandardError, this, &ScilabSession::readError);
 
