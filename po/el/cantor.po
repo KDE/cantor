@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-11-24 00:37+0000\n"
+"POT-Creation-Date: 2024-11-25 00:36+0000\n"
 "PO-Revision-Date: 2023-07-25 19:54+0300\n"
 "Last-Translator: Theofilos Intzoglou <int.teo@gmail.com>\n"
 "Language-Team: Greek <kde-i18n-el@kde.org>\n"
@@ -400,8 +400,8 @@ msgstr "Αρχείο σεναρίου της Julia (*.jl)"
 msgid "Failed to start Julia, please check Julia installation."
 msgstr "Αδυναμία έναρξης της διεργασίας Julia."
 
-#: backends/julia/juliasession.cpp:119 backends/julia/juliasession.cpp:128
-#: backends/maxima/maximasession.cpp:283 cantor_part.cpp:973
+#: backends/julia/juliasession.cpp:118 backends/julia/juliasession.cpp:127
+#: backends/maxima/maximasession.cpp:290 cantor_part.cpp:973
 #: lib/session.cpp:265 lib/session.cpp:267 worksheet.cpp:1205
 #: worksheet.cpp:1233 worksheet.cpp:1248 worksheet.cpp:1264 worksheet.cpp:1308
 #: worksheet.cpp:1317
@@ -409,7 +409,7 @@ msgstr "Αδυναμία έναρξης της διεργασίας Julia."
 msgid "Error - Cantor"
 msgstr "Σφάλμα - Cantor"
 
-#: backends/julia/juliasession.cpp:119
+#: backends/julia/juliasession.cpp:118
 #, kde-format
 msgid ""
 "Julia session can't login due internal julia problem with missing internal "
@@ -418,29 +418,29 @@ msgstr ""
 "Δεν μπορεί να γίνει σύνδεση με συνεδρία της Julia εξαιτίας εσωτερικού "
 "προβλήματος της julia με αρχείο που λείπει - \"%1\""
 
-#: backends/julia/juliasession.cpp:128
+#: backends/julia/juliasession.cpp:127
 #, kde-format
 msgid "Julia session can't login due unknown internal problem"
 msgstr ""
 "Δεν μπορεί να γίνει σύνδεση με συνεδρία της Julia εξαιτίας εσωτερικού "
 "προβλήματος"
 
-#: backends/julia/juliasession.cpp:253
+#: backends/julia/juliasession.cpp:260
 #, kde-format
 msgid "Julia process stopped working."
 msgstr "Η διεργασία Julia σταμάτησε να λειτουργεί."
 
-#: backends/julia/juliasession.cpp:256
+#: backends/julia/juliasession.cpp:263
 #, kde-format
 msgid "Failed to start Julia process."
 msgstr "Αδυναμία έναρξης της διεργασίας Julia."
 
-#: backends/julia/juliasession.cpp:259
+#: backends/julia/juliasession.cpp:266
 #, kde-format
 msgid "Communication with Julia process failed for unknown reasons."
 msgstr "Αποτυχία επικοινωνίας με τη διεργασία Julia για άγνωστους λόγους."
 
-#: backends/julia/juliasession.cpp:329
+#: backends/julia/juliasession.cpp:336
 #, kde-format
 msgid ""
 "For Julia only GR (https://gr-framework.org/), a framework for visualization "
@@ -907,29 +907,29 @@ msgstr "Αναμονή για το αποτέλεσμα της γραφικής 
 msgid "Maxima batch file (*.mac)"
 msgstr "Αρχείο δέσμης εντολών του Maxima (*.mac)"
 
-#: backends/maxima/maximasession.cpp:61
+#: backends/maxima/maximasession.cpp:60
 #, kde-format
 msgid "Failed to start Maxima, please check Maxima's installation."
 msgstr ""
 
-#: backends/maxima/maximasession.cpp:80
+#: backends/maxima/maximasession.cpp:79
 #, kde-format
 msgid ""
 "Maxima didn't respond with the proper prompt, please check Maxima "
 "installation."
 msgstr ""
 
-#: backends/maxima/maximasession.cpp:202
+#: backends/maxima/maximasession.cpp:209
 #, kde-format
 msgid "Failed to start Maxima"
 msgstr "Αδυναμία έναρξης του Maxima"
 
-#: backends/maxima/maximasession.cpp:269
+#: backends/maxima/maximasession.cpp:276
 #, kde-format
 msgid "Maxima crashed. restarting..."
 msgstr "Το Maxima κατέρρευσε. Επανέναρξη..."
 
-#: backends/maxima/maximasession.cpp:283
+#: backends/maxima/maximasession.cpp:290
 #, kde-format
 msgid "Maxima crashed twice within a short time. Stopping to try starting"
 msgstr ""
@@ -982,23 +982,23 @@ msgstr "Αρχείο σεναρίου της Octave (*.m)"
 msgid "Failed to start Octave, please check Octave installation."
 msgstr ""
 
-#: backends/octave/octavesession.cpp:277 backends/sage/sageexpression.cpp:49
+#: backends/octave/octavesession.cpp:278 backends/sage/sageexpression.cpp:49
 #, kde-format
 msgid "Syntax Error"
 msgstr "Συντακτικό σφάλμα"
 
-#: backends/octave/octavesession.cpp:396
+#: backends/octave/octavesession.cpp:397
 #, kde-format
 msgid "Plot integration test failed."
 msgstr "Αποτυχία της δοκιμής ενσωμάτωσης γραφικών παραστάσεων."
 
-#: backends/octave/octavesession.cpp:400
+#: backends/octave/octavesession.cpp:401
 #, kde-format
 msgid "The integration of plots will be disabled."
 msgstr "Η ενσωμάτωση των γραφικών παραστάσεων θα απενεργοποιηθεί."
 
-#: backends/octave/octavesession.cpp:401 backends/sage/sagesession.cpp:357
-#: backends/sage/sagesession.cpp:368 cantor.cpp:219 cantor.cpp:221
+#: backends/octave/octavesession.cpp:402 backends/sage/sagesession.cpp:358
+#: backends/sage/sagesession.cpp:369 cantor.cpp:219 cantor.cpp:221
 #: cantor.cpp:340 cantor.cpp:347 lib/session.cpp:335 main.cpp:63 main.cpp:122
 #: markdownentry.cpp:797 textentry.cpp:553 worksheet.cpp:1287
 #, kde-format
@@ -1044,24 +1044,24 @@ msgstr "Αρχείο σεναρίου της Python (*.py)"
 msgid "Failed to start Python, please check Python installation."
 msgstr ""
 
-#: backends/python/pythonsession.cpp:280
+#: backends/python/pythonsession.cpp:282
 #, kde-format
 msgid "Cantor Python server stopped working."
 msgstr ") python εξυπηρετητής του Cantor διέκοψε τη λειτουργία του."
 
-#: backends/python/pythonsession.cpp:284
+#: backends/python/pythonsession.cpp:286
 #, kde-format
 msgid "Failed to start Cantor python server."
 msgstr "Αδυναμία έναρξης του python εξυπηρετητή του Cantor."
 
-#: backends/python/pythonsession.cpp:288
+#: backends/python/pythonsession.cpp:290
 #, kde-format
 msgid "Communication with Cantor python server failed for unknown reasons."
 msgstr ""
 "Αποτυχία επικοινωνίας με τον python εξυπηρετητή του Cantor για άγνωστους "
 "λόγους."
 
-#: backends/python/pythonsession.cpp:314
+#: backends/python/pythonsession.cpp:316
 #, kde-format
 msgid ""
 "For using integrated graphics with Matplotlib package, you need to install "
@@ -1070,7 +1070,7 @@ msgstr ""
 "Για τη χρήση ενσωματωμένων γραφικών με το πακέτο Matplotlib, απαιτείται η "
 "εγκατάσταση του python πακέτου «matplotlib»."
 
-#: backends/python/pythonsession.cpp:320
+#: backends/python/pythonsession.cpp:322
 #, kde-format
 msgid ""
 "For using integrated graphic with Plot.ly, you need to install \"plotly\" "
@@ -2483,7 +2483,7 @@ msgstr "Αρχείο σεναρίου της Python (*.py);;Αρχείο σεν�
 msgid "Failed to start Sage, please check Sage installation."
 msgstr ""
 
-#: backends/sage/sagesession.cpp:270
+#: backends/sage/sagesession.cpp:271
 #, kde-format
 msgid ""
 "Sage version %1.%2 is unsupported. Please update your installation to the "
@@ -2492,12 +2492,12 @@ msgstr ""
 "Η έκδοση %1.%2 του Sage δεν υποστηρίζεται. Παρακαλούμε ενημερώστε την "
 "εγκατάστασή σας με την έκδοση 9.2 ή νεότερη."
 
-#: backends/sage/sagesession.cpp:272 backends/sage/sagesession.cpp:292
+#: backends/sage/sagesession.cpp:273 backends/sage/sagesession.cpp:293
 #, kde-format
 msgid "Unsupported Version"
 msgstr "Μη υποστηριζόμενη έκδοση"
 
-#: backends/sage/sagesession.cpp:291
+#: backends/sage/sagesession.cpp:292
 #, kde-format
 msgid ""
 "Failed to determine the version of Sage. Please check your installation and "
@@ -2506,27 +2506,27 @@ msgstr ""
 "Αποτυχία καθορισμού της έκδοσης του Sage. Ελέγξτε την εγκατάστασή σας και το "
 "αποτέλεσμα του «sage -v»."
 
-#: backends/sage/sagesession.cpp:353
+#: backends/sage/sagesession.cpp:354
 #, kde-format
 msgid "The Sage process crashed while evaluating this expression"
 msgstr "Η διεργασία του Sage κατέρρευσε κατά τον υπολογισμό αυτής της έκφρασης"
 
-#: backends/sage/sagesession.cpp:357
+#: backends/sage/sagesession.cpp:358
 #, kde-format
 msgid "The Sage process crashed"
 msgstr "Η διεργασία του Sage κατέρρευσε"
 
-#: backends/sage/sagesession.cpp:364
+#: backends/sage/sagesession.cpp:365
 #, kde-format
 msgid "The Sage process exited while evaluating this expression"
 msgstr "Η διεργασία του Sage τερμάτισε κατά τον υπολογισμό αυτής της έκφρασης"
 
-#: backends/sage/sagesession.cpp:368
+#: backends/sage/sagesession.cpp:369
 #, kde-format
 msgid "The Sage process exited"
 msgstr "Η διεργασία του Sage τερμάτισε"
 
-#: backends/sage/sagesession.cpp:378
+#: backends/sage/sagesession.cpp:379
 #, kde-format
 msgid "Failed to start Sage"
 msgstr "Αδυναμία έναρξης του Sage"

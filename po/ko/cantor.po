@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-11-24 00:37+0000\n"
+"POT-Creation-Date: 2024-11-25 00:36+0000\n"
 "PO-Revision-Date: 2024-08-20 21:41+0200\n"
 "Last-Translator: Shinjo Park <kde@peremen.name>\n"
 "Language-Team: Korean <kde-kr@kde.org>\n"
@@ -393,8 +393,8 @@ msgstr "Julia 스크립트 파일 (*.jl)"
 msgid "Failed to start Julia, please check Julia installation."
 msgstr "Julia 프로세스를 시작할 수 없습니다. 설치 상태를 확인하십시오."
 
-#: backends/julia/juliasession.cpp:119 backends/julia/juliasession.cpp:128
-#: backends/maxima/maximasession.cpp:283 cantor_part.cpp:973
+#: backends/julia/juliasession.cpp:118 backends/julia/juliasession.cpp:127
+#: backends/maxima/maximasession.cpp:290 cantor_part.cpp:973
 #: lib/session.cpp:265 lib/session.cpp:267 worksheet.cpp:1205
 #: worksheet.cpp:1233 worksheet.cpp:1248 worksheet.cpp:1264 worksheet.cpp:1308
 #: worksheet.cpp:1317
@@ -402,7 +402,7 @@ msgstr "Julia 프로세스를 시작할 수 없습니다. 설치 상태를 확�
 msgid "Error - Cantor"
 msgstr "오류 - Cantor"
 
-#: backends/julia/juliasession.cpp:119
+#: backends/julia/juliasession.cpp:118
 #, kde-format
 msgid ""
 "Julia session can't login due internal julia problem with missing internal "
@@ -411,27 +411,27 @@ msgstr ""
 "Julia 세션에 로그인할 수 없습니다. 다음 내부 파일이 없어서 Julia 내부 오류가 "
 "발생했습니다 - \"%1\""
 
-#: backends/julia/juliasession.cpp:128
+#: backends/julia/juliasession.cpp:127
 #, kde-format
 msgid "Julia session can't login due unknown internal problem"
 msgstr "알 수 없는 내부 오류로 Julia 세션에 로그인할 수 없음"
 
-#: backends/julia/juliasession.cpp:253
+#: backends/julia/juliasession.cpp:260
 #, kde-format
 msgid "Julia process stopped working."
 msgstr "Julia 프로세스가 중단되었습니다."
 
-#: backends/julia/juliasession.cpp:256
+#: backends/julia/juliasession.cpp:263
 #, kde-format
 msgid "Failed to start Julia process."
 msgstr "Julia 프로세스를 시작할 수 없습니다."
 
-#: backends/julia/juliasession.cpp:259
+#: backends/julia/juliasession.cpp:266
 #, kde-format
 msgid "Communication with Julia process failed for unknown reasons."
 msgstr "알 수 없는 이유로 Julia 프로세스와 통신할 수 없습니다."
 
-#: backends/julia/juliasession.cpp:329
+#: backends/julia/juliasession.cpp:336
 #, kde-format
 msgid ""
 "For Julia only GR (https://gr-framework.org/), a framework for visualization "
@@ -881,12 +881,12 @@ msgstr "플롯 결과 대기 중"
 msgid "Maxima batch file (*.mac)"
 msgstr "Maxima 배치 파일 (*.mac)"
 
-#: backends/maxima/maximasession.cpp:61
+#: backends/maxima/maximasession.cpp:60
 #, kde-format
 msgid "Failed to start Maxima, please check Maxima's installation."
 msgstr "Maxima를 시작할 수 없습니다. 설치 상태를 확인하십시오."
 
-#: backends/maxima/maximasession.cpp:80
+#: backends/maxima/maximasession.cpp:79
 #, kde-format
 msgid ""
 "Maxima didn't respond with the proper prompt, please check Maxima "
@@ -894,17 +894,17 @@ msgid ""
 msgstr ""
 "Maxima가 올바른 프롬프트로 응답하지 않았습니다. 설치 상태를 확인하십시오."
 
-#: backends/maxima/maximasession.cpp:202
+#: backends/maxima/maximasession.cpp:209
 #, kde-format
 msgid "Failed to start Maxima"
 msgstr "Maxima를 시작할 수 없음"
 
-#: backends/maxima/maximasession.cpp:269
+#: backends/maxima/maximasession.cpp:276
 #, kde-format
 msgid "Maxima crashed. restarting..."
 msgstr "Maxima가 충돌함. 다시 시작하는 중..."
 
-#: backends/maxima/maximasession.cpp:283
+#: backends/maxima/maximasession.cpp:290
 #, kde-format
 msgid "Maxima crashed twice within a short time. Stopping to try starting"
 msgstr "Maxima가 짧은 시간 동안 두 번 충돌했습니다. 재시작을 중단합니다"
@@ -953,23 +953,23 @@ msgstr "Octave 스크립트 파일 (*.m)"
 msgid "Failed to start Octave, please check Octave installation."
 msgstr "Octave를 시작할 수 없습니다. 설치 상태를 확인하십시오."
 
-#: backends/octave/octavesession.cpp:277 backends/sage/sageexpression.cpp:49
+#: backends/octave/octavesession.cpp:278 backends/sage/sageexpression.cpp:49
 #, kde-format
 msgid "Syntax Error"
 msgstr "구문 오류"
 
-#: backends/octave/octavesession.cpp:396
+#: backends/octave/octavesession.cpp:397
 #, kde-format
 msgid "Plot integration test failed."
 msgstr "플롯 통합 시험이 실패했습니다."
 
-#: backends/octave/octavesession.cpp:400
+#: backends/octave/octavesession.cpp:401
 #, kde-format
 msgid "The integration of plots will be disabled."
 msgstr "플롯 통합이 비활성화됩니다."
 
-#: backends/octave/octavesession.cpp:401 backends/sage/sagesession.cpp:357
-#: backends/sage/sagesession.cpp:368 cantor.cpp:219 cantor.cpp:221
+#: backends/octave/octavesession.cpp:402 backends/sage/sagesession.cpp:358
+#: backends/sage/sagesession.cpp:369 cantor.cpp:219 cantor.cpp:221
 #: cantor.cpp:340 cantor.cpp:347 lib/session.cpp:335 main.cpp:63 main.cpp:122
 #: markdownentry.cpp:797 textentry.cpp:553 worksheet.cpp:1287
 #, kde-format
@@ -1013,22 +1013,22 @@ msgstr "Python 스크립트 파일 (*.py)"
 msgid "Failed to start Python, please check Python installation."
 msgstr "Python을 시작할 수 없습니다. 설치 상태를 확인하십시오."
 
-#: backends/python/pythonsession.cpp:280
+#: backends/python/pythonsession.cpp:282
 #, kde-format
 msgid "Cantor Python server stopped working."
 msgstr "Cantor Python 서버가 중단되었습니다."
 
-#: backends/python/pythonsession.cpp:284
+#: backends/python/pythonsession.cpp:286
 #, kde-format
 msgid "Failed to start Cantor python server."
 msgstr "Cantor Python 서버를 시작할 수 없습니다."
 
-#: backends/python/pythonsession.cpp:288
+#: backends/python/pythonsession.cpp:290
 #, kde-format
 msgid "Communication with Cantor python server failed for unknown reasons."
 msgstr "알 수 없는 이유로 Cantor Python 서버 프로세스와 통신할 수 없습니다."
 
-#: backends/python/pythonsession.cpp:314
+#: backends/python/pythonsession.cpp:316
 #, kde-format
 msgid ""
 "For using integrated graphics with Matplotlib package, you need to install "
@@ -1037,7 +1037,7 @@ msgstr ""
 "Matplotlib 패키지의 내장 그래픽을 사용하려면 \"matplotlib\" Python 패키지를 "
 "먼저 설치하십시오."
 
-#: backends/python/pythonsession.cpp:320
+#: backends/python/pythonsession.cpp:322
 #, kde-format
 msgid ""
 "For using integrated graphic with Plot.ly, you need to install \"plotly\" "
@@ -2418,7 +2418,7 @@ msgstr "Python 스크립트 파일 (*.py);;Sage 스크립트 파일 (*.sage)"
 msgid "Failed to start Sage, please check Sage installation."
 msgstr "Sage를 시작할 수 없습니다. 설치 상태를 확인하십시오."
 
-#: backends/sage/sagesession.cpp:270
+#: backends/sage/sagesession.cpp:271
 #, kde-format
 msgid ""
 "Sage version %1.%2 is unsupported. Please update your installation to the "
@@ -2426,12 +2426,12 @@ msgid ""
 msgstr ""
 "Sage 버전 %1.%2은(는) 지원하지 않습니다. 9.2 이상으로 업그레이드하십시오."
 
-#: backends/sage/sagesession.cpp:272 backends/sage/sagesession.cpp:292
+#: backends/sage/sagesession.cpp:273 backends/sage/sagesession.cpp:293
 #, kde-format
 msgid "Unsupported Version"
 msgstr "지원하지 않는 버전"
 
-#: backends/sage/sagesession.cpp:291
+#: backends/sage/sagesession.cpp:292
 #, kde-format
 msgid ""
 "Failed to determine the version of Sage. Please check your installation and "
@@ -2440,27 +2440,27 @@ msgstr ""
 "Sage의 버전을 알 수 없습니다. 설치 상태와 'sage -v' 명령의 출력을 확인하십시"
 "오."
 
-#: backends/sage/sagesession.cpp:353
+#: backends/sage/sagesession.cpp:354
 #, kde-format
 msgid "The Sage process crashed while evaluating this expression"
 msgstr "이 수식을 처리하는 중 Sage 프로세스가 충돌함"
 
-#: backends/sage/sagesession.cpp:357
+#: backends/sage/sagesession.cpp:358
 #, kde-format
 msgid "The Sage process crashed"
 msgstr "Sage 프로세스가 충돌함"
 
-#: backends/sage/sagesession.cpp:364
+#: backends/sage/sagesession.cpp:365
 #, kde-format
 msgid "The Sage process exited while evaluating this expression"
 msgstr "이 수식을 처리하는 중 Sage 프로세스가 종료됨"
 
-#: backends/sage/sagesession.cpp:368
+#: backends/sage/sagesession.cpp:369
 #, kde-format
 msgid "The Sage process exited"
 msgstr "Sage 프로세스 종료됨"
 
-#: backends/sage/sagesession.cpp:378
+#: backends/sage/sagesession.cpp:379
 #, kde-format
 msgid "Failed to start Sage"
 msgstr "Sage를 시작할 수 없음"
