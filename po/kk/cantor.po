@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-11-24 02:32+0000\n"
+"POT-Creation-Date: 2024-11-25 02:32+0000\n"
 "PO-Revision-Date: 2013-11-01 23:02+0600\n"
 "Last-Translator: Sairan Kikkarin <sairan@computer.org>\n"
 "Language-Team: Kazakh <kde-i18n-doc@kde.org>\n"
@@ -402,8 +402,8 @@ msgstr "*.R|R скрипт файлы"
 msgid "Failed to start Julia, please check Julia installation."
 msgstr "Sage жегу жаңылысы"
 
-#: backends/julia/juliasession.cpp:119 backends/julia/juliasession.cpp:128
-#: backends/maxima/maximasession.cpp:283 cantor_part.cpp:973
+#: backends/julia/juliasession.cpp:118 backends/julia/juliasession.cpp:127
+#: backends/maxima/maximasession.cpp:290 cantor_part.cpp:973
 #: lib/session.cpp:265 lib/session.cpp:267 worksheet.cpp:1205
 #: worksheet.cpp:1233 worksheet.cpp:1248 worksheet.cpp:1264 worksheet.cpp:1308
 #: worksheet.cpp:1317
@@ -411,35 +411,35 @@ msgstr "Sage жегу жаңылысы"
 msgid "Error - Cantor"
 msgstr "Қате - Cantor"
 
-#: backends/julia/juliasession.cpp:119
+#: backends/julia/juliasession.cpp:118
 #, kde-format
 msgid ""
 "Julia session can't login due internal julia problem with missing internal "
 "file - \"%1\""
 msgstr ""
 
-#: backends/julia/juliasession.cpp:128
+#: backends/julia/juliasession.cpp:127
 #, kde-format
 msgid "Julia session can't login due unknown internal problem"
 msgstr ""
 
-#: backends/julia/juliasession.cpp:253
+#: backends/julia/juliasession.cpp:260
 #, kde-format
 msgid "Julia process stopped working."
 msgstr ""
 
-#: backends/julia/juliasession.cpp:256
+#: backends/julia/juliasession.cpp:263
 #, fuzzy, kde-format
 #| msgid "Failed to start Sage"
 msgid "Failed to start Julia process."
 msgstr "Sage жегу жаңылысы"
 
-#: backends/julia/juliasession.cpp:259
+#: backends/julia/juliasession.cpp:266
 #, kde-format
 msgid "Communication with Julia process failed for unknown reasons."
 msgstr ""
 
-#: backends/julia/juliasession.cpp:329
+#: backends/julia/juliasession.cpp:336
 #, kde-format
 msgid ""
 "For Julia only GR (https://gr-framework.org/), a framework for visualization "
@@ -884,29 +884,29 @@ msgstr ""
 msgid "Maxima batch file (*.mac)"
 msgstr "*.mac|Maxima десте файлы"
 
-#: backends/maxima/maximasession.cpp:61
+#: backends/maxima/maximasession.cpp:60
 #, kde-format
 msgid "Failed to start Maxima, please check Maxima's installation."
 msgstr ""
 
-#: backends/maxima/maximasession.cpp:80
+#: backends/maxima/maximasession.cpp:79
 #, kde-format
 msgid ""
 "Maxima didn't respond with the proper prompt, please check Maxima "
 "installation."
 msgstr ""
 
-#: backends/maxima/maximasession.cpp:202
+#: backends/maxima/maximasession.cpp:209
 #, kde-format
 msgid "Failed to start Maxima"
 msgstr "Maxima жегу жаңылысы"
 
-#: backends/maxima/maximasession.cpp:269
+#: backends/maxima/maximasession.cpp:276
 #, kde-format
 msgid "Maxima crashed. restarting..."
 msgstr "Maxima қирады. Жаңадан бастап көреді..."
 
-#: backends/maxima/maximasession.cpp:283
+#: backends/maxima/maximasession.cpp:290
 #, kde-format
 msgid "Maxima crashed twice within a short time. Stopping to try starting"
 msgstr "Maxima қысқа мерзімде екі мәрте қирады. Әрекет доғарылады"
@@ -967,23 +967,23 @@ msgstr "*.m|Octave скрипт файлы"
 msgid "Failed to start Octave, please check Octave installation."
 msgstr ""
 
-#: backends/octave/octavesession.cpp:277 backends/sage/sageexpression.cpp:49
+#: backends/octave/octavesession.cpp:278 backends/sage/sageexpression.cpp:49
 #, kde-format
 msgid "Syntax Error"
 msgstr "Синтаксис қатесі"
 
-#: backends/octave/octavesession.cpp:396
+#: backends/octave/octavesession.cpp:397
 #, kde-format
 msgid "Plot integration test failed."
 msgstr ""
 
-#: backends/octave/octavesession.cpp:400
+#: backends/octave/octavesession.cpp:401
 #, kde-format
 msgid "The integration of plots will be disabled."
 msgstr ""
 
-#: backends/octave/octavesession.cpp:401 backends/sage/sagesession.cpp:357
-#: backends/sage/sagesession.cpp:368 cantor.cpp:219 cantor.cpp:221
+#: backends/octave/octavesession.cpp:402 backends/sage/sagesession.cpp:358
+#: backends/sage/sagesession.cpp:369 cantor.cpp:219 cantor.cpp:221
 #: cantor.cpp:340 cantor.cpp:347 lib/session.cpp:335 main.cpp:63 main.cpp:122
 #: markdownentry.cpp:797 textentry.cpp:553 worksheet.cpp:1287
 #, kde-format
@@ -1036,30 +1036,30 @@ msgstr "*.R|R скрипт файлы"
 msgid "Failed to start Python, please check Python installation."
 msgstr ""
 
-#: backends/python/pythonsession.cpp:280
+#: backends/python/pythonsession.cpp:282
 #, kde-format
 msgid "Cantor Python server stopped working."
 msgstr ""
 
-#: backends/python/pythonsession.cpp:284
+#: backends/python/pythonsession.cpp:286
 #, fuzzy, kde-format
 #| msgid "Failed to start Sage"
 msgid "Failed to start Cantor python server."
 msgstr "Sage жегу жаңылысы"
 
-#: backends/python/pythonsession.cpp:288
+#: backends/python/pythonsession.cpp:290
 #, kde-format
 msgid "Communication with Cantor python server failed for unknown reasons."
 msgstr ""
 
-#: backends/python/pythonsession.cpp:314
+#: backends/python/pythonsession.cpp:316
 #, kde-format
 msgid ""
 "For using integrated graphics with Matplotlib package, you need to install "
 "\"matplotlib\" python package first."
 msgstr ""
 
-#: backends/python/pythonsession.cpp:320
+#: backends/python/pythonsession.cpp:322
 #, kde-format
 msgid ""
 "For using integrated graphic with Plot.ly, you need to install \"plotly\" "
@@ -2451,46 +2451,46 @@ msgstr ""
 msgid "Failed to start Sage, please check Sage installation."
 msgstr ""
 
-#: backends/sage/sagesession.cpp:270
+#: backends/sage/sagesession.cpp:271
 #, kde-format
 msgid ""
 "Sage version %1.%2 is unsupported. Please update your installation to the "
 "versions 9.2 or higher."
 msgstr ""
 
-#: backends/sage/sagesession.cpp:272 backends/sage/sagesession.cpp:292
+#: backends/sage/sagesession.cpp:273 backends/sage/sagesession.cpp:293
 #, kde-format
 msgid "Unsupported Version"
 msgstr ""
 
-#: backends/sage/sagesession.cpp:291
+#: backends/sage/sagesession.cpp:292
 #, kde-format
 msgid ""
 "Failed to determine the version of Sage. Please check your installation and "
 "the output of 'sage -v'."
 msgstr ""
 
-#: backends/sage/sagesession.cpp:353
+#: backends/sage/sagesession.cpp:354
 #, kde-format
 msgid "The Sage process crashed while evaluating this expression"
 msgstr "Бұл өрнекті есептеу кезде Sage процесі қирады"
 
-#: backends/sage/sagesession.cpp:357
+#: backends/sage/sagesession.cpp:358
 #, kde-format
 msgid "The Sage process crashed"
 msgstr "Sage процесі қирады"
 
-#: backends/sage/sagesession.cpp:364
+#: backends/sage/sagesession.cpp:365
 #, kde-format
 msgid "The Sage process exited while evaluating this expression"
 msgstr "Бұл өрнекті есептеу кезде Sage процесінен шығып кетті"
 
-#: backends/sage/sagesession.cpp:368
+#: backends/sage/sagesession.cpp:369
 #, kde-format
 msgid "The Sage process exited"
 msgstr "Sage процесінен шығып кетті"
 
-#: backends/sage/sagesession.cpp:378
+#: backends/sage/sagesession.cpp:379
 #, kde-format
 msgid "Failed to start Sage"
 msgstr "Sage жегу жаңылысы"

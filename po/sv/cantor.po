@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: mathematik\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-11-24 02:32+0000\n"
+"POT-Creation-Date: 2024-11-25 02:32+0000\n"
 "PO-Revision-Date: 2024-10-05 08:17+0200\n"
 "Last-Translator: Stefan Asserhäll <stefan.asserhall@gmail.com>\n"
 "Language-Team: Swedish <kde-i18n-doc@kde.org>\n"
@@ -396,8 +396,8 @@ msgstr "Julia-skriptfil (*.jl)"
 msgid "Failed to start Julia, please check Julia installation."
 msgstr "Misslyckades starta Julia. Kontrollera Julias installation."
 
-#: backends/julia/juliasession.cpp:119 backends/julia/juliasession.cpp:128
-#: backends/maxima/maximasession.cpp:283 cantor_part.cpp:973
+#: backends/julia/juliasession.cpp:118 backends/julia/juliasession.cpp:127
+#: backends/maxima/maximasession.cpp:290 cantor_part.cpp:973
 #: lib/session.cpp:265 lib/session.cpp:267 worksheet.cpp:1205
 #: worksheet.cpp:1233 worksheet.cpp:1248 worksheet.cpp:1264 worksheet.cpp:1308
 #: worksheet.cpp:1317
@@ -405,7 +405,7 @@ msgstr "Misslyckades starta Julia. Kontrollera Julias installation."
 msgid "Error - Cantor"
 msgstr "Fel - Cantor"
 
-#: backends/julia/juliasession.cpp:119
+#: backends/julia/juliasession.cpp:118
 #, kde-format
 msgid ""
 "Julia session can't login due internal julia problem with missing internal "
@@ -414,28 +414,28 @@ msgstr ""
 "Julia-sessionen kan inte logga in på grund av ett internt problem i Julia "
 "problem med en saknad intern fil: \"%1\""
 
-#: backends/julia/juliasession.cpp:128
+#: backends/julia/juliasession.cpp:127
 #, kde-format
 msgid "Julia session can't login due unknown internal problem"
 msgstr ""
 "Julia-sessionen kan inte logga in på grund av ett okänt internt problem"
 
-#: backends/julia/juliasession.cpp:253
+#: backends/julia/juliasession.cpp:260
 #, kde-format
 msgid "Julia process stopped working."
 msgstr "Julia-processen slutade fungera."
 
-#: backends/julia/juliasession.cpp:256
+#: backends/julia/juliasession.cpp:263
 #, kde-format
 msgid "Failed to start Julia process."
 msgstr "Misslyckades starta Julia-process."
 
-#: backends/julia/juliasession.cpp:259
+#: backends/julia/juliasession.cpp:266
 #, kde-format
 msgid "Communication with Julia process failed for unknown reasons."
 msgstr "Kommunikation med Julia-process misslyckades av okända orsaker."
 
-#: backends/julia/juliasession.cpp:329
+#: backends/julia/juliasession.cpp:336
 #, kde-format
 msgid ""
 "For Julia only GR (https://gr-framework.org/), a framework for visualization "
@@ -895,12 +895,12 @@ msgstr "Väntar på diagramresultatet"
 msgid "Maxima batch file (*.mac)"
 msgstr "Maxima-bakgrundsfil (*.mac)"
 
-#: backends/maxima/maximasession.cpp:61
+#: backends/maxima/maximasession.cpp:60
 #, kde-format
 msgid "Failed to start Maxima, please check Maxima's installation."
 msgstr "Misslyckades starta Maxima. Kontrollera Maximas installation."
 
-#: backends/maxima/maximasession.cpp:80
+#: backends/maxima/maximasession.cpp:79
 #, kde-format
 msgid ""
 "Maxima didn't respond with the proper prompt, please check Maxima "
@@ -908,17 +908,17 @@ msgid ""
 msgstr ""
 "Maxima svarade inte med riktig prompt. Kontrollera Maximas installation."
 
-#: backends/maxima/maximasession.cpp:202
+#: backends/maxima/maximasession.cpp:209
 #, kde-format
 msgid "Failed to start Maxima"
 msgstr "Misslyckades starta Maxima"
 
-#: backends/maxima/maximasession.cpp:269
+#: backends/maxima/maximasession.cpp:276
 #, kde-format
 msgid "Maxima crashed. restarting..."
 msgstr "Maxima kraschade. Startar om..."
 
-#: backends/maxima/maximasession.cpp:283
+#: backends/maxima/maximasession.cpp:290
 #, kde-format
 msgid "Maxima crashed twice within a short time. Stopping to try starting"
 msgstr "Maxima kraschade två gånger på kort tid. Avbryter startförsök."
@@ -969,23 +969,23 @@ msgstr "Octave-skriptfil (*.m)"
 msgid "Failed to start Octave, please check Octave installation."
 msgstr "Misslyckades starta Octave. Kontrollera Octaves installation."
 
-#: backends/octave/octavesession.cpp:277 backends/sage/sageexpression.cpp:49
+#: backends/octave/octavesession.cpp:278 backends/sage/sageexpression.cpp:49
 #, kde-format
 msgid "Syntax Error"
 msgstr "Syntaxfel"
 
-#: backends/octave/octavesession.cpp:396
+#: backends/octave/octavesession.cpp:397
 #, kde-format
 msgid "Plot integration test failed."
 msgstr "Test av diagramintegrering misslyckades."
 
-#: backends/octave/octavesession.cpp:400
+#: backends/octave/octavesession.cpp:401
 #, kde-format
 msgid "The integration of plots will be disabled."
 msgstr "Integrering av diagram kommer att inaktiveras."
 
-#: backends/octave/octavesession.cpp:401 backends/sage/sagesession.cpp:357
-#: backends/sage/sagesession.cpp:368 cantor.cpp:219 cantor.cpp:221
+#: backends/octave/octavesession.cpp:402 backends/sage/sagesession.cpp:358
+#: backends/sage/sagesession.cpp:369 cantor.cpp:219 cantor.cpp:221
 #: cantor.cpp:340 cantor.cpp:347 lib/session.cpp:335 main.cpp:63 main.cpp:122
 #: markdownentry.cpp:797 textentry.cpp:553 worksheet.cpp:1287
 #, kde-format
@@ -1030,22 +1030,22 @@ msgstr "Python-skriptfil (*.py)"
 msgid "Failed to start Python, please check Python installation."
 msgstr "Misslyckades starta Python. Kontrollera Pythons installation."
 
-#: backends/python/pythonsession.cpp:280
+#: backends/python/pythonsession.cpp:282
 #, kde-format
 msgid "Cantor Python server stopped working."
 msgstr "Cantor Python-server slutade fungera."
 
-#: backends/python/pythonsession.cpp:284
+#: backends/python/pythonsession.cpp:286
 #, kde-format
 msgid "Failed to start Cantor python server."
 msgstr "Misslyckades starta Cantor Python-server."
 
-#: backends/python/pythonsession.cpp:288
+#: backends/python/pythonsession.cpp:290
 #, kde-format
 msgid "Communication with Cantor python server failed for unknown reasons."
 msgstr "Kommunikation med Cantor Python-server misslyckades av okända orsaker."
 
-#: backends/python/pythonsession.cpp:314
+#: backends/python/pythonsession.cpp:316
 #, kde-format
 msgid ""
 "For using integrated graphics with Matplotlib package, you need to install "
@@ -1054,7 +1054,7 @@ msgstr ""
 "För att använda integrerad grafik med Matplotlib-paketet måste Python-"
 "paketet \"matplotlib\" först installeras."
 
-#: backends/python/pythonsession.cpp:320
+#: backends/python/pythonsession.cpp:322
 #, kde-format
 msgid ""
 "For using integrated graphic with Plot.ly, you need to install \"plotly\" "
@@ -2448,7 +2448,7 @@ msgstr "Python-skriptfil (*.py);;Sage-skriptfil (*.sage)"
 msgid "Failed to start Sage, please check Sage installation."
 msgstr "Misslyckades starta Sage. Kontrollera Sages installation."
 
-#: backends/sage/sagesession.cpp:270
+#: backends/sage/sagesession.cpp:271
 #, kde-format
 msgid ""
 "Sage version %1.%2 is unsupported. Please update your installation to the "
@@ -2457,12 +2457,12 @@ msgstr ""
 "Sage version %1.%2 stöds inte. Uppdatera installationen till version 9.2 "
 "eller senare."
 
-#: backends/sage/sagesession.cpp:272 backends/sage/sagesession.cpp:292
+#: backends/sage/sagesession.cpp:273 backends/sage/sagesession.cpp:293
 #, kde-format
 msgid "Unsupported Version"
 msgstr "Version stöds inte"
 
-#: backends/sage/sagesession.cpp:291
+#: backends/sage/sagesession.cpp:292
 #, kde-format
 msgid ""
 "Failed to determine the version of Sage. Please check your installation and "
@@ -2471,27 +2471,27 @@ msgstr ""
 "Misslyckades bestämma version av Sage. Kontrollera installationen och "
 "utmatning från 'sage -v'."
 
-#: backends/sage/sagesession.cpp:353
+#: backends/sage/sagesession.cpp:354
 #, kde-format
 msgid "The Sage process crashed while evaluating this expression"
 msgstr "Processen Sage kraschade medan det här uttrycket utvärderades"
 
-#: backends/sage/sagesession.cpp:357
+#: backends/sage/sagesession.cpp:358
 #, kde-format
 msgid "The Sage process crashed"
 msgstr "Processen Sage kraschade"
 
-#: backends/sage/sagesession.cpp:364
+#: backends/sage/sagesession.cpp:365
 #, kde-format
 msgid "The Sage process exited while evaluating this expression"
 msgstr "Processen Sage avslutades medan det här uttrycket utvärderades"
 
-#: backends/sage/sagesession.cpp:368
+#: backends/sage/sagesession.cpp:369
 #, kde-format
 msgid "The Sage process exited"
 msgstr "Processen Sage avslutades"
 
-#: backends/sage/sagesession.cpp:378
+#: backends/sage/sagesession.cpp:379
 #, kde-format
 msgid "Failed to start Sage"
 msgstr "Misslyckades starta Sage"
