@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-11-25 02:32+0000\n"
-"PO-Revision-Date: 2024-08-20 21:41+0200\n"
+"PO-Revision-Date: 2024-11-29 01:01+0100\n"
 "Last-Translator: Shinjo Park <kde@peremen.name>\n"
 "Language-Team: Korean <kde-kr@kde.org>\n"
 "Language: ko\n"
@@ -3107,7 +3107,7 @@ msgstr "질문 - Cantor"
 #, kde-format
 msgctxt "@action:button"
 msgid "Upload"
-msgstr ""
+msgstr "업로드"
 
 #: cantor_part.cpp:900
 #, kde-format
