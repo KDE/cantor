@@ -22,6 +22,7 @@ add_backend(juliabackend ${JuliaBackend_SRCS})
 
 target_link_libraries(cantor_juliabackend
   ${JULIA_LIBRARY}
+  Qt6::DBus
   KF6::SyntaxHighlighting
 )
 
