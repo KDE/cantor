@@ -46,6 +46,7 @@ execute_process(
 )
 if(RESULT EQUAL 0)
     string(REGEX REPLACE "\"" "" JULIA_INCLUDE_DIRS ${JULIA_INCLUDE_DIRS})
+    string(REGEX REPLACE "\n" "" JULIA_INCLUDE_DIRS ${JULIA_INCLUDE_DIRS})
     set(JULIA_INCLUDE_DIRS ${JULIA_INCLUDE_DIRS}
         CACHE PATH "Location of Julia include files")
 endif()
