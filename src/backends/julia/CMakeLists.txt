@@ -1,5 +1,6 @@
 include_directories(${JULIA_INCLUDE_DIRS})
 
+find_package(Qt6 REQUIRED COMPONENTS DBus)
 add_subdirectory(juliaserver)
 
 set(JuliaBackend_SRCS
