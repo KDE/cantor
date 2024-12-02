@@ -2,23 +2,22 @@
 # Author: Artnay
 # Author: Lliehu
 # Author: Niklas Laxström
+# SPDX-FileCopyrightText: 2018, 2019, 2020, 2022, 2024 Tommi Nieminen <translator@legisign.org>
 # Lasse Liehu <lasse.liehu@gmail.com>, 2012, 2013, 2014, 2015, 2016.
-# Tommi Nieminen <translator@legisign.org>, 2018, 2019, 2020, 2022.
 msgid ""
 msgstr ""
 "Project-Id-Version: cantor\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-11-25 00:36+0000\n"
-"PO-Revision-Date: 2022-07-29 12:01+0300\n"
+"PO-Revision-Date: 2024-10-27 09:26+0200\n"
 "Last-Translator: Tommi Nieminen <translator@legisign.org>\n"
 "Language-Team: Finnish <kde-i18n-doc@kde.org>\n"
 "Language: fi\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-POT-Import-Date: 2013-01-13 20:43:20+0000\n"
-"X-Generator: Lokalize 20.12.0\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Lokalize 23.08.5\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -47,15 +46,14 @@ msgid "Stop"
 msgstr "Keskeytä"
 
 #: animationresultitem.cpp:111
-#, fuzzy, kde-format
-#| msgid "Save result"
+#, kde-format
 msgid "Save animation result"
-msgstr "Tallenna tulos"
+msgstr "Tallenna animointitulos"
 
 #: animationresultitem.cpp:111
 #, kde-format
 msgid "Animations (*.gif)"
-msgstr ""
+msgstr "Animoinnit (*.gif)"
 
 #: assistants/advancedplot/advancedplotassistant.cpp:31
 #, kde-format
@@ -395,10 +393,9 @@ msgid "Julia script file (*.jl)"
 msgstr "Julia-skriptitiedosto (*.jl)"
 
 #: backends/julia/juliasession.cpp:70
-#, fuzzy, kde-format
-#| msgid "Failed to start Julia process."
+#, kde-format
 msgid "Failed to start Julia, please check Julia installation."
-msgstr "Julia-prosessin käynnistys epäonnistui."
+msgstr "Julian käynnistäminen epäonnistui: tarkista Julia-asennus."
 
 #: backends/julia/juliasession.cpp:118 backends/julia/juliasession.cpp:127
 #: backends/maxima/maximasession.cpp:290 cantor_part.cpp:973
@@ -467,7 +464,7 @@ msgstr "Perusasetukset"
 #: backends/R/settings.ui:169 backends/sage/settings.ui:218
 #, kde-format
 msgid "PDF"
-msgstr ""
+msgstr "PDF"
 
 #. i18n: ectx: property (toolTip), widget (QCheckBox, kcfg_integratePlots)
 #: backends/julia/settings.ui:46 backends/maxima/settings.ui:82
@@ -513,10 +510,9 @@ msgstr "Käytössä"
 #: backends/julia/settings.ui:56 backends/maxima/settings.ui:92
 #: backends/octave/settings.ui:133 backends/python/settings.ui:105
 #: backends/R/settings.ui:108 backends/sage/settings.ui:122
-#, fuzzy, kde-format
-#| msgid "Font Size:"
+#, kde-format
 msgid "Size:"
-msgstr "Fonttikoko:"
+msgstr "Koko:"
 
 #. i18n: ectx: property (toolTip), widget (QCheckBox, kcfg_variableManagement)
 #: backends/julia/settings.ui:63 backends/maxima/settings.ui:59
@@ -534,10 +530,9 @@ msgstr ""
 #: backends/julia/settings.ui:73 backends/maxima/settings.ui:235
 #: backends/octave/settings.ui:150 backends/python/settings.ui:88
 #: backends/R/settings.ui:131 backends/sage/settings.ui:105
-#, fuzzy, kde-format
-#| msgid "Integrate"
+#, kde-format
 msgid "Integrated:"
-msgstr "Integroi"
+msgstr "Eheytetty:"
 
 #. i18n: ectx: property (text), widget (QLabel, lVariableManagement)
 #: backends/julia/settings.ui:80 backends/maxima/settings.ui:52
@@ -551,10 +546,9 @@ msgstr "Muuttujien hallinta:"
 #: backends/julia/settings.ui:108 backends/maxima/settings.ui:120
 #: backends/octave/settings.ui:73 backends/python/settings.ui:133
 #: backends/R/settings.ui:48 backends/sage/settings.ui:150
-#, fuzzy, kde-format
-#| msgid "Width"
+#, kde-format
 msgid "width:"
-msgstr "Leveys"
+msgstr "leveys:"
 
 #. i18n: ectx: property (suffix), widget (QDoubleSpinBox, kcfg_plotWidth)
 #. i18n: ectx: property (suffix), widget (QDoubleSpinBox, kcfg_plotHeight)
@@ -566,16 +560,15 @@ msgstr "Leveys"
 #: backends/sage/settings.ui:157 backends/sage/settings.ui:187
 #, kde-format
 msgid "cm"
-msgstr ""
+msgstr "cm"
 
 #. i18n: ectx: property (text), widget (QLabel, lPlotHeight)
 #: backends/julia/settings.ui:138 backends/maxima/settings.ui:150
 #: backends/octave/settings.ui:103 backends/python/settings.ui:163
 #: backends/R/settings.ui:78 backends/sage/settings.ui:180
-#, fuzzy, kde-format
-#| msgid "Height"
+#, kde-format
 msgid "height:"
-msgstr "Korkeus"
+msgstr "korkeus:"
 
 #. i18n: ectx: property (text), widget (QLabel, label_4)
 #. i18n: ectx: property (text), item, widget (KComboBox, kcfg_plotExtenstionGraphicPackage)
@@ -594,17 +587,16 @@ msgstr "Kaaviot"
 #: backends/R/settings.ui:197 backends/sage/settings.ui:210
 #, kde-format
 msgid "Image Format:"
-msgstr ""
+msgstr "Kuvatiedostomuoto:"
 
 #. i18n: ectx: property (toolTip), widget (KComboBox, kcfg_plotExtenstionGraphicPackage)
 #. i18n: ectx: property (toolTip), widget (QLabel, label3)
 #. i18n: ectx: property (toolTip), widget (QLabel, label4)
 #: backends/julia/settings.ui:223 backends/julia/settings.ui:250
 #: backends/python/settings.ui:219 backends/python/settings.ui:235
-#, fuzzy, kde-format
-#| msgid "Graphic Package for \"Plot\"-assistant"
+#, kde-format
 msgid "Graphic package to be used in the Plot Assistant"
-msgstr "Kaavionpiirtoavustajan graafinen paketti"
+msgstr "Kaavionpiirtoavustajassa käytettävä grafiikkapaketti"
 
 #. i18n: ectx: property (text), item, widget (KComboBox, kcfg_plotExtenstionGraphicPackage)
 #: backends/julia/settings.ui:227 backends/python/settings.ui:254
@@ -626,10 +618,9 @@ msgstr "Gadfly"
 
 #. i18n: ectx: property (text), widget (QLabel, label3)
 #: backends/julia/settings.ui:253
-#, fuzzy, kde-format
-#| msgid "Graphic Package for \"Plot\"-assistant"
+#, kde-format
 msgid "Package for Plot Assistant:"
-msgstr "Kaavionpiirtoavustajan graafinen paketti"
+msgstr "Kaavionpiirtoavustajan paketti:"
 
 #. i18n: ectx: attribute (title), widget (QWidget, tabAutorun)
 #. i18n: ectx: attribute (title), widget (QWidget, tabAutoran)
@@ -660,10 +651,9 @@ msgstr "Automaattisesti suoritettavat komennot"
 #: backends/python/settings.ui:301 backends/qalculate/settings.ui:600
 #: backends/R/settings.ui:241 backends/sage/settings.ui:265
 #: backends/scilab/settings.ui:88
-#, fuzzy, kde-format
-#| msgid "Documentation:"
+#, kde-format
 msgid "Documentation"
-msgstr "Ohjeistus:"
+msgstr "Ohjeistus"
 
 #: backends/kalgebra/kalgebrabackend.cpp:58
 #, kde-format
@@ -741,12 +731,11 @@ msgstr "Lua-skriptitiedosto (*.lua)"
 #: backends/lua/luasession.cpp:59
 #, kde-format
 msgid "Failed to start Lua, please check Lua installation."
-msgstr ""
+msgstr "Luan käynnistäminen epäonnistui: tarkista Lua-asennus."
 
 #. i18n: ectx: property (text), widget (QLabel, label)
 #: backends/lua/settings.ui:27
-#, fuzzy, kde-format
-#| msgid "Path to luajit command:"
+#, kde-format
 msgid "Path to luajit:"
 msgstr "luajit-komennon sijainti:"
 
@@ -830,7 +819,7 @@ msgstr "Maxima-ohjelmatiedoston sijainti"
 #: backends/R/rserver/rserver.kcfg:31 backends/sage/sagebackend.kcfg:29
 #, kde-format
 msgid "Default plot width"
-msgstr ""
+msgstr "Kaavion oletusleveys"
 
 #. i18n: ectx: label, entry (plotHeight), group (SageBackend)
 #. i18n: ectx: label, entry (plotHeight), group (PythonBackend)
@@ -840,7 +829,7 @@ msgstr ""
 #: backends/R/rserver/rserver.kcfg:35 backends/sage/sagebackend.kcfg:33
 #, kde-format
 msgid "Default plot height"
-msgstr ""
+msgstr "Kaavion oletuskorkeus"
 
 #: backends/maxima/maximaexpression.cpp:113
 #, kde-format
@@ -870,7 +859,7 @@ msgstr "Maxima-eräajotiedosto (*.mac)"
 #: backends/maxima/maximasession.cpp:60
 #, kde-format
 msgid "Failed to start Maxima, please check Maxima's installation."
-msgstr ""
+msgstr "Maximan käynnistäminen epäonnistui: tarkista Maxima-asennus."
 
 #: backends/maxima/maximasession.cpp:79
 #, kde-format
@@ -878,6 +867,7 @@ msgid ""
 "Maxima didn't respond with the proper prompt, please check Maxima "
 "installation."
 msgstr ""
+"Maxima ei vastannut kelvolliseen kehotteeseen: tarkista Maxima-asennus."
 
 #: backends/maxima/maximasession.cpp:209
 #, kde-format
@@ -905,16 +895,12 @@ msgid "Executable:"
 msgstr "Ohjelmatiedosto:"
 
 #: backends/octave/octavebackend.cpp:63
-#, fuzzy, kde-format
-#| msgctxt ""
-#| "the url to the documentation of Octave, please check if there is a "
-#| "translated version (currently Czech and Japanese) and use the correct url"
-#| msgid "https://octave.org/doc/interpreter/"
+#, kde-format
 msgctxt ""
 "the url to the documentation of Octave, please check if there is a "
 "translated version and use the correct url"
 msgid "https://octave.org/doc/interpreter/"
-msgstr "https://octave.gnu.org/doc/interpreter/"
+msgstr "https://octave.org/doc/interpreter/"
 
 #: backends/octave/octavebackend.cpp:68
 #, kde-format
@@ -932,7 +918,7 @@ msgstr ""
 #: backends/octave/octaveexpression.cpp:232
 #, kde-format
 msgid "Invalid image file generated."
-msgstr ""
+msgstr "Tuotettiin virheellinen kuvatiedosto."
 
 #: backends/octave/octaveextensions.cpp:34
 #, kde-format
@@ -942,7 +928,7 @@ msgstr "Octave-skriptitiedosto (*.m)"
 #: backends/octave/octavesession.cpp:98
 #, kde-format
 msgid "Failed to start Octave, please check Octave installation."
-msgstr ""
+msgstr "Octaven käynnistäminen epäonnistui: tarkista Octave-asennus."
 
 #: backends/octave/octavesession.cpp:278 backends/sage/sageexpression.cpp:49
 #, kde-format
@@ -952,12 +938,12 @@ msgstr "Syntaksivirhe"
 #: backends/octave/octavesession.cpp:397
 #, kde-format
 msgid "Plot integration test failed."
-msgstr ""
+msgstr "Kaavion eheytystesti epäonnistui."
 
 #: backends/octave/octavesession.cpp:401
 #, kde-format
 msgid "The integration of plots will be disabled."
-msgstr ""
+msgstr "Kaavioiden eheytys poistetaan käytöstä."
 
 # pmap: =:gen=Cantorin:
 # pmap: =:elat=Cantorista:
@@ -988,15 +974,14 @@ msgstr ""
 
 #. i18n: ectx: label, entry (plotExtenstionGraphicPackage), group (PythonBackend)
 #: backends/python/pythonbackend.kcfg:44
-#, fuzzy, kde-format
-#| msgid "Graphic Package for \"Plot\"-assistant"
+#, kde-format
 msgid "Graphical package to be used for the Plot Assistant"
-msgstr "Kaavionpiirtoavustajan graafinen paketti"
+msgstr "Kaavionpiirtoavustajassa käytettävä grafiikkapaketti"
 
 #: backends/python/pythonextensions.cpp:283
 #, kde-format
 msgid "# Sorry, but Bokeh doesn't support 3d plotting"
-msgstr ""
+msgstr "# Bokeh ei valitettavasti tue 3D-piirtoa"
 
 #: backends/python/pythonextensions.cpp:299
 #, kde-format
@@ -1006,7 +991,7 @@ msgstr "Python-skriptitiedosto (*.py)"
 #: backends/python/pythonsession.cpp:74
 #, kde-format
 msgid "Failed to start Python, please check Python installation."
-msgstr ""
+msgstr "Pythonin käynnistäminen epäonnistui: tarkista Python-asennus."
 
 #: backends/python/pythonsession.cpp:282
 #, kde-format
@@ -1030,6 +1015,8 @@ msgid ""
 "For using integrated graphics with Matplotlib package, you need to install "
 "\"matplotlib\" python package first."
 msgstr ""
+"Eheytetyn grafiikan käyttämiseksi Matplotlibilla on ensin asennettava "
+"Pythonin matplotlib-paketti."
 
 #: backends/python/pythonsession.cpp:322
 #, kde-format
@@ -1038,13 +1025,15 @@ msgid ""
 "python package and special Plot.ly-compatible \"orca\" executable. See "
 "\"Static Image Export\" article in Plot.ly documentation for details."
 msgstr ""
+"Eheytetyn grafiikan käyttämiseksi Plot.lyllä on ensin asennettava Pythonin "
+"plotly-paketti ja erityinen Plot.ly-yhteensopiva orca-ohjelmatiedosto. Katso "
+"lisätietoa Plot.lyn ohjeartikkelista ”Staattisen kuvan vienti”."
 
 #. i18n: ectx: property (text), widget (QLabel, label4)
 #: backends/python/settings.ui:222
-#, fuzzy, kde-format
-#| msgid "Graphic Package for \"Plot\"-assistant"
+#, kde-format
 msgid "Plot Assistant"
-msgstr "Kaavionpiirtoavustajan graafinen paketti"
+msgstr "Kaavionpiirtoavustaja"
 
 #. i18n: ectx: property (text), item, widget (KComboBox, kcfg_plotExtenstionGraphicPackage)
 #: backends/python/settings.ui:239
@@ -1474,10 +1463,9 @@ msgstr ""
 
 #. i18n: ectx: label, entry (Path), group (QalculateBackend)
 #: backends/qalculate/qalculatebackend.kcfg:9
-#, fuzzy, kde-format
-#| msgid "Path to the latex executable"
+#, kde-format
 msgid "Path to the Qalculate! executable"
-msgstr "latex-ohjelmatiedoston sijainti"
+msgstr "Qalculate!-ohjelmatiedoston sijainti"
 
 #. i18n: ectx: label, entry (postConversion), group (QalculateBackend)
 #: backends/qalculate/qalculatebackend.kcfg:21
@@ -2322,7 +2310,7 @@ msgstr "Paikallisen R-ohjeistuksen osoite"
 #: backends/R/rsession.cpp:54
 #, kde-format
 msgid "Failed to start R, please check R installation."
-msgstr ""
+msgstr "R:n käynnistäminen epäonnistui: tarkista R-asennus."
 
 #: backends/R/rsettingswidget.cpp:28
 #, kde-format
@@ -2389,25 +2377,20 @@ msgstr "Python-skriptitiedosto (*.py);;Sage-skriptitiedosto (*.sage)"
 #: backends/sage/sagesession.cpp:126
 #, kde-format
 msgid "Failed to start Sage, please check Sage installation."
-msgstr ""
+msgstr "Sagen käynnistäminen epäonnistui: tarkista Sage-asennus."
 
 #: backends/sage/sagesession.cpp:271
-#, fuzzy, kde-format
-#| msgid ""
-#| "Sage version %1.%2 is unsupported. Please update your installation to the "
-#| "supported versions to make it work with Cantor."
+#, kde-format
 msgid ""
 "Sage version %1.%2 is unsupported. Please update your installation to the "
 "versions 9.2 or higher."
 msgstr ""
-"Sagen versiota %1.%2 ei tueta. Päivitä asennus tuettuun versioon, jotta sitä "
-"voi käyttää Cantorin kanssa."
+"Sagen versiota %1.%2 ei tueta. Päivitä asennus versioon 9.2 tai uudempaan."
 
 #: backends/sage/sagesession.cpp:273 backends/sage/sagesession.cpp:293
-#, fuzzy, kde-format
-#| msgid "All supported files"
+#, kde-format
 msgid "Unsupported Version"
-msgstr "Kaikki tuetut tiedostot"
+msgstr "Ei-tuettu versio"
 
 #: backends/sage/sagesession.cpp:292
 #, kde-format
@@ -2492,14 +2475,13 @@ msgstr ";;Scilab-skriptitiedosto (*.sce);;Scilab-funktiotiedosto (*.sci)"
 #: backends/scilab/scilabsession.cpp:67
 #, kde-format
 msgid "Failed to start Scilab, please check Scilab installation."
-msgstr ""
+msgstr "Scilabin käynnistäminen epäonnistui: tarkista Scilab-asennus."
 
 #. i18n: ectx: property (text), widget (QLabel, lPlotIntegration)
 #: backends/scilab/settings.ui:37
-#, fuzzy, kde-format
-#| msgid "Integrate"
+#, kde-format
 msgid "Plot Integration:"
-msgstr "Integroi"
+msgstr "Kaavion eheytys:"
 
 #: cantor.cpp:107
 #, kde-format
@@ -2682,10 +2664,9 @@ msgstr ""
 
 #. i18n: ectx: label, entry (WarnAboutEntryDelete), group (Cantor)
 #: cantor.kcfg:38
-#, fuzzy, kde-format
-#| msgid "Ask for confirmation when restarting the backend"
+#, kde-format
 msgid "Ask for confirmation when deleting an entry"
-msgstr "Pyydä vahvistus taustajärjestelmän uudelleenkäynnistykseen"
+msgstr "Pyydä vahvistus tietueen poistamiseen"
 
 #. i18n: ectx: label, entry (AutoEval), group (Cantor)
 #: cantor.kcfg:42
@@ -2857,10 +2838,9 @@ msgid "Save Plain Text"
 msgstr "Tallenna muotoilematon teksti"
 
 #: cantor_part.cpp:185 cantor_part.cpp:544
-#, fuzzy, kde-format
-#| msgid "Export to LaTeX"
+#, kde-format
 msgid "Export to PDF"
-msgstr "Vie Latexina"
+msgstr "Vie PDF:ksi"
 
 #: cantor_part.cpp:189 cantor_part.cpp:556
 #, kde-format
@@ -2878,14 +2858,13 @@ msgid "Zoom"
 msgstr "Lähennä"
 
 #: cantor_part.cpp:218
-#, fuzzy, kde-format
-#| msgid "%1: %2"
+#, kde-format
 msgctxt ""
 "Zoom percentage value %1 will be replaced by the actual zoom factor value, "
 "so make sure you include it in your translation in order to not to break "
 "anything"
 msgid "%1%"
-msgstr "%1: %2"
+msgstr "%1 %"
 
 #: cantor_part.cpp:233
 #, kde-format
@@ -2910,10 +2889,9 @@ msgstr "Rivinumerot"
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_AnimationDefault)
 #: cantor_part.cpp:253 settings.ui:138
-#, fuzzy, kde-format
-#| msgid "Functions"
+#, kde-format
 msgid "Animations"
-msgstr "Funktiot"
+msgstr "Animoinnit"
 
 #: cantor_part.cpp:260
 #, kde-format
@@ -2972,16 +2950,14 @@ msgid "Expand All Results"
 msgstr "Laajenna kaikki tulokset"
 
 #: cantor_part.cpp:323
-#, fuzzy, kde-format
-#| msgid "Remove All Results"
+#, kde-format
 msgid "Delete All Results"
 msgstr "Poista kaikki tulokset"
 
 #: cantor_part.cpp:328
-#, fuzzy, kde-format
-#| msgid "Remove current Entry"
+#, kde-format
 msgid "Delete current Entry"
-msgstr "Poista nykyinen kenttä"
+msgstr "Poista nykyinen tietue"
 
 #. i18n("Publish Worksheet"), collection);
 #. publishWorksheet->setIcon(QIcon::fromTheme(QLatin1String("get-hot-new-stuff")));
@@ -3036,17 +3012,17 @@ msgstr "Tallenna"
 #: cantor_part.cpp:537 textresultitem.cpp:212
 #, kde-format
 msgid "Text Files (*.txt)"
-msgstr ""
+msgstr "Tekstitiedostot (*.txt)"
 
 #: cantor_part.cpp:544
 #, kde-format
 msgid "PDF Files (*.pdf)"
-msgstr ""
+msgstr "PDF-tiedostot (*.pdf)"
 
 #: cantor_part.cpp:556
 #, kde-format
 msgid "TeX Files (*.tex)"
-msgstr ""
+msgstr "TeX-tiedostot (*.tex)"
 
 #: cantor_part.cpp:601
 #, kde-format
@@ -3101,7 +3077,7 @@ msgstr "Kysymys – Cantor"
 #, kde-format
 msgctxt "@action:button"
 msgid "Upload"
-msgstr ""
+msgstr "Lähetä"
 
 #: cantor_part.cpp:900
 #, kde-format
@@ -3138,10 +3114,9 @@ msgstr "Työ&vihko"
 
 #. i18n: ectx: Menu (settings)
 #: cantor_part.rc:51
-#, fuzzy, kde-format
-#| msgid "&Settings"
+#, kde-format
 msgid "Settings"
-msgstr "&Asetukset"
+msgstr "Asetukset"
 
 #. i18n: ectx: Menu (file)
 #: cantor_shell.rc:4
@@ -3484,18 +3459,17 @@ msgstr "Kuvan %1 lataaminen epäonnistui"
 #: imageresultitem.cpp:90
 #, kde-format
 msgid "%1 files (*.%2)"
-msgstr ""
+msgstr "%1-tiedostot (*.%2)"
 
 #: imageresultitem.cpp:93
 #, kde-format
 msgid "EPS files (*.eps)"
-msgstr ""
+msgstr "EPS-tiedostot (*.eps)"
 
 #: imageresultitem.cpp:96
-#, fuzzy, kde-format
-#| msgid "Save result"
+#, kde-format
 msgid "Save image result"
-msgstr "Tallenna tulos"
+msgstr "Tallenna tuloskuva"
 
 #. i18n: ectx: property (windowTitle), widget (QWidget, ImageSettingsBase)
 #: imagesettings.ui:14
@@ -3617,16 +3591,18 @@ msgid ""
 "The program %1 didn't finish the execution after %2 milliseconds during the "
 "plot integration test."
 msgstr ""
+"%1 ei päättynyt suoritustaan %2 millisekunnin jälkeen kaavioeheytystestin "
+"aikana."
 
 #: lib/backend.cpp:210
 #, kde-format
 msgid "Failed to open the file %1 during the plot integration test."
-msgstr ""
+msgstr "Tiedoston %1 avaaminen kaavioeheytystestin aikana epäonnistui."
 
 #: lib/backend.cpp:218
 #, kde-format
 msgid "Failed to parse the result during the plot integration test."
-msgstr ""
+msgstr "Tuloksen jäsentäminen kaavioeheytystestin aikana epäonnistui."
 
 #. i18n: ectx: label, entry (latexCommand), group (Cantor)
 #: lib/cantor_libs.kcfg:10
@@ -3644,19 +3620,19 @@ msgstr "dvips-ohjelmatiedoston sijainti"
 #, kde-format
 msgctxt "@title:column"
 msgid "Type"
-msgstr ""
+msgstr "Tyyppi"
 
 #: lib/defaultvariablemodel.cpp:73
 #, kde-format
 msgctxt "@title:column"
 msgid "Size [Bytes]"
-msgstr ""
+msgstr "Koko [tavuina]"
 
 #: lib/defaultvariablemodel.cpp:75
 #, kde-format
 msgctxt "@title:column"
 msgid "Dimension"
-msgstr ""
+msgstr "Ulottuvuus"
 
 #: lib/defaultvariablemodel.cpp:77
 #, kde-format
@@ -3967,7 +3943,7 @@ msgstr "Erota pien- ja suuraakkoset"
 #: panelplugins/variablemgr/variablemanagerwidget.cpp:91
 #, kde-format
 msgid "Match Complete Word"
-msgstr ""
+msgstr "Täsmää koko sanaan"
 
 #: panelplugins/variablemgr/variablemanagerwidget.cpp:143
 #, kde-format
@@ -3980,22 +3956,19 @@ msgid "Load file"
 msgstr "Lataa tiedosto"
 
 #: panelplugins/variablemgr/variablemanagerwidget.cpp:291
-#, fuzzy, kde-format
-#| msgid "Name"
+#, kde-format
 msgid "Copy Name"
-msgstr "Nimi"
+msgstr "Kopioi nimi"
 
 #: panelplugins/variablemgr/variablemanagerwidget.cpp:292
-#, fuzzy, kde-format
-#| msgctxt "@title:column"
-#| msgid "Value"
+#, kde-format
 msgid "Copy Value"
-msgstr "Arvo"
+msgstr "Kopioi arvo"
 
 #: panelplugins/variablemgr/variablemanagerwidget.cpp:293
 #, kde-format
 msgid "Copy Name and Value"
-msgstr ""
+msgstr "Kopioi nimi ja arvo"
 
 #: resultitem.cpp:48
 #, kde-format
@@ -4081,24 +4054,21 @@ msgstr "LaTeX-koodista"
 
 #. i18n: ectx: property (text), widget (QLabel, label_4)
 #: settings.ui:23
-#, fuzzy, kde-format
-#| msgid "Equations:"
+#, kde-format
 msgid "Evaluation:"
-msgstr "Yhtälöt:"
+msgstr "Suoritus:"
 
 #. i18n: ectx: property (toolTip), widget (QCheckBox, kcfg_CompletionDefault)
 #: settings.ui:43
-#, fuzzy, kde-format
-#| msgid "Enable Completion"
+#, kde-format
 msgid "Enable syntax completion"
-msgstr "Käytä täydennystä"
+msgstr "Käytä syntaksintäydennystä"
 
 #. i18n: ectx: property (text), widget (QLabel, label_2)
 #: settings.ui:59
-#, fuzzy, kde-format
-#| msgid "Start"
+#, kde-format
 msgid "Startup:"
-msgstr "Käynnistä"
+msgstr "Käynnistys:"
 
 #. i18n: ectx: property (toolTip), widget (QLabel, label)
 #. i18n: ectx: property (toolTip), widget (KComboBox, kcfg_DefaultBackend)
@@ -4108,6 +4078,8 @@ msgid ""
 "Create a new worksheet for the selected backend system. If none is selected, "
 "the user is asked about which system to use on startup."
 msgstr ""
+"Luo valitulle taustajärjestelmälle uusi työvihko. Ellei järjestelmää ole "
+"valittu, käyttäjältä kysytään sitä käynnistettäessä."
 
 #. i18n: ectx: property (text), widget (QLabel, label)
 #: settings.ui:69
@@ -4127,33 +4099,30 @@ msgstr ""
 
 #. i18n: ectx: property (toolTip), widget (QCheckBox, kcfg_TypesetDefault)
 #: settings.ui:89
-#, fuzzy, kde-format
-#| msgid "Enable LaTeX typesetting for Sage backend"
+#, kde-format
 msgid ""
 "Enable LaTeX typesetting for the results of the calculations, if supported "
 "by the backend system"
-msgstr "Käytä Sage-taustajärjestelmässä LaTeX-ladontaa"
+msgstr ""
+"Käytä laskentatuloksiin LaTeX-ladontaa, jos taustajärjestelmä tukee sitä"
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_TypesetDefault)
 #: settings.ui:92
-#, fuzzy, kde-format
-#| msgid "LaTeX typesetting:"
+#, kde-format
 msgid "LaTeX typesetting"
-msgstr "LaTeX-ladonta:"
+msgstr "LaTeX-ladonta"
 
 #. i18n: ectx: property (text), widget (QLabel, VisibleLinesLimit_label)
 #: settings.ui:102
-#, fuzzy, kde-format
-#| msgid "Maximal number of result visible rows (0 for unlimited):"
+#, kde-format
 msgid "Number of rows in the result (0 for unlimited):"
-msgstr "Tuloksesta näytetään rivejä enintään (0 = ei rajoitettu):"
+msgstr "Tuloksen rivien määrä (0 = ei rajoitusta):"
 
 #. i18n: ectx: property (toolTip), widget (QCheckBox, kcfg_AnimationDefault)
 #: settings.ui:135
-#, fuzzy, kde-format
-#| msgid "Integrate Plots into the Worksheet"
+#, kde-format
 msgid "Enable animation effects in the worksheet"
-msgstr "Yhdistä kaaviot työvihkoon"
+msgstr "Käytä työvihkossa animointitehosteita"
 
 #. i18n: ectx: property (toolTip), widget (QCheckBox, kcfg_EmbeddedMathDefault)
 #: settings.ui:158
@@ -4167,7 +4136,7 @@ msgstr "Käytä Sage-taustajärjestelmässä LaTeX-ladontaa"
 #: settings.ui:161
 #, kde-format
 msgid "Mathematical expressions via LaTeX"
-msgstr ""
+msgstr "Matemaattiset lausekkeet LaTeXilla"
 
 #. i18n: ectx: property (toolTip), widget (QCheckBox, kcfg_AutoEval)
 #: settings.ui:168
@@ -4175,6 +4144,8 @@ msgstr ""
 msgid ""
 "If enabled, all entries below the current one will be evaluated automatically"
 msgstr ""
+"Jos käytössä, kaikki nykyisen alla olevat tietueet suoritetaan "
+"automaattisesti"
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_AutoEval)
 #: settings.ui:171
@@ -4185,10 +4156,9 @@ msgstr "Suorita rivit uudelleen automaattisesti"
 
 #. i18n: ectx: property (text), widget (QLabel, label_3)
 #: settings.ui:184
-#, fuzzy, kde-format
-#| msgid "&Worksheet"
+#, kde-format
 msgid "Worksheet:"
-msgstr "Työ&vihko"
+msgstr "Työvihko:"
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_StoreTextEntryFormatting)
 #: settings.ui:223
@@ -4203,10 +4173,9 @@ msgstr ""
 
 #. i18n: ectx: property (text), widget (QLabel, label_5)
 #: settings.ui:236
-#, fuzzy, kde-format
-#| msgid "Markdown"
+#, kde-format
 msgid "Markdown:"
-msgstr "Markdown"
+msgstr "Markdown:"
 
 #. i18n: ectx: property (toolTip), widget (QCheckBox, kcfg_UseOldCantorEntriesIndent)
 #: settings.ui:243
@@ -4214,13 +4183,13 @@ msgstr "Markdown"
 msgid ""
 "If enabled, text entries are aligned at the worksheet border and not at the "
 "prompt border"
-msgstr ""
+msgstr "Jos käytössä, tekstitietueet tasataan työvihkon eikä kehotteen reunaan"
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_UseOldCantorEntriesIndent)
 #: settings.ui:246
 #, kde-format
 msgid "Don't indent text entries"
-msgstr ""
+msgstr "Älä sisennä tekstitietueita"
 
 #. i18n: ectx: property (toolTip), widget (QCheckBox, kcfg_WarnAboutSessionRestart)
 #: settings.ui:266
@@ -4235,42 +4204,37 @@ msgstr "Pyydä vahvistus taustajärjestelmän uudelleenkäynnistykseen"
 #: settings.ui:276
 #, kde-format
 msgid "Notify about render failures for mathematical expressions"
-msgstr ""
+msgstr "Ilmoita matemaattisten lausekkeiden hahmonnusvirheistä"
 
 #. i18n: ectx: property (toolTip), widget (QCheckBox, kcfg_ExpressionNumberingDefault)
 #: settings.ui:283
-#, fuzzy, kde-format
-#| msgid "Line Numbers"
+#, kde-format
 msgid "Show line numbers"
-msgstr "Rivinumerot"
+msgstr "Näytä rivinumerot"
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_ExpressionNumberingDefault)
 #: settings.ui:286
-#, fuzzy, kde-format
-#| msgid "Line Numbers"
+#, kde-format
 msgid "Line numbers"
 msgstr "Rivinumerot"
 
 #. i18n: ectx: property (toolTip), widget (QCheckBox, kcfg_HighlightDefault)
 #: settings.ui:293
-#, fuzzy, kde-format
-#| msgid "Enable Syntax Highlighting"
+#, kde-format
 msgid "Enable syntax highlighting"
-msgstr "Käytä syntaksin korostusta"
+msgstr "Käytä syntaksikorostusta"
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_HighlightDefault)
 #: settings.ui:296
-#, fuzzy, kde-format
-#| msgid "Syntax Highlighting"
+#, kde-format
 msgid "Syntax highlighting"
-msgstr "Syntaksin korostus"
+msgstr "Syntaksikorostus"
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_WarnAboutEntryDelete)
 #: settings.ui:303
-#, fuzzy, kde-format
-#| msgid "Ask for confirmation when restarting the backend"
+#, kde-format
 msgid "Ask for confirmation when deleting entries"
-msgstr "Pyydä vahvistus taustajärjestelmän uudelleenkäynnistykseen"
+msgstr "Pyydä vahvistus tietueiden poistamiseen"
 
 #. i18n: ectx: property (placeholderText), widget (KLineEdit, pattern)
 #: standardsearchbar.ui:35
@@ -4344,10 +4308,9 @@ msgid "Cannot render Eps file. You may need additional packages"
 msgstr "EPS-tiedostoa ei voi hahmontaa. Saatat tarvita lisäpaketteja"
 
 #: textresultitem.cpp:212
-#, fuzzy, kde-format
-#| msgid "Save result"
+#, kde-format
 msgid "Save text result"
-msgstr "Tallenna tulos"
+msgstr "Tallenna tulosteksti"
 
 #: worksheet.cpp:1204
 #, kde-format
@@ -4471,7 +4434,7 @@ msgstr ""
 #: worksheet.cpp:1685
 #, kde-format
 msgid "found incorrect data (%1) that is not Jupyter cell"
-msgstr ""
+msgstr "löytyi virheellistä dataa (%1), joka ei ole Jupyter-solu"
 
 #: worksheet.cpp:1762
 #, kde-format
@@ -4552,7 +4515,7 @@ msgstr "Alkuperäinen koko"
 #: worksheet.cpp:1969
 #, kde-format
 msgid "Move Entries Up"
-msgstr ""
+msgstr "Siirrä tietueita ylöspäin"
 
 #: worksheet.cpp:1970
 #, kde-format
@@ -4565,10 +4528,9 @@ msgid "Evaluate Entries"
 msgstr "Laske kentät"
 
 #: worksheet.cpp:1973 worksheet.cpp:2824
-#, fuzzy, kde-format
-#| msgid "Evaluate Entries"
+#, kde-format
 msgid "Delete Entries"
-msgstr "Laske kentät"
+msgstr "Poista tietueet"
 
 #: worksheet.cpp:1986
 #, fuzzy, kde-format
@@ -4706,16 +4668,15 @@ msgstr "Tasaa"
 msgid ""
 "This step cannot be undone. Do you really want to delete the selected "
 "entries?"
-msgstr ""
+msgstr "Tätä ei voi kumota. Haluatko varmasti poistaa valitut tietueet?"
 
 #: worksheet.cpp:2913
 #, kde-format
 msgid "This step cannot be undone. Do you really want to delete all results?"
-msgstr ""
+msgstr "Tätä ei voi kumota. Haluatko varmasti poistaa kaikki tulokset?"
 
 #: worksheet.cpp:2914
-#, fuzzy, kde-format
-#| msgid "Remove all results"
+#, kde-format
 msgid "Delete all results"
 msgstr "Poista kaikki tulokset"
 
@@ -4860,23 +4821,19 @@ msgid "Move Down"
 msgstr "Siirrä alemmas"
 
 #: worksheetentry.cpp:436
-#, fuzzy, kde-format
-#| msgctxt "@info:tooltip"
-#| msgid "Delete"
+#, kde-format
 msgid "Delete"
 msgstr "Poista"
 
 #: worksheetentry.cpp:718
-#, fuzzy, kde-format
-#| msgid "Do you really want to remove this entry?"
+#, kde-format
 msgid "This step cannot be undone. Do you really want to delete this entry?"
-msgstr "Haluatko varmasti poistaa tämän tietueen?"
+msgstr "Tätä ei voi kumota. Haluatko varmasti poistaa tämän tietueen?"
 
 #: worksheetentry.cpp:718 worksheetentry.cpp:848
-#, fuzzy, kde-format
-#| msgid "Text Entry"
+#, kde-format
 msgid "Delete Entry"
-msgstr "Tekstikenttä"
+msgstr "Poista tietue"
 
 #: worksheetentry.cpp:853
 #, kde-format
