@@ -77,6 +77,9 @@ execute_process(
 if(RESULT EQUAL 0)
     string(REGEX REPLACE "\"" "" JULIA_LIBRARY_DIR ${JULIA_LIBRARY_DIR})
     string(STRIP ${JULIA_LIBRARY_DIR} JULIA_LIBRARY_DIR)
+    if(WIN32) # static libs are in lib
+        string(REGEX REPLACE "bin$" "lib" JULIA_LIBRARY_DIR ${JULIA_LIBRARY_DIR})
+    endif()
     set(JULIA_LIBRARY_DIR ${JULIA_LIBRARY_DIR}
         CACHE PATH "Julia library directory")
 endif()
@@ -92,19 +95,27 @@ if(NOT ${JULIA_VERSION_STRING} VERSION_LESS 1.6.0)
     if(RESULT EQUAL 0)
         string(REGEX REPLACE "\"" "" JULIA_INTERNAL_LIBRARY_DIR ${JULIA_INTERNAL_LIBRARY_DIR})
         string(STRIP ${JULIA_INTERNAL_LIBRARY_DIR} JULIA_INTERNAL_LIBRARY_DIR)
+        if(WIN32) # static libs are in lib
+            string(REGEX REPLACE "bin$" "lib" JULIA_INTERNAL_LIBRARY_DIR ${JULIA_INTERNAL_LIBRARY_DIR})
+        endif()
         set(JULIA_INTERNAL_LIBRARY_DIR ${JULIA_INTERNAL_LIBRARY_DIR}
             CACHE PATH "Julia internal library directory")
     endif()
 endif()
 
+# linking to .dll files is not allowed
+set(CMAKE_FIND_LIBRARY_SUFFIXES .so .a .lib)
+
 find_library( JULIA_LIBRARY
-    NAMES julia
+    # static library name on Windows is libjulia.dll.a
+    NAMES julia julia.dll
     PATHS ${JULIA_LIBRARY_DIR}
 )
 
 if(NOT ${JULIA_VERSION_STRING} VERSION_LESS 1.6.0)
     find_library( JULIA_INTERNAL_LIBRARY
-        NAMES julia-internal
+	# static library name on Windows is libjulia-internal.dll.a
+        NAMES julia-internal julia-internal.dll
         PATHS ${JULIA_INTERNAL_LIBRARY_DIR}
     )
 endif()
