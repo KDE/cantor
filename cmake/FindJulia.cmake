@@ -97,9 +97,6 @@ if(NOT ${JULIA_VERSION_STRING} VERSION_LESS 1.6.0)
     endif()
 endif()
 
-# use static libraries for linking
-set(CMAKE_FIND_LIBRARY_SUFFIXES .a .lib)
-
 find_library( JULIA_LIBRARY
     NAMES julia
     PATHS ${JULIA_LIBRARY_DIR}
