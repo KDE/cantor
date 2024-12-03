@@ -9,7 +9,6 @@
 #include "defaultvariablemodel.h"
 
 class PythonSession;
-class QDBusInterface;
 
 class PythonVariableModel : public Cantor::DefaultVariableModel
 {

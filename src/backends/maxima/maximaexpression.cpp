@@ -10,10 +10,8 @@
 
 #include "maximasession.h"
 #include "textresult.h"
-#include "epsresult.h"
 #include "imageresult.h"
 #include "helpresult.h"
-#include "latexresult.h"
 #include "settings.h"
 
 #include <QApplication>
@@ -67,8 +65,7 @@ void MaximaExpression::evaluate()
         || cmd.startsWith(QLatin1String("example("))
         || cmd.startsWith(QLatin1String(":lisp(cl-info::info-exact")))
         setIsHelpRequest(true);
-
-    if (MaximaSettings::self()->integratePlots()
+    else if (MaximaSettings::self()->integratePlots()
         && !cmd.contains(QLatin1String("ps_file"))
         && cmd.contains(QRegularExpression(QStringLiteral("(?:plot2d|plot3d|contour_plot|draw|draw2d|draw3d)\\s*\\([^\\)]"))))
     {
@@ -194,7 +191,6 @@ QString MaximaExpression::internalCommand()
 
             cmd.replace(QRegularExpression(QStringLiteral("((plot2d|plot3d|contour_plot)\\s*\\(.*)\\)([;\n$]|$)")),
                         QLatin1String("\\1, ") + params.arg(fileName, QString::number(w), QString::number(h)) + QLatin1String(");"));
-
         }
         else
         {
@@ -206,7 +202,6 @@ QString MaximaExpression::internalCommand()
             cmd.replace(QRegularExpression(QStringLiteral("((draw|draw2d|draw3d)\\s*\\(.*)*\\)([;\n$]|$)")),
                         QLatin1String("\\1, ") + params + QLatin1String(");"));
         }
-
     }
 
     // properly end the input in the Maxima mode
@@ -521,11 +516,6 @@ void MaximaExpression::imageChanged()
     if(m_tempFile->size()>0)
     {
         m_plotResult = new Cantor::ImageResult( QUrl::fromLocalFile(m_tempFile->fileName()) );
-        /*
-        QSizeF size;
-        const QImage& image = Cantor::Renderer::pdfRenderToImage(QUrl::fromLocalFile(m_tempFile->fileName()), 1., false, &size);
-        m_plotResult = new Cantor::ImageResult(image);
-        */
 
         // Check, that we already parse maxima output for this plot, and if not, keep it up to this moment
         // If it's true, replace text info result by real plot and set status as Done
