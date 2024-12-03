@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>946</width>
-    <height>511</height>
+    <width>705</width>
+    <height>218</height>
    </rect>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout_2">
@@ -25,17 +25,17 @@
    </property>
    <item>
     <widget class="QTabWidget" name="tabWidget">
-     <property name="currentIndex">
-      <number>0</number>
-     </property>
-     <property name="documentMode">
-      <bool>true</bool>
-     </property>
      <property name="sizePolicy">
       <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
        <horstretch>0</horstretch>
        <verstretch>0</verstretch>
       </sizepolicy>
+     </property>
+     <property name="currentIndex">
+      <number>0</number>
+     </property>
+     <property name="documentMode">
+      <bool>true</bool>
      </property>
      <widget class="QWidget" name="ChapterTab">
       <attribute name="title">
@@ -43,9 +43,9 @@
       </attribute>
       <layout class="QFormLayout" name="verticalLayout">
        <item row="0" column="0">
-        <widget class="QLabel" name="label_2">
+        <widget class="QLabel" name="lChapterFontFamily">
          <property name="text">
-          <string>Font Family:</string>
+          <string>Fon&amp;t Family:</string>
          </property>
          <property name="buddy">
           <cstring>kcfg_ChapterFontFamily</cstring>
@@ -56,9 +56,9 @@
         <widget class="QFontComboBox" name="kcfg_ChapterFontFamily"/>
        </item>
        <item row="1" column="0">
-        <widget class="QLabel" name="label_3">
+        <widget class="QLabel" name="lChapterFontSize">
          <property name="text">
-          <string>Font Size:</string>
+          <string>Font Si&amp;ze:</string>
          </property>
          <property name="buddy">
           <cstring>kcfg_ChapterFontSize</cstring>
@@ -98,11 +98,11 @@
       <attribute name="title">
        <string>Subchapter Font</string>
       </attribute>
-      <layout class="QFormLayout" name="verticalLayout">
+      <layout class="QFormLayout" name="verticalLayout4">
        <item row="0" column="0">
-        <widget class="QLabel" name="label_2">
+        <widget class="QLabel" name="lSubchapterFontFamily">
          <property name="text">
-          <string>Font Family:</string>
+          <string>Fon&amp;t Family:</string>
          </property>
          <property name="buddy">
           <cstring>kcfg_SubchapterFontFamily</cstring>
@@ -113,9 +113,9 @@
         <widget class="QFontComboBox" name="kcfg_SubchapterFontFamily"/>
        </item>
        <item row="1" column="0">
-        <widget class="QLabel" name="label_3">
+        <widget class="QLabel" name="lSubchapterFontSize">
          <property name="text">
-          <string>Font Size:</string>
+          <string>Font Si&amp;ze:</string>
          </property>
          <property name="buddy">
           <cstring>kcfg_SubchapterFontSize</cstring>
@@ -155,11 +155,11 @@
       <attribute name="title">
        <string>Section Font</string>
       </attribute>
-      <layout class="QFormLayout" name="verticalLayout">
+      <layout class="QFormLayout" name="verticalLayout3">
        <item row="0" column="0">
-        <widget class="QLabel" name="label_2">
+        <widget class="QLabel" name="lSectionFontFamily">
          <property name="text">
-          <string>Font Family:</string>
+          <string>Fon&amp;t Family:</string>
          </property>
          <property name="buddy">
           <cstring>kcfg_SectionFontFamily</cstring>
@@ -170,9 +170,9 @@
         <widget class="QFontComboBox" name="kcfg_SectionFontFamily"/>
        </item>
        <item row="1" column="0">
-        <widget class="QLabel" name="label_3">
+        <widget class="QLabel" name="lSectionFontSize">
          <property name="text">
-          <string>Font Size:</string>
+          <string>Font Si&amp;ze:</string>
          </property>
          <property name="buddy">
           <cstring>kcfg_SectionFontSize</cstring>
@@ -212,11 +212,11 @@
       <attribute name="title">
        <string>Subsection Font</string>
       </attribute>
-      <layout class="QFormLayout" name="verticalLayout">
+      <layout class="QFormLayout" name="verticalLayout6">
        <item row="0" column="0">
-        <widget class="QLabel" name="label_2">
+        <widget class="QLabel" name="lSubsectionFontFamily">
          <property name="text">
-          <string>Font Family:</string>
+          <string>Fon&amp;t Family:</string>
          </property>
          <property name="buddy">
           <cstring>kcfg_SubsectionFontFamily</cstring>
@@ -227,9 +227,9 @@
         <widget class="QFontComboBox" name="kcfg_SubsectionFontFamily"/>
        </item>
        <item row="1" column="0">
-        <widget class="QLabel" name="label_3">
+        <widget class="QLabel" name="lSubsetctionFontSize">
          <property name="text">
-          <string>Font Size:</string>
+          <string>Font Si&amp;ze:</string>
          </property>
          <property name="buddy">
           <cstring>kcfg_SubsectionFontSize</cstring>
@@ -269,11 +269,11 @@
       <attribute name="title">
        <string>Paragraph Font</string>
       </attribute>
-      <layout class="QFormLayout" name="verticalLayout">
+      <layout class="QFormLayout" name="verticalLayout2">
        <item row="0" column="0">
-        <widget class="QLabel" name="label_2">
+        <widget class="QLabel" name="lParagraphFontFamily">
          <property name="text">
-          <string>Font Family:</string>
+          <string>Fon&amp;t Family:</string>
          </property>
          <property name="buddy">
           <cstring>kcfg_ParagraphFontFamily</cstring>
@@ -284,9 +284,9 @@
         <widget class="QFontComboBox" name="kcfg_ParagraphFontFamily"/>
        </item>
        <item row="1" column="0">
-        <widget class="QLabel" name="label_3">
+        <widget class="QLabel" name="lParagrapshFontSize">
          <property name="text">
-          <string>Font Size:</string>
+          <string>Font Si&amp;ze:</string>
          </property>
          <property name="buddy">
           <cstring>kcfg_ParagraphFontSize</cstring>
@@ -326,11 +326,11 @@
       <attribute name="title">
        <string>Subparagraph Font</string>
       </attribute>
-      <layout class="QFormLayout" name="verticalLayout">
+      <layout class="QFormLayout" name="verticalLayout5">
        <item row="0" column="0">
-        <widget class="QLabel" name="label_2">
+        <widget class="QLabel" name="lSubparagraphFontFamily">
          <property name="text">
-          <string>Font Family:</string>
+          <string>Fon&amp;t Family:</string>
          </property>
          <property name="buddy">
           <cstring>kcfg_SubparagraphFontFamily</cstring>
@@ -341,9 +341,9 @@
         <widget class="QFontComboBox" name="kcfg_SubparagraphFontFamily"/>
        </item>
        <item row="1" column="0">
-        <widget class="QLabel" name="label_3">
+        <widget class="QLabel" name="lSubparagraphFontSize">
          <property name="text">
-          <string>Font Size:</string>
+          <string>Font Si&amp;ze:</string>
          </property>
          <property name="buddy">
           <cstring>kcfg_SubparagraphFontSize</cstring>
@@ -384,7 +384,7 @@
    <item>
     <spacer name="verticalSpacer">
      <property name="orientation">
-      <enum>Qt::Vertical</enum>
+      <enum>Qt::Orientation::Vertical</enum>
      </property>
      <property name="sizeHint" stdset="0">
       <size>

@@ -20,6 +20,7 @@
 #include <QHBoxLayout>
 #include <QHelpContentWidget>
 #include <QHelpIndexWidget>
+#include <QHelpLink>
 #include <QIcon>
 #include <QLabel>
 #include <QLineEdit>
@@ -85,7 +86,7 @@ DocumentationPanelWidget::DocumentationPanelWidget(QWidget* parent) : QWidget(pa
     toolBarContainer->setLayout(layout);
 
     // Add zoom in, zoom out behaviour on SHIFT++ and SHIFT--
-    auto zoomIn = new QShortcut(QKeySequence(Qt::SHIFT + Qt::Key_Plus), this);
+    auto zoomIn = new QShortcut(QKeySequence(Qt::SHIFT | Qt::Key_Plus), this);
     zoomIn->setContext(Qt::WidgetWithChildrenShortcut);
 
     connect(zoomIn, &QShortcut::activated, this, [=]{
@@ -93,7 +94,7 @@ DocumentationPanelWidget::DocumentationPanelWidget(QWidget* parent) : QWidget(pa
         Q_EMIT zoomFactorChanged();
     });
 
-    auto zoomOut = new QShortcut(QKeySequence(Qt::SHIFT + Qt::Key_Minus), this);
+    auto zoomOut = new QShortcut(QKeySequence(Qt::SHIFT | Qt::Key_Minus), this);
     zoomOut->setContext(Qt::WidgetWithChildrenShortcut);
 
     connect(zoomOut, &QShortcut::activated, this, [=]{
@@ -317,7 +318,9 @@ void DocumentationPanelWidget::updateDocumentation()
 
     //index widget
     m_indexWidget = m_engine->indexWidget();
-    connect(m_indexWidget, &QHelpIndexWidget::linkActivated, this, &DocumentationPanelWidget::showUrl);
+    connect(m_indexWidget, &QHelpIndexWidget::documentActivated, this, [=](const QHelpLink& document, const QString&) {
+        showUrl(document.url);
+    });
 
     //content widget
     m_contentWidget = m_engine->contentWidget();
