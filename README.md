@@ -12,8 +12,7 @@ Backends.
 - Lua Programming Language: http://lua.org/
 - Maxima Computer Algebra System: https://maxima.sourceforge.io/
 - Octave for Numerical Computation: https://gnu.org/software/octave/
-- Python 2 Programming Language: http://python.org/
-- Python 3 Programming Language: http://python.org/
+- Python Programming Language: http://python.org/
 - Qalculate Desktop Calculator: http://qalculate.sourceforge.net/
 - R Project for Statistical Computing: http://r-project.org/
 - Sage Mathematics Software: http://sagemath.org/

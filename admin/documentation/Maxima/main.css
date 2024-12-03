@@ -12,7 +12,6 @@ a.summary-letter {
 blockquote.indentedblock {
     margin-right: 0em;
     padding: 1em;
-
 }
 
 div.display {
@@ -90,21 +89,16 @@ h1 {
 
 h2 {
     font-size: 175%;
-
     font-family: "Arial", sans-serif;
-
 }
 
 h3 {
     font-size: 150%;
-
     font-family: "Arial", sans-serif;
-
 }
 
 a[href] {
     color: #0066cc;
-
     text-decoration: none;
 }
 
@@ -123,32 +117,25 @@ div.textbox {
 div.titlebox {
     border: none;
     padding: 2em;
-
     background: #e0ffff;
-
     font-family: sans-serif;
 }
 
 div.synopsisbox {
     border: none;
     padding: 2em;
-
     background: #ffd1ff;
-
 }
 
 pre.example {
     border: 1px solid #b4b4b4;
     padding: 2em;
-
     background-color: #eeeeff;
-
 }
 
 div.spacerbox {
     border: none;
     padding: 3em;
-
 }
 
 div.image {
@@ -160,9 +147,7 @@ div.image {
 div.categorybox {
     border: 1px solid gray;
     padding: 2em;
-
     background: #f7f2dc;
-
 }
 
 img {
