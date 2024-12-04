@@ -49,7 +49,7 @@ class HierarchyEntry : public WorksheetEntry
     void updateHierarchyLevel(std::vector<int>& currectNumbers);
     qreal hierarchyItemWidth();
 
-    void updateControlElementForHierarchy(qreal responsibilityZoneYEnd, int maxHierarchyDepth, bool haveSubElements);
+    void updateControlElementForHierarchy(qreal responsibilityZoneYEnd, size_t maxHierarchyDepth, bool haveSubElements);
 
     bool isEmpty() override;
 

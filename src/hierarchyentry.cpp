@@ -347,7 +347,7 @@ int HierarchyEntry::hierarchyNumber() const
     return m_hierarchyNumber;
 }
 
-void HierarchyEntry::updateControlElementForHierarchy(qreal responsibilityZoneYEnd, int maxHierarchyDepth, bool haveSubElements)
+void HierarchyEntry::updateControlElementForHierarchy(qreal responsibilityZoneYEnd, size_t maxHierarchyDepth, bool haveSubElements)
 {
     if (!m_hidedSubentries)
         m_controlElement.isCollapsable = haveSubElements;

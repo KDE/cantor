@@ -2,7 +2,7 @@
     SPDX-License-Identifier: GPL-2.0-or-later
     SPDX-FileCopyrightText: 2009 Alexander Rieder <alexanderrieder@gmail.com>
     SPDX-FileCopyrightText: 2012 Martin Kuettler <martin.kuettler@gmail.com>
-    SPDX-FileCopyrightText: 2018-2022 Alexander Semke <alexander.semke@web.de>
+    SPDX-FileCopyrightText: 2018-2024 Alexander Semke <alexander.semke@web.de>
 */
 
 #include "worksheet.h"
@@ -49,7 +49,6 @@
 #include <KZip>
 
 #include <libxslt/xslt.h>
-#include <libxslt/xsltInternals.h>
 #include <libxslt/xsltutils.h>
 #include <libxslt/transform.h>
 
@@ -238,7 +237,7 @@ void Worksheet::updateHierarchyLayout()
 
             names.append(hierarchEntry->text());
             searchStrings.append(hierarchEntry->hierarchyText());
-            depths.append(hierarchyNumbers.size()-1);
+            depths.append(static_cast<int>(hierarchyNumbers.size()) - 1);
         }
     }
 
@@ -252,7 +251,7 @@ void Worksheet::updateHierarchyControlsLayout(WorksheetEntry* startEntry)
 
      // Update sizes of control elements for hierarchy entries
     std::vector<HierarchyEntry*> levelsEntries;
-    int numerationBegin = (int)HierarchyEntry::HierarchyLevel::Chapter;
+    const int numerationBegin = (int)HierarchyEntry::HierarchyLevel::Chapter;
     for (int i = numerationBegin; i < (int)HierarchyEntry::HierarchyLevel::EndValue; i++)
         levelsEntries.push_back(nullptr);
 
@@ -297,7 +296,7 @@ std::vector<WorksheetEntry*> Worksheet::hierarchySubelements(HierarchyEntry* hie
     Q_ASSERT(hierarchyEntry);
 
     bool subentriesEnd = false;
-    int level = (int)hierarchyEntry->level();
+    const int level = (int)hierarchyEntry->level();
     for (auto* entry = hierarchyEntry->next(); entry && !subentriesEnd; entry = entry->next())
     {
         if (entry->type() == HierarchyEntry::Type)
@@ -1305,23 +1304,18 @@ void Worksheet::saveLatex(const QString& filename)
     QFile file(filename);
     if(!file.open(QIODevice::WriteOnly))
     {
-        KMessageBox::error(worksheetView(), i18n("Error saving file %1", filename), i18n("Error - Cantor"));
+        KMessageBox::error(worksheetView(), i18n("Error saving file %1", filename), i18n("Export to LaTeX"));
         return;
     }
-
-    xmlSubstituteEntitiesDefault(1);
-    xmlLoadExtDtdDefaultValue = 1;
 
     QString stylesheet = QStandardPaths::locate(QStandardPaths::AppDataLocation, QLatin1String("xslt/latex.xsl"));
     if (stylesheet.isEmpty()) {
-        KMessageBox::error(worksheetView(), i18n("Error loading latex.xsl stylesheet"), i18n("Error - Cantor"));
+        KMessageBox::error(worksheetView(), i18n("Error loading latex.xsl stylesheet"), i18n("Export to LaTeX"));
         return;
     }
 
-    static std::string encoding("utf-8");
-
     xsltStylesheetPtr xsltStyleSheet = xsltParseStylesheetFile((const xmlChar *)stylesheet.toLocal8Bit().constData());
-    xmlDocPtr output = xmlReadDoc((const xmlChar *)toXML().toString().toStdString().c_str(), nullptr, encoding.c_str(), XML_PARSE_RECOVER);
+    xmlDocPtr output = xmlReadDoc((const xmlChar *)toXML().toString().toStdString().c_str(), nullptr, "utf-8", XML_PARSE_RECOVER | XML_PARSE_NOENT | XML_PARSE_DTDLOAD);
 
     const char *params[16+1];
     params[0] = nullptr;
