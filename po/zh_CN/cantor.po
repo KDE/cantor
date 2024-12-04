@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kdeorg\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-11-25 00:36+0000\n"
+"POT-Creation-Date: 2024-12-04 00:36+0000\n"
 "PO-Revision-Date: 2024-04-22 16:04\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Simplified\n"
@@ -816,22 +816,22 @@ msgstr ""
 msgid "Default plot height"
 msgstr ""
 
-#: backends/maxima/maximaexpression.cpp:113
+#: backends/maxima/maximaexpression.cpp:110
 #, kde-format
 msgid "Error: Too many */"
 msgstr "错误：太多 */"
 
-#: backends/maxima/maximaexpression.cpp:126
+#: backends/maxima/maximaexpression.cpp:123
 #, kde-format
 msgid "Error: Too many /*"
 msgstr "错误：太多 /*"
 
-#: backends/maxima/maximaexpression.cpp:132
+#: backends/maxima/maximaexpression.cpp:129
 #, kde-format
 msgid "Error: expected \" before ;"
 msgstr "错误: ; 之前应该有 \";"
 
-#: backends/maxima/maximaexpression.cpp:433
+#: backends/maxima/maximaexpression.cpp:428
 #, kde-format
 msgid "Waiting for the plot result"
 msgstr "等待图表生成结果"
@@ -3199,7 +3199,7 @@ msgstr "..."
 
 #. i18n: ectx: property (text), widget (QLabel, label)
 #: extendedsearchbar.ui:47
-#: panelplugins/documentationpanel/documentationpanelwidget.cpp:125
+#: panelplugins/documentationpanel/documentationpanelwidget.cpp:126
 #, kde-format
 msgid "Find:"
 msgstr "查找："
@@ -3253,18 +3253,30 @@ msgstr "区分大小写(&M)"
 msgid "Chapter Font"
 msgstr "章节字体"
 
-#. i18n: ectx: property (text), widget (QLabel, label_2)
+#. i18n: ectx: property (text), widget (QLabel, lChapterFontFamily)
+#. i18n: ectx: property (text), widget (QLabel, lSubchapterFontFamily)
+#. i18n: ectx: property (text), widget (QLabel, lSectionFontFamily)
+#. i18n: ectx: property (text), widget (QLabel, lSubsectionFontFamily)
+#. i18n: ectx: property (text), widget (QLabel, lParagraphFontFamily)
+#. i18n: ectx: property (text), widget (QLabel, lSubparagraphFontFamily)
 #: formating.ui:48 formating.ui:105 formating.ui:162 formating.ui:219
 #: formating.ui:276 formating.ui:333
-#, kde-format
-msgid "Font Family:"
+#, fuzzy, kde-format
+#| msgid "Font Family:"
+msgid "Fon&t Family:"
 msgstr "字体系列："
 
-#. i18n: ectx: property (text), widget (QLabel, label_3)
+#. i18n: ectx: property (text), widget (QLabel, lChapterFontSize)
+#. i18n: ectx: property (text), widget (QLabel, lSubchapterFontSize)
+#. i18n: ectx: property (text), widget (QLabel, lSectionFontSize)
+#. i18n: ectx: property (text), widget (QLabel, lSubsetctionFontSize)
+#. i18n: ectx: property (text), widget (QLabel, lParagrapshFontSize)
+#. i18n: ectx: property (text), widget (QLabel, lSubparagraphFontSize)
 #: formating.ui:61 formating.ui:118 formating.ui:175 formating.ui:232
 #: formating.ui:289 formating.ui:346
-#, kde-format
-msgid "Font Size:"
+#, fuzzy, kde-format
+#| msgid "Font Size:"
+msgid "Font Si&ze:"
 msgstr "字体大小："
 
 #. i18n: ectx: attribute (title), widget (QWidget, SubchapterTab)
@@ -3751,60 +3763,60 @@ msgstr "无法读取图像“%1”。错误“%2”"
 msgid "--- Page Break ---"
 msgstr "---分页---"
 
-#: panelplugins/documentationpanel/documentationpanelwidget.cpp:50
+#: panelplugins/documentationpanel/documentationpanelwidget.cpp:51
 #, kde-format
 msgctxt "@button go to contents page"
 msgid "Go to the contents"
 msgstr "转到内容"
 
-#: panelplugins/documentationpanel/documentationpanelwidget.cpp:57
+#: panelplugins/documentationpanel/documentationpanelwidget.cpp:58
 #, kde-format
 msgctxt "@info:placeholder"
 msgid "Search through keywords..."
 msgstr "搜索关键字..."
 
-#: panelplugins/documentationpanel/documentationpanelwidget.cpp:68
+#: panelplugins/documentationpanel/documentationpanelwidget.cpp:69
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Find in text of current documentation page"
 msgstr "在当前文档页面的文本中查找"
 
-#: panelplugins/documentationpanel/documentationpanelwidget.cpp:74
+#: panelplugins/documentationpanel/documentationpanelwidget.cpp:75
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Reset zoom level to 100%"
 msgstr "重新设置缩放比例为 100%"
 
-#: panelplugins/documentationpanel/documentationpanelwidget.cpp:122
+#: panelplugins/documentationpanel/documentationpanelwidget.cpp:123
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Close"
 msgstr "关闭"
 
-#: panelplugins/documentationpanel/documentationpanelwidget.cpp:132
+#: panelplugins/documentationpanel/documentationpanelwidget.cpp:133
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Jump to next match"
 msgstr "跳至下一个匹配项"
 
-#: panelplugins/documentationpanel/documentationpanelwidget.cpp:136
+#: panelplugins/documentationpanel/documentationpanelwidget.cpp:137
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Jump to previous match"
 msgstr "跳至上一个匹配项"
 
-#: panelplugins/documentationpanel/documentationpanelwidget.cpp:140
+#: panelplugins/documentationpanel/documentationpanelwidget.cpp:141
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Match case sensitively"
 msgstr "匹配时区分大小写"
 
-#: panelplugins/documentationpanel/documentationpanelwidget.cpp:407
+#: panelplugins/documentationpanel/documentationpanelwidget.cpp:410
 #, kde-format
 msgid "The file has been downloaded successfully at Downloads."
 msgstr "文件已成功下载到 Downloads"
 
-#: panelplugins/documentationpanel/documentationpanelwidget.cpp:407
+#: panelplugins/documentationpanel/documentationpanelwidget.cpp:410
 #, kde-format
 msgid "Download Successful"
 msgstr "下载成功"

@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: mathematik\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-11-25 00:36+0000\n"
+"POT-Creation-Date: 2024-12-04 00:36+0000\n"
 "PO-Revision-Date: 2023-05-06 11:51+0100\n"
 "Last-Translator: José Nuno Coelho Pires <zepires@gmail.com>\n"
 "Language-Team: Portuguese <kde-i18n-pt@kde.org>\n"
@@ -892,22 +892,22 @@ msgstr "Largura predefinida do gráfico"
 msgid "Default plot height"
 msgstr "Altura predefinida do gráfico"
 
-#: backends/maxima/maximaexpression.cpp:113
+#: backends/maxima/maximaexpression.cpp:110
 #, kde-format
 msgid "Error: Too many */"
 msgstr "Erro: Demasiados */"
 
-#: backends/maxima/maximaexpression.cpp:126
+#: backends/maxima/maximaexpression.cpp:123
 #, kde-format
 msgid "Error: Too many /*"
 msgstr "Erro: Demasiados /*"
 
-#: backends/maxima/maximaexpression.cpp:132
+#: backends/maxima/maximaexpression.cpp:129
 #, kde-format
 msgid "Error: expected \" before ;"
 msgstr "Erro: era esperado um '\"' antes do ';'"
 
-#: backends/maxima/maximaexpression.cpp:433
+#: backends/maxima/maximaexpression.cpp:428
 #, kde-format
 msgid "Waiting for the plot result"
 msgstr "À espera do resultado do gráfico"
@@ -3366,7 +3366,7 @@ msgstr "..."
 
 #. i18n: ectx: property (text), widget (QLabel, label)
 #: extendedsearchbar.ui:47
-#: panelplugins/documentationpanel/documentationpanelwidget.cpp:125
+#: panelplugins/documentationpanel/documentationpanelwidget.cpp:126
 #, kde-format
 msgid "Find:"
 msgstr "Procurar:"
@@ -3420,18 +3420,30 @@ msgstr "&Corresponder à capitalização"
 msgid "Chapter Font"
 msgstr "Tipo de Letra do Capítulo"
 
-#. i18n: ectx: property (text), widget (QLabel, label_2)
+#. i18n: ectx: property (text), widget (QLabel, lChapterFontFamily)
+#. i18n: ectx: property (text), widget (QLabel, lSubchapterFontFamily)
+#. i18n: ectx: property (text), widget (QLabel, lSectionFontFamily)
+#. i18n: ectx: property (text), widget (QLabel, lSubsectionFontFamily)
+#. i18n: ectx: property (text), widget (QLabel, lParagraphFontFamily)
+#. i18n: ectx: property (text), widget (QLabel, lSubparagraphFontFamily)
 #: formating.ui:48 formating.ui:105 formating.ui:162 formating.ui:219
 #: formating.ui:276 formating.ui:333
-#, kde-format
-msgid "Font Family:"
+#, fuzzy, kde-format
+#| msgid "Font Family:"
+msgid "Fon&t Family:"
 msgstr "Tipo de Letra:"
 
-#. i18n: ectx: property (text), widget (QLabel, label_3)
+#. i18n: ectx: property (text), widget (QLabel, lChapterFontSize)
+#. i18n: ectx: property (text), widget (QLabel, lSubchapterFontSize)
+#. i18n: ectx: property (text), widget (QLabel, lSectionFontSize)
+#. i18n: ectx: property (text), widget (QLabel, lSubsetctionFontSize)
+#. i18n: ectx: property (text), widget (QLabel, lParagrapshFontSize)
+#. i18n: ectx: property (text), widget (QLabel, lSubparagraphFontSize)
 #: formating.ui:61 formating.ui:118 formating.ui:175 formating.ui:232
 #: formating.ui:289 formating.ui:346
-#, kde-format
-msgid "Font Size:"
+#, fuzzy, kde-format
+#| msgid "Font Size:"
+msgid "Font Si&ze:"
 msgstr "Tamanho da Letra:"
 
 #. i18n: ectx: attribute (title), widget (QWidget, SubchapterTab)
@@ -3938,60 +3950,60 @@ msgstr "Não foi possível ler a imagem \"%1\". Erro \"%2\""
 msgid "--- Page Break ---"
 msgstr "--- Quebra de Página ---"
 
-#: panelplugins/documentationpanel/documentationpanelwidget.cpp:50
+#: panelplugins/documentationpanel/documentationpanelwidget.cpp:51
 #, kde-format
 msgctxt "@button go to contents page"
 msgid "Go to the contents"
 msgstr "Ir para o conteúdo"
 
-#: panelplugins/documentationpanel/documentationpanelwidget.cpp:57
+#: panelplugins/documentationpanel/documentationpanelwidget.cpp:58
 #, kde-format
 msgctxt "@info:placeholder"
 msgid "Search through keywords..."
 msgstr "Procurar nas palavras-chave..."
 
-#: panelplugins/documentationpanel/documentationpanelwidget.cpp:68
+#: panelplugins/documentationpanel/documentationpanelwidget.cpp:69
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Find in text of current documentation page"
 msgstr "Procura no texto da página de documentação actual"
 
-#: panelplugins/documentationpanel/documentationpanelwidget.cpp:74
+#: panelplugins/documentationpanel/documentationpanelwidget.cpp:75
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Reset zoom level to 100%"
 msgstr "Repor o nível de ampliação em 100%"
 
-#: panelplugins/documentationpanel/documentationpanelwidget.cpp:122
+#: panelplugins/documentationpanel/documentationpanelwidget.cpp:123
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Close"
 msgstr "Fechar"
 
-#: panelplugins/documentationpanel/documentationpanelwidget.cpp:132
+#: panelplugins/documentationpanel/documentationpanelwidget.cpp:133
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Jump to next match"
 msgstr "Ir para a ocorrência seguinte"
 
-#: panelplugins/documentationpanel/documentationpanelwidget.cpp:136
+#: panelplugins/documentationpanel/documentationpanelwidget.cpp:137
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Jump to previous match"
 msgstr "Ir para a ocorrência anterior"
 
-#: panelplugins/documentationpanel/documentationpanelwidget.cpp:140
+#: panelplugins/documentationpanel/documentationpanelwidget.cpp:141
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Match case sensitively"
 msgstr "Distinguir capitalização"
 
-#: panelplugins/documentationpanel/documentationpanelwidget.cpp:407
+#: panelplugins/documentationpanel/documentationpanelwidget.cpp:410
 #, kde-format
 msgid "The file has been downloaded successfully at Downloads."
 msgstr "O ficheiro foi transferido com sucesso para as Transferências."
 
-#: panelplugins/documentationpanel/documentationpanelwidget.cpp:407
+#: panelplugins/documentationpanel/documentationpanelwidget.cpp:410
 #, kde-format
 msgid "Download Successful"
 msgstr "Transferência com Sucesso"

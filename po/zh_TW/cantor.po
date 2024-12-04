@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: mathematik\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-11-25 00:36+0000\n"
+"POT-Creation-Date: 2024-12-04 00:36+0000\n"
 "PO-Revision-Date: 2024-03-07 20:07+0900\n"
 "Last-Translator: Kisaragi Hiu <mail@kisaragi-hiu.com>\n"
 "Language-Team: Traditional Chinese <zh-l10n@lists.slat.org>\n"
@@ -846,22 +846,22 @@ msgstr ""
 msgid "Default plot height"
 msgstr ""
 
-#: backends/maxima/maximaexpression.cpp:113
+#: backends/maxima/maximaexpression.cpp:110
 #, kde-format
 msgid "Error: Too many */"
 msgstr "錯誤：太多的 */"
 
-#: backends/maxima/maximaexpression.cpp:126
+#: backends/maxima/maximaexpression.cpp:123
 #, kde-format
 msgid "Error: Too many /*"
 msgstr "錯誤：太多的 /*"
 
-#: backends/maxima/maximaexpression.cpp:132
+#: backends/maxima/maximaexpression.cpp:129
 #, kde-format
 msgid "Error: expected \" before ;"
 msgstr "錯誤：在 ; 之前應有 \""
 
-#: backends/maxima/maximaexpression.cpp:433
+#: backends/maxima/maximaexpression.cpp:428
 #, kde-format
 msgid "Waiting for the plot result"
 msgstr "等待策劃結果"
@@ -3253,7 +3253,7 @@ msgstr "..."
 
 #. i18n: ectx: property (text), widget (QLabel, label)
 #: extendedsearchbar.ui:47
-#: panelplugins/documentationpanel/documentationpanelwidget.cpp:125
+#: panelplugins/documentationpanel/documentationpanelwidget.cpp:126
 #, kde-format
 msgid "Find:"
 msgstr "尋找："
@@ -3307,18 +3307,30 @@ msgstr "符合大小寫(&M)"
 msgid "Chapter Font"
 msgstr "章節字型"
 
-#. i18n: ectx: property (text), widget (QLabel, label_2)
+#. i18n: ectx: property (text), widget (QLabel, lChapterFontFamily)
+#. i18n: ectx: property (text), widget (QLabel, lSubchapterFontFamily)
+#. i18n: ectx: property (text), widget (QLabel, lSectionFontFamily)
+#. i18n: ectx: property (text), widget (QLabel, lSubsectionFontFamily)
+#. i18n: ectx: property (text), widget (QLabel, lParagraphFontFamily)
+#. i18n: ectx: property (text), widget (QLabel, lSubparagraphFontFamily)
 #: formating.ui:48 formating.ui:105 formating.ui:162 formating.ui:219
 #: formating.ui:276 formating.ui:333
-#, kde-format
-msgid "Font Family:"
+#, fuzzy, kde-format
+#| msgid "Font Family:"
+msgid "Fon&t Family:"
 msgstr "字型家族："
 
-#. i18n: ectx: property (text), widget (QLabel, label_3)
+#. i18n: ectx: property (text), widget (QLabel, lChapterFontSize)
+#. i18n: ectx: property (text), widget (QLabel, lSubchapterFontSize)
+#. i18n: ectx: property (text), widget (QLabel, lSectionFontSize)
+#. i18n: ectx: property (text), widget (QLabel, lSubsetctionFontSize)
+#. i18n: ectx: property (text), widget (QLabel, lParagrapshFontSize)
+#. i18n: ectx: property (text), widget (QLabel, lSubparagraphFontSize)
 #: formating.ui:61 formating.ui:118 formating.ui:175 formating.ui:232
 #: formating.ui:289 formating.ui:346
-#, kde-format
-msgid "Font Size:"
+#, fuzzy, kde-format
+#| msgid "Font Size:"
+msgid "Font Si&ze:"
 msgstr "字型大小："
 
 #. i18n: ectx: attribute (title), widget (QWidget, SubchapterTab)
@@ -3805,60 +3817,60 @@ msgstr "無法讀取影像「%1」。錯誤為「%2」"
 msgid "--- Page Break ---"
 msgstr "--- 頁面中斷 ---"
 
-#: panelplugins/documentationpanel/documentationpanelwidget.cpp:50
+#: panelplugins/documentationpanel/documentationpanelwidget.cpp:51
 #, kde-format
 msgctxt "@button go to contents page"
 msgid "Go to the contents"
 msgstr "跳到內容"
 
-#: panelplugins/documentationpanel/documentationpanelwidget.cpp:57
+#: panelplugins/documentationpanel/documentationpanelwidget.cpp:58
 #, kde-format
 msgctxt "@info:placeholder"
 msgid "Search through keywords..."
 msgstr "搜尋關鍵字..."
 
-#: panelplugins/documentationpanel/documentationpanelwidget.cpp:68
+#: panelplugins/documentationpanel/documentationpanelwidget.cpp:69
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Find in text of current documentation page"
 msgstr "在目前說明文件頁面的文本內尋找"
 
-#: panelplugins/documentationpanel/documentationpanelwidget.cpp:74
+#: panelplugins/documentationpanel/documentationpanelwidget.cpp:75
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Reset zoom level to 100%"
 msgstr "重設縮放等級至 100%"
 
-#: panelplugins/documentationpanel/documentationpanelwidget.cpp:122
+#: panelplugins/documentationpanel/documentationpanelwidget.cpp:123
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Close"
 msgstr "關閉"
 
-#: panelplugins/documentationpanel/documentationpanelwidget.cpp:132
+#: panelplugins/documentationpanel/documentationpanelwidget.cpp:133
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Jump to next match"
 msgstr "跳至下一個符合"
 
-#: panelplugins/documentationpanel/documentationpanelwidget.cpp:136
+#: panelplugins/documentationpanel/documentationpanelwidget.cpp:137
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Jump to previous match"
 msgstr "跳至上一個符合"
 
-#: panelplugins/documentationpanel/documentationpanelwidget.cpp:140
+#: panelplugins/documentationpanel/documentationpanelwidget.cpp:141
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Match case sensitively"
 msgstr "區分大小寫"
 
-#: panelplugins/documentationpanel/documentationpanelwidget.cpp:407
+#: panelplugins/documentationpanel/documentationpanelwidget.cpp:410
 #, kde-format
 msgid "The file has been downloaded successfully at Downloads."
 msgstr "檔案已成功下載至「下載」。"
 
-#: panelplugins/documentationpanel/documentationpanelwidget.cpp:407
+#: panelplugins/documentationpanel/documentationpanelwidget.cpp:410
 #, kde-format
 msgid "Download Successful"
 msgstr "下載成功"
