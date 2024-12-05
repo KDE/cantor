@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kdeorg\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-12-04 00:36+0000\n"
+"POT-Creation-Date: 2024-12-05 00:36+0000\n"
 "PO-Revision-Date: 2024-04-22 16:04\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Simplified\n"
@@ -393,9 +393,8 @@ msgstr ""
 
 #: backends/julia/juliasession.cpp:118 backends/julia/juliasession.cpp:127
 #: backends/maxima/maximasession.cpp:290 cantor_part.cpp:973
-#: lib/session.cpp:265 lib/session.cpp:267 worksheet.cpp:1205
-#: worksheet.cpp:1233 worksheet.cpp:1248 worksheet.cpp:1264 worksheet.cpp:1308
-#: worksheet.cpp:1317
+#: lib/session.cpp:265 lib/session.cpp:267 worksheet.cpp:1204
+#: worksheet.cpp:1232 worksheet.cpp:1247 worksheet.cpp:1263
 #, kde-format
 msgid "Error - Cantor"
 msgstr "错误 - Cantor"
@@ -930,7 +929,7 @@ msgstr "绘图集成将被禁用。"
 #: backends/octave/octavesession.cpp:402 backends/sage/sagesession.cpp:358
 #: backends/sage/sagesession.cpp:369 cantor.cpp:219 cantor.cpp:221
 #: cantor.cpp:340 cantor.cpp:347 lib/session.cpp:335 main.cpp:63 main.cpp:122
-#: markdownentry.cpp:797 textentry.cpp:553 worksheet.cpp:1287
+#: markdownentry.cpp:797 textentry.cpp:553 worksheet.cpp:1286
 #, kde-format
 msgid "Cantor"
 msgstr "Cantor"
@@ -1408,7 +1407,7 @@ msgstr "EPS"
 
 #. i18n: ectx: property (text), item, widget (KComboBox, saveFileBox)
 #: backends/qalculate/plotassistant/qalculateplotdialog.ui:575
-#: worksheet.cpp:1856 worksheet.cpp:1882 worksheet.cpp:1902 worksheet.cpp:1920
+#: worksheet.cpp:1850 worksheet.cpp:1876 worksheet.cpp:1896 worksheet.cpp:1914
 #, kde-format
 msgid "LaTeX"
 msgstr "LaTeX"
@@ -2793,17 +2792,18 @@ msgstr "保存纯文本"
 msgid "Export to PDF"
 msgstr ""
 
-#: cantor_part.cpp:189 cantor_part.cpp:556
+#: cantor_part.cpp:189 cantor_part.cpp:556 worksheet.cpp:1307
+#: worksheet.cpp:1313
 #, kde-format
 msgid "Export to LaTeX"
 msgstr "导出到 LaTex 格式"
 
-#: cantor_part.cpp:204 cantor_part.cpp:652 worksheet.cpp:1942
+#: cantor_part.cpp:204 cantor_part.cpp:652 worksheet.cpp:1936
 #, kde-format
 msgid "Evaluate Worksheet"
 msgstr "计算工作表"
 
-#: cantor_part.cpp:211 worksheet.cpp:1950
+#: cantor_part.cpp:211 worksheet.cpp:1944
 #, kde-format
 msgid "Zoom"
 msgstr "缩放"
@@ -2986,7 +2986,7 @@ msgstr "所有可用的计算结果都将丢失。是否确实要重新启动 %1
 msgid "Restart %1?"
 msgstr "要重新启动 %1 吗？"
 
-#: cantor_part.cpp:642 worksheet.cpp:1945
+#: cantor_part.cpp:642 worksheet.cpp:1939
 #, kde-format
 msgid "Interrupt"
 msgstr "中断"
@@ -3164,7 +3164,7 @@ msgstr "显示结果"
 msgid "Hide Results"
 msgstr "隐藏结果"
 
-#: commandentry.cpp:343 worksheet.cpp:1934
+#: commandentry.cpp:343 worksheet.cpp:1928
 #, kde-format
 msgid "Show Help"
 msgstr "显示帮助"
@@ -3261,10 +3261,9 @@ msgstr "章节字体"
 #. i18n: ectx: property (text), widget (QLabel, lSubparagraphFontFamily)
 #: formating.ui:48 formating.ui:105 formating.ui:162 formating.ui:219
 #: formating.ui:276 formating.ui:333
-#, fuzzy, kde-format
-#| msgid "Font Family:"
+#, kde-format
 msgid "Fon&t Family:"
-msgstr "字体系列："
+msgstr ""
 
 #. i18n: ectx: property (text), widget (QLabel, lChapterFontSize)
 #. i18n: ectx: property (text), widget (QLabel, lSubchapterFontSize)
@@ -3274,10 +3273,9 @@ msgstr "字体系列："
 #. i18n: ectx: property (text), widget (QLabel, lSubparagraphFontSize)
 #: formating.ui:61 formating.ui:118 formating.ui:175 formating.ui:232
 #: formating.ui:289 formating.ui:346
-#, fuzzy, kde-format
-#| msgid "Font Size:"
+#, kde-format
 msgid "Font Si&ze:"
-msgstr "字体大小："
+msgstr ""
 
 #. i18n: ectx: attribute (title), widget (QWidget, SubchapterTab)
 #: formating.ui:99
@@ -3980,8 +3978,8 @@ msgstr "结果"
 msgid "Errors"
 msgstr "错误"
 
-#: searchbar.cpp:334 searchbar.cpp:363 worksheet.cpp:1848 worksheet.cpp:1877
-#: worksheet.cpp:1897 worksheet.cpp:1915
+#: searchbar.cpp:334 searchbar.cpp:363 worksheet.cpp:1842 worksheet.cpp:1871
+#: worksheet.cpp:1891 worksheet.cpp:1909
 #, kde-format
 msgid "Text"
 msgstr "文本"
@@ -4237,79 +4235,79 @@ msgstr "无法渲染 Eps 文件。您可能还需要其他软件包"
 msgid "Save text result"
 msgstr ""
 
-#: worksheet.cpp:1204
+#: worksheet.cpp:1203
 #, kde-format
 msgid "Cannot write file %1."
 msgstr "无法写入文件 %1。"
 
-#: worksheet.cpp:1232 worksheet.cpp:1247
+#: worksheet.cpp:1231 worksheet.cpp:1246
 #, kde-format
 msgid "Cannot write file."
 msgstr "无法写入文件。"
 
-#: worksheet.cpp:1264 worksheet.cpp:1308
+#: worksheet.cpp:1263 worksheet.cpp:1307
 #, kde-format
 msgid "Error saving file %1"
 msgstr "保存文件 %1 出错"
 
-#: worksheet.cpp:1287
+#: worksheet.cpp:1286
 #, kde-format
 msgid ""
 "In read-only mode Cantor couldn't guarantee, that the export will be valid "
 "for %1"
 msgstr "在只读模式中，Cantor 无法保证导出对 %1 有效"
 
-#: worksheet.cpp:1317
+#: worksheet.cpp:1313
 #, kde-format
 msgid "Error loading latex.xsl stylesheet"
 msgstr "加载 latex.xsl 样式表时出错"
 
-#: worksheet.cpp:1360
+#: worksheet.cpp:1354
 #, kde-format
 msgid "Couldn't open the file %1."
 msgstr "无法打开文件 %1。"
 
-#: worksheet.cpp:1360 worksheet.cpp:1383 worksheet.cpp:1403 worksheet.cpp:1420
-#: worksheet.cpp:1452 worksheet.cpp:1463 worksheet.cpp:1574 worksheet.cpp:1589
-#: worksheet.cpp:1631 worksheet.cpp:1642 worksheet.cpp:1762 worksheet.cpp:1764
+#: worksheet.cpp:1354 worksheet.cpp:1377 worksheet.cpp:1397 worksheet.cpp:1414
+#: worksheet.cpp:1446 worksheet.cpp:1457 worksheet.cpp:1568 worksheet.cpp:1583
+#: worksheet.cpp:1625 worksheet.cpp:1636 worksheet.cpp:1756 worksheet.cpp:1758
 #, kde-format
 msgid "Open File"
 msgstr "打开文件"
 
-#: worksheet.cpp:1383
+#: worksheet.cpp:1377
 #, kde-format
 msgid "Couldn't open the selected file for reading."
 msgstr "无法打开要读取的文件。"
 
-#: worksheet.cpp:1403
+#: worksheet.cpp:1397
 #, kde-format
 msgid "The selected file is not a valid Cantor or Jupyter project file."
 msgstr "所选的文件不是有效的 Cantor 或者 Jupyter 项目文件。"
 
-#: worksheet.cpp:1420
+#: worksheet.cpp:1414
 #, kde-format
 msgid "The selected file is not a valid Cantor project file."
 msgstr "所选的文件不是有效的 Cantor 项目文件。"
 
-#: worksheet.cpp:1442
+#: worksheet.cpp:1436
 #, kde-format
 msgid ""
 "This worksheet was created using Python2 which is not supported anymore. "
 "Python3 will be used."
 msgstr "此工作表是使用不再受支持的 Python2 创建的。将会使用 Python3 代替。"
 
-#: worksheet.cpp:1443 worksheet.cpp:1613
+#: worksheet.cpp:1437 worksheet.cpp:1607
 #, kde-format
 msgid "Python2 not supported anymore"
 msgstr "Python2 不再受支持"
 
-#: worksheet.cpp:1452 worksheet.cpp:1630
+#: worksheet.cpp:1446 worksheet.cpp:1624
 #, kde-format
 msgid ""
 "%1 backend was not found. Editing and executing entries is not possible."
 msgstr "未找到 %1 后端。无法编辑和执行条目。"
 
-#: worksheet.cpp:1461 worksheet.cpp:1640
+#: worksheet.cpp:1455 worksheet.cpp:1634
 #, kde-format
 msgid ""
 "There are some problems with the %1 backend,\n"
@@ -4320,21 +4318,21 @@ msgstr ""
 "请检查您的配置，或安装所需的软件包。\n"
 "目前您只能查看此工作表。"
 
-#: worksheet.cpp:1573
+#: worksheet.cpp:1567
 #, kde-format
 msgid ""
 "Jupyter notebooks with versions lower than 4.5 (detected version %1.%2) are "
 "not supported."
 msgstr "不支持低于 4.5 版本的 Jupyter 笔记本 （检测到版本 %1.%2）"
 
-#: worksheet.cpp:1588
+#: worksheet.cpp:1582
 #, kde-format
 msgid ""
 "Jupyter notebooks with versions higher than 4.5 (detected version %1.%2) are "
 "not supported."
 msgstr "不支持高于 4.5 版本的 Jupyter 笔记本（检测到版本 %1.%2）"
 
-#: worksheet.cpp:1612
+#: worksheet.cpp:1606
 #, kde-format
 msgid ""
 "This notebook was created using Python2 which is not supported anymore. "
@@ -4342,256 +4340,256 @@ msgid ""
 msgstr ""
 "此笔记本是使用不再受支持的 Python2 创建的。Cantor 将会使用 Python3 代替。"
 
-#: worksheet.cpp:1680
+#: worksheet.cpp:1674
 #, kde-format
 msgid "an object with keys: %1"
 msgstr "一个包含密钥的对象： %1"
 
-#: worksheet.cpp:1682
+#: worksheet.cpp:1676
 #, kde-format
 msgid "non object JSON value"
 msgstr "非对象类型的 JSON 值"
 
-#: worksheet.cpp:1685
+#: worksheet.cpp:1679
 #, kde-format
 msgid "found incorrect data (%1) that is not Jupyter cell"
 msgstr "发现不是 Jupyter 单元格的无效数据（%1）"
 
-#: worksheet.cpp:1762
+#: worksheet.cpp:1756
 #, kde-format
 msgid "The file is not valid Jupyter notebook"
 msgstr "该文件不是有效的 Jupyter 笔记本"
 
-#: worksheet.cpp:1764
+#: worksheet.cpp:1758
 #, kde-format
 msgid "Invalid Jupyter notebook scheme: %1"
 msgstr "无效的 Jupyter 笔记本方案： %1"
 
-#: worksheet.cpp:1840
+#: worksheet.cpp:1834
 #, kde-format
 msgid "Convert To"
 msgstr "转换为"
 
-#: worksheet.cpp:1845 worksheet.cpp:1876 worksheet.cpp:1896 worksheet.cpp:1914
+#: worksheet.cpp:1839 worksheet.cpp:1870 worksheet.cpp:1890 worksheet.cpp:1908
 #, kde-format
 msgid "Command"
 msgstr "命令"
 
-#: worksheet.cpp:1852 worksheet.cpp:1879 worksheet.cpp:1899 worksheet.cpp:1917
+#: worksheet.cpp:1846 worksheet.cpp:1873 worksheet.cpp:1893 worksheet.cpp:1911
 #, kde-format
 msgid "Markdown"
 msgstr "Markdown"
 
-#: worksheet.cpp:1859 worksheet.cpp:1884 worksheet.cpp:1904 worksheet.cpp:1922
+#: worksheet.cpp:1853 worksheet.cpp:1878 worksheet.cpp:1898 worksheet.cpp:1916
 #, kde-format
 msgid "Image"
 msgstr "图像"
 
-#: worksheet.cpp:1862 worksheet.cpp:1887 worksheet.cpp:1907 worksheet.cpp:1925
+#: worksheet.cpp:1856 worksheet.cpp:1881 worksheet.cpp:1901 worksheet.cpp:1919
 #, kde-format
 msgid "Page Break"
 msgstr "分页"
 
-#: worksheet.cpp:1865 worksheet.cpp:1886 worksheet.cpp:1906 worksheet.cpp:1924
+#: worksheet.cpp:1859 worksheet.cpp:1880 worksheet.cpp:1900 worksheet.cpp:1918
 #, kde-format
 msgid "Horizontal Line"
 msgstr "水平线"
 
-#: worksheet.cpp:1868 worksheet.cpp:1889 worksheet.cpp:1909 worksheet.cpp:1927
+#: worksheet.cpp:1862 worksheet.cpp:1883 worksheet.cpp:1903 worksheet.cpp:1921
 #, kde-format
 msgid "Hierarchy Entry"
 msgstr "层次结构条目"
 
-#: worksheet.cpp:1871
+#: worksheet.cpp:1865
 #, kde-format
 msgid "Insert After"
 msgstr "在后面插入"
 
-#: worksheet.cpp:1892
+#: worksheet.cpp:1886
 #, kde-format
 msgid "Insert Before"
 msgstr "在前面插入"
 
-#: worksheet.cpp:1911
+#: worksheet.cpp:1905
 #, kde-format
 msgid "Insert"
 msgstr "插入"
 
-#: worksheet.cpp:1954
+#: worksheet.cpp:1948
 #, kde-format
 msgid "Zoom In"
 msgstr "放大"
 
-#: worksheet.cpp:1957
+#: worksheet.cpp:1951
 #, kde-format
 msgid "Zoom Out"
 msgstr "缩小"
 
-#: worksheet.cpp:1961
+#: worksheet.cpp:1955
 #, kde-format
 msgid "Original Size"
 msgstr "原始大小"
 
-#: worksheet.cpp:1969
+#: worksheet.cpp:1963
 #, kde-format
 msgid "Move Entries Up"
 msgstr "上移条目"
 
-#: worksheet.cpp:1970
+#: worksheet.cpp:1964
 #, kde-format
 msgid "Move Entries Down"
 msgstr "下移条目"
 
-#: worksheet.cpp:1971
+#: worksheet.cpp:1965
 #, kde-format
 msgid "Evaluate Entries"
 msgstr "计算条目"
 
-#: worksheet.cpp:1973 worksheet.cpp:2824
+#: worksheet.cpp:1967 worksheet.cpp:2818
 #, kde-format
 msgid "Delete Entries"
 msgstr ""
 
-#: worksheet.cpp:1986
+#: worksheet.cpp:1980
 #, kde-format
 msgid "Collapse Command Entry Results"
 msgstr "折叠命令条目结果"
 
-#: worksheet.cpp:1987
+#: worksheet.cpp:1981
 #, kde-format
 msgid "Expand Command Entry Results"
 msgstr "展开命令条目结果"
 
-#: worksheet.cpp:1989
+#: worksheet.cpp:1983
 #, kde-format
 msgid "Delete Command Entry Results"
 msgstr ""
 
-#: worksheet.cpp:1991
+#: worksheet.cpp:1985
 #, kde-format
 msgid "Exclude Command Entry From Execution"
 msgstr "从执行中排除命令条目"
 
-#: worksheet.cpp:1992
+#: worksheet.cpp:1986
 #, kde-format
 msgid "Add Command Entry To Execution"
 msgstr "添加要执行的命令条目"
 
-#: worksheet.cpp:2100
+#: worksheet.cpp:2094
 #, kde-format
 msgctxt "@action"
 msgid "Text &Color..."
 msgstr "文本颜色(&C)..."
 
-#: worksheet.cpp:2101
+#: worksheet.cpp:2095
 #, kde-format
 msgctxt "@label text color"
 msgid "Color"
 msgstr "颜色"
 
-#: worksheet.cpp:2108
+#: worksheet.cpp:2102
 #, kde-format
 msgctxt "@action"
 msgid "Text &Highlight..."
 msgstr "文本高亮(&H)..."
 
-#: worksheet.cpp:2114
+#: worksheet.cpp:2108
 #, kde-format
 msgctxt "@action"
 msgid "&Font"
 msgstr "字体(&F)"
 
-#: worksheet.cpp:2123
+#: worksheet.cpp:2117
 #, kde-format
 msgctxt "@action"
 msgid "Font &Size"
 msgstr "字体大小(&S)"
 
-#: worksheet.cpp:2129
+#: worksheet.cpp:2123
 #, kde-format
 msgctxt "@action boldify selected text"
 msgid "&Bold"
 msgstr "粗体(&B)"
 
-#: worksheet.cpp:2140
+#: worksheet.cpp:2134
 #, kde-format
 msgctxt "@action italicize selected text"
 msgid "&Italic"
 msgstr "斜体(&I)"
 
-#: worksheet.cpp:2152
+#: worksheet.cpp:2146
 #, kde-format
 msgctxt "@action underline selected text"
 msgid "&Underline"
 msgstr "下划线(&U)"
 
-#: worksheet.cpp:2163
+#: worksheet.cpp:2157
 #, kde-format
 msgctxt "@action"
 msgid "&Strike Out"
 msgstr "删除线(&S)"
 
-#: worksheet.cpp:2174
+#: worksheet.cpp:2168
 #, kde-format
 msgctxt "@action"
 msgid "Align &Left"
 msgstr "左对齐(&L)"
 
-#: worksheet.cpp:2177
+#: worksheet.cpp:2171
 #, kde-format
 msgctxt "@label left justify"
 msgid "Left"
 msgstr "左对齐"
 
-#: worksheet.cpp:2184
+#: worksheet.cpp:2178
 #, kde-format
 msgctxt "@action"
 msgid "Align &Center"
 msgstr "居中对齐(&C)"
 
-#: worksheet.cpp:2187
+#: worksheet.cpp:2181
 #, kde-format
 msgctxt "@label center justify"
 msgid "Center"
 msgstr "居中对齐"
 
-#: worksheet.cpp:2194
+#: worksheet.cpp:2188
 #, kde-format
 msgctxt "@action"
 msgid "Align &Right"
 msgstr "右对齐(&R)"
 
-#: worksheet.cpp:2197
+#: worksheet.cpp:2191
 #, kde-format
 msgctxt "@label right justify"
 msgid "Right"
 msgstr "右对齐"
 
-#: worksheet.cpp:2204
+#: worksheet.cpp:2198
 #, kde-format
 msgctxt "@action"
 msgid "&Justify"
 msgstr "两端对齐(&J)"
 
-#: worksheet.cpp:2207
+#: worksheet.cpp:2201
 #, kde-format
 msgctxt "@label justify fill"
 msgid "Justify"
 msgstr "两端对齐"
 
-#: worksheet.cpp:2823
+#: worksheet.cpp:2817
 #, kde-format
 msgid ""
 "This step cannot be undone. Do you really want to delete the selected "
 "entries?"
 msgstr ""
 
-#: worksheet.cpp:2913
+#: worksheet.cpp:2907
 #, kde-format
 msgid "This step cannot be undone. Do you really want to delete all results?"
 msgstr ""
 
-#: worksheet.cpp:2914
+#: worksheet.cpp:2908
 #, kde-format
 msgid "Delete all results"
 msgstr ""

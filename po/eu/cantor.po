@@ -1,22 +1,24 @@
-# Translation of cantor.po to Euskera/Basque (eu).
-# Copyright (C) 2011 This_file_is_part_of_KDE
-# This file is distributed under the same license as the kdeedu package.
+# Translation for cantor.po to Euskera/Basque (eu).
+# Copyright (C) 2011-2024 This_file_is_part_of_KDE
+# This file is distributed under the same license as the cantor package.
+# SPDX-FileCopyrightText: 2024 KDE euskaratzeko proiektuaren arduraduna <xalba@ni.eus>
 #
-# Iñigo Salvador Azurmendi <xalba@euskalnet.net>, 2011.
+# Translators:
+# Iñigo Salvador Azurmendi <xalba@ni.eus>, 2011, 2024.
 msgid ""
 msgstr ""
 "Project-Id-Version: cantor\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-12-04 00:36+0000\n"
-"PO-Revision-Date: 2011-10-11 23:56+0200\n"
-"Last-Translator: Iñigo Salvador Azurmendi <xalba@euskalnet.net>\n"
-"Language-Team: Basque <itzulpena@euskalgnu.org>\n"
+"POT-Creation-Date: 2024-12-05 00:36+0000\n"
+"PO-Revision-Date: 2024-12-04 23:30+0100\n"
+"Last-Translator: Iñigo Salvador Azurmendi <xalba@ni.eus>\n"
+"Language-Team: Basque <kde-i18n-eu@kde.org>\n"
 "Language: eu\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Lokalize 1.2\n"
+"X-Generator: Lokalize 24.08.3\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -31,40 +33,39 @@ msgstr "xalba@euskalnet.net"
 #: animationresultitem.cpp:38
 #, kde-format
 msgid "Pause"
-msgstr ""
+msgstr "Etenaldia"
 
 #: animationresultitem.cpp:41
 #, kde-format
 msgid "Start"
-msgstr ""
+msgstr "Abiatu"
 
 #: animationresultitem.cpp:45
 #, kde-format
 msgid "Stop"
-msgstr ""
+msgstr "Gelditu"
 
 #: animationresultitem.cpp:111
-#, fuzzy, kde-format
-#| msgid "Save result"
+#, kde-format
 msgid "Save animation result"
-msgstr "Gorde emaitza"
+msgstr "Gorde animazioaren emaitza"
 
 #: animationresultitem.cpp:111
 #, kde-format
 msgid "Animations (*.gif)"
-msgstr ""
+msgstr "Animazioak (*.gif)"
 
 #: assistants/advancedplot/advancedplotassistant.cpp:31
 #, kde-format
 msgid "Advanced Plotting"
-msgstr "Marrazketa aurreratua"
+msgstr "Trazadura aurreratua"
 
 #. i18n: ectx: property (text), widget (QLabel, label_2)
 #: assistants/advancedplot/advancedplotdialog.ui:24
 #: backends/qalculate/plotassistant/qalculateplotassistant.cpp:24
 #, kde-format
 msgid "Plot"
-msgstr "Marraztu"
+msgstr "Grafikoa"
 
 #. i18n: ectx: property (text), widget (QLabel, label_3)
 #. i18n: ectx: property (text), widget (QLabel, label)
@@ -89,13 +90,13 @@ msgstr "Aukera gehigarriak:"
 #: backends/qalculate/plotassistant/cantor_qalculateplotassistant.rc:4
 #, kde-format
 msgid "&Plot"
-msgstr "&Marraztu"
+msgstr "&Trazatu"
 
 #. i18n: ectx: property (title), widget (QGroupBox, directiveContainer)
 #: assistants/advancedplot/directivecontainer.ui:14
 #, kde-format
 msgid "Option active"
-msgstr ""
+msgstr "Aukera aktibo"
 
 #. i18n: ectx: Menu (calculate)
 #: assistants/differentiate/cantor_differentiate_assistant.rc:4
@@ -108,7 +109,7 @@ msgstr "&Kalkulatu"
 #: assistants/differentiate/differentiateassistant.cpp:26
 #, kde-format
 msgid "Differentiate"
-msgstr ""
+msgstr "Diferentziatu"
 
 #. i18n: ectx: property (text), widget (QLabel, label_2)
 #: assistants/differentiate/differentiatedlg.ui:29
@@ -136,23 +137,23 @@ msgstr ""
 #: assistants/importpackage/cantor_import_package_assistant.rc:4
 #, kde-format
 msgid "&Package"
-msgstr ""
+msgstr "&Paketea"
 
 #: assistants/importpackage/importpackageassistant.cpp:27
 #, kde-format
 msgid "Import Package"
-msgstr ""
+msgstr "Inportatu paketea"
 
 #. i18n: ectx: property (text), widget (QLabel, label)
 #: assistants/importpackage/importpackagedlg.ui:17
 #, kde-format
 msgid "Package:"
-msgstr ""
+msgstr "Paketea:"
 
 #: assistants/integrate/integrateassistant.cpp:27
 #, kde-format
 msgid "Integrate"
-msgstr ""
+msgstr "Integratu"
 
 #. i18n: ectx: property (text), widget (QLabel, label_3)
 #: assistants/integrate/integratedlg.ui:49
@@ -170,7 +171,7 @@ msgstr "Goiko muga:"
 #: assistants/integrate/integratedlg.ui:77
 #, kde-format
 msgid "definite integral"
-msgstr ""
+msgstr "integral definitua"
 
 #. i18n: ectx: Menu (linear_algebra)
 #: assistants/linearalgebra/creatematrix/cantor_create_matrix_assistant.rc:4
@@ -224,7 +225,7 @@ msgstr "Matrizea alderantzikatu"
 #: assistants/plot2d/plot2dassistant.cpp:26
 #, kde-format
 msgid "Plot 2D"
-msgstr ""
+msgstr "2Dko grafikoa"
 
 #. i18n: ectx: property (title), widget (QGroupBox, groupBox)
 #: assistants/plot2d/plot2ddlg.ui:31
@@ -259,7 +260,7 @@ msgstr "Gehienezkoa:"
 #: assistants/plot3d/plot3dassistant.cpp:26
 #, kde-format
 msgid "Plot 3D"
-msgstr ""
+msgstr "3Dko grafikoa"
 
 #. i18n: ectx: property (title), widget (QGroupBox, groupBox)
 #: assistants/plot3d/plot3ddlg.ui:29
@@ -297,39 +298,32 @@ msgid "Variables:"
 msgstr "Aldagaiak:"
 
 #: backendchoosedialog.cpp:64
-#, fuzzy, kde-format
-#| msgid "Restart Backend"
+#, kde-format
 msgid "Select the Backend"
-msgstr "Berrabiarazi 'backend'"
+msgstr "Aukeratu bizkarraldekoa"
 
 #: backendchoosedialog.cpp:110
 #, kde-format
 msgid "<h1>%1</h1><div><b>Recommended version:</b> %2</div>"
-msgstr ""
+msgstr "<h1>%1</h1><div><b>Gomendatutako bertsioa:</b> %2</div>"
 
 #: backendchoosedialog.cpp:113
-#, fuzzy, kde-format
-#| msgid ""
-#| "<h1>%1</h1><div>%2</div><br/><div>See <a href=\"%3\">%3</a> for more "
-#| "information</div>"
+#, kde-format
 msgid ""
 "<hr><div>%1</div><br><div>See <a href=\"%2\">%2</a> for more information.</"
 "div>"
 msgstr ""
-"<h1>%1</h1><div>%2</div><br/><div>Begiratu <a href=\"%3\">%3</a> informazio "
-"gehiago eskuratzeko</div>"
+"<hr><div>%1</div><br><div>Begiratu <a href=\"%2\">%2</a> Informazio gehiago "
+"lortzeko.</div>"
 
 #: backendchoosedialog.cpp:125
-#, fuzzy, kde-format
-#| msgid ""
-#| "<h1>%1</h1><div>%2</div><br/><div>See <a href=\"%3\">%3</a> for more "
-#| "information</div>"
+#, kde-format
 msgid ""
 "<hr><div><b><font color='#e50000'>Some requirements are not fulfilled: </"
 "font></b>%1</div>"
 msgstr ""
-"<h1>%1</h1><div>%2</div><br/><div>Begiratu <a href=\"%3\">%3</a> informazio "
-"gehiago eskuratzeko</div>"
+"<hr><div><b><font color='#e50000'>Betekizun batzuk ez dira bete: </font></b>"
+"%1</div>"
 
 #. i18n: ectx: property (text), widget (QCheckBox, makeDefault)
 #: backendchooser.ui:37
@@ -353,7 +347,7 @@ msgctxt ""
 "The url to the documentation of Julia, please check if there is a translated "
 "version and use the correct url"
 msgid "https://docs.julialang.org/en/latest/"
-msgstr ""
+msgstr "https://docs.julialang.org/en/latest/"
 
 #. i18n: ectx: label, entry (variableManagement), group (JuliaBackend)
 #. i18n: ectx: label, entry (variableManagement), group (PythonBackend)
@@ -363,7 +357,7 @@ msgstr ""
 #: backends/python/pythonbackend.kcfg:14 backends/R/rserver/rserver.kcfg:16
 #, kde-format
 msgid "Enable Variable Management"
-msgstr ""
+msgstr "Gaitu aldagai-kudeaketa"
 
 #. i18n: ectx: label, entry (integratePlots), group (SageBackend)
 #. i18n: ectx: label, entry (integratePlots), group (JuliaBackend)
@@ -376,7 +370,7 @@ msgstr ""
 #: backends/sage/sagebackend.kcfg:18 backends/scilab/scilabbackend.kcfg:22
 #, kde-format
 msgid "Integrate Plots into the Worksheet"
-msgstr ""
+msgstr "Grafikoak lan-orrian bateratu"
 
 #. i18n: ectx: label, entry (plotExtenstionGraphicPackage), group (JuliaBackend)
 #: backends/julia/juliabackend.kcfg:31
@@ -387,25 +381,22 @@ msgstr ""
 #: backends/julia/juliaextensions.cpp:239
 #, kde-format
 msgid "# Sorry, but Gadfly don't support 3d plots"
-msgstr ""
+msgstr "# Barkatu, baina Gadfly-k ez ditu 3Dko grafikoak onartzen"
 
 #: backends/julia/juliaextensions.cpp:256
-#, fuzzy, kde-format
-#| msgid "*.R|R script file"
+#, kde-format
 msgid "Julia script file (*.jl)"
-msgstr "*.R|R script fitxategia"
+msgstr "Julia gidoi-fitxategia (*.jl)"
 
 #: backends/julia/juliasession.cpp:70
-#, fuzzy, kde-format
-#| msgid "Failed to start Sage"
+#, kde-format
 msgid "Failed to start Julia, please check Julia installation."
-msgstr "Sage abiarazteak huts egin du"
+msgstr "Julia abiatzea huts egin du, mesedez ikuskatu Julia-ren instalazioa."
 
 #: backends/julia/juliasession.cpp:118 backends/julia/juliasession.cpp:127
 #: backends/maxima/maximasession.cpp:290 cantor_part.cpp:973
-#: lib/session.cpp:265 lib/session.cpp:267 worksheet.cpp:1205
-#: worksheet.cpp:1233 worksheet.cpp:1248 worksheet.cpp:1264 worksheet.cpp:1308
-#: worksheet.cpp:1317
+#: lib/session.cpp:265 lib/session.cpp:267 worksheet.cpp:1204
+#: worksheet.cpp:1232 worksheet.cpp:1247 worksheet.cpp:1263
 #, kde-format
 msgid "Error - Cantor"
 msgstr "Akatsa - Cantor"
@@ -425,13 +416,12 @@ msgstr ""
 #: backends/julia/juliasession.cpp:260
 #, kde-format
 msgid "Julia process stopped working."
-msgstr ""
+msgstr "Julia prozesua ibiltzeari utzi dio."
 
 #: backends/julia/juliasession.cpp:263
-#, fuzzy, kde-format
-#| msgid "Failed to start Sage"
+#, kde-format
 msgid "Failed to start Julia process."
-msgstr "Sage abiarazteak huts egin du"
+msgstr "Julia prozesua abiatzea huts egin du."
 
 #: backends/julia/juliasession.cpp:266
 #, kde-format
@@ -875,7 +865,7 @@ msgstr ""
 #: backends/maxima/maximasession.cpp:209
 #, kde-format
 msgid "Failed to start Maxima"
-msgstr "Maxima abiarazteak huts egin du"
+msgstr "Maxima abiatzea huts egin du"
 
 #: backends/maxima/maximasession.cpp:276
 #, kde-format
@@ -952,7 +942,7 @@ msgstr ""
 #: backends/octave/octavesession.cpp:402 backends/sage/sagesession.cpp:358
 #: backends/sage/sagesession.cpp:369 cantor.cpp:219 cantor.cpp:221
 #: cantor.cpp:340 cantor.cpp:347 lib/session.cpp:335 main.cpp:63 main.cpp:122
-#: markdownentry.cpp:797 textentry.cpp:553 worksheet.cpp:1287
+#: markdownentry.cpp:797 textentry.cpp:553 worksheet.cpp:1286
 #, kde-format
 msgid "Cantor"
 msgstr "Cantor"
@@ -1435,7 +1425,7 @@ msgstr ""
 
 #. i18n: ectx: property (text), item, widget (KComboBox, saveFileBox)
 #: backends/qalculate/plotassistant/qalculateplotdialog.ui:575
-#: worksheet.cpp:1856 worksheet.cpp:1882 worksheet.cpp:1902 worksheet.cpp:1920
+#: worksheet.cpp:1850 worksheet.cpp:1876 worksheet.cpp:1896 worksheet.cpp:1914
 #, kde-format
 msgid "LaTeX"
 msgstr ""
@@ -1662,64 +1652,59 @@ msgid "Plots one or more functions either inline or in a separate window."
 msgstr ""
 
 #: backends/qalculate/qalculatesyntaxhelpobject.cpp:141
-#, fuzzy, kde-format
-#| msgid "Expression:"
+#, kde-format
 msgid "expression"
-msgstr "Adierazpena:"
+msgstr "adierazpena"
 
 #: backends/qalculate/qalculatesyntaxhelpobject.cpp:142
 #, kde-format
 msgid "option"
-msgstr ""
+msgstr "aukera"
 
 #: backends/qalculate/qalculatesyntaxhelpobject.cpp:143
-#, fuzzy, kde-format
-#| msgctxt "@title:column"
-#| msgid "Value"
+#, kde-format
 msgid "value"
 msgstr "Balioa"
 
 #: backends/qalculate/qalculatesyntaxhelpobject.cpp:147
 #, kde-format
 msgid "integer"
-msgstr ""
+msgstr "osoa"
 
 #: backends/qalculate/qalculatesyntaxhelpobject.cpp:148
 #, kde-format
 msgid "boolean"
-msgstr ""
+msgstr "boolearra"
 
 #: backends/qalculate/qalculatesyntaxhelpobject.cpp:149
-#, fuzzy, kde-format
-#| msgid "Line Numbers"
+#, kde-format
 msgid "number"
-msgstr "Lerro zenbakiak"
+msgstr "zenbakia"
 
 #: backends/qalculate/qalculatesyntaxhelpobject.cpp:150
-#, fuzzy, kde-format
-#| msgid "Defaults"
+#, kde-format
 msgid "default: %1"
-msgstr "Lehenetsiak"
+msgstr "Lehenetsiak: %1"
 
 #: backends/qalculate/qalculatesyntaxhelpobject.cpp:210
 #, kde-format
 msgid "The function's name"
-msgstr ""
+msgstr "Funtzioaren izena"
 
 #: backends/qalculate/qalculatesyntaxhelpobject.cpp:212
 #, kde-format
 msgid "Title label"
-msgstr ""
+msgstr "Titulu-etiketa"
 
 #: backends/qalculate/qalculatesyntaxhelpobject.cpp:213
 #, kde-format
 msgid "x-axis label"
-msgstr ""
+msgstr "x-ardatza etiketa"
 
 #: backends/qalculate/qalculatesyntaxhelpobject.cpp:214
 #, kde-format
 msgid "y-axis label"
-msgstr ""
+msgstr "y-ardatza etiketa"
 
 #: backends/qalculate/qalculatesyntaxhelpobject.cpp:215
 #, kde-format
@@ -1848,12 +1833,12 @@ msgstr ""
 #: backends/qalculate/qalculatesyntaxhelpobject.cpp:253
 #, kde-format
 msgid "file"
-msgstr ""
+msgstr "fitxategia"
 
 #: backends/qalculate/qalculatesyntaxhelpobject.cpp:245
 #, kde-format
 msgid "file: the file to save to"
-msgstr ""
+msgstr "fitxategia: zein fitxategian gorde"
 
 #: backends/qalculate/qalculatesyntaxhelpobject.cpp:251
 #, fuzzy, kde-format
@@ -2054,13 +2039,13 @@ msgstr ""
 #, kde-format
 msgctxt "Plot Style"
 msgid "Steps"
-msgstr ""
+msgstr "p"
 
 #. i18n: ectx: property (text), widget (QLabel, label_16)
 #: backends/qalculate/settings.ui:488
 #, kde-format
 msgid "Legend Position:"
-msgstr ""
+msgstr "Legendaren kokalekua:"
 
 #. i18n: ectx: property (text), widget (QLabel, label_15)
 #: backends/qalculate/settings.ui:550
@@ -2070,10 +2055,9 @@ msgstr ""
 
 #. i18n: ectx: property (text), widget (QLabel, label_11)
 #: backends/qalculate/settings.ui:560
-#, fuzzy, kde-format
-#| msgid "Show Code"
+#, kde-format
 msgid "Show grid:"
-msgstr "Erakutsi kodea"
+msgstr "Erakutsi sareta:"
 
 #. i18n: ectx: property (text), widget (QLabel, label_14)
 #: backends/qalculate/settings.ui:570
@@ -2083,76 +2067,71 @@ msgid "Plot Style:"
 msgstr "Marrazkiaren izenburua:"
 
 #: backends/qthelpconfig.cpp:44
-#, fuzzy, kde-format
-#| msgid "Command Entry"
+#, kde-format
 msgctxt "@title:window"
 msgid "Modify Entry"
-msgstr "Komando sarrera"
+msgstr "Aldatu sarrera"
 
 #: backends/qthelpconfig.cpp:46
-#, fuzzy, kde-format
-#| msgid "Append Text Entry"
+#, kde-format
 msgctxt "@title:window"
 msgid "Add New Entry"
-msgstr "Erantsi testu sarrera"
+msgstr "Gehitu sarrera berria"
 
 #: backends/qthelpconfig.cpp:63
 #, kde-format
 msgid "Name cannot be empty."
-msgstr ""
+msgstr "Izena ezin da hutsik utzi."
 
 #: backends/qthelpconfig.cpp:83
-#, fuzzy, kde-format
-#| msgid "Path to Maxima:"
+#, kde-format
 msgid "Add local documentation"
-msgstr "Maxima-rako bidea:"
+msgstr "Gehitu dokumentazio lokala"
 
 #: backends/qthelpconfig.cpp:99
-#, fuzzy, kde-format
-#| msgid "Document to open"
+#, kde-format
 msgctxt "@action:button Allow user to get some API documentation with GHNS"
 msgid "Get New Documentation"
-msgstr "Ireki beharreko dokumentua"
+msgstr "Lortu dokumentazio berria"
 
 #: backends/qthelpconfig.cpp:102
-#, fuzzy, kde-format
-#| msgid "Path to Maxima:"
+#, kde-format
 msgid "Download additional documentations"
-msgstr "Maxima-rako bidea:"
+msgstr "Dokumentazio osagarria zama-jaitsi"
 
 #: backends/qthelpconfig.cpp:170
 #, kde-format
 msgid "Qt Compressed Help file is not valid."
-msgstr ""
+msgstr "Konprimatutako Qt laguntza fitxategiak ez du balio."
 
 #: backends/qthelpconfig.cpp:179
 #, kde-format
 msgid "Documentation already imported"
-msgstr ""
+msgstr "Dokumentazioa jada inportatu da"
 
 #: backends/qthelpconfig.cpp:269
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Modify"
-msgstr ""
+msgstr "Aldatu"
 
 #: backends/qthelpconfig.cpp:274
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Delete"
-msgstr ""
+msgstr "Ezabatu"
 
 #: backends/qthelpconfig.cpp:282
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Please uninstall this via GHNS."
-msgstr ""
+msgstr "Mesedez, hau GHNS bidez desinstalatu."
 
 #. i18n: ectx: property (text), widget (QLabel, label)
 #: backends/qthelpconfig.ui:20
 #, kde-format
 msgid "Install Additional Documentation Files"
-msgstr ""
+msgstr "Instalatu dokumentazio-fitxategi osagarriak"
 
 #. i18n: ectx: property (text), widget (QTreeWidget, qchTable)
 #: backends/qthelpconfig.ui:49 lib/defaultvariablemodel.cpp:69
@@ -2166,34 +2145,32 @@ msgstr "Izena"
 #, kde-format
 msgctxt "@title:column"
 msgid "Path"
-msgstr ""
+msgstr "Bide-izena"
 
 #. i18n: ectx: property (text), widget (QPushButton, addButton)
 #: backends/qthelpconfig.ui:79
 #, kde-format
 msgctxt "@action:button"
 msgid "Add"
-msgstr ""
+msgstr "Gehitu"
 
 #. i18n: ectx: property (text), widget (QLabel, lIcon)
 #: backends/qthelpconfigeditdialog.ui:17
 #, kde-format
 msgctxt "@label:chooser"
 msgid "Icon:"
-msgstr ""
+msgstr "Ikonoa:"
 
 #. i18n: ectx: property (toolTip), widget (KIconButton, qchIcon)
 #: backends/qthelpconfigeditdialog.ui:24
-#, fuzzy, kde-format
-#| msgid "Restart Backend"
+#, kde-format
 msgctxt "@info:tooltip"
 msgid "Select an icon"
-msgstr "Berrabiarazi 'backend'"
+msgstr "Hautatu ikono bat"
 
 #. i18n: ectx: property (text), widget (QLabel, lName)
 #: backends/qthelpconfigeditdialog.ui:34
-#, fuzzy, kde-format
-#| msgid "Name:"
+#, kde-format
 msgctxt "@label:textbox"
 msgid "Name:"
 msgstr "Izena:"
@@ -2203,35 +2180,35 @@ msgstr "Izena:"
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Enter a name"
-msgstr ""
+msgstr "Sartu izen bat"
 
 #. i18n: ectx: property (placeholderText), widget (QLineEdit, qchName)
 #: backends/qthelpconfigeditdialog.ui:44
 #, kde-format
 msgctxt "@info:placeholder"
 msgid "Select a name..."
-msgstr ""
+msgstr "Hautatu izen bat..."
 
 #. i18n: ectx: property (text), widget (QLabel, lPath)
 #: backends/qthelpconfigeditdialog.ui:51
 #, kde-format
 msgctxt "@label:textbox"
 msgid "Path:"
-msgstr ""
+msgstr "Bide-izena:"
 
 #. i18n: ectx: property (toolTip), widget (KUrlRequester, qchRequester)
 #: backends/qthelpconfigeditdialog.ui:64
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Select a Qt Help file..."
-msgstr ""
+msgstr "Hautatu Qt laguntza fitxategi bat..."
 
 #. i18n: ectx: property (placeholderText), widget (KUrlRequester, qchRequester)
 #: backends/qthelpconfigeditdialog.ui:70
 #, kde-format
 msgctxt "@info:placeholder"
 msgid "Select a Qt Help file..."
-msgstr ""
+msgstr "Hautatu Qt laguntza fitxategi bat..."
 
 #: backends/R/rbackend.cpp:81
 #, kde-format
@@ -2504,19 +2481,17 @@ msgstr ""
 #: cantor.cpp:107
 #, kde-format
 msgid "The file %1 is already opened."
-msgstr ""
+msgstr "%1 fitxategia jada irekita dago."
 
 #: cantor.cpp:107 cantor.cpp:231
-#, fuzzy, kde-format
-#| msgid "Open image file"
+#, kde-format
 msgid "Open file"
-msgstr "Ireki irudi fitxategia"
+msgstr "Ireki fitxategia"
 
 #: cantor.cpp:149
-#, fuzzy, kde-format
-#| msgid "Download Example Worksheets"
+#, kde-format
 msgid "Download Examples"
-msgstr "Jaitsi adibide lan-orria"
+msgstr "Adibideak zama-jaitsi"
 
 #: cantor.cpp:152
 #, kde-format
@@ -2526,12 +2501,12 @@ msgstr "&Ireki adibidea"
 #: cantor.cpp:157
 #, kde-format
 msgid "Go to previous worksheet"
-msgstr ""
+msgstr "Joan aurreko lan-orrira"
 
 #: cantor.cpp:169
 #, kde-format
 msgid "Go to next worksheet"
-msgstr ""
+msgstr "Joan hurrengo lan-orrira"
 
 #: cantor.cpp:230
 #, kde-format
@@ -2539,6 +2514,8 @@ msgid ""
 "All supported files (*.cws *ipynb);;Cantor Worksheet (*.cws);;Jupyter "
 "Notebook (*.ipynb)"
 msgstr ""
+"Onartutako fitxategi guztiak (*.cws *ipynb);;Cantor lan-orria (*.cws);;"
+"Jupyter ohar-bloka (*.ipynb)"
 
 #: cantor.cpp:298
 #, kde-format
@@ -2844,39 +2821,37 @@ msgstr ""
 #: cantor_part.cpp:144
 #, kde-format
 msgid "Save Plain Text"
-msgstr ""
+msgstr "Gorde testu arrunta"
 
 #: cantor_part.cpp:185 cantor_part.cpp:544
-#, fuzzy, kde-format
-#| msgid "Export to LaTex"
+#, kde-format
 msgid "Export to PDF"
-msgstr "Esportatu LaTex-era"
+msgstr "Esportatu PDF-ra"
 
-#: cantor_part.cpp:189 cantor_part.cpp:556
-#, fuzzy, kde-format
-#| msgid "Export to LaTex"
+#: cantor_part.cpp:189 cantor_part.cpp:556 worksheet.cpp:1307
+#: worksheet.cpp:1313
+#, kde-format
 msgid "Export to LaTeX"
-msgstr "Esportatu LaTex-era"
+msgstr "Esportatu LaTeX-era"
 
-#: cantor_part.cpp:204 cantor_part.cpp:652 worksheet.cpp:1942
+#: cantor_part.cpp:204 cantor_part.cpp:652 worksheet.cpp:1936
 #, kde-format
 msgid "Evaluate Worksheet"
 msgstr "Ebaluatu lan-orria"
 
-#: cantor_part.cpp:211 worksheet.cpp:1950
+#: cantor_part.cpp:211 worksheet.cpp:1944
 #, kde-format
 msgid "Zoom"
-msgstr ""
+msgstr "Zooma"
 
 #: cantor_part.cpp:218
-#, fuzzy, kde-format
-#| msgid "%1: %2"
+#, kde-format
 msgctxt ""
 "Zoom percentage value %1 will be replaced by the actual zoom factor value, "
 "so make sure you include it in your translation in order to not to break "
 "anything"
 msgid "%1%"
-msgstr "%1: %2"
+msgstr "%%1"
 
 #: cantor_part.cpp:233
 #, kde-format
@@ -2886,13 +2861,13 @@ msgstr ""
 #: cantor_part.cpp:238
 #, kde-format
 msgid "Syntax Highlighting"
-msgstr "Sintaxi nabarmenketa"
+msgstr "Sintaxi nabarmentzea"
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_CompletionDefault)
 #: cantor_part.cpp:243 settings.ui:46
 #, kde-format
 msgid "Completion"
-msgstr ""
+msgstr "Osatzea"
 
 #: cantor_part.cpp:248
 #, kde-format
@@ -2901,10 +2876,9 @@ msgstr "Lerro zenbakiak"
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_AnimationDefault)
 #: cantor_part.cpp:253 settings.ui:138
-#, fuzzy, kde-format
-#| msgid "Pause Animation"
+#, kde-format
 msgid "Animations"
-msgstr "Eten animazioa"
+msgstr "Animazioak"
 
 #: cantor_part.cpp:260
 #, kde-format
@@ -2938,15 +2912,14 @@ msgid "Insert Markdown Entry"
 msgstr "Txertatu komando sarrera"
 
 #: cantor_part.cpp:297
-#, fuzzy, kde-format
-#| msgid "Insert Latex Entry"
+#, kde-format
 msgid "Insert LaTeX Entry"
-msgstr "Txertatu Latex sarrera"
+msgstr "Txertatu LaTeX sarrera"
 
 #: cantor_part.cpp:303
 #, kde-format
 msgid "Insert Page Break"
-msgstr "Txertatu orri jauzia"
+msgstr "Txertatu orri-jauzia"
 
 #: cantor_part.cpp:308 markdownentry.cpp:63
 #, kde-format
@@ -2956,25 +2929,22 @@ msgstr "Txertatu irudia"
 #: cantor_part.cpp:313
 #, kde-format
 msgid "Collapse All Results"
-msgstr ""
+msgstr "Tolestu emaitza guztiak"
 
 #: cantor_part.cpp:318
-#, fuzzy, kde-format
-#| msgid "Result"
+#, kde-format
 msgid "Expand All Results"
-msgstr "Emaitza"
+msgstr "Zabaldu emaitza guztiak"
 
 #: cantor_part.cpp:323
-#, fuzzy, kde-format
-#| msgid "Remove result"
+#, kde-format
 msgid "Delete All Results"
-msgstr "Kendu emaitza"
+msgstr "Ezabatu emaitza guztiak"
 
 #: cantor_part.cpp:328
-#, fuzzy, kde-format
-#| msgid "Remove current Entry"
+#, kde-format
 msgid "Delete current Entry"
-msgstr "Kendu uneko sarrera"
+msgstr "Ezabatu uneko sarrera"
 
 #. i18n("Publish Worksheet"), collection);
 #. publishWorksheet->setIcon(QIcon::fromTheme(QLatin1String("get-hot-new-stuff")));
@@ -2989,7 +2959,7 @@ msgstr "Erakutsi script editorea"
 #: cantor_part.cpp:349
 #, kde-format
 msgid "Show Completion"
-msgstr ""
+msgstr "Erakutsi osatzea"
 
 #: cantor_part.cpp:416
 #, kde-format
@@ -2997,10 +2967,9 @@ msgid "CantorPart"
 msgstr ""
 
 #: cantor_part.cpp:418
-#, fuzzy, kde-format
-#| msgid "(C) 2009-2011 Alexander Rieder"
+#, kde-format
 msgid "(C) 2009-2015 Alexander Rieder"
-msgstr "(C) 2009-2011 Alexander Rieder"
+msgstr "(C) 2009-2015 Alexander Rieder"
 
 #: cantor_part.cpp:422 main.cpp:78
 #, kde-format
@@ -3008,41 +2977,39 @@ msgid "Alexander Rieder"
 msgstr "Alexander Rieder"
 
 #: cantor_part.cpp:474
-#, fuzzy, kde-format
-#| msgid "*.cws|Cantor Worksheet"
+#, kde-format
 msgid "Cantor Worksheet (*.cws)"
-msgstr "*.cws|Cantor lan-orria"
+msgstr "Cantor lan-orria (*.cws)"
 
 #: cantor_part.cpp:475
 #, kde-format
 msgid "Jupyter Notebook (*.ipynb)"
-msgstr ""
+msgstr "Jupyter ohar-bloka (*.ipynb)"
 
 #: cantor_part.cpp:491
-#, fuzzy, kde-format
-#| msgid "Save result"
+#, kde-format
 msgid "Save as"
-msgstr "Gorde emaitza"
+msgstr "Gorde honela"
 
 #: cantor_part.cpp:537 panelplugins/variablemgr/variablemanagerwidget.cpp:176
 #, kde-format
 msgid "Save"
-msgstr ""
+msgstr "Gorde"
 
 #: cantor_part.cpp:537 textresultitem.cpp:212
 #, kde-format
 msgid "Text Files (*.txt)"
-msgstr ""
+msgstr "Testu fitxategiak (*.txt)"
 
 #: cantor_part.cpp:544
 #, kde-format
 msgid "PDF Files (*.pdf)"
-msgstr ""
+msgstr "PDF fitxategiak (*.pdf)"
 
 #: cantor_part.cpp:556
 #, kde-format
 msgid "TeX Files (*.tex)"
-msgstr ""
+msgstr "TeX fitxategiak (*.tex)"
 
 #: cantor_part.cpp:601
 #, kde-format
@@ -3057,7 +3024,7 @@ msgstr ""
 msgid "Restart %1?"
 msgstr "Berrabiarazi 'backend'"
 
-#: cantor_part.cpp:642 worksheet.cpp:1945
+#: cantor_part.cpp:642 worksheet.cpp:1939
 #, kde-format
 msgid "Interrupt"
 msgstr ""
@@ -3241,7 +3208,7 @@ msgstr "Emaitza"
 msgid "Hide Results"
 msgstr "Emaitza"
 
-#: commandentry.cpp:343 worksheet.cpp:1934
+#: commandentry.cpp:343 worksheet.cpp:1928
 #, fuzzy, kde-format
 #| msgid "Result"
 msgid "Show Help"
@@ -3451,33 +3418,32 @@ msgstr ""
 #: horizontalruleentry.cpp:297
 #, kde-format
 msgid "Line Thickness"
-msgstr ""
+msgstr "Lerroaren lodiera"
 
 #: horizontalruleentry.cpp:299
 #, kde-format
 msgid "Thin"
-msgstr ""
+msgstr "Mehea"
 
 #: horizontalruleentry.cpp:303
 #, kde-format
 msgid "Medium"
-msgstr ""
+msgstr "Ertaina"
 
 #: horizontalruleentry.cpp:307
 #, kde-format
 msgid "Thick"
-msgstr ""
+msgstr "Lodia"
 
 #: horizontalruleentry.cpp:320
-#, fuzzy, kde-format
-#| msgid "Text Entry"
+#, kde-format
 msgid "Line Color"
-msgstr "Testu sarrera"
+msgstr "Lerroaren kolorea"
 
 #: horizontalruleentry.cpp:351
 #, kde-format
 msgid "Line Style"
-msgstr ""
+msgstr "Lerroaren estiloa"
 
 #: imageentry.cpp:47 imageentry.cpp:370
 #, kde-format
@@ -3485,32 +3451,29 @@ msgid "Configure Image"
 msgstr "Configuratu irudia"
 
 #: imageentry.cpp:256
-#, fuzzy, kde-format
-#| msgid "Double click to open file selection dialog"
+#, kde-format
 msgid "Double click here to configure image settings"
-msgstr "Klik bikoitza fitxategi hautaketa elkarrizketa irekitzeko"
+msgstr "Klik bikoitza hemen irudi-ezarpenak konfiguratzeko"
 
 #: imageentry.cpp:287
-#, fuzzy, kde-format
-#| msgid "Cannot load image "
+#, kde-format
 msgid "Cannot load image %1"
-msgstr "Irudia ezin zamatu "
+msgstr "Ezin du %1 irudia zamatu"
 
 #: imageresultitem.cpp:90
 #, kde-format
 msgid "%1 files (*.%2)"
-msgstr ""
+msgstr "%1 fitxategi (*.%2)"
 
 #: imageresultitem.cpp:93
 #, kde-format
 msgid "EPS files (*.eps)"
-msgstr ""
+msgstr "EPS fitxategiak (*.eps)"
 
 #: imageresultitem.cpp:96
-#, fuzzy, kde-format
-#| msgid "Save result"
+#, kde-format
 msgid "Save image result"
-msgstr "Gorde emaitza"
+msgstr "Gorde irudi-emaitza"
 
 #. i18n: ectx: property (windowTitle), widget (QWidget, ImageSettingsBase)
 #: imagesettings.ui:14
@@ -3548,7 +3511,7 @@ msgstr "Altuera"
 #: imagesettings.ui:76
 #, kde-format
 msgid "Preview"
-msgstr ""
+msgstr "Aurreikusi"
 
 #. i18n: ectx: property (title), widget (QGroupBox, groupBox_2)
 #: imagesettings.ui:88
@@ -3563,16 +3526,15 @@ msgid "Use Display Size"
 msgstr ""
 
 #: imagesettingsdialog.cpp:23
-#, fuzzy, kde-format
-#| msgid "Image Settings"
+#, kde-format
 msgctxt "@title:window"
 msgid "Image Settings"
-msgstr "Irudiaren ezarpenak"
+msgstr "Irudi-ezarpenak"
 
 #: imagesettingsdialog.cpp:40
 #, kde-format
 msgid "(auto)"
-msgstr ""
+msgstr "(automatikoa)"
 
 #: imagesettingsdialog.cpp:40
 #, kde-format
@@ -3587,19 +3549,17 @@ msgstr "%"
 #: imagesettingsdialog.cpp:151 markdownentry.cpp:773
 #, kde-format
 msgid "Open image file"
-msgstr "Ireki irudi fitxategia"
+msgstr "Ireki irudi-fitxategia"
 
 #: imagesettingsdialog.cpp:153 markdownentry.cpp:775
-#, fuzzy, kde-format
-#| msgid "Image Entry"
+#, kde-format
 msgid "Images (%1)"
-msgstr "Irudi sarrera"
+msgstr "Irudiak (%1)"
 
 #: latexentry.cpp:61 textentry.cpp:111
-#, fuzzy, kde-format
-#| msgid "Show Code"
+#, kde-format
 msgid "Show LaTeX code"
-msgstr "Erakutsi kodea"
+msgstr "Erakutsi LaTeX kodea"
 
 #: lib/backend.cpp:163
 #, kde-format
@@ -3649,25 +3609,25 @@ msgstr "Latex-en exekutagarrirako bidea"
 #: lib/cantor_libs.kcfg:14
 #, kde-format
 msgid "Path to the dvips executable"
-msgstr ""
+msgstr "DVIPS exekutagarrirako bide-izena"
 
 #: lib/defaultvariablemodel.cpp:71
 #, kde-format
 msgctxt "@title:column"
 msgid "Type"
-msgstr ""
+msgstr "Mota"
 
 #: lib/defaultvariablemodel.cpp:73
 #, kde-format
 msgctxt "@title:column"
 msgid "Size [Bytes]"
-msgstr ""
+msgstr "Neurria (Byte)"
 
 #: lib/defaultvariablemodel.cpp:75
 #, kde-format
 msgctxt "@title:column"
 msgid "Dimension"
-msgstr ""
+msgstr "Dimentsioa"
 
 #: lib/defaultvariablemodel.cpp:77
 #, kde-format
@@ -3739,43 +3699,41 @@ msgid "KDE Frontend to mathematical applications"
 msgstr "KDEren bitartekoa aplikazio matematikoentzako"
 
 #: main.cpp:71
-#, fuzzy, kde-format
-#| msgid "(C) 2009-2011 Alexander Rieder"
+#, kde-format
 msgid "(C) 2016 Filipe Saraiva<br/>(C) 2009-2015 Alexander Rieder"
-msgstr "(C) 2009-2011 Alexander Rieder"
+msgstr "(C) 2016 Filipe Saraiva<br/>(C) 2009-2015 Alexander Rieder"
 
 #: main.cpp:75
 #, kde-format
 msgid "Filipe Saraiva"
-msgstr ""
+msgstr "Filipe Saraiva"
 
 #: main.cpp:75
-#, fuzzy, kde-format
-#| msgid "Octave backend"
+#, kde-format
 msgid "Maintainer<br/>Qt5/KF5 port, Scilab and Python backends"
-msgstr "Octave 'backend'"
+msgstr ""
+"Mantentzailea<br/>Qt5/KF5 eratorpena, Scilab eta Python bizkarraldekoak"
 
 #: main.cpp:76
 #, kde-format
 msgid "Nikita Sirgienko"
-msgstr ""
+msgstr "Nikita Sirgienko"
 
 #: main.cpp:76 main.cpp:77
 #, kde-format
 msgctxt "@info:credit"
 msgid "Developer"
-msgstr ""
+msgstr "Garatzailea"
 
 #: main.cpp:77
-#, fuzzy, kde-format
-#| msgid "Alexander Rieder"
+#, kde-format
 msgid "Alexander Semke"
-msgstr "Alexander Rieder"
+msgstr "Alexander Semke"
 
 #: main.cpp:78
 #, kde-format
 msgid "Original author<br/>Maintainer (2009 - 2015)"
-msgstr ""
+msgstr "Jatorrizko egilea<br/>Mantentzailea (2009 - 2015)"
 
 #: main.cpp:79
 #, kde-format
@@ -3795,69 +3753,62 @@ msgstr "Miha Čančula"
 #: main.cpp:80
 #, kde-format
 msgid "Octave backend"
-msgstr "Octave 'backend'"
+msgstr "Octave-ren bizkarraldekoa"
 
 #: main.cpp:81
 #, kde-format
 msgid "Martin Küttler"
-msgstr ""
+msgstr "Martin Küttler"
 
 #: main.cpp:81
 #, kde-format
 msgid "Interface"
-msgstr ""
+msgstr "Interfazea"
 
 #: main.cpp:83 main.cpp:84
-#, fuzzy, kde-format
-#| msgid "Cantor"
+#, kde-format
 msgid "Cantor icon"
-msgstr "Cantor"
+msgstr "Cantor-ren ikonoa"
 
 #: main.cpp:89
-#, fuzzy, kde-format
-#| msgid "Use this backend"
+#, kde-format
 msgid "Use  backend <backend>"
-msgstr "Erabili 'backend' hau"
+msgstr "Erabili <backend> bizkarraldekoa"
 
 #: main.cpp:92
-#, fuzzy, kde-format
-#| msgid "Document to open"
+#, kde-format
 msgid "Documents to open."
-msgstr "Ireki beharreko dokumentua"
+msgstr "Ireki beharreko dokumentuak."
 
 #: main.cpp:122
-#, fuzzy, kde-format
-#| msgid "Error opening file %1"
+#, kde-format
 msgid "Couldn't open the file %1"
-msgstr "Akatsa %1 fitxategia irekitzerakoan"
+msgstr "Ezin izan du %1 fitxategia ireki"
 
 #: markdownentry.cpp:70
 #, kde-format
 msgid "Enter Edit Mode"
-msgstr ""
+msgstr "Sartu edizio modura"
 
 #: markdownentry.cpp:78
 #, kde-format
 msgid "Clear Attachments"
-msgstr ""
+msgstr "Garbitu eranskinak"
 
 #: markdownentry.cpp:587
-#, fuzzy, kde-format
-#| msgid "Syntax Error"
+#, kde-format
 msgid "Cantor Math Error"
-msgstr "Sintaxi akatsa"
+msgstr "Cantor matematika errorea"
 
 #: markdownentry.cpp:796
-#, fuzzy, kde-format
-#| msgid "Could not find the Cantor Part."
+#, kde-format
 msgid "Failed to read the image \"%1\". Error \"%2\""
-msgstr "Ezin izan da aurkitu Cantor atala."
+msgstr "\"%1\" irudia irakurtzea huts egin du. Errorea \"%2\""
 
 #: pagebreakentry.cpp:28
-#, fuzzy, kde-format
-#| msgid "Page Break"
+#, kde-format
 msgid "--- Page Break ---"
-msgstr "Orri jauzia"
+msgstr "--- Orri-jauzia ---"
 
 #: panelplugins/documentationpanel/documentationpanelwidget.cpp:51
 #, kde-format
@@ -3881,63 +3832,61 @@ msgstr ""
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Reset zoom level to 100%"
-msgstr ""
+msgstr "Zoom-maila % 100ean berrezarri"
 
 #: panelplugins/documentationpanel/documentationpanelwidget.cpp:123
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Close"
-msgstr ""
+msgstr "Itxi"
 
 #: panelplugins/documentationpanel/documentationpanelwidget.cpp:133
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Jump to next match"
-msgstr ""
+msgstr "Jauzi hurrengo bat etortzera"
 
 #: panelplugins/documentationpanel/documentationpanelwidget.cpp:137
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Jump to previous match"
-msgstr ""
+msgstr "Jauzi aurreko bat etortzera"
 
 #: panelplugins/documentationpanel/documentationpanelwidget.cpp:141
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Match case sensitively"
-msgstr ""
+msgstr "Maius./minus. bereizita bat etortzea"
 
 #: panelplugins/documentationpanel/documentationpanelwidget.cpp:410
 #, kde-format
 msgid "The file has been downloaded successfully at Downloads."
-msgstr ""
+msgstr "Fitxategia ondo zama-jaitsi da Zama-jaitsieratan."
 
 #: panelplugins/documentationpanel/documentationpanelwidget.cpp:410
 #, kde-format
 msgid "Download Successful"
-msgstr ""
+msgstr "Zama-jaitsiera arrakastatsua"
 
 #: panelplugins/filebrowserpanel/filebrowserpanelplugin.cpp:137
-#, fuzzy, kde-format
-#| msgid "Cantor"
+#, kde-format
 msgid "Cantor files"
-msgstr "Cantor"
+msgstr "Cantor fitxategiak"
 
 #: panelplugins/filebrowserpanel/filebrowserpanelplugin.cpp:138
-#, fuzzy, kde-format
-#| msgid "Open image file"
+#, kde-format
 msgid "Jupyter files"
-msgstr "Ireki irudi fitxategia"
+msgstr "Jupyter fitxategiak"
 
 #: panelplugins/filebrowserpanel/filebrowserpanelplugin.cpp:139
 #, kde-format
 msgid "All supported files"
-msgstr ""
+msgstr "Onartutako fitxategi guztiak"
 
 #: panelplugins/filebrowserpanel/filebrowserpanelplugin.cpp:140
 #, kde-format
 msgid "All files"
-msgstr ""
+msgstr "Fitxategi guztiak"
 
 #. i18n: ectx: property (text), widget (QLabel, label)
 #: panelplugins/variablemgr/newvardlg.ui:17
@@ -3953,10 +3902,9 @@ msgstr "Balioa:"
 
 #: panelplugins/variablemgr/variablemanagerwidget.cpp:48
 #: panelplugins/variablemgr/variablemanagerwidget.cpp:205
-#, fuzzy, kde-format
-#| msgid "Add new variable"
+#, kde-format
 msgid "Add New Variable"
-msgstr "Erantsi aldagai berria"
+msgstr "Gehitu aldagai berria"
 
 #: panelplugins/variablemgr/variablemanagerwidget.cpp:54
 #, kde-format
@@ -3964,32 +3912,30 @@ msgid "Load Variables"
 msgstr "Zamatu aldagaiak"
 
 #: panelplugins/variablemgr/variablemanagerwidget.cpp:60
-#, fuzzy, kde-format
-#| msgid "Store Variables"
+#, kde-format
 msgid "Save Variables"
-msgstr "Biltegiratu aldagaiak"
+msgstr "Gorde aldagaiak"
 
 #: panelplugins/variablemgr/variablemanagerwidget.cpp:66
 #: panelplugins/variablemgr/variablemanagerwidget.cpp:144
-#, fuzzy, kde-format
-#| msgid "Store Variables"
+#, kde-format
 msgid "Remove Variables"
-msgstr "Biltegiratu aldagaiak"
+msgstr "Kendu aldagaiak"
 
 #: panelplugins/variablemgr/variablemanagerwidget.cpp:76
 #, kde-format
 msgid "Search/Filter"
-msgstr ""
+msgstr "Bilatu/Iragazi"
 
 #: panelplugins/variablemgr/variablemanagerwidget.cpp:87
 #, kde-format
 msgid "Case Sensitive"
-msgstr ""
+msgstr "Maiuskulak bereizi"
 
 #: panelplugins/variablemgr/variablemanagerwidget.cpp:91
 #, kde-format
 msgid "Match Complete Word"
-msgstr ""
+msgstr "Hitz osoarekin bat etortzea"
 
 #: panelplugins/variablemgr/variablemanagerwidget.cpp:143
 #, kde-format
@@ -3997,28 +3943,24 @@ msgid "Are you sure you want to remove all variables?"
 msgstr "Ziur zaude aldagai guztiak kendu nahi dituzula?"
 
 #: panelplugins/variablemgr/variablemanagerwidget.cpp:190
-#, fuzzy, kde-format
-#| msgid "Load Variables"
+#, kde-format
 msgid "Load file"
-msgstr "Zamatu aldagaiak"
+msgstr "Zamatu fitxategia"
 
 #: panelplugins/variablemgr/variablemanagerwidget.cpp:291
-#, fuzzy, kde-format
-#| msgid "Name"
+#, kde-format
 msgid "Copy Name"
-msgstr "Izena"
+msgstr "Kopiatu izena"
 
 #: panelplugins/variablemgr/variablemanagerwidget.cpp:292
-#, fuzzy, kde-format
-#| msgctxt "@title:column"
-#| msgid "Value"
+#, kde-format
 msgid "Copy Value"
-msgstr "Balioa"
+msgstr "Kopiatu balioa"
 
 #: panelplugins/variablemgr/variablemanagerwidget.cpp:293
 #, kde-format
 msgid "Copy Name and Value"
-msgstr ""
+msgstr "Kopiatu izena eta balioa"
 
 #: resultitem.cpp:48
 #, kde-format
@@ -4042,17 +3984,17 @@ msgstr ""
 #: scripteditor/scripteditorwidget.cpp:142
 #, kde-format
 msgid "Script Editor"
-msgstr "Script editorea"
+msgstr "Gidoi-editorea"
 
 #: scripteditor/scripteditorwidget.cpp:145
 #, kde-format
 msgid "Script Editor - %1"
-msgstr "Script editorea - %1"
+msgstr "Gidoi editorea - %1"
 
 #: searchbar.cpp:130 searchbar.cpp:178
 #, kde-format
 msgid "Not found"
-msgstr ""
+msgstr "Ez da aurkitu"
 
 #: searchbar.cpp:133
 #, kde-format
@@ -4072,47 +4014,42 @@ msgstr[0] ""
 msgstr[1] ""
 
 #: searchbar.cpp:333 searchbar.cpp:362
-#, fuzzy, kde-format
-#| msgid "Command Entry"
+#, kde-format
 msgid "Commands"
-msgstr "Komando sarrera"
+msgstr "Komandoak"
 
 #: searchbar.cpp:333 searchbar.cpp:362
-#, fuzzy, kde-format
-#| msgid "Result"
+#, kde-format
 msgid "Results"
-msgstr "Emaitza"
+msgstr "Emaitzak"
 
 #: searchbar.cpp:333 searchbar.cpp:362
-#, fuzzy, kde-format
-#| msgid "Error"
+#, kde-format
 msgid "Errors"
-msgstr "Akatsa"
+msgstr "Erroreak"
 
-#: searchbar.cpp:334 searchbar.cpp:363 worksheet.cpp:1848 worksheet.cpp:1877
-#: worksheet.cpp:1897 worksheet.cpp:1915
+#: searchbar.cpp:334 searchbar.cpp:363 worksheet.cpp:1842 worksheet.cpp:1871
+#: worksheet.cpp:1891 worksheet.cpp:1909
 #, kde-format
 msgid "Text"
-msgstr ""
+msgstr "Testua"
 
 #: searchbar.cpp:334 searchbar.cpp:363
 #, kde-format
 msgid "LaTeX Code"
-msgstr ""
+msgstr "LaTeX kodea"
 
 #. i18n: ectx: property (text), widget (QLabel, label_4)
 #: settings.ui:23
-#, fuzzy, kde-format
-#| msgid "Equations:"
+#, kde-format
 msgid "Evaluation:"
-msgstr "Ekuazioak:"
+msgstr "Ebaluazioak:"
 
 #. i18n: ectx: property (toolTip), widget (QCheckBox, kcfg_CompletionDefault)
 #: settings.ui:43
-#, fuzzy, kde-format
-#| msgid "Enable Syntax Highlighting"
+#, kde-format
 msgid "Enable syntax completion"
-msgstr "Gaitu sintaxi nabarmenketa"
+msgstr "Gaitu sintaxia osatzea"
 
 #. i18n: ectx: property (text), widget (QLabel, label_2)
 #: settings.ui:59
@@ -4133,7 +4070,7 @@ msgstr ""
 #: settings.ui:69
 #, kde-format
 msgid "Default Backend:"
-msgstr "'Backend' lehenetsia:"
+msgstr "Bizkarraldeko lehenetsia:"
 
 #. i18n: ectx: property (toolTip), widget (QSpinBox, kcfg_VisibleLinesLimit)
 #: settings.ui:76
@@ -4191,17 +4128,15 @@ msgstr ""
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_AutoEval)
 #: settings.ui:171
-#, fuzzy, kde-format
-#| msgid "Reevaluate Entries automatically"
+#, kde-format
 msgid "Reevaluate entries automatically"
-msgstr "Berrebaluatu sarrerak automatikoki"
+msgstr "Sarrerak automatikoki berrebaluatu"
 
 #. i18n: ectx: property (text), widget (QLabel, label_3)
 #: settings.ui:184
-#, fuzzy, kde-format
-#| msgid "&Worksheet"
+#, kde-format
 msgid "Worksheet:"
-msgstr "&Lan-orria"
+msgstr "Lan-orria:"
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_StoreTextEntryFormatting)
 #: settings.ui:223
@@ -4229,7 +4164,7 @@ msgstr ""
 #: settings.ui:246
 #, kde-format
 msgid "Don't indent text entries"
-msgstr ""
+msgstr "Testu-sarrerak ez koskatu"
 
 #. i18n: ectx: property (toolTip), widget (QCheckBox, kcfg_WarnAboutSessionRestart)
 #: settings.ui:266
@@ -4247,43 +4182,39 @@ msgstr ""
 
 #. i18n: ectx: property (toolTip), widget (QCheckBox, kcfg_ExpressionNumberingDefault)
 #: settings.ui:283
-#, fuzzy, kde-format
-#| msgid "Line Numbers"
+#, kde-format
 msgid "Show line numbers"
-msgstr "Lerro zenbakiak"
+msgstr "Erakutsi lerro-zenbakiak"
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_ExpressionNumberingDefault)
 #: settings.ui:286
-#, fuzzy, kde-format
-#| msgid "Line Numbers"
+#, kde-format
 msgid "Line numbers"
-msgstr "Lerro zenbakiak"
+msgstr "Lerro-zenbakiak"
 
 #. i18n: ectx: property (toolTip), widget (QCheckBox, kcfg_HighlightDefault)
 #: settings.ui:293
-#, fuzzy, kde-format
-#| msgid "Enable Syntax Highlighting"
+#, kde-format
 msgid "Enable syntax highlighting"
-msgstr "Gaitu sintaxi nabarmenketa"
+msgstr "Gaitu sintaxia nabarmentzea"
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_HighlightDefault)
 #: settings.ui:296
-#, fuzzy, kde-format
-#| msgid "Syntax Highlighting"
+#, kde-format
 msgid "Syntax highlighting"
-msgstr "Sintaxi nabarmenketa"
+msgstr "Sintaxia nabarmentzea"
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_WarnAboutEntryDelete)
 #: settings.ui:303
 #, kde-format
 msgid "Ask for confirmation when deleting entries"
-msgstr ""
+msgstr "Sarrerak ezabatzean baieztapena eskatu"
 
 #. i18n: ectx: property (placeholderText), widget (KLineEdit, pattern)
 #: standardsearchbar.ui:35
 #, kde-format
 msgid "Find…"
-msgstr ""
+msgstr "Aurkitu..."
 
 #: textentry.cpp:55
 #, kde-format
@@ -4293,13 +4224,12 @@ msgstr ""
 #: textentry.cpp:62
 #, kde-format
 msgid "Add custom target"
-msgstr ""
+msgstr "Gehitu neurrira ipinitako jomuga"
 
 #: textentry.cpp:76
-#, fuzzy, kde-format
-#| msgid "Insert Text Entry"
+#, kde-format
 msgid "Convert to Text Entry"
-msgstr "Txertatu testu sarrera"
+msgstr "Bihurtu testu sarrera"
 
 #: textentry.cpp:81
 #, kde-format
@@ -4309,18 +4239,17 @@ msgstr ""
 #: textentry.cpp:553
 #, kde-format
 msgid "Target MIME type:"
-msgstr ""
+msgstr "Helburuko MIME-mota:"
 
 #: textresultitem.cpp:60
-#, fuzzy, kde-format
-#| msgid "Remove result"
+#, kde-format
 msgid "Copy result"
-msgstr "Kendu emaitza"
+msgstr "Kopiatu emaitza"
 
 #: textresultitem.cpp:69
 #, kde-format
 msgid "Show Rendered"
-msgstr ""
+msgstr "Erakutsi errendatuta"
 
 #: textresultitem.cpp:71
 #, kde-format
@@ -4328,25 +4257,24 @@ msgid "Show Code"
 msgstr "Erakutsi kodea"
 
 #: textresultitem.cpp:79 textresultitem.cpp:92
-#, fuzzy, kde-format
-#| msgid "Show Code"
+#, kde-format
 msgid "Show HTML Code"
-msgstr "Erakutsi kodea"
+msgstr "Erakutsi HTML kodea"
 
 #: textresultitem.cpp:81 textresultitem.cpp:87
 #, kde-format
 msgid "Show Plain Alternative"
-msgstr ""
+msgstr "Erakutsi alternatiba soila"
 
 #: textresultitem.cpp:85
 #, kde-format
 msgid "Show Html"
-msgstr ""
+msgstr "Erakutsi Html"
 
 #: textresultitem.cpp:91
 #, kde-format
 msgid "Show HTML"
-msgstr ""
+msgstr "Erakutsi HTML"
 
 #: textresultitem.cpp:160
 #, kde-format
@@ -4354,88 +4282,84 @@ msgid "Cannot render Eps file. You may need additional packages"
 msgstr "Ezin errendatu Eps fitxategia. Pakete osagarriak behar izan ditzakezu."
 
 #: textresultitem.cpp:212
-#, fuzzy, kde-format
-#| msgid "Save result"
+#, kde-format
 msgid "Save text result"
-msgstr "Gorde emaitza"
+msgstr "Gorde testu-emaitzak"
 
-#: worksheet.cpp:1204
+#: worksheet.cpp:1203
 #, kde-format
 msgid "Cannot write file %1."
-msgstr "Ezin idatzi %1 fitxategia."
+msgstr "Ezin du %1 fitxategia idatzi."
 
-#: worksheet.cpp:1232 worksheet.cpp:1247
-#, fuzzy, kde-format
-#| msgid "Cannot write file %1."
+#: worksheet.cpp:1231 worksheet.cpp:1246
+#, kde-format
 msgid "Cannot write file."
-msgstr "Ezin idatzi %1 fitxategia."
+msgstr "Ezin du fitxategia idatzi."
 
-#: worksheet.cpp:1264 worksheet.cpp:1308
+#: worksheet.cpp:1263 worksheet.cpp:1307
 #, kde-format
 msgid "Error saving file %1"
-msgstr "Akatsa %1 fitxategia gordetzerakoan"
+msgstr "Errorea %1 fitxategia gordetzean"
 
-#: worksheet.cpp:1287
+#: worksheet.cpp:1286
 #, kde-format
 msgid ""
 "In read-only mode Cantor couldn't guarantee, that the export will be valid "
 "for %1"
 msgstr ""
 
-#: worksheet.cpp:1317
+#: worksheet.cpp:1313
 #, kde-format
 msgid "Error loading latex.xsl stylesheet"
 msgstr "Akatsa latex.xsl estilo-orria zamatzerakoan"
 
-#: worksheet.cpp:1360
-#, fuzzy, kde-format
-#| msgid "Error opening file %1"
+#: worksheet.cpp:1354
+#, kde-format
 msgid "Couldn't open the file %1."
-msgstr "Akatsa %1 fitxategia irekitzerakoan"
+msgstr "Ezin izan du %1 fitxategia ireki."
 
-#: worksheet.cpp:1360 worksheet.cpp:1383 worksheet.cpp:1403 worksheet.cpp:1420
-#: worksheet.cpp:1452 worksheet.cpp:1463 worksheet.cpp:1574 worksheet.cpp:1589
-#: worksheet.cpp:1631 worksheet.cpp:1642 worksheet.cpp:1762 worksheet.cpp:1764
-#, fuzzy, kde-format
-#| msgid "Open image file"
+#: worksheet.cpp:1354 worksheet.cpp:1377 worksheet.cpp:1397 worksheet.cpp:1414
+#: worksheet.cpp:1446 worksheet.cpp:1457 worksheet.cpp:1568 worksheet.cpp:1583
+#: worksheet.cpp:1625 worksheet.cpp:1636 worksheet.cpp:1756 worksheet.cpp:1758
+#, kde-format
 msgid "Open File"
-msgstr "Ireki irudi fitxategia"
+msgstr "Ireki fitxategia"
 
-#: worksheet.cpp:1383
+#: worksheet.cpp:1377
 #, fuzzy, kde-format
 #| msgid "Error opening file %1"
 msgid "Couldn't open the selected file for reading."
 msgstr "Akatsa %1 fitxategia irekitzerakoan"
 
-#: worksheet.cpp:1403
+#: worksheet.cpp:1397
 #, kde-format
 msgid "The selected file is not a valid Cantor or Jupyter project file."
 msgstr ""
 
-#: worksheet.cpp:1420
+#: worksheet.cpp:1414
 #, kde-format
 msgid "The selected file is not a valid Cantor project file."
 msgstr ""
 
-#: worksheet.cpp:1442
+#: worksheet.cpp:1436
 #, kde-format
 msgid ""
 "This worksheet was created using Python2 which is not supported anymore. "
 "Python3 will be used."
 msgstr ""
 
-#: worksheet.cpp:1443 worksheet.cpp:1613
+#: worksheet.cpp:1437 worksheet.cpp:1607
 #, kde-format
 msgid "Python2 not supported anymore"
 msgstr ""
 
-#: worksheet.cpp:1452 worksheet.cpp:1630
+#: worksheet.cpp:1446 worksheet.cpp:1624
 #, kde-format
 msgid ""
 "%1 backend was not found. Editing and executing entries is not possible."
 msgstr ""
 
-#: worksheet.cpp:1461 worksheet.cpp:1640
+#: worksheet.cpp:1455 worksheet.cpp:1634
 #, kde-format
 msgid ""
 "There are some problems with the %1 backend,\n"
@@ -4446,461 +4370,451 @@ msgstr ""
 "mesedez egiaztatu zure konfigurazioa edo instalatu beharrezko paketeak.\n"
 "Lan-orri hau besterik ezingo duzu ikusi."
 
-#: worksheet.cpp:1573
+#: worksheet.cpp:1567
 #, kde-format
 msgid ""
 "Jupyter notebooks with versions lower than 4.5 (detected version %1.%2) are "
 "not supported."
 msgstr ""
 
-#: worksheet.cpp:1588
+#: worksheet.cpp:1582
 #, kde-format
 msgid ""
 "Jupyter notebooks with versions higher than 4.5 (detected version %1.%2) are "
 "not supported."
 msgstr ""
 
-#: worksheet.cpp:1612
+#: worksheet.cpp:1606
 #, kde-format
 msgid ""
 "This notebook was created using Python2 which is not supported anymore. "
 "Python3 will be used."
 msgstr ""
+"Ohar-blok hau Python2 erabiliz sortu zen, dagoeneko euskarririk ez duena. "
+"Python3 erabiliko da."
 
-#: worksheet.cpp:1680
+#: worksheet.cpp:1674
 #, kde-format
 msgid "an object with keys: %1"
-msgstr ""
+msgstr "gakoak dituen objektu bat: %1"
 
-#: worksheet.cpp:1682
+#: worksheet.cpp:1676
 #, kde-format
 msgid "non object JSON value"
-msgstr ""
+msgstr "objektua ez den JSON balioa"
 
-#: worksheet.cpp:1685
+#: worksheet.cpp:1679
 #, kde-format
 msgid "found incorrect data (%1) that is not Jupyter cell"
 msgstr ""
 
-#: worksheet.cpp:1762
+#: worksheet.cpp:1756
 #, kde-format
 msgid "The file is not valid Jupyter notebook"
-msgstr ""
+msgstr "Fitxategia ez da Jupyter ohar-bloka "
 
-#: worksheet.cpp:1764
+#: worksheet.cpp:1758
 #, kde-format
 msgid "Invalid Jupyter notebook scheme: %1"
-msgstr ""
+msgstr "Jupyter ohar-blokaren antolaera baliogabea: %1"
 
-#: worksheet.cpp:1840
-#, fuzzy, kde-format
-#| msgid "Insert Text Entry"
+#: worksheet.cpp:1834
+#, kde-format
 msgid "Convert To"
-msgstr "Txertatu testu sarrera"
+msgstr "Bihurtu"
 
-#: worksheet.cpp:1845 worksheet.cpp:1876 worksheet.cpp:1896 worksheet.cpp:1914
-#, fuzzy, kde-format
-#| msgid "Command Entry"
+#: worksheet.cpp:1839 worksheet.cpp:1870 worksheet.cpp:1890 worksheet.cpp:1908
+#, kde-format
 msgid "Command"
-msgstr "Komando sarrera"
+msgstr "Komandoa"
 
-#: worksheet.cpp:1852 worksheet.cpp:1879 worksheet.cpp:1899 worksheet.cpp:1917
+#: worksheet.cpp:1846 worksheet.cpp:1873 worksheet.cpp:1893 worksheet.cpp:1911
 #, fuzzy, kde-format
 #| msgid "Insert Command Entry"
 msgid "Markdown"
 msgstr "Txertatu komando sarrera"
 
-#: worksheet.cpp:1859 worksheet.cpp:1884 worksheet.cpp:1904 worksheet.cpp:1922
-#, fuzzy, kde-format
-#| msgid "Image Entry"
+#: worksheet.cpp:1853 worksheet.cpp:1878 worksheet.cpp:1898 worksheet.cpp:1916
+#, kde-format
 msgid "Image"
-msgstr "Irudi sarrera"
+msgstr "Irudia"
 
-#: worksheet.cpp:1862 worksheet.cpp:1887 worksheet.cpp:1907 worksheet.cpp:1925
+#: worksheet.cpp:1856 worksheet.cpp:1881 worksheet.cpp:1901 worksheet.cpp:1919
 #, kde-format
 msgid "Page Break"
 msgstr "Orri jauzia"
 
-#: worksheet.cpp:1865 worksheet.cpp:1886 worksheet.cpp:1906 worksheet.cpp:1924
+#: worksheet.cpp:1859 worksheet.cpp:1880 worksheet.cpp:1900 worksheet.cpp:1918
 #, kde-format
 msgid "Horizontal Line"
-msgstr ""
+msgstr "Marra horizontala"
 
-#: worksheet.cpp:1868 worksheet.cpp:1889 worksheet.cpp:1909 worksheet.cpp:1927
+#: worksheet.cpp:1862 worksheet.cpp:1883 worksheet.cpp:1903 worksheet.cpp:1921
 #, fuzzy, kde-format
 #| msgid "Image Entry"
 msgid "Hierarchy Entry"
 msgstr "Irudi sarrera"
 
-#: worksheet.cpp:1871
-#, fuzzy, kde-format
-#| msgid "Insert Text Entry"
+#: worksheet.cpp:1865
+#, kde-format
 msgid "Insert After"
-msgstr "Txertatu testu sarrera"
+msgstr "Txertatu ondoren"
 
-#: worksheet.cpp:1892
-#, fuzzy, kde-format
-#| msgid "Insert Entry Before"
+#: worksheet.cpp:1886
+#, kde-format
 msgid "Insert Before"
-msgstr "Txertatu sarrera aurretik"
+msgstr "Txertatu aurretik"
 
-#: worksheet.cpp:1911
-#, fuzzy, kde-format
-#| msgid "Insert Entry"
+#: worksheet.cpp:1905
+#, kde-format
 msgid "Insert"
-msgstr "Txertatu sarrera"
+msgstr "Txertatu"
 
-#: worksheet.cpp:1954
+#: worksheet.cpp:1948
 #, kde-format
 msgid "Zoom In"
-msgstr ""
+msgstr "Zooma gerturatu"
 
-#: worksheet.cpp:1957
+#: worksheet.cpp:1951
 #, kde-format
 msgid "Zoom Out"
-msgstr ""
+msgstr "Zooma urrundu"
 
-#: worksheet.cpp:1961
+#: worksheet.cpp:1955
 #, kde-format
 msgid "Original Size"
-msgstr ""
+msgstr "Jatorrizko neurria"
 
-#: worksheet.cpp:1969
+#: worksheet.cpp:1963
 #, kde-format
 msgid "Move Entries Up"
-msgstr ""
+msgstr "Sarrerak gora eraman"
 
-#: worksheet.cpp:1970
-#, fuzzy, kde-format
-#| msgid "Insert Text Entry"
+#: worksheet.cpp:1964
+#, kde-format
 msgid "Move Entries Down"
-msgstr "Txertatu testu sarrera"
+msgstr "Sarrerak behera eraman"
 
-#: worksheet.cpp:1971
-#, fuzzy, kde-format
-#| msgid "Evaluate Entry"
+#: worksheet.cpp:1965
+#, kde-format
 msgid "Evaluate Entries"
-msgstr "Ebaluatu sarrera"
+msgstr "Sarrerak ebaluatu"
 
-#: worksheet.cpp:1973 worksheet.cpp:2824
-#, fuzzy, kde-format
-#| msgid "Evaluate Entry"
+#: worksheet.cpp:1967 worksheet.cpp:2818
+#, kde-format
 msgid "Delete Entries"
-msgstr "Ebaluatu sarrera"
+msgstr "Sarrerak ezabatu"
 
-#: worksheet.cpp:1986
+#: worksheet.cpp:1980
 #, fuzzy, kde-format
 #| msgid "Insert Command Entry"
 msgid "Collapse Command Entry Results"
 msgstr "Txertatu komando sarrera"
 
-#: worksheet.cpp:1987
+#: worksheet.cpp:1981
 #, fuzzy, kde-format
 #| msgid "Append Command Entry"
 msgid "Expand Command Entry Results"
 msgstr "Erantsi komando sarrera"
 
-#: worksheet.cpp:1989
+#: worksheet.cpp:1983
 #, fuzzy, kde-format
 #| msgid "Command Entry"
 msgid "Delete Command Entry Results"
 msgstr "Komando sarrera"
 
-#: worksheet.cpp:1991
+#: worksheet.cpp:1985
 #, kde-format
 msgid "Exclude Command Entry From Execution"
 msgstr ""
 
-#: worksheet.cpp:1992
+#: worksheet.cpp:1986
 #, fuzzy, kde-format
 #| msgid "Append Command Entry"
 msgid "Add Command Entry To Execution"
 msgstr "Erantsi komando sarrera"
 
-#: worksheet.cpp:2100
+#: worksheet.cpp:2094
 #, kde-format
 msgctxt "@action"
 msgid "Text &Color..."
-msgstr ""
+msgstr "Testuaren &kolorea..."
 
-#: worksheet.cpp:2101
+#: worksheet.cpp:2095
 #, kde-format
 msgctxt "@label text color"
 msgid "Color"
-msgstr ""
+msgstr "Kolorea"
+
+#: worksheet.cpp:2102
+#, kde-format
+msgctxt "@action"
+msgid "Text &Highlight..."
+msgstr "Testu &nabarmentzea..."
 
 #: worksheet.cpp:2108
 #, kde-format
 msgctxt "@action"
-msgid "Text &Highlight..."
-msgstr ""
-
-#: worksheet.cpp:2114
-#, kde-format
-msgctxt "@action"
 msgid "&Font"
-msgstr ""
+msgstr "Letra-ti&poa"
 
-#: worksheet.cpp:2123
+#: worksheet.cpp:2117
 #, kde-format
 msgctxt "@action"
 msgid "Font &Size"
-msgstr ""
+msgstr "Letra-tipoaren &neurria"
 
-#: worksheet.cpp:2129
+#: worksheet.cpp:2123
 #, kde-format
 msgctxt "@action boldify selected text"
 msgid "&Bold"
-msgstr ""
+msgstr "&Lodia"
 
-#: worksheet.cpp:2140
+#: worksheet.cpp:2134
 #, kde-format
 msgctxt "@action italicize selected text"
 msgid "&Italic"
-msgstr ""
+msgstr "&Etzana"
 
-#: worksheet.cpp:2152
+#: worksheet.cpp:2146
 #, kde-format
 msgctxt "@action underline selected text"
 msgid "&Underline"
-msgstr ""
+msgstr "&Azpimarra"
 
-#: worksheet.cpp:2163
+#: worksheet.cpp:2157
 #, kde-format
 msgctxt "@action"
 msgid "&Strike Out"
 msgstr ""
 
-#: worksheet.cpp:2174
+#: worksheet.cpp:2168
 #, kde-format
 msgctxt "@action"
 msgid "Align &Left"
 msgstr ""
 
-#: worksheet.cpp:2177
+#: worksheet.cpp:2171
 #, kde-format
 msgctxt "@label left justify"
 msgid "Left"
-msgstr ""
+msgstr "Ezkerrera"
 
-#: worksheet.cpp:2184
+#: worksheet.cpp:2178
 #, kde-format
 msgctxt "@action"
 msgid "Align &Center"
 msgstr ""
 
-#: worksheet.cpp:2187
+#: worksheet.cpp:2181
 #, kde-format
 msgctxt "@label center justify"
 msgid "Center"
 msgstr ""
 
-#: worksheet.cpp:2194
+#: worksheet.cpp:2188
 #, kde-format
 msgctxt "@action"
 msgid "Align &Right"
 msgstr ""
 
-#: worksheet.cpp:2197
+#: worksheet.cpp:2191
 #, fuzzy, kde-format
 #| msgid "Height"
 msgctxt "@label right justify"
 msgid "Right"
 msgstr "Altuera"
 
-#: worksheet.cpp:2204
+#: worksheet.cpp:2198
 #, kde-format
 msgctxt "@action"
 msgid "&Justify"
 msgstr ""
 
-#: worksheet.cpp:2207
+#: worksheet.cpp:2201
 #, kde-format
 msgctxt "@label justify fill"
 msgid "Justify"
 msgstr ""
 
-#: worksheet.cpp:2823
+#: worksheet.cpp:2817
 #, kde-format
 msgid ""
 "This step cannot be undone. Do you really want to delete the selected "
 "entries?"
 msgstr ""
+"Urrats hau ezin da desegin. Hautatutako sarrerak benetan ezabatu nahi dituzu?"
 
-#: worksheet.cpp:2913
+#: worksheet.cpp:2907
 #, kde-format
 msgid "This step cannot be undone. Do you really want to delete all results?"
 msgstr ""
+"Urrats hau ezin da desegin. Emaitza guztiak benetan ezabatu nahi dituzu?"
 
-#: worksheet.cpp:2914
-#, fuzzy, kde-format
-#| msgid "Remove result"
+#: worksheet.cpp:2908
+#, kde-format
 msgid "Delete all results"
-msgstr "Kendu emaitza"
+msgstr "Ezabatu emaitza guztiak"
 
 #: worksheetentry.cpp:67
 #, kde-format
 msgid "White"
-msgstr ""
+msgstr "Zuria"
 
 #: worksheetentry.cpp:67
 #, kde-format
 msgid "Black"
-msgstr ""
+msgstr "Beltza"
 
 #: worksheetentry.cpp:68
 #, kde-format
 msgid "Dark Red"
-msgstr ""
+msgstr "Gorri iluna"
 
 #: worksheetentry.cpp:68
-#, fuzzy, kde-format
-#| msgid "Ready"
+#, kde-format
 msgid "Red"
-msgstr "Prest"
+msgstr "Gorria"
 
 #: worksheetentry.cpp:68
 #, kde-format
 msgid "Light Red"
-msgstr ""
+msgstr "Gorri argia"
 
 #: worksheetentry.cpp:69
 #, kde-format
 msgid "Dark Green"
-msgstr ""
+msgstr "Berde iluna"
 
 #: worksheetentry.cpp:69
 #, kde-format
 msgid "Green"
-msgstr ""
+msgstr "Berdea"
 
 #: worksheetentry.cpp:69
 #, kde-format
 msgid "Light Green"
-msgstr ""
+msgstr "Berde argia"
 
 #: worksheetentry.cpp:70
 #, kde-format
 msgid "Dark Blue"
-msgstr ""
+msgstr "Urdin iluna"
 
 #: worksheetentry.cpp:70
 #, kde-format
 msgid "Blue"
-msgstr ""
+msgstr "Urdina"
 
 #: worksheetentry.cpp:70
 #, kde-format
 msgid "Light Blue"
-msgstr ""
+msgstr "Urdin argia"
 
 #: worksheetentry.cpp:71
 #, kde-format
 msgid "Dark Yellow"
-msgstr ""
+msgstr "Hori iluna"
 
 #: worksheetentry.cpp:71
 #, kde-format
 msgid "Yellow"
-msgstr ""
+msgstr "Horia"
 
 #: worksheetentry.cpp:71
 #, kde-format
 msgid "Light Yellow"
-msgstr ""
+msgstr "Hori argia"
 
 #: worksheetentry.cpp:72
 #, kde-format
 msgid "Dark Cyan"
-msgstr ""
+msgstr "Zian iluna"
 
 #: worksheetentry.cpp:72
 #, kde-format
 msgid "Cyan"
-msgstr ""
+msgstr "Zian"
 
 #: worksheetentry.cpp:72
 #, kde-format
 msgid "Light Cyan"
-msgstr ""
+msgstr "Zian argia"
 
 #: worksheetentry.cpp:73
 #, kde-format
 msgid "Dark Magenta"
-msgstr ""
+msgstr "Magenta iluna"
 
 #: worksheetentry.cpp:73
 #, kde-format
 msgid "Magenta"
-msgstr ""
+msgstr "Magenta"
 
 #: worksheetentry.cpp:73
 #, kde-format
 msgid "Light Magenta"
-msgstr ""
+msgstr "Magenta argia"
 
 #: worksheetentry.cpp:74
 #, kde-format
 msgid "Dark Orange"
-msgstr ""
+msgstr "Laranja iluna"
 
 #: worksheetentry.cpp:74
 #, kde-format
 msgid "Orange"
-msgstr ""
+msgstr "Laranja"
 
 #: worksheetentry.cpp:74
 #, kde-format
 msgid "Light Orange"
-msgstr ""
+msgstr "Laranja argia"
 
 #: worksheetentry.cpp:75
 #, kde-format
 msgid "Dark Grey"
-msgstr ""
+msgstr "Gris iluna"
 
 #: worksheetentry.cpp:75
 #, kde-format
 msgid "Grey"
-msgstr ""
+msgstr "Grisa"
 
 #: worksheetentry.cpp:75
 #, kde-format
 msgid "Light Grey"
-msgstr ""
+msgstr "Gris argia"
 
 #: worksheetentry.cpp:421
 #, kde-format
 msgid "Move Up"
-msgstr ""
+msgstr "Eraman gora"
 
 #: worksheetentry.cpp:429
 #, kde-format
 msgid "Move Down"
-msgstr ""
+msgstr "Eraman behera"
 
 #: worksheetentry.cpp:436
 #, kde-format
 msgid "Delete"
-msgstr ""
+msgstr "Ezabatu"
 
 #: worksheetentry.cpp:718
-#, fuzzy, kde-format
-#| msgid "Do you also want to export the images?"
+#, kde-format
 msgid "This step cannot be undone. Do you really want to delete this entry?"
-msgstr "Irudiak ere esportatu nahi dituzu?"
+msgstr "Urrats hau ezin da desegin. Sarrera hau benetan ezabatu nahi duzu?"
 
 #: worksheetentry.cpp:718 worksheetentry.cpp:848
-#, fuzzy, kde-format
-#| msgid "Text Entry"
+#, kde-format
 msgid "Delete Entry"
-msgstr "Testu sarrera"
+msgstr "Sarrera ezabatu"
 
 #: worksheetentry.cpp:853
-#, fuzzy, kde-format
-#| msgid "Image Entry"
+#, kde-format
 msgid "Drag Entry"
-msgstr "Irudi sarrera"
+msgstr "Sarrera arrastatu"
 
 #, fuzzy
 #~| msgid "Remove Entry"
