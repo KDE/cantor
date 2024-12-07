@@ -12,14 +12,14 @@ msgstr ""
 "Project-Id-Version: cantor\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-12-05 00:36+0000\n"
-"PO-Revision-Date: 2024-10-04 11:12+0200\n"
+"PO-Revision-Date: 2024-12-06 11:06+0100\n"
 "Last-Translator: Freek de Kruijf <freekdekruijf@kde.nl>\n"
 "Language-Team: \n"
 "Language: nl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Lokalize 24.08.1\n"
+"X-Generator: Lokalize 24.08.3\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 
 #, kde-format
@@ -3402,10 +3402,9 @@ msgstr "Lettertype voor hoofdstuk"
 #. i18n: ectx: property (text), widget (QLabel, lSubparagraphFontFamily)
 #: formating.ui:48 formating.ui:105 formating.ui:162 formating.ui:219
 #: formating.ui:276 formating.ui:333
-#, fuzzy, kde-format
-#| msgid "Font Family:"
+#, kde-format
 msgid "Fon&t Family:"
-msgstr "Familie lettertypen:"
+msgstr "Letter&typefamilie:"
 
 #. i18n: ectx: property (text), widget (QLabel, lChapterFontSize)
 #. i18n: ectx: property (text), widget (QLabel, lSubchapterFontSize)
@@ -3415,10 +3414,9 @@ msgstr "Familie lettertypen:"
 #. i18n: ectx: property (text), widget (QLabel, lSubparagraphFontSize)
 #: formating.ui:61 formating.ui:118 formating.ui:175 formating.ui:232
 #: formating.ui:289 formating.ui:346
-#, fuzzy, kde-format
-#| msgid "Font Size:"
+#, kde-format
 msgid "Font Si&ze:"
-msgstr "Grootte lettertype:"
+msgstr "Teken&grootte:"
 
 #. i18n: ectx: attribute (title), widget (QWidget, SubchapterTab)
 #: formating.ui:99
