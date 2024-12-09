@@ -1,13 +1,13 @@
 # Copyright (C) 2023 This file is copyright:
 # This file is distributed under the same license as the cantor package.
 #
-# SPDX-FileCopyrightText: 2022, 2023 Kishore G <kishore96@gmail.com>
+# SPDX-FileCopyrightText: 2022, 2023, 2024 Kishore G <kishore96@gmail.com>
 msgid ""
 msgstr ""
 "Project-Id-Version: cantor\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-12-05 00:36+0000\n"
-"PO-Revision-Date: 2023-10-22 17:54+0530\n"
+"PO-Revision-Date: 2024-12-08 14:27+0530\n"
 "Last-Translator: Kishore G <kishore96@gmail.com>\n"
 "Language-Team: Tamil <kde-i18n-doc@kde.org>\n"
 "Language: ta\n"
@@ -15,7 +15,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Lokalize 23.08.2\n"
+"X-Generator: Lokalize 24.08.3\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -1556,12 +1556,12 @@ msgstr ""
 #: backends/qalculate/qalculateexpression.cpp:162
 #, kde-format
 msgid "missing %1"
-msgstr ""
+msgstr "காணாத %1"
 
 #: backends/qalculate/qalculateexpression.cpp:252
 #, kde-format
 msgid "%1 must be a number."
-msgstr ""
+msgstr "%1 எண்ணாக இருக்க வேண்டும்."
 
 #: backends/qalculate/qalculateexpression.cpp:253
 #, kde-format
@@ -1576,7 +1576,7 @@ msgstr ""
 #: backends/qalculate/qalculateexpression.cpp:255
 #, kde-format
 msgid "invalid option for %1: %2"
-msgstr ""
+msgstr "%1-க்கான செல்லுபடியாகா தேர்வு: %2"
 
 #: backends/qalculate/qalculateexpression.cpp:582
 #, kde-format
@@ -1588,14 +1588,14 @@ msgstr ""
 #: backends/qalculate/qalculatehighlighter.cpp:21
 #, kde-format
 msgid "ERROR"
-msgstr ""
+msgstr "சிக்கல்"
 
 #: backends/qalculate/qalculateexpression.cpp:683
 #: backends/qalculate/qalculateexpression.cpp:791
 #: backends/qalculate/qalculatehighlighter.cpp:21
 #, kde-format
 msgid "WARNING"
-msgstr ""
+msgstr "எச்சரிக்கை"
 
 #: backends/qalculate/qalculatesyntaxhelpobject.cpp:47
 #, kde-format
@@ -1605,7 +1605,7 @@ msgstr ""
 #: backends/qalculate/qalculatesyntaxhelpobject.cpp:54
 #, kde-format
 msgid "Function: %1"
-msgstr ""
+msgstr "சார்பு: %1"
 
 #: backends/qalculate/qalculatesyntaxhelpobject.cpp:139
 #, kde-format
@@ -3666,7 +3666,7 @@ msgstr "முதலில் இயற்றியவர்<br/>பராமர
 #: main.cpp:79
 #, kde-format
 msgid "Aleix Pol Gonzalez"
-msgstr ""
+msgstr "அலேயிக்சு போல் கொன்ஸாலெசு"
 
 #: main.cpp:79
 #, kde-format
@@ -4429,10 +4429,9 @@ msgid "Evaluate Entries"
 msgstr "பதிவுகளை மதிப்பிடு"
 
 #: worksheet.cpp:1967 worksheet.cpp:2818
-#, fuzzy, kde-format
-#| msgid "Evaluate Entries"
+#, kde-format
 msgid "Delete Entries"
-msgstr "பதிவுகளை மதிப்பிடு"
+msgstr "பதிவுகளை நீக்கு"
 
 #: worksheet.cpp:1980
 #, kde-format
@@ -4445,20 +4444,19 @@ msgid "Expand Command Entry Results"
 msgstr "கட்டளையின் வெளியீட்டை விரி"
 
 #: worksheet.cpp:1983
-#, fuzzy, kde-format
-#| msgid "Remove Command Entry Results"
+#, kde-format
 msgid "Delete Command Entry Results"
 msgstr "கட்டளையின் வெளியீட்டை நீக்கு"
 
 #: worksheet.cpp:1985
 #, kde-format
 msgid "Exclude Command Entry From Execution"
-msgstr ""
+msgstr "கட்டளையை முடக்கு"
 
 #: worksheet.cpp:1986
 #, kde-format
 msgid "Add Command Entry To Execution"
-msgstr ""
+msgstr "கட்டளையை இயக்கு"
 
 #: worksheet.cpp:2094
 #, kde-format
@@ -4473,10 +4471,10 @@ msgid "Color"
 msgstr "நிறம்"
 
 #: worksheet.cpp:2102
-#, fuzzy, kde-format
+#, kde-format
 msgctxt "@action"
 msgid "Text &Highlight..."
-msgstr "உரையை முன்னிலைப்படுத்து"
+msgstr "உரையை முன்னிலைப்படுத்து…"
 
 #: worksheet.cpp:2108
 #, kde-format
@@ -4554,13 +4552,13 @@ msgstr "வலதாக"
 #, kde-format
 msgctxt "@action"
 msgid "&Justify"
-msgstr ""
+msgstr "&சீராக்கு"
 
 #: worksheet.cpp:2201
 #, kde-format
 msgctxt "@label justify fill"
 msgid "Justify"
-msgstr ""
+msgstr "சீராக்கு"
 
 #: worksheet.cpp:2817
 #, kde-format
