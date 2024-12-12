@@ -46,42 +46,6 @@
   <name xml:lang="zh-CN">Cantor</name>
   <name xml:lang="zh-TW">Cantor</name>
   <summary>Frontend to mathematical software</summary>
-  <summary xml:lang="ar">واجهة كِيدِي لبرامج الرياضيات</summary>
-  <summary xml:lang="ca">Frontal del KDE per a programari matemàtic</summary>
-  <summary xml:lang="ca-valencia">Frontal de KDE per a programari matemàtic</summary>
-  <summary xml:lang="cs">Uživatelské rozhraní matematického softwaru pro KDE</summary>
-  <summary xml:lang="de">Eine KDE-Oberfläche für mathematische Software</summary>
-  <summary xml:lang="el">Περιβάλλον χρήσης του KDE για το μαθηματικό λογισμικό</summary>
-  <summary xml:lang="en-GB">KDE Frontend to Mathematical Software</summary>
-  <summary xml:lang="eo">KDE-Fasado al matematika programaro</summary>
-  <summary xml:lang="es">Interfaz de KDE para software matemático</summary>
-  <summary xml:lang="et">KDE matemaatikatarkvara kasutajaliides</summary>
-  <summary xml:lang="eu">Matematika softwarerako KDEren aurrealdekoa</summary>
-  <summary xml:lang="fi">KDE:n käyttöliittymä matemaattisille ohjelmistoille</summary>
-  <summary xml:lang="fr">Interface KDE pour les logiciels de mathématiques</summary>
-  <summary xml:lang="gl">Interface de KDE para programas matemáticos</summary>
-  <summary xml:lang="he">ממשק KDE חזותי לתוכנה מתמטית</summary>
-  <summary xml:lang="ia">Interfacie de KDE a Software Matematic</summary>
-  <summary xml:lang="id">Frontend KDE untuk Software Matematika</summary>
-  <summary xml:lang="it">Interfaccia KDE per software matematici</summary>
-  <summary xml:lang="ka">KDE -ის წინაბოლო მათემატიკური პროგრამებისთვის</summary>
-  <summary xml:lang="ko">KDE 수학 소프트웨어 프론트엔드</summary>
-  <summary xml:lang="nds">KDE-Böversiet för Rekenprogrammen</summary>
-  <summary xml:lang="nl">KDE-frontend tot wiskundige software</summary>
-  <summary xml:lang="nn">KDE-grensesnitt til matematikkprogram</summary>
-  <summary xml:lang="pl">Nakładka KDE dla oprogramowania matematycznego</summary>
-  <summary xml:lang="pt">Interface para KDE de Aplicações Matemáticas</summary>
-  <summary xml:lang="pt-BR">Interface do KDE para software matemático</summary>
-  <summary xml:lang="ru">Оболочка к системам компьютерной алгебры для KDE</summary>
-  <summary xml:lang="sk">KDE Frontend pre matematický softvér</summary>
-  <summary xml:lang="sl">KDE-jevo začelje za matematično programsko opremo</summary>
-  <summary xml:lang="sv">KDE-gränssnitt till matematisk programvara</summary>
-  <summary xml:lang="ta">கணித நிரல்களுக்கான கே.டீ.யீ. இடைமுகப்பு</summary>
-  <summary xml:lang="tr">Matematik yazılımları için KDE ön ucu</summary>
-  <summary xml:lang="uk">Графічна оболонка KDE до математичного програмного забезпечення</summary>
-  <summary xml:lang="x-test">xxKDE Frontend to Mathematical Softwarexx</summary>
-  <summary xml:lang="zh-CN">数学软件的 KDE 前端</summary>
-  <summary xml:lang="zh-TW">KDE 數學軟體的前端介面</summary>
   <description>
     <p>Cantor is a front-end to powerful mathematics and statistics packages. Cantor integrates them into the KDE Platform and provides a nice, worksheet-based, graphical user interface. It supports environments for KAlgebra, Lua, Maxima, R, Sage, Octave, Python, Scilab, and Qalculate!</p>
     <p xml:lang="ar">كانتور هي الواجهة الأمامية لحزم الرياضيات والإحصاءات القوية. تدمجها كانتور في منصة كِيدِي وتوفر واجهة مستخدم رسومية مبنية على ورقة العمل. وهو يدعم بيئات KAlgebra و Lua و Maxima و R و Sage و Octave و Python و Scilab و Qalculate!</p>
