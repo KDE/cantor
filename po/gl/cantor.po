@@ -13,7 +13,7 @@ msgstr ""
 "Project-Id-Version: mathematik\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-11-25 02:32+0000\n"
-"PO-Revision-Date: 2024-12-08 15:07+0100\n"
+"PO-Revision-Date: 2024-12-13 22:06+0100\n"
 "Last-Translator: Adrián Chaves (Gallaecio) <adrian@chaves.io>\n"
 "Language-Team: Proxecto Trasno (proxecto@trasno.gal)\n"
 "Language: gl\n"
@@ -1793,6 +1793,7 @@ msgstr ""
 "pantalla. Se inline=true a imaxe amósase con independencia do que diga esta "
 "opción."
 
+# skip-rule: trasno-sound_reverse
 #: backends/qalculate/qalculatesyntaxhelpobject.cpp:216
 #, kde-format
 msgid "The image type to save as. One of auto, png, ps, eps, latex, svg, fig."
