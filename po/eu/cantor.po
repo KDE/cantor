@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: cantor\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-11-25 02:32+0000\n"
-"PO-Revision-Date: 2024-12-08 21:27+0100\n"
+"PO-Revision-Date: 2024-12-14 23:39+0100\n"
 "Last-Translator: Iñigo Salvador Azurmendi <xalba@ni.eus>\n"
 "Language-Team: Basque <kde-i18n-eu@kde.org>\n"
 "Language: eu\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Lokalize 24.08.3\n"
+"X-Generator: Lokalize 24.12.0\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -1523,6 +1523,8 @@ msgid ""
 "Use all decimal SI prefixes. If false, prefixes which is not a multiple of "
 "thousand (centi, deci, deca, hecto) will not be used automatically."
 msgstr ""
+"Erabili SIeko aurrizki denak. Gezurra bada, milakoen multiplo ez diren "
+"aurrizkiak (zenti, dezi, deka, hekto) ez dira automatikoki erabiliko."
 
 #. i18n: ectx: label, entry (negativeExponents), group (QalculateBackend)
 #: backends/qalculate/qalculatebackend.kcfg:66
@@ -1531,12 +1533,14 @@ msgid ""
 "If true, negative exponents will be used instead of division (ex. 5/x^2 "
 "becomes 5*x^-2)."
 msgstr ""
+"Egia bada, zatiketaren ordez, berretzaile negatiboak erabiliko dira (adib.  "
+"5/x^2 -> 5*x^-2 bihurtzen da)."
 
 #. i18n: ectx: label, entry (minExp), group (QalculateBackend)
 #: backends/qalculate/qalculatebackend.kcfg:76
 #, kde-format
 msgid "Numerical display."
-msgstr ""
+msgstr "Zenbakizko aurkezpena."
 
 #. i18n: ectx: label, entry (inlinePlot), group (QalculateBackend)
 #: backends/qalculate/qalculatebackend.kcfg:80
@@ -1545,6 +1549,8 @@ msgid ""
 "If true, plots will be displayed inside the worksheet. If not they appear in "
 "a separate window."
 msgstr ""
+"Egia bada, diagramak lan-orrien barruan azalduko dira. Ez bada, leiho "
+"bereizian agertuko dira."
 
 #. i18n: ectx: label, entry (coloredPlot), group (QalculateBackend)
 #: backends/qalculate/qalculatebackend.kcfg:84
@@ -1580,7 +1586,7 @@ msgstr "Trazatzean erabili beharreko interpolazio maila kopurua."
 #: backends/qalculate/qalculatebackend.kcfg:111
 #, kde-format
 msgid "Smoothing mode in plots."
-msgstr ""
+msgstr "Diagrametan leuntze modua."
 
 #. i18n: ectx: label, entry (plotStyle), group (QalculateBackend)
 #: backends/qalculate/qalculatebackend.kcfg:125
@@ -1592,12 +1598,12 @@ msgstr "Trazuen estiloa."
 #: backends/qalculate/qalculatebackend.kcfg:138
 #, kde-format
 msgid "Legend position in plots."
-msgstr ""
+msgstr "Diagrametan legendaren kokapena."
 
 #: backends/qalculate/qalculateexpression.cpp:141
 #, kde-format
 msgid "Qalculate reports it cannot print. Is gnuplot installed?"
-msgstr ""
+msgstr "Qalculate-k dio ezin duela inprimatu. «gnuplot» instalatuta dago?"
 
 #: backends/qalculate/qalculateexpression.cpp:162
 #, kde-format
@@ -1622,12 +1628,12 @@ msgstr "%1 boolear bat izan behar da."
 #: backends/qalculate/qalculateexpression.cpp:255
 #, kde-format
 msgid "invalid option for %1: %2"
-msgstr ""
+msgstr "%1(r)entzako aukera baliogabea: %2"
 
 #: backends/qalculate/qalculateexpression.cpp:582
 #, kde-format
 msgid "found multiple expressions in one plot command (%1 and %2)."
-msgstr ""
+msgstr "Trazu-komando batean adierazpen anizkoitzak aurkitu dira (%1 eta %2)."
 
 #: backends/qalculate/qalculateexpression.cpp:681
 #: backends/qalculate/qalculateexpression.cpp:789
@@ -1646,7 +1652,7 @@ msgstr "ABISUA"
 #: backends/qalculate/qalculatesyntaxhelpobject.cpp:47
 #, kde-format
 msgid "No function, variable or unit with specified name exist."
-msgstr ""
+msgstr "Ez dago zehaztutako izena duen funtzio, aldagai edo unitaterik."
 
 #: backends/qalculate/qalculatesyntaxhelpobject.cpp:54
 #, kde-format
@@ -1725,6 +1731,9 @@ msgid ""
 "Image to save plot to. If empty shows plot in a window on the screen. If "
 "inline=true the image is shown regardless of this option."
 msgstr ""
+"Diagrama gordetzeko irudia. Hutsik badago, diagrama pantailako leiho batean "
+"erakusten du. «inline=true» bada irudia aukera honi jaramon egin gabe "
+"erakusten da."
 
 #: backends/qalculate/qalculatesyntaxhelpobject.cpp:216
 #, kde-format
@@ -1740,43 +1749,44 @@ msgstr "Ezarri egia koloretako trazurako, gezurra monokromorako."
 #: backends/qalculate/qalculatesyntaxhelpobject.cpp:218
 #, kde-format
 msgid "Minimum x-axis value."
-msgstr ""
+msgstr "X ardatzaren gutxieneko balioa."
 
 #: backends/qalculate/qalculatesyntaxhelpobject.cpp:219
 #, kde-format
 msgid "Maximum x-axis value."
-msgstr ""
+msgstr "X ardatzaren gehienezko balioa."
 
 #: backends/qalculate/qalculatesyntaxhelpobject.cpp:220
 #, kde-format
 msgid "If a logarithmic scale shall be used for the x-axis."
-msgstr ""
+msgstr "X ardatzerako eskala logaritmiko bat erabili behar den."
 
 #: backends/qalculate/qalculatesyntaxhelpobject.cpp:221
 #, kde-format
 msgid "If a logarithmic scale shall be used for the y-axis."
-msgstr ""
+msgstr "Y ardatzerako eskala logaritmiko bat erabili behar den."
 
 #: backends/qalculate/qalculatesyntaxhelpobject.cpp:222
 #, kde-format
 msgid "Logarithmic base for the x-axis."
-msgstr ""
+msgstr "X ardatzerako oinarri logaritmikoa."
 
 #: backends/qalculate/qalculatesyntaxhelpobject.cpp:223
 #, kde-format
 msgid "Logarithmic base for the y-axis."
-msgstr ""
+msgstr "Y ardatzerako oinarri logaritmikoa."
 
 #: backends/qalculate/qalculatesyntaxhelpobject.cpp:224
 #, kde-format
 msgid "If a grid shall be shown in the plot."
-msgstr ""
+msgstr "Diagraman sareta bat erakutsi behar den."
 
 #: backends/qalculate/qalculatesyntaxhelpobject.cpp:225
 #, kde-format
 msgid ""
 "If the plot shall be surrounded by borders on all sides (not just axis)."
 msgstr ""
+"Diagrama alde guztietatik ertzekin inguratu behar den (ez ardatzak bakarrik)."
 
 #: backends/qalculate/qalculatesyntaxhelpobject.cpp:226
 #, kde-format
@@ -1789,6 +1799,9 @@ msgid ""
 "Where the plot legend shall be placed. One of none, top_left, top_right, "
 "bottom_left, bottom_right, below, outside"
 msgstr ""
+"Diagramaren legenda non kokatu behar den. Hauetako bat, bat ere ez, goian "
+"ezkerrean, goian eskuinean, behean ezkerrean, behean eskuinean, azpian, "
+"kanpoan"
 
 #: backends/qalculate/qalculatesyntaxhelpobject.cpp:228
 #, kde-format
@@ -1808,12 +1821,12 @@ msgstr ""
 #: backends/qalculate/qalculatesyntaxhelpobject.cpp:230
 #, kde-format
 msgid "Use scale on second x-axis."
-msgstr ""
+msgstr "X ardatzean eskala erabili."
 
 #: backends/qalculate/qalculatesyntaxhelpobject.cpp:231
 #, kde-format
 msgid "Use scale on second y-axis."
-msgstr ""
+msgstr "Y ardatzean eskala erabili."
 
 #: backends/qalculate/qalculatesyntaxhelpobject.cpp:232
 #, kde-format
@@ -1892,25 +1905,25 @@ msgstr "Berretzaile negatiboak erabili:"
 #: backends/qalculate/settings.ui:75
 #, kde-format
 msgid "Numerical display:"
-msgstr ""
+msgstr "Zenbakizko aurkezpena:"
 
 #. i18n: ectx: property (text), widget (QLabel, label_7)
 #: backends/qalculate/settings.ui:85
 #, kde-format
 msgid "Use all SI prefixes:"
-msgstr ""
+msgstr "Erabili SIren aurrizki denak:"
 
 #. i18n: ectx: property (text), widget (QLabel, label)
 #: backends/qalculate/settings.ui:95
 #, kde-format
 msgid "Number base:"
-msgstr ""
+msgstr "Zenbaki-oinarria:"
 
 #. i18n: ectx: property (text), widget (QLabel, label_5)
 #: backends/qalculate/settings.ui:112
 #, kde-format
 msgid "Fraction format:"
-msgstr "Zatiki formatua:"
+msgstr "Zatiki-formatua:"
 
 #. i18n: ectx: property (text), item, widget (KComboBox, kcfg_minExp)
 #: backends/qalculate/settings.ui:128
@@ -2000,7 +2013,7 @@ msgstr "Sinplifikatu"
 #: backends/qalculate/settings.ui:279
 #, kde-format
 msgid "Factorize"
-msgstr ""
+msgstr "Faktorizatu"
 
 #. i18n: ectx: property (text), widget (QLabel, label_3)
 #: backends/qalculate/settings.ui:300
@@ -2349,7 +2362,7 @@ msgstr "«Sage» exekutagarrirako bide-izena"
 #: backends/sage/sagebackend.kcfg:14
 #, kde-format
 msgid "Enable LaTeX typesetting for Sage backend"
-msgstr ""
+msgstr "Gaitu LaTeX konposizioa Sage bizkarraldekorako"
 
 #: backends/sage/sageexpression.cpp:230 backends/sage/sageexpression.cpp:235
 #, kde-format
@@ -2427,9 +2440,9 @@ msgstr "Sage abiarazteak huts egin du"
 
 #. i18n: ectx: property (text), widget (QLabel, label_2)
 #: backends/sage/settings.ui:59
-#, fuzzy, kde-format
+#, kde-format
 msgid "LaTeX typesetting:"
-msgstr "LaTeX tipografia-ezarpena"
+msgstr "LaTeX konposizioa:"
 
 #. i18n: ectx: property (toolTip), widget (QCheckBox, kcfg_allowLatex)
 #: backends/sage/settings.ui:66
@@ -2438,18 +2451,16 @@ msgid ""
 "Sage LaTeX output not always correct, so latex typesetting can be disabled "
 "for better experience"
 msgstr ""
+"Sage-ren LaTeX irteera ez da beti zuzena, beraz, esperientzia hoberako latex "
+"konposizioa ezgaitu daiteke"
 
 #: backends/scilab/scilabbackend.cpp:68
-#, fuzzy, kde-format
-#| msgctxt ""
-#| "the url to the documentation of Sage, please check if there is a "
-#| "translated version and use the correct url"
-#| msgid "http://www.sagemath.org/doc/reference/index.html"
+#, kde-format
 msgctxt ""
 "The url to the documentation of Scilab, please check if there is a "
 "translated version and use the correct url"
 msgid "https://www.scilab.org/support/documentation"
-msgstr "http://www.sagemath.org/doc/reference/index.html"
+msgstr "https://www.scilab.org/support/documentation"
 
 #: backends/scilab/scilabbackend.cpp:73
 #, kde-format
@@ -2458,6 +2469,9 @@ msgid ""
 "package and a high-level, numerically oriented programming language.Scilab "
 "is distributed under CeCILL license (GPL compatible)."
 msgstr ""
+"<b>Scilab</b> software aske bat da, plataforma anitzeko zenbakizko kalkulu "
+"paketea eta zenbakietara zuzendutako goi-mailako programazio lengoaia. "
+"Scilab CeCILL lizentzia pean banatzen da (GPLrekin bateragarria)."
 
 #. i18n: ectx: label, entry (Path), group (ScilabBackend)
 #: backends/scilab/scilabbackend.kcfg:10
@@ -2466,25 +2480,20 @@ msgid "Path to the Scilab executable"
 msgstr "«Scilab» exekutagarrirako bide-izena"
 
 #: backends/scilab/scilabextensions.cpp:23
-#, fuzzy, kde-format
-#| msgid ""
-#| "*.py|Python script file\n"
-#| "*.sage|Sage script file"
+#, kde-format
 msgid ";;Scilab script file (*.sce);;Scilab function file (*.sci)"
-msgstr ""
-"*.py|Python script fitxategia\n"
-"*.sage|Sage script fitxategia"
+msgstr ";;Scilab gidoi-fitxategia (*.sce);;Scilab funtzio-fitxategia (*.sci)"
 
 #: backends/scilab/scilabsession.cpp:67
 #, kde-format
 msgid "Failed to start Scilab, please check Scilab installation."
-msgstr ""
+msgstr "Scilab abiatzea huts egin du, mesedez ikuskatu zure instalazioa."
 
 #. i18n: ectx: property (text), widget (QLabel, lPlotIntegration)
 #: backends/scilab/settings.ui:37
 #, kde-format
 msgid "Plot Integration:"
-msgstr ""
+msgstr "Diagrama-integrazioa:"
 
 #: cantor.cpp:107
 #, kde-format
@@ -2540,7 +2549,15 @@ msgid_plural ""
 "<li>Installing packages for one of the following programs:</li>     %2   </"
 "ul> </div> "
 msgstr[0] ""
+"<h1>Ez da bizkarraldekorik aurkitu</h1>\n"
+"<div>Saiatu honekin:\n"
+"  <ul>    <li>Konfigurazio elkarrizketa-koadroan ezarpenak aldatzea;</li>    "
+"<li>Ondoko programarako paketeak instalatzea:</li>     %2   </ul> </div> "
 msgstr[1] ""
+"<h1>Ez da bizkarraldekorik aurkitu</h1>\n"
+"<div>Saiatu honekin:\n"
+"  <ul>    <li>Konfigurazio elkarrizketa-koadroan ezarpenak aldatzea;</li>    "
+"<li>Ondoko programetarako paketeak instalatzea:</li>     %2   </ul> </div> "
 
 #: cantor.cpp:318
 #, kde-format
@@ -2558,6 +2575,8 @@ msgid ""
 "%1 backend installed, but inactive. Please check installation and Cantor "
 "settings"
 msgstr ""
+"%1 bizkarraldekoa instalatuta dago, baina ez dago aktibo. Mesedez, ikuskatu "
+"instalazioa eta Cantor-ren ezarpenak"
 
 #: cantor.cpp:375
 #, kde-format
@@ -2565,10 +2584,9 @@ msgid "Session %1"
 msgstr "%1 saioa"
 
 #: cantor.cpp:392
-#, fuzzy, kde-format
-#| msgid "Could not find the Cantor Part."
+#, kde-format
 msgid "Failed to find the Cantor Part with error %1"
-msgstr "Ezin izan da aurkitu Cantor atala."
+msgstr "Ezin izan du Cantor atala aurkitu, %1 errorea eman du"
 
 #: cantor.cpp:450 cantor_part.cpp:645
 #, kde-format
@@ -2581,35 +2599,32 @@ msgid "Ready"
 msgstr "Prest"
 
 #: cantor.cpp:497
-#, fuzzy, kde-format
+#, kde-format
 msgid "Changed"
 msgstr "Aldatuta"
 
 #: cantor.cpp:583
 #, kde-format
 msgid "Multiple unsaved Worksheets are opened. Do you want to close them?"
-msgstr ""
+msgstr "Gorde gabeko hainbat lan-orri irekita daude. Haiek itxi nahi dituzu?"
 
 #: cantor.cpp:584
-#, fuzzy, kde-format
-#| msgid "Cantor"
+#, kde-format
 msgid "Close Cantor"
-msgstr "Cantor"
+msgstr "Itxi Cantor"
 
 #: cantor.cpp:603
-#, fuzzy, kde-format
+#, kde-format
 msgid "The current project has been modified. Do you want to save it?"
-msgstr "Uneko %1 proiektua aldatu egin da. Gorde nahi duzu?"
+msgstr "Uneko proiektua aldatu egin da. Gorde nahi duzu?"
 
 #: cantor.cpp:604
-#, fuzzy, kde-format
-#| msgid "Save result"
+#, kde-format
 msgid "Save Project"
 msgstr "Gorde proiektua"
 
 #: cantor.cpp:655
-#, fuzzy, kde-format
-#| msgid "Plot"
+#, kde-format
 msgid "Formatting"
 msgstr "Formatua ematea"
 
@@ -2623,7 +2638,7 @@ msgstr "Modu lehenetsian erabiltzen den 'backend'"
 #: cantor.kcfg:14
 #, kde-format
 msgid "Do Typesetting by default"
-msgstr ""
+msgstr "Konposizioa egin era lehenetsian"
 
 #. i18n: ectx: label, entry (HighlightDefault), group (Cantor)
 #: cantor.kcfg:18
@@ -2635,7 +2650,7 @@ msgstr "Erabili sintaxi nabarmenketa modu lehenetsian"
 #: cantor.kcfg:22
 #, kde-format
 msgid "Enable Completions by default"
-msgstr ""
+msgstr "Osatzea gaitu era lehenetsian"
 
 #. i18n: ectx: label, entry (ExpressionNumberingDefault), group (Cantor)
 #: cantor.kcfg:26
@@ -2647,7 +2662,7 @@ msgstr "Gaitu adierazpenen zenbakitzea modu lehenetsian"
 #: cantor.kcfg:30
 #, kde-format
 msgid "Animate changes in the Worksheet by default"
-msgstr ""
+msgstr "Animatu lan-orriko aldaketak era lehenetsian"
 
 #. i18n: ectx: label, entry (EmbeddedMathDefault), group (Cantor)
 #: cantor.kcfg:34
@@ -2661,7 +2676,7 @@ msgstr ""
 #: cantor.kcfg:38
 #, kde-format
 msgid "Ask for confirmation when deleting an entry"
-msgstr ""
+msgstr "Berrespena eskatu sarrera bat ezabatzean"
 
 #. i18n: ectx: label, entry (AutoEval), group (Cantor)
 #: cantor.kcfg:42
@@ -2674,7 +2689,7 @@ msgstr "Automatikoki berrebaluatu unekoaren azpiko sarrerak"
 #: cantor.kcfg:46 settings.ui:269
 #, kde-format
 msgid "Ask for confirmation when restarting the backend"
-msgstr ""
+msgstr "Berrespena eskatu bizkarraldekoa berrabiatzean"
 
 #. i18n: ectx: label, entry (StoreTextEntryFormatting), group (Cantor)
 #: cantor.kcfg:50
@@ -2706,125 +2721,125 @@ msgstr ""
 #: cantor.kcfg:66
 #, kde-format
 msgid "Hierarchy font for chapter"
-msgstr ""
+msgstr "Kapitulurako hierarkia letra-tipoa"
 
 #. i18n: ectx: label, entry (ChapterFontSize), group (Cantor)
 #: cantor.kcfg:70
 #, kde-format
 msgid "Hierarchy font size for chapter"
-msgstr ""
+msgstr "Kapitulurako hierarkia letra-tipo neurria"
 
 #. i18n: ectx: label, entry (ChapterFontItalic), group (Cantor)
 #: cantor.kcfg:74
 #, kde-format
 msgid "Hierarchy font italic for chapter"
-msgstr ""
+msgstr "Kapitulurako hierarkia letra-tipo etzana"
 
 #. i18n: ectx: label, entry (ChapterFontBold), group (Cantor)
 #: cantor.kcfg:78
 #, kde-format
 msgid "Hierarchy font bold for chapter"
-msgstr ""
+msgstr "Kapitulurako hierarkia letra-tipo lodia"
 
 #. i18n: ectx: label, entry (SubchapterFontFamily), group (Cantor)
 #: cantor.kcfg:82
 #, kde-format
 msgid "Hierarchy font for subchapter"
-msgstr ""
+msgstr "Azpi-kapitulurako hierarkia letra-tipoa"
 
 #. i18n: ectx: label, entry (SubchapterFontSize), group (Cantor)
 #: cantor.kcfg:86
 #, kde-format
 msgid "Hierarchy font size for subchapter"
-msgstr ""
+msgstr "Azpi-kapitulurako hierarkia letra-tipo neurria"
 
 #. i18n: ectx: label, entry (SubchapterFontItalic), group (Cantor)
 #: cantor.kcfg:90
 #, kde-format
 msgid "Hierarchy font italic for subchapter"
-msgstr ""
+msgstr "Azpi-kapitulurako hierarkia letra-tipo etzana"
 
 #. i18n: ectx: label, entry (SubchapterFontBold), group (Cantor)
 #: cantor.kcfg:94
 #, kde-format
 msgid "Hierarchy font bold for subchapter"
-msgstr ""
+msgstr "Azpi-kapitulurako hierarkia letra-tipo lodia"
 
 #. i18n: ectx: label, entry (SectionFontFamily), group (Cantor)
 #. i18n: ectx: label, entry (SectionFontSize), group (Cantor)
 #: cantor.kcfg:98 cantor.kcfg:102
 #, kde-format
 msgid "Hierarchy font for section"
-msgstr ""
+msgstr "Atalerako hierarkia letra-tipoa"
 
 #. i18n: ectx: label, entry (SectionFontItalic), group (Cantor)
 #: cantor.kcfg:106
 #, kde-format
 msgid "Hierarchy font italic for section"
-msgstr ""
+msgstr "Atalerako hierarkia letra-tipo etzana"
 
 #. i18n: ectx: label, entry (SectionFontBold), group (Cantor)
 #: cantor.kcfg:110
 #, kde-format
 msgid "Hierarchy font bold for section"
-msgstr ""
+msgstr "Atalerako hierarkia letra-tipo lodia"
 
 #. i18n: ectx: label, entry (SubsectionFontFamily), group (Cantor)
 #. i18n: ectx: label, entry (SubsectionFontSize), group (Cantor)
 #: cantor.kcfg:114 cantor.kcfg:118
 #, kde-format
 msgid "Hierarchy font for subsection"
-msgstr ""
+msgstr "Azpiatalerako hierarkia letra-tipoa"
 
 #. i18n: ectx: label, entry (SubsectionFontItalic), group (Cantor)
 #: cantor.kcfg:122
 #, kde-format
 msgid "Hierarchy font italic for subsection"
-msgstr ""
+msgstr "Azpiatalerako hierarkia letra-tipo etzana"
 
 #. i18n: ectx: label, entry (SubsectionFontBold), group (Cantor)
 #: cantor.kcfg:126
 #, kde-format
 msgid "Hierarchy font bold for subsection"
-msgstr ""
+msgstr "Azpiatalerako hierarkia letra-tipo lodia"
 
 #. i18n: ectx: label, entry (ParagraphFontFamily), group (Cantor)
 #. i18n: ectx: label, entry (ParagraphFontSize), group (Cantor)
 #: cantor.kcfg:130 cantor.kcfg:134
 #, kde-format
 msgid "Hierarchy font for paragraph"
-msgstr ""
+msgstr "Paragraforako hierarkia letra-tipoa"
 
 #. i18n: ectx: label, entry (ParagraphFontItalic), group (Cantor)
 #: cantor.kcfg:138
 #, kde-format
 msgid "Hierarchy font italic for paragraph"
-msgstr ""
+msgstr "Paragraforako hierarkia letra-tipo etzana"
 
 #. i18n: ectx: label, entry (ParagraphFontBold), group (Cantor)
 #: cantor.kcfg:142
 #, kde-format
 msgid "Hierarchy font bold for paragraph"
-msgstr ""
+msgstr "Paragraforako hierarkia letra-tipo lodia"
 
 #. i18n: ectx: label, entry (SubparagraphFontFamily), group (Cantor)
 #. i18n: ectx: label, entry (SubparagraphFontSize), group (Cantor)
 #: cantor.kcfg:146 cantor.kcfg:150
 #, kde-format
 msgid "Hierarchy font for subparagraph"
-msgstr ""
+msgstr "Azpiatalerako hierarkia letra-tipoa"
 
 #. i18n: ectx: label, entry (SubparagraphFontItalic), group (Cantor)
 #: cantor.kcfg:154
 #, kde-format
 msgid "Hierarchy font italic for subparagraph"
-msgstr ""
+msgstr "Azpiatalerako hierarkia letra-tipo etzana"
 
 #. i18n: ectx: label, entry (SubparagraphFontBold), group (Cantor)
 #: cantor.kcfg:158
 #, kde-format
 msgid "Hierarchy font bold for subparagraph"
-msgstr ""
+msgstr "Azpiatalerako hierarkia letra-tipo lodia"
 
 #: cantor_part.cpp:144
 #, kde-format
@@ -2863,7 +2878,7 @@ msgstr "%%1"
 #: cantor_part.cpp:233
 #, kde-format
 msgid "Typeset using LaTeX"
-msgstr ""
+msgstr "Konposizioa LaTeX erabiliz"
 
 #: cantor_part.cpp:238
 #, kde-format
@@ -2890,12 +2905,12 @@ msgstr "Animazioak"
 #: cantor_part.cpp:260
 #, kde-format
 msgid "Embedded Math"
-msgstr ""
+msgstr "Kapsulatutako matematika"
 
 #: cantor_part.cpp:266
 #, kde-format
 msgid "Restart Backend"
-msgstr "Berrabiarazi 'backend'"
+msgstr "Berrabiarazi bizkarraldekoa"
 
 #: cantor_part.cpp:272 worksheetentry.cpp:857
 #, kde-format
@@ -2913,10 +2928,9 @@ msgid "Insert Text Entry"
 msgstr "Txertatu testu sarrera"
 
 #: cantor_part.cpp:290
-#, fuzzy, kde-format
-#| msgid "Insert Command Entry"
+#, kde-format
 msgid "Insert Markdown Entry"
-msgstr "Txertatu komando sarrera"
+msgstr "Txertatu Markdown sarrera"
 
 #: cantor_part.cpp:297
 #, kde-format
@@ -2971,7 +2985,7 @@ msgstr "Erakutsi osatzea"
 #: cantor_part.cpp:416
 #, kde-format
 msgid "CantorPart"
-msgstr ""
+msgstr "CantorPart"
 
 #: cantor_part.cpp:418
 #, kde-format
@@ -3024,15 +3038,16 @@ msgid ""
 "All the available calculation results will be lost. Do you really want to "
 "restart %1?"
 msgstr ""
+"Erabilgarri dauden kalkulu guztiak galdu egingo dira. %1 benetan "
+"berrabiarazi nahi duzu?"
 
 #: cantor_part.cpp:602
-#, fuzzy, kde-format
-#| msgid "Restart Backend"
+#, kde-format
 msgid "Restart %1?"
-msgstr "Berrabiarazi"
+msgstr "%1 berrabiarazi?"
 
 #: cantor_part.cpp:642 worksheet.cpp:1945
-#, fuzzy, kde-format
+#, kde-format
 msgid "Interrupt"
 msgstr "Eten"
 
@@ -3047,15 +3062,14 @@ msgid "Initialization complete"
 msgstr "Hasieraketa amaituta"
 
 #: cantor_part.cpp:714
-#, fuzzy, kde-format
-#| msgid "Initializing Session"
+#, kde-format
 msgid "Initializing..."
 msgstr "Hasieratzen..."
 
 #: cantor_part.cpp:772
-#, fuzzy, kde-format
+#, kde-format
 msgid "[read-only]"
-msgstr "Irakurtzeko soilik"
+msgstr "(Irakurtzeko bakarrik)"
 
 #: cantor_part.cpp:890
 #, kde-format
@@ -3068,7 +3082,7 @@ msgid "Question - Cantor"
 msgstr "Galdera - Cantor"
 
 #: cantor_part.cpp:892
-#, fuzzy, kde-format
+#, kde-format
 msgctxt "@action:button"
 msgid "Upload"
 msgstr "Zama-igo"
@@ -3090,7 +3104,7 @@ msgstr "'Backend' honek ez ditu script-ak onartzen."
 
 #. i18n: ectx: Menu (edit)
 #: cantor_part.rc:15 cantor_shell.rc:19
-#, fuzzy, kde-format
+#, kde-format
 msgid "&Edit"
 msgstr "&Editatu"
 
@@ -3108,8 +3122,7 @@ msgstr "&Lan-orria"
 
 #. i18n: ectx: Menu (settings)
 #: cantor_part.rc:51
-#, fuzzy, kde-format
-#| msgid "&Settings"
+#, kde-format
 msgid "Settings"
 msgstr "Ezarpenak"
 
@@ -3138,24 +3151,22 @@ msgid "&Settings"
 msgstr "E&zarpenak"
 
 #: commandentry.cpp:120
-#, fuzzy, kde-format
+#, kde-format
 msgid "Background Color"
 msgstr "Atzeko planoaren kolorea"
 
 #: commandentry.cpp:129 commandentry.cpp:156 horizontalruleentry.cpp:328
-#, fuzzy, kde-format
-#| msgid "Defaults"
+#, kde-format
 msgid "Default"
 msgstr "Lehenetsia"
 
 #: commandentry.cpp:151
-#, fuzzy, kde-format
-#| msgid "Text Entry"
+#, kde-format
 msgid "Text Color"
 msgstr "Testuaren kolorea"
 
 #: commandentry.cpp:176
-#, fuzzy, kde-format
+#, kde-format
 msgid "Font"
 msgstr "Letra-tipoa"
 
@@ -3167,7 +3178,7 @@ msgstr "Letra-tipoa"
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_SubparagraphFontBold)
 #: commandentry.cpp:179 formating.ui:84 formating.ui:141 formating.ui:198
 #: formating.ui:255 formating.ui:312 formating.ui:369
-#, fuzzy, kde-format
+#, kde-format
 msgid "Bold"
 msgstr "Lodia"
 
@@ -3179,55 +3190,52 @@ msgstr "Lodia"
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_SubpragraphFontItalic)
 #: commandentry.cpp:186 formating.ui:91 formating.ui:148 formating.ui:205
 #: formating.ui:262 formating.ui:319 formating.ui:376
-#, fuzzy, kde-format
+#, kde-format
 msgid "Italic"
 msgstr "Etzana"
 
 #: commandentry.cpp:194
 #, kde-format
 msgid "Increase Size"
-msgstr ""
+msgstr "Neurria handiagotu"
 
 #: commandentry.cpp:198
 #, kde-format
 msgid "Decrease Size"
-msgstr ""
+msgstr "Neurria txikiagotu"
 
 #: commandentry.cpp:203
-#, fuzzy, kde-format
+#, kde-format
 msgid "Select"
 msgstr "Hautatu"
 
 #: commandentry.cpp:207
-#, fuzzy, kde-format
+#, kde-format
 msgid "Reset to Default"
-msgstr "Berrezarri lehenetsian"
+msgstr "Lehenetsietara berrezarri"
 
 #: commandentry.cpp:336
-#, fuzzy, kde-format
-#| msgid "Result"
+#, kde-format
 msgid "Show Results"
-msgstr "Emaitza"
+msgstr "Emaitzak erakutsi"
 
 #: commandentry.cpp:338
-#, fuzzy, kde-format
-#| msgid "Result"
+#, kde-format
 msgid "Hide Results"
-msgstr "Emaitza"
+msgstr "Emaitzak ezkutatu"
 
 #: commandentry.cpp:343 worksheet.cpp:1934
-#, fuzzy, kde-format
-#| msgid "Result"
+#, kde-format
 msgid "Show Help"
 msgstr "Erakutsi laguntza"
 
 #: commandentry.cpp:356
-#, fuzzy, kde-format
+#, kde-format
 msgid "Appearance"
 msgstr "Itxura"
 
 #: commandentry.cpp:597 commandentry.cpp:992
-#, fuzzy, kde-format
+#, kde-format
 msgid "Interrupted"
 msgstr "Etenda"
 
@@ -3236,7 +3244,7 @@ msgstr "Etenda"
 #: extendedsearchbar.ui:14 standardsearchbar.ui:14
 #, kde-format
 msgid "SearchBar"
-msgstr ""
+msgstr "Bilaketa-barra"
 
 #. i18n: ectx: property (text), widget (QToolButton, close)
 #. i18n: ectx: property (text), widget (QToolButton, openExtended)
@@ -3247,63 +3255,63 @@ msgstr ""
 #: extendedsearchbar.ui:166 standardsearchbar.ui:22 standardsearchbar.ui:85
 #, kde-format
 msgid "..."
-msgstr ""
+msgstr "..."
 
 #. i18n: ectx: property (text), widget (QLabel, label)
 #: extendedsearchbar.ui:47
 #: panelplugins/documentationpanel/documentationpanelwidget.cpp:125
-#, fuzzy, kde-format
+#, kde-format
 msgid "Find:"
 msgstr "Aurkitu:"
 
 #. i18n: ectx: property (text), widget (QPushButton, next)
 #: extendedsearchbar.ui:61 standardsearchbar.ui:48
-#, fuzzy, kde-format
+#, kde-format
 msgid "&Next"
 msgstr "&Hurrengoa"
 
 #. i18n: ectx: property (text), widget (QPushButton, previous)
 #: extendedsearchbar.ui:68 standardsearchbar.ui:55
-#, fuzzy, kde-format
+#, kde-format
 msgid "&Previous"
 msgstr "&Aurrekoa"
 
 #. i18n: ectx: property (text), widget (QLabel, label_2)
 #: extendedsearchbar.ui:102
-#, fuzzy, kde-format
+#, kde-format
 msgid "Replace:"
 msgstr "Ordeztu:"
 
 #. i18n: ectx: property (text), widget (QPushButton, replace)
 #: extendedsearchbar.ui:116
-#, fuzzy, kde-format
+#, kde-format
 msgid "&Replace"
 msgstr "O&rdeztu"
 
 #. i18n: ectx: property (text), widget (QPushButton, replaceAll)
 #: extendedsearchbar.ui:123
-#, fuzzy, kde-format
+#, kde-format
 msgid "Replace &All"
 msgstr "Ordeztu den&a"
 
 #. i18n: ectx: property (text), widget (QLabel, label_3)
 #: extendedsearchbar.ui:139
-#, fuzzy, kde-format
+#, kde-format
 msgid "Search in:"
 msgstr "Bilatu hemen:"
 
 #. i18n: ectx: property (text), widget (QToolButton, matchCase)
 #. i18n: ectx: property (text), widget (QCheckBox, matchCase)
 #: extendedsearchbar.ui:173 standardsearchbar.ui:62
-#, fuzzy, kde-format
+#, kde-format
 msgid "&Match case"
-msgstr "Bereizi maiuskulak"
+msgstr "&Bereizi maiuskulak"
 
 #. i18n: ectx: attribute (title), widget (QWidget, ChapterTab)
 #: formating.ui:42
 #, kde-format
 msgid "Chapter Font"
-msgstr ""
+msgstr "Kapituluaren letra-tipoa"
 
 #. i18n: ectx: property (text), widget (QLabel, label_2)
 #: formating.ui:48 formating.ui:105 formating.ui:162 formating.ui:219
@@ -3323,68 +3331,66 @@ msgstr ""
 #: formating.ui:99
 #, kde-format
 msgid "Subchapter Font"
-msgstr ""
+msgstr "Azpi-kapituluaren letra-tipoa"
 
 #. i18n: ectx: attribute (title), widget (QWidget, SectionTab)
 #: formating.ui:156
 #, kde-format
 msgid "Section Font"
-msgstr ""
+msgstr "Atalaren letra-tipoa"
 
 #. i18n: ectx: attribute (title), widget (QWidget, SubsectionTab)
 #: formating.ui:213
 #, kde-format
 msgid "Subsection Font"
-msgstr ""
+msgstr "Azpiatalaren letra-tipoa"
 
 #. i18n: ectx: attribute (title), widget (QWidget, ParagraphTab)
 #: formating.ui:270
 #, kde-format
 msgid "Paragraph Font"
-msgstr ""
+msgstr "Paragrafoaren letra-tipoa"
 
 #. i18n: ectx: attribute (title), widget (QWidget, SubparagraphTab)
 #: formating.ui:327
 #, kde-format
 msgid "Subparagraph Font"
-msgstr ""
+msgstr "Azpi-paragrafoaren letra-tipoa"
 
 #: hierarchyentry.cpp:22
-#, fuzzy, kde-format
+#, kde-format
 msgid "Chapter"
 msgstr "Kapitulua"
 
 #: hierarchyentry.cpp:22
 #, kde-format
 msgid "Subchapter"
-msgstr ""
+msgstr "Azpi-kapitulua"
 
 #: hierarchyentry.cpp:22
-#, fuzzy, kde-format
-#| msgid "Equations:"
+#, kde-format
 msgid "Section"
 msgstr "Atala"
 
 #: hierarchyentry.cpp:22
-#, fuzzy, kde-format
-#| msgid "Equations:"
+#, kde-format
 msgid "Subsection"
 msgstr "Azpiatala"
 
 #: hierarchyentry.cpp:22
-#, fuzzy, kde-format
+#, kde-format
 msgid "Paragraph"
 msgstr "Paragrafoa"
 
 #: hierarchyentry.cpp:22
-#, fuzzy, kde-format
+#, kde-format
 msgid "Subparagraph"
-msgstr "Azpiparagrafoa"
+msgstr "Azpi-paragrafoa"
 
 #: hierarchyentry.cpp:48
 #, kde-format
 msgid "Set Hierarchy Level"
-msgstr ""
+msgstr "Ezarri hierarkia-maila"
 
 #: horizontalruleentry.cpp:20
 #, kde-format
@@ -4323,20 +4329,21 @@ msgid "Open File"
 msgstr "Ireki fitxategia"
 
 #: worksheet.cpp:1383
-#, fuzzy, kde-format
-#| msgid "Error opening file %1"
+#, kde-format
 msgid "Couldn't open the selected file for reading."
-msgstr "Akatsa %1 fitxategia irekitzerakoan"
+msgstr "Ezin izan du hautatutako fitxategia irakurtzeko ireki."
 
 #: worksheet.cpp:1403
 #, kde-format
 msgid "The selected file is not a valid Cantor or Jupyter project file."
 msgstr ""
+"Aukeratutako fitxategia ez da Cantor edo Jupyter proiektu-fitxategi "
+"onargarria."
 
 #: worksheet.cpp:1420
 #, kde-format
 msgid "The selected file is not a valid Cantor project file."
-msgstr ""
+msgstr "Aukeratutako fitxategia ez da Cantor proiektu-fitxategi onargarria."
 
 #: worksheet.cpp:1442
 #, kde-format
