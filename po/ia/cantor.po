@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: cantor\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-12-05 00:36+0000\n"
-"PO-Revision-Date: 2024-10-20 18:10+0200\n"
+"PO-Revision-Date: 2024-12-16 17:46+0100\n"
 "Last-Translator: giovanni <g.sora@tiscali.it>\n"
 "Language-Team: Interlingua <kde-i18n-doc@kde.org>\n"
 "Language: ia\n"
@@ -3412,10 +3412,9 @@ msgstr "Font de capitulo"
 #. i18n: ectx: property (text), widget (QLabel, lSubparagraphFontFamily)
 #: formating.ui:48 formating.ui:105 formating.ui:162 formating.ui:219
 #: formating.ui:276 formating.ui:333
-#, fuzzy, kde-format
-#| msgid "Font Family:"
+#, kde-format
 msgid "Fon&t Family:"
-msgstr "Familia de Font:"
+msgstr "Familia de Fon&t:"
 
 #. i18n: ectx: property (text), widget (QLabel, lChapterFontSize)
 #. i18n: ectx: property (text), widget (QLabel, lSubchapterFontSize)
@@ -3425,10 +3424,9 @@ msgstr "Familia de Font:"
 #. i18n: ectx: property (text), widget (QLabel, lSubparagraphFontSize)
 #: formating.ui:61 formating.ui:118 formating.ui:175 formating.ui:232
 #: formating.ui:289 formating.ui:346
-#, fuzzy, kde-format
-#| msgid "Font Size:"
+#, kde-format
 msgid "Font Si&ze:"
-msgstr "Dimension de Font:"
+msgstr "Dimen&sion de Font:"
 
 #. i18n: ectx: attribute (title), widget (QWidget, SubchapterTab)
 #: formating.ui:99
