@@ -30,6 +30,8 @@ include(FeatureSummary)
 set( SharedMimeInfo_MINIMUM_VERSION "1.3" ) #TODO: What is the minimum required version?
 find_package(SharedMimeInfo ${SharedMimeInfo_MINIMUM_VERSION} REQUIRED)
 
+option(BUILD_DOC "Whether to build the documentation" ON)
+
 find_package(Qt6 ${QT_MIN_VERSION} CONFIG REQUIRED
     Core
     Core5Compat
@@ -44,7 +46,6 @@ find_package(KF6 ${KF_MIN_VERSION} REQUIRED
     Config
     Crash
     Completion
-    DocTools
     NewStuffCore
     NewStuff
     IconThemes
@@ -72,6 +73,13 @@ if (ENABLE_EMBEDDED_DOCUMENTATION)
     add_definitions (-DHAVE_EMBEDDED_DOCUMENTATION)
 endif ()
 
+if (BUILD_DOC)
+    find_package(KF6DocTools ${KF_MIN_VERSION})
+    set_package_properties(KF6DocTools PROPERTIES
+        DESCRIPTION "Tools to generate documentation"
+        TYPE REQUIRED
+    )
+endif ()
 
 find_package(Poppler "22.02.0" COMPONENTS Qt6)
 
@@ -139,9 +147,9 @@ set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} -DQT_NO_DEBUG_OUTPUT")
 kde_enable_exceptions()
 
 # FIXME Looks like docbook on Windows isn't buildable at all, so it is temporarily disabled
-if(NOT WIN32)
+if(NOT WIN32 AND BUILD_DOC)
     add_subdirectory(doc)
-endif(NOT WIN32)
+endif()
 add_subdirectory(src)
 add_subdirectory(icons)
 
@@ -173,9 +181,9 @@ install(EXPORT CantorTargets
 
 
 ki18n_install(po)
-if (KF6DocTools_FOUND)
+if (BUILD_DOC)
     kdoctools_install(po)
-endif()
+endif ()
 install(FILES org.kde.cantor.appdata.xml DESTINATION ${KDE_INSTALL_METAINFODIR})
 
 file(GLOB_RECURSE ALL_CLANG_FORMAT_SOURCE_FILES *.cpp *.h *.c)
