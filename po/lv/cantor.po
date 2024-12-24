@@ -4,31 +4,32 @@
 #
 # Einars Sprugis <einars8@gmail.com>, 2010, 2011, 2012.
 # Maris Nartiss <maris.kde@gmail.com>, 2010.
+# SPDX-FileCopyrightText: 2024 Toms Trasuns <toms.trasuns@posteo.net>
 msgid ""
 msgstr ""
 "Project-Id-Version: cantor\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-12-05 00:36+0000\n"
-"PO-Revision-Date: 2012-12-22 19:21+0200\n"
-"Last-Translator: Einars Sprugis <einars8@gmail.com>\n"
-"Language-Team: Latvian <locale@laka.lv>\n"
+"PO-Revision-Date: 2024-12-11 20:00+0200\n"
+"Last-Translator: Toms Trasuns <toms.trasuns@posteo.net>\n"
+"Language-Team: Latvian <kde-i18n-doc@kde.org>\n"
 "Language: lv\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Lokalize 1.5\n"
+"X-Generator: Lokalize 24.08.3\n"
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n != 0 ? 1 : "
 "2);\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
 msgid "Your names"
-msgstr "Einārs Sprūģis"
+msgstr "Einārs Sprūģis, Toms Trasūns"
 
 #, kde-format
 msgctxt "EMAIL OF TRANSLATORS"
 msgid "Your emails"
-msgstr "einars8@gmail.com"
+msgstr "einars8@gmail.com, toms.trasuns@posteo.net"
 
 #: animationresultitem.cpp:38
 #, kde-format
@@ -46,15 +47,14 @@ msgid "Stop"
 msgstr "Apturēt"
 
 #: animationresultitem.cpp:111
-#, fuzzy, kde-format
-#| msgid "Save result"
+#, kde-format
 msgid "Save animation result"
-msgstr "Saglabāt rezultātu"
+msgstr "Saglabāt animācijas rezultātu"
 
 #: animationresultitem.cpp:111
 #, kde-format
 msgid "Animations (*.gif)"
-msgstr ""
+msgstr "Animācijas (*.gif)"
 
 #: assistants/advancedplot/advancedplotassistant.cpp:31
 #, kde-format
@@ -97,7 +97,7 @@ msgstr "G&rafiks"
 #: assistants/advancedplot/directivecontainer.ui:14
 #, kde-format
 msgid "Option active"
-msgstr "Opcija aktīva"
+msgstr "Opcija ir aktīva"
 
 #. i18n: ectx: Menu (calculate)
 #: assistants/differentiate/cantor_differentiate_assistant.rc:4
@@ -138,18 +138,18 @@ msgstr "Reizes: "
 #: assistants/importpackage/cantor_import_package_assistant.rc:4
 #, kde-format
 msgid "&Package"
-msgstr ""
+msgstr "&Pakotne"
 
 #: assistants/importpackage/importpackageassistant.cpp:27
 #, kde-format
 msgid "Import Package"
-msgstr ""
+msgstr "Importēt pakotni"
 
 #. i18n: ectx: property (text), widget (QLabel, label)
 #: assistants/importpackage/importpackagedlg.ui:17
 #, kde-format
 msgid "Package:"
-msgstr ""
+msgstr "Pakotne:"
 
 #: assistants/integrate/integrateassistant.cpp:27
 #, kde-format
@@ -203,7 +203,7 @@ msgstr "Rindas:"
 #: assistants/linearalgebra/eigenvalues/eigenvaluesassistant.cpp:26
 #, kde-format
 msgid "Compute Eigenvalues"
-msgstr "Aprēķināt Eigena vērtības"
+msgstr "Aprēķināt īpašvērtības"
 
 #. i18n: ectx: property (text), widget (QLabel, label)
 #: assistants/linearalgebra/eigenvalues/eigenvaluesdlg.ui:17
@@ -216,7 +216,7 @@ msgstr "Matrica:"
 #: assistants/linearalgebra/eigenvectors/eigenvectorsassistant.cpp:26
 #, kde-format
 msgid "Compute Eigenvectors"
-msgstr "Aprēķināt Eigena vektorus"
+msgstr "Aprēķināt īpašvektorus"
 
 #: assistants/linearalgebra/invertmatrix/invertmatrixassistant.cpp:26
 #, kde-format
@@ -226,7 +226,7 @@ msgstr "Invertēt matricu"
 #: assistants/plot2d/plot2dassistant.cpp:26
 #, kde-format
 msgid "Plot 2D"
-msgstr "Grafiks 2D"
+msgstr "2D grafiks"
 
 #. i18n: ectx: property (title), widget (QGroupBox, groupBox)
 #: assistants/plot2d/plot2ddlg.ui:31
@@ -261,7 +261,7 @@ msgstr "Maksimums:"
 #: assistants/plot3d/plot3dassistant.cpp:26
 #, kde-format
 msgid "Plot 3D"
-msgstr "Grafiks 3D"
+msgstr "3D grafiks"
 
 #. i18n: ectx: property (title), widget (QGroupBox, groupBox)
 #: assistants/plot3d/plot3ddlg.ui:29
@@ -299,45 +299,38 @@ msgid "Variables:"
 msgstr "Mainīgie:"
 
 #: backendchoosedialog.cpp:64
-#, fuzzy, kde-format
-#| msgid "Restart Backend"
+#, kde-format
 msgid "Select the Backend"
-msgstr "Pārstartēt aizmuguri"
+msgstr "Atlasīt aizmugursistēmu"
 
 #: backendchoosedialog.cpp:110
 #, kde-format
 msgid "<h1>%1</h1><div><b>Recommended version:</b> %2</div>"
-msgstr ""
+msgstr "<h1>%1</h1><div><b>Ieteicamā versija:</b> %2</div>"
 
 #: backendchoosedialog.cpp:113
-#, fuzzy, kde-format
-#| msgid ""
-#| "<h1>%1</h1><div>%2</div><br/><div>See <a href=\"%3\">%3</a> for more "
-#| "information</div>"
+#, kde-format
 msgid ""
 "<hr><div>%1</div><br><div>See <a href=\"%2\">%2</a> for more information.</"
 "div>"
 msgstr ""
-"<h1>%1</h1><div>%2</div><br/><div>Skatiet <a href=\"%3\">%3</a>, lai iegūtu "
-"vairāk informācijas</div>"
+"<hr><div>%1</div><br><div>Lai iegūtu vairāk informācijas, skatiet <a href="
+"\"%2\">%2</a>.</div>"
 
 #: backendchoosedialog.cpp:125
-#, fuzzy, kde-format
-#| msgid ""
-#| "<h1>%1</h1><div>%2</div><br/><div>See <a href=\"%3\">%3</a> for more "
-#| "information</div>"
+#, kde-format
 msgid ""
 "<hr><div><b><font color='#e50000'>Some requirements are not fulfilled: </"
 "font></b>%1</div>"
 msgstr ""
-"<h1>%1</h1><div>%2</div><br/><div>Skatiet <a href=\"%3\">%3</a>, lai iegūtu "
-"vairāk informācijas</div>"
+"<hr><div><b><font color='#e50000'>Atsevišķas prasības nav izpildītas: </"
+"font></b>%1</div>"
 
 #. i18n: ectx: property (text), widget (QCheckBox, makeDefault)
 #: backendchooser.ui:37
 #, kde-format
 msgid "Make this the default backend"
-msgstr "Padarīt šo par noklusēto aizmuguri"
+msgstr "Padarīt šo par noklusēto aizmugursistēmu"
 
 #: backends/julia/juliabackend.cpp:55
 #, kde-format
@@ -348,6 +341,11 @@ msgid ""
 "distributed parallel execution, numerical accuracy, and an extensive "
 "mathematical function library."
 msgstr ""
+"<b>Julia</b> ir augsta līmeņa un augstas veiktspējas dinamiska "
+"programmēšanas valoda tehniskai datorikai. Tās sintakse ir līdzīga citās "
+"tehniskās datorikas vidēs lietotajai. „Julia“ nodrošina mūsdienīgu "
+"kompilatoru, dalītu paralēlu komandu izpildi, skaitļošanas precizitāti un "
+"plašu matemātisko funkciju bibliotēku."
 
 #: backends/julia/juliabackend.cpp:68
 #, kde-format
@@ -355,7 +353,7 @@ msgctxt ""
 "The url to the documentation of Julia, please check if there is a translated "
 "version and use the correct url"
 msgid "https://docs.julialang.org/en/latest/"
-msgstr ""
+msgstr "https://docs.julialang.org/en/latest/"
 
 #. i18n: ectx: label, entry (variableManagement), group (JuliaBackend)
 #. i18n: ectx: label, entry (variableManagement), group (PythonBackend)
@@ -384,24 +382,22 @@ msgstr "Integrēt grafikus darblapā"
 #: backends/julia/juliabackend.kcfg:31
 #, kde-format
 msgid "Graphical package for the Plot-Assistant"
-msgstr ""
+msgstr "„Plot-Assistant“ grafiskā pakotne"
 
 #: backends/julia/juliaextensions.cpp:239
 #, kde-format
 msgid "# Sorry, but Gadfly don't support 3d plots"
-msgstr ""
+msgstr "# Diemžēl „Gradfly“ neatbalsta 3D grafikus"
 
 #: backends/julia/juliaextensions.cpp:256
-#, fuzzy, kde-format
-#| msgid "*.R|R script file"
+#, kde-format
 msgid "Julia script file (*.jl)"
-msgstr "*.R|R skripta fails"
+msgstr "„Julia“ skripta datne (*.jl)"
 
 #: backends/julia/juliasession.cpp:70
-#, fuzzy, kde-format
-#| msgid "Failed to start Sage"
+#, kde-format
 msgid "Failed to start Julia, please check Julia installation."
-msgstr "Neizdevās palaist Sage"
+msgstr "Neizdevās palaist „Julia“, pārbaudiet „Julia“ instalāciju."
 
 #: backends/julia/juliasession.cpp:118 backends/julia/juliasession.cpp:127
 #: backends/maxima/maximasession.cpp:290 cantor_part.cpp:973
@@ -409,7 +405,7 @@ msgstr "Neizdevās palaist Sage"
 #: worksheet.cpp:1232 worksheet.cpp:1247 worksheet.cpp:1263
 #, kde-format
 msgid "Error - Cantor"
-msgstr "Kļūda - Cantor"
+msgstr "Kļūda — „Cantor“"
 
 #: backends/julia/juliasession.cpp:118
 #, kde-format
@@ -417,27 +413,28 @@ msgid ""
 "Julia session can't login due internal julia problem with missing internal "
 "file - \"%1\""
 msgstr ""
+"Nevar ierakstīties „Julia“ sesijā, jo programma saskārās ar iekšēju „Julia“ "
+"kļūdu — trūkst iekšējas datnes „%1“"
 
 #: backends/julia/juliasession.cpp:127
 #, kde-format
 msgid "Julia session can't login due unknown internal problem"
-msgstr ""
+msgstr "Nevar ierakstīties „Julia“ sesijā nezināmas iekšējas kļūdas dēļ"
 
 #: backends/julia/juliasession.cpp:260
 #, kde-format
 msgid "Julia process stopped working."
-msgstr ""
+msgstr "„Julia“ process beidza darbu."
 
 #: backends/julia/juliasession.cpp:263
-#, fuzzy, kde-format
-#| msgid "Failed to start Sage"
+#, kde-format
 msgid "Failed to start Julia process."
-msgstr "Neizdevās palaist Sage"
+msgstr "Neizdevās palaist „Julia“ procesu."
 
 #: backends/julia/juliasession.cpp:266
 #, kde-format
 msgid "Communication with Julia process failed for unknown reasons."
-msgstr ""
+msgstr "Komunikācija ar „Julia“ procesu neizdevās nezināmu iemeslu dēļ."
 
 #: backends/julia/juliasession.cpp:336
 #, kde-format
@@ -449,6 +446,10 @@ msgid ""
 "perform it in Julia REPL that is able to show the current progress of the "
 "package installation."
 msgstr ""
+"Šobrīd, strādājot ar „Julia“ ir pieejams tikai GR (https://gr-framework."
+"org/) vizualizācijas programmu satvars. Ja vēl nav izdarīts, tad vispirms ir "
+"jāinstalē šī pakotne. To varat izdarīt, „Cantor“ programmas „Julia REPL“ "
+"komandrindā palaižot „Pkg.install(\"GR\")“ komandu"
 
 #. i18n: ectx: attribute (title), widget (QWidget, tabGeneral)
 #. i18n: ectx: attribute (title), widget (QWidget, tab_3)
@@ -459,7 +460,7 @@ msgstr ""
 #: backends/scilab/settings.ui:21 cantor.cpp:654
 #, kde-format
 msgid "General"
-msgstr "Vispārīgi"
+msgstr "Pamata"
 
 #. i18n: ectx: property (text), item, widget (QComboBox, kcfg_inlinePlotFormat)
 #: backends/julia/settings.ui:28 backends/maxima/settings.ui:188
@@ -467,23 +468,20 @@ msgstr "Vispārīgi"
 #: backends/R/settings.ui:169 backends/sage/settings.ui:218
 #, kde-format
 msgid "PDF"
-msgstr ""
+msgstr "PDF"
 
 #. i18n: ectx: property (toolTip), widget (QCheckBox, kcfg_integratePlots)
 #: backends/julia/settings.ui:46 backends/maxima/settings.ui:82
 #: backends/octave/settings.ui:42 backends/python/settings.ui:95
 #: backends/R/settings.ui:158 backends/sage/settings.ui:112
 #: backends/scilab/settings.ui:44
-#, fuzzy, kde-format
-#| msgid ""
-#| "If true, plots will be displayed inside the worksheet. If not they appear "
-#| "in a separate window."
+#, kde-format
 msgid ""
 "If enabled, plots will be shown inside of the worksheet. Otherwise, plots "
 "will be shown in an external window."
 msgstr ""
-"Ja patiess, grafiki tiks attēloti darblapas iekšpusē. Ja nē, tie parādīsies "
-"atsevišķā logā."
+"Ja ieslēgts, programma grafikus attēlos pašā darblapā. Ja nē — tie "
+"parādīsies atsevišķā logā."
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_allowLatex)
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_integratePlots)
@@ -516,11 +514,9 @@ msgstr "Ieslēgts"
 #: backends/julia/settings.ui:56 backends/maxima/settings.ui:92
 #: backends/octave/settings.ui:133 backends/python/settings.ui:105
 #: backends/R/settings.ui:108 backends/sage/settings.ui:122
-#, fuzzy, kde-format
-#| msgctxt "@action"
-#| msgid "Font &Size"
+#, kde-format
 msgid "Size:"
-msgstr "Fonta i&zmērs"
+msgstr "Izmērs:"
 
 #. i18n: ectx: property (toolTip), widget (QCheckBox, kcfg_variableManagement)
 #: backends/julia/settings.ui:63 backends/maxima/settings.ui:59
@@ -531,33 +527,32 @@ msgid ""
 "Monitor the creation and destruction of variables and show the existing "
 "variables in the variable panel."
 msgstr ""
+"Pārrauga mainīgo izveidi un noņemšanu, ka arī mainīgo panelī rāda pastāvošās "
+"vērtības."
 
 #. i18n: ectx: property (text), widget (QLabel, lPlotIntegration)
 #: backends/julia/settings.ui:73 backends/maxima/settings.ui:235
 #: backends/octave/settings.ui:150 backends/python/settings.ui:88
 #: backends/R/settings.ui:131 backends/sage/settings.ui:105
-#, fuzzy, kde-format
-#| msgid "Integrate"
+#, kde-format
 msgid "Integrated:"
-msgstr "Integrēt"
+msgstr "Integrēti:"
 
 #. i18n: ectx: property (text), widget (QLabel, lVariableManagement)
 #: backends/julia/settings.ui:80 backends/maxima/settings.ui:52
 #: backends/octave/settings.ui:187 backends/python/settings.ui:42
 #: backends/R/settings.ui:151
-#, fuzzy, kde-format
-#| msgid "Enable Variable Management"
+#, kde-format
 msgid "Variable Management:"
-msgstr "Ieslēgt mainīgo pārvaldīšanu"
+msgstr "Mainīgo pārvaldība:"
 
 #. i18n: ectx: property (text), widget (QLabel, lPlotWidth)
 #: backends/julia/settings.ui:108 backends/maxima/settings.ui:120
 #: backends/octave/settings.ui:73 backends/python/settings.ui:133
 #: backends/R/settings.ui:48 backends/sage/settings.ui:150
-#, fuzzy, kde-format
-#| msgid "Width"
+#, kde-format
 msgid "width:"
-msgstr "Platums"
+msgstr "platums:"
 
 #. i18n: ectx: property (suffix), widget (QDoubleSpinBox, kcfg_plotWidth)
 #. i18n: ectx: property (suffix), widget (QDoubleSpinBox, kcfg_plotHeight)
@@ -569,16 +564,15 @@ msgstr "Platums"
 #: backends/sage/settings.ui:157 backends/sage/settings.ui:187
 #, kde-format
 msgid "cm"
-msgstr ""
+msgstr "cm"
 
 #. i18n: ectx: property (text), widget (QLabel, lPlotHeight)
 #: backends/julia/settings.ui:138 backends/maxima/settings.ui:150
 #: backends/octave/settings.ui:103 backends/python/settings.ui:163
 #: backends/R/settings.ui:78 backends/sage/settings.ui:180
-#, fuzzy, kde-format
-#| msgid "Height"
+#, kde-format
 msgid "height:"
-msgstr "Augstums"
+msgstr "augstums:"
 
 #. i18n: ectx: property (text), widget (QLabel, label_4)
 #. i18n: ectx: property (text), item, widget (KComboBox, kcfg_plotExtenstionGraphicPackage)
@@ -586,10 +580,9 @@ msgstr "Augstums"
 #: backends/maxima/settings.ui:75 backends/octave/settings.ui:163
 #: backends/python/settings.ui:81 backends/R/settings.ui:144
 #: backends/sage/settings.ui:98
-#, fuzzy, kde-format
-#| msgid "Plot"
+#, kde-format
 msgid "Plots"
-msgstr "Grafiks"
+msgstr "Grafiki"
 
 #. i18n: ectx: property (text), widget (QLabel, label_3)
 #. i18n: ectx: property (text), widget (QLabel, label_2)
@@ -598,7 +591,7 @@ msgstr "Grafiks"
 #: backends/R/settings.ui:197 backends/sage/settings.ui:210
 #, kde-format
 msgid "Image Format:"
-msgstr ""
+msgstr "Attēlu formāts:"
 
 #. i18n: ectx: property (toolTip), widget (KComboBox, kcfg_plotExtenstionGraphicPackage)
 #. i18n: ectx: property (toolTip), widget (QLabel, label3)
@@ -607,32 +600,31 @@ msgstr ""
 #: backends/python/settings.ui:219 backends/python/settings.ui:235
 #, kde-format
 msgid "Graphic package to be used in the Plot Assistant"
-msgstr ""
+msgstr "Grafiku palīga izmantotā grafiskā pakotne"
 
 #. i18n: ectx: property (text), item, widget (KComboBox, kcfg_plotExtenstionGraphicPackage)
 #: backends/julia/settings.ui:227 backends/python/settings.ui:254
 #, kde-format
 msgid "GR"
-msgstr ""
+msgstr "GR"
 
 #. i18n: ectx: property (text), item, widget (KComboBox, kcfg_plotExtenstionGraphicPackage)
 #: backends/julia/settings.ui:237
-#, fuzzy, kde-format
-#| msgid "Plot"
+#, kde-format
 msgid "PyPlot"
-msgstr "Grafiks"
+msgstr "PyPlot"
 
 #. i18n: ectx: property (text), item, widget (KComboBox, kcfg_plotExtenstionGraphicPackage)
 #: backends/julia/settings.ui:242
 #, kde-format
 msgid "Gadfly"
-msgstr ""
+msgstr "Gadfly"
 
 #. i18n: ectx: property (text), widget (QLabel, label3)
 #: backends/julia/settings.ui:253
 #, kde-format
 msgid "Package for Plot Assistant:"
-msgstr ""
+msgstr "Grafiku palīga pakotne:"
 
 #. i18n: ectx: attribute (title), widget (QWidget, tabAutorun)
 #. i18n: ectx: attribute (title), widget (QWidget, tabAutoran)
@@ -643,7 +635,7 @@ msgstr ""
 #: backends/scilab/settings.ui:68
 #, kde-format
 msgid "Autorun"
-msgstr ""
+msgstr "Automātiski palaist"
 
 #. i18n: ectx: property (text), widget (QLabel, lAutorun)
 #. i18n: ectx: property (title), widget (QGroupBox, groupBox)
@@ -653,10 +645,9 @@ msgstr ""
 #: backends/octave/settings.ui:252 backends/python/settings.ui:287
 #: backends/qalculate/settings.ui:587 backends/R/settings.ui:227
 #: backends/sage/settings.ui:251 backends/scilab/settings.ui:74
-#, fuzzy, kde-format
-#| msgid "Scripts to autorun"
+#, kde-format
 msgid "Commands to autorun"
-msgstr "Automātiski palaižamie skripti"
+msgstr "Automātiskās palaišanas komandas"
 
 #. i18n: ectx: attribute (title), widget (QWidget, tabDocumentation)
 #: backends/julia/settings.ui:281 backends/lua/settings.ui:71
@@ -664,22 +655,17 @@ msgstr "Automātiski palaižamie skripti"
 #: backends/python/settings.ui:301 backends/qalculate/settings.ui:600
 #: backends/R/settings.ui:241 backends/sage/settings.ui:265
 #: backends/scilab/settings.ui:88
-#, fuzzy, kde-format
-#| msgid "Document to open"
+#, kde-format
 msgid "Documentation"
-msgstr "Atveramais dokuments"
+msgstr "Dokumentācija"
 
 #: backends/kalgebra/kalgebrabackend.cpp:58
-#, fuzzy, kde-format
-#| msgctxt ""
-#| "the url to the documentation of KAlgebra, please check if there is a "
-#| "translated version and use the correct url"
-#| msgid "http://docs.kde.org/stable/en/kdeedu/kalgebra/"
+#, kde-format
 msgctxt ""
 "The url to the documentation of KAlgebra, please check if there is a "
 "translated version and use the correct url"
 msgid "https://docs.kde.org/?application=kalgebra"
-msgstr "http://docs.kde.org/stable/en/kdeedu/kalgebra/"
+msgstr "https://docs.kde.org/?application=kalgebra"
 
 #. i18n: ectx: label, entry (autorunScripts), group (SageBackend)
 #. i18n: ectx: label, entry (autorunScripts), group (KAlgebraBackend)
@@ -696,7 +682,7 @@ msgstr "http://docs.kde.org/stable/en/kdeedu/kalgebra/"
 #: backends/scilab/scilabbackend.kcfg:26
 #, kde-format
 msgid "List of scripts to autorun at the beginning of session"
-msgstr "Skriptu saraksts, kurus automātiski palaist sesijas sākumā"
+msgstr "Skriptu saraksts, ko automātiski palaist sesijas sākumā"
 
 #: backends/kalgebra/kalgebraexpression.cpp:44
 #, kde-format
@@ -715,16 +701,14 @@ msgid ""
 "This autorun commands, which will run on start new worksheet. They can be "
 "useful for loading needed modules, changing environment, etc."
 msgstr ""
+"Šīs automātiskās palaišanas komandas, ko palaist, atverot jaunu darblapu. "
+"Tās var noderēt, lai ielādētu nepieciešamos moduļus, mainītu vidi u.tml."
 
 #: backends/lua/luabackend.cpp:52
-#, fuzzy, kde-format
-#| msgctxt ""
-#| "the url to the documentation of Sage, please check if there is a "
-#| "translated version and use the correct url"
-#| msgid "http://www.sagemath.org/doc/reference/index.html"
+#, kde-format
 msgctxt "Lua official documentation"
 msgid "https://www.lua.org/docs.html"
-msgstr "http://www.sagemath.org/doc/reference/index.html"
+msgstr "https://www.lua.org/docs.html"
 
 #: backends/lua/luabackend.cpp:57
 #, kde-format
@@ -733,31 +717,30 @@ msgid ""
 "procedural syntax. There are several libraries in Lua aimed at math and "
 "science."
 msgstr ""
+"<b>Lua</b> ir ātra un viegla skriptēšanas valoda ar vienkāršu procedurālo "
+"sintaksi. „Lua“ piedāvā dažādas matemātikas un zinātnes bibliotēkas."
 
 #. i18n: ectx: label, entry (Path), group (LuaBackend)
 #: backends/lua/luabackend.kcfg:10
-#, fuzzy, kde-format
-#| msgid "Path to scilab-adv-cli command:"
+#, kde-format
 msgid "Path to luajit command"
-msgstr "Ceļš uz scilab-adv-cli komandu:"
+msgstr "Ceļš uz „luajit“ komandu"
 
 #: backends/lua/luaextensions.cpp:20
-#, fuzzy, kde-format
-#| msgid "*.R|R script file"
+#, kde-format
 msgid "Lua script file (*.lua)"
-msgstr "*.R|R skripta fails"
+msgstr "„Lua“ skripta datne (*.lua)"
 
 #: backends/lua/luasession.cpp:59
 #, kde-format
 msgid "Failed to start Lua, please check Lua installation."
-msgstr ""
+msgstr "Neizdevās palaist „Lua“. Pārbaudiet „Lua“ instalāciju."
 
 #. i18n: ectx: property (text), widget (QLabel, label)
 #: backends/lua/settings.ui:27
-#, fuzzy, kde-format
-#| msgid "Path to scilab-adv-cli command:"
+#, kde-format
 msgid "Path to luajit:"
-msgstr "Ceļš uz scilab-adv-cli komandu:"
+msgstr "Ceļš uz „luajit“:"
 
 #: backends/maxima/maximabackend.cpp:72
 #, kde-format
@@ -804,17 +787,44 @@ msgid ""
 "i> returns <i>done</i> unless no examples are found or there is no argument, "
 "in which case <i>example</i> returns the list of all recognized topics."
 msgstr ""
+"<html><head>Cantor</head><body><h1>„Maxima“ palīdzības sistēma</"
+"h1><h2><i>apropos</i> funkcija</h2>Meklē „Maxima“ nosaukumus, kuros jebkurā "
+"vietā parādās meklētais vārds — <i>vārdam</i> jābūt rakstzīmju virknei vai "
+"simbolam. Līdz ar to <i>apropos(exp)</i> atgriež sarakstu ar visiem karogiem "
+"un funkcijām, kuru nosaukumi satur „exp“, piemēram <i>expand</i>, <i>exp</"
+"i>, un <i>exponentialize</i>. Tas ļauj jums iegaumēt tikai daļu no „Maxima“ "
+"komandas vai vērtības un izmantot „apropos()“ komandu, lai atrastu pilno "
+"nosaukumu. Līdzīgi varat rakstīt <i>apropos(tr_)</i>, lai atrastu sarakstu "
+"ar daudzajiem slēdžiem saistībā ar tulkotāju, kas parasti sākas ar <i>tr_</"
+"i>.<br><br><i>apropos(\"\")</i> atgriež sarakstu ar visiem „Maxima“ "
+"nosaukumiem.<br><br><i>apropos</i> atgriež tukšu sarakstu [], ja nav atrasts "
+"neviens nosaukums.<br><br><h2><i>describe</i> funkcija</"
+"h2><i>describe(teksts)</i> ir vienāds ar „describe(teksts, exact)“."
+"<br><br><i>describe(teksts, exact)</i> atrod vienumu ar vienādu nosaukumu ar "
+"testa virkni (bez reģistrjutības), ja tāds ir.<br><br><i>describe(teksts, "
+"inexact)</i> atrod visus dokumentētos vienumus, kas nosaukumos satur "
+"meklējamo tekstu. Ja pastāv vairāk par vienu šādu vienumu „Maxima“, "
+"lietotājam lūdz atlasīt parādāmo vienumu vai vienumus.<br><br><i> foo</i> "
+"(ar atstarpi starp <i>?</i> un <i>foo</i>) ir vienāds ar <i>describe(\"foo"
+"\", exact)</i>, bet <i>?? foo</i> ir vienāds ar <i>describe(\"foo\", "
+"inexact)</i>.<br><br><i>describe(, inexact)</i> sniedz visu tēmu sarakstu, "
+"kas ir dokumentētas tiešsaistes rokasgrāmatā.<br><br><i>describe</i> nosauc "
+"tā parametrus. <i>describe</i> atgriež <i>true</i> ('patiess'), ja "
+"dokumentācija ir atrasta, pretējā gadījumā atgriež <i>false</i> "
+"('nepatiess').<br><h2><i>example</i> funkcija</h2><i>example(tēma)</i> "
+"parāda <i>tēmas</i> jeb simbola vai teksta virknes piemērus. Lai iegūtu "
+"piemērus operācijām <i>if</i>, <i>do</i>, vai <i>lambda</i>, parametram ir "
+"jābūt tekstam, piemēram, <i>example(\"do\")</i>. <i>example</i> nav "
+"reģistrjutīgs. Lielākā daļa tēmu ir funkciju nosaukumi.<br><br><i>example()</"
+"i> atgriež sarakstu ar visām atpazīstamajām tēmām.<br><br>Datnes, kas satur "
+"piemērus, nosaukums ir dots ar globālās opcijas vērtību <i>manual_demo</i>, "
+"kam noklusējums ir <i>\"manual.demo\"</i>.<br><br><i>example</i> nosauc tā "
+"parametrus. <i>example</i> atgriež <i>done</i>, izņemot, ja nav atrasti "
+"piemēri. Ja nav norādīts parametrs <i>example</i> atgriež sarakstu ar visām "
+"atpazīstamajām tēmām.</body>"
 
 #: backends/maxima/maximabackend.cpp:111
-#, fuzzy, kde-format
-#| msgid ""
-#| "Maxima is a system for the manipulation of symbolic and numerical "
-#| "expressions, including differentiation, integration, Taylor series, "
-#| "Laplace transforms, ordinary differential equations, systems of linear "
-#| "equations, polynomials, and sets, lists, vectors, matrices, and tensors. "
-#| "Maxima yields high precision numeric results by using exact fractions, "
-#| "arbitrary precision integers, and variable precision floating point "
-#| "numbers. Maxima can plot functions and data in two and three dimensions. "
+#, kde-format
 msgid ""
 "<b>Maxima</b> is a system for the manipulation of symbolic and numerical "
 "expressions, including differentiation, integration, Taylor series, Laplace "
@@ -824,20 +834,20 @@ msgid ""
 "integers, and variable precision floating point numbers. Maxima can plot "
 "functions and data in two and three dimensions."
 msgstr ""
-"Maxima ir sistēma simbolisko un skaitlisko izteiksmju manipulācijai, "
-"ieskaitot diferencēšanu, integrāciju, Tailora sērijas, Laplasa "
-"pārveidojumus, parastos diferenciālvienādojumus, lineāro vienādojumu "
-"sistēmas, polinomus, un tīklus, sarakstus, vektorus, matricas un tensorus. "
-"Maxima sniegs augstas precizitātes skaitliskos rezultātus, izmantojot "
+"<b>Maxima</b> ir sistēma simbolisko un skaitlisko izteiksmju manipulācijai, "
+"ieskaitot diferencēšanu, integrāciju, Teilora rindu, Laplasa "
+"transformācijas, parastos diferenciālvienādojumus, lineāro vienādojumu "
+"sistēmas, polinomus, un kopas, sarakstus, vektorus, matricas un tenzorus. "
+"„Maxima“ sniedz augstas precizitātes skaitliskos rezultātus, izmantojot "
 "precīzus daļskaitļus, patvaļīgas precizitātes veselos skaitļus un mainīgas "
-"precizitātes peldošā punkta skaitļus. Maxima spēj zīmēt funkciju un datu "
-"grafikus divās un arī trīs dimensijās. "
+"precizitātes peldošā punkta skaitļus. „Maxima“ spēj zīmēt funkciju un datu "
+"grafikus divās un arī trīs dimensijās."
 
 #. i18n: ectx: label, entry (Path), group (MaximaBackend)
 #: backends/maxima/maximabackend.kcfg:10
 #, kde-format
 msgid "Path to the Maxima executable"
-msgstr "Ceļš uz Maxima izpildfailu"
+msgstr "Ceļš uz „Maxima“ izpilddatni"
 
 #. i18n: ectx: label, entry (plotWidth), group (SageBackend)
 #. i18n: ectx: label, entry (plotWidth), group (PythonBackend)
@@ -847,7 +857,7 @@ msgstr "Ceļš uz Maxima izpildfailu"
 #: backends/R/rserver/rserver.kcfg:31 backends/sage/sagebackend.kcfg:29
 #, kde-format
 msgid "Default plot width"
-msgstr ""
+msgstr "Noklusējuma grafika platums"
 
 #. i18n: ectx: label, entry (plotHeight), group (SageBackend)
 #. i18n: ectx: label, entry (plotHeight), group (PythonBackend)
@@ -857,7 +867,7 @@ msgstr ""
 #: backends/R/rserver/rserver.kcfg:35 backends/sage/sagebackend.kcfg:33
 #, kde-format
 msgid "Default plot height"
-msgstr ""
+msgstr "Noklusējuma grafika augstums"
 
 #: backends/maxima/maximaexpression.cpp:110
 #, kde-format
@@ -877,18 +887,17 @@ msgstr "Kļūda: pirms ; tika gaidīts \""
 #: backends/maxima/maximaexpression.cpp:428
 #, kde-format
 msgid "Waiting for the plot result"
-msgstr ""
+msgstr "Gaida grafika rezultātu"
 
 #: backends/maxima/maximaextensions.cpp:31
-#, fuzzy, kde-format
-#| msgid "*.mac|Maxima batch File"
+#, kde-format
 msgid "Maxima batch file (*.mac)"
-msgstr "*.mac|Maxima komandfails"
+msgstr "„Maxima“ pakešdatne (*.mac)"
 
 #: backends/maxima/maximasession.cpp:60
 #, kde-format
 msgid "Failed to start Maxima, please check Maxima's installation."
-msgstr ""
+msgstr "Neizdevās palaist „Maxima“. Pārbaudiet tās instalāciju."
 
 #: backends/maxima/maximasession.cpp:79
 #, kde-format
@@ -896,11 +905,12 @@ msgid ""
 "Maxima didn't respond with the proper prompt, please check Maxima "
 "installation."
 msgstr ""
+"„Maxima“ neatbildēja ar atbilstoši uzvedni. Pārbaudiet „Maxima“ instalāciju."
 
 #: backends/maxima/maximasession.cpp:209
 #, kde-format
 msgid "Failed to start Maxima"
-msgstr "Neizdevās palaist Maxima"
+msgstr "Neizdevās palaist „Maxima“"
 
 #: backends/maxima/maximasession.cpp:276
 #, kde-format
@@ -911,8 +921,8 @@ msgstr "Maxima avarēja. Pārstartē..."
 #, kde-format
 msgid "Maxima crashed twice within a short time. Stopping to try starting"
 msgstr ""
-"Maxima īsā laika periodā divreiz avarēja. Tiks pārtraukti mēģinājumi "
-"programmu palaist"
+"„Maxima“ īsā laika periodā divreiz avarēja. Sistēmai pārtrauks mēģinājumus "
+"to palaist"
 
 #. i18n: ectx: property (text), widget (QLabel, label)
 #. i18n: ectx: property (text), widget (QLabel, label_19)
@@ -921,55 +931,44 @@ msgstr ""
 #: backends/scilab/settings.ui:27
 #, kde-format
 msgid "Executable:"
-msgstr ""
+msgstr "Izpilddatne:"
 
 #: backends/octave/octavebackend.cpp:63
-#, fuzzy, kde-format
-#| msgctxt ""
-#| "the url to the documentation of Octave, please check if there is a "
-#| "translated version (currently Czech and Japanese) and use the correct url"
-#| msgid "http://www.gnu.org/software/octave/doc/interpreter/"
+#, kde-format
 msgctxt ""
 "the url to the documentation of Octave, please check if there is a "
 "translated version and use the correct url"
 msgid "https://octave.org/doc/interpreter/"
-msgstr "http://www.gnu.org/software/octave/doc/interpreter/"
+msgstr "https://octave.org/doc/interpreter/"
 
 #: backends/octave/octavebackend.cpp:68
-#, fuzzy, kde-format
-#| msgid ""
-#| "GNU Octave is a high-level language, primarily intended for numerical "
-#| "computations. <br/>It provides a convenient command line interface for "
-#| "solving linear and nonlinear problems numerically, and for performing "
-#| "other numerical experiments using a language that is mostly compatible "
-#| "with Matlab."
+#, kde-format
 msgid ""
 "<b>GNU Octave</b> is a high-level language, primarily intended for numerical "
 "computations. <br/>It provides a convenient command line interface for "
 "solving linear and nonlinear problems numerically, and for performing other "
 "numerical experiments using a language that is mostly compatible with Matlab."
 msgstr ""
-"GNU Octave ir augsta līmeņa valoda, pirmkārt paredzēta skaitliskiem "
-"aprēķiniem. <br/>Tā nodrošina ērtu komandrindas saskarni lineāru un "
-"nelineāru problēmu skaitliskai risināšanai, kā arī citu skaitlisko "
-"eksperimentu veikšanai, lietojot valodu, kas lielā mērā ir savietojama ar "
-"Matlab."
+"<b>GNU Octave</b> ir augsta līmeņa valoda, kas galvenokārt ir paredzēta "
+"skaitliskiem aprēķiniem. <br/>Tā nodrošina ērtu komandrindas saskarni "
+"lineāru un nelineāru problēmu skaitliskai risināšanai, kā arī citu "
+"skaitlisko eksperimentu veikšanai, lietojot valodu, kas lielā mērā ir "
+"savietojama ar „Matlab“."
 
 #: backends/octave/octaveexpression.cpp:232
 #, kde-format
 msgid "Invalid image file generated."
-msgstr ""
+msgstr "Ģenerēta nederīga attēla datne."
 
 #: backends/octave/octaveextensions.cpp:34
-#, fuzzy, kde-format
-#| msgid "*.m|Octave script file"
+#, kde-format
 msgid "Octave script file (*.m)"
-msgstr "*.m|Octave skripta fails"
+msgstr "„Octave“ skripta datne (*.m)"
 
 #: backends/octave/octavesession.cpp:98
 #, kde-format
 msgid "Failed to start Octave, please check Octave installation."
-msgstr ""
+msgstr "Neizdevās palaist „Octave“. Pārbaudiet „Octave“ instalāciju."
 
 #: backends/octave/octavesession.cpp:278 backends/sage/sageexpression.cpp:49
 #, kde-format
@@ -979,12 +978,12 @@ msgstr "Sintakses kļūda"
 #: backends/octave/octavesession.cpp:397
 #, kde-format
 msgid "Plot integration test failed."
-msgstr ""
+msgstr "Grafika integrācijas tests neizpildījās."
 
 #: backends/octave/octavesession.cpp:401
 #, kde-format
 msgid "The integration of plots will be disabled."
-msgstr ""
+msgstr "Grafiku integrācija būs izslēgta"
 
 #: backends/octave/octavesession.cpp:402 backends/sage/sagesession.cpp:358
 #: backends/sage/sagesession.cpp:369 cantor.cpp:219 cantor.cpp:221
@@ -998,7 +997,7 @@ msgstr "Cantor"
 #, kde-format
 msgctxt "The url to the documentation Python"
 msgid "https://docs.python.org/3/"
-msgstr ""
+msgstr "https://docs.python.org/3/"
 
 #: backends/python/pythonbackend.cpp:72
 #, kde-format
@@ -1007,44 +1006,46 @@ msgid ""
 "used in a wide variety of application domains. There are several Python "
 "packages to scientific programming."
 msgstr ""
+"<b>Python</b> ir ārkārtīgi jaudīga dinamiska programmēšanas valoda, ko "
+"izmanto daudzās jomās. Pastā daudzas zinātniskās programmēšanas „Python“ "
+"pakotnes."
 
 #. i18n: ectx: label, entry (plotExtenstionGraphicPackage), group (PythonBackend)
 #: backends/python/pythonbackend.kcfg:44
 #, kde-format
 msgid "Graphical package to be used for the Plot Assistant"
-msgstr ""
+msgstr "Grafiskā pakotne, ko izmantos Grafiku palīgs"
 
 #: backends/python/pythonextensions.cpp:283
 #, kde-format
 msgid "# Sorry, but Bokeh doesn't support 3d plotting"
-msgstr ""
+msgstr "# Diemžēl „Bokeh“ neatbalsta 3D grafikus"
 
 #: backends/python/pythonextensions.cpp:299
-#, fuzzy, kde-format
-#| msgid "*.R|R script file"
+#, kde-format
 msgid "Python script file (*.py)"
-msgstr "*.R|R skripta fails"
+msgstr "„Python“ skripta datne (*.py)"
 
 #: backends/python/pythonsession.cpp:74
 #, kde-format
 msgid "Failed to start Python, please check Python installation."
-msgstr ""
+msgstr "Neizdevās palaist „Python“. Pārbaudiet „Python“ instalāciju."
 
 #: backends/python/pythonsession.cpp:282
 #, kde-format
 msgid "Cantor Python server stopped working."
-msgstr ""
+msgstr "„Cantor“ „Python“ serveris beidza strādāt."
 
 #: backends/python/pythonsession.cpp:286
-#, fuzzy, kde-format
-#| msgid "Failed to start Sage"
+#, kde-format
 msgid "Failed to start Cantor python server."
-msgstr "Neizdevās palaist Sage"
+msgstr "Neizdevās palaist „Cantor“ „Python“ serveri."
 
 #: backends/python/pythonsession.cpp:290
 #, kde-format
 msgid "Communication with Cantor python server failed for unknown reasons."
 msgstr ""
+"Komunikācija ar „Cantor“ „Python“ serveri neizdevās nezināmu iemeslu dēļ."
 
 #: backends/python/pythonsession.cpp:316
 #, kde-format
@@ -1052,6 +1053,8 @@ msgid ""
 "For using integrated graphics with Matplotlib package, you need to install "
 "\"matplotlib\" python package first."
 msgstr ""
+"Lai izmantoto „Matplotlib“ pakotnē integrētās grafikas, instalējiet „Python“ "
+"pakotni „matplotlib“."
 
 #: backends/python/pythonsession.cpp:322
 #, kde-format
@@ -1060,43 +1063,46 @@ msgid ""
 "python package and special Plot.ly-compatible \"orca\" executable. See "
 "\"Static Image Export\" article in Plot.ly documentation for details."
 msgstr ""
+"Lai izmantot „Plot.ly“ integrētās grafikas, instalējiet „Python“ pakotni "
+"„plotly“ un speciālu ar „Plot.ly“ saderīgu „orca“ izpilddatni. Vairāk "
+"informācijas varat atrast Plot.ly dokumentācijas rakstā „Static Image "
+"Export“."
 
 #. i18n: ectx: property (text), widget (QLabel, label4)
 #: backends/python/settings.ui:222
 #, kde-format
 msgid "Plot Assistant"
-msgstr ""
+msgstr "Grafiku palīgs"
 
 #. i18n: ectx: property (text), item, widget (KComboBox, kcfg_plotExtenstionGraphicPackage)
 #: backends/python/settings.ui:239
 #, kde-format
 msgid "matplotlib"
-msgstr ""
+msgstr "matplotlib"
 
 #. i18n: ectx: property (text), item, widget (KComboBox, kcfg_plotExtenstionGraphicPackage)
 #: backends/python/settings.ui:244
 #, kde-format
 msgid "pylab"
-msgstr ""
+msgstr "pylab"
 
 #. i18n: ectx: property (text), item, widget (KComboBox, kcfg_plotExtenstionGraphicPackage)
 #: backends/python/settings.ui:249
-#, fuzzy, kde-format
-#| msgid "Plot"
+#, kde-format
 msgid "plot.ly"
-msgstr "Grafiks"
+msgstr "plot.ly"
 
 #. i18n: ectx: property (text), item, widget (KComboBox, kcfg_plotExtenstionGraphicPackage)
 #: backends/python/settings.ui:259
 #, kde-format
 msgid "bokeh"
-msgstr ""
+msgstr "bokeh"
 
 #. i18n: ectx: property (windowTitle), widget (QWidget, QalculatePlotAssistantBase)
 #: backends/qalculate/plotassistant/qalculateplotdialog.ui:14
 #, kde-format
 msgid "Cantor - Plot Dialog"
-msgstr "Cantor — grafika dialoglogs"
+msgstr "Cantor — grafika lodziņš"
 
 #. i18n: ectx: attribute (title), widget (QWidget, tab)
 #: backends/qalculate/plotassistant/qalculateplotdialog.ui:24
@@ -1152,7 +1158,7 @@ msgstr "Stils"
 #: backends/qalculate/settings.ui:445
 #, kde-format
 msgid "Lines"
-msgstr "Rindas"
+msgstr "Līnijas"
 
 #. i18n: ectx: property (text), item, widget (KComboBox, styleBox)
 #. i18n: ectx: property (text), item, widget (KComboBox, kcfg_plotStyle)
@@ -1168,7 +1174,7 @@ msgstr "Punkti"
 #: backends/qalculate/settings.ui:455
 #, kde-format
 msgid "Points and Lines"
-msgstr "Punkti un rindas"
+msgstr "Punkti un līnijas"
 
 #. i18n: ectx: property (text), item, widget (KComboBox, styleBox)
 #. i18n: ectx: property (text), item, widget (KComboBox, kcfg_plotStyle)
@@ -1212,7 +1218,7 @@ msgstr "Punkti"
 #: backends/qalculate/plotassistant/qalculateplotdialog.ui:192
 #, kde-format
 msgid "Smoothing"
-msgstr "Izgludināšana"
+msgstr "Gludināšana"
 
 #. i18n: ectx: property (text), item, widget (KComboBox, smoothingBox)
 #. i18n: ectx: property (text), item, widget (KComboBox, kcfg_minExp)
@@ -1246,7 +1252,7 @@ msgstr "Naturālie kubiskie splaini"
 #: backends/qalculate/settings.ui:431
 #, kde-format
 msgid "Bezier"
-msgstr "Bezjē"
+msgstr "Bezjē līknes"
 
 #. i18n: ectx: property (text), item, widget (KComboBox, smoothingBox)
 #. i18n: ectx: property (text), item, widget (KComboBox, kcfg_plotSmoothing)
@@ -1254,19 +1260,19 @@ msgstr "Bezjē"
 #: backends/qalculate/settings.ui:436
 #, kde-format
 msgid "Bezier (monotonic)"
-msgstr "Bezjē (monotoniska)"
+msgstr "Bezjē līknes (monotoniska)"
 
 #. i18n: ectx: property (title), widget (QGroupBox, groupBox)
 #: backends/qalculate/plotassistant/qalculateplotdialog.ui:233
 #, kde-format
 msgid "Function Range"
-msgstr "Funkcijas diapozons"
+msgstr "Funkcijas diapazons"
 
 #. i18n: ectx: property (text), widget (QLabel, label)
 #: backends/qalculate/plotassistant/qalculateplotdialog.ui:239
 #, kde-format
 msgid "X range"
-msgstr "X diapozons"
+msgstr "X diapazons"
 
 #. i18n: ectx: property (text), widget (KLineEdit, xMinEdit)
 #: backends/qalculate/plotassistant/qalculateplotdialog.ui:254
@@ -1288,17 +1294,15 @@ msgstr "10"
 
 #. i18n: ectx: property (text), widget (QRadioButton, stepsButton)
 #: backends/qalculate/plotassistant/qalculateplotdialog.ui:283
-#, fuzzy, kde-format
-#| msgid "Sampling rate"
+#, kde-format
 msgid "Sa&mpling rate"
-msgstr "Diskretizācijas frekvence"
+msgstr "&Diskretizācijas frekvence"
 
 #. i18n: ectx: property (text), widget (QRadioButton, stepButton)
 #: backends/qalculate/plotassistant/qalculateplotdialog.ui:293
-#, fuzzy, kde-format
-#| msgid "Step size"
+#, kde-format
 msgid "Step si&ze"
-msgstr "Soļa izmērs"
+msgstr "Soļa i&zmērs"
 
 #. i18n: ectx: attribute (title), widget (QWidget, tab_4)
 #: backends/qalculate/plotassistant/qalculateplotdialog.ui:324
@@ -1390,7 +1394,7 @@ msgstr "Ārpusē"
 #: backends/qalculate/plotassistant/qalculateplotdialog.ui:445
 #, kde-format
 msgid "Display Grid"
-msgstr "Rādīt tīklojumu"
+msgstr "Rādīt režģi"
 
 #. i18n: ectx: property (text), widget (QCheckBox, borderCheckBox)
 #: backends/qalculate/plotassistant/qalculateplotdialog.ui:452
@@ -1426,25 +1430,25 @@ msgstr "Logaritmiska y skala"
 #: backends/qalculate/plotassistant/qalculateplotdialog.ui:521
 #, kde-format
 msgid "File Options"
-msgstr "Faila opcijas"
+msgstr "Datnes opcijas"
 
 #. i18n: ectx: property (text), widget (QCheckBox, saveCheckBox)
 #: backends/qalculate/plotassistant/qalculateplotdialog.ui:527
 #, kde-format
 msgid "Save plot to file"
-msgstr "Saglabāt grafiku failā"
+msgstr "Saglabāt grafiku datnē"
 
 #. i18n: ectx: property (text), widget (QLabel, label_23)
 #: backends/qalculate/plotassistant/qalculateplotdialog.ui:547
 #, kde-format
 msgid "File type"
-msgstr "Faila tips"
+msgstr "Datnes tips"
 
 #. i18n: ectx: property (text), item, widget (KComboBox, saveFileBox)
 #: backends/qalculate/plotassistant/qalculateplotdialog.ui:555
 #, kde-format
 msgid "Detect from filename"
-msgstr "Noteikt no faila nosaukuma"
+msgstr "Noteikt no datnes nosaukuma"
 
 #. i18n: ectx: property (text), item, widget (KComboBox, saveFileBox)
 #: backends/qalculate/plotassistant/qalculateplotdialog.ui:560
@@ -1495,13 +1499,21 @@ msgid ""
 "equations), arbitrary precision, uncertainty propagation, interval "
 "arithmetic, plotting,"
 msgstr ""
+"<b>Qalculate!</b> ir daudzfunkcionāls daudzu platformu darbvirsmas "
+"kalkulators. Tas ir viegli lietojams, bet nodrošina arī iespēju veikt "
+"sarežģītas operācijas, kam parasti ir nepieciešamas komplicētas matemātikas "
+"pakotnes. Tāpat šis rīks ir noderīgs ikdienas lietošanai (piemēram, valūtu "
+"konvertācijas un procentu aprēķināšanai). Starp tā iespējām ir plaša "
+"pielāgojamības funkciju bibliotēka, pārveidošana starp mērvienībām un "
+"konvertācija, fizikas konstantes, simboliski aprēķini (tostarp integrāļu un "
+"vienādojumu operācijas) patvaļīgi nosakāma precizitāte, nenoteiktības "
+"izplatīšanās, intervālu aritmētika, grafiku zīmēšana."
 
 #. i18n: ectx: label, entry (Path), group (QalculateBackend)
 #: backends/qalculate/qalculatebackend.kcfg:9
-#, fuzzy, kde-format
-#| msgid "Path to the latex executable"
+#, kde-format
 msgid "Path to the Qalculate! executable"
-msgstr "Ceļš uz latex izpildfailu"
+msgstr "Ceļš uz „Qalculate! “ izpilddatni"
 
 #. i18n: ectx: label, entry (postConversion), group (QalculateBackend)
 #: backends/qalculate/qalculatebackend.kcfg:21
@@ -1510,8 +1522,8 @@ msgid ""
 "If and how units will be automatically converted. If true, convert to the "
 "best suited SI units (the least amount of units)."
 msgstr ""
-"Vai un kā vienības tiks automātiski pārveidotas. Ja patiess, pārveidot uz "
-"piemērotākajām SI vienībām (mazāko vienību skaitu)."
+"Vai un kā automātiski pārveidot vienības. Ja patiess, programma tās "
+"pārveidos uz atbilstošākajām SI vienībām (mazāko vienību skaitu)."
 
 #. i18n: ectx: label, entry (angleUnit), group (QalculateBackend)
 #: backends/qalculate/qalculatebackend.kcfg:25
@@ -1523,13 +1535,13 @@ msgstr "Noklusētā leņķa vienība trigonometriskajām funkcijām."
 #: backends/qalculate/qalculatebackend.kcfg:35
 #, kde-format
 msgid "Base of parsed and evaluated numbers."
-msgstr "Parsēto un novērtēto skaitļu bāze."
+msgstr "Parsēto un risināto skaitļu bāze."
 
 #. i18n: ectx: label, entry (structuring), group (QalculateBackend)
 #: backends/qalculate/qalculatebackend.kcfg:44
 #, kde-format
 msgid "If the evaluation result will be simplified or factorized."
-msgstr "Vai novērtēšanas rezultāts tiks vienkāršots vai sadalīts reizinātājos."
+msgstr "Vai novērtēšanas rezultātu vienkāršot vai sadalīt reizinātājos."
 
 #. i18n: ectx: label, entry (fractionFormat), group (QalculateBackend)
 #: backends/qalculate/qalculatebackend.kcfg:54
@@ -1538,8 +1550,8 @@ msgid ""
 "If rational numbers will be displayed with decimals, as a fraction, or "
 "something in between."
 msgstr ""
-"Vai racionāli skaitļi tiks attēloti kā skaitļi ar komatu, daļas veidā vai "
-"kaut kas starp abiem minētajiem."
+"Vai racionālus skaitļus programma attēlos ar komatu, daļskaitļa veidā vai "
+"abos veidos."
 
 #. i18n: ectx: label, entry (indicateInfiniteSeries), group (QalculateBackend)
 #: backends/qalculate/qalculatebackend.kcfg:58
@@ -1549,7 +1561,7 @@ msgid ""
 "instead of rounding (ex. 2/3 displays as 0.666666... instead of 0.666667)."
 msgstr ""
 "Ciparu virknes bezgalīgu turpināšanos skaitlī parādīt ar trim punktiem nevis "
-"noapaļošanu (piem., 2/3 attēlot kā 0.666666... nevis 0.666667)."
+"noapaļošanu (piemēram, 2/3 attēlot kā 0,666666... nevis 0,666667)."
 
 #. i18n: ectx: label, entry (useAllPrefixes), group (QalculateBackend)
 #: backends/qalculate/qalculatebackend.kcfg:62
@@ -1558,8 +1570,8 @@ msgid ""
 "Use all decimal SI prefixes. If false, prefixes which is not a multiple of "
 "thousand (centi, deci, deca, hecto) will not be used automatically."
 msgstr ""
-"Lietot visus decimālos SI prefiksus. Ja aplams, prefiksi, kuri tūkstoša "
-"daudzkārtņi (centi, deci, deca, hecto), automātiski netiks izmantoti."
+"Lietot visus decimālos SI prefiksus. Ja aplams, prefiksus, kuri nav tūkstoša "
+"daudzkārtņi (centi, deci, deca, hecto), programma neizmantos automātiski."
 
 #. i18n: ectx: label, entry (negativeExponents), group (QalculateBackend)
 #: backends/qalculate/qalculatebackend.kcfg:66
@@ -1568,7 +1580,7 @@ msgid ""
 "If true, negative exponents will be used instead of division (ex. 5/x^2 "
 "becomes 5*x^-2)."
 msgstr ""
-"Ja patiess, dalīšanas vietā tiks izmantoti negatīvi kāpinātāji (piem., 5/x^2 "
+"Ja patiess, dalīšanas vietā izmantot negatīvus kāpinātājus (piemēram, 5/x^2 "
 "kļūs par 5*x^-2)."
 
 #. i18n: ectx: label, entry (minExp), group (QalculateBackend)
@@ -1584,7 +1596,7 @@ msgid ""
 "If true, plots will be displayed inside the worksheet. If not they appear in "
 "a separate window."
 msgstr ""
-"Ja patiess, grafiki tiks attēloti darblapas iekšpusē. Ja nē, tie parādīsies "
+"Ja patiess, grafikus attēlos darblapas iekšpusē. Ja nē — tie atvērsies "
 "atsevišķā logā."
 
 #. i18n: ectx: label, entry (coloredPlot), group (QalculateBackend)
@@ -1597,19 +1609,19 @@ msgstr "Vai grafikos izmantot krāsas."
 #: backends/qalculate/qalculatebackend.kcfg:88
 #, kde-format
 msgid "Whether a grid should be plotted."
-msgstr "Vai grafikā zīmēt tīklojumu."
+msgstr "Vai grafikā zīmēt režģi."
 
 #. i18n: ectx: label, entry (plotBorder), group (QalculateBackend)
 #: backends/qalculate/qalculatebackend.kcfg:92
 #, kde-format
 msgid "Whether full borders should be drawn around the plot."
-msgstr "Vai ap grafiku zīmēt robežas."
+msgstr "Vai ap grafiku zīmēt pilnas robežas."
 
 #. i18n: ectx: label, entry (plotLineWidth), group (QalculateBackend)
 #: backends/qalculate/qalculatebackend.kcfg:96
 #, kde-format
 msgid "Width of lines, in pixels."
-msgstr "Līniju platums, pikseļos."
+msgstr "Līniju platums pikseļos."
 
 #. i18n: ectx: label, entry (plotSteps), group (QalculateBackend)
 #: backends/qalculate/qalculatebackend.kcfg:100
@@ -1621,7 +1633,7 @@ msgstr "Grafiku zīmēšanā izmantotais interpolācijas soļu skaits."
 #: backends/qalculate/qalculatebackend.kcfg:111
 #, kde-format
 msgid "Smoothing mode in plots."
-msgstr "Grafikos lietotais izgludināšanas režīms."
+msgstr "Grafikos lietotais gludināšanas režīms."
 
 #. i18n: ectx: label, entry (plotStyle), group (QalculateBackend)
 #: backends/qalculate/qalculatebackend.kcfg:125
@@ -1638,12 +1650,12 @@ msgstr "Leģendas novietojums grafikos."
 #: backends/qalculate/qalculateexpression.cpp:141
 #, kde-format
 msgid "Qalculate reports it cannot print. Is gnuplot installed?"
-msgstr "Qalculate ziņo, ka drukāšana neizdevās. Vai gnuplot ir instalēts?"
+msgstr "„Qalculate“ ziņo, ka drukāšana neizdevās. Vai „gnuplot“ ir instalēts?"
 
 #: backends/qalculate/qalculateexpression.cpp:162
 #, kde-format
 msgid "missing %1"
-msgstr "trūkst %1"
+msgstr "trūkst „%1“"
 
 #: backends/qalculate/qalculateexpression.cpp:252
 #, kde-format
@@ -1658,18 +1670,18 @@ msgstr "%1 jābūt veselam skaitlim."
 #: backends/qalculate/qalculateexpression.cpp:254
 #, kde-format
 msgid "%1 must be a boolean."
-msgstr "%1 jābūt loģiskajam mainīgajam (boolean)."
+msgstr "%1 jābūt Būla funkcijas vērtībai."
 
 #: backends/qalculate/qalculateexpression.cpp:255
 #, kde-format
 msgid "invalid option for %1: %2"
-msgstr "nederīga opcija priekš %1: %2"
+msgstr "nederīga %1 opcija: %2"
 
 #: backends/qalculate/qalculateexpression.cpp:582
 #, kde-format
 msgid "found multiple expressions in one plot command (%1 and %2)."
 msgstr ""
-"atrastas vairākas izteikmes vienā grafika veidošanas komandā (%1 un %2)."
+"atrastas vairākas izteiksmes vienā grafika veidošanas komandā (%1 un %2)."
 
 #: backends/qalculate/qalculateexpression.cpp:681
 #: backends/qalculate/qalculateexpression.cpp:789
@@ -1689,7 +1701,7 @@ msgstr "BRĪDINĀJUMS"
 #, kde-format
 msgid "No function, variable or unit with specified name exist."
 msgstr ""
-"Ar norādīto nosaukumu neeksistē neviena funkcija, mainīgais vai vienība."
+"Nepastāv neviena funkcija, mainīgais vai vienība ar norādīto nosaukumu."
 
 #: backends/qalculate/qalculatesyntaxhelpobject.cpp:54
 #, kde-format
@@ -1769,18 +1781,19 @@ msgid ""
 "inline=true the image is shown regardless of this option."
 msgstr ""
 "Attēls, kurā saglabāt grafiku. Ja tukšs, grafiku parāda logā uz ekrāna. Ja "
-"inline=true, attēls tiek parādīts neatkarīgi no šīs opcijas."
+"„inline=true“, attēlu parāda neatkarīgi no šīs opcijas."
 
 #: backends/qalculate/qalculatesyntaxhelpobject.cpp:216
 #, kde-format
 msgid "The image type to save as. One of auto, png, ps, eps, latex, svg, fig."
 msgstr ""
-"Tips attēlam, kurā saglabāt. Viens no — auto, png, ps, eps, latex, svg, fig."
+"Tips attēlam, kurā saglabāt. Kāds no: „auto“, „png“, „ps“, „eps“, „latex“, "
+"„svg“, „fig“."
 
 #: backends/qalculate/qalculatesyntaxhelpobject.cpp:217
 #, kde-format
 msgid "Set to true for colored plot, false for monochrome."
-msgstr "Iestatiet uz 'true' krāsainam grafikam, 'false' — melnbaltam."
+msgstr "Iestatiet uz „true“ krāsainam grafikam, „false“ — melnbaltam."
 
 #: backends/qalculate/qalculatesyntaxhelpobject.cpp:218
 #, kde-format
@@ -1821,7 +1834,7 @@ msgstr "Vai grafikā rādīt tīklojumu."
 #, kde-format
 msgid ""
 "If the plot shall be surrounded by borders on all sides (not just axis)."
-msgstr "Vai ap grafiku no visām pusēm jāapņem robežām (ne tikai asis)."
+msgstr "Vai grafiks no visām pusēm jāapņem ar robežām (ne tikai asis)."
 
 #: backends/qalculate/qalculatesyntaxhelpobject.cpp:226
 #, kde-format
@@ -1834,14 +1847,15 @@ msgid ""
 "Where the plot legend shall be placed. One of none, top_left, top_right, "
 "bottom_left, bottom_right, below, outside"
 msgstr ""
-"Vieta, kurā novietot grafika leģendu. Viena no — none, top_left, top_right, "
-"bottom_left, bottom_right, below, outside"
+"Vieta, kurā novietot grafika leģendu. Kāda no — „none“, „top_left“, "
+"„top_right“, „bottom_left“, „bottom_right“, „below“, „outside“"
 
 #: backends/qalculate/qalculatesyntaxhelpobject.cpp:228
 #, kde-format
 msgid "Plot smoothing. One of none, unique, csplines, bezier, sbezier"
 msgstr ""
-"Grafika izgludināšana. Viens no — none, unique, csplines, bezier, sbezier"
+"Grafika gludināšana. Kāda no no — „none“, „unique“, „csplines“, „bezier“, "
+"„sbezier“"
 
 #: backends/qalculate/qalculatesyntaxhelpobject.cpp:229
 #, kde-format
@@ -1849,8 +1863,8 @@ msgid ""
 "Plot style. One of lines, points, points_lines, boxes, histogram, steps, "
 "candlesticks, dots"
 msgstr ""
-"Grafika stils. Viens no — lines, points, points_lines, boxes, histogram, "
-"steps, candlesticks, dots"
+"Grafika stils. Kāds no — „lines“, „points“, „points_lines“, „boxes“, "
+"„histogram“, „steps“, „candlesticks“, „dots“"
 
 #: backends/qalculate/qalculatesyntaxhelpobject.cpp:230
 #, kde-format
@@ -1865,7 +1879,7 @@ msgstr "Lietot skalu otrajai y asij."
 #: backends/qalculate/qalculatesyntaxhelpobject.cpp:232
 #, kde-format
 msgid "If the plot is to be drawn inline, instead of in a new window."
-msgstr "Vai grafiku zīmēt iekļautā nevis jaunā logā."
+msgstr "Vai grafiku zīmēt iekļautā, bet ne jaunā logā."
 
 #: backends/qalculate/qalculatesyntaxhelpobject.cpp:233
 #, kde-format
@@ -1885,40 +1899,40 @@ msgstr "Mainīgā x nosaukums. Šim ir jābūt nezināmam mainīgajam"
 #: backends/qalculate/qalculatesyntaxhelpobject.cpp:242
 #, kde-format
 msgid "Save variables to a file"
-msgstr "Saglabāt mainīgos failā"
+msgstr "Saglabāt mainīgos datnē"
 
 #: backends/qalculate/qalculatesyntaxhelpobject.cpp:243
 #, kde-format
 msgid ""
 "Save all currently defined variables to a file. They can be reloaded with %1."
 msgstr ""
-"Saglabāt visus pašreiz definētos mainīgos failā. Tos var pārlādēt ar %1."
+"Saglabāt visus pašreiz definētos mainīgos datnē. Tos var pārlādēt ar „%1“."
 
 #: backends/qalculate/qalculatesyntaxhelpobject.cpp:244
 #: backends/qalculate/qalculatesyntaxhelpobject.cpp:253
 #, kde-format
 msgid "file"
-msgstr "fails"
+msgstr "datne"
 
 #: backends/qalculate/qalculatesyntaxhelpobject.cpp:245
 #, kde-format
 msgid "file: the file to save to"
-msgstr "fails: fails, kurā saglabāt"
+msgstr "datne: datne, kurā saglabāt"
 
 #: backends/qalculate/qalculatesyntaxhelpobject.cpp:251
 #, kde-format
 msgid "Load variables from a file"
-msgstr "Ielādēt mainīgos no faila"
+msgstr "Ielādēt mainīgos no datnes"
 
 #: backends/qalculate/qalculatesyntaxhelpobject.cpp:252
 #, kde-format
 msgid "Load variables from a file that has previously been created by %1."
-msgstr "Ielādēt mainīgos no faila, ko iepriekš izveidoja %1."
+msgstr "Ielādēt mainīgos no datnes, ko iepriekš izveidoja „%1“."
 
 #: backends/qalculate/qalculatesyntaxhelpobject.cpp:254
 #, kde-format
 msgid "file: the file to load"
-msgstr "fails: ielādējamais fails"
+msgstr "datne: ielādējamā datne"
 
 #. i18n: ectx: property (text), widget (QLabel, label_6)
 #: backends/qalculate/settings.ui:52
@@ -2002,7 +2016,7 @@ msgstr "Kombinēts"
 #: backends/qalculate/settings.ui:205 worksheetentry.cpp:414
 #, kde-format
 msgid "Evaluate"
-msgstr "Novērtēt"
+msgstr "Risināt"
 
 #. i18n: ectx: property (text), widget (QLabel, label_2)
 #: backends/qalculate/settings.ui:211
@@ -2078,16 +2092,15 @@ msgstr "Līniju platums:"
 
 #. i18n: ectx: property (text), widget (QLabel, label_18)
 #: backends/qalculate/settings.ui:388
-#, fuzzy, kde-format
-#| msgid "Sampling rate"
+#, kde-format
 msgid "Sampling rate:"
-msgstr "Diskretizācijas frekvence"
+msgstr "Diskretizācijas frekvence:"
 
 #. i18n: ectx: property (text), widget (QLabel, label_13)
 #: backends/qalculate/settings.ui:405
 #, kde-format
 msgid "Smoothing Mode:"
-msgstr "Izgludināšanas režīms:"
+msgstr "Gludināšanas režīms:"
 
 #. i18n: ectx: property (text), item, widget (KComboBox, kcfg_plotSmoothing)
 #: backends/qalculate/settings.ui:426
@@ -2118,7 +2131,7 @@ msgstr "Krāsaini grafiki:"
 #: backends/qalculate/settings.ui:560
 #, kde-format
 msgid "Show grid:"
-msgstr "Rādīt tīklojumu:"
+msgstr "Rādīt režģi:"
 
 #. i18n: ectx: property (text), widget (QLabel, label_14)
 #: backends/qalculate/settings.ui:570
@@ -2127,76 +2140,71 @@ msgid "Plot Style:"
 msgstr "Grafika stils:"
 
 #: backends/qthelpconfig.cpp:44
-#, fuzzy, kde-format
-#| msgid "Command Entry"
+#, kde-format
 msgctxt "@title:window"
 msgid "Modify Entry"
-msgstr "Komandas ieraksts"
+msgstr "Ieraksta rediģēšana"
 
 #: backends/qthelpconfig.cpp:46
-#, fuzzy, kde-format
-#| msgid "Append Text Entry"
+#, kde-format
 msgctxt "@title:window"
 msgid "Add New Entry"
-msgstr "Pievienot teksta ierakstu"
+msgstr "Jauna ieraksta pievienošana"
 
 #: backends/qthelpconfig.cpp:63
 #, kde-format
 msgid "Name cannot be empty."
-msgstr ""
+msgstr "Nosaukums nevar būt tukšs"
 
 #: backends/qthelpconfig.cpp:83
-#, fuzzy, kde-format
-#| msgid "Path to scilab-adv-cli command:"
+#, kde-format
 msgid "Add local documentation"
-msgstr "Ceļš uz scilab-adv-cli komandu:"
+msgstr "Pievienot lokālu dokumentāciju"
 
 #: backends/qthelpconfig.cpp:99
-#, fuzzy, kde-format
-#| msgid "Document to open"
+#, kde-format
 msgctxt "@action:button Allow user to get some API documentation with GHNS"
 msgid "Get New Documentation"
-msgstr "Atveramais dokuments"
+msgstr "Iegūt jaunu dokumentāciju"
 
 #: backends/qthelpconfig.cpp:102
-#, fuzzy, kde-format
-#| msgid "Path to scilab-adv-cli command:"
+#, kde-format
 msgid "Download additional documentations"
-msgstr "Ceļš uz scilab-adv-cli komandu:"
+msgstr "Lejupielādēt papildu dokumentāciju"
 
 #: backends/qthelpconfig.cpp:170
 #, kde-format
 msgid "Qt Compressed Help file is not valid."
-msgstr ""
+msgstr "„Qt“ saspiestā palīdzības datne nav derīga."
 
 #: backends/qthelpconfig.cpp:179
 #, kde-format
 msgid "Documentation already imported"
-msgstr ""
+msgstr "Dokumentācija ir jau importēta"
 
 #: backends/qthelpconfig.cpp:269
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Modify"
-msgstr ""
+msgstr "Rediģēt"
 
 #: backends/qthelpconfig.cpp:274
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Delete"
-msgstr ""
+msgstr "Dzēst"
 
 #: backends/qthelpconfig.cpp:282
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Please uninstall this via GHNS."
-msgstr ""
+msgstr "Atinstalējiet caur GHNS."
 
 #. i18n: ectx: property (text), widget (QLabel, label)
 #: backends/qthelpconfig.ui:20
 #, kde-format
 msgid "Install Additional Documentation Files"
-msgstr ""
+msgstr "Instalēt papildu dokumentācijas datnes"
 
 #. i18n: ectx: property (text), widget (QTreeWidget, qchTable)
 #: backends/qthelpconfig.ui:49 lib/defaultvariablemodel.cpp:69
@@ -2210,12 +2218,11 @@ msgstr "Nosaukums"
 #, kde-format
 msgctxt "@title:column"
 msgid "Path"
-msgstr ""
+msgstr "Ceļš"
 
 #. i18n: ectx: property (text), widget (QPushButton, addButton)
 #: backends/qthelpconfig.ui:79
-#, fuzzy, kde-format
-#| msgid "Add"
+#, kde-format
 msgctxt "@action:button"
 msgid "Add"
 msgstr "Pievienot"
@@ -2225,20 +2232,18 @@ msgstr "Pievienot"
 #, kde-format
 msgctxt "@label:chooser"
 msgid "Icon:"
-msgstr ""
+msgstr "Ikona:"
 
 #. i18n: ectx: property (toolTip), widget (KIconButton, qchIcon)
 #: backends/qthelpconfigeditdialog.ui:24
-#, fuzzy, kde-format
-#| msgid "Restart Backend"
+#, kde-format
 msgctxt "@info:tooltip"
 msgid "Select an icon"
-msgstr "Pārstartēt aizmuguri"
+msgstr "Atlasīt ikonu"
 
 #. i18n: ectx: property (text), widget (QLabel, lName)
 #: backends/qthelpconfigeditdialog.ui:34
-#, fuzzy, kde-format
-#| msgid "Name:"
+#, kde-format
 msgctxt "@label:textbox"
 msgid "Name:"
 msgstr "Nosaukums:"
@@ -2248,35 +2253,35 @@ msgstr "Nosaukums:"
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Enter a name"
-msgstr ""
+msgstr "Ierakstiet nosaukumu"
 
 #. i18n: ectx: property (placeholderText), widget (QLineEdit, qchName)
 #: backends/qthelpconfigeditdialog.ui:44
 #, kde-format
 msgctxt "@info:placeholder"
 msgid "Select a name..."
-msgstr ""
+msgstr "Atlasiet nosaukumu..."
 
 #. i18n: ectx: property (text), widget (QLabel, lPath)
 #: backends/qthelpconfigeditdialog.ui:51
 #, kde-format
 msgctxt "@label:textbox"
 msgid "Path:"
-msgstr ""
+msgstr "Ceļš:"
 
 #. i18n: ectx: property (toolTip), widget (KUrlRequester, qchRequester)
 #: backends/qthelpconfigeditdialog.ui:64
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Select a Qt Help file..."
-msgstr ""
+msgstr "Atlasiet „Qt“ palīdzības datni..."
 
 #. i18n: ectx: property (placeholderText), widget (KUrlRequester, qchRequester)
 #: backends/qthelpconfigeditdialog.ui:70
 #, kde-format
 msgctxt "@info:placeholder"
 msgid "Select a Qt Help file..."
-msgstr ""
+msgstr "Atlasiet „Qt“ palīdzības datni..."
 
 #: backends/R/rbackend.cpp:81
 #, kde-format
@@ -2284,7 +2289,7 @@ msgctxt ""
 "the url to the documentation of R, please check if there is a translated "
 "version and use the correct url"
 msgid "https://cran.r-project.org/manuals.html"
-msgstr ""
+msgstr "https://cran.r-project.org/manuals.html"
 
 #: backends/R/rbackend.cpp:88
 #, kde-format
@@ -2312,17 +2317,31 @@ msgid ""
 "these examples in the current R session via the <i>example()</i> command: e."
 "g., <i>example(lm)</i>."
 msgstr ""
+"<h1>R palīdzības sistēma: <i>help()</i> un <i>?</i>:</h1><br><i>help()</i> "
+"funkcija un <i>?</i> palīdzības operators R valodā sniedz piekļuvi R "
+"funkciju, datu kopu un citu objektu dokumentācijas lapām gan standarta R "
+"distribūcijas pakotnēs gan iesniegtajām pakotnēm.<br><br>Piemēram, lai "
+"piekļūtu standarta <i>lm</i> (lineārs modelis) funkcijai, rakstiet komandu "
+"<b><i>help(lm)</i></b> vai <i>help(\"lm\")</i>, vai <i>?lm</i>, vai <i>?\"lm"
+"\"</i> (iekavas nav obligātas).<br><br>Lai piekļūtu palīdzības funkcijai "
+"pakotnē, kas šobrīd nav ielādēta, precizējiet papildu arī pakotnes "
+"nosaukumu. Piemēram, lai iegūtu dokumentāciju par <i>rlm()</i> (stabilais "
+"lineārais modelis) funkciju, kas atrodama MASS pakotnē, rakstiet "
+"<i>help(rlm, package=\"MASS\")</i>.<br><br>R standarta nosaukumi sastāv no "
+"lielajiem un mazajiem burtiem, skaitļiem (0—9), pasvītrām (_) un punktiem "
+"(.) un tiem ir jāsākas ar burtu vai punktu. Lai iegūtu palīdzību par objektu "
+"ar nestandarta nosaukumu (piemēram, par palīdzības operatoru <i>?</i>), "
+"nosaukums ir jāliek pēdiņās: piemēram, <i>help('?')</i> vai <i>?\"?\"</i>."
+"<br><br>Tāpat varat lietot <i>help()</i> funkciju, lai piekļūtu informācijai "
+"par pakotni bibliotēkā, piemēram, <i>help(package=\"MASS\")</i>, kas parāda "
+"sarakstu ar visām pieejamajām palīdzības lapām kopā ar citu noderīgu "
+"informāciju.<br><br>Palīdzības lapas funkcijām parasti satur nodaļu ar "
+"izpildes piemēriem, ilustrējot funkcijas darbību. Šos piemērus varat "
+"izpildīt pašreizējā R sesijā caur <i>example()</i> komandu, piemēram, "
+"<i>example(lm)</i>."
 
 #: backends/R/rbackend.cpp:99
-#, fuzzy, kde-format
-#| msgid ""
-#| "R is a language and environment for statistical computing and graphics, "
-#| "similar to the S language and environment. <br/>It provides a wide "
-#| "variety of statistical (linear and nonlinear modelling, classical "
-#| "statistical tests, time-series analysis, classification, clustering, ...) "
-#| "and graphical techniques, and is highly extensible. The S language is "
-#| "often the vehicle of choice for research in statistical methodology, and "
-#| "R provides an Open Source route to participation in that activity."
+#, kde-format
 msgid ""
 "<b>R</b> is a language and environment for statistical computing and "
 "graphics, similar to the S language and environment. <br/>It provides a wide "
@@ -2332,89 +2351,80 @@ msgid ""
 "the vehicle of choice for research in statistical methodology, and R "
 "provides an Open Source route to participation in that activity."
 msgstr ""
-"R ir valoda un vide statistiskajiem aprēķiniem un grafikai, kas ir līdzīga "
-"valodai un videi S. <br/>Tā nodrošina ar lielu dažādību statistisko (lineārā "
-"un nelineārā modelēšana, klasiskie statistiskie testi, laika-sēriju analīze, "
-"klasifikācija, kopošana, ...) un grafisko tehniku, un ir paplašināma. Valoda "
-"S bieži tiek izmantots pētījumiem statistiskajā metodoloģijā, un R piedāvā "
-"atvērtā pirmkoda ceļu, lai piedalītos šajās aktivitātēs."
+"<b>R</b> ir valoda un vide statistiskajiem aprēķiniem un grafikiem, kas ir "
+"līdzīga S valodai un videi. <br/>Tā sniedz lielu dažādību statistisko "
+"(lineārā un nelineārā modelēšana, klasiskie statistiskie testi, laika un "
+"sēriju analīze, klasifikācija, kopošana u.c.) un grafisko tehniku daudzumu "
+"un ir paplašināma. S valodu bieži izmanto pētījumiem statistiskajā "
+"metodoloģijā, bet R piedāvā atvērtā pirmkoda ceļu, lai piedalītos šajās "
+"aktivitātēs."
 
 #: backends/R/rexpression.cpp:109 backends/R/rexpression.cpp:110
 #, kde-format
 msgid "Error opening file %1"
-msgstr "Kļūda atverot failu %1"
+msgstr "Kļūda, atverot datni „%1“"
 
 #: backends/R/rextensions.cpp:22
-#, fuzzy, kde-format
-#| msgid "*.R|R script file"
+#, kde-format
 msgid "R script file (*.R)"
-msgstr "*.R|R skripta fails"
+msgstr "R skripta datne (*.R)"
 
 #: backends/R/rserver/rserver.cpp:364
 #, kde-format
 msgid "Error Parsing Command"
-msgstr "Kļūda analizējot komandu"
+msgstr "Kļūda, analizējot komandu"
 
 #. i18n: ectx: label, entry (localDoc), group (RBackend)
 #: backends/R/rserver/rserver.kcfg:9
 #, kde-format
 msgid "Url to the local R documentation"
-msgstr ""
+msgstr "URL uz lokālo R dokumentāciju"
 
 #: backends/R/rsession.cpp:54
 #, kde-format
 msgid "Failed to start R, please check R installation."
-msgstr ""
+msgstr "Neizdevās palaist R. Pārbaudiet R instalāciju."
 
 #: backends/R/rsettingswidget.cpp:28
 #, kde-format
 msgid "Double click to open file selection dialog"
-msgstr "Dubultklikšķis, lai atvērtu failu izvēles dialoglogu"
+msgstr "Dubultklikšķis, lai atvērtu datnes izvēles lodziņu"
 
 #: backends/R/rsettingswidget.cpp:48
 #, kde-format
 msgid "*.R *.r|R source files (*.R, *.r)"
-msgstr "*.R *.r|R izejas faili (*.R, *.r)"
+msgstr "*.R *.r|R avota datnes (*.R, *.r)"
 
 #: backends/sage/sagebackend.cpp:79
-#, fuzzy, kde-format
-#| msgctxt ""
-#| "the url to the documentation of Sage, please check if there is a "
-#| "translated version and use the correct url"
-#| msgid "http://www.sagemath.org/doc/reference/index.html"
+#, kde-format
 msgctxt ""
 "the url to the documentation of Sage, please check if there is a translated "
 "version and use the correct url"
 msgid "https://doc.sagemath.org/html/en/reference/index.html"
-msgstr "http://www.sagemath.org/doc/reference/index.html"
+msgstr "https://doc.sagemath.org/html/en/reference/index.html"
 
 #: backends/sage/sagebackend.cpp:84
-#, fuzzy, kde-format
-#| msgid ""
-#| "Sage is a free open-source mathematics software system licensed under the "
-#| "GPL. <br/>It combines the power of many existing open-source packages "
-#| "into a common Python-based interface."
+#, kde-format
 msgid ""
 "<b>Sage</b> is a free open-source mathematics software system licensed under "
 "the GPL. <br/>It combines the power of many existing open-source packages "
 "into a common Python-based interface."
 msgstr ""
-"Sage ir brīva, atvērtā pirmkoda matemātikas programmatūras sistēma, kas "
-"licencēta zem GPL. <br/>Tā kombinē daudzu esošo atvērtā pirmkoda pakotņu "
-"spēku vienkāršā Python bāzētā saskarnē."
+"<b>Sage</b> ir brīvā un atvērtā pirmkoda matemātikas programmatūras sistēma "
+"ar GPL licenci. <br/>Tā apvieno daudzu esošo atvērtā pirmkoda pakotņu spēku "
+"vienkāršā „Python“ bāzētā saskarnē."
 
 #. i18n: ectx: label, entry (Path), group (SageBackend)
 #: backends/sage/sagebackend.kcfg:10
 #, kde-format
 msgid "Path to the Sage executable"
-msgstr "Ceļš uz Sage izpildfailu"
+msgstr "Ceļš uz „Sage“ izpilddatni"
 
 #. i18n: ectx: label, entry (allowLatex), group (SageBackend)
 #: backends/sage/sagebackend.kcfg:14
-#, fuzzy, kde-format
-#| msgid "Enable LaTeX Typesetting"
+#, kde-format
 msgid "Enable LaTeX typesetting for Sage backend"
-msgstr "Ieslēgt LaTeX salikumu"
+msgstr "Ieslēgt „LaTeX“ salikumu „Sage“ aizmugursistēmai"
 
 #: backends/sage/sageexpression.cpp:230 backends/sage/sageexpression.cpp:235
 #, kde-format
@@ -2433,19 +2443,14 @@ msgstr ""
 " %2"
 
 #: backends/sage/sageextensions.cpp:32
-#, fuzzy, kde-format
-#| msgid ""
-#| "*.py|Python script file\n"
-#| "*.sage|Sage script file"
+#, kde-format
 msgid "Python script file (*.py);;Sage script file (*.sage)"
-msgstr ""
-"*.py|Python skripta fails\n"
-"*.sage|Sage skripta fails"
+msgstr "„Python“ skripta datne (*.py);;„Sage“ skripta datne (*.sage)"
 
 #: backends/sage/sagesession.cpp:126
 #, kde-format
 msgid "Failed to start Sage, please check Sage installation."
-msgstr ""
+msgstr "Neizdevās palaist „Sage“. Pārbaudiet „Sage“ instalāciju."
 
 #: backends/sage/sagesession.cpp:271
 #, kde-format
@@ -2453,11 +2458,13 @@ msgid ""
 "Sage version %1.%2 is unsupported. Please update your installation to the "
 "versions 9.2 or higher."
 msgstr ""
+"„Sage“ versija %1.%2 nav atbalstīta. Atjauniniet to līdz 9.2 versijai vai "
+"augstākai."
 
 #: backends/sage/sagesession.cpp:273 backends/sage/sagesession.cpp:293
 #, kde-format
 msgid "Unsupported Version"
-msgstr ""
+msgstr "Neatbalstīta versija"
 
 #: backends/sage/sagesession.cpp:292
 #, kde-format
@@ -2465,38 +2472,38 @@ msgid ""
 "Failed to determine the version of Sage. Please check your installation and "
 "the output of 'sage -v'."
 msgstr ""
+"Neizdevās noteikt „Sage“ versiju. Pārbaudiet instalāciju un „sage -v“ izvadi."
 
 #: backends/sage/sagesession.cpp:354
 #, kde-format
 msgid "The Sage process crashed while evaluating this expression"
-msgstr "Sage process avarēja, aprēķinot šo izteiksmi"
+msgstr "„Sage“ process avarēja, aprēķinot šo izteiksmi"
 
 #: backends/sage/sagesession.cpp:358
 #, kde-format
 msgid "The Sage process crashed"
-msgstr "Sage process avarēja"
+msgstr "„Sage“ process avarēja"
 
 #: backends/sage/sagesession.cpp:365
 #, kde-format
 msgid "The Sage process exited while evaluating this expression"
-msgstr "Sage process izgāja, aprēķinot šo izteiksmi"
+msgstr "„Sage“ process izgāja, aprēķinot šo izteiksmi"
 
 #: backends/sage/sagesession.cpp:369
 #, kde-format
 msgid "The Sage process exited"
-msgstr "Sage process izgāja"
+msgstr "„Sage“ process izgāja"
 
 #: backends/sage/sagesession.cpp:379
 #, kde-format
 msgid "Failed to start Sage"
-msgstr "Neizdevās palaist Sage"
+msgstr "Neizdevās palaist „Sage“"
 
 #. i18n: ectx: property (text), widget (QLabel, label_2)
 #: backends/sage/settings.ui:59
-#, fuzzy, kde-format
-#| msgid "Enable LaTeX Typesetting"
+#, kde-format
 msgid "LaTeX typesetting:"
-msgstr "Ieslēgt LaTeX salikumu"
+msgstr "„LaTeX“ salikums:"
 
 #. i18n: ectx: property (toolTip), widget (QCheckBox, kcfg_allowLatex)
 #: backends/sage/settings.ui:66
@@ -2505,81 +2512,64 @@ msgid ""
 "Sage LaTeX output not always correct, so latex typesetting can be disabled "
 "for better experience"
 msgstr ""
+"„Sage“ „LaTeX“ izvade ne vienmēr ir pareiza, tāpēc varat izslēgt „LaTeX“ "
+"salikumu labākai lietojamībai"
 
 #: backends/scilab/scilabbackend.cpp:68
-#, fuzzy, kde-format
-#| msgctxt ""
-#| "the url to the documentation of Scilab, please check if there is a "
-#| "translated version and use the correct url"
-#| msgid "http://www.scilab.org/support/documentation"
+#, kde-format
 msgctxt ""
 "The url to the documentation of Scilab, please check if there is a "
 "translated version and use the correct url"
 msgid "https://www.scilab.org/support/documentation"
-msgstr "http://www.scilab.org/support/documentation"
+msgstr "https://www.scilab.org/support/documentation"
 
 #: backends/scilab/scilabbackend.cpp:73
-#, fuzzy, kde-format
-#| msgid ""
-#| "<p><b>Warning:</b> this backend works only with Scilab version 5.4 or "
-#| "later</p><p>Scilab is a free software, cross-platform numerical "
-#| "computational package and a high-level, numerically oriented programming "
-#| "language.</p>Scilab is distributed under CeCILL license (GPL compatible)"
+#, kde-format
 msgid ""
 "<b>Scilab</b> is a free software, cross-platform numerical computational "
 "package and a high-level, numerically oriented programming language.Scilab "
 "is distributed under CeCILL license (GPL compatible)."
 msgstr ""
-"<p><b>Brīdinājums:</b> šī aizmugure darbojas tikai ar Scilab versiju 5.4 vai "
-"augstāku</p><p>Scilab ir brīvā programmatūra, starpplatformu skaitlisko "
-"aprēķinu pakotne un augsta līmeņa, skaitliski orientēta programmēšanas "
-"valoda.</p>Scilab tiek izplatīta ar CeCILL licenci (savietojama ar GPL)"
+"<b>Scilab</b> ir daudzplatformu brīvā programmatūra skaitliskiem aprēķiniem "
+"un augsta līmeņa uz skaitļošanu orientēta programmēšanas valoda. „Scilab“ ir "
+"izplatīts ar „CeCILL“ licenci (saderīgs ar GPL)."
 
 #. i18n: ectx: label, entry (Path), group (ScilabBackend)
 #: backends/scilab/scilabbackend.kcfg:10
-#, fuzzy, kde-format
-#| msgid "Path to the Sage executable"
+#, kde-format
 msgid "Path to the Scilab executable"
-msgstr "Ceļš uz Sage izpildfailu"
+msgstr "Ceļš uz „Scilab“ izpilddatni"
 
 #: backends/scilab/scilabextensions.cpp:23
-#, fuzzy, kde-format
-#| msgid ""
-#| "*.py|Python script file\n"
-#| "*.sage|Sage script file"
+#, kde-format
 msgid ";;Scilab script file (*.sce);;Scilab function file (*.sci)"
-msgstr ""
-"*.py|Python skripta fails\n"
-"*.sage|Sage skripta fails"
+msgstr ";;„Scilab“ skripta datne (*.sce);;„Scilab“ funkciju datne (*.sci)"
 
 #: backends/scilab/scilabsession.cpp:67
 #, kde-format
 msgid "Failed to start Scilab, please check Scilab installation."
-msgstr ""
+msgstr "Neizdevās palaist „Scilab“. Pārbaudiet „Scilab“ instalāciju."
 
 #. i18n: ectx: property (text), widget (QLabel, lPlotIntegration)
 #: backends/scilab/settings.ui:37
-#, fuzzy, kde-format
-#| msgid "Integrate"
+#, kde-format
 msgid "Plot Integration:"
-msgstr "Integrēt"
+msgstr "Grafika integrācija:"
 
 #: cantor.cpp:107
 #, kde-format
 msgid "The file %1 is already opened."
-msgstr ""
+msgstr "Datne „%1“ ir jau atvērta."
 
 #: cantor.cpp:107 cantor.cpp:231
-#, fuzzy, kde-format
-#| msgid "Open image file"
+#, kde-format
 msgid "Open file"
-msgstr "Atvērt attēla failu"
+msgstr "Atvērt datni"
 
 #: cantor.cpp:149
-#, fuzzy, kde-format
-#| msgid "Download Example Worksheets"
+#, kde-format
 msgid "Download Examples"
-msgstr "Lejupielādēt piemēra darblapas"
+msgstr "Lejupielādēt piemērus"
 
 #: cantor.cpp:152
 #, kde-format
@@ -2589,12 +2579,12 @@ msgstr "&Atvērt piemēru"
 #: cantor.cpp:157
 #, kde-format
 msgid "Go to previous worksheet"
-msgstr ""
+msgstr "Iet uz iepriekšējo darblapu"
 
 #: cantor.cpp:169
 #, kde-format
 msgid "Go to next worksheet"
-msgstr ""
+msgstr "Iet uz nākamo darblapu"
 
 #: cantor.cpp:230
 #, kde-format
@@ -2602,6 +2592,8 @@ msgid ""
 "All supported files (*.cws *ipynb);;Cantor Worksheet (*.cws);;Jupyter "
 "Notebook (*.ipynb)"
 msgstr ""
+"Visas atbalstītās datnes (*.cws *ipynb);;„Cantor“ darblapa (*.cws);;"
+"„Jupyter“ piezīmju grāmata (*.ipynb)"
 
 #: cantor.cpp:298
 #, kde-format
@@ -2618,22 +2610,20 @@ msgid_plural ""
 "<li>Installing packages for one of the following programs:</li>     %2   </"
 "ul> </div> "
 msgstr[0] ""
-"<h1>Aizmugure nav atrasta</h1>\n"
-"<div>Jūs varētu mēģināt:\n"
-"  <ul>    <li>Izmainīt iestatījumus konfiugrācijas dialoglogā;</li>    "
-"<li>Instalēt pakotni sekojošajai programmai:</li>     %2   </ul> </div> "
+"<h1>Aizmugursistēma nav atrasta</h1>\n"
+"<div>Varat mēģināt:\n"
+"  <ul>    <li>Mainīt iestatījumus konfigurācijas logā;</li>    <li>Instalēt "
+"pakotnes programmai:</li>     %2   </ul> </div> "
 msgstr[1] ""
-"<h1>Aizmugure nav atrasta</h1>\n"
-"<div>Jūs varētu mēģināt:\n"
-"  <ul>    <li>Izmainīt iestatījumus konfiugrācijas dialoglogā;</li>    "
-"<li>Instalēt pakotnes vienai no sekojošām programmām:</li>     %2   </ul> </"
-"div> "
+"<h1>Aizmugursistēma nav atrasta</h1>\n"
+"<div>Varat mēģināt:\n"
+"  <ul>    <li>Mainīt iestatījumus konfigurācijas logā;</li>    <li>Instalēt "
+"pakotnes kādai no šīm programmām:</li>     %2   </ul> </div> "
 msgstr[2] ""
-"<h1>Aizmugure nav atrasta</h1>\n"
-"<div>Jūs varētu mēģināt:\n"
-"  <ul>    <li>Izmainīt iestatījumus konfiugrācijas dialoglogā;</li>    "
-"<li>Instalēt pakotnes vienai no sekojošām programmām:</li>     %2  </ul> </"
-"div> "
+"<h1>Aizmugursistēma nav atrasta</h1>\n"
+"<div>Varat mēģināt:\n"
+"  <ul>    <li>Mainīt iestatījumus konfigurācijas logā;</li>    <li>Instalēt "
+"pakotnes kādai no šīm programmām:</li>     %2   </ul> </div> "
 
 #: cantor.cpp:318
 #, kde-format
@@ -2643,7 +2633,7 @@ msgstr "Kļūda"
 #: cantor.cpp:340
 #, kde-format
 msgid "Backend %1 is not installed"
-msgstr "Aizmugure %1 nav instalēta"
+msgstr "Aizmugursistēma „%1“ nav instalēta"
 
 #: cantor.cpp:347
 #, kde-format
@@ -2651,6 +2641,8 @@ msgid ""
 "%1 backend installed, but inactive. Please check installation and Cantor "
 "settings"
 msgstr ""
+"„%1“ aizmugursistēma ir instalēta, bet nav aktīva. Pārbaudiet instalāciju un "
+"„Cantor“ iestatījumus"
 
 #: cantor.cpp:375
 #, kde-format
@@ -2658,10 +2650,9 @@ msgid "Session %1"
 msgstr "Sesija %1"
 
 #: cantor.cpp:392
-#, fuzzy, kde-format
-#| msgid "Could not find the Cantor Part."
+#, kde-format
 msgid "Failed to find the Cantor Part with error %1"
-msgstr "Neizdevās atrast Cantor daļu."
+msgstr "Neizdevās atrast Cantor daļu, kļūda — %1"
 
 #: cantor.cpp:450 cantor_part.cpp:645
 #, kde-format
@@ -2674,44 +2665,40 @@ msgid "Ready"
 msgstr "Gatavs"
 
 #: cantor.cpp:497
-#, fuzzy, kde-format
-#| msgid "X range"
+#, kde-format
 msgid "Changed"
-msgstr "X diapozons"
+msgstr "Mainīts"
 
 #: cantor.cpp:583
 #, kde-format
 msgid "Multiple unsaved Worksheets are opened. Do you want to close them?"
-msgstr ""
+msgstr "Ir atvērtas vairākas nesaglabātas darblapas. Vai vēlaties tās aizvērt?"
 
 #: cantor.cpp:584
-#, fuzzy, kde-format
-#| msgid "Cantor"
+#, kde-format
 msgid "Close Cantor"
-msgstr "Cantor"
+msgstr "Aizvērt „Cantor“"
 
 #: cantor.cpp:603
 #, kde-format
 msgid "The current project has been modified. Do you want to save it?"
-msgstr ""
+msgstr "Pašreizējais projekts ir mainīts. Vai vēlaties to saglabāt?"
 
 #: cantor.cpp:604
-#, fuzzy, kde-format
-#| msgid "Save result"
+#, kde-format
 msgid "Save Project"
-msgstr "Saglabāt rezultātu"
+msgstr "Saglabāt projektu"
 
 #: cantor.cpp:655
-#, fuzzy, kde-format
-#| msgid "Plotting"
+#, kde-format
 msgid "Formatting"
-msgstr "Grafiku veidošana"
+msgstr "Formatēšana"
 
 #. i18n: ectx: label, entry (DefaultBackend), group (Cantor)
 #: cantor.kcfg:10
 #, kde-format
 msgid "The Backend that is used by default"
-msgstr "Aizmugure, kas tiek izmantota pēc noklusējuma"
+msgstr "Pēc noklusējuma izmantotā aizmugursistēma"
 
 #. i18n: ectx: label, entry (TypesetDefault), group (Cantor)
 #: cantor.kcfg:14
@@ -2750,25 +2737,27 @@ msgid ""
 "Enable rendering math expressions inside $$..$$ in Text and Markdown entries "
 "by default (needs pdflatex installed)"
 msgstr ""
+"Ieslēgt Teksta un „markdown“ ierakstu matemātisko izteiksmju atveidošanu ar $"
+"$..$$ pēc noklusējuma (jābūt ieinstalētam „pdflatex“)"
 
 #. i18n: ectx: label, entry (WarnAboutEntryDelete), group (Cantor)
 #: cantor.kcfg:38
 #, kde-format
 msgid "Ask for confirmation when deleting an entry"
-msgstr ""
+msgstr "Lūgt apstiprinājumu, dzēšot ierakstu"
 
 #. i18n: ectx: label, entry (AutoEval), group (Cantor)
 #: cantor.kcfg:42
 #, kde-format
 msgid "Automatically reevaluate the entries below the current"
-msgstr "Automātiski pārrēķina ierakstus zem pašreizējā"
+msgstr "Automātiski pārrēķināt ierakstus zem pašreizējā"
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_WarnAboutSessionRestart)
 #. i18n: ectx: label, entry (WarnAboutSessionRestart), group (Cantor)
 #: cantor.kcfg:46 settings.ui:269
 #, kde-format
 msgid "Ask for confirmation when restarting the backend"
-msgstr ""
+msgstr "Lūgt apstiprinājumu, pārstartējot aizmugursistēmu"
 
 #. i18n: ectx: label, entry (StoreTextEntryFormatting), group (Cantor)
 #: cantor.kcfg:50
@@ -2777,148 +2766,150 @@ msgid ""
 "Save rich text formatting of TextEntry, when save Worksheet in Jupyter "
 "notebook format"
 msgstr ""
+"Saglabāt ievades teksta formatējumu, kad izmantojat „Jupyter“ pierakstu "
+"blociņa darba lapas formātu."
 
 #. i18n: ectx: label, entry (UseOldCantorEntriesIndent), group (Cantor)
 #: cantor.kcfg:54
 #, kde-format
 msgid "Use old style Cantor entries placement style"
-msgstr ""
+msgstr "Izmantot veco „Cantor“ ierakstu novietojuma stilu"
 
 #. i18n: ectx: label, entry (ShowMathRenderError), group (Cantor)
 #: cantor.kcfg:58
 #, kde-format
 msgid "Show embedded math render error"
-msgstr ""
+msgstr "Rādīt iegultā matemātikas atveidotāja kļūdu"
 
 #. i18n: ectx: label, entry (VisibleLinesLimit), group (Cantor)
 #: cantor.kcfg:62
 #, kde-format
 msgid "Limit of visible lines for text result"
-msgstr ""
+msgstr "Ierobežot teksta rezultātos redzamo rindu skaitu"
 
 #. i18n: ectx: label, entry (ChapterFontFamily), group (Cantor)
 #: cantor.kcfg:66
 #, kde-format
 msgid "Hierarchy font for chapter"
-msgstr ""
+msgstr "Nodaļas hierarhijas fonts"
 
 #. i18n: ectx: label, entry (ChapterFontSize), group (Cantor)
 #: cantor.kcfg:70
 #, kde-format
 msgid "Hierarchy font size for chapter"
-msgstr ""
+msgstr "Nodaļas hierarhijas fonta izmērs"
 
 #. i18n: ectx: label, entry (ChapterFontItalic), group (Cantor)
 #: cantor.kcfg:74
 #, kde-format
 msgid "Hierarchy font italic for chapter"
-msgstr ""
+msgstr "Nodaļas hierarhijas kursīva fonts"
 
 #. i18n: ectx: label, entry (ChapterFontBold), group (Cantor)
 #: cantor.kcfg:78
 #, kde-format
 msgid "Hierarchy font bold for chapter"
-msgstr ""
+msgstr "Nodaļas hierarhijas treknraksta fonts"
 
 #. i18n: ectx: label, entry (SubchapterFontFamily), group (Cantor)
 #: cantor.kcfg:82
 #, kde-format
 msgid "Hierarchy font for subchapter"
-msgstr ""
+msgstr "Apakšnodaļas hierarhijas fonts"
 
 #. i18n: ectx: label, entry (SubchapterFontSize), group (Cantor)
 #: cantor.kcfg:86
 #, kde-format
 msgid "Hierarchy font size for subchapter"
-msgstr ""
+msgstr "Apakšnodaļas hierarhijas fonta izmērs"
 
 #. i18n: ectx: label, entry (SubchapterFontItalic), group (Cantor)
 #: cantor.kcfg:90
 #, kde-format
 msgid "Hierarchy font italic for subchapter"
-msgstr ""
+msgstr "Apakšnodaļas hierarhijas kursīva fonts"
 
 #. i18n: ectx: label, entry (SubchapterFontBold), group (Cantor)
 #: cantor.kcfg:94
 #, kde-format
 msgid "Hierarchy font bold for subchapter"
-msgstr ""
+msgstr "Apakšnodaļas hierarhijas treknraksta fonts"
 
 #. i18n: ectx: label, entry (SectionFontFamily), group (Cantor)
 #. i18n: ectx: label, entry (SectionFontSize), group (Cantor)
 #: cantor.kcfg:98 cantor.kcfg:102
 #, kde-format
 msgid "Hierarchy font for section"
-msgstr ""
+msgstr "Iedaļas hierarhijas fonts"
 
 #. i18n: ectx: label, entry (SectionFontItalic), group (Cantor)
 #: cantor.kcfg:106
 #, kde-format
 msgid "Hierarchy font italic for section"
-msgstr ""
+msgstr "Iedaļas hierarhijas kursīva fonts"
 
 #. i18n: ectx: label, entry (SectionFontBold), group (Cantor)
 #: cantor.kcfg:110
 #, kde-format
 msgid "Hierarchy font bold for section"
-msgstr ""
+msgstr "Iedaļas hierarhijas treknraksta fonts"
 
 #. i18n: ectx: label, entry (SubsectionFontFamily), group (Cantor)
 #. i18n: ectx: label, entry (SubsectionFontSize), group (Cantor)
 #: cantor.kcfg:114 cantor.kcfg:118
 #, kde-format
 msgid "Hierarchy font for subsection"
-msgstr ""
+msgstr "Apakšiedaļas hierarhijas fonts"
 
 #. i18n: ectx: label, entry (SubsectionFontItalic), group (Cantor)
 #: cantor.kcfg:122
 #, kde-format
 msgid "Hierarchy font italic for subsection"
-msgstr ""
+msgstr "Apakšiedaļas hierarhijas kursīva fonts"
 
 #. i18n: ectx: label, entry (SubsectionFontBold), group (Cantor)
 #: cantor.kcfg:126
 #, kde-format
 msgid "Hierarchy font bold for subsection"
-msgstr ""
+msgstr "Apakšiedaļas hierarhijas treknraksta fonts"
 
 #. i18n: ectx: label, entry (ParagraphFontFamily), group (Cantor)
 #. i18n: ectx: label, entry (ParagraphFontSize), group (Cantor)
 #: cantor.kcfg:130 cantor.kcfg:134
 #, kde-format
 msgid "Hierarchy font for paragraph"
-msgstr ""
+msgstr "Rindkopas hierarhijas fonts"
 
 #. i18n: ectx: label, entry (ParagraphFontItalic), group (Cantor)
 #: cantor.kcfg:138
 #, kde-format
 msgid "Hierarchy font italic for paragraph"
-msgstr ""
+msgstr "Rindkopas hierarhijas krusīva fonts"
 
 #. i18n: ectx: label, entry (ParagraphFontBold), group (Cantor)
 #: cantor.kcfg:142
 #, kde-format
 msgid "Hierarchy font bold for paragraph"
-msgstr ""
+msgstr "Rindkopas hierarhijas treknraksta fonts"
 
 #. i18n: ectx: label, entry (SubparagraphFontFamily), group (Cantor)
 #. i18n: ectx: label, entry (SubparagraphFontSize), group (Cantor)
 #: cantor.kcfg:146 cantor.kcfg:150
 #, kde-format
 msgid "Hierarchy font for subparagraph"
-msgstr ""
+msgstr "Rindkopas hierarhijas apakšrindkopas fonts"
 
 #. i18n: ectx: label, entry (SubparagraphFontItalic), group (Cantor)
 #: cantor.kcfg:154
 #, kde-format
 msgid "Hierarchy font italic for subparagraph"
-msgstr ""
+msgstr "Apakšrindkopas hierarhijas fonts"
 
 #. i18n: ectx: label, entry (SubparagraphFontBold), group (Cantor)
 #: cantor.kcfg:158
 #, kde-format
 msgid "Hierarchy font bold for subparagraph"
-msgstr ""
+msgstr "Apakšrindkopas hierarhijas treknraksta fonts"
 
 #: cantor_part.cpp:144
 #, kde-format
@@ -2926,41 +2917,39 @@ msgid "Save Plain Text"
 msgstr "Saglabāt kā vienkāršu tekstu"
 
 #: cantor_part.cpp:185 cantor_part.cpp:544
-#, fuzzy, kde-format
-#| msgid "Export to LaTeX"
+#, kde-format
 msgid "Export to PDF"
-msgstr "Eksportēt uz LaTex"
+msgstr "Eksportēt uz PDF"
 
 #: cantor_part.cpp:189 cantor_part.cpp:556 worksheet.cpp:1307
 #: worksheet.cpp:1313
 #, kde-format
 msgid "Export to LaTeX"
-msgstr "Eksportēt uz LaTex"
+msgstr "Eksportēt uz „LaTex“"
 
 #: cantor_part.cpp:204 cantor_part.cpp:652 worksheet.cpp:1936
 #, kde-format
 msgid "Evaluate Worksheet"
-msgstr "Novērtēt darblapu"
+msgstr "Risināt darblapu"
 
 #: cantor_part.cpp:211 worksheet.cpp:1944
 #, kde-format
 msgid "Zoom"
-msgstr ""
+msgstr "Tuvinājums"
 
 #: cantor_part.cpp:218
-#, fuzzy, kde-format
-#| msgid "%1: %2"
+#, kde-format
 msgctxt ""
 "Zoom percentage value %1 will be replaced by the actual zoom factor value, "
 "so make sure you include it in your translation in order to not to break "
 "anything"
 msgid "%1%"
-msgstr "%1: %2"
+msgstr "%1 %"
 
 #: cantor_part.cpp:233
 #, kde-format
 msgid "Typeset using LaTeX"
-msgstr "Lietot salikumu, izmantojot LaTeX"
+msgstr "Lietot salikumu, izmantojot „LaTeX“"
 
 #: cantor_part.cpp:238
 #, kde-format
@@ -2980,30 +2969,29 @@ msgstr "Rindu numuri"
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_AnimationDefault)
 #: cantor_part.cpp:253 settings.ui:138
-#, fuzzy, kde-format
-#| msgid "Pause Animation"
+#, kde-format
 msgid "Animations"
-msgstr "Nopauzēt animāciju"
+msgstr "Animācijas"
 
 #: cantor_part.cpp:260
 #, kde-format
 msgid "Embedded Math"
-msgstr ""
+msgstr "Iegulta matemātika"
 
 #: cantor_part.cpp:266
 #, kde-format
 msgid "Restart Backend"
-msgstr "Pārstartēt aizmuguri"
+msgstr "Pārstartēt aizmugursistēmu"
 
 #: cantor_part.cpp:272 worksheetentry.cpp:857
 #, kde-format
 msgid "Evaluate Entry"
-msgstr "Novērtēt ierakstu"
+msgstr "Risināt ierakstu"
 
 #: cantor_part.cpp:278
 #, kde-format
 msgid "Insert Command Entry"
-msgstr "Ievietot komandas ierakstu"
+msgstr "Ievietot komandu ierakstu"
 
 #: cantor_part.cpp:284
 #, kde-format
@@ -3011,15 +2999,14 @@ msgid "Insert Text Entry"
 msgstr "Ievietot teksta ierakstu"
 
 #: cantor_part.cpp:290
-#, fuzzy, kde-format
-#| msgid "Insert Command Entry"
+#, kde-format
 msgid "Insert Markdown Entry"
-msgstr "Ievietot komandas ierakstu"
+msgstr "Ievietot „markdown“ ierakstu"
 
 #: cantor_part.cpp:297
 #, kde-format
 msgid "Insert LaTeX Entry"
-msgstr "Ievietot LaTeX ierakstu"
+msgstr "Ievietot „LaTeX“ ierakstu"
 
 #: cantor_part.cpp:303
 #, kde-format
@@ -3034,25 +3021,22 @@ msgstr "Ievietot attēlu"
 #: cantor_part.cpp:313
 #, kde-format
 msgid "Collapse All Results"
-msgstr ""
+msgstr "Sakļaut visus rezultātus"
 
 #: cantor_part.cpp:318
-#, fuzzy, kde-format
-#| msgid "Results"
+#, kde-format
 msgid "Expand All Results"
-msgstr "Rezultāti"
+msgstr "Izvērst visus rezultātus"
 
 #: cantor_part.cpp:323
-#, fuzzy, kde-format
-#| msgid "Remove result"
+#, kde-format
 msgid "Delete All Results"
-msgstr "Izņemt rezultātu"
+msgstr "Dzēst visus rezultātus"
 
 #: cantor_part.cpp:328
-#, fuzzy, kde-format
-#| msgid "Remove current Entry"
+#, kde-format
 msgid "Delete current Entry"
-msgstr "Izņemt pašreizējo ierakstu"
+msgstr "Dzēst pašreizējo ierakstu"
 
 #. i18n("Publish Worksheet"), collection);
 #. publishWorksheet->setIcon(QIcon::fromTheme(QLatin1String("get-hot-new-stuff")));
@@ -3062,7 +3046,7 @@ msgstr "Izņemt pašreizējo ierakstu"
 #: cantor_part.cpp:344
 #, kde-format
 msgid "Show Script Editor"
-msgstr "Rādīt skriptu redaktoru"
+msgstr "Rādīt skripta redaktoru"
 
 #: cantor_part.cpp:349
 #, kde-format
@@ -3075,10 +3059,9 @@ msgid "CantorPart"
 msgstr "CantorPart"
 
 #: cantor_part.cpp:418
-#, fuzzy, kde-format
-#| msgid "(C) 2009-2012 Alexander Rieder"
+#, kde-format
 msgid "(C) 2009-2015 Alexander Rieder"
-msgstr "(C) 2009-2012 Alexander Rieder"
+msgstr "(C) 2009—2015 Alexander Rieder"
 
 #: cantor_part.cpp:422 main.cpp:78
 #, kde-format
@@ -3086,41 +3069,39 @@ msgid "Alexander Rieder"
 msgstr "Alexander Rieder"
 
 #: cantor_part.cpp:474
-#, fuzzy, kde-format
-#| msgid "*.cws|Cantor Worksheet"
+#, kde-format
 msgid "Cantor Worksheet (*.cws)"
-msgstr "*.cws|Cantor darblapa"
+msgstr "„Cantor“ darblapa (*.cws)"
 
 #: cantor_part.cpp:475
 #, kde-format
 msgid "Jupyter Notebook (*.ipynb)"
-msgstr ""
+msgstr "„Jupyter“ piezīmju grāmata (*.ipynb)"
 
 #: cantor_part.cpp:491
-#, fuzzy, kde-format
-#| msgid "Save result"
+#, kde-format
 msgid "Save as"
-msgstr "Saglabāt rezultātu"
+msgstr "Saglabāt kā"
 
 #: cantor_part.cpp:537 panelplugins/variablemgr/variablemanagerwidget.cpp:176
 #, kde-format
 msgid "Save"
-msgstr ""
+msgstr "Saglabāt"
 
 #: cantor_part.cpp:537 textresultitem.cpp:212
 #, kde-format
 msgid "Text Files (*.txt)"
-msgstr ""
+msgstr "Teksta datnes (*.txt)"
 
 #: cantor_part.cpp:544
 #, kde-format
 msgid "PDF Files (*.pdf)"
-msgstr ""
+msgstr "PDF datnes (*.pdf)"
 
 #: cantor_part.cpp:556
 #, kde-format
 msgid "TeX Files (*.tex)"
-msgstr ""
+msgstr "„TeX“ datnes (*.tex)"
 
 #: cantor_part.cpp:601
 #, kde-format
@@ -3128,12 +3109,13 @@ msgid ""
 "All the available calculation results will be lost. Do you really want to "
 "restart %1?"
 msgstr ""
+"Pārstartējot „%1“, jūs zaudēsiet visus pieejamos aprēķinu rezultātus. Vai "
+"vēlaties to pārstartēt?"
 
 #: cantor_part.cpp:602
-#, fuzzy, kde-format
-#| msgid "Restart Backend"
+#, kde-format
 msgid "Restart %1?"
-msgstr "Pārstartēt aizmuguri"
+msgstr "Vai pārstartēt „%1“?"
 
 #: cantor_part.cpp:642 worksheet.cpp:1939
 #, kde-format
@@ -3151,15 +3133,14 @@ msgid "Initialization complete"
 msgstr "Inicializācija pabeigta"
 
 #: cantor_part.cpp:714
-#, fuzzy, kde-format
-#| msgid "Initializing Session"
+#, kde-format
 msgid "Initializing..."
-msgstr "Inicializē sesiju"
+msgstr "Inicializē..."
 
 #: cantor_part.cpp:772
 #, kde-format
 msgid "[read-only]"
-msgstr ""
+msgstr "[tikai lasāms]"
 
 #: cantor_part.cpp:890
 #, kde-format
@@ -3170,29 +3151,28 @@ msgstr ""
 #: cantor_part.cpp:891
 #, kde-format
 msgid "Question - Cantor"
-msgstr "Jautājums - Cantor"
+msgstr "Jautājums — „Cantor“"
 
 #: cantor_part.cpp:892
 #, kde-format
 msgctxt "@action:button"
 msgid "Upload"
-msgstr ""
+msgstr "Augšupielādēt"
 
 #: cantor_part.cpp:900
 #, kde-format
 msgid "The Worksheet is not saved. You should save it before uploading."
-msgstr ""
-"Darblapa nav saglabāta. Pirms augšupielādes jums vajadzētu to saglabāt."
+msgstr "Darblapa nav saglabāta. Saglabājiet to pirms augšupielādes.-"
 
 #: cantor_part.cpp:901
 #, kde-format
 msgid "Warning - Cantor"
-msgstr "Brīdinājums - Cantor"
+msgstr "Brīdinājums — „Cantor“"
 
 #: cantor_part.cpp:973
 #, kde-format
 msgid "This backend does not support scripts."
-msgstr "Aizmugure neatbalsta skriptus."
+msgstr "Aizmugursistēma neatbalsta skriptus."
 
 #. i18n: ectx: Menu (edit)
 #: cantor_part.rc:15 cantor_shell.rc:19
@@ -3214,16 +3194,15 @@ msgstr "&Darblapa"
 
 #. i18n: ectx: Menu (settings)
 #: cantor_part.rc:51
-#, fuzzy, kde-format
-#| msgid "&Settings"
+#, kde-format
 msgid "Settings"
-msgstr "&Iestatījumi"
+msgstr "Iestatījumi"
 
 #. i18n: ectx: Menu (file)
 #: cantor_shell.rc:4
 #, kde-format
 msgid "&File"
-msgstr "&Fails"
+msgstr "&Datne"
 
 #. i18n: ectx: Menu (file_new_menu)
 #: cantor_shell.rc:6
@@ -3246,27 +3225,22 @@ msgstr "&Iestatījumi"
 #: commandentry.cpp:120
 #, kde-format
 msgid "Background Color"
-msgstr ""
+msgstr "Fona krāsa"
 
 #: commandentry.cpp:129 commandentry.cpp:156 horizontalruleentry.cpp:328
-#, fuzzy, kde-format
-#| msgid "Defaults"
+#, kde-format
 msgid "Default"
-msgstr "Noklusējumi"
+msgstr "Noklusējums"
 
 #: commandentry.cpp:151
-#, fuzzy, kde-format
-#| msgctxt "@action"
-#| msgid "Text &Color..."
+#, kde-format
 msgid "Text Color"
-msgstr "Teksta &krāsa..."
+msgstr "Teksta krāsa"
 
 #: commandentry.cpp:176
-#, fuzzy, kde-format
-#| msgctxt "@action"
-#| msgid "&Font"
+#, kde-format
 msgid "Font"
-msgstr "&Fonts"
+msgstr "Fonts"
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_ChapterFontBold)
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_SubchapterFontBold)
@@ -3276,11 +3250,9 @@ msgstr "&Fonts"
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_SubparagraphFontBold)
 #: commandentry.cpp:179 formating.ui:84 formating.ui:141 formating.ui:198
 #: formating.ui:255 formating.ui:312 formating.ui:369
-#, fuzzy, kde-format
-#| msgctxt "@action boldify selected text"
-#| msgid "&Bold"
+#, kde-format
 msgid "Bold"
-msgstr "&Trekns"
+msgstr "Treknraksts"
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_ChapterFontItalic)
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_SubchapterFontItalic)
@@ -3290,54 +3262,49 @@ msgstr "&Trekns"
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_SubpragraphFontItalic)
 #: commandentry.cpp:186 formating.ui:91 formating.ui:148 formating.ui:205
 #: formating.ui:262 formating.ui:319 formating.ui:376
-#, fuzzy, kde-format
-#| msgctxt "@action italicize selected text"
-#| msgid "&Italic"
+#, kde-format
 msgid "Italic"
-msgstr "&Slīpraksts"
+msgstr "Kursīvs"
 
 #: commandentry.cpp:194
 #, kde-format
 msgid "Increase Size"
-msgstr ""
+msgstr "Palielināt izmēru"
 
 #: commandentry.cpp:198
 #, kde-format
 msgid "Decrease Size"
-msgstr ""
+msgstr "Samazināt izmēru"
 
 #: commandentry.cpp:203
 #, kde-format
 msgid "Select"
-msgstr ""
+msgstr "Atlasīt"
 
 #: commandentry.cpp:207
 #, kde-format
 msgid "Reset to Default"
-msgstr ""
+msgstr "Atiestatīt uz noklusējumu"
 
 #: commandentry.cpp:336
-#, fuzzy, kde-format
-#| msgid "Results"
+#, kde-format
 msgid "Show Results"
-msgstr "Rezultāti"
+msgstr "Rādīt rezultātus"
 
 #: commandentry.cpp:338
-#, fuzzy, kde-format
-#| msgid "Results"
+#, kde-format
 msgid "Hide Results"
-msgstr "Rezultāti"
+msgstr "Slēpt rezultātus"
 
 #: commandentry.cpp:343 worksheet.cpp:1928
-#, fuzzy, kde-format
-#| msgid "Show %1 Help"
+#, kde-format
 msgid "Show Help"
-msgstr "Parādīt %1 palīdzību"
+msgstr "Rādīt palīdzību"
 
 #: commandentry.cpp:356
 #, kde-format
 msgid "Appearance"
-msgstr ""
+msgstr "Izskats"
 
 #: commandentry.cpp:597 commandentry.cpp:992
 #, kde-format
@@ -3416,7 +3383,7 @@ msgstr "&Reģistrjutīgs"
 #: formating.ui:42
 #, kde-format
 msgid "Chapter Font"
-msgstr ""
+msgstr "Nodaļas fonts"
 
 #. i18n: ectx: property (text), widget (QLabel, lChapterFontFamily)
 #. i18n: ectx: property (text), widget (QLabel, lSubchapterFontFamily)
@@ -3426,9 +3393,10 @@ msgstr ""
 #. i18n: ectx: property (text), widget (QLabel, lSubparagraphFontFamily)
 #: formating.ui:48 formating.ui:105 formating.ui:162 formating.ui:219
 #: formating.ui:276 formating.ui:333
-#, kde-format
+#, fuzzy, kde-format
+#| msgid "Font Family:"
 msgid "Fon&t Family:"
-msgstr ""
+msgstr "Fonta saime:"
 
 #. i18n: ectx: property (text), widget (QLabel, lChapterFontSize)
 #. i18n: ectx: property (text), widget (QLabel, lSubchapterFontSize)
@@ -3439,136 +3407,129 @@ msgstr ""
 #: formating.ui:61 formating.ui:118 formating.ui:175 formating.ui:232
 #: formating.ui:289 formating.ui:346
 #, fuzzy, kde-format
-#| msgctxt "@action"
-#| msgid "Font &Size"
+#| msgid "Font Size:"
 msgid "Font Si&ze:"
-msgstr "Fonta i&zmērs"
+msgstr "Fonta izmērs:"
 
 #. i18n: ectx: attribute (title), widget (QWidget, SubchapterTab)
 #: formating.ui:99
 #, kde-format
 msgid "Subchapter Font"
-msgstr ""
+msgstr "Apakšnodaļas fonts"
 
 #. i18n: ectx: attribute (title), widget (QWidget, SectionTab)
 #: formating.ui:156
 #, kde-format
 msgid "Section Font"
-msgstr ""
+msgstr "Iedaļas fonts"
 
 #. i18n: ectx: attribute (title), widget (QWidget, SubsectionTab)
 #: formating.ui:213
 #, kde-format
 msgid "Subsection Font"
-msgstr ""
+msgstr "Apakšiedaļas fonts"
 
 #. i18n: ectx: attribute (title), widget (QWidget, ParagraphTab)
 #: formating.ui:270
 #, kde-format
 msgid "Paragraph Font"
-msgstr ""
+msgstr "Rindkopas fonts"
 
 #. i18n: ectx: attribute (title), widget (QWidget, SubparagraphTab)
 #: formating.ui:327
 #, kde-format
 msgid "Subparagraph Font"
-msgstr ""
+msgstr "Apakšrindkopas fonts"
 
 #: hierarchyentry.cpp:22
 #, kde-format
 msgid "Chapter"
-msgstr ""
+msgstr "Nodaļa"
 
 #: hierarchyentry.cpp:22
 #, kde-format
 msgid "Subchapter"
-msgstr ""
+msgstr "Apakšnodaļa"
 
 #: hierarchyentry.cpp:22
-#, fuzzy, kde-format
-#| msgid "function"
+#, kde-format
 msgid "Section"
-msgstr "funkcija"
+msgstr "Iedaļa"
 
 #: hierarchyentry.cpp:22
-#, fuzzy, kde-format
-#| msgid "function"
+#, kde-format
 msgid "Subsection"
-msgstr "funkcija"
+msgstr "Apakšiedaļa"
 
 #: hierarchyentry.cpp:22
 #, kde-format
 msgid "Paragraph"
-msgstr ""
+msgstr "Rindkopa"
 
 #: hierarchyentry.cpp:22
 #, kde-format
 msgid "Subparagraph"
-msgstr ""
+msgstr "Apakšrindkopa"
 
 #: hierarchyentry.cpp:48
 #, kde-format
 msgid "Set Hierarchy Level"
-msgstr ""
+msgstr "Iestatiet hierarhijas līmeni"
 
 #: horizontalruleentry.cpp:20
-#, fuzzy, kde-format
-#| msgid "Completion Style:"
+#, kde-format
 msgid "Solid Line Style"
-msgstr "Pabeigšanas stils:"
+msgstr "Nepārtrauktas līnijas stils"
 
 #: horizontalruleentry.cpp:20
 #, kde-format
 msgid "Dash Line Style"
-msgstr ""
+msgstr "Raustītas līnijas stils"
 
 #: horizontalruleentry.cpp:20
-#, fuzzy, kde-format
-#| msgid "Completion Style:"
+#, kde-format
 msgid "Dot Line Style"
-msgstr "Pabeigšanas stils:"
+msgstr "Punktētas līnijas stils"
 
 #: horizontalruleentry.cpp:20
 #, kde-format
 msgid "Dash Dot Line Style"
-msgstr ""
+msgstr "Raustītas un punktētas līnijas stils"
 
 #: horizontalruleentry.cpp:20
 #, kde-format
 msgid "Dash Dot Dot Line Style"
-msgstr ""
+msgstr "Raustītas un dubulti punktētas līnijas stils"
 
 #: horizontalruleentry.cpp:297
 #, kde-format
 msgid "Line Thickness"
-msgstr ""
+msgstr "Līnijas biezums"
 
 #: horizontalruleentry.cpp:299
 #, kde-format
 msgid "Thin"
-msgstr ""
+msgstr "Tieva"
 
 #: horizontalruleentry.cpp:303
 #, kde-format
 msgid "Medium"
-msgstr ""
+msgstr "Vidēja"
 
 #: horizontalruleentry.cpp:307
 #, kde-format
 msgid "Thick"
-msgstr ""
+msgstr "Bieza"
 
 #: horizontalruleentry.cpp:320
-#, fuzzy, kde-format
-#| msgid "Use Colors"
+#, kde-format
 msgid "Line Color"
-msgstr "Lietot krāsas"
+msgstr "Līnijas krāsa"
 
 #: horizontalruleentry.cpp:351
-#, fuzzy, kde-format
-#| msgid "Style"
+#, kde-format
 msgid "Line Style"
-msgstr "Stils"
+msgstr "Līnijas stilas"
 
 #: imageentry.cpp:47 imageentry.cpp:370
 #, kde-format
@@ -3576,31 +3537,29 @@ msgid "Configure Image"
 msgstr "Konfigurēt attēlu"
 
 #: imageentry.cpp:256
-#, fuzzy, kde-format
-#| msgid "Double click to open file selection dialog"
+#, kde-format
 msgid "Double click here to configure image settings"
-msgstr "Dubultklikšķis, lai atvērtu failu izvēles dialoglogu"
+msgstr "Dubultklikšķis, lai konfigurētu attēlu"
 
 #: imageentry.cpp:287
 #, kde-format
 msgid "Cannot load image %1"
-msgstr "Neizdevās ielādēt attēlu %1"
+msgstr "Neizdevās ielādēt attēlu „%1“"
 
 #: imageresultitem.cpp:90
 #, kde-format
 msgid "%1 files (*.%2)"
-msgstr ""
+msgstr "%1 datnes (*.%2)"
 
 #: imageresultitem.cpp:93
 #, kde-format
 msgid "EPS files (*.eps)"
-msgstr ""
+msgstr "EPS datnes (*.eps)"
 
 #: imageresultitem.cpp:96
-#, fuzzy, kde-format
-#| msgid "Save result"
+#, kde-format
 msgid "Save image result"
-msgstr "Saglabāt rezultātu"
+msgstr "Saglabāt attēla rezultātu"
 
 #. i18n: ectx: property (windowTitle), widget (QWidget, ImageSettingsBase)
 #: imagesettings.ui:14
@@ -3636,10 +3595,9 @@ msgstr "Augstums"
 
 #. i18n: ectx: property (title), widget (QGroupBox, gbPreview)
 #: imagesettings.ui:76
-#, fuzzy, kde-format
-#| msgid "&Previous"
+#, kde-format
 msgid "Preview"
-msgstr "&Iepriekšējais"
+msgstr "Priekšskatījums"
 
 #. i18n: ectx: property (title), widget (QGroupBox, groupBox_2)
 #: imagesettings.ui:88
@@ -3654,8 +3612,7 @@ msgid "Use Display Size"
 msgstr "Lietot attēlojamo izmēru"
 
 #: imagesettingsdialog.cpp:23
-#, fuzzy, kde-format
-#| msgid "Image Settings"
+#, kde-format
 msgctxt "@title:window"
 msgid "Image Settings"
 msgstr "Attēla iestatījumi"
@@ -3678,18 +3635,17 @@ msgstr "%"
 #: imagesettingsdialog.cpp:151 markdownentry.cpp:773
 #, kde-format
 msgid "Open image file"
-msgstr "Atvērt attēla failu"
+msgstr "Atvērt attēla datni"
 
 #: imagesettingsdialog.cpp:153 markdownentry.cpp:775
-#, fuzzy, kde-format
-#| msgid "Image"
+#, kde-format
 msgid "Images (%1)"
-msgstr "Attēls"
+msgstr "Attēli (%1)"
 
 #: latexentry.cpp:61 textentry.cpp:111
 #, kde-format
 msgid "Show LaTeX code"
-msgstr "Parādīt LaTeX kodu"
+msgstr "Parādīt „LaTeX“ kodu"
 
 #: lib/backend.cpp:163
 #, kde-format
@@ -3697,6 +3653,8 @@ msgid ""
 "No path for the %1 executable specified. Please provide the correct path in "
 "the application settings and try again."
 msgstr ""
+"Nav norādīts „%1“ izpilddatnes ceļš. Norādiet korektu ceļu programmas "
+"iestatījumos un mēģiniet vēlreiz."
 
 #: lib/backend.cpp:173
 #, kde-format
@@ -3704,6 +3662,8 @@ msgid ""
 "The specified file '%1' for the %2 executable doesn't exist. Please provide "
 "the correct path in the application settings and try again."
 msgstr ""
+"Norādītā datne „%1“ izpilddatnei „%2“ nepastāv. Norādiet korektu ceļu "
+"programmas iestatījumos un mēģiniet vēlreiz."
 
 #: lib/backend.cpp:182
 #, kde-format
@@ -3711,6 +3671,8 @@ msgid ""
 "The specified file '%1' doesn't point to an executable. Please provide the "
 "correct path in the application settings and try again."
 msgstr ""
+"Norādītā datne „%1“ nenorāda uz izpilddatni. Norādiet korektu ceļu "
+"programmas iestatījumos un mēģiniet vēlreiz."
 
 #: lib/backend.cpp:201
 #, kde-format
@@ -3718,46 +3680,48 @@ msgid ""
 "The program %1 didn't finish the execution after %2 milliseconds during the "
 "plot integration test."
 msgstr ""
+"Grafika integrācijas pārbaudes laikā „%1“ programma nepabeidza izpildi pēc "
+"%2 milisekundēm."
 
 #: lib/backend.cpp:210
 #, kde-format
 msgid "Failed to open the file %1 during the plot integration test."
-msgstr ""
+msgstr "Grafika integrācijas testa laikā neizdevās atvērt „%1“ datni."
 
 #: lib/backend.cpp:218
 #, kde-format
 msgid "Failed to parse the result during the plot integration test."
-msgstr ""
+msgstr "Grafika integrācijas testa laikā neizdevās parsēt rezultātus."
 
 #. i18n: ectx: label, entry (latexCommand), group (Cantor)
 #: lib/cantor_libs.kcfg:10
 #, kde-format
 msgid "Path to the latex executable"
-msgstr "Ceļš uz latex izpildfailu"
+msgstr "Ceļš uz „latex“ izpilddatni"
 
 #. i18n: ectx: label, entry (dvipsCommand), group (Cantor)
 #: lib/cantor_libs.kcfg:14
 #, kde-format
 msgid "Path to the dvips executable"
-msgstr "Ceļš uz dvips izpildfailu"
+msgstr "Ceļš uz „dvips“ izpilddatni"
 
 #: lib/defaultvariablemodel.cpp:71
 #, kde-format
 msgctxt "@title:column"
 msgid "Type"
-msgstr ""
+msgstr "Tips"
 
 #: lib/defaultvariablemodel.cpp:73
 #, kde-format
 msgctxt "@title:column"
 msgid "Size [Bytes]"
-msgstr ""
+msgstr "Lielums [baiti]"
 
 #: lib/defaultvariablemodel.cpp:75
 #, kde-format
 msgctxt "@title:column"
 msgid "Dimension"
-msgstr ""
+msgstr "Izmēri"
 
 #: lib/defaultvariablemodel.cpp:77
 #, kde-format
@@ -3780,7 +3744,7 @@ msgstr "Līdz:"
 #: lib/directives/plotdirectives.cpp:19
 #, kde-format
 msgid "Main title"
-msgstr "Galvenais nosaukums"
+msgstr "Pamata nosaukums"
 
 #: lib/directives/plotdirectives.cpp:30
 #, kde-format
@@ -3801,12 +3765,12 @@ msgstr "Grafika nosaukums:"
 #: lib/mimeresult.cpp:33
 #, kde-format
 msgid "This is unsupported Jupyter content of types ('%1')"
-msgstr ""
+msgstr "Šis ir neatbalstītas „Jupyter“ tipu saturs („%1“)"
 
 #: lib/session.cpp:265
 #, kde-format
 msgid "%1 process has died unexpectedly. All calculation results are lost."
-msgstr ""
+msgstr "„%1“ process pēkšņi izbeidzās. Visi aprēķinu rezultāti ir zaudēti."
 
 #: lib/session.cpp:267
 #, kde-format
@@ -3814,6 +3778,8 @@ msgid ""
 "%1 process has died unexpectedly with message \"%2\". All calculation "
 "results are lost."
 msgstr ""
+"„%1“ process pēkšņi beidzās ar ziņojumu „%2“. Visi aprēķinu rezultāti ir "
+"zaudēti."
 
 #: lib/session.cpp:333
 #, kde-format
@@ -3822,17 +3788,19 @@ msgid ""
 "activated due to the missing requirements, so integration for this package "
 "will be disabled. %2"
 msgstr ""
+"Jūs izvēlējāties atbalstu „%1“ grafiskajai pakotnei, tomēr šo atbalstu nevar "
+"ieslēgt, jo trūkst visa tam nepieciešamā, tāpēc šīs pakotnes integrācijas "
+"šobrīd būs izslēgta. %2"
 
 #: main.cpp:69
 #, kde-format
 msgid "KDE Frontend to mathematical applications"
-msgstr "KDE priekšpuse matemātiskajām lietotnēm"
+msgstr "KDE priekšsistēma matemātiskajām programmām"
 
 #: main.cpp:71
-#, fuzzy, kde-format
-#| msgid "(C) 2009-2012 Alexander Rieder"
+#, kde-format
 msgid "(C) 2016 Filipe Saraiva<br/>(C) 2009-2015 Alexander Rieder"
-msgstr "(C) 2009-2012 Alexander Rieder"
+msgstr "(C) 2016 Filipe Saraiva<br/>(C) 2009—2015 Alexander Rieder"
 
 #: main.cpp:75
 #, kde-format
@@ -3840,32 +3808,30 @@ msgid "Filipe Saraiva"
 msgstr "Filipe Saraiva"
 
 #: main.cpp:75
-#, fuzzy, kde-format
-#| msgid "Scilab backend"
+#, kde-format
 msgid "Maintainer<br/>Qt5/KF5 port, Scilab and Python backends"
-msgstr "Scilab aizmugure"
+msgstr "Uzturētājs<br/>Qt5/KF5 ports, „Scilab“ un „Python“ aizmugursistēmas"
 
 #: main.cpp:76
 #, kde-format
 msgid "Nikita Sirgienko"
-msgstr ""
+msgstr "Nikita Sirgienko"
 
 #: main.cpp:76 main.cpp:77
 #, kde-format
 msgctxt "@info:credit"
 msgid "Developer"
-msgstr ""
+msgstr "Izstrādātājs"
 
 #: main.cpp:77
-#, fuzzy, kde-format
-#| msgid "Alexander Rieder"
+#, kde-format
 msgid "Alexander Semke"
-msgstr "Alexander Rieder"
+msgstr "Alexander Semke"
 
 #: main.cpp:78
 #, kde-format
 msgid "Original author<br/>Maintainer (2009 - 2015)"
-msgstr ""
+msgstr "Sākotnējās versijas autors<br/>Uzturētājs (2009—2015)"
 
 #: main.cpp:79
 #, kde-format
@@ -3875,7 +3841,7 @@ msgstr "Aleix Pol Gonzalez"
 #: main.cpp:79
 #, kde-format
 msgid "KAlgebra backend"
-msgstr "KAlgebra aizmugure"
+msgstr "„KAlgebra“ aizmugursistēma"
 
 #: main.cpp:80
 #, kde-format
@@ -3885,7 +3851,7 @@ msgstr "Miha Čančula"
 #: main.cpp:80
 #, kde-format
 msgid "Octave backend"
-msgstr "Octave aizmugure"
+msgstr "„Octave“ aizmugursistēma"
 
 #: main.cpp:81
 #, kde-format
@@ -3895,53 +3861,47 @@ msgstr "Martin Küttler"
 #: main.cpp:81
 #, kde-format
 msgid "Interface"
-msgstr "Interfeiss"
+msgstr "Saskarne"
 
 #: main.cpp:83 main.cpp:84
-#, fuzzy, kde-format
-#| msgid "Cantor"
+#, kde-format
 msgid "Cantor icon"
-msgstr "Cantor"
+msgstr "„Cantor“ ikona"
 
 #: main.cpp:89
-#, fuzzy, kde-format
-#| msgid "Use this backend"
+#, kde-format
 msgid "Use  backend <backend>"
-msgstr "Lietot šo aizmuguri"
+msgstr "Lietot aizmugursistēmu <backend>"
 
 #: main.cpp:92
-#, fuzzy, kde-format
-#| msgid "Document to open"
+#, kde-format
 msgid "Documents to open."
-msgstr "Atveramais dokuments"
+msgstr "Atveramie dokumenti."
 
 #: main.cpp:122
-#, fuzzy, kde-format
-#| msgid "Error opening file %1"
+#, kde-format
 msgid "Couldn't open the file %1"
-msgstr "Kļūda atverot failu %1"
+msgstr "Nevarēja atvērt datni „%1“"
 
 #: markdownentry.cpp:70
 #, kde-format
 msgid "Enter Edit Mode"
-msgstr ""
+msgstr "Ieiet rediģēšanas režīmā"
 
 #: markdownentry.cpp:78
 #, kde-format
 msgid "Clear Attachments"
-msgstr ""
+msgstr "Notīrīt pielikumus"
 
 #: markdownentry.cpp:587
-#, fuzzy, kde-format
-#| msgid "Syntax Error"
+#, kde-format
 msgid "Cantor Math Error"
-msgstr "Sintakses kļūda"
+msgstr "„Cantor“ matemātikas kļūda"
 
 #: markdownentry.cpp:796
-#, fuzzy, kde-format
-#| msgid "Could not find the Cantor Part."
+#, kde-format
 msgid "Failed to read the image \"%1\". Error \"%2\""
-msgstr "Neizdevās atrast Cantor daļu."
+msgstr "Neizdevās nolasīt attēlu „%1“. Kļūda „%2“"
 
 #: pagebreakentry.cpp:28
 #, kde-format
@@ -3952,83 +3912,79 @@ msgstr "--- Lapas atdalītājs ---"
 #, kde-format
 msgctxt "@button go to contents page"
 msgid "Go to the contents"
-msgstr ""
+msgstr "Iet uz saturu"
 
 #: panelplugins/documentationpanel/documentationpanelwidget.cpp:58
 #, kde-format
 msgctxt "@info:placeholder"
 msgid "Search through keywords..."
-msgstr ""
+msgstr "Meklēt atslēgvārdos..."
 
 #: panelplugins/documentationpanel/documentationpanelwidget.cpp:69
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Find in text of current documentation page"
-msgstr ""
+msgstr "Meklēt dokumentācijas lapas tekstā"
 
 #: panelplugins/documentationpanel/documentationpanelwidget.cpp:75
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Reset zoom level to 100%"
-msgstr ""
+msgstr "Atiestatīt tuvinājumu līdz 100 %"
 
 #: panelplugins/documentationpanel/documentationpanelwidget.cpp:123
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Close"
-msgstr ""
+msgstr "Aizvērt"
 
 #: panelplugins/documentationpanel/documentationpanelwidget.cpp:133
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Jump to next match"
-msgstr ""
+msgstr "Iet uz nākamo atbilstību"
 
 #: panelplugins/documentationpanel/documentationpanelwidget.cpp:137
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Jump to previous match"
-msgstr ""
+msgstr "Iet uz iepriekšējo atbilstību"
 
 #: panelplugins/documentationpanel/documentationpanelwidget.cpp:141
-#, fuzzy, kde-format
-#| msgid "&Match case"
+#, kde-format
 msgctxt "@info:tooltip"
 msgid "Match case sensitively"
-msgstr "&Reģistrjutīgs"
+msgstr "Reģistrjutīgs"
 
 #: panelplugins/documentationpanel/documentationpanelwidget.cpp:410
 #, kde-format
 msgid "The file has been downloaded successfully at Downloads."
-msgstr ""
+msgstr "Datne ir lejupielādēta sistēmas lejupielāžu mapē."
 
 #: panelplugins/documentationpanel/documentationpanelwidget.cpp:410
 #, kde-format
 msgid "Download Successful"
-msgstr ""
+msgstr "Lejupielāde pabeigta"
 
 #: panelplugins/filebrowserpanel/filebrowserpanelplugin.cpp:137
-#, fuzzy, kde-format
-#| msgid "Cantor"
+#, kde-format
 msgid "Cantor files"
-msgstr "Cantor"
+msgstr "„Cantor“ datnes"
 
 #: panelplugins/filebrowserpanel/filebrowserpanelplugin.cpp:138
-#, fuzzy, kde-format
-#| msgid "Open image file"
+#, kde-format
 msgid "Jupyter files"
-msgstr "Atvērt attēla failu"
+msgstr "„Jupyter“ datnes"
 
 #: panelplugins/filebrowserpanel/filebrowserpanelplugin.cpp:139
 #, kde-format
 msgid "All supported files"
-msgstr ""
+msgstr "Visas atbalstītās datnes"
 
 #: panelplugins/filebrowserpanel/filebrowserpanelplugin.cpp:140
-#, fuzzy, kde-format
-#| msgid "file"
+#, kde-format
 msgid "All files"
-msgstr "fails"
+msgstr "Visas datnes"
 
 #. i18n: ectx: property (text), widget (QLabel, label)
 #: panelplugins/variablemgr/newvardlg.ui:17
@@ -4044,8 +4000,7 @@ msgstr "Vērtība:"
 
 #: panelplugins/variablemgr/variablemanagerwidget.cpp:48
 #: panelplugins/variablemgr/variablemanagerwidget.cpp:205
-#, fuzzy, kde-format
-#| msgid "Add new variable"
+#, kde-format
 msgid "Add New Variable"
 msgstr "Pievienot jaunu mainīgo"
 
@@ -4055,62 +4010,55 @@ msgid "Load Variables"
 msgstr "Ielādēt mainīgos"
 
 #: panelplugins/variablemgr/variablemanagerwidget.cpp:60
-#, fuzzy, kde-format
-#| msgid "Store Variables"
+#, kde-format
 msgid "Save Variables"
-msgstr "Glabāt mainīgos"
+msgstr "Saglabāt mainīgos"
 
 #: panelplugins/variablemgr/variablemanagerwidget.cpp:66
 #: panelplugins/variablemgr/variablemanagerwidget.cpp:144
-#, fuzzy, kde-format
-#| msgid "Store Variables"
+#, kde-format
 msgid "Remove Variables"
-msgstr "Glabāt mainīgos"
+msgstr "Noņemt mainīgos"
 
 #: panelplugins/variablemgr/variablemanagerwidget.cpp:76
-#, fuzzy, kde-format
-#| msgid "SearchBar"
+#, kde-format
 msgid "Search/Filter"
-msgstr "Meklēšanas josla"
+msgstr "Meklēt/filtrēt"
 
 #: panelplugins/variablemgr/variablemanagerwidget.cpp:87
 #, kde-format
 msgid "Case Sensitive"
-msgstr ""
+msgstr "Reģistrjutīgs"
 
 #: panelplugins/variablemgr/variablemanagerwidget.cpp:91
 #, kde-format
 msgid "Match Complete Word"
-msgstr ""
+msgstr "Meklēt pilnus vārdus"
 
 #: panelplugins/variablemgr/variablemanagerwidget.cpp:143
 #, kde-format
 msgid "Are you sure you want to remove all variables?"
-msgstr "Vai tiešām vēlaties izņemt visus mainīgos?"
+msgstr "Vai tiešām vēlaties noņemt visus mainīgos?"
 
 #: panelplugins/variablemgr/variablemanagerwidget.cpp:190
-#, fuzzy, kde-format
-#| msgid "Loading failed."
+#, kde-format
 msgid "Load file"
-msgstr "Ielādēšana neizdevās."
+msgstr "Ielādēt datni"
 
 #: panelplugins/variablemgr/variablemanagerwidget.cpp:291
-#, fuzzy, kde-format
-#| msgid "Name"
+#, kde-format
 msgid "Copy Name"
-msgstr "Nosaukums"
+msgstr "Kopēt nosaukumu"
 
 #: panelplugins/variablemgr/variablemanagerwidget.cpp:292
-#, fuzzy, kde-format
-#| msgctxt "@title:column"
-#| msgid "Value"
+#, kde-format
 msgid "Copy Value"
-msgstr "Vērtība"
+msgstr "Kopēt vērtību"
 
 #: panelplugins/variablemgr/variablemanagerwidget.cpp:293
 #, kde-format
 msgid "Copy Name and Value"
-msgstr ""
+msgstr "Kopēt nosaukumu un vērtību"
 
 #: resultitem.cpp:48
 #, kde-format
@@ -4120,7 +4068,7 @@ msgstr "Saglabāt rezultātu"
 #: resultitem.cpp:49
 #, kde-format
 msgid "Remove result"
-msgstr "Izņemt rezultātu"
+msgstr "Noņemt rezultātu"
 
 #: scripteditor/scripteditorwidget.cpp:47
 #, kde-format
@@ -4128,8 +4076,8 @@ msgid ""
 "A KDE text-editor component could not be found;\n"
 "please check your KDE installation."
 msgstr ""
-"KDE teksta redaktora sastāvdaļa netika atrasta,\n"
-"lūdzu, pārbaudiet jūsu KDE instalāciju."
+"KDE teksta redaktora sastāvdaļa nav atrasta,\n"
+"pārbaudiet jūsu KDE instalāciju."
 
 #: scripteditor/scripteditorwidget.cpp:142
 #, kde-format
@@ -4139,7 +4087,7 @@ msgstr "Skriptu redaktors"
 #: scripteditor/scripteditorwidget.cpp:145
 #, kde-format
 msgid "Script Editor - %1"
-msgstr "Skriptu redaktors - %1"
+msgstr "Skriptu redaktors — %1"
 
 #: searchbar.cpp:130 searchbar.cpp:178
 #, kde-format
@@ -4157,13 +4105,12 @@ msgid "Reached end"
 msgstr "Sasniegtas beigas"
 
 #: searchbar.cpp:238
-#, fuzzy, kde-format
-#| msgid "Replaced %1 instances"
+#, kde-format
 msgid "Replaced %1 instance"
 msgid_plural "Replaced %1 instances"
-msgstr[0] "Aizvietotas %1 instances"
-msgstr[1] "Aizvietotas %1 instances"
-msgstr[2] "Aizvietotas %1 instances"
+msgstr[0] "Aizvietots %1 vietā"
+msgstr[1] "Aizvietots %1 vietās"
+msgstr[2] "Aizvietots %1 vietās"
 
 #: searchbar.cpp:333 searchbar.cpp:362
 #, kde-format
@@ -4189,28 +4136,25 @@ msgstr "Teksts"
 #: searchbar.cpp:334 searchbar.cpp:363
 #, kde-format
 msgid "LaTeX Code"
-msgstr "LaTeX kods"
+msgstr "„LaTeX“ kods"
 
 #. i18n: ectx: property (text), widget (QLabel, label_4)
 #: settings.ui:23
-#, fuzzy, kde-format
-#| msgid "Equations:"
+#, kde-format
 msgid "Evaluation:"
-msgstr "Vienādojumi:"
+msgstr "Risinājums:"
 
 #. i18n: ectx: property (toolTip), widget (QCheckBox, kcfg_CompletionDefault)
 #: settings.ui:43
-#, fuzzy, kde-format
-#| msgid "Enable Completion"
+#, kde-format
 msgid "Enable syntax completion"
-msgstr "Ieslēgt pabeigšanu"
+msgstr "Ieslēgt sintakses pabeigšanu"
 
 #. i18n: ectx: property (text), widget (QLabel, label_2)
 #: settings.ui:59
-#, fuzzy, kde-format
-#| msgid "Start"
+#, kde-format
 msgid "Startup:"
-msgstr "Sākt"
+msgstr "Palaišana:"
 
 #. i18n: ectx: property (toolTip), widget (QLabel, label)
 #. i18n: ectx: property (toolTip), widget (KComboBox, kcfg_DefaultBackend)
@@ -4220,12 +4164,14 @@ msgid ""
 "Create a new worksheet for the selected backend system. If none is selected, "
 "the user is asked about which system to use on startup."
 msgstr ""
+"Izveidot jaunu darblapu ar atlasīto aizmugursistēmu. Ja neviena nav "
+"atlasīta, lūgs lietotājam, kuru aizmugursistēmu izmantot."
 
 #. i18n: ectx: property (text), widget (QLabel, label)
 #: settings.ui:69
 #, kde-format
 msgid "Default Backend:"
-msgstr "Noklusētā aizmugure:"
+msgstr "Noklusējuma aizmugursistēma:"
 
 #. i18n: ectx: property (toolTip), widget (QSpinBox, kcfg_VisibleLinesLimit)
 #: settings.ui:76
@@ -4234,49 +4180,48 @@ msgid ""
 "Maximal number of visible rows in the result of a command entry. Use 0 to "
 "work without limitations."
 msgstr ""
+"Maksimālais redzamo rindu skaits ievades komandu ierakstos. Lietojiet 0, lai "
+"noņemtu ierobežojumus."
 
 #. i18n: ectx: property (toolTip), widget (QCheckBox, kcfg_TypesetDefault)
 #: settings.ui:89
-#, fuzzy, kde-format
-#| msgid "Enable LaTeX Typesetting"
+#, kde-format
 msgid ""
 "Enable LaTeX typesetting for the results of the calculations, if supported "
 "by the backend system"
-msgstr "Ieslēgt LaTeX salikumu"
+msgstr ""
+"Ieslēgt „LaTeX“ salikumu aprēķinu rezultātiem, ja to atbalsta aizmugursistēma"
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_TypesetDefault)
 #: settings.ui:92
-#, fuzzy, kde-format
-#| msgid "Enable LaTeX Typesetting"
+#, kde-format
 msgid "LaTeX typesetting"
-msgstr "Ieslēgt LaTeX salikumu"
+msgstr "„LaTeX“ salikums"
 
 #. i18n: ectx: property (text), widget (QLabel, VisibleLinesLimit_label)
 #: settings.ui:102
 #, kde-format
 msgid "Number of rows in the result (0 for unlimited):"
-msgstr ""
+msgstr "Rindu skaits rezultātos (0 nozīmē neierobežoti):"
 
 #. i18n: ectx: property (toolTip), widget (QCheckBox, kcfg_AnimationDefault)
 #: settings.ui:135
-#, fuzzy, kde-format
-#| msgid "Integrate Plots into the Worksheet"
+#, kde-format
 msgid "Enable animation effects in the worksheet"
-msgstr "Integrēt grafikus darblapā"
+msgstr "Ieslēgt darba lapas animācijas efektus"
 
 #. i18n: ectx: property (toolTip), widget (QCheckBox, kcfg_EmbeddedMathDefault)
 #: settings.ui:158
-#, fuzzy, kde-format
-#| msgid "Enable LaTeX Typesetting"
+#, kde-format
 msgid ""
 "Enable LaTeX typesetting for mathematical expressions in Markdown entries"
-msgstr "Ieslēgt LaTeX salikumu"
+msgstr "Ieslēgt LaTeX salikumu matemātiskām izteiksmēm „Markdown“ ierakstiem"
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_EmbeddedMathDefault)
 #: settings.ui:161
 #, kde-format
 msgid "Mathematical expressions via LaTeX"
-msgstr ""
+msgstr "Matemātiskas izteiksmes caur „LaTeX“"
 
 #. i18n: ectx: property (toolTip), widget (QCheckBox, kcfg_AutoEval)
 #: settings.ui:168
@@ -4284,20 +4229,19 @@ msgstr ""
 msgid ""
 "If enabled, all entries below the current one will be evaluated automatically"
 msgstr ""
+"Ja ieslēgts, programma automātiski risinās visus ierakstus zem pašreizējā"
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_AutoEval)
 #: settings.ui:171
-#, fuzzy, kde-format
-#| msgid "Reevaluate Entries automatically"
+#, kde-format
 msgid "Reevaluate entries automatically"
-msgstr "Pārrēķināt ierakstus automātiski"
+msgstr "Automātiski pārrisināt ierakstus"
 
 #. i18n: ectx: property (text), widget (QLabel, label_3)
 #: settings.ui:184
-#, fuzzy, kde-format
-#| msgid "&Worksheet"
+#, kde-format
 msgid "Worksheet:"
-msgstr "&Darblapa"
+msgstr "Darblapa:"
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_StoreTextEntryFormatting)
 #: settings.ui:223
@@ -4305,13 +4249,14 @@ msgstr "&Darblapa"
 msgid ""
 "Use rich text format for text entries when saving in Jupyter Notebook Format"
 msgstr ""
+"„Jupyter“ piezīmju grāmatas formātā teksta ierakstiem izmantot pilnu "
+"formatējumu"
 
 #. i18n: ectx: property (text), widget (QLabel, label_5)
 #: settings.ui:236
-#, fuzzy, kde-format
-#| msgid "Insert Command Entry"
+#, kde-format
 msgid "Markdown:"
-msgstr "Ievietot komandas ierakstu"
+msgstr "Markdown:"
 
 #. i18n: ectx: property (toolTip), widget (QCheckBox, kcfg_UseOldCantorEntriesIndent)
 #: settings.ui:243
@@ -4320,12 +4265,14 @@ msgid ""
 "If enabled, text entries are aligned at the worksheet border and not at the "
 "prompt border"
 msgstr ""
+"Ja ieslēgts, teksta ierakstus programma izlīdzinās gar darblapas malu, bet "
+"ne gar uzvednes malu"
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_UseOldCantorEntriesIndent)
 #: settings.ui:246
 #, kde-format
 msgid "Don't indent text entries"
-msgstr ""
+msgstr "Teksta ierakstiem nelikt atkāpes"
 
 #. i18n: ectx: property (toolTip), widget (QCheckBox, kcfg_WarnAboutSessionRestart)
 #: settings.ui:266
@@ -4334,38 +4281,35 @@ msgid ""
 "If enabled, the user will be asked for confirmation prior to restarting the "
 "backend system"
 msgstr ""
+"Ja ieslēgts, lietotājam lūgs apstiprināt aizmugursistēmas pārstartēšanu"
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_ShowMathRenderError)
 #: settings.ui:276
 #, kde-format
 msgid "Notify about render failures for mathematical expressions"
-msgstr ""
+msgstr "Informēt par atveidošanas kļūdām matemātiskām izteiksmēm"
 
 #. i18n: ectx: property (toolTip), widget (QCheckBox, kcfg_ExpressionNumberingDefault)
 #: settings.ui:283
-#, fuzzy, kde-format
-#| msgid "Line Numbers"
+#, kde-format
 msgid "Show line numbers"
-msgstr "Rindu numuri"
+msgstr "Rādīt rindu numurus"
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_ExpressionNumberingDefault)
 #: settings.ui:286
-#, fuzzy, kde-format
-#| msgid "Line Numbers"
+#, kde-format
 msgid "Line numbers"
 msgstr "Rindu numuri"
 
 #. i18n: ectx: property (toolTip), widget (QCheckBox, kcfg_HighlightDefault)
 #: settings.ui:293
-#, fuzzy, kde-format
-#| msgid "Enable Syntax Highlighting"
+#, kde-format
 msgid "Enable syntax highlighting"
-msgstr "Izmantot sintakses izcelšanu"
+msgstr "Ieslēgt sintakses izcelšanu"
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_HighlightDefault)
 #: settings.ui:296
-#, fuzzy, kde-format
-#| msgid "Syntax Highlighting"
+#, kde-format
 msgid "Syntax highlighting"
 msgstr "Sintakses izcelšana"
 
@@ -4373,107 +4317,99 @@ msgstr "Sintakses izcelšana"
 #: settings.ui:303
 #, kde-format
 msgid "Ask for confirmation when deleting entries"
-msgstr ""
+msgstr "Lūgt apstiprināt ierakstu dzēšanu"
 
 #. i18n: ectx: property (placeholderText), widget (KLineEdit, pattern)
 #: standardsearchbar.ui:35
-#, fuzzy, kde-format
-#| msgid "Find:"
+#, kde-format
 msgid "Find…"
-msgstr "Meklēt:"
+msgstr "Meklēt…"
 
 #: textentry.cpp:55
 #, kde-format
 msgid "Raw Cell Targets"
-msgstr ""
+msgstr "Neapstrādāti šūnu mērķi"
 
 #: textentry.cpp:62
 #, kde-format
 msgid "Add custom target"
-msgstr ""
+msgstr "Pievienot pielāgotu mērķi"
 
 #: textentry.cpp:76
-#, fuzzy, kde-format
-#| msgid "Insert Text Entry"
+#, kde-format
 msgid "Convert to Text Entry"
-msgstr "Ievietot teksta ierakstu"
+msgstr "Konvertēt uz teksta ievadi"
 
 #: textentry.cpp:81
 #, kde-format
 msgid "Convert to Raw Cell"
-msgstr ""
+msgstr "Konvertēt uz neapstrādātu šūnu"
 
 #: textentry.cpp:553
 #, kde-format
 msgid "Target MIME type:"
-msgstr ""
+msgstr "Mērķa MIME tips:"
 
 #: textresultitem.cpp:60
-#, fuzzy, kde-format
-#| msgid "Remove result"
+#, kde-format
 msgid "Copy result"
-msgstr "Izņemt rezultātu"
+msgstr "Kopēt rezultātu"
 
 #: textresultitem.cpp:69
 #, kde-format
 msgid "Show Rendered"
-msgstr "Parādīt renderēto"
+msgstr "Rādīt atveidotu"
 
 #: textresultitem.cpp:71
 #, kde-format
 msgid "Show Code"
-msgstr "Parādīt kodu"
+msgstr "Rādīt kodu"
 
 #: textresultitem.cpp:79 textresultitem.cpp:92
-#, fuzzy, kde-format
-#| msgid "Show Code"
+#, kde-format
 msgid "Show HTML Code"
-msgstr "Parādīt kodu"
+msgstr "Rādīt HTML kodu"
 
 #: textresultitem.cpp:81 textresultitem.cpp:87
 #, kde-format
 msgid "Show Plain Alternative"
-msgstr ""
+msgstr "Rādīt vienkāršu alternatīvu"
 
 #: textresultitem.cpp:85
-#, fuzzy, kde-format
-#| msgid "Show %1 Help"
+#, kde-format
 msgid "Show Html"
-msgstr "Parādīt %1 palīdzību"
+msgstr "Rādīt HTML"
 
 #: textresultitem.cpp:91
-#, fuzzy, kde-format
-#| msgid "Show %1 Help"
+#, kde-format
 msgid "Show HTML"
-msgstr "Parādīt %1 palīdzību"
+msgstr "Rādīt HTML"
 
 #: textresultitem.cpp:160
 #, kde-format
 msgid "Cannot render Eps file. You may need additional packages"
 msgstr ""
-"Neizdevās izanalizēt Eps failu. Jums varētu būt vajadzīgas papildu pakotnes"
+"Neizdevās atveidot EPS datni. Sistēmai varētu būt vajadzīgas papildu pakotnes"
 
 #: textresultitem.cpp:212
-#, fuzzy, kde-format
-#| msgid "Save result"
+#, kde-format
 msgid "Save text result"
-msgstr "Saglabāt rezultātu"
+msgstr "Saglabāt teksta rezultātu"
 
 #: worksheet.cpp:1203
 #, kde-format
 msgid "Cannot write file %1."
-msgstr "Neizdevās rakstīt failā %1."
+msgstr "Neizdevās rakstīt datnē „%1“."
 
 #: worksheet.cpp:1231 worksheet.cpp:1246
-#, fuzzy, kde-format
-#| msgid "Cannot write file %1."
+#, kde-format
 msgid "Cannot write file."
-msgstr "Neizdevās rakstīt failā %1."
+msgstr "Neizdevās rakstīt datnē."
 
 #: worksheet.cpp:1263 worksheet.cpp:1307
 #, kde-format
 msgid "Error saving file %1"
-msgstr "Kļūda saglabājot failu %1"
+msgstr "Kļūda, saglabājot datni „%1“"
 
 #: worksheet.cpp:1286
 #, kde-format
@@ -4481,41 +4417,40 @@ msgid ""
 "In read-only mode Cantor couldn't guarantee, that the export will be valid "
 "for %1"
 msgstr ""
+"Tikai lasīšanas režīmā „Cantor“ nevar garantēt, ka eksports būs derīgs "
+"priekš „%1“"
 
 #: worksheet.cpp:1313
 #, kde-format
 msgid "Error loading latex.xsl stylesheet"
-msgstr "Kļūda ielādējot latex.xsl stila lapu"
+msgstr "Kļūda, ielādējot „latex.xsl“ stila lapu"
 
 #: worksheet.cpp:1354
-#, fuzzy, kde-format
-#| msgid "Error opening file %1"
+#, kde-format
 msgid "Couldn't open the file %1."
-msgstr "Kļūda atverot failu %1"
+msgstr "Nevarēja atvērt datni „%1“."
 
 #: worksheet.cpp:1354 worksheet.cpp:1377 worksheet.cpp:1397 worksheet.cpp:1414
 #: worksheet.cpp:1446 worksheet.cpp:1457 worksheet.cpp:1568 worksheet.cpp:1583
 #: worksheet.cpp:1625 worksheet.cpp:1636 worksheet.cpp:1756 worksheet.cpp:1758
-#, fuzzy, kde-format
-#| msgid "Open image file"
+#, kde-format
 msgid "Open File"
-msgstr "Atvērt attēla failu"
+msgstr "Atvērt datni"
 
 #: worksheet.cpp:1377
-#, fuzzy, kde-format
-#| msgid "Error opening file %1"
+#, kde-format
 msgid "Couldn't open the selected file for reading."
-msgstr "Kļūda atverot failu %1"
+msgstr "Nevarēja lasīšanai atvērt atlasīto datni."
 
 #: worksheet.cpp:1397
 #, kde-format
 msgid "The selected file is not a valid Cantor or Jupyter project file."
-msgstr ""
+msgstr "Atlasītā datne nav derīga „Cantor“ vai „Jupyter“ projekta datne."
 
 #: worksheet.cpp:1414
 #, kde-format
 msgid "The selected file is not a valid Cantor project file."
-msgstr ""
+msgstr "Atlasītā datne nav derīga „Cantor“ projekta datne."
 
 #: worksheet.cpp:1436
 #, kde-format
@@ -4523,17 +4458,21 @@ msgid ""
 "This worksheet was created using Python2 which is not supported anymore. "
 "Python3 will be used."
 msgstr ""
+"Šī darblapa ir izveidota ar „Python2“, kas vairs nav atbalstīts. Programma "
+"tā vietā izmantos „Python3“."
 
 #: worksheet.cpp:1437 worksheet.cpp:1607
 #, kde-format
 msgid "Python2 not supported anymore"
-msgstr ""
+msgstr "„Python2“ vairs nav atbalstīts"
 
 #: worksheet.cpp:1446 worksheet.cpp:1624
 #, kde-format
 msgid ""
 "%1 backend was not found. Editing and executing entries is not possible."
 msgstr ""
+"„%1“ aizmugursistēma nav atrasta. Ierakstu rediģēšana un izpildīšana nav "
+"iespējama."
 
 #: worksheet.cpp:1455 worksheet.cpp:1634
 #, kde-format
@@ -4542,9 +4481,9 @@ msgid ""
 "please check your configuration or install the needed packages.\n"
 "You will only be able to view this worksheet."
 msgstr ""
-"Pastāv dažas problēmas ar %1 aizmuguri,\n"
-"lūdzu, pārbaudiet jūsu konfigurāciju vai instalējiet vajadzīgās pakotnes.\n"
-"Jūs varēsiet apskatīt tikai šo darblapu."
+"Pastāv problēmas ar „%1“ aizmugursistēmu.\n"
+"Pārbaudiet sistēmas konfigurāciju vai instalējiet vajadzīgās pakotnes.\n"
+"Apskatīt varēsiet tikai šo darblapu."
 
 #: worksheet.cpp:1567
 #, kde-format
@@ -4552,6 +4491,8 @@ msgid ""
 "Jupyter notebooks with versions lower than 4.5 (detected version %1.%2) are "
 "not supported."
 msgstr ""
+"„Jupyter“ piezīmju grāmatas ar versiju, kas ir zemākas par 4.5 (konstatētā "
+"versija %1.%2) nav atbalstītas."
 
 #: worksheet.cpp:1582
 #, kde-format
@@ -4559,6 +4500,8 @@ msgid ""
 "Jupyter notebooks with versions higher than 4.5 (detected version %1.%2) are "
 "not supported."
 msgstr ""
+"„Jupyter“ piezīmju grāmatas ar versijām, kas ir augstākas par 4.5 "
+"(konstatētā versija %1.%2) nav atbalstītas."
 
 #: worksheet.cpp:1606
 #, kde-format
@@ -4566,49 +4509,48 @@ msgid ""
 "This notebook was created using Python2 which is not supported anymore. "
 "Python3 will be used."
 msgstr ""
+"Šī piezīmju grāmata ir izveidota ar „Python2“, kas vairs nav atbalstīts. Tā "
+"vietā programma izmantos „Python3“"
 
 #: worksheet.cpp:1674
 #, kde-format
 msgid "an object with keys: %1"
-msgstr ""
+msgstr "objekts ar atslēgām: %1"
 
 #: worksheet.cpp:1676
 #, kde-format
 msgid "non object JSON value"
-msgstr ""
+msgstr "ne objekta JSON vērtība"
 
 #: worksheet.cpp:1679
 #, kde-format
 msgid "found incorrect data (%1) that is not Jupyter cell"
-msgstr ""
+msgstr "atrasti nekorekti dati (%1), kas nav „Jupyter“ šūna"
 
 #: worksheet.cpp:1756
 #, kde-format
 msgid "The file is not valid Jupyter notebook"
-msgstr ""
+msgstr "Datne nav derīga „Jupyter“ piezīmju grāmata"
 
 #: worksheet.cpp:1758
 #, kde-format
 msgid "Invalid Jupyter notebook scheme: %1"
-msgstr ""
+msgstr "Nederīga „Jupyter“ piezīmju grāmatas shēma: %1"
 
 #: worksheet.cpp:1834
-#, fuzzy, kde-format
-#| msgid "Insert Text Entry"
+#, kde-format
 msgid "Convert To"
-msgstr "Ievietot teksta ierakstu"
+msgstr "Pārveidot par"
 
 #: worksheet.cpp:1839 worksheet.cpp:1870 worksheet.cpp:1890 worksheet.cpp:1908
-#, fuzzy, kde-format
-#| msgid "Commands"
+#, kde-format
 msgid "Command"
-msgstr "Komandas"
+msgstr "Komanda"
 
 #: worksheet.cpp:1846 worksheet.cpp:1873 worksheet.cpp:1893 worksheet.cpp:1911
-#, fuzzy, kde-format
-#| msgid "Insert Command Entry"
+#, kde-format
 msgid "Markdown"
-msgstr "Ievietot komandas ierakstu"
+msgstr "Markdown"
 
 #: worksheet.cpp:1853 worksheet.cpp:1878 worksheet.cpp:1898 worksheet.cpp:1916
 #, kde-format
@@ -4621,22 +4563,19 @@ msgid "Page Break"
 msgstr "Lapas atdalītājs"
 
 #: worksheet.cpp:1859 worksheet.cpp:1880 worksheet.cpp:1900 worksheet.cpp:1918
-#, fuzzy, kde-format
-#| msgid "Points and Lines"
+#, kde-format
 msgid "Horizontal Line"
-msgstr "Punkti un rindas"
+msgstr "Horizontāla līnija"
 
 #: worksheet.cpp:1862 worksheet.cpp:1883 worksheet.cpp:1903 worksheet.cpp:1921
-#, fuzzy, kde-format
-#| msgid "Drag Entry"
+#, kde-format
 msgid "Hierarchy Entry"
-msgstr "Pārnest ierakstu"
+msgstr "Hierarhijas ieraksts"
 
 #: worksheet.cpp:1865
-#, fuzzy, kde-format
-#| msgid "Insert Text Entry"
+#, kde-format
 msgid "Insert After"
-msgstr "Ievietot teksta ierakstu"
+msgstr "Ievietot pēc"
 
 #: worksheet.cpp:1886
 #, kde-format
@@ -4651,70 +4590,62 @@ msgstr "Ievietot"
 #: worksheet.cpp:1948
 #, kde-format
 msgid "Zoom In"
-msgstr ""
+msgstr "Tuvināt"
 
 #: worksheet.cpp:1951
 #, kde-format
 msgid "Zoom Out"
-msgstr ""
+msgstr "Tālināt"
 
 #: worksheet.cpp:1955
-#, fuzzy, kde-format
-#| msgid "Print Size"
+#, kde-format
 msgid "Original Size"
-msgstr "Drukāšanas izmērs"
+msgstr "Sākotnējais izmērs"
 
 #: worksheet.cpp:1963
 #, kde-format
 msgid "Move Entries Up"
-msgstr ""
+msgstr "Pārvietot ierakstus augšup"
 
 #: worksheet.cpp:1964
-#, fuzzy, kde-format
-#| msgid "Insert Text Entry"
+#, kde-format
 msgid "Move Entries Down"
-msgstr "Ievietot teksta ierakstu"
+msgstr "Pārvietot ierakstus lejup"
 
 #: worksheet.cpp:1965
-#, fuzzy, kde-format
-#| msgid "Evaluate Entry"
+#, kde-format
 msgid "Evaluate Entries"
-msgstr "Novērtēt ierakstu"
+msgstr "Risināt ierakstus"
 
 #: worksheet.cpp:1967 worksheet.cpp:2818
-#, fuzzy, kde-format
-#| msgid "Evaluate Entry"
+#, kde-format
 msgid "Delete Entries"
-msgstr "Novērtēt ierakstu"
+msgstr "Dzēst ierakstus"
 
 #: worksheet.cpp:1980
-#, fuzzy, kde-format
-#| msgid "Insert Command Entry"
+#, kde-format
 msgid "Collapse Command Entry Results"
-msgstr "Ievietot komandas ierakstu"
+msgstr "Sakļaut komandu ieraksta rezultātus"
 
 #: worksheet.cpp:1981
-#, fuzzy, kde-format
-#| msgid "Append Command Entry"
+#, kde-format
 msgid "Expand Command Entry Results"
-msgstr "Pievienot komandas ierakstu"
+msgstr "Izvērst komandu ieraksta rezultātus"
 
 #: worksheet.cpp:1983
-#, fuzzy, kde-format
-#| msgid "Command Entry"
+#, kde-format
 msgid "Delete Command Entry Results"
-msgstr "Komandas ieraksts"
+msgstr "Dzēst komandu ieraksta rezultātus"
 
 #: worksheet.cpp:1985
 #, kde-format
 msgid "Exclude Command Entry From Execution"
-msgstr ""
+msgstr "Noņemt komandu ierakstu no izpildes"
 
 #: worksheet.cpp:1986
-#, fuzzy, kde-format
-#| msgid "Append Command Entry"
+#, kde-format
 msgid "Add Command Entry To Execution"
-msgstr "Pievienot komandas ierakstu"
+msgstr "Pievienot komandu ierakstu izpildei"
 
 #: worksheet.cpp:2094
 #, kde-format
@@ -4810,197 +4741,190 @@ msgstr "Pa labi"
 #, kde-format
 msgctxt "@action"
 msgid "&Justify"
-msgstr "&Izretināt"
+msgstr "&Abpuslīdzināt"
 
 #: worksheet.cpp:2201
 #, kde-format
 msgctxt "@label justify fill"
 msgid "Justify"
-msgstr "Izlīdzināt"
+msgstr "Abpuslīdzināt"
 
 #: worksheet.cpp:2817
 #, kde-format
 msgid ""
 "This step cannot be undone. Do you really want to delete the selected "
 "entries?"
-msgstr ""
+msgstr "Šo soli nevar atsaukt. Vai tiešām vēlaties dzēst atlasītos ierakstus?"
 
 #: worksheet.cpp:2907
 #, kde-format
 msgid "This step cannot be undone. Do you really want to delete all results?"
-msgstr ""
+msgstr "Šo soli nevarēs atcelt. Vai tiešām vēlaties dzēst visus rezultātus?"
 
 #: worksheet.cpp:2908
-#, fuzzy, kde-format
-#| msgid "Remove result"
+#, kde-format
 msgid "Delete all results"
-msgstr "Izņemt rezultātu"
+msgstr "Dzēst visus rezultātus"
 
 #: worksheetentry.cpp:67
 #, kde-format
 msgid "White"
-msgstr ""
+msgstr "Balts"
 
 #: worksheetentry.cpp:67
 #, kde-format
 msgid "Black"
-msgstr ""
+msgstr "Melns"
 
 #: worksheetentry.cpp:68
 #, kde-format
 msgid "Dark Red"
-msgstr ""
+msgstr "Tumši sarkans"
 
 #: worksheetentry.cpp:68
-#, fuzzy, kde-format
-#| msgid "Ready"
+#, kde-format
 msgid "Red"
-msgstr "Gatavs"
+msgstr "Sarkans"
 
 #: worksheetentry.cpp:68
 #, kde-format
 msgid "Light Red"
-msgstr ""
+msgstr "Gaiši sarkans"
 
 #: worksheetentry.cpp:69
 #, kde-format
 msgid "Dark Green"
-msgstr ""
+msgstr "Tumši zaļš"
 
 #: worksheetentry.cpp:69
 #, kde-format
 msgid "Green"
-msgstr ""
+msgstr "Zaļš"
 
 #: worksheetentry.cpp:69
 #, kde-format
 msgid "Light Green"
-msgstr ""
+msgstr "Gaiši zaļš"
 
 #: worksheetentry.cpp:70
 #, kde-format
 msgid "Dark Blue"
-msgstr ""
+msgstr "Tumši zaļš"
 
 #: worksheetentry.cpp:70
 #, kde-format
 msgid "Blue"
-msgstr ""
+msgstr "Zils"
 
 #: worksheetentry.cpp:70
 #, kde-format
 msgid "Light Blue"
-msgstr ""
+msgstr "Gaiši zils"
 
 #: worksheetentry.cpp:71
 #, kde-format
 msgid "Dark Yellow"
-msgstr ""
+msgstr "Tumši dzeltens"
 
 #: worksheetentry.cpp:71
 #, kde-format
 msgid "Yellow"
-msgstr ""
+msgstr "Dzeltens"
 
 #: worksheetentry.cpp:71
 #, kde-format
 msgid "Light Yellow"
-msgstr ""
+msgstr "Gaiši dzeltens"
 
 #: worksheetentry.cpp:72
 #, kde-format
 msgid "Dark Cyan"
-msgstr ""
+msgstr "Tumša ciāna"
 
 #: worksheetentry.cpp:72
 #, kde-format
 msgid "Cyan"
-msgstr ""
+msgstr "Ciāna"
 
 #: worksheetentry.cpp:72
 #, kde-format
 msgid "Light Cyan"
-msgstr ""
+msgstr "Gaiša ciāna"
 
 #: worksheetentry.cpp:73
 #, kde-format
 msgid "Dark Magenta"
-msgstr ""
+msgstr "Tumša fuksīna"
 
 #: worksheetentry.cpp:73
 #, kde-format
 msgid "Magenta"
-msgstr ""
+msgstr "Fuksīna"
 
 #: worksheetentry.cpp:73
 #, kde-format
 msgid "Light Magenta"
-msgstr ""
+msgstr "Gaiša fuksīna"
 
 #: worksheetentry.cpp:74
-#, fuzzy, kde-format
-#| msgid "X range"
+#, kde-format
 msgid "Dark Orange"
-msgstr "X diapozons"
+msgstr "Tumši oranžs"
 
 #: worksheetentry.cpp:74
-#, fuzzy, kde-format
-#| msgid "X range"
+#, kde-format
 msgid "Orange"
-msgstr "X diapozons"
+msgstr "Oranžs"
 
 #: worksheetentry.cpp:74
-#, fuzzy, kde-format
-#| msgid "X range"
+#, kde-format
 msgid "Light Orange"
-msgstr "X diapozons"
+msgstr "Gaiši oranžs"
 
 #: worksheetentry.cpp:75
 #, kde-format
 msgid "Dark Grey"
-msgstr ""
+msgstr "Tumši pelēks"
 
 #: worksheetentry.cpp:75
 #, kde-format
 msgid "Grey"
-msgstr ""
+msgstr "Pelēks"
 
 #: worksheetentry.cpp:75
 #, kde-format
 msgid "Light Grey"
-msgstr ""
+msgstr "Gaiši pelēks"
 
 #: worksheetentry.cpp:421
 #, kde-format
 msgid "Move Up"
-msgstr ""
+msgstr "Pārvietot augšup"
 
 #: worksheetentry.cpp:429
 #, kde-format
 msgid "Move Down"
-msgstr ""
+msgstr "Pārvietot lejup"
 
 #: worksheetentry.cpp:436
 #, kde-format
 msgid "Delete"
-msgstr ""
+msgstr "Dzēst"
 
 #: worksheetentry.cpp:718
-#, fuzzy, kde-format
-#| msgid "Do you also want to export the images?"
+#, kde-format
 msgid "This step cannot be undone. Do you really want to delete this entry?"
-msgstr "Vai vēlaties eksportēt arī attēlus?"
+msgstr "Šo soli atsaukt nevarēsit. Vai vēlaties ierakstu dzēst?"
 
 #: worksheetentry.cpp:718 worksheetentry.cpp:848
-#, fuzzy, kde-format
-#| msgid "Text Entry"
+#, kde-format
 msgid "Delete Entry"
-msgstr "Teksta ieraksts"
+msgstr "Dzēst ierakstu"
 
 #: worksheetentry.cpp:853
 #, kde-format
 msgid "Drag Entry"
-msgstr "Pārnest ierakstu"
+msgstr "Vilkt ierakstu"
 
 #, fuzzy
 #~| msgid "Remove Entry"
