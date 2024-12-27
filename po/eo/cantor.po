@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: cantor\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-12-05 00:36+0000\n"
-"PO-Revision-Date: 2024-06-16 07:39+0200\n"
+"PO-Revision-Date: 2024-12-26 21:43+0100\n"
 "Last-Translator: Oliver Kellogg <olivermkellogg@gmail.com>\n"
 "Language-Team: esperanto <kde-i18n-eo@kde.org>\n"
 "Language: eo\n"
@@ -3381,10 +3381,9 @@ msgstr "Ĉapitro Tiparo"
 #. i18n: ectx: property (text), widget (QLabel, lSubparagraphFontFamily)
 #: formating.ui:48 formating.ui:105 formating.ui:162 formating.ui:219
 #: formating.ui:276 formating.ui:333
-#, fuzzy, kde-format
-#| msgid "Font Family:"
+#, kde-format
 msgid "Fon&t Family:"
-msgstr "Tiparfamilio:"
+msgstr "&Tiparfamilio:"
 
 #. i18n: ectx: property (text), widget (QLabel, lChapterFontSize)
 #. i18n: ectx: property (text), widget (QLabel, lSubchapterFontSize)
@@ -3394,28 +3393,27 @@ msgstr "Tiparfamilio:"
 #. i18n: ectx: property (text), widget (QLabel, lSubparagraphFontSize)
 #: formating.ui:61 formating.ui:118 formating.ui:175 formating.ui:232
 #: formating.ui:289 formating.ui:346
-#, fuzzy, kde-format
-#| msgid "Font Size:"
+#, kde-format
 msgid "Font Si&ze:"
-msgstr "Tiparo Grandeco:"
+msgstr "Tipara Grande&co:"
 
 #. i18n: ectx: attribute (title), widget (QWidget, SubchapterTab)
 #: formating.ui:99
 #, kde-format
 msgid "Subchapter Font"
-msgstr "Subĉapitro Tiparo"
+msgstr "Subĉapitra Tiparo"
 
 #. i18n: ectx: attribute (title), widget (QWidget, SectionTab)
 #: formating.ui:156
 #, kde-format
 msgid "Section Font"
-msgstr "Sekcio Tiparo"
+msgstr "Sekcia Tiparo"
 
 #. i18n: ectx: attribute (title), widget (QWidget, SubsectionTab)
 #: formating.ui:213
 #, kde-format
 msgid "Subsection Font"
-msgstr "Subsekcio Tiparo"
+msgstr "Subsekcia Tiparo"
 
 #. i18n: ectx: attribute (title), widget (QWidget, ParagraphTab)
 #: formating.ui:270
@@ -4918,6 +4916,3 @@ msgstr "Forigi Eron"
 #, kde-format
 msgid "Drag Entry"
 msgstr "Treni Eron"
-
-#~ msgid "Hierarchy Fonts"
-#~ msgstr "Hierarkiaj Tiparoj"
