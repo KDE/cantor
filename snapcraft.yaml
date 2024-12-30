@@ -74,7 +74,6 @@ parts:
       - libglib2.0-dev
       - liblapack-dev
       - libluajit-5.1-dev
-      - libpoppler-dev
       - libqalculate-dev
       - libspectre-dev
       - pkg-config
