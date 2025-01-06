@@ -3232,8 +3232,6 @@ msgstr ""
 #: formating.ui:61 formating.ui:118 formating.ui:175 formating.ui:232
 #: formating.ui:289 formating.ui:346
 #, fuzzy, kde-format
-#| msgctxt "@action"
-#| msgid "Font &Size"
 msgid "Font Si&ze:"
 msgstr "Skrift&storleik"
 
