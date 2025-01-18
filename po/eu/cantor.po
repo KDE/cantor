@@ -1,16 +1,16 @@
 # Translation for cantor.po to Euskera/Basque (eu).
-# Copyright (C) 2011-2024 This_file_is_part_of_KDE
+# Copyright (C) 2011-2025 This_file_is_part_of_KDE
 # This file is distributed under the same license as the cantor package.
-# SPDX-FileCopyrightText: 2024 KDE euskaratzeko proiektuaren arduraduna <xalba@ni.eus>
+# SPDX-FileCopyrightText: 2024, 2025 KDE euskaratzeko proiektuaren arduraduna <xalba@ni.eus>
 #
 # Translators:
-# Iñigo Salvador Azurmendi <xalba@ni.eus>, 2011, 2024.
+# Iñigo Salvador Azurmendi <xalba@ni.eus>, 2011, 2024, 2025.
 msgid ""
 msgstr ""
 "Project-Id-Version: cantor\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-11-25 02:32+0000\n"
-"PO-Revision-Date: 2024-12-14 23:39+0100\n"
+"PO-Revision-Date: 2025-01-18 02:19+0100\n"
 "Last-Translator: Iñigo Salvador Azurmendi <xalba@ni.eus>\n"
 "Language-Team: Basque <kde-i18n-eu@kde.org>\n"
 "Language: eu\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Lokalize 24.12.0\n"
+"X-Generator: Lokalize 24.12.1\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -446,6 +446,12 @@ msgid ""
 "perform it in Julia REPL that is able to show the current progress of the "
 "package installation."
 msgstr ""
+"Julia-rako, oraingoz GR bakarrik, bistaratzeko aplikazioetarako armazoi bat "
+"(«framework»), onartzen da. Oraindik egin gabe badago, aurrena pakete hori "
+"instalatu behar da. Horretarako, Cantor-ren edo Julia REPL-en Pkg."
+"install(\"GR\") exekutatu. Kontuan izan eragiketa horrek denbora pixka bat "
+"beharko duela eta hobe dela Julia REPL-en egitea, paketearen instalazioaren "
+"aurrerapena erakusteko gai baita."
 
 #. i18n: ectx: attribute (title), widget (QWidget, tabGeneral)
 #. i18n: ectx: attribute (title), widget (QWidget, tab_3)
@@ -942,7 +948,7 @@ msgstr "Sintaxi errorea"
 #: backends/octave/octavesession.cpp:397
 #, kde-format
 msgid "Plot integration test failed."
-msgstr "Trazuak bateratzeko probak huts egin du."
+msgstr "Diagramak bateratzeko probak huts egin du."
 
 #: backends/octave/octavesession.cpp:401
 #, kde-format
@@ -1028,6 +1034,10 @@ msgid ""
 "python package and special Plot.ly-compatible \"orca\" executable. See "
 "\"Static Image Export\" article in Plot.ly documentation for details."
 msgstr ""
+"«Plot.ly»rekin bateratutako grafikoak erabiltzeko, \"plotly\" python paketea "
+"eta Plot.ly-rekin bateragarria den \"orca\" exekutagarri berezia instalatu "
+"behar dituzu. Begiratu \"Static Image Export\" (Irudi estatikoa esportatzea) "
+"artikulua «Plot.ly»ren dokumentazioan xehetasun gehiago izateko."
 
 #. i18n: ectx: property (text), widget (QLabel, label4)
 #: backends/python/settings.ui:222
@@ -1460,6 +1470,14 @@ msgid ""
 "equations), arbitrary precision, uncertainty propagation, interval "
 "arithmetic, plotting,"
 msgstr ""
+"<b>Qalculate!</b> helburu eta plataforma anitzeko mahaigaineko kalkulagailu "
+"bat da. Erabilerraza da, baina matematika pakete korapilotsuetarako "
+"erreserbatuta egon ohi den gaitasuna eta moldakortasuna ematen ditu, "
+"eguneroko beharretarako tresna lagungarriekin batera (moneta bihurketa eta "
+"ehuneko kalkulua esaterako). Ezaugarrien artean ditu neurrira molda "
+"daitekeen funtzio-liburutegi bat, unitate kalkuluak eta bihurketa, konstante "
+"fisikoak, kalkulu sinbolikoak (integralak eta ekuazioak barne), doitasun "
+"arbitrarioa, ziurgabetasunaren hedapena, tarteen aritmetika, grafikatzea,"
 
 #. i18n: ectx: label, entry (Path), group (QalculateBackend)
 #: backends/qalculate/qalculatebackend.kcfg:9
@@ -1487,7 +1505,7 @@ msgstr "Funtzio trigonometrikoetarako angelu-unitate lehenetsia."
 #: backends/qalculate/qalculatebackend.kcfg:35
 #, kde-format
 msgid "Base of parsed and evaluated numbers."
-msgstr ""
+msgstr "Analizatutako eta ebaluatutako zenbakien oinarria."
 
 #. i18n: ectx: label, entry (structuring), group (QalculateBackend)
 #: backends/qalculate/qalculatebackend.kcfg:44
@@ -2274,15 +2292,7 @@ msgid ""
 msgstr ""
 
 #: backends/R/rbackend.cpp:99
-#, fuzzy, kde-format
-#| msgid ""
-#| "R is a language and environment for statistical computing and graphics, "
-#| "similar to the S language and environment. <br/>It provides a wide "
-#| "variety of statistical (linear and nonlinear modelling, classical "
-#| "statistical tests, time-series analysis, classification, clustering, ...) "
-#| "and graphical techniques, and is highly extensible. The S language is "
-#| "often the vehicle of choice for research in statistical methodology, and "
-#| "R provides an Open Source route to participation in that activity."
+#, kde-format
 msgid ""
 "<b>R</b> is a language and environment for statistical computing and "
 "graphics, similar to the S language and environment. <br/>It provides a wide "
@@ -2292,13 +2302,13 @@ msgid ""
 "the vehicle of choice for research in statistical methodology, and R "
 "provides an Open Source route to participation in that activity."
 msgstr ""
-"R lengoaia bat da eta estatistika kalkulu eta grafikoentzako ingurune bat, S "
-"lengoaia eta ingurunearen antzekoa. <br/>teknika estatistiko (eredu lineala "
-"eta ez-lineala, proba estatistiko klasikoak, denbora-serie azterketa, "
-"sailkapena, multzokatzea, ...) eta grafiko aniztasun zabala hornitzen du, "
-"eta oso hedagarria da. S lengoaia maiz izaten da estatistika metodologian "
-"ikertzeko hautatutako bitartekoa, eta R-k jarduera horretan esku hartzeko "
-"Iturburu Irekiko bide bat ematen du."
+"<b>R</b> kalkulu eta grafiko estatistikorako lengoai eta ingurune bat da, S "
+"lengoaia eta ingurunearen antzekoa.<br/> Teknika estatistiko (eredu lineala "
+"eta ez-lineala, proba estatistiko klasikoak, denbora-serie analisiak, "
+"sailkapena, multzokatzea, ...) eta grafiko aniztasun zabala ematen du. S "
+"lengoaia maiz izaten da estatistika metodologian ikertzeko hautatutako "
+"bitartekoa, eta R-k jarduera horretan esku hartzeko sorburu irekiko bide bat "
+"ematen du."
 
 #: backends/R/rexpression.cpp:109 backends/R/rexpression.cpp:110
 #, kde-format
@@ -2351,6 +2361,9 @@ msgid ""
 "the GPL. <br/>It combines the power of many existing open-source packages "
 "into a common Python-based interface."
 msgstr ""
+"<b>Sage</b> GPL pean lizentziatutako sorburu irekiko matematika software "
+"sistema aske bat da.<br/>Aurrez dauden sorburu irekiko pakete askoren "
+"gaitasuna konbinatzen du Python oinarri duen interfaze komun batean."
 
 #. i18n: ectx: label, entry (Path), group (SageBackend)
 #: backends/sage/sagebackend.kcfg:10
@@ -2671,6 +2684,8 @@ msgid ""
 "Enable rendering math expressions inside $$..$$ in Text and Markdown entries "
 "by default (needs pdflatex installed)"
 msgstr ""
+"Era lehenetsian Testu eta Markdown sarreretako $$..$$ barruko matematika "
+"adierazpenak errendatzea gaitzen du (pdflatex instalatuta egotea behar du)"
 
 #. i18n: ectx: label, entry (WarnAboutEntryDelete), group (Cantor)
 #: cantor.kcfg:38
@@ -2698,24 +2713,26 @@ msgid ""
 "Save rich text formatting of TextEntry, when save Worksheet in Jupyter "
 "notebook format"
 msgstr ""
+"TextEntry-ren testu aberastuko formatua gorde, lan-orria Jupyter koaderno "
+"formatuan gordetzean"
 
 #. i18n: ectx: label, entry (UseOldCantorEntriesIndent), group (Cantor)
 #: cantor.kcfg:54
 #, kde-format
 msgid "Use old style Cantor entries placement style"
-msgstr ""
+msgstr "Cantor-ren sarrerak kokatzeko estilo zaharra erabili"
 
 #. i18n: ectx: label, entry (ShowMathRenderError), group (Cantor)
 #: cantor.kcfg:58
 #, kde-format
 msgid "Show embedded math render error"
-msgstr ""
+msgstr "Txertatutako matematika errendatze errorea erakutsi"
 
 #. i18n: ectx: label, entry (VisibleLinesLimit), group (Cantor)
 #: cantor.kcfg:62
 #, kde-format
 msgid "Limit of visible lines for text result"
-msgstr ""
+msgstr "Testu emaitzarako lerroen ikusgarrien muga"
 
 #. i18n: ectx: label, entry (ChapterFontFamily), group (Cantor)
 #: cantor.kcfg:66
@@ -3395,28 +3412,27 @@ msgstr "Ezarri hierarkia-maila"
 #: horizontalruleentry.cpp:20
 #, kde-format
 msgid "Solid Line Style"
-msgstr ""
+msgstr "Lerro solido estiloa"
 
 #: horizontalruleentry.cpp:20
 #, kde-format
 msgid "Dash Line Style"
-msgstr ""
+msgstr "Lerro eten estiloa"
 
 #: horizontalruleentry.cpp:20
-#, fuzzy, kde-format
-#| msgid "Plot title:"
+#, kde-format
 msgid "Dot Line Style"
-msgstr "Marrazkiaren izenburua:"
+msgstr "Puntu lerro estiloa"
 
 #: horizontalruleentry.cpp:20
 #, kde-format
 msgid "Dash Dot Line Style"
-msgstr ""
+msgstr "Marratxo puntu lerro estiloa"
 
 #: horizontalruleentry.cpp:20
 #, kde-format
 msgid "Dash Dot Dot Line Style"
-msgstr ""
+msgstr "Marratxo puntu puntu estiloa"
 
 #: horizontalruleentry.cpp:297
 #, kde-format
@@ -3520,13 +3536,13 @@ msgstr "Aurreikusi"
 #: imagesettings.ui:88
 #, kde-format
 msgid "Print Size"
-msgstr ""
+msgstr "Inprimatze-neurria"
 
 #. i18n: ectx: property (text), widget (QCheckBox, useDisplaySize)
 #: imagesettings.ui:94
 #, kde-format
 msgid "Use Display Size"
-msgstr ""
+msgstr "Bistaratze neurria erabili"
 
 #: imagesettingsdialog.cpp:23
 #, kde-format
@@ -3570,6 +3586,8 @@ msgid ""
 "No path for the %1 executable specified. Please provide the correct path in "
 "the application settings and try again."
 msgstr ""
+"Ez da %1 exekutagarrirako bide-izenik zehaztu. Mesedez eman bide-izen zuzena "
+"aplikazioaren ezarpenetan eta berriz saiatu."
 
 #: lib/backend.cpp:173
 #, kde-format
@@ -3577,6 +3595,8 @@ msgid ""
 "The specified file '%1' for the %2 executable doesn't exist. Please provide "
 "the correct path in the application settings and try again."
 msgstr ""
+"%2 exekutagarriarentzako zehaztutako '%1' fitxategia ez da existitzen. "
+"Mesedez, eman bide-izen zuzena aplikazioen ezarpenetan eta berriz saiatu."
 
 #: lib/backend.cpp:182
 #, kde-format
@@ -3584,6 +3604,8 @@ msgid ""
 "The specified file '%1' doesn't point to an executable. Please provide the "
 "correct path in the application settings and try again."
 msgstr ""
+"Zehatutako '%1' fitxategiak ez du exekutagarri bat erakusten. Mesedez, eman "
+"bide-izen zuzena aplikazioen ezarpenetan eta berriz saiatu."
 
 #: lib/backend.cpp:201
 #, kde-format
@@ -3591,16 +3613,21 @@ msgid ""
 "The program %1 didn't finish the execution after %2 milliseconds during the "
 "plot integration test."
 msgstr ""
+"Diagrama bateratzeko proba egin bitartean, %2 milisegundo igarota, %1 "
+"programak ez du exekuzioa bukatu."
 
 #: lib/backend.cpp:210
 #, kde-format
 msgid "Failed to open the file %1 during the plot integration test."
 msgstr ""
+"Diagrama bateratzeko proba egin bitartean, %1 fitxategia irekitzea huts egin "
+"du."
 
 #: lib/backend.cpp:218
 #, kde-format
 msgid "Failed to parse the result during the plot integration test."
 msgstr ""
+"Diagrama bateratzeko proba egin bitartean emaitzaren analisiak huts egin du."
 
 #. i18n: ectx: label, entry (latexCommand), group (Cantor)
 #: lib/cantor_libs.kcfg:10
@@ -3674,12 +3701,12 @@ msgstr "Marrazkiaren izenburua:"
 #: lib/mimeresult.cpp:33
 #, kde-format
 msgid "This is unsupported Jupyter content of types ('%1')"
-msgstr ""
+msgstr "Jupyter moten eduki hau ez da onartzen (%1)"
 
 #: lib/session.cpp:265
 #, kde-format
 msgid "%1 process has died unexpectedly. All calculation results are lost."
-msgstr ""
+msgstr "%1 prozesua ustekabean hil da. Kalkuluen emaitza guztiak galdu dira."
 
 #: lib/session.cpp:267
 #, kde-format
@@ -3687,6 +3714,8 @@ msgid ""
 "%1 process has died unexpectedly with message \"%2\". All calculation "
 "results are lost."
 msgstr ""
+"%1 prozesua ustekabean hil da \"%2\" mezuarekin. Kalkuluen emaitza guztiak "
+"galdu dira."
 
 #: lib/session.cpp:333
 #, kde-format
@@ -3695,6 +3724,9 @@ msgid ""
 "activated due to the missing requirements, so integration for this package "
 "will be disabled. %2"
 msgstr ""
+"%1 grafiko paketerako euskarria aukeratu duzu, baina betetzen ez diren "
+"eskakizunak direla eta euskarria ezin da aktibatu, pakete honen bateratzea "
+"ezgaitu egingo da. %2"
 
 #: main.cpp:69
 #, kde-format
@@ -3817,19 +3849,19 @@ msgstr "--- Orri-jauzia ---"
 #, kde-format
 msgctxt "@button go to contents page"
 msgid "Go to the contents"
-msgstr ""
+msgstr "Joan edukira"
 
 #: panelplugins/documentationpanel/documentationpanelwidget.cpp:57
 #, kde-format
 msgctxt "@info:placeholder"
 msgid "Search through keywords..."
-msgstr ""
+msgstr "Gako-hitzen artean bilatu..."
 
 #: panelplugins/documentationpanel/documentationpanelwidget.cpp:68
-#, fuzzy, kde-format
+#, kde-format
 msgctxt "@info:tooltip"
 msgid "Find in text of current documentation page"
-msgstr "Bilatu uneko dokumentazio orriko testuan"
+msgstr "Uneko dokumentazio orriko testuan aurkitu"
 
 #: panelplugins/documentationpanel/documentationpanelwidget.cpp:74
 #, kde-format
@@ -4002,19 +4034,19 @@ msgstr "Ez da aurkitu"
 #: searchbar.cpp:133
 #, kde-format
 msgid "Reached beginning"
-msgstr ""
+msgstr "Hasierara heldu da"
 
 #: searchbar.cpp:181
 #, kde-format
 msgid "Reached end"
-msgstr ""
+msgstr "Bukaerara heldu da"
 
 #: searchbar.cpp:238
 #, kde-format
 msgid "Replaced %1 instance"
 msgid_plural "Replaced %1 instances"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Instantzia %1 ordeztu da"
+msgstr[1] "%1 instantzia ordezkatu dira"
 
 #: searchbar.cpp:333 searchbar.cpp:362
 #, kde-format
@@ -4056,7 +4088,7 @@ msgstr "Gaitu sintaxia osatzea"
 
 #. i18n: ectx: property (text), widget (QLabel, label_2)
 #: settings.ui:59
-#, fuzzy, kde-format
+#, kde-format
 msgid "Startup:"
 msgstr "Abioa:"
 
@@ -4068,6 +4100,9 @@ msgid ""
 "Create a new worksheet for the selected backend system. If none is selected, "
 "the user is asked about which system to use on startup."
 msgstr ""
+"Aukeratutako bizkarraldeko sistemarako lan-orri berri bat sortu. Batere "
+"aukeratu ez bada, hasieran zein sistema erabili behar den galdetzen zaio "
+"erabiltzaileari."
 
 #. i18n: ectx: property (text), widget (QLabel, label)
 #: settings.ui:69
@@ -4082,6 +4117,8 @@ msgid ""
 "Maximal number of visible rows in the result of a command entry. Use 0 to "
 "work without limitations."
 msgstr ""
+"Komando sarrera baten emaitzan errenkada ikusgai kopuru maximoa. 0 erabili "
+"mugarik gabe lan egiteko."
 
 #. i18n: ectx: property (toolTip), widget (QCheckBox, kcfg_TypesetDefault)
 #: settings.ui:89
@@ -4090,24 +4127,26 @@ msgid ""
 "Enable LaTeX typesetting for the results of the calculations, if supported "
 "by the backend system"
 msgstr ""
+"Kalkuluen emaitzetarako LaTeX tipografia gaitu, bizkarraldeko sistemak "
+"onartzen badu"
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_TypesetDefault)
 #: settings.ui:92
-#, fuzzy, kde-format
+#, kde-format
 msgid "LaTeX typesetting"
-msgstr "LaTeX tipografia-ezarpena"
+msgstr "LaTeX tipografia"
 
 #. i18n: ectx: property (text), widget (QLabel, VisibleLinesLimit_label)
 #: settings.ui:102
 #, kde-format
 msgid "Number of rows in the result (0 for unlimited):"
-msgstr ""
+msgstr "Emaitzako errenkada kopurua (0 mugagaberako):"
 
 #. i18n: ectx: property (toolTip), widget (QCheckBox, kcfg_AnimationDefault)
 #: settings.ui:135
 #, kde-format
 msgid "Enable animation effects in the worksheet"
-msgstr ""
+msgstr "Lan-orrian animazio-efektuak gaitu"
 
 #. i18n: ectx: property (toolTip), widget (QCheckBox, kcfg_EmbeddedMathDefault)
 #: settings.ui:158
@@ -4115,12 +4154,13 @@ msgstr ""
 msgid ""
 "Enable LaTeX typesetting for mathematical expressions in Markdown entries"
 msgstr ""
+"Markdown sarreretan, adierazpen matematikoetarako LaTeX tipografia gaitu"
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_EmbeddedMathDefault)
 #: settings.ui:161
 #, kde-format
 msgid "Mathematical expressions via LaTeX"
-msgstr ""
+msgstr "Adierazpen matematikoak LaTeX-en bidez"
 
 #. i18n: ectx: property (toolTip), widget (QCheckBox, kcfg_AutoEval)
 #: settings.ui:168
@@ -4128,6 +4168,7 @@ msgstr ""
 msgid ""
 "If enabled, all entries below the current one will be evaluated automatically"
 msgstr ""
+"Gaituta badago, uneko sarreraren azpiko guztiak automatikoki ebaluatuko dira"
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_AutoEval)
 #: settings.ui:171
@@ -4147,13 +4188,14 @@ msgstr "Lan-orria:"
 msgid ""
 "Use rich text format for text entries when saving in Jupyter Notebook Format"
 msgstr ""
+"Jupyter koaderno formatua gordetzean testu sarreretarako testu-aberastuko "
+"formatua erabili"
 
 #. i18n: ectx: property (text), widget (QLabel, label_5)
 #: settings.ui:236
-#, fuzzy, kde-format
-#| msgid "Insert Command Entry"
+#, kde-format
 msgid "Markdown:"
-msgstr "Markdown"
+msgstr "Markdown:"
 
 #. i18n: ectx: property (toolTip), widget (QCheckBox, kcfg_UseOldCantorEntriesIndent)
 #: settings.ui:243
@@ -4162,6 +4204,8 @@ msgid ""
 "If enabled, text entries are aligned at the worksheet border and not at the "
 "prompt border"
 msgstr ""
+"Gaituta badago, testu-sarrerak lan-orriaren ertzarekin lerrokatuta daude eta "
+"ez gonbitaren ertzarekin"
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_UseOldCantorEntriesIndent)
 #: settings.ui:246
@@ -4176,12 +4220,14 @@ msgid ""
 "If enabled, the user will be asked for confirmation prior to restarting the "
 "backend system"
 msgstr ""
+"Gaituta badago, bizkarraldeko sistema berrabiarazi aurretik erabiltzaileari "
+"baieztatzeko eskatuko zaio"
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_ShowMathRenderError)
 #: settings.ui:276
 #, kde-format
 msgid "Notify about render failures for mathematical expressions"
-msgstr ""
+msgstr "Adierazpen matematikoetarako errendatze-akatsen berri ematea"
 
 #. i18n: ectx: property (toolTip), widget (QCheckBox, kcfg_ExpressionNumberingDefault)
 #: settings.ui:283
@@ -4222,7 +4268,7 @@ msgstr "Aurkitu..."
 #: textentry.cpp:55
 #, kde-format
 msgid "Raw Cell Targets"
-msgstr ""
+msgstr "Gelaxka gordinen jomugak"
 
 #: textentry.cpp:62
 #, kde-format
@@ -4237,7 +4283,7 @@ msgstr "Bihurtu testu sarrera"
 #: textentry.cpp:81
 #, kde-format
 msgid "Convert to Raw Cell"
-msgstr ""
+msgstr "Gelaxka gordina bihurtu"
 
 #: textentry.cpp:553
 #, kde-format
@@ -4310,6 +4356,8 @@ msgid ""
 "In read-only mode Cantor couldn't guarantee, that the export will be valid "
 "for %1"
 msgstr ""
+"Soilik irakurtzeko moduan, Cantor-rek ezin du bermatu esportatutakoa "
+"%1(e)rako balioko duenik"
 
 #: worksheet.cpp:1317
 #, kde-format
@@ -4351,17 +4399,20 @@ msgid ""
 "This worksheet was created using Python2 which is not supported anymore. "
 "Python3 will be used."
 msgstr ""
+"Lan-orri hau Python2 erabiliz sortu zen, zeinen euskarria kendu den. Python3 "
+"erabiliko da."
 
 #: worksheet.cpp:1443 worksheet.cpp:1613
 #, kde-format
 msgid "Python2 not supported anymore"
-msgstr ""
+msgstr "Python 2rako euskarria kendu da"
 
 #: worksheet.cpp:1452 worksheet.cpp:1630
 #, kde-format
 msgid ""
 "%1 backend was not found. Editing and executing entries is not possible."
 msgstr ""
+"Ez da aurkitu %1 bizkarraldekoa. Ezin da sarrerarik editatu edo exekutatu."
 
 #: worksheet.cpp:1461 worksheet.cpp:1640
 #, kde-format
@@ -4380,6 +4431,8 @@ msgid ""
 "Jupyter notebooks with versions lower than 4.5 (detected version %1.%2) are "
 "not supported."
 msgstr ""
+"4.5 bertsioa baino txikiagoa duten Jupyter koadernoak ez dira onartzen (%1."
+"%2 bertsioa antzeman da)."
 
 #: worksheet.cpp:1588
 #, kde-format
@@ -4387,6 +4440,8 @@ msgid ""
 "Jupyter notebooks with versions higher than 4.5 (detected version %1.%2) are "
 "not supported."
 msgstr ""
+"4.5 bertsioa baino handiagoa duten Jupyter koadernoak ez dira onartzen (%1."
+"%2 bertsioa antzeman da)."
 
 #: worksheet.cpp:1612
 #, kde-format
