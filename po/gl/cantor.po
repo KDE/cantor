@@ -6,14 +6,14 @@
 # Marce Villarino <mvillarino@kde-espana.es>, 2012, 2013, 2014.
 # Miguel Branco <mgl.branco@gmail.com>, 2013.
 # Adrián Chaves Fernández <adriyetichaves@gmail.com>, 2015, 2016, 2017.
-# SPDX-FileCopyrightText: 2023, 2024 Adrián Chaves (Gallaecio)
+# SPDX-FileCopyrightText: 2023, 2024, 2025 Adrián Chaves (Gallaecio)
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: mathematik\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-11-25 02:32+0000\n"
-"PO-Revision-Date: 2024-12-13 22:06+0100\n"
+"PO-Revision-Date: 2025-01-19 12:16+0100\n"
 "Last-Translator: Adrián Chaves (Gallaecio) <adrian@chaves.io>\n"
 "Language-Team: Proxecto Trasno (proxecto@trasno.gal)\n"
 "Language: gl\n"
@@ -21,7 +21,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Lokalize 24.08.3\n"
+"X-Generator: Lokalize 24.12.0\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -1793,7 +1793,7 @@ msgstr ""
 "pantalla. Se inline=true a imaxe amósase con independencia do que diga esta "
 "opción."
 
-# skip-rule: trasno-sound_reverse
+# skip-rule: trasno-sound_reverse, trasno-support3_reverse
 #: backends/qalculate/qalculatesyntaxhelpobject.cpp:216
 #, kde-format
 msgid "The image type to save as. One of auto, png, ps, eps, latex, svg, fig."
