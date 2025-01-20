@@ -3263,7 +3263,7 @@ msgstr "章节字体"
 #: formating.ui:276 formating.ui:333
 #, kde-format
 msgid "Fon&t Family:"
-msgstr ""
+msgstr "字体系列(&T)："
 
 #. i18n: ectx: property (text), widget (QLabel, lChapterFontSize)
 #. i18n: ectx: property (text), widget (QLabel, lSubchapterFontSize)
@@ -3275,7 +3275,7 @@ msgstr ""
 #: formating.ui:289 formating.ui:346
 #, kde-format
 msgid "Font Si&ze:"
-msgstr ""
+msgstr "字体大小(&Z)："
 
 #. i18n: ectx: attribute (title), widget (QWidget, SubchapterTab)
 #: formating.ui:99
