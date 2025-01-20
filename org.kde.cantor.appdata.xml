@@ -68,6 +68,7 @@
   <summary xml:lang="tr">Matematik yazılımları için ön uç</summary>
   <summary xml:lang="uk">Графічна оболонка до математичного програмного забезпечення</summary>
   <summary xml:lang="x-test">xxFrontend to mathematical softwarexx</summary>
+  <summary xml:lang="zh-CN">数学软件前端</summary>
   <description>
     <p>Cantor is a front-end to powerful mathematics and statistics packages. Cantor integrates them into the KDE Platform and provides a nice, worksheet-based, graphical user interface. It supports environments for KAlgebra, Lua, Maxima, R, Sage, Octave, Python, Scilab, and Qalculate!</p>
     <p xml:lang="ar">كانتور هي الواجهة الأمامية لحزم الرياضيات والإحصاءات القوية. تدمجها كانتور في منصة كِيدِي وتوفر واجهة مستخدم رسومية مبنية على ورقة العمل. وهو يدعم بيئات KAlgebra و Lua و Maxima و R و Sage و Octave و Python و Scilab و Qalculate!</p>
