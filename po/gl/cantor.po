@@ -1325,13 +1325,13 @@ msgstr "Título da gráfica"
 #: backends/qalculate/plotassistant/qalculateplotdialog.ui:353
 #, kde-format
 msgid "X-axis label"
-msgstr "Lenda do eixo X"
+msgstr "Lenda do eixe X"
 
 #. i18n: ectx: property (text), widget (QLabel, label_21)
 #: backends/qalculate/plotassistant/qalculateplotdialog.ui:374
 #, kde-format
 msgid "Y-axis label"
-msgstr "Lenda do eixo Y"
+msgstr "Lenda do eixe Y"
 
 #. i18n: ectx: property (text), widget (QLabel, label_22)
 #: backends/qalculate/plotassistant/qalculateplotdialog.ui:395
@@ -1775,12 +1775,12 @@ msgstr "Etiqueta de título"
 #: backends/qalculate/qalculatesyntaxhelpobject.cpp:213
 #, kde-format
 msgid "x-axis label"
-msgstr "etiqueta do eixo X"
+msgstr "etiqueta do eixe X"
 
 #: backends/qalculate/qalculatesyntaxhelpobject.cpp:214
 #, kde-format
 msgid "y-axis label"
-msgstr "etiqueta do eixo Y"
+msgstr "etiqueta do eixe Y"
 
 #: backends/qalculate/qalculatesyntaxhelpobject.cpp:215
 #, kde-format
@@ -1809,32 +1809,32 @@ msgstr ""
 #: backends/qalculate/qalculatesyntaxhelpobject.cpp:218
 #, kde-format
 msgid "Minimum x-axis value."
-msgstr "Valor mínimo do eixo X."
+msgstr "Valor mínimo do eixe X."
 
 #: backends/qalculate/qalculatesyntaxhelpobject.cpp:219
 #, kde-format
 msgid "Maximum x-axis value."
-msgstr "Valor máximo do eixo X."
+msgstr "Valor máximo do eixe X."
 
 #: backends/qalculate/qalculatesyntaxhelpobject.cpp:220
 #, kde-format
 msgid "If a logarithmic scale shall be used for the x-axis."
-msgstr "Indica se debe usarse unha escala logarítmica para o eixo X."
+msgstr "Indica se debe usarse unha escala logarítmica para o eixe X."
 
 #: backends/qalculate/qalculatesyntaxhelpobject.cpp:221
 #, kde-format
 msgid "If a logarithmic scale shall be used for the y-axis."
-msgstr "Indica se debe usarse unha escala logarítmica para o eixo Y."
+msgstr "Indica se debe usarse unha escala logarítmica para o eixe Y."
 
 #: backends/qalculate/qalculatesyntaxhelpobject.cpp:222
 #, kde-format
 msgid "Logarithmic base for the x-axis."
-msgstr "A base do logaritmo do eixo X."
+msgstr "A base do logaritmo do eixe X."
 
 #: backends/qalculate/qalculatesyntaxhelpobject.cpp:223
 #, kde-format
 msgid "Logarithmic base for the y-axis."
-msgstr "A base do logaritmo do eixo Y."
+msgstr "A base do logaritmo do eixe Y."
 
 #: backends/qalculate/qalculatesyntaxhelpobject.cpp:224
 #, kde-format
@@ -1846,7 +1846,7 @@ msgstr "Indica se debe usarse unha grade no debuxo."
 msgid ""
 "If the plot shall be surrounded by borders on all sides (not just axis)."
 msgstr ""
-"Indica se o debuxo debe rodearse por un bordo por cada lado (non só o eixo)."
+"Indica se o debuxo debe rodearse por un bordo por cada lado (non só o eixe)."
 
 #: backends/qalculate/qalculatesyntaxhelpobject.cpp:226
 #, kde-format
@@ -1881,12 +1881,12 @@ msgstr ""
 #: backends/qalculate/qalculatesyntaxhelpobject.cpp:230
 #, kde-format
 msgid "Use scale on second x-axis."
-msgstr "Pór unha escala no segundo eixo X."
+msgstr "Pór unha escala no segundo eixe X."
 
 #: backends/qalculate/qalculatesyntaxhelpobject.cpp:231
 #, kde-format
 msgid "Use scale on second y-axis."
-msgstr "Pór unha escala no segundo eixo Y."
+msgstr "Pór unha escala no segundo eixe Y."
 
 #: backends/qalculate/qalculatesyntaxhelpobject.cpp:232
 #, kde-format
