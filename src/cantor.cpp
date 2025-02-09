@@ -179,19 +179,31 @@ void CantorShell::setupActions()
     addAction(toNextTab);
 }
 
-void CantorShell::saveProperties(KConfigGroup & /*config*/)
+void CantorShell::saveProperties(KConfigGroup & config)
 {
-    // the 'config' object points to the session managed
-    // config file.  anything you write here will be available
-    // later when this app is restored
+    const int tabCount = m_tabWidget->count();
+    config.writeEntry("tabCount", tabCount);
+    config.writeEntry("activeTab", m_tabWidget->currentIndex());
+
+    for (int i = 0; i < tabCount; ++i) {
+        auto url = m_parts[i]->url();
+        auto name = QString::fromLatin1("tabURL%1").arg(i);
+        config.writeEntry(name, url);
+    }
 }
 
-void CantorShell::readProperties(const KConfigGroup & /*config*/)
+void CantorShell::readProperties(const KConfigGroup & config)
 {
-    // the 'config' object points to the session managed
-    // config file.  this function is automatically called whenever
-    // the app is being restored.  read in here whatever you wrote
-    // in 'saveProperties'
+    const int tabCount = config.readEntry("tabCount", 0);
+    const int activeTab = config.readEntry("activeTab", 0);
+
+    for (int i = 0; i < tabCount; ++i) {
+        auto name = QString::fromLatin1("tabURL%1").arg(i);
+        QUrl url(config.readEntry(name));
+        load(url);
+    }
+
+    activateWorksheet(activeTab);
 }
 
 /*!
