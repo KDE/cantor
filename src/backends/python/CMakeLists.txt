@@ -38,7 +38,7 @@ set_target_properties(cantor_pythonserver PROPERTIES INSTALL_RPATH_USE_LINK_PATH
 if(MSVC)
   set_property(TARGET cantor_pythonserver PROPERTY LINK_FLAGS "/SUBSYSTEM:CONSOLE")
 endif()
-target_link_libraries(cantor_pythonserver Python3::Python)
+target_link_libraries(cantor_pythonserver PRIVATE Python::Module)
 
 if(BUILD_TESTING)
   add_executable(testpython testpython.cpp settings.cpp)

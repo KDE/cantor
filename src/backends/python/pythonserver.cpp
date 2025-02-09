@@ -9,6 +9,7 @@
 #include <cassert>
 #include <iostream>
 
+#define Py_LIMITED_API 0x03060000  // Python 3.6+ stable API
 #include <Python.h>
 
 static_assert(PY_MAJOR_VERSION == 3, "This python server works only with Python 3");

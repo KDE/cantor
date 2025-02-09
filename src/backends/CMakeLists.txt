@@ -67,8 +67,8 @@ endif(QALCULATE_FOUND)
 set_package_properties(Python3 PROPERTIES TYPE OPTIONAL
     PURPOSE "Backend to use Python with Cantor.")
 
-find_package(Python3 COMPONENTS Development)
-if(Python3_FOUND)
+find_package(Python 3.6 COMPONENTS Development.Module)
+if(Python_FOUND)
     add_subdirectory(python)
 endif()
 
