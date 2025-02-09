@@ -53,6 +53,28 @@ const char *PyUnicode_AsUTF8(PyObject *unicode_obj) {
     return utf8_str;
 }
 
+PyObject *PyRun_String(const char *code, int start, PyObject *globals, PyObject *locals) {
+    // Ensure built-in functions are available
+    PyDict_SetItemString(globals, "__builtins__", PyEval_GetBuiltins());
+
+    PyObject *compiled_code = Py_CompileString(code, "<string>", start);
+    if (!compiled_code) {
+        PyErr_Print();
+        Py_DECREF(globals);
+        Py_DECREF(locals);
+        return NULL;
+    }
+
+    // Execute the compiled code
+    PyObject *result = PyEval_EvalCode(compiled_code, globals, locals);
+    Py_DECREF(compiled_code);
+    Py_DECREF(globals);
+    Py_DECREF(locals);
+
+    return result;
+}
+
+
 void enablePythonInspectMode() {
     PyObject *sys_module = PyImport_ImportModule("sys");
     if (!sys_module) return;
@@ -68,6 +90,7 @@ void enablePythonInspectMode() {
     Py_DECREF(sys_module);
 }
 
+////////////////////////////
 
 static_assert(PY_MAJOR_VERSION == 3, "This python server works only with Python 3");
 
