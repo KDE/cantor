@@ -72,6 +72,7 @@ void MaximaSession::login()
         if (!m_process->waitForReadyRead())
             break;
         input += QString::fromLatin1(m_process->readAllStandardOutput());
+        qDebug() << input;
     }
 
     if (input.isEmpty())
