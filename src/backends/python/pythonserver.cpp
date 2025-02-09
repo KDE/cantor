@@ -141,13 +141,13 @@ void PythonServer::setFilePath(const string& path, const string& dir)
 
 string PythonServer::variables(bool parseValue)
 {
-    PyRun_SimpleStringFlags(
+    PyRun_SimpleString(
         "try: \n"
         "   import numpy \n"
         "   __cantor_numpy_internal__ = numpy.get_printoptions()['threshold'] \n"
         "   numpy.set_printoptions(threshold=100000000) \n"
         "except ModuleNotFoundError: \n"
-        "   pass \n", nullptr
+        "   pass \n"
     );
 
     PyObject* py_dict = PyModule_GetDict(m_pModule);
@@ -200,13 +200,13 @@ string PythonServer::variables(bool parseValue)
         vars.push_back(keyString + char(17) + valueString + char(17) + sizeString + char(17) + typeString);
     }
 
-    PyRun_SimpleStringFlags(
+    PyRun_SimpleString(
         "try: \n"
         "   import numpy \n"
         "   numpy.set_printoptions(threshold=__cantor_numpy_internal__) \n"
         "   del __cantor_numpy_internal__ \n"
         "except ModuleNotFoundError: \n"
-        "   pass \n", nullptr
+        "   pass \n"
     );
 
     string result;
