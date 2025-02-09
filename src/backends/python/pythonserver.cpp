@@ -12,6 +12,26 @@
 #define Py_LIMITED_API 0x03060000  // Python 3.6+ stable API
 #include <Python.h>
 
+void PyRun_SimpleString(const char *code) {
+    PyObject *globals = PyDict_New();
+    PyObject *locals = PyDict_New();
+
+    // Ensure __builtins__ is available
+    PyDict_SetItemString(globals, "__builtins__", PyEval_GetBuiltins());
+
+    // Compile the string into a code object
+    PyObject *compiled_code = Py_CompileString(code, "<string>", Py_file_input);
+    if (compiled_code) {
+        PyEval_EvalCode(compiled_code, globals, locals);
+        Py_DECREF(compiled_code);
+    } else {
+        PyErr_Print();  // Print error if compilation fails
+    }
+
+    Py_DECREF(globals);
+    Py_DECREF(locals);
+}
+
 static_assert(PY_MAJOR_VERSION == 3, "This python server works only with Python 3");
 
 using namespace std;
