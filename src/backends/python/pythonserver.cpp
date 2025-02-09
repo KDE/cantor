@@ -13,6 +13,21 @@
 #include <Python.h>
 
 // stable Python ABI replacements
+bool PyFunction_Check(PyObject *obj) {
+    static PyObject *function_type = NULL;
+
+    if (function_type == NULL) {
+        PyObject *builtins = PyImport_ImportModule("builtins");
+        if (!builtins) return 0;
+
+        function_type = PyObject_GetAttrString(builtins, "function");
+        Py_DECREF(builtins);
+    }
+
+    return function_type && PyObject_IsInstance(obj, function_type);
+}
+
+
 void PyRun_SimpleString(const char *code) {
     PyObject *globals = PyDict_New();
     PyObject *locals = PyDict_New();
@@ -230,14 +245,7 @@ string PythonServer::variables(bool parseValue)
         if (PyModule_Check(value))
             continue;
 
-	static PyObject *function_type = NULL;
-	if (function_type == NULL) {
-		PyObject *builtins = PyImport_ImportModule("builtins");
-		if (builtins)
-			function_type = PyObject_GetAttrString(builtins, "function");
-		Py_DECREF(builtins);
-	}
-	if (function_type && PyObject_IsInstance(value, function_type))
+	if (PyFunction_Check(value))
             continue;
 
         if (PyType_Check(value))
