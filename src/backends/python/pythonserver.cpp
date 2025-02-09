@@ -150,7 +150,14 @@ string PythonServer::variables(bool parseValue)
         if (PyModule_Check(value))
             continue;
 
-        if (PyFunction_Check(value))
+	static PyObject *function_type = NULL;
+	if (function_type == NULL) {
+		PyObject *builtins = PyImport_ImportModule("builtins");
+		if (builtins)
+			function_type = PyObject_GetAttrString(builtins, "function");
+		Py_DECREF(builtins);
+	}
+	if (function_type && PyObject_IsInstance(value, function_type))
             continue;
 
         if (PyType_Check(value))
