@@ -32,6 +32,22 @@ void PyRun_SimpleString(const char *code) {
     Py_DECREF(locals);
 }
 
+void enablePythonInspectMode() {
+    PyObject *sys_module = PyImport_ImportModule("sys");
+    if (!sys_module) return;
+
+    PyObject *flags = PyObject_GetAttrString(sys_module, "flags");
+    if (flags) {
+        PyObject *inspect_flag = PyLong_FromLong(1);  // Equivalent to Py_InspectFlag = 1
+        PyObject_SetAttrString(flags, "inspect", inspect_flag);
+        Py_DECREF(inspect_flag);
+        Py_DECREF(flags);
+    }
+
+    Py_DECREF(sys_module);
+}
+
+
 static_assert(PY_MAJOR_VERSION == 3, "This python server works only with Python 3");
 
 using namespace std;
@@ -46,7 +62,7 @@ namespace
 
 void PythonServer::login()
 {
-    Py_InspectFlag = 1;
+    enablePythonInspectMode();
     Py_Initialize();
     m_pModule = PyImport_AddModule("__main__");
     PyRun_SimpleString("import sys");
