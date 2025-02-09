@@ -12,6 +12,7 @@
 #define Py_LIMITED_API 0x03060000  // Python 3.6+ stable API
 #include <Python.h>
 
+// stable Python ABI replacements
 void PyRun_SimpleString(const char *code) {
     PyObject *globals = PyDict_New();
     PyObject *locals = PyDict_New();
@@ -21,15 +22,35 @@ void PyRun_SimpleString(const char *code) {
 
     // Compile the string into a code object
     PyObject *compiled_code = Py_CompileString(code, "<string>", Py_file_input);
-    if (compiled_code) {
+    if (compiled_code)
+    {
         PyEval_EvalCode(compiled_code, globals, locals);
         Py_DECREF(compiled_code);
-    } else {
+    } else
+    {
         PyErr_Print();  // Print error if compilation fails
     }
 
     Py_DECREF(globals);
     Py_DECREF(locals);
+}
+
+const char *PyUnicode_AsUTF8(PyObject *unicode_obj) {
+    if (!PyUnicode_Check(unicode_obj))
+    {
+        return NULL;
+    }
+
+    PyObject *utf8_bytes = PyUnicode_AsUTF8String(unicode_obj);
+    if (!utf8_bytes)
+    {
+        return NULL;
+    }
+
+    const char *utf8_str = PyBytes_AsString(utf8_bytes);
+    Py_DECREF(utf8_bytes);
+
+    return utf8_str;
 }
 
 void enablePythonInspectMode() {
