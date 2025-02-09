@@ -38,7 +38,11 @@ set_target_properties(cantor_pythonserver PROPERTIES INSTALL_RPATH_USE_LINK_PATH
 if(MSVC)
   set_property(TARGET cantor_pythonserver PROPERTY LINK_FLAGS "/SUBSYSTEM:CONSOLE")
 endif()
-target_link_libraries(cantor_pythonserver PRIVATE Python::Module)
+target_include_directories(cantor_pythonserver PRIVATE ${Python3_INCLUDE_DIRS})
+message(STATUS "Python3_LIBRARIES = ${Python3_LIBRARIES}")
+message(STATUS "Python3_SABI_LIBRARIES = ${Python3_SABI_LIBRARIES}")
+target_link_libraries(cantor_pythonserver PRIVATE ${Python3_SABI_LIBRARIES})
+target_compile_definitions(cantor_pythonserver PRIVATE Py_LIMITED_API=0x03060000)
 
 if(BUILD_TESTING)
   add_executable(testpython testpython.cpp settings.cpp)
