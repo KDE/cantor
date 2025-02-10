@@ -54,6 +54,7 @@ void MaximaSession::login()
 
     // start the process
     m_process = new QProcess(this);
+    qDebug()<<"maxima executable " << MaximaSettings::self()->path().toLocalFile();
     m_process->start(MaximaSettings::self()->path().toLocalFile(), arguments);
     if (!m_process->waitForStarted())
     {
@@ -70,7 +71,10 @@ void MaximaSession::login()
     while (!input.contains(QLatin1String("</cantor-prompt>")))
     {
         if (!m_process->waitForReadyRead())
+        {
+            qDebug()<<"break in wait for ready read";
             break;
+        }
         input += QString::fromLatin1(m_process->readAllStandardOutput());
         qDebug() << input;
     }
