@@ -31,11 +31,13 @@ void BackendTest::createSession()
     m_session = b->createSession();
 
     QSignalSpy spy(m_session, SIGNAL(loginDone()) );
+    QSignalSpy spyError(m_session, SIGNAL(error(const QString&)) );
     m_session->login();
     if(spy.isEmpty())
         waitForSignal(m_session, SIGNAL(loginDone()) );
 
     QVERIFY(!spy.isEmpty());
+    QVERIFY(spyError.isEmpty());
 }
 
 Cantor::Expression* BackendTest::evalExp(const QString& exp )
