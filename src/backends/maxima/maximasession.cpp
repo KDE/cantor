@@ -76,7 +76,11 @@ void MaximaSession::login()
     if (input.isEmpty())
     {
         changeStatus(Session::Disable);
-        Q_EMIT error(i18n("Maxima didn't respond with the proper prompt, please check Maxima installation."));
+        QString errorMsg = i18n("Maxima didn't respond with the proper prompt, please check Maxima installation.");
+        QString errStd = QString::fromLatin1(m_process->readAllStandardError());
+        if (!errStd.isEmpty())
+            errorMsg += QLatin1Char('\n') + i18n("Error: %1", errStd);
+        Q_EMIT error(errorMsg);
         Q_EMIT loginDone();
         delete m_process;
         m_process = nullptr;
