@@ -68,6 +68,9 @@ void MaximaSession::login()
 
     // Wait until first maxima prompt
     m_process->waitForReadyRead();
+    QString stdErr = QString::fromLatin1(m_process->readAllStandardError());
+    qDebug()<<"first error " << stdErr;
+
     QString input = QString::fromLatin1(m_process->readAllStandardOutput());
     qDebug()<<"first input " << input;
     while (!input.contains(QLatin1String("</cantor-prompt>")))
