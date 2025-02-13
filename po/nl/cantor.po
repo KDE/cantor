@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: cantor\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-12-05 00:36+0000\n"
+"POT-Creation-Date: 2025-02-13 00:40+0000\n"
 "PO-Revision-Date: 2024-12-06 11:06+0100\n"
 "Last-Translator: Freek de Kruijf <freekdekruijf@kde.nl>\n"
 "Language-Team: \n"
@@ -401,7 +401,7 @@ msgid "Failed to start Julia, please check Julia installation."
 msgstr "Julia starten is mislukt, controleer de installatie van Julia."
 
 #: backends/julia/juliasession.cpp:118 backends/julia/juliasession.cpp:127
-#: backends/maxima/maximasession.cpp:290 cantor_part.cpp:973
+#: backends/maxima/maximasession.cpp:298 cantor_part.cpp:973
 #: lib/session.cpp:265 lib/session.cpp:267 worksheet.cpp:1204
 #: worksheet.cpp:1232 worksheet.cpp:1247 worksheet.cpp:1263
 #, kde-format
@@ -688,6 +688,7 @@ msgid "List of scripts to autorun at the beginning of session"
 msgstr "Lijst van zelfstartende scripts aan het begin van de sessie"
 
 #: backends/kalgebra/kalgebraexpression.cpp:44
+#: backends/maxima/maximasession.cpp:83
 #, kde-format
 msgid "Error: %1"
 msgstr "Fout: %1"
@@ -914,17 +915,17 @@ msgstr ""
 "Maxima gaf geen antwoord met de juiste prompt, controleer de installatie van "
 "Maxima."
 
-#: backends/maxima/maximasession.cpp:209
+#: backends/maxima/maximasession.cpp:217
 #, kde-format
 msgid "Failed to start Maxima"
 msgstr "Starten van Maxima mislukt"
 
-#: backends/maxima/maximasession.cpp:276
+#: backends/maxima/maximasession.cpp:284
 #, kde-format
 msgid "Maxima crashed. restarting..."
 msgstr "Maxima liep vast, wordt herstart..."
 
-#: backends/maxima/maximasession.cpp:290
+#: backends/maxima/maximasession.cpp:298
 #, kde-format
 msgid "Maxima crashed twice within a short time. Stopping to try starting"
 msgstr ""

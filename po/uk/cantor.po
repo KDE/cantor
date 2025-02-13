@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: cantor\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-12-05 00:36+0000\n"
+"POT-Creation-Date: 2025-02-13 00:40+0000\n"
 "PO-Revision-Date: 2024-12-04 08:26+0200\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian <trans-uk@lists.fedoraproject.org>\n"
@@ -403,7 +403,7 @@ msgstr ""
 "встановлено Julia."
 
 #: backends/julia/juliasession.cpp:118 backends/julia/juliasession.cpp:127
-#: backends/maxima/maximasession.cpp:290 cantor_part.cpp:973
+#: backends/maxima/maximasession.cpp:298 cantor_part.cpp:973
 #: lib/session.cpp:265 lib/session.cpp:267 worksheet.cpp:1204
 #: worksheet.cpp:1232 worksheet.cpp:1247 worksheet.cpp:1263
 #, kde-format
@@ -691,6 +691,7 @@ msgid "List of scripts to autorun at the beginning of session"
 msgstr "Список скриптів, які буде автоматично запущено на початку сеансу"
 
 #: backends/kalgebra/kalgebraexpression.cpp:44
+#: backends/maxima/maximasession.cpp:83
 #, kde-format
 msgid "Error: %1"
 msgstr "Помилка: %1"
@@ -920,17 +921,17 @@ msgstr ""
 "Maxima не відповіла належним запитом. Будь ласка, перевірте, чи правильно "
 "встановлено Maxima."
 
-#: backends/maxima/maximasession.cpp:209
+#: backends/maxima/maximasession.cpp:217
 #, kde-format
 msgid "Failed to start Maxima"
 msgstr "Не вдалося запустити Maxima"
 
-#: backends/maxima/maximasession.cpp:276
+#: backends/maxima/maximasession.cpp:284
 #, kde-format
 msgid "Maxima crashed. restarting..."
 msgstr "Аварійне завершення Maxima. Перезапуск..."
 
-#: backends/maxima/maximasession.cpp:290
+#: backends/maxima/maximasession.cpp:298
 #, kde-format
 msgid "Maxima crashed twice within a short time. Stopping to try starting"
 msgstr ""

@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-12-05 00:36+0000\n"
+"POT-Creation-Date: 2025-02-13 00:40+0000\n"
 "PO-Revision-Date: 2011-05-12 22:47+0700\n"
 "Last-Translator: Phuwanat Sakornsakolpat <narachai@gmail.com>\n"
 "Language-Team: Thai <thai-l10n@googlegroups.com>\n"
@@ -401,7 +401,7 @@ msgid "Failed to start Julia, please check Julia installation."
 msgstr "การเริ่ม Sage ล้มเหลว"
 
 #: backends/julia/juliasession.cpp:118 backends/julia/juliasession.cpp:127
-#: backends/maxima/maximasession.cpp:290 cantor_part.cpp:973
+#: backends/maxima/maximasession.cpp:298 cantor_part.cpp:973
 #: lib/session.cpp:265 lib/session.cpp:267 worksheet.cpp:1204
 #: worksheet.cpp:1232 worksheet.cpp:1247 worksheet.cpp:1263
 #, kde-format
@@ -687,6 +687,7 @@ msgid "List of scripts to autorun at the beginning of session"
 msgstr "รายการของสคริปต์ที่จะเริ่มทำงานเมื่อเปิดขณะเริ่มวาระ"
 
 #: backends/kalgebra/kalgebraexpression.cpp:44
+#: backends/maxima/maximasession.cpp:83
 #, kde-format
 msgid "Error: %1"
 msgstr "ผิดพลาด: %1"
@@ -882,17 +883,17 @@ msgid ""
 "installation."
 msgstr ""
 
-#: backends/maxima/maximasession.cpp:209
+#: backends/maxima/maximasession.cpp:217
 #, kde-format
 msgid "Failed to start Maxima"
 msgstr "การเริ่ม Maxima ล้มเหลว"
 
-#: backends/maxima/maximasession.cpp:276
+#: backends/maxima/maximasession.cpp:284
 #, kde-format
 msgid "Maxima crashed. restarting..."
 msgstr "Maxima หยุดทำงาน กำลังเปิดอีกครั้ง..."
 
-#: backends/maxima/maximasession.cpp:290
+#: backends/maxima/maximasession.cpp:298
 #, kde-format
 msgid "Maxima crashed twice within a short time. Stopping to try starting"
 msgstr "Maxima หยุดทำงานติดต่อกันสองครั้ง ยกเลิกการลองเปิดทำงาน"
