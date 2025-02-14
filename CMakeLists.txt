@@ -34,7 +34,6 @@ option(BUILD_DOC "Whether to build the documentation" ON)
 
 find_package(Qt6 ${QT_MIN_VERSION} CONFIG REQUIRED
     Core
-    Core5Compat
     Widgets
     PrintSupport
     Svg
