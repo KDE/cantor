@@ -1,22 +1,22 @@
 # Translation of cantor to Spanish
-# Copyright (C) YEAR This_file_is_part_of_KDE
+# Copyright (C) 2009-2025 This_file_is_part_of_KDE
 # This file is distributed under the same license as the cantor package.
 #
-# SPDX-FileCopyrightText: 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024 Eloy Cuadra <ecuadra@eloihr.net>
+# SPDX-FileCopyrightText: 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025 Eloy Cuadra <ecuadra@eloihr.net>
 # SPDX-FileCopyrightText: 2009 Ignacio Poggi <ignaciop.3@gmail.com>
 msgid ""
 msgstr ""
 "Project-Id-Version: cantor\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-02-13 00:40+0000\n"
-"PO-Revision-Date: 2024-12-04 03:14+0100\n"
+"PO-Revision-Date: 2025-02-17 22:50+0100\n"
 "Last-Translator: Eloy Cuadra <ecuadra@eloihr.net>\n"
 "Language-Team: Spanish <kde-l10n-es@kde.org>\n"
 "Language: es\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Lokalize 24.08.3\n"
+"X-Generator: Lokalize 24.12.2\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 
 #, kde-format
@@ -924,7 +924,7 @@ msgstr "Fallo al iniciar Maxima"
 #: backends/maxima/maximasession.cpp:284
 #, kde-format
 msgid "Maxima crashed. restarting..."
-msgstr "Maxima ha fallado. Reiniciando..."
+msgstr "Maxima ha fallado. Reiniciando…"
 
 #: backends/maxima/maximasession.cpp:298
 #, kde-format
@@ -1573,7 +1573,7 @@ msgid ""
 msgstr ""
 "Mostrar que una serie de dígitos de un número continúa infinitamente con "
 "puntos suspensivos en lugar de redondearlo (p. ej., 2/3 se muestra como "
-"0,666666... en lugar de 0,666667)."
+"0,666666… en lugar de 0,666667)."
 
 #. i18n: ectx: label, entry (useAllPrefixes), group (QalculateBackend)
 #: backends/qalculate/qalculatebackend.kcfg:62
@@ -2277,7 +2277,7 @@ msgstr "Introduzca un nombre"
 #, kde-format
 msgctxt "@info:placeholder"
 msgid "Select a name..."
-msgstr "Seleccione un nombre..."
+msgstr "Seleccione un nombre…"
 
 #. i18n: ectx: property (text), widget (QLabel, lPath)
 #: backends/qthelpconfigeditdialog.ui:51
@@ -2291,14 +2291,14 @@ msgstr "Ruta:"
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Select a Qt Help file..."
-msgstr "Seleccionar un archivo de ayuda de Qt..."
+msgstr "Seleccionar un archivo de ayuda de Qt…"
 
 #. i18n: ectx: property (placeholderText), widget (KUrlRequester, qchRequester)
 #: backends/qthelpconfigeditdialog.ui:70
 #, kde-format
 msgctxt "@info:placeholder"
 msgid "Select a Qt Help file..."
-msgstr "Seleccionar un archivo de ayuda de Qt..."
+msgstr "Seleccionar un archivo de ayuda de Qt…"
 
 #: backends/R/rbackend.cpp:81
 #, kde-format
@@ -2676,7 +2676,7 @@ msgstr "No se ha podido encontrar Cantor Part con el error %1"
 #: cantor.cpp:450 cantor_part.cpp:645
 #, kde-format
 msgid "Calculating..."
-msgstr "Calculando..."
+msgstr "Calculando…"
 
 #: cantor.cpp:453 cantor_part.cpp:656 cantor_part.cpp:719
 #, kde-format
@@ -3157,7 +3157,7 @@ msgstr "Inicialización completa"
 #: cantor_part.cpp:714
 #, kde-format
 msgid "Initializing..."
-msgstr "Inicializando..."
+msgstr "Inicializando…"
 
 #: cantor_part.cpp:772
 #, kde-format
@@ -3350,7 +3350,7 @@ msgstr "Barra de búsqueda"
 #: extendedsearchbar.ui:166 standardsearchbar.ui:22 standardsearchbar.ui:85
 #, kde-format
 msgid "..."
-msgstr "..."
+msgstr "…"
 
 #. i18n: ectx: property (text), widget (QLabel, label)
 #: extendedsearchbar.ui:47
@@ -3945,7 +3945,7 @@ msgstr "Ir al contenido"
 #, kde-format
 msgctxt "@info:placeholder"
 msgid "Search through keywords..."
-msgstr "Buscar mediante palabras clave..."
+msgstr "Buscar mediante palabras clave…"
 
 #: panelplugins/documentationpanel/documentationpanelwidget.cpp:69
 #, kde-format
@@ -4685,7 +4685,7 @@ msgstr "Añadir entrada de orden a la ejecución"
 #, kde-format
 msgctxt "@action"
 msgid "Text &Color..."
-msgstr "&Color del texto..."
+msgstr "&Color del texto…"
 
 #: worksheet.cpp:2095
 #, kde-format
@@ -4697,7 +4697,7 @@ msgstr "Color"
 #, kde-format
 msgctxt "@action"
 msgid "Text &Highlight..."
-msgstr "Resaltar te&xto..."
+msgstr "Resaltar te&xto…"
 
 #: worksheet.cpp:2108
 #, kde-format
