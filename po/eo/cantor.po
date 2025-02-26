@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: cantor\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-02-13 00:40+0000\n"
+"POT-Creation-Date: 2025-02-26 00:37+0000\n"
 "PO-Revision-Date: 2024-12-28 17:41+0100\n"
 "Last-Translator: Oliver Kellogg <olivermkellogg@gmail.com>\n"
 "Language-Team: esperanto <kde-i18n-eo@kde.org>\n"
@@ -3634,7 +3634,7 @@ msgstr "Bildoj (%1)"
 msgid "Show LaTeX code"
 msgstr "Montri LaTeX-kodon"
 
-#: lib/backend.cpp:163
+#: lib/backend.cpp:167
 #, kde-format
 msgid ""
 "No path for the %1 executable specified. Please provide the correct path in "
@@ -3643,7 +3643,7 @@ msgstr ""
 "Neniu vojo por la %1 rulebla specifita. Bonvolu provizi la ĝustan vojon en "
 "la aplikaĵo-agordoj kaj provu denove."
 
-#: lib/backend.cpp:173
+#: lib/backend.cpp:177
 #, kde-format
 msgid ""
 "The specified file '%1' for the %2 executable doesn't exist. Please provide "
@@ -3652,7 +3652,7 @@ msgstr ""
 "La specifita dosiero '%1' por la plenumebla %2 ne ekzistas. Bonvolu provizi "
 "la ĝustan vojon en la aplikaĵo-agordoj kaj provu denove."
 
-#: lib/backend.cpp:182
+#: lib/backend.cpp:186
 #, kde-format
 msgid ""
 "The specified file '%1' doesn't point to an executable. Please provide the "
@@ -3661,7 +3661,7 @@ msgstr ""
 "La specifita dosiero '%1' ne montras al ruleblaĵo. Bonvolu provizi la ĝustan "
 "vojon en la aplikaĵo-agordoj kaj provu denove."
 
-#: lib/backend.cpp:201
+#: lib/backend.cpp:205
 #, kde-format
 msgid ""
 "The program %1 didn't finish the execution after %2 milliseconds during the "
@@ -3670,13 +3670,13 @@ msgstr ""
 "La programo %1 ne finis la efektivigon post %2 milisekundoj dum la provo de "
 "integriĝo de la desegno."
 
-#: lib/backend.cpp:210
+#: lib/backend.cpp:214
 #, kde-format
 msgid "Failed to open the file %1 during the plot integration test."
 msgstr ""
 "Malsukcesis malfermi la dosieron %1 dum la provo de integriĝo de la desegno."
 
-#: lib/backend.cpp:218
+#: lib/backend.cpp:222
 #, kde-format
 msgid "Failed to parse the result during the plot integration test."
 msgstr "Malsukcesis analizi la rezulton dum la provo de integriĝo de desegno."

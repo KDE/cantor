@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: cantor\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-02-13 00:40+0000\n"
+"POT-Creation-Date: 2025-02-26 00:37+0000\n"
 "PO-Revision-Date: 2024-12-25 19:37+0530\n"
 "Last-Translator: kali <shreekantkalwar@gmail.com>\n"
 "Language-Team: Sanskrit <kde-i18n-doc@kde.org>\n"
@@ -3605,7 +3605,7 @@ msgstr "चित्राणि (%1) ."
 msgid "Show LaTeX code"
 msgstr "LaTeX कोडं दर्शयतु"
 
-#: lib/backend.cpp:163
+#: lib/backend.cpp:167
 #, kde-format
 msgid ""
 "No path for the %1 executable specified. Please provide the correct path in "
@@ -3614,7 +3614,7 @@ msgstr ""
 "%1 कार्यान्वयनीयस्य कृते कोऽपि मार्गः निर्दिष्टः नास्ति । कृपया अनुप्रयोगसेटिंग्स् मध्ये सम्यक् "
 "मार्गं प्रदातुं पुनः प्रयासं कुर्वन्तु ।"
 
-#: lib/backend.cpp:173
+#: lib/backend.cpp:177
 #, kde-format
 msgid ""
 "The specified file '%1' for the %2 executable doesn't exist. Please provide "
@@ -3623,7 +3623,7 @@ msgstr ""
 "%2 कार्यान्वयनीयस्य कृते निर्दिष्टा सञ्चिका '%1' नास्ति । कृपया अनुप्रयोगसेटिंग्स् मध्ये सम्यक् "
 "मार्गं प्रदातुं पुनः प्रयासं कुर्वन्तु ।"
 
-#: lib/backend.cpp:182
+#: lib/backend.cpp:186
 #, kde-format
 msgid ""
 "The specified file '%1' doesn't point to an executable. Please provide the "
@@ -3632,7 +3632,7 @@ msgstr ""
 "निर्दिष्टा सञ्चिका '%1' कार्यान्वयनीयं न सूचयति । कृपया अनुप्रयोगसेटिंग्स् मध्ये सम्यक् मार्गं "
 "प्रदातुं पुनः प्रयासं कुर्वन्तु ।"
 
-#: lib/backend.cpp:201
+#: lib/backend.cpp:205
 #, kde-format
 msgid ""
 "The program %1 didn't finish the execution after %2 milliseconds during the "
@@ -3641,12 +3641,12 @@ msgstr ""
 "%1 इति कार्यक्रमः प्लॉट् एकीकरणपरीक्षायाः समये %2 मिलीसेकेण्ड्-पश्चात् निष्पादनं न "
 "समाप्तवान् ।"
 
-#: lib/backend.cpp:210
+#: lib/backend.cpp:214
 #, kde-format
 msgid "Failed to open the file %1 during the plot integration test."
 msgstr "प्लॉट् एकीकरणपरीक्षायाः समये %1 सञ्चिकां उद्घाटयितुं असफलम् ।"
 
-#: lib/backend.cpp:218
+#: lib/backend.cpp:222
 #, kde-format
 msgid "Failed to parse the result during the plot integration test."
 msgstr "प्लॉट् एकीकरणपरीक्षायाः समये परिणामस्य विश्लेषणं कर्तुं असफलः ।"

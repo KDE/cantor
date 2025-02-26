@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: cantor\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-02-13 00:40+0000\n"
+"POT-Creation-Date: 2025-02-26 00:37+0000\n"
 "PO-Revision-Date: 2024-03-23 19:00-0300\n"
 "Last-Translator: Luiz Fernando Ranghetti <elchevive@opensuse.org>\n"
 "Language-Team: Brazilian Portuguese <kde-i18n-pt_BR@kde.org>\n"
@@ -3682,7 +3682,7 @@ msgstr "Imagens (%1)"
 msgid "Show LaTeX code"
 msgstr "Mostrar o código LaTeX"
 
-#: lib/backend.cpp:163
+#: lib/backend.cpp:167
 #, kde-format
 msgid ""
 "No path for the %1 executable specified. Please provide the correct path in "
@@ -3691,7 +3691,7 @@ msgstr ""
 "Não foi indicada nenhum caminho para o executável %1. Indique o caminho "
 "correto na configuração do aplicativo e tente novamente."
 
-#: lib/backend.cpp:173
+#: lib/backend.cpp:177
 #, kde-format
 msgid ""
 "The specified file '%1' for the %2 executable doesn't exist. Please provide "
@@ -3700,7 +3700,7 @@ msgstr ""
 "O arquivo indicado '%1' para o executável %2 não existe. Indique o caminho "
 "correto na configuração do aplicativo e tente novamente."
 
-#: lib/backend.cpp:182
+#: lib/backend.cpp:186
 #, kde-format
 msgid ""
 "The specified file '%1' doesn't point to an executable. Please provide the "
@@ -3709,7 +3709,7 @@ msgstr ""
 "O arquivo indicado '%1' não aponta para nenhum executável. Indique o caminho "
 "correto na configuração do aplicativo e tente novamente."
 
-#: lib/backend.cpp:201
+#: lib/backend.cpp:205
 #, kde-format
 msgid ""
 "The program %1 didn't finish the execution after %2 milliseconds during the "
@@ -3718,12 +3718,12 @@ msgstr ""
 "O programa %1 não concluiu a execução após %2 milissegundos durante o teste "
 "de integração do gráfico."
 
-#: lib/backend.cpp:210
+#: lib/backend.cpp:214
 #, kde-format
 msgid "Failed to open the file %1 during the plot integration test."
 msgstr "Falha ao abrir o arquivo %1 durante o teste de integração do gráfico."
 
-#: lib/backend.cpp:218
+#: lib/backend.cpp:222
 #, kde-format
 msgid "Failed to parse the result during the plot integration test."
 msgstr ""

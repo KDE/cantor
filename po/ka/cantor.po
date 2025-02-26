@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: cantor\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-02-13 00:40+0000\n"
+"POT-Creation-Date: 2025-02-26 00:37+0000\n"
 "PO-Revision-Date: 2024-12-04 03:20+0100\n"
 "Last-Translator: Temuri Doghonadze <temuri.doghonadze@gmail.com>\n"
 "Language-Team: Georgian <kde-i18n-doc@kde.org>\n"
@@ -3641,7 +3641,7 @@ msgstr "სურათები (%1)"
 msgid "Show LaTeX code"
 msgstr "LaTeX -ის კოდის ჩვენება"
 
-#: lib/backend.cpp:163
+#: lib/backend.cpp:167
 #, kde-format
 msgid ""
 "No path for the %1 executable specified. Please provide the correct path in "
@@ -3650,7 +3650,7 @@ msgstr ""
 "%1-ის გამშვებ ფაილამდე ბილიკი მითითებული არაა. შეიყვანეთ სწორი ბილიკი "
 "აპლიკაციის პარამეტრებში და თავიდან სცადეთ."
 
-#: lib/backend.cpp:173
+#: lib/backend.cpp:177
 #, kde-format
 msgid ""
 "The specified file '%1' for the %2 executable doesn't exist. Please provide "
@@ -3659,7 +3659,7 @@ msgstr ""
 "მითითებული ფაილი '%1' %2-ის გამშვები ფაილისთვის არ არსებობს. შეიყვანეთ სწორი "
 "ბილიკი აპლიკაციის პარამეტრებში და თავიდან სცადეთ."
 
-#: lib/backend.cpp:182
+#: lib/backend.cpp:186
 #, kde-format
 msgid ""
 "The specified file '%1' doesn't point to an executable. Please provide the "
@@ -3668,7 +3668,7 @@ msgstr ""
 "მითითებული ფაილი '%1' გამშვებ ფაილზე არ მიუთითებს. შეიყვანეთ სწორი ბილიკი "
 "აპლიკაციის პარამეტრებში და თავიდან სცადეთ."
 
-#: lib/backend.cpp:201
+#: lib/backend.cpp:205
 #, kde-format
 msgid ""
 "The program %1 didn't finish the execution after %2 milliseconds during the "
@@ -3677,12 +3677,12 @@ msgstr ""
 "პროგრამამ %1 არ დაასრულა მუშაობა %2 მილიწამის შემდეგ გრაფიკის ინტეგრაციის "
 "შემოწმებისას."
 
-#: lib/backend.cpp:210
+#: lib/backend.cpp:214
 #, kde-format
 msgid "Failed to open the file %1 during the plot integration test."
 msgstr "ჩავარდა გახსნა ფაილისთვის %1 გრაფიკის ინტეგრაციის შემოწმებისას."
 
-#: lib/backend.cpp:218
+#: lib/backend.cpp:222
 #, kde-format
 msgid "Failed to parse the result during the plot integration test."
 msgstr "ჩავარდა შედეგის დამუშავება გრაფიკის ინტეგრაციის შემოწმებისას."

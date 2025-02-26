@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-02-13 00:40+0000\n"
+"POT-Creation-Date: 2025-02-26 00:37+0000\n"
 "PO-Revision-Date: 2024-12-04 07:16+0100\n"
 "Last-Translator: Matjaž Jeran <matjaz.jeran@amis.net>\n"
 "Language-Team: Slovenian <lugos-slo@lugos.si>\n"
@@ -3646,7 +3646,7 @@ msgstr "Slike (%1)"
 msgid "Show LaTeX code"
 msgstr "Pokaži kodo LaTeX"
 
-#: lib/backend.cpp:163
+#: lib/backend.cpp:167
 #, kde-format
 msgid ""
 "No path for the %1 executable specified. Please provide the correct path in "
@@ -3655,7 +3655,7 @@ msgstr ""
 "Ni določena pot do navedenega izvedljivega programa %1. Prosimo navedite "
 "pravilno pot v nastavitvah aplikacije in poskusite znova."
 
-#: lib/backend.cpp:173
+#: lib/backend.cpp:177
 #, kde-format
 msgid ""
 "The specified file '%1' for the %2 executable doesn't exist. Please provide "
@@ -3664,7 +3664,7 @@ msgstr ""
 "Navedena datoteka '%1' za izvedljiv program %2 ne obstaja. Prosimo navedite "
 "pravilno pot v nastavitvah aplikacije in poskusite znova."
 
-#: lib/backend.cpp:182
+#: lib/backend.cpp:186
 #, kde-format
 msgid ""
 "The specified file '%1' doesn't point to an executable. Please provide the "
@@ -3673,7 +3673,7 @@ msgstr ""
 "Navedena datoteka '%1' ne kaže na izvedljivo datoteko. Prosimo, navedite "
 "pravilno v nastavitvah aplikacije in poskusite znova."
 
-#: lib/backend.cpp:201
+#: lib/backend.cpp:205
 #, kde-format
 msgid ""
 "The program %1 didn't finish the execution after %2 milliseconds during the "
@@ -3682,13 +3682,13 @@ msgstr ""
 "Program %1 ni končal izvedbe po %2 milisekundah med preizkusom integracije "
 "risanja.."
 
-#: lib/backend.cpp:210
+#: lib/backend.cpp:214
 #, kde-format
 msgid "Failed to open the file %1 during the plot integration test."
 msgstr ""
 "Med preizkusom integracije risanja ni bilo mogoče odpreti. datoteke %1."
 
-#: lib/backend.cpp:218
+#: lib/backend.cpp:222
 #, kde-format
 msgid "Failed to parse the result during the plot integration test."
 msgstr ""

@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: cantor\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-02-13 00:40+0000\n"
+"POT-Creation-Date: 2025-02-26 00:37+0000\n"
 "PO-Revision-Date: 2025-01-24 13:36+0100\n"
 "Last-Translator: Xavier Besnard <xavier.besnard@kde.org>\n"
 "Language-Team: French <French <kde-francophone@kde.org>>\n"
@@ -3702,7 +3702,7 @@ msgstr "Images (%1)"
 msgid "Show LaTeX code"
 msgstr "Afficher le code LaTeX"
 
-#: lib/backend.cpp:163
+#: lib/backend.cpp:167
 #, kde-format
 msgid ""
 "No path for the %1 executable specified. Please provide the correct path in "
@@ -3712,7 +3712,7 @@ msgstr ""
 "emplacement correct dans les paramètres de l'application et essayer de "
 "nouveau."
 
-#: lib/backend.cpp:173
+#: lib/backend.cpp:177
 #, kde-format
 msgid ""
 "The specified file '%1' for the %2 executable doesn't exist. Please provide "
@@ -3722,7 +3722,7 @@ msgstr ""
 "fournir un emplacement correct dans les paramètres de l'application et ré-"
 "essayer."
 
-#: lib/backend.cpp:182
+#: lib/backend.cpp:186
 #, kde-format
 msgid ""
 "The specified file '%1' doesn't point to an executable. Please provide the "
@@ -3731,7 +3731,7 @@ msgstr ""
 "Le fichier spécifié « %1 » n'est pas un executable. Veuillez fournir un "
 "emplacement correct dans les paramètres de l'application et ré-essayer."
 
-#: lib/backend.cpp:201
+#: lib/backend.cpp:205
 #, kde-format
 msgid ""
 "The program %1 didn't finish the execution after %2 milliseconds during the "
@@ -3740,13 +3740,13 @@ msgstr ""
 "Le programme %1 ne s'est pas terminé après %2 millisecondes durant le test "
 "d'intégration des tracés."
 
-#: lib/backend.cpp:210
+#: lib/backend.cpp:214
 #, kde-format
 msgid "Failed to open the file %1 during the plot integration test."
 msgstr ""
 "Impossible d'ouvrir le fichier %1 durant le test d'intégration des tracés."
 
-#: lib/backend.cpp:218
+#: lib/backend.cpp:222
 #, kde-format
 msgid "Failed to parse the result during the plot integration test."
 msgstr ""

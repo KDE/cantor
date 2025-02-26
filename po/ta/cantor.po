@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: cantor\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-02-13 00:40+0000\n"
+"POT-Creation-Date: 2025-02-26 00:37+0000\n"
 "PO-Revision-Date: 2024-12-08 14:27+0530\n"
 "Last-Translator: Kishore G <kishore96@gmail.com>\n"
 "Language-Team: Tamil <kde-i18n-doc@kde.org>\n"
@@ -3480,7 +3480,7 @@ msgstr "படங்கள் (%1)"
 msgid "Show LaTeX code"
 msgstr "LaTeX நிரல்தொடரைக் காட்டு"
 
-#: lib/backend.cpp:163
+#: lib/backend.cpp:167
 #, kde-format
 msgid ""
 "No path for the %1 executable specified. Please provide the correct path in "
@@ -3489,7 +3489,7 @@ msgstr ""
 "%1 நிரலுக்கான பாதை குறிப்பிடப்படவில்லை. செயலியின் அமைப்புகளில் சரியான பாதையை "
 "அமைத்தபின் மறுபடியும் முயற்சியுங்கள்."
 
-#: lib/backend.cpp:173
+#: lib/backend.cpp:177
 #, kde-format
 msgid ""
 "The specified file '%1' for the %2 executable doesn't exist. Please provide "
@@ -3498,7 +3498,7 @@ msgstr ""
 "%2 நிரலுக்கு இயக்க வேண்டிய '%1' எனும் கோப்பு இல்லை. செயலியின் அமைப்புகளில் சரியான "
 "பாதையை உள்ளிட்டு மீண்டும் முயலுங்கள்."
 
-#: lib/backend.cpp:182
+#: lib/backend.cpp:186
 #, kde-format
 msgid ""
 "The specified file '%1' doesn't point to an executable. Please provide the "
@@ -3507,7 +3507,7 @@ msgstr ""
 "'%1' எனும் கோப்பு, இயக்கவல்லதில்லை. செயலியின் அமைப்புகளில் சரியான பாதையை அமைத்தபின் "
 "மீண்டும் முயலுங்கள்."
 
-#: lib/backend.cpp:201
+#: lib/backend.cpp:205
 #, kde-format
 msgid ""
 "The program %1 didn't finish the execution after %2 milliseconds during the "
@@ -3515,12 +3515,12 @@ msgid ""
 msgstr ""
 "வரைபட உள்ளமைவு சோதனையின்போது %1 எனும் நிரல், %2 மில்லிநொடிகளுக்குள் பதிலளிக்கவில்லை."
 
-#: lib/backend.cpp:210
+#: lib/backend.cpp:214
 #, kde-format
 msgid "Failed to open the file %1 during the plot integration test."
 msgstr "வரைபட உள்ளமைவு சோதனையின்போது %1 எனும் கோப்பைத் திறக்க முடியவில்லை."
 
-#: lib/backend.cpp:218
+#: lib/backend.cpp:222
 #, kde-format
 msgid "Failed to parse the result during the plot integration test."
 msgstr "வரைபட உள்ளமைவு சோதனையின்போது கிடைத்த பதிலைப் புரிந்துகொள்ள முடியவில்லை."

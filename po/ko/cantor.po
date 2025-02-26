@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-02-13 00:40+0000\n"
+"POT-Creation-Date: 2025-02-26 00:37+0000\n"
 "PO-Revision-Date: 2024-12-24 16:05+0100\n"
 "Last-Translator: Shinjo Park <kde@peremen.name>\n"
 "Language-Team: Korean <kde-kr@kde.org>\n"
@@ -3596,7 +3596,7 @@ msgstr "그림 (%1)"
 msgid "Show LaTeX code"
 msgstr "LaTeX 코드 표시"
 
-#: lib/backend.cpp:163
+#: lib/backend.cpp:167
 #, kde-format
 msgid ""
 "No path for the %1 executable specified. Please provide the correct path in "
@@ -3605,7 +3605,7 @@ msgstr ""
 "%1 실행 파일 경로를 지정하지 않았습니다. 앱 설정에서 올바른 경로를 지정하고 "
 "다시 시도하십시오."
 
-#: lib/backend.cpp:173
+#: lib/backend.cpp:177
 #, kde-format
 msgid ""
 "The specified file '%1' for the %2 executable doesn't exist. Please provide "
@@ -3614,7 +3614,7 @@ msgstr ""
 "%2 실행 파일의 경로 '%1'이(가) 없습니다. 앱 설정에서 올바른 경로를 지정하고 "
 "다시 시도하십시오."
 
-#: lib/backend.cpp:182
+#: lib/backend.cpp:186
 #, kde-format
 msgid ""
 "The specified file '%1' doesn't point to an executable. Please provide the "
@@ -3623,7 +3623,7 @@ msgstr ""
 "지정한 파일 '%1'이(가) 실행 파일을 가리키지 않습니다. 앱 설정에서 올바른 경로"
 "를 지정하고 다시 시도하십시오."
 
-#: lib/backend.cpp:201
+#: lib/backend.cpp:205
 #, kde-format
 msgid ""
 "The program %1 didn't finish the execution after %2 milliseconds during the "
@@ -3631,12 +3631,12 @@ msgid ""
 msgstr ""
 "플롯 통합 시험 중 %1 프로그램이 %2밀리초 이후 실행을 종료하지 않았습니다."
 
-#: lib/backend.cpp:210
+#: lib/backend.cpp:214
 #, kde-format
 msgid "Failed to open the file %1 during the plot integration test."
 msgstr "플롯 통합 시험 중 %1 파일을 열 수 없습니다."
 
-#: lib/backend.cpp:218
+#: lib/backend.cpp:222
 #, kde-format
 msgid "Failed to parse the result during the plot integration test."
 msgstr "플롯 통합 시험 중 시험 결과를 처리할 수 없습니다."

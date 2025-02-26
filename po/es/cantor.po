@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: cantor\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-02-13 00:40+0000\n"
+"POT-Creation-Date: 2025-02-26 00:37+0000\n"
 "PO-Revision-Date: 2025-02-17 22:50+0100\n"
 "Last-Translator: Eloy Cuadra <ecuadra@eloihr.net>\n"
 "Language-Team: Spanish <kde-l10n-es@kde.org>\n"
@@ -3668,7 +3668,7 @@ msgstr "Imágenes (%1)"
 msgid "Show LaTeX code"
 msgstr "Mostrar código LaTeX"
 
-#: lib/backend.cpp:163
+#: lib/backend.cpp:167
 #, kde-format
 msgid ""
 "No path for the %1 executable specified. Please provide the correct path in "
@@ -3677,7 +3677,7 @@ msgstr ""
 "No se ha indicado ninguna ruta para el ejecutable %1. Proporcione la ruta "
 "correcta en las preferencias de la aplicación y vuelva a intentarlo."
 
-#: lib/backend.cpp:173
+#: lib/backend.cpp:177
 #, kde-format
 msgid ""
 "The specified file '%1' for the %2 executable doesn't exist. Please provide "
@@ -3686,7 +3686,7 @@ msgstr ""
 "El archivo indicado «%1» para el ejecutable %2 no existe. Proporcione la "
 "ruta correcta en las preferencias de la aplicación y vuelva a intentarlo."
 
-#: lib/backend.cpp:182
+#: lib/backend.cpp:186
 #, kde-format
 msgid ""
 "The specified file '%1' doesn't point to an executable. Please provide the "
@@ -3695,7 +3695,7 @@ msgstr ""
 "El archivo indicado «%1» no apunta a ningún ejecutable. Proporcione la ruta "
 "correcta en las preferencias de la aplicación y vuelva a intentarlo."
 
-#: lib/backend.cpp:201
+#: lib/backend.cpp:205
 #, kde-format
 msgid ""
 "The program %1 didn't finish the execution after %2 milliseconds during the "
@@ -3704,14 +3704,14 @@ msgstr ""
 "El programa %1 no ha terminado de ejecutarse tras %2 milisegundos durante la "
 "prueba de integración del gráfico."
 
-#: lib/backend.cpp:210
+#: lib/backend.cpp:214
 #, kde-format
 msgid "Failed to open the file %1 during the plot integration test."
 msgstr ""
 "No se ha podido abrir el archivo %1 durante la prueba de integración del "
 "gráfico."
 
-#: lib/backend.cpp:218
+#: lib/backend.cpp:222
 #, kde-format
 msgid "Failed to parse the result during the plot integration test."
 msgstr ""

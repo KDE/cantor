@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-02-13 00:40+0000\n"
+"POT-Creation-Date: 2025-02-26 00:37+0000\n"
 "PO-Revision-Date: 2024-12-07 12:17+0100\n"
 "Last-Translator: Łukasz Wojniłowicz <lukasz.wojnilowicz@gmail.com>\n"
 "Language-Team: Polish <kde-i18n-doc@kde.org>\n"
@@ -3651,7 +3651,7 @@ msgstr "Obrazy (%1)"
 msgid "Show LaTeX code"
 msgstr "Pokaż kod LaTeX"
 
-#: lib/backend.cpp:163
+#: lib/backend.cpp:167
 #, kde-format
 msgid ""
 "No path for the %1 executable specified. Please provide the correct path in "
@@ -3660,7 +3660,7 @@ msgstr ""
 "Nie podano ścieżki do pliku wykonywalnego %1. Podaj poprawną ścieżkę w "
 "ustawieniach aplikacji i spróbuj ponownie."
 
-#: lib/backend.cpp:173
+#: lib/backend.cpp:177
 #, kde-format
 msgid ""
 "The specified file '%1' for the %2 executable doesn't exist. Please provide "
@@ -3669,7 +3669,7 @@ msgstr ""
 "Podany plik '%1' dla pliku wykonywalnego %2 nie istnieje. Podaj poprawną "
 "ścieżkę w ustawieniach aplikacji i spróbuj ponownie."
 
-#: lib/backend.cpp:182
+#: lib/backend.cpp:186
 #, kde-format
 msgid ""
 "The specified file '%1' doesn't point to an executable. Please provide the "
@@ -3678,7 +3678,7 @@ msgstr ""
 "Podany plik '%1' nie jest plikiem wykonywalnym. Podaj poprawną ścieżkę w "
 "ustawieniach aplikacji i spróbuj ponownie."
 
-#: lib/backend.cpp:201
+#: lib/backend.cpp:205
 #, kde-format
 msgid ""
 "The program %1 didn't finish the execution after %2 milliseconds during the "
@@ -3687,12 +3687,12 @@ msgstr ""
 "Program %1 nie zakończył swojego wykonywania po %2 milisekundach w trakcie "
 "próby integracji wykresów."
 
-#: lib/backend.cpp:210
+#: lib/backend.cpp:214
 #, kde-format
 msgid "Failed to open the file %1 during the plot integration test."
 msgstr "Nie udało się otworzyć pliku %1 podczas próby integracji wykresów."
 
-#: lib/backend.cpp:218
+#: lib/backend.cpp:222
 #, kde-format
 msgid "Failed to parse the result during the plot integration test."
 msgstr "Nie udało się przetworzyć wyników podczas próby integracji wykresów."

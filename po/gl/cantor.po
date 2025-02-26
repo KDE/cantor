@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: mathematik\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-02-13 00:40+0000\n"
+"POT-Creation-Date: 2025-02-26 00:37+0000\n"
 "PO-Revision-Date: 2025-01-19 12:16+0100\n"
 "Last-Translator: Adrián Chaves (Gallaecio) <adrian@chaves.io>\n"
 "Language-Team: Proxecto Trasno (proxecto@trasno.gal)\n"
@@ -3657,7 +3657,7 @@ msgstr "Imaxes (%1)"
 msgid "Show LaTeX code"
 msgstr "Amosar o código LaTeX"
 
-#: lib/backend.cpp:163
+#: lib/backend.cpp:167
 #, kde-format
 msgid ""
 "No path for the %1 executable specified. Please provide the correct path in "
@@ -3666,7 +3666,7 @@ msgstr ""
 "Non se indicou a ruta do executábel %1. Forneza a ruta correcta na "
 "configuración da aplicación e inténteo de novo."
 
-#: lib/backend.cpp:173
+#: lib/backend.cpp:177
 #, kde-format
 msgid ""
 "The specified file '%1' for the %2 executable doesn't exist. Please provide "
@@ -3675,7 +3675,7 @@ msgstr ""
 "O ficheiro indicado «%1» para o executábel %2 non existe. Forneza a ruta "
 "correcta na configuración da aplicación e inténteo de novo."
 
-#: lib/backend.cpp:182
+#: lib/backend.cpp:186
 #, kde-format
 msgid ""
 "The specified file '%1' doesn't point to an executable. Please provide the "
@@ -3684,7 +3684,7 @@ msgstr ""
 "O ficheiro indicado «%1» non apunta a un executábel. Forneza a ruta correcta "
 "na configuración da aplicación e inténteo de novo."
 
-#: lib/backend.cpp:201
+#: lib/backend.cpp:205
 #, kde-format
 msgid ""
 "The program %1 didn't finish the execution after %2 milliseconds during the "
@@ -3693,14 +3693,14 @@ msgstr ""
 "O programa %1 non rematou a execución tras %2 milisegundos durante a proba "
 "de integración dos gráficos."
 
-#: lib/backend.cpp:210
+#: lib/backend.cpp:214
 #, kde-format
 msgid "Failed to open the file %1 during the plot integration test."
 msgstr ""
 "Non foi posíbel abrir o ficheiro %1 durante a proba de integración de "
 "gráficos."
 
-#: lib/backend.cpp:218
+#: lib/backend.cpp:222
 #, kde-format
 msgid "Failed to parse the result during the plot integration test."
 msgstr ""

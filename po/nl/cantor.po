@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: cantor\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-02-13 00:40+0000\n"
+"POT-Creation-Date: 2025-02-26 00:37+0000\n"
 "PO-Revision-Date: 2024-12-06 11:06+0100\n"
 "Last-Translator: Freek de Kruijf <freekdekruijf@kde.nl>\n"
 "Language-Team: \n"
@@ -3655,7 +3655,7 @@ msgstr "Afbeeldingen (%1)"
 msgid "Show LaTeX code"
 msgstr "LaTeX-code tonen"
 
-#: lib/backend.cpp:163
+#: lib/backend.cpp:167
 #, kde-format
 msgid ""
 "No path for the %1 executable specified. Please provide the correct path in "
@@ -3664,7 +3664,7 @@ msgstr ""
 "Geen pad opgegeven voor uitvoerbaar bestand %1. Geef a.u.b. het juiste pad "
 "op in de instellingen van het programma, en probeer het nog eens."
 
-#: lib/backend.cpp:173
+#: lib/backend.cpp:177
 #, kde-format
 msgid ""
 "The specified file '%1' for the %2 executable doesn't exist. Please provide "
@@ -3674,7 +3674,7 @@ msgstr ""
 "Geef a.u.b. het juiste pad op in de instellingen van het programma en "
 "probeer het nog eens."
 
-#: lib/backend.cpp:182
+#: lib/backend.cpp:186
 #, kde-format
 msgid ""
 "The specified file '%1' doesn't point to an executable. Please provide the "
@@ -3684,7 +3684,7 @@ msgstr ""
 "a.u.b. het juiste pad op in de instellingen van het programma en probeer het "
 "nog eens."
 
-#: lib/backend.cpp:201
+#: lib/backend.cpp:205
 #, kde-format
 msgid ""
 "The program %1 didn't finish the execution after %2 milliseconds during the "
@@ -3693,12 +3693,12 @@ msgstr ""
 "Programma %1 eindigde het uitvoeren niet na %2 milliseconden gedurende de "
 "plotintegratie test."
 
-#: lib/backend.cpp:210
+#: lib/backend.cpp:214
 #, kde-format
 msgid "Failed to open the file %1 during the plot integration test."
 msgstr "Openen van bestand %1 lukte niet tijdens de plotintegratie test."
 
-#: lib/backend.cpp:218
+#: lib/backend.cpp:222
 #, kde-format
 msgid "Failed to parse the result during the plot integration test."
 msgstr "Het lezen van het resultaat tijdens de plotintegratietest is mislukt."

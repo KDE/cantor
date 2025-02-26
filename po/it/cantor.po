@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: cantor\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-02-13 00:40+0000\n"
+"POT-Creation-Date: 2025-02-26 00:37+0000\n"
 "PO-Revision-Date: 2024-12-07 08:14+0100\n"
 "Last-Translator: Vincenzo Reale <>\n"
 "Language-Team: Italian <kde-i18n-it@kde.org>\n"
@@ -3656,7 +3656,7 @@ msgstr "Immagini (%1)"
 msgid "Show LaTeX code"
 msgstr "Mostra codice LaTeX"
 
-#: lib/backend.cpp:163
+#: lib/backend.cpp:167
 #, kde-format
 msgid ""
 "No path for the %1 executable specified. Please provide the correct path in "
@@ -3665,7 +3665,7 @@ msgstr ""
 "Non è stato specificato alcun percorso per l'eseguibile %1. Fornisci il "
 "percorso corretto nelle impostazioni dell'applicazione e riprova."
 
-#: lib/backend.cpp:173
+#: lib/backend.cpp:177
 #, kde-format
 msgid ""
 "The specified file '%1' for the %2 executable doesn't exist. Please provide "
@@ -3674,7 +3674,7 @@ msgstr ""
 "Il file specificato «%1» per l'eseguibile di %2 non esiste. Fornisci il "
 "percorso corretto nelle impostazioni dell'applicazione e riprova."
 
-#: lib/backend.cpp:182
+#: lib/backend.cpp:186
 #, kde-format
 msgid ""
 "The specified file '%1' doesn't point to an executable. Please provide the "
@@ -3683,7 +3683,7 @@ msgstr ""
 "Il file specificato «%1» non è un eseguibile. Fornisci il percorso corretto "
 "nelle impostazioni dell'applicazione e riprova."
 
-#: lib/backend.cpp:201
+#: lib/backend.cpp:205
 #, kde-format
 msgid ""
 "The program %1 didn't finish the execution after %2 milliseconds during the "
@@ -3692,12 +3692,12 @@ msgstr ""
 "Il programma %1 non ha terminato l'esecuzione della prova di integrazione "
 "del grafico dopo %2 millisecondi"
 
-#: lib/backend.cpp:210
+#: lib/backend.cpp:214
 #, kde-format
 msgid "Failed to open the file %1 during the plot integration test."
 msgstr "Impossibile aprire il file %1 nella prova di integrazione del grafico."
 
-#: lib/backend.cpp:218
+#: lib/backend.cpp:222
 #, kde-format
 msgid "Failed to parse the result during the plot integration test."
 msgstr ""
