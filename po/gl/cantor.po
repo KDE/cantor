@@ -3158,7 +3158,7 @@ msgstr "[só lectura]"
 #: cantor_part.cpp:890
 #, kde-format
 msgid "Do you want to upload current Worksheet to public web server?"
-msgstr "Quere enviar esta folla de traballo a un servidor público?"
+msgstr "Quere subir esta folla de traballo a un servidor público?"
 
 #: cantor_part.cpp:891
 #, kde-format
