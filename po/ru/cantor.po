@@ -6,20 +6,20 @@
 # Alexey Subach <alexey.subach@gmail.com>, 2011.
 # Yuri Efremov <yur.arh@gmail.com>, 2013.
 # Alexander Yavorsky <kekcuha@gmail.com>, 2020.
-# Olesya Gerasimenko <translation-team@basealt.ru>, 2021, 2022, 2023.
+# SPDX-FileCopyrightText: 2021, 2022, 2023, 2025 Olesya Gerasimenko <translation-team@basealt.ru>
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-02-26 00:37+0000\n"
-"PO-Revision-Date: 2023-09-05 16:55+0300\n"
+"PO-Revision-Date: 2025-03-04 16:25+0300\n"
 "Last-Translator: Olesya Gerasimenko <translation-team@basealt.ru>\n"
 "Language-Team: Basealt Translation Team\n"
 "Language: ru\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Lokalize 22.12.3\n"
+"X-Generator: Lokalize 23.08.5\n"
 "Plural-Forms: nplurals=4; plural=n==1 ? 3 : n%10==1 && n%100!=11 ? 0 : n"
 "%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
 "X-Environment: kde\n"
@@ -400,10 +400,9 @@ msgid "Julia script file (*.jl)"
 msgstr "Сценарии Julia (*.jl)"
 
 #: backends/julia/juliasession.cpp:70
-#, fuzzy, kde-format
-#| msgid "Failed to start Julia process."
+#, kde-format
 msgid "Failed to start Julia, please check Julia installation."
-msgstr "Не удалось запустить процесс Julia."
+msgstr "Не удалось выполнить запуск Julia. Проверьте корректность установки."
 
 #: backends/julia/juliasession.cpp:118 backends/julia/juliasession.cpp:127
 #: backends/maxima/maximasession.cpp:298 cantor_part.cpp:973
@@ -633,8 +632,7 @@ msgstr "Gadfly"
 
 #. i18n: ectx: property (text), widget (QLabel, label3)
 #: backends/julia/settings.ui:253
-#, fuzzy, kde-format
-#| msgid "Package for Plot Assistant"
+#, kde-format
 msgid "Package for Plot Assistant:"
 msgstr "Пакет для вспомогательного средства построения графиков"
 
@@ -747,7 +745,7 @@ msgstr "Сценарии Lua (*.lua)"
 #: backends/lua/luasession.cpp:59
 #, kde-format
 msgid "Failed to start Lua, please check Lua installation."
-msgstr ""
+msgstr "Не удалось выполнить запуск Lua. Проверьте корректность установки."
 
 #. i18n: ectx: property (text), widget (QLabel, label)
 #: backends/lua/settings.ui:27
@@ -911,7 +909,7 @@ msgstr "Пакетные файлы Maxima (*.mac)"
 #: backends/maxima/maximasession.cpp:60
 #, kde-format
 msgid "Failed to start Maxima, please check Maxima's installation."
-msgstr ""
+msgstr "Не удалось выполнить запуск Maxima. Проверьте корректность установки."
 
 #: backends/maxima/maximasession.cpp:79
 #, kde-format
@@ -919,6 +917,8 @@ msgid ""
 "Maxima didn't respond with the proper prompt, please check Maxima "
 "installation."
 msgstr ""
+"От Maxima не был получен ответ с соответствующим запросом. Проверьте "
+"корректность установки."
 
 #: backends/maxima/maximasession.cpp:217
 #, kde-format
@@ -983,7 +983,7 @@ msgstr "Сценарии Octave (*.m)"
 #: backends/octave/octavesession.cpp:98
 #, kde-format
 msgid "Failed to start Octave, please check Octave installation."
-msgstr ""
+msgstr "Не удалось выполнить запуск Octave. Проверьте корректность установки."
 
 #: backends/octave/octavesession.cpp:278 backends/sage/sageexpression.cpp:49
 #, kde-format
@@ -1027,8 +1027,7 @@ msgstr ""
 
 #. i18n: ectx: label, entry (plotExtenstionGraphicPackage), group (PythonBackend)
 #: backends/python/pythonbackend.kcfg:44
-#, fuzzy, kde-format
-#| msgid "Graphic package to be used in the Plot Assistant"
+#, kde-format
 msgid "Graphical package to be used for the Plot Assistant"
 msgstr ""
 "Графический пакет для использования вспомогательным средством построения "
@@ -1047,7 +1046,7 @@ msgstr "Сценарии Python (*.py)"
 #: backends/python/pythonsession.cpp:74
 #, kde-format
 msgid "Failed to start Python, please check Python installation."
-msgstr ""
+msgstr "Не удалось выполнить запуск Python. Проверьте корректность установки."
 
 #: backends/python/pythonsession.cpp:282
 #, kde-format
@@ -1088,10 +1087,9 @@ msgstr ""
 
 #. i18n: ectx: property (text), widget (QLabel, label4)
 #: backends/python/settings.ui:222
-#, fuzzy, kde-format
-#| msgid "Package for Plot Assistant"
+#, kde-format
 msgid "Plot Assistant"
-msgstr "Пакет для вспомогательного средства построения графиков"
+msgstr "Вспомогательное средство построения графиков"
 
 #. i18n: ectx: property (text), item, widget (KComboBox, kcfg_plotExtenstionGraphicPackage)
 #: backends/python/settings.ui:239
@@ -1518,13 +1516,22 @@ msgid ""
 "equations), arbitrary precision, uncertainty propagation, interval "
 "arithmetic, plotting,"
 msgstr ""
+"<b>Qalculate!</b> — многоцелевой кросс-платформенный калькулятор для ПК. Эта "
+"программа проста в использовании, но вместе с тем предоставляет тот же "
+"уровень возможностей и гибкости, что и пакеты для сложных математических "
+"расчётов. Кроме того, в ней предусмотрены полезные инструменты для "
+"повседневных нужд (например, конвертация валют и расчёт процентов). Вот "
+"некоторые из особенностей программы: большая библиотека настраиваемых "
+"функций, расчёты и конвертация единиц измерения, физические константы, "
+"символьные вычисления (включая интегралы и уравнения), произвольная "
+"точность, распространение неопределённости, интервальная арифметика, "
+"построение графиков"
 
 #. i18n: ectx: label, entry (Path), group (QalculateBackend)
 #: backends/qalculate/qalculatebackend.kcfg:9
-#, fuzzy, kde-format
-#| msgid "Path to the latex executable"
+#, kde-format
 msgid "Path to the Qalculate! executable"
-msgstr "Путь к исполняемому файлу latex"
+msgstr "Путь к исполняемому файлу Qalculate!"
 
 #. i18n: ectx: label, entry (postConversion), group (QalculateBackend)
 #: backends/qalculate/qalculatebackend.kcfg:21
@@ -2410,7 +2417,7 @@ msgstr "URL-адрес локальной документации R"
 #: backends/R/rsession.cpp:54
 #, kde-format
 msgid "Failed to start R, please check R installation."
-msgstr ""
+msgstr "Не удалось выполнить запуск R. Проверьте корректность установки."
 
 #: backends/R/rsettingswidget.cpp:28
 #, kde-format
@@ -2478,7 +2485,7 @@ msgstr "Сценарии Python (*.py);;Сценарии Sage (*.sage)"
 #: backends/sage/sagesession.cpp:126
 #, kde-format
 msgid "Failed to start Sage, please check Sage installation."
-msgstr ""
+msgstr "Не удалось выполнить запуск Sage. Проверьте корректность установки."
 
 #: backends/sage/sagesession.cpp:271
 #, kde-format
@@ -2578,7 +2585,7 @@ msgstr ";;Сценарии Scilab (*.sce);;Файлы функций Scilab (*.s
 #: backends/scilab/scilabsession.cpp:67
 #, kde-format
 msgid "Failed to start Scilab, please check Scilab installation."
-msgstr ""
+msgstr "Не удалось выполнить запуск Scilab. Проверьте корректность установки."
 
 #. i18n: ectx: property (text), widget (QLabel, lPlotIntegration)
 #: backends/scilab/settings.ui:37
@@ -3070,16 +3077,14 @@ msgid "Expand All Results"
 msgstr "Развернуть все результаты"
 
 #: cantor_part.cpp:323
-#, fuzzy, kde-format
-#| msgid "Remove All Results"
+#, kde-format
 msgid "Delete All Results"
 msgstr "Удалить все результаты"
 
 #: cantor_part.cpp:328
-#, fuzzy, kde-format
-#| msgid "Remove current Entry"
+#, kde-format
 msgid "Delete current Entry"
-msgstr "Удалить текущее выражение"
+msgstr "Удалить текущую запись"
 
 #. i18n("Publish Worksheet"), collection);
 #. publishWorksheet->setIcon(QIcon::fromTheme(QLatin1String("get-hot-new-stuff")));
@@ -3199,7 +3204,7 @@ msgstr "Вопрос — Cantor"
 #, kde-format
 msgctxt "@action:button"
 msgid "Upload"
-msgstr ""
+msgstr "Отправить"
 
 #: cantor_part.cpp:900
 #, kde-format
@@ -3437,7 +3442,6 @@ msgstr "Шрифт главы"
 #: formating.ui:48 formating.ui:105 formating.ui:162 formating.ui:219
 #: formating.ui:276 formating.ui:333
 #, fuzzy, kde-format
-#| msgid "Font Family:"
 msgid "Fon&t Family:"
 msgstr "Гарнитура шрифта:"
 
@@ -3450,7 +3454,6 @@ msgstr "Гарнитура шрифта:"
 #: formating.ui:61 formating.ui:118 formating.ui:175 formating.ui:232
 #: formating.ui:289 formating.ui:346
 #, fuzzy, kde-format
-#| msgid "Font Size:"
 msgid "Font Si&ze:"
 msgstr "Размер шрифта:"
 
@@ -4669,10 +4672,9 @@ msgid "Evaluate Entries"
 msgstr "Посчитать выражения"
 
 #: worksheet.cpp:1967 worksheet.cpp:2818
-#, fuzzy, kde-format
-#| msgid "Evaluate Entries"
+#, kde-format
 msgid "Delete Entries"
-msgstr "Посчитать выражения"
+msgstr "Удалить записи"
 
 #: worksheet.cpp:1980
 #, kde-format
@@ -4685,8 +4687,7 @@ msgid "Expand Command Entry Results"
 msgstr "Развернуть результаты выражений"
 
 #: worksheet.cpp:1983
-#, fuzzy, kde-format
-#| msgid "Remove Command Entry Results"
+#, kde-format
 msgid "Delete Command Entry Results"
 msgstr "Удалить результаты выражений"
 
@@ -4807,16 +4808,15 @@ msgstr "По ширине"
 msgid ""
 "This step cannot be undone. Do you really want to delete the selected "
 "entries?"
-msgstr ""
+msgstr "Этот шаг нельзя отменить. Действительно удалить выбранные записи?"
 
 #: worksheet.cpp:2907
 #, kde-format
 msgid "This step cannot be undone. Do you really want to delete all results?"
-msgstr ""
+msgstr "Этот шаг нельзя отменить. Действительно удалить все результаты?"
 
 #: worksheet.cpp:2908
-#, fuzzy, kde-format
-#| msgid "Remove all results"
+#, kde-format
 msgid "Delete all results"
 msgstr "Удалить все результаты"
 
@@ -4961,23 +4961,19 @@ msgid "Move Down"
 msgstr "Ниже"
 
 #: worksheetentry.cpp:436
-#, fuzzy, kde-format
-#| msgctxt "@info:tooltip"
-#| msgid "Delete"
+#, kde-format
 msgid "Delete"
 msgstr "Удалить"
 
 #: worksheetentry.cpp:718
-#, fuzzy, kde-format
-#| msgid "Do you really want to remove this entry?"
+#, kde-format
 msgid "This step cannot be undone. Do you really want to delete this entry?"
-msgstr "Удалить эту запись?"
+msgstr "Этот шаг нельзя отменить. Действительно удалить эту запись?"
 
 #: worksheetentry.cpp:718 worksheetentry.cpp:848
-#, fuzzy, kde-format
-#| msgid "Text Entry"
+#, kde-format
 msgid "Delete Entry"
-msgstr "Фрагмент текста"
+msgstr "Удалить запись"
 
 #: worksheetentry.cpp:853
 #, kde-format
