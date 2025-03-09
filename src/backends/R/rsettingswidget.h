@@ -1,6 +1,7 @@
 /*
     SPDX-License-Identifier: GPL-2.0-or-later
     SPDX-FileCopyrightText: 2010 Oleksiy Protas <elfy.ua@gmail.com>
+    SPDX-FileCopyrightText: 2020-2025 by Alexander Semke (alexander.semke@web.de)
 */
 
 #ifndef _RSETTINGSWIDGET_H
@@ -11,13 +12,14 @@
 
 class RSettingsWidget : public BackendSettingsWidget, public Ui::RSettingsBase
 {
-  Q_OBJECT
+Q_OBJECT
 
-  public:
+public:
     explicit RSettingsWidget(QWidget* parent = nullptr, const QString& id = QString());
     bool eventFilter(QObject*, QEvent*) override;
 
-  public Q_SLOTS:
+public Q_SLOTS:
+    void integratePlotsChanged(bool);
     void displayFileSelectionDialog();
 };
 
