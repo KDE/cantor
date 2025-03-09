@@ -218,7 +218,7 @@
           <string>Graphic package to be used in the Plot Assistant</string>
          </property>
          <property name="text">
-          <string>Plot Assistant</string>
+          <string>Plot Assistant:</string>
          </property>
         </widget>
        </item>
