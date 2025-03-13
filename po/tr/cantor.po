@@ -625,10 +625,9 @@ msgstr "Gadfly"
 #. i18n: ectx: property (text), widget (QLabel, label3)
 #. i18n: ectx: property (text), widget (QLabel, label4)
 #: backends/julia/settings.ui:252 backends/python/settings.ui:221
-#, fuzzy, kde-format
-#| msgid "Plot Assistant"
+#, kde-format
 msgid "Plot Assistant:"
-msgstr "Çizim Yardımcısı"
+msgstr "Çizim yardımcısı:"
 
 #. i18n: ectx: attribute (title), widget (QWidget, tabAutorun)
 #. i18n: ectx: attribute (title), widget (QWidget, tabAutoran)
@@ -4924,21 +4923,3 @@ msgstr "Girdiyi Sil"
 #, kde-format
 msgid "Drag Entry"
 msgstr "Girdiyi Sürükle"
-
-#~ msgid "Package for Plot Assistant:"
-#~ msgstr "Çizim Yardımcısı için paket:"
-
-#~ msgid "Hierarchy Fonts"
-#~ msgstr "Hiyerarşi Yazıtipleri"
-
-#~ msgid "Remove Entries"
-#~ msgstr "Girdileri Kaldır"
-
-#~ msgid ""
-#~ "This action will remove all results without the possibility of "
-#~ "cancellation. Are you sure?"
-#~ msgstr ""
-#~ "Bu eylem, tüm sonuçları iptal olanağı olmadan kaldıracaktır. Emin misiniz?"
-
-#~ msgid "Remove Entry"
-#~ msgstr "Girdiyi Kaldır"
