@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: cantor\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-03-11 02:32+0000\n"
-"PO-Revision-Date: 2024-12-04 03:20+0100\n"
+"PO-Revision-Date: 2025-03-20 09:00+0100\n"
 "Last-Translator: Temuri Doghonadze <temuri.doghonadze@gmail.com>\n"
 "Language-Team: Georgian <kde-i18n-doc@kde.org>\n"
 "Language: ka\n"
@@ -621,10 +621,9 @@ msgstr "Gadfly"
 #. i18n: ectx: property (text), widget (QLabel, label3)
 #. i18n: ectx: property (text), widget (QLabel, label4)
 #: backends/julia/settings.ui:252 backends/python/settings.ui:221
-#, fuzzy, kde-format
-#| msgid "Plot Assistant"
+#, kde-format
 msgid "Plot Assistant:"
-msgstr "გრაფიკის დამხმარე"
+msgstr "გრაფიკის დამხმარე:"
 
 #. i18n: ectx: attribute (title), widget (QWidget, tabAutorun)
 #. i18n: ectx: attribute (title), widget (QWidget, tabAutoran)
