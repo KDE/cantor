@@ -291,7 +291,11 @@ void TestPython3::testVariableChangeSizeType()
     QCOMPARE(model->index(0,0).data().toString(), QLatin1String("test"));
     QCOMPARE(model->index(0,1).data().toString(), QLatin1String("'abcd'"));
     QCOMPARE(model->index(0,2).data().toString(), QLatin1String("<class 'str'>"));
-    QCOMPARE(model->index(0,3).data().toString(), QLatin1String("53"));
+    // size of the empty string in python < 3.11 is 49, in 3.13 it's 41.
+    // so, the size of the string 'test' is 53 and 45, respectively.
+    // here we don't want to depend on the internal optimizations in python and on the different versions
+    // of it and it's enough to check the string is not empty, i.e. the size is greater than 0.
+    QCOMPARE_GT(model->index(0,3).data().toInt(), 0);
 
     // change from string to integer
     e = evalExp(QLatin1String("test = 1;"));
