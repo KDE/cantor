@@ -1,7 +1,7 @@
 /*
     SPDX-License-Identifier: GPL-2.0-or-later
     SPDX-FileCopyrightText: 2010 Miha Čančula <miha.cancula@gmail.com>
-    SPDX-FileCopyrightText: 2018-2022 Alexander Semke <alexander.semke@web.de>
+    SPDX-FileCopyrightText: 2018-2025 Alexander Semke <alexander.semke@web.de>
 */
 
 #include "defaultvariablemodel.h"
@@ -20,6 +20,7 @@ public:
     QStringList functions;
     Session* session = nullptr;
     VariableManagementExtension* extension = nullptr;
+    int columnCount{DefaultVariableModel::ColumnCount};
 };
 
 DefaultVariableModel::DefaultVariableModel(Session* session): QAbstractTableModel(session),
@@ -27,8 +28,13 @@ d_ptr(new DefaultVariableModelPrivate)
 {
     Q_D(DefaultVariableModel);
     d->session = session;
-    if (session)
+    if (session) {
         d->extension = dynamic_cast<Cantor::VariableManagementExtension*>(session->backend()->extension(QStringLiteral("VariableManagementExtension")));
+
+        const auto& capabilities = d->session->backend()->capabilities();
+        if (!capabilities.testFlag(Cantor::Backend::VariableDimension))
+            d->columnCount = ColumnCount - 1;
+    }
 }
 
 DefaultVariableModel::~DefaultVariableModel()
@@ -37,15 +43,10 @@ DefaultVariableModel::~DefaultVariableModel()
     delete d;
 }
 
-int DefaultVariableModel::columnCount(const QModelIndex& parent) const
+int DefaultVariableModel::columnCount(const QModelIndex& /* parent */) const
 {
-    Q_UNUSED(parent);
     Q_D(const DefaultVariableModel);
-    const auto& capabilities = d->session->backend()->capabilities();
-    if (capabilities.testFlag(Cantor::Backend::VariableDimension))
-        return ColumnCount;
-    else
-        return ColumnCount - 1;
+    return d->columnCount;
 }
 
 int DefaultVariableModel::rowCount(const QModelIndex& parent) const

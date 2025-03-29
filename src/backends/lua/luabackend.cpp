@@ -34,7 +34,7 @@ Cantor::Session* LuaBackend::createSession()
 
 Cantor::Backend::Capabilities LuaBackend::capabilities() const
 {
-    Cantor::Backend::Capabilities cap =
+    static Cantor::Backend::Capabilities cap =
         Cantor::Backend::SyntaxHighlighting |
         Cantor::Backend::Completion;
 

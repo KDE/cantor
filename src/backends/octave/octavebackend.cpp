@@ -34,7 +34,7 @@ QString OctaveBackend::version() const
 
 Cantor::Backend::Capabilities OctaveBackend::capabilities() const
 {
-    Cantor::Backend::Capabilities cap =
+    static Cantor::Backend::Capabilities cap =
         SyntaxHighlighting |
         Completion         |
         SyntaxHelp         |
@@ -42,8 +42,9 @@ Cantor::Backend::Capabilities OctaveBackend::capabilities() const
         VariableDimension;
 
     if (OctaveSettings::self()->variableManagement())
-        cap |= VariableManagement;
-    return cap;
+        return cap |= VariableManagement;
+    else
+        return cap;
 }
 
 Cantor::Session* OctaveBackend::createSession()

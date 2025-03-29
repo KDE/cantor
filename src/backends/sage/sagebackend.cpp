@@ -48,13 +48,13 @@ Cantor::Session* SageBackend::createSession()
 
 Cantor::Backend::Capabilities SageBackend::capabilities() const
 {
-    Cantor::Backend::Capabilities caps = Cantor::Backend::SyntaxHighlighting|Cantor::Backend::Completion;
+    static Cantor::Backend::Capabilities caps = Cantor::Backend::SyntaxHighlighting|Cantor::Backend::Completion;
 
     // Latex output from sage sometimes correct, sometimes not, so allow disable typesetting, if user want it
     if (SageSettings::self()->allowLatex())
-        caps |= Cantor::Backend::LaTexOutput;
-
-    return caps;
+        return caps |= Cantor::Backend::LaTexOutput;
+    else
+        return caps;
 }
 
 bool SageBackend::requirementsFullfilled(QString* const reason) const

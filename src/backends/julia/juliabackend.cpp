@@ -41,12 +41,12 @@ Cantor::Session *JuliaBackend::createSession()
 
 Cantor::Backend::Capabilities JuliaBackend::capabilities() const
 {
-    Cantor::Backend::Capabilities cap = SyntaxHighlighting | Completion | IntegratedPlots;
+    static Cantor::Backend::Capabilities cap = SyntaxHighlighting | Completion | IntegratedPlots;
 
     if (JuliaSettings::variableManagement())
-        cap |= VariableManagement;
-
-    return cap;
+        return cap |= VariableManagement;
+    else
+        return cap;
 }
 
 QString JuliaBackend::description() const

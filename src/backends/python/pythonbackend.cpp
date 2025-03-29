@@ -50,16 +50,16 @@ Cantor::Backend::Capabilities PythonBackend::capabilities() const
 {
     qDebug()<<"Requesting capabilities of PythonSession";
 
-    Backend::Capabilities cap =
+    static Backend::Capabilities cap =
         Cantor::Backend::SyntaxHighlighting |
         Cantor::Backend::Completion         |
         Cantor::Backend::SyntaxHelp         |
         Cantor::Backend::IntegratedPlots;
 
     if(PythonSettings::variableManagement())
-        cap |= Cantor::Backend::VariableManagement;
-
-    return cap;
+        return cap |= Cantor::Backend::VariableManagement;
+    else
+        return cap;
 }
 
 QUrl PythonBackend::helpUrl() const
