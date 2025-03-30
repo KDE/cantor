@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: mathematik\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-03-10 00:38+0000\n"
+"POT-Creation-Date: 2025-03-30 00:38+0000\n"
 "PO-Revision-Date: 2023-05-06 11:51+0100\n"
 "Last-Translator: José Nuno Coelho Pires <zepires@gmail.com>\n"
 "Language-Team: Portuguese <kde-i18n-pt@kde.org>\n"
@@ -378,21 +378,64 @@ msgstr "https://docs.julialang.org/en/latest/"
 msgid "Enable Variable Management"
 msgstr "Activar a Gestão das Variáveis"
 
+#. i18n: ectx: label, entry (autorunScripts), group (SageBackend)
+#. i18n: ectx: label, entry (autorunScripts), group (JuliaBackend)
+#. i18n: ectx: label, entry (autorunScripts), group (KAlgebraBackend)
+#. i18n: ectx: label, entry (autorunScripts), group (PythonBackend)
+#. i18n: ectx: label, entry (autorunScripts), group (RBackend)
+#. i18n: ectx: label, entry (autorunScripts), group (LuaBackend)
+#. i18n: ectx: label, entry (autorunScripts), group (ScilabBackend)
+#. i18n: ectx: label, entry (autorunScripts), group (MaximaBackend)
+#. i18n: ectx: label, entry (autorunScripts), group (QalculateBackend)
+#: backends/julia/juliabackend.kcfg:14 backends/kalgebra/kalgebrabackend.kcfg:9
+#: backends/lua/luabackend.kcfg:14 backends/maxima/maximabackend.kcfg:30
+#: backends/python/pythonbackend.kcfg:18
+#: backends/qalculate/qalculatebackend.kcfg:142
+#: backends/R/rserver/rserver.kcfg:20 backends/sage/sagebackend.kcfg:37
+#: backends/scilab/scilabbackend.kcfg:26
+#, kde-format
+msgid "List of scripts to autorun at the beginning of session"
+msgstr "Lista dos programas a executar no início da sessão"
+
 #. i18n: ectx: label, entry (integratePlots), group (SageBackend)
 #. i18n: ectx: label, entry (integratePlots), group (JuliaBackend)
 #. i18n: ectx: label, entry (integratePlots), group (PythonBackend)
 #. i18n: ectx: label, entry (integratePlots), group (RBackend)
 #. i18n: ectx: label, entry (integratePlots), group (ScilabBackend)
 #. i18n: ectx: label, entry (integratePlots), group (MaximaBackend)
-#: backends/julia/juliabackend.kcfg:14 backends/maxima/maximabackend.kcfg:22
+#: backends/julia/juliabackend.kcfg:17 backends/maxima/maximabackend.kcfg:22
 #: backends/python/pythonbackend.kcfg:10 backends/R/rserver/rserver.kcfg:12
 #: backends/sage/sagebackend.kcfg:18 backends/scilab/scilabbackend.kcfg:22
 #, kde-format
 msgid "Integrate Plots into the Worksheet"
 msgstr "Integrar os Gráficos na Folha de Cálculo"
 
+#. i18n: ectx: label, entry (plotWidth), group (SageBackend)
+#. i18n: ectx: label, entry (plotWidth), group (JuliaBackend)
+#. i18n: ectx: label, entry (plotWidth), group (PythonBackend)
+#. i18n: ectx: label, entry (plotWidth), group (RBackend)
+#. i18n: ectx: label, entry (plotWidth), group (MaximaBackend)
+#: backends/julia/juliabackend.kcfg:29 backends/maxima/maximabackend.kcfg:41
+#: backends/python/pythonbackend.kcfg:29 backends/R/rserver/rserver.kcfg:31
+#: backends/sage/sagebackend.kcfg:29
+#, kde-format
+msgid "Default plot width"
+msgstr "Largura predefinida do gráfico"
+
+#. i18n: ectx: label, entry (plotHeight), group (SageBackend)
+#. i18n: ectx: label, entry (plotHeight), group (JuliaBackend)
+#. i18n: ectx: label, entry (plotHeight), group (PythonBackend)
+#. i18n: ectx: label, entry (plotHeight), group (RBackend)
+#. i18n: ectx: label, entry (plotHeight), group (MaximaBackend)
+#: backends/julia/juliabackend.kcfg:33 backends/maxima/maximabackend.kcfg:45
+#: backends/python/pythonbackend.kcfg:33 backends/R/rserver/rserver.kcfg:35
+#: backends/sage/sagebackend.kcfg:33
+#, kde-format
+msgid "Default plot height"
+msgstr "Altura predefinida do gráfico"
+
 #. i18n: ectx: label, entry (plotExtenstionGraphicPackage), group (JuliaBackend)
-#: backends/julia/juliabackend.kcfg:31
+#: backends/julia/juliabackend.kcfg:43
 #, kde-format
 msgid "Graphical package for the Plot-Assistant"
 msgstr "Pacote gráfico do Assistente de \"Gráficos\""
@@ -686,23 +729,6 @@ msgctxt ""
 msgid "https://docs.kde.org/?application=kalgebra"
 msgstr "https://docs.kde.org/?application=kalgebra"
 
-#. i18n: ectx: label, entry (autorunScripts), group (SageBackend)
-#. i18n: ectx: label, entry (autorunScripts), group (KAlgebraBackend)
-#. i18n: ectx: label, entry (autorunScripts), group (PythonBackend)
-#. i18n: ectx: label, entry (autorunScripts), group (RBackend)
-#. i18n: ectx: label, entry (autorunScripts), group (LuaBackend)
-#. i18n: ectx: label, entry (autorunScripts), group (ScilabBackend)
-#. i18n: ectx: label, entry (autorunScripts), group (MaximaBackend)
-#. i18n: ectx: label, entry (autorunScripts), group (QalculateBackend)
-#: backends/kalgebra/kalgebrabackend.kcfg:9 backends/lua/luabackend.kcfg:14
-#: backends/maxima/maximabackend.kcfg:30 backends/python/pythonbackend.kcfg:18
-#: backends/qalculate/qalculatebackend.kcfg:142
-#: backends/R/rserver/rserver.kcfg:20 backends/sage/sagebackend.kcfg:37
-#: backends/scilab/scilabbackend.kcfg:26
-#, kde-format
-msgid "List of scripts to autorun at the beginning of session"
-msgstr "Lista dos programas a executar no início da sessão"
-
 #: backends/kalgebra/kalgebraexpression.cpp:44
 #: backends/maxima/maximasession.cpp:83
 #, kde-format
@@ -873,26 +899,6 @@ msgstr ""
 msgid "Path to the Maxima executable"
 msgstr "Localização do executável Maxima"
 
-#. i18n: ectx: label, entry (plotWidth), group (SageBackend)
-#. i18n: ectx: label, entry (plotWidth), group (PythonBackend)
-#. i18n: ectx: label, entry (plotWidth), group (RBackend)
-#. i18n: ectx: label, entry (plotWidth), group (MaximaBackend)
-#: backends/maxima/maximabackend.kcfg:41 backends/python/pythonbackend.kcfg:29
-#: backends/R/rserver/rserver.kcfg:31 backends/sage/sagebackend.kcfg:29
-#, kde-format
-msgid "Default plot width"
-msgstr "Largura predefinida do gráfico"
-
-#. i18n: ectx: label, entry (plotHeight), group (SageBackend)
-#. i18n: ectx: label, entry (plotHeight), group (PythonBackend)
-#. i18n: ectx: label, entry (plotHeight), group (RBackend)
-#. i18n: ectx: label, entry (plotHeight), group (MaximaBackend)
-#: backends/maxima/maximabackend.kcfg:45 backends/python/pythonbackend.kcfg:33
-#: backends/R/rserver/rserver.kcfg:35 backends/sage/sagebackend.kcfg:33
-#, kde-format
-msgid "Default plot height"
-msgstr "Altura predefinida do gráfico"
-
 #: backends/maxima/maximaexpression.cpp:110
 #, kde-format
 msgid "Error: Too many */"
@@ -956,7 +962,7 @@ msgstr ""
 msgid "Executable:"
 msgstr "Executável:"
 
-#: backends/octave/octavebackend.cpp:63
+#: backends/octave/octavebackend.cpp:64
 #, kde-format
 msgctxt ""
 "the url to the documentation of Octave, please check if there is a "
@@ -964,7 +970,7 @@ msgctxt ""
 msgid "https://octave.org/doc/interpreter/"
 msgstr "https://octave.org/doc/interpreter/"
 
-#: backends/octave/octavebackend.cpp:68
+#: backends/octave/octavebackend.cpp:69
 #, kde-format
 msgid ""
 "<b>GNU Octave</b> is a high-level language, primarily intended for numerical "
@@ -2232,7 +2238,7 @@ msgid "Install Additional Documentation Files"
 msgstr "Instalar os Ficheiros de Documentação Adicional"
 
 #. i18n: ectx: property (text), widget (QTreeWidget, qchTable)
-#: backends/qthelpconfig.ui:49 lib/defaultvariablemodel.cpp:69
+#: backends/qthelpconfig.ui:49 lib/defaultvariablemodel.cpp:70
 #, kde-format
 msgctxt "@title:column"
 msgid "Name"
@@ -2308,7 +2314,7 @@ msgctxt "@info:placeholder"
 msgid "Select a Qt Help file..."
 msgstr "Seleccionar um ficheiro de Ajuda do Qt..."
 
-#: backends/R/rbackend.cpp:81
+#: backends/R/rbackend.cpp:80
 #, kde-format
 msgctxt ""
 "the url to the documentation of R, please check if there is a translated "
@@ -2316,7 +2322,7 @@ msgctxt ""
 msgid "https://cran.r-project.org/manuals.html"
 msgstr "https://cran.r-project.org/manuals.html"
 
-#: backends/R/rbackend.cpp:88
+#: backends/R/rbackend.cpp:87
 #, kde-format
 msgid ""
 "<h1>R' Help System: <i>help()</i> and <i>?</i>:</h1><br>The <i>help()</i> "
@@ -2366,7 +2372,7 @@ msgstr ""
 "Poderá executar estes exemplos na sessão actual do R, através do comando "
 "<i>example()</i>: p.ex., <i>example(lm)</i>."
 
-#: backends/R/rbackend.cpp:99
+#: backends/R/rbackend.cpp:98
 #, kde-format
 msgid ""
 "<b>R</b> is a language and environment for statistical computing and "
@@ -3289,7 +3295,7 @@ msgstr "Negrito"
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_SectionFontItalic)
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_SubsectionFontItalic)
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_ParagraphFontItalic)
-#. i18n: ectx: property (text), widget (QCheckBox, kcfg_SubpragraphFontItalic)
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_SubparagraphFontItalic)
 #: commandentry.cpp:186 formating.ui:91 formating.ui:148 formating.ui:205
 #: formating.ui:262 formating.ui:319 formating.ui:376
 #, kde-format
@@ -3739,25 +3745,25 @@ msgstr "Localização do executável 'latex'"
 msgid "Path to the dvips executable"
 msgstr "Localização do executável 'dvips'"
 
-#: lib/defaultvariablemodel.cpp:71
+#: lib/defaultvariablemodel.cpp:72
 #, kde-format
 msgctxt "@title:column"
 msgid "Type"
 msgstr "Tipo"
 
-#: lib/defaultvariablemodel.cpp:73
+#: lib/defaultvariablemodel.cpp:74
 #, kde-format
 msgctxt "@title:column"
 msgid "Size [Bytes]"
 msgstr "Tamanho [Bytes]"
 
-#: lib/defaultvariablemodel.cpp:75
+#: lib/defaultvariablemodel.cpp:76
 #, kde-format
 msgctxt "@title:column"
 msgid "Dimension"
 msgstr "Dimensão"
 
-#: lib/defaultvariablemodel.cpp:77
+#: lib/defaultvariablemodel.cpp:78
 #, kde-format
 msgctxt "@title:column"
 msgid "Value"
