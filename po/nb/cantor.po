@@ -646,7 +646,6 @@ msgstr ""
 #. i18n: ectx: property (text), widget (QLabel, label4)
 #: backends/julia/settings.ui:252 backends/python/settings.ui:221
 #, fuzzy, kde-format
-#| msgid "Plot title:"
 msgid "Plot Assistant:"
 msgstr "Tittel på plott:"
 
