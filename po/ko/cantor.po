@@ -1,13 +1,13 @@
 # Copyright (C) YEAR This_file_is_part_of_KDE
 # This file is distributed under the same license as the PACKAGE package.
-# SPDX-FileCopyrightText: 2011, 2015, 2020, 2021, 2022, 2023, 2024 Shinjo Park <kde@peremen.name>
+# SPDX-FileCopyrightText: 2011, 2015, 2020, 2021, 2022, 2023, 2024, 2025 Shinjo Park <kde@peremen.name>
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-03-11 02:32+0000\n"
-"PO-Revision-Date: 2024-12-24 16:05+0100\n"
+"PO-Revision-Date: 2025-04-06 21:45+0200\n"
 "Last-Translator: Shinjo Park <kde@peremen.name>\n"
 "Language-Team: Korean <kde-kr@kde.org>\n"
 "Language: ko\n"
@@ -615,10 +615,9 @@ msgstr "Gadfly"
 #. i18n: ectx: property (text), widget (QLabel, label3)
 #. i18n: ectx: property (text), widget (QLabel, label4)
 #: backends/julia/settings.ui:252 backends/python/settings.ui:221
-#, fuzzy, kde-format
-#| msgid "Plot Assistant"
+#, kde-format
 msgid "Plot Assistant:"
-msgstr "플롯 도우미"
+msgstr "플롯 도우미:"
 
 #. i18n: ectx: attribute (title), widget (QWidget, tabAutorun)
 #. i18n: ectx: attribute (title), widget (QWidget, tabAutoran)
