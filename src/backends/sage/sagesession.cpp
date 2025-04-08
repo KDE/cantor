@@ -497,7 +497,7 @@ bool SageSession::updateSageVersion()
 {
     QProcess get_sage_version;
     get_sage_version.setProgram(SageSettings::self()->path().toLocalFile());
-    get_sage_version.setArguments(QStringList() << QLatin1String("-v"));
+    get_sage_version.setArguments(QStringList() << QLatin1String("--version"));
     get_sage_version.start();
     if (!get_sage_version.waitForFinished(-1))
         return false;
