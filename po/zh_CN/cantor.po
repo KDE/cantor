@@ -611,7 +611,7 @@ msgstr "Gadfly"
 #: backends/julia/settings.ui:252 backends/python/settings.ui:221
 #, kde-format
 msgid "Plot Assistant:"
-msgstr ""
+msgstr "绘制助手："
 
 #. i18n: ectx: attribute (title), widget (QWidget, tabAutorun)
 #. i18n: ectx: attribute (title), widget (QWidget, tabAutoran)
