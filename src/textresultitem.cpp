@@ -4,6 +4,8 @@
     SPDX-FileCopyrightText: 2018-2022 by Alexander Semke (alexander.semke@web.de)
 */
 
+#include <config-cantor.h>
+
 #include "textresultitem.h"
 #include "commandentry.h"
 #include "lib/textresult.h"
