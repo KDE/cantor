@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-03-30 00:38+0000\n"
+"POT-Creation-Date: 2025-04-30 00:38+0000\n"
 "PO-Revision-Date: 2013-11-01 23:02+0600\n"
 "Last-Translator: Sairan Kikkarin <sairan@computer.org>\n"
 "Language-Team: Kazakh <kde-i18n-doc@kde.org>\n"
@@ -3102,7 +3102,7 @@ msgstr "Нәтижені сақтау"
 msgid "Save"
 msgstr ""
 
-#: cantor_part.cpp:537 textresultitem.cpp:212
+#: cantor_part.cpp:537 textresultitem.cpp:214
 #, kde-format
 msgid "Text Files (*.txt)"
 msgstr ""
@@ -4399,51 +4399,51 @@ msgstr ""
 msgid "Target MIME type:"
 msgstr ""
 
-#: textresultitem.cpp:60
+#: textresultitem.cpp:62
 #, fuzzy, kde-format
 #| msgid "Remove result"
 msgid "Copy result"
 msgstr "Нәтижені өшіру"
 
-#: textresultitem.cpp:69
+#: textresultitem.cpp:71
 #, kde-format
 msgid "Show Rendered"
 msgstr "Кескіндеп көрсету"
 
-#: textresultitem.cpp:71
+#: textresultitem.cpp:73
 #, kde-format
 msgid "Show Code"
 msgstr "Кодын көрсету"
 
-#: textresultitem.cpp:79 textresultitem.cpp:92
+#: textresultitem.cpp:81 textresultitem.cpp:94
 #, fuzzy, kde-format
 #| msgid "Show Code"
 msgid "Show HTML Code"
 msgstr "Кодын көрсету"
 
-#: textresultitem.cpp:81 textresultitem.cpp:87
+#: textresultitem.cpp:83 textresultitem.cpp:89
 #, kde-format
 msgid "Show Plain Alternative"
 msgstr ""
 
-#: textresultitem.cpp:85
+#: textresultitem.cpp:87
 #, fuzzy, kde-format
 #| msgid "Show %1 Help"
 msgid "Show Html"
 msgstr "%1 анықтамасын көрсету"
 
-#: textresultitem.cpp:91
+#: textresultitem.cpp:93
 #, fuzzy, kde-format
 #| msgid "Show %1 Help"
 msgid "Show HTML"
 msgstr "%1 анықтамасын көрсету"
 
-#: textresultitem.cpp:160
+#: textresultitem.cpp:162
 #, kde-format
 msgid "Cannot render Eps file. You may need additional packages"
 msgstr "Eps файлы кескінделмеді. Қосымша дестелер қажеті мүмкін"
 
-#: textresultitem.cpp:212
+#: textresultitem.cpp:214
 #, fuzzy, kde-format
 #| msgid "Save result"
 msgid "Save text result"
