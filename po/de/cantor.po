@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: cantor\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-03-11 02:32+0000\n"
+"POT-Creation-Date: 2025-04-30 02:32+0000\n"
 "PO-Revision-Date: 2023-05-05 19:55+0200\n"
 "Last-Translator: Frederik Schwarzer <schwarzer@kde.org>\n"
 "Language-Team: German <kde-i18n-de@kde.org>\n"
@@ -3054,7 +3054,7 @@ msgstr "Speichern unter"
 msgid "Save"
 msgstr "Speichern"
 
-#: cantor_part.cpp:537 textresultitem.cpp:212
+#: cantor_part.cpp:537 textresultitem.cpp:214
 #, kde-format
 msgid "Text Files (*.txt)"
 msgstr "Textdateien (*.txt)"
@@ -4331,49 +4331,49 @@ msgstr "Umwandeln in Zellen im Rohformat"
 msgid "Target MIME type:"
 msgstr "Ziel-MIME-Typ"
 
-#: textresultitem.cpp:60
+#: textresultitem.cpp:62
 #, kde-format
 msgid "Copy result"
 msgstr "Ergebnis kopieren"
 
-#: textresultitem.cpp:69
+#: textresultitem.cpp:71
 #, kde-format
 msgid "Show Rendered"
 msgstr "Gerendert anzeigen"
 
-#: textresultitem.cpp:71
+#: textresultitem.cpp:73
 #, kde-format
 msgid "Show Code"
 msgstr "Quelltext anzeigen"
 
-#: textresultitem.cpp:79 textresultitem.cpp:92
+#: textresultitem.cpp:81 textresultitem.cpp:94
 #, kde-format
 msgid "Show HTML Code"
 msgstr "HTML-Quelltext anzeigen"
 
-#: textresultitem.cpp:81 textresultitem.cpp:87
+#: textresultitem.cpp:83 textresultitem.cpp:89
 #, kde-format
 msgid "Show Plain Alternative"
 msgstr "Alternativ einfachen Text anzeigen"
 
-#: textresultitem.cpp:85
+#: textresultitem.cpp:87
 #, kde-format
 msgid "Show Html"
 msgstr "HTML anzeigen"
 
-#: textresultitem.cpp:91
+#: textresultitem.cpp:93
 #, kde-format
 msgid "Show HTML"
 msgstr "HTML anzeigen"
 
-#: textresultitem.cpp:160
+#: textresultitem.cpp:162
 #, kde-format
 msgid "Cannot render Eps file. You may need additional packages"
 msgstr ""
 "Die Eps-Datei kann nicht angezeigt werden. Möglicherweise fehlen Ihnen "
 "einige Pakete."
 
-#: textresultitem.cpp:212
+#: textresultitem.cpp:214
 #, fuzzy, kde-format
 #| msgid "Save result"
 msgid "Save text result"

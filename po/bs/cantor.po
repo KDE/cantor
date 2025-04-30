@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kdeedu\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-03-11 02:32+0000\n"
+"POT-Creation-Date: 2025-04-30 02:32+0000\n"
 "PO-Revision-Date: 2014-01-31 20:51+0100\n"
 "Last-Translator: Samir Ribić <megaribi@epn.ba>\n"
 "Language-Team: Bosnian <bs@li.org>\n"
@@ -3117,7 +3117,7 @@ msgstr "Spasi rezultat"
 msgid "Save"
 msgstr ""
 
-#: cantor_part.cpp:537 textresultitem.cpp:212
+#: cantor_part.cpp:537 textresultitem.cpp:214
 #, kde-format
 msgid "Text Files (*.txt)"
 msgstr ""
@@ -4414,51 +4414,51 @@ msgstr ""
 msgid "Target MIME type:"
 msgstr ""
 
-#: textresultitem.cpp:60
+#: textresultitem.cpp:62
 #, fuzzy, kde-format
 #| msgid "Remove result"
 msgid "Copy result"
 msgstr "Ukloni rezultate"
 
-#: textresultitem.cpp:69
+#: textresultitem.cpp:71
 #, kde-format
 msgid "Show Rendered"
 msgstr "Prikaži izvršene"
 
-#: textresultitem.cpp:71
+#: textresultitem.cpp:73
 #, kde-format
 msgid "Show Code"
 msgstr "Prikaži kod"
 
-#: textresultitem.cpp:79 textresultitem.cpp:92
+#: textresultitem.cpp:81 textresultitem.cpp:94
 #, fuzzy, kde-format
 #| msgid "Show Code"
 msgid "Show HTML Code"
 msgstr "Prikaži kod"
 
-#: textresultitem.cpp:81 textresultitem.cpp:87
+#: textresultitem.cpp:83 textresultitem.cpp:89
 #, kde-format
 msgid "Show Plain Alternative"
 msgstr ""
 
-#: textresultitem.cpp:85
+#: textresultitem.cpp:87
 #, fuzzy, kde-format
 #| msgid "Show %1 Help"
 msgid "Show Html"
 msgstr "Prikaži %1 Pomoć"
 
-#: textresultitem.cpp:91
+#: textresultitem.cpp:93
 #, fuzzy, kde-format
 #| msgid "Show %1 Help"
 msgid "Show HTML"
 msgstr "Prikaži %1 Pomoć"
 
-#: textresultitem.cpp:160
+#: textresultitem.cpp:162
 #, kde-format
 msgid "Cannot render Eps file. You may need additional packages"
 msgstr "Nemogu napraviti Eps datoteku. Možda će vam trebati dodatni paketi"
 
-#: textresultitem.cpp:212
+#: textresultitem.cpp:214
 #, fuzzy, kde-format
 #| msgid "Save result"
 msgid "Save text result"

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: cantor\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-03-11 02:32+0000\n"
+"POT-Creation-Date: 2025-04-30 02:32+0000\n"
 "PO-Revision-Date: 2025-03-20 09:00+0100\n"
 "Last-Translator: Temuri Doghonadze <temuri.doghonadze@gmail.com>\n"
 "Language-Team: Georgian <kde-i18n-doc@kde.org>\n"
@@ -3080,7 +3080,7 @@ msgstr "შენახვა როგორც"
 msgid "Save"
 msgstr "შენახვა"
 
-#: cantor_part.cpp:537 textresultitem.cpp:212
+#: cantor_part.cpp:537 textresultitem.cpp:214
 #, kde-format
 msgid "Text Files (*.txt)"
 msgstr "ტექსტური ფაილები (*.txt)"
@@ -4342,47 +4342,47 @@ msgstr "გადაყვანა დაუმუშავებელ უჯ�
 msgid "Target MIME type:"
 msgstr "სამიზნე MIME ტიპი:"
 
-#: textresultitem.cpp:60
+#: textresultitem.cpp:62
 #, kde-format
 msgid "Copy result"
 msgstr "შედეგის კოპირება"
 
-#: textresultitem.cpp:69
+#: textresultitem.cpp:71
 #, kde-format
 msgid "Show Rendered"
 msgstr "დარენდერებულის ჩვენება"
 
-#: textresultitem.cpp:71
+#: textresultitem.cpp:73
 #, kde-format
 msgid "Show Code"
 msgstr "კოდის ჩვენება"
 
-#: textresultitem.cpp:79 textresultitem.cpp:92
+#: textresultitem.cpp:81 textresultitem.cpp:94
 #, kde-format
 msgid "Show HTML Code"
 msgstr "HTML კოდის ჩვენება"
 
-#: textresultitem.cpp:81 textresultitem.cpp:87
+#: textresultitem.cpp:83 textresultitem.cpp:89
 #, kde-format
 msgid "Show Plain Alternative"
 msgstr "ჩვეულებრივი ტექსტის ჩვენება"
 
-#: textresultitem.cpp:85
+#: textresultitem.cpp:87
 #, kde-format
 msgid "Show Html"
 msgstr "HTML-ის ჩვენება"
 
-#: textresultitem.cpp:91
+#: textresultitem.cpp:93
 #, kde-format
 msgid "Show HTML"
 msgstr "HTML-ის ჩვენება"
 
-#: textresultitem.cpp:160
+#: textresultitem.cpp:162
 #, kde-format
 msgid "Cannot render Eps file. You may need additional packages"
 msgstr "Eps ფაილის რენდერი შეუძლებელია. შეიძლება, დამატებით პაკეტები გჭირდებათ"
 
-#: textresultitem.cpp:212
+#: textresultitem.cpp:214
 #, kde-format
 msgid "Save text result"
 msgstr "ტექსტური შედეგის შენახვა"

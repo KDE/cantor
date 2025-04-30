@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-03-11 02:32+0000\n"
+"POT-Creation-Date: 2025-04-30 02:32+0000\n"
 "PO-Revision-Date: 2022-08-14 16:51+0100\n"
 "Last-Translator: Sergiu Bivol <sergiu@cip.md>\n"
 "Language-Team: Romanian <kde-i18n-ro@kde.org>\n"
@@ -3082,7 +3082,7 @@ msgstr "Salvează ca"
 msgid "Save"
 msgstr "Salvează"
 
-#: cantor_part.cpp:537 textresultitem.cpp:212
+#: cantor_part.cpp:537 textresultitem.cpp:214
 #, kde-format
 msgid "Text Files (*.txt)"
 msgstr ""
@@ -4363,53 +4363,53 @@ msgstr ""
 msgid "Target MIME type:"
 msgstr ""
 
-#: textresultitem.cpp:60
+#: textresultitem.cpp:62
 #, fuzzy, kde-format
 #| msgid "Remove result"
 msgid "Copy result"
 msgstr "Șterge rezultatul"
 
-#: textresultitem.cpp:69
+#: textresultitem.cpp:71
 #, kde-format
 msgid "Show Rendered"
 msgstr "Arată interpretările"
 
-#: textresultitem.cpp:71
+#: textresultitem.cpp:73
 #, kde-format
 msgid "Show Code"
 msgstr "Arată codul"
 
-#: textresultitem.cpp:79 textresultitem.cpp:92
+#: textresultitem.cpp:81 textresultitem.cpp:94
 #, fuzzy, kde-format
 #| msgid "Show Code"
 msgid "Show HTML Code"
 msgstr "Arată codul"
 
-#: textresultitem.cpp:81 textresultitem.cpp:87
+#: textresultitem.cpp:83 textresultitem.cpp:89
 #, kde-format
 msgid "Show Plain Alternative"
 msgstr ""
 
-#: textresultitem.cpp:85
+#: textresultitem.cpp:87
 #, fuzzy, kde-format
 #| msgid "Show %1 Help"
 msgid "Show Html"
 msgstr "Afișează %1 ajutor"
 
-#: textresultitem.cpp:91
+#: textresultitem.cpp:93
 #, fuzzy, kde-format
 #| msgid "Show %1 Help"
 msgid "Show HTML"
 msgstr "Afișează %1 ajutor"
 
-#: textresultitem.cpp:160
+#: textresultitem.cpp:162
 #, kde-format
 msgid "Cannot render Eps file. You may need additional packages"
 msgstr ""
 "Nu se poate reda fișierul de tip Eps. S-ar putea să aveți nevoie de resurse "
 "adiționale."
 
-#: textresultitem.cpp:212
+#: textresultitem.cpp:214
 #, fuzzy, kde-format
 #| msgid "Save result"
 msgid "Save text result"

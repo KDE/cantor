@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-03-11 02:32+0000\n"
+"POT-Creation-Date: 2025-04-30 02:32+0000\n"
 "PO-Revision-Date: 2023-07-25 19:54+0300\n"
 "Last-Translator: Theofilos Intzoglou <int.teo@gmail.com>\n"
 "Language-Team: Greek <kde-i18n-el@kde.org>\n"
@@ -3118,7 +3118,7 @@ msgstr "Αποθήκευση ως"
 msgid "Save"
 msgstr "Αποθήκευση"
 
-#: cantor_part.cpp:537 textresultitem.cpp:212
+#: cantor_part.cpp:537 textresultitem.cpp:214
 #, kde-format
 msgid "Text Files (*.txt)"
 msgstr "Αρχεία κειμένου (*.txt)"
@@ -4392,48 +4392,48 @@ msgstr "Μετατροπή σε ακατέργαστο κελί"
 msgid "Target MIME type:"
 msgstr "Τύπος mime προορισμού:"
 
-#: textresultitem.cpp:60
+#: textresultitem.cpp:62
 #, kde-format
 msgid "Copy result"
 msgstr "Αντιγραφή αποτελέσματος"
 
-#: textresultitem.cpp:69
+#: textresultitem.cpp:71
 #, kde-format
 msgid "Show Rendered"
 msgstr "Εμφάνιση αποτύπωσης"
 
-#: textresultitem.cpp:71
+#: textresultitem.cpp:73
 #, kde-format
 msgid "Show Code"
 msgstr "Εμφάνιση κώδικα"
 
-#: textresultitem.cpp:79 textresultitem.cpp:92
+#: textresultitem.cpp:81 textresultitem.cpp:94
 #, kde-format
 msgid "Show HTML Code"
 msgstr "Εμφάνιση HTML κώδικα"
 
-#: textresultitem.cpp:81 textresultitem.cpp:87
+#: textresultitem.cpp:83 textresultitem.cpp:89
 #, kde-format
 msgid "Show Plain Alternative"
 msgstr "Εμφάνιση του απλού εναλλακτικά"
 
-#: textresultitem.cpp:85
+#: textresultitem.cpp:87
 #, kde-format
 msgid "Show Html"
 msgstr "Εμφάνιση html"
 
-#: textresultitem.cpp:91
+#: textresultitem.cpp:93
 #, kde-format
 msgid "Show HTML"
 msgstr "Εμφάνιση HTML"
 
-#: textresultitem.cpp:160
+#: textresultitem.cpp:162
 #, kde-format
 msgid "Cannot render Eps file. You may need additional packages"
 msgstr ""
 "Αδυναμία αποτύπωσης του αρχείου Eps. Μπορεί να χρειάζεστε επιπλέον πακέτα."
 
-#: textresultitem.cpp:212
+#: textresultitem.cpp:214
 #, kde-format
 msgid "Save text result"
 msgstr "Αποθήκευση αποτελέσματος κειμένου"

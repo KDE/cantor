@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: cantor\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-03-11 02:32+0000\n"
+"POT-Creation-Date: 2025-04-30 02:32+0000\n"
 "PO-Revision-Date: 2025-03-14 11:43+0200\n"
 "Last-Translator: Yaron Shahrabani <sh.yaron@gmail.com>\n"
 "Language-Team: צוות התרגום של KDE ישראל\n"
@@ -3043,7 +3043,7 @@ msgstr "שמירה בשם"
 msgid "Save"
 msgstr "שמירה"
 
-#: cantor_part.cpp:537 textresultitem.cpp:212
+#: cantor_part.cpp:537 textresultitem.cpp:214
 #, kde-format
 msgid "Text Files (*.txt)"
 msgstr "קובצי טקסט (‎*.txt)"
@@ -4291,47 +4291,47 @@ msgstr "המרה לתא גולמי"
 msgid "Target MIME type:"
 msgstr "סוג תוכן (MIME) ייעודי:"
 
-#: textresultitem.cpp:60
+#: textresultitem.cpp:62
 #, kde-format
 msgid "Copy result"
 msgstr "העתקת תוצאה"
 
-#: textresultitem.cpp:69
+#: textresultitem.cpp:71
 #, kde-format
 msgid "Show Rendered"
 msgstr "הצגה לאחר תיצוג"
 
-#: textresultitem.cpp:71
+#: textresultitem.cpp:73
 #, kde-format
 msgid "Show Code"
 msgstr "הצגת קוד מקור"
 
-#: textresultitem.cpp:79 textresultitem.cpp:92
+#: textresultitem.cpp:81 textresultitem.cpp:94
 #, kde-format
 msgid "Show HTML Code"
 msgstr "הצגת קוד HTML"
 
-#: textresultitem.cpp:81 textresultitem.cpp:87
+#: textresultitem.cpp:83 textresultitem.cpp:89
 #, kde-format
 msgid "Show Plain Alternative"
 msgstr "הצגת חלופה פשוטה"
 
-#: textresultitem.cpp:85
+#: textresultitem.cpp:87
 #, kde-format
 msgid "Show Html"
 msgstr "הצגת HTML"
 
-#: textresultitem.cpp:91
+#: textresultitem.cpp:93
 #, kde-format
 msgid "Show HTML"
 msgstr "הצגת HTML"
 
-#: textresultitem.cpp:160
+#: textresultitem.cpp:162
 #, kde-format
 msgid "Cannot render Eps file. You may need additional packages"
 msgstr "לא ניתן לתצג קובץ Eps. יכול להיות שצריך חבילות נוספות"
 
-#: textresultitem.cpp:212
+#: textresultitem.cpp:214
 #, kde-format
 msgid "Save text result"
 msgstr "שמירת תוצאת טקסט"

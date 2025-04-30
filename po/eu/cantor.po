@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: cantor\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-03-11 02:32+0000\n"
+"POT-Creation-Date: 2025-04-30 02:32+0000\n"
 "PO-Revision-Date: 2025-03-25 21:37+0100\n"
 "Last-Translator: Iñigo Salvador Azurmendi <xalba@ni.eus>\n"
 "Language-Team: Basque <kde-i18n-eu@kde.org>\n"
@@ -3090,7 +3090,7 @@ msgstr "Gorde honela"
 msgid "Save"
 msgstr "Gorde"
 
-#: cantor_part.cpp:537 textresultitem.cpp:212
+#: cantor_part.cpp:537 textresultitem.cpp:214
 #, kde-format
 msgid "Text Files (*.txt)"
 msgstr "Testu fitxategiak (*.txt)"
@@ -4356,47 +4356,47 @@ msgstr "Gelaxka gordina bihurtu"
 msgid "Target MIME type:"
 msgstr "Helburuko MIME-mota:"
 
-#: textresultitem.cpp:60
+#: textresultitem.cpp:62
 #, kde-format
 msgid "Copy result"
 msgstr "Kopiatu emaitza"
 
-#: textresultitem.cpp:69
+#: textresultitem.cpp:71
 #, kde-format
 msgid "Show Rendered"
 msgstr "Erakutsi errendatuta"
 
-#: textresultitem.cpp:71
+#: textresultitem.cpp:73
 #, kde-format
 msgid "Show Code"
 msgstr "Erakutsi kodea"
 
-#: textresultitem.cpp:79 textresultitem.cpp:92
+#: textresultitem.cpp:81 textresultitem.cpp:94
 #, kde-format
 msgid "Show HTML Code"
 msgstr "Erakutsi HTML kodea"
 
-#: textresultitem.cpp:81 textresultitem.cpp:87
+#: textresultitem.cpp:83 textresultitem.cpp:89
 #, kde-format
 msgid "Show Plain Alternative"
 msgstr "Erakutsi alternatiba soila"
 
-#: textresultitem.cpp:85
+#: textresultitem.cpp:87
 #, kde-format
 msgid "Show Html"
 msgstr "Erakutsi Html"
 
-#: textresultitem.cpp:91
+#: textresultitem.cpp:93
 #, kde-format
 msgid "Show HTML"
 msgstr "Erakutsi HTML"
 
-#: textresultitem.cpp:160
+#: textresultitem.cpp:162
 #, kde-format
 msgid "Cannot render Eps file. You may need additional packages"
 msgstr "Ezin errendatu Eps fitxategia. Pakete osagarriak behar izan ditzakezu."
 
-#: textresultitem.cpp:212
+#: textresultitem.cpp:214
 #, kde-format
 msgid "Save text result"
 msgstr "Gorde testu-emaitzak"
