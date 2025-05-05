@@ -3848,7 +3848,7 @@ msgstr "Autor orixinal.<br/> Mantedor (2009-2015)."
 #: main.cpp:79
 #, kde-format
 msgid "Aleix Pol Gonzalez"
-msgstr "Aleix Pol Gonzalez"
+msgstr "Aleix Pol i Gonzàlez"
 
 #: main.cpp:79
 #, kde-format
