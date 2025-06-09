@@ -348,7 +348,7 @@
 ><guimenu
 >Preferencias</guimenu
 ><guimenuitem
->Configurar &cantor;...</guimenuitem
+>Configurar &cantor;…</guimenuitem
 ></menuchoice
 > <guilabel
 >Maxima</guilabel
@@ -747,7 +747,7 @@
 > <guimenu
 >Archivo</guimenu
 > <guimenuitem
->Abrir...</guimenuitem
+>Abrir…</guimenuitem
 > </menuchoice
 ></term>
 <listitem
@@ -1513,7 +1513,7 @@
 ><guimenu
 >Preferencias</guimenu
 ><guimenuitem
->Configurar &cantor;...</guimenuitem
+>Configurar &cantor;…</guimenuitem
 ></menuchoice
 > y modifique la <guilabel
 >Ruta</guilabel
