@@ -87,7 +87,7 @@ void ImageResultItem::saveResult()
     if (m_result->type() == Cantor::ImageResult::Type)
     {
         auto* imageResult = static_cast<Cantor::ImageResult*>(result());
-        format = i18n("%1 files (*.%2)", imageResult->extension().toUpper(), imageResult->extension());
+        format = i18nc("%1 and %2 are file extensions", "%1 files (*.%2)", imageResult->extension().toUpper(), imageResult->extension());
     }
     else
         format = i18n("EPS files (*.eps)");
