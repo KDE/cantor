@@ -13,15 +13,15 @@ msgstr ""
 "Project-Id-Version: kdeedu-kde4\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-04-30 00:38+0000\n"
-"PO-Revision-Date: 2025-03-13 22:40+0300\n"
-"Last-Translator: Emir SARI <emir_sari@icloud.com>\n"
+"PO-Revision-Date: 2025-06-29 17:30+0300\n"
+"Last-Translator: Emir SARI <emir_sari@îcloud.com>\n"
 "Language-Team: Turkish <kde-l10n-tr@kde.org>\n"
 "Language: tr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"X-Generator: Lokalize 25.07.70\n"
+"X-Generator: Lokalize 25.04.2\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -1332,7 +1332,7 @@ msgstr "Y ekseni etiketi"
 #: backends/qalculate/plotassistant/qalculateplotdialog.ui:395
 #, kde-format
 msgid "Legend position"
-msgstr "Açıklama konumu"
+msgstr "Lejant konumu"
 
 #. i18n: ectx: property (text), item, widget (KComboBox, legendBox)
 #. i18n: ectx: property (text), item, widget (KComboBox, kcfg_plotLegend)
@@ -1340,7 +1340,7 @@ msgstr "Açıklama konumu"
 #: backends/qalculate/settings.ui:499
 #, kde-format
 msgid "Hide legend"
-msgstr "Açıklamayı gizle"
+msgstr "Lejantı gizle"
 
 #. i18n: ectx: property (text), item, widget (KComboBox, legendBox)
 #. i18n: ectx: property (text), item, widget (KComboBox, kcfg_plotLegend)
@@ -1645,7 +1645,7 @@ msgstr "Çizimlerin biçemi."
 #: backends/qalculate/qalculatebackend.kcfg:138
 #, kde-format
 msgid "Legend position in plots."
-msgstr "Çizimde açıklamanın konumu."
+msgstr "Çizimlerde lejantların konumu."
 
 #: backends/qalculate/qalculateexpression.cpp:141
 #, kde-format
@@ -1846,7 +1846,7 @@ msgid ""
 "Where the plot legend shall be placed. One of none, top_left, top_right, "
 "bottom_left, bottom_right, below, outside"
 msgstr ""
-"Çizim açıklamasının konumu. none, top_left, top_right, bottom_left, "
+"Çizim lejantının konumu. none, top_left, top_right, bottom_left, "
 "bottom_right, below veya outside olabilir"
 
 #: backends/qalculate/qalculatesyntaxhelpobject.cpp:228
@@ -2119,7 +2119,7 @@ msgstr "Adımlar"
 #: backends/qalculate/settings.ui:488
 #, kde-format
 msgid "Legend Position:"
-msgstr "Açıklama konumu:"
+msgstr "Lejant konumu:"
 
 #. i18n: ectx: property (text), widget (QLabel, label_15)
 #: backends/qalculate/settings.ui:550
