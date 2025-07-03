@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: cantor\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-04-30 00:38+0000\n"
+"POT-Creation-Date: 2025-07-03 06:53+0000\n"
 "PO-Revision-Date: 2023-12-06 19:20+0100\n"
 "Last-Translator: Roman Paholik <wizzardsk@gmail.com>\n"
 "Language-Team: Slovak <kde-sk@linux.sk>\n"
@@ -3505,6 +3505,7 @@ msgstr "Nemožno načítať obrázok %1"
 
 #: imageresultitem.cpp:90
 #, fuzzy, kde-format
+msgctxt "%1 and %2 are file extensions"
 msgid "%1 files (*.%2)"
 msgstr "Súbory"
 

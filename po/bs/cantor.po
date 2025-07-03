@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kdeedu\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-04-30 00:38+0000\n"
+"POT-Creation-Date: 2025-07-03 06:53+0000\n"
 "PO-Revision-Date: 2014-01-31 20:51+0100\n"
 "Last-Translator: Samir Ribić <megaribi@epn.ba>\n"
 "Language-Team: Bosnian <bs@li.org>\n"
@@ -3601,6 +3601,7 @@ msgstr "Ne mogu učitati sliku %1"
 
 #: imageresultitem.cpp:90
 #, kde-format
+msgctxt "%1 and %2 are file extensions"
 msgid "%1 files (*.%2)"
 msgstr ""
 

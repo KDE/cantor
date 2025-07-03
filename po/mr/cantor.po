@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-04-30 00:38+0000\n"
+"POT-Creation-Date: 2025-07-03 06:53+0000\n"
 "PO-Revision-Date: 2013-03-05 17:03+0530\n"
 "Last-Translator: Chetan Khona <chetan@kompkin.com>\n"
 "Language-Team: Marathi <kde-i18n-doc@kde.org>\n"
@@ -3384,6 +3384,7 @@ msgstr ""
 
 #: imageresultitem.cpp:90
 #, kde-format
+msgctxt "%1 and %2 are file extensions"
 msgid "%1 files (*.%2)"
 msgstr ""
 

@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: cantor\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-04-30 00:38+0000\n"
+"POT-Creation-Date: 2025-07-03 06:53+0000\n"
 "PO-Revision-Date: 2023-05-05 19:55+0200\n"
 "Last-Translator: Frederik Schwarzer <schwarzer@kde.org>\n"
 "Language-Team: German <kde-i18n-de@kde.org>\n"
@@ -3523,9 +3523,11 @@ msgid "Cannot load image %1"
 msgstr "Das Bild %1 kann nicht geladen werden"
 
 #: imageresultitem.cpp:90
-#, kde-format
+#, fuzzy, kde-format
+#| msgid "EPS files (*.eps)"
+msgctxt "%1 and %2 are file extensions"
 msgid "%1 files (*.%2)"
-msgstr ""
+msgstr "EPS-Dateien (*.eps)"
 
 #: imageresultitem.cpp:93
 #, kde-format

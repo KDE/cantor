@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: cantor\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-04-30 00:38+0000\n"
+"POT-Creation-Date: 2025-07-03 06:53+0000\n"
 "PO-Revision-Date: 2024-12-25 19:37+0530\n"
 "Last-Translator: kali <shreekantkalwar@gmail.com>\n"
 "Language-Team: Sanskrit <kde-i18n-doc@kde.org>\n"
@@ -3507,7 +3507,9 @@ msgid "Cannot load image %1"
 msgstr "%1 प्रतिबिम्बं लोड् कर्तुं न शक्यते"
 
 #: imageresultitem.cpp:90
-#, kde-format
+#, fuzzy, kde-format
+#| msgid "%1 files (*.%2)"
+msgctxt "%1 and %2 are file extensions"
 msgid "%1 files (*.%2)"
 msgstr "%1 सञ्चिकाः (*.%2)"
 

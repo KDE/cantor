@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: mathematik\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-04-30 00:38+0000\n"
+"POT-Creation-Date: 2025-07-03 06:53+0000\n"
 "PO-Revision-Date: 2025-03-19 13:13+0100\n"
 "Last-Translator: Adrián Chaves (Gallaecio) <adrian@chaves.gal>\n"
 "Language-Team: Proxecto Trasno (proxecto@trasno.gal)\n"
@@ -3558,7 +3558,9 @@ msgid "Cannot load image %1"
 msgstr "Non é posíbel cargar a imaxe %1"
 
 #: imageresultitem.cpp:90
-#, kde-format
+#, fuzzy, kde-format
+#| msgid "%1 files (*.%2)"
+msgctxt "%1 and %2 are file extensions"
 msgid "%1 files (*.%2)"
 msgstr "Ficheiros %1 (*.%2)"
 

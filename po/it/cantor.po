@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: cantor\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-04-30 00:38+0000\n"
+"POT-Creation-Date: 2025-07-03 06:53+0000\n"
 "PO-Revision-Date: 2025-05-28 10:37+0200\n"
 "Last-Translator: Vincenzo Reale <smart2128vr@gmail.com>\n"
 "Language-Team: Italian <kde-i18n-it@kde.org>\n"
@@ -3557,7 +3557,9 @@ msgid "Cannot load image %1"
 msgstr "Impossibile caricare l'immagine %1"
 
 #: imageresultitem.cpp:90
-#, kde-format
+#, fuzzy, kde-format
+#| msgid "%1 files (*.%2)"
+msgctxt "%1 and %2 are file extensions"
 msgid "%1 files (*.%2)"
 msgstr "%1 file (*.%2)"
 
