@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: cantor\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-07-03 06:53+0000\n"
-"PO-Revision-Date: 2025-03-10 09:39+0100\n"
+"PO-Revision-Date: 2025-07-03 16:14+0200\n"
 "Last-Translator: Josep M. Ferrer <txemaq@gmail.com>\n"
 "Language-Team: Catalan <kde-i18n-ca@kde.org>\n"
 "Language: ca@valencia\n"
@@ -1407,7 +1407,7 @@ msgstr "Exterior"
 #: backends/qalculate/plotassistant/qalculateplotdialog.ui:445
 #, kde-format
 msgid "Display Grid"
-msgstr "Mostra la graella"
+msgstr "Mostra la quadrícula"
 
 #. i18n: ectx: property (text), widget (QCheckBox, borderCheckBox)
 #: backends/qalculate/plotassistant/qalculateplotdialog.ui:452
@@ -1625,7 +1625,7 @@ msgstr "Si s'han d'utilitzar o no colors a les gràfiques."
 #: backends/qalculate/qalculatebackend.kcfg:88
 #, kde-format
 msgid "Whether a grid should be plotted."
-msgstr "Si s'ha de dibuixar o no una graella."
+msgstr "Si s'ha de dibuixar o no una quadrícula."
 
 # skip-rule: t-sc-plot
 #. i18n: ectx: label, entry (plotBorder), group (QalculateBackend)
@@ -1849,7 +1849,7 @@ msgstr "Base logarítmica per a l'eix Y."
 #: backends/qalculate/qalculatesyntaxhelpobject.cpp:224
 #, kde-format
 msgid "If a grid shall be shown in the plot."
-msgstr "Si s'ha de mostrar o no la graella de coordenades."
+msgstr "Si s'ha de mostrar o no la quadrícula de coordenades."
 
 #: backends/qalculate/qalculatesyntaxhelpobject.cpp:225
 #, kde-format
@@ -2157,7 +2157,7 @@ msgstr "Gràfiques acolorides:"
 #: backends/qalculate/settings.ui:560
 #, kde-format
 msgid "Show grid:"
-msgstr "Mostra la graella:"
+msgstr "Mostra la quadrícula:"
 
 #. i18n: ectx: property (text), widget (QLabel, label_14)
 #: backends/qalculate/settings.ui:570
@@ -3575,8 +3575,7 @@ msgid "Cannot load image %1"
 msgstr "No s'ha pogut carregar la imatge %1"
 
 #: imageresultitem.cpp:90
-#, fuzzy, kde-format
-#| msgid "%1 files (*.%2)"
+#, kde-format
 msgctxt "%1 and %2 are file extensions"
 msgid "%1 files (*.%2)"
 msgstr "Fitxers %1 (*.%2)"
