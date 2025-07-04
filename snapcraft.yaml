@@ -210,6 +210,17 @@ parts:
       - -usr/lib/gcc/$SNAPCRAFT_ARCH_TRIPLET_BUILD_FOR/6.0.0
       - -usr/lib/aspell/*
       - -usr/share/lintian
+      - -etc/ssl/certs/java/cacerts
+      - -etc/perl/XML/SAX/ParserDetails.ini
+      - -var/lib/texmf/ls-R-TEXLIVEDIST
+      - -var/lib/texmf/tex/generic/config/language.dat
+      - -var/lib/texmf/tex/generic/config/language.dat.lua
+      - -var/lib/texmf/tex/generic/config/language.def
+      - -var/lib/texmf/fmtutil.cnf-TEXLIVEDIST
+      - -var/lib/texmf/updmap.cfg-TEXLIVEDIST
+      - -var/lib/texmf/ls-R-TEXMFMAIN
+      - -var/lib/texmf/fmtutil.cnf-DEBIAN
+      - -var/lib/texmf/updmap.cfg-DEBIAN
   gpu-2404:
     after: [cantor]
     source: https://github.com/canonical/gpu-snap.git
