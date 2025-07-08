@@ -147,6 +147,7 @@ parts:
       - -DENABLE_QT5=OFF
       - -DENABLE_QT6=ON
       - -DBUILD_TESTING=OFF
+      - ENABLE_NSS3=OFF
     override-build: |
       craftctl default
       rsync -a --ignore-existing $CRAFT_PART_INSTALL/ /
