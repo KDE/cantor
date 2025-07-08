@@ -84,7 +84,7 @@ parts:
     after:
       - libgpgmepp-qt6
     plugin: cmake
-    source: https://poppler.freedesktop.org/poppler-24.06.0.tar.xz
+    source: https://poppler.freedesktop.org/poppler-25.07.0.tar.xz
     build-packages:
       - cmake
       - libfreetype6-dev
