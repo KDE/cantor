@@ -69,7 +69,7 @@ void QalculateSession::login()
     m_process = new QProcess(this);
 
     m_process->setProgram(QStandardPaths::findExecutable(QLatin1String("qalc")));
-    QStringList args{QLatin1String("-s"), QLatin1String("color 0")}; // switch off the colored output
+    QStringList args{QLatin1String("-defaults"), QLatin1String("-s"), QLatin1String("color 0")}; // switch off the colored output
     m_process->setArguments(args);
     m_process->setProcessChannelMode(QProcess::SeparateChannels);
 
