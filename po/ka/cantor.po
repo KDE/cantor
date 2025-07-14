@@ -327,7 +327,7 @@ msgstr ""
 #: backendchooser.ui:37
 #, kde-format
 msgid "Make this the default backend"
-msgstr "ამის ნაგულისხმებ უკანაბოლოდ გადაკეთება"
+msgstr "ამის ნაგულისხმევ უკანაბოლოდ გადაკეთება"
 
 #: backends/julia/juliabackend.cpp:55
 #, kde-format
@@ -1530,7 +1530,7 @@ msgstr ""
 #: backends/qalculate/qalculatebackend.kcfg:25
 #, kde-format
 msgid "Default angle unit for trigonometric functions."
-msgstr "ტრიგონომეტრიული ფუნქციების კუთხის ნაგულისხმები ერთეული."
+msgstr "ტრიგონომეტრიული ფუნქციების კუთხის ნაგულისხმევი ერთეული."
 
 #. i18n: ectx: label, entry (base), group (QalculateBackend)
 #: backends/qalculate/qalculatebackend.kcfg:35
@@ -1751,7 +1751,7 @@ msgstr "ნომერი"
 #: backends/qalculate/qalculatesyntaxhelpobject.cpp:150
 #, kde-format
 msgid "default: %1"
-msgstr "ნაგულისხმები: %1"
+msgstr "ნაგულისხმევი: %1"
 
 #: backends/qalculate/qalculatesyntaxhelpobject.cpp:210
 #, kde-format
@@ -3281,7 +3281,7 @@ msgstr "აირჩიეთ"
 #: commandentry.cpp:207
 #, kde-format
 msgid "Reset to Default"
-msgstr "ნაგულისხმებ მნიშვნელობაზე დაბრუნება"
+msgstr "ნაგულისხმევ მნიშვნელობაზე დაბრუნება"
 
 #: commandentry.cpp:336
 #, kde-format
@@ -4166,7 +4166,7 @@ msgstr ""
 #: settings.ui:69
 #, kde-format
 msgid "Default Backend:"
-msgstr "ნაგულისხმები უკანაბოლო:"
+msgstr "ნაგულისხმევი უკანაბოლო:"
 
 #. i18n: ectx: property (toolTip), widget (QSpinBox, kcfg_VisibleLinesLimit)
 #: settings.ui:76
