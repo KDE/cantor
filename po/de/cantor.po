@@ -1,24 +1,24 @@
+# SPDX-FileCopyrightText: 2020, 2023, 2025 Alois Spitzbart <spitz234@hotmail.com>
 # Burkhard Lück <lueck@hube-lueck.de>, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021.
 # Frederik Schwarzer <schwarzer@kde.org>, 2009, 2010, 2011, 2012, 2016, 2017, 2020, 2022, 2023.
 # Panagiotis Papadopoulos <pano_90@gmx.net>, 2010, 2011.
 # Peter Rüthemann <peter.ruethemann@gmail.com>, 2010.
 # Rolf Eike Beer <kde@opensource.sf-tec.de>, 2011.
 # Rene Landert <rene.landert@bluewin.ch>, 2012.
-# loisspitz <spitz234@hotmail.com>, 2020.
 msgid ""
 msgstr ""
 "Project-Id-Version: cantor\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-07-03 06:53+0000\n"
-"PO-Revision-Date: 2023-05-05 19:55+0200\n"
-"Last-Translator: Frederik Schwarzer <schwarzer@kde.org>\n"
+"PO-Revision-Date: 2025-07-04 18:12+0200\n"
+"Last-Translator: Alois Spitzbart <spitz234@hotmail.com>\n"
 "Language-Team: German <kde-i18n-de@kde.org>\n"
 "Language: de\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Lokalize 22.07.70\n"
+"X-Generator: Lokalize 25.04.2\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -340,10 +340,10 @@ msgid ""
 "distributed parallel execution, numerical accuracy, and an extensive "
 "mathematical function library."
 msgstr ""
-"<b>Julia</b> ist eine leistungsstarke höhere Programmiersprache  für "
-"technische Berechnungen, mit einer Syntax, die den Benutzern von andere "
-"technische Berechnungsumgebungen bekannt ist. Sie bietet einen "
-"hochentwickelte Compiler, verteilte parallele Ausführung, numerische "
+"<b>Julia</b> ist eine leistungsstarke höhere Programmiersprache für "
+"technische Berechnungen, mit einer Syntax, die den Benutzern von anderen "
+"technischen Berechnungsumgebungen bekannt ist. Sie bietet einen "
+"hochentwickelten Compiler, verteilte parallele Ausführung, numerische "
 "Genauigkeit und eine umfangreiche mathematische Funktionsbibliothek."
 
 #: backends/julia/juliabackend.cpp:68
@@ -2886,16 +2886,15 @@ msgid "Save Plain Text"
 msgstr "Als einfache Textdatei speichern"
 
 #: cantor_part.cpp:185 cantor_part.cpp:544
-#, fuzzy, kde-format
-#| msgid "Export to LaTeX"
+#, kde-format
 msgid "Export to PDF"
-msgstr "LaTeX-Export"
+msgstr "Als PDF exportieren"
 
 #: cantor_part.cpp:189 cantor_part.cpp:556 worksheet.cpp:1307
 #: worksheet.cpp:1313
 #, kde-format
 msgid "Export to LaTeX"
-msgstr "LaTeX-Export"
+msgstr "Als LaTeX exportieren"
 
 #: cantor_part.cpp:204 cantor_part.cpp:652 worksheet.cpp:1936
 #, kde-format
@@ -3066,16 +3065,14 @@ msgid "Text Files (*.txt)"
 msgstr "Textdateien (*.txt)"
 
 #: cantor_part.cpp:544
-#, fuzzy, kde-format
-#| msgid "EPS files (*.eps)"
+#, kde-format
 msgid "PDF Files (*.pdf)"
-msgstr "EPS-Dateien (*.eps)"
+msgstr "PDF-Dateien (*.pdf)"
 
 #: cantor_part.cpp:556
-#, fuzzy, kde-format
-#| msgid "Text Files (*.txt)"
+#, kde-format
 msgid "TeX Files (*.tex)"
-msgstr "Textdateien (*.txt)"
+msgstr "TeX-Dateien (*.tex)"
 
 #: cantor_part.cpp:601
 #, kde-format
@@ -3131,7 +3128,7 @@ msgstr "Frage – Cantor"
 #, kde-format
 msgctxt "@action:button"
 msgid "Upload"
-msgstr ""
+msgstr "Hochladen"
 
 #: cantor_part.cpp:900
 #, kde-format
@@ -3369,10 +3366,9 @@ msgstr "Kapitel-Schriftart"
 #. i18n: ectx: property (text), widget (QLabel, lSubparagraphFontFamily)
 #: formating.ui:48 formating.ui:105 formating.ui:162 formating.ui:219
 #: formating.ui:276 formating.ui:333
-#, fuzzy, kde-format
-#| msgid "Font Family:"
+#, kde-format
 msgid "Fon&t Family:"
-msgstr "Schriftartenfamile:"
+msgstr "Schrif&tartenfamile:"
 
 #. i18n: ectx: property (text), widget (QLabel, lChapterFontSize)
 #. i18n: ectx: property (text), widget (QLabel, lSubchapterFontSize)
@@ -3382,10 +3378,9 @@ msgstr "Schriftartenfamile:"
 #. i18n: ectx: property (text), widget (QLabel, lSubparagraphFontSize)
 #: formating.ui:61 formating.ui:118 formating.ui:175 formating.ui:232
 #: formating.ui:289 formating.ui:346
-#, fuzzy, kde-format
-#| msgid "Font Size:"
+#, kde-format
 msgid "Font Si&ze:"
-msgstr "Schriftgröße:"
+msgstr "Schrift&größe:"
 
 #. i18n: ectx: attribute (title), widget (QWidget, SubchapterTab)
 #: formating.ui:99
@@ -3641,7 +3636,7 @@ msgid ""
 "The specified file '%1' for the %2 executable doesn't exist. Please provide "
 "the correct path in the application settings and try again."
 msgstr ""
-"Die angegebene Datei '%1' für die %2 Anwendung existiert nicht. Bitte geben "
+"Die angegebene Datei „%1“ verweist nicht auf eine %2-Anwendung. Bitte geben "
 "Sie den richtigen Pfad in den Anwendungseinstellungen an und versuchen Sie "
 "es nochmals."
 
@@ -3651,7 +3646,7 @@ msgid ""
 "The specified file '%1' doesn't point to an executable. Please provide the "
 "correct path in the application settings and try again."
 msgstr ""
-"Die angegebene Datei '%1' gibt nicht die  Anwendung an. Bitte geben Sie den "
+"Die angegebene Datei '%1' gibt nicht die Anwendung an. Bitte geben Sie den "
 "richtigen Pfad in den Anwendungseinstellungen an und versuchen Sie es "
 "nochmals."
 
@@ -3787,7 +3782,7 @@ msgstr "KDE-Oberfläche für Mathematik-Anwendungen"
 #: main.cpp:71
 #, kde-format
 msgid "(C) 2016 Filipe Saraiva<br/>(C) 2009-2015 Alexander Rieder"
-msgstr "(C) 2016 Filipe Saraiva<br/>(C) 2009-2015 Alexander Rieder"
+msgstr "© 2016 Filipe Saraiva<br/>© 2009–2015 Alexander Rieder"
 
 #: main.cpp:75
 #, kde-format
@@ -4407,7 +4402,7 @@ msgstr "Fehler beim Speichern der Datei %1"
 msgid ""
 "In read-only mode Cantor couldn't guarantee, that the export will be valid "
 "for %1"
-msgstr "Im Nur-Lesen-Modus ist der Export für  %1 möglicherweise ungültig"
+msgstr "Im Nur-Lesen-Modus ist der Export für %1 möglicherweise ungültig"
 
 #: worksheet.cpp:1313
 #, kde-format
@@ -4461,8 +4456,8 @@ msgstr "Python 2 nicht mehr unterstützt"
 msgid ""
 "%1 backend was not found. Editing and executing entries is not possible."
 msgstr ""
-"Das Modul  %1 wurde nicht gefunden. Die Bearbeitung und Ausführung der "
-"Einträge ist nicht möglich."
+"Das %1-Backend wurde nicht gefunden. Das Bearbeiten und Ausführen von "
+"Einträgen ist nicht möglich."
 
 #: worksheet.cpp:1455 worksheet.cpp:1634
 #, kde-format
@@ -4609,10 +4604,9 @@ msgid "Evaluate Entries"
 msgstr "Einträge auswerten"
 
 #: worksheet.cpp:1967 worksheet.cpp:2818
-#, fuzzy, kde-format
-#| msgid "Evaluate Entries"
+#, kde-format
 msgid "Delete Entries"
-msgstr "Einträge auswerten"
+msgstr "Einträge löschen"
 
 #: worksheet.cpp:1980
 #, kde-format
@@ -4901,23 +4895,21 @@ msgid "Move Down"
 msgstr "Nach unten verschieben"
 
 #: worksheetentry.cpp:436
-#, fuzzy, kde-format
-#| msgctxt "@info:tooltip"
-#| msgid "Delete"
+#, kde-format
 msgid "Delete"
 msgstr "Löschen"
 
 #: worksheetentry.cpp:718
-#, fuzzy, kde-format
-#| msgid "Do you really want to remove this entry?"
+#, kde-format
 msgid "This step cannot be undone. Do you really want to delete this entry?"
-msgstr "Möchten Sie diesen Eintrag wirklich löschen?"
+msgstr ""
+"Dieser Schritt kann nicht rückgängig gemacht werden. Möchten Sie diesen "
+"Eintrag wirklich löschen?"
 
 #: worksheetentry.cpp:718 worksheetentry.cpp:848
-#, fuzzy, kde-format
-#| msgid "Text Entry"
+#, kde-format
 msgid "Delete Entry"
-msgstr "Texteintrag"
+msgstr "Eintrag löschen"
 
 #: worksheetentry.cpp:853
 #, kde-format
