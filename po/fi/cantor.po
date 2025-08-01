@@ -2,14 +2,14 @@
 # Author: Artnay
 # Author: Lliehu
 # Author: Niklas Laxström
-# SPDX-FileCopyrightText: 2018, 2019, 2020, 2022, 2024 Tommi Nieminen <translator@legisign.org>
+# SPDX-FileCopyrightText: 2018, 2019, 2020, 2022, 2024, 2025 Tommi Nieminen <translator@legisign.org>
 # Lasse Liehu <lasse.liehu@gmail.com>, 2012, 2013, 2014, 2015, 2016.
 msgid ""
 msgstr ""
 "Project-Id-Version: cantor\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-07-03 06:53+0000\n"
-"PO-Revision-Date: 2024-10-27 09:26+0200\n"
+"PO-Revision-Date: 2025-07-21 21:23+0300\n"
 "Last-Translator: Tommi Nieminen <translator@legisign.org>\n"
 "Language-Team: Finnish <kde-i18n-doc@kde.org>\n"
 "Language: fi\n"
@@ -420,10 +420,9 @@ msgstr "Kaavion oletuskorkeus"
 
 #. i18n: ectx: label, entry (plotExtenstionGraphicPackage), group (JuliaBackend)
 #: backends/julia/juliabackend.kcfg:43
-#, fuzzy, kde-format
-#| msgid "Graphic Package for \"Plot\"-assistant"
+#, kde-format
 msgid "Graphical package for the Plot-Assistant"
-msgstr "Kaavionpiirtoavustajan graafinen paketti"
+msgstr "Kaavioavustajan graafinen paketti"
 
 #: backends/julia/juliaextensions.cpp:239
 #, kde-format
@@ -661,10 +660,9 @@ msgstr "Gadfly"
 #. i18n: ectx: property (text), widget (QLabel, label3)
 #. i18n: ectx: property (text), widget (QLabel, label4)
 #: backends/julia/settings.ui:252 backends/python/settings.ui:221
-#, fuzzy, kde-format
-#| msgid "Plot Assistant"
+#, kde-format
 msgid "Plot Assistant:"
-msgstr "Kaavionpiirtoavustaja"
+msgstr "Kaavioavustaja:"
 
 #. i18n: ectx: attribute (title), widget (QWidget, tabAutorun)
 #. i18n: ectx: attribute (title), widget (QWidget, tabAutoran)
@@ -1161,13 +1159,14 @@ msgstr "Histogrammi"
 msgid "Steps"
 msgstr "Vaiheet"
 
+# Tätä nimitystä käyttää Lauri Nummenmaa (Tilastotieteen käsikirja)
 #. i18n: ectx: property (text), item, widget (KComboBox, styleBox)
 #. i18n: ectx: property (text), item, widget (KComboBox, kcfg_plotStyle)
 #: backends/qalculate/plotassistant/qalculateplotdialog.ui:175
 #: backends/qalculate/settings.ui:475
 #, kde-format
 msgid "Candlesticks"
-msgstr ""
+msgstr "Laatikko-jana-kuviot"
 
 #. i18n: ectx: property (text), item, widget (KComboBox, styleBox)
 #. i18n: ectx: property (text), item, widget (KComboBox, kcfg_plotStyle)
@@ -1450,6 +1449,7 @@ msgstr "SVG"
 msgid "FIG"
 msgstr "FIG"
 
+# ”Virheen kasautumislaki” on Wikipediasta. ”Intervalliaritmetiikka” on väännös: käännöstä en löytänyt.
 #: backends/qalculate/qalculatebackend.cpp:51
 #, kde-format
 msgid ""
@@ -1462,6 +1462,14 @@ msgid ""
 "equations), arbitrary precision, uncertainty propagation, interval "
 "arithmetic, plotting,"
 msgstr ""
+"<b>Qalculate!</b> on monikäyttöinen ja -alustainen työpöytälaskin. Se on "
+"yksinkertainen käyttää mutta tarjoaa tehoa ja monipuolisuutta, jota yleensä "
+"löytyy vain raskaista matematiikkapaketeista, samoin kuin työkaluja arjen "
+"tarpeisiin (esim. valuuttamuunnoksen ja prosenttilaskut). Sen ominaisuuksiin "
+"kuuluu laaja mukautettavien funktioiden kirjasto, yksikkölaskut ja -"
+"muunnokset, fysiikan vakiot, symboliset laskut (integraalit ja yhtälöt "
+"mukaan lukien), mielivaltainen tarkkuus, virheen kasautumislaki, "
+"intervalliaritmetiikka ja kaavionpiirto."
 
 #. i18n: ectx: label, entry (Path), group (QalculateBackend)
 #: backends/qalculate/qalculatebackend.kcfg:9
@@ -1816,6 +1824,8 @@ msgid ""
 "Plot style. One of lines, points, points_lines, boxes, histogram, steps, "
 "candlesticks, dots"
 msgstr ""
+"Kaaviotyyli, yksi seuraavista: lines, points, points_lines, boxes, "
+"histogram, steps, candlesticks, dots"
 
 #: backends/qalculate/qalculatesyntaxhelpobject.cpp:230
 #, kde-format
@@ -2155,7 +2165,7 @@ msgstr "Poista tämän asennus GHNS:llä."
 #: backends/qthelpconfig.ui:20
 #, kde-format
 msgid "Install Additional Documentation Files"
-msgstr ""
+msgstr "Asenna lisäohjetiedostoja"
 
 #. i18n: ectx: property (text), widget (QTreeWidget, qchTable)
 #: backends/qthelpconfig.ui:49 lib/defaultvariablemodel.cpp:70
@@ -2268,6 +2278,26 @@ msgid ""
 "these examples in the current R session via the <i>example()</i> command: e."
 "g., <i>example(lm)</i>."
 msgstr ""
+"<h1>R:n ohjejärjestelmä: <i>help()</i> ja <i>?</i></h1><br>R:n <i>help()</i>-"
+"funktio ja <i>?</i>-ohjeoperaattori tarjoavat pääsyn sekä R:n vakiojakelun "
+"että kolmannen osapuolen pakettien R-funktioiden, -datajoukkojen ja muiden "
+"olioiden ohjesivuihin.<br><br>Saadaksesi esimerkiksi <i>lm</i>-vakiofunktion "
+"(lineaarimalli) ohjeen syötä komento <b><i>help(lm)</i></b>, <i>help(\"lm"
+"\")</i>m <i>?lm</i> tai <i>?\"lm\"</i> (ts. lainausmerkit ovat valinnaiset)."
+"<br><br>Saadaksesi ohjeen funktiosta, jonka pakettia ei ole sillä hetkellä "
+"ladattu, anna myös paketin nimi. Esimerkiksi nähdäksesi MASS-paketin "
+"<i>rlm()</i>-funktion (robusti lineaarimalli) ohjeen: <i>help(rlm, package="
+"\"MASS\")</i>.<br><br>R:n vakionimet koostuvat suur- ja pienaakkosista, "
+"numeroista (0–9), alaviivoista (_) ja pisteistä (.), ja ne alkavat "
+"kirjaimella tai pisteellä. Saadaksesi ohjeen oliosta, jonka nimi ei ole "
+"vakiomuotoa (esim. ohjeoperaattori <i>?</i>), sen nimi tulee ympäröidä "
+"lainausmerkein, esimerkiksi <i>help('?')</i> tai <i>?\"?\"</i>."
+"<br><br><i>help()</i>-funktiota voi käyttää myös näyttämään tietoa kirjaston "
+"paketista. Esimerkiksi <i>help(package=\"MASS\")</i> näyttää hakemiston "
+"paketissa saatavilla olevista ohjesivuista sekä muuta tietoa."
+"<br><br>Funktioiden ohjesivut sisältävät yleensä osion, jossa on esimerkkejä "
+"niiden käytöstä. Esimerkit voi suorittaa nykyisessä R-istunnossa "
+"<i>example()</i>-komennolla, esim. <i>example(lm)</i>."
 
 #: backends/R/rbackend.cpp:98
 #, kde-format
@@ -2702,7 +2732,7 @@ msgstr "Käytä Cantorin vanhaa rivien sijoittelua"
 #: cantor.kcfg:58
 #, kde-format
 msgid "Show embedded math render error"
-msgstr ""
+msgstr "Näytä upotetun matematiikan hahmonnusvirhe"
 
 #. i18n: ectx: label, entry (VisibleLinesLimit), group (Cantor)
 #: cantor.kcfg:62
@@ -3318,10 +3348,9 @@ msgstr "Luvun fontti"
 #. i18n: ectx: property (text), widget (QLabel, lSubparagraphFontFamily)
 #: formating.ui:48 formating.ui:105 formating.ui:162 formating.ui:219
 #: formating.ui:276 formating.ui:333
-#, fuzzy, kde-format
-#| msgid "Font Family:"
+#, kde-format
 msgid "Fon&t Family:"
-msgstr "Fonttiperhe:"
+msgstr "&Fonttiperhe:"
 
 #. i18n: ectx: property (text), widget (QLabel, lChapterFontSize)
 #. i18n: ectx: property (text), widget (QLabel, lSubchapterFontSize)
@@ -3331,10 +3360,9 @@ msgstr "Fonttiperhe:"
 #. i18n: ectx: property (text), widget (QLabel, lSubparagraphFontSize)
 #: formating.ui:61 formating.ui:118 formating.ui:175 formating.ui:232
 #: formating.ui:289 formating.ui:346
-#, fuzzy, kde-format
-#| msgid "Font Size:"
+#, kde-format
 msgid "Font Si&ze:"
-msgstr "Fonttikoko:"
+msgstr "F&onttikoko:"
 
 #. i18n: ectx: attribute (title), widget (QWidget, SubchapterTab)
 #: formating.ui:99
@@ -3472,8 +3500,7 @@ msgid "Cannot load image %1"
 msgstr "Kuvan %1 lataaminen epäonnistui"
 
 #: imageresultitem.cpp:90
-#, fuzzy, kde-format
-#| msgid "%1 files (*.%2)"
+#, kde-format
 msgctxt "%1 and %2 are file extensions"
 msgid "%1 files (*.%2)"
 msgstr "%1-tiedostot (*.%2)"
@@ -4143,11 +4170,11 @@ msgstr "Käytä työvihkossa animointitehosteita"
 
 #. i18n: ectx: property (toolTip), widget (QCheckBox, kcfg_EmbeddedMathDefault)
 #: settings.ui:158
-#, fuzzy, kde-format
-#| msgid "Enable LaTeX typesetting for Sage backend"
+#, kde-format
 msgid ""
 "Enable LaTeX typesetting for mathematical expressions in Markdown entries"
-msgstr "Käytä Sage-taustajärjestelmässä LaTeX-ladontaa"
+msgstr ""
+"Käytä LaTeXia Markdown-tietueiden matemaattisten lausekkeiden ladontaan"
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_EmbeddedMathDefault)
 #: settings.ui:161
@@ -4166,8 +4193,7 @@ msgstr ""
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_AutoEval)
 #: settings.ui:171
-#, fuzzy, kde-format
-#| msgid "Reevaluate Entries automatically"
+#, kde-format
 msgid "Reevaluate entries automatically"
 msgstr "Suorita rivit uudelleen automaattisesti"
 
@@ -4179,14 +4205,11 @@ msgstr "Työvihko:"
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_StoreTextEntryFormatting)
 #: settings.ui:223
-#, fuzzy, kde-format
-#| msgid ""
-#| "Save rich text formatting of TextEntry, when save Worksheet in Jupyter "
-#| "notebook format"
+#, kde-format
 msgid ""
 "Use rich text format for text entries when saving in Jupyter Notebook Format"
 msgstr ""
-"Käytä tallennettaessa Jupyter-työvihkomuotoon muotoiltua tekstisyötettä"
+"Käytä Jupyter-työvihkomuotoon tallennettaessa muotoiltua tekstisyötettä"
 
 #. i18n: ectx: property (text), widget (QLabel, label_5)
 #: settings.ui:236
@@ -4210,12 +4233,13 @@ msgstr "Älä sisennä tekstitietueita"
 
 #. i18n: ectx: property (toolTip), widget (QCheckBox, kcfg_WarnAboutSessionRestart)
 #: settings.ui:266
-#, fuzzy, kde-format
-#| msgid "Ask for confirmation when restarting the backend"
+#, kde-format
 msgid ""
 "If enabled, the user will be asked for confirmation prior to restarting the "
 "backend system"
-msgstr "Pyydä vahvistus taustajärjestelmän uudelleenkäynnistykseen"
+msgstr ""
+"Jos käytössä, käyttäjää pyydetään vahvistamaan taustajärjestelmän "
+"uudelleenkäynnistys"
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_ShowMathRenderError)
 #: settings.ui:276
@@ -4262,7 +4286,7 @@ msgstr "Etsi…"
 #: textentry.cpp:55
 #, kde-format
 msgid "Raw Cell Targets"
-msgstr ""
+msgstr "Raa’at solukohteet"
 
 #: textentry.cpp:62
 #, kde-format
@@ -4307,7 +4331,7 @@ msgstr "Näytä HTML-koodi"
 #: textresultitem.cpp:83 textresultitem.cpp:89
 #, kde-format
 msgid "Show Plain Alternative"
-msgstr ""
+msgstr "Näytä yksinkertainen vaihtoehto"
 
 #: textresultitem.cpp:87
 #, kde-format
@@ -4350,6 +4374,7 @@ msgid ""
 "In read-only mode Cantor couldn't guarantee, that the export will be valid "
 "for %1"
 msgstr ""
+"Vain luku -tilassa Cantor ei voi taata, että %1 hyväksyy viedyn tiedoston"
 
 #: worksheet.cpp:1313
 #, kde-format
@@ -4390,6 +4415,8 @@ msgid ""
 "This worksheet was created using Python2 which is not supported anymore. "
 "Python3 will be used."
 msgstr ""
+"Tämä työvihko on luotu Python 2:lla, jota ei enää tueta. Käytetään Python 3:"
+"a."
 
 #: worksheet.cpp:1437 worksheet.cpp:1607
 #, kde-format
@@ -4446,7 +4473,7 @@ msgstr ""
 #: worksheet.cpp:1676
 #, kde-format
 msgid "non object JSON value"
-msgstr ""
+msgstr "JSON-arvo ei olio"
 
 #: worksheet.cpp:1679
 #, kde-format
@@ -4550,33 +4577,29 @@ msgid "Delete Entries"
 msgstr "Poista tietueet"
 
 #: worksheet.cpp:1980
-#, fuzzy, kde-format
-#| msgid "Insert Command Entry"
+#, kde-format
 msgid "Collapse Command Entry Results"
-msgstr "Lisää komentokenttä"
+msgstr "Supista komentotietueen tulokset"
 
 #: worksheet.cpp:1981
-#, fuzzy, kde-format
-#| msgid "Command Entry"
+#, kde-format
 msgid "Expand Command Entry Results"
-msgstr "Komentokenttä"
+msgstr "Laajenna komentotietueen tulokset"
 
 #: worksheet.cpp:1983
-#, fuzzy, kde-format
-#| msgid "Command Entry"
+#, kde-format
 msgid "Delete Command Entry Results"
-msgstr "Komentokenttä"
+msgstr "Poista komentotietueen tulokset"
 
 #: worksheet.cpp:1985
 #, kde-format
 msgid "Exclude Command Entry From Execution"
-msgstr ""
+msgstr "Poista komentotietue suorituksesta"
 
 #: worksheet.cpp:1986
-#, fuzzy, kde-format
-#| msgid "Scripts to autorun"
+#, kde-format
 msgid "Add Command Entry To Execution"
-msgstr "Automaattisesti suoritettavat skriptit"
+msgstr "Lisää komentotietue suoritettavaksi"
 
 #: worksheet.cpp:2094
 #, kde-format
