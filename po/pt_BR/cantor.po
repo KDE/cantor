@@ -5,7 +5,7 @@
 # Luiz Fernando Ranghetti <elchevive@opensuse.org>, 2009, 2010, 2011, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024.
 # André Marcelo Alvarenga <alvarenga@kde.org>, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2018, 2019, 2020.
 # Aracele Torres <araceletorres@gmail.com>, 2010, 2011.
-# Marcus Gama <marcus.gama@gmail.com>, 2011.
+# SPDX-FileCopyrightText: 2011, 2025 Marcus Gama <marcus.gama@gmail.com>
 # Geraldo Simiao <geraldosimiao@fedoraproject.org>, 2023.
 # SPDX-FileCopyrightText: 2025 Guilherme Marçal Silva <guimarcalsilva@gmail.com>
 msgid ""
@@ -13,15 +13,15 @@ msgstr ""
 "Project-Id-Version: cantor\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-07-03 06:53+0000\n"
-"PO-Revision-Date: 2025-03-12 22:10-0300\n"
-"Last-Translator: Guilherme Marçal Silva <guimarcalsilva@gmail.com>\n"
+"PO-Revision-Date: 2025-08-02 06:16-0300\n"
+"Last-Translator: Marcus Gama <marcus.gama@gmail.com>\n"
 "Language-Team: Brazilian Portuguese <kde-i18n-pt_BR@kde.org>\n"
 "Language: pt_BR\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"X-Generator: Lokalize 24.12.3\n"
+"X-Generator: Lokalize 25.04.3\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -441,10 +441,9 @@ msgid "Julia script file (*.jl)"
 msgstr "Arquivo de script Julia (*.jil)"
 
 #: backends/julia/juliasession.cpp:70
-#, fuzzy, kde-format
-#| msgid "Failed to start Maxima, please check Maxima's installation."
+#, kde-format
 msgid "Failed to start Julia, please check Julia installation."
-msgstr "Falha ao iniciar o Maxima, verifique a instalação do Maxima."
+msgstr "Falha ao iniciar o Julia, verifique a instalação do Julia."
 
 #: backends/julia/juliasession.cpp:118 backends/julia/juliasession.cpp:127
 #: backends/maxima/maximasession.cpp:298 cantor_part.cpp:973
@@ -675,10 +674,9 @@ msgstr "Gadfly"
 #. i18n: ectx: property (text), widget (QLabel, label3)
 #. i18n: ectx: property (text), widget (QLabel, label4)
 #: backends/julia/settings.ui:252 backends/python/settings.ui:221
-#, fuzzy, kde-format
-#| msgid "Plot Assistant"
+#, kde-format
 msgid "Plot Assistant:"
-msgstr "Assistente de gráfico"
+msgstr "Assistente de gráfico:"
 
 #. i18n: ectx: attribute (title), widget (QWidget, tabAutorun)
 #. i18n: ectx: attribute (title), widget (QWidget, tabAutoran)
@@ -772,10 +770,9 @@ msgid "Lua script file (*.lua)"
 msgstr "Arquivo de script Lua (*.lua)"
 
 #: backends/lua/luasession.cpp:59
-#, fuzzy, kde-format
-#| msgid "Failed to start Maxima, please check Maxima's installation."
+#, kde-format
 msgid "Failed to start Lua, please check Lua installation."
-msgstr "Falha ao iniciar o Maxima, verifique a instalação do Maxima."
+msgstr "Falha ao iniciar o Lua, verifique a instalação do Lua."
 
 #. i18n: ectx: property (text), widget (QLabel, label)
 #: backends/lua/settings.ui:27
@@ -922,10 +919,7 @@ msgid "Failed to start Maxima, please check Maxima's installation."
 msgstr "Falha ao iniciar o Maxima, verifique a instalação do Maxima."
 
 #: backends/maxima/maximasession.cpp:79
-#, fuzzy, kde-format
-#| msgid ""
-#| "Maxima didn't respond with the proper prompt, please check Maxima's "
-#| "installation."
+#, kde-format
 msgid ""
 "Maxima didn't respond with the proper prompt, please check Maxima "
 "installation."
@@ -992,10 +986,9 @@ msgid "Octave script file (*.m)"
 msgstr "Arquivo de script Octave (*.m)"
 
 #: backends/octave/octavesession.cpp:98
-#, fuzzy, kde-format
-#| msgid "Failed to start Maxima, please check Maxima's installation."
+#, kde-format
 msgid "Failed to start Octave, please check Octave installation."
-msgstr "Falha ao iniciar o Maxima, verifique a instalação do Maxima."
+msgstr "Falha ao iniciar o Octave, verifique a instalação do Octave."
 
 #: backends/octave/octavesession.cpp:278 backends/sage/sageexpression.cpp:49
 #, kde-format
@@ -1054,10 +1047,9 @@ msgid "Python script file (*.py)"
 msgstr "Arquivo de script Python (*.py)"
 
 #: backends/python/pythonsession.cpp:74
-#, fuzzy, kde-format
-#| msgid "Failed to start Maxima, please check Maxima's installation."
+#, kde-format
 msgid "Failed to start Python, please check Python installation."
-msgstr "Falha ao iniciar o Maxima, verifique a instalação do Maxima."
+msgstr "Falha ao iniciar o Python, verifique a instalação do Python."
 
 #: backends/python/pythonsession.cpp:282
 #, kde-format
@@ -2415,10 +2407,9 @@ msgid "Url to the local R documentation"
 msgstr "URL para a documentação R local"
 
 #: backends/R/rsession.cpp:54
-#, fuzzy, kde-format
-#| msgid "Failed to start Maxima, please check Maxima's installation."
+#, kde-format
 msgid "Failed to start R, please check R installation."
-msgstr "Falha ao iniciar o Maxima, verifique a instalação do Maxima."
+msgstr "Falha ao iniciar o R, verifique a instalação do R."
 
 #: backends/R/rsettingswidget.cpp:30
 #, kde-format
@@ -2483,10 +2474,9 @@ msgid "Python script file (*.py);;Sage script file (*.sage)"
 msgstr "Arquivo de script Python (*.py);;Arquivo de script Sage (*.sage)"
 
 #: backends/sage/sagesession.cpp:126
-#, fuzzy, kde-format
-#| msgid "Failed to start Maxima, please check Maxima's installation."
+#, kde-format
 msgid "Failed to start Sage, please check Sage installation."
-msgstr "Falha ao iniciar o Maxima, verifique a instalação do Maxima."
+msgstr "Falha ao iniciar o Sage, verifique a instalação do Sage."
 
 #: backends/sage/sagesession.cpp:271
 #, kde-format
@@ -2583,10 +2573,9 @@ msgid ";;Scilab script file (*.sce);;Scilab function file (*.sci)"
 msgstr ";;Arquivo de script Scilab (*.sce);;Arquivo de função Scilab (*.sci)"
 
 #: backends/scilab/scilabsession.cpp:67
-#, fuzzy, kde-format
-#| msgid "Failed to start Maxima, please check Maxima's installation."
+#, kde-format
 msgid "Failed to start Scilab, please check Scilab installation."
-msgstr "Falha ao iniciar o Maxima, verifique a instalação do Maxima."
+msgstr "Falha ao iniciar o Scilab, verifique a instalação do Scilab."
 
 #. i18n: ectx: property (text), widget (QLabel, lPlotIntegration)
 #: backends/scilab/settings.ui:37
@@ -3066,16 +3055,14 @@ msgid "Expand All Results"
 msgstr "Expandir todos os resultados"
 
 #: cantor_part.cpp:323
-#, fuzzy, kde-format
-#| msgid "Remove All Results"
+#, kde-format
 msgid "Delete All Results"
-msgstr "Remover todos os resultado"
+msgstr "Excluir todos os resultados"
 
 #: cantor_part.cpp:328
-#, fuzzy, kde-format
-#| msgid "Remove current Entry"
+#, kde-format
 msgid "Delete current Entry"
-msgstr "Remover entrada atual"
+msgstr "Excluir entrada atual"
 
 #. i18n("Publish Worksheet"), collection);
 #. publishWorksheet->setIcon(QIcon::fromTheme(QLatin1String("get-hot-new-stuff")));
@@ -3195,7 +3182,7 @@ msgstr "Pergunta - Cantor"
 #, kde-format
 msgctxt "@action:button"
 msgid "Upload"
-msgstr ""
+msgstr "Enviar"
 
 #: cantor_part.cpp:900
 #, kde-format
@@ -3431,10 +3418,9 @@ msgstr "Fonte do capítulo"
 #. i18n: ectx: property (text), widget (QLabel, lSubparagraphFontFamily)
 #: formating.ui:48 formating.ui:105 formating.ui:162 formating.ui:219
 #: formating.ui:276 formating.ui:333
-#, fuzzy, kde-format
-#| msgid "Font Family:"
+#, kde-format
 msgid "Fon&t Family:"
-msgstr "Família da fonte:"
+msgstr "&Família da fonte:"
 
 #. i18n: ectx: property (text), widget (QLabel, lChapterFontSize)
 #. i18n: ectx: property (text), widget (QLabel, lSubchapterFontSize)
@@ -3444,10 +3430,9 @@ msgstr "Família da fonte:"
 #. i18n: ectx: property (text), widget (QLabel, lSubparagraphFontSize)
 #: formating.ui:61 formating.ui:118 formating.ui:175 formating.ui:232
 #: formating.ui:289 formating.ui:346
-#, fuzzy, kde-format
-#| msgid "Font Size:"
+#, kde-format
 msgid "Font Si&ze:"
-msgstr "Tamanho da fonte:"
+msgstr "&Tamanho da fonte:"
 
 #. i18n: ectx: attribute (title), widget (QWidget, SubchapterTab)
 #: formating.ui:99
@@ -3585,8 +3570,7 @@ msgid "Cannot load image %1"
 msgstr "Não foi possível carregar a imagem %1"
 
 #: imageresultitem.cpp:90
-#, fuzzy, kde-format
-#| msgid "%1 files (*.%2)"
+#, kde-format
 msgctxt "%1 and %2 are file extensions"
 msgid "%1 files (*.%2)"
 msgstr "Arquivos %1 (*.%2)"
@@ -4668,10 +4652,9 @@ msgid "Evaluate Entries"
 msgstr "Calcular entradas"
 
 #: worksheet.cpp:1967 worksheet.cpp:2818
-#, fuzzy, kde-format
-#| msgid "Evaluate Entries"
+#, kde-format
 msgid "Delete Entries"
-msgstr "Calcular entradas"
+msgstr "Excluir entradas"
 
 #: worksheet.cpp:1980
 #, kde-format
@@ -4684,10 +4667,9 @@ msgid "Expand Command Entry Results"
 msgstr "Expandir os resultados da entrada de comando"
 
 #: worksheet.cpp:1983
-#, fuzzy, kde-format
-#| msgid "Remove Command Entry Results"
+#, kde-format
 msgid "Delete Command Entry Results"
-msgstr "Remover os resultados da entrada de comando"
+msgstr "Excluir os resultados da entrada de comando"
 
 #: worksheet.cpp:1985
 #, kde-format
@@ -4807,17 +4789,19 @@ msgid ""
 "This step cannot be undone. Do you really want to delete the selected "
 "entries?"
 msgstr ""
+"Esta etapa não pode ser desfeita. Você realmente deseja excluir as entradas "
+"selecionadas?"
 
 #: worksheet.cpp:2907
 #, kde-format
 msgid "This step cannot be undone. Do you really want to delete all results?"
 msgstr ""
+"Esta etapa não pode ser desfeita. Deseja mesmo excluir todos os resultados?"
 
 #: worksheet.cpp:2908
-#, fuzzy, kde-format
-#| msgid "Remove all results"
+#, kde-format
 msgid "Delete all results"
-msgstr "Remover todos os resultados"
+msgstr "Excluir todos os resultados"
 
 #: worksheetentry.cpp:67
 #, kde-format
@@ -4960,23 +4944,20 @@ msgid "Move Down"
 msgstr "Mover para baixo"
 
 #: worksheetentry.cpp:436
-#, fuzzy, kde-format
-#| msgctxt "@info:tooltip"
-#| msgid "Delete"
+#, kde-format
 msgid "Delete"
 msgstr "Excluir"
 
 #: worksheetentry.cpp:718
-#, fuzzy, kde-format
-#| msgid "Do you really want to remove this entry?"
+#, kde-format
 msgid "This step cannot be undone. Do you really want to delete this entry?"
-msgstr "Deseja realmente remover esta entrada?"
+msgstr ""
+"Esta etapa não pode ser desfeita. Você realmente deseja excluir esta entrada?"
 
 #: worksheetentry.cpp:718 worksheetentry.cpp:848
-#, fuzzy, kde-format
-#| msgid "Text Entry"
+#, kde-format
 msgid "Delete Entry"
-msgstr "Entrada de texto"
+msgstr "Excluir entrada"
 
 #: worksheetentry.cpp:853
 #, kde-format
