@@ -1058,7 +1058,7 @@ msgstr "أزل"
 #: backends/qalculate/plotassistant/qalculateplotdialog.ui:92
 #, kde-format
 msgid "Clear List"
-msgstr "امسح القائمة"
+msgstr "امحُ القائمة"
 
 #. i18n: ectx: property (text), widget (QLabel, label_3)
 #: backends/qalculate/plotassistant/qalculateplotdialog.ui:107
