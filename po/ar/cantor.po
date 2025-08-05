@@ -1,13 +1,13 @@
 # Copyright (C) 2024 This file is copyright:
 # This file is distributed under the same license as the cantor package.
-# SPDX-FileCopyrightText: 2022, 2024 Zayed Al-Saidi <zayed.alsaidi@gmail.com>
+# SPDX-FileCopyrightText: 2022, 2024, 2025 Zayed Al-Saidi <zayed.alsaidi@gmail.com>
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: cantor\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-07-03 06:53+0000\n"
-"PO-Revision-Date: 2024-11-28 13:49+0400\n"
+"PO-Revision-Date: 2025-08-04 18:46+0400\n"
 "Last-Translator: Zayed Al-Saidi <zayed.alsaidi@gmail.com>\n"
 "Language-Team: ar\n"
 "Language: ar\n"
@@ -3110,7 +3110,7 @@ msgstr "حدد"
 #: commandentry.cpp:207
 #, kde-format
 msgid "Reset to Default"
-msgstr "صفّر إلى الافتراضيّ"
+msgstr "صفّر إلى المبدئيّ"
 
 #: commandentry.cpp:336
 #, kde-format
