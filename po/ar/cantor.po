@@ -2065,7 +2065,7 @@ msgstr "لم يُعثر على ملفّ مساعدة كيوت المضغوط."
 #: backends/qthelpconfig.cpp:179
 #, kde-format
 msgid "Documentation already imported"
-msgstr "التّوثيق مستورد بالفعل"
+msgstr "التّوثيق مستورد فعلًا"
 
 #: backends/qthelpconfig.cpp:269
 #, kde-format
