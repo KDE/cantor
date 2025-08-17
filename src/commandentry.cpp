@@ -9,12 +9,13 @@
 #include "resultitem.h"
 #include "loadedexpression.h"
 #include "worksheetview.h"
+#include "textresultitem.h"
+#include "lib/backend.h"
 #include "lib/jupyterutils.h"
 #include "lib/result.h"
 #include "lib/helpresult.h"
 #include "lib/epsresult.h"
 #include "lib/latexresult.h"
-#include "lib/completionobject.h"
 #include "lib/syntaxhelpobject.h"
 #include "lib/session.h"
 
@@ -35,6 +36,9 @@
 
 #include <KLocalizedString>
 #include <KColorScheme>
+#include <KSyntaxHighlighting/Repository>
+#include <KSyntaxHighlighting/Definition>
+
 
 const QString CommandEntry::Prompt     = QLatin1String(">>> ");
 const QString CommandEntry::MidPrompt  = QLatin1String(">>  ");
@@ -43,13 +47,10 @@ const double CommandEntry::VerticalSpacing = 4;
 
 
 CommandEntry::CommandEntry(Worksheet* worksheet) : WorksheetEntry(worksheet),
-    m_promptItem(new WorksheetTextItem(this, Qt::NoTextInteraction)),
-    m_commandItem(new WorksheetTextItem(this, Qt::TextEditorInteraction)),
+    m_promptItem(new WorksheetTextEditorItem(WorksheetTextEditorItem::ReadOnly, this, this)),
+    m_commandItem(new WorksheetTextEditorItem(WorksheetTextEditorItem::Editable, this, this)),
     m_resultsCollapsed(false),
-    m_errorItem(nullptr),
     m_expression(nullptr),
-    m_completionObject(nullptr),
-    m_syntaxHelpObject(nullptr),
     m_evaluationOption(DoNothing),
     m_menusInitialized(false),
     m_textColorCustom(false),
@@ -59,14 +60,36 @@ CommandEntry::CommandEntry(Worksheet* worksheet) : WorksheetEntry(worksheet),
     m_textColorActionGroup(nullptr),
     m_textColorMenu(nullptr),
     m_fontMenu(nullptr),
-    m_isExecutionEnabled(true)
+    m_isExecutionEnabled(true),
+    m_dynamicHighlighter(nullptr)
 {
     m_promptItem->setPlainText(Prompt);
-    m_promptItem->setItemDragable(true);
+    m_promptItem->setDragEnabled(true);
     m_commandItem->enableCompletion(true);
 
-    KColorScheme scheme = KColorScheme(QPalette::Normal, KColorScheme::View);
-    m_commandItem->setBackgroundColor(scheme.background(KColorScheme::AlternateBackground).color());
+    if(worksheet && worksheet->session() && worksheet->session()->backend())
+    {
+        QString backendName = worksheet->session()->backend()->name();
+        QString highlightingMode = backendName;
+
+        if (backendName == QLatin1String("R"))
+        {
+            highlightingMode = QLatin1String("R Script");
+        }
+        else if(backendName == QLatin1String("Sage"))
+        {
+            highlightingMode = QLatin1String("Python");
+        }
+
+        m_commandItem->setSyntaxHighlightingMode(highlightingMode);
+
+        if (worksheet && worksheet->session() && worksheet->session()->variableModel())
+        {
+            m_dynamicHighlighter = new DynamicHighlighter(m_commandItem->document(), this->worksheet()->session()->variableModel(), this);
+            connect(m_commandItem->document(), &KTextEditor::Document::textChanged, m_dynamicHighlighter, &DynamicHighlighter::updateAllHighlights);
+            m_dynamicHighlighter->updateAllHighlights();
+        }
+    }
 
     m_promptItemAnimation = new QPropertyAnimation(m_promptItem, "opacity", this);
     m_promptItemAnimation->setDuration(600);
@@ -75,19 +98,14 @@ CommandEntry::CommandEntry(Worksheet* worksheet) : WorksheetEntry(worksheet),
     m_promptItemAnimation->setEndValue(1);
     connect(m_promptItemAnimation, &QPropertyAnimation::finished, this, &CommandEntry::animatePromptItem);
 
-    m_promptItem->setDoubleClickBehaviour(WorksheetTextItem::DoubleClickEventBehaviour::Simple);
-    connect(m_promptItem, &WorksheetTextItem::doubleClick, this, &CommandEntry::changeResultCollapsingAction);
+    m_promptItem->setDoubleClickBehaviour(WorksheetTextEditorItem::Simple);
+    connect(m_promptItem, &WorksheetTextEditorItem::doubleClick, this, &CommandEntry::changeResultCollapsingAction);
 
     connect(&m_controlElement, &WorksheetControlItem::doubleClick, this, &CommandEntry::changeResultCollapsingAction);
-
-    connect(m_commandItem, &WorksheetTextItem::tabPressed, this, &CommandEntry::handleTabPress);
-    connect(m_commandItem, &WorksheetTextItem::backtabPressed, this, &CommandEntry::handleBacktabPress);
-    connect(m_commandItem, &WorksheetTextItem::applyCompletion, this, &CommandEntry::applySelectedCompletion);
-    connect(m_commandItem, &WorksheetTextItem::execute, this, [=]() { evaluate();} );
-    connect(m_commandItem, &WorksheetTextItem::moveToPrevious, this, &CommandEntry::moveToPreviousItem);
-    connect(m_commandItem, &WorksheetTextItem::moveToNext, this, &CommandEntry::moveToNextItem);
-    connect(m_commandItem, &WorksheetTextItem::receivedFocus, worksheet, &Worksheet::highlightItem);
-    connect(m_promptItem, &WorksheetTextItem::drag, this, &CommandEntry::startDrag);
+    connect(m_commandItem, &WorksheetTextEditorItem::execute, this, [=]() { evaluate();} );
+    connect(m_commandItem, &WorksheetTextEditorItem::moveToPrevious, this, &CommandEntry::moveToPreviousItem);
+    connect(m_commandItem, &WorksheetTextEditorItem::moveToNext, this, &CommandEntry::moveToNextItem);
+    connect(m_promptItem, &WorksheetTextEditorItem::drag, this, &CommandEntry::startDrag);
     connect(worksheet, &Worksheet::updatePrompt, this, [=]() { updatePrompt();} );
 
     m_defaultDefaultTextColor = m_commandItem->defaultTextColor();
@@ -95,14 +113,12 @@ CommandEntry::CommandEntry(Worksheet* worksheet) : WorksheetEntry(worksheet),
 
 CommandEntry::~CommandEntry()
 {
-    if (m_completionBox)
-        m_completionBox->deleteLater();
-
     if (m_menusInitialized)
     {
         m_backgroundColorMenu->deleteLater();
         m_textColorMenu->deleteLater();
         m_fontMenu->deleteLater();
+        m_themeMenu->deleteLater();
     }
 }
 
@@ -111,8 +127,8 @@ int CommandEntry::type() const
     return Type;
 }
 
-void CommandEntry::initMenus() {
-    //background color
+void CommandEntry::initMenus()
+{
     m_backgroundColorActionGroup = new QActionGroup(this);
     m_backgroundColorActionGroup->setExclusive(true);
     connect(m_backgroundColorActionGroup, &QActionGroup::triggered, this, &CommandEntry::backgroundColorChanged);
@@ -120,30 +136,31 @@ void CommandEntry::initMenus() {
     m_backgroundColorMenu = new QMenu(i18n("Background Color"));
     m_backgroundColorMenu->setIcon(QIcon::fromTheme(QLatin1String("format-fill-color")));
 
-    QPixmap pix(16,16);
-    QPainter p(&pix);
-
-    // Create default action
-    KColorScheme scheme = KColorScheme(QPalette::Normal, KColorScheme::View);
-    p.fillRect(pix.rect(), scheme.background(KColorScheme::AlternateBackground).color());
-    QAction* action = new QAction(QIcon(pix), i18n("Default"), m_backgroundColorActionGroup);
-    action->setCheckable(true);
-    m_backgroundColorMenu->addAction(action);
-    if (!m_backgroundColorCustom)
-        action->setChecked(true);
-
-    for (int i=0; i<colorsCount; ++i) {
-        p.fillRect(pix.rect(), colors[i]);
-        action = new QAction(QIcon(pix), colorNames[i], m_backgroundColorActionGroup);
+    {
+        QPixmap pix(16, 16);
+        QPainter p(&pix);
+        KColorScheme scheme = KColorScheme(QPalette::Normal, KColorScheme::View);
+        p.fillRect(pix.rect(), scheme.background(KColorScheme::AlternateBackground).color());
+        QAction* action = new QAction(QIcon(pix), i18n("Default"), m_backgroundColorActionGroup);
         action->setCheckable(true);
         m_backgroundColorMenu->addAction(action);
+        if (!m_backgroundColorCustom)
+            action->setChecked(true);
+    }
 
+    for (int i = 0; i < colorsCount; ++i)
+    {
+        QPixmap pix(16, 16);
+        QPainter p(&pix);
+        p.fillRect(pix.rect(), colors[i]);
+        QAction* action = new QAction(QIcon(pix), colorNames[i], m_backgroundColorActionGroup);
+        action->setCheckable(true);
+        m_backgroundColorMenu->addAction(action);
         const QColor& backgroundColor = (m_isExecutionEnabled ? m_commandItem->backgroundColor() : m_activeExecutionBackgroundColor);
         if (m_backgroundColorCustom && backgroundColor == colors[i])
             action->setChecked(true);
     }
 
-    //text color
     m_textColorActionGroup = new QActionGroup(this);
     m_textColorActionGroup->setExclusive(true);
     connect(m_textColorActionGroup, &QActionGroup::triggered, this, &CommandEntry::textColorChanged);
@@ -151,32 +168,59 @@ void CommandEntry::initMenus() {
     m_textColorMenu = new QMenu(i18n("Text Color"));
     m_textColorMenu->setIcon(QIcon::fromTheme(QLatin1String("format-text-color")));
 
-    // Create default action
-    p.fillRect(pix.rect(), m_defaultDefaultTextColor);
-    action = new QAction(QIcon(pix), i18n("Default"), m_textColorActionGroup);
-    action->setCheckable(true);
-    m_textColorMenu->addAction(action);
-    if (!m_textColorCustom)
-        action->setChecked(true);
-
-    for (int i=0; i<colorsCount; ++i) {
-        QAction* action;
-        p.fillRect(pix.rect(), colors[i]);
-        action = new QAction(QIcon(pix), colorNames[i], m_textColorActionGroup);
+    {
+        QPixmap pix(16, 16);
+        QPainter p(&pix);
+        p.fillRect(pix.rect(), m_commandItem->themeDefaultTextColor());
+        QAction* action = new QAction(QIcon(pix), i18n("Default"), m_textColorActionGroup);
         action->setCheckable(true);
         m_textColorMenu->addAction(action);
+        if (!m_textColorCustom)
+            action->setChecked(true);
+    }
 
+    for (int i = 0; i < colorsCount; ++i)
+    {
+        QPixmap pix(16, 16);
+        QPainter p(&pix);
+        p.fillRect(pix.rect(), colors[i]);
+        QAction* action = new QAction(QIcon(pix), colorNames[i], m_textColorActionGroup);
+        action->setCheckable(true);
+        m_textColorMenu->addAction(action);
         const QColor& textColor = (m_isExecutionEnabled ? m_commandItem->defaultTextColor() : m_activeExecutionTextColor);
         if (m_textColorCustom && textColor == colors[i])
             action->setChecked(true);
     }
 
-	//font
-	QFont font = m_commandItem->font();
-	m_fontMenu = new QMenu(i18n("Font"));
+    m_themeActionGroup = new QActionGroup(this);
+    m_themeActionGroup->setExclusive(true);
+    connect(m_themeActionGroup, &QActionGroup::triggered, this, &CommandEntry::themeChanged);
+
+    m_themeMenu = new QMenu(i18n("Color Theme"));
+    m_themeMenu->setIcon(QIcon::fromTheme(QStringLiteral("preferences-desktop-color")));
+
+    const auto& repository = KTextEditor::Editor::instance()->repository();
+    const QList<KSyntaxHighlighting::Theme> themes = repository.themes();
+    const QString currentThemeName = m_commandItem->view()->theme().name();
+
+    for (const auto &theme : themes)
+    {
+        QAction* action = new QAction(theme.translatedName(), m_themeActionGroup);
+        action->setCheckable(true);
+        action->setData(theme.name());
+        m_themeMenu->addAction(action);
+
+        if (theme.name() == currentThemeName)
+        {
+            action->setChecked(true);
+        }
+    }
+
+    QFont font = m_commandItem->font();
+    m_fontMenu = new QMenu(i18n("Font"));
     m_fontMenu->setIcon(QIcon::fromTheme(QLatin1String("preferences-desktop-font")));
 
-    action = new QAction(QIcon::fromTheme(QLatin1String("format-text-bold")), i18n("Bold"));
+    QAction* action = new QAction(QIcon::fromTheme(QLatin1String("format-text-bold")), i18n("Bold"));
     action->setCheckable(true);
     connect(action, &QAction::triggered, this, &CommandEntry::fontBoldTriggered);
     m_fontMenu->addAction(action);
@@ -189,6 +233,7 @@ void CommandEntry::initMenus() {
     m_fontMenu->addAction(action);
     if (font.italic())
         action->setChecked(true);
+
     m_fontMenu->addSeparator();
 
     action = new QAction(QIcon::fromTheme(QLatin1String("format-font-size-less")), i18n("Increase Size"));
@@ -198,6 +243,7 @@ void CommandEntry::initMenus() {
     action = new QAction(QIcon::fromTheme(QLatin1String("format-font-size-more")), i18n("Decrease Size"));
     connect(action, &QAction::triggered, this, &CommandEntry::fontDecreaseTriggered);
     m_fontMenu->addAction(action);
+
     m_fontMenu->addSeparator();
 
     action = new QAction(QIcon::fromTheme(QLatin1String("preferences-desktop-font")), i18n("Select"));
@@ -213,49 +259,49 @@ void CommandEntry::initMenus() {
 
 void CommandEntry::backgroundColorChanged(QAction* action) {
     int index = m_backgroundColorActionGroup->actions().indexOf(action);
-    if (index == -1 || index>=colorsCount)
-        index = 0;
 
-    QColor color;
     if (index == 0)
     {
-        KColorScheme scheme = KColorScheme(QPalette::Normal, KColorScheme::View);
-        color = scheme.background(KColorScheme::AlternateBackground).color();
+        m_commandItem->setBackgroundColor(QColor());
+        m_backgroundColorCustom = false;
     }
     else
-        color = colors[index-1];
-
-    if (m_isExecutionEnabled)
+    {
+        const QColor color = colors[index - 1];
         m_commandItem->setBackgroundColor(color);
-    else
-        m_activeExecutionBackgroundColor = std::move(color);
+        m_backgroundColorCustom = true;
+    }
 }
 
-void CommandEntry::textColorChanged(QAction* action) {
+void CommandEntry::textColorChanged(QAction* action)
+{
     int index = m_textColorActionGroup->actions().indexOf(action);
-    if (index == -1 || index>=colorsCount)
-        index = 0;
 
-    QColor color;
     if (index == 0)
     {
-        color = m_defaultDefaultTextColor;
+        m_commandItem->setDefaultTextColor(QColor());
     }
     else
-        color = colors[index-1];
-
-    if (m_isExecutionEnabled)
+    {
+        const QColor color = colors[index - 1];
         m_commandItem->setDefaultTextColor(color);
-    else
-        m_activeExecutionTextColor = std::move(color);
+    }
 }
+
+void CommandEntry::themeChanged(QAction* action)
+{
+    const QString themeName = action->data().toString();
+    if (!themeName.isEmpty())
+    {
+        m_commandItem->setTheme(themeName);
+    }
+}
+
 
 void CommandEntry::fontBoldTriggered()
 {
     QAction* action = static_cast<QAction*>(QObject::sender());
-    QFont font = m_commandItem->font();
-    font.setBold(action->isChecked());
-    m_commandItem->setFont(font);
+    m_commandItem->setTextBold(action->isChecked());
 }
 
 void CommandEntry::resetFontTriggered()
@@ -266,55 +312,17 @@ void CommandEntry::resetFontTriggered()
 void CommandEntry::fontItalicTriggered()
 {
     QAction* action = static_cast<QAction*>(QObject::sender());
-    QFont font = m_commandItem->font();
-    font.setItalic(action->isChecked());
-    m_commandItem->setFont(font);
+    m_commandItem->setTextItalic(action->isChecked());
 }
 
 void CommandEntry::fontIncreaseTriggered()
 {
-    QFont font = m_commandItem->font();
-    const int currentSize = font.pointSize();
-    QFontDatabase fdb;
-    QList<int> sizes = fdb.pointSizes(font.family(), font.styleName());
-
-    for (int i = 0; i < sizes.size(); ++i)
-    {
-        const int size = sizes.at(i);
-        if (currentSize == size)
-        {
-            if (i + 1 < sizes.size())
-            {
-                font.setPointSize(sizes.at(i+1));
-                m_commandItem->setFont(font);
-            }
-
-            break;
-        }
-    }
+    m_commandItem->increaseFontSize();
 }
 
 void CommandEntry::fontDecreaseTriggered()
 {
-    QFont font = m_commandItem->font();
-    const int currentSize = font.pointSize();
-    QFontDatabase fdb;
-    QList<int> sizes = fdb.pointSizes(font.family(), font.styleName());
-
-    for (int i = 0; i < sizes.size(); ++i)
-    {
-        const int size = sizes.at(i);
-        if (currentSize == size)
-        {
-            if (i - 1 >= 0)
-            {
-                font.setPointSize(sizes.at(i-1));
-                m_commandItem->setFont(font);
-            }
-
-            break;
-        }
-    }
+    m_commandItem->decreaseFontSize();
 }
 
 void CommandEntry::fontSelectTriggered()
@@ -358,6 +366,7 @@ void CommandEntry::populateMenu(QMenu* menu, QPointF pos)
     appearanceMenu->addMenu(m_backgroundColorMenu);
     appearanceMenu->addMenu(m_textColorMenu);
     appearanceMenu->addMenu(m_fontMenu);
+    appearanceMenu->addMenu(m_themeMenu);
     menu->addMenu(appearanceMenu);
     menu->addSeparator();
 
@@ -367,7 +376,7 @@ void CommandEntry::populateMenu(QMenu* menu, QPointF pos)
 
 void CommandEntry::moveToNextItem(int pos, qreal x)
 {
-    WorksheetTextItem* item = qobject_cast<WorksheetTextItem*>(sender());
+    WorksheetTextEditorItem* item = qobject_cast<WorksheetTextEditorItem*>(sender());
 
     if (!item)
         return;
@@ -385,7 +394,7 @@ void CommandEntry::moveToNextItem(int pos, qreal x)
 
 void CommandEntry::moveToPreviousItem(int pos, qreal x)
 {
-    WorksheetTextItem* item = qobject_cast<WorksheetTextItem*>(sender());
+    WorksheetTextEditorItem* item = qobject_cast<WorksheetTextEditorItem*>(sender());
 
     if (!item)
         return;
@@ -417,11 +426,6 @@ void CommandEntry::setExpression(Cantor::Expression* expr)
         }*/
 
     // Delete any previous error
-    if(m_errorItem)
-    {
-        m_errorItem->deleteLater();
-        m_errorItem = nullptr;
-    }
 
     for (auto* item : m_informationItems)
     {
@@ -524,6 +528,7 @@ void CommandEntry::setContent(const QDomElement& content, const KZip& file)
         excludeFromExecution();
 
     setExpression(expr);
+
 }
 
 void CommandEntry::setContentFromJupyter(const QJsonObject& cell)
@@ -614,134 +619,6 @@ QJsonValue CommandEntry::toJupyterJson()
     return entry;
 }
 
-void CommandEntry::handleTabPress()
-{
-    const QString& line = currentLine();
-
-    // When the auto completion is disabled, we insert 'Tab' and exit immediately
-    // When the auto completion is enabled, the logic is more complicated
-    if(!worksheet()->completionEnabled())
-    {
-        if (m_commandItem->hasFocus())
-            m_commandItem->insertTab();
-        return;
-    }
-
-    if (isShowingCompletionPopup())
-        handleExistedCompletionBox();
-    else
-    {
-        QTextCursor cursor = m_commandItem->textCursor();
-        int p = m_commandItem->textCursor().positionInBlock();
-
-        if (cursor.hasSelection())
-        {
-            int count = 1 + cursor.selectedText().count(QChar(0x2029));
-            cursor.setPosition(cursor.selectionEnd());
-            cursor.beginEditBlock();
-            for (int i = 0; i < count; i++)
-            {
-                cursor.movePosition(QTextCursor::StartOfLine);
-                cursor.insertText(QLatin1String("    "));
-                cursor.movePosition(QTextCursor::StartOfLine);
-                cursor.movePosition(QTextCursor::PreviousCharacter);
-            }
-            cursor.endEditBlock();
-        }
-        else if(line.left(p).trimmed().isEmpty())
-        {
-            if (m_commandItem->hasFocus())
-                m_commandItem->insertTab();
-        }
-        else
-            makeCompletion(line, p);
-    }
-}
-
-void CommandEntry::showCompletion()
-{
-    if(!worksheet()->completionEnabled())
-        return;
-
-    if (isShowingCompletionPopup())
-        handleExistedCompletionBox();
-    else
-    {
-        int p = m_commandItem->textCursor().positionInBlock();
-        makeCompletion(currentLine(), p);
-    }
-}
-
-void CommandEntry::handleExistedCompletionBox()
-{
-    QString comp = m_completionObject->completion();
-    if (comp != m_completionObject->command() || !m_completionObject->hasMultipleMatches())
-    {
-        if (m_completionObject->hasMultipleMatches())
-            completeCommandTo(comp, PreliminaryCompletion);
-        else
-        {
-            completeCommandTo(comp, FinalCompletion);
-            m_completionBox->hide();
-        }
-    }
-    else
-    {
-        m_completionBox->down();
-    }
-}
-
-void CommandEntry::makeCompletion(const QString& line, int position)
-{
-    Cantor::CompletionObject* tco=worksheet()->session()->completionFor(line, position);
-    if(tco)
-        setCompletion(tco);
-}
-
-void CommandEntry::handleBacktabPress()
-{
-    QTextCursor cursor = m_commandItem->textCursor();
-
-    if (isShowingCompletionPopup())
-        m_completionBox->up();
-    else if (cursor.hasSelection())
-    {
-        int count = 1 + cursor.selectedText().count(QChar(0x2029));
-        cursor.setPosition(cursor.selectionEnd());
-        cursor.beginEditBlock();
-        for (int i = 0; i < count; i++)
-        {
-            const QString& line = cursor.block().text();
-            cursor.movePosition(QTextCursor::StartOfLine);
-            int counter = 0;
-            // 4 spaces is Cantor tabulation size, so we remove also 4 characters or less
-            while (cursor.positionInBlock() < line.length() && line[cursor.positionInBlock()] == QLatin1Char(' ') && counter < 4)
-            {
-                cursor.movePosition(QTextCursor::NextCharacter, QTextCursor::KeepAnchor);
-                counter++;
-            }
-            cursor.removeSelectedText();
-            cursor.movePosition(QTextCursor::PreviousCharacter);
-        }
-        cursor.endEditBlock();
-    }
-    else
-    {
-        const QString& line = currentLine();
-        if (line.length() >= 4)
-        {
-            cursor.movePosition(QTextCursor::StartOfLine);
-            int counter = 0;
-            // 4 spaces is Cantor tabulation size, so we remove also 4 characters or less
-            while (cursor.positionInBlock() < line.length() && line[cursor.positionInBlock()] == QLatin1Char(' ') && counter < 4)
-            {
-                cursor.movePosition(QTextCursor::NextCharacter, QTextCursor::KeepAnchor);
-                counter++;
-            }
-            cursor.removeSelectedText();
-        }
-    }
-}
 
 QString CommandEntry::toPlain(const QString& commandSep, const QString& commentStartingSeq, const QString& commentEndingSeq)
 {
@@ -842,12 +719,16 @@ QDomElement CommandEntry::toXml(QDomDocument& doc, KZip* archive)
     return exprElem;
 }
 
+
 QString CommandEntry::currentLine()
 {
     if (!m_commandItem->hasFocus())
         return QString();
 
-    return m_commandItem->textCursor().block().text();
+    KTextEditor::View *view = m_commandItem->view();
+    KTextEditor::Cursor cursor = view->cursorPosition();
+
+    return view->document()->line(cursor.line());
 }
 
 bool CommandEntry::evaluateCurrentItem()
@@ -855,9 +736,12 @@ bool CommandEntry::evaluateCurrentItem()
     // we can't use m_commandItem->hasFocus() here, because
     // that doesn't work when the scene doesn't have the focus,
     // e.g. when an assistant is used.
-    if (m_commandItem == worksheet()->focusItem()) {
+    if (m_commandItem == worksheet()->focusItem())
+    {
         return evaluate();
-    } else if (informationItemHasFocus()) {
+    }
+    else if (informationItemHasFocus())
+    {
         addInformation();
         return true;
     }
@@ -872,7 +756,6 @@ bool CommandEntry::evaluate(EvaluationOption evalOp)
         if (worksheet()->session()->status() == Cantor::Session::Disable)
             worksheet()->loginToSession();
 
-        removeContextHelp();
         QToolTip::hideText();
 
         QString cmd = command();
@@ -941,8 +824,7 @@ void CommandEntry::updateEntry()
             item->update();
     }
 
-    m_controlElement.isCollapsable = m_errorItem != nullptr
-                                    || m_informationItems.size() > 0
+    m_controlElement.isCollapsable = m_informationItems.size() > 0
                                     || m_resultItems.size() > 0;
 
     animateSizeChange();
@@ -952,44 +834,44 @@ void CommandEntry::expressionChangedStatus(Cantor::Expression::Status status)
 {
     switch (status)
     {
-    case Cantor::Expression::Computing:
-    {
-        //change the background of the prompt item and start animating it (fade in/out).
-        //don't start the animation immediately in order to avoid unwanted flickering for "short" commands,
-        //start the animation after 1 second passed.
-        if (worksheet()->animationsEnabled())
+        case Cantor::Expression::Computing:
         {
-            const int id = m_expression->id();
-            QTimer::singleShot(1000, this, [this, id] () {
-                if(m_expression->status() == Cantor::Expression::Computing && m_expression->id() == id)
-                    m_promptItemAnimation->start();
-            });
+            //change the background of the prompt item and start animating it (fade in/out).
+            //don't start the animation immediately in order to avoid unwanted flickering for "short" commands,
+            //start the animation after 1 second passed.
+            if (worksheet()->animationsEnabled())
+            {
+                const int id = m_expression->id();
+                QTimer::singleShot(1000, this, [this, id] () {
+                    if(m_expression->status() == Cantor::Expression::Computing && m_expression->id() == id)
+                        m_promptItemAnimation->start();
+                });
+            }
+            break;
         }
-        break;
-    }
-    case Cantor::Expression::Error:
-    case Cantor::Expression::Interrupted:
-        m_promptItemAnimation->stop();
-        m_promptItem->setOpacity(1.);
+        case Cantor::Expression::Error:
+        case Cantor::Expression::Interrupted:
+            m_promptItemAnimation->stop();
+            m_promptItem->setOpacity(1.);
 
-        m_commandItem->setFocusAt(WorksheetTextItem::BottomRight, 0);
+            m_commandItem->setFocusAt(WorksheetTextEditorItem::BottomRight, 0);
 
-        if(!m_errorItem)
-        {
-            m_errorItem = new WorksheetTextItem(this, Qt::TextSelectableByMouse);
-        }
+            if(!m_errorItem)
+            {
+                m_errorItem = new WorksheetTextItem(this, Qt::TextSelectableByMouse);
+            }
 
-        if (status == Cantor::Expression::Error)
-        {
-            QString error = m_expression->errorMessage().toHtmlEscaped();
-            while (error.endsWith(QLatin1Char('\n')))
-                error.chop(1);
-            error.replace(QLatin1String("\n"), QLatin1String("<br>"));
-            error.replace(QLatin1String(" "), QLatin1String("&nbsp;"));
-            m_errorItem->setHtml(error);
-        }
-        else
-            m_errorItem->setHtml(i18n("Interrupted"));
+            if (status == Cantor::Expression::Error)
+            {
+                QString error = m_expression->errorMessage().toHtmlEscaped();
+                while (error.endsWith(QLatin1Char('\n')))
+                    error.chop(1);
+                error.replace(QLatin1String("\n"), QLatin1String("<br>"));
+                error.replace(QLatin1String(" "), QLatin1String("&nbsp;"));
+                m_errorItem->setHtml(error);
+            }
+            else
+                m_errorItem->setHtml(i18n("Interrupted"));
 
         recalculateSize();
         // Mostly we handle setting of modification in WorksheetEntry inside ::evaluateNext.
@@ -997,16 +879,17 @@ void CommandEntry::expressionChangedStatus(Cantor::Expression::Status status)
         // So, we set it here
         worksheet()->setModified();
         break;
-    case Cantor::Expression::Done:
-        m_promptItemAnimation->stop();
-        m_promptItem->setOpacity(1.);
-        evaluateNext(m_evaluationOption);
-        m_evaluationOption = DoNothing;
-        break;
-    default:
-        break;
+        case Cantor::Expression::Done:
+            m_promptItemAnimation->stop();
+            m_promptItem->setOpacity(1.);
+            evaluateNext(m_evaluationOption);
+            m_evaluationOption = DoNothing;
+            break;
+        default:
+            break;
     }
 }
+
 
 void CommandEntry::animatePromptItem() {
     if(m_expression->status() == Cantor::Expression::Computing)
@@ -1027,8 +910,8 @@ bool CommandEntry::focusEntry(int pos, qreal xCoord)
 {
     if (aboutToBeRemoved())
         return false;
-    WorksheetTextItem* item;
-    if (pos == WorksheetTextItem::TopLeft || pos == WorksheetTextItem::TopCoord)
+    WorksheetTextEditorItem* item;
+    if (pos == WorksheetTextEditorItem::TopLeft || pos == WorksheetTextEditorItem::TopCoord)
         item = m_commandItem;
     else if (m_informationItems.size() && currentInformationItem()->isEditable())
         item = currentInformationItem();
@@ -1039,166 +922,6 @@ bool CommandEntry::focusEntry(int pos, qreal xCoord)
     return true;
 }
 
-void CommandEntry::setCompletion(Cantor::CompletionObject* tc)
-{
-    if (m_completionObject)
-        delete m_completionObject;
-
-    m_completionObject = tc;
-    connect(m_completionObject, &Cantor::CompletionObject::done, this, &CommandEntry::showCompletions);
-    connect(m_completionObject, &Cantor::CompletionObject::lineDone, this, &CommandEntry::completeLineTo);
-}
-
-void CommandEntry::showCompletions()
-{
-    disconnect(m_completionObject, &Cantor::CompletionObject::done, this, &CommandEntry::showCompletions);
-    QString completion = m_completionObject->completion();
-    qDebug()<<"completion: "<<completion;
-    qDebug()<<"showing "<<m_completionObject->allMatches();
-
-    if(m_completionObject->hasMultipleMatches())
-    {
-        completeCommandTo(completion);
-
-        QToolTip::showText(QPoint(), QString(), worksheetView());
-        if (!m_completionBox)
-               m_completionBox = new KCompletionBox(worksheetView());
-
-        m_completionBox->clear();
-        m_completionBox->setItems(m_completionObject->allMatches());
-        QList<QListWidgetItem*> items = m_completionBox->findItems(m_completionObject->command(), Qt::MatchFixedString|Qt::MatchCaseSensitive);
-        if (!items.empty())
-            m_completionBox->setCurrentItem(items.first());
-        m_completionBox->setTabHandling(false);
-        m_completionBox->setActivateOnSelect(true);
-
-        connect(m_completionBox.data(), &KCompletionBox::textActivated, this, &CommandEntry::applySelectedCompletion);
-        connect(m_commandItem->document(), &QTextDocument::contentsChanged, this, &CommandEntry::completedLineChanged);
-        connect(m_completionObject, &Cantor::CompletionObject::done, this, &CommandEntry::updateCompletions);
-
-        m_commandItem->activateCompletion(true);
-        m_completionBox->popup();
-        m_completionBox->move(getPopupPosition());
-    } else
-    {
-        completeCommandTo(completion, FinalCompletion);
-    }
-}
-
-bool CommandEntry::isShowingCompletionPopup()
-{
-    return m_completionBox && m_completionBox->isVisible();
-}
-
-void CommandEntry::applySelectedCompletion()
-{
-    QListWidgetItem* item = m_completionBox->currentItem();
-    if(item)
-        completeCommandTo(item->text(), FinalCompletion);
-    m_completionBox->hide();
-}
-
-void CommandEntry::completedLineChanged()
-{
-    if (!isShowingCompletionPopup()) {
-        // the completion popup is not visible anymore, so let's clean up
-        removeContextHelp();
-        return;
-    }
-    const QString line = currentLine();
-    //FIXME: For some reason, this slot constantly triggeres, so I have added checking, is this update really needed
-    if (line != m_completionObject->command())
-        m_completionObject->updateLine(line, m_commandItem->textCursor().positionInBlock());
-}
-
-void CommandEntry::updateCompletions()
-{
-    if (!m_completionObject)
-        return;
-    QString completion = m_completionObject->completion();
-    qDebug()<<"completion: "<<completion;
-    qDebug()<<"showing "<<m_completionObject->allMatches();
-
-    if(m_completionObject->hasMultipleMatches() || !completion.isEmpty())
-    {
-        QToolTip::showText(QPoint(), QString(), worksheetView());
-        m_completionBox->setItems(m_completionObject->allMatches());
-        QList<QListWidgetItem*> items = m_completionBox->findItems(m_completionObject->command(), Qt::MatchFixedString|Qt::MatchCaseSensitive);
-        if (!items.empty())
-            m_completionBox->setCurrentItem(items.first());
-        else if (m_completionBox->items().count() == 1)
-            m_completionBox->setCurrentRow(0);
-        else
-            m_completionBox->clearSelection();
-
-        m_completionBox->move(getPopupPosition());
-    } else
-    {
-        removeContextHelp();
-    }
-}
-
-void CommandEntry::completeCommandTo(const QString& completion, CompletionMode mode)
-{
-    qDebug() << "completion: " << completion;
-
-    Cantor::CompletionObject::LineCompletionMode cmode;
-    if (mode == FinalCompletion) {
-        cmode = Cantor::CompletionObject::FinalCompletion;
-        Cantor::SyntaxHelpObject* obj = worksheet()->session()->syntaxHelpFor(completion);
-        if(obj)
-            setSyntaxHelp(obj);
-    } else {
-        cmode = Cantor::CompletionObject::PreliminaryCompletion;
-        if(m_syntaxHelpObject)
-            m_syntaxHelpObject->deleteLater();
-        m_syntaxHelpObject=nullptr;
-    }
-
-    m_completionObject->completeLine(completion, cmode);
-}
-
-void CommandEntry::completeLineTo(const QString& line, int index)
-{
-    qDebug() << "line completion: " << line;
-    QTextCursor cursor = m_commandItem->textCursor();
-    cursor.movePosition(QTextCursor::EndOfBlock, QTextCursor::MoveAnchor);
-    cursor.movePosition(QTextCursor::StartOfBlock, QTextCursor::KeepAnchor);
-    int startPosition = cursor.position();
-    cursor.insertText(line);
-    cursor.setPosition(startPosition + index);
-    m_commandItem->setTextCursor(cursor);
-
-    if (m_syntaxHelpObject) {
-        m_syntaxHelpObject->fetchSyntaxHelp();
-        // If we are about to show syntax help, then this was the final
-        // completion, and we should clean up.
-        removeContextHelp();
-    }
-}
-
-void CommandEntry::setSyntaxHelp(Cantor::SyntaxHelpObject* sh)
-{
-    if(m_syntaxHelpObject)
-        m_syntaxHelpObject->deleteLater();
-
-    m_syntaxHelpObject=sh;
-    connect(sh, SIGNAL(done()), this, SLOT(showSyntaxHelp()));
-}
-
-void CommandEntry::showSyntaxHelp()
-{
-    QString msg = m_syntaxHelpObject->toHtml();
-    const QPointF cursorPos = m_commandItem->cursorPosition();
-
-    // QToolTip doesn't support &nbsp;, but support multiple spaces
-    msg.replace(QLatin1String("&nbsp;"), QLatin1String(" "));
-    // Doesn't support &quot, neither;
-    msg.replace(QLatin1String("&quot;"), QLatin1String("\""));
-
-    QToolTip::showText(toGlobalPosition(cursorPos), msg, worksheetView());
-}
-
 void CommandEntry::resultDeleted()
 {
     qDebug()<<"result got removed...";
@@ -1207,9 +930,10 @@ void CommandEntry::resultDeleted()
 void CommandEntry::addInformation()
 {
     auto* answerItem = currentInformationItem();
-    answerItem->setTextInteractionFlags(Qt::TextSelectableByMouse);
+    // answerItem->setTextInteractionFlags(Qt::TextSelectableByMouse);
+    KTextEditor::Document *document = answerItem->document();
 
-    QString inf = answerItem->toPlainText();
+    QString inf = document->text();
     inf.replace(QChar::ParagraphSeparator, QLatin1Char('\n'));
     inf.replace(QChar::LineSeparator, QLatin1Char('\n'));
 
@@ -1220,8 +944,8 @@ void CommandEntry::addInformation()
 
 void CommandEntry::showAdditionalInformationPrompt(const QString& question)
 {
-    auto* questionItem = new WorksheetTextItem(this, Qt::TextSelectableByMouse);
-    auto* answerItem = new WorksheetTextItem(this, Qt::TextEditorInteraction);
+    auto* questionItem = new WorksheetTextEditorItem(WorksheetTextEditorItem::ReadOnly, this,this);
+    auto* answerItem = new WorksheetTextEditorItem(WorksheetTextEditorItem::Editable, this,this);
 
     //change the color and the font for when asking for additional information in order to
     //better discriminate from the usual input in the command entry
@@ -1240,9 +964,9 @@ void CommandEntry::showAdditionalInformationPrompt(const QString& question)
 
     m_informationItems.append(questionItem);
     m_informationItems.append(answerItem);
-    connect(answerItem, &WorksheetTextItem::moveToPrevious, this, &CommandEntry::moveToPreviousItem);
-    connect(answerItem, &WorksheetTextItem::moveToNext, this, &CommandEntry::moveToNextItem);
-    connect(answerItem, &WorksheetTextItem::execute, this, &CommandEntry::addInformation);
+    connect(answerItem, &WorksheetTextEditorItem::moveToPrevious, this, &CommandEntry::moveToPreviousItem);
+    connect(answerItem, &WorksheetTextEditorItem::moveToNext, this, &CommandEntry::moveToNextItem);
+    connect(answerItem, &WorksheetTextEditorItem::execute, this, &CommandEntry::addInformation);
     answerItem->setFocus();
 
     recalculateSize();
@@ -1286,52 +1010,61 @@ void CommandEntry::replaceResultItem(int index)
     recalculateSize();
 }
 
-void CommandEntry::removeContextHelp()
-{
-    disconnect(m_commandItem->document(), SIGNAL(contentsChanged()), this, SLOT(completedLineChanged()));
-
-    m_commandItem->activateCompletion(false);
-    if (m_completionBox)
-        m_completionBox->hide();
-}
-
 void CommandEntry::updatePrompt(const QString& postfix)
 {
     KColorScheme color = KColorScheme(QPalette::Normal, KColorScheme::View);
+    KTextEditor::Document* doc = m_promptItem->document();
+    KTextEditor::View* view = m_promptItem->view();
+    if (!doc || !view) return;
 
-    m_promptItem->setPlainText(QString());
-    QTextCursor c = m_promptItem->textCursor();
-    QTextCharFormat cformat = c.charFormat();
+    doc->clear();
 
-    cformat.clearForeground();
-    c.setCharFormat(cformat);
-    cformat.setFontWeight(QFont::Bold);
+    KTextEditor::MovingRange* boldRange = nullptr;
+    KTextEditor::MovingRange* colorRange = nullptr;
 
-    //insert the session id if available
-    if(m_expression && worksheet()->showExpressionIds()&&m_expression->id()!=-1)
-        c.insertText(QString::number(m_expression->id()),cformat);
-
-    //detect the correct color for the prompt, depending on the
-    //Expression state
-    if(m_expression)
+    if (m_expression && worksheet()->showExpressionIds() && m_expression->id() != -1)
     {
-        if(m_expression ->status() == Cantor::Expression::Computing&&worksheet()->isRunning())
-            cformat.setForeground(color.foreground(KColorScheme::PositiveText));
-        else if(m_expression ->status() == Cantor::Expression::Queued)
-            cformat.setForeground(color.foreground(KColorScheme::InactiveText));
-        else if(m_expression ->status() == Cantor::Expression::Error)
-            cformat.setForeground(color.foreground(KColorScheme::NegativeText));
-        else if(m_expression ->status() == Cantor::Expression::Interrupted)
-            cformat.setForeground(color.foreground(KColorScheme::NeutralText));
-        else
-            cformat.setFontWeight(QFont::Normal);
+        QString idStr = QString::number(m_expression->id());
+        doc->insertText(KTextEditor::Cursor(0, 0), idStr);
+
+        boldRange = doc->newMovingRange(KTextEditor::Range(0, 0, 0, idStr.length()));
+        boldRange->setAttribute(KTextEditor::Attribute::Ptr(new KTextEditor::Attribute()));
+        boldRange->attribute()->setFontBold(true);
     }
 
-    c.insertText(postfix, cformat);
+    int postfixPos = doc->lineLength(0);
+    doc->insertText(KTextEditor::Cursor(0, postfixPos), postfix);
+
+    if (m_expression)
+    {
+        QColor textColor;
+        switch(m_expression->status())
+        {
+            case Cantor::Expression::Computing:
+                textColor = color.foreground(KColorScheme::PositiveText).color();
+                break;
+            case Cantor::Expression::Queued:
+                textColor = color.foreground(KColorScheme::InactiveText).color();
+                break;
+            case Cantor::Expression::Error:
+                textColor = color.foreground(KColorScheme::NegativeText).color();
+                break;
+            case Cantor::Expression::Interrupted:
+                textColor = color.foreground(KColorScheme::NeutralText).color();
+                break;
+            default: break;
+        }
+
+        if (textColor.isValid()) {
+            colorRange = doc->newMovingRange(KTextEditor::Range(0, postfixPos, 0, postfixPos + postfix.length()));
+            colorRange->setAttribute(KTextEditor::Attribute::Ptr(new KTextEditor::Attribute()));
+            colorRange->attribute()->setForeground(textColor);
+        }
+    }
     recalculateSize();
 }
 
-WorksheetTextItem* CommandEntry::currentInformationItem()
+WorksheetTextEditorItem* CommandEntry::currentInformationItem()
 {
     if (m_informationItems.isEmpty())
         return nullptr;
@@ -1348,24 +1081,6 @@ bool CommandEntry::informationItemHasFocus()
 bool CommandEntry::focusWithinThisItem()
 {
     return focusItem() != nullptr;
-}
-
-QPoint CommandEntry::getPopupPosition()
-{
-    const QPointF cursorPos = m_commandItem->cursorPosition();
-    const QPoint globalPos = toGlobalPosition(cursorPos);
-    const QScreen* desktop = QGuiApplication::primaryScreen();
-    const QRect screenRect = desktop->geometry();
-    if (globalPos.y() + m_completionBox->height() < screenRect.bottom()) {
-        return (globalPos);
-    } else {
-        QTextBlock block = m_commandItem->textCursor().block();
-        QTextLayout* layout = block.layout();
-        int pos = m_commandItem->textCursor().position() - block.position();
-        QTextLine line = layout->lineForTextPosition(pos);
-        int dy = - m_completionBox->height() - line.height() - line.leading();
-        return QPoint(globalPos.x(), globalPos.y() + dy);
-    }
 }
 
 void CommandEntry::invalidate()
@@ -1389,40 +1104,85 @@ WorksheetCursor CommandEntry::search(const QString& pattern, unsigned flags,
                                      QTextDocument::FindFlags qt_flags,
                                      const WorksheetCursor& pos)
 {
-    if (pos.isValid() && pos.entry() != this)
-        return WorksheetCursor();
-
-    WorksheetCursor p = pos;
-    QTextCursor cursor;
-    if (flags & WorksheetEntry::SearchCommand) {
-        cursor = m_commandItem->search(pattern, qt_flags, p);
-        if (!cursor.isNull())
-            return WorksheetCursor(this, m_commandItem, cursor);
-    }
-
-    if (p.textItem() == m_commandItem)
-        p = WorksheetCursor();
-
-    if (m_errorItem && flags & WorksheetEntry::SearchError) {
-        cursor = m_errorItem->search(pattern, qt_flags, p);
-        if (!cursor.isNull())
-            return WorksheetCursor(this, m_errorItem, cursor);
-    }
-
-    if (p.textItem() == m_errorItem)
-        p = WorksheetCursor();
-
-    for (auto* resultItem : m_resultItems)
+    if (!(flags & SearchResult))
     {
-        auto* textResult = dynamic_cast<WorksheetTextItem*>(resultItem);
-        if (textResult && flags & WorksheetEntry::SearchResult) {
-            cursor = textResult->search(pattern, qt_flags, p);
-            if (!cursor.isNull())
-                return WorksheetCursor(this, textResult, cursor);
+        return WorksheetCursor();
+    }
+
+    int startIndex = 0;
+    bool searchFromMiddle = false;
+
+    if (pos.isValid() && pos.entry() == this) {
+        for (int i = 0; i < m_resultItems.size(); ++i) {
+            if (auto* textResult = dynamic_cast<TextResultItem*>(m_resultItems[i]))
+            {
+                if (textResult == pos.textItem())
+                {
+                    startIndex = i;
+                    searchFromMiddle = true;
+                    break;
+                }
+            }
+        }
+    }
+
+    for (int i = startIndex; i < m_resultItems.size(); ++i)
+    {
+        if (auto* textResult = dynamic_cast<TextResultItem*>(m_resultItems[i]))
+        {
+            WorksheetCursor startPosInResult = (searchFromMiddle && i == startIndex) ? pos : WorksheetCursor();
+
+            QTextCursor found = textResult->search(pattern, qt_flags, startPosInResult);
+            if (!found.isNull())
+            {
+                return WorksheetCursor(this, textResult, found);
+            }
         }
     }
 
     return WorksheetCursor();
+}
+
+KWorksheetCursor CommandEntry::search(const QString& pattern, unsigned flags,
+                                      KTextEditor::SearchOptions options,
+                                      const KWorksheetCursor& pos)
+{
+    if (!(flags & SearchCommand) || (pos.isValid() && pos.entry() != this)) {
+        return KWorksheetCursor();
+    }
+
+    KTextEditor::Cursor startCursor;
+    if (pos.isValid() && pos.textItem() == m_commandItem) {
+        startCursor = pos.cursor();
+    }
+    else if (options & KTextEditor::Backwards) {
+        startCursor = m_commandItem->document()->documentEnd();
+    }
+
+    KTextEditor::Range foundRange = m_commandItem->search(pattern, options, startCursor);
+
+    if (foundRange.isValid()) {
+        return KWorksheetCursor(this, m_commandItem, foundRange.start(), foundRange);
+    }
+
+    return KWorksheetCursor();
+}
+
+bool CommandEntry::replace(const QString& replacement)
+{
+    if (m_commandItem->isEditable() && m_commandItem->view()->selection())
+    {
+        return m_commandItem->replace(replacement);
+    }
+    return false;
+}
+
+void CommandEntry::replaceAll(const QString& pattern, const QString& replacement, unsigned flags, KTextEditor::SearchOptions options)
+{
+    if ((flags & SearchCommand) && m_commandItem->isEditable())
+    {
+        m_commandItem->replaceAll(pattern, replacement, options);
+    }
 }
 
 void CommandEntry::layOutForWidth(qreal entry_zone_x, qreal w, bool force)
@@ -1430,15 +1190,19 @@ void CommandEntry::layOutForWidth(qreal entry_zone_x, qreal w, bool force)
     if (w == size().width() && m_commandItem->pos().x() == entry_zone_x && !force)
         return;
 
-    m_promptItem->setPos(0, 0);
-    double x = std::max(0 + m_promptItem->width() + HorizontalSpacing, entry_zone_x);
+    QSizeF promptSize = m_promptItem->estimateContentSize(QWIDGETSIZE_MAX);
+    qreal promptX = entry_zone_x - promptSize.width() - HorizontalSpacing;
+    m_promptItem->setGeometry(promptX, 0, promptSize.width());
+    m_promptItem->hide();
+
+    double x = entry_zone_x;
     double y = 0;
     double width = 0;
 
     const qreal margin = worksheet()->isPrinting() ? 0 : RightMargin;
 
     m_commandItem->setGeometry(x, y, w - x - margin);
-    width = qMax(width, m_commandItem->width()+margin);
+    width = qMax(width, m_commandItem->width() + margin);
 
     y += qMax(m_commandItem->height(), m_promptItem->height());
 
@@ -1448,18 +1212,12 @@ void CommandEntry::layOutForWidth(qreal entry_zone_x, qreal w, bool force)
         width = qMax(width, item->width() + margin);
     }
 
-    if (m_errorItem) {
-        y += VerticalSpacing;
-        y += m_errorItem->setGeometry(x,y,w - x - margin);
-        width = qMax(width, m_errorItem->width() + margin);
-    }
-
     for (auto* resultItem : m_resultItems)
     {
         if (!resultItem || !resultItem->graphicsObject()->isVisible())
             continue;
         y += VerticalSpacing;
-        y += resultItem->setGeometry(x, y, w - x - margin);
+        y += resultItem->setGeometry(0, y, w - margin);
         width = qMax(width, resultItem->width() + margin);
     }
     y += VerticalMargin;
@@ -1474,13 +1232,18 @@ void CommandEntry::layOutForWidth(qreal entry_zone_x, qreal w, bool force)
 
 void CommandEntry::startRemoving(bool warn)
 {
-    m_promptItem->setItemDragable(false);
+    m_promptItem->setDragEnabled(false);
     WorksheetEntry::startRemoving(warn);
 }
 
-WorksheetTextItem* CommandEntry::highlightItem()
+WorksheetTextEditorItem* CommandEntry::highlightItem()
 {
     return m_isExecutionEnabled ? m_commandItem : nullptr;
+}
+
+QGraphicsObject* CommandEntry::mainTextItem() const
+{
+    return m_commandItem;
 }
 
 void CommandEntry::collapseResults()
@@ -1564,7 +1327,7 @@ void CommandEntry::changeResultCollapsingAction()
 
 qreal CommandEntry::promptItemWidth()
 {
-    return m_promptItem->width();
+    return m_promptItem->estimateContentSize(QWIDGETSIZE_MAX).width();
 }
 
 /*!
@@ -1576,17 +1339,22 @@ qreal CommandEntry::promptItemWidth()
 void CommandEntry::showHelp()
 {
     QString keyword;
-    const QTextCursor& cursor = m_commandItem->textCursor();
-    if (cursor.hasSelection())
-        keyword = cursor.selectedText();
-    else
-        keyword = cursor.block().text();
+    KTextEditor::View *view = m_commandItem->view();
+    KTextEditor::Document *document = view->document();
+    KTextEditor::Cursor cursor = view->cursorPosition();
 
-    if (!keyword.simplified().isEmpty())
+    KTextEditor::Range selection = view->selectionRange();
+    if(selection.isValid() && !selection.isEmpty())
+        keyword = document->text(selection);
+    else
+        keyword = document->line(cursor.line());
+
+    if(!keyword.simplified().isEmpty())
         Q_EMIT worksheet()->requestDocumentation(keyword);
 }
 
-void CommandEntry::toggleEnabled() {
+void CommandEntry::toggleEnabled()
+{
     auto* action = static_cast<QAction*>(QObject::sender());
     if (action->isChecked())
         addToExecution();
@@ -1594,30 +1362,35 @@ void CommandEntry::toggleEnabled() {
         excludeFromExecution();
 }
 
+
 void CommandEntry::excludeFromExecution()
 {
+    if (m_isExecutionEnabled == false) return;
     m_isExecutionEnabled = false;
-
-    KColorScheme scheme = KColorScheme(QPalette::Inactive, KColorScheme::View);
 
     m_activeExecutionBackgroundColor = m_commandItem->backgroundColor();
     m_activeExecutionTextColor = m_commandItem->defaultTextColor();
 
-    disconnect(m_commandItem, &WorksheetTextItem::receivedFocus, worksheet(), &Worksheet::highlightItem);
-
+    KColorScheme scheme = KColorScheme(QPalette::Inactive, KColorScheme::View);
     m_commandItem->setBackgroundColor(scheme.background(KColorScheme::AlternateBackground).color());
+
     m_commandItem->setDefaultTextColor(scheme.foreground(KColorScheme::InactiveText).color());
 }
 
 void CommandEntry::addToExecution()
 {
+    if (m_isExecutionEnabled == true) return;
     m_isExecutionEnabled = true;
 
     m_commandItem->setBackgroundColor(m_activeExecutionBackgroundColor);
-    m_commandItem->setDefaultTextColor(m_activeExecutionTextColor);
 
-    connect(m_commandItem, &WorksheetTextItem::receivedFocus, worksheet(), &Worksheet::highlightItem);
-    worksheet()->highlightItem(m_commandItem);
+    if (m_activeExecutionTextColor.isValid())
+    {
+        m_commandItem->setDefaultTextColor(m_activeExecutionTextColor);
+    }
+    else {
+        m_commandItem->setDefaultTextColor(QColor());
+    }
 }
 
 bool CommandEntry::isExcludedFromExecution()
@@ -1628,4 +1401,25 @@ bool CommandEntry::isExcludedFromExecution()
 bool CommandEntry::isResultCollapsed()
 {
     return m_resultsCollapsed;
+}
+
+void CommandEntry::setVariableHighlightingEnabled(bool enabled)
+{
+    if (m_variableHighlightingEnabled == enabled)
+    {
+        return;
+    }
+    m_variableHighlightingEnabled = enabled;
+
+    if (worksheet()->session() && m_dynamicHighlighter)
+    {
+        if (enabled)
+        {
+            m_dynamicHighlighter->updateAllHighlights();
+        }
+        else
+        {
+            m_dynamicHighlighter->clearAllHighlights();
+        }
+    }
 }

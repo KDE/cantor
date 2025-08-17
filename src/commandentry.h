@@ -9,10 +9,11 @@
 #define COMMANDENTRY_H
 
 #include <QPointer>
-#include <KCompletionBox>
+#include <QTimer>
 
 #include "worksheetentry.h"
 #include "lib/expression.h"
+#include "dynamichighlighter.h"
 
 class Worksheet;
 class ResultItem;
@@ -21,8 +22,6 @@ class QJsonObject;
 
 namespace Cantor{
     class Result;
-    class CompletionObject;
-    class SyntaxHelpObject;
 }
 
 class CommandEntry : public WorksheetEntry
@@ -57,26 +56,30 @@ class CommandEntry : public WorksheetEntry
     QJsonValue toJupyterJson() override;
     QString toPlain(const QString& commandSep, const QString& commentStartingSeq, const QString& commentEndingSeq) override;
 
-    void setCompletion(Cantor::CompletionObject* tc);
-    void setSyntaxHelp(Cantor::SyntaxHelpObject* sh);
 
     bool acceptRichText() override;
-
-    void removeContextHelp();
+    void setVariableHighlightingEnabled(bool enabled);
 
     void interruptEvaluation() override;
-    bool isShowingCompletionPopup();
 
-    bool focusEntry(int pos = WorksheetTextItem::TopLeft, qreal xCoord = 0) override;
+
+    bool focusEntry(int pos = WorksheetTextEditorItem::TopLeft, qreal xCoord = 0) override;
 
     void layOutForWidth(qreal entry_zone_x, qreal w, bool force = false) override;
     qreal promptItemWidth();
 
-    WorksheetTextItem* highlightItem() override;
+    WorksheetTextEditorItem* highlightItem() override;
+
+    QGraphicsObject* mainTextItem() const override;
 
     WorksheetCursor search(const QString& pattern, unsigned flags,
                            QTextDocument::FindFlags qt_flags,
                            const WorksheetCursor& pos = WorksheetCursor()) override;
+    KWorksheetCursor search(const QString& pattern, unsigned flags,
+                            KTextEditor::SearchOptions options,
+                            const KWorksheetCursor& pos = KWorksheetCursor()) override;
+    bool replace(const QString& replacement) override;
+    void replaceAll(const QString& pattern, const QString& replacement, unsigned flags, KTextEditor::SearchOptions options);
 
   public Q_SLOTS:
     bool evaluateCurrentItem() override;
@@ -89,18 +92,11 @@ class CommandEntry : public WorksheetEntry
     void excludeFromExecution();
     void addToExecution();
 
-    void showCompletion() override;
-    void handleTabPress();
-    void handleBacktabPress();
+
     void updateEntry() override;
     void updatePrompt(const QString& postfix = CommandEntry::Prompt);
     void expressionChangedStatus(Cantor::Expression::Status);
     void showAdditionalInformationPrompt(const QString&);
-    void showCompletions();
-    void applySelectedCompletion();
-    void completedLineChanged();
-    void showSyntaxHelp();
-    void completeLineTo(const QString& line, int index);
 
     void startRemoving(bool warn = true) override;
 
@@ -113,29 +109,26 @@ class CommandEntry : public WorksheetEntry
     bool wantToEvaluate() override;
 
   private:
-    WorksheetTextItem* currentInformationItem();
+    WorksheetTextEditorItem* currentInformationItem();
     bool informationItemHasFocus();
     bool focusWithinThisItem();
-    QPoint getPopupPosition();
+
     QPoint toGlobalPosition(QPointF);
     void initMenus();
-    void handleExistedCompletionBox();
-    void makeCompletion(const QString& line, int position);
+
 
     enum CompletionMode {PreliminaryCompletion, FinalCompletion};
     static const double VerticalSpacing;
 
-    WorksheetTextItem* m_promptItem;
-    WorksheetTextItem* m_commandItem;
+    WorksheetTextEditorItem* m_promptItem;
+    WorksheetTextEditorItem* m_commandItem;
     QVector<ResultItem*> m_resultItems;
     bool m_resultsCollapsed;
-    WorksheetTextItem* m_errorItem;
-    QList<WorksheetTextItem*> m_informationItems;
+    QList<WorksheetTextEditorItem*> m_informationItems;
     Cantor::Expression* m_expression;
 
-    Cantor::CompletionObject* m_completionObject;
-    QPointer<KCompletionBox> m_completionBox;
-    Cantor::SyntaxHelpObject* m_syntaxHelpObject;
+    DynamicHighlighter* m_dynamicHighlighter;
+    bool m_variableHighlightingEnabled = true;
 
     EvaluationOption m_evaluationOption;
     QPropertyAnimation* m_promptItemAnimation;
@@ -147,8 +140,10 @@ class CommandEntry : public WorksheetEntry
     QActionGroup* m_backgroundColorActionGroup;
     QMenu* m_backgroundColorMenu;
     QActionGroup* m_textColorActionGroup;
+    QActionGroup* m_themeActionGroup;
     QColor m_defaultDefaultTextColor;
     QMenu* m_textColorMenu;
+    QMenu* m_themeMenu;
     QMenu* m_fontMenu;
 
     bool m_isExecutionEnabled;
@@ -161,14 +156,14 @@ class CommandEntry : public WorksheetEntry
     void clearResultItems();
     void removeResultItem(int index);
     void replaceResultItem(int index);
-    void updateCompletions();
-    void completeCommandTo(const QString& completion, CommandEntry::CompletionMode mode = PreliminaryCompletion);
+
     void changeResultCollapsingAction();
     void showHelp();
     void toggleEnabled();
 
     void backgroundColorChanged(QAction*);
     void textColorChanged(QAction*);
+    void themeChanged(QAction*);
     void fontBoldTriggered();
     void fontItalicTriggered();
     void fontIncreaseTriggered();

@@ -34,7 +34,7 @@ WorksheetTextItem::WorksheetTextItem(WorksheetEntry* parent, Qt::TextInteraction
         connect(this, &WorksheetTextItem::sizeChanged, parent, &WorksheetEntry::recalculateSize);
     }
 
-    m_size = document()->size();;
+    m_size = document()->size();
     setAcceptDrops(true);
     setFont(QFontDatabase::systemFont(QFontDatabase::FixedFont));
 
@@ -56,7 +56,7 @@ WorksheetTextItem::WorksheetTextItem(WorksheetEntry* parent, Qt::TextInteraction
 WorksheetTextItem::~WorksheetTextItem()
 {
     if (worksheet() && this == worksheet()->lastFocusedTextItem())
-        worksheet()->updateFocusedTextItem(nullptr);
+        worksheet()->updateFocusedTextItem(static_cast<WorksheetTextItem*>(nullptr));
 
     if (worksheet())
         worksheet()->removeRequestedWidth(this);
@@ -764,14 +764,14 @@ QTextCursor WorksheetTextItem::search(QString pattern,
                                       QTextDocument::FindFlags qt_flags,
                                       const WorksheetCursor& pos)
 {
-    if (pos.isValid() && pos.textItem() != this)
-        return QTextCursor();
-
     QTextDocument* doc = document();
     QTextCursor cursor;
-    if (pos.isValid()) {
+    if (pos.isValid() && pos.textItem() == this)
+    {
         cursor = doc->find(pattern, pos.textCursor(), qt_flags);
-    } else {
+    }
+    else
+    {
         cursor = textCursor();
         if (qt_flags & QTextDocument::FindBackward)
             cursor.movePosition(QTextCursor::End);
