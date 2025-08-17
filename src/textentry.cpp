@@ -42,6 +42,7 @@ TextEntry::TextEntry(Worksheet* worksheet) : WorksheetEntry(worksheet)
     connect(m_textItem, &WorksheetTextItem::moveToPrevious, this, &TextEntry::moveToPreviousEntry);
     connect(m_textItem, &WorksheetTextItem::moveToNext, this, &TextEntry::moveToNextEntry);
     // Modern syntax of signal/stots don't work on this connection (arguments don't match)
+    connect(m_textItem, &WorksheetTextItem::receivedFocus, worksheet, QOverload<WorksheetTextItem*>::of(&Worksheet::updateFocusedTextItem));
     connect(m_textItem, SIGNAL(execute()), this, SLOT(evaluate()));
     connect(m_textItem, &WorksheetTextItem::doubleClick, this, &TextEntry::resolveImagesAtCursor);
 
@@ -464,6 +465,22 @@ WorksheetCursor TextEntry::search(const QString& pattern, unsigned flags,
     }
 }
 
+bool TextEntry::replace(const QString& replacement)
+{
+    QTextCursor cursor = m_textItem->textCursor();
+
+    if (cursor.hasSelection()) {
+        cursor.insertText(replacement);
+        return true;
+    }
+
+    return false;
+}
+
+QGraphicsObject* TextEntry::mainTextItem() const
+{
+    return m_textItem;
+}
 
 void TextEntry::layOutForWidth(qreal entry_zone_x, qreal w, bool force)
 {

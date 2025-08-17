@@ -9,7 +9,6 @@
 #include "worksheet.h"
 #include "lib/renderer.h"
 #include "lib/jupyterutils.h"
-#include "lib/defaulthighlighter.h"
 #include "lib/latexrenderer.h"
 #include "config-cantor.h"
 
@@ -450,49 +449,37 @@ int LatexEntry::searchText(const QString& text, const QString& pattern,
     return position;
 }
 
+QGraphicsObject* LatexEntry::mainTextItem() const
+{
+    return m_textItem;
+}
+
+bool LatexEntry::replace(const QString& replacement)
+{
+    QTextCursor cursor = m_textItem->textCursor();
+
+    if (cursor.hasSelection()) {
+        cursor.insertText(replacement);
+        return true;
+    }
+
+    return false;
+}
+
 WorksheetCursor LatexEntry::search(const QString& pattern, unsigned flags,
                                    QTextDocument::FindFlags qt_flags,
                                    const WorksheetCursor& pos)
 {
-    if (!(flags & WorksheetEntry::SearchLaTeX))
-        return WorksheetCursor();
-    if (pos.isValid() && (pos.entry() != this || pos.textItem() != m_textItem))
+    if (!(flags & WorksheetEntry::SearchLaTeX) ||
+        (pos.isValid() && pos.entry() != this))
         return WorksheetCursor();
 
     QTextCursor textCursor = m_textItem->search(pattern, qt_flags, pos);
-    int position = 0;
-    QString latex;
-    const QString repl = QString(QChar::ObjectReplacementCharacter);
-    QTextCursor latexCursor = m_textItem->search(repl, qt_flags, pos);
 
-    while (!latexCursor.isNull()) {
-        latex = m_textItem->resolveImages(latexCursor);
-        position = searchText(latex, pattern, qt_flags);
-        if (position >= 0) {
-            break;
-        }
-        WorksheetCursor c(this, m_textItem, latexCursor);
-        latexCursor = m_textItem->search(repl, qt_flags, c);
-    }
-
-    if (latexCursor.isNull()) {
-        if (textCursor.isNull())
-            return WorksheetCursor();
-        else
-            return WorksheetCursor(this, m_textItem, textCursor);
-    } else {
-        if (textCursor.isNull() || latexCursor < textCursor) {
-            int start = latexCursor.selectionStart();
-            latexCursor.insertText(latex);
-            QTextCursor c = m_textItem->textCursor();
-            c.setPosition(start + position);
-            c.movePosition(QTextCursor::NextCharacter, QTextCursor::KeepAnchor,
-                           pattern.length());
-            return WorksheetCursor(this, m_textItem, c);
-        } else {
-            return WorksheetCursor(this, m_textItem, textCursor);
-        }
-    }
+    if (textCursor.isNull())
+        return WorksheetCursor();
+    else
+        return WorksheetCursor(this, m_textItem, textCursor);
 }
 
 void LatexEntry::layOutForWidth(qreal entry_zone_x, qreal w, bool force)

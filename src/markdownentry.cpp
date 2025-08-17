@@ -451,6 +451,23 @@ WorksheetCursor MarkdownEntry::search(const QString& pattern, unsigned flags,
         return WorksheetCursor(this, m_textItem, textCursor);
 }
 
+bool MarkdownEntry::replace(const QString& replacement)
+{
+    QTextCursor cursor = m_textItem->textCursor();
+
+    if (cursor.hasSelection()) {
+        cursor.insertText(replacement);
+        return true;
+    }
+
+    return false;
+}
+
+QGraphicsObject* MarkdownEntry::mainTextItem() const
+{
+    return m_textItem;
+}
+
 void MarkdownEntry::layOutForWidth(qreal entry_zone_x, qreal w, bool force)
 {
     if (size().width() == w && m_textItem->pos().x() == entry_zone_x && !force)

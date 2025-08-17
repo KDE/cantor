@@ -46,6 +46,10 @@ class LatexEntry : public WorksheetEntry
                            QTextDocument::FindFlags qt_flags,
                            const WorksheetCursor& pos = WorksheetCursor()) override;
 
+    bool replace(const QString& replacement) override;
+
+    QGraphicsObject* mainTextItem() const override;
+
   public Q_SLOTS:
     bool evaluate(WorksheetEntry::EvaluationOption evalOp = FocusNext) override;
     void resolveImagesAtCursor();
