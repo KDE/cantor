@@ -3,9 +3,6 @@ set( ScilabBackend_SRCS
   scilabsession.cpp
   scilabexpression.cpp
   scilabextensions.cpp
-  scilabkeywords.cpp
-  scilabhighlighter.cpp
-  scilabcompletionobject.cpp
   scilabsettingswidget.cpp
   ../backendsettingswidget.cpp
 )

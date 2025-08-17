@@ -3,6 +3,7 @@
     SPDX-FileCopyrightText: 2009 Alexander Rieder <alexanderrieder@gmail.com>
 */
 
+
 #ifndef _RSESSION_H
 #define _RSESSION_H
 
@@ -16,7 +17,7 @@ class RVariableModel;
 class QProcess;
 
 namespace Cantor {
-class DefaultVariableModel;
+    class DefaultVariableModel;
 }
 
 class RSession : public Cantor::Session
@@ -32,11 +33,12 @@ class RSession : public Cantor::Session
     void interrupt() override;
 
     Cantor::Expression* evaluateExpression(const QString& command, Cantor::Expression::FinishingBehavior behave = Cantor::Expression::FinishingBehavior::DoNotDelete, bool internal = false) override;
-    Cantor::CompletionObject* completionFor(const QString& command, int index=-1) override;
-    QSyntaxHighlighter* syntaxHighlighter(QObject* parent) override;
     void runFirstExpression() override;
 
     void sendInputToServer(const QString& input);
+
+  Q_SIGNALS:
+    void modelUpdateFinished(const QString& result);
   protected Q_SLOTS:
     void serverChangedStatus(int status);
     void expressionFinished(int returnCode, const QString& text, const QStringList& files);

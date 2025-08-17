@@ -38,7 +38,7 @@ Cantor::Backend::Capabilities LuaBackend::capabilities() const
         Cantor::Backend::SyntaxHighlighting |
         Cantor::Backend::Completion;
 
-    return cap;
+    return Cantor::Backend::Completion | Cantor::Backend::VariableManagement | Cantor::Backend::SyntaxHighlighting;
 }
 
 bool LuaBackend::requirementsFullfilled(QString* const reason) const

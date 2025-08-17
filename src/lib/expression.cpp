@@ -20,6 +20,7 @@ using namespace Cantor;
 #include <QString>
 #include <QFileSystemWatcher>
 
+#include <KLocalizedString>
 #include <KProcess>
 #include <KZip>
 
@@ -191,6 +192,17 @@ const QVector<Result*>& Expression::results() const
 void Expression::setStatus(Expression::Status status)
 {
     d->status=status;
+
+    if (status == Expression::Error && !d->error.isEmpty()) {
+        auto* errorResult = new TextResult(d->error);
+        addResult(errorResult);
+    }
+
+    if (status == Expression::Interrupted) {
+        auto* interruptedResult = new TextResult(i18n("Interrupted"));
+        addResult(interruptedResult);
+    }
+
     Q_EMIT statusChanged(status);
 
     bool isFinished = status == Expression::Done || status == Expression::Error || status == Expression::Interrupted;

@@ -33,3 +33,4 @@ public:
 
 
 #endif /* QALCULATE_BACKEND_H */
+

@@ -12,7 +12,6 @@
 #include "imageresult.h"
 #include "helpresult.h"
 #include "syntaxhelpobject.h"
-#include "completionobject.h"
 #include "defaultvariablemodel.h"
 
 #include <QDebug>
@@ -182,27 +181,6 @@ void TestR::testInvalidSyntax()
 
     QVERIFY( e!=nullptr );
     QCOMPARE( e->status(), Cantor::Expression::Error );
-}
-
-void TestR::testCompletion()
-{
-    // Actual completion needs session in Done state
-    while (session()->status() != Cantor::Session::Done)
-        waitForSignal(session(), SIGNAL(statusChanged(Cantor::Session::Status)));
-
-    Cantor::CompletionObject* help = session()->completionFor(QLatin1String("pi"), 2);
-    waitForSignal(help, SIGNAL(fetchingDone()));
-
-    // Checks all completions for this request
-    // This correct for R 3.4.4
-    const QStringList& completions = help->completions();
-    qDebug() << completions;
-    QCOMPARE(completions.size(), 5);
-    QVERIFY(completions.contains(QLatin1String("pi")));
-    QVERIFY(completions.contains(QLatin1String("pico")));
-    QVERIFY(completions.contains(QLatin1String("pictex")));
-    QVERIFY(completions.contains(QLatin1String("pie")));
-    QVERIFY(completions.contains(QLatin1String("pipe")));
 }
 
 void TestR::testSimplePlot()

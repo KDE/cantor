@@ -25,7 +25,6 @@ private Q_SLOTS:
 
     void testInvalidSyntax();
 
-    void testCompletion();
     void testHelpRequest();
     void testSyntaxHelp();
     void testInformationRequest();

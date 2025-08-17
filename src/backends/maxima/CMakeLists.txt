@@ -3,11 +3,7 @@ set( MaximaBackend_SRCS
   maximasession.cpp
   maximaexpression.cpp
   maximaextensions.cpp
-  maximahighlighter.cpp
-  maximakeywords.cpp
-  maximacompletionobject.cpp
   maximasettingswidget.cpp
-  maximasyntaxhelpobject.cpp
   maximavariablemodel.cpp
   ../backendsettingswidget.cpp
 )

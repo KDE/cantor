@@ -62,8 +62,6 @@ private Q_SLOTS:
     void testHelpRequest();
     void testSyntaxHelp();
 
-    void testCompletion();
-
     void testVariableModel();
 
     void testLispMode01();

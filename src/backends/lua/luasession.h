@@ -28,8 +28,6 @@ public:
     void runFirstExpression() override;
 
     Cantor::Expression* evaluateExpression(const QString& command, Cantor::Expression::FinishingBehavior behave = Cantor::Expression::FinishingBehavior::DoNotDelete, bool internal = false) override;
-    Cantor::CompletionObject* completionFor(const QString& cmd, int index = -1) override;
-    QSyntaxHighlighter* syntaxHighlighter(QObject* parent) override;
 
     bool isLuaJIT() const;
     lua_State* getState() const;
@@ -54,6 +52,7 @@ private:
     QStringList m_inputCommands;
     QStringList m_output;
     bool m_luaJIT{true};
+    QString m_jit_output_cache;
 
     static const QString LUA_PROMPT;
     static const QString LUA_SUBPROMPT;

@@ -6,8 +6,6 @@
 
 #include "luaexpression.h"
 #include "luasession.h"
-#include "luahelper.h"
-
 #include "textresult.h"
 #include "imageresult.h"
 #include "helpresult.h"
@@ -40,43 +38,41 @@ void LuaExpression::evaluate()
 
 void LuaExpression::parseError(const QString &error)
 {
-    qDebug() << error;
-    setErrorMessage(error);
-    setStatus(Error);
+    m_errorBuffer.append(error);
 }
 
 void LuaExpression::parseOutput(const QString& output)
 {
-
-    qDebug()<<"parsing the output " << output;
-    auto* luaSession = static_cast<LuaSession*>(session());
-
-    if (luaSession->isLuaJIT())
+    if (!m_errorBuffer.isEmpty())
     {
-        QString result = output;
-
-        // in case the expression is incomplete, Lua is answering with the sub-promt ">> ".
-        // since we don't handle it yet, replace it with the prompt string so we can handle it easier below
-        // when splitting the whole output into the separate results
-        // TODO: add handling for the sub-promt
-        result.replace(QLatin1String(">> "), QLatin1String("> "));
-
-        const auto& results = result.split(QLatin1String("> "));
-        for (auto& result : results) {
-            if (result.simplified() == QLatin1String(">") || result.simplified().isEmpty())
-                continue;
-
-            addResult(new Cantor::TextResult(result));
-        }
+        setErrorMessage(m_errorBuffer.trimmed());
+        setStatus(Error);
     }
     else
     {
-        // the parsing of Lua's output was already done in LuaSession::readOutputLua()
-        // where the information about the actual commands is present and required.
-        // here we only set the final result without any further parsing.
-        if (!output.isEmpty())
-            setResult(new Cantor::TextResult(output));
-    }
+        qDebug()<<"parsing the output " << output;
+        auto* luaSession = static_cast<LuaSession*>(session());
 
-    setStatus(Cantor::Expression::Done);
+        if (luaSession->isLuaJIT())
+        {
+            QString result = output;
+            result.replace(QLatin1String(">> "), QLatin1String("> "));
+
+            const auto& results = result.split(QLatin1String("> "));
+            for (auto& res : results)
+            {
+                if (res.simplified() == QLatin1String(">") || res.simplified().isEmpty())
+                    continue;
+
+                addResult(new Cantor::TextResult(res));
+            }
+        }
+        else
+        {
+            if (!output.isEmpty())
+                setResult(new Cantor::TextResult(output));
+        }
+        setStatus(Cantor::Expression::Done);
+    }
+    //setStatus(Cantor::Expression::Done);
 }

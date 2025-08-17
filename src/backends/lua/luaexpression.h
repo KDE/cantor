@@ -21,6 +21,9 @@ public:
     void evaluate() override;
     void parseOutput(const QString&) override;
     void parseError(const QString&) override;
+
+private:
+    QString m_errorBuffer;
 };
 
 #endif /* _LUAEXPRESSION_H */

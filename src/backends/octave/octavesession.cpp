@@ -8,9 +8,7 @@
 #include <random>
 #include "octavesession.h"
 #include "octaveexpression.h"
-#include "octavecompletionobject.h"
 #include "octavesyntaxhelpobject.h"
-#include "octavehighlighter.h"
 #include "result.h"
 #include "textresult.h"
 #include <backend.h>
@@ -40,6 +38,7 @@ m_prompt(QStringLiteral("CANTOR_OCTAVE_BACKEND_PROMPT:([0-9]+)> ")),
 m_subprompt(QStringLiteral("CANTOR_OCTAVE_BACKEND_SUBPROMPT:([0-9]+)> "))
 {
     setVariableModel(new OctaveVariableModel(this));
+    setSymbolManager(new SymbolManager(QStringLiteral("Octave")));
 }
 
 OctaveSession::~OctaveSession()
@@ -332,19 +331,9 @@ void OctaveSession::readOutput()
     }
 }
 
-Cantor::CompletionObject* OctaveSession::completionFor(const QString& cmd, int index)
-{
-    return new OctaveCompletionObject(cmd, index, this);
-}
-
 Cantor::SyntaxHelpObject* OctaveSession::syntaxHelpFor(const QString& cmd)
 {
     return new OctaveSyntaxHelpObject(cmd, this);
-}
-
-QSyntaxHighlighter* OctaveSession::syntaxHighlighter(QObject* parent)
-{
-    return new OctaveHighlighter(parent, this);
 }
 
 bool OctaveSession::isDoNothingCommand(const QString& command)

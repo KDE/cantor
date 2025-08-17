@@ -33,7 +33,6 @@ class TestPython3 : public BackendTest
     void testVariableCleanupAfterRestart();
     void testDictVariable();
 
-    void testCompletion();
     void testInterrupt();
 
     void testWarning();

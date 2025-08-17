@@ -96,4 +96,20 @@ class SagePackagingExtension : public Cantor::PackagingExtension
     QString importPackage(const QString& module) override;
 };
 
+
+class SageVariableManagementExtension : public Cantor::VariableManagementExtension
+{
+public:
+    explicit SageVariableManagementExtension(QObject* parent);
+    ~SageVariableManagementExtension() override;
+
+public Q_SLOTS:
+    QString addVariable(const QString& name, const QString& value) override;
+    QString setValue(const QString& name, const QString& value) override;
+    QString removeVariable(const QString& name) override;
+    QString saveVariables(const QString& fileName) override;
+    QString loadVariables(const QString& fileName) override;
+    QString clearVariables() override;
+};
+
 #endif /* _SAGEEXTENSIONS_H */

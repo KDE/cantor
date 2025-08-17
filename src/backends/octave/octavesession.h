@@ -29,9 +29,7 @@ class OctaveSession : public Cantor::Session
         Cantor::Expression* evaluateExpression(const QString& cmd, Cantor::Expression::FinishingBehavior behavior = Cantor::Expression::FinishingBehavior::DoNotDelete, bool internal = false) override;
         void logout() override;
         void login() override;
-        Cantor::CompletionObject* completionFor(const QString& cmd, int index=-1) override;
         Cantor::SyntaxHelpObject* syntaxHelpFor(const QString& cmd) override;
-        QSyntaxHighlighter* syntaxHighlighter(QObject* parent) override;
         void runFirstExpression() override;
 
         bool isIntegratedPlotsEnabled() const;

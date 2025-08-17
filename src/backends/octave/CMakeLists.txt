@@ -3,9 +3,6 @@ set( OctaveBackend_SRCS
   octavesession.cpp
   octaveexpression.cpp
   octaveextensions.cpp
-  octavehighlighter.cpp
-  octavekeywords.cpp
-  octavecompletionobject.cpp
   octavesyntaxhelpobject.cpp
   octavevariablemodel.cpp
   octavesettingswidget.cpp

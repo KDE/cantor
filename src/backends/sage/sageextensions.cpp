@@ -184,3 +184,37 @@ QString SagePackagingExtension::importPackage(const QString& module)
 {
     return QString::fromLatin1("import %1").arg(module);
 }
+
+
+// VariableManagementExtension
+SAGE_EXTENSION_CONSTRUCTORS(VariableManagement)
+
+QString SageVariableManagementExtension::addVariable(const QString& name, const QString& value)
+{
+    return QStringLiteral("%1 = %2").arg(name, value);
+}
+
+QString SageVariableManagementExtension::setValue(const QString& name, const QString& value)
+{
+    return QStringLiteral("%1 = %2").arg(name, value);
+}
+
+QString SageVariableManagementExtension::removeVariable(const QString& name)
+{
+    return QStringLiteral("del %1").arg(name);
+}
+
+QString SageVariableManagementExtension::saveVariables(const QString& fileName)
+{
+    return QStringLiteral("# Cantor: saveVariables is not fully supported in Sage backend, use save() on individual objects");
+}
+
+QString SageVariableManagementExtension::loadVariables(const QString& fileName)
+{
+    return QStringLiteral("load('%1')").arg(fileName);
+}
+
+QString SageVariableManagementExtension::clearVariables()
+{
+    return QStringLiteral("%reset -f");
+}

@@ -2,12 +2,9 @@ set(LuaBackend_SRCS
   luabackend.cpp
   luasession.cpp
   luaexpression.cpp
-  luacompletionobject.cpp
-  luahelper.cpp
-  luakeywords.cpp
-  luahighlighter.cpp
   luaextensions.cpp
   luasettingswidget.cpp
+  luavariablemodel.cpp
   ../backendsettingswidget.cpp
 )
 

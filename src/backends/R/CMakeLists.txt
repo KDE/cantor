@@ -12,9 +12,6 @@ set( RBackend_SRCS
   rsession.cpp
   rexpression.cpp
   rextensions.cpp
-  rcompletionobject.cpp
-  rhighlighter.cpp
-  rkeywords.cpp
   rsettingswidget.cpp
   rvariablemodel.cpp
   ../backendsettingswidget.cpp

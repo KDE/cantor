@@ -19,9 +19,7 @@ set( cantor_LIB_SRCS
   htmlresult.cpp
   extension.cpp
   assistant.cpp
-  completionobject.cpp
   syntaxhelpobject.cpp
-  defaulthighlighter.cpp
   defaultvariablemodel.cpp
   panelplugin.cpp
   panelpluginhandler.cpp
@@ -29,6 +27,7 @@ set( cantor_LIB_SRCS
   directives/plotdirectives.cpp
   jupyterutils.cpp
   graphicpackage.cpp
+  symbolmanager.cpp
 )
 
 Set( cantor_LIB_HDRS
@@ -39,7 +38,6 @@ Set( cantor_LIB_HDRS
   expression.h
   extension.h
   syntaxhelpobject.h
-  completionobject.h
   #results
   animationresult.h
   epsresult.h
@@ -52,7 +50,6 @@ Set( cantor_LIB_HDRS
   mimeresult.h
   htmlresult.h
   #helper classes
-  defaulthighlighter.h
   defaultvariablemodel.h
   worksheetaccess.h
   jupyterutils.h
@@ -60,6 +57,7 @@ Set( cantor_LIB_HDRS
   # plugin classes
   panelplugin.h
   panelpluginhandler.h
+  symbolmanager.h
 )
 
 ki18n_wrap_ui(cantor_LIB_SRCS directives/axisrange.ui directives/plottitle.ui)
@@ -82,6 +80,7 @@ target_link_libraries( cantorlibs
   KF6::ConfigCore
   KF6::ConfigGui
   KF6::I18n
+  KF6::SyntaxHighlighting
   KF6::XmlGui
   Qt6::Xml
   Qt6::Svg

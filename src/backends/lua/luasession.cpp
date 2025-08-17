@@ -6,9 +6,7 @@
 
 #include "luasession.h"
 #include "luaexpression.h"
-#include "luacompletionobject.h"
-#include "luahighlighter.h"
-#include "luahelper.h"
+#include "luavariablemodel.h"
 #include <settings.h>
 #include "ui_settings.h"
 
@@ -20,8 +18,11 @@
 
 const QString LuaSession::LUA_PROMPT = QLatin1String("> ");
 const QString LuaSession::LUA_SUBPROMPT = QLatin1String(">> ");
+const QString LUA_COMMAND_END_MARKER = QLatin1String("CANTOR_LUA_PROMPT_END");
 
 LuaSession::LuaSession(Cantor::Backend* backend) : Session(backend) {
+    setVariableModel(new LuaVariableModel(this));
+    setSymbolManager(new SymbolManager(QStringLiteral("Lua")));
 }
 
 LuaSession::~LuaSession()
@@ -71,6 +72,8 @@ void LuaSession::login()
     m_L = luaL_newstate();
     luaL_openlibs(m_L);
 
+    variableModel()->update();
+
     changeStatus(Cantor::Session::Done);
     Q_EMIT loginDone();
 }
@@ -105,20 +108,26 @@ void LuaSession::readOutput()
 
 void LuaSession::readOutputLuaJIT()
 {
-    QString output;
-    while(m_process->bytesAvailable()) {
-        QString line = QString::fromLocal8Bit(m_process->readLine());
-        if (line.endsWith(QLatin1String("\n")))
-            line.chop(1);
+    m_jit_output_cache += QString::fromLocal8Bit(m_process->readAllStandardOutput());
 
-        // join multiple lines with Lua's prompt so we can parse the lines as the separate results later
-        if (!output.isEmpty())
-            output += QLatin1String("> ");
-        output += line;
+    if (!m_jit_output_cache.contains(LUA_COMMAND_END_MARKER))
+    {
+        return;
     }
 
     if (m_lastExpression)
-        m_lastExpression->parseOutput(output);
+    {
+        QByteArray errorData = m_process->readAllStandardError();
+        if (!errorData.isEmpty())
+        {
+            static_cast<LuaExpression*>(m_lastExpression)->parseError(QString::fromLocal8Bit(errorData));
+        }
+
+        m_jit_output_cache.replace(LUA_COMMAND_END_MARKER, QString());
+        m_lastExpression->parseOutput(m_jit_output_cache);
+    }
+
+    m_jit_output_cache.clear();
 }
 
 void LuaSession::readOutputLua()
@@ -212,7 +221,7 @@ void LuaSession::readError()
         return;
 
     QString error = QString::fromLocal8Bit(m_process->readAllStandardError());
-    m_lastExpression->parseError(error);
+    static_cast<LuaExpression*>(m_lastExpression)->parseError(error);
 }
 
 void LuaSession::processStarted()
@@ -281,18 +290,14 @@ void LuaSession::runFirstExpression()
     QString command = m_lastExpression->internalCommand();
 
     m_inputCommands = command.split(QLatin1String("\n"));
+    m_jit_output_cache.clear();
     m_output.clear();
 
-    command += QLatin1String("\n");
+    command += QLatin1String("\nprint('") + LUA_COMMAND_END_MARKER + QLatin1String("')\n");
     qDebug() << "final command to be executed " << command;
 
     m_lastExpression->setStatus(Cantor::Expression::Computing);
     m_process->write(command.toLocal8Bit());
-}
-
-Cantor::CompletionObject* LuaSession::completionFor(const QString& command, int index)
-{
-    return new LuaCompletionObject(command, index, this);
 }
 
 void LuaSession::expressionFinished(Cantor::Expression::Status status)
@@ -302,15 +307,14 @@ void LuaSession::expressionFinished(Cantor::Expression::Status status)
         case Cantor::Expression::Done:
         case Cantor::Expression::Error:
             finishFirstExpression();
+            if (expressionQueue().isEmpty())
+            {
+                m_lastExpression = nullptr;
+            }
             break;
         default:
             break;
     }
-}
-
-QSyntaxHighlighter* LuaSession::syntaxHighlighter(QObject* parent)
-{
-    return new LuaHighlighter(parent);
 }
 
 lua_State* LuaSession::getState() const

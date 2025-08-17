@@ -4,9 +4,6 @@
 */
 
 #include "scilabsession.h"
-#include "scilabhighlighter.h"
-#include "scilabcompletionobject.h"
-
 #include <defaultvariablemodel.h>
 
 #include <QByteArray>
@@ -27,6 +24,7 @@
 ScilabSession::ScilabSession( Cantor::Backend* backend) : Session(backend),
 m_variableModel(new Cantor::DefaultVariableModel(this))
 {
+    setSymbolManager(new SymbolManager(QStringLiteral("Scilab")));
 }
 
 ScilabSession::~ScilabSession()
@@ -291,19 +289,6 @@ void ScilabSession::currentExpressionStatusChanged(Cantor::Expression::Status st
 
             break;
     }
-}
-
-QSyntaxHighlighter* ScilabSession::syntaxHighlighter(QObject* parent)
-{
-
-    ScilabHighlighter *highlighter = new ScilabHighlighter(parent, this);
-
-    return highlighter;
-}
-
-Cantor::CompletionObject* ScilabSession::completionFor(const QString& command, int index)
-{
-    return new ScilabCompletionObject(command, index, this);
 }
 
 Cantor::DefaultVariableModel* ScilabSession::variableModel() const

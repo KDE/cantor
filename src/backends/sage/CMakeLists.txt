@@ -3,10 +3,8 @@ set( SageBackend_SRCS
   sagesession.cpp
   sageexpression.cpp
   sageextensions.cpp
-  sagekeywords.cpp
-  sagehighlighter.cpp
-  sagecompletionobject.cpp
   sagesettingswidget.cpp
+  sagevariablemodel.cpp
   ../backendsettingswidget.cpp
 )
 

@@ -82,7 +82,6 @@ void OctaveVariableModel::parseNewVariables(Expression::Status status)
 
             for (const auto& data : variableData)
             {
-                // every variable data has 4 parts/elements separated by a new line - the name of the variable, its size, type and the actual value
                 const auto& elements = data.split(QLatin1String("\n"), Qt::SkipEmptyParts);
                 int count = elements.count();
                 if (count < 6)

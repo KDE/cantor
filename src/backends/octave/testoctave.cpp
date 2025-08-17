@@ -14,7 +14,6 @@
 #include "textresult.h"
 #include "helpresult.h"
 #include "epsresult.h"
-#include "completionobject.h"
 #include "syntaxhelpobject.h"
 #include "defaultvariablemodel.h"
 
@@ -372,20 +371,6 @@ void TestOctave::testComment09()
     QCOMPARE(model->index(1,0).data().toString(), QLatin1String("x"));
     QCOMPARE(model->index(2,0).data().toString(), QLatin1String("xT"));
     QCOMPARE(model->index(3,0).data().toString(), QLatin1String("y"));
-}
-
-void TestOctave::testCompletion()
-{
-    Cantor::CompletionObject* help = session()->completionFor(QLatin1String("as"), 2);
-    waitForSignal(help, SIGNAL(fetchingDone()));
-
-    // Checks some completions for this request (but not all)
-    // This correct for Octave 4.2.2 at least (and another versions, I think)
-    const QStringList& completions = help->completions();
-    QVERIFY(completions.contains(QLatin1String("asin")));
-    QVERIFY(completions.contains(QLatin1String("asctime")));
-    QVERIFY(completions.contains(QLatin1String("asec")));
-    QVERIFY(completions.contains(QLatin1String("assert")));
 }
 
 void TestOctave::testVariablesCreatingFromCode()

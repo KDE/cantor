@@ -4,7 +4,6 @@
 */
 
 #include "rvariablemodel.h"
-#include "rkeywords.h"
 #include "rsession.h"
 
 #include <result.h>
@@ -58,22 +57,18 @@ void RVariableModel::parseResult(Cantor::Expression::Status status)
                     else
                         vars.append(Variable{names.at(i), QString()});
                 }
-            else
-                for (int i = 0; i < names.size(); i++)
-                    vars.append(Variable{names.at(i), QString()});
-
+                else
+                    for (int i = 0; i < names.size(); i++)
+                        vars.append(Variable{names.at(i), QString()});
             setVariables(vars);
 
             // Remove primitive function "(" because it not function for user calling (i guess)
             // And the function with name like this make highlighting worse actually
             funcs.removeOne(QLatin1String("("));
 
-            // Also removes syntax keywords from functions list, like "function"
-            for (const QString& keyword: RKeywords::instance()->keywords())
-                funcs.removeOne(keyword);
-
             setFunctions(funcs);
             setConstants(constants);
+            setInitiallyPopulated();
             break;
         }
         case Expression::Status::Error:
@@ -109,13 +104,13 @@ void RVariableModel::setConstants(QStringList newConstants)
                 break;
             }
 
-        if(!found)
-        {
-            removedConstants << m_constants[i];
-            m_constants.removeAt(i);
-        }
-        else
-            i++;
+            if(!found)
+            {
+                removedConstants << m_constants[i];
+                m_constants.removeAt(i);
+            }
+            else
+                i++;
     }
 
     for (const QString& constant : newConstants)

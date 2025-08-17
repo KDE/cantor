@@ -46,7 +46,6 @@ private Q_SLOTS:
     //tests a syntax error (not closing bracket)
     void testInvalidSyntax();
 
-    void testCompletion();
     void testHelpRequest();
     void testSyntaxHelp();
 

@@ -58,9 +58,6 @@ class SageSession : public Cantor::Session
 
     void setTypesettingEnabled(bool) override;
 
-    Cantor::CompletionObject* completionFor(const QString& command, int index=-1) override;
-    QSyntaxHighlighter* syntaxHighlighter(QObject* parent) override;
-
     VersionInfo sageVersion();
 
   public Q_SLOTS:
@@ -69,6 +66,7 @@ class SageSession : public Cantor::Session
 
   private Q_SLOTS:
     void processFinished(int exitCode, QProcess::ExitStatus);
+    void expressionFinished(Cantor::Expression::Status status);
     void reportProcessError(QProcess::ProcessError);
     void fileCreated(const QString& path);
 

@@ -9,11 +9,9 @@
 #include "pythonsession.h"
 #include "pythonexpression.h"
 #include "pythonvariablemodel.h"
-#include "pythonhighlighter.h"
-#include "pythoncompletionobject.h"
-#include "pythonkeywords.h"
 #include "pythonutils.h"
 #include "settings.h"
+#include "symbolmanager.h"
 
 #include <random>
 
@@ -36,6 +34,7 @@ const QChar messageEnd(29);
 PythonSession::PythonSession(Cantor::Backend* backend) : Session(backend)
 {
     setVariableModel(new PythonVariableModel(this));
+    setSymbolManager(new SymbolManager(QStringLiteral("Python")));
 }
 
 PythonSession::~PythonSession()
@@ -193,16 +192,6 @@ Cantor::Expression* PythonSession::evaluateExpression(const QString& cmd, Cantor
     return expr;
 }
 
-QSyntaxHighlighter* PythonSession::syntaxHighlighter(QObject* parent)
-{
-    return new PythonHighlighter(parent, this);
-}
-
-Cantor::CompletionObject* PythonSession::completionFor(const QString& command, int index)
-{
-    return new PythonCompletionObject(command, index, this);
-}
-
 void PythonSession::runFirstExpression()
 {
     if (expressionQueue().isEmpty())
@@ -325,4 +314,3 @@ QString PythonSession::graphicPackageErrorMessage(QString packageId) const
     }
     return QString();
 }
-

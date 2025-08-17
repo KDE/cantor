@@ -6,8 +6,6 @@
 
 #include "rsession.h"
 #include "rexpression.h"
-#include "rcompletionobject.h"
-#include "rhighlighter.h"
 #include "rvariablemodel.h"
 #include <defaultvariablemodel.h>
 
@@ -25,6 +23,7 @@ m_process(nullptr),
 m_rServer(nullptr)
 {
     setVariableModel(new RVariableModel(this));
+    setSymbolManager(new SymbolManager(QStringLiteral("R Script")));
 }
 
 RSession::~RSession()
@@ -74,6 +73,8 @@ void RSession::login()
     connect(m_rServer, &org::kde::Cantor::R::statusChanged, this, &RSession::serverChangedStatus);
     connect(m_rServer,  &org::kde::Cantor::R::expressionFinished, this, &RSession::expressionFinished);
     connect(m_rServer, &org::kde::Cantor::R::inputRequested, this, &RSession::inputRequested);
+
+    variableModel()->update();
 
     changeStatus(Session::Done);
     Q_EMIT loginDone();
@@ -130,17 +131,6 @@ Cantor::Expression* RSession::evaluateExpression(const QString& cmd, Cantor::Exp
     expr->evaluate();
 
     return expr;
-}
-
-Cantor::CompletionObject* RSession::completionFor(const QString& command, int index)
-{
-    auto* cmp = new RCompletionObject(command, index, this);
-    return cmp;
-}
-
-QSyntaxHighlighter* RSession::syntaxHighlighter(QObject* parent)
-{
-    return new RHighlighter(parent, this);
 }
 
 void RSession::serverChangedStatus(int status)

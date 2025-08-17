@@ -7,12 +7,11 @@ set( QalculateBackend_SRCS
   qalculatesyntaxhelpobject.cpp
   qalculatebackend.cpp
   qalculatesession.cpp
-  qalculatehighlighter.cpp
   qalculateexpression.cpp
   qalculateextensions.cpp
-  qalculatecompletionobject.cpp
   qalculateextensions.cpp
   qalculatesettingswidget.cpp
+  qalculatevariablemodel.cpp
   ../backendsettingswidget.cpp
 )
 

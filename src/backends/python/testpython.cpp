@@ -10,7 +10,6 @@
 #include "expression.h"
 #include "imageresult.h"
 #include "defaultvariablemodel.h"
-#include "completionobject.h"
 
 #include "settings.h"
 
@@ -93,24 +92,6 @@ void TestPython3::testInvalidSyntax()
     QVERIFY( e!=nullptr );
     QCOMPARE( e->status(), Cantor::Expression::Error );
 }
-
-void TestPython3::testCompletion()
-{
-    if(session()->status()==Cantor::Session::Running)
-        waitForSignal(session(), SIGNAL(statusChanged(Cantor::Session::Status)));
-
-    auto* help = session()->completionFor(QLatin1String("p"), 1);
-    waitForSignal(help, SIGNAL(fetchingDone()));
-
-    // Checks all completions for this request
-    const auto& completions = help->completions();
-    QCOMPARE(completions.size(), 4);
-    QVERIFY(completions.contains(QLatin1String("pass")));
-    QVERIFY(completions.contains(QLatin1String("pow")));
-    QVERIFY(completions.contains(QLatin1String("print")));
-    QVERIFY(completions.contains(QLatin1String("property")));
-}
-
 
 void TestPython3::testImportStatement()
 {

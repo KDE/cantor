@@ -6,8 +6,7 @@
 
 #include "sagesession.h"
 #include "sageexpression.h"
-#include "sagecompletionobject.h"
-#include "sagehighlighter.h"
+#include "sagevariablemodel.h"
 #include "settings.h"
 
 #include <QDebug>
@@ -92,6 +91,8 @@ bool SageSession::VersionInfo::operator>=(SageSession::VersionInfo other) const
 SageSession::SageSession(Cantor::Backend* backend) : Session(backend)
 {
     connect(&m_dirWatch, &KDirWatch::created, this, &SageSession::fileCreated);
+    setVariableModel(new SageVariableModel(this));
+    setSymbolManager(new SymbolManager(QStringLiteral("Python")));
 }
 
 SageSession::~SageSession()
@@ -191,6 +192,8 @@ void SageSession::login()
         QString autorunScripts = SageSettings::self()->autorunScripts().join(QLatin1String("\n"));
         evaluateExpression(autorunScripts, SageExpression::DeleteOnFinish, true);
     }
+
+    variableModel()->update();
 
     changeStatus(Session::Done);
     Q_EMIT loginDone();
@@ -388,6 +391,7 @@ void SageSession::runFirstExpression()
 
         if (m_isInitialized)
         {
+            connect(expr, &Cantor::Expression::statusChanged, this, &SageSession::expressionFinished);
             connect(expr, &Cantor::Expression::statusChanged, this, &Session::currentExpressionStatusChanged);
 
             QString command = expr->command();
@@ -405,6 +409,23 @@ void SageSession::runFirstExpression()
             // If queue contains one expression, it means, what we run this expression immediately (drop setting queued status)
             // TODO: Sage login is slow, so, maybe better mark this expression as queued for a login time
             expr->setStatus(Cantor::Expression::Queued);
+    }
+}
+
+void SageSession::expressionFinished(Cantor::Expression::Status status)
+{
+    auto* expr = qobject_cast<Cantor::Expression*>(sender());
+    if (!expr) return;
+
+    if (status == Cantor::Expression::Done || status == Cantor::Expression::Error)
+    {
+        // 如果命令不是内部命令，并且队列即将变空，则更新变量
+        if (!expr->isInternal() && expressionQueue().size() == 1)
+        {
+            variableModel()->update();
+        }
+        // 完成后断开连接，避免重复触发
+        disconnect(expr, &Cantor::Expression::statusChanged, this, &SageSession::expressionFinished);
     }
 }
 
@@ -464,16 +485,6 @@ void SageSession::setTypesettingEnabled(bool enable)
     }
 
     Cantor::Session::setTypesettingEnabled(enable);
-}
-
-Cantor::CompletionObject* SageSession::completionFor(const QString& command, int index)
-{
-    return new SageCompletionObject(command, index, this);
-}
-
-QSyntaxHighlighter* SageSession::syntaxHighlighter(QObject* parent)
-{
-    return new SageHighlighter(parent);
 }
 
 SageSession::VersionInfo SageSession::sageVersion()

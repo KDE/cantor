@@ -22,6 +22,7 @@ SageBackend::SageBackend( QObject* parent,const QList<QVariant>& args ) : Cantor
     new SageLinearAlgebraExtension(this);
     new SagePlotExtension(this);
     new SagePackagingExtension(this);
+    new SageVariableManagementExtension(this);
 }
 
 SageBackend::~SageBackend()
@@ -48,7 +49,7 @@ Cantor::Session* SageBackend::createSession()
 
 Cantor::Backend::Capabilities SageBackend::capabilities() const
 {
-    static Cantor::Backend::Capabilities caps = Cantor::Backend::SyntaxHighlighting|Cantor::Backend::Completion;
+    static Cantor::Backend::Capabilities caps = Cantor::Backend::SyntaxHighlighting|Cantor::Backend::Completion|Cantor::Backend::VariableManagement;
 
     // Latex output from sage sometimes correct, sometimes not, so allow disable typesetting, if user want it
     if (SageSettings::self()->allowLatex())
