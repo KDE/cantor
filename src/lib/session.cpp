@@ -11,6 +11,7 @@ using namespace Cantor;
 
 #include "backend.h"
 #include "textresult.h"
+#include "symbolmanager.h"
 
 #include <QDebug>
 #include <QEventLoop>
@@ -35,6 +36,7 @@ class Cantor::SessionPrivate
     QList<GraphicPackage> enabledGraphicPackages;
     QList<QString> ignorableGraphicPackageIds;
     bool needUpdate{false};
+    SymbolManager* m_symbolManager{nullptr};
     QString worksheetPath;
 };
 
@@ -51,6 +53,7 @@ Session::Session(Backend* backend, DefaultVariableModel* model) : QObject(backen
 
 Session::~Session()
 {
+    delete d->m_symbolManager;
     delete d;
 }
 
@@ -101,31 +104,33 @@ void Session::runFirstExpression()
 
 void Session::finishFirstExpression(bool setDoneAfterUpdate)
 {
-    if (!d->expressionQueue.isEmpty())
-    {
-        auto first = d->expressionQueue.takeFirst();
-        d->needUpdate |= !first->isInternal() && !first->isHelpRequest();
+    if (d->expressionQueue.isEmpty()) {
+        changeStatus(Done);
+        return;
     }
 
-    if (d->expressionQueue.isEmpty())
-        if (d->variableModel && d->needUpdate)
-        {
-            d->variableModel->update();
-            d->needUpdate = false;
+    auto* finishedExpression = d->expressionQueue.takeFirst();
+    const bool needsUpdateTrigger = !finishedExpression->isInternal() && !finishedExpression->isHelpRequest();
 
-            // Some variable models could update internal lists without running expressions
-            // or don't need to be updated at all like for Maxima being in Lisp-mode.
-            // So, if after update queue still empty, set status to Done
-            // setDoneAfterUpdate used for compatibility with some backends, like R - TODO: check why this is required
-            if (setDoneAfterUpdate && d->expressionQueue.isEmpty())
-                changeStatus(Done);
-            else if (d->expressionQueue.isEmpty())
-                changeStatus(Done);
-        }
-        else
-            changeStatus(Done);
-    else
+    if (!d->expressionQueue.isEmpty()) {
         runFirstExpression();
+    }
+    else if (d->variableModel && needsUpdateTrigger)
+    {
+        d->variableModel->update();
+
+        // Some variable models could update internal lists without running expressions
+        // or don't need to be updated at all like for Maxima being in Lisp-mode.
+        // So, if after update queue still empty, set status to Done
+        // setDoneAfterUpdate used for compatibility with some backends, like R - TODO: check why this is required
+        if (d->expressionQueue.isEmpty())
+        {
+            changeStatus(Done);
+        }
+    }
+    else {
+        changeStatus(Done);
+    }
 }
 
 void Session::currentExpressionStatusChanged(Cantor::Expression::Status status)
@@ -179,15 +184,6 @@ QString Session::worksheetPath() const {
 void Session::setWorksheetPath(const QString& path)
 {
     d->worksheetPath = path;
-}
-
-CompletionObject* Session::completionFor(const QString&, int)
-{
-    //Return nullptr per default, so Backends not offering tab completions don't have
-    //to reimplement this. This method should only be called on backends with
-    //the Completion Capability flag
-
-    return nullptr;
 }
 
 SyntaxHelpObject* Session::syntaxHelpFor(const QString&)
@@ -386,4 +382,15 @@ void Cantor::Session::testGraphicsPackages(QList<GraphicPackage> packages)
     // If handlingStatus size is empty (it means, that no connections have been done), then we will stay in the 'loop' event loop forever
     if (handlingStatus.size() != 0)
         loop.exec();
+}
+
+SymbolManager* Session::symbolManager() const
+{
+    return d->m_symbolManager;
+}
+
+void Session::setSymbolManager(SymbolManager* manager)
+{
+    delete d->m_symbolManager;
+    d->m_symbolManager = manager;
 }

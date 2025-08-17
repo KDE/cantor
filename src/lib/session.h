@@ -14,6 +14,7 @@
 #include "expression.h"
 #include "defaultvariablemodel.h"
 #include "graphicpackage.h"
+#include "symbolmanager.h"
 
 class QTextEdit;
 class QSyntaxHighlighter;
@@ -26,7 +27,6 @@ namespace Cantor
 {
 class Backend;
 class SessionPrivate;
-class CompletionObject;
 class SyntaxHelpObject;
 class DefaultVariableModel;
 
@@ -120,7 +120,7 @@ class CANTOR_EXPORT Session : public QObject
      * @return a Completion object, representing this completion
      * @see CompletionObject
      */
-    virtual CompletionObject* completionFor(const QString& cmd, int index = -1);
+    // virtual CompletionObject* completionFor(const QString& cmd, int index = -1);
 
     /**
      * Returns Syntax help, for this command.
@@ -207,6 +207,8 @@ class CANTOR_EXPORT Session : public QObject
      */
     const QList<GraphicPackage>& enabledGraphicPackages() const;
 
+    SymbolManager* symbolManager() const;
+
 public Q_SLOTS:
     void currentExpressionStatusChanged(Cantor::Expression::Status);
 
@@ -282,6 +284,8 @@ public Q_SLOTS:
      * This function allows get this message for particular package
      */
     virtual QString graphicPackageErrorMessage(QString packageId) const;
+
+    void setSymbolManager(SymbolManager* manager);
 
 Q_SIGNALS:
     void statusChanged(Cantor::Session::Status);
