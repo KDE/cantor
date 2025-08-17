@@ -2,16 +2,14 @@
     SPDX-FileCopyrightText: 2009 Milian Wolff <mail@milianw.de>
     SPDX-FileCopyrightText: 2011 Matteo Agostinelli <agostinelli@gmail.com>
     SPDX-FileCopyrightText: 2022 Alexander Semke (alexander.semke@web.de)
-
     SPDX-License-Identifier: GPL-2.0-or-later
 */
+
 
 #include "settings.h"
 
 #include "qalculatesession.h"
-#include "qalculatecompletionobject.h"
-#include "qalculatehighlighter.h"
-#include "defaultvariablemodel.h"
+#include "qalculatevariablemodel.h"
 
 #include <QProcess>
 #include <QRegularExpression>
@@ -19,14 +17,15 @@
 #include "qalculatesyntaxhelpobject.h"
 
 QalculateSession::QalculateSession( Cantor::Backend* backend)
-    : Session(backend),
-      m_variableModel(new Cantor::DefaultVariableModel(this))
+    : Session(backend)
 {
     /*
         qalc does all of this by default but we still need the CALCULATOR instance for plotting
         graphs
     */
 
+    setVariableModel(new QalculateVariableModel(this));
+    setSymbolManager(new SymbolManager(QStringLiteral("Qalculate")));
     if ( !CALCULATOR ) {
              new Calculator();
              CALCULATOR->loadGlobalDefinitions();
@@ -79,9 +78,12 @@ void QalculateSession::login()
 
     m_process->start();
 
+    variableModel()->update();
+
     changeStatus(Session::Done);
     Q_EMIT loginDone();
 }
+
 
 void QalculateSession::readOutput()
 {
@@ -92,43 +94,38 @@ void QalculateSession::readOutput()
 
         if(m_currentExpression && !m_output.isEmpty() && m_output.trimmed().endsWith(QLatin1String(">"))) {
 
-                // check if the commandQueue is empty or not . if it's not empty run the "runCommandQueue" function.
-                // store the output in finalOutput and clear m_output
 
-                if(m_currentCommand.trimmed().isEmpty())
-                    m_output.clear();
-
-                if(!m_output.toLower().contains(QLatin1String("error")) && m_isSaveCommand) {
-                        storeVariables(m_currentCommand, m_output);
-                        m_isSaveCommand = false;
-                }
-
-                m_output = m_output.trimmed();
-                m_output.remove(m_currentCommand);
-                if (!m_output.isEmpty())
-                    m_finalOutput.append(m_output);
-
-                // we tried to perform a save operation but failed(see parseSaveCommand()).In such a case
-                // m_output will be empty but m_saveError will contain the error message.
-                if(!m_saveError.isEmpty()) {
-                    m_finalOutput.append(m_saveError);
-                    m_saveError.clear();
-                }
-
-                m_finalOutput.append(QLatin1String("\n"));
+            if(m_currentCommand.trimmed().isEmpty())
                 m_output.clear();
 
+            if(!m_output.toLower().contains(QLatin1String("error")) && m_isSaveCommand) {
+                    storeVariables(m_currentCommand, m_output);
+                    m_isSaveCommand = false;
+            }
 
+            m_output = m_output.trimmed();
+            m_output.remove(m_currentCommand);
+            if (!m_output.isEmpty())
+                m_finalOutput.append(m_output);
 
-                if (!m_commandQueue.isEmpty())
-                    runCommandQueue();
-                else {
-                    qDebug () << "parsing output: " << m_finalOutput;
-                    m_currentExpression->parseOutput(m_finalOutput);
-                    m_finalOutput.clear();
-                }
-        }
+            if(!m_saveError.isEmpty()) {
+                m_finalOutput.append(m_saveError);
+                m_saveError.clear();
+            }
+
+            m_finalOutput.append(QLatin1String("\n"));
+            m_output.clear();
+
+            if (!m_commandQueue.isEmpty())
+                runCommandQueue();
+            else {
+                qDebug () << "parsing output: " << m_finalOutput;
+                m_currentExpression->parseOutput(m_finalOutput);
+                m_finalOutput.clear();
+            }
+    }
 }
+
 
 void QalculateSession::storeVariables(QString& currentCmd, QString output)
 {
@@ -176,7 +173,11 @@ void QalculateSession::storeVariables(QString& currentCmd, QString output)
         var.remove(QLatin1String(">"));
     }
     if(!value.isEmpty() && !var.isEmpty())
+    {
+        variableModel()->update();
         variables.insert(var, value);
+    }
+
 }
 
 void QalculateSession::readError()
@@ -253,6 +254,7 @@ void QalculateSession::runCommandQueue()
     }
 }
 
+
 QString QalculateSession::parseSaveCommand(QString& currentCmd)
 {
     /*
@@ -321,7 +323,6 @@ QString QalculateSession::parseSaveCommand(QString& currentCmd)
     return QLatin1String("");
 }
 
-//TODO: unify with the function in the base class
 void QalculateSession::currentExpressionStatusChanged(Cantor::Expression::Status status)
 {
     // depending on the status of the expression change the status of the session;
@@ -339,8 +340,8 @@ void QalculateSession::currentExpressionStatusChanged(Cantor::Expression::Status
             changeStatus(Cantor::Session::Done);
             if(m_expressionQueue.size() > 0)
                 m_expressionQueue.dequeue();
-            if(!m_expressionQueue.isEmpty())
-                runExpressionQueue();
+        if(!m_expressionQueue.isEmpty())
+            runExpressionQueue();
     }
 }
 
@@ -370,8 +371,8 @@ void QalculateSession::runExpressionQueue()
 
         else {
             /* there was some expression that was being executed by cantor. We run the new expression only
-               if the current expression's status is 'Done' or 'Error', if not , we simply return
-            */
+             *              if the current expression's status is 'Done' or 'Error', if not , we simply return
+             */
             Cantor::Expression::Status expr_status = m_currentExpression->status();
             if(expr_status != Cantor::Expression::Done &&  expr_status != Cantor::Expression::Error)
                 return;
@@ -384,23 +385,7 @@ void QalculateSession::runExpressionQueue()
     }
 }
 
-
-Cantor::CompletionObject* QalculateSession::completionFor(const QString& command, int index)
+const QMap<QString,QString>& QalculateSession::getVariables() const
 {
-    return new QalculateCompletionObject(command, index, this);
-}
-
-Cantor::SyntaxHelpObject* QalculateSession::syntaxHelpFor(const QString& cmd)
-{
-    return new QalculateSyntaxHelpObject(cmd, this);
-}
-
-QSyntaxHighlighter* QalculateSession::syntaxHighlighter(QObject* parent)
-{
-    return new QalculateHighlighter(parent);
-}
-
-Cantor::DefaultVariableModel* QalculateSession::variableModel() const
-{
-    return m_variableModel;
+    return variables;
 }

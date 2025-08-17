@@ -1,6 +1,5 @@
 /*
     SPDX-FileCopyrightText: 2009 Milian Wolff <mail@milianw.de>
-
     SPDX-License-Identifier: GPL-2.0-or-later
 */
 
@@ -13,10 +12,6 @@
 #include <QQueue>
 #include <QMap>
 
-namespace Cantor {
-class DefaultVariableModel;
-}
-
 class QProcess;
 
 class QalculateSession : public Cantor::Session
@@ -24,7 +19,6 @@ class QalculateSession : public Cantor::Session
     Q_OBJECT
 
 private:
-    Cantor::DefaultVariableModel* m_variableModel{nullptr};
     QProcess* m_process{nullptr};
     QalculateExpression* m_currentExpression{nullptr};
     QString m_output;
@@ -51,12 +45,8 @@ public:
     void interrupt() override;
 
     Cantor::Expression* evaluateExpression(const QString& command, Cantor::Expression::FinishingBehavior behave = Cantor::Expression::FinishingBehavior::DoNotDelete, bool internal = false) override;
-    Cantor::CompletionObject* completionFor(const QString& cmd, int index=-1) override;
-    Cantor::SyntaxHelpObject* syntaxHelpFor(const QString& cmd) override;
-    QSyntaxHighlighter* syntaxHighlighter(QObject* parent) override;
-
     void runExpression();
-    Cantor::DefaultVariableModel* variableModel() const override;
+    const QMap<QString,QString>& getVariables() const;
 
 public:
     QMap<QString,QString> variables;

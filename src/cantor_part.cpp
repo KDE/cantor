@@ -20,6 +20,7 @@
 #include "settings.h"
 #include "worksheet.h"
 #include "worksheetview.h"
+#include "worksheetentry.h"
 
 #include <KAboutData>
 #include <KActionCollection>
@@ -137,6 +138,8 @@ CantorPart::CantorPart(QObject* parent, const QVariantList& args)
     connect(collection, &KActionCollection::inserted, m_worksheet, &Worksheet::registerShortcut);
     m_worksheet->setActionCollection(collection);
 
+    m_worksheet->initActions();
+
     KStandardAction::saveAs(this, SLOT(fileSaveAs()), collection);
     m_save = KStandardAction::save(this, SLOT(save()), collection);
     m_save->setPriority(QAction::LowPriority);
@@ -238,7 +241,7 @@ CantorPart::CantorPart(QObject* parent, const QVariantList& args)
     m_highlight = new KToggleAction(i18n("Syntax Highlighting"), collection);
     m_highlight->setChecked(Settings::self()->highlightDefault());
     collection->addAction(QLatin1String("enable_highlighting"), m_highlight);
-    connect(m_highlight, &KToggleAction::toggled, m_worksheet, &Worksheet::enableHighlighting);
+    connect(m_highlight, &KToggleAction::toggled, m_worksheet, &Worksheet::setVariableHighlightingEnabled);
 
     m_completion = new KToggleAction(i18n("Completion"), collection);
     m_completion->setChecked(Settings::self()->completionDefault());
@@ -375,8 +378,6 @@ CantorPart::~CantorPart()
         disconnect(m_scriptEditor, SIGNAL(destroyed()), this, SLOT(scriptEditorClosed()));
         delete m_scriptEditor;
     }
-    if (m_searchBar)
-        delete m_searchBar;
 }
 
 void CantorPart::setReadWrite(bool rw)
@@ -676,6 +677,11 @@ void CantorPart::initialized()
         connect(m_worksheet->session(), &Cantor::Session::loginStarted,this, &CantorPart::worksheetSessionLoginStarted);
         connect(m_worksheet->session(), &Cantor::Session::loginDone,this, &CantorPart::worksheetSessionLoginDone);
         connect(m_worksheet->session(), &Cantor::Session::error, this, &CantorPart::showSessionError);
+
+        if (m_worksheet->session()->status() == Cantor::Session::Disable)
+        {
+            m_worksheet->session()->login();
+        }
 
         loadAssistants();
         adjustGuiToSession();
