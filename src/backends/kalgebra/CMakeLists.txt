@@ -3,8 +3,8 @@ set( KAlgebraBackend_SRCS
   kalgebrabackend.cpp
   kalgebrasession.cpp
   kalgebraexpression.cpp
-  kalgebracompletionobject.cpp
   kalgebraextensions.cpp
+  kalgebravariablemodel.cpp
 )
 
 remove_definitions(-DQT_NO_CAST_TO_ASCII)

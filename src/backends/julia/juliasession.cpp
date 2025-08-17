@@ -19,18 +19,16 @@
 
 #include "juliaexpression.h"
 #include "settings.h"
-#include "juliahighlighter.h"
-#include "juliakeywords.h"
 #include "juliavariablemodel.h"
 #include "juliaextensions.h"
 #include "juliabackend.h"
-#include "juliacompletionobject.h"
 
 using namespace Cantor;
 
 JuliaSession::JuliaSession(Cantor::Backend* backend) : Session(backend)
 {
     setVariableModel(new JuliaVariableModel(this));
+    setSymbolManager(new SymbolManager(QStringLiteral("Julia")));
 }
 
 JuliaSession::~JuliaSession()
@@ -219,16 +217,6 @@ Cantor::Expression *JuliaSession::evaluateExpression(const QString& cmd, Cantor:
     expr->evaluate();
 
     return expr;
-}
-
-Cantor::CompletionObject* JuliaSession::completionFor(const QString &command, int index)
-{
-    return new JuliaCompletionObject(command, index, this);
-}
-
-QSyntaxHighlighter* JuliaSession::syntaxHighlighter(QObject *parent)
-{
-    return new JuliaHighlighter(parent, this);
 }
 
 void JuliaSession::runJuliaCommand(const QString &command) const

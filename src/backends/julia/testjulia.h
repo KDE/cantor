@@ -37,10 +37,6 @@ private Q_SLOTS:
     /// Test that removing variable unregisters it
     void testRemoveVariables();
 
-    /// Test that auto completion provides expected results
-    void testAutoCompletion();
-    void testComplexAutocompletion();
-
     void testHelpRequest();
 
     void testLoginLogout();

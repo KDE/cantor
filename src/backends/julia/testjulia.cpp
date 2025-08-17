@@ -12,7 +12,6 @@
 #include "helpresult.h"
 #include "imageresult.h"
 #include "defaultvariablemodel.h"
-#include "completionobject.h"
 
 #include "settings.h"
 
@@ -243,48 +242,6 @@ void TestJulia::testRemoveVariables()
                 QVariant::fromValue(QString::number(i))
             );
         }
-    }
-}
-
-void TestJulia::testAutoCompletion()
-{
-    auto prefix = QLatin1String("ex");
-    auto completionObject = session()->completionFor(prefix);
-    waitForSignal(completionObject, SIGNAL(fetchingDone()));
-    auto completions = completionObject->completions();
-
-    QStringList completionsToCheck;
-    completionsToCheck << QLatin1String("exit");
-    completionsToCheck << QLatin1String("exponent");
-    completionsToCheck << QLatin1String("exp");
-
-    for (auto completion : completionsToCheck) {
-        QVERIFY(completions.contains(completion));
-    }
-
-    for (auto completion : completions) {
-        QVERIFY(completion.startsWith(prefix));
-    }
-}
-
-void TestJulia::testComplexAutocompletion()
-{
-    auto prefix = QLatin1String("Base.Ma");
-    auto completionObject = session()->completionFor(prefix);
-    waitForSignal(completionObject, SIGNAL(fetchingDone()));
-    auto completions = completionObject->completions();
-
-    QStringList completionsToCheck;
-    completionsToCheck << QLatin1String("Base.MainInclude");
-    completionsToCheck << QLatin1String("Base.Math");
-    completionsToCheck << QLatin1String("Base.Matrix");
-
-    for (auto completion : completionsToCheck) {
-        QVERIFY(completions.contains(completion));
-    }
-
-    for (auto completion : completions) {
-        QVERIFY(completion.startsWith(prefix));
     }
 }
 

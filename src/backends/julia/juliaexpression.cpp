@@ -9,7 +9,6 @@
 
 #include "settings.h"
 #include "juliasession.h"
-#include "juliakeywords.h"
 #include "textresult.h"
 #include "imageresult.h"
 

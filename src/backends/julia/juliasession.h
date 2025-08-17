@@ -11,7 +11,6 @@
 #include "session.h"
 
 class JuliaExpression;
-class JuliaCompletionObject;
 class JuliaVariableModel;
 class KProcess;
 class QDBusInterface;
@@ -58,18 +57,6 @@ public:
         const QString &command,
         Cantor::Expression::FinishingBehavior behave = Cantor::Expression::FinishingBehavior::DoNotDelete,
         bool internal = false) override;
-
-    /**
-     * @see Cantor::Session::completionFor
-     */
-    Cantor::CompletionObject *completionFor(
-        const QString &cmd,
-        int index = -1) override;
-
-    /**
-     * @see Cantor::Session::syntaxHighlighter
-     */
-    QSyntaxHighlighter *syntaxHighlighter(QObject *parent) override;
 
     QString plotFilePrefixPath() const;
 

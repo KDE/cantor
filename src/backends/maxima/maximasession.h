@@ -35,9 +35,6 @@ class MaximaSession : public Cantor::Session
 
     void setTypesettingEnabled(bool) override;
 
-    Cantor::CompletionObject* completionFor(const QString& command, int index=-1) override;
-    Cantor::SyntaxHelpObject* syntaxHelpFor(const QString& command) override;
-    QSyntaxHighlighter* syntaxHighlighter(QObject*) override;
     void runFirstExpression() override;
 
     Mode mode() const;

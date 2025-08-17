@@ -7,11 +7,8 @@ set(JuliaBackend_SRCS
   juliabackend.cpp
   juliasession.cpp
   juliaexpression.cpp
-  juliakeywords.cpp
   juliavariablemodel.cpp
-  juliahighlighter.cpp
   juliaextensions.cpp
-  juliacompletionobject.cpp
   juliasettingswidget.cpp
   ../backendsettingswidget.cpp
 )

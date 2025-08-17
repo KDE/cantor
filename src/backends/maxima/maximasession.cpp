@@ -6,9 +6,6 @@
 
 #include "maximasession.h"
 #include "maximaexpression.h"
-#include "maximacompletionobject.h"
-#include "maximasyntaxhelpobject.h"
-#include "maximahighlighter.h"
 #include "maximavariablemodel.h"
 #include "settings.h"
 
@@ -36,6 +33,7 @@ const QRegularExpression MaximaSession::MaximaInputPrompt =
 MaximaSession::MaximaSession( Cantor::Backend* backend ) : Session(backend)
 {
     setVariableModel(new MaximaVariableModel(this));
+    setSymbolManager(new SymbolManager(QStringLiteral("Maxima")));
 }
 
 void MaximaSession::login()
@@ -316,21 +314,6 @@ void MaximaSession::setTypesettingEnabled(bool enable)
     }
 
     Cantor::Session::setTypesettingEnabled(enable);
-}
-
-Cantor::CompletionObject* MaximaSession::completionFor(const QString& command, int index)
-{
-    return new MaximaCompletionObject(command, index, this);
-}
-
-Cantor::SyntaxHelpObject* MaximaSession::syntaxHelpFor(const QString& command)
-{
-    return new MaximaSyntaxHelpObject(command, this);
-}
-
-QSyntaxHighlighter* MaximaSession::syntaxHighlighter(QObject* parent)
-{
-    return new MaximaHighlighter(parent, this);
 }
 
 void MaximaSession::write(const QString& exp) {

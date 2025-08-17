@@ -5,11 +5,11 @@
 */
 
 #include "kalgebrasession.h"
+#include "kalgebravariablemodel.h"
 
 #include "settings.h"
 
 #include "kalgebraexpression.h"
-#include "kalgebracompletionobject.h"
 #include <analitzagui/algebrahighlighter.h>
 #include <analitza/analyzer.h>
 #include <QTextEdit>
@@ -20,12 +20,18 @@
 #include <analitzagui/variablesmodel.h>
 
 KAlgebraSession::KAlgebraSession( Cantor::Backend* backend)
-    : Session(backend)
+: Session(backend)
 {
     m_analyzer = new Analitza::Analyzer;
     m_operatorsModel = new OperatorsModel;
-    m_variablesModel = new Analitza::VariablesModel(m_analyzer->variables());
+
+    Analitza::VariablesModel* analitzaVariables = new Analitza::VariablesModel(m_analyzer->variables(), this);
+
+    m_variableModel = new KAlgebraVariableModel(analitzaVariables, m_operatorsModel, this);
+    setVariableModel(m_variableModel);
+
     m_operatorsModel->setVariables(m_analyzer->variables());
+    setSymbolManager(new SymbolManager(QStringLiteral("Kalgebra")));
 }
 
 KAlgebraSession::~KAlgebraSession()
@@ -41,6 +47,8 @@ void KAlgebraSession::login()
 
         evaluateExpression(autorunScripts, KAlgebraExpression::DeleteOnFinish, true);
     }
+
+    variableModel()->update();
 
     changeStatus(Cantor::Session::Done);
     Q_EMIT loginDone();
@@ -69,13 +77,8 @@ Cantor::Expression* KAlgebraSession::evaluateExpression(const QString& cmd,
     changeStatus(Cantor::Session::Done);
 
     m_operatorsModel->setVariables(m_analyzer->variables());
-    m_variablesModel->updateInformation();
+    variableModel()->update();
     return expr;
-}
-
-Cantor::CompletionObject* KAlgebraSession::completionFor(const QString& command, int index)
-{
-    return new KAlgebraCompletionObject(command, index, this);
 }
 
 Cantor::SyntaxHelpObject* KAlgebraSession::syntaxHelpFor(const QString& cmd)
@@ -96,7 +99,4 @@ QSyntaxHighlighter* KAlgebraSession::syntaxHighlighter(QObject* parent)
     return new AlgebraHighlighter(nullptr);
 }
 
-QAbstractItemModel* KAlgebraSession::variableDataModel() const
-{
-    return m_variablesModel;
-}
+
