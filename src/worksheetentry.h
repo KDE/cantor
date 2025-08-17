@@ -10,6 +10,7 @@
 #include <QGraphicsObject>
 
 #include "worksheet.h"
+#include "worksheettexteditoritem.h"
 #include "worksheettextitem.h"
 #include "worksheetcursor.h"
 #include "worksheetcontrolitem.h"
@@ -21,6 +22,7 @@ class ImageEntry;
 class PageBreakEntry;
 class LaTeXEntry;
 
+class WorksheetTextEditorItem;
 class WorksheetTextItem;
 class ActionBar;
 
@@ -72,7 +74,7 @@ class WorksheetEntry : public QGraphicsObject
 
     virtual void showCompletion();
 
-    virtual bool focusEntry(int pos = WorksheetTextItem::TopLeft, qreal xCoord = 0);
+    virtual bool focusEntry(int pos = WorksheetTextEditorItem::TopLeft, qreal xCoord = 0);
 
     virtual qreal setGeometry(qreal x, qreal entry_zone_x, qreal y, qreal w);
     virtual void layOutForWidth(qreal entry_zone_x, qreal w, bool force = false) = 0;
@@ -87,7 +89,9 @@ class WorksheetEntry : public QGraphicsObject
         InternalEvaluation, DoNothing, FocusNext, EvaluateNext
     };
 
-    virtual WorksheetTextItem* highlightItem();
+    virtual QGraphicsObject* mainTextItem() const;
+
+    virtual WorksheetTextEditorItem* highlightItem();
 
     bool hasActionBar();
 
@@ -97,6 +101,11 @@ class WorksheetEntry : public QGraphicsObject
     virtual WorksheetCursor search(const QString& pattern, unsigned flags,
                                    QTextDocument::FindFlags qt_flags,
                                    const WorksheetCursor& pos = WorksheetCursor());
+    virtual KWorksheetCursor search(const QString& pattern, unsigned flags,
+                            KTextEditor::SearchOptions options,
+                            const KWorksheetCursor& pos = KWorksheetCursor());
+    virtual bool replace(const QString& replacement);
+    void replaceAll(const QString& pattern, const QString& replacement, unsigned flags, KTextEditor::SearchOptions options);
 
     bool isCellSelected();
     void setCellSelected(bool);
@@ -148,8 +157,8 @@ class WorksheetEntry : public QGraphicsObject
     virtual void sizeAnimated();
     virtual void startRemoving(bool warn = true);
     bool stopRemoving();
-    void moveToPreviousEntry(int pos = WorksheetTextItem::BottomRight, qreal x = 0);
-    void moveToNextEntry(int pos = WorksheetTextItem::TopLeft, qreal x = 0);
+    void moveToPreviousEntry(int pos = WorksheetTextEditorItem::BottomRight, qreal x = 0);
+    void moveToNextEntry(int pos = WorksheetTextEditorItem::TopLeft, qreal x = 0);
     void recalculateSize();
 
     // similar to recalculateSize, but the size change is animated

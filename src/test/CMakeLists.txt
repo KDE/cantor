@@ -2,8 +2,10 @@ set(worksheettest_SRCS
     ../worksheet.cpp
     ../worksheetview.cpp
     ../worksheetentry.cpp
+    ../worksheettexteditoritem.cpp
     ../worksheettextitem.cpp
     ../worksheetimageitem.cpp
+    ../cantorcompletionmodel.cpp
     ../commandentry.cpp
     ../textentry.cpp
     ../markdownentry.cpp
@@ -28,6 +30,7 @@ set(worksheettest_SRCS
     ../mathrender.cpp
     ../mathrendertask.cpp
     ../worksheetcontrolitem.cpp
+    ../dynamichighlighter.cpp
     worksheet_test.cpp)
 
 ki18n_wrap_ui(worksheettest_SRCS ../imagesettings.ui)

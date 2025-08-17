@@ -61,9 +61,11 @@ update_xdg_mimetypes(${KDE_INSTALL_MIMEDIR})
 
 set(cantor_PART_SRCS
    cantor_part.cpp
+   cantorcompletionmodel.cpp
    worksheet.cpp
    worksheetview.cpp
    worksheetentry.cpp
+   worksheettexteditoritem.cpp
    worksheettextitem.cpp
    worksheetimageitem.cpp
    commandentry.cpp
@@ -90,6 +92,7 @@ set(cantor_PART_SRCS
    mathrender.cpp
    mathrendertask.cpp
    worksheetcontrolitem.cpp
+   dynamichighlighter.cpp
 
    cantor_part.qrc
  )
@@ -108,7 +111,7 @@ kcoreaddons_add_plugin(cantorpart
 
 add_dependencies(cantorpart discount_project)
 target_include_directories(cantorpart PRIVATE ${CMAKE_BINARY_DIR}/thirdparty/src/discount_project)
-target_link_libraries(cantorpart KF6::Parts KF6::NewStuffWidgets KF6::TextEditor
+target_link_libraries(cantorpart KF6::Parts KF6::NewStuffWidgets KF6::TextEditor KF6::TextWidgets
                      KF6::KIOCore KF6::KIOFileWidgets KF6::KIOWidgets Discount::Lib
                      Qt6::PrintSupport cantorlibs cantor_config LibXslt::LibXslt LibXml2::LibXml2)
 

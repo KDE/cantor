@@ -22,7 +22,6 @@
 #include "lib/extension.h"
 #include "lib/helpresult.h"
 #include "lib/session.h"
-#include "lib/defaulthighlighter.h"
 
 #include <config-cantor.h>
 
@@ -72,6 +71,8 @@ Worksheet::Worksheet(Cantor::Backend* backend, QWidget* parent, bool useDefaultW
 
     connect(m_cursorItemTimer, &QTimer::timeout, this, &Worksheet::animateEntryCursor);
     m_cursorItemTimer->start(500);
+
+    m_variableHighlightingEnabled = Settings::self()->highlightDefault();
 
     if (backend)
         initSession(backend);
@@ -203,7 +204,7 @@ void Worksheet::updateLayout()
                 m_maxPromptWidth = std::max(static_cast<HierarchyEntry*>(entry)->hierarchyItemWidth(), m_maxPromptWidth);
     }
 
-    const qreal w = m_viewWidth - LeftMargin - RightMargin - (WorksheetEntry::ControlElementWidth + WorksheetEntry::ControlElementBorder) * m_hierarchyMaxDepth;
+   const qreal w = m_viewWidth - LeftMargin - RightMargin;
     qreal y = TopMargin;
     const qreal x = LeftMargin;
     for (auto* entry = firstEntry(); entry; entry = entry->next())
@@ -211,7 +212,7 @@ void Worksheet::updateLayout()
 
     updateHierarchyControlsLayout();
 
-    setSceneRect(QRectF(0, 0, sceneRect().width(), y));
+    setSceneRect(QRectF(0, 0, m_viewWidth, y));
     if (cursorRectVisible)
         makeVisible(worksheetCursor());
     else if (atEnd)
@@ -405,6 +406,23 @@ void Worksheet::makeVisible(WorksheetEntry* entry)
     worksheetView()->makeVisible(r);
 }
 
+void Worksheet::makeVisible(const KWorksheetCursor& cursor)
+{
+    if(!cursor.cursor().isValid())
+    {
+        if(cursor.entry())
+            makeVisible(cursor.entry());
+        return;
+    }
+    QRectF r = cursor.textItem()->sceneCursorRect();
+    QRectF er = cursor.entry()->boundingRect();
+    er = cursor.entry()->mapRectToScene(er);
+    er.adjust(0, -10, 0, 10);
+    r.adjust(0, qMax(qreal(-100.0), er.top() - r.top()),
+             0, qMin(qreal(100.0), er.bottom() - r.bottom()));
+    worksheetView()->makeVisible(r);
+}
+
 void Worksheet::makeVisible(const WorksheetCursor& cursor)
 {
     if (cursor.textCursor().isNull()) {
@@ -432,28 +450,60 @@ void Worksheet::setModified()
         Q_EMIT modified();
 }
 
-WorksheetCursor Worksheet::worksheetCursor()
+KWorksheetCursor Worksheet::worksheetCursor()
 {
     auto* entry = currentEntry();
     auto* item = currentTextItem();
 
     if (!entry || !item)
-        return WorksheetCursor();
-    return WorksheetCursor(entry, item, item->textCursor());
+        return KWorksheetCursor();
+    return KWorksheetCursor(entry, item, item->view()->cursorPosition());
 }
 
 void Worksheet::setWorksheetCursor(const WorksheetCursor& cursor)
 {
-    if (!cursor.isValid())
+    if (!cursor.isValid() || !cursor.textItem())
+    {
         return;
+    }
 
     if (m_lastFocusedTextItem)
+    {
         m_lastFocusedTextItem->clearSelection();
+    }
+    if (m_legacylastFocusedTextItem)
+    {
+        m_legacylastFocusedTextItem->clearSelection();
+    }
 
-    m_lastFocusedTextItem = cursor.textItem();
+    m_legacylastFocusedTextItem = cursor.textItem();
+    m_lastFocusedTextItem = nullptr;
 
     cursor.textItem()->setTextCursor(cursor.textCursor());
 }
+
+void Worksheet::setWorksheetCursor(const KWorksheetCursor& cursor)
+{
+
+    if(!cursor.isValid()) {
+        return;
+    }
+
+    if (m_lastFocusedTextItem)
+    {
+        m_lastFocusedTextItem->clearSelection();
+    }
+    if (m_legacylastFocusedTextItem)
+    {
+        m_legacylastFocusedTextItem->clearSelection();
+    }
+
+    m_lastFocusedTextItem = cursor.textItem();
+    m_legacylastFocusedTextItem = nullptr;
+
+    cursor.textItem()->view()->setSelection(cursor.foundRange());
+}
+
 
 WorksheetEntry* Worksheet::currentEntry()
 {
@@ -986,110 +1036,29 @@ void Worksheet::interruptCurrentEntryEvaluation()
     currentEntry()->interruptEvaluation();
 }
 
-void Worksheet::highlightItem(WorksheetTextItem* item)
+
+
+
+
+bool Worksheet::variableHighlightingEnabled() const
 {
-    if (!m_highlighter)
-        return;
-
-    auto* oldDocument = m_highlighter->document();
-    QList<QVector<QTextLayout::FormatRange> > formats;
-
-    if (oldDocument)
-    {
-        for (QTextBlock b = oldDocument->firstBlock();
-             b.isValid(); b = b.next())
-        {
-            formats.append(b.layout()->formats());
-        }
-    }
-
-    // Not every highlighter is a Cantor::DefaultHighligther (e.g. the
-    // highlighter for KAlgebra)
-    auto* hl = qobject_cast<Cantor::DefaultHighlighter*>(m_highlighter);
-    if (hl)
-        hl->setTextItem(item);
-    else
-        m_highlighter->setDocument(item->document());
-
-    if (oldDocument)
-    {
-        QTextCursor cursor(oldDocument);
-        cursor.beginEditBlock();
-        for (QTextBlock b = oldDocument->firstBlock();
-             b.isValid(); b = b.next())
-        {
-            b.layout()->setFormats(formats.first());
-            formats.pop_front();
-        }
-        cursor.endEditBlock();
-    }
+    return m_variableHighlightingEnabled;
 }
 
-void Worksheet::rehighlight()
+void Worksheet::setVariableHighlightingEnabled(bool enabled)
 {
-    if(m_highlighter)
-    {
-        // highlight every entry
-        WorksheetEntry* entry;
-        for (entry = firstEntry(); entry; entry = entry->next()) {
-            auto* item = entry->highlightItem();
-            if (!item)
-                continue;
+    if (m_variableHighlightingEnabled == enabled) {
+        return; // 状态未改变，无需操作
+    }
 
-            highlightItem(item);
-            m_highlighter->rehighlight();
+    m_variableHighlightingEnabled = enabled;
+
+    // 遍历所有条目，将开关状态通知给每一个 CommandEntry
+    for (auto* entry = firstEntry(); entry; entry = entry->next()) {
+        if (entry->type() == CommandEntry::Type) {
+            static_cast<CommandEntry*>(entry)->setVariableHighlightingEnabled(enabled);
         }
-
-        entry = currentEntry();
-        auto* textitem = entry ? entry->highlightItem() : nullptr;
-        if (textitem && textitem->hasFocus())
-            highlightItem(textitem);
     }
-    else
-    {
-        // remove highlighting from entries
-        WorksheetEntry* entry;
-        for (entry = firstEntry(); entry; entry = entry->next()) {
-            auto* item = entry->highlightItem();
-            if (!item)
-                continue;
-
-            QTextCursor cursor(item->document());
-            cursor.beginEditBlock();
-            for (auto b = item->document()->firstBlock(); b.isValid(); b = b.next())
-                b.layout()->clearFormats();
-
-            cursor.endEditBlock();
-        }
-        update();
-    }
-}
-
-void Worksheet::enableHighlighting(bool highlight)
-{
-    if(highlight)
-    {
-        if(m_highlighter)
-            m_highlighter->deleteLater();
-
-        if (!m_readOnly)
-            m_highlighter=session()->syntaxHighlighter(this);
-        else
-            m_highlighter=nullptr;
-
-        if(!m_highlighter)
-            m_highlighter = new Cantor::DefaultHighlighter(this);
-
-        //TODO: new syntax
-        connect(m_highlighter, SIGNAL(rulesChanged()), this, SLOT(rehighlight()));
-    }else
-    {
-        if(m_highlighter)
-            m_highlighter->deleteLater();
-        m_highlighter=nullptr;
-    }
-
-    rehighlight();
 }
 
 void Worksheet::enableCompletion(bool enable)
@@ -1503,7 +1472,6 @@ bool Worksheet::loadCantorWorksheet(const KZip& archive)
 
     //Set the Highlighting, depending on the current state
     //If the session isn't logged in, use the default
-    enableHighlighting( m_highlighter!=nullptr || Settings::highlightDefault() );
 
     Q_EMIT loaded();
     return true;
@@ -1539,7 +1507,6 @@ void Worksheet::initSession(Cantor::Backend* backend)
     {
         if (Cantor::LatexRenderer::isLatexAvailable())
             m_session->setTypesettingEnabled(Settings::self()->typesetDefault());
-        enableHighlighting(Settings::self()->highlightDefault());
         enableCompletion(Settings::self()->completionDefault());
         enableExpressionNumbering(Settings::self()->expressionNumberingDefault());
         enableAnimations(Settings::self()->animationDefault());
@@ -1744,7 +1711,6 @@ bool Worksheet::loadJupyterNotebook(const QJsonDocument& doc)
     updateHierarchyLayout();
     updateLayout();
 
-    enableHighlighting( m_highlighter!=nullptr || Settings::highlightDefault() );
 
     Q_EMIT loaded();
     return true;
@@ -1824,7 +1790,7 @@ void Worksheet::populateMenu(QMenu* menu, QPointF pos)
         auto* entry = entryAt(pos);
         if (entry && !entry->isAncestorOf(m_lastFocusedTextItem)) {
             auto* item =
-                qgraphicsitem_cast<WorksheetTextItem*>(itemAt(pos, QTransform()));
+                qgraphicsitem_cast<WorksheetTextEditorItem*>(itemAt(pos, QTransform()));
             if (item && item->isEditable())
                 m_lastFocusedTextItem = item;
         }
@@ -2269,78 +2235,138 @@ void Worksheet::initActions()
      */
 }
 
-WorksheetTextItem* Worksheet::lastFocusedTextItem()
+WorksheetTextEditorItem* Worksheet::LastFocusedTextItem()
 {
     return m_lastFocusedTextItem;
 }
 
+WorksheetTextItem* Worksheet::lastFocusedTextItem()
+{
+    return m_legacylastFocusedTextItem;
+}
+
 void Worksheet::updateFocusedTextItem(WorksheetTextItem* newItem)
 {
-    // No need update and Q_EMIT signals about editing actions in readonly
-    // So support only copy action and reset selection
-    if (m_readOnly)
-    {
-        if (m_lastFocusedTextItem && m_lastFocusedTextItem != newItem)
-        {
-            disconnect(this, SIGNAL(copy()), m_lastFocusedTextItem, SLOT(copy()));
+    if (m_lastFocusedTextItem) {
+        disconnect(m_lastFocusedTextItem, &WorksheetTextEditorItem::undoAvailable, this, &Worksheet::undoAvailable);
+        disconnect(m_lastFocusedTextItem, &WorksheetTextEditorItem::redoAvailable, this, &Worksheet::redoAvailable);
+        disconnect(this, &Worksheet::undo, m_lastFocusedTextItem, &WorksheetTextEditorItem::undo);
+        disconnect(this, &Worksheet::redo, m_lastFocusedTextItem, &WorksheetTextEditorItem::redo);
+        disconnect(m_lastFocusedTextItem, &WorksheetTextEditorItem::cutAvailable, this, &Worksheet::cutAvailable);
+        disconnect(m_lastFocusedTextItem, &WorksheetTextEditorItem::copyAvailable, this, &Worksheet::copyAvailable);
+        disconnect(m_lastFocusedTextItem, &WorksheetTextEditorItem::pasteAvailable, this, &Worksheet::pasteAvailable);
+        disconnect(this, &Worksheet::cut, m_lastFocusedTextItem, &WorksheetTextEditorItem::cut);
+        disconnect(this, &Worksheet::copy, m_lastFocusedTextItem, &WorksheetTextEditorItem::copy);
+        m_lastFocusedTextItem = nullptr;
+    }
+
+    if (m_legacylastFocusedTextItem && m_legacylastFocusedTextItem != newItem) {
+        disconnect(m_legacylastFocusedTextItem, &WorksheetTextItem::undoAvailable, this, &Worksheet::undoAvailable);
+        disconnect(m_legacylastFocusedTextItem, &WorksheetTextItem::redoAvailable, this, &Worksheet::redoAvailable);
+        disconnect(this, &Worksheet::undo, m_legacylastFocusedTextItem, &WorksheetTextItem::undo);
+        disconnect(this, &Worksheet::redo, m_legacylastFocusedTextItem, &WorksheetTextItem::redo);
+        disconnect(m_legacylastFocusedTextItem, &WorksheetTextItem::cutAvailable, this, &Worksheet::cutAvailable);
+        disconnect(m_legacylastFocusedTextItem, &WorksheetTextItem::copyAvailable, this, &Worksheet::copyAvailable);
+        disconnect(m_legacylastFocusedTextItem, &WorksheetTextItem::pasteAvailable, this, &Worksheet::pasteAvailable);
+        disconnect(this, &Worksheet::cut, m_legacylastFocusedTextItem, &WorksheetTextItem::cut);
+        disconnect(this, &Worksheet::copy, m_legacylastFocusedTextItem, &WorksheetTextItem::copy);
+        m_legacylastFocusedTextItem->clearSelection();
+    }
+
+    if (newItem) {
+        WorksheetEntry* entry = qobject_cast<WorksheetEntry*>(newItem->parentObject());
+        if (entry) {
+            setAcceptRichText(entry->acceptRichText());
+        }
+
+        Q_EMIT undoAvailable(newItem->isUndoAvailable());
+        Q_EMIT redoAvailable(newItem->isRedoAvailable());
+        connect(newItem, &WorksheetTextItem::undoAvailable, this, &Worksheet::undoAvailable);
+        connect(newItem, &WorksheetTextItem::redoAvailable, this, &Worksheet::redoAvailable);
+        connect(this, &Worksheet::undo, newItem, &WorksheetTextItem::undo);
+        connect(this, &Worksheet::redo, newItem, &WorksheetTextItem::redo);
+        Q_EMIT cutAvailable(newItem->isCutAvailable());
+        Q_EMIT copyAvailable(newItem->isCopyAvailable());
+        Q_EMIT pasteAvailable(newItem->isPasteAvailable());
+        connect(newItem, &WorksheetTextItem::cutAvailable, this, &Worksheet::cutAvailable);
+        connect(newItem, &WorksheetTextItem::copyAvailable, this, &Worksheet::copyAvailable);
+        connect(newItem, &WorksheetTextItem::pasteAvailable, this, &Worksheet::pasteAvailable);
+        connect(this, &Worksheet::cut, newItem, &WorksheetTextItem::cut);
+        connect(this, &Worksheet::copy, newItem, &WorksheetTextItem::copy);
+    }
+    else {
+        setAcceptRichText(false);
+        Q_EMIT undoAvailable(false);
+        Q_EMIT redoAvailable(false);
+        Q_EMIT cutAvailable(false);
+        Q_EMIT copyAvailable(false);
+        Q_EMIT pasteAvailable(false);
+    }
+    m_legacylastFocusedTextItem = newItem;
+}
+
+void Worksheet::updateFocusedTextItem(WorksheetTextEditorItem* newItem)
+{
+    if (m_legacylastFocusedTextItem) {
+        disconnect(m_legacylastFocusedTextItem, &WorksheetTextItem::undoAvailable, this, &Worksheet::undoAvailable);
+        disconnect(m_legacylastFocusedTextItem, &WorksheetTextItem::redoAvailable, this, &Worksheet::redoAvailable);
+        disconnect(this, &Worksheet::undo, m_legacylastFocusedTextItem, &WorksheetTextItem::undo);
+        disconnect(this, &Worksheet::redo, m_legacylastFocusedTextItem, &WorksheetTextItem::redo);
+        disconnect(m_legacylastFocusedTextItem, &WorksheetTextItem::cutAvailable, this, &Worksheet::cutAvailable);
+        disconnect(m_legacylastFocusedTextItem, &WorksheetTextItem::copyAvailable, this, &Worksheet::copyAvailable);
+        disconnect(m_legacylastFocusedTextItem, &WorksheetTextItem::pasteAvailable, this, &Worksheet::pasteAvailable);
+        disconnect(this, &Worksheet::cut, m_legacylastFocusedTextItem, &WorksheetTextItem::cut);
+        disconnect(this, &Worksheet::copy, m_legacylastFocusedTextItem, &WorksheetTextItem::copy);
+        m_legacylastFocusedTextItem = nullptr;
+    }
+
+    if (m_readOnly) {
+        if (m_lastFocusedTextItem && m_lastFocusedTextItem != newItem) {
+            disconnect(this, &Worksheet::copy, m_lastFocusedTextItem, &WorksheetTextEditorItem::copy);
             m_lastFocusedTextItem->clearSelection();
         }
-
-        if (newItem && m_lastFocusedTextItem != newItem)
-        {
-            connect(this, SIGNAL(copy()), newItem, SLOT(copy()));
+        if (newItem && m_lastFocusedTextItem != newItem) {
+            connect(this, &Worksheet::copy, newItem, &WorksheetTextEditorItem::copy);
             Q_EMIT copyAvailable(newItem->isCopyAvailable());
-        }
-        else if (!newItem)
-        {
+        } else if (!newItem) {
             Q_EMIT copyAvailable(false);
         }
-
         m_lastFocusedTextItem = newItem;
         return;
     }
 
     if (m_lastFocusedTextItem && m_lastFocusedTextItem != newItem) {
-        disconnect(m_lastFocusedTextItem, SIGNAL(undoAvailable(bool)),
-                   this, SIGNAL(undoAvailable(bool)));
-        disconnect(m_lastFocusedTextItem, SIGNAL(redoAvailable(bool)),
-                   this, SIGNAL(redoAvailable(bool)));
-        disconnect(this, SIGNAL(undo()), m_lastFocusedTextItem, SLOT(undo()));
-        disconnect(this, SIGNAL(redo()), m_lastFocusedTextItem, SLOT(redo()));
-        disconnect(m_lastFocusedTextItem, SIGNAL(cutAvailable(bool)),
-                   this, SIGNAL(cutAvailable(bool)));
-        disconnect(m_lastFocusedTextItem, SIGNAL(copyAvailable(bool)),
-                   this, SIGNAL(copyAvailable(bool)));
-        disconnect(m_lastFocusedTextItem, SIGNAL(pasteAvailable(bool)),
-                   this, SIGNAL(pasteAvailable(bool)));
-        disconnect(this, SIGNAL(cut()), m_lastFocusedTextItem, SLOT(cut()));
-        disconnect(this, SIGNAL(copy()), m_lastFocusedTextItem, SLOT(copy()));
-
+        // 对新组件也使用精确断开
+        disconnect(m_lastFocusedTextItem, &WorksheetTextEditorItem::undoAvailable, this, &Worksheet::undoAvailable);
+        disconnect(m_lastFocusedTextItem, &WorksheetTextEditorItem::redoAvailable, this, &Worksheet::redoAvailable);
+        disconnect(this, &Worksheet::undo, m_lastFocusedTextItem, &WorksheetTextEditorItem::undo);
+        disconnect(this, &Worksheet::redo, m_lastFocusedTextItem, &WorksheetTextEditorItem::redo);
+        disconnect(m_lastFocusedTextItem, &WorksheetTextEditorItem::cutAvailable, this, &Worksheet::cutAvailable);
+        disconnect(m_lastFocusedTextItem, &WorksheetTextEditorItem::copyAvailable, this, &Worksheet::copyAvailable);
+        disconnect(m_lastFocusedTextItem, &WorksheetTextEditorItem::pasteAvailable, this, &Worksheet::pasteAvailable);
+        disconnect(this, &Worksheet::cut, m_lastFocusedTextItem, &WorksheetTextEditorItem::cut);
+        disconnect(this, &Worksheet::copy, m_lastFocusedTextItem, &WorksheetTextEditorItem::copy);
         m_lastFocusedTextItem->clearSelection();
     }
 
     if (newItem && m_lastFocusedTextItem != newItem) {
-        setAcceptRichText(newItem->richTextEnabled());
+        setAcceptRichText(false);
         Q_EMIT undoAvailable(newItem->isUndoAvailable());
         Q_EMIT redoAvailable(newItem->isRedoAvailable());
-        connect(newItem, SIGNAL(undoAvailable(bool)),
-                this, SIGNAL(undoAvailable(bool)));
-        connect(newItem, SIGNAL(redoAvailable(bool)),
-                this, SIGNAL(redoAvailable(bool)));
-        connect(this, SIGNAL(undo()), newItem, SLOT(undo()));
-        connect(this, SIGNAL(redo()), newItem, SLOT(redo()));
+        connect(newItem, &WorksheetTextEditorItem::undoAvailable, this, &Worksheet::undoAvailable);
+        connect(newItem, &WorksheetTextEditorItem::redoAvailable, this, &Worksheet::redoAvailable);
+        connect(this, &Worksheet::undo, newItem, &WorksheetTextEditorItem::undo);
+        connect(this, &Worksheet::redo, newItem, &WorksheetTextEditorItem::redo);
         Q_EMIT cutAvailable(newItem->isCutAvailable());
         Q_EMIT copyAvailable(newItem->isCopyAvailable());
         Q_EMIT pasteAvailable(newItem->isPasteAvailable());
-        connect(newItem, SIGNAL(cutAvailable(bool)),
-                this, SIGNAL(cutAvailable(bool)));
-        connect(newItem, SIGNAL(copyAvailable(bool)),
-                this, SIGNAL(copyAvailable(bool)));
-        connect(newItem, SIGNAL(pasteAvailable(bool)),
-                this, SIGNAL(pasteAvailable(bool)));
-        connect(this, SIGNAL(cut()), newItem, SLOT(cut()));
-        connect(this, SIGNAL(copy()), newItem, SLOT(copy()));
+        connect(newItem, &WorksheetTextEditorItem::cutAvailable, this, &Worksheet::cutAvailable);
+        connect(newItem, &WorksheetTextEditorItem::copyAvailable, this, &Worksheet::copyAvailable);
+        connect(newItem, &WorksheetTextEditorItem::pasteAvailable, this, &Worksheet::pasteAvailable);
+        connect(this, &Worksheet::cut, newItem, &WorksheetTextEditorItem::cut);
+        connect(this, &Worksheet::copy, newItem, &WorksheetTextEditorItem::copy);
     } else if (!newItem) {
+        setAcceptRichText(false);
         Q_EMIT undoAvailable(false);
         Q_EMIT redoAvailable(false);
         Q_EMIT cutAvailable(false);
@@ -2349,6 +2375,7 @@ void Worksheet::updateFocusedTextItem(WorksheetTextItem* newItem)
     }
     m_lastFocusedTextItem = newItem;
 }
+
 
 /*!
  * handles the paste action triggered in cantor_part.
@@ -2365,8 +2392,8 @@ void Worksheet::paste() {
 
 void Worksheet::setRichTextInformation(const RichTextInfo& info)
 {
-    if (!m_boldAction)
-        initActions();
+    // if (!m_boldAction)
+    //     initActions();
 
     m_boldAction->setChecked(info.bold);
     m_italicAction->setChecked(info.italic);
@@ -2389,104 +2416,120 @@ void Worksheet::setRichTextInformation(const RichTextInfo& info)
 void Worksheet::setAcceptRichText(bool b)
 {
     if (!m_readOnly)
+    {
         for(auto* action : m_richTextActionList)
+        {
+            if (!action) continue;
             action->setVisible(b);
+        }
+    }
 }
 
-WorksheetTextItem* Worksheet::currentTextItem()
+WorksheetTextEditorItem* Worksheet::currentTextItem()
 {
     auto* item = focusItem();
     if (!item)
         item = m_lastFocusedTextItem;
-    while (item && item->type() != WorksheetTextItem::Type)
+    while (item && item->type() != WorksheetTextEditorItem::Type)
         item = item->parentItem();
 
-    return qgraphicsitem_cast<WorksheetTextItem*>(item);
+    return qgraphicsitem_cast<WorksheetTextEditorItem*>(item);
 }
 
 void Worksheet::setTextForegroundColor()
 {
-    auto* item = currentTextItem();
-    if (item)
-        item->setTextForegroundColor();
+    if (m_legacylastFocusedTextItem)
+        m_legacylastFocusedTextItem->setTextForegroundColor();
 }
 
 void Worksheet::setTextBackgroundColor()
 {
-    auto* item = currentTextItem();
-    if (item)
-        item->setTextBackgroundColor();
+    if (m_lastFocusedTextItem)
+        m_lastFocusedTextItem->setTextBackgroundColor();
+    else if (m_legacylastFocusedTextItem)
+        m_legacylastFocusedTextItem->setTextBackgroundColor();
 }
 
 void Worksheet::setTextBold(bool b)
 {
-    auto* item = currentTextItem();
-    if (item)
-        item->setTextBold(b);
+    if (m_lastFocusedTextItem)
+        m_lastFocusedTextItem->setTextBold(b);
+    else if (m_legacylastFocusedTextItem)
+        m_legacylastFocusedTextItem->setTextBold(b);
 }
 
 void Worksheet::setTextItalic(bool b)
 {
-    auto* item = currentTextItem();
-    if (item)
-        item->setTextItalic(b);
+    if (m_lastFocusedTextItem)
+        m_lastFocusedTextItem->setTextItalic(b);
+    else if (m_legacylastFocusedTextItem)
+        m_legacylastFocusedTextItem->setTextItalic(b);
 }
 
 void Worksheet::setTextUnderline(bool b)
 {
-    auto* item = currentTextItem();
-    if (item)
-        item->setTextUnderline(b);
+    if (m_lastFocusedTextItem)
+        m_lastFocusedTextItem->setTextUnderline(b);
+    else if (m_legacylastFocusedTextItem)
+        m_legacylastFocusedTextItem->setTextUnderline(b);
 }
 
 void Worksheet::setTextStrikeOut(bool b)
 {
-    auto* item = currentTextItem();
-    if (item)
-        item->setTextStrikeOut(b);
+    if (m_lastFocusedTextItem)
+        m_lastFocusedTextItem->setTextStrikeOut(b);
+    else if (m_legacylastFocusedTextItem)
+        m_legacylastFocusedTextItem->setTextStrikeOut(b);
 }
 
 void Worksheet::setAlignLeft()
 {
-    auto* item = currentTextItem();
-    if (item)
-        item->setAlignment(Qt::AlignLeft);
+    if (m_lastFocusedTextItem)
+        m_lastFocusedTextItem->setAlignment(Qt::AlignLeft);
+    else if (m_legacylastFocusedTextItem)
+        m_legacylastFocusedTextItem->setAlignment(Qt::AlignLeft);
 }
 
 void Worksheet::setAlignRight()
 {
-    auto* item = currentTextItem();
-    if (item)
-        item->setAlignment(Qt::AlignRight);
+    if (m_lastFocusedTextItem)
+        m_lastFocusedTextItem->setAlignment(Qt::AlignRight);
+    else if (m_legacylastFocusedTextItem)
+        m_legacylastFocusedTextItem->setAlignment(Qt::AlignRight);
 }
 
 void Worksheet::setAlignCenter()
 {
-    auto* item = currentTextItem();
-    if (item)
-        item->setAlignment(Qt::AlignCenter);
+    if (m_lastFocusedTextItem)
+        m_lastFocusedTextItem->setAlignment(Qt::AlignCenter);
+    else if (m_legacylastFocusedTextItem)
+        m_legacylastFocusedTextItem->setAlignment(Qt::AlignCenter);
 }
 
 void Worksheet::setAlignJustify()
 {
-    auto* item = currentTextItem();
-    if (item)
-        item->setAlignment(Qt::AlignJustify);
+    if (m_lastFocusedTextItem)
+        m_lastFocusedTextItem->setAlignment(Qt::AlignJustify);
+    else if (m_legacylastFocusedTextItem)
+        m_legacylastFocusedTextItem->setAlignment(Qt::AlignJustify);
 }
 
 void Worksheet::setFontFamily(const QString& font)
 {
-    auto* item = currentTextItem();
-    if (item)
-        item->setFontFamily(font);
+    if (m_lastFocusedTextItem)
+        m_lastFocusedTextItem->setFontFamily(font);
+    else if (m_legacylastFocusedTextItem)
+        m_legacylastFocusedTextItem->setFontFamily(font);
 }
 
 void Worksheet::setFontSize(int size)
 {
-    auto* item = currentTextItem();
-    if (item)
-        item->setFontSize(size);
+    if (m_lastFocusedTextItem)
+        m_lastFocusedTextItem->setFontSize(size);
+    else if (m_legacylastFocusedTextItem)
+        m_legacylastFocusedTextItem->setFontSize(size);
 }
+
 
 bool Worksheet::isShortcut(const QKeySequence& sequence)
 {
@@ -3029,4 +3072,14 @@ void Worksheet::handleSettingsChanges()
 {
     for (auto* entry = firstEntry(); entry; entry = entry->next())
         entry->updateAfterSettingsChanges();
+}
+
+void Worksheet::clearAllSelections()
+{
+    if (m_lastFocusedTextItem) {
+        m_lastFocusedTextItem->clearSelection();
+    }
+    if (m_legacylastFocusedTextItem) {
+        m_legacylastFocusedTextItem->clearSelection();
+    }
 }

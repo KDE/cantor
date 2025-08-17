@@ -8,6 +8,8 @@
 #ifndef WORKSHEET_H
 #define WORKSHEET_H
 
+#include <KTextEditor/Document>
+
 #include <QDomDocument>
 #include <QGraphicsScene>
 #include <QQueue>
@@ -15,6 +17,7 @@
 #include "lib/renderer.h"
 #include "mathrender.h"
 #include "worksheetcursor.h"
+#include <KTextEditor/Editor>
 
 namespace Cantor {
     class Backend;
@@ -70,6 +73,7 @@ class Worksheet : public QGraphicsScene
     void resumeAnimations();
 
     void makeVisible(WorksheetEntry*);
+    void makeVisible(const KWorksheetCursor&);
     void makeVisible(const WorksheetCursor&);
 
     void setModified();
@@ -88,17 +92,22 @@ class Worksheet : public QGraphicsScene
     WorksheetEntry* currentEntry();
     WorksheetEntry* firstEntry();
     WorksheetEntry* lastEntry();
-    WorksheetTextItem* currentTextItem();
+    WorksheetTextEditorItem* currentTextItem();
+    WorksheetTextEditorItem* LastFocusedTextItem();
     WorksheetTextItem* lastFocusedTextItem();
 
     WorksheetEntry* cutSubentriesForHierarchy(HierarchyEntry*);
     void insertSubentriesForHierarchy(HierarchyEntry*, WorksheetEntry*);
 
-    WorksheetCursor worksheetCursor();
+    KWorksheetCursor worksheetCursor();
+    void setWorksheetCursor(const KWorksheetCursor&);
     void setWorksheetCursor(const WorksheetCursor&);
 
     // For WorksheetEntry::startDrag
     void resetEntryCursor();
+
+    bool variableHighlightingEnabled() const;
+
 
     /**
      * How it works:
@@ -137,6 +146,7 @@ class Worksheet : public QGraphicsScene
     static int typeForTagName(const QString&);
 
   public Q_SLOTS:
+
     WorksheetEntry* appendCommandEntry();
     void appendCommandEntry(const QString&);
     WorksheetEntry* appendTextEntry();
@@ -181,11 +191,10 @@ class Worksheet : public QGraphicsScene
 
     bool completionEnabled();
     void showCompletion();
+    void initActions();
 
-    void highlightItem(WorksheetTextItem*);
-    void rehighlight();
+    void setVariableHighlightingEnabled(bool enabled);
 
-    void enableHighlighting(bool);
     void enableCompletion(bool);
     void enableExpressionNumbering(bool);
     void enableAnimations(bool);
@@ -211,7 +220,9 @@ class Worksheet : public QGraphicsScene
     void invalidateFirstEntry();
     void invalidateLastEntry();
 
+    void updateFocusedTextItem(WorksheetTextEditorItem*);
     void updateFocusedTextItem(WorksheetTextItem*);
+
 
     void updateDragScrollTimer();
 
@@ -247,6 +258,7 @@ class Worksheet : public QGraphicsScene
     void excludeFromExecutionSelection();
 
     void requestScrollToHierarchyEntry(QString);
+    void clearAllSelections();
     void handleSettingsChanges();
 
   Q_SIGNALS:
@@ -309,7 +321,6 @@ class Worksheet : public QGraphicsScene
     bool loadJupyterNotebook(const QJsonDocument& doc);
     void showInvalidNotebookSchemeError(QString additionalInfo = QString());
     void initSession(Cantor::Backend*);
-    void initActions();
     std::vector<WorksheetEntry*> hierarchySubelements(HierarchyEntry*) const;
 
     static const double LeftMargin;
@@ -319,7 +330,6 @@ class Worksheet : public QGraphicsScene
     static const double EntryCursorWidth;
 
     Cantor::Session* m_session{nullptr};
-    QSyntaxHighlighter* m_highlighter{nullptr};
     Cantor::Renderer m_epsRenderer;
     MathRenderer m_mathRenderer;
     WorksheetEntry* m_firstEntry{nullptr};
@@ -332,7 +342,8 @@ class Worksheet : public QGraphicsScene
     QTimer* m_cursorItemTimer;
     QGraphicsLineItem* m_entryCursorItem{nullptr};
     PlaceHolderEntry* m_placeholderEntry{nullptr};
-    WorksheetTextItem* m_lastFocusedTextItem{nullptr};
+    WorksheetTextEditorItem* m_lastFocusedTextItem{nullptr};
+    WorksheetTextItem* m_legacylastFocusedTextItem{nullptr};
     QTimer* m_dragScrollTimer{nullptr};
 
     qreal m_viewWidth{0};
@@ -356,6 +367,8 @@ class Worksheet : public QGraphicsScene
     KToggleAction* m_alignJustifyAction{nullptr};
 
     bool m_useDefaultWorksheetParameters{true};
+
+    bool m_variableHighlightingEnabled{true};
 
     bool m_completionEnabled{false};
     bool m_embeddedMathEnabled{false};

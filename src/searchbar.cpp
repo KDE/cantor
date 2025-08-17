@@ -5,9 +5,11 @@
 
 #include "searchbar.h"
 
+#include "commandentry.h"
 #include "worksheet.h"
 #include "worksheetentry.h"
 #include "worksheettextitem.h"
+#include "worksheettexteditoritem.h"
 #include "worksheetview.h"
 
 #include <KLocalizedString>
@@ -17,6 +19,7 @@
 SearchBar::SearchBar(QWidget* parent, Worksheet* worksheet) : QWidget(parent),
     m_stdUi(new Ui::StandardSearchBar()),
     m_worksheet(worksheet),
+    m_kateOptions(),
     m_searchFlags{WorksheetEntry::SearchAll}
 {
     setupStdUi();
@@ -72,175 +75,393 @@ void SearchBar::showExtended()
 
 void SearchBar::next()
 {
-    if (!m_currentCursor.isValid() && !m_currentCursor.entry() && !m_atEnd)
+    bool canProceed = m_currentCursor.isValid() || m_currentLegacyCursor.isValid();
+    if (!canProceed && !m_atEnd)
+    {
         return;
+    }
     searchForward(true);
 }
 
 void SearchBar::prev()
 {
-    if (!m_currentCursor.isValid() && !m_currentCursor.entry() &&
-        !m_atBeginning)
+    bool canProceed = m_currentCursor.isValid() || m_currentLegacyCursor.isValid();
+    if (!canProceed && !m_atBeginning)
+    {
         return;
+    }
     searchBackward(true);
 }
 
-void SearchBar::searchBackward(bool skipFirstChar)
+void SearchBar::setCurrentCursor(KWorksheetCursor cursor)
 {
-    WorksheetCursor result;
-    WorksheetEntry* entry;
-    worksheet()->setWorksheetCursor(WorksheetCursor());
-    QTextDocument::FindFlags f = m_qtFlags | QTextDocument::FindBackward;
-    if (m_currentCursor.isValid()) {
-        bool atBeginningOfEntry = false;
-        if (skipFirstChar) {
-            QTextCursor c = m_currentCursor.textCursor();
-            c.movePosition(QTextCursor::PreviousCharacter);
-            atBeginningOfEntry = (c == m_currentCursor.textCursor());
-            setCurrentCursor(WorksheetCursor(m_currentCursor.entry(),
-                                             m_currentCursor.textItem(), c));
-        }
-        if (!atBeginningOfEntry)
-            result = m_currentCursor.entry()->search(m_pattern, m_searchFlags,
-                                                 f, m_currentCursor);
-        entry = m_currentCursor.entry()->previous();
-    } else if (m_currentCursor.entry() && m_currentCursor.entry()->previous()) {
-        entry = m_currentCursor.entry()->previous();
-    } else {
-        entry = worksheet()->lastEntry();
-    }
-    setCurrentCursor(WorksheetCursor());
+    if (m_currentCursor.entry())
+        disconnect(m_currentCursor.entry(), SIGNAL(aboutToBeDeleted()), this,
+                   SLOT(invalidateCurrentCursor()));
+        if (cursor.entry())
+            connect(cursor.entry(), SIGNAL(aboutToBeDeleted()), this,
+                    SLOT(invalidateCurrentCursor()), Qt::DirectConnection);
+            m_currentCursor = cursor;
 
-    while (!result.isValid() && entry) {
-        result = entry->search(m_pattern, m_searchFlags, f);
-        entry = entry->previous();
-    }
-    if (result.isValid()) {
-        m_atBeginning = false;
-        QTextCursor c = result.textCursor();
-        if (result.textCursor().hasSelection())
-            c.setPosition(result.textCursor().selectionStart());
-        setCurrentCursor(WorksheetCursor(result.entry(), result.textItem(), c));
-        worksheet()->makeVisible(m_currentCursor);
-        clearStatus();
-        worksheet()->setWorksheetCursor(result);
-    } else {
-        if (m_atBeginning) {
-            m_notFound = true;
-            setStatus(i18n("Not found"));
-        } else {
-            m_atBeginning = true;
-            setStatus(i18n("Reached beginning"));
+        if (cursor.isValid())
+        {
+            m_currentLegacyCursor = WorksheetCursor();
         }
-        worksheet()->setWorksheetCursor(m_startCursor);
+}
+
+void SearchBar::setCurrentLegacyCursor(WorksheetCursor cursor)
+{
+    m_currentLegacyCursor = cursor;
+
+    if (cursor.isValid())
+    {
+        m_currentCursor = KWorksheetCursor();
     }
+}
+
+void SearchBar::clearAllCursors()
+{
+    m_currentCursor = KWorksheetCursor();
+    m_currentLegacyCursor = WorksheetCursor();
 }
 
 void SearchBar::searchForward(bool skipFirstChar)
 {
-    WorksheetCursor result;
-    WorksheetEntry* entry;
-    worksheet()->setWorksheetCursor(WorksheetCursor());
-    if (m_currentCursor.isValid()) {
-        if (skipFirstChar) {
-            QTextCursor c = m_currentCursor.textCursor();
-            c.movePosition(QTextCursor::NextCharacter);
-            setCurrentCursor(WorksheetCursor(m_currentCursor.entry(),
-                                             m_currentCursor.textItem(), c));
-        }
-        result = m_currentCursor.entry()->search(m_pattern, m_searchFlags,
-                                                 m_qtFlags, m_currentCursor);
-        entry = m_currentCursor.entry()->next();
-    } else if (m_currentCursor.entry()) {
-        entry = m_currentCursor.entry();
-    } else {
-        entry = worksheet()->firstEntry();
-    }
-    setCurrentCursor(WorksheetCursor());
+    worksheet()->clearAllSelections();
 
-    while (!result.isValid() && entry) {
-        result = entry->search(m_pattern, m_searchFlags, m_qtFlags);
+    WorksheetEntry* startEntry = nullptr;
+    KWorksheetCursor kPos;
+    WorksheetCursor legacyPos;
+
+    // 1. 确定搜索的精确起点
+    if (m_currentCursor.isValid())
+    {
+        startEntry = m_currentCursor.entry();
+        kPos = m_currentCursor;
+        if (skipFirstChar)
+        {
+            KTextEditor::Cursor c = kPos.foundRange().end();
+            kPos = KWorksheetCursor(startEntry, kPos.textItem(), c);
+        }
+    }
+    else if (m_currentLegacyCursor.isValid())
+    {
+        startEntry = m_currentLegacyCursor.entry();
+        legacyPos = m_currentLegacyCursor;
+        if (skipFirstChar)
+        {
+            QTextCursor c = legacyPos.textCursor();
+            c.setPosition(c.selectionEnd());
+            legacyPos = WorksheetCursor(startEntry, legacyPos.textItem(), c);
+        }
+    }
+    else
+    {
+        startEntry = worksheet()->firstEntry();
+    }
+
+    if (!startEntry) { setStatus(i18n("Not found")); return; }
+
+    WorksheetEntry* entry = startEntry;
+    while (entry)
+    {
+        bool searchInCommandArea = true;
+
+        if (dynamic_cast<CommandEntry*>(entry) && legacyPos.isValid() && legacyPos.entry() == entry)
+        {
+            searchInCommandArea = false;
+        }
+
+        QGraphicsObject* item = entry->mainTextItem();
+        if (item && dynamic_cast<WorksheetTextEditorItem*>(item) && searchInCommandArea)
+        {
+            KWorksheetCursor result = entry->search(m_pattern, m_searchFlags, m_kateOptions, kPos);
+            if (result.isValid())
+            {
+                m_atEnd = false;
+                setCurrentCursor(result);
+                worksheet()->setWorksheetCursor(result);
+                worksheet()->makeVisible(result);
+                clearStatus();
+                return;
+            }
+        }
+        else if (item && dynamic_cast<WorksheetTextItem*>(item))
+        {
+            QTextDocument::FindFlags qtFlags;
+            if (!(m_kateOptions & KTextEditor::CaseInsensitive)) { qtFlags |= QTextDocument::FindCaseSensitively; }
+            WorksheetCursor result = entry->search(m_pattern, m_searchFlags, qtFlags, legacyPos);
+            if (result.isValid())
+            {
+                m_atEnd = false;
+                setCurrentLegacyCursor(result);
+                worksheet()->setWorksheetCursor(result);
+                worksheet()->makeVisible(result);
+                clearStatus();
+                return;
+            }
+        }
+
+        if (auto* commandEntry = dynamic_cast<CommandEntry*>(entry))
+        {
+            WorksheetCursor startPosForResults = (kPos.isValid() && kPos.entry() == entry) ? WorksheetCursor() : legacyPos;
+
+            QTextDocument::FindFlags qtFlags;
+            if (!(m_kateOptions & KTextEditor::CaseInsensitive)) { qtFlags |= QTextDocument::FindCaseSensitively; }
+
+            WorksheetCursor resultInResults = commandEntry->search(m_pattern, m_searchFlags, qtFlags, startPosForResults);
+            if (resultInResults.isValid())
+            {
+                m_atEnd = false;
+                setCurrentLegacyCursor(resultInResults);
+                worksheet()->setWorksheetCursor(resultInResults);
+                worksheet()->makeVisible(resultInResults);
+                clearStatus();
+                return;
+            }
+        }
+
         entry = entry->next();
+        kPos = KWorksheetCursor();
+        legacyPos = WorksheetCursor();
     }
 
-    if (result.isValid()) {
-        m_atEnd = false;
-        QTextCursor c = result.textCursor();
-        if (result.textCursor().hasSelection())
-            c.setPosition(result.textCursor().selectionStart());
-        setCurrentCursor(WorksheetCursor(result.entry(), result.textItem(), c));
-        worksheet()->makeVisible(m_currentCursor);
-        clearStatus();
-        worksheet()->setWorksheetCursor(result);
-    } else {
-        if (m_atEnd) {
-            m_notFound = true;
-            setStatus(i18n("Not found"));
-        } else {
-            m_atEnd = true;
-            setStatus(i18n("Reached end"));
-        }
+    if (m_atEnd)
+    {
+        m_notFound = true;
+        setStatus(i18n("Not found"));
         worksheet()->setWorksheetCursor(m_startCursor);
+    }
+    else
+    {
+        m_atEnd = true;
+        setStatus(i18n("Reached end of document, continuing from top..."));
+        clearAllCursors();
+        searchForward(false);
     }
 }
 
-void SearchBar::on_close_clicked()
+void SearchBar::searchBackward(bool skipFirstChar)
+{
+    worksheet()->clearAllSelections();
+
+    WorksheetEntry* startEntry = nullptr;
+    KWorksheetCursor kPos;
+    WorksheetCursor legacyPos;
+
+    if (m_currentCursor.isValid())
+    {
+        startEntry = m_currentCursor.entry();
+        kPos = m_currentCursor;
+        if (skipFirstChar)
+        {
+            KTextEditor::Cursor c = kPos.foundRange().start();
+            kPos = KWorksheetCursor(startEntry, kPos.textItem(), c);
+        }
+    }
+    else if (m_currentLegacyCursor.isValid())
+    {
+        startEntry = m_currentLegacyCursor.entry();
+        legacyPos = m_currentLegacyCursor;
+        if (skipFirstChar)
+        {
+            QTextCursor c = legacyPos.textCursor();
+            c.setPosition(c.selectionStart());
+            legacyPos = WorksheetCursor(startEntry, legacyPos.textItem(), c);
+        }
+    }
+    else
+    {
+        startEntry = worksheet()->lastEntry();
+    }
+
+    if (!startEntry) { setStatus(i18n("Not found")); return; }
+
+    WorksheetEntry* entry = startEntry;
+    while (entry)
+    {
+        bool searchInResultArea = true;
+
+        if (dynamic_cast<CommandEntry*>(entry) && kPos.isValid() && kPos.entry() == entry)
+        {
+            searchInResultArea = false;
+        }
+
+        if (auto* commandEntry = dynamic_cast<CommandEntry*>(entry))
+        {
+            if (searchInResultArea)
+            {
+                WorksheetCursor startPosForResults = (kPos.isValid() && kPos.entry() == entry) ? WorksheetCursor() : legacyPos;
+
+                QTextDocument::FindFlags qtFlagsBackwards = QTextDocument::FindBackward;
+                if (!(m_kateOptions & KTextEditor::CaseInsensitive)) { qtFlagsBackwards |= QTextDocument::FindCaseSensitively; }
+
+                WorksheetCursor resultInResults = commandEntry->search(m_pattern, m_searchFlags, qtFlagsBackwards, startPosForResults);
+                if (resultInResults.isValid())
+                {
+                    m_atBeginning = false;
+                    setCurrentLegacyCursor(resultInResults);
+                    worksheet()->setWorksheetCursor(resultInResults);
+                    worksheet()->makeVisible(resultInResults);
+                    clearStatus();
+                    return;
+                }
+            }
+        }
+
+        QGraphicsObject* item = entry->mainTextItem();
+        if (item && dynamic_cast<WorksheetTextEditorItem*>(item))
+        {
+            KTextEditor::SearchOptions kOptionsBackwards = m_kateOptions | KTextEditor::Backwards;
+            KWorksheetCursor result = entry->search(m_pattern, m_searchFlags, kOptionsBackwards, kPos);
+            if (result.isValid())
+            {
+                m_atBeginning = false;
+                setCurrentCursor(result);
+                worksheet()->setWorksheetCursor(result);
+                worksheet()->makeVisible(result);
+                clearStatus();
+                return;
+            }
+        }
+        else if (item && dynamic_cast<WorksheetTextItem*>(item))
+        {
+            QTextDocument::FindFlags qtFlagsBackwards = QTextDocument::FindBackward;
+            if (!(m_kateOptions & KTextEditor::CaseInsensitive)) { qtFlagsBackwards |= QTextDocument::FindCaseSensitively; }
+            WorksheetCursor result = entry->search(m_pattern, m_searchFlags, qtFlagsBackwards, legacyPos);
+            if (result.isValid())
+            {
+                m_atBeginning = false;
+                setCurrentLegacyCursor(result);
+                worksheet()->setWorksheetCursor(result);
+                worksheet()->makeVisible(result);
+                clearStatus();
+                return;
+            }
+        }
+
+        entry = entry->previous();
+        kPos = KWorksheetCursor();
+        legacyPos = WorksheetCursor();
+    }
+
+    if (m_atBeginning)
+    {
+        m_notFound = true;
+        setStatus(i18n("Not found"));
+        worksheet()->setWorksheetCursor(m_startCursor);
+    }
+    else
+    {
+        m_atBeginning = true;
+        setStatus(i18n("Reached beginning of document, continuing from bottom..."));
+        clearAllCursors();
+        searchBackward(false);
+    }
+}
+
+void SearchBar::handleCloseClicked()
 {
     deleteLater();
 }
 
-void SearchBar::on_openExtended_clicked()
+void SearchBar::handleOpenExtendedClicked()
 {
     showExtended();
 }
 
-void SearchBar::on_openStandard_clicked()
+void SearchBar::handleOpenStandardClicked()
 {
     showStandard();
 }
 
-void SearchBar::on_next_clicked()
+void SearchBar::handleNextClicked()
 {
     next();
 }
 
-void SearchBar::on_previous_clicked()
+void SearchBar::handlePreviousClicked()
 {
     prev();
 }
 
-void SearchBar::on_replace_clicked()
+void SearchBar::handleReplaceClicked()
 {
-    if (!m_currentCursor.isValid())
-        return;
+    WorksheetEntry* entry = nullptr;
+    bool success = false;
 
-    QTextCursor cursor = m_currentCursor.textCursor();
-    cursor.movePosition(QTextCursor::NextCharacter, QTextCursor::KeepAnchor,
-                        m_pattern.length());
-    cursor.insertText(m_replacement);
-    next();
+    if (m_currentCursor.isValid()) {
+        entry = m_currentCursor.entry();
+    } else if (m_currentLegacyCursor.isValid()) {
+        entry = m_currentLegacyCursor.entry();
+    }
+
+    if (entry) {
+        success = entry->replace(m_replacement);
+    }
+
+    if (success) {
+        next();
+    }
 }
 
-void SearchBar::on_replaceAll_clicked()
+void SearchBar::handleReplaceAllClicked()
 {
+    if (m_pattern.isEmpty())
+    {
+        return;
+    }
+
     int count = 0;
-    WorksheetEntry* entry = worksheet()->firstEntry();
-    WorksheetCursor cursor;
-    for (; entry; entry = entry->next()) {
-        cursor = entry->search(m_pattern, m_searchFlags, m_qtFlags);
-        while (cursor.isValid()) {
-            cursor.textCursor().insertText(m_replacement);
-            cursor = entry->search(m_pattern, m_searchFlags, m_qtFlags,
-                                   cursor);
-            ++count;
+    for (WorksheetEntry* entry = worksheet()->firstEntry(); entry; entry = entry->next())
+    {
+        QGraphicsObject* item = entry->mainTextItem();
+        if (!item) continue;
+
+        if (auto* editorItem = dynamic_cast<WorksheetTextEditorItem*>(item))
+        {
+            if (editorItem->isEditable())
+            {
+                KTextEditor::Cursor searchStartCursor(0, 0);
+                while (true)
+                {
+                    KTextEditor::Range foundRange = editorItem->search(m_pattern, m_kateOptions, searchStartCursor);
+                    if (!foundRange.isValid()) break;
+                    editorItem->document()->replaceText(foundRange, m_replacement);
+                    count++;
+                    searchStartCursor.setPosition(foundRange.start().line(), foundRange.start().column() + m_replacement.length());
+                }
+            }
+        }
+        else if (auto* textItem = dynamic_cast<WorksheetTextItem*>(item))
+        {
+            if (textItem->isEditable())
+            {
+                QTextDocument* doc = textItem->document();
+                QTextDocument::FindFlags qtFlags;
+                if (!(m_kateOptions & KTextEditor::CaseInsensitive))
+                {
+                    qtFlags |= QTextDocument::FindCaseSensitively;
+                }
+
+                QTextCursor cursor(doc);
+                while (true)
+                {
+                    cursor = doc->find(m_pattern, cursor, qtFlags);
+                    if (cursor.isNull()) break;
+                    cursor.insertText(m_replacement);
+                    count++;
+                }
+            }
         }
     }
     setStatus(i18np("Replaced %1 instance", "Replaced %1 instances", count));
 }
 
-void SearchBar::on_pattern_textChanged(const QString& p)
+
+void SearchBar::handlePatternTextChanged(const QString& p)
 {
-    worksheet()->setWorksheetCursor(WorksheetCursor());
+    worksheet()->setWorksheetCursor(KWorksheetCursor());
     m_atBeginning = m_atEnd = m_notFound = false;
     if (!p.startsWith(m_pattern))
         setCurrentCursor(m_startCursor);
@@ -264,12 +485,12 @@ void SearchBar::on_pattern_textChanged(const QString& p)
     }
 }
 
-void SearchBar::on_replacement_textChanged(const QString& r)
+void SearchBar::handleReplacementTextChanged(const QString& r)
 {
     m_replacement = r;
 }
 
-void SearchBar::on_removeFlag_clicked()
+void SearchBar::handleRemoveFlagClicked()
 {
     QMenu* menu = new QMenu(this);
     fillLocationsMenu(menu, m_searchFlags);
@@ -277,7 +498,7 @@ void SearchBar::on_removeFlag_clicked()
     menu->exec(mapToGlobal(m_extUi->removeFlag->geometry().topLeft()));
 }
 
-void SearchBar::on_addFlag_clicked()
+void SearchBar::handleAddFlagClicked()
 {
     QMenu* menu = new QMenu(this);
     fillLocationsMenu(menu, WorksheetEntry::SearchAll ^ m_searchFlags);
@@ -294,7 +515,7 @@ void SearchBar::invalidateStartCursor()
     if (!entry && worksheet()->firstEntry() != m_startCursor.entry())
         entry = worksheet()->firstEntry();
 
-    setStartCursor(WorksheetCursor(entry, nullptr, QTextCursor()));
+    setStartCursor(KWorksheetCursor(entry, nullptr, KTextEditor::Cursor()));
 }
 
 void SearchBar::invalidateCurrentCursor()
@@ -306,7 +527,7 @@ void SearchBar::invalidateCurrentCursor()
     if (!entry)
         entry = worksheet()->firstEntry();
 
-    setCurrentCursor(WorksheetCursor(entry, nullptr, QTextCursor()));
+    setCurrentCursor(KWorksheetCursor(entry, nullptr, KTextEditor::Cursor()));
 }
 
 void SearchBar::toggleFlag()
@@ -318,11 +539,16 @@ void SearchBar::toggleFlag()
     updateSearchLocations();
 }
 
-void SearchBar::on_matchCase_toggled(bool b)
+void SearchBar::handleMatchCaseToggled(bool b)
 {
-    m_qtFlags &= ~QTextDocument::FindCaseSensitively;
-    if (b)
-        m_qtFlags |= QTextDocument::FindCaseSensitively;
+    if(b)
+    {
+        m_kateOptions &= ~KTextEditor::SearchOption::CaseInsensitive;
+    }
+    else
+    {
+        m_kateOptions |= KTextEditor::SearchOption::CaseInsensitive;
+    }
     searchForward();
 }
 
@@ -370,7 +596,7 @@ void SearchBar::fillLocationsMenu(QMenu* menu, int flags)
     }
 }
 
-void SearchBar::setStartCursor(WorksheetCursor cursor)
+void SearchBar::setStartCursor(KWorksheetCursor cursor)
 {
     if (m_startCursor.entry())
         disconnect(m_startCursor.entry(), SIGNAL(aboutToBeDeleted()), this,
@@ -379,17 +605,6 @@ void SearchBar::setStartCursor(WorksheetCursor cursor)
         connect(cursor.entry(), SIGNAL(aboutToBeDeleted()), this,
                 SLOT(invalidateStartCursor()), Qt::DirectConnection);
     m_startCursor = cursor;
-}
-
-void SearchBar::setCurrentCursor(WorksheetCursor cursor)
-{
-    if (m_currentCursor.entry())
-        disconnect(m_currentCursor.entry(), SIGNAL(aboutToBeDeleted()), this,
-                   SLOT(invalidateCurrentCursor()));
-    if (cursor.entry())
-        connect(cursor.entry(), SIGNAL(aboutToBeDeleted()), this,
-                SLOT(invalidateCurrentCursor()), Qt::DirectConnection);
-    m_currentCursor = cursor;
 }
 
 void SearchBar::setStatus(QString message)
@@ -414,12 +629,12 @@ void SearchBar::setupStdUi()
         return;
 
     m_stdUi->setupUi(this);
-    m_stdUi->close->setIcon(QIcon::fromTheme(QLatin1String("dialog-close")));
-    m_stdUi->openExtended->setIcon(QIcon::fromTheme(QLatin1String("arrow-up-double")));
-    m_stdUi->pattern->setText(m_pattern);
-    m_stdUi->matchCase->setChecked(m_qtFlags & QTextDocument::FindCaseSensitively);
-    m_stdUi->next->setIcon(QIcon::fromTheme(QLatin1String("go-down-search")));
-    m_stdUi->previous->setIcon(QIcon::fromTheme(QLatin1String("go-up-search")));
+    connect(m_stdUi->close, &QToolButton::clicked, this, &SearchBar::handleCloseClicked);
+    connect(m_stdUi->openExtended, &QToolButton::clicked, this, &SearchBar::handleOpenExtendedClicked);
+    connect(m_stdUi->next, &QPushButton::clicked, this, &SearchBar::handleNextClicked);
+    connect(m_stdUi->previous, &QPushButton::clicked, this, &SearchBar::handlePreviousClicked);
+    connect(m_stdUi->pattern, &KLineEdit::textChanged, this, &SearchBar::handlePatternTextChanged);
+    connect(m_stdUi->matchCase, &QToolButton::toggled, this, &SearchBar::handleMatchCaseToggled);
     if (m_pattern.isEmpty()) {
         m_stdUi->next->setEnabled(false);
         m_stdUi->previous->setEnabled(false);
@@ -435,13 +650,17 @@ void SearchBar::setupExtUi()
         return;
 
     m_extUi->setupUi(this);
-    m_extUi->close->setIcon(QIcon::fromTheme(QLatin1String("dialog-close")));
-    m_extUi->openStandard->setIcon(QIcon::fromTheme(QLatin1String("arrow-down-double")));
-    m_extUi->pattern->setText(m_pattern);
-    m_extUi->replacement->setText(m_replacement);
-    m_extUi->matchCase->setChecked(m_qtFlags & QTextDocument::FindCaseSensitively);
-    m_extUi->next->setIcon(QIcon::fromTheme(QLatin1String("go-down-search")));
-    m_extUi->previous->setIcon(QIcon::fromTheme(QLatin1String("go-up-search")));
+    connect(m_extUi->close, &QToolButton::clicked, this, &SearchBar::handleCloseClicked);
+    connect(m_extUi->openStandard, &QToolButton::clicked, this, &SearchBar::handleOpenStandardClicked);
+    connect(m_extUi->next, &QPushButton::clicked, this, &SearchBar::handleNextClicked);
+    connect(m_extUi->previous, &QPushButton::clicked, this, &SearchBar::handlePreviousClicked);
+    connect(m_extUi->replace, &QPushButton::clicked, this, &SearchBar::handleReplaceClicked);
+    connect(m_extUi->replaceAll, &QPushButton::clicked, this, &SearchBar::handleReplaceAllClicked);
+    connect(m_extUi->pattern, &KLineEdit::textChanged, this, &SearchBar::handlePatternTextChanged);
+    connect(m_extUi->replacement, &KLineEdit::textChanged, this, &SearchBar::handleReplacementTextChanged);
+    connect(m_extUi->addFlag, &QToolButton::clicked, this, &SearchBar::handleAddFlagClicked);
+    connect(m_extUi->removeFlag, &QToolButton::clicked, this, &SearchBar::handleRemoveFlagClicked);
+    connect(m_extUi->matchCase, &QCheckBox::toggled, this, &SearchBar::handleMatchCaseToggled);
     if (m_pattern.isEmpty()) {
         m_extUi->next->setEnabled(false);
         m_extUi->previous->setEnabled(false);

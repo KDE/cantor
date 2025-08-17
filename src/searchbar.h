@@ -6,6 +6,8 @@
 #ifndef SEARCHBAR_H
 #define SEARCHBAR_H
 
+#include <KTextEditor/Document>
+
 #include <QWidget>
 #include <QTextDocument>
 
@@ -17,6 +19,7 @@
 class Worksheet;
 class WorksheetEntry;
 class WorksheetTextItem;
+class WorksheetTextEditorItem;
 
 class QMenu;
 
@@ -37,18 +40,18 @@ class SearchBar : public QWidget
     void searchBackward(bool skipFirstChar = false);
 
   public Q_SLOTS:
-    void on_close_clicked();
-    void on_openExtended_clicked();
-    void on_openStandard_clicked();
-    void on_next_clicked();
-    void on_previous_clicked();
-    void on_replace_clicked();
-    void on_replaceAll_clicked();
-    void on_pattern_textChanged(const QString&);
-    void on_replacement_textChanged(const QString&);
-    void on_addFlag_clicked();
-    void on_removeFlag_clicked();
-    void on_matchCase_toggled(bool b);
+    void handleCloseClicked();
+    void handleOpenExtendedClicked();
+    void handleOpenStandardClicked();
+    void handleNextClicked();
+    void handlePreviousClicked();
+    void handleReplaceClicked();
+    void handleReplaceAllClicked();
+    void handlePatternTextChanged(const QString&);
+    void handleReplacementTextChanged(const QString&);
+    void handleAddFlagClicked();
+    void handleRemoveFlagClicked();
+    void handleMatchCaseToggled(bool b);
 
     void invalidateStartCursor();
     void invalidateCurrentCursor();
@@ -67,8 +70,10 @@ class SearchBar : public QWidget
     void setStatus(QString);
     void clearStatus();
 
-    void setStartCursor(WorksheetCursor);
-    void setCurrentCursor(WorksheetCursor);
+    void setStartCursor(KWorksheetCursor);
+    void setCurrentCursor(KWorksheetCursor);
+    void setCurrentLegacyCursor(WorksheetCursor);
+    void clearAllCursors();
 
     Worksheet* worksheet();
 
@@ -79,13 +84,15 @@ class SearchBar : public QWidget
     Ui::StandardSearchBar* m_stdUi;
     Ui::ExtendedSearchBar* m_extUi{nullptr};
 
-    WorksheetCursor m_startCursor;
-    WorksheetCursor m_currentCursor;
+    KWorksheetCursor m_startCursor;
+    KWorksheetCursor m_currentCursor;
+    WorksheetCursor m_currentLegacyCursor;
 
     Worksheet* m_worksheet;
     QString m_pattern;
     QString m_replacement;
     QTextDocument::FindFlags m_qtFlags;
+    KTextEditor::SearchOptions m_kateOptions;
     unsigned int m_searchFlags;
 
     bool m_atBeginning{false};
