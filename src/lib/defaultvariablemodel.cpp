@@ -21,6 +21,7 @@ public:
     Session* session = nullptr;
     VariableManagementExtension* extension = nullptr;
     int columnCount{DefaultVariableModel::ColumnCount};
+    bool m_isInitiallyPopulated = false;
 };
 
 DefaultVariableModel::DefaultVariableModel(Session* session): QAbstractTableModel(session),
@@ -162,12 +163,14 @@ void DefaultVariableModel::addVariable(const Cantor::DefaultVariableModel::Varia
     int index = d->variables.indexOf(variable);
     if (index != -1)
     {
+        // DEBUG: Log variable update
         d->variables[index].value = variable.value;
         QModelIndex modelIdx = createIndex(index, ValueColumn);
         Q_EMIT dataChanged(modelIdx, modelIdx);
     }
     else
     {
+        // DEBUG: Log variable addition and signal emission
         beginInsertRows(QModelIndex(), d->variables.size(), d->variables.size());
         d->variables.append(variable);
         Q_EMIT variablesAdded(QStringList(variable.name));
@@ -224,6 +227,10 @@ void DefaultVariableModel::setVariables(const QList<DefaultVariableModel::Variab
     QStringList addedVars;
     QStringList removedVars;
 
+    if (!removedVars.isEmpty()) {
+        Q_EMIT variablesRemoved(removedVars);
+    }
+
     // Handle deleted vars
     int i = 0;
     while (i < d->variables.size())
@@ -272,6 +279,7 @@ void DefaultVariableModel::setVariables(const QList<DefaultVariableModel::Variab
 
         if (!found)
         {
+            qDebug() << "[DefaultVariableModel] setVariables adding new var:" << newvar.name;
             addedVars << newvar.name;
             beginInsertRows(QModelIndex(), d->variables.size(), d->variables.size());
             d->variables.append(newvar);
@@ -279,7 +287,10 @@ void DefaultVariableModel::setVariables(const QList<DefaultVariableModel::Variab
         }
     }
 
-    Q_EMIT variablesAdded(addedVars);
+    if (!addedVars.isEmpty()) {
+        // DEBUG: Log signal emission for added variables
+        Q_EMIT variablesAdded(addedVars);
+    }
     Q_EMIT variablesRemoved(removedVars);
 }
 
@@ -354,6 +365,15 @@ QStringList DefaultVariableModel::functions() const
 bool operator==(const Cantor::DefaultVariableModel::Variable& one, const Cantor::DefaultVariableModel::Variable& other)
 {
     return one.name == other.name;
+}
+
+void DefaultVariableModel::setInitiallyPopulated()
+{
+    Q_D(DefaultVariableModel);
+    if (!d->m_isInitiallyPopulated) {
+        d->m_isInitiallyPopulated = true;
+        Q_EMIT initialModelPopulated();
+    }
 }
 
 }

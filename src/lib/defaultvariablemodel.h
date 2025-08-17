@@ -152,6 +152,8 @@ Q_SIGNALS:
      */
     void functionsRemoved(const QStringList funcs);
 
+    void initialModelPopulated();
+
 protected:
     QVariant data(const QModelIndex& index, int role = Qt::DisplayRole) const override;
     bool setData(const QModelIndex& index, const QVariant& value, int role = Qt::EditRole) override;
@@ -163,6 +165,7 @@ protected:
 
     void setVariables(const QList<DefaultVariableModel::Variable>& newVars);
     void setFunctions(const QStringList& newFuns);
+    void setInitiallyPopulated();
 
     enum Column
     {
