@@ -1038,6 +1038,10 @@ void WorksheetTextEditorItem::keyPressEvent(QKeyEvent *event)
     {
         case Qt::Key_Home:
             {
+                KTextEditor::Range selection = m_view->selectionRange();
+                if(selection.isValid())
+                    m_view->removeSelection();
+
                 KTextEditor::Cursor cursor = m_view->cursorPosition();
                 if (event->modifiers() & Qt::ControlModifier) {
                     m_view->setCursorPosition(KTextEditor::Cursor(0, 0));
@@ -1072,6 +1076,10 @@ void WorksheetTextEditorItem::keyPressEvent(QKeyEvent *event)
             }
         case Qt::Key_End:
             {
+                KTextEditor::Range selection = m_view->selectionRange();
+                if(selection.isValid())
+                    m_view->removeSelection();
+
                 KTextEditor::Cursor cursor = m_view->cursorPosition();
                 int lineLength = m_document->lineLength(cursor.line());
 
@@ -1110,6 +1118,11 @@ void WorksheetTextEditorItem::keyPressEvent(QKeyEvent *event)
                 return;
             }
         case Qt::Key_Left:
+        {
+            KTextEditor::Range selection = m_view->selectionRange();
+            if(selection.isValid())
+                m_view->removeSelection();
+
             if (event->modifiers() == Qt::NoModifier || event->modifiers() == Qt::ShiftModifier)
             {
                 KTextEditor::Cursor cursor = m_view->cursorPosition();
@@ -1156,7 +1169,13 @@ void WorksheetTextEditorItem::keyPressEvent(QKeyEvent *event)
                 return;
             }
             break;
+        }
         case Qt::Key_Right:
+        {
+            KTextEditor::Range selection = m_view->selectionRange();
+            if(selection.isValid())
+                m_view->removeSelection();
+
             if (event->modifiers() == Qt::NoModifier || event->modifiers() == Qt::ShiftModifier)
             {
                 KTextEditor::Cursor cursor = m_view->cursorPosition();
@@ -1202,7 +1221,13 @@ void WorksheetTextEditorItem::keyPressEvent(QKeyEvent *event)
                 return;
             }
             break;
+        }
         case Qt::Key_Up:
+        {
+            KTextEditor::Range selection = m_view->selectionRange();
+            if(selection.isValid())
+                m_view->removeSelection();
+
             if (event->modifiers() == Qt::NoModifier || event->modifiers() == Qt::ShiftModifier)
             {
                 KTextEditor::Cursor cursor = m_view->cursorPosition();
@@ -1245,7 +1270,13 @@ void WorksheetTextEditorItem::keyPressEvent(QKeyEvent *event)
                 return;
             }
             break;
+        }
         case Qt::Key_Down:
+        {
+            KTextEditor::Range selection = m_view->selectionRange();
+            if(selection.isValid())
+                m_view->removeSelection();
+
             if (event->modifiers() == Qt::NoModifier || event->modifiers() == Qt::ShiftModifier)
             {
                 KTextEditor::Cursor cursor = m_view->cursorPosition();
@@ -1289,6 +1320,7 @@ void WorksheetTextEditorItem::keyPressEvent(QKeyEvent *event)
                 return;
             }
             break;
+        }
         case Qt::Key_Backspace:
 
             {

@@ -237,7 +237,14 @@ void MaximaExpression::parseOutput(const QString& out)
     const int promptEnd = out.indexOf(QLatin1String("</cantor-prompt>"));
     const QString prompt = out.mid(promptStart + 15, promptEnd - promptStart - 15).simplified();
 
-    //check whether the result is part of the prompt - this is the case when additional input is required from the user
+    if (prompt.trimmed() != QLatin1String("MAXIMA>") && static_cast<MaximaSession*>(session())->mode() == MaximaSession::Lisp)
+    {
+        //"Returning to Maxima:
+        //output:  "Returning to Maxima\n<cantor-result><cantor-text>\n(%o1) true\n</cantor-text></cantor-result>\n<cantor-prompt>(%i2) </cantor-prompt>\n"
+        static_cast<MaximaSession*>(session())->setMode(MaximaSession::Maxima);
+    }
+
+    //check whether the result is part of the promt - this is the case when additional input is required from the user
     if (prompt.contains(QLatin1String("<cantor-result>")))
     {
         //text part of the output
@@ -271,6 +278,7 @@ void MaximaExpression::parseOutput(const QString& out)
             if (!command().remove(QLatin1Char(' ')).startsWith(QLatin1String("tex(")))
                 result->setIsWarning(true);
             addResult(result);
+            errorContent.clear();
         }
     }
 
@@ -280,7 +288,7 @@ void MaximaExpression::parseOutput(const QString& out)
         const QString resultContent = out.mid(resultStart + 15, resultEnd - resultStart - 15);
         parseResult(resultContent);
 
-        //search for the next opening <cantor-result> tag after the current closing </cantor-result> tag
+        //search for the next openning <cantor-result> tag after the current closing </cantor-result> tag
         resultStart = out.indexOf(QLatin1String("<cantor-result>"), resultEnd + 16);
     }
 
@@ -315,17 +323,7 @@ void MaximaExpression::parseOutput(const QString& out)
             qDebug()<<"setting status to DONE";
             setStatus(Cantor::Expression::Done);
         }
-        else if (prompt.trimmed() != QLatin1String("MAXIMA>") && static_cast<MaximaSession*>(session())->mode() == MaximaSession::Lisp)
-        {
-            //"Returning to Maxima:
-            //output:  "Returning to Maxima\n<cantor-result><cantor-text>\n(%o1) true\n</cantor-text></cantor-result>\n<cantor-prompt>(%i2) </cantor-prompt>\n"
-            static_cast<MaximaSession*>(session())->setMode(MaximaSession::Maxima);
-            auto* result = new Cantor::TextResult(errorContent.trimmed());
-            addResult(result);
-            setStatus(Cantor::Expression::Done);
-        }
-        else if (out.contains(QLatin1String("cantor-value-separator"))
-            || (out.contains(QLatin1String("<cantor-result>")) && !(isHelpRequest() || m_isHelpRequestAdditional)) )
+        else if (out.contains(QLatin1String("cantor-value-separator")))
         {
             //we don't interpret the error output as an error in the following cases:
             //1. when fetching variables, in addition to the actual result with variable names and values,
@@ -360,15 +358,17 @@ void MaximaExpression::parseOutput(const QString& out)
         {
             if (isInternal())
                 setStatus(Cantor::Expression::Done); //for internal commands no need to handle the error output
-            else
-            {
-                errorContent = errorContent.replace(QLatin1String("\n\n"), QLatin1String("\n"));
-                setErrorMessage(errorContent);
-                setStatus(Cantor::Expression::Error);
-            }
+                else
+                {
+                    errorContent = errorContent.replace(QLatin1String("\n\n"), QLatin1String("\n"));
+                    clearResults();
+                    setErrorMessage(errorContent);
+                    setStatus(Cantor::Expression::Error);
+                }
         }
     }
 }
+
 
 void MaximaExpression::parseResult(const QString& resultContent)
 {

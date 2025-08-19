@@ -7,6 +7,7 @@
 #include "maximasession.h"
 #include "maximaexpression.h"
 #include "maximavariablemodel.h"
+#include "maximasyntaxhelpobject.h"
 #include "settings.h"
 
 #include <QDebug>
@@ -92,7 +93,7 @@ void MaximaSession::login()
     connect(m_process, SIGNAL(finished(int,QProcess::ExitStatus)), this, SLOT(restartMaxima()));
     connect(m_process, SIGNAL(readyReadStandardOutput()), this, SLOT(readStdOut()));
     connect(m_process, SIGNAL(readyReadStandardError()), this, SLOT(readStdErr()));
-    connect(m_process, SIGNAL(error(QProcess::ProcessError)), this, SLOT(reportProcessError(QProcess::ProcessError)));
+    connect(m_process, &QProcess::errorOccurred, this, &MaximaSession::reportProcessError);
 
     //enable latex typesetting if needed
     const QString& val = QLatin1String((isTypesettingEnabled() ? "t":"nil"));
@@ -316,7 +317,13 @@ void MaximaSession::setTypesettingEnabled(bool enable)
     Cantor::Session::setTypesettingEnabled(enable);
 }
 
-void MaximaSession::write(const QString& exp) {
+Cantor::SyntaxHelpObject* MaximaSession::syntaxHelpFor(const QString& cmd)
+{
+    return new MaximaSyntaxHelpObject(cmd, this);
+}
+
+void MaximaSession::write(const QString& exp)
+{
     qDebug()<<"sending expression to maxima process: " << exp;
     m_process->write(exp.toUtf8());
 }

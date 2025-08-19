@@ -5,6 +5,7 @@ set( MaximaBackend_SRCS
   maximaextensions.cpp
   maximasettingswidget.cpp
   maximavariablemodel.cpp
+  maximasyntaxhelpobject.cpp
   ../backendsettingswidget.cpp
 )
 

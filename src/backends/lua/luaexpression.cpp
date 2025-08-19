@@ -55,16 +55,17 @@ void LuaExpression::parseOutput(const QString& output)
 
         if (luaSession->isLuaJIT())
         {
-            QString result = output;
-            result.replace(QLatin1String(">> "), QLatin1String("> "));
+            const auto& lines = output.split(QLatin1Char('\n'), Qt::SkipEmptyParts);
 
-            const auto& results = result.split(QLatin1String("> "));
-            for (auto& res : results)
+            for (const QString& line : lines)
             {
-                if (res.simplified() == QLatin1String(">") || res.simplified().isEmpty())
+                QString simplifiedLine = line.simplified();
+                if (simplifiedLine.startsWith(QLatin1String(">")))
+                {
                     continue;
+                }
 
-                addResult(new Cantor::TextResult(res));
+                addResult(new Cantor::TextResult(line));
             }
         }
         else
@@ -74,5 +75,5 @@ void LuaExpression::parseOutput(const QString& output)
         }
         setStatus(Cantor::Expression::Done);
     }
-    //setStatus(Cantor::Expression::Done);
 }
+

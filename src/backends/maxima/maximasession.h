@@ -34,6 +34,7 @@ class MaximaSession : public Cantor::Session
     void sendInputToProcess(const QString&);
 
     void setTypesettingEnabled(bool) override;
+    Cantor::SyntaxHelpObject* syntaxHelpFor(const QString& cmd) override;
 
     void runFirstExpression() override;
 

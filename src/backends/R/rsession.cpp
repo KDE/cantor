@@ -87,7 +87,7 @@ void RSession::logout()
     if (!m_process)
         return;
 
-    if(status() == Cantor::Session::Running)
+    if(!expressionQueue().isEmpty())
         interrupt();
 
     m_process->kill();

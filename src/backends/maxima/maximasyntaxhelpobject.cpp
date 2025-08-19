@@ -4,7 +4,6 @@
 */
 
 #include "maximasyntaxhelpobject.h"
-#include "maximakeywords.h"
 
 #include "maximasession.h"
 #include "maximaexpression.h"
@@ -20,39 +19,40 @@ MaximaSyntaxHelpObject::MaximaSyntaxHelpObject(const QString& cmd, MaximaSession
 
 void MaximaSyntaxHelpObject::fetchInformation()
 {
-    bool isValid=false;
-    for (const QString& func : MaximaKeywords::instance()->functions())
+    bool isValid = false;
+    if (const auto* sm = session()->symbolManager())
     {
-        if(command()==func)
+        const QStringList availableLists = sm->getAvailableLists();
+        for (const QString& listName : availableLists)
         {
-            isValid=true;
-            break;
+            const QSet<QString>& symbols = sm->getSymbolList(listName);
+            if (symbols.contains(command()))
+            {
+                isValid = true;
+                break;
+            }
         }
     }
 
-    if(isValid)
+    if (isValid)
     {
         if (session()->status() != Cantor::Session::Disable)
         {
             if (m_expression)
                 return;
 
-            //use the lisp command, instead of directly calling the
-            //maxima function "describe" to avoid generating a new
-            //output label that would mess up history
-            QString cmd=QLatin1String(":lisp(cl-info::info-exact \"%1\")");
-
-            m_expression=session()->evaluateExpression(cmd.arg(command()), Cantor::Expression::FinishingBehavior::DoNotDelete, true);
-
+            QString cmd = QLatin1String(":lisp(cl-info::info-exact \"%1\")");
+            m_expression = session()->evaluateExpression(cmd.arg(command()), Cantor::Expression::FinishingBehavior::DoNotDelete, true);
             connect(m_expression, &Cantor::Expression::statusChanged, this, &MaximaSyntaxHelpObject::expressionChangedStatus);
         }
         else
-            // We can't get function's detailed description, because session not login yet, so do nothing
+        {
             Q_EMIT done();
-
-    }else
+        }
+    }
+    else
     {
-        qDebug()<<"invalid syntax request";
+        qDebug() << "invalid syntax request for command:" << command();
         Q_EMIT done();
     }
 }
