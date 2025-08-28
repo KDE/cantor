@@ -3404,11 +3404,10 @@ msgid "Cannot load image %1"
 msgstr "Nelze načíst obrázek %1"
 
 #: imageresultitem.cpp:90
-#, fuzzy, kde-format
-#| msgid "%1 files (*.%2)"
+#, kde-format
 msgctxt "%1 and %2 are file extensions"
 msgid "%1 files (*.%2)"
-msgstr "%1 soubory (*.%2)"
+msgstr ""
 
 #: imageresultitem.cpp:93
 #, kde-format
