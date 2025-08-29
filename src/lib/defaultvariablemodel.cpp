@@ -29,7 +29,8 @@ d_ptr(new DefaultVariableModelPrivate)
 {
     Q_D(DefaultVariableModel);
     d->session = session;
-    if (session) {
+    if (session)
+    {
         d->extension = dynamic_cast<Cantor::VariableManagementExtension*>(session->backend()->extension(QStringLiteral("VariableManagementExtension")));
 
         const auto& capabilities = d->session->backend()->capabilities();
@@ -65,8 +66,10 @@ int DefaultVariableModel::rowCount(const QModelIndex& parent) const
 
 QVariant DefaultVariableModel::headerData(int section, Qt::Orientation orientation, int role) const
 {
-    if(role==Qt::DisplayRole && orientation==Qt::Horizontal) {
-        switch(section) {
+    if(role==Qt::DisplayRole && orientation==Qt::Horizontal)
+    {
+        switch(section)
+        {
             case NameColumn:
                 return i18nc("@title:column", "Name");
             case TypeColumn:
@@ -160,17 +163,29 @@ void DefaultVariableModel::addVariable(const QString& name, const QString& value
 void DefaultVariableModel::addVariable(const Cantor::DefaultVariableModel::Variable& variable)
 {
     Q_D(DefaultVariableModel);
-    int index = d->variables.indexOf(variable);
+
+    int index = -1;
+    for (int i = 0; i < d->variables.size(); ++i)
+    {
+        if (d->variables.at(i).name == variable.name)
+        {
+            index = i;
+            break;
+        }
+    }
+
     if (index != -1)
     {
-        // DEBUG: Log variable update
         d->variables[index].value = variable.value;
-        QModelIndex modelIdx = createIndex(index, ValueColumn);
-        Q_EMIT dataChanged(modelIdx, modelIdx);
+        d->variables[index].type = variable.type;
+        d->variables[index].size = variable.size;
+        d->variables[index].dimension = variable.dimension;
+        QModelIndex topLeft = createIndex(index, NameColumn);
+        QModelIndex bottomRight = createIndex(index, ValueColumn);
+        Q_EMIT dataChanged(topLeft, bottomRight);
     }
     else
     {
-        // DEBUG: Log variable addition and signal emission
         beginInsertRows(QModelIndex(), d->variables.size(), d->variables.size());
         d->variables.append(variable);
         Q_EMIT variablesAdded(QStringList(variable.name));
@@ -223,11 +238,11 @@ void DefaultVariableModel::clearFunctions()
 void DefaultVariableModel::setVariables(const QList<DefaultVariableModel::Variable>& newVars)
 {
     Q_D(DefaultVariableModel);
-
     QStringList addedVars;
     QStringList removedVars;
 
-    if (!removedVars.isEmpty()) {
+    if (!removedVars.isEmpty())
+    {
         Q_EMIT variablesRemoved(removedVars);
     }
 
@@ -279,7 +294,6 @@ void DefaultVariableModel::setVariables(const QList<DefaultVariableModel::Variab
 
         if (!found)
         {
-            qDebug() << "[DefaultVariableModel] setVariables adding new var:" << newvar.name;
             addedVars << newvar.name;
             beginInsertRows(QModelIndex(), d->variables.size(), d->variables.size());
             d->variables.append(newvar);
@@ -287,8 +301,8 @@ void DefaultVariableModel::setVariables(const QList<DefaultVariableModel::Variab
         }
     }
 
-    if (!addedVars.isEmpty()) {
-        // DEBUG: Log signal emission for added variables
+    if (!addedVars.isEmpty())
+    {
         Q_EMIT variablesAdded(addedVars);
     }
     Q_EMIT variablesRemoved(removedVars);
@@ -370,7 +384,8 @@ bool operator==(const Cantor::DefaultVariableModel::Variable& one, const Cantor:
 void DefaultVariableModel::setInitiallyPopulated()
 {
     Q_D(DefaultVariableModel);
-    if (!d->m_isInitiallyPopulated) {
+    if (!d->m_isInitiallyPopulated)
+    {
         d->m_isInitiallyPopulated = true;
         Q_EMIT initialModelPopulated();
     }

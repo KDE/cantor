@@ -210,7 +210,6 @@ CantorPart::CantorPart(QObject* parent, const QVariantList& args)
     connect(m_evaluate, &QAction::triggered, this, &CantorPart::evaluateOrInterrupt);
     m_editActions.push_back(m_evaluate);
 
-    //
     m_zoom = new KSelectAction(QIcon::fromTheme(QLatin1String("page-zoom")), i18n("Zoom"), collection);
     connect(m_zoom, static_cast<void (KSelectAction::*)(const QString&)>(&KSelectAction::textTriggered), this, &CantorPart::zoomValueEdited);
     static constexpr std::array<double, 8> ZoomValues = {0.25, 0.5, 0.75, 1.0, 1.25, 1.5, 2.0, 4.0};

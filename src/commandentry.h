@@ -104,7 +104,7 @@ class CommandEntry : public WorksheetEntry
     void moveToPreviousItem(int pos, qreal x);
 
     void populateMenu(QMenu*, QPointF) override;
-
+    void updateAfterSettingsChanges() override;
   protected:
     bool wantToEvaluate() override;
 

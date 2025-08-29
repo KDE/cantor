@@ -8,7 +8,9 @@
 #ifndef WORKSHEET_H
 #define WORKSHEET_H
 
+#include <KTextEditor/Editor>
 #include <KTextEditor/Document>
+#include <KSyntaxHighlighting/Theme>
 
 #include <QDomDocument>
 #include <QGraphicsScene>
@@ -17,7 +19,6 @@
 #include "lib/renderer.h"
 #include "mathrender.h"
 #include "worksheetcursor.h"
-#include <KTextEditor/Editor>
 
 namespace Cantor {
     class Backend;
@@ -141,6 +142,10 @@ class Worksheet : public QGraphicsScene
         qreal fontSize;
         Qt::Alignment align;
     };
+
+    const KSyntaxHighlighting::Theme& theme() const;
+    QColor themeColor(KSyntaxHighlighting::Theme::EditorColorRole role) const;
+    void updateThemeAndEntries(const QString& themeName);
 
   public:
     static int typeForTagName(const QString&);
@@ -345,6 +350,7 @@ class Worksheet : public QGraphicsScene
     WorksheetTextEditorItem* m_lastFocusedTextItem{nullptr};
     WorksheetTextItem* m_legacylastFocusedTextItem{nullptr};
     QTimer* m_dragScrollTimer{nullptr};
+    KSyntaxHighlighting::Theme m_currentTheme;
 
     qreal m_viewWidth{0};
     QMap<QGraphicsObject*, qreal> m_itemWidths;

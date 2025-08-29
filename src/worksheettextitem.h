@@ -10,6 +10,7 @@
 #include <QGraphicsTextItem>
 #include <QTextDocument>
 #include <QTextCursor>
+#include <QTextBlock>
 
 #include <QMenu>
 #include <KStandardAction>
@@ -59,8 +60,8 @@ class WorksheetTextItem : public QGraphicsTextItem
     bool isEditable();
     void allowEditing();
     void denyEditing();
-    void setBackgroundColor(const QColor&);
-    const QColor& backgroundColor() const;
+    // void setBackgroundColor(const QColor&);
+    // const QColor& backgroundColor() const;
     bool richTextEnabled();
     double width() const;
     double height() const;
@@ -125,7 +126,7 @@ class WorksheetTextItem : public QGraphicsTextItem
     void clipboardChanged();
     void selectionChanged();
     void testSize();
-
+    void updateThemeColors();
   protected:
     void keyPressEvent(QKeyEvent*) override;
     void focusInEvent(QFocusEvent*) override;
@@ -146,6 +147,7 @@ class WorksheetTextItem : public QGraphicsTextItem
   private Q_SLOTS:
     //void setHeight();
     void updateRichTextActions(QTextCursor cursor);
+    // void updateCurrentLineHighlight();
 
   private:
     void setLocalCursorPosition(QPointF);
@@ -163,8 +165,8 @@ class WorksheetTextItem : public QGraphicsTextItem
     bool m_completionActive{false};
     bool m_itemDragable{false};
     bool m_richTextEnabled{false};
-    QColor m_backgroundColor;
     DoubleClickEventBehaviour m_eventBehaviour{DoubleClickEventBehaviour::ImageReplacement};
+    QTextBlock m_highlightedBlock;
 };
 
 #endif // WORKSHEET_TEXT_ITEM_H

@@ -23,7 +23,9 @@
 #include <QAction>
 #include <QColorDialog>
 #include <KColorScheme>
+#include <KLocalizedString>
 #include <QFontDatabase>
+#include <QTextFrame>
 
 WorksheetTextItem::WorksheetTextItem(WorksheetEntry* parent, Qt::TextInteractionFlags ti)
     : QGraphicsTextItem(parent)
@@ -51,6 +53,9 @@ WorksheetTextItem::WorksheetTextItem(WorksheetEntry* parent, Qt::TextInteraction
     connect(this, &WorksheetTextItem::menuCreated, parent, &WorksheetEntry::populateMenu, Qt::DirectConnection);
     connect(this, &WorksheetTextItem::deleteEntry, [=]() {parent->startRemoving();});
     connect(this, &WorksheetTextItem::cursorPositionChanged, this, &WorksheetTextItem::updateRichTextActions);
+    connect(this, &WorksheetTextItem::cursorPositionChanged, this, [this]() {
+        this->update();
+    });
 }
 
 WorksheetTextItem::~WorksheetTextItem()
@@ -331,16 +336,6 @@ QTextCursor WorksheetTextItem::cursorForPosition(QPointF pos) const
 bool WorksheetTextItem::isEditable()
 {
     return textInteractionFlags() & Qt::TextEditable;
-}
-
-void WorksheetTextItem::setBackgroundColor(const QColor& color)
-{
-    m_backgroundColor = color;
-}
-
-const QColor& WorksheetTextItem::backgroundColor() const
-{
-    return m_backgroundColor;
 }
 
 bool WorksheetTextItem::richTextEnabled()
@@ -698,11 +693,33 @@ void WorksheetTextItem::insertTab()
     Q_EMIT cursorPositionChanged(textCursor());
 }
 
-void WorksheetTextItem::paint(QPainter* painter, const QStyleOptionGraphicsItem* o, QWidget* w) {
-    if (m_backgroundColor.isValid()) {
-        painter->setPen(QPen(Qt::NoPen));
-        painter->setBrush(m_backgroundColor);
-        painter->drawRect(boundingRect());
+void WorksheetTextItem::paint(QPainter* painter, const QStyleOptionGraphicsItem* o, QWidget* w)
+{
+    if (worksheet())
+    {
+        const auto& theme = worksheet()->theme();
+        QColor bgColor(theme.editorColor(KSyntaxHighlighting::Theme::EditorColorRole::BackgroundColor));
+        if (bgColor.isValid())
+        {
+            painter->setPen(Qt::NoPen);
+            painter->setBrush(bgColor);
+            painter->drawRect(boundingRect());
+        }
+
+        if (worksheet()->lastFocusedTextItem() == this)
+        {
+            const QColor highlightColor = theme.editorColor(KSyntaxHighlighting::Theme::CurrentLine);
+            if (highlightColor.isValid())
+            {
+                QTextBlock block = textCursor().block();
+                if (block.isValid())
+                {
+                    QRectF rect = document()->documentLayout()->blockBoundingRect(block);
+                    rect.setWidth(boundingRect().width());
+                    painter->fillRect(rect, highlightColor);
+                }
+            }
+        }
     }
     QGraphicsTextItem::paint(painter, o, w);
 }
@@ -828,9 +845,12 @@ void WorksheetTextItem::setTextForegroundColor()
     QTextCharFormat fmt = textCursor().charFormat();
     QColor color = fmt.foreground().color();
 
-    color = QColorDialog::getColor(color, worksheetView());
-    if (!color.isValid())
-        color = KColorScheme(QPalette::Active, KColorScheme::View).foreground().color();
+    if (worksheet()) {
+        const auto& theme = worksheet()->theme();
+        color = QColorDialog::getColor(color, worksheetView(), i18n("Select Color"), QColorDialog::DontUseNativeDialog);
+        if (!color.isValid())
+            color = QColor(theme.textColor(KSyntaxHighlighting::Theme::Normal));
+    }
 
     QTextCharFormat newFmt;
     newFmt.setForeground(color);
@@ -842,9 +862,12 @@ void WorksheetTextItem::setTextBackgroundColor()
     QTextCharFormat fmt = textCursor().charFormat();
     QColor color = fmt.background().color();
 
-    color = QColorDialog::getColor(color, worksheetView());
-    if (!color.isValid())
-        color = KColorScheme(QPalette::Active, KColorScheme::View).background().color();
+    if (worksheet()) {
+        const auto& theme = worksheet()->theme();
+        color = QColorDialog::getColor(color, worksheetView(), i18n("Select Color"), QColorDialog::DontUseNativeDialog);
+        if (!color.isValid())
+            color = QColor(theme.editorColor(KSyntaxHighlighting::Theme::EditorColorRole::BackgroundColor));
+    }
 
     QTextCharFormat newFmt;
     newFmt.setBackground(color);
@@ -924,4 +947,21 @@ WorksheetTextItem::DoubleClickEventBehaviour WorksheetTextItem::doubleClickBehav
 void WorksheetTextItem::setDoubleClickBehaviour(WorksheetTextItem::DoubleClickEventBehaviour behaviour)
 {
     m_eventBehaviour = behaviour;
+}
+
+void WorksheetTextItem::updateThemeColors()
+{
+    if (!worksheet())
+    {
+        return;
+    }
+
+    const auto& theme = worksheet()->theme();
+    QColor textColor = QColor(theme.textColor(KSyntaxHighlighting::Theme::Normal));
+    QColor bgColor = QColor(theme.editorColor(KSyntaxHighlighting::Theme::EditorColorRole::BackgroundColor));
+
+
+    setDefaultTextColor(textColor);
+
+    update();
 }

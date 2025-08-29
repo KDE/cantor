@@ -55,6 +55,7 @@ class LatexEntry : public WorksheetEntry
     void resolveImagesAtCursor();
     void updateEntry() override;
     void populateMenu(QMenu* menu, QPointF pos) override;
+    void updateAfterSettingsChanges() override;
 
   protected:
     bool wantToEvaluate() override;

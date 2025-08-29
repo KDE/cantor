@@ -10,6 +10,10 @@
       <label>The Backend that is used by default</label>
       <default></default>
     </entry>
+    <entry name="DefaultTheme" type="String">
+        <label>Default editor color theme</label>
+        <default></default>
+    </entry>
     <entry name="TypesetDefault" type="Bool">
       <label>Do Typesetting by default</label>
       <default>true</default>

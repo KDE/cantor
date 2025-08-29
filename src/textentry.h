@@ -71,6 +71,7 @@ class TextEntry : public WorksheetEntry
     void convertToTextEntry();
     void convertTargetChanged(QAction* action);
 
+    void updateAfterSettingsChanges() override;
   protected:
     bool wantToEvaluate() override;
 

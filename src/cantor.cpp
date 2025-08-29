@@ -20,6 +20,8 @@
 #include <KRecentFilesAction>
 #include <KPluginFactory>
 #include <KXMLGUIFactory>
+#include <KSyntaxHighlighting/Repository>
+#include <KTextEditor/Editor>
 
 #include <QApplication>
 #include <QCloseEvent>
@@ -656,6 +658,15 @@ void CantorShell::showSettings()
     QWidget *generalSettings = new QWidget;
     Ui::SettingsBase base;
     base.setupUi(generalSettings);
+
+    base.kcfg_DefaultTheme->addItem(i18n("None"));
+
+    const auto& repository = KTextEditor::Editor::instance()->repository();
+    const QList<KSyntaxHighlighting::Theme> themes = repository.themes();
+    for (const auto &theme : themes)
+    {
+        base.kcfg_DefaultTheme->addItem(theme.translatedName(), theme.name());
+    }
 
     QWidget *formattingSettings = new QWidget;
     Ui::SettingsFormatting formatting;

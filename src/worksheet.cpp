@@ -46,6 +46,7 @@
 #include <KToggleAction>
 #include <KLocalizedString>
 #include <KZip>
+#include <KSyntaxHighlighting/Repository>
 
 #include <libxslt/xslt.h>
 #include <libxslt/xsltutils.h>
@@ -76,6 +77,33 @@ Worksheet::Worksheet(Cantor::Backend* backend, QWidget* parent, bool useDefaultW
 
     if (backend)
         initSession(backend);
+
+    const auto& repository = KTextEditor::Editor::instance()->repository();
+    QString themeNameFromSettings = Settings::self()->defaultTheme();
+
+    m_currentTheme = repository.theme(themeNameFromSettings);
+
+    if (!m_currentTheme.isValid())
+    {
+        bool isNumber;
+        int themeIndex = themeNameFromSettings.toInt(&isNumber);
+
+        if (isNumber)
+        {
+            QList<KSyntaxHighlighting::Theme> themesInOrder;
+            themesInOrder.append(KSyntaxHighlighting::Theme());
+            themesInOrder.append(repository.themes());
+
+            if (themeIndex >= 0 && themeIndex < themesInOrder.count())
+            {
+                m_currentTheme = themesInOrder.at(themeIndex);
+            }
+        }
+    }
+
+    if (!m_currentTheme.isValid()) {
+        m_currentTheme = repository.defaultTheme();
+    }
 }
 
 void Worksheet::stopAnimations()
@@ -1037,9 +1065,6 @@ void Worksheet::interruptCurrentEntryEvaluation()
 }
 
 
-
-
-
 bool Worksheet::variableHighlightingEnabled() const
 {
     return m_variableHighlightingEnabled;
@@ -1047,15 +1072,16 @@ bool Worksheet::variableHighlightingEnabled() const
 
 void Worksheet::setVariableHighlightingEnabled(bool enabled)
 {
-    if (m_variableHighlightingEnabled == enabled) {
-        return; // 状态未改变，无需操作
+    if (m_variableHighlightingEnabled == enabled)
+    {
+        return;
     }
-
     m_variableHighlightingEnabled = enabled;
 
-    // 遍历所有条目，将开关状态通知给每一个 CommandEntry
-    for (auto* entry = firstEntry(); entry; entry = entry->next()) {
-        if (entry->type() == CommandEntry::Type) {
+    for (auto* entry = firstEntry(); entry; entry = entry->next())
+    {
+        if (entry->type() == CommandEntry::Type)
+        {
             static_cast<CommandEntry*>(entry)->setVariableHighlightingEnabled(enabled);
         }
     }
@@ -2317,7 +2343,7 @@ void Worksheet::updateFocusedTextItem(WorksheetTextEditorItem* newItem)
         disconnect(m_legacylastFocusedTextItem, &WorksheetTextItem::pasteAvailable, this, &Worksheet::pasteAvailable);
         disconnect(this, &Worksheet::cut, m_legacylastFocusedTextItem, &WorksheetTextItem::cut);
         disconnect(this, &Worksheet::copy, m_legacylastFocusedTextItem, &WorksheetTextItem::copy);
-        m_legacylastFocusedTextItem = nullptr;
+        // m_legacylastFocusedTextItem = nullptr;
     }
 
     if (m_readOnly) {
@@ -3070,16 +3096,59 @@ void Worksheet::insertSubentriesForHierarchy(HierarchyEntry* hierarchyEntry, Wor
 
 void Worksheet::handleSettingsChanges()
 {
-    for (auto* entry = firstEntry(); entry; entry = entry->next())
+    const QString themeSetting = Settings::self()->defaultTheme();
+    const auto& repository = KTextEditor::Editor::instance()->repository();
+    const QList<KSyntaxHighlighting::Theme> themes = repository.themes();
+    const int themeIndex = themeSetting.toInt();
+    if (themeIndex > 0 && themeIndex <= themes.count())
+    {
+        const QString themeName = themes.at(themeIndex - 1).name();
+        m_currentTheme = repository.theme(themeName);
+    }
+    else
+    {
+        m_currentTheme = repository.defaultTheme();
+    }
+
+    for (WorksheetEntry* entry = m_firstEntry; entry; entry = entry->next())
+    {
         entry->updateAfterSettingsChanges();
+    }
 }
 
 void Worksheet::clearAllSelections()
 {
-    if (m_lastFocusedTextItem) {
+    if (m_lastFocusedTextItem)
+    {
         m_lastFocusedTextItem->clearSelection();
     }
-    if (m_legacylastFocusedTextItem) {
+    if (m_legacylastFocusedTextItem)
+    {
         m_legacylastFocusedTextItem->clearSelection();
+    }
+}
+
+const KSyntaxHighlighting::Theme& Worksheet::theme() const
+{
+    return m_currentTheme;
+}
+
+QColor Worksheet::themeColor(KSyntaxHighlighting::Theme::EditorColorRole role) const
+{
+    return m_currentTheme.editorColor(role);
+}
+
+void Worksheet::updateThemeAndEntries(const QString& themeName)
+{
+    const auto& repository = KTextEditor::Editor::instance()->repository();
+    m_currentTheme = repository.theme(themeName);
+    if (!m_currentTheme.isValid())
+    {
+        m_currentTheme = repository.defaultTheme();
+    }
+
+    for (auto* entry = firstEntry(); entry; entry = entry->next())
+    {
+        entry->updateAfterSettingsChanges();
     }
 }

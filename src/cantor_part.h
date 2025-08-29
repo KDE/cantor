@@ -170,6 +170,7 @@ private:
     KToggleAction* m_exprNumbering;
     KToggleAction* m_animateWorksheet;
     KToggleAction* m_embeddedMath;
+    KSelectAction* m_themeAction;
     QVector<QAction*> m_editActions;
 
     QString m_cachedStatusMessage;

@@ -9,7 +9,7 @@ DynamicHighlighter::DynamicHighlighter(KTextEditor::Document* document, Cantor::
 : QObject(parent), m_document(document), m_variableModel(model)
 {
     m_variableAttribute = KTextEditor::Attribute::Ptr(new KTextEditor::Attribute());
-    m_variableAttribute->setForeground(Qt::magenta);
+    m_variableAttribute->setForeground(Qt::cyan);
 
     m_functionAttribute = KTextEditor::Attribute::Ptr(new KTextEditor::Attribute());
     m_functionAttribute->setForeground(Qt::cyan);

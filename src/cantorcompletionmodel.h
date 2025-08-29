@@ -22,6 +22,7 @@ public:
     struct CompletionItem {
         QString name;
         bool isFunction = false;
+        bool isKeyword = false;
     };
 
     explicit CantorCompletionModel(WorksheetTextEditorItem* parent);

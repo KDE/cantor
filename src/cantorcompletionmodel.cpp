@@ -32,8 +32,43 @@ CantorCompletionModel::~CantorCompletionModel()
     m_debounceTimer->stop();
 }
 
-void CantorCompletionModel::completionInvoked(KTextEditor::View* view, const KTextEditor::Range &range, InvocationType)
+void CantorCompletionModel::completionInvoked(KTextEditor::View* view, const KTextEditor::Range &range, InvocationType invocationType)
 {
+    // For more readable debug output, convert the enum to a string
+    // QString invocationTypeString;
+    // switch (invocationType)
+    // {
+    //     case KTextEditor::CodeCompletionModel::AutomaticInvocation:
+    //         invocationTypeString = QStringLiteral("Automatic");
+    //         break;
+    //     case KTextEditor::CodeCompletionModel::UserInvocation:
+    //         invocationTypeString = QStringLiteral("User");
+    //         break;
+    //     default:
+    //         invocationTypeString = QStringLiteral("Unknown");
+    //         break;
+    // }
+    // qDebug() << "[Completion INVOKED] InvocationType:" << invocationTypeString;
+
+    // DEBUG: Log cursor and range details
+    // KTextEditor::Cursor cursor = view->cursorPosition();
+    // qDebug() << "[Completion INVOKED] Cursor Position: Line" << cursor.line() << ", Column" << cursor.column();
+    // qDebug() << "[Completion INVOKED] Range: from (" << range.start().line() << "," << range.start().column()
+    // << ") to (" << range.end().line() << "," << range.end().column() << ")";
+    // qDebug() << "[Completion INVOKED] Text in range:" << view->document()->text(range);
+
+    // DEBUG: Check for member access context
+    // if (cursor.column() > 0)
+    // {
+    //     QChar precedingChar = view->document()->characterAt(KTextEditor::Cursor(cursor.line(), cursor.column() - 1));
+    //     if (precedingChar == QLatin1Char('.'))
+    //     {
+    //         KTextEditor::Range objectRange = view->document()->wordRangeAt(KTextEditor::Cursor(cursor.line(), cursor.column() - 1));
+    //         QString objectName = view->document()->text(objectRange);
+    //         qDebug() << "[Completion INVOKED] Member access detected for object:" << objectName;
+    //     }
+    // }
+
     m_pendingView = view;
     m_pendingRange = range;
     m_debounceTimer->start();
@@ -42,7 +77,9 @@ void CantorCompletionModel::completionInvoked(KTextEditor::View* view, const KTe
 void CantorCompletionModel::startCompletionRequest()
 {
     if (!m_pendingView || !m_session)
+    {
         return;
+    }
 
     const auto* symbolManager = m_session->symbolManager();
     const auto* varModel = m_session->variableModel();
@@ -53,14 +90,25 @@ void CantorCompletionModel::startCompletionRequest()
 
     QSet<QString> allSymbolsSet;
     QSet<QString> allFunctionsSet;
+    QSet<QString> allKeywordsSet;
 
     const QStringList staticLists = symbolManager->getAvailableLists();
-    for (const QString& listName : staticLists) {
+    for (const QString& listName : staticLists)
+    {
         const QSet<QString>& symbols = symbolManager->getSymbolList(listName);
         allSymbolsSet.unite(symbols);
         if (listName.contains(QStringLiteral("func"), Qt::CaseInsensitive))
         {
             allFunctionsSet.unite(symbols);
+        }
+        if (listName == QStringLiteral("import") ||
+            listName == QStringLiteral("flow") ||
+            listName == QStringLiteral("flow_yield") ||
+            listName == QStringLiteral("defs") ||
+            listName == QStringLiteral("exceptions") ||
+            listName == QStringLiteral("patternmatching"))
+        {
+            allKeywordsSet.unite(symbols);
         }
     }
 
@@ -79,14 +127,13 @@ void CantorCompletionModel::startCompletionRequest()
     beginResetModel();
     m_matches.clear();
 
-    if (!prefix.isEmpty())
+    for (const QString& match : allSymbolsSet)
     {
-        for (const QString& match : allSymbolsSet)
+        // For member access (empty prefix), we match everything.
+        // For normal typing, we match based on the prefix.
+        if (prefix.isEmpty() || match.startsWith(prefix, Qt::CaseInsensitive))
         {
-            if (match.startsWith(prefix, Qt::CaseInsensitive))
-            {
-                m_matches.append({match, allFunctionsSet.contains(match)});
-            }
+            m_matches.append({match, allFunctionsSet.contains(match), allKeywordsSet.contains(match)});
         }
     }
 
@@ -126,6 +173,10 @@ void CantorCompletionModel::executeCompletionItem(KTextEditor::View* view, const
     {
         textToInsert += QStringLiteral("()");
     }
+    else if (item.isKeyword)
+    {
+        textToInsert += QLatin1Char(' ');
+    }
 
     KTextEditor::Range rangeToReplace = view->document()->wordRangeAt(view->cursorPosition());
     view->document()->replaceText(rangeToReplace, textToInsert);
@@ -150,7 +201,7 @@ bool CantorCompletionModel::shouldStartCompletion(KTextEditor::View*, const QStr
     if (!insertedText.isEmpty())
     {
         const QChar lastChar = insertedText.back();
-        if (lastChar.isLetter() || lastChar == QLatin1Char('_'))
+        if (lastChar.isLetter() || lastChar == QLatin1Char('_') || lastChar == QLatin1Char('.'))
         {
             return true;
         }

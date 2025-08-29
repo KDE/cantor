@@ -66,17 +66,12 @@ void PythonServer::runPythonCommand(const string& command)
     PyRun_SimpleString(prepareCommand);
 
     PyObject* compile = Py_CompileString(command.c_str(), filePath.c_str(), Py_single_input);
-    // There are two reasons for the error:
-    // 1) This code is not single expression, so we can't compile this with flag Py_single_input
-    // 2) There are errors in the code
     if (PyErr_Occurred())
     {
         PyErr_Clear();
-        // Try to recompile code as sequence of expressions
         compile = Py_CompileString(command.c_str(), filePath.c_str(), Py_file_input);
         if (PyErr_Occurred())
         {
-            // We now know, that we have a syntax error, so print the traceback and exit
             m_error = true;
             PyErr_PrintEx(0);
             return;
@@ -136,40 +131,50 @@ string PythonServer::variables(bool parseValue)
     Py_ssize_t pos = 0;
 
     vector<string> vars;
-    while (PyDict_Next(globals, &pos, &key, &value)) {
+    while (PyDict_Next(globals, &pos, &key, &value))
+    {
         const string& keyString = pyObjectToQString(key);
-        if (keyString.substr(0, 2) == string("__"))
-            continue;
 
-        if (keyString == string("CatchOutPythonBackend")
-            || keyString == string("errorPythonBackend")
-            || keyString == string("outputPythonBackend"))
+        if (keyString.substr(0, 2) == string("__") ||
+            keyString == string("CatchOutPythonBackend") ||
+            keyString == string("errorPythonBackend") ||
+            keyString == string("outputPythonBackend") ||
+            PyType_Check(value) || // 过滤掉类型对象
+            PyModule_Check(value)) // 新增：过滤掉模块对象
+        {
             continue;
+        }
 
-        if (PyModule_Check(value))
-            continue;
-
-        if (PyFunction_Check(value))
-            continue;
-
-        if (PyType_Check(value))
-            continue;
+            const string field_sep(1, char(17));
 
         string valueString;
         string sizeString;
         string typeString;
+
         if (parseValue)
         {
-            valueString = pyObjectToQString(PyObject_Repr(value));
+            PyObject* repr_value = PyObject_Repr(value);
+            if (repr_value) {
+                valueString = pyObjectToQString(repr_value);
+                Py_DECREF(repr_value);
+            } else { PyErr_Clear(); }
 
-            string command = "sys.getsizeof(" + keyString + ")";
-            sizeString = pyObjectToQString(PyObject_Repr(PyRun_String(command.c_str(), Py_eval_input, py_dict, py_dict)));
+            string command_size = "sys.getsizeof(" + keyString + ")";
+            PyObject* size_obj = PyRun_String(command_size.c_str(), Py_eval_input, py_dict, py_dict);
+            if (size_obj) {
+                sizeString = pyObjectToQString(PyObject_Repr(size_obj));
+                Py_DECREF(size_obj);
+            } else { PyErr_Clear(); }
 
-            command = "type(" + keyString + ")";
-            typeString = pyObjectToQString(PyObject_Repr(PyRun_String(command.c_str(), Py_eval_input, py_dict, py_dict)));
+            string command_type = "type(" + keyString + ")";
+            PyObject* type_obj = PyRun_String(command_type.c_str(), Py_eval_input, py_dict, py_dict);
+            if (type_obj) {
+                typeString = pyObjectToQString(PyObject_Repr(type_obj));
+                Py_DECREF(type_obj);
+            } else { PyErr_Clear(); }
         }
 
-        vars.push_back(keyString + char(17) + valueString + char(17) + sizeString + char(17) + typeString);
+        vars.push_back(keyString + field_sep + valueString + field_sep + sizeString + field_sep + typeString);
     }
 
     PyRun_SimpleStringFlags(
@@ -181,10 +186,11 @@ string PythonServer::variables(bool parseValue)
         "   pass \n", nullptr
     );
 
+    const string record_sep(1, char(18));
     string result;
     for (const string& s : vars)
-        result += s + char(18);
-    result += char(18);
+        result += s + record_sep;
+
     return result;
 }
 

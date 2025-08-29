@@ -10,6 +10,7 @@
 #include "loadedexpression.h"
 #include "worksheetview.h"
 #include "textresultitem.h"
+#include "settings.h"
 #include "lib/backend.h"
 #include "lib/jupyterutils.h"
 #include "lib/result.h"
@@ -39,12 +40,29 @@
 #include <KSyntaxHighlighting/Repository>
 #include <KSyntaxHighlighting/Definition>
 
-
 const QString CommandEntry::Prompt     = QLatin1String(">>> ");
 const QString CommandEntry::MidPrompt  = QLatin1String(">>  ");
 const QString CommandEntry::HidePrompt = QLatin1String(">   ");
 const double CommandEntry::VerticalSpacing = 4;
 
+namespace {
+    QString getThemeNameFromIndex (int index)
+    {
+        if (index <= 0) {
+            return QString ();
+        }
+
+        const auto& repository = KTextEditor::Editor::instance()->repository();
+        const QList<KSyntaxHighlighting::Theme> themes = repository.themes();
+
+        const int themeListIndex = index - 1;
+        if (themeListIndex>= 0 && themeListIndex < themes.count ()) {
+            return themes.at (themeListIndex).name ();
+        }
+
+        return QString ();
+    }
+}
 
 CommandEntry::CommandEntry(Worksheet* worksheet) : WorksheetEntry(worksheet),
     m_promptItem(new WorksheetTextEditorItem(WorksheetTextEditorItem::ReadOnly, this, this)),
@@ -82,6 +100,11 @@ CommandEntry::CommandEntry(Worksheet* worksheet) : WorksheetEntry(worksheet),
         }
 
         m_commandItem->setSyntaxHighlightingMode(highlightingMode);
+
+        const QString themeIndexString = Settings::self()->defaultTheme();
+        const int themeIndex = themeIndexString.toInt();
+        const QString themeName = getThemeNameFromIndex(themeIndex);
+        m_commandItem->setTheme(themeName);
 
         if (worksheet && worksheet->session() && worksheet->session()->variableModel())
         {
@@ -297,7 +320,6 @@ void CommandEntry::themeChanged(QAction* action)
     }
 }
 
-
 void CommandEntry::fontBoldTriggered()
 {
     QAction* action = static_cast<QAction*>(QObject::sender());
@@ -372,6 +394,26 @@ void CommandEntry::populateMenu(QMenu* menu, QPointF pos)
 
     WorksheetEntry::populateMenu(menu, pos);
     menu->addSeparator();
+}
+
+void CommandEntry::updateAfterSettingsChanges()
+{
+    WorksheetEntry::updateAfterSettingsChanges();
+    const QString themeIndexString = Settings::self()->defaultTheme();
+    const int themeIndex = themeIndexString.toInt();
+    const QString themeName = getThemeNameFromIndex(themeIndex);
+    m_commandItem->setTheme(themeName);
+    if (m_menusInitialized)
+    {
+        for (QAction* action : m_themeActionGroup->actions())
+        {
+            if (action->data().toString() == themeName)
+            {
+                action->setChecked(true);
+                break;
+            }
+        }
+    }
 }
 
 void CommandEntry::moveToNextItem(int pos, qreal x)

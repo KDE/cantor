@@ -38,7 +38,6 @@ extern "C" {
 }
 #endif
 
-
 MarkdownEntry::MarkdownEntry(Worksheet* worksheet) : WorksheetEntry(worksheet),
 m_textItem(new WorksheetTextItem(this, Qt::TextEditorInteraction)),
 rendered(false)
@@ -850,4 +849,10 @@ void MarkdownEntry::addImageAttachment(const QString& name, const QImage& image)
     cursor.insertText(QString::fromLatin1("![%1](attachment:%1)").arg(name));
 
     animateSizeChange();
+}
+
+void MarkdownEntry::updateAfterSettingsChanges()
+{
+    WorksheetEntry::updateAfterSettingsChanges();
+    m_textItem->updateThemeColors();
 }

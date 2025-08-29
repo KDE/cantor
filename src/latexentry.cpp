@@ -553,3 +553,9 @@ QString LatexEntry::plain() const
 {
     return m_textItem->toPlainText();
 }
+
+void LatexEntry::updateAfterSettingsChanges()
+{
+    WorksheetEntry::updateAfterSettingsChanges();
+    m_textItem->updateThemeColors();
+}

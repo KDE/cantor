@@ -204,7 +204,7 @@ private:
     QSizeF m_size;
     QColor m_themeDefaultBackgroundColor;
 
-    int m_currentFontPointSize = 14;
+    int m_currentFontPointSize = 12;
     QFont m_currentFont;
     KTextEditor::MovingRange *m_defaultTextColorRange = nullptr;
     KTextEditor::Attribute::Ptr m_defaultTextColorAttribute;

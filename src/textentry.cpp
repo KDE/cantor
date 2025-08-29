@@ -539,9 +539,6 @@ void TextEntry::convertToRawCell()
     m_rawCell = true;
     m_targetMenu->actions().at(0)->setChecked(true);
 
-    KColorScheme scheme = KColorScheme(QPalette::Normal, KColorScheme::View);
-    m_textItem->setBackgroundColor(scheme.background(KColorScheme::AlternateBackground).color());
-
     // Resolve all latex inserts
     QTextCursor cursor(m_textItem->document());
     cursor.movePosition(QTextCursor::End, QTextCursor::KeepAnchor);
@@ -552,9 +549,6 @@ void TextEntry::convertToTextEntry()
 {
     m_rawCell = false;
     m_convertTarget.clear();
-
-    KColorScheme scheme = KColorScheme(QPalette::Normal, KColorScheme::View);
-    m_textItem->setBackgroundColor(scheme.background(KColorScheme::NormalBackground).color());
 }
 
 void TextEntry::convertTargetChanged(QAction* action)
@@ -591,4 +585,10 @@ void TextEntry::addNewTarget(const QString& target)
 QString TextEntry::text() const
 {
     return m_textItem->toPlainText();
+}
+
+void TextEntry::updateAfterSettingsChanges()
+{
+    WorksheetEntry::updateAfterSettingsChanges();
+    m_textItem->updateThemeColors();
 }
