@@ -183,6 +183,7 @@ protected:
     void dropEvent(QGraphicsSceneDragDropEvent *event) override;
     bool sceneEvent(QEvent *event) override;
     void wheelEvent(QGraphicsSceneWheelEvent *event) override;
+    void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget) override; // <-- 新增此行
 private:
     QKeyEvent* eventForStandardAction(KStandardAction::StandardAction actionID);
     Cantor::Session* session();
@@ -204,7 +205,7 @@ private:
     QSizeF m_size;
     QColor m_themeDefaultBackgroundColor;
 
-    int m_currentFontPointSize = 12;
+    int m_currentFontPointSize = 10;
     QFont m_currentFont;
     KTextEditor::MovingRange *m_defaultTextColorRange = nullptr;
     KTextEditor::Attribute::Ptr m_defaultTextColorAttribute;

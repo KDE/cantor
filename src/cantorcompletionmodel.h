@@ -1,6 +1,8 @@
 #ifndef CANTOR_COMPLETION_MODEL_H
 #define CANTOR_COMPLETION_MODEL_H
 
+#include "lib/expression.h"
+
 #include <KTextEditor/CodeCompletionModel>
 #include <KTextEditor/CodeCompletionModelControllerInterface>
 #include <KTextEditor/Range>
@@ -23,6 +25,7 @@ public:
         QString name;
         bool isFunction = false;
         bool isKeyword = false;
+        bool isAttribute = false;
     };
 
     explicit CantorCompletionModel(WorksheetTextEditorItem* parent);
@@ -40,11 +43,13 @@ Q_SIGNALS:
 
 private Q_SLOTS:
     void startCompletionRequest();
+    void handleMemberCompletionResult(Cantor::Expression::Status status);
 
 private:
     Cantor::Session* m_session;
 
     QList<CompletionItem> m_matches;
+    QString m_completionContextObject;
 
     QTimer* m_debounceTimer;
     KTextEditor::View* m_pendingView;

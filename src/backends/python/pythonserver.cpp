@@ -139,8 +139,8 @@ string PythonServer::variables(bool parseValue)
             keyString == string("CatchOutPythonBackend") ||
             keyString == string("errorPythonBackend") ||
             keyString == string("outputPythonBackend") ||
-            PyType_Check(value) || // 过滤掉类型对象
-            PyModule_Check(value)) // 新增：过滤掉模块对象
+            PyType_Check(value) ||
+            PyModule_Check(value))
         {
             continue;
         }

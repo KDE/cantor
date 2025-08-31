@@ -29,6 +29,7 @@
 TextResultItem::TextResultItem(WorksheetEntry* parent, Cantor::Result* result)
     : WorksheetTextItem(parent), ResultItem(result)
 {
+    updateThemeColors();
     connect(this, SIGNAL(collapseActionSizeChanged()), parent, SLOT(recalculateSize()));
     setTextInteractionFlags(Qt::TextSelectableByMouse);
     update();
@@ -329,4 +330,9 @@ void TextResultItem::collapseExtraLines()
         m_isCollapsed = true;
         m_widthWhenCollapsed = (int)width();
     }
+}
+
+void TextResultItem::updateTheme()
+{
+    updateThemeColors();
 }

@@ -5,14 +5,14 @@
 #include <QColor>
 #include <QDebug>
 
-DynamicHighlighter::DynamicHighlighter(KTextEditor::Document* document, Cantor::DefaultVariableModel* model, QObject* parent)
+DynamicHighlighter::DynamicHighlighter(KTextEditor::Document* document, Cantor::DefaultVariableModel* model, const QColor& variableColor, const QColor& functionColor, QObject* parent)
 : QObject(parent), m_document(document), m_variableModel(model)
 {
     m_variableAttribute = KTextEditor::Attribute::Ptr(new KTextEditor::Attribute());
-    m_variableAttribute->setForeground(Qt::cyan);
+    m_variableAttribute->setForeground(variableColor);
 
     m_functionAttribute = KTextEditor::Attribute::Ptr(new KTextEditor::Attribute());
-    m_functionAttribute->setForeground(Qt::cyan);
+    m_functionAttribute->setForeground(functionColor);
 
     if (m_variableModel) {
         connect(m_variableModel, &Cantor::DefaultVariableModel::variablesAdded, this, &DynamicHighlighter::handleVariablesAdded);
@@ -61,6 +61,13 @@ void DynamicHighlighter::clearAllHighlights()
     {
         m_document->views().first()->update();
     }
+}
+
+void DynamicHighlighter::updateThemeColors(const QColor& variableColor, const QColor& functionColor)
+{
+    m_variableAttribute->setForeground(variableColor);
+    m_functionAttribute->setForeground(functionColor);
+    updateAllHighlights();
 }
 
 void DynamicHighlighter::handleVariablesAdded(const QStringList& variables)

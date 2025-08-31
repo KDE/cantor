@@ -108,7 +108,11 @@ CommandEntry::CommandEntry(Worksheet* worksheet) : WorksheetEntry(worksheet),
 
         if (worksheet && worksheet->session() && worksheet->session()->variableModel())
         {
-            m_dynamicHighlighter = new DynamicHighlighter(m_commandItem->document(), this->worksheet()->session()->variableModel(), this);
+            const auto* ws = this->worksheet();
+            const auto& theme = ws->theme();
+            const QColor variableColor = theme.textColor(KSyntaxHighlighting::Theme::DataType);
+            const QColor functionColor = theme.textColor(KSyntaxHighlighting::Theme::Function);
+            m_dynamicHighlighter = new DynamicHighlighter(m_commandItem->document(), ws->session()->variableModel(), variableColor, functionColor, this);
             connect(m_commandItem->document(), &KTextEditor::Document::textChanged, m_dynamicHighlighter, &DynamicHighlighter::updateAllHighlights);
             m_dynamicHighlighter->updateAllHighlights();
         }
@@ -412,6 +416,22 @@ void CommandEntry::updateAfterSettingsChanges()
                 action->setChecked(true);
                 break;
             }
+        }
+    }
+    if (m_dynamicHighlighter)
+    {
+        const auto* ws = this->worksheet();
+        const auto& theme = ws->theme();
+        const QColor variableColor = theme.textColor(KSyntaxHighlighting::Theme::DataType);
+        const QColor functionColor = theme.textColor(KSyntaxHighlighting::Theme::Function);
+        m_dynamicHighlighter->updateThemeColors(variableColor, functionColor);
+    }
+
+    for (ResultItem* item : m_resultItems)
+    {
+        if (item)
+        {
+            item->updateTheme();
         }
     }
 }
@@ -1248,7 +1268,8 @@ void CommandEntry::layOutForWidth(qreal entry_zone_x, qreal w, bool force)
 
     y += qMax(m_commandItem->height(), m_promptItem->height());
 
-    for (auto* item : m_informationItems) {
+    for (auto* item : m_informationItems)
+    {
         y += VerticalSpacing;
         y += item->setGeometry(x, y, w - x - margin);
         width = qMax(width, item->width() + margin);
@@ -1259,15 +1280,18 @@ void CommandEntry::layOutForWidth(qreal entry_zone_x, qreal w, bool force)
         if (!resultItem || !resultItem->graphicsObject()->isVisible())
             continue;
         y += VerticalSpacing;
-        y += resultItem->setGeometry(0, y, w - margin);
+        y += resultItem->setGeometry(x, y, w - x - margin);
         width = qMax(width, resultItem->width() + margin);
     }
     y += VerticalMargin;
 
     QSizeF s(x+ width, y);
-    if (animationActive()) {
+    if (animationActive())
+    {
         updateSizeAnimation(s);
-    } else {
+    }
+    else
+    {
         setSize(s);
     }
 }

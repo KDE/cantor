@@ -45,6 +45,7 @@ class ResultItem
     virtual double width() const = 0;
     virtual double height() const = 0;
 
+    virtual void updateTheme() {};
     QGraphicsObject* graphicsObject();
     Cantor::Result* result();
     CommandEntry* parentEntry();

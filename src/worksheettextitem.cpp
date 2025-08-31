@@ -714,9 +714,9 @@ void WorksheetTextItem::paint(QPainter* painter, const QStyleOptionGraphicsItem*
                 QTextBlock block = textCursor().block();
                 if (block.isValid())
                 {
-                    QRectF rect = document()->documentLayout()->blockBoundingRect(block);
-                    rect.setWidth(boundingRect().width());
-                    painter->fillRect(rect, highlightColor);
+                    QRectF blockRect = document()->documentLayout()->blockBoundingRect(block);
+                    QRectF highlightRect(boundingRect().x(), blockRect.y(), boundingRect().width(), blockRect.height());
+                    painter->fillRect(highlightRect, highlightColor);
                 }
             }
         }

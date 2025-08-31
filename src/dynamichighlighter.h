@@ -19,12 +19,13 @@ class DynamicHighlighter : public QObject
     Q_OBJECT
 
 public:
-    explicit DynamicHighlighter(KTextEditor::Document* document, Cantor::DefaultVariableModel* model, QObject* parent = nullptr);
+    explicit DynamicHighlighter(KTextEditor::Document* document, Cantor::DefaultVariableModel* model, const QColor& variableColor, const QColor& functionColor, QObject* parent = nullptr);
     ~DynamicHighlighter() override;
 
 public Q_SLOTS:
     void updateAllHighlights();
     void clearAllHighlights();
+    void updateThemeColors(const QColor& variableColor, const QColor& functionColor);
 
 private Q_SLOTS:
     void handleVariablesAdded(const QStringList& variables);

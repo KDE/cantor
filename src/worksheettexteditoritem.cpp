@@ -37,6 +37,8 @@ WorksheetTextEditorItem::WorksheetTextEditorItem(EditorMode initialMode, Workshe
     m_document = m_editor->createDocument(nullptr);
     m_view = m_document->createView(nullptr);
 
+    m_view->setContentsMargins(0, 4, 0, 4);
+
     m_view->setConfigValue(QStringLiteral("scrollbar-minimap"), false);
     m_view->setConfigValue(QStringLiteral("scrollbar-preview"), false);
     m_view->setConfigValue(QStringLiteral("folding-bar"), false);
@@ -76,12 +78,12 @@ WorksheetTextEditorItem::WorksheetTextEditorItem(EditorMode initialMode, Workshe
     QFont fixedFont = QFontDatabase::systemFont(QFontDatabase::FixedFont);
     m_view->setFont(fixedFont);
     m_currentFont = fixedFont;
-    m_currentFontPointSize = m_currentFont.pointSize() > 0 ? m_currentFont.pointSize() : 12;
+    m_currentFontPointSize = m_currentFont.pointSize() > 0 ? m_currentFont.pointSize() : 10;
     m_view->setStatusBarEnabled(false);
     setAcceptDrops(true);
 
     m_view->setAnnotationBorderVisible(false);
-    m_view->setAttribute(Qt::WA_TranslucentBackground, false);
+    m_view->setAttribute(Qt::WA_TranslucentBackground, true);
 
     setupLineHeight();
 
@@ -260,8 +262,8 @@ void WorksheetTextEditorItem::setupLineHeight()
     QFont font = m_view->font();
     if (font.pointSize() < 10)
     {
-        font.setPointSize(12);
-        m_currentFontPointSize = 12;
+        font.setPointSize(10);
+        m_currentFontPointSize = 10;
         m_view->setFont(font);
         m_currentFont = font;
     }
@@ -475,6 +477,9 @@ QSizeF WorksheetTextEditorItem::estimateContentSize(qreal maxWidth) const
     if (!m_document || !m_view)
         return QSizeF();
 
+    constexpr int TopPadding = 4;
+    constexpr int BottomPadding = 4;
+
     const QFontMetricsF fm(m_view->font());
     qreal maxLineWidth = 0;
     qreal totalHeight = 0;
@@ -502,10 +507,9 @@ QSizeF WorksheetTextEditorItem::estimateContentSize(qreal maxWidth) const
     if (maxWidth > 0)
         maxLineWidth = qMin<qreal>(maxLineWidth, maxWidth);
 
-    const int bottomPadding = 2;
-    totalHeight += bottomPadding;
+    totalHeight += TopPadding + BottomPadding;
 
-    return QSizeF(qMax(maxLineWidth, 1.0), qMax(totalHeight, fm.lineSpacing()));
+    return QSizeF(qMax(maxLineWidth, 1.0), qMax(totalHeight, fm.lineSpacing() + TopPadding + BottomPadding));
 }
 
 qreal WorksheetTextEditorItem::setGeometry(qreal x, qreal y, qreal w, bool centered)
@@ -732,7 +736,6 @@ void WorksheetTextEditorItem::setTheme(const QString& themeName)
     if (!m_view) return;
 
     m_view->setConfigValue(QStringLiteral("theme"), themeName);
-
 
     const auto& theme = m_view->theme();
     if (theme.isValid())
@@ -1694,6 +1697,23 @@ void WorksheetTextEditorItem::wheelEvent(QGraphicsSceneWheelEvent *event)
 {
     // QGraphicsProxyWidget::wheelEvent(event);
     event->ignore();
+}
+
+void WorksheetTextEditorItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget)
+{
+    if (worksheet())
+    {
+        const auto& theme = worksheet()->theme();
+        QColor bgColor(theme.editorColor(KSyntaxHighlighting::Theme::EditorColorRole::BackgroundColor));
+        if (bgColor.isValid())
+        {
+            painter->setPen(Qt::NoPen);
+            painter->setBrush(bgColor);
+            painter->drawRect(boundingRect());
+        }
+    }
+
+    QGraphicsProxyWidget::paint(painter, option, widget);
 }
 
 QPointF WorksheetTextEditorItem::localCursorPosition() const

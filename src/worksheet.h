@@ -56,7 +56,7 @@ class Worksheet : public QGraphicsScene
     Worksheet(Cantor::Backend*, QWidget*, bool useDeafultWorksheetParameters = true);
     ~Worksheet() override;
 
-    Cantor::Session* session();
+    Cantor::Session* session() const;
 
     void loginToSession();
 

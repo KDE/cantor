@@ -34,6 +34,7 @@ class TextResultItem : public WorksheetTextItem, public ResultItem
 
     void deleteLater() override;
 
+    void updateTheme() override;
   Q_SIGNALS:
     void collapseActionSizeChanged();
 

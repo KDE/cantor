@@ -1092,7 +1092,7 @@ void Worksheet::enableCompletion(bool enable)
     m_completionEnabled=enable;
 }
 
-Cantor::Session* Worksheet::session()
+Cantor::Session* Worksheet::session() const
 {
     return m_session;
 }
