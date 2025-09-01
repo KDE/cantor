@@ -2286,7 +2286,7 @@ msgstr "Introduïu un nom"
 #, kde-format
 msgctxt "@info:placeholder"
 msgid "Select a name..."
-msgstr "Trieu un nom…"
+msgstr "Tria un nom…"
 
 #. i18n: ectx: property (text), widget (QLabel, lPath)
 #: backends/qthelpconfigeditdialog.ui:51
@@ -2300,14 +2300,14 @@ msgstr "Camí:"
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Select a Qt Help file..."
-msgstr "Trieu un fitxer d'ajuda de les Qt…"
+msgstr "Tria un fitxer d'ajuda de les Qt…"
 
 #. i18n: ectx: property (placeholderText), widget (KUrlRequester, qchRequester)
 #: backends/qthelpconfigeditdialog.ui:70
 #, kde-format
 msgctxt "@info:placeholder"
 msgid "Select a Qt Help file..."
-msgstr "Trieu un fitxer d'ajuda de les Qt…"
+msgstr "Tria un fitxer d'ajuda de les Qt…"
 
 #: backends/R/rbackend.cpp:80
 #, kde-format
@@ -4302,7 +4302,7 @@ msgid ""
 "prompt border"
 msgstr ""
 "Si està marcada, les entrades de text s'alinearan amb la vora del full de "
-"treball i no amb la vora de l'indicatiu"
+"treball i no amb la vora de l'indicador"
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_UseOldCantorEntriesIndent)
 #: settings.ui:246
