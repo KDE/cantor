@@ -25,7 +25,7 @@ class MathRenderer : public QObject {
 
     static bool mathRenderAvailable();
 
-    // Resulution contol
+    // Resolution control
     void setScale(qreal scale);
     qreal scale();
     void useHighResolution(bool b);

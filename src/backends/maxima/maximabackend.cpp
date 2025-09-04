@@ -75,7 +75,7 @@ QUrl MaximaBackend::helpUrl() const
 QString MaximaBackend::defaultHelp() const
 {
     //taken from https://maxima.sourceforge.io/docs/manual/maxima_5.html
-    //@tranlators: don't tranlate Maxima's keywords here ("describe", "true", "false", etc.) which are put inside of <i></i>
+    //@translators: don't translate Maxima's keywords here ("describe", "true", "false", etc.) which are put inside of <i></i>
     return i18n("<h1>Maxima's Help System</h1>"
                 "<h2>Function <i>apropos</i></h2>"
                 "Searches for Maxima names which have name appearing anywhere within them; <i>name</i> must be a string or symbol. Thus, <i>apropos(exp)</i> returns a list of all the flags and functions which have exp as part of their name, such as <i>expand</i>, <i>exp</i>, and <i>exponentialize</i>. So, if you can only remember part of the name of a Maxima command or variable, you can use this command to find the rest of the name. Similarly, you can type <i>apropos(tr_)</i> to find a list of many of the switches relating to the translator, most of which begin with <i>tr_</i>.<br><br>"

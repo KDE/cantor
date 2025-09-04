@@ -90,7 +90,7 @@ void OctaveVariableModel::parseNewVariables(Expression::Status status)
 
                 const QString& name = elements.constFirst();
 
-                // skip the output of results that are not assigned to any varialbe ("ans" used by Octave)
+                // skip the output of results that are not assigned to any variable ("ans" used by Octave)
                 if (name == QStringLiteral("ans"))
                     continue;
 

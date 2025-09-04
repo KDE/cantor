@@ -47,8 +47,8 @@ class CANTOR_EXPORT Session : public QObject
     };
 
     /**
-     * Create a new Session. This should not yet set up the complete session,
-     * thats job of the login() function
+     * Create a new Session. This should not set up the complete session yet.
+     * That's the job of the login() function.
      * @see login()
      */
     explicit Session(Backend*);
@@ -79,9 +79,9 @@ class CANTOR_EXPORT Session : public QObject
     virtual void logout();
 
     /**
-    * This method run precense test for available graphic packages. The packages, which will sucessfuly pass the test
+    * This method run presence test for available graphic packages. The packages, which will successfully pass the test
     * will go to @c usableGraphicPackages list
-    * @param targetPackage If set, precense test will run only for this package. If empty string, then all available packages will be tested
+    * @param targetPackage If set, presence test will run only for this package. If empty string, then all available packages will be tested
     */
     void testGraphicsPackages(QList<GraphicPackage> packages);
 
@@ -202,7 +202,7 @@ class CANTOR_EXPORT Session : public QObject
     int nextExpressionId();
 
     /**
-     * Return list all enabled (which precense in system and choosen for run by user) graphic packages
+     * Return list all enabled (that are present in the system and chosen to run by user) graphic packages
      * Can be empty.
      */
     const QList<GraphicPackage>& enabledGraphicPackages() const;

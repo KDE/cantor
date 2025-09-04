@@ -111,7 +111,7 @@ void LuaSession::readOutputLuaJIT()
         if (line.endsWith(QLatin1String("\n")))
             line.chop(1);
 
-        // join multiple lines with Lua's promt so we can parse the lines as the separate results later
+        // join multiple lines with Lua's prompt so we can parse the lines as the separate results later
         if (!output.isEmpty())
             output += QLatin1String("> ");
         output += line;
@@ -147,7 +147,7 @@ void LuaSession::readOutputLua()
         // X + "\n" + command_output + "\n" + "> " or ">> " + "\n"
         // or (merged form, rare, only 10% of output
         // X + "\n" + command_output + "\n" + ("> " or ">> " in beginning of next X)
-        // Sometimes empty lines also apears in command output
+        // Sometimes empty lines also appears in command output
 
         // In this realisation we iterate over input lines and output line and copy only output lines
         int input_idx = 0;

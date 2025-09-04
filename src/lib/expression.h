@@ -206,7 +206,7 @@ class CANTOR_EXPORT Expression : public QObject
     /**
      * Sets whether the expression is a help request (available for Maxima and R) where
      * additional information/help can be requested and shown.
-     * Used internally to controll whether the update of the variable model needs to be done.
+     * Used internally to control whether the update of the variable model needs to be done.
      */
     void setIsHelpRequest(bool);
     bool isHelpRequest() const;

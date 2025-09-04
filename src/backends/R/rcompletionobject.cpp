@@ -79,7 +79,7 @@ void RCompletionObject::receiveCompletions(Cantor::Expression::Status status)
             break;
         }
         case Expression::Status::Error:
-            qWarning() << "R code for completion command finishs with error message: " << m_expression->errorMessage();
+            qWarning() << "R code for completion command finishes with error message: " << m_expression->errorMessage();
             break;
 
         case Expression::Status::Interrupted:

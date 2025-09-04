@@ -730,8 +730,8 @@ void CantorPart::enableTypesetting(bool enable)
  * called when the current worksheet has requested to show the documentation for \c keyword.
  * In case the local documentation is available for the current backend, the signal is
  * forwarded to the shell to show the documentation plugin/widget.
- * If no local documentation is available, the defaul online URL for the backend documentation
- * is openned.
+ * If no local documentation is available, the default online URL for the backend documentation
+ * is opened.
  */
 void CantorPart::documentationRequested(const QString& keyword) {
     auto* backend = m_worksheet->session()->backend();

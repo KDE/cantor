@@ -811,8 +811,8 @@ QDomElement CommandEntry::toXml(QDomDocument& doc, KZip* archive)
     else
         isTextColorNotDefault = m_textColorCustom;
 
-    // Setting both values is necessary for previous Cantor versions compability
-    // Value, added only for compability reason, marks with attribute
+    // Setting both values is necessary for previous Cantor versions compatibility
+    // Value, added only for compatibility reason, marks with attribute
     if (isFontNotDefault || isTextColorNotDefault)
     {
         QDomElement textElem = doc.createElement(QLatin1String("Text"));
@@ -954,7 +954,7 @@ void CommandEntry::expressionChangedStatus(Cantor::Expression::Status status)
     {
     case Cantor::Expression::Computing:
     {
-        //change the background of the promt item and start animating it (fade in/out).
+        //change the background of the prompt item and start animating it (fade in/out).
         //don't start the animation immediately in order to avoid unwanted flickering for "short" commands,
         //start the animation after 1 second passed.
         if (worksheet()->animationsEnabled())
@@ -993,7 +993,7 @@ void CommandEntry::expressionChangedStatus(Cantor::Expression::Status status)
 
         recalculateSize();
         // Mostly we handle setting of modification in WorksheetEntry inside ::evaluateNext.
-        // But command entry wouldn't triger ::evaluateNext for Error and Interrupted states
+        // But command entry wouldn't trigger ::evaluateNext for Error and Interrupted states
         // So, we set it here
         worksheet()->setModified();
         break;
@@ -1570,7 +1570,7 @@ qreal CommandEntry::promptItemWidth()
 /*!
  * called when the "Get Help" action is triggered in the context menu.
  * requests the worksheet to show the current keyword in the documentation panel.
- * the current keyword is either the currenly selected text or the text under
+ * the current keyword is either the currently selected text or the text under
  * the cursor if there is no selection.
  */
 void CommandEntry::showHelp()

@@ -157,7 +157,7 @@ void QalculateSession::storeVariables(QString& currentCmd, QString output)
         value.remove(QLatin1String(">"));
     }
 
-    //find the varaiable.
+    //find the variable.
     // ex1: currentCmd = save(10, var_1,category, title): var_1 = variable
     // ex2: currentCmd = save(planet(jupter,mass), jupiter_mass, category, title): jupiter_mass = variable
 
@@ -312,7 +312,7 @@ QString QalculateSession::parseSaveCommand(QString& currentCmd)
     /*
         If we have not returned by this point, it's because:
         * we did not parse the save command properly. This might be due to malformed regular expressions.
-        * or the commnad given by the user is malformed. More likely to happen
+        * or the command given by the user is malformed. More likely to happen
         In both these cases we will simply return an empty string because we don't want qalc to run malformed queries,
         else it would wait for user input and hence Qprocess would never return a complete output and the expression will remain in
         'calculating' state
@@ -321,7 +321,7 @@ QString QalculateSession::parseSaveCommand(QString& currentCmd)
     return QLatin1String("");
 }
 
-//TODO: unify with the funcion in the base class
+//TODO: unify with the function in the base class
 void QalculateSession::currentExpressionStatusChanged(Cantor::Expression::Status status)
 {
     // depending on the status of the expression change the status of the session;

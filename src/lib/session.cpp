@@ -116,7 +116,7 @@ void Session::finishFirstExpression(bool setDoneAfterUpdate)
             // Some variable models could update internal lists without running expressions
             // or don't need to be updated at all like for Maxima being in Lisp-mode.
             // So, if after update queue still empty, set status to Done
-            // setDoneAfterUpdate used for compatibility with some backends, like R - TODO: check why this is requried
+            // setDoneAfterUpdate used for compatibility with some backends, like R - TODO: check why this is required
             if (setDoneAfterUpdate && d->expressionQueue.isEmpty())
                 changeStatus(Done);
             else if (d->expressionQueue.isEmpty())
@@ -205,7 +205,7 @@ QSyntaxHighlighter* Session::syntaxHighlighter(QObject*)
 
 DefaultVariableModel* Session::variableModel() const
 {
-    //By default, there is variableModel in session, used by syntax higlighter for variable analyzing
+    //By default, there is variableModel in session, used by syntax highlighter for variable analyzing
     //The model store only variable names by default.
     //In backends with VariableManagement Capability flag, this model also used for Cantor variable doc panel
     return d->variableModel;

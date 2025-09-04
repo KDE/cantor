@@ -416,7 +416,7 @@ void HierarchyEntry::recalculateControlGeometry()
 
 void HierarchyEntry::startDrag(QPointF grabPos)
 {
-    // We need reset entry cursor manually, because otherwise the entry cursor will be visible on dragable item
+    // We need reset entry cursor manually, because otherwise the entry cursor will be visible on draggable item
     worksheet()->resetEntryCursor();
 
     QDrag* drag = new QDrag(worksheetView());

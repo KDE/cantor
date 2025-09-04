@@ -1,7 +1,7 @@
 This backend integrates the R environment into Cantor.
 
 The design of the R backend is different from the other backends:
-As R offers a C API, there is no necesity for parsing output.
+As R offers a C API, there is no necessity for parsing output.
 As the R API is not thread-save and to not let the backend freeze
 Cantors ui, the backend is implemented as 2 parts:
 

@@ -770,7 +770,7 @@ void CantorShell::updatePanel()
     if (m_part)
         wa = m_part->findChild<Cantor::WorksheetAccessInterface*>(Cantor::WorksheetAccessInterface::Name);
 
-    // Worksheet interface can be missing on m_part clossing (and m_part on this moment can be nullptr)
+    // Worksheet interface can be missing on m_part closing (and m_part on this moment can be nullptr)
     QList<Cantor::PanelPlugin*> plugins;
     if (wa)
     {

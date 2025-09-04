@@ -208,7 +208,7 @@ class CANTOR_EXPORT Backend : public QObject, public KXMLGUIClient
     /**
      * @return @c true if all the requirements (the path is correct, the file is executable, etc.) are fulfilled
      * for the backend @c Name with the path to the executable @c path and false otherwise.
-     * In case the requrements are not fulfilled, the reason is written to @c reason.
+     * In case the requirements are not fulfilled, the reason is written to @c reason.
      */
     static bool checkExecutable(const QString& name, const QString& path, QString* reason = nullptr);
 

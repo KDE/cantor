@@ -17,7 +17,7 @@ namespace Cantor
 class MimeResultPrivate;
 
 /**
- * Class for Jupyter results, which can't be handeled by Cantor
+ * Class for Jupyter results, which can't be handled by Cantor
  * So data of the results and their mime types stored in this result
  * for preventing loosing
  * This must be used only with Jupyter notebook results with unsupported mime type

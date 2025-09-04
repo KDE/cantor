@@ -74,7 +74,7 @@ void TestMaxima::testMultilineCommand02()
 }
 
 /*
- * test multiple variable assignments with a supressed output.
+ * test multiple variable assignments with a suppressed output.
  */
 void TestMaxima::testMultilineCommand03()
 {
@@ -283,7 +283,7 @@ void TestMaxima::testWarning01()
     QVERIFY(e->results().size() == 2); //two results, the warning and the actual result of the calculation
 
     //the actual warning string "rat: replaced 7.5 by 15/2 = 7.5" which we don't checked since it's translated,
-    //we just check it's existance.
+    //we just check it's existence.
     auto* result = dynamic_cast<Cantor::TextResult*>(e->results().at(0));
     QVERIFY(e != nullptr);
     QVERIFY(result->data().toString().isEmpty() == false);
@@ -304,7 +304,7 @@ void TestMaxima::testWarning02()
     QVERIFY(e != nullptr);
     QVERIFY(e->results().size() == 2); //two results, the TeX output and an additional 'false'
 
-    //the actual TeX string is of no interest for us, we just check it's existance.
+    //the actual TeX string is of no interest for us, we just check its existence.
     auto* result = dynamic_cast<Cantor::TextResult*>(e->results().at(0));
     QVERIFY(e != nullptr);
     QVERIFY(result->data().toString().isEmpty() == false);

@@ -209,7 +209,7 @@ void MarkdownEntry::setContent(const QDomElement& content, const KZip& file)
     }
 
     // Because, all previous actions was on load stage,
-    // them shoudl unconverted by user
+    // them should unconverted by user
     m_textItem->document()->clearUndoRedoStacks();
 }
 
@@ -673,7 +673,7 @@ void MarkdownEntry::setRenderedMath(int jobId, const QTextImageFormat& format, c
 
         // Don't add new line for $$...$$ on document's begin and end
         // And if we in block, which haven't non-space characters except out math expression
-        // In another sitation, Cantor will move rendered image into another QTextBlock
+        // In another situation, Cantor will move rendered image into another QTextBlock
         QTextCursor prevSymCursor = m_textItem->document()->find(QRegularExpression(QStringLiteral("[^\\s]")),
                                                                  cursor, QTextDocument::FindBackward);
         if (type == Cantor::LatexRenderer::FullEquation
@@ -737,7 +737,7 @@ void MarkdownEntry::markUpMath()
         // Use index+1 in math array as property tag
         format.setProperty(JobProperty, i+1);
 
-        // We found the math expression, so remove 'marker' (ACII symbol 'Acknowledgement')
+        // We found the math expression, so remove 'marker' (ASCII symbol 'Acknowledgement')
         // The marker have been placed after "$" or "$$"
         // We remove the marker, only if it presents
         QString codeWithoutMarker = foundMath[i].first;

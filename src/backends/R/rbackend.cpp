@@ -83,7 +83,7 @@ QUrl RBackend::helpUrl() const
 QString RBackend::defaultHelp() const
 {
     //description of R's help system taken from https://www.r-project.org/help.html
-    //@tranlators: don't tranlate R's keywords here ("help", etc.) which are put inside <i></i>
+    //@translators: don't translate R's keywords here ("help", etc.) which are put inside <i></i>
     return i18n("<h1>R' Help System: <i>help()</i> and <i>?</i>:</h1><br>"
     "The <i>help()</i> function and <i>?</i> help operator in R provide access to the documentation pages for R functions, data sets, and other objects, both for packages in the standard R distribution and for contributed packages.<br><br>"
     "To access documentation for the standard <i>lm</i> (linear model) function, for example, enter the command <b><i>help(lm)</i></b> or <i>help(\"lm\")</i>, or <i>?lm</i> or <i>?\"lm\"</i> (i.e., the quotes are optional).<br><br>"

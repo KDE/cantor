@@ -263,7 +263,7 @@ void ImageEntry::updateEntry()
         if (!m_imageItem)
             m_imageItem = new WorksheetImageItem(this);
 
-        // This if-else block was used for backward compability for *cws files
+        // This if-else block was used for backward compatibility for *cws files
         // without FileName tag. After some releases from 20.08 version, it will
         // be possible to remove the else part and strip the m_imagePath from the
         // code and Path tag from the CWS format

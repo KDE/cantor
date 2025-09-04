@@ -122,7 +122,7 @@ QList<Backend*> Backend::availableBackends()
 
 	QString reason;
 	if (! backend->requirementsFullfilled(&reason))
-		qDebug() << "Requirements not fullfilled: " << reason;
+		qDebug() << "Requirements not fulfilled: " << reason;
 
         backend->d->name = plugin.name();
         backend->d->comment = plugin.description();

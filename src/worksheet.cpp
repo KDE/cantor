@@ -329,8 +329,8 @@ void Worksheet::updateEntrySize(WorksheetEntry* entry)
         else if (entry->type() == HierarchyEntry::Type)
             newMaxPromptWidth = static_cast<HierarchyEntry*>(entry)->hierarchyItemWidth();
 
-        // If width of prompt (if precense) of the entry more, that currect maximum,
-        // then we need full layout update
+        // If width of prompt (if presence) of the entry more, is less than that of current 
+        // maximum, then we need full layout update
         if (newMaxPromptWidth > m_maxPromptWidth)
         {
             updateLayout();
@@ -700,7 +700,7 @@ void Worksheet::evaluate()
     if (!m_readOnly && m_session && m_session->status() == Cantor::Session::Disable)
         loginToSession();
 
-    // evaluate the worksheet if the login was successfull
+    // evaluate the worksheet if the login was successful
     if (m_session && m_session->status() == Cantor::Session::Done) {
         firstEntry()->evaluate(WorksheetEntry::EvaluateNext);
         setModified();
@@ -713,7 +713,7 @@ void Worksheet::evaluateCurrentEntry()
     if (!m_readOnly && m_session && m_session->status() == Cantor::Session::Disable)
         loginToSession();
 
-    // evaluate the current entry if the login was successfull
+    // evaluate the current entry if the login was successful
     if (m_session && m_session->status() == Cantor::Session::Done)
     {
         auto* entry = currentEntry();
@@ -2073,7 +2073,7 @@ void Worksheet::keyPressEvent(QKeyEvent* event)
     if ((event->modifiers() & Qt::ControlModifier) && (event->key() == Qt::Key_1))
         worksheetView()->actualSize();
     else if ((m_choosenCursorEntry || m_isCursorEntryAfterLastEntry) && !event->text().isEmpty())
-        addEntryFromEntryCursor(); //add new enty when the entry cursor is activa the user starts typing the text
+        addEntryFromEntryCursor(); //add new entry when entry cursor is actived when user starts typing text
 
     QGraphicsScene::keyPressEvent(event);
 }

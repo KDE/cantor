@@ -136,7 +136,7 @@ void SageSession::login()
     connect(m_process, &QProcess::errorOccurred, this, &SageSession::reportProcessError);
     connect(m_process, SIGNAL(finished(int,QProcess::ExitStatus)), this, SLOT(processFinished(int,QProcess::ExitStatus)));
 
-    // initialize the settings for embeded plots
+    // initialize the settings for embedded plots
     // TODO: right now the settings are evaluated during the login only and the user needs to re-login
     // or to restart the application to get the changes applied. A better logic would be to recognize
     // a plot command and to apply the changes "on the fly" as in maximasession for example or

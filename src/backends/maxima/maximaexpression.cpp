@@ -237,7 +237,7 @@ void MaximaExpression::parseOutput(const QString& out)
     const int promptEnd = out.indexOf(QLatin1String("</cantor-prompt>"));
     const QString prompt = out.mid(promptStart + 15, promptEnd - promptStart - 15).simplified();
 
-    //check whether the result is part of the promt - this is the case when additional input is required from the user
+    //check whether the result is part of the prompt - this is the case when additional input is required from the user
     if (prompt.contains(QLatin1String("<cantor-result>")))
     {
         //text part of the output
@@ -280,7 +280,7 @@ void MaximaExpression::parseOutput(const QString& out)
         const QString resultContent = out.mid(resultStart + 15, resultEnd - resultStart - 15);
         parseResult(resultContent);
 
-        //search for the next openning <cantor-result> tag after the current closing </cantor-result> tag
+        //search for the next opening <cantor-result> tag after the current closing </cantor-result> tag
         resultStart = out.indexOf(QLatin1String("<cantor-result>"), resultEnd + 16);
     }
 

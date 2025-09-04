@@ -17,7 +17,7 @@ OctaveKeywords::OctaveKeywords()
     //we use "keywords" and "functions" at the moment. decide what to do with "forge", "builtin" and "commands".
     m_keywords = definition.keywordList(QLatin1String("keywords"));
 
-    //KSyntaxHighlighting store this keywords separatly of keywords list, so we add them manually
+    //KSyntaxHighlighting store this keywords separately of keywords list, so we add them manually
     m_keywords
         << QLatin1String("function") << QLatin1String("endfunction")
         << QLatin1String("for") << QLatin1String("endfor")

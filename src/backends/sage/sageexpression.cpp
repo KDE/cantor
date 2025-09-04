@@ -181,7 +181,7 @@ void SageExpression::evalFinished()
                     stripped.insert(curr_index, QLatin1String("&"));
                 }
             }
-            // Replace new-line characters with \\ for LaTeX's newline intepretation
+            // Replace new-line characters with \\ for LaTeX's newline interpretation
             stripped.replace(QLatin1Char('\n'), QLatin1String("\\\\"));
             stripped.prepend(QLatin1String("\\begin{align*}"));
             stripped.append(QLatin1String("\\end{align*}"));

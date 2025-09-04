@@ -18,7 +18,7 @@ class Session;
 class Expression;
 
 /**
- * This class represents of embedded graphic handler for certaion graphical package some of @c Backend
+ * This class represents of embedded graphic handler for certain graphical package some of @c Backend
  * It provides access to native backend code (octave code for Octave backend, python code for Python backend, etc)
  * for few operations, which need for embedded graphics.
  *
@@ -72,15 +72,15 @@ public:
     /**
      * @brief This function return command for saving image result(s) from expression (if results are existed).
      * @param filenamePrefix Prefix of files with plots. Can be something like @c "/tmp/cantor_octave_2432_plot". Optional parameter.
-     * @param plotNumber Currect plot number, should be used for full filename construction. Optional parameter.
+     * @param plotNumber Current plot number, should be used for full filename construction. Optional parameter.
      * @param additionalInfo This is additional parameter from backend, which go to @c "%3" template. Optional parameter.
      * @return Command which will save plot to certain file or empty string (see isHavePlotCommand())
      */
     QString savePlotCommand(QString filenamePrefix = QString(), int plotNumber = -1, QString additionalInfo = QString()) const;
 
     /**
-     * Some graphic package can't capture plots correctly, for example, some packages can't test precense of created plot.
-     * So, the package handling need some code for testing of plot command precense
+     * Some graphic package can't capture plots correctly, for example, some packages can't test presence of created plot.
+     * So, the package handling need some code for testing of plot command presence.
      * This method return list of some strings, which should be in plot command.
      * @return List of strings, which should be in plot command or empty list.
      */

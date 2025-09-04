@@ -187,7 +187,7 @@ void MaximaSession::readStdOut()
     QString out = QString::fromLocal8Bit(m_process->readAllStandardOutput());
     m_cache += out;
 
-    //collect the multi-line output until Maxima has finished the calculation and returns a new promt
+    //collect the multi-line output until Maxima has finished the calculation and returns a new prompt
     if ( !out.contains(QLatin1String("</cantor-prompt>")) )
         return;
 

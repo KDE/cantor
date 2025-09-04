@@ -97,7 +97,7 @@ void JuliaHighlighter::highlightBlock(const QString &text)
                     // not in this block, highlight till the end
                     length = text.length() - pos;
                 } else {
-                    // highlight untill the marker and modify state
+                    // highlight until the marker and modify state
                     length = new_pos - pos + match.capturedLength(0);
                     state -= flag;
                 }

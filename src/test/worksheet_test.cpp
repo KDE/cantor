@@ -1178,7 +1178,7 @@ void WorksheetTest::testJupyter2()
         "                          resolution=100., cmap=cm.viridis_r, \n"
         "                          rstride=1, cstride=10, linewidth=0.15,\n"
         "                          alpha=0.65, ax=None):\n"
-        "    'Plots a given deap benchmark problem as a countour plot'\n"
+        "    'Plots a given deap benchmark problem as a contour plot'\n"
         "    (minx,miny),(maxx,maxy) = bounds\n"
         "    x_range = np.arange(minx, maxx, (maxx-minx)/resolution)\n"
         "    y_range = np.arange(miny, maxy, (maxy-miny)/resolution)\n"
@@ -1345,7 +1345,7 @@ void WorksheetTest::testJupyter2()
 
     testCommandEntry(entry, 32, QLatin1String(
         "def plot_individual(individual, ax=None):\n"
-        "    'Plots an ES indiviual as center and 3*sigma ellipsis.'\n"
+        "    'Plots an ES individual as center and 3*sigma ellipsis.'\n"
         "    cov = np.eye(len(individual)) * individual.strategy\n"
         "    plot_cov_ellipse(individual, cov, volume=0.99, alpha=0.56, ax=ax)\n"
         "    if ax:\n"
@@ -1930,7 +1930,7 @@ void WorksheetTest::testJupyter2()
         "## Homework\n"
         "\n"
         "1. Make an animated plot with the covariance update process. You can rely on the notebook of the previous demonstration class.\n"
-        "2. Compare ES, CMA-ES and a genetic algortihm.\n"
+        "2. Compare ES, CMA-ES and a genetic algorithm.\n"
         "2. How do you think that evolutionary strategies and CMA-ES should be modified in order to cope with combinatorial problems?\n"
         "3. How can evolution strategies be improved?\n"
     ));
@@ -2008,7 +2008,7 @@ void WorksheetTest::testJupyter3()
     testMarkdown(entry, QString::fromUtf8(
         "## Population Genetics in *an* RNA World\n"
         "\n"
-        "In order to study population genetics, we first need a model of a population. And even before that, we need to define what we mean by *population*. Populations can be defined on many levels and with many diffferent criteria. For our purposes, we will simply say that a population is a set of individuals sharing a common environment. And because this is population *genetics* we can think of individuals as entities comprising of specific genes or chromosomes. \n"
+        "In order to study population genetics, we first need a model of a population. And even before that, we need to define what we mean by *population*. Populations can be defined on many levels and with many different criteria. For our purposes, we will simply say that a population is a set of individuals sharing a common environment. And because this is population *genetics* we can think of individuals as entities comprising of specific genes or chromosomes. \n"
         "\n"
         "So where do we get a population from? As you may have discussed in previous workshops, there are very large datasets containing sequencing information from different populations. So we could download one of these datasets and perform some analysis on it. But I find this can be dry and tedious. So why download data when we can simply create our own?\n"
         "\n"
@@ -2022,7 +2022,7 @@ void WorksheetTest::testJupyter3()
         "\n"
         "### Building an RNA population\n"
         "\n"
-        "As we saw earlier, RNA has the nice property of posessing a strong mapping between information carrying (sequence) and function (structure). This is analogous to what is known in evolutionary terms as a genotype and a phenotype. With these properties, we have everything we need to model a population, and simulate its evolution.\n"
+        "As we saw earlier, RNA has the nice property of possessing a strong mapping between information carrying (sequence) and function (structure). This is analogous to what is known in evolutionary terms as a genotype and a phenotype. With these properties, we have everything we need to model a population, and simulate its evolution.\n"
         "\n"
         "#### RNA sequence-structure\n"
         "\n"
@@ -2128,7 +2128,7 @@ void WorksheetTest::testJupyter3()
     testMarkdown(entry, QString::fromUtf8(
         "## Defining a cell: a little bit of Object Oriented Programming (OOP)\n"
         "\n"
-        "Since we're going to be playing aroudn with sequences and structures and fitness values a lot, it's best to package it all nicely into an object. As you'll have seen with Vlad, objects are just a nice way of grouping data into an easily accessible form. \n"
+        "Since we're going to be playing around with sequences and structures and fitness values a lot, it's best to package it all nicely into an object. As you'll have seen with Vlad, objects are just a nice way of grouping data into an easily accessible form. \n"
         "\n"
         "We're trying to simulate evolution on a very simple kind of organism, or cell. It contains two copies of a RNA gene, each with a corresponding structure. "
     ));
@@ -2671,7 +2671,7 @@ void WorksheetTest::testJupyter3()
         "        child_chrom_2 = (parents_pair[1].sequence_2, parents_pair[1].structure_2)\n"
         "\n"
         "\n"
-        "        #initialize the new child Cell witht he new chromosomes.\n"
+        "        #initialize the new child Cell with the new chromosomes.\n"
         "        child_cell = Cell(child_chrom_1[0], child_chrom_1[1], child_chrom_2[0], child_chrom_2[1])\n"
         "\n"
         "        #give the child and id and store who its parents are\n"
@@ -3032,7 +3032,7 @@ void WorksheetTest::testJupyter3()
     ));
 
     testMarkdown(entry, QString::fromUtf8(
-        "Let's get some data for our F-tests. First we need to evolve two populations indepenently of each other, to simulate isolated mating. Then to simulate the total population we combine the two sub-populations. We then use our `allele_finder()` function to get all the alleles, and the `hardy_weinberg_chi_2_test()` function to get our expected and observed counts. Finally we plug those into the `f_statistics()` function."
+        "Let's get some data for our F-tests. First we need to evolve two populations independently of each other, to simulate isolated mating. Then to simulate the total population we combine the two sub-populations. We then use our `allele_finder()` function to get all the alleles, and the `hardy_weinberg_chi_2_test()` function to get our expected and observed counts. Finally we plug those into the `f_statistics()` function."
     ));
 
     qDebug() << "command entry 34";
@@ -3185,7 +3185,7 @@ void WorksheetTest::testJupyter3()
         "        #select two parents based on their fitness\n"
         "        parents_pair = np.random.choice(population, 2, p=[rna.fitness for rna in population], replace=False)\n"
         "        \n"
-        "        #look up probabilty of mating in the preference_matrix\n"
+        "        #look up probability of mating in the preference_matrix\n"
         "        mating_probability = preference_matrix[parents_pair[0].preference][parents_pair[1].preference]\n"
         "        \n"
         "        r = random.random()\n"
@@ -3198,7 +3198,7 @@ void WorksheetTest::testJupyter3()
         "            child_chrom_2 = (parents_pair[1].sequence_2, parents_pair[1].structure_2)\n"
         "\n"
         "\n"
-        "            #initialize the new child Cell witht he new chromosomes.\n"
+        "            #initialize the new child Cell with the new chromosomes.\n"
         "            child_cell = Cell(child_chrom_1[0], child_chrom_1[1], child_chrom_2[0], child_chrom_2[1])\n"
         "\n"
         "            #give the child and id and store who its parents are\n"
@@ -3293,7 +3293,7 @@ void WorksheetTest::testJupyter3()
         "\n"
         "*Exercise 1.  Make a tree using maximum parsimony.*\n"
         "\n"
-        "We saw how to make trees using a distance score. Another popular method is known as the maximum parsimony approach. I won't go into too much detail on this since we are short on time, but I will give a quick intro and we'll look at how ot make a tree using maximum parsimony.\n"
+        "We saw how to make trees using a distance score. Another popular method is known as the maximum parsimony approach. I won't go into too much detail on this since we are short on time, but I will give a quick intro and we'll look at how to make a tree using maximum parsimony.\n"
         "\n"
         "This approach is based on the principle of parsimony, which states that the simplest explanation for our data is the most likely to be true. So given an alignment, we assume that the best tree is the one that minimizes the number of changes, or mutations. This is often a reasonable assumption to make since mutation rates in real populations are generally low, and things like back-mutations (e.g. A --> C --> A) are unlikely. Computing the tree that that maximizes parsimony directly is a difficult task, but evaluating the parsimony score of a tree given the tree is easy. So this approach basically generates many random trees for the data and scores them based on parsimony keeping the most parsimonious tree. Take a look at [the biopython manual to work through this example](http://biopython.org/wiki/Phylo), and [this one](http://biopython.org/DIST/docs/api/Bio.Phylo.TreeConstruction.ParsimonyTreeConstructor-class.html).\n"
         "\n"
@@ -3473,9 +3473,9 @@ void WorksheetTest::testJupyter3()
         "\n"
         "Similarly to the $\\chi^{2}$ test we saw for testing deviations from HW equilibrium, we can use a T-test to compare differences in means between two independent samples. We can use this to revisit a the first programming question in the exercsies section. Does mutation rate and population size have an effect on the fitness of populations? We can translate this question to, is there a difference in the mean base pair distance between populations under different mutation and population size regimes?\n"
         "\n"
-        "Scipy has a very useful function that implements the T-test called `scipy.stats.ttest_ind`. Run two independent simulations (with different mutation rates) and compute the difference in mean bp distance between the two at their final generation. Store the populations in two different variables. Give a list of `bp_distance_1` values for each memeber of the population to `ttest_ind()`. \n"
+        "Scipy has a very useful function that implements the T-test called `scipy.stats.ttest_ind`. Run two independent simulations (with different mutation rates) and compute the difference in mean bp distance between the two at their final generation. Store the populations in two different variables. Give a list of `bp_distance_1` values for each member of the population to `ttest_ind()`. \n"
         "\n"
-        "Make sure to read teh `ttest_ind()` documentation, particularly about the argumetn `equal_var`. What should we set it to?"
+        "Make sure to read the `ttest_ind()` documentation, particularly about the argument `equal_var`. What should we set it to?"
     ));
 
     qDebug() << "command entry 42";
@@ -3488,7 +3488,7 @@ void WorksheetTest::testJupyter3()
         "hi_mut_pop, hi_mut_stats = evolve(target, generations=5, pop_size=1000, mutation_rate=0.5)\n"
         "lo_mut_pop, hi_mut_stats = evolve(target, generations=5, pop_size=1000, mutation_rate=0.05)\n"
         "\n"
-        "#store lits of base pair distances for each population at last generation.\n"
+        "#store list of base pair distances for each population at last generation.\n"
         "hi_bps = [p.bp_distance_1 for p in hi_mut_pop[-1]]\n"
         "lo_bps = [p.bp_distance_1 for p in lo_mut_pop[-1]]\n"
         "\n"
@@ -3712,7 +3712,7 @@ void WorksheetTest::testJupyter4()
         "\n"
         "where $T$ is the point in time up to which we will integrate $u$ numerically.\n"
         "\n"
-        "Our ultimate goal is to construct a numerical method that allows us to approximate the unknonwn analytic solution $u(x,t)$\n"
+        "Our ultimate goal is to construct a numerical method that allows us to approximate the unknown analytic solution $u(x,t)$\n"
         "reasonably well in these discrete grid points.\n"
         "\n"
         "That is we want construct a method that computes values $U(j \\Delta x, n \\Delta t)$ (note: capital $U$) so that\n"
@@ -5527,7 +5527,7 @@ void WorksheetTest::testJupyter6()
         "\n"
         "It has been shown behaviorally that humans perform near-optimal Bayesian inference on ambiguous sensory information. As suggested by Ma *et. al.* (2006) and shown here, it is possible that the brain does this operation by simply performing linear combinations of populations of Poisson neurons receiving various sensory input. Cortical neurons may be particularly well suited for this task because they have Poisson-like firing rates, displaying reliable variability from trial to trial (Tolhurst, Movshon & Dean, 1982; Softky & Koch, 1993).\n"
         "\n"
-        "High levels of noise in these populations might at first be difficult to reconcile considering highly precise behavioral data. However, variability in neural populations might be direcly representative of uncertainty in environmental stimuli. Variability in cortical populations would then be critical for precise neural coding.\n"
+        "High levels of noise in these populations might at first be difficult to reconcile considering highly precise behavioral data. However, variability in neural populations might be directly representative of uncertainty in environmental stimuli. Variability in cortical populations would then be critical for precise neural coding.\n"
         "\n"
         "## References\n"
         "\n"
