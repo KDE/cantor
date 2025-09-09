@@ -34,7 +34,6 @@
     <comment xml:lang="ta">கேண்ட்டொர் பணித்தாள்</comment>
     <comment xml:lang="tr">Cantor çalışma sayfası</comment>
     <comment xml:lang="uk">робочий аркуш Cantor</comment>
-    <comment xml:lang="x_test">xxCantor worksheetxx</comment>
     <comment xml:lang="zh_CN">Cantor 工作表</comment>
     <comment xml:lang="zh_TW">Cantor 工作表</comment>
     <glob pattern="*.cws"/>
