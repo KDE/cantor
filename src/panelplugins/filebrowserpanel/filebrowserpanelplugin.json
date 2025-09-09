@@ -30,7 +30,6 @@
         "Description[ta]": "கேண்ட்டொருக்குள்ளேயே கோப்புகளை கையாள உதவும் பலகை",
         "Description[tr]": "Cantor içinde dosyalarla çalışmak için bir panel",
         "Description[uk]": "Панель для роботи з файлами у вікні Cantor",
-        "Description[x-test]": "xxA panel for working with files inside Cantorxx",
         "Description[zh_CN]": "用于在 Cantor 内处理文件的面板",
         "Description[zh_TW]": "在 Cantor 裡面瀏覽檔案的面板",
         "Icon": "",
@@ -66,7 +65,6 @@
         "Name[ta]": "கோப்பு உலாவி",
         "Name[tr]": "Dosya Tarayıcısı",
         "Name[uk]": "Навігація файлами",
-        "Name[x-test]": "xxFile Browserxx",
         "Name[zh_CN]": "文件浏览器",
         "Name[zh_TW]": "檔案瀏覽器"
     },

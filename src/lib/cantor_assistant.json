@@ -27,7 +27,6 @@
         "Description[sv]": "En guide för Cantor",
         "Description[tr]": "Cantor için bir yardımcı",
         "Description[uk]": "Помічник Cantor",
-        "Description[x-test]": "xxAn Assistant for Cantorxx",
         "ServiceType": "Cantor/Assistant"
     }
 }

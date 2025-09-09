@@ -27,7 +27,6 @@
         "Description[sv]": "Ett bakgrundsprogram för Cantor",
         "Description[tr]": "Cantor için bir arka uç",
         "Description[uk]": "Модуль Cantor",
-        "Description[x-test]": "xxA Backend for Cantorxx",
         "ServiceType": "Cantor/Backend"
     }
 }
