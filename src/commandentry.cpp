@@ -101,10 +101,11 @@ CommandEntry::CommandEntry(Worksheet* worksheet) : WorksheetEntry(worksheet),
 
         m_commandItem->setSyntaxHighlightingMode(highlightingMode);
 
-        const QString themeIndexString = Settings::self()->defaultTheme();
-        const int themeIndex = themeIndexString.toInt();
-        const QString themeName = getThemeNameFromIndex(themeIndex);
-        m_commandItem->setTheme(themeName);
+        if (worksheet)
+        {
+            const auto& parentTheme = worksheet->theme();
+            m_commandItem->setTheme(parentTheme.name());
+        }
 
         if (worksheet && worksheet->session() && worksheet->session()->variableModel())
         {
@@ -145,7 +146,7 @@ CommandEntry::~CommandEntry()
         m_backgroundColorMenu->deleteLater();
         m_textColorMenu->deleteLater();
         m_fontMenu->deleteLater();
-        m_themeMenu->deleteLater();
+        // m_themeMenu->deleteLater();
     }
 }
 
@@ -219,29 +220,29 @@ void CommandEntry::initMenus()
             action->setChecked(true);
     }
 
-    m_themeActionGroup = new QActionGroup(this);
-    m_themeActionGroup->setExclusive(true);
-    connect(m_themeActionGroup, &QActionGroup::triggered, this, &CommandEntry::themeChanged);
-
-    m_themeMenu = new QMenu(i18n("Color Theme"));
-    m_themeMenu->setIcon(QIcon::fromTheme(QStringLiteral("preferences-desktop-color")));
-
-    const auto& repository = KTextEditor::Editor::instance()->repository();
-    const QList<KSyntaxHighlighting::Theme> themes = repository.themes();
-    const QString currentThemeName = m_commandItem->view()->theme().name();
-
-    for (const auto &theme : themes)
-    {
-        QAction* action = new QAction(theme.translatedName(), m_themeActionGroup);
-        action->setCheckable(true);
-        action->setData(theme.name());
-        m_themeMenu->addAction(action);
-
-        if (theme.name() == currentThemeName)
-        {
-            action->setChecked(true);
-        }
-    }
+    // m_themeActionGroup = new QActionGroup(this);
+    // m_themeActionGroup->setExclusive(true);
+    // connect(m_themeActionGroup, &QActionGroup::triggered, this, &CommandEntry::themeChanged);
+    //
+    // m_themeMenu = new QMenu(i18n("Color Theme"));
+    // m_themeMenu->setIcon(QIcon::fromTheme(QStringLiteral("preferences-desktop-color")));
+    //
+    // const auto& repository = KTextEditor::Editor::instance()->repository();
+    // const QList<KSyntaxHighlighting::Theme> themes = repository.themes();
+    // const QString currentThemeName = m_commandItem->view()->theme().name();
+    //
+    // for (const auto &theme : themes)
+    // {
+    //     QAction* action = new QAction(theme.translatedName(), m_themeActionGroup);
+    //     action->setCheckable(true);
+    //     action->setData(theme.name());
+    //     m_themeMenu->addAction(action);
+    //
+    //     if (theme.name() == currentThemeName)
+    //     {
+    //         action->setChecked(true);
+    //     }
+    // }
 
     QFont font = m_commandItem->font();
     m_fontMenu = new QMenu(i18n("Font"));
@@ -317,11 +318,11 @@ void CommandEntry::textColorChanged(QAction* action)
 
 void CommandEntry::themeChanged(QAction* action)
 {
-    const QString themeName = action->data().toString();
-    if (!themeName.isEmpty())
-    {
-        m_commandItem->setTheme(themeName);
-    }
+    // const QString themeName = action->data().toString();
+    // if (!themeName.isEmpty())
+    // {
+    //     m_commandItem->setTheme(themeName);
+    // }
 }
 
 void CommandEntry::fontBoldTriggered()
@@ -392,7 +393,7 @@ void CommandEntry::populateMenu(QMenu* menu, QPointF pos)
     appearanceMenu->addMenu(m_backgroundColorMenu);
     appearanceMenu->addMenu(m_textColorMenu);
     appearanceMenu->addMenu(m_fontMenu);
-    appearanceMenu->addMenu(m_themeMenu);
+    // appearanceMenu->addMenu(m_themeMenu);
     menu->addMenu(appearanceMenu);
     menu->addSeparator();
 
@@ -403,21 +404,20 @@ void CommandEntry::populateMenu(QMenu* menu, QPointF pos)
 void CommandEntry::updateAfterSettingsChanges()
 {
     WorksheetEntry::updateAfterSettingsChanges();
-    const QString themeIndexString = Settings::self()->defaultTheme();
-    const int themeIndex = themeIndexString.toInt();
-    const QString themeName = getThemeNameFromIndex(themeIndex);
+    const auto& parentTheme = worksheet()->theme();
+    const QString themeName = parentTheme.name();
     m_commandItem->setTheme(themeName);
-    if (m_menusInitialized)
-    {
-        for (QAction* action : m_themeActionGroup->actions())
-        {
-            if (action->data().toString() == themeName)
-            {
-                action->setChecked(true);
-                break;
-            }
-        }
-    }
+    // if (m_menusInitialized)
+    // {
+    //     for (QAction* action : m_themeActionGroup->actions())
+    //     {
+    //         if (action->data().toString() == themeName)
+    //         {
+    //             action->setChecked(true);
+    //             break;
+    //         }
+    //     }
+    // }
     if (m_dynamicHighlighter)
     {
         const auto* ws = this->worksheet();

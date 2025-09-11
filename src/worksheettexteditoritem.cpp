@@ -5,6 +5,7 @@
 #include "lib/session.h"
 #include "worksheetcursor.h"
 #include "worksheetview.h"
+#include "settings.h"
 
 #include <KColorScheme>
 #include <KSyntaxHighlighting/Repository>
@@ -157,7 +158,8 @@ WorksheetTextEditorItem::~WorksheetTextEditorItem()
         worksheet()->updateFocusedTextItem(static_cast<WorksheetTextEditorItem*>(nullptr));
     if(worksheet())
         worksheet()->removeRequestedWidth(this);
-    if (m_customCompleter) {
+    if (m_customCompleter)
+    {
         delete m_customCompleter;
     }
 }
@@ -745,6 +747,7 @@ void WorksheetTextEditorItem::setTheme(const QString& themeName)
 
     setBackgroundColor(QColor());
 }
+
 
 void WorksheetTextEditorItem::increaseFontSize()
 {

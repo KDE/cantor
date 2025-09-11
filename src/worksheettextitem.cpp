@@ -708,6 +708,11 @@ void WorksheetTextItem::paint(QPainter* painter, const QStyleOptionGraphicsItem*
 
         if (worksheet()->lastFocusedTextItem() == this)
         {
+            if(theme.name() == QStringLiteral("Atom One Dark") || theme.name() == QStringLiteral("Atom One Light"))
+            {
+                QGraphicsTextItem::paint(painter, o, w);
+                return ;
+            }
             const QColor highlightColor = theme.editorColor(KSyntaxHighlighting::Theme::CurrentLine);
             if (highlightColor.isValid())
             {

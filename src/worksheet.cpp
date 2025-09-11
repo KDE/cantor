@@ -81,7 +81,14 @@ Worksheet::Worksheet(Cantor::Backend* backend, QWidget* parent, bool useDefaultW
     const auto& repository = KTextEditor::Editor::instance()->repository();
     QString themeNameFromSettings = Settings::self()->defaultTheme();
 
-    m_currentTheme = repository.theme(themeNameFromSettings);
+    if (themeNameFromSettings.isEmpty())
+    {
+        m_currentTheme = repository.defaultTheme();
+    }
+    else
+    {
+        m_currentTheme = repository.theme(themeNameFromSettings);
+    }
 
     if (!m_currentTheme.isValid())
     {
@@ -101,7 +108,8 @@ Worksheet::Worksheet(Cantor::Backend* backend, QWidget* parent, bool useDefaultW
         }
     }
 
-    if (!m_currentTheme.isValid()) {
+    if (!m_currentTheme.isValid())
+    {
         m_currentTheme = repository.defaultTheme();
     }
 }

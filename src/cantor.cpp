@@ -659,7 +659,7 @@ void CantorShell::showSettings()
     Ui::SettingsBase base;
     base.setupUi(generalSettings);
 
-    base.kcfg_DefaultTheme->addItem(i18n("None"));
+    base.kcfg_DefaultTheme->addItem(i18n("Default"), QString());
 
     const auto& repository = KTextEditor::Editor::instance()->repository();
     const QList<KSyntaxHighlighting::Theme> themes = repository.themes();
