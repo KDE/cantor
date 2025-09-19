@@ -1,6 +1,7 @@
 {
     "KPlugin": {
         "Description": "A panel for working with files inside Cantor",
+        "Description[ar]": "لوحة للعمل مع الملفات داخل كانتور",
         "Description[ca@valencia]": "Un quadro per a treballar amb fitxers dins de Cantor",
         "Description[ca]": "Un plafó per a treballar amb fitxers dins del Cantor",
         "Description[de]": "Eine Kontrollleiste zur Verwaltung von Dateien in Cantor",
@@ -35,6 +36,7 @@
         "Icon": "",
         "License": "GPL",
         "Name": "File Browser",
+        "Name[ar]": "مستعرض الملفات",
         "Name[ca@valencia]": "Navegador de fitxers",
         "Name[ca]": "Navegador de fitxers",
         "Name[cs]": "Prohlížeč souborů",

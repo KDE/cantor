@@ -1,6 +1,7 @@
 {
     "KPlugin": {
         "Description": "An Assistant for running an external Script file",
+        "Description[ar]": "مساعد لتشغيل ملف سكربت خارجي",
         "Description[ca@valencia]": "Un assistent per a executar un fitxer de script extern",
         "Description[ca]": "Un assistent per a executar un fitxer de script extern",
         "Description[cs]": "Pomocník pro spouštění externího skriptu",
@@ -37,6 +38,7 @@
         "Icon": "system-run",
         "License": "GPL",
         "Name": "RunScript",
+        "Name[ar]": "تشغيل سكربت",
         "Name[ca@valencia]": "ExecutaScript",
         "Name[ca]": "ExecutaScript",
         "Name[cs]": "Spustit skript",

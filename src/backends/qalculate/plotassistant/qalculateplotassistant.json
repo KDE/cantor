@@ -1,6 +1,7 @@
 {
     "KPlugin": {
         "Description": "An Assistant for plotting with the Qalculate backend.",
+        "Description[ar]": "مساعد للرسم باستخدام خلفية Qalculate.",
         "Description[ca@valencia]": "Un assistent per a fer gràfiques amb el dorsal de Qalculate.",
         "Description[ca]": "Un assistent per a fer gràfiques amb el dorsal del Qalculate.",
         "Description[cs]": "Asistent pro grafy s podpůrnou vrstvou Qalculate.",
@@ -37,6 +38,7 @@
         "Id": "Plot2d",
         "License": "GPL",
         "Name": "QalculatePlot",
+        "Name[ar]": "QalculatePlot",
         "Name[ca@valencia]": "Gràfic de Qalculate",
         "Name[ca]": "Gràfic de Qalculate",
         "Name[cs]": "QalculatePlot",

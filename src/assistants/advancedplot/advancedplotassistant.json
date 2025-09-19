@@ -2,6 +2,7 @@
     "KPlugin": {
         "License": "GPL",
         "Name": "AdvancedPlot",
+        "Name[ar]": "رسم متقدم",
         "Name[ca@valencia]": "GràficAvançat",
         "Name[ca]": "GràficAvançat",
         "Name[cs]": "Pokročilý graf",

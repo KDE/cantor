@@ -1,6 +1,7 @@
 {
     "KPlugin": {
         "Description": "An Assistant dialog to simplify calculating of Eigenvalues",
+        "Description[ar]": "حوار مساعد لتبسيط حساب القيم الذاتية",
         "Description[ca@valencia]": "Un diàleg assistent per a simplificar el càlcul d'autovalors",
         "Description[ca]": "Un diàleg assistent per a simplificar el càlcul d'autovalors",
         "Description[cs]": "Pomocný dialog pro zjednodušení výpočtu vlastních čísel",
@@ -36,6 +37,7 @@
         "Description[zh_TW]": "簡化特徵值計算的小助手對話框",
         "License": "GPL",
         "Name": "Eigenvalues",
+        "Name[ar]": "القيم الذاتية",
         "Name[ca@valencia]": "Valors propis (autovalors)",
         "Name[ca]": "Valors propis (autovalors)",
         "Name[cs]": "Vlastní čísla",

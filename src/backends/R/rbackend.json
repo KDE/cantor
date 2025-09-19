@@ -1,6 +1,7 @@
 {
     "KPlugin": {
         "Description": "Backend for The R Project for Statistical Computing",
+        "Description[ar]": "خلفية لمشروع R للحوسبة الإحصائية",
         "Description[ca@valencia]": "Dorsal per al projecte R, paquet d'estadística per ordinador",
         "Description[ca]": "Dorsal per al projecte R, paquet d'estadística per ordinador",
         "Description[cs]": "Podpůrná vrstva pro projekt R pro statistické výpočty",
@@ -37,6 +38,7 @@
         "Icon": "rbackend",
         "License": "GPL",
         "Name": "R",
+        "Name[ar]": "R",
         "Name[ca@valencia]": "R",
         "Name[ca]": "R",
         "Name[cs]": "R",

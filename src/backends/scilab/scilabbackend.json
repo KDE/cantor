@@ -1,6 +1,7 @@
 {
     "KPlugin": {
         "Description": "Backend for the Scilab Scientific Programming Environment",
+        "Description[ar]": "خلفية لبيئة Scilab للبرمجة العلمية",
         "Description[ca@valencia]": "Dorsal per a l'entorn de programació científic Scilab",
         "Description[ca]": "Dorsal per a l'entorn de programació científic Scilab",
         "Description[cs]": "Podpůrná vrstva pro vědecké programovací prostředí Scilab",

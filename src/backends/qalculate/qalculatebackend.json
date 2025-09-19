@@ -1,6 +1,7 @@
 {
     "KPlugin": {
         "Description": "Qalculate backend for Cantor. Gives you the advanced features of Qalculate",
+        "Description[ar]": "خلفية Qalculate لكانتور. تمنحك الميزات المتقدمة لـ Qalculate",
         "Description[ca@valencia]": "Dorsal de Qalculate per a Cantor. Vos oferix les característiques avançades de Qalculate",
         "Description[ca]": "Dorsal de Qalculate per al Cantor. Us ofereix les característiques avançades de Qalculate",
         "Description[cs]": "Podpůrná vrstva Qalculate pro Cantor. Poskytuje pokročilé vlastnosti Qalculate",
@@ -37,6 +38,7 @@
         "Icon": "qalculatebackend",
         "License": "GPL",
         "Name": "Qalculate",
+        "Name[ar]": "Qalculate",
         "Name[ca@valencia]": "Qalculate",
         "Name[ca]": "Qalculate",
         "Name[cs]": "Qalculate",

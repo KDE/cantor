@@ -1,6 +1,7 @@
 {
     "KPlugin": {
         "Description": "An Assistant dialog to simplify plotting of 3D functions",
+        "Description[ar]": "حوار مساعد لتبسيط رسم الدوال ثلاثية الأبعاد",
         "Description[ca@valencia]": "Un diàleg assistent per a simplificar la representació gràfica de funcions en 3D",
         "Description[ca]": "Un diàleg assistent per a simplificar la representació gràfica de funcions en 3D",
         "Description[cs]": "Pomocný dialog pro zjednodušení vytvoření grafu trojrozměrných funkcí",
@@ -36,6 +37,7 @@
         "Description[zh_TW]": "簡化繪製三維函式小助手對話框",
         "License": "GPL",
         "Name": "Plot3d",
+        "Name[ar]": "ارسم ثلاثيّ الأبعاد",
         "Name[ca@valencia]": "Plot3d",
         "Name[ca]": "Plot3d",
         "Name[cs]": "Graf3d",

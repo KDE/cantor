@@ -1,6 +1,7 @@
 {
     "KPlugin": {
         "Description": "A Plugin for Cantor's Panel",
+        "Description[ar]": "ملحق للوحة كنتور",
         "Description[ca@valencia]": "Un connector per al quadro de Cantor",
         "Description[ca]": "Un connector per al plafó del Cantor",
         "Description[cs]": "Modul pro panel Cantoru",

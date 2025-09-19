@@ -1,6 +1,7 @@
 {
     "KPlugin": {
         "Description": "A panel to manage the variables of a session",
+        "Description[ar]": "لوحة لإدارة متغيرات الجلسة",
         "Description[ca@valencia]": "Un quadro per a gestionar les variables d'una sessió",
         "Description[ca]": "Un plafó per a gestionar les variables d'una sessió",
         "Description[cs]": "Panel pro správu proměnných sezení",
