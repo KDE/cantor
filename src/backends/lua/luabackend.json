@@ -1,6 +1,7 @@
 {
     "KPlugin": {
         "Description": "Backend for luajit",
+        "Description[ar]": "خلفية لـ luajit",
         "Description[ca@valencia]": "Dorsal pel Luajit",
         "Description[ca]": "Dorsal pel Luajit",
         "Description[cs]": "Podpůrná vrstva pro luajit",

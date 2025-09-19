@@ -1,6 +1,7 @@
 {
     "KPlugin": {
         "Description": "An Assistant dialog to simplify calculating derivatives of expressions",
+        "Description[ar]": "حوار مساعد لتبسيط حساب مشتقات التعبيرات",
         "Description[ca@valencia]": "Un diàleg assistent per a simplificar els càlculs de derivades d'expressions",
         "Description[ca]": "Un diàleg assistent per a simplificar els càlculs de derivades d'expressions",
         "Description[cs]": "Pomocný dialog pro zjednodušení derivace výrazů",
@@ -37,6 +38,7 @@
         "Icon": "office-chart-area",
         "License": "GPL",
         "Name": "Differentiate",
+        "Name[ar]": "التفاضل",
         "Name[ca@valencia]": "Deriva",
         "Name[ca]": "Deriva",
         "Name[cs]": "Derivovat",

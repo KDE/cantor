@@ -1,6 +1,7 @@
 {
     "KPlugin": {
         "Description": "An Assistant dialog to simplify calculating of EigenVectors",
+        "Description[ar]": "حوار مساعد لتبسيط حساب المتجهات الذاتية",
         "Description[ca@valencia]": "Un diàleg assistent per a simplificar el càlcul d'autovectors",
         "Description[ca]": "Un diàleg assistent per a simplificar el càlcul d'autovectors",
         "Description[cs]": "Pomocný dialog pro zjednodušení výpočtu vlastních vektorů",
@@ -36,6 +37,7 @@
         "Description[zh_TW]": "簡化特徵向量計算的小助手對話框",
         "License": "GPL",
         "Name": "Eigenvectors",
+        "Name[ar]": "المتجهات الذاتية",
         "Name[ca@valencia]": "Vectors propis (autovectors)",
         "Name[ca]": "Vectors propis (autovectors)",
         "Name[cs]": "Vlastní vektory",

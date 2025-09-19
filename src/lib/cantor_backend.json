@@ -1,6 +1,7 @@
 {
     "KPlugin": {
         "Description": "A Backend for Cantor",
+        "Description[ar]": "خلفية تشغيلية لكنتور",
         "Description[ca@valencia]": "Un dorsal per a Cantor",
         "Description[ca]": "Un dorsal per al Cantor",
         "Description[cs]": "Podpůrná vrstva Cantoru",

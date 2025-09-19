@@ -1,6 +1,7 @@
 {
     "KPlugin": {
         "Description": "Backend for GNU Octave",
+        "Description[ar]": "خلفية لـ GNU Octave",
         "Description[ca@valencia]": "Un dorsal per a GNU Octave",
         "Description[ca]": "Un dorsal per al GNU Octave",
         "Description[cs]": "Podpůrná vrstva pro GNU Octave",
@@ -37,6 +38,7 @@
         "Icon": "octavebackend",
         "License": "GPL",
         "Name": "Octave",
+        "Name[ar]": "أوكتاف",
         "Name[ca@valencia]": "Octave",
         "Name[ca]": "Octave",
         "Name[cs]": "Octave",

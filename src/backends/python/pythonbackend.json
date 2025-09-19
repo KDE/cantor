@@ -1,6 +1,7 @@
 {
     "KPlugin": {
         "Description": "Backend for Python Scientific Programming",
+        "Description[ar]": "خلفية لبرمجة بيثون العلمية",
         "Description[ca@valencia]": "Dorsal per a la programació científica en Python",
         "Description[ca]": "Dorsal per a la programació científica en Python",
         "Description[de]": "Modul für die wissenschaftliche Programmierumgebung Python ",
@@ -36,7 +37,7 @@
         "Icon": "pythonbackend",
         "License": "GPL",
         "Name": "Python",
-        "Name[ar]": "بايثون",
+        "Name[ar]": "بيثون",
         "Name[ca@valencia]": "Python",
         "Name[ca]": "Python",
         "Name[cs]": "Python",

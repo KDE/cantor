@@ -1,6 +1,7 @@
 {
     "KPlugin": {
         "Description": "A panel to display help",
+        "Description[ar]": "لوحة لعرض المساعدة",
         "Description[ca@valencia]": "Un quadro per a mostrar les pàgines d'ajuda",
         "Description[ca]": "Un plafó per a mostrar les pàgines d'ajuda",
         "Description[cs]": "Panel pro zobrazení nápovědy",

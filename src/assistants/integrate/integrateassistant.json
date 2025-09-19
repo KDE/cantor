@@ -1,6 +1,7 @@
 {
     "KPlugin": {
         "Description": "An Assistant dialog to simplify calculation of integrals",
+        "Description[ar]": "حوار مساعد لتبسيط حساب التكاملات",
         "Description[ca@valencia]": "Un diàleg assistent per a simplificar els càlculs d'integrals",
         "Description[ca]": "Un diàleg assistent per a simplificar els càlculs d'integrals",
         "Description[cs]": "Pomocný dialog pro zjednodušení výpočtu integrálů",
@@ -37,6 +38,7 @@
         "Icon": "office-chart-area",
         "License": "GPL",
         "Name": "Integrate",
+        "Name[ar]": "التكامل",
         "Name[ca@valencia]": "Integra",
         "Name[ca]": "Integra",
         "Name[cs]": "Integrovat",

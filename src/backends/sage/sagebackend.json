@@ -1,6 +1,7 @@
 {
     "KPlugin": {
         "Description": "Backend for the Sage Mathematics Software",
+        "Description[ar]": "خلفية لبرنامج Sage Mathematics",
         "Description[ca@valencia]": "Dorsal per al programari matemàtic Sage",
         "Description[ca]": "Dorsal per al programari matemàtic Sage",
         "Description[cs]": "Podpůrná vrstva pro matematický software Sage",

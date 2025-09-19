@@ -1,6 +1,7 @@
 {
     "KPlugin": {
         "Description": "Julia backend for Cantor",
+        "Description[ar]": "الخلفية جوليا لكانتور",
         "Description[ca@valencia]": "Dorsal de Julia per a Cantor",
         "Description[ca]": "Dorsal del Julia per al Cantor",
         "Description[cs]": "Podpůrná vrstva Cantoru Julia",
@@ -36,6 +37,7 @@
         "Description[zh_TW]": "Cantor 的 Julia 後端",
         "Icon": "juliabackend",
         "Name": "Julia",
+        "Name[ar]": "جوليا",
         "Name[ca@valencia]": "Julia",
         "Name[ca]": "Julia",
         "Name[cs]": "Julia",
