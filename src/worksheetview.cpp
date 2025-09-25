@@ -346,3 +346,36 @@ void WorksheetView::actualSize()
     updateSceneSize();
     Q_EMIT scaleFactorChanged(m_scale);
 }
+
+void WorksheetView::applyThemeToBackground()
+{
+    if (!m_worksheet)
+    {
+        return;
+    }
+
+    const KSyntaxHighlighting::Theme& theme = m_worksheet->theme();
+    if (!theme.isValid())
+    {
+        return;
+    }
+
+    QColor viewBackgroundColor = theme.editorColor(KSyntaxHighlighting::Theme::EditorColorRole::TemplateBackground);
+
+    if (!viewBackgroundColor.isValid())
+    {
+        viewBackgroundColor = theme.editorColor(KSyntaxHighlighting::Theme::EditorColorRole::IconBorder);
+    }
+    if (!viewBackgroundColor.isValid())
+    {
+        viewBackgroundColor = theme.editorColor(KSyntaxHighlighting::Theme::EditorColorRole::BackgroundColor);
+    }
+
+    if (viewBackgroundColor.isValid() && viewport())
+    {
+        QPalette pal = viewport()->palette();
+        pal.setColor(QPalette::Base, viewBackgroundColor);
+        viewport()->setPalette(pal);
+        viewport()->setAutoFillBackground(true);
+    }
+}

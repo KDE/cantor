@@ -115,6 +115,7 @@ CantorPart::CantorPart(QObject* parent, const QVariantList& args)
     layout->setContentsMargins({});
     m_worksheet = new Worksheet(b, centralWidget);
     m_worksheetview = new WorksheetView(m_worksheet, centralWidget);
+    QTimer::singleShot(0, m_worksheet, &Worksheet::handleSettingsChanges);
     m_worksheetview->setEnabled(false); //disable input until the session has successfully logged in and emits the ready signal
     connect(m_worksheet, &Worksheet::modified, this, static_cast<void (KParts::ReadWritePart::*)()>(&KParts::ReadWritePart::setModified));
     connect(m_worksheet, &Worksheet::modified, this, &CantorPart::updateCaption);

@@ -3106,16 +3106,40 @@ void Worksheet::handleSettingsChanges()
 {
     const QString themeSetting = Settings::self()->defaultTheme();
     const auto& repository = KTextEditor::Editor::instance()->repository();
-    const QList<KSyntaxHighlighting::Theme> themes = repository.themes();
-    const int themeIndex = themeSetting.toInt();
-    if (themeIndex > 0 && themeIndex <= themes.count())
+
+    bool isNumber;
+    int themeIndex = themeSetting.toInt(&isNumber);
+
+    KSyntaxHighlighting::Theme newTheme;
+
+    if (isNumber)
     {
-        const QString themeName = themes.at(themeIndex - 1).name();
-        m_currentTheme = repository.theme(themeName);
+        if (themeIndex > 0) {
+            const QList<KSyntaxHighlighting::Theme> themes = repository.themes();
+            if (themeIndex - 1 < themes.count())
+            {
+                newTheme = themes.at(themeIndex - 1);
+            }
+        }
+    }
+    else
+    {
+        newTheme = repository.theme(themeSetting);
+    }
+
+    if (newTheme.isValid())
+    {
+        m_currentTheme = newTheme;
     }
     else
     {
         m_currentTheme = repository.defaultTheme();
+    }
+
+    WorksheetView* view = worksheetView();
+    if (view)
+    {
+        view->applyThemeToBackground();
     }
 
     for (WorksheetEntry* entry = m_firstEntry; entry; entry = entry->next())

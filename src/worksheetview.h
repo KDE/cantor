@@ -39,6 +39,7 @@ Q_SIGNALS:
     void scaleFactorChanged(double scale);
 
 public Q_SLOTS:
+    void applyThemeToBackground();
     void zoomIn();
     void zoomOut();
     void actualSize();

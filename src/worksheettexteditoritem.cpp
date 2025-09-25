@@ -38,7 +38,7 @@ WorksheetTextEditorItem::WorksheetTextEditorItem(EditorMode initialMode, Workshe
     m_document = m_editor->createDocument(nullptr);
     m_view = m_document->createView(nullptr);
 
-    m_view->setContentsMargins(0, 4, 0, 4);
+    // m_view->setContentsMargins(0, 0, 0, 0);
 
     m_view->setConfigValue(QStringLiteral("scrollbar-minimap"), false);
     m_view->setConfigValue(QStringLiteral("scrollbar-preview"), false);
@@ -479,8 +479,8 @@ QSizeF WorksheetTextEditorItem::estimateContentSize(qreal maxWidth) const
     if (!m_document || !m_view)
         return QSizeF();
 
-    constexpr int TopPadding = 4;
-    constexpr int BottomPadding = 4;
+    constexpr int TopPadding = 1;
+    constexpr int BottomPadding = 1;
 
     const QFontMetricsF fm(m_view->font());
     qreal maxLineWidth = 0;
@@ -1707,7 +1707,8 @@ void WorksheetTextEditorItem::paint(QPainter *painter, const QStyleOptionGraphic
     if (worksheet())
     {
         const auto& theme = worksheet()->theme();
-        QColor bgColor(theme.editorColor(KSyntaxHighlighting::Theme::EditorColorRole::BackgroundColor));
+        QColor bgColor = theme.editorColor(KSyntaxHighlighting::Theme::EditorColorRole::BackgroundColor);
+
         if (bgColor.isValid())
         {
             painter->setPen(Qt::NoPen);

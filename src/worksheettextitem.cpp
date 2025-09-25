@@ -698,7 +698,8 @@ void WorksheetTextItem::paint(QPainter* painter, const QStyleOptionGraphicsItem*
     if (worksheet())
     {
         const auto& theme = worksheet()->theme();
-        QColor bgColor(theme.editorColor(KSyntaxHighlighting::Theme::EditorColorRole::BackgroundColor));
+        QColor bgColor = theme.editorColor(KSyntaxHighlighting::Theme::EditorColorRole::BackgroundColor);
+
         if (bgColor.isValid())
         {
             painter->setPen(Qt::NoPen);
@@ -706,7 +707,7 @@ void WorksheetTextItem::paint(QPainter* painter, const QStyleOptionGraphicsItem*
             painter->drawRect(boundingRect());
         }
 
-        if (worksheet()->lastFocusedTextItem() == this)
+        if (isEditable() && worksheet()->lastFocusedTextItem() == this)
         {
             if(theme.name() == QStringLiteral("Atom One Dark") || theme.name() == QStringLiteral("Atom One Light"))
             {

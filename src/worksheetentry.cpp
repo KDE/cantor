@@ -1084,4 +1084,5 @@ void WorksheetEntry::recalculateControlGeometry()
 void WorksheetEntry::updateAfterSettingsChanges()
 {
     // do nothing;
+    m_controlElement.update();
 }

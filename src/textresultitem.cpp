@@ -336,3 +336,30 @@ void TextResultItem::updateTheme()
 {
     updateThemeColors();
 }
+
+void TextResultItem::paint(QPainter* painter, const QStyleOptionGraphicsItem* o, QWidget* w)
+{
+    if (worksheet())
+    {
+        const auto& theme = worksheet()->theme();
+        QColor bgColor = theme.editorColor(KSyntaxHighlighting::Theme::EditorColorRole::TemplateBackground);
+
+        if (!bgColor.isValid())
+        {
+            bgColor = theme.editorColor(KSyntaxHighlighting::Theme::EditorColorRole::BackgroundColor);
+            if (bgColor.isValid())
+            {
+                bgColor = bgColor.lighter(110);
+            }
+        }
+
+        if (bgColor.isValid())
+        {
+            painter->setPen(Qt::NoPen);
+            painter->setBrush(bgColor);
+            painter->drawRect(boundingRect());
+        }
+    }
+
+    QGraphicsTextItem::paint(painter, o, w);
+}

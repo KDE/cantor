@@ -29,47 +29,57 @@ void WorksheetControlItem::paint(QPainter* painter, const QStyleOptionGraphicsIt
     if (m_worksheet->isPrinting())
         return;
 
+    const auto& theme = m_worksheet->theme();
+
+    QColor foregroundColor = theme.editorColor(KSyntaxHighlighting::Theme::EditorColorRole::LineNumbers);
+
+    if (!foregroundColor.isValid())
+    {
+        QColor bgColor = theme.editorColor(KSyntaxHighlighting::Theme::EditorColorRole::IconBorder);
+        if (!bgColor.isValid())
+        {
+            bgColor = theme.editorColor(KSyntaxHighlighting::Theme::EditorColorRole::BackgroundColor);
+        }
+        foregroundColor = (bgColor.lightness() < 128) ? Qt::white : Qt::black;
+    }
+
     painter->setViewTransformEnabled(true);
 
     if (m_isHovered)
-        painter->setPen(QPen(QApplication::palette().color(QPalette::Text), 2));
+        painter->setPen(QPen(foregroundColor, 2));
     else
-        painter->setPen(QPen(QApplication::palette().color(QPalette::Text), 1));
+        painter->setPen(QPen(foregroundColor, 1));
 
     qreal x = rect().x();
     qreal y = rect().y();
     qreal w = rect().width();
     qreal h = rect().height();
 
-    painter->drawLine(x, y, x+w, y);
-    painter->drawLine(x+w, y, x+w, y+h);
-    painter->drawLine(x, y+h, x+w, y+h);
+    painter->drawLine(x, y, x + w, y);
+    painter->drawLine(x + w, y, x + w, y + h);
+    painter->drawLine(x, y + h, x + w, y + h);
 
-    //For collabsable entries draw "collapsing triangle" (form will depends from collapse's state)
     if (isCollapsable)
     {
         if (isCollapsed)
         {
             QBrush brush = painter->brush();
             brush.setStyle(Qt::SolidPattern);
-            brush.setColor(QApplication::palette().color(QPalette::Text));
+            brush.setColor(foregroundColor);
             painter->setBrush(brush);
 
             QPolygon triangle;
-            triangle << QPoint(x, y) << QPoint(x+w, y) << QPoint(x+w, y+w);
-
+            triangle << QPoint(x, y) << QPoint(x + w, y) << QPoint(x + w, y + w);
             painter->drawPolygon(triangle);
         }
         else
-            painter->drawLine(x, y, x+w, y+w);
+            painter->drawLine(x, y, x + w, y + w);
     }
 
     if (isSelected)
     {
-        //Use theme colour for selection, but with transparent
-        QColor color = QApplication::palette().color(QPalette::Highlight);
-        color.setAlpha(192);
-
+        QColor color = theme.editorColor(KSyntaxHighlighting::Theme::EditorColorRole::TextSelection);
+        color.setAlpha(128);
         painter->fillRect(rect(), color);
     }
 }
