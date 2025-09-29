@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: cantor\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-07-03 06:53+0000\n"
+"POT-Creation-Date: 2025-09-29 00:38+0000\n"
 "PO-Revision-Date: 2025-08-02 06:16-0300\n"
 "Last-Translator: Marcus Gama <marcus.gama@gmail.com>\n"
 "Language-Team: Brazilian Portuguese <kde-i18n-pt_BR@kde.org>\n"
@@ -508,7 +508,7 @@ msgstr ""
 #: backends/maxima/settings.ui:36 backends/octave/settings.ui:36
 #: backends/python/settings.ui:36 backends/qalculate/settings.ui:36
 #: backends/R/settings.ui:21 backends/sage/settings.ui:36
-#: backends/scilab/settings.ui:21 cantor.cpp:654
+#: backends/scilab/settings.ui:21 cantor.cpp:666
 #, kde-format
 msgid "General"
 msgstr "Geral"
@@ -1006,8 +1006,8 @@ msgid "The integration of plots will be disabled."
 msgstr "A integração dos gráficos será desabilitada."
 
 #: backends/octave/octavesession.cpp:402 backends/sage/sagesession.cpp:358
-#: backends/sage/sagesession.cpp:369 cantor.cpp:219 cantor.cpp:221
-#: cantor.cpp:340 cantor.cpp:347 lib/session.cpp:335 main.cpp:63 main.cpp:122
+#: backends/sage/sagesession.cpp:369 cantor.cpp:231 cantor.cpp:233
+#: cantor.cpp:352 cantor.cpp:359 lib/session.cpp:335 main.cpp:63 main.cpp:122
 #: markdownentry.cpp:797 textentry.cpp:553 worksheet.cpp:1286
 #, kde-format
 msgid "Cantor"
@@ -2588,7 +2588,7 @@ msgstr "Integração do gráfico:"
 msgid "The file %1 is already opened."
 msgstr "O arquivo %1 já está aberto."
 
-#: cantor.cpp:107 cantor.cpp:231
+#: cantor.cpp:107 cantor.cpp:243
 #, kde-format
 msgid "Open file"
 msgstr "Abrir arquivo"
@@ -2613,7 +2613,7 @@ msgstr "Ir para a planilha anterior"
 msgid "Go to next worksheet"
 msgstr "Ir para a próxima planilha"
 
-#: cantor.cpp:230
+#: cantor.cpp:242
 #, kde-format
 msgid ""
 "All supported files (*.cws *ipynb);;Cantor Worksheet (*.cws);;Jupyter "
@@ -2622,7 +2622,7 @@ msgstr ""
 "Todos os arquivos suportados (*.cws *ipynb);;Planilha do Cantor (*.cws);;"
 "Bloco de notas do Jupyter (*.ipynb)"
 
-#: cantor.cpp:298
+#: cantor.cpp:310
 #, kde-format
 msgid ""
 "<h1>No Backend Found</h1>\n"
@@ -2648,17 +2648,17 @@ msgstr[1] ""
 "<li>Instalar os pacotes de um dos seguintes programas:</li>     %2   </ul> </"
 "div> "
 
-#: cantor.cpp:318
+#: cantor.cpp:330
 #, kde-format
 msgid "Error"
 msgstr "Erro"
 
-#: cantor.cpp:340
+#: cantor.cpp:352
 #, kde-format
 msgid "Backend %1 is not installed"
 msgstr "A infraestrutura %1 não está instalada"
 
-#: cantor.cpp:347
+#: cantor.cpp:359
 #, kde-format
 msgid ""
 "%1 backend installed, but inactive. Please check installation and Cantor "
@@ -2667,54 +2667,54 @@ msgstr ""
 "Infraestrutura %1 instalada mas inativa. Verifique a instalação ou as "
 "configurações do Cantor"
 
-#: cantor.cpp:375
+#: cantor.cpp:387
 #, kde-format
 msgid "Session %1"
 msgstr "Sessão %1"
 
-#: cantor.cpp:392
+#: cantor.cpp:404
 #, kde-format
 msgid "Failed to find the Cantor Part with error %1"
 msgstr "Não foi possível encontrar o componente do Cantor com o erro %1"
 
-#: cantor.cpp:450 cantor_part.cpp:645
+#: cantor.cpp:462 cantor_part.cpp:645
 #, kde-format
 msgid "Calculating..."
 msgstr "Calculando..."
 
-#: cantor.cpp:453 cantor_part.cpp:656 cantor_part.cpp:719
+#: cantor.cpp:465 cantor_part.cpp:656 cantor_part.cpp:719
 #, kde-format
 msgid "Ready"
 msgstr "Pronto"
 
-#: cantor.cpp:497
+#: cantor.cpp:509
 #, kde-format
 msgid "Changed"
 msgstr "Alterado"
 
-#: cantor.cpp:583
+#: cantor.cpp:595
 #, kde-format
 msgid "Multiple unsaved Worksheets are opened. Do you want to close them?"
 msgstr ""
 "Estão abertas diversas planilhas que ainda não foram salvas. Deseja fechá-"
 "las?"
 
-#: cantor.cpp:584
+#: cantor.cpp:596
 #, kde-format
 msgid "Close Cantor"
 msgstr "Fechar o Cantor"
 
-#: cantor.cpp:603
+#: cantor.cpp:615
 #, kde-format
 msgid "The current project has been modified. Do you want to save it?"
 msgstr "O projeto atual foi modificado. Deseja salvá-lo?"
 
-#: cantor.cpp:604
+#: cantor.cpp:616
 #, kde-format
 msgid "Save Project"
 msgstr "Salvar projeto"
 
-#: cantor.cpp:655
+#: cantor.cpp:667
 #, kde-format
 msgid "Formatting"
 msgstr "Formatação"

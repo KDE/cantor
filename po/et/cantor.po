@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: mathematik\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-07-03 06:53+0000\n"
+"POT-Creation-Date: 2025-09-29 00:38+0000\n"
 "PO-Revision-Date: 2020-05-12 10:53+0300\n"
 "Last-Translator: Marek Laane <qiilaq69@gmail.com>\n"
 "Language-Team: Estonian <kde-et@lists.linux.ee>\n"
@@ -493,7 +493,7 @@ msgstr ""
 #: backends/maxima/settings.ui:36 backends/octave/settings.ui:36
 #: backends/python/settings.ui:36 backends/qalculate/settings.ui:36
 #: backends/R/settings.ui:21 backends/sage/settings.ui:36
-#: backends/scilab/settings.ui:21 cantor.cpp:654
+#: backends/scilab/settings.ui:21 cantor.cpp:666
 #, kde-format
 msgid "General"
 msgstr "Üldine"
@@ -967,8 +967,8 @@ msgid "The integration of plots will be disabled."
 msgstr "Jooniste lõimimine keelatakse."
 
 #: backends/octave/octavesession.cpp:402 backends/sage/sagesession.cpp:358
-#: backends/sage/sagesession.cpp:369 cantor.cpp:219 cantor.cpp:221
-#: cantor.cpp:340 cantor.cpp:347 lib/session.cpp:335 main.cpp:63 main.cpp:122
+#: backends/sage/sagesession.cpp:369 cantor.cpp:231 cantor.cpp:233
+#: cantor.cpp:352 cantor.cpp:359 lib/session.cpp:335 main.cpp:63 main.cpp:122
 #: markdownentry.cpp:797 textentry.cpp:553 worksheet.cpp:1286
 #, kde-format
 msgid "Cantor"
@@ -2511,7 +2511,7 @@ msgstr "Joonise lõimimise test nurjus."
 msgid "The file %1 is already opened."
 msgstr ""
 
-#: cantor.cpp:107 cantor.cpp:231
+#: cantor.cpp:107 cantor.cpp:243
 #, kde-format
 msgid "Open file"
 msgstr "Faili avamine"
@@ -2537,14 +2537,14 @@ msgstr "Liigu eelmisele töölehele"
 msgid "Go to next worksheet"
 msgstr "Liigu järgmisele töölehele"
 
-#: cantor.cpp:230
+#: cantor.cpp:242
 #, kde-format
 msgid ""
 "All supported files (*.cws *ipynb);;Cantor Worksheet (*.cws);;Jupyter "
 "Notebook (*.ipynb)"
 msgstr ""
 
-#: cantor.cpp:298
+#: cantor.cpp:310
 #, kde-format
 msgid ""
 "<h1>No Backend Found</h1>\n"
@@ -2569,17 +2569,17 @@ msgstr[1] ""
 "  <ul>    <li>Seadistuste muutmine seadistustedialoogis;</li>    <li>Ühe "
 "järgmistest programmidest pakettide paigaldamine:</li>     %2   </ul> </div> "
 
-#: cantor.cpp:318
+#: cantor.cpp:330
 #, kde-format
 msgid "Error"
 msgstr "Viga"
 
-#: cantor.cpp:340
+#: cantor.cpp:352
 #, kde-format
 msgid "Backend %1 is not installed"
 msgstr "Taustaprogramm %1 ei ole paigaldatud"
 
-#: cantor.cpp:347
+#: cantor.cpp:359
 #, kde-format
 msgid ""
 "%1 backend installed, but inactive. Please check installation and Cantor "
@@ -2588,53 +2588,53 @@ msgstr ""
 "%1 taustaprogramm on paigaldatud, aga ei ole aktiivne. Palun kontrolli "
 "paigaldust ja Cantori seadustusi"
 
-#: cantor.cpp:375
+#: cantor.cpp:387
 #, kde-format
 msgid "Session %1"
 msgstr "Seanss %1"
 
-#: cantor.cpp:392
+#: cantor.cpp:404
 #, kde-format
 msgid "Failed to find the Cantor Part with error %1"
 msgstr "Cantori komponendi leidmine nurjus veateatega %1"
 
-#: cantor.cpp:450 cantor_part.cpp:645
+#: cantor.cpp:462 cantor_part.cpp:645
 #, kde-format
 msgid "Calculating..."
 msgstr "Arvutamine..."
 
-#: cantor.cpp:453 cantor_part.cpp:656 cantor_part.cpp:719
+#: cantor.cpp:465 cantor_part.cpp:656 cantor_part.cpp:719
 #, kde-format
 msgid "Ready"
 msgstr "Valmis"
 
-#: cantor.cpp:497
+#: cantor.cpp:509
 #, fuzzy, kde-format
 #| msgid "Orange"
 msgid "Changed"
 msgstr "Oranž"
 
-#: cantor.cpp:583
+#: cantor.cpp:595
 #, kde-format
 msgid "Multiple unsaved Worksheets are opened. Do you want to close them?"
 msgstr "Avatud on mitu salvestamata töölehte. Kas sulgeda need?"
 
-#: cantor.cpp:584
+#: cantor.cpp:596
 #, kde-format
 msgid "Close Cantor"
 msgstr "Cantori sulgemine"
 
-#: cantor.cpp:603
+#: cantor.cpp:615
 #, kde-format
 msgid "The current project has been modified. Do you want to save it?"
 msgstr "Aktiivset projekti on muudetud. Kas salvestada see?"
 
-#: cantor.cpp:604
+#: cantor.cpp:616
 #, kde-format
 msgid "Save Project"
 msgstr "Projekti salvestamine"
 
-#: cantor.cpp:655
+#: cantor.cpp:667
 #, fuzzy, kde-format
 #| msgid "Plotting"
 msgid "Formatting"

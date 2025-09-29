@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kdeorg\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-07-03 06:53+0000\n"
+"POT-Creation-Date: 2025-09-29 00:38+0000\n"
 "PO-Revision-Date: 2024-04-22 16:04\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Simplified\n"
@@ -490,7 +490,7 @@ msgstr ""
 #: backends/maxima/settings.ui:36 backends/octave/settings.ui:36
 #: backends/python/settings.ui:36 backends/qalculate/settings.ui:36
 #: backends/R/settings.ui:21 backends/sage/settings.ui:36
-#: backends/scilab/settings.ui:21 cantor.cpp:654
+#: backends/scilab/settings.ui:21 cantor.cpp:666
 #, kde-format
 msgid "General"
 msgstr "常规"
@@ -935,8 +935,8 @@ msgid "The integration of plots will be disabled."
 msgstr "绘图集成将被禁用。"
 
 #: backends/octave/octavesession.cpp:402 backends/sage/sagesession.cpp:358
-#: backends/sage/sagesession.cpp:369 cantor.cpp:219 cantor.cpp:221
-#: cantor.cpp:340 cantor.cpp:347 lib/session.cpp:335 main.cpp:63 main.cpp:122
+#: backends/sage/sagesession.cpp:369 cantor.cpp:231 cantor.cpp:233
+#: cantor.cpp:352 cantor.cpp:359 lib/session.cpp:335 main.cpp:63 main.cpp:122
 #: markdownentry.cpp:797 textentry.cpp:553 worksheet.cpp:1286
 #, kde-format
 msgid "Cantor"
@@ -2448,7 +2448,7 @@ msgstr "绘图集成："
 msgid "The file %1 is already opened."
 msgstr "文件 %1 已经打开。"
 
-#: cantor.cpp:107 cantor.cpp:231
+#: cantor.cpp:107 cantor.cpp:243
 #, kde-format
 msgid "Open file"
 msgstr "打开文件"
@@ -2473,7 +2473,7 @@ msgstr "转到上一个工作表"
 msgid "Go to next worksheet"
 msgstr "转到下一个工作表"
 
-#: cantor.cpp:230
+#: cantor.cpp:242
 #, kde-format
 msgid ""
 "All supported files (*.cws *ipynb);;Cantor Worksheet (*.cws);;Jupyter "
@@ -2482,7 +2482,7 @@ msgstr ""
 "所有支持的文件 (*.cws *ipynb);;Cantor 工作表 (*.cws);;Jupyter Notebook (*."
 "ipynb)"
 
-#: cantor.cpp:298
+#: cantor.cpp:310
 #, kde-format
 msgid ""
 "<h1>No Backend Found</h1>\n"
@@ -2502,69 +2502,69 @@ msgstr[0] ""
 "  <ul>    <li>在配置对话框中更改设置；</li>    <li>安装以下程序之一：</"
 "li>     %2   </ul> </div> "
 
-#: cantor.cpp:318
+#: cantor.cpp:330
 #, kde-format
 msgid "Error"
 msgstr "错误"
 
-#: cantor.cpp:340
+#: cantor.cpp:352
 #, kde-format
 msgid "Backend %1 is not installed"
 msgstr "后端 %1 未安装"
 
-#: cantor.cpp:347
+#: cantor.cpp:359
 #, kde-format
 msgid ""
 "%1 backend installed, but inactive. Please check installation and Cantor "
 "settings"
 msgstr "已安装 %1 后端，但未激活。请检查安装和 Cantor 设置"
 
-#: cantor.cpp:375
+#: cantor.cpp:387
 #, kde-format
 msgid "Session %1"
 msgstr "会话 %1"
 
-#: cantor.cpp:392
+#: cantor.cpp:404
 #, kde-format
 msgid "Failed to find the Cantor Part with error %1"
 msgstr "无法找到 Cantor 组件：%1"
 
-#: cantor.cpp:450 cantor_part.cpp:645
+#: cantor.cpp:462 cantor_part.cpp:645
 #, kde-format
 msgid "Calculating..."
 msgstr "正在计算..."
 
-#: cantor.cpp:453 cantor_part.cpp:656 cantor_part.cpp:719
+#: cantor.cpp:465 cantor_part.cpp:656 cantor_part.cpp:719
 #, kde-format
 msgid "Ready"
 msgstr "就绪"
 
-#: cantor.cpp:497
+#: cantor.cpp:509
 #, kde-format
 msgid "Changed"
 msgstr "已更改"
 
-#: cantor.cpp:583
+#: cantor.cpp:595
 #, kde-format
 msgid "Multiple unsaved Worksheets are opened. Do you want to close them?"
 msgstr "打开了多个未保存的工作表。是否要关闭它们？"
 
-#: cantor.cpp:584
+#: cantor.cpp:596
 #, kde-format
 msgid "Close Cantor"
 msgstr "关闭 Cantor"
 
-#: cantor.cpp:603
+#: cantor.cpp:615
 #, kde-format
 msgid "The current project has been modified. Do you want to save it?"
 msgstr "当前项目已被修改。您想要保存它吗？"
 
-#: cantor.cpp:604
+#: cantor.cpp:616
 #, kde-format
 msgid "Save Project"
 msgstr "保存项目"
 
-#: cantor.cpp:655
+#: cantor.cpp:667
 #, kde-format
 msgid "Formatting"
 msgstr "格式"

@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-07-03 06:53+0000\n"
+"POT-Creation-Date: 2025-09-29 00:38+0000\n"
 "PO-Revision-Date: 2010-12-05 20:18+0100\n"
 "Last-Translator: Marko Dimjašević\n"
 "Language-Team: Croatian <kde-croatia-list@lists.sourceforge.net>\n"
@@ -501,7 +501,7 @@ msgstr ""
 #: backends/maxima/settings.ui:36 backends/octave/settings.ui:36
 #: backends/python/settings.ui:36 backends/qalculate/settings.ui:36
 #: backends/R/settings.ui:21 backends/sage/settings.ui:36
-#: backends/scilab/settings.ui:21 cantor.cpp:654
+#: backends/scilab/settings.ui:21 cantor.cpp:666
 #, kde-format
 msgid "General"
 msgstr "Opće"
@@ -974,8 +974,8 @@ msgid "The integration of plots will be disabled."
 msgstr ""
 
 #: backends/octave/octavesession.cpp:402 backends/sage/sagesession.cpp:358
-#: backends/sage/sagesession.cpp:369 cantor.cpp:219 cantor.cpp:221
-#: cantor.cpp:340 cantor.cpp:347 lib/session.cpp:335 main.cpp:63 main.cpp:122
+#: backends/sage/sagesession.cpp:369 cantor.cpp:231 cantor.cpp:233
+#: cantor.cpp:352 cantor.cpp:359 lib/session.cpp:335 main.cpp:63 main.cpp:122
 #: markdownentry.cpp:797 textentry.cpp:553 worksheet.cpp:1286
 #, kde-format
 msgid "Cantor"
@@ -2530,7 +2530,7 @@ msgstr "Integriraj"
 msgid "The file %1 is already opened."
 msgstr ""
 
-#: cantor.cpp:107 cantor.cpp:231
+#: cantor.cpp:107 cantor.cpp:243
 #, fuzzy, kde-format
 #| msgid "&Open Example"
 msgid "Open file"
@@ -2557,14 +2557,14 @@ msgstr ""
 msgid "Go to next worksheet"
 msgstr ""
 
-#: cantor.cpp:230
+#: cantor.cpp:242
 #, kde-format
 msgid ""
 "All supported files (*.cws *ipynb);;Cantor Worksheet (*.cws);;Jupyter "
 "Notebook (*.ipynb)"
 msgstr ""
 
-#: cantor.cpp:298
+#: cantor.cpp:310
 #, kde-format
 msgid ""
 "<h1>No Backend Found</h1>\n"
@@ -2594,72 +2594,72 @@ msgstr[2] ""
 "  <ul>    <li>Promjena opcija u konfiguracijskom dijalogu;</li>    "
 "<li>Instaliranje paketa za sljedeće programe:</li>     %2   </ul> </div> "
 
-#: cantor.cpp:318
+#: cantor.cpp:330
 #, kde-format
 msgid "Error"
 msgstr "Greška"
 
-#: cantor.cpp:340
+#: cantor.cpp:352
 #, kde-format
 msgid "Backend %1 is not installed"
 msgstr "Pozadinski servis %1 nije instaliran"
 
-#: cantor.cpp:347
+#: cantor.cpp:359
 #, kde-format
 msgid ""
 "%1 backend installed, but inactive. Please check installation and Cantor "
 "settings"
 msgstr ""
 
-#: cantor.cpp:375
+#: cantor.cpp:387
 #, kde-format
 msgid "Session %1"
 msgstr "Sesija %1"
 
-#: cantor.cpp:392
+#: cantor.cpp:404
 #, fuzzy, kde-format
 #| msgid "Could not find the Cantor Part."
 msgid "Failed to find the Cantor Part with error %1"
 msgstr "Neuspješno pronalaženje Cantora"
 
-#: cantor.cpp:450 cantor_part.cpp:645
+#: cantor.cpp:462 cantor_part.cpp:645
 #, kde-format
 msgid "Calculating..."
 msgstr "Računam …"
 
-#: cantor.cpp:453 cantor_part.cpp:656 cantor_part.cpp:719
+#: cantor.cpp:465 cantor_part.cpp:656 cantor_part.cpp:719
 #, kde-format
 msgid "Ready"
 msgstr "Spreman"
 
-#: cantor.cpp:497
+#: cantor.cpp:509
 #, kde-format
 msgid "Changed"
 msgstr ""
 
-#: cantor.cpp:583
+#: cantor.cpp:595
 #, kde-format
 msgid "Multiple unsaved Worksheets are opened. Do you want to close them?"
 msgstr ""
 
-#: cantor.cpp:584
+#: cantor.cpp:596
 #, fuzzy, kde-format
 #| msgid "Cantor"
 msgid "Close Cantor"
 msgstr "Cantor"
 
-#: cantor.cpp:603
+#: cantor.cpp:615
 #, kde-format
 msgid "The current project has been modified. Do you want to save it?"
 msgstr ""
 
-#: cantor.cpp:604
+#: cantor.cpp:616
 #, fuzzy, kde-format
 #| msgid "Save result"
 msgid "Save Project"
 msgstr "Spremi rezultat"
 
-#: cantor.cpp:655
+#: cantor.cpp:667
 #, fuzzy, kde-format
 #| msgid "&Plot"
 msgid "Formatting"
