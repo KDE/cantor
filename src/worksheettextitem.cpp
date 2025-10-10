@@ -40,6 +40,8 @@ WorksheetTextItem::WorksheetTextItem(WorksheetEntry* parent, Qt::TextInteraction
     setAcceptDrops(true);
     setFont(QFontDatabase::systemFont(QFontDatabase::FixedFont));
 
+    updateThemeColors();
+
     connect(this, &QGraphicsTextItem::linkHovered, [=](const QString& link) {
         if (!link.isEmpty())
             QApplication::setOverrideCursor(QCursor(Qt::PointingHandCursor));
@@ -56,6 +58,7 @@ WorksheetTextItem::WorksheetTextItem(WorksheetEntry* parent, Qt::TextInteraction
     connect(this, &WorksheetTextItem::cursorPositionChanged, this, [this]() {
         this->update();
     });
+
 }
 
 WorksheetTextItem::~WorksheetTextItem()
@@ -695,11 +698,18 @@ void WorksheetTextItem::insertTab()
 
 void WorksheetTextItem::paint(QPainter* painter, const QStyleOptionGraphicsItem* o, QWidget* w)
 {
+    QStyleOptionGraphicsItem option = *o;
+
+    if (option.state & QStyle::State_HasFocus)
+    {
+        option.state &= ~QStyle::State_HasFocus;
+    }
+
     if (worksheet())
     {
         const auto& theme = worksheet()->theme();
-        QColor bgColor = theme.editorColor(KSyntaxHighlighting::Theme::EditorColorRole::BackgroundColor);
 
+        QColor bgColor = theme.editorColor(KSyntaxHighlighting::Theme::EditorColorRole::BackgroundColor);
         if (bgColor.isValid())
         {
             painter->setPen(Qt::NoPen);
@@ -707,15 +717,15 @@ void WorksheetTextItem::paint(QPainter* painter, const QStyleOptionGraphicsItem*
             painter->drawRect(boundingRect());
         }
 
-        if (isEditable() && worksheet()->lastFocusedTextItem() == this)
+        bool isskip = false;
+        if (isEditable() && this->hasFocus())
         {
             if(theme.name() == QStringLiteral("Atom One Dark") || theme.name() == QStringLiteral("Atom One Light"))
             {
-                QGraphicsTextItem::paint(painter, o, w);
-                return ;
+                isskip = true;
             }
             const QColor highlightColor = theme.editorColor(KSyntaxHighlighting::Theme::CurrentLine);
-            if (highlightColor.isValid())
+            if (highlightColor.isValid() && !isskip)
             {
                 QTextBlock block = textCursor().block();
                 if (block.isValid())
@@ -727,7 +737,31 @@ void WorksheetTextItem::paint(QPainter* painter, const QStyleOptionGraphicsItem*
             }
         }
     }
-    QGraphicsTextItem::paint(painter, o, w);
+
+    QGraphicsTextItem::paint(painter, &option, w);
+
+    if (worksheet() && this->hasFocus())
+    {
+        const auto& theme = worksheet()->theme();
+        QColor focusColor = theme.editorColor(KSyntaxHighlighting::Theme::MarkBookmark);
+
+        if (!focusColor.isValid())
+        {
+            focusColor = theme.editorColor(KSyntaxHighlighting::Theme::TextSelection);
+        }
+        if (!focusColor.isValid())
+        {
+            focusColor = theme.textColor(KSyntaxHighlighting::Theme::Normal);
+        }
+
+        QPen pen(focusColor, 0);
+        pen.setStyle(Qt::CustomDashLine);
+        pen.setDashPattern({2, 4});
+        pen.setCapStyle(Qt::FlatCap);
+        painter->setPen(pen);
+        painter->setBrush(Qt::NoBrush);
+        painter->drawRect(boundingRect());
+    }
 }
 
 double WorksheetTextItem::width() const
@@ -964,10 +998,19 @@ void WorksheetTextItem::updateThemeColors()
 
     const auto& theme = worksheet()->theme();
     QColor textColor = QColor(theme.textColor(KSyntaxHighlighting::Theme::Normal));
-    QColor bgColor = QColor(theme.editorColor(KSyntaxHighlighting::Theme::EditorColorRole::BackgroundColor));
-
 
     setDefaultTextColor(textColor);
+
+    QTextCursor cursor(document());
+    cursor.select(QTextCursor::Document);
+
+    QTextCharFormat colorFormat;
+    colorFormat.setForeground(textColor);
+
+    cursor.mergeCharFormat(colorFormat);
+
+    cursor.clearSelection();
+    setTextCursor(cursor);
 
     update();
 }

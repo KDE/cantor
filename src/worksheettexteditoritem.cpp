@@ -1718,6 +1718,31 @@ void WorksheetTextEditorItem::paint(QPainter *painter, const QStyleOptionGraphic
     }
 
     QGraphicsProxyWidget::paint(painter, option, widget);
+
+    if (m_view && m_view->hasFocus())
+    {
+        const auto& theme = worksheet()->theme();
+
+        QColor focusColor = theme.editorColor(KSyntaxHighlighting::Theme::MarkBookmark);
+
+        if (!focusColor.isValid())
+        {
+
+            focusColor = theme.editorColor(KSyntaxHighlighting::Theme::TextSelection);
+        }
+        if (!focusColor.isValid())
+        {
+            focusColor = themeDefaultTextColor();
+        }
+
+        QPen pen(focusColor, 0);
+        pen.setStyle(Qt::CustomDashLine);
+        pen.setDashPattern({2, 4});
+        pen.setCapStyle(Qt::FlatCap);
+        painter->setPen(pen);
+        painter->setBrush(Qt::NoBrush);
+        painter->drawRect(boundingRect().adjusted(0, 0, 0, 0));
+    }
 }
 
 QPointF WorksheetTextEditorItem::localCursorPosition() const

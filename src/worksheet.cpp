@@ -2421,7 +2421,14 @@ void Worksheet::paste() {
     if (m_choosenCursorEntry || m_isCursorEntryAfterLastEntry)
         addEntryFromEntryCursor();
 
-    m_lastFocusedTextItem->paste();
+    if (m_lastFocusedTextItem)
+    {
+        m_lastFocusedTextItem->paste();
+    }
+    else if (m_legacylastFocusedTextItem)
+    {
+        m_legacylastFocusedTextItem->paste();
+    }
 }
 
 void Worksheet::setRichTextInformation(const RichTextInfo& info)

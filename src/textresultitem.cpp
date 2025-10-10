@@ -339,6 +339,12 @@ void TextResultItem::updateTheme()
 
 void TextResultItem::paint(QPainter* painter, const QStyleOptionGraphicsItem* o, QWidget* w)
 {
+    QStyleOptionGraphicsItem option = *o;
+    if (option.state & QStyle::State_HasFocus)
+    {
+        option.state &= ~QStyle::State_HasFocus;
+    }
+
     if (worksheet())
     {
         const auto& theme = worksheet()->theme();
@@ -361,5 +367,28 @@ void TextResultItem::paint(QPainter* painter, const QStyleOptionGraphicsItem* o,
         }
     }
 
-    QGraphicsTextItem::paint(painter, o, w);
+    QGraphicsTextItem::paint(painter, &option, w);
+
+    if (worksheet() && this->hasFocus())
+    {
+        const auto& theme = worksheet()->theme();
+        QColor focusColor = theme.editorColor(KSyntaxHighlighting::Theme::MarkBookmark);
+
+        if (!focusColor.isValid())
+        {
+            focusColor = theme.editorColor(KSyntaxHighlighting::Theme::TextSelection);
+        }
+        if (!focusColor.isValid())
+        {
+            focusColor = theme.textColor(KSyntaxHighlighting::Theme::Normal);
+        }
+
+        QPen pen(focusColor, 0);
+        pen.setStyle(Qt::CustomDashLine);
+        pen.setDashPattern({2, 4});
+        pen.setCapStyle(Qt::FlatCap);
+        painter->setPen(pen);
+        painter->setBrush(Qt::NoBrush);
+        painter->drawRect(boundingRect());
+    }
 }
