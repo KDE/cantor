@@ -175,12 +175,23 @@ void JuliaServer::parseJlModule(jl_module_t* module, bool parseValue)
 #endif
     for (size_t i = 0; i < jl_array_len(names); i++)
     {
-        bool isBindingResolved = (bool)jl_binding_resolved_p(module, (jl_sym_t*)(data[i]));
+        bool isBindingResolved;
+#if QT_VERSION_CHECK(JULIA_VERSION_MAJOR, JULIA_VERSION_MINOR, 0) >= QT_VERSION_CHECK(1, 12, 0)
+        isBindingResolved = (bool)jl_boundp(module, (jl_sym_t*)(data[i]), 0);
+#else
+        isBindingResolved = (bool)jl_binding_resolved_p(module, (jl_sym_t*)(data[i]));
+#endif
         if (isBindingResolved)
         {
 
             const auto& name = fromJuliaString(jl_call1(jl_string_function, data[i]));
-            jl_value_t* value = jl_get_binding_or_error(module, (jl_sym_t*)(data[i]))->value;
+            jl_value_t* value;
+#if QT_VERSION_CHECK(JULIA_VERSION_MAJOR, JULIA_VERSION_MINOR, 0) >= QT_VERSION_CHECK(1, 12, 0)
+            value = jl_get_global(module, (jl_sym_t*)(data[i]));
+#else
+            value = jl_get_binding_or_error(module, (jl_sym_t*)(data[i]))->value;
+#endif
+
             jl_datatype_t* datetype = (jl_datatype_t*)jl_typeof(value);
             const auto& type = QString::fromUtf8(jl_typeof_str(value));
 
