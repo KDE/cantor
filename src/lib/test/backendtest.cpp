@@ -45,10 +45,13 @@ Cantor::Expression* BackendTest::evalExp(const QString& exp )
    auto* e = m_session->evaluateExpression(exp);
 
    if(e->status() == Cantor::Expression::Queued)
-       waitForSignal( e, SIGNAL(statusChanged(Cantor::Expression::Status)) );
+       waitForSignal(e, SIGNAL(statusChanged(Cantor::Expression::Status)));
 
-   if (e->status() == Cantor::Expression::Computing)
-       waitForSignal( e, SIGNAL(statusChanged(Cantor::Expression::Status)) );
+    if(e->status() == Cantor::Expression::Computing)
+       waitForSignal(e, SIGNAL(statusChanged(Cantor::Expression::Status)));
+
+    if(m_session->status() == Cantor::Session::Running)
+        waitForSignal(m_session, SIGNAL(statusChanged(Cantor::Session::Status)));
 
    return e;
 }
