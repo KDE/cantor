@@ -1,7 +1,7 @@
 /*
     SPDX-License-Identifier: GPL-2.0-or-later
     SPDX-FileCopyrightText: 2009 Alexander Rieder <alexanderrieder@gmail.com>
-    SPDX-FileCopyrightText: 2018-2023 by Alexander Semke (alexander.semke@web.de)
+    SPDX-FileCopyrightText: 2018-2025 by Alexander Semke (alexander.semke@web.de)
 */
 
 #include "testmaxima.h"
@@ -102,10 +102,6 @@ void TestMaxima::testPlot()
 
     QVERIFY( e!=nullptr );
     QVERIFY( e->result()!=nullptr );
-
-    if(session()->status() == Cantor::Session::Running)
-        waitForSignal(session(), SIGNAL(statusChanged(Cantor::Session::Status)));
-
     QCOMPARE( e->result()->type(), (int)Cantor::ImageResult::Type );
     QVERIFY( !e->result()->data().isNull() );
     QVERIFY( e->errorMessage().isNull() );
@@ -124,10 +120,6 @@ void TestMaxima::testPlotMultiline()
 
     QVERIFY(e != nullptr);
     QVERIFY(e->result() != nullptr);
-
-    if(session()->status() == Cantor::Session::Running)
-        waitForSignal(session(), SIGNAL(statusChanged(Cantor::Session::Status)));
-
     QCOMPARE(e->result()->type(), (int)Cantor::ImageResult::Type);
     QVERIFY(!e->result()->data().isNull());
     QVERIFY(e->errorMessage().isNull());
@@ -148,13 +140,6 @@ void TestMaxima::testPlotWithWhitespaces()
 
     QVERIFY(e != nullptr);
     QVERIFY(e->result() != nullptr);
-
-    if(session()->status() == Cantor::Session::Running)
-        waitForSignal(session(), SIGNAL(statusChanged(Cantor::Session::Status)));
-
-    qDebug()<<"session status " << session()->status();
-    qDebug()<<"expression status " << e->status();
-
     QCOMPARE(e->result()->type(), (int)Cantor::ImageResult::Type);
     QVERIFY(!e->result()->data().isNull());
     QVERIFY(e->errorMessage().isNull());
@@ -388,9 +373,6 @@ void TestMaxima::testInvalidAssignment()
     //QVERIFY(e->result()==0);
     //QVERIFY(e->status()==Cantor::Expression::Error);
 
-    if(session()->status() == Cantor::Session::Running)
-        waitForSignal(session(), SIGNAL(statusChanged(Cantor::Session::Status)));
-
     //make sure we didn't screw up the session
     auto* e2=evalExp(QLatin1String("2+2"));
     QVERIFY(e2!=nullptr);
@@ -464,10 +446,6 @@ void TestMaxima::testTextQuotes()
     // check simple string
     auto* e1 = evalExp(QLatin1String("t1: \"test string\""));
     QVERIFY(e1 != nullptr);
-
-    if(session()->status() == Cantor::Session::Running)
-        waitForSignal(session(), SIGNAL(statusChanged(Cantor::Session::Status)));
-
     QVERIFY(e1->result() != nullptr);
     QCOMPARE(e1->result()->type(), (int)Cantor::TextResult::Type );
     QCOMPARE(e1->result()->data().toString(), QLatin1String("test string"));
@@ -475,10 +453,6 @@ void TestMaxima::testTextQuotes()
     // check string with quotes inside
     auto* e2 = evalExp(QLatin1String("t2: \"this is a \\\"quoted string\\\"\""));
     QVERIFY(e2 != nullptr);
-
-    if(session()->status() == Cantor::Session::Running)
-        waitForSignal(session(), SIGNAL(statusChanged(Cantor::Session::Status)));
-
     QVERIFY(e2->result() != nullptr);
     QCOMPARE(e2->result()->type(), (int)Cantor::TextResult::Type );
     QCOMPARE(e2->result()->data().toString(), QLatin1String("this is a \"quoted string\""));
@@ -589,4 +563,3 @@ void TestMaxima::testRestartWhileRunning()
 }
 
 QTEST_MAIN( TestMaxima )
-
