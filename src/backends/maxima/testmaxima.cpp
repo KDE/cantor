@@ -270,6 +270,8 @@ void TestMaxima::testInvalidSyntax()
     auto* e = evalExp( QLatin1String("2+2*(") );
 
     QVERIFY( e!=nullptr );
+    qDebug()<<"session status " << session()->status();
+    qDebug()<<"expression status " << e->status();
     QVERIFY( e->status()==Cantor::Expression::Error );
     QVERIFY( !e->errorMessage().isNull() );
     QCOMPARE(e->results().size(), 0);
