@@ -183,7 +183,8 @@ protected:
     void dropEvent(QGraphicsSceneDragDropEvent *event) override;
     bool sceneEvent(QEvent *event) override;
     void wheelEvent(QGraphicsSceneWheelEvent *event) override;
-    void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget) override; // <-- 新增此行
+    void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget) override;
+    QPainterPath shape() const override;
 private:
     QKeyEvent* eventForStandardAction(KStandardAction::StandardAction actionID);
     Cantor::Session* session();

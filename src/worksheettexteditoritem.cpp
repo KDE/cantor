@@ -38,13 +38,17 @@ WorksheetTextEditorItem::WorksheetTextEditorItem(EditorMode initialMode, Workshe
     m_document = m_editor->createDocument(nullptr);
     m_view = m_document->createView(nullptr);
 
-    // m_view->setContentsMargins(0, 0, 0, 0);
+    m_view->setAttribute(Qt::WA_TranslucentBackground, true);
+    m_view->setAnnotationBorderVisible(false);
+    m_view->setStatusBarEnabled(false);
 
     m_view->setConfigValue(QStringLiteral("scrollbar-minimap"), false);
     m_view->setConfigValue(QStringLiteral("scrollbar-preview"), false);
     m_view->setConfigValue(QStringLiteral("folding-bar"), false);
     m_view->setConfigValue(QStringLiteral("folding-preview"), false);
     m_view->setConfigValue(QStringLiteral("line-numbers"), false);
+    m_view->setConfigValue(QStringLiteral("disable-current-line-highlight-if-inactive"), true);
+    m_view->setConfigValue(QStringLiteral("hide-cursor-if-inactive"), true);
 
     if (m_view)
     {
@@ -57,7 +61,20 @@ WorksheetTextEditorItem::WorksheetTextEditorItem(EditorMode initialMode, Workshe
             hScrollBar->setFixedHeight(0);
         }
     }
+
     setWidget(m_view);
+    setAcceptDrops(true);
+
+    setFocusPolicy(Qt::StrongFocus);
+    m_view->setFocusPolicy(Qt::StrongFocus);
+    m_view->setFocus();
+
+    QFont fixedFont = QFontDatabase::systemFont(QFontDatabase::FixedFont);
+    m_view->setFont(fixedFont);
+    m_currentFont = fixedFont;
+    m_currentFontPointSize = m_currentFont.pointSize() > 0 ? m_currentFont.pointSize() : 10;
+
+    setupLineHeight();
 
     const auto theme = m_view->theme();
 
@@ -72,22 +89,6 @@ WorksheetTextEditorItem::WorksheetTextEditorItem(EditorMode initialMode, Workshe
         m_themeDefaultBackgroundColor = defaultTheme.editorColor(KSyntaxHighlighting::Theme::BackgroundColor);
     }
 
-    setFocusPolicy(Qt::StrongFocus);
-    m_view->setFocusPolicy(Qt::StrongFocus);
-    m_view->setFocus();
-
-    QFont fixedFont = QFontDatabase::systemFont(QFontDatabase::FixedFont);
-    m_view->setFont(fixedFont);
-    m_currentFont = fixedFont;
-    m_currentFontPointSize = m_currentFont.pointSize() > 0 ? m_currentFont.pointSize() : 10;
-    m_view->setStatusBarEnabled(false);
-    setAcceptDrops(true);
-
-    m_view->setAnnotationBorderVisible(false);
-    m_view->setAttribute(Qt::WA_TranslucentBackground, true);
-
-    setupLineHeight();
-
     bool isEditable = (m_mode == EditorMode::Editable);
     m_document->setReadWrite(isEditable);
     if(isEditable)
@@ -99,15 +100,26 @@ WorksheetTextEditorItem::WorksheetTextEditorItem(EditorMode initialMode, Workshe
         auto* model = session()->variableModel();
         if (model) {
             connect(model, &Cantor::DefaultVariableModel::initialModelPopulated, this, [this]() {
-                KTextEditor::Range range = m_view->document()->wordRangeAt(m_view->cursorPosition());
-                m_completionModel->completionInvoked(m_view, range, KTextEditor::CodeCompletionModel::AutomaticInvocation);
+                if (m_view && m_document)
+                {
+                    KTextEditor::Range range = m_document->wordRangeAt(m_view->cursorPosition());
+                    m_completionModel->completionInvoked(m_view, range, KTextEditor::CodeCompletionModel::AutomaticInvocation);
+                }
             });
         }
         connect(this, &WorksheetTextEditorItem::sizeChanged, parentEntry, &WorksheetEntry::recalculateSize);
     }
 
-    QRectF viewRect = m_view->contentsRect();
-    m_size = QSizeF(viewRect.width(), viewRect.height());
+    connect(m_document, &KTextEditor::Document::textChanged, this, &WorksheetTextEditorItem::testSize);
+    connect(m_document, &KTextEditor::Document::textChanged, this, [this]()
+    {
+        bool canUndo = m_document->isModified();
+        Q_EMIT undoAvailable(canUndo);
+        Q_EMIT redoAvailable(canUndo);
+        Q_EMIT copyAvailable(canUndo);
+        Q_EMIT cutAvailable(canUndo);
+        Q_EMIT pasteAvailable(canUndo);
+    });
 
     connect(m_view, &KTextEditor::View::cursorPositionChanged, this, [this]()
     {
@@ -126,20 +138,8 @@ WorksheetTextEditorItem::WorksheetTextEditorItem(EditorMode initialMode, Workshe
             QApplication::restoreOverrideCursor();
     });
 
-    connect(m_document, &KTextEditor::Document::textChanged, this, &WorksheetTextEditorItem::testSize);
-
     connect(this, &WorksheetTextEditorItem::menuCreated, parentEntry, &WorksheetEntry::populateMenu, Qt::DirectConnection);
     connect(this, &WorksheetTextEditorItem::deleteEntry, [parentEntry](){ parentEntry->startRemoving(); });
-
-    connect(m_document, &KTextEditor::Document::textChanged, this, [this]()
-    {
-        bool canUndo = m_document->isModified();
-        Q_EMIT undoAvailable(canUndo);
-        Q_EMIT redoAvailable(canUndo);
-        Q_EMIT copyAvailable(canUndo);
-        Q_EMIT cutAvailable(canUndo);
-        Q_EMIT pasteAvailable(canUndo);
-    });
 
     connect(this, &WorksheetTextEditorItem::receivedFocus, this, [this]()
     {
@@ -148,6 +148,15 @@ WorksheetTextEditorItem::WorksheetTextEditorItem(EditorMode initialMode, Workshe
             m_view->setFocus();
         }
     });
+
+    QRectF viewRect = m_view->contentsRect();
+    m_size = QSizeF(viewRect.width(), viewRect.height());
+
+
+    if (m_view->isVisible())
+    {
+        m_view->setFocus();
+    }
 
     m_view->installEventFilter(this);
 }
@@ -1704,6 +1713,16 @@ void WorksheetTextEditorItem::wheelEvent(QGraphicsSceneWheelEvent *event)
 
 void WorksheetTextEditorItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget)
 {
+    constexpr qreal cornerRadius = 6.0;
+    QRectF rect = boundingRect();
+
+    QPainterPath path;
+    path.addRoundedRect(rect, cornerRadius, cornerRadius);
+
+    painter->save();
+
+    painter->setRenderHint(QPainter::Antialiasing, true);
+
     if (worksheet())
     {
         const auto& theme = worksheet()->theme();
@@ -1713,11 +1732,15 @@ void WorksheetTextEditorItem::paint(QPainter *painter, const QStyleOptionGraphic
         {
             painter->setPen(Qt::NoPen);
             painter->setBrush(bgColor);
-            painter->drawRect(boundingRect());
+            painter->drawPath(path);
         }
     }
 
+    painter->setClipPath(path);
+
     QGraphicsProxyWidget::paint(painter, option, widget);
+
+    painter->restore();
 
     if (m_view && m_view->hasFocus())
     {
@@ -1739,10 +1762,21 @@ void WorksheetTextEditorItem::paint(QPainter *painter, const QStyleOptionGraphic
         pen.setStyle(Qt::CustomDashLine);
         pen.setDashPattern({2, 4});
         pen.setCapStyle(Qt::FlatCap);
+        painter->save();
         painter->setPen(pen);
         painter->setBrush(Qt::NoBrush);
-        painter->drawRect(boundingRect().adjusted(0, 0, 0, 0));
+        painter->setRenderHint(QPainter::Antialiasing, true);
+
+        painter->drawRoundedRect(rect, cornerRadius, cornerRadius);
+        painter->restore();
     }
+}
+
+QPainterPath WorksheetTextEditorItem::shape() const
+{
+    QPainterPath path;
+    path.addRoundedRect(boundingRect(), 6.0, 6.0);
+    return path;
 }
 
 QPointF WorksheetTextEditorItem::localCursorPosition() const

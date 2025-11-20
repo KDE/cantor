@@ -708,13 +708,16 @@ void WorksheetTextItem::paint(QPainter* painter, const QStyleOptionGraphicsItem*
     if (worksheet())
     {
         const auto& theme = worksheet()->theme();
-
-        QColor bgColor = theme.editorColor(KSyntaxHighlighting::Theme::EditorColorRole::BackgroundColor);
-        if (bgColor.isValid())
+        if (textInteractionFlags() != Qt::NoTextInteraction)
         {
-            painter->setPen(Qt::NoPen);
-            painter->setBrush(bgColor);
-            painter->drawRect(boundingRect());
+
+            QColor bgColor = theme.editorColor(KSyntaxHighlighting::Theme::EditorColorRole::BackgroundColor);
+            if (bgColor.isValid())
+            {
+                painter->setPen(Qt::NoPen);
+                painter->setBrush(bgColor);
+                painter->drawRect(boundingRect());
+            }
         }
 
         bool isskip = false;

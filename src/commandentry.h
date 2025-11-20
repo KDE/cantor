@@ -109,7 +109,7 @@ class CommandEntry : public WorksheetEntry
     bool wantToEvaluate() override;
 
   private:
-    WorksheetTextEditorItem* currentInformationItem();
+    WorksheetTextItem* currentInformationItem();
     bool informationItemHasFocus();
     bool focusWithinThisItem();
 
@@ -120,11 +120,13 @@ class CommandEntry : public WorksheetEntry
     enum CompletionMode {PreliminaryCompletion, FinalCompletion};
     static const double VerticalSpacing;
 
-    WorksheetTextEditorItem* m_promptItem;
+    WorksheetTextItem* m_promptItem;
     WorksheetTextEditorItem* m_commandItem;
     QVector<ResultItem*> m_resultItems;
     bool m_resultsCollapsed;
-    QList<WorksheetTextEditorItem*> m_informationItems;
+    WorksheetTextItem* m_errorItem;
+    QList<WorksheetTextItem*> m_informationItems;
+    // QList<WorksheetTextEditorItem*> m_informationItems;
     Cantor::Expression* m_expression;
 
     DynamicHighlighter* m_dynamicHighlighter;

@@ -19,6 +19,8 @@
 #include "lib/latexresult.h"
 #include "lib/syntaxhelpobject.h"
 #include "lib/session.h"
+#include "worksheettextitem.h"
+#include "worksheettexteditoritem.h"
 
 #include <QGuiApplication>
 #include <QDebug>
@@ -65,9 +67,10 @@ namespace {
 }
 
 CommandEntry::CommandEntry(Worksheet* worksheet) : WorksheetEntry(worksheet),
-    m_promptItem(new WorksheetTextEditorItem(WorksheetTextEditorItem::ReadOnly, this, this)),
+    m_promptItem(new WorksheetTextItem(this, Qt::NoTextInteraction)),
     m_commandItem(new WorksheetTextEditorItem(WorksheetTextEditorItem::Editable, this, this)),
     m_resultsCollapsed(false),
+    m_errorItem(nullptr),
     m_expression(nullptr),
     m_evaluationOption(DoNothing),
     m_menusInitialized(false),
@@ -82,7 +85,7 @@ CommandEntry::CommandEntry(Worksheet* worksheet) : WorksheetEntry(worksheet),
     m_dynamicHighlighter(nullptr)
 {
     m_promptItem->setPlainText(Prompt);
-    m_promptItem->setDragEnabled(true);
+    m_promptItem->setItemDragable(true);;
     m_commandItem->enableCompletion(true);
 
     if(worksheet && worksheet->session() && worksheet->session()->backend())
@@ -126,17 +129,18 @@ CommandEntry::CommandEntry(Worksheet* worksheet) : WorksheetEntry(worksheet),
     m_promptItemAnimation->setEndValue(1);
     connect(m_promptItemAnimation, &QPropertyAnimation::finished, this, &CommandEntry::animatePromptItem);
 
-    m_promptItem->setDoubleClickBehaviour(WorksheetTextEditorItem::Simple);
-    connect(m_promptItem, &WorksheetTextEditorItem::doubleClick, this, &CommandEntry::changeResultCollapsingAction);
+    m_promptItem->setDoubleClickBehaviour(WorksheetTextItem::Simple); // 原: WorksheetTextEditorItem::Simple
+    connect(m_promptItem, &WorksheetTextItem::doubleClick, this, &CommandEntry::changeResultCollapsingAction);
 
     connect(&m_controlElement, &WorksheetControlItem::doubleClick, this, &CommandEntry::changeResultCollapsingAction);
     connect(m_commandItem, &WorksheetTextEditorItem::execute, this, [=]() { evaluate();} );
     connect(m_commandItem, &WorksheetTextEditorItem::moveToPrevious, this, &CommandEntry::moveToPreviousItem);
     connect(m_commandItem, &WorksheetTextEditorItem::moveToNext, this, &CommandEntry::moveToNextItem);
-    connect(m_promptItem, &WorksheetTextEditorItem::drag, this, &CommandEntry::startDrag);
+    connect(m_promptItem, &WorksheetTextItem::drag, this, &CommandEntry::startDrag);
     connect(worksheet, &Worksheet::updatePrompt, this, [=]() { updatePrompt();} );
 
     m_defaultDefaultTextColor = m_commandItem->defaultTextColor();
+    updatePrompt();
 }
 
 CommandEntry::~CommandEntry()
@@ -418,6 +422,9 @@ void CommandEntry::updateAfterSettingsChanges()
     //         }
     //     }
     // }
+
+    updatePrompt();
+
     if (m_dynamicHighlighter)
     {
         const auto* ws = this->worksheet();
@@ -438,32 +445,39 @@ void CommandEntry::updateAfterSettingsChanges()
 
 void CommandEntry::moveToNextItem(int pos, qreal x)
 {
-    WorksheetTextEditorItem* item = qobject_cast<WorksheetTextEditorItem*>(sender());
-
+    auto* item = qobject_cast<WorksheetTextEditorItem*>(sender());
     if (!item)
         return;
 
-    if (item == m_commandItem) {
+    if (item == m_commandItem)
+    {
         if (m_informationItems.isEmpty() ||
             !currentInformationItem()->isEditable())
             moveToNextEntry(pos, x);
         else
-            currentInformationItem()->setFocusAt(pos, x);
-    } else if (item == currentInformationItem()) {
-        moveToNextEntry(pos, x);
+            currentInformationItem()->setFocusAt(pos, x); // m_informationItems 仍是 WorksheetTextItem
+    }
+    else {
+        auto* infoItem = qobject_cast<WorksheetTextItem*>(sender());
+        if (infoItem && infoItem == currentInformationItem())
+        {
+            moveToNextEntry(pos, x);
+        }
     }
 }
 
 void CommandEntry::moveToPreviousItem(int pos, qreal x)
 {
-    WorksheetTextEditorItem* item = qobject_cast<WorksheetTextEditorItem*>(sender());
-
-    if (!item)
-        return;
-
-    if (item == m_commandItem || item == nullptr) {
+    auto* editorItem = qobject_cast<WorksheetTextEditorItem*>(sender());
+    if (editorItem && editorItem == m_commandItem)
+    {
         moveToPreviousEntry(pos, x);
-    } else if (item == currentInformationItem()) {
+        return;
+    }
+
+    auto* textItem = qobject_cast<WorksheetTextItem*>(sender());
+    if (textItem && textItem == currentInformationItem())
+    {
         m_commandItem->setFocusAt(pos, x);
     }
 }
@@ -488,6 +502,12 @@ void CommandEntry::setExpression(Cantor::Expression* expr)
         }*/
 
     // Delete any previous error
+    if(m_errorItem)
+    {
+        m_errorItem->deleteLater();
+        m_errorItem = nullptr;
+    }
+
 
     for (auto* item : m_informationItems)
     {
@@ -886,9 +906,8 @@ void CommandEntry::updateEntry()
             item->update();
     }
 
-    m_controlElement.isCollapsable = m_informationItems.size() > 0
-                                    || m_resultItems.size() > 0;
-
+    m_controlElement.isCollapsable = m_errorItem != nullptr
+                                    || m_informationItems.size() > 0;
     animateSizeChange();
 }
 
@@ -915,7 +934,6 @@ void CommandEntry::expressionChangedStatus(Cantor::Expression::Status status)
         case Cantor::Expression::Interrupted:
             m_promptItemAnimation->stop();
             m_promptItem->setOpacity(1.);
-
             m_commandItem->setFocusAt(WorksheetTextEditorItem::BottomRight, 0);
 
             if(!m_errorItem)
@@ -972,15 +990,13 @@ bool CommandEntry::focusEntry(int pos, qreal xCoord)
 {
     if (aboutToBeRemoved())
         return false;
-    WorksheetTextEditorItem* item;
-    if (pos == WorksheetTextEditorItem::TopLeft || pos == WorksheetTextEditorItem::TopCoord)
-        item = m_commandItem;
+    if (pos == WorksheetTextItem::TopLeft || pos == WorksheetTextItem::TopCoord)
+        m_commandItem->setFocusAt(pos, xCoord);
     else if (m_informationItems.size() && currentInformationItem()->isEditable())
-        item = currentInformationItem();
+        currentInformationItem()->setFocusAt(pos, xCoord);
     else
-        item = m_commandItem;
+        m_commandItem->setFocusAt(pos, xCoord);
 
-    item->setFocusAt(pos, xCoord);
     return true;
 }
 
@@ -992,10 +1008,9 @@ void CommandEntry::resultDeleted()
 void CommandEntry::addInformation()
 {
     auto* answerItem = currentInformationItem();
-    // answerItem->setTextInteractionFlags(Qt::TextSelectableByMouse);
-    KTextEditor::Document *document = answerItem->document();
+    answerItem->setTextInteractionFlags(Qt::TextSelectableByMouse);
 
-    QString inf = document->text();
+    QString inf = answerItem->toPlainText();
     inf.replace(QChar::ParagraphSeparator, QLatin1Char('\n'));
     inf.replace(QChar::LineSeparator, QLatin1Char('\n'));
 
@@ -1004,10 +1019,11 @@ void CommandEntry::addInformation()
         m_expression->addInformation(inf);
 }
 
+
 void CommandEntry::showAdditionalInformationPrompt(const QString& question)
 {
-    auto* questionItem = new WorksheetTextEditorItem(WorksheetTextEditorItem::ReadOnly, this,this);
-    auto* answerItem = new WorksheetTextEditorItem(WorksheetTextEditorItem::Editable, this,this);
+    auto* questionItem = new WorksheetTextItem(this, Qt::TextSelectableByMouse);
+    auto* answerItem = new WorksheetTextItem(this, Qt::TextEditorInteraction);
 
     //change the color and the font for when asking for additional information in order to
     //better discriminate from the usual input in the command entry
@@ -1026,12 +1042,13 @@ void CommandEntry::showAdditionalInformationPrompt(const QString& question)
 
     m_informationItems.append(questionItem);
     m_informationItems.append(answerItem);
-    connect(answerItem, &WorksheetTextEditorItem::moveToPrevious, this, &CommandEntry::moveToPreviousItem);
-    connect(answerItem, &WorksheetTextEditorItem::moveToNext, this, &CommandEntry::moveToNextItem);
-    connect(answerItem, &WorksheetTextEditorItem::execute, this, &CommandEntry::addInformation);
+    connect(answerItem, &WorksheetTextItem::moveToPrevious, this, &CommandEntry::moveToPreviousItem);
+    connect(answerItem, &WorksheetTextItem::moveToNext, this, &CommandEntry::moveToNextItem);
+    connect(answerItem, &WorksheetTextItem::execute, this, &CommandEntry::addInformation);
     answerItem->setFocus();
 
     recalculateSize();
+
 }
 
 void CommandEntry::removeResults()
@@ -1074,59 +1091,60 @@ void CommandEntry::replaceResultItem(int index)
 
 void CommandEntry::updatePrompt(const QString& postfix)
 {
-    KColorScheme color = KColorScheme(QPalette::Normal, KColorScheme::View);
-    KTextEditor::Document* doc = m_promptItem->document();
-    KTextEditor::View* view = m_promptItem->view();
-    if (!doc || !view) return;
+    // KColorScheme color = KColorScheme(QPalette::Normal, KColorScheme::View);
 
-    doc->clear();
+    m_promptItem->setPlainText(QString());
+    QTextCursor c = m_promptItem->textCursor();
+    QTextCharFormat cformat = c.charFormat();
 
-    KTextEditor::MovingRange* boldRange = nullptr;
-    KTextEditor::MovingRange* colorRange = nullptr;
+    const auto* ws = worksheet();
+    if (ws) {
+        const auto& theme = ws->theme();
 
-    if (m_expression && worksheet()->showExpressionIds() && m_expression->id() != -1)
-    {
-        QString idStr = QString::number(m_expression->id());
-        doc->insertText(KTextEditor::Cursor(0, 0), idStr);
+        QColor promptColor = theme.textColor(KSyntaxHighlighting::Theme::TextStyle::Comment);
 
-        boldRange = doc->newMovingRange(KTextEditor::Range(0, 0, 0, idStr.length()));
-        boldRange->setAttribute(KTextEditor::Attribute::Ptr(new KTextEditor::Attribute()));
-        boldRange->attribute()->setFontBold(true);
-    }
-
-    int postfixPos = doc->lineLength(0);
-    doc->insertText(KTextEditor::Cursor(0, postfixPos), postfix);
-
-    if (m_expression)
-    {
-        QColor textColor;
-        switch(m_expression->status())
+        if (!promptColor.isValid())
         {
-            case Cantor::Expression::Computing:
-                textColor = color.foreground(KColorScheme::PositiveText).color();
-                break;
-            case Cantor::Expression::Queued:
-                textColor = color.foreground(KColorScheme::InactiveText).color();
-                break;
-            case Cantor::Expression::Error:
-                textColor = color.foreground(KColorScheme::NegativeText).color();
-                break;
-            case Cantor::Expression::Interrupted:
-                textColor = color.foreground(KColorScheme::NeutralText).color();
-                break;
-            default: break;
+            promptColor = theme.editorColor(KSyntaxHighlighting::Theme::EditorColorRole::LineNumbers);
         }
 
-        if (textColor.isValid()) {
-            colorRange = doc->newMovingRange(KTextEditor::Range(0, postfixPos, 0, postfixPos + postfix.length()));
-            colorRange->setAttribute(KTextEditor::Attribute::Ptr(new KTextEditor::Attribute()));
-            colorRange->attribute()->setForeground(textColor);
+        if (!promptColor.isValid())
+        {
+            promptColor = theme.textColor(KSyntaxHighlighting::Theme::TextStyle::Normal);
+        }
+
+        if (promptColor.isValid())
+        {
+            cformat.setForeground(promptColor);
         }
     }
+
+    cformat.setFontWeight(QFont::Bold);
+
+    if(m_expression && worksheet()->showExpressionIds() && m_expression->id() != -1)
+        c.insertText(QString::number(m_expression->id()), cformat);
+
+    if(m_expression)
+    {
+        KColorScheme kcolor(QPalette::Normal, KColorScheme::View);
+
+        if(m_expression->status() == Cantor::Expression::Computing && worksheet()->isRunning())
+            cformat.setForeground(kcolor.foreground(KColorScheme::PositiveText));
+        else if(m_expression->status() == Cantor::Expression::Queued)
+            cformat.setForeground(kcolor.foreground(KColorScheme::InactiveText));
+        else if(m_expression->status() == Cantor::Expression::Error)
+            cformat.setForeground(kcolor.foreground(KColorScheme::NegativeText));
+        else if(m_expression->status() == Cantor::Expression::Interrupted)
+            cformat.setForeground(kcolor.foreground(KColorScheme::NeutralText));
+    }
+
+    c.insertText(postfix, cformat);
+
     recalculateSize();
 }
 
-WorksheetTextEditorItem* CommandEntry::currentInformationItem()
+
+WorksheetTextItem* CommandEntry::currentInformationItem()
 {
     if (m_informationItems.isEmpty())
         return nullptr;
@@ -1252,21 +1270,29 @@ void CommandEntry::layOutForWidth(qreal entry_zone_x, qreal w, bool force)
     if (w == size().width() && m_commandItem->pos().x() == entry_zone_x && !force)
         return;
 
-    QSizeF promptSize = m_promptItem->estimateContentSize(QWIDGETSIZE_MAX);
-    qreal promptX = entry_zone_x - promptSize.width() - HorizontalSpacing;
-    m_promptItem->setGeometry(promptX, 0, promptSize.width());
-    m_promptItem->hide();
-
-    double x = entry_zone_x;
+    double x = std::max(0 + m_promptItem->width() + HorizontalSpacing, entry_zone_x);
     double y = 0;
     double width = 0;
 
+
     const qreal margin = worksheet()->isPrinting() ? 0 : RightMargin;
 
-    m_commandItem->setGeometry(x, y, w - x - margin);
+    m_commandItem->setGeometry(x, 0, w - x - margin);
     width = qMax(width, m_commandItem->width() + margin);
 
-    y += qMax(m_commandItem->height(), m_promptItem->height());
+    const qreal cmdItemHeight = m_commandItem->height();
+    const qreal promptItemHeight = m_promptItem->height();
+
+    const qreal lineHeight = qMax(cmdItemHeight, promptItemHeight);
+
+    m_promptItem->setPos(0, (lineHeight - promptItemHeight) / 2.0);
+
+    if (cmdItemHeight < lineHeight)
+    {
+        m_commandItem->setGeometry(x, (lineHeight - cmdItemHeight) / 2.0, w - x - margin);
+    }
+
+    y += lineHeight;
 
     for (auto* item : m_informationItems)
     {
@@ -1274,6 +1300,14 @@ void CommandEntry::layOutForWidth(qreal entry_zone_x, qreal w, bool force)
         y += item->setGeometry(x, y, w - x - margin);
         width = qMax(width, item->width() + margin);
     }
+
+    if (m_errorItem)
+    {
+        y += VerticalSpacing;
+        y += m_errorItem->setGeometry(x,y,w - x - margin);
+        width = qMax(width, m_errorItem->width() + margin);
+    }
+
 
     for (auto* resultItem : m_resultItems)
     {
@@ -1298,7 +1332,7 @@ void CommandEntry::layOutForWidth(qreal entry_zone_x, qreal w, bool force)
 
 void CommandEntry::startRemoving(bool warn)
 {
-    m_promptItem->setDragEnabled(false);
+    m_promptItem->setItemDragable(false);
     WorksheetEntry::startRemoving(warn);
 }
 
@@ -1393,7 +1427,7 @@ void CommandEntry::changeResultCollapsingAction()
 
 qreal CommandEntry::promptItemWidth()
 {
-    return m_promptItem->estimateContentSize(QWIDGETSIZE_MAX).width();
+    return m_promptItem->width();
 }
 
 /*!

@@ -51,7 +51,7 @@ const qreal WorksheetEntry::VerticalMargin = 4;
 const qreal WorksheetEntry::ControlElementWidth = 12;
 const qreal WorksheetEntry::ControlElementBorder = 4;
 const qreal WorksheetEntry::RightMargin = ControlElementWidth + 2*ControlElementBorder;
-const qreal WorksheetEntry::HorizontalSpacing = 4;
+const qreal WorksheetEntry::HorizontalSpacing = 2;
 
 QColor WorksheetEntry::colors[] = {QColor(255,255,255), QColor(0,0,0),
     QColor(192,0,0), QColor(255,0,0), QColor(255,192,192), //red
