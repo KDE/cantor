@@ -74,24 +74,6 @@
                             }
                         }
                     ]
-                },
-                {
-                    "name": "openjpeg2",
-                    "buildsystem": "cmake-ninja",
-                    "builddir": true,
-                    "sources": [
-                        {
-                            "type": "archive",
-                            "url": "https://github.com/uclouvain/openjpeg/archive/v2.5.2.tar.gz",
-                            "sha256": "90e3896fed910c376aaf79cdd98bdfdaf98c6472efd8e1debf0a854938cbda6a"
-                        }
-                    ],
-                    "cleanup": [
-                        "/bin",
-                        "/include",
-                        "/lib/openjpeg-*",
-                        "/lib/pkgconfig"
-                    ]
                 }
             ],
             "cleanup": [
