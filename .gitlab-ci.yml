@@ -22,7 +22,7 @@ craft_appimage_qt6_x86_64:
       when: manual
       allow_failure: true
 
-flatpak:
+flatpak-amd64:
   rules:
     - if: '$CI_COMMIT_REF_NAME == "master"'
       when: manual
