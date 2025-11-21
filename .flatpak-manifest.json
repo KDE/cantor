@@ -29,14 +29,14 @@
         {
             "name": "poppler",
             "config-opts": [
-                "-DENABLE_TESTING=OFF",
-                "-DENABLE_UNSTABLE_API_ABI_HEADERS=ON",
                 "-DENABLE_CPP=OFF",
                 "-DENABLE_GLIB=OFF",
                 "-DENABLE_GOBJECT_INTROSPECTION=OFF",
-                "-DENABLE_UTILS=OFF",
                 "-DENABLE_QT5=OFF",
-                "-DENABLE_QT6=ON"
+                "-DENABLE_QT6=ON",
+                "-DENABLE_TESTING=OFF",
+                "-DENABLE_UNSTABLE_API_ABI_HEADERS=ON",
+                "-DENABLE_UTILS=OFF"
             ],
             "buildsystem": "cmake-ninja",
             "builddir": true,
