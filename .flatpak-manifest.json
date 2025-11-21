@@ -92,9 +92,9 @@
             "buildsystem": "cmake-ninja",
             "sources": [
                 {
-		    "type": "archive",
-		    "url": "https://github.com/KDE/analitza/archive/v24.08.1.tar.gz",
-		    "sha256": "ccd18151c49937c606f5446eb3f821d46066be76e6a9d01e96f6494e59c08c81"
+                    "type": "archive",
+                    "url": "https://github.com/KDE/analitza/archive/v24.08.1.tar.gz",
+                    "sha256": "ccd18151c49937c606f5446eb3f821d46066be76e6a9d01e96f6494e59c08c81"
                 }
             ]
         },
