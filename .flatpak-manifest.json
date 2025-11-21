@@ -43,8 +43,8 @@
             "sources": [
                 {
                     "type": "archive",
-                    "url": "https://poppler.freedesktop.org/poppler-24.10.0.tar.xz",
-                    "sha256": "58ed1849810f04a10b37c7ff6f3e411845c8a57d731d599d0045acc7a7fff09d",
+                    "url": "https://poppler.freedesktop.org/poppler-25.11.0.tar.xz",
+                    "sha256": "63f155142b77349e2bccaef148e754e7506ab1641e713b83af4f54a8f8b15369",
                     "x-checker-data": {
                         "type": "anitya",
                         "project-id": 3686,
@@ -64,8 +64,8 @@
                     "sources": [
                         {
                             "type": "archive",
-                            "url": "https://boostorg.jfrog.io/artifactory/main/release/1.86.0/source/boost_1_86_0.tar.bz2",
-                            "sha256": "1bed88e40401b2cb7a1f76d4bab499e352fa4d0c5f31c0dbae64e24d34d7513b",
+                            "url": "https://archives.boost.io/release/1.89.0/source/boost_1_89_0.tar.bz2",
+                            "sha256": "85a33fa22621b4f314f8e85e1a5e2a9363d22e4f4992925d4bb3bc631b5a0c7a",
                             "x-checker-data": {
                                 "type": "anitya",
                                 "project-id": 6845,
@@ -87,8 +87,8 @@
             "sources": [
                 {
                     "type": "archive",
-                    "url": "https://github.com/KDE/analitza/archive/v24.08.1.tar.gz",
-                    "sha256": "ccd18151c49937c606f5446eb3f821d46066be76e6a9d01e96f6494e59c08c81",
+                    "url": "https://download.kde.org/stable/release-service/25.08.3/src/analitza-25.08.3.tar.xz",
+                    "sha256": "1abe741c3f189b3d8cb8cf34b516890fd64cf21ba75d0f558b3711956b83e4d1",
                     "x-checker-data": {
                         "type": "anitya",
                         "project-id": 8763,
