@@ -1707,7 +1707,6 @@ bool WorksheetTextEditorItem::sceneEvent(QEvent *event)
 
 void WorksheetTextEditorItem::wheelEvent(QGraphicsSceneWheelEvent *event)
 {
-    // QGraphicsProxyWidget::wheelEvent(event);
     event->ignore();
 }
 

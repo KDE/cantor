@@ -126,7 +126,6 @@ class CommandEntry : public WorksheetEntry
     bool m_resultsCollapsed;
     WorksheetTextItem* m_errorItem;
     QList<WorksheetTextItem*> m_informationItems;
-    // QList<WorksheetTextEditorItem*> m_informationItems;
     Cantor::Expression* m_expression;
 
     DynamicHighlighter* m_dynamicHighlighter;
@@ -145,7 +144,6 @@ class CommandEntry : public WorksheetEntry
     QActionGroup* m_themeActionGroup;
     QColor m_defaultDefaultTextColor;
     QMenu* m_textColorMenu;
-    QMenu* m_themeMenu;
     QMenu* m_fontMenu;
 
     bool m_isExecutionEnabled;

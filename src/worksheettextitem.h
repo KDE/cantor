@@ -60,8 +60,6 @@ class WorksheetTextItem : public QGraphicsTextItem
     bool isEditable();
     void allowEditing();
     void denyEditing();
-    // void setBackgroundColor(const QColor&);
-    // const QColor& backgroundColor() const;
     bool richTextEnabled();
     double width() const;
     double height() const;
@@ -128,6 +126,7 @@ class WorksheetTextItem : public QGraphicsTextItem
     void testSize();
     void updateThemeColors();
   protected:
+
     void keyPressEvent(QKeyEvent*) override;
     void focusInEvent(QFocusEvent*) override;
     void focusOutEvent(QFocusEvent*) override;
@@ -137,7 +136,6 @@ class WorksheetTextItem : public QGraphicsTextItem
     void mouseMoveEvent(QGraphicsSceneMouseEvent*) override;
     void contextMenuEvent(QGraphicsSceneContextMenuEvent*) override;
     void dragEnterEvent(QGraphicsSceneDragDropEvent*) override;
-    //void dragLeaveEvent(QGraphicsSceneDragDropEvent*);
     void dragMoveEvent(QGraphicsSceneDragDropEvent*) override;
     void dropEvent(QGraphicsSceneDragDropEvent*) override;
     bool sceneEvent(QEvent*) override;
@@ -145,9 +143,7 @@ class WorksheetTextItem : public QGraphicsTextItem
     void paint(QPainter*, const QStyleOptionGraphicsItem*, QWidget*) override;
 
   private Q_SLOTS:
-    //void setHeight();
     void updateRichTextActions(QTextCursor cursor);
-    // void updateCurrentLineHighlight();
 
   private:
     void setLocalCursorPosition(QPointF);

@@ -419,12 +419,10 @@ void SageSession::expressionFinished(Cantor::Expression::Status status)
 
     if (status == Cantor::Expression::Done || status == Cantor::Expression::Error)
     {
-        // 如果命令不是内部命令，并且队列即将变空，则更新变量
         if (!expr->isInternal() && expressionQueue().size() == 1)
         {
             variableModel()->update();
         }
-        // 完成后断开连接，避免重复触发
         disconnect(expr, &Cantor::Expression::statusChanged, this, &SageSession::expressionFinished);
     }
 }

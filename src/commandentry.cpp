@@ -150,7 +150,6 @@ CommandEntry::~CommandEntry()
         m_backgroundColorMenu->deleteLater();
         m_textColorMenu->deleteLater();
         m_fontMenu->deleteLater();
-        // m_themeMenu->deleteLater();
     }
 }
 
@@ -223,30 +222,6 @@ void CommandEntry::initMenus()
         if (m_textColorCustom && textColor == colors[i])
             action->setChecked(true);
     }
-
-    // m_themeActionGroup = new QActionGroup(this);
-    // m_themeActionGroup->setExclusive(true);
-    // connect(m_themeActionGroup, &QActionGroup::triggered, this, &CommandEntry::themeChanged);
-    //
-    // m_themeMenu = new QMenu(i18n("Color Theme"));
-    // m_themeMenu->setIcon(QIcon::fromTheme(QStringLiteral("preferences-desktop-color")));
-    //
-    // const auto& repository = KTextEditor::Editor::instance()->repository();
-    // const QList<KSyntaxHighlighting::Theme> themes = repository.themes();
-    // const QString currentThemeName = m_commandItem->view()->theme().name();
-    //
-    // for (const auto &theme : themes)
-    // {
-    //     QAction* action = new QAction(theme.translatedName(), m_themeActionGroup);
-    //     action->setCheckable(true);
-    //     action->setData(theme.name());
-    //     m_themeMenu->addAction(action);
-    //
-    //     if (theme.name() == currentThemeName)
-    //     {
-    //         action->setChecked(true);
-    //     }
-    // }
 
     QFont font = m_commandItem->font();
     m_fontMenu = new QMenu(i18n("Font"));
@@ -397,7 +372,6 @@ void CommandEntry::populateMenu(QMenu* menu, QPointF pos)
     appearanceMenu->addMenu(m_backgroundColorMenu);
     appearanceMenu->addMenu(m_textColorMenu);
     appearanceMenu->addMenu(m_fontMenu);
-    // appearanceMenu->addMenu(m_themeMenu);
     menu->addMenu(appearanceMenu);
     menu->addSeparator();
 
@@ -411,17 +385,6 @@ void CommandEntry::updateAfterSettingsChanges()
     const auto& parentTheme = worksheet()->theme();
     const QString themeName = parentTheme.name();
     m_commandItem->setTheme(themeName);
-    // if (m_menusInitialized)
-    // {
-    //     for (QAction* action : m_themeActionGroup->actions())
-    //     {
-    //         if (action->data().toString() == themeName)
-    //         {
-    //             action->setChecked(true);
-    //             break;
-    //         }
-    //     }
-    // }
 
     updatePrompt();
 
@@ -455,7 +418,7 @@ void CommandEntry::moveToNextItem(int pos, qreal x)
             !currentInformationItem()->isEditable())
             moveToNextEntry(pos, x);
         else
-            currentInformationItem()->setFocusAt(pos, x); // m_informationItems 仍是 WorksheetTextItem
+            currentInformationItem()->setFocusAt(pos, x);
     }
     else {
         auto* infoItem = qobject_cast<WorksheetTextItem*>(sender());
@@ -1091,8 +1054,6 @@ void CommandEntry::replaceResultItem(int index)
 
 void CommandEntry::updatePrompt(const QString& postfix)
 {
-    // KColorScheme color = KColorScheme(QPalette::Normal, KColorScheme::View);
-
     m_promptItem->setPlainText(QString());
     QTextCursor c = m_promptItem->textCursor();
     QTextCharFormat cformat = c.charFormat();

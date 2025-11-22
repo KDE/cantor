@@ -1,8 +1,8 @@
 /*
- *    SPDX-License-Identifier: GPL-2.0-or-later
- *    SPDX-FileCopyrightText: 2012 Martin Kuettler <martin.kuettler@gmail.com>
- *    SPDX-FileCopyrightText: 2016-2021 Alexander Semke <alexander.semke@web.de>
- */
+    SPDX-License-Identifier: GPL-2.0-or-later
+    SPDX-FileCopyrightText: 2012 Martin Kuettler <martin.kuettler@gmail.com>
+    SPDX-FileCopyrightText: 2016-2021 Alexander Semke <alexander.semke@web.de>
+*/
 
 #include "worksheetentry.h"
 #include "commandentry.h"
@@ -54,26 +54,26 @@ const qreal WorksheetEntry::RightMargin = ControlElementWidth + 2*ControlElement
 const qreal WorksheetEntry::HorizontalSpacing = 2;
 
 QColor WorksheetEntry::colors[] = {QColor(255,255,255), QColor(0,0,0),
-    QColor(192,0,0), QColor(255,0,0), QColor(255,192,192), //red
-    QColor(0,192,0), QColor(0,255,0), QColor(192,255,192), //green
-    QColor(0,0,192), QColor(0,0,255), QColor(192,192,255), //blue
-    QColor(192,192,0), QColor(255,255,0), QColor(255,255,192), //yellow
-    QColor(0,192,192), QColor(0,255,255), QColor(192,255,255), //cyan
-    QColor(192,0,192), QColor(255,0,255), QColor(255,192,255), //magenta
-    QColor(192,88,0), QColor(255,128,0), QColor(255,168,88), //orange
-    QColor(128,128,128), QColor(160,160,160), QColor(195,195,195) //grey
-};
+                                                    QColor(192,0,0), QColor(255,0,0), QColor(255,192,192), //red
+                                                    QColor(0,192,0), QColor(0,255,0), QColor(192,255,192), //green
+                                                    QColor(0,0,192), QColor(0,0,255), QColor(192,192,255), //blue
+                                                    QColor(192,192,0), QColor(255,255,0), QColor(255,255,192), //yellow
+                                                    QColor(0,192,192), QColor(0,255,255), QColor(192,255,255), //cyan
+                                                    QColor(192,0,192), QColor(255,0,255), QColor(255,192,255), //magenta
+                                                    QColor(192,88,0), QColor(255,128,0), QColor(255,168,88), //orange
+                                                    QColor(128,128,128), QColor(160,160,160), QColor(195,195,195) //grey
+                                                    };
 
 QString WorksheetEntry::colorNames[] = {i18n("White"), i18n("Black"),
-    i18n("Dark Red"), i18n("Red"), i18n("Light Red"),
-    i18n("Dark Green"), i18n("Green"), i18n("Light Green"),
-    i18n("Dark Blue"), i18n("Blue"), i18n("Light Blue"),
-    i18n("Dark Yellow"), i18n("Yellow"), i18n("Light Yellow"),
-    i18n("Dark Cyan"), i18n("Cyan"), i18n("Light Cyan"),
-    i18n("Dark Magenta"), i18n("Magenta"), i18n("Light Magenta"),
-    i18n("Dark Orange"), i18n("Orange"), i18n("Light Orange"),
-    i18n("Dark Grey"), i18n("Grey"), i18n("Light Grey")
-};
+                                         i18n("Dark Red"), i18n("Red"), i18n("Light Red"),
+                                         i18n("Dark Green"), i18n("Green"), i18n("Light Green"),
+                                         i18n("Dark Blue"), i18n("Blue"), i18n("Light Blue"),
+                                         i18n("Dark Yellow"), i18n("Yellow"), i18n("Light Yellow"),
+                                         i18n("Dark Cyan"), i18n("Cyan"), i18n("Light Cyan"),
+                                         i18n("Dark Magenta"), i18n("Magenta"), i18n("Light Magenta"),
+                                         i18n("Dark Orange"), i18n("Orange"), i18n("Light Orange"),
+                                         i18n("Dark Grey"), i18n("Grey"), i18n("Light Grey")
+                                         };
 
 WorksheetEntry::WorksheetEntry(Worksheet* worksheet) : QGraphicsObject(), m_controlElement(worksheet, this)
 {
@@ -108,24 +108,24 @@ WorksheetEntry* WorksheetEntry::create(int t, Worksheet* worksheet)
 {
     switch(t)
     {
-        case TextEntry::Type:
-            return new TextEntry(worksheet);
-        case MarkdownEntry::Type:
-            return new MarkdownEntry(worksheet);
-        case CommandEntry::Type:
-            return new CommandEntry(worksheet);
-        case ImageEntry::Type:
-            return new ImageEntry(worksheet);
-        case PageBreakEntry::Type:
-            return new PageBreakEntry(worksheet);
-        case LatexEntry::Type:
-            return new LatexEntry(worksheet);
-        case HorizontalRuleEntry::Type:
-            return new HorizontalRuleEntry(worksheet);
-        case HierarchyEntry::Type:
-            return new HierarchyEntry(worksheet);
-        default:
-            return nullptr;
+    case TextEntry::Type:
+        return new TextEntry(worksheet);
+    case MarkdownEntry::Type:
+        return new MarkdownEntry(worksheet);
+    case CommandEntry::Type:
+        return new CommandEntry(worksheet);
+    case ImageEntry::Type:
+        return new ImageEntry(worksheet);
+    case PageBreakEntry::Type:
+        return new PageBreakEntry(worksheet);
+    case LatexEntry::Type:
+        return new LatexEntry(worksheet);
+    case HorizontalRuleEntry::Type:
+        return new HorizontalRuleEntry(worksheet);
+    case HierarchyEntry::Type:
+        return new HierarchyEntry(worksheet);
+    default:
+        return nullptr;
     }
 }
 
@@ -353,8 +353,8 @@ WorksheetView* WorksheetEntry::worksheetView()
 }
 
 WorksheetCursor WorksheetEntry::search(const QString& pattern, unsigned flags,
-                                       QTextDocument::FindFlags qt_flags,
-                                       const WorksheetCursor& pos)
+                                   QTextDocument::FindFlags qt_flags,
+                                   const WorksheetCursor& pos)
 {
     Q_UNUSED(pattern);
     Q_UNUSED(flags);
@@ -393,29 +393,29 @@ void WorksheetEntry::keyPressEvent(QKeyEvent* event)
 {
     // This event is used in Entries that set the ItemIsFocusable flag
     switch(event->key()) {
-        case Qt::Key_Left:
-        case Qt::Key_Up:
-            if (event->modifiers() == Qt::NoModifier)
-                moveToPreviousEntry(WorksheetTextEditorItem::BottomRight, 0);
+    case Qt::Key_Left:
+    case Qt::Key_Up:
+        if (event->modifiers() == Qt::NoModifier)
+            moveToPreviousEntry(WorksheetTextItem::BottomRight, 0);
         else if (event->modifiers() == Qt::CTRL)
             moveToPrevious();
         break;
-        case Qt::Key_Right:
-        case Qt::Key_Down:
-            if (event->modifiers() == Qt::NoModifier)
-                moveToNextEntry(WorksheetTextEditorItem::TopLeft, 0);
+    case Qt::Key_Right:
+    case Qt::Key_Down:
+        if (event->modifiers() == Qt::NoModifier)
+            moveToNextEntry(WorksheetTextItem::TopLeft, 0);
         else if (event->modifiers() == Qt::CTRL)
             moveToNext();
         break;
         /*case Qt::Key_Enter:
-         *    case Qt::Key_Return:
-         *        if (event->modifiers() == Qt::ShiftModifier)
-         *            evaluate();
-         *        else if (event->modifiers() == Qt::ControlModifier)
-         *            worksheet()->insertCommandEntry();
-         *        break;*/
-        default:
-            event->ignore();
+    case Qt::Key_Return:
+        if (event->modifiers() == Qt::ShiftModifier)
+            evaluate();
+        else if (event->modifiers() == Qt::ControlModifier)
+            worksheet()->insertCommandEntry();
+        break;*/
+    default:
+        event->ignore();
     }
 }
 
@@ -444,7 +444,7 @@ void WorksheetEntry::populateMenu(QMenu* menu, QPointF pos)
 
     if (m_prev) {
         action = new QAction(QIcon::fromTheme(QLatin1String("go-up")), i18n("Move Up"));
-        //     connect(action, &QAction::triggered, this, &WorksheetEntry::moveToPrevious); //TODO: doesn't work
+    //     connect(action, &QAction::triggered, this, &WorksheetEntry::moveToPrevious); //TODO: doesn't work
         connect(action, SIGNAL(triggered()), this, SLOT(moveToPrevious()));
         action->setShortcut(Qt::CTRL | Qt::Key_Up);
         menu->insertAction(firstAction, action);
@@ -703,7 +703,7 @@ void WorksheetEntry::updateSizeAnimation(QSizeF size)
     if (m_animation->sizeAnimation) {
         QPropertyAnimation* sizeAn = m_animation->sizeAnimation;
         qreal progress = static_cast<qreal>(sizeAn->currentTime()) /
-        sizeAn->totalDuration();
+            sizeAn->totalDuration();
         QEasingCurve curve = sizeAn->easingCurve();
         qreal value = curve.valueForProgress(progress);
         sizeAn->setEndValue(size);
@@ -712,7 +712,7 @@ void WorksheetEntry::updateSizeAnimation(QSizeF size)
     } else {
         m_animation->sizeAnimation = sizeChangeAnimation(size);
         int d = m_animation->animation->duration() -
-        m_animation->animation->currentTime();
+            m_animation->animation->currentTime();
         m_animation->sizeAnimation->setDuration(d);
         m_animation->animation->addAnimation(m_animation->sizeAnimation);
     }
@@ -760,11 +760,11 @@ void WorksheetEntry::startRemoving(bool warn)
             if (previous() && previous()->isEmpty() &&
                 !previous()->aboutToBeRemoved()) {
                 previous()->focusEntry();
-                } else {
-                    WorksheetEntry* next = worksheet()->appendCommandEntry();
-                    setNext(next);
-                    next->focusEntry();
-                }
+            } else {
+                WorksheetEntry* next = worksheet()->appendCommandEntry();
+                setNext(next);
+                next->focusEntry();
+            }
         } else {
             next()->focusEntry();
         }
@@ -1076,7 +1076,7 @@ void WorksheetEntry::recalculateControlGeometry()
 {
     m_controlElement.setRect(
         size().width() - ControlElementWidth - ControlElementBorder, 0, // x,y
-                             ControlElementWidth, size().height() - VerticalMargin // w,h
+        ControlElementWidth, size().height() - VerticalMargin // w,h
     );
     m_controlElement.update();
 }

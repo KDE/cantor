@@ -457,6 +457,7 @@ void WorksheetTextItem::keyPressEvent(QKeyEvent *event)
     }
 
     int p = textCursor().position();
+    
     bool b = textCursor().hasSelection();
     QGraphicsTextItem::keyPressEvent(event);
 
@@ -472,6 +473,7 @@ bool WorksheetTextItem::sceneEvent(QEvent *event)
     if (event->type() == QEvent::KeyPress) {
         // QGraphicsTextItem's TabChangesFocus feature prevents calls to
         // keyPressEvent for Tab, even when it's turned off. So we got to catch
+
         // that here.
         QKeyEvent* kev = static_cast<QKeyEvent*>(event);
         if (kev->key() == Qt::Key_Tab && kev->modifiers() == Qt::NoModifier) {
