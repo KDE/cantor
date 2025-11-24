@@ -25,7 +25,6 @@
 #include <KColorScheme>
 #include <KLocalizedString>
 #include <QFontDatabase>
-#include <QTextFrame>
 
 WorksheetTextItem::WorksheetTextItem(WorksheetEntry* parent, Qt::TextInteractionFlags ti)
     : QGraphicsTextItem(parent)
@@ -402,7 +401,7 @@ Cantor::Session* WorksheetTextItem::session()
     return worksheet()->session();
 }
 
-void WorksheetTextItem::keyPressEvent(QKeyEvent *event)
+void WorksheetTextItem::keyPressEvent(QKeyEvent* event)
 {
     switch (event->key()) {
     case Qt::Key_Left:
@@ -457,7 +456,7 @@ void WorksheetTextItem::keyPressEvent(QKeyEvent *event)
     }
 
     int p = textCursor().position();
-    
+
     bool b = textCursor().hasSelection();
     QGraphicsTextItem::keyPressEvent(event);
 
@@ -468,7 +467,7 @@ void WorksheetTextItem::keyPressEvent(QKeyEvent *event)
         selectionChanged();
 }
 
-bool WorksheetTextItem::sceneEvent(QEvent *event)
+bool WorksheetTextItem::sceneEvent(QEvent* event)
 {
     if (event->type() == QEvent::KeyPress) {
         // QGraphicsTextItem's TabChangesFocus feature prevents calls to
@@ -497,7 +496,7 @@ bool WorksheetTextItem::sceneEvent(QEvent *event)
     return QGraphicsTextItem::sceneEvent(event);
 }
 
-void WorksheetTextItem::focusInEvent(QFocusEvent *event)
+void WorksheetTextItem::focusInEvent(QFocusEvent* event)
 {
     QGraphicsTextItem::focusInEvent(event);
     //parentItem()->ensureVisible(QRectF(), 0, 0);
@@ -514,13 +513,13 @@ void WorksheetTextItem::focusInEvent(QFocusEvent *event)
     Q_EMIT cursorPositionChanged(textCursor());
 }
 
-void WorksheetTextItem::focusOutEvent(QFocusEvent *event)
+void WorksheetTextItem::focusOutEvent(QFocusEvent* event)
 {
     QGraphicsTextItem::focusOutEvent(event);
     Q_EMIT cursorPositionChanged(QTextCursor());
 }
 
-void WorksheetTextItem::mousePressEvent(QGraphicsSceneMouseEvent *event)
+void WorksheetTextItem::mousePressEvent(QGraphicsSceneMouseEvent* event)
 {
     int p = textCursor().position();
     bool b = textCursor().hasSelection();
@@ -558,7 +557,7 @@ void WorksheetTextItem::mouseMoveEvent(QGraphicsSceneMouseEvent* event)
     }
 }
 
-void WorksheetTextItem::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
+void WorksheetTextItem::mouseReleaseEvent(QGraphicsSceneMouseEvent* event)
 {
     int p = textCursor().position();
 
@@ -577,7 +576,7 @@ void WorksheetTextItem::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
         Q_EMIT cursorPositionChanged(textCursor());
 }
 
-void WorksheetTextItem::mouseDoubleClickEvent(QGraphicsSceneMouseEvent *event)
+void WorksheetTextItem::mouseDoubleClickEvent(QGraphicsSceneMouseEvent* event)
 {
     QTextCursor cursor = textCursor();
     const QChar repl = QChar::ObjectReplacementCharacter;
@@ -645,9 +644,9 @@ void WorksheetTextItem::dropEvent(QGraphicsSceneDragDropEvent* event)
     }
 }
 
-void WorksheetTextItem::contextMenuEvent(QGraphicsSceneContextMenuEvent *event)
+void WorksheetTextItem::contextMenuEvent(QGraphicsSceneContextMenuEvent* event)
 {
-    QMenu *menu = worksheet()->createContextMenu();
+    QMenu* menu = worksheet()->createContextMenu();
     populateMenu(menu, event->pos());
 
     menu->popup(event->screenPos());
@@ -682,7 +681,7 @@ void WorksheetTextItem::insertTab()
             cursor.movePosition(QTextCursor::NextCharacter);
     }
 
-    QTextLayout *layout = textCursor().block().layout();
+    QTextLayout* layout = textCursor().block().layout();
     if (!layout) {
         cursor.insertText(QLatin1String("    "));
     } else {
@@ -867,7 +866,7 @@ void WorksheetTextItem::updateRichTextActions(QTextCursor cursor)
     worksheet()->setRichTextInformation(info);
 }
 
-void WorksheetTextItem::mergeFormatOnWordOrSelection(const QTextCharFormat &format)
+void WorksheetTextItem::mergeFormatOnWordOrSelection(const QTextCharFormat& format)
 {
     QTextCursor cursor = textCursor();
     QTextCursor wordStart(cursor);

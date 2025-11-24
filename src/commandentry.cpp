@@ -55,7 +55,7 @@ namespace {
         }
 
         const auto& repository = KTextEditor::Editor::instance()->repository();
-        const QList<KSyntaxHighlighting::Theme> themes = repository.themes();
+        const auto& themes = repository.themes();
 
         const int themeListIndex = index - 1;
         if (themeListIndex>= 0 && themeListIndex < themes.count ()) {
@@ -129,7 +129,7 @@ CommandEntry::CommandEntry(Worksheet* worksheet) : WorksheetEntry(worksheet),
     m_promptItemAnimation->setEndValue(1);
     connect(m_promptItemAnimation, &QPropertyAnimation::finished, this, &CommandEntry::animatePromptItem);
 
-    m_promptItem->setDoubleClickBehaviour(WorksheetTextItem::Simple); // 原: WorksheetTextEditorItem::Simple
+    m_promptItem->setDoubleClickBehaviour(WorksheetTextItem::Simple);
     connect(m_promptItem, &WorksheetTextItem::doubleClick, this, &CommandEntry::changeResultCollapsingAction);
 
     connect(&m_controlElement, &WorksheetControlItem::doubleClick, this, &CommandEntry::changeResultCollapsingAction);
@@ -295,15 +295,6 @@ void CommandEntry::textColorChanged(QAction* action)
     }
 }
 
-void CommandEntry::themeChanged(QAction* action)
-{
-    // const QString themeName = action->data().toString();
-    // if (!themeName.isEmpty())
-    // {
-    //     m_commandItem->setTheme(themeName);
-    // }
-}
-
 void CommandEntry::fontBoldTriggered()
 {
     QAction* action = static_cast<QAction*>(QObject::sender());
@@ -397,7 +388,7 @@ void CommandEntry::updateAfterSettingsChanges()
         m_dynamicHighlighter->updateThemeColors(variableColor, functionColor);
     }
 
-    for (ResultItem* item : m_resultItems)
+    for (auto* item : m_resultItems)
     {
         if (item)
         {
@@ -1235,25 +1226,31 @@ void CommandEntry::layOutForWidth(qreal entry_zone_x, qreal w, bool force)
     double y = 0;
     double width = 0;
 
-
     const qreal margin = worksheet()->isPrinting() ? 0 : RightMargin;
 
     m_commandItem->setGeometry(x, 0, w - x - margin);
     width = qMax(width, m_commandItem->width() + margin);
 
-    const qreal cmdItemHeight = m_commandItem->height();
+    const QFont font = m_commandItem->view()->font();
+    const qreal singleLineHeight = QFontMetrics(font).height();
     const qreal promptItemHeight = m_promptItem->height();
 
-    const qreal lineHeight = qMax(cmdItemHeight, promptItemHeight);
+    qreal promptY = 0;
+    qreal editorY = 0;
 
-    m_promptItem->setPos(0, (lineHeight - promptItemHeight) / 2.0);
-
-    if (cmdItemHeight < lineHeight)
+    if (singleLineHeight > promptItemHeight) 
     {
-        m_commandItem->setGeometry(x, (lineHeight - cmdItemHeight) / 2.0, w - x - margin);
+        promptY = (singleLineHeight - promptItemHeight) / 2.0;
+    } 
+    else 
+    {
+        editorY = (promptItemHeight - singleLineHeight) / 2.0;
     }
 
-    y += lineHeight;
+    m_promptItem->setPos(0, promptY);
+    m_commandItem->setPos(x, editorY);
+
+    y = std::max(promptY + promptItemHeight, editorY + m_commandItem->height());
 
     for (auto* item : m_informationItems)
     {

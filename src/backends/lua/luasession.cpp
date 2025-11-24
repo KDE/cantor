@@ -20,9 +20,8 @@ const QString LuaSession::LUA_PROMPT = QLatin1String("> ");
 const QString LuaSession::LUA_SUBPROMPT = QLatin1String(">> ");
 const QString LUA_COMMAND_END_MARKER = QLatin1String("CANTOR_LUA_PROMPT_END");
 
-LuaSession::LuaSession(Cantor::Backend* backend) : Session(backend) {
+LuaSession::LuaSession(Cantor::Backend* backend) : Session(backend, nullptr, new SymbolManager(QStringLiteral("Lua"))) {
     setVariableModel(new LuaVariableModel(this));
-    setSymbolManager(new SymbolManager(QStringLiteral("Lua")));
 }
 
 LuaSession::~LuaSession()
@@ -71,8 +70,6 @@ void LuaSession::login()
     // we need this for tab completion
     m_L = luaL_newstate();
     luaL_openlibs(m_L);
-
-    variableModel()->update();
 
     changeStatus(Cantor::Session::Done);
     Q_EMIT loginDone();
@@ -221,7 +218,7 @@ void LuaSession::readError()
         return;
 
     QString error = QString::fromLocal8Bit(m_process->readAllStandardError());
-    static_cast<LuaExpression*>(m_lastExpression)->parseError(error);
+    m_lastExpression->parseError(error);
 }
 
 void LuaSession::processStarted()

@@ -24,13 +24,13 @@ void QalculateVariableModel::update()
     QList<Variable> newVars;
     QStringList newFuncs;
 
-    const QMap<QString, QString>& sessionVars = m_session->getVariables();
+    const auto& sessionVars = m_session->getVariables();
     for (auto it = sessionVars.constBegin(); it != sessionVars.constEnd(); ++it) {
         newVars.append(Variable(it.key(), it.value()));
     }
 
     if (CALCULATOR) {
-        for ( ExpressionItem* item : CALCULATOR->variables ) {
+        for ( auto* item : CALCULATOR->variables ) {
             QString name = QLatin1String(item->name(true).c_str());
             newVars.append(Variable(name, QString()));
         }

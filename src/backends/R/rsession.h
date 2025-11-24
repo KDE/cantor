@@ -3,7 +3,6 @@
     SPDX-FileCopyrightText: 2009 Alexander Rieder <alexanderrieder@gmail.com>
 */
 
-
 #ifndef _RSESSION_H
 #define _RSESSION_H
 

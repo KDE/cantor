@@ -29,7 +29,7 @@ class JuliaVariableModel : public Cantor::DefaultVariableModel
     static const QStringList internalCantorJuliaVariables;
 
   private:
-    QDBusInterface* m_interface;
+    QDBusInterface* m_interface = nullptr;
     QStringList m_functions;
 };
 

@@ -24,15 +24,8 @@
 #include <QColorDialog>
 #include <QFontDatabase>
 
-WorksheetTextEditorItem::WorksheetTextEditorItem(EditorMode initialMode, WorksheetEntry *parentEntry, QGraphicsItem *parent)
-    : QGraphicsProxyWidget(parent),
-    m_mode(initialMode),
-    m_dblClickBehaviour(ImageReplacement),
-    m_completionEnabled(true),
-    m_completionActive(false),
-    m_dragEnabled(false),
-    m_parentEntry(parentEntry),
-    m_customCompleter(nullptr)
+WorksheetTextEditorItem::WorksheetTextEditorItem(EditorMode initialMode, WorksheetEntry* parentEntry, QGraphicsItem* parent)
+    : QGraphicsProxyWidget(parent),m_mode(initialMode)
 {
     m_editor = KTextEditor::Editor::instance();
     m_document = m_editor->createDocument(nullptr);
@@ -47,8 +40,11 @@ WorksheetTextEditorItem::WorksheetTextEditorItem(EditorMode initialMode, Workshe
     m_view->setConfigValue(QStringLiteral("folding-bar"), false);
     m_view->setConfigValue(QStringLiteral("folding-preview"), false);
     m_view->setConfigValue(QStringLiteral("line-numbers"), false);
+    
+#if KCOREADDONS_VERSION >= QT_VERSION_CHECK(6, 20, 0)
     m_view->setConfigValue(QStringLiteral("disable-current-line-highlight-if-inactive"), true);
     m_view->setConfigValue(QStringLiteral("hide-cursor-if-inactive"), true);
+#endif
 
     if (m_view)
     {
@@ -188,7 +184,7 @@ QString WorksheetTextEditorItem::toPlainText() const
     return m_document? m_document->text() : QString();
 }
 
-void WorksheetTextEditorItem::setPlainText(const QString &text)
+void WorksheetTextEditorItem::setPlainText(const QString& text)
 {
     m_document->setText(text);
 }
@@ -198,7 +194,7 @@ void WorksheetTextEditorItem::clear()
     m_document->clear();
 }
 
-void WorksheetTextEditorItem::insertText(const QString &text)
+void WorksheetTextEditorItem::insertText(const QString& text)
 {
     m_document->insertText(m_view->cursorPosition(), text);
 }
@@ -209,7 +205,7 @@ void WorksheetTextEditorItem::clearSelection()
     selectionChanged();
 }
 
-void WorksheetTextEditorItem::setBackgroundColor(const QColor &color)
+void WorksheetTextEditorItem::setBackgroundColor(const QColor& color)
 {
     QColor bgColorToApply = color.isValid() ? color : m_themeDefaultBackgroundColor;
     QPalette pal = m_view->palette();
@@ -226,8 +222,7 @@ QColor WorksheetTextEditorItem::backgroundColor() const
     return QColor();
 }
 
-
-void WorksheetTextEditorItem::setDefaultTextColor(const QColor &color)
+void WorksheetTextEditorItem::setDefaultTextColor(const QColor& color)
 {
     if (m_defaultTextColorRange)
     {
@@ -435,7 +430,7 @@ bool WorksheetTextEditorItem::isDragEnabled() const
     return m_dragEnabled;
 }
 
-void WorksheetTextEditorItem::populateMenu(QMenu *menu, QPointF globalPos)
+void WorksheetTextEditorItem::populateMenu(QMenu* menu, QPointF globalPos)
 {
     auto* cut = KStandardAction::cut(this, &WorksheetTextEditorItem::cut, menu);
     auto* copy = KStandardAction::copy(this, &WorksheetTextEditorItem::copy, menu);
@@ -547,7 +542,7 @@ Worksheet* WorksheetTextEditorItem::worksheet()
     return qobject_cast<Worksheet*>(scene());
 }
 
-WorksheetView * WorksheetTextEditorItem::worksheetView()
+WorksheetView* WorksheetTextEditorItem::worksheetView()
 {
     return worksheet()->worksheetView();
 }
@@ -582,7 +577,7 @@ bool WorksheetTextEditorItem::isPasteAvailable() const
     return isEditable() && !QApplication::clipboard()->text().isEmpty();
 }
 
-KTextEditor::Range WorksheetTextEditorItem::search(const QString &pattern, KTextEditor::SearchOptions options, const KTextEditor::Cursor &start)
+KTextEditor::Range WorksheetTextEditorItem::search(const QString& pattern, KTextEditor::SearchOptions options, const KTextEditor::Cursor& start)
 {
     if (!m_document)
     {
@@ -615,7 +610,7 @@ KTextEditor::Range WorksheetTextEditorItem::search(const QString &pattern, KText
     return (options & KTextEditor::Backwards) ? matches.last() : matches.first();
 }
 
-bool WorksheetTextEditorItem::replace(const QString &replacement)
+bool WorksheetTextEditorItem::replace(const QString& replacement)
 {
     if (!isEditable() || !m_view->selection())
     {
@@ -632,7 +627,7 @@ bool WorksheetTextEditorItem::replace(const QString &replacement)
     return false;
 }
 
-void WorksheetTextEditorItem::replaceAll(const QString &pattern, const QString &replacement, KTextEditor::SearchOptions options)
+void WorksheetTextEditorItem::replaceAll(const QString& pattern, const QString& replacement, KTextEditor::SearchOptions options)
 {
     if (!isEditable() || pattern.isEmpty())
     {
@@ -700,7 +695,7 @@ void WorksheetTextEditorItem::setAlignment(Qt::Alignment alignment)
     Q_UNUSED(alignment);
 }
 
-void WorksheetTextEditorItem::setFontFamily(const QString &family)
+void WorksheetTextEditorItem::setFontFamily(const QString& family)
 {
     if (!m_view)
         return;
@@ -727,7 +722,7 @@ void WorksheetTextEditorItem::applyFontState()
     testSize();
 }
 
-void WorksheetTextEditorItem::setFont(const QFont &font)
+void WorksheetTextEditorItem::setFont(const QFont& font)
 {
     if (!m_view)
         return;
@@ -921,7 +916,7 @@ void WorksheetTextEditorItem::clipboardChanged()
         Q_EMIT pasteAvailable(!QApplication::clipboard()->text().isEmpty());
 }
 
-bool WorksheetTextEditorItem::eventFilter(QObject *object, QEvent *event)
+bool WorksheetTextEditorItem::eventFilter(QObject* object, QEvent* event)
 {
     if (event->type() == QEvent::KeyPress)
     {
@@ -929,7 +924,7 @@ bool WorksheetTextEditorItem::eventFilter(QObject *object, QEvent *event)
         {
             if (m_customCompleter->isVisible())
             {
-                QKeyEvent *keyEvent = static_cast<QKeyEvent*>(event);
+                QKeyEvent* keyEvent = static_cast<QKeyEvent*>(event);
                 switch (keyEvent->key())
                 {
                     case Qt::Key_Up:
@@ -1004,7 +999,7 @@ bool WorksheetTextEditorItem::eventFilter(QObject *object, QEvent *event)
 
         else if (object == m_view)
         {
-            QKeyEvent *keyEvent = static_cast<QKeyEvent*>(event);
+            QKeyEvent* keyEvent = static_cast<QKeyEvent*>(event);
 
             bool completionActive = m_view->isCompletionActive();
             bool customCompleterVisible = m_customCompleter && m_customCompleter->isVisible();
@@ -1039,7 +1034,7 @@ bool WorksheetTextEditorItem::eventFilter(QObject *object, QEvent *event)
     return QGraphicsProxyWidget::eventFilter(object, event);
 }
 
-void WorksheetTextEditorItem::keyPressEvent(QKeyEvent *event)
+void WorksheetTextEditorItem::keyPressEvent(QKeyEvent* event)
 {
     worksheet()->resetEntryCursor();
 
@@ -1103,7 +1098,8 @@ void WorksheetTextEditorItem::keyPressEvent(QKeyEvent *event)
                     m_view->removeSelection();
 
                 KTextEditor::Cursor cursor = m_view->cursorPosition();
-                if (event->modifiers() & Qt::ControlModifier) {
+                if (event->modifiers() & Qt::ControlModifier)
+                {
                     m_view->setCursorPosition(KTextEditor::Cursor(0, 0));
                 }
                 else if (event->modifiers() & Qt::ShiftModifier)
@@ -1250,7 +1246,8 @@ void WorksheetTextEditorItem::keyPressEvent(QKeyEvent *event)
                     newCursor = KTextEditor::Cursor(cursor.line() + 1, 0);
                 }
 
-                if (event->modifiers() & Qt::ShiftModifier) {
+                if (event->modifiers() & Qt::ShiftModifier)
+                {
                     KTextEditor::Range selection = m_view->selectionRange();
                     if (!selection.isValid())
                     {
@@ -1488,10 +1485,11 @@ void WorksheetTextEditorItem::keyPressEvent(QKeyEvent *event)
     QGraphicsProxyWidget::keyPressEvent(event);
 }
 
-void WorksheetTextEditorItem::focusInEvent(QFocusEvent *event)
+void WorksheetTextEditorItem::focusInEvent(QFocusEvent* event)
 {
     worksheet()->resetEntryCursor();
-    if (m_view) {
+    if (m_view)
+    {
         m_view->setFocus(event->reason());
     }
     QGraphicsProxyWidget::focusInEvent(event);
@@ -1499,14 +1497,14 @@ void WorksheetTextEditorItem::focusInEvent(QFocusEvent *event)
     Q_EMIT receivedFocus(this);
 }
 
-void WorksheetTextEditorItem::focusOutEvent(QFocusEvent *event)
+void WorksheetTextEditorItem::focusOutEvent(QFocusEvent* event)
 {
     QApplication::activePopupWidget() ;
     QGraphicsProxyWidget::focusOutEvent(event);
     Q_EMIT cursorPositionChanged(KTextEditor::Cursor::invalid());
 }
 
-void WorksheetTextEditorItem::mousePressEvent(QGraphicsSceneMouseEvent *event)
+void WorksheetTextEditorItem::mousePressEvent(QGraphicsSceneMouseEvent* event)
 {
     QGraphicsProxyWidget::mousePressEvent(event);
     KTextEditor::View* view = m_view;
@@ -1532,7 +1530,7 @@ void WorksheetTextEditorItem::mousePressEvent(QGraphicsSceneMouseEvent *event)
         selectionChanged();
 }
 
-void WorksheetTextEditorItem::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
+void WorksheetTextEditorItem::mouseReleaseEvent(QGraphicsSceneMouseEvent* event)
 {
     KTextEditor::View* view = m_view;
     KTextEditor::Cursor oldCursor;
@@ -1570,15 +1568,15 @@ void WorksheetTextEditorItem::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
             Q_EMIT cursorPositionChanged(view->cursorPosition());
 }
 
-void WorksheetTextEditorItem::contextMenuEvent(QGraphicsSceneContextMenuEvent *event)
+void WorksheetTextEditorItem::contextMenuEvent(QGraphicsSceneContextMenuEvent* event)
 {
-    QMenu *menu = worksheet()->createContextMenu();
+    QMenu* menu = worksheet()->createContextMenu();
     populateMenu(menu, event->pos());
 
     menu->popup(event->screenPos());
 }
 
-void WorksheetTextEditorItem::dragMoveEvent(QGraphicsSceneDragDropEvent *event)
+void WorksheetTextEditorItem::dragMoveEvent(QGraphicsSceneDragDropEvent* event)
 {
     if (isEditable() && event->mimeData()->hasFormat(QLatin1String("text/plain")))
     {
@@ -1593,7 +1591,7 @@ void WorksheetTextEditorItem::dragMoveEvent(QGraphicsSceneDragDropEvent *event)
     }
 }
 
-void WorksheetTextEditorItem::dropEvent(QGraphicsSceneDragDropEvent *event)
+void WorksheetTextEditorItem::dropEvent(QGraphicsSceneDragDropEvent* event)
 {
     if (isEditable())
     {
@@ -1677,7 +1675,7 @@ void WorksheetTextEditorItem::hideCompleterAndResetFocus()
         m_view->setFocus();
 }
 
-bool WorksheetTextEditorItem::sceneEvent(QEvent *event)
+bool WorksheetTextEditorItem::sceneEvent(QEvent* event)
 {
 
     if(event->type() == QEvent::ShortcutOverride)
@@ -1705,12 +1703,12 @@ bool WorksheetTextEditorItem::sceneEvent(QEvent *event)
     return QGraphicsProxyWidget::sceneEvent(event);
 }
 
-void WorksheetTextEditorItem::wheelEvent(QGraphicsSceneWheelEvent *event)
+void WorksheetTextEditorItem::wheelEvent(QGraphicsSceneWheelEvent* event)
 {
     event->ignore();
 }
 
-void WorksheetTextEditorItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget)
+void WorksheetTextEditorItem::paint(QPainter* painter, const QStyleOptionGraphicsItem* option, QWidget* widget)
 {
     constexpr qreal cornerRadius = 6.0;
     QRectF rect = boundingRect();

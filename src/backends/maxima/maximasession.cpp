@@ -31,10 +31,9 @@ const QRegularExpression MaximaSession::MaximaInputPrompt =
             QRegularExpression(QStringLiteral("(\\(\\s*%\\s*i\\s*[0-9\\s]*\\))"));
 
 
-MaximaSession::MaximaSession( Cantor::Backend* backend ) : Session(backend)
+MaximaSession::MaximaSession( Cantor::Backend* backend ) : Session(backend, nullptr, new SymbolManager(QStringLiteral("Maxima")))
 {
     setVariableModel(new MaximaVariableModel(this));
-    setSymbolManager(new SymbolManager(QStringLiteral("Maxima")));
 }
 
 void MaximaSession::login()

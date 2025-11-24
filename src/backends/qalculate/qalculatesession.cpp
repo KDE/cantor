@@ -5,19 +5,19 @@
     SPDX-License-Identifier: GPL-2.0-or-later
 */
 
-
 #include "settings.h"
-
 #include "qalculatesession.h"
 #include "qalculatevariablemodel.h"
+#include "qalculatesyntaxhelpobject.h"
 
 #include <QProcess>
 #include <QRegularExpression>
 
-#include "qalculatesyntaxhelpobject.h"
+// Regex to match ANSI escape codes: \x1b\[[0-9;]*m
+static const QRegularExpression ansiRegex(QStringLiteral("\x1b\\[[0-9;]*m"));
 
 QalculateSession::QalculateSession( Cantor::Backend* backend)
-    : Session(backend)
+    : Session(backend ,nullptr, new SymbolManager(QStringLiteral("Qalculate")))
 {
     /*
         qalc does all of this by default but we still need the CALCULATOR instance for plotting
@@ -25,7 +25,6 @@ QalculateSession::QalculateSession( Cantor::Backend* backend)
     */
 
     setVariableModel(new QalculateVariableModel(this));
-    setSymbolManager(new SymbolManager(QStringLiteral("Qalculate")));
     if ( !CALCULATOR ) {
              new Calculator();
              CALCULATOR->loadGlobalDefinitions();
@@ -78,8 +77,6 @@ void QalculateSession::login()
 
     m_process->start();
 
-    variableModel()->update();
-
     changeStatus(Session::Done);
     Q_EMIT loginDone();
 }
@@ -88,8 +85,10 @@ void QalculateSession::login()
 void QalculateSession::readOutput()
 {
         while(m_process->bytesAvailable()) {
-                m_output.append(QString::fromUtf8(m_process->readLine()));
-                qDebug() << m_output;
+            QString line = QString::fromUtf8(m_process->readLine());
+            line.remove(ansiRegex);
+            m_output.append(line);
+            qDebug() << m_output;
         }
 
         if(m_currentExpression && !m_output.isEmpty() && m_output.trimmed().endsWith(QLatin1String(">"))) {
@@ -172,6 +171,14 @@ void QalculateSession::storeVariables(QString& currentCmd, QString output)
         var.replace(QLatin1String("\n"), QLatin1String(""));
         var.remove(QLatin1String(">"));
     }
+    else {
+        regex.setPattern(QStringLiteral("^\\s*([a-zA-Z_][\\w]*)\\s*(?::=|=(?!=))\\s*.+$"));
+        match = regex.match(currentCmd);
+        if (match.hasMatch()) {
+            var = match.captured(1).trimmed();
+        }
+    }
+
     if(!value.isEmpty() && !var.isEmpty())
     {
         variableModel()->update();
@@ -240,13 +247,8 @@ void QalculateSession::runCommandQueue()
 {
     if (!m_commandQueue.isEmpty()) {
         m_currentCommand = m_commandQueue.dequeue();
-        // parse the current command if it's a save/load/store command
-        if( m_currentCommand.toLower().trimmed().startsWith(QLatin1String("save")) ||
-            m_currentCommand.toLower().trimmed().startsWith(QLatin1String("store")) ||
-            m_currentCommand.trimmed().startsWith(QLatin1String("saveVariables"))) {
 
-                m_currentCommand = parseSaveCommand(m_currentCommand);
-            }
+        m_currentCommand = parseSaveCommand(m_currentCommand);
 
         m_currentCommand = m_currentCommand.trimmed();
         m_currentCommand += QLatin1String("\n");
@@ -265,6 +267,7 @@ QString QalculateSession::parseSaveCommand(QString& currentCmd)
         saveVariables filename
     */
 
+    m_isSaveCommand = false;
     QRegularExpression regex;
     regex.setPatternOptions(QRegularExpression::CaseInsensitiveOption);
 
@@ -303,11 +306,9 @@ QString QalculateSession::parseSaveCommand(QString& currentCmd)
         return currentCmd;
     }
 
-    regex.setPattern(QStringLiteral("^\\s*save\\s*(\\([\\w\\W]+\\))\\s*;*$"));
-    match = regex.match(currentCmd);
-    if(match.hasMatch()) {
+    regex.setPattern(QStringLiteral("^\\s*([a-zA-Z_][\\w]*)\\s*(?::=|=(?!=))\\s*.+$"));
+    if (regex.match(currentCmd).hasMatch()) {
         m_isSaveCommand = true;
-        currentCmd = QStringLiteral("save%1").arg(match.captured(1).trimmed());
         return currentCmd;
     }
 
@@ -319,8 +320,15 @@ QString QalculateSession::parseSaveCommand(QString& currentCmd)
         else it would wait for user input and hence Qprocess would never return a complete output and the expression will remain in
         'calculating' state
     */
-    m_saveError =  currentCmd + QLatin1String("\nError: Could not save.\n");
-    return QLatin1String("");
+    if( currentCmd.toLower().trimmed().startsWith(QLatin1String("save")) ||
+    currentCmd.toLower().trimmed().startsWith(QLatin1String("store")) ||
+    currentCmd.trimmed().startsWith(QLatin1String("saveVariables"))) {
+       
+       m_saveError =  currentCmd + QLatin1String("\nError: Could not save.\n");
+       return QLatin1String("");
+    }
+
+    return currentCmd;
 }
 
 void QalculateSession::currentExpressionStatusChanged(Cantor::Expression::Status status)

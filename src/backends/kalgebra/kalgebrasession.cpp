@@ -20,18 +20,17 @@
 #include <analitzagui/variablesmodel.h>
 
 KAlgebraSession::KAlgebraSession( Cantor::Backend* backend)
-: Session(backend)
+: Session(backend, nullptr, new SymbolManager(QStringLiteral("Kalgebra")))
 {
     m_analyzer = new Analitza::Analyzer;
     m_operatorsModel = new OperatorsModel;
 
-    Analitza::VariablesModel* analitzaVariables = new Analitza::VariablesModel(m_analyzer->variables(), this);
+    auto* analitzaVariables = new Analitza::VariablesModel(m_analyzer->variables(), this);
 
     m_variableModel = new KAlgebraVariableModel(analitzaVariables, m_operatorsModel, this);
     setVariableModel(m_variableModel);
 
     m_operatorsModel->setVariables(m_analyzer->variables());
-    setSymbolManager(new SymbolManager(QStringLiteral("Kalgebra")));
 }
 
 KAlgebraSession::~KAlgebraSession()
@@ -47,8 +46,6 @@ void KAlgebraSession::login()
 
         evaluateExpression(autorunScripts, KAlgebraExpression::DeleteOnFinish, true);
     }
-
-    variableModel()->update();
 
     changeStatus(Cantor::Session::Done);
     Q_EMIT loginDone();

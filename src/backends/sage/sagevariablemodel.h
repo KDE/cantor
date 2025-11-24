@@ -7,13 +7,13 @@ class SageVariableModel : public Cantor::DefaultVariableModel
 {
     Q_OBJECT
 public:
-    explicit SageVariableModel(Cantor::Session* session);
+    explicit SageVariableModel(Cantor::Session*);
     ~SageVariableModel() override;
 
     void update() override;
 
 private Q_SLOTS:
-    void parseResult(Cantor::Expression::Status status);
+    void parseResult(Cantor::Expression::Status);
 
 private:
     Cantor::Expression* m_expression = nullptr;

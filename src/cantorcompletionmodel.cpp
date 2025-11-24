@@ -47,12 +47,10 @@ void CantorCompletionModel::completionInvoked(KTextEditor::View* view,
 
         if (precedingChar == QLatin1Char('.'))
         {
-            const KTextEditor::Range objectRange =
-                view->document()->wordRangeAt(precedingCursor);
+            const auto& objectRange = view->document()->wordRangeAt(precedingCursor);
             if (objectRange.isValid())
             {
-                m_completionContextObject =
-                    view->document()->text(objectRange);
+                m_completionContextObject = view->document()->text(objectRange);
             }
         }
     }
@@ -108,10 +106,10 @@ except:
     QSet<QString> allFunctionsSet;
     QSet<QString> allKeywordsSet;
 
-    const QStringList staticLists = symbolManager->getAvailableLists();
+    const QStringList staticLists = symbolManager->symbolLists();
     for (const QString& listName : staticLists)
     {
-        const QSet<QString>& symbols = symbolManager->getSymbolList(listName);
+        const QSet<QString>& symbols = symbolManager->symbolList(listName);
         allSymbolsSet.unite(symbols);
 
         if (listName.contains(QStringLiteral("func"), Qt::CaseInsensitive))

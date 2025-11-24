@@ -66,7 +66,7 @@ class SageSession : public Cantor::Session
 
   private Q_SLOTS:
     void processFinished(int exitCode, QProcess::ExitStatus);
-    void expressionFinished(Cantor::Expression::Status status);
+    void expressionFinished(Cantor::Expression::Status);
     void reportProcessError(QProcess::ProcessError);
     void fileCreated(const QString& path);
 

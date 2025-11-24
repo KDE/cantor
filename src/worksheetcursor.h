@@ -31,8 +31,8 @@ class KWorksheetCursor
     bool isValid() const;
 
   private:
-    WorksheetEntry* m_entry;
-    WorksheetTextEditorItem* m_textItem;
+    WorksheetEntry* m_entry = nullptr;
+    WorksheetTextEditorItem* m_textItem = nullptr;
     KTextEditor::Cursor m_textCursor;
     KTextEditor::Range m_foundRange;
 };
@@ -51,8 +51,8 @@ class WorksheetCursor
     bool isValid() const;
 
   private:
-    WorksheetEntry* m_entry;
-    WorksheetTextItem* m_textItem;
+    WorksheetEntry* m_entry = nullptr;
+    WorksheetTextItem* m_textItem = nullptr;
     QTextCursor m_textCursor;
 };
 

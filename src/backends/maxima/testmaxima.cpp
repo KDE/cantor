@@ -285,9 +285,9 @@ void TestMaxima::testInvalidSyntax()
     auto* e = evalExp( QLatin1String("2+2*(") );
 
     QVERIFY( e!=nullptr );
-    // QVERIFY( e->status()==Cantor::Expression::Error );
-    // QVERIFY( !e->errorMessage().isNull() );
-    // QCOMPARE(e->results().size(), 0);
+    QVERIFY( e->status()==Cantor::Expression::Error );
+    QVERIFY( !e->errorMessage().isNull() );
+    QCOMPARE(e->results().size(), 0);
 }
 
 void TestMaxima::testWarning01()
@@ -452,17 +452,13 @@ void TestMaxima::testHelpRequest()
 void TestMaxima::testSyntaxHelp()
 {
     auto* help = session()->syntaxHelpFor(QLatin1String("simplify_sum"));
-    QVERIFY(help != nullptr);
-
-    QEventLoop loop;
-    connect(help, &Cantor::SyntaxHelpObject::done, &loop, &QEventLoop::quit);
-
     help->fetchSyntaxHelp();
-    loop.exec();
+    waitForSignal(help, SIGNAL(done()));
 
     bool trueHelpMessage = help->toHtml().contains(QLatin1String("simplify_sum"));
     bool problemsWithMaximaDocs = help->toHtml().contains(QLatin1String("INTERNAL-SIMPLE-FILE-ERROR"));
     QVERIFY(trueHelpMessage || problemsWithMaximaDocs);
+
 }
 
 void TestMaxima::testTextQuotes()

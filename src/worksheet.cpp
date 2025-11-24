@@ -83,7 +83,15 @@ Worksheet::Worksheet(Cantor::Backend* backend, QWidget* parent, bool useDefaultW
 
     if (themeNameFromSettings.isEmpty())
     {
-        m_currentTheme = repository.defaultTheme();
+        const bool isDarkMode = (QApplication::palette().color(QPalette::Base).lightness() < 128);
+        const QString preferredTheme = isDarkMode ? QStringLiteral("Breeze Dark") : QStringLiteral("Breeze Light");
+        
+        m_currentTheme = repository.theme(preferredTheme);
+        
+        if (!m_currentTheme.isValid())
+        {
+            m_currentTheme = repository.defaultTheme();
+        }
     }
     else
     {
@@ -366,7 +374,7 @@ void Worksheet::updateEntrySize(WorksheetEntry* entry)
         else if (entry->type() == HierarchyEntry::Type)
             newMaxPromptWidth = static_cast<HierarchyEntry*>(entry)->hierarchyItemWidth();
 
-        // If width of prompt (if presence) of the entry more, is less than that of current 
+        // If width of prompt (if presence) of the entry more, is less than that of current
         // maximum, then we need full layout update
         if (newMaxPromptWidth > m_maxPromptWidth)
         {
@@ -3140,7 +3148,15 @@ void Worksheet::handleSettingsChanges()
     }
     else
     {
-        m_currentTheme = repository.defaultTheme();
+        const bool isDarkMode = (QApplication::palette().color(QPalette::Base).lightness() < 128);
+        const QString preferredTheme = isDarkMode ? QStringLiteral("Breeze Dark") : QStringLiteral("Breeze Light");
+        
+        m_currentTheme = repository.theme(preferredTheme);
+
+        if (!m_currentTheme.isValid())
+        {
+            m_currentTheme = repository.defaultTheme();
+        }
     }
 
     WorksheetView* view = worksheetView();

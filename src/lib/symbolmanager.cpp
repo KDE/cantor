@@ -22,17 +22,18 @@ SymbolManager::SymbolManager(const QString& syntaxDefinitionName)
     }
 }
 
-const QSet<QString>& SymbolManager::getSymbolList(const QString& listName) const
+const QSet<QString>& SymbolManager::symbolList(const QString& listName) const
 {
     auto it = m_symbolSets.constFind(listName);
     if (it != m_symbolSets.constEnd())
     {
         return it.value();
     }
-    return m_emptySet;
+    static const QSet<QString> empty;
+    return empty;
 }
 
-QStringList SymbolManager::getAvailableLists() const
+QStringList SymbolManager::symbolLists() const
 {
     return m_symbolSets.keys();
 }

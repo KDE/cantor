@@ -51,22 +51,22 @@ public:
         BottomCoord
     };
 
-    explicit WorksheetTextEditorItem(EditorMode initialMode, WorksheetEntry *parentEntry, QGraphicsItem *parent = nullptr);
+    explicit WorksheetTextEditorItem(EditorMode initialMode, WorksheetEntry* parentEntry, QGraphicsItem* parent = nullptr);
     ~WorksheetTextEditorItem() override;
 
     KTextEditor::View* view() const;
     KTextEditor::Document* document() const;
 
     QString toPlainText()   const;
-    void setPlainText(const QString &text);
+    void setPlainText(const QString&);
     void clear();
-    void insertText(const QString &text);
+    void insertText(const QString&);
     void clearSelection();
 
-    void setBackgroundColor(const QColor &color);
+    void setBackgroundColor(const QColor&);
     QColor backgroundColor() const;
     QColor themeBackgroundColor() const { return m_themeDefaultBackgroundColor; }
-    void setDefaultTextColor(const QColor &color);
+    void setDefaultTextColor(const QColor&);
     QColor defaultTextColor() const;
 
     QPointF localCursorPosition() const;
@@ -108,9 +108,9 @@ public:
     bool isCopyAvailable() const;
     bool isPasteAvailable() const;
 
-    KTextEditor::Range search(const QString &pattern, KTextEditor::SearchOptions options, const KTextEditor::Cursor &start = KTextEditor::Cursor());
-    bool replace(const QString &replacement);
-    void replaceAll(const QString &pattern, const QString &replacement, KTextEditor::SearchOptions options);
+    KTextEditor::Range search(const QString& pattern, KTextEditor::SearchOptions options, const KTextEditor::Cursor& start = KTextEditor::Cursor());
+    bool replace(const QString& replacement);
+    void replaceAll(const QString& pattern, const QString& replacement, KTextEditor::SearchOptions options);
 
 
     void setTextForegroundColor();
@@ -120,19 +120,19 @@ public:
     void setTextUnderline(bool underline);
     void setTextStrikeOut(bool strikeOut);
     void setAlignment(Qt::Alignment alignment);
-    void setFontFamily(const QString &family);
+    void setFontFamily(const QString& family);
     void setFontSize(int size);
 
     QColor themeDefaultTextColor() const { return m_themeDefaultTextColor; }
-    void setFont(const QFont &font);
+    void setFont(const QFont& font);
     void setTheme(const QString& themeName);
     void increaseFontSize();
     void decreaseFontSize();
 Q_SIGNALS:
     void moveToPrevious(int pos, qreal xCoord);
     void moveToNext(int pos, qreal xCoord);
-    void cursorPositionChanged(const KTextEditor::Cursor &pos);
-    void receivedFocus(WorksheetTextEditorItem *item);
+    void cursorPositionChanged(const KTextEditor::Cursor& pos);
+    void receivedFocus(WorksheetTextEditorItem* item);
     void tabPressed();
     void backtabPressed();
     void applyCompletion();
@@ -143,11 +143,11 @@ Q_SIGNALS:
     void menuCreated(QMenu*, QPointF);
     void drag(const QPointF& startPos, const QPointF& currentPos);
 
-    void undoAvailable(bool available);
-    void redoAvailable(bool available);
-    void cutAvailable(bool available);
-    void copyAvailable(bool available);
-    void pasteAvailable(bool available);
+    void undoAvailable(bool);
+    void redoAvailable(bool);
+    void cutAvailable(bool);
+    void copyAvailable(bool);
+    void pasteAvailable(bool);
 
     void textContentModified();
     void modificationStatysChanged(bool isModified);
@@ -164,7 +164,7 @@ public Q_SLOTS:
     void clipboardChanged();
 
 private Q_SLOTS:
-    void showCustomCompleter(const QList<CantorCompletionModel::CompletionItem>& matches);
+    void showCustomCompleter(const QList<CantorCompletionModel::CompletionItem>&);
     void onCompleterItemSelected();
     void hideCompleterAndResetFocus();
 private:
@@ -172,35 +172,35 @@ private:
     void applyFontState();
     void resetScrollPosition();
 protected:
-    bool eventFilter(QObject *object, QEvent *event) override;
-    void keyPressEvent(QKeyEvent *event) override;
-    void focusInEvent(QFocusEvent *event) override;
-    void focusOutEvent(QFocusEvent *event) override;
-    void mousePressEvent(QGraphicsSceneMouseEvent *event) override;
-    void mouseReleaseEvent(QGraphicsSceneMouseEvent *event) override;
-    void contextMenuEvent(QGraphicsSceneContextMenuEvent *event) override;
-    void dragMoveEvent(QGraphicsSceneDragDropEvent *event) override;
-    void dropEvent(QGraphicsSceneDragDropEvent *event) override;
-    bool sceneEvent(QEvent *event) override;
-    void wheelEvent(QGraphicsSceneWheelEvent *event) override;
-    void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget) override;
+    bool eventFilter(QObject*, QEvent*) override;
+    void keyPressEvent(QKeyEvent*) override;
+    void focusInEvent(QFocusEvent*) override;
+    void focusOutEvent(QFocusEvent*) override;
+    void mousePressEvent(QGraphicsSceneMouseEvent*) override;
+    void mouseReleaseEvent(QGraphicsSceneMouseEvent*) override;
+    void contextMenuEvent(QGraphicsSceneContextMenuEvent*) override;
+    void dragMoveEvent(QGraphicsSceneDragDropEvent*) override;
+    void dropEvent(QGraphicsSceneDragDropEvent*) override;
+    bool sceneEvent(QEvent*) override;
+    void wheelEvent(QGraphicsSceneWheelEvent*) override;
+    void paint(QPainter*, const QStyleOptionGraphicsItem*, QWidget*) override;
     QPainterPath shape() const override;
 private:
-    QKeyEvent* eventForStandardAction(KStandardAction::StandardAction actionID);
+    QKeyEvent* eventForStandardAction(KStandardAction::StandardAction);
     Cantor::Session* session();
-    QListWidget* m_customCompleter;
+    QListWidget* m_customCompleter = nullptr;
 
-    KTextEditor::Document *m_document;
-    KTextEditor::View *m_view;
-    KTextEditor::Editor *m_editor;
-    CantorCompletionModel *m_completionModel;
+    KTextEditor::Document* m_document = nullptr;
+    KTextEditor::View* m_view = nullptr;
+    KTextEditor::Editor* m_editor = nullptr;
+    CantorCompletionModel* m_completionModel = nullptr;
 
-    WorksheetEntry* m_parentEntry;
-    EditorMode m_mode;
-    DoubleClickEventBehaviour m_dblClickBehaviour;
-    bool m_completionEnabled;
-    bool m_completionActive;
-    bool m_dragEnabled;
+    WorksheetEntry* m_parentEntry = nullptr;
+    EditorMode m_mode ;
+    DoubleClickEventBehaviour m_dblClickBehaviour = ImageReplacement;
+    bool m_completionEnabled = true;
+    bool m_completionActive = false;
+    bool m_dragEnabled = false;
     QColor m_defaultTextColor;
     QColor m_themeDefaultTextColor;
     QSizeF m_size;
@@ -208,7 +208,7 @@ private:
 
     int m_currentFontPointSize = 10;
     QFont m_currentFont;
-    KTextEditor::MovingRange *m_defaultTextColorRange = nullptr;
+    KTextEditor::MovingRange* m_defaultTextColorRange = nullptr;
     KTextEditor::Attribute::Ptr m_defaultTextColorAttribute;
 };
 

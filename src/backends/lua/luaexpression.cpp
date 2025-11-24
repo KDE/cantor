@@ -38,6 +38,9 @@ void LuaExpression::evaluate()
 
 void LuaExpression::parseError(const QString &error)
 {
+    qDebug() << error;
+    setErrorMessage(error);
+    setStatus(Error);
     m_errorBuffer.append(error);
 }
 
@@ -57,10 +60,19 @@ void LuaExpression::parseOutput(const QString& output)
         {
             const auto& lines = output.split(QLatin1Char('\n'), Qt::SkipEmptyParts);
 
-            for (const QString& line : lines)
+            for (QString line : lines)
             {
-                QString simplifiedLine = line.simplified();
-                if (simplifiedLine.startsWith(QLatin1String(">")))
+                while (true) {
+                    QString trimmed = line.trimmed();
+                    if (trimmed.startsWith(QLatin1Char('>'))) {
+                        int idx = line.indexOf(QLatin1Char('>'));
+                        line = line.mid(idx + 1);
+                    } else {
+                        break;
+                    }
+                }
+
+                if (line.trimmed().isEmpty())
                 {
                     continue;
                 }

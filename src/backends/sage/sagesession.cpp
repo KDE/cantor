@@ -88,11 +88,10 @@ bool SageSession::VersionInfo::operator>=(SageSession::VersionInfo other) const
     return !( *this < other);
 }
 
-SageSession::SageSession(Cantor::Backend* backend) : Session(backend)
+SageSession::SageSession(Cantor::Backend* backend) : Session(backend, nullptr, new SymbolManager(QStringLiteral("Python")))
 {
     connect(&m_dirWatch, &KDirWatch::created, this, &SageSession::fileCreated);
     setVariableModel(new SageVariableModel(this));
-    setSymbolManager(new SymbolManager(QStringLiteral("Python")));
 }
 
 SageSession::~SageSession()
@@ -192,8 +191,6 @@ void SageSession::login()
         QString autorunScripts = SageSettings::self()->autorunScripts().join(QLatin1String("\n"));
         evaluateExpression(autorunScripts, SageExpression::DeleteOnFinish, true);
     }
-
-    variableModel()->update();
 
     changeStatus(Session::Done);
     Q_EMIT loginDone();

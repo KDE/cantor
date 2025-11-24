@@ -31,28 +31,28 @@ public:
     explicit CantorCompletionModel(WorksheetTextEditorItem* parent);
     ~CantorCompletionModel() override;
 
-    void completionInvoked(KTextEditor::View* view, const KTextEditor::Range &range, InvocationType invocationType) override;
-    void executeCompletionItem(KTextEditor::View* view, const KTextEditor::Range &range, const QModelIndex &index) const override;
-    QVariant data(const QModelIndex &index, int role) const override;
+    void completionInvoked(KTextEditor::View*, const KTextEditor::Range&, InvocationType) override;
+    void executeCompletionItem(KTextEditor::View*, const KTextEditor::Range&, const QModelIndex&) const override;
+    QVariant data(const QModelIndex&, int) const override;
 
-    KTextEditor::Range completionRange(KTextEditor::View* view, const KTextEditor::Cursor &position) override;
-    bool shouldStartCompletion(KTextEditor::View* view, const QString &insertedText, bool userInsertion, const KTextEditor::Cursor &position) override;
+    KTextEditor::Range completionRange(KTextEditor::View*, const KTextEditor::Cursor&) override;
+    bool shouldStartCompletion(KTextEditor::View*, const QString&, bool, const KTextEditor::Cursor&) override;
 
 Q_SIGNALS:
-    void modelIsReady(const QList<CantorCompletionModel::CompletionItem>& matches);
+    void modelIsReady(const QList<CantorCompletionModel::CompletionItem>&);
 
 private Q_SLOTS:
     void startCompletionRequest();
-    void handleMemberCompletionResult(Cantor::Expression::Status status);
+    void handleMemberCompletionResult(Cantor::Expression::Status);
 
 private:
-    Cantor::Session* m_session;
+    Cantor::Session* m_session = nullptr;
 
     QList<CompletionItem> m_matches;
     QString m_completionContextObject;
 
-    QTimer* m_debounceTimer;
-    KTextEditor::View* m_pendingView;
+    QTimer* m_debounceTimer = nullptr;
+    KTextEditor::View* m_pendingView = nullptr;
     KTextEditor::Range m_pendingRange;
 };
 

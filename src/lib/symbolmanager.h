@@ -12,13 +12,12 @@ class CANTOR_EXPORT SymbolManager
 public:
     explicit SymbolManager(const QString& syntaxDefinitionName);
 
-    const QSet<QString>& getSymbolList(const QString& listName) const;
+    const QSet<QString>& symbolList(const QString& listName) const;
 
-    QStringList getAvailableLists() const;
+    QStringList symbolLists() const;
 
 private:
     QHash<QString, QSet<QString>> m_symbolSets;
-    QSet<QString> m_emptySet;
 };
 
 #endif // CANTOR_SYMBOLMANAGER_H

@@ -21,4 +21,18 @@ class LuaScriptExtension : public Cantor::ScriptExtension
     QString commandSeparator() override;
 };
 
+class LuaVariableManagementExtension : public Cantor::VariableManagementExtension
+{
+public:
+    explicit LuaVariableManagementExtension(QObject* parent);
+    ~LuaVariableManagementExtension() override;
+
+    QString addVariable(const QString& name, const QString& value) override;
+    QString setValue(const QString& name, const QString& value) override;
+    QString removeVariable(const QString& name) override;
+    QString saveVariables(const QString& fileName) override;
+    QString loadVariables(const QString& fileName) override;
+    QString clearVariables() override;
+};
+
 #endif // LUAEXTENSIONS_H

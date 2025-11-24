@@ -354,7 +354,7 @@ void WorksheetView::applyThemeToBackground()
         return;
     }
 
-    const KSyntaxHighlighting::Theme& theme = m_worksheet->theme();
+    const auto& theme = m_worksheet->theme();
     if (!theme.isValid())
     {
         return;

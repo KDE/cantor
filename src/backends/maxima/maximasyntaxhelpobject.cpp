@@ -22,10 +22,10 @@ void MaximaSyntaxHelpObject::fetchInformation()
     bool isValid = false;
     if (const auto* sm = session()->symbolManager())
     {
-        const QStringList availableLists = sm->getAvailableLists();
+        const QStringList availableLists = sm->symbolLists();
         for (const QString& listName : availableLists)
         {
-            const QSet<QString>& symbols = sm->getSymbolList(listName);
+            const QSet<QString>& symbols = sm->symbolList(listName);
             if (symbols.contains(command()))
             {
                 isValid = true;
@@ -41,6 +41,7 @@ void MaximaSyntaxHelpObject::fetchInformation()
             if (m_expression)
                 return;
 
+            //use the lisp command, instead of directly calling the
             QString cmd = QLatin1String(":lisp(cl-info::info-exact \"%1\")");
             m_expression = session()->evaluateExpression(cmd.arg(command()), Cantor::Expression::FinishingBehavior::DoNotDelete, true);
             connect(m_expression, &Cantor::Expression::statusChanged, this, &MaximaSyntaxHelpObject::expressionChangedStatus);

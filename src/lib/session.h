@@ -59,6 +59,12 @@ class CANTOR_EXPORT Session : public QObject
     explicit Session(Backend*, DefaultVariableModel*);
 
     /**
+     * Updated constructor to accept optional VariableModel and SymbolManager.
+     * This allows derived classes to inject these dependencies directly during initialization.
+     */
+    explicit Session(Backend*, DefaultVariableModel*, SymbolManager*);
+
+    /**
      * Destructor
      */
     ~Session() override;
@@ -285,7 +291,7 @@ public Q_SLOTS:
      */
     virtual QString graphicPackageErrorMessage(QString packageId) const;
 
-    void setSymbolManager(SymbolManager* manager);
+    void setSymbolManager(SymbolManager*);
 
 Q_SIGNALS:
     void statusChanged(Cantor::Session::Status);

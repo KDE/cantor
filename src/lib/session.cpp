@@ -51,6 +51,13 @@ Session::Session(Backend* backend, DefaultVariableModel* model) : QObject(backen
     d->variableModel = model;
 }
 
+Session::Session(Backend* backend, DefaultVariableModel* model, SymbolManager* symbolManager) : QObject(backend), d(new SessionPrivate)
+{
+    d->backend = backend;    
+    d->variableModel = model;
+    d->m_symbolManager = symbolManager;
+}
+
 Session::~Session()
 {
     delete d->m_symbolManager;

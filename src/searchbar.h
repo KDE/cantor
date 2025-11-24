@@ -81,7 +81,7 @@ class SearchBar : public QWidget
     QPushButton* previousButton();
 
   private:
-    Ui::StandardSearchBar* m_stdUi;
+    Ui::StandardSearchBar* m_stdUi{nullptr};
     Ui::ExtendedSearchBar* m_extUi{nullptr};
 
     KWorksheetCursor m_startCursor;

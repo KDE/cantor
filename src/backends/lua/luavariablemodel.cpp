@@ -41,16 +41,24 @@ void LuaVariableModel::parseResult(Cantor::Expression::Status status)
         return;
     }
 
-    const QString data = m_expression->result()->data().toString().trimmed();
-    const QStringList parts = data.split(QChar(31), Qt::SkipEmptyParts);
+    QString data = m_expression->result()->data().toString();
 
-    if (parts.size() == 2) {
+    int lastPromptIndex = data.lastIndexOf(QLatin1Char('>'));
+    if (lastPromptIndex != -1) {
+        data = data.mid(lastPromptIndex + 1);
+    }
+
+    data = data.trimmed();
+
+    const QStringList parts = data.split(QChar(31), Qt::KeepEmptyParts);
+
+    if (parts.size() >= 2) {
         const QStringList variables = parts[0].split(QChar(30), Qt::SkipEmptyParts);
         const QStringList functions = parts[1].split(QChar(30), Qt::SkipEmptyParts);
 
         QList<Variable> newVariables;
         for (const QString& name : variables) {
-            newVariables.append(Variable(name, QString()));
+            newVariables.append(Variable(name.trimmed(), QString()));
         }
 
         setVariables(newVariables);

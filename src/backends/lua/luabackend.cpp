@@ -15,6 +15,7 @@
 LuaBackend::LuaBackend( QObject* parent,const QList<QVariant> args ) : Cantor::Backend( parent,args )
 {
     new LuaScriptExtension(this);
+    new LuaVariableManagementExtension(this);
 }
 
 QString LuaBackend::id() const
@@ -36,9 +37,10 @@ Cantor::Backend::Capabilities LuaBackend::capabilities() const
 {
     static Cantor::Backend::Capabilities cap =
         Cantor::Backend::SyntaxHighlighting |
-        Cantor::Backend::Completion;
+        Cantor::Backend::Completion |
+        Cantor::Backend::VariableManagement;
 
-    return Cantor::Backend::Completion | Cantor::Backend::VariableManagement | Cantor::Backend::SyntaxHighlighting;
+    return cap;
 }
 
 bool LuaBackend::requirementsFullfilled(QString* const reason) const

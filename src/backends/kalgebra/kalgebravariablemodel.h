@@ -17,8 +17,8 @@ public:
     void update() override;
 
 private:
-    Analitza::VariablesModel* m_analitzaVariables;
-    OperatorsModel* m_analitzaFunctions;
+    Analitza::VariablesModel* m_analitzaVariables = nullptr;
+    OperatorsModel* m_analitzaFunctions = nullptr;
 };
 
 #endif // KALGEBRAVARIABLEMODEL_H

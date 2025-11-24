@@ -163,7 +163,6 @@ class CommandEntry : public WorksheetEntry
 
     void backgroundColorChanged(QAction*);
     void textColorChanged(QAction*);
-    void themeChanged(QAction*);
     void fontBoldTriggered();
     void fontItalicTriggered();
     void fontIncreaseTriggered();

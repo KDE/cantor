@@ -31,10 +31,9 @@ const QChar recordSep(30);
 const QChar unitSep(31);
 const QChar messageEnd(29);
 
-PythonSession::PythonSession(Cantor::Backend* backend) : Session(backend)
+PythonSession::PythonSession(Cantor::Backend* backend) : Session(backend, nullptr, new SymbolManager(QStringLiteral("Python")))
 {
     setVariableModel(new PythonVariableModel(this));
-    setSymbolManager(new SymbolManager(QStringLiteral("Python")));
 }
 
 PythonSession::~PythonSession()
@@ -119,7 +118,6 @@ void PythonSession::login()
     if(!scripts.isEmpty()){
         QString autorunScripts = scripts.join(QLatin1String("\n"));
         evaluateExpression(autorunScripts, Cantor::Expression::DeleteOnFinish, true);
-        variableModel()->update();
     }
 
     changeStatus(Session::Done);

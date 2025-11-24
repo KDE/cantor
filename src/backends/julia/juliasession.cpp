@@ -25,10 +25,9 @@
 
 using namespace Cantor;
 
-JuliaSession::JuliaSession(Cantor::Backend* backend) : Session(backend)
+JuliaSession::JuliaSession(Cantor::Backend* backend) : Session(backend, nullptr, new SymbolManager(QStringLiteral("Julia")))
 {
     setVariableModel(new JuliaVariableModel(this));
-    setSymbolManager(new SymbolManager(QStringLiteral("Julia")));
 }
 
 JuliaSession::~JuliaSession()

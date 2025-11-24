@@ -29,3 +29,43 @@ QString LuaScriptExtension::commandSeparator()
 {
     return QLatin1String("");
 }
+
+LuaVariableManagementExtension::LuaVariableManagementExtension(QObject* parent) : Cantor::VariableManagementExtension(parent)
+{
+}
+
+LuaVariableManagementExtension::~LuaVariableManagementExtension()
+{
+}
+
+QString LuaVariableManagementExtension::addVariable(const QString& name, const QString& value)
+{
+    return QString::fromLatin1("%1 = %2").arg(name, value);
+}
+
+QString LuaVariableManagementExtension::setValue(const QString& name, const QString& value)
+{
+    return addVariable(name, value);
+}
+
+QString LuaVariableManagementExtension::removeVariable(const QString& name)
+{
+    return QString::fromLatin1("%1 = nil").arg(name);
+}
+
+QString LuaVariableManagementExtension::saveVariables(const QString& fileName)
+{
+    Q_UNUSED(fileName);
+    return QString();
+}
+
+QString LuaVariableManagementExtension::loadVariables(const QString& fileName)
+{
+    Q_UNUSED(fileName);
+    return QString();
+}
+
+QString LuaVariableManagementExtension::clearVariables()
+{
+    return QString();
+}
