@@ -4965,6 +4965,3 @@ msgstr "Suprimeix l'entrada"
 #, kde-format
 msgid "Drag Entry"
 msgstr "Arrossega l'entrada"
-
-#~ msgid "Package for Plot Assistant:"
-#~ msgstr "Paquet de l'assistent «Plot»:"
