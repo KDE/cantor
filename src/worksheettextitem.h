@@ -162,7 +162,6 @@ class WorksheetTextItem : public QGraphicsTextItem
     bool m_itemDragable{false};
     bool m_richTextEnabled{false};
     DoubleClickEventBehaviour m_eventBehaviour{DoubleClickEventBehaviour::ImageReplacement};
-    QTextBlock m_highlightedBlock;
 };
 
 #endif // WORKSHEET_TEXT_ITEM_H

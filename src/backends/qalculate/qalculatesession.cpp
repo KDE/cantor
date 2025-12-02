@@ -17,7 +17,7 @@
 static const QRegularExpression ansiRegex(QStringLiteral("\x1b\\[[0-9;]*m"));
 
 QalculateSession::QalculateSession( Cantor::Backend* backend)
-    : Session(backend ,nullptr, new SymbolManager(QStringLiteral("Qalculate")))
+    : Session(backend ,nullptr, new KeywordsManager(QStringLiteral("Qalculate")))
 {
     /*
         qalc does all of this by default but we still need the CALCULATOR instance for plotting
@@ -81,50 +81,46 @@ void QalculateSession::login()
     Q_EMIT loginDone();
 }
 
-
 void QalculateSession::readOutput()
 {
-        while(m_process->bytesAvailable()) {
-            QString line = QString::fromUtf8(m_process->readLine());
-            line.remove(ansiRegex);
-            m_output.append(line);
-            qDebug() << m_output;
-        }
+    while(m_process->bytesAvailable()) {
+        QString line = QString::fromUtf8(m_process->readLine());
+        line.remove(ansiRegex);
+        m_output.append(line);
+        qDebug() << m_output;
+    }
 
-        if(m_currentExpression && !m_output.isEmpty() && m_output.trimmed().endsWith(QLatin1String(">"))) {
-
-
-            if(m_currentCommand.trimmed().isEmpty())
-                m_output.clear();
-
-            if(!m_output.toLower().contains(QLatin1String("error")) && m_isSaveCommand) {
-                    storeVariables(m_currentCommand, m_output);
-                    m_isSaveCommand = false;
-            }
-
-            m_output = m_output.trimmed();
-            m_output.remove(m_currentCommand);
-            if (!m_output.isEmpty())
-                m_finalOutput.append(m_output);
-
-            if(!m_saveError.isEmpty()) {
-                m_finalOutput.append(m_saveError);
-                m_saveError.clear();
-            }
-
-            m_finalOutput.append(QLatin1String("\n"));
+    if(m_currentExpression && !m_output.isEmpty() && m_output.trimmed().endsWith(QLatin1String(">"))) {
+        if(m_currentCommand.trimmed().isEmpty())
             m_output.clear();
 
-            if (!m_commandQueue.isEmpty())
-                runCommandQueue();
-            else {
-                qDebug () << "parsing output: " << m_finalOutput;
-                m_currentExpression->parseOutput(m_finalOutput);
-                m_finalOutput.clear();
-            }
+        if(!m_output.toLower().contains(QLatin1String("error")) && m_isSaveCommand) {
+                storeVariables(m_currentCommand, m_output);
+                 m_isSaveCommand = false;
+        }
+
+        m_output = m_output.trimmed();
+        m_output.remove(m_currentCommand);
+        if (!m_output.isEmpty())
+            m_finalOutput.append(m_output);
+
+        if(!m_saveError.isEmpty()) {
+            m_finalOutput.append(m_saveError);
+            m_saveError.clear();
+        }
+
+        m_finalOutput.append(QLatin1String("\n"));
+        m_output.clear();
+
+        if (!m_commandQueue.isEmpty())
+            runCommandQueue();
+        else {
+            qDebug () << "parsing output: " << m_finalOutput;
+            m_currentExpression->parseOutput(m_finalOutput);
+            m_finalOutput.clear();
+        }
     }
 }
-
 
 void QalculateSession::storeVariables(QString& currentCmd, QString output)
 {
@@ -242,7 +238,6 @@ void QalculateSession::runExpression()
     runCommandQueue();
 }
 
-
 void QalculateSession::runCommandQueue()
 {
     if (!m_commandQueue.isEmpty()) {
@@ -255,7 +250,6 @@ void QalculateSession::runCommandQueue()
         m_process->write(m_currentCommand.toLocal8Bit());
     }
 }
-
 
 QString QalculateSession::parseSaveCommand(QString& currentCmd)
 {
@@ -379,8 +373,8 @@ void QalculateSession::runExpressionQueue()
 
         else {
             /* there was some expression that was being executed by cantor. We run the new expression only
-             *              if the current expression's status is 'Done' or 'Error', if not , we simply return
-             */
+               if the current expression's status is 'Done' or 'Error', if not , we simply return
+            */
             Cantor::Expression::Status expr_status = m_currentExpression->status();
             if(expr_status != Cantor::Expression::Done &&  expr_status != Cantor::Expression::Error)
                 return;

@@ -10,16 +10,14 @@ SageVariableModel::SageVariableModel(Cantor::Session* session)
 
 SageVariableModel::~SageVariableModel()
 {
-    if (m_expression) {
+    if (m_expression) 
         m_expression->setFinishingBehavior(Cantor::Expression::DeleteOnFinish);
-    }
 }
 
 void SageVariableModel::update()
 {
-    if (m_expression) {
+    if (m_expression) 
         return;
-    }
     
     const QString introspectCommand = QLatin1String(
         "import sys\n"
@@ -80,12 +78,10 @@ void SageVariableModel::parseResult(Cantor::Expression::Status status)
         for (const QString& record : variables) {
             const QStringList fields = record.split(QChar(29));
             
-            if (fields.size() >= 4) {
+            if (fields.size() >= 4) 
                 newVariables.append(Variable(fields[0], fields[1], fields[2].toULongLong(), fields[3]));
-            } 
-            else if (!fields.isEmpty()) {
+            else if (!fields.isEmpty()) 
                 newVariables.append(Variable(fields[0], QString()));
-            }
         }
 
         setVariables(newVariables);

@@ -16,7 +16,7 @@ private Q_SLOTS:
     void parseResult(Cantor::Expression::Status);
 
 private:
-    Cantor::Expression* m_expression = nullptr;
+    Cantor::Expression* m_expression{nullptr};
 };
 
 #endif //SAGEVARIABLEMODEL_H

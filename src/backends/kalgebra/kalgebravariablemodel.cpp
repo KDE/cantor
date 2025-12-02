@@ -13,9 +13,8 @@ KAlgebraVariableModel::KAlgebraVariableModel(Analitza::VariablesModel* analitzaV
 
 void KAlgebraVariableModel::update()
 {
-    if (!m_analitzaVariables || !m_analitzaFunctions) {
+    if (!m_analitzaVariables || !m_analitzaFunctions) 
         return;
-    }
 
     m_analitzaVariables->updateInformation();
     KAlgebraSession* kalgebraSession = static_cast<KAlgebraSession*>(session());
@@ -36,13 +35,11 @@ void KAlgebraVariableModel::update()
     QStringList newFunctions;
     for (int i = 0; i < m_analitzaFunctions->rowCount(QModelIndex()); ++i) {
         QModelIndex nameIndex = m_analitzaFunctions->index(i, 0);
-        if (nameIndex.isValid()) {
+        if (nameIndex.isValid()) 
             newFunctions.append(m_analitzaFunctions->data(nameIndex).toString());
-        }
     }
 
     setVariables(newVariables);
     setFunctions(newFunctions);
-
     setInitiallyPopulated();
 }

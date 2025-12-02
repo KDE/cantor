@@ -27,11 +27,11 @@ public:
     explicit LuaVariableManagementExtension(QObject* parent);
     ~LuaVariableManagementExtension() override;
 
-    QString addVariable(const QString& name, const QString& value) override;
-    QString setValue(const QString& name, const QString& value) override;
-    QString removeVariable(const QString& name) override;
-    QString saveVariables(const QString& fileName) override;
-    QString loadVariables(const QString& fileName) override;
+    QString addVariable(const QString&, const QString&) override;
+    QString setValue(const QString&, const QString&) override;
+    QString removeVariable(const QString&) override;
+    QString saveVariables(const QString&) override;
+    QString loadVariables(const QString&) override;
     QString clearVariables() override;
 };
 

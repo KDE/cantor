@@ -145,9 +145,7 @@ void TextResultItem::setLatex(Cantor::LatexResult* result)
         QTextImageFormat format;
 
         if (!result->image().isNull() && worksheet()->renderer()->scale() == 1.0)
-        {
             cursor.insertText(QString(QChar::ObjectReplacementCharacter), toFormat(result->image(), latex));
-        }
         else
         {
             QString uuid = Cantor::LatexRenderer::genUuid();
@@ -250,9 +248,7 @@ void TextResultItem::mouseDoubleClickEvent(QGraphicsSceneMouseEvent* event)
     if (m_isCollapsed)
     {
         if (m_userCollapseOverride)
-        {
             update();
-        }
         else
         {
             m_isCollapsed = false;
@@ -354,9 +350,7 @@ void TextResultItem::paint(QPainter* painter, const QStyleOptionGraphicsItem* o,
         {
             bgColor = theme.editorColor(KSyntaxHighlighting::Theme::EditorColorRole::BackgroundColor);
             if (bgColor.isValid())
-            {
                 bgColor = bgColor.lighter(110);
-            }
         }
 
         if (bgColor.isValid())
@@ -375,13 +369,9 @@ void TextResultItem::paint(QPainter* painter, const QStyleOptionGraphicsItem* o,
         QColor focusColor = theme.editorColor(KSyntaxHighlighting::Theme::MarkBookmark);
 
         if (!focusColor.isValid())
-        {
             focusColor = theme.editorColor(KSyntaxHighlighting::Theme::TextSelection);
-        }
         if (!focusColor.isValid())
-        {
             focusColor = theme.textColor(KSyntaxHighlighting::Theme::Normal);
-        }
 
         QPen pen(focusColor, 0);
         pen.setStyle(Qt::CustomDashLine);

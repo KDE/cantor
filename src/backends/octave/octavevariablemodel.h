@@ -23,7 +23,7 @@ class OctaveVariableModel : public Cantor::DefaultVariableModel
     void parseNewVariables(Cantor::Expression::Status);
 
   private:
-    Cantor::Expression* m_expr = nullptr;
+    Cantor::Expression* m_expr{nullptr};
 };
 
 #endif /* _OCTAVEVARIABLEMODEL_H */

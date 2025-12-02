@@ -50,17 +50,14 @@ const double CommandEntry::VerticalSpacing = 4;
 namespace {
     QString getThemeNameFromIndex (int index)
     {
-        if (index <= 0) {
+        if (index <= 0)
             return QString ();
-        }
-
         const auto& repository = KTextEditor::Editor::instance()->repository();
         const auto& themes = repository.themes();
 
         const int themeListIndex = index - 1;
-        if (themeListIndex>= 0 && themeListIndex < themes.count ()) {
+        if (themeListIndex>= 0 && themeListIndex < themes.count ())
             return themes.at (themeListIndex).name ();
-        }
 
         return QString ();
     }
@@ -94,13 +91,9 @@ CommandEntry::CommandEntry(Worksheet* worksheet) : WorksheetEntry(worksheet),
         QString highlightingMode = backendName;
 
         if (backendName == QLatin1String("R"))
-        {
             highlightingMode = QLatin1String("R Script");
-        }
         else if(backendName == QLatin1String("Sage"))
-        {
             highlightingMode = QLatin1String("Python");
-        }
 
         m_commandItem->setSyntaxHighlightingMode(highlightingMode);
 
@@ -391,9 +384,7 @@ void CommandEntry::updateAfterSettingsChanges()
     for (auto* item : m_resultItems)
     {
         if (item)
-        {
             item->updateTheme();
-        }
     }
 }
 
@@ -414,9 +405,7 @@ void CommandEntry::moveToNextItem(int pos, qreal x)
     else {
         auto* infoItem = qobject_cast<WorksheetTextItem*>(sender());
         if (infoItem && infoItem == currentInformationItem())
-        {
             moveToNextEntry(pos, x);
-        }
     }
 }
 
@@ -431,9 +420,7 @@ void CommandEntry::moveToPreviousItem(int pos, qreal x)
 
     auto* textItem = qobject_cast<WorksheetTextItem*>(sender());
     if (textItem && textItem == currentInformationItem())
-    {
         m_commandItem->setFocusAt(pos, x);
-    }
 }
 
 QString CommandEntry::command()
@@ -634,9 +621,7 @@ QJsonValue CommandEntry::toJupyterJson()
                     traceback.append(line);
             }
             else
-            {
                 traceback.append(i18n("Interrupted"));
-            }
             errorOutput.insert(QLatin1String("traceback"), traceback);
 
             outputs.append(errorOutput);
@@ -773,9 +758,7 @@ bool CommandEntry::evaluateCurrentItem()
     // that doesn't work when the scene doesn't have the focus,
     // e.g. when an assistant is used.
     if (m_commandItem == worksheet()->focusItem())
-    {
         return evaluate();
-    }
     else if (informationItemHasFocus())
     {
         addInformation();
@@ -799,9 +782,8 @@ bool CommandEntry::evaluate(EvaluationOption evalOp)
 
         if(cmd.isEmpty()) {
             removeResults();
-            for (auto* item : m_informationItems) {
+            for (auto* item : m_informationItems) 
                 item->deleteLater();
-            }
             m_informationItems.clear();
             recalculateSize();
 
@@ -891,9 +873,7 @@ void CommandEntry::expressionChangedStatus(Cantor::Expression::Status status)
             m_commandItem->setFocusAt(WorksheetTextEditorItem::BottomRight, 0);
 
             if(!m_errorItem)
-            {
                 m_errorItem = new WorksheetTextItem(this, Qt::TextSelectableByMouse);
-            }
 
             if (status == Cantor::Expression::Error)
             {
@@ -1056,19 +1036,13 @@ void CommandEntry::updatePrompt(const QString& postfix)
         QColor promptColor = theme.textColor(KSyntaxHighlighting::Theme::TextStyle::Comment);
 
         if (!promptColor.isValid())
-        {
             promptColor = theme.editorColor(KSyntaxHighlighting::Theme::EditorColorRole::LineNumbers);
-        }
 
         if (!promptColor.isValid())
-        {
             promptColor = theme.textColor(KSyntaxHighlighting::Theme::TextStyle::Normal);
-        }
 
         if (promptColor.isValid())
-        {
             cformat.setForeground(promptColor);
-        }
     }
 
     cformat.setFontWeight(QFont::Bold);
@@ -1137,9 +1111,7 @@ WorksheetCursor CommandEntry::search(const QString& pattern, unsigned flags,
                                      const WorksheetCursor& pos)
 {
     if (!(flags & SearchResult))
-    {
         return WorksheetCursor();
-    }
 
     int startIndex = 0;
     bool searchFromMiddle = false;
@@ -1166,9 +1138,7 @@ WorksheetCursor CommandEntry::search(const QString& pattern, unsigned flags,
 
             QTextCursor found = textResult->search(pattern, qt_flags, startPosInResult);
             if (!found.isNull())
-            {
                 return WorksheetCursor(this, textResult, found);
-            }
         }
     }
 
@@ -1179,23 +1149,19 @@ KWorksheetCursor CommandEntry::search(const QString& pattern, unsigned flags,
                                       KTextEditor::SearchOptions options,
                                       const KWorksheetCursor& pos)
 {
-    if (!(flags & SearchCommand) || (pos.isValid() && pos.entry() != this)) {
+    if (!(flags & SearchCommand) || (pos.isValid() && pos.entry() != this)) 
         return KWorksheetCursor();
-    }
 
     KTextEditor::Cursor startCursor;
-    if (pos.isValid() && pos.textItem() == m_commandItem) {
+    if (pos.isValid() && pos.textItem() == m_commandItem) 
         startCursor = pos.cursor();
-    }
-    else if (options & KTextEditor::Backwards) {
+    else if (options & KTextEditor::Backwards) 
         startCursor = m_commandItem->document()->documentEnd();
-    }
 
     KTextEditor::Range foundRange = m_commandItem->search(pattern, options, startCursor);
 
-    if (foundRange.isValid()) {
+    if (foundRange.isValid()) 
         return KWorksheetCursor(this, m_commandItem, foundRange.start(), foundRange);
-    }
 
     return KWorksheetCursor();
 }
@@ -1203,18 +1169,14 @@ KWorksheetCursor CommandEntry::search(const QString& pattern, unsigned flags,
 bool CommandEntry::replace(const QString& replacement)
 {
     if (m_commandItem->isEditable() && m_commandItem->view()->selection())
-    {
         return m_commandItem->replace(replacement);
-    }
     return false;
 }
 
 void CommandEntry::replaceAll(const QString& pattern, const QString& replacement, unsigned flags, KTextEditor::SearchOptions options)
 {
     if ((flags & SearchCommand) && m_commandItem->isEditable())
-    {
         m_commandItem->replaceAll(pattern, replacement, options);
-    }
 }
 
 void CommandEntry::layOutForWidth(qreal entry_zone_x, qreal w, bool force)
@@ -1239,13 +1201,9 @@ void CommandEntry::layOutForWidth(qreal entry_zone_x, qreal w, bool force)
     qreal editorY = 0;
 
     if (singleLineHeight > promptItemHeight) 
-    {
         promptY = (singleLineHeight - promptItemHeight) / 2.0;
-    } 
     else 
-    {
         editorY = (promptItemHeight - singleLineHeight) / 2.0;
-    }
 
     m_promptItem->setPos(0, promptY);
     m_commandItem->setPos(x, editorY);
@@ -1279,13 +1237,9 @@ void CommandEntry::layOutForWidth(qreal entry_zone_x, qreal w, bool force)
 
     QSizeF s(x+ width, y);
     if (animationActive())
-    {
         updateSizeAnimation(s);
-    }
     else
-    {
         setSize(s);
-    }
 }
 
 void CommandEntry::startRemoving(bool warn)
@@ -1443,12 +1397,9 @@ void CommandEntry::addToExecution()
     m_commandItem->setBackgroundColor(m_activeExecutionBackgroundColor);
 
     if (m_activeExecutionTextColor.isValid())
-    {
         m_commandItem->setDefaultTextColor(m_activeExecutionTextColor);
-    }
-    else {
+    else 
         m_commandItem->setDefaultTextColor(QColor());
-    }
 }
 
 bool CommandEntry::isExcludedFromExecution()
@@ -1464,20 +1415,14 @@ bool CommandEntry::isResultCollapsed()
 void CommandEntry::setVariableHighlightingEnabled(bool enabled)
 {
     if (m_variableHighlightingEnabled == enabled)
-    {
         return;
-    }
     m_variableHighlightingEnabled = enabled;
 
     if (worksheet()->session() && m_dynamicHighlighter)
     {
         if (enabled)
-        {
             m_dynamicHighlighter->updateAllHighlights();
-        }
         else
-        {
             m_dynamicHighlighter->clearAllHighlights();
-        }
     }
 }

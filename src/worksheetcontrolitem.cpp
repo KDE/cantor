@@ -37,9 +37,7 @@ void WorksheetControlItem::paint(QPainter* painter, const QStyleOptionGraphicsIt
     {
         QColor bgColor = theme.editorColor(KSyntaxHighlighting::Theme::EditorColorRole::IconBorder);
         if (!bgColor.isValid())
-        {
             bgColor = theme.editorColor(KSyntaxHighlighting::Theme::EditorColorRole::BackgroundColor);
-        }
         foregroundColor = (bgColor.lightness() < 128) ? Qt::white : Qt::black;
     }
 

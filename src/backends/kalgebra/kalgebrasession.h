@@ -36,9 +36,9 @@ class KAlgebraSession : public Cantor::Session
         QSyntaxHighlighter* syntaxHighlighter(QObject* parent) override;
 
     private:
-        Analitza::Analyzer* m_analyzer;
-        OperatorsModel* m_operatorsModel;
-        KAlgebraVariableModel* m_variableModel;
+        Analitza::Analyzer* m_analyzer{nullptr};
+        OperatorsModel* m_operatorsModel{nullptr};
+        KAlgebraVariableModel* m_variableModel{nullptr};
 };
 
 #endif

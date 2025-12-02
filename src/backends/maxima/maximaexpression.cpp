@@ -358,17 +358,16 @@ void MaximaExpression::parseOutput(const QString& out)
         {
             if (isInternal())
                 setStatus(Cantor::Expression::Done); //for internal commands no need to handle the error output
-                else
-                {
-                    errorContent = errorContent.replace(QLatin1String("\n\n"), QLatin1String("\n"));
-                    clearResults();
-                    setErrorMessage(errorContent);
-                    setStatus(Cantor::Expression::Error);
-                }
+            else
+            {
+                errorContent = errorContent.replace(QLatin1String("\n\n"), QLatin1String("\n"));
+                clearResults();
+                setErrorMessage(errorContent);
+                setStatus(Cantor::Expression::Error);
+            }
         }
     }
 }
-
 
 void MaximaExpression::parseResult(const QString& resultContent)
 {

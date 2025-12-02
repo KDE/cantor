@@ -33,7 +33,7 @@
 
 const QRegularExpression OctaveSession::PROMPT_UNCHANGEABLE_COMMAND = QRegularExpression(QStringLiteral("^(?:,|;)+$"));
 
-OctaveSession::OctaveSession(Cantor::Backend* backend) : Session(backend, nullptr, new SymbolManager(QStringLiteral("Octave"))),
+OctaveSession::OctaveSession(Cantor::Backend* backend) : Session(backend, nullptr, new KeywordsManager(QStringLiteral("Octave"))),
 m_prompt(QStringLiteral("CANTOR_OCTAVE_BACKEND_PROMPT:([0-9]+)> ")),
 m_subprompt(QStringLiteral("CANTOR_OCTAVE_BACKEND_SUBPROMPT:([0-9]+)> "))
 {

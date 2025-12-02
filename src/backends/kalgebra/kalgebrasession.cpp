@@ -20,7 +20,7 @@
 #include <analitzagui/variablesmodel.h>
 
 KAlgebraSession::KAlgebraSession( Cantor::Backend* backend)
-: Session(backend, nullptr, new SymbolManager(QStringLiteral("Kalgebra")))
+: Session(backend, nullptr, new KeywordsManager(QStringLiteral("Kalgebra")))
 {
     m_analyzer = new Analitza::Analyzer;
     m_operatorsModel = new OperatorsModel;

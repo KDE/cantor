@@ -11,7 +11,7 @@ using namespace Cantor;
 
 #include "backend.h"
 #include "textresult.h"
-#include "symbolmanager.h"
+#include "keywordsmanager.h"
 
 #include <QDebug>
 #include <QEventLoop>
@@ -36,7 +36,7 @@ class Cantor::SessionPrivate
     QList<GraphicPackage> enabledGraphicPackages;
     QList<QString> ignorableGraphicPackageIds;
     bool needUpdate{false};
-    SymbolManager* m_symbolManager{nullptr};
+    KeywordsManager* m_keywordsManager{nullptr};
     QString worksheetPath;
 };
 
@@ -51,16 +51,16 @@ Session::Session(Backend* backend, DefaultVariableModel* model) : QObject(backen
     d->variableModel = model;
 }
 
-Session::Session(Backend* backend, DefaultVariableModel* model, SymbolManager* symbolManager) : QObject(backend), d(new SessionPrivate)
+Session::Session(Backend* backend, DefaultVariableModel* model, KeywordsManager* keywordsManager) : QObject(backend), d(new SessionPrivate)
 {
     d->backend = backend;    
     d->variableModel = model;
-    d->m_symbolManager = symbolManager;
+    d->m_keywordsManager = keywordsManager;
 }
 
 Session::~Session()
 {
-    delete d->m_symbolManager;
+    delete d->m_keywordsManager;
     delete d;
 }
 
@@ -119,9 +119,8 @@ void Session::finishFirstExpression(bool setDoneAfterUpdate)
     auto* finishedExpression = d->expressionQueue.takeFirst();
     const bool needsUpdateTrigger = !finishedExpression->isInternal() && !finishedExpression->isHelpRequest();
 
-    if (!d->expressionQueue.isEmpty()) {
+    if (!d->expressionQueue.isEmpty()) 
         runFirstExpression();
-    }
     else if (d->variableModel && needsUpdateTrigger)
     {
         d->variableModel->update();
@@ -131,13 +130,10 @@ void Session::finishFirstExpression(bool setDoneAfterUpdate)
         // So, if after update queue still empty, set status to Done
         // setDoneAfterUpdate used for compatibility with some backends, like R - TODO: check why this is required
         if (d->expressionQueue.isEmpty())
-        {
             changeStatus(Done);
-        }
     }
-    else {
+    else 
         changeStatus(Done);
-    }
 }
 
 void Session::currentExpressionStatusChanged(Cantor::Expression::Status status)
@@ -391,13 +387,13 @@ void Cantor::Session::testGraphicsPackages(QList<GraphicPackage> packages)
         loop.exec();
 }
 
-SymbolManager* Session::symbolManager() const
+KeywordsManager* Session::keywordsManager() const
 {
-    return d->m_symbolManager;
+    return d->m_keywordsManager;
 }
 
-void Session::setSymbolManager(SymbolManager* manager)
+void Session::setKeywordsManager(KeywordsManager* manager)
 {
-    delete d->m_symbolManager;
-    d->m_symbolManager = manager;
+    delete d->m_keywordsManager;
+    d->m_keywordsManager = manager;
 }

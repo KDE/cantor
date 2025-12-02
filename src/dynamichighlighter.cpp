@@ -37,30 +37,22 @@ void DynamicHighlighter::updateAllHighlights()
 {
     clearAllHighlights();
     if (m_variableModel)
-    {
         handleVariablesAdded(m_variableModel->variableNames());
         handleFunctionsAdded(m_variableModel->functions());
-    }
 }
 
 void DynamicHighlighter::clearAllHighlights()
 {
     for (auto* range : m_highlightedVariableRanges)
-    {
         delete range;
-    }
     m_highlightedVariableRanges.clear();
 
     for (auto* range : m_highlightedFunctionRanges)
-    {
         delete range;
-    }
     m_highlightedFunctionRanges.clear();
 
     if (!m_document->views().isEmpty())
-    {
         m_document->views().first()->update();
-    }
 }
 
 void DynamicHighlighter::updateThemeColors(const QColor& variableColor, const QColor& functionColor)
@@ -93,9 +85,7 @@ void DynamicHighlighter::handleFunctionsRemoved(const QStringList& functions)
 void DynamicHighlighter::applyHighlights(const QStringList& symbols, KTextEditor::Attribute::Ptr attribute, QList<KTextEditor::MovingRange*>& rangeList)
 {
     if (!m_document || symbols.isEmpty())
-    {
         return;
-    }
 
     const KTextEditor::Range searchRange(KTextEditor::Cursor(0, 0), m_document->documentEnd());
     for (const QString& symbolName : symbols)
@@ -115,17 +105,13 @@ void DynamicHighlighter::applyHighlights(const QStringList& symbols, KTextEditor
     }
 
     if (!m_document->views().isEmpty())
-    {
         m_document->views().first()->update();
-    }
 }
 
 void DynamicHighlighter::removeHighlights(const QStringList& symbols, QList<KTextEditor::MovingRange*>& rangeList)
 {
     if (!m_document)
-    {
         return;
-    }
 
     QList<KTextEditor::MovingRange*> remainingRanges;
     QList<KTextEditor::MovingRange*> rangesToDelete;
@@ -140,13 +126,9 @@ void DynamicHighlighter::removeHighlights(const QStringList& symbols, QList<KTex
         }
 
         if (symbols.contains(m_document->text(currentRange)))
-        {
             rangesToDelete.append(range);
-        }
         else
-        {
             remainingRanges.append(range);
-        }
     }
 
     rangeList = remainingRanges;
@@ -156,8 +138,6 @@ void DynamicHighlighter::removeHighlights(const QStringList& symbols, QList<KTex
         qDeleteAll(rangesToDelete);
 
         if (!m_document->views().isEmpty())
-        {
             m_document->views().first()->update();
-        }
     }
 }

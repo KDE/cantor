@@ -9,9 +9,8 @@ LuaVariableModel::LuaVariableModel(Cantor::Session* session)
 
 void LuaVariableModel::update()
 {
-    if (m_expression) {
+    if (m_expression) 
         return;
-    }
 
     const QString introspectCommand = QLatin1String(
         "vars = ''\n"
@@ -44,9 +43,8 @@ void LuaVariableModel::parseResult(Cantor::Expression::Status status)
     QString data = m_expression->result()->data().toString();
 
     int lastPromptIndex = data.lastIndexOf(QLatin1Char('>'));
-    if (lastPromptIndex != -1) {
+    if (lastPromptIndex != -1) 
         data = data.mid(lastPromptIndex + 1);
-    }
 
     data = data.trimmed();
 
@@ -57,9 +55,8 @@ void LuaVariableModel::parseResult(Cantor::Expression::Status status)
         const QStringList functions = parts[1].split(QChar(30), Qt::SkipEmptyParts);
 
         QList<Variable> newVariables;
-        for (const QString& name : variables) {
+        for (const QString& name : variables) 
             newVariables.append(Variable(name.trimmed(), QString()));
-        }
 
         setVariables(newVariables);
         setFunctions(functions);

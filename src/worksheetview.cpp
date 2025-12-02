@@ -350,26 +350,18 @@ void WorksheetView::actualSize()
 void WorksheetView::applyThemeToBackground()
 {
     if (!m_worksheet)
-    {
         return;
-    }
 
     const auto& theme = m_worksheet->theme();
     if (!theme.isValid())
-    {
         return;
-    }
 
     QColor viewBackgroundColor = theme.editorColor(KSyntaxHighlighting::Theme::EditorColorRole::TemplateBackground);
 
     if (!viewBackgroundColor.isValid())
-    {
         viewBackgroundColor = theme.editorColor(KSyntaxHighlighting::Theme::EditorColorRole::IconBorder);
-    }
     if (!viewBackgroundColor.isValid())
-    {
         viewBackgroundColor = theme.editorColor(KSyntaxHighlighting::Theme::EditorColorRole::BackgroundColor);
-    }
 
     if (viewBackgroundColor.isValid() && viewport())
     {

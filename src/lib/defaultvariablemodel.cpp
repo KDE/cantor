@@ -54,9 +54,7 @@ int DefaultVariableModel::columnCount(const QModelIndex& /* parent */) const
 int DefaultVariableModel::rowCount(const QModelIndex& parent) const
 {
     if (parent.isValid())
-    {
         return 0;
-    }
     else
     {
         Q_D(const DefaultVariableModel);
@@ -242,9 +240,7 @@ void DefaultVariableModel::setVariables(const QList<DefaultVariableModel::Variab
     QStringList removedVars;
 
     if (!removedVars.isEmpty())
-    {
         Q_EMIT variablesRemoved(removedVars);
-    }
 
     // Handle deleted vars
     int i = 0;
@@ -302,9 +298,8 @@ void DefaultVariableModel::setVariables(const QList<DefaultVariableModel::Variab
     }
 
     if (!addedVars.isEmpty())
-    {
         Q_EMIT variablesAdded(addedVars);
-    }
+        
     Q_EMIT variablesRemoved(removedVars);
 }
 

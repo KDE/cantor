@@ -73,9 +73,7 @@ void LuaExpression::parseOutput(const QString& output)
                 }
 
                 if (line.trimmed().isEmpty())
-                {
                     continue;
-                }
 
                 addResult(new Cantor::TextResult(line));
             }
@@ -88,4 +86,3 @@ void LuaExpression::parseOutput(const QString& output)
         setStatus(Cantor::Expression::Done);
     }
 }
-

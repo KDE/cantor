@@ -15,7 +15,7 @@ public:
     void update() override;
 
 private:
-    QalculateSession* m_session = nullptr;
+    QalculateSession* m_session{nullptr};
 };
 
 #endif // QALCULATE_VARIABLE_MODEL_H

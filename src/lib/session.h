@@ -14,7 +14,7 @@
 #include "expression.h"
 #include "defaultvariablemodel.h"
 #include "graphicpackage.h"
-#include "symbolmanager.h"
+#include "keywordsmanager.h"
 
 class QTextEdit;
 class QSyntaxHighlighter;
@@ -59,10 +59,10 @@ class CANTOR_EXPORT Session : public QObject
     explicit Session(Backend*, DefaultVariableModel*);
 
     /**
-     * Updated constructor to accept optional VariableModel and SymbolManager.
+     * Updated constructor to accept optional VariableModel and KeywordsManager.
      * This allows derived classes to inject these dependencies directly during initialization.
      */
-    explicit Session(Backend*, DefaultVariableModel*, SymbolManager*);
+    explicit Session(Backend*, DefaultVariableModel*, KeywordsManager*);
 
     /**
      * Destructor
@@ -213,7 +213,7 @@ class CANTOR_EXPORT Session : public QObject
      */
     const QList<GraphicPackage>& enabledGraphicPackages() const;
 
-    SymbolManager* symbolManager() const;
+    KeywordsManager* keywordsManager() const;
 
 public Q_SLOTS:
     void currentExpressionStatusChanged(Cantor::Expression::Status);
@@ -291,7 +291,7 @@ public Q_SLOTS:
      */
     virtual QString graphicPackageErrorMessage(QString packageId) const;
 
-    void setSymbolManager(SymbolManager*);
+    void setKeywordsManager(KeywordsManager*);
 
 Q_SIGNALS:
     void statusChanged(Cantor::Session::Status);

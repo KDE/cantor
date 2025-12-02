@@ -11,7 +11,7 @@
 #include "pythonvariablemodel.h"
 #include "pythonutils.h"
 #include "settings.h"
-#include "symbolmanager.h"
+#include "keywordsmanager.h"
 
 #include <random>
 
@@ -31,7 +31,7 @@ const QChar recordSep(30);
 const QChar unitSep(31);
 const QChar messageEnd(29);
 
-PythonSession::PythonSession(Cantor::Backend* backend) : Session(backend, nullptr, new SymbolManager(QStringLiteral("Python")))
+PythonSession::PythonSession(Cantor::Backend* backend) : Session(backend, nullptr, new KeywordsManager(QStringLiteral("Python")))
 {
     setVariableModel(new PythonVariableModel(this));
 }

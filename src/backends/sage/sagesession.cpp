@@ -88,7 +88,7 @@ bool SageSession::VersionInfo::operator>=(SageSession::VersionInfo other) const
     return !( *this < other);
 }
 
-SageSession::SageSession(Cantor::Backend* backend) : Session(backend, nullptr, new SymbolManager(QStringLiteral("Python")))
+SageSession::SageSession(Cantor::Backend* backend) : Session(backend, nullptr, new KeywordsManager(QStringLiteral("Python")))
 {
     connect(&m_dirWatch, &KDirWatch::created, this, &SageSession::fileCreated);
     setVariableModel(new SageVariableModel(this));
@@ -417,9 +417,7 @@ void SageSession::expressionFinished(Cantor::Expression::Status status)
     if (status == Cantor::Expression::Done || status == Cantor::Expression::Error)
     {
         if (!expr->isInternal() && expressionQueue().size() == 1)
-        {
             variableModel()->update();
-        }
         disconnect(expr, &Cantor::Expression::statusChanged, this, &SageSession::expressionFinished);
     }
 }

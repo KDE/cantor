@@ -46,13 +46,13 @@ private Q_SLOTS:
     void handleMemberCompletionResult(Cantor::Expression::Status);
 
 private:
-    Cantor::Session* m_session = nullptr;
+    Cantor::Session* m_session{nullptr};
 
     QList<CompletionItem> m_matches;
     QString m_completionContextObject;
 
-    QTimer* m_debounceTimer = nullptr;
-    KTextEditor::View* m_pendingView = nullptr;
+    QTimer* m_debounceTimer{nullptr};
+    KTextEditor::View* m_pendingView{nullptr};
     KTextEditor::Range m_pendingRange;
 };
 

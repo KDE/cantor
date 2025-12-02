@@ -49,13 +49,9 @@ WorksheetTextEditorItem::WorksheetTextEditorItem(EditorMode initialMode, Workshe
     if (m_view)
     {
         if (QScrollBar* vScrollBar = m_view->verticalScrollBar())
-        {
             vScrollBar->setFixedWidth(0);
-        }
         if (QScrollBar* hScrollBar = m_view->horizontalScrollBar())
-        {
             hScrollBar->setFixedHeight(0);
-        }
     }
 
     setWidget(m_view);
@@ -75,9 +71,7 @@ WorksheetTextEditorItem::WorksheetTextEditorItem(EditorMode initialMode, Workshe
     const auto theme = m_view->theme();
 
     if (theme.isValid())
-    {
         m_themeDefaultBackgroundColor = theme.editorColor(KSyntaxHighlighting::Theme::BackgroundColor);
-    }
     else
     {
         const auto& repository = KTextEditor::Editor::instance()->repository();
@@ -120,9 +114,8 @@ WorksheetTextEditorItem::WorksheetTextEditorItem(EditorMode initialMode, Workshe
     connect(m_view, &KTextEditor::View::cursorPositionChanged, this, [this]()
     {
         auto cursor = m_view->cursorPosition();
-        if (!cursor.isValid()) {
+        if (!cursor.isValid()) 
             return;
-        }
         int lineLength = m_document->lineLength(cursor.line());
         QString textLine = m_document->text(KTextEditor::Range(cursor.line(), 0, cursor.line(), lineLength));
 
@@ -140,9 +133,7 @@ WorksheetTextEditorItem::WorksheetTextEditorItem(EditorMode initialMode, Workshe
     connect(this, &WorksheetTextEditorItem::receivedFocus, this, [this]()
     {
         if(!m_view->hasFocus())
-        {
             m_view->setFocus();
-        }
     });
 
     QRectF viewRect = m_view->contentsRect();
@@ -150,9 +141,7 @@ WorksheetTextEditorItem::WorksheetTextEditorItem(EditorMode initialMode, Workshe
 
 
     if (m_view->isVisible())
-    {
         m_view->setFocus();
-    }
 
     m_view->installEventFilter(this);
 }
@@ -164,9 +153,7 @@ WorksheetTextEditorItem::~WorksheetTextEditorItem()
     if(worksheet())
         worksheet()->removeRequestedWidth(this);
     if (m_customCompleter)
-    {
         delete m_customCompleter;
-    }
 }
 
 KTextEditor::View* WorksheetTextEditorItem::view() const
@@ -241,9 +228,7 @@ void WorksheetTextEditorItem::setDefaultTextColor(const QColor& color)
         m_defaultTextColorRange->setAttribute(m_defaultTextColorAttribute);
     }
     else
-    {
         m_defaultTextColorAttribute->clear();
-    }
 
     m_view->update();
 }
@@ -252,18 +237,14 @@ void WorksheetTextEditorItem::setDefaultTextColor(const QColor& color)
 QColor WorksheetTextEditorItem::defaultTextColor() const
 {
     if (m_defaultTextColor.isValid())
-    {
         return m_defaultTextColor;
-    }
     return m_themeDefaultTextColor;
 }
 
 void WorksheetTextEditorItem::setupLineHeight()
 {
     if (!m_view || !m_document)
-    {
         return;
-    }
 
     QFont font = m_view->font();
     if (font.pointSize() < 10)
@@ -287,9 +268,7 @@ void WorksheetTextEditorItem::setupLineHeight()
 QRectF WorksheetTextEditorItem::cursorRect() const
 {
     if (!m_view)
-    {
         return QRectF();
-    }
 
     const int lineHeight = m_view->fontMetrics().height();
     const KTextEditor::Range selection = m_view->selectionRange();
@@ -304,9 +283,7 @@ QRectF WorksheetTextEditorItem::cursorRect() const
     const QPoint endPoint = m_view->cursorToCoordinate(selection.end());
 
     if (selection.start().line() == selection.end().line())
-    {
         return QRectF(startPoint, endPoint).normalized().adjusted(0, 0, 0, lineHeight);
-    }
 
     qreal selectionTop = qMin(startPoint.y(), endPoint.y());
     qreal selectionBottom = qMax(startPoint.y(), endPoint.y()) + lineHeight;
@@ -323,9 +300,7 @@ void WorksheetTextEditorItem::setFocusAt(int pos, qreal x)
     KTextEditor::Cursor cursor = m_view->cursorPosition();
 
     if (pos == TopLeft)
-    {
         cursor.setPosition(0, 0);
-    }
     else if (pos == BottomRight)
     {
         int lastLine = m_document->lines() - 1;
@@ -351,9 +326,7 @@ void WorksheetTextEditorItem::setFocusAt(int pos, qreal x)
             widthAccumulated += charWidth;
         }
         if (widthAccumulated < x)
-        {
             targetColumn = lineText.length();
-        }
 
         cursor.setPosition(targetLine, targetColumn);
     }
@@ -406,17 +379,13 @@ void WorksheetTextEditorItem::activateCompletion(bool activate)
 void WorksheetTextEditorItem::setSyntaxHighlightingMode(const QString& modeName)
 {
     if(m_document)
-    {
         m_document->setHighlightingMode(modeName);
-    }
 }
 
 QString WorksheetTextEditorItem::syntaxHighlightingMode() const
 {
     if(m_document)
-    {
         return m_document->highlightingMode();
-    }
     return QString();
 }
 
@@ -443,9 +412,7 @@ void WorksheetTextEditorItem::populateMenu(QMenu* menu, QPointF globalPos)
         copy->setEnabled(false);
     }
     if(QApplication::clipboard()->text().isEmpty())
-    {
         paste->setEnabled(false);
-    }
     bool actionAdded = false;
     if(isEditable())
     {
@@ -580,32 +547,23 @@ bool WorksheetTextEditorItem::isPasteAvailable() const
 KTextEditor::Range WorksheetTextEditorItem::search(const QString& pattern, KTextEditor::SearchOptions options, const KTextEditor::Cursor& start)
 {
     if (!m_document)
-    {
         return KTextEditor::Range::invalid();
-    }
 
     KTextEditor::Range searchRange;
     if (start.isValid())
     {
         if (options & KTextEditor::Backwards)
-        {
             searchRange = KTextEditor::Range(KTextEditor::Cursor(0, 0), start);
-        }
         else
-        {
             searchRange = KTextEditor::Range(start, m_document->documentEnd());
-        }
     }
     else
-    {
         searchRange = KTextEditor::Range::invalid();
-    }
 
     QList<KTextEditor::Range> matches = m_document->searchText(searchRange, pattern, options);
 
-    if (matches.isEmpty()) {
+    if (matches.isEmpty()) 
         return KTextEditor::Range::invalid();
-    }
 
     return (options & KTextEditor::Backwards) ? matches.last() : matches.first();
 }
@@ -613,9 +571,7 @@ KTextEditor::Range WorksheetTextEditorItem::search(const QString& pattern, KText
 bool WorksheetTextEditorItem::replace(const QString& replacement)
 {
     if (!isEditable() || !m_view->selection())
-    {
         return false;
-    }
 
     KTextEditor::Range selection = m_view->selectionRange();
     if (selection.isValid() && !selection.isEmpty())
@@ -630,18 +586,14 @@ bool WorksheetTextEditorItem::replace(const QString& replacement)
 void WorksheetTextEditorItem::replaceAll(const QString& pattern, const QString& replacement, KTextEditor::SearchOptions options)
 {
     if (!isEditable() || pattern.isEmpty())
-    {
         return;
-    }
     options &= ~KTextEditor::SearchOption::Backwards;
 
     KTextEditor::Cursor searchStartCursor(0, 0);
     while (true) {
         KTextEditor::Range foundRange = search(pattern, options, searchStartCursor);
         if (!foundRange.isValid())
-        {
             break;
-        }
         m_document->replaceText(foundRange, replacement);
         searchStartCursor.setPosition(foundRange.start().line(), foundRange.start().column() + replacement.length());
     }
@@ -728,9 +680,7 @@ void WorksheetTextEditorItem::setFont(const QFont& font)
         return;
 
     if (font.pointSize() > 0)
-    {
         m_currentFontPointSize = font.pointSize();
-    }
 
     m_currentFont = font;
     m_currentFont.setPointSize(m_currentFontPointSize);
@@ -745,9 +695,7 @@ void WorksheetTextEditorItem::setTheme(const QString& themeName)
 
     const auto& theme = m_view->theme();
     if (theme.isValid())
-    {
         m_themeDefaultBackgroundColor = theme.editorColor(KSyntaxHighlighting::Theme::BackgroundColor);
-    }
 
     setBackgroundColor(QColor());
 }
@@ -756,9 +704,7 @@ void WorksheetTextEditorItem::setTheme(const QString& themeName)
 void WorksheetTextEditorItem::increaseFontSize()
 {
     if (!m_view)
-    {
         return;
-    }
 
     QFontDatabase fdb;
     const QList<int> sizes = fdb.pointSizes(m_currentFont.family());
@@ -784,18 +730,14 @@ void WorksheetTextEditorItem::increaseFontSize()
 void WorksheetTextEditorItem::decreaseFontSize()
 {
     if (!m_view)
-    {
         return;
-    }
 
     QFontDatabase fdb;
     const QList<int> sizes = fdb.pointSizes(m_currentFont.family());
     if (sizes.isEmpty())
     {
         if (m_currentFontPointSize > 1)
-        {
             setFontSize(m_currentFontPointSize - 1);
-        }
         return;
     }
 
@@ -812,25 +754,19 @@ void WorksheetTextEditorItem::decreaseFontSize()
     }
 
     if (m_currentFontPointSize > 1)
-    {
         setFontSize(m_currentFontPointSize - 1);
-    }
 }
 
 void WorksheetTextEditorItem::undo()
 {
     if (m_document)
-    {
         QMetaObject::invokeMethod(m_document, "undo");
-    }
 }
 
 void WorksheetTextEditorItem::redo()
 {
     if (m_document)
-    {
         QMetaObject::invokeMethod(m_document, "redo");
-    }
 }
 
 void WorksheetTextEditorItem::cut()
@@ -844,9 +780,7 @@ void WorksheetTextEditorItem::copy()
 {
     KTextEditor::Range range;
     if (m_view->selectionRange().isValid())
-    {
         range = m_view->selectionRange();
-    }
     else
     {
         int lastLine = m_document->lines() - 1;
@@ -867,9 +801,7 @@ void WorksheetTextEditorItem::paste()
     const QString textToPaste = QGuiApplication::clipboard()->text();
 
     if (selection.isValid() && !selection.isEmpty())
-    {
         m_document->replaceText(selection, textToPaste);
-    }
     else
     {
         KTextEditor::Cursor cursor = m_view->cursorPosition();
@@ -892,9 +824,7 @@ void WorksheetTextEditorItem::testSize()
 {
     qreal currentContentWidth = m_view->contentsRect().width();
     if (currentContentWidth <= 0)
-    {
         return;
-    }
 
     QSizeF requiredSize = estimateContentSize(currentContentWidth);
 
@@ -947,9 +877,7 @@ bool WorksheetTextEditorItem::eventFilter(QObject* object, QEvent* event)
                     case Qt::Key_Space:
                     case Qt::Key_Escape:
                         if (m_customCompleter && m_customCompleter->isVisible())
-                        {
                             m_customCompleter->hide();
-                        }
                         return true;
                     case Qt::Key_Backspace:
                     {
@@ -976,9 +904,7 @@ bool WorksheetTextEditorItem::eventFilter(QObject* object, QEvent* event)
                             }
                         }
                         if (m_customCompleter && m_customCompleter->isVisible())
-                        {
                             m_customCompleter->hide();
-                        }
                         return true;
                     }
                     default:
@@ -1006,18 +932,13 @@ bool WorksheetTextEditorItem::eventFilter(QObject* object, QEvent* event)
 
             if (completionActive || customCompleterVisible)
             {
-
                 if (completionActive)
-                {
                     m_view->abortCompletion();
-                }
 
                 if (customCompleterVisible)
                 {
                     if (m_customCompleter && m_customCompleter->isVisible())
-                    {
                         m_customCompleter->hide();
-                    }
                 }
             }
             return false;
@@ -1026,9 +947,7 @@ bool WorksheetTextEditorItem::eventFilter(QObject* object, QEvent* event)
     else if (event->type() == QEvent::MouseButtonPress)
     {
         if (m_customCompleter && m_customCompleter->isVisible())
-        {
             m_customCompleter->hide();
-        }
     }
 
     return QGraphicsProxyWidget::eventFilter(object, event);
@@ -1045,9 +964,7 @@ void WorksheetTextEditorItem::keyPressEvent(QKeyEvent* event)
     }
 
     if (!m_view->hasFocus())
-    {
         m_view->setFocus();
-    }
 
     if (event->modifiers() == Qt::NoModifier ||((event->modifiers() & Qt::ShiftModifier) && !(event->modifiers() & ~Qt::ShiftModifier)))
     {
@@ -1106,27 +1023,19 @@ void WorksheetTextEditorItem::keyPressEvent(QKeyEvent* event)
                 {
                     KTextEditor::Range selection = m_view->selectionRange();
                     if (!selection.isValid())
-                    {
                         m_view->setSelection(KTextEditor::Range(cursor.line(), 0, cursor.line(), cursor.column()));
-                    }
                     else
                     {
                         KTextEditor::Cursor start = selection.start();
                         KTextEditor::Cursor end = selection.end();
                         if (cursor == end)
-                        {
                             m_view->setSelection(KTextEditor::Range(start, KTextEditor::Cursor(cursor.line(), 0)));
-                        }
-                        else {
-
+                        else 
                             m_view->setSelection(KTextEditor::Range(KTextEditor::Cursor(cursor.line(), 0), end));
-                        }
                     }
                 }
                 else
-                {
                     m_view->setCursorPosition(KTextEditor::Cursor(cursor.line(), 0));
-                }
                 event->accept();
                 return;
             }
@@ -1149,27 +1058,19 @@ void WorksheetTextEditorItem::keyPressEvent(QKeyEvent* event)
                 {
                     KTextEditor::Range selection = m_view->selectionRange();
                     if (!selection.isValid())
-                    {
                         m_view->setSelection(KTextEditor::Range(cursor.line(), cursor.column(), cursor.line(), lineLength));
-                    }
                     else
                     {
                         KTextEditor::Cursor start = selection.start();
                         KTextEditor::Cursor end = selection.end();
                         if (cursor == end)
-                        {
                             m_view->setSelection(KTextEditor::Range(start, KTextEditor::Cursor(cursor.line(), lineLength)));
-                        }
                         else
-                        {
                             m_view->setSelection(KTextEditor::Range(KTextEditor::Cursor(cursor.line(), lineLength), end));
-                        }
                     }
                 }
                 else
-                {
                     m_view->setCursorPosition(KTextEditor::Cursor(cursor.line(), lineLength));
-                }
                 event->accept();
                 return;
             }
@@ -1185,9 +1086,7 @@ void WorksheetTextEditorItem::keyPressEvent(QKeyEvent* event)
                 KTextEditor::Cursor newCursor = cursor;
 
                 if (cursor.column() > 0)
-                {
                     newCursor = KTextEditor::Cursor(cursor.line(), cursor.column() - 1);
-                }
                 else if (cursor.line() > 0)
                 {
                     int prevLineLength = m_document->lineLength(cursor.line() - 1);
@@ -1218,9 +1117,7 @@ void WorksheetTextEditorItem::keyPressEvent(QKeyEvent* event)
                     }
                 }
                 else
-                {
                     m_view->setCursorPosition(newCursor);
-                }
                 event->accept();
                 return;
             }
@@ -1238,13 +1135,9 @@ void WorksheetTextEditorItem::keyPressEvent(QKeyEvent* event)
                 KTextEditor::Cursor newCursor = cursor;
 
                 if (cursor.column() < m_document->lineLength(cursor.line()))
-                {
                     newCursor = KTextEditor::Cursor(cursor.line(), cursor.column() + 1);
-                }
                 else if (cursor.line() < m_document->lines() - 1)
-                {
                     newCursor = KTextEditor::Cursor(cursor.line() + 1, 0);
-                }
 
                 if (event->modifiers() & Qt::ShiftModifier)
                 {
@@ -1271,9 +1164,7 @@ void WorksheetTextEditorItem::keyPressEvent(QKeyEvent* event)
                     }
                 }
                 else
-                {
                     m_view->setCursorPosition(newCursor);
-                }
                 event->accept();
                 return;
             }
@@ -1320,9 +1211,7 @@ void WorksheetTextEditorItem::keyPressEvent(QKeyEvent* event)
                     }
                 }
                 else
-                {
                     m_view->setCursorPosition(newCursor);
-                }
                 event->accept();
                 return;
             }
@@ -1370,9 +1259,7 @@ void WorksheetTextEditorItem::keyPressEvent(QKeyEvent* event)
                     }
                 }
                 else
-                {
                     m_view->setCursorPosition(newCursor);
-                }
                 event->accept();
                 return;
             }
@@ -1489,9 +1376,7 @@ void WorksheetTextEditorItem::focusInEvent(QFocusEvent* event)
 {
     worksheet()->resetEntryCursor();
     if (m_view)
-    {
         m_view->setFocus(event->reason());
-    }
     QGraphicsProxyWidget::focusInEvent(event);
     worksheet()->updateFocusedTextItem(this);
     Q_EMIT receivedFocus(this);
@@ -1513,13 +1398,9 @@ void WorksheetTextEditorItem::mousePressEvent(QGraphicsSceneMouseEvent* event)
     bool hadSelectionBefore = view->selectionRange().isValid();
 
     if(event->button() == Qt::MiddleButton && QApplication::clipboard()->supportsSelection() && !event->isAccepted())
-    {
         event->accept();
-    }
     if(m_dragEnabled && event->button() == Qt::LeftButton)
-    {
         event->accept();
-    }
 
     KTextEditor::Cursor cursorAfter = view->cursorPosition();
     bool hasSelectionAfter = view->selectionRange().isValid();
@@ -1537,10 +1418,8 @@ void WorksheetTextEditorItem::mouseReleaseEvent(QGraphicsSceneMouseEvent* event)
     if (view)
         oldCursor = view->cursorPosition();
 
-    if (isEditable() && event->button() == Qt::MiddleButton &&
-        QApplication::clipboard()->supportsSelection())
+    if (isEditable() && event->button() == Qt::MiddleButton && QApplication::clipboard()->supportsSelection())
     {
-
         QWidget* widget = this->widget();
         if (widget)
         {
@@ -1559,13 +1438,12 @@ void WorksheetTextEditorItem::mouseReleaseEvent(QGraphicsSceneMouseEvent* event)
             view->document()->replaceText(KTextEditor::Range(pos, pos), text);
         }
 
-        } else
-        {
-            QGraphicsProxyWidget::mouseReleaseEvent(event);
-        }
+    } 
+    else
+        QGraphicsProxyWidget::mouseReleaseEvent(event);
 
-        if (view && oldCursor != view->cursorPosition())
-            Q_EMIT cursorPositionChanged(view->cursorPosition());
+    if (view && oldCursor != view->cursorPosition())
+        Q_EMIT cursorPositionChanged(view->cursorPosition());
 }
 
 void WorksheetTextEditorItem::contextMenuEvent(QGraphicsSceneContextMenuEvent* event)
@@ -1611,9 +1489,7 @@ void WorksheetTextEditorItem::showCustomCompleter(const QList<CantorCompletionMo
     if (matches.isEmpty())
     {
         if (m_customCompleter && m_customCompleter->isVisible())
-        {
             m_customCompleter->hide();
-        }
         return;
     }
 
@@ -1645,32 +1521,24 @@ void WorksheetTextEditorItem::showCustomCompleter(const QList<CantorCompletionMo
 void WorksheetTextEditorItem::onCompleterItemSelected()
 {
     if (!m_customCompleter || !m_customCompleter->currentItem() || !m_completionModel)
-    {
         return;
-    }
 
     int currentIndex = m_customCompleter->currentRow();
 
     QModelIndex modelIndex = m_completionModel->index(currentIndex, 0);
 
     if (modelIndex.isValid())
-    {
         m_completionModel->executeCompletionItem(m_view, KTextEditor::Range(), modelIndex);
-    }
 
     if (m_customCompleter && m_customCompleter->isVisible())
-    {
         m_customCompleter->hide();
-    }
     m_view->setFocus();
 }
 
 void WorksheetTextEditorItem::hideCompleterAndResetFocus()
 {
     if (m_customCompleter && m_customCompleter->isVisible())
-    {
         m_customCompleter->hide();
-    }
     if (m_view)
         m_view->setFocus();
 }
@@ -1746,14 +1614,9 @@ void WorksheetTextEditorItem::paint(QPainter* painter, const QStyleOptionGraphic
         QColor focusColor = theme.editorColor(KSyntaxHighlighting::Theme::MarkBookmark);
 
         if (!focusColor.isValid())
-        {
-
             focusColor = theme.editorColor(KSyntaxHighlighting::Theme::TextSelection);
-        }
         if (!focusColor.isValid())
-        {
             focusColor = themeDefaultTextColor();
-        }
 
         QPen pen(focusColor, 0);
         pen.setStyle(Qt::CustomDashLine);
@@ -1808,7 +1671,5 @@ QKeyEvent* WorksheetTextEditorItem::eventForStandardAction(KStandardAction::Stan
 void WorksheetTextEditorItem::resetScrollPosition()
 {
     if (m_view && m_view->verticalScrollBar())
-    {
         m_view->verticalScrollBar()->setValue(0);
-    }
 }

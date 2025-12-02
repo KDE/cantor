@@ -20,7 +20,7 @@ MaximaSyntaxHelpObject::MaximaSyntaxHelpObject(const QString& cmd, MaximaSession
 void MaximaSyntaxHelpObject::fetchInformation()
 {
     bool isValid = false;
-    if (const auto* sm = session()->symbolManager())
+    if (const auto* sm = session()->keywordsManager())
     {
         const QStringList availableLists = sm->symbolLists();
         for (const QString& listName : availableLists)
@@ -47,9 +47,7 @@ void MaximaSyntaxHelpObject::fetchInformation()
             connect(m_expression, &Cantor::Expression::statusChanged, this, &MaximaSyntaxHelpObject::expressionChangedStatus);
         }
         else
-        {
             Q_EMIT done();
-        }
     }
     else
     {

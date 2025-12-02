@@ -89,14 +89,10 @@ Worksheet::Worksheet(Cantor::Backend* backend, QWidget* parent, bool useDefaultW
         m_currentTheme = repository.theme(preferredTheme);
         
         if (!m_currentTheme.isValid())
-        {
             m_currentTheme = repository.defaultTheme();
-        }
     }
     else
-    {
         m_currentTheme = repository.theme(themeNameFromSettings);
-    }
 
     if (!m_currentTheme.isValid())
     {
@@ -110,16 +106,12 @@ Worksheet::Worksheet(Cantor::Backend* backend, QWidget* parent, bool useDefaultW
             themesInOrder.append(repository.themes());
 
             if (themeIndex >= 0 && themeIndex < themesInOrder.count())
-            {
                 m_currentTheme = themesInOrder.at(themeIndex);
-            }
         }
     }
 
     if (!m_currentTheme.isValid())
-    {
         m_currentTheme = repository.defaultTheme();
-    }
 }
 
 void Worksheet::stopAnimations()
@@ -168,6 +160,21 @@ void Worksheet::print(QPrinter* printer)
     m_mathRenderer.useHighResolution(true);
     m_isPrinting = true;
 
+    const auto originalTheme = m_currentTheme;
+    const auto& repository = KTextEditor::Editor::instance()->repository();
+    KSyntaxHighlighting::Theme printTheme = repository.theme(QStringLiteral("Breeze Light"));
+    if (!printTheme.isValid()) 
+        printTheme = repository.defaultTheme();
+
+    bool themeSwitched = false;
+    if (printTheme.isValid() && printTheme.name() != m_currentTheme.name()) {
+        m_currentTheme = printTheme;
+        themeSwitched = true;
+
+        for (auto* entry = firstEntry(); entry; entry = entry->next())
+            entry->updateAfterSettingsChanges();
+    }
+
     QRectF pageRect = printer->pageRect(QPrinter::Point);
     qreal scale = 1; // todo: find good scale for page size
     // todo: use epsRenderer()->scale() for printing ?
@@ -208,6 +215,14 @@ void Worksheet::print(QPrinter* printer)
     m_mathRenderer.useHighResolution(false);
     m_epsRenderer.setScale(-1);  // force update in next call to setViewSize,
     worksheetView()->updateSceneSize(); // ... which happens in here
+
+    if (themeSwitched)
+    {
+        m_currentTheme = originalTheme;
+        for (auto* entry = firstEntry(); entry; entry = entry->next())
+            entry->updateAfterSettingsChanges();
+    }
+    worksheetView()->updateSceneSize();
 }
 
 bool Worksheet::isPrinting()
@@ -507,18 +522,12 @@ KWorksheetCursor Worksheet::worksheetCursor()
 void Worksheet::setWorksheetCursor(const WorksheetCursor& cursor)
 {
     if (!cursor.isValid() || !cursor.textItem())
-    {
         return;
-    }
 
     if (m_lastFocusedTextItem)
-    {
         m_lastFocusedTextItem->clearSelection();
-    }
     if (m_legacylastFocusedTextItem)
-    {
         m_legacylastFocusedTextItem->clearSelection();
-    }
 
     m_legacylastFocusedTextItem = cursor.textItem();
     m_lastFocusedTextItem = nullptr;
@@ -528,19 +537,13 @@ void Worksheet::setWorksheetCursor(const WorksheetCursor& cursor)
 
 void Worksheet::setWorksheetCursor(const KWorksheetCursor& cursor)
 {
-
-    if(!cursor.isValid()) {
+    if(!cursor.isValid()) 
         return;
-    }
 
     if (m_lastFocusedTextItem)
-    {
         m_lastFocusedTextItem->clearSelection();
-    }
     if (m_legacylastFocusedTextItem)
-    {
         m_legacylastFocusedTextItem->clearSelection();
-    }
 
     m_lastFocusedTextItem = cursor.textItem();
     m_legacylastFocusedTextItem = nullptr;
@@ -1097,9 +1100,7 @@ void Worksheet::setVariableHighlightingEnabled(bool enabled)
     for (auto* entry = firstEntry(); entry; entry = entry->next())
     {
         if (entry->type() == CommandEntry::Type)
-        {
             static_cast<CommandEntry*>(entry)->setVariableHighlightingEnabled(enabled);
-        }
     }
 }
 
@@ -2317,9 +2318,8 @@ void Worksheet::updateFocusedTextItem(WorksheetTextItem* newItem)
 
     if (newItem) {
         WorksheetEntry* entry = qobject_cast<WorksheetEntry*>(newItem->parentObject());
-        if (entry) {
+        if (entry) 
             setAcceptRichText(entry->acceptRichText());
-        }
 
         Q_EMIT undoAvailable(newItem->isUndoAvailable());
         Q_EMIT redoAvailable(newItem->isRedoAvailable());
@@ -2370,15 +2370,14 @@ void Worksheet::updateFocusedTextItem(WorksheetTextEditorItem* newItem)
         if (newItem && m_lastFocusedTextItem != newItem) {
             connect(this, &Worksheet::copy, newItem, &WorksheetTextEditorItem::copy);
             Q_EMIT copyAvailable(newItem->isCopyAvailable());
-        } else if (!newItem) {
+        } 
+        else if (!newItem)
             Q_EMIT copyAvailable(false);
-        }
         m_lastFocusedTextItem = newItem;
         return;
     }
 
     if (m_lastFocusedTextItem && m_lastFocusedTextItem != newItem) {
-        // 对新组件也使用精确断开
         disconnect(m_lastFocusedTextItem, &WorksheetTextEditorItem::undoAvailable, this, &Worksheet::undoAvailable);
         disconnect(m_lastFocusedTextItem, &WorksheetTextEditorItem::redoAvailable, this, &Worksheet::redoAvailable);
         disconnect(this, &Worksheet::undo, m_lastFocusedTextItem, &WorksheetTextEditorItem::undo);
@@ -2430,13 +2429,9 @@ void Worksheet::paste() {
         addEntryFromEntryCursor();
 
     if (m_lastFocusedTextItem)
-    {
         m_lastFocusedTextItem->paste();
-    }
     else if (m_legacylastFocusedTextItem)
-    {
         m_legacylastFocusedTextItem->paste();
-    }
 }
 
 void Worksheet::setRichTextInformation(const RichTextInfo& info)
@@ -3132,20 +3127,14 @@ void Worksheet::handleSettingsChanges()
         if (themeIndex > 0) {
             const QList<KSyntaxHighlighting::Theme> themes = repository.themes();
             if (themeIndex - 1 < themes.count())
-            {
                 newTheme = themes.at(themeIndex - 1);
-            }
         }
     }
     else
-    {
         newTheme = repository.theme(themeSetting);
-    }
 
     if (newTheme.isValid())
-    {
         m_currentTheme = newTheme;
-    }
     else
     {
         const bool isDarkMode = (QApplication::palette().color(QPalette::Base).lightness() < 128);
@@ -3154,33 +3143,23 @@ void Worksheet::handleSettingsChanges()
         m_currentTheme = repository.theme(preferredTheme);
 
         if (!m_currentTheme.isValid())
-        {
             m_currentTheme = repository.defaultTheme();
-        }
     }
 
     WorksheetView* view = worksheetView();
     if (view)
-    {
         view->applyThemeToBackground();
-    }
 
     for (WorksheetEntry* entry = m_firstEntry; entry; entry = entry->next())
-    {
         entry->updateAfterSettingsChanges();
-    }
 }
 
 void Worksheet::clearAllSelections()
 {
     if (m_lastFocusedTextItem)
-    {
         m_lastFocusedTextItem->clearSelection();
-    }
     if (m_legacylastFocusedTextItem)
-    {
         m_legacylastFocusedTextItem->clearSelection();
-    }
 }
 
 const KSyntaxHighlighting::Theme& Worksheet::theme() const
@@ -3198,12 +3177,8 @@ void Worksheet::updateThemeAndEntries(const QString& themeName)
     const auto& repository = KTextEditor::Editor::instance()->repository();
     m_currentTheme = repository.theme(themeName);
     if (!m_currentTheme.isValid())
-    {
         m_currentTheme = repository.defaultTheme();
-    }
 
     for (auto* entry = firstEntry(); entry; entry = entry->next())
-    {
         entry->updateAfterSettingsChanges();
-    }
 }

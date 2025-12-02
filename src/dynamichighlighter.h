@@ -25,13 +25,13 @@ public:
 public Q_SLOTS:
     void updateAllHighlights();
     void clearAllHighlights();
-    void updateThemeColors(const QColor& variableColor, const QColor& functionColor);
+    void updateThemeColors(const QColor&, const QColor&);
 
 private Q_SLOTS:
-    void handleVariablesAdded(const QStringList& variables);
-    void handleVariablesRemoved(const QStringList& variables);
-    void handleFunctionsAdded(const QStringList& functions);
-    void handleFunctionsRemoved(const QStringList& functions);
+    void handleVariablesAdded(const QStringList&);
+    void handleVariablesRemoved(const QStringList&);
+    void handleFunctionsAdded(const QStringList&);
+    void handleFunctionsRemoved(const QStringList&);
 
 private:
     void applyHighlights(const QStringList& symbols, KTextEditor::Attribute::Ptr attribute, QList<KTextEditor::MovingRange*>& rangeList);

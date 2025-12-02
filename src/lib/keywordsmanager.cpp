@@ -1,16 +1,16 @@
-#include "symbolmanager.h"
+#include "keywordsmanager.h"
 #include <KSyntaxHighlighting/Repository>
 #include <KSyntaxHighlighting/Definition>
 #include <QDebug>
 
-SymbolManager::SymbolManager(const QString& syntaxDefinitionName)
+KeywordsManager::KeywordsManager(const QString& syntaxDefinitionName)
 {
     KSyntaxHighlighting::Repository repo;
     KSyntaxHighlighting::Definition definition = repo.definitionForName(syntaxDefinitionName);
 
     if (!definition.isValid())
     {
-        qWarning() << "SymbolManager: Could not find syntax definition for" << syntaxDefinitionName;
+        qWarning() << "KeywordsManager: Could not find syntax definition for" << syntaxDefinitionName;
         return;
     }
 
@@ -22,18 +22,16 @@ SymbolManager::SymbolManager(const QString& syntaxDefinitionName)
     }
 }
 
-const QSet<QString>& SymbolManager::symbolList(const QString& listName) const
+const QSet<QString>& KeywordsManager::symbolList(const QString& listName) const
 {
     auto it = m_symbolSets.constFind(listName);
     if (it != m_symbolSets.constEnd())
-    {
         return it.value();
-    }
     static const QSet<QString> empty;
     return empty;
 }
 
-QStringList SymbolManager::symbolLists() const
+QStringList KeywordsManager::symbolLists() const
 {
     return m_symbolSets.keys();
 }

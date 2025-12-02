@@ -20,7 +20,7 @@ const QString LuaSession::LUA_PROMPT = QLatin1String("> ");
 const QString LuaSession::LUA_SUBPROMPT = QLatin1String(">> ");
 const QString LUA_COMMAND_END_MARKER = QLatin1String("CANTOR_LUA_PROMPT_END");
 
-LuaSession::LuaSession(Cantor::Backend* backend) : Session(backend, nullptr, new SymbolManager(QStringLiteral("Lua"))) {
+LuaSession::LuaSession(Cantor::Backend* backend) : Session(backend, nullptr, new KeywordsManager(QStringLiteral("Lua"))) {
     setVariableModel(new LuaVariableModel(this));
 }
 
@@ -108,17 +108,13 @@ void LuaSession::readOutputLuaJIT()
     m_jit_output_cache += QString::fromLocal8Bit(m_process->readAllStandardOutput());
 
     if (!m_jit_output_cache.contains(LUA_COMMAND_END_MARKER))
-    {
         return;
-    }
 
     if (m_lastExpression)
     {
         QByteArray errorData = m_process->readAllStandardError();
         if (!errorData.isEmpty())
-        {
             static_cast<LuaExpression*>(m_lastExpression)->parseError(QString::fromLocal8Bit(errorData));
-        }
 
         m_jit_output_cache.replace(LUA_COMMAND_END_MARKER, QString());
         m_lastExpression->parseOutput(m_jit_output_cache);
@@ -305,9 +301,7 @@ void LuaSession::expressionFinished(Cantor::Expression::Status status)
         case Cantor::Expression::Error:
             finishFirstExpression();
             if (expressionQueue().isEmpty())
-            {
                 m_lastExpression = nullptr;
-            }
             break;
         default:
             break;

@@ -7,10 +7,10 @@
 #include <QSet>
 #include "cantor_export.h"
 
-class CANTOR_EXPORT SymbolManager
+class CANTOR_EXPORT KeywordsManager
 {
 public:
-    explicit SymbolManager(const QString& syntaxDefinitionName);
+    explicit KeywordsManager(const QString& syntaxDefinitionName);
 
     const QSet<QString>& symbolList(const QString& listName) const;
 

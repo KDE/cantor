@@ -49,7 +49,7 @@ class TextResultItem : public WorksheetTextItem, public ResultItem
     void mouseDoubleClickEvent(QGraphicsSceneMouseEvent*) override;
     int visibleLineCount();
     void collapseExtraLines();
-    void paint(QPainter* painter, const QStyleOptionGraphicsItem* option, QWidget* widget = nullptr) override;
+    void paint(QPainter*, const QStyleOptionGraphicsItem*, QWidget* widget = nullptr) override;
   protected:
     bool m_isCollapsed{false};
     bool m_userCollapseOverride{false};

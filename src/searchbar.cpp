@@ -77,9 +77,7 @@ void SearchBar::next()
 {
     bool canProceed = m_currentCursor.isValid() || m_currentLegacyCursor.isValid();
     if (!canProceed && !m_atEnd)
-    {
         return;
-    }
     searchForward(true);
 }
 
@@ -87,26 +85,21 @@ void SearchBar::prev()
 {
     bool canProceed = m_currentCursor.isValid() || m_currentLegacyCursor.isValid();
     if (!canProceed && !m_atBeginning)
-    {
         return;
-    }
     searchBackward(true);
 }
 
 void SearchBar::setCurrentCursor(KWorksheetCursor cursor)
 {
     if (m_currentCursor.entry())
-        disconnect(m_currentCursor.entry(), SIGNAL(aboutToBeDeleted()), this,
-                   SLOT(invalidateCurrentCursor()));
-        if (cursor.entry())
-            connect(cursor.entry(), SIGNAL(aboutToBeDeleted()), this,
-                    SLOT(invalidateCurrentCursor()), Qt::DirectConnection);
-            m_currentCursor = cursor;
+        disconnect(m_currentCursor.entry(), SIGNAL(aboutToBeDeleted()), this, SLOT(invalidateCurrentCursor()));
+    if (cursor.entry())
+        connect(cursor.entry(), SIGNAL(aboutToBeDeleted()), this, SLOT(invalidateCurrentCursor()), Qt::DirectConnection);
 
-        if (cursor.isValid())
-        {
-            m_currentLegacyCursor = WorksheetCursor();
-        }
+    m_currentCursor = cursor;
+
+    if (cursor.isValid())
+        m_currentLegacyCursor = WorksheetCursor();
 }
 
 void SearchBar::setCurrentLegacyCursor(WorksheetCursor cursor)
@@ -114,9 +107,7 @@ void SearchBar::setCurrentLegacyCursor(WorksheetCursor cursor)
     m_currentLegacyCursor = cursor;
 
     if (cursor.isValid())
-    {
         m_currentCursor = KWorksheetCursor();
-    }
 }
 
 void SearchBar::clearAllCursors()
@@ -133,7 +124,6 @@ void SearchBar::searchForward(bool skipFirstChar)
     KWorksheetCursor kPos;
     WorksheetCursor legacyPos;
 
-    // 1. 确定搜索的精确起点
     if (m_currentCursor.isValid())
     {
         startEntry = m_currentCursor.entry();
@@ -156,9 +146,7 @@ void SearchBar::searchForward(bool skipFirstChar)
         }
     }
     else
-    {
         startEntry = worksheet()->firstEntry();
-    }
 
     if (!startEntry) { setStatus(i18n("Not found")); return; }
 
@@ -168,9 +156,7 @@ void SearchBar::searchForward(bool skipFirstChar)
         bool searchInCommandArea = true;
 
         if (dynamic_cast<CommandEntry*>(entry) && legacyPos.isValid() && legacyPos.entry() == entry)
-        {
             searchInCommandArea = false;
-        }
 
         QGraphicsObject* item = entry->mainTextItem();
         if (item && dynamic_cast<WorksheetTextEditorItem*>(item) && searchInCommandArea)
@@ -271,9 +257,7 @@ void SearchBar::searchBackward(bool skipFirstChar)
         }
     }
     else
-    {
         startEntry = worksheet()->lastEntry();
-    }
 
     if (!startEntry) { setStatus(i18n("Not found")); return; }
 
@@ -283,9 +267,7 @@ void SearchBar::searchBackward(bool skipFirstChar)
         bool searchInResultArea = true;
 
         if (dynamic_cast<CommandEntry*>(entry) && kPos.isValid() && kPos.entry() == entry)
-        {
             searchInResultArea = false;
-        }
 
         if (auto* commandEntry = dynamic_cast<CommandEntry*>(entry))
         {
@@ -390,27 +372,22 @@ void SearchBar::handleReplaceClicked()
     WorksheetEntry* entry = nullptr;
     bool success = false;
 
-    if (m_currentCursor.isValid()) {
+    if (m_currentCursor.isValid()) 
         entry = m_currentCursor.entry();
-    } else if (m_currentLegacyCursor.isValid()) {
+    else if (m_currentLegacyCursor.isValid()) 
         entry = m_currentLegacyCursor.entry();
-    }
 
-    if (entry) {
+    if (entry) 
         success = entry->replace(m_replacement);
-    }
 
-    if (success) {
+    if (success) 
         next();
-    }
 }
 
 void SearchBar::handleReplaceAllClicked()
 {
     if (m_pattern.isEmpty())
-    {
         return;
-    }
 
     int count = 0;
     for (WorksheetEntry* entry = worksheet()->firstEntry(); entry; entry = entry->next())
@@ -440,9 +417,7 @@ void SearchBar::handleReplaceAllClicked()
                 QTextDocument* doc = textItem->document();
                 QTextDocument::FindFlags qtFlags;
                 if (!(m_kateOptions & KTextEditor::CaseInsensitive))
-                {
                     qtFlags |= QTextDocument::FindCaseSensitively;
-                }
 
                 QTextCursor cursor(doc);
                 while (true)
@@ -542,13 +517,9 @@ void SearchBar::toggleFlag()
 void SearchBar::handleMatchCaseToggled(bool b)
 {
     if(b)
-    {
         m_kateOptions &= ~KTextEditor::SearchOption::CaseInsensitive;
-    }
     else
-    {
         m_kateOptions |= KTextEditor::SearchOption::CaseInsensitive;
-    }
     searchForward();
 }
 

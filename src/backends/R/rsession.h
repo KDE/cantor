@@ -16,7 +16,7 @@ class RVariableModel;
 class QProcess;
 
 namespace Cantor {
-    class DefaultVariableModel;
+  class DefaultVariableModel;
 }
 
 class RSession : public Cantor::Session

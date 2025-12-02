@@ -188,14 +188,14 @@ protected:
 private:
     QKeyEvent* eventForStandardAction(KStandardAction::StandardAction);
     Cantor::Session* session();
-    QListWidget* m_customCompleter = nullptr;
+    QListWidget* m_customCompleter{nullptr};
 
-    KTextEditor::Document* m_document = nullptr;
-    KTextEditor::View* m_view = nullptr;
-    KTextEditor::Editor* m_editor = nullptr;
-    CantorCompletionModel* m_completionModel = nullptr;
+    KTextEditor::Document* m_document{nullptr};
+    KTextEditor::View* m_view{nullptr};
+    KTextEditor::Editor* m_editor{nullptr};
+    CantorCompletionModel* m_completionModel{nullptr};
 
-    WorksheetEntry* m_parentEntry = nullptr;
+    WorksheetEntry* m_parentEntry{nullptr};
     EditorMode m_mode ;
     DoubleClickEventBehaviour m_dblClickBehaviour = ImageReplacement;
     bool m_completionEnabled = true;
@@ -208,7 +208,7 @@ private:
 
     int m_currentFontPointSize = 10;
     QFont m_currentFont;
-    KTextEditor::MovingRange* m_defaultTextColorRange = nullptr;
+    KTextEditor::MovingRange* m_defaultTextColorRange{nullptr};
     KTextEditor::Attribute::Ptr m_defaultTextColorAttribute;
 };
 

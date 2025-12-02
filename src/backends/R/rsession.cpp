@@ -18,7 +18,7 @@
 #include <signal.h>
 #endif
 
-RSession::RSession(Cantor::Backend* backend) : Session(backend, nullptr, new SymbolManager(QStringLiteral("R Script"))),
+RSession::RSession(Cantor::Backend* backend) : Session(backend, nullptr, new KeywordsManager(QStringLiteral("R Script"))),
 m_process(nullptr),
 m_rServer(nullptr)
 {

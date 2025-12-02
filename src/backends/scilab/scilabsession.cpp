@@ -21,7 +21,7 @@
 #include <signal.h>
 #endif
 
-ScilabSession::ScilabSession( Cantor::Backend* backend) : Session(backend, nullptr, new SymbolManager(QStringLiteral("Scilab"))),
+ScilabSession::ScilabSession( Cantor::Backend* backend) : Session(backend, nullptr, new KeywordsManager(QStringLiteral("Scilab"))),
 m_variableModel(new Cantor::DefaultVariableModel(this))
 {
 }

@@ -494,9 +494,9 @@ void WorksheetEntry::evaluateNext(EvaluationOption opt)
         } else if (opt == FocusNext) {
             worksheet()->setModified();
             entry->focusEntry(WorksheetTextEditorItem::BottomRight);
-        } else {
+        } 
+        else 
             worksheet()->setModified();
-        }
     } else if (opt != DoNothing) {
         if (!worksheet()->isLoadingFromFile() && (!isEmpty() || type() != CommandEntry::Type))
             worksheet()->appendCommandEntry();
