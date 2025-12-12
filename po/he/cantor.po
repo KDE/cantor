@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: cantor\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-11-17 14:38+0000\n"
-"PO-Revision-Date: 2025-10-05 12:18+0300\n"
+"PO-Revision-Date: 2025-12-11 10:14+0200\n"
 "Last-Translator: Yaron Shahrabani <sh.yaron@gmail.com>\n"
 "Language-Team: צוות התרגום של KDE ישראל\n"
 "Language: he\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=4; plural=(n == 1) ? 0 : ((n == 2) ? 1 : ((n > 10 && "
 "n % 10 == 0) ? 2 : 3));\n"
-"X-Generator: Lokalize 25.08.1\n"
+"X-Generator: Lokalize 25.08.3\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -4790,17 +4790,17 @@ msgstr "ציאן בהיר"
 #: worksheetentry.cpp:73
 #, kde-format
 msgid "Dark Magenta"
-msgstr "ארגמן כהה"
+msgstr "מג׳נטה כהה"
 
 #: worksheetentry.cpp:73
 #, kde-format
 msgid "Magenta"
-msgstr "ארגמן"
+msgstr "מג׳נטה"
 
 #: worksheetentry.cpp:73
 #, kde-format
 msgid "Light Magenta"
-msgstr "ארגמן בהיר"
+msgstr "מג׳נטה בהירה"
 
 #: worksheetentry.cpp:74
 #, kde-format
