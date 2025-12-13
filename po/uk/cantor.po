@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: cantor\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-12-12 00:38+0000\n"
-"PO-Revision-Date: 2025-07-04 12:20+0300\n"
+"PO-Revision-Date: 2025-12-12 13:04+0200\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian <trans-uk@lists.fedoraproject.org>\n"
 "Language: uk\n"
@@ -2759,7 +2759,7 @@ msgstr "Модуль, який використовуватиметься тип
 #: cantor.kcfg:14
 #, kde-format
 msgid "Default editor color theme"
-msgstr ""
+msgstr "Типова тема кольорів редактора"
 
 #. i18n: ectx: label, entry (TypesetDefault), group (Cantor)
 #: cantor.kcfg:18
@@ -4155,12 +4155,12 @@ msgstr "Не знайдено"
 #: searchbar.cpp:224
 #, kde-format
 msgid "Reached end of document, continuing from top..."
-msgstr ""
+msgstr "Досягнуто кінця документа, продовжуємо з початку…"
 
 #: searchbar.cpp:339
 #, kde-format
 msgid "Reached beginning of document, continuing from bottom..."
-msgstr ""
+msgstr "Досягнуто початку документа, продовжуємо з кінця…"
 
 #: searchbar.cpp:433
 #, kde-format
@@ -4238,14 +4238,13 @@ msgstr "Типовий модуль:"
 #: settings.ui:76 settings.ui:129
 #, kde-format
 msgid "Default editor color theme for new worksheets"
-msgstr ""
+msgstr "Типова тема кольорів редактора для нових робочих аркушів"
 
 #. i18n: ectx: property (text), widget (QLabel, label_theme)
 #: settings.ui:79
-#, fuzzy, kde-format
-#| msgid "Default Backend:"
+#, kde-format
 msgid "Default Theme:"
-msgstr "Типовий модуль:"
+msgstr "Типова тема:"
 
 #. i18n: ectx: property (toolTip), widget (QSpinBox, kcfg_VisibleLinesLimit)
 #: settings.ui:86
@@ -5010,10 +5009,9 @@ msgid "Drag Entry"
 msgstr "Перетягнути запис"
 
 #: worksheettextitem.cpp:894 worksheettextitem.cpp:911
-#, fuzzy, kde-format
-#| msgid "Text Color"
+#, kde-format
 msgid "Select Color"
-msgstr "Колір тексту"
+msgstr "Вибрати колір"
 
 #~ msgid "Reached beginning"
 #~ msgstr "Досягнуто початку"

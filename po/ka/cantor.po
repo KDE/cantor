@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: cantor\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-12-12 00:38+0000\n"
-"PO-Revision-Date: 2025-07-03 14:46+0200\n"
+"PO-Revision-Date: 2025-12-12 05:36+0100\n"
 "Last-Translator: Temuri Doghonadze <temuri.doghonadze@gmail.com>\n"
 "Language-Team: Georgian <kde-i18n-doc@kde.org>\n"
 "Language: ka\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 3.6\n"
+"X-Generator: Poedit 3.8\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -2706,7 +2706,7 @@ msgstr "ნაგულისხმევად გამოყენებუ�
 #: cantor.kcfg:14
 #, kde-format
 msgid "Default editor color theme"
-msgstr ""
+msgstr "ნაგულისხმევი რედაქტორის ფერის თემა"
 
 #. i18n: ectx: label, entry (TypesetDefault), group (Cantor)
 #: cantor.kcfg:18
@@ -4098,12 +4098,12 @@ msgstr "ნაპოვნი არაა"
 #: searchbar.cpp:224
 #, kde-format
 msgid "Reached end of document, continuing from top..."
-msgstr ""
+msgstr "მიღწეულია დოკუმენტის ბოლო. თავიდან გაგრძელება..."
 
 #: searchbar.cpp:339
 #, kde-format
 msgid "Reached beginning of document, continuing from bottom..."
-msgstr ""
+msgstr "მიღწეულია დოკუმენტის დასაწყისი. ბოლოდან გაგრძელება..."
 
 #: searchbar.cpp:433
 #, kde-format
@@ -4178,14 +4178,13 @@ msgstr "ნაგულისხმევი უკანაბოლო:"
 #: settings.ui:76 settings.ui:129
 #, kde-format
 msgid "Default editor color theme for new worksheets"
-msgstr ""
+msgstr "ნაგულისხმევი რედაქტორის ფერის თემა ახალი სამუშაო ფურცლებისთვის"
 
 #. i18n: ectx: property (text), widget (QLabel, label_theme)
 #: settings.ui:79
-#, fuzzy, kde-format
-#| msgid "Default Backend:"
+#, kde-format
 msgid "Default Theme:"
-msgstr "ნაგულისხმევი უკანაბოლო:"
+msgstr "ნაგულისხმევი თემა:"
 
 #. i18n: ectx: property (toolTip), widget (QSpinBox, kcfg_VisibleLinesLimit)
 #: settings.ui:86
@@ -4943,10 +4942,9 @@ msgid "Drag Entry"
 msgstr "ელემენტის გადათრევა"
 
 #: worksheettextitem.cpp:894 worksheettextitem.cpp:911
-#, fuzzy, kde-format
-#| msgid "Text Color"
+#, kde-format
 msgid "Select Color"
-msgstr "ტექსტის ფერი"
+msgstr "აირჩიეთ ფერი"
 
 #~ msgid "Reached beginning"
 #~ msgstr "მიღწეულია დასაწყისი"

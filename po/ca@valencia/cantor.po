@@ -10,14 +10,14 @@ msgstr ""
 "Project-Id-Version: cantor\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-12-12 00:38+0000\n"
-"PO-Revision-Date: 2025-08-15 09:55+0200\n"
+"PO-Revision-Date: 2025-12-12 09:10+0100\n"
 "Last-Translator: Josep M. Ferrer <txemaq@gmail.com>\n"
 "Language-Team: Catalan <kde-i18n-ca@kde.org>\n"
 "Language: ca@valencia\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Lokalize 25.04.3\n"
+"X-Generator: Lokalize 25.04.0\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Accelerator-Marker: &\n"
 
@@ -442,7 +442,7 @@ msgstr "Fitxer de script de Julia (*.jl)"
 #: backends/julia/juliasession.cpp:67
 #, kde-format
 msgid "Failed to start Julia, please check Julia installation."
-msgstr "No s'ha pogut iniciar Julia. Verifiqueu la seua instal·lació."
+msgstr "Ha fallat mentre s'iniciava Julia. Verifiqueu la seua instal·lació."
 
 #: backends/julia/juliasession.cpp:115 backends/julia/juliasession.cpp:124
 #: backends/maxima/maximasession.cpp:296 cantor_part.cpp:979
@@ -475,7 +475,7 @@ msgstr "El procés de Julia ha parat el seu funcionament."
 #: backends/julia/juliasession.cpp:250
 #, kde-format
 msgid "Failed to start Julia process."
-msgstr "No s'ha pogut iniciar el procés de Julia."
+msgstr "Ha fallat mentre s'iniciava el procés de Julia."
 
 #: backends/julia/juliasession.cpp:253
 #, kde-format
@@ -769,7 +769,7 @@ msgstr "Fitxer de script de Lua (*.lua)"
 #: backends/lua/luasession.cpp:59
 #, kde-format
 msgid "Failed to start Lua, please check Lua installation."
-msgstr "No s'ha pogut iniciar Lua. Verifiqueu la seua instal·lació."
+msgstr "Ha fallat mentre s'iniciava Lua. Verifiqueu la seua instal·lació."
 
 #. i18n: ectx: property (text), widget (QLabel, label)
 #: backends/lua/settings.ui:27
@@ -914,7 +914,7 @@ msgstr "Fitxer de procés per lots de Maxima (*.mac)"
 #: backends/maxima/maximasession.cpp:58
 #, kde-format
 msgid "Failed to start Maxima, please check Maxima's installation."
-msgstr "No s'ha pogut iniciar Maxima. Verifiqueu la seua instal·lació."
+msgstr "Ha fallat mentre s'iniciava Maxima. Verifiqueu la seua instal·lació."
 
 #: backends/maxima/maximasession.cpp:77
 #, kde-format
@@ -986,7 +986,7 @@ msgstr "Fitxer script d'Octave (*.m)"
 #: backends/octave/octavesession.cpp:96
 #, kde-format
 msgid "Failed to start Octave, please check Octave installation."
-msgstr "No s'ha pogut iniciar Octave. Verifiqueu la seua instal·lació."
+msgstr "Ha fallat mentre s'iniciava Octave. Verifiqueu la seua instal·lació."
 
 #: backends/octave/octavesession.cpp:276 backends/sage/sageexpression.cpp:49
 #, kde-format
@@ -1047,7 +1047,7 @@ msgstr "Fitxer de script en Python (*.py)"
 #: backends/python/pythonsession.cpp:72
 #, kde-format
 msgid "Failed to start Python, please check Python installation."
-msgstr "No s'ha pogut iniciar Python. Verifiqueu la seua instal·lació."
+msgstr "Ha fallat mentre s'iniciava Python. Verifiqueu la seua instal·lació."
 
 #: backends/python/pythonsession.cpp:269
 #, kde-format
@@ -1057,7 +1057,7 @@ msgstr "El servidor de Python de Cantor ha parat el seu funcionament."
 #: backends/python/pythonsession.cpp:273
 #, kde-format
 msgid "Failed to start Cantor python server."
-msgstr "No s'ha pogut iniciar el servidor de Python de Cantor."
+msgstr "Ha fallat mentre s'iniciava el servidor de Python de Cantor."
 
 #: backends/python/pythonsession.cpp:277
 #, kde-format
@@ -2389,7 +2389,7 @@ msgstr ""
 #: backends/R/rexpression.cpp:109 backends/R/rexpression.cpp:110
 #, kde-format
 msgid "Error opening file %1"
-msgstr "S'ha produït un error en obrir el fitxer %1"
+msgstr "S'ha produït un error mentre s'obria el fitxer %1"
 
 #: backends/R/rextensions.cpp:22
 #, kde-format
@@ -2399,7 +2399,7 @@ msgstr "Fitxer de script d'R (*.R)"
 #: backends/R/rserver/rserver.cpp:364
 #, kde-format
 msgid "Error Parsing Command"
-msgstr "S'ha produït un error en l'anàlisi sintàctica de l'ordre"
+msgstr "S'ha produït un error durant l'anàlisi de l'ordre"
 
 #. i18n: ectx: label, entry (localDoc), group (RBackend)
 #: backends/R/rserver/rserver.kcfg:9
@@ -2410,7 +2410,7 @@ msgstr "URL cap a la documentació local d'R"
 #: backends/R/rsession.cpp:52
 #, kde-format
 msgid "Failed to start R, please check R installation."
-msgstr "No s'ha pogut iniciar R. Verifiqueu la seua instal·lació."
+msgstr "Ha fallat mentre s'iniciava R. Verifiqueu la seua instal·lació."
 
 #: backends/R/rsettingswidget.cpp:30
 #, kde-format
@@ -2477,7 +2477,7 @@ msgstr "Fitxer de script en Python (*.py);;Fitxer de script de Sage (*.sage)"
 #: backends/sage/sagesession.cpp:126
 #, kde-format
 msgid "Failed to start Sage, please check Sage installation."
-msgstr "No s'ha pogut iniciar Sage. Verifiqueu la seua instal·lació."
+msgstr "Ha fallat mentre s'iniciava Sage. Verifiqueu la seua instal·lació."
 
 #: backends/sage/sagesession.cpp:271
 #, kde-format
@@ -2499,8 +2499,8 @@ msgid ""
 "Failed to determine the version of Sage. Please check your installation and "
 "the output of 'sage -v'."
 msgstr ""
-"No s'ha pogut determinar la versió de Sage. Comproveu la instal·lació i "
-"l'eixida de «sage -v»."
+"Ha fallat mentre es determinava la versió de Sage. Comproveu la instal·lació "
+"i l'eixida de «sage -v»."
 
 #: backends/sage/sagesession.cpp:354
 #, kde-format
@@ -2578,7 +2578,7 @@ msgstr ""
 #: backends/scilab/scilabsession.cpp:64
 #, kde-format
 msgid "Failed to start Scilab, please check Scilab installation."
-msgstr "No s'ha pogut iniciar Scilab. Verifiqueu la seua instal·lació."
+msgstr "Ha fallat mentre s'iniciava Scilab. Verifiqueu la seua instal·lació."
 
 #. i18n: ectx: property (text), widget (QLabel, lPlotIntegration)
 #: backends/scilab/settings.ui:37
@@ -2737,7 +2737,7 @@ msgstr "El dorsal que s'utilitzarà de manera predeterminada"
 #: cantor.kcfg:14
 #, kde-format
 msgid "Default editor color theme"
-msgstr ""
+msgstr "Tema de color predeterminat de l'editor"
 
 #. i18n: ectx: label, entry (TypesetDefault), group (Cantor)
 #: cantor.kcfg:18
@@ -3721,14 +3721,14 @@ msgstr ""
 #, kde-format
 msgid "Failed to open the file %1 during the plot integration test."
 msgstr ""
-"No s'ha pogut obrir el fitxer %1 durant la prova d'integració de les "
+"Ha fallat mentre s'obria el fitxer %1 durant la prova d'integració de les "
 "gràfiques."
 
 #: lib/backend.cpp:222
 #, kde-format
 msgid "Failed to parse the result during the plot integration test."
 msgstr ""
-"No s'ha pogut analitzar el resultat durant la prova d'integració de les "
+"Ha fallat durant l'anàlisi del resultat durant la prova d'integració de les "
 "gràfiques."
 
 #. i18n: ectx: label, entry (latexCommand), group (Cantor)
@@ -3939,7 +3939,7 @@ msgstr "Error matemàtic de Cantor"
 #: markdownentry.cpp:812
 #, kde-format
 msgid "Failed to read the image \"%1\". Error \"%2\""
-msgstr "No s'ha pogut llegir la imatge «%1». Error «%2»"
+msgstr "Ha fallat mentre es llegia la imatge «%1». Error «%2»"
 
 #: pagebreakentry.cpp:28
 #, kde-format
@@ -4135,12 +4135,12 @@ msgstr "No s'ha trobat"
 #: searchbar.cpp:224
 #, kde-format
 msgid "Reached end of document, continuing from top..."
-msgstr ""
+msgstr "S'ha arribat al final del document, es continua des de dalt…"
 
 #: searchbar.cpp:339
 #, kde-format
 msgid "Reached beginning of document, continuing from bottom..."
-msgstr ""
+msgstr "S'ha arribat al principi del document, es continua des de baix…"
 
 #: searchbar.cpp:433
 #, kde-format
@@ -4216,14 +4216,13 @@ msgstr "Dorsal predeterminat:"
 #: settings.ui:76 settings.ui:129
 #, kde-format
 msgid "Default editor color theme for new worksheets"
-msgstr ""
+msgstr "Tema de color predeterminat de l'editor dels fulls de treball nous"
 
 #. i18n: ectx: property (text), widget (QLabel, label_theme)
 #: settings.ui:79
-#, fuzzy, kde-format
-#| msgid "Default Backend:"
+#, kde-format
 msgid "Default Theme:"
-msgstr "Dorsal predeterminat:"
+msgstr "Tema predeterminat:"
 
 #. i18n: ectx: property (toolTip), widget (QSpinBox, kcfg_VisibleLinesLimit)
 #: settings.ui:86
@@ -4467,7 +4466,7 @@ msgstr "No s'ha pogut escriure en el fitxer."
 #: worksheet.cpp:1275 worksheet.cpp:1319
 #, kde-format
 msgid "Error saving file %1"
-msgstr "S'ha produït un error en guardar el fitxer %1"
+msgstr "S'ha produït un error mentre es guardava el fitxer %1"
 
 #: worksheet.cpp:1298
 #, kde-format
@@ -4481,7 +4480,7 @@ msgstr ""
 #: worksheet.cpp:1325
 #, kde-format
 msgid "Error loading latex.xsl stylesheet"
-msgstr "S'ha produït un error en carregar el full d'estil latex.xsl"
+msgstr "S'ha produït un error mentre es carregava el full d'estil latex.xsl"
 
 #: worksheet.cpp:1366
 #, kde-format
@@ -4989,13 +4988,6 @@ msgid "Drag Entry"
 msgstr "Arrossega l'entrada"
 
 #: worksheettextitem.cpp:894 worksheettextitem.cpp:911
-#, fuzzy, kde-format
-#| msgid "Text Color"
+#, kde-format
 msgid "Select Color"
-msgstr "Color del text"
-
-#~ msgid "Reached beginning"
-#~ msgstr "S'ha arribat al principi"
-
-#~ msgid "Reached end"
-#~ msgstr "S'ha arribat al final"
+msgstr "Trieu un color"

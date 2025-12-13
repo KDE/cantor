@@ -4039,10 +4039,9 @@ msgstr ""
 
 #. i18n: ectx: property (text), widget (QLabel, label_theme)
 #: settings.ui:79
-#, fuzzy, kde-format
-#| msgid "Default Backend:"
+#, kde-format
 msgid "Default Theme:"
-msgstr "默认后端："
+msgstr ""
 
 #. i18n: ectx: property (toolTip), widget (QSpinBox, kcfg_VisibleLinesLimit)
 #: settings.ui:86
@@ -4777,13 +4776,6 @@ msgid "Drag Entry"
 msgstr "拖动项目"
 
 #: worksheettextitem.cpp:894 worksheettextitem.cpp:911
-#, fuzzy, kde-format
-#| msgid "Text Color"
+#, kde-format
 msgid "Select Color"
-msgstr "文本颜色"
-
-#~ msgid "Reached beginning"
-#~ msgstr "已到开头"
-
-#~ msgid "Reached end"
-#~ msgstr "已到末尾"
+msgstr ""
