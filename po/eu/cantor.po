@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: cantor\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-12-12 00:38+0000\n"
-"PO-Revision-Date: 2025-07-07 21:55+0200\n"
+"PO-Revision-Date: 2025-12-14 19:13+0100\n"
 "Last-Translator: Iñigo Salvador Azurmendi <xalba@ni.eus>\n"
 "Language-Team: Basque <kde-i18n-eu@kde.org>\n"
 "Language: eu\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Lokalize 25.04.2\n"
+"X-Generator: Lokalize 25.08.3\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -2716,7 +2716,7 @@ msgstr "Modu lehenetsian erabiltzen den 'backend'"
 #: cantor.kcfg:14
 #, kde-format
 msgid "Default editor color theme"
-msgstr ""
+msgstr "Editore lehenetsiaren kolore-gaia"
 
 #. i18n: ectx: label, entry (TypesetDefault), group (Cantor)
 #: cantor.kcfg:18
@@ -4112,12 +4112,12 @@ msgstr "Ez da aurkitu"
 #: searchbar.cpp:224
 #, kde-format
 msgid "Reached end of document, continuing from top..."
-msgstr ""
+msgstr "Dokumentuaren bukaerara heldu da, goitik jarraitzen du..."
 
 #: searchbar.cpp:339
 #, kde-format
 msgid "Reached beginning of document, continuing from bottom..."
-msgstr ""
+msgstr "Dokumentuaren hasierara heldu da, behetik jarraitzen du..."
 
 #: searchbar.cpp:433
 #, kde-format
@@ -4193,14 +4193,13 @@ msgstr "Bizkarraldeko lehenetsia:"
 #: settings.ui:76 settings.ui:129
 #, kde-format
 msgid "Default editor color theme for new worksheets"
-msgstr ""
+msgstr "Editorearen kolore-gai lehenetsia lan-orri berrietarako"
 
 #. i18n: ectx: property (text), widget (QLabel, label_theme)
 #: settings.ui:79
-#, fuzzy, kde-format
-#| msgid "Default Backend:"
+#, kde-format
 msgid "Default Theme:"
-msgstr "Bizkarraldeko lehenetsia:"
+msgstr "Gai lehenetsia:"
 
 #. i18n: ectx: property (toolTip), widget (QSpinBox, kcfg_VisibleLinesLimit)
 #: settings.ui:86
@@ -4961,10 +4960,9 @@ msgid "Drag Entry"
 msgstr "Sarrera arrastatu"
 
 #: worksheettextitem.cpp:894 worksheettextitem.cpp:911
-#, fuzzy, kde-format
-#| msgid "Text Color"
+#, kde-format
 msgid "Select Color"
-msgstr "Testuaren kolorea"
+msgstr "Hautatu kolorea"
 
 #~ msgid "Reached beginning"
 #~ msgstr "Hasierara heldu da"
