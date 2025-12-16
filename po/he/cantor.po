@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: cantor\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-12-12 00:38+0000\n"
-"PO-Revision-Date: 2025-12-11 10:14+0200\n"
+"PO-Revision-Date: 2025-12-14 15:11+0200\n"
 "Last-Translator: Yaron Shahrabani <sh.yaron@gmail.com>\n"
 "Language-Team: צוות התרגום של KDE ישראל\n"
 "Language: he\n"
@@ -2669,7 +2669,7 @@ msgstr "המנגנון שמשמש כברירת המחדל"
 #: cantor.kcfg:14
 #, kde-format
 msgid "Default editor color theme"
-msgstr ""
+msgstr "ערכת צבעי עורך כברירת מחדל"
 
 #. i18n: ectx: label, entry (TypesetDefault), group (Cantor)
 #: cantor.kcfg:18
@@ -4055,12 +4055,12 @@ msgstr "לא נמצא"
 #: searchbar.cpp:224
 #, kde-format
 msgid "Reached end of document, continuing from top..."
-msgstr ""
+msgstr "הגעת לסוף המסמך, נמשיך מההתחלה"
 
 #: searchbar.cpp:339
 #, kde-format
 msgid "Reached beginning of document, continuing from bottom..."
-msgstr ""
+msgstr "הגעת לתחילת המסמך, נמשיך מהסוף…"
 
 #: searchbar.cpp:433
 #, kde-format
@@ -4137,14 +4137,13 @@ msgstr "מנגנון ברירת מחדל:"
 #: settings.ui:76 settings.ui:129
 #, kde-format
 msgid "Default editor color theme for new worksheets"
-msgstr ""
+msgstr "ערכת צבעי עורך כברירת מחדל לגיליונות עבודה חדשים"
 
 #. i18n: ectx: property (text), widget (QLabel, label_theme)
 #: settings.ui:79
-#, fuzzy, kde-format
-#| msgid "Default Backend:"
+#, kde-format
 msgid "Default Theme:"
-msgstr "מנגנון ברירת מחדל:"
+msgstr "ערכת עיצוב כברירת מחדל:"
 
 #. i18n: ectx: property (toolTip), widget (QSpinBox, kcfg_VisibleLinesLimit)
 #: settings.ui:86
@@ -4882,10 +4881,9 @@ msgid "Drag Entry"
 msgstr "גרירת רשומה"
 
 #: worksheettextitem.cpp:894 worksheettextitem.cpp:911
-#, fuzzy, kde-format
-#| msgid "Text Color"
+#, kde-format
 msgid "Select Color"
-msgstr "צבע כתב"
+msgstr "בחירת צבע"
 
 #~ msgid "Reached beginning"
 #~ msgstr "הגעת להתחלה"
