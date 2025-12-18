@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <component type="desktop">
   <id>org.kde.cantor.desktop</id>
   <metadata_license>CC0-1.0</metadata_license>
@@ -162,6 +162,9 @@
     <binary>cantor</binary>
   </provides>
   <releases>
+    <release version="25.12.0" date="2025-12-05">
+      <description></description>
+    </release>
     <release version="25.12.0" date="2025-12-11"/>
     <release version="25.08.3" date="2025-11-06"/>
     <release version="25.08.2" date="2025-10-09"/>
