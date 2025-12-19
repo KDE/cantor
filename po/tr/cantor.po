@@ -13,7 +13,7 @@ msgstr ""
 "Project-Id-Version: kdeedu-kde4\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-12-12 00:38+0000\n"
-"PO-Revision-Date: 2025-09-04 15:05+0300\n"
+"PO-Revision-Date: 2025-12-18 14:51+0300\n"
 "Last-Translator: Emir SARI <emir_sari@îcloud.com>\n"
 "Language-Team: Turkish <kde-l10n-tr@kde.org>\n"
 "Language: tr\n"
@@ -21,7 +21,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"X-Generator: Lokalize 25.08.0\n"
+"X-Generator: Lokalize 25.08.2\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -2706,7 +2706,7 @@ msgstr "Öntanımlı olarak kullanılan arka uç"
 #: cantor.kcfg:14
 #, kde-format
 msgid "Default editor color theme"
-msgstr ""
+msgstr "Öntanımlı düzenleyici renk teması"
 
 #. i18n: ectx: label, entry (TypesetDefault), group (Cantor)
 #: cantor.kcfg:18
@@ -4102,12 +4102,12 @@ msgstr "Bulunamadı"
 #: searchbar.cpp:224
 #, kde-format
 msgid "Reached end of document, continuing from top..."
-msgstr ""
+msgstr "Belgenin sonuna ulaşıldı, baştan sürdürülüyor…"
 
 #: searchbar.cpp:339
 #, kde-format
 msgid "Reached beginning of document, continuing from bottom..."
-msgstr ""
+msgstr "Belgenin başına ulaşıldı, sondan sürdürülüyor…"
 
 #: searchbar.cpp:433
 #, kde-format
@@ -4183,14 +4183,13 @@ msgstr "Öntanımlı arka uç:"
 #: settings.ui:76 settings.ui:129
 #, kde-format
 msgid "Default editor color theme for new worksheets"
-msgstr ""
+msgstr "Yeni çalışma sayfaları için öntanımlı düzenleyici renk teması"
 
 #. i18n: ectx: property (text), widget (QLabel, label_theme)
 #: settings.ui:79
-#, fuzzy, kde-format
-#| msgid "Default Backend:"
+#, kde-format
 msgid "Default Theme:"
-msgstr "Öntanımlı arka uç:"
+msgstr "Öntanımlı tema:"
 
 #. i18n: ectx: property (toolTip), widget (QSpinBox, kcfg_VisibleLinesLimit)
 #: settings.ui:86
@@ -4951,10 +4950,9 @@ msgid "Drag Entry"
 msgstr "Girdiyi Sürükle"
 
 #: worksheettextitem.cpp:894 worksheettextitem.cpp:911
-#, fuzzy, kde-format
-#| msgid "Text Color"
+#, kde-format
 msgid "Select Color"
-msgstr "Metin Rengi"
+msgstr "Renk Seç"
 
 #~ msgid "Reached beginning"
 #~ msgstr "Başlangıca ulaşıldı"

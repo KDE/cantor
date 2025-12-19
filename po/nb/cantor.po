@@ -4761,9 +4761,3 @@ msgstr "Dra oppføring"
 #| msgid "Use Colors"
 msgid "Select Color"
 msgstr "Bruk farger"
-
-#~ msgid "Reached beginning"
-#~ msgstr "Kom til begynnelsen"
-
-#~ msgid "Reached end"
-#~ msgstr "Kom til slutten"
