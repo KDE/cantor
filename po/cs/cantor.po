@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-12-12 00:38+0000\n"
-"PO-Revision-Date: 2025-12-03 11:28+0100\n"
+"PO-Revision-Date: 2025-12-17 11:27+0100\n"
 "Last-Translator: Vit Pelcak <vit@pelcak.org>\n"
 "Language-Team: Czech <kde-i18n-doc@kde.org>\n"
 "Language: cs\n"
@@ -2574,7 +2574,7 @@ msgstr "Podpůrná vrstva používaná ve výchozím nastavení"
 #: cantor.kcfg:14
 #, kde-format
 msgid "Default editor color theme"
-msgstr ""
+msgstr "Výchozí barevné schéma editoru"
 
 #. i18n: ectx: label, entry (TypesetDefault), group (Cantor)
 #: cantor.kcfg:18
@@ -3947,12 +3947,12 @@ msgstr "Nenalezeno"
 #: searchbar.cpp:224
 #, kde-format
 msgid "Reached end of document, continuing from top..."
-msgstr ""
+msgstr "Dosaženo konce dokumentu, pokračuje se od začátku..."
 
 #: searchbar.cpp:339
 #, kde-format
 msgid "Reached beginning of document, continuing from bottom..."
-msgstr ""
+msgstr "Dosaženo začátku dokumentu, pokračuje se od konce..."
 
 #: searchbar.cpp:433
 #, kde-format
@@ -4026,14 +4026,13 @@ msgstr "Výchozí podpůrná vrstva:"
 #: settings.ui:76 settings.ui:129
 #, kde-format
 msgid "Default editor color theme for new worksheets"
-msgstr ""
+msgstr "Výchozí barevné schéma editoru pro nové pracovní listy"
 
 #. i18n: ectx: property (text), widget (QLabel, label_theme)
 #: settings.ui:79
-#, fuzzy, kde-format
-#| msgid "Default Backend:"
+#, kde-format
 msgid "Default Theme:"
-msgstr "Výchozí podpůrná vrstva:"
+msgstr "Výchozí motiv:"
 
 #. i18n: ectx: property (toolTip), widget (QSpinBox, kcfg_VisibleLinesLimit)
 #: settings.ui:86
@@ -4767,7 +4766,6 @@ msgid "Drag Entry"
 msgstr "Přesunout záznam"
 
 #: worksheettextitem.cpp:894 worksheettextitem.cpp:911
-#, fuzzy, kde-format
-#| msgid "Text Color"
+#, kde-format
 msgid "Select Color"
-msgstr "Barva textu"
+msgstr "Vyberte barvu"
