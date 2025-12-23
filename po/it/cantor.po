@@ -10,15 +10,15 @@ msgstr ""
 "Project-Id-Version: cantor\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-12-12 00:38+0000\n"
-"PO-Revision-Date: 2025-07-30 15:55+0200\n"
-"Last-Translator: Vincenzo Reale <smart2128vr@gmail.com>\n"
+"PO-Revision-Date: 2025-12-12 15:13+0100\n"
+"Last-Translator: Vincenzo Reale <>\n"
 "Language-Team: Italian <kde-i18n-it@kde.org>\n"
 "Language: it\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Lokalize 25.11.70\n"
+"X-Generator: Lokalize 25.08.3\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -2720,7 +2720,7 @@ msgstr "Il motore che viene usato come predefinito"
 #: cantor.kcfg:14
 #, kde-format
 msgid "Default editor color theme"
-msgstr ""
+msgstr "Tema di colore predefinito dell'editor"
 
 #. i18n: ectx: label, entry (TypesetDefault), group (Cantor)
 #: cantor.kcfg:18
@@ -4116,12 +4116,12 @@ msgstr "Non trovato"
 #: searchbar.cpp:224
 #, kde-format
 msgid "Reached end of document, continuing from top..."
-msgstr ""
+msgstr "Raggiunto il termine del documento, continuo dall'inizio..."
 
 #: searchbar.cpp:339
 #, kde-format
 msgid "Reached beginning of document, continuing from bottom..."
-msgstr ""
+msgstr "Raggiunto l'inizio del documento, continuo dal fondo..."
 
 #: searchbar.cpp:433
 #, kde-format
@@ -4197,14 +4197,13 @@ msgstr "Motore predefinito:"
 #: settings.ui:76 settings.ui:129
 #, kde-format
 msgid "Default editor color theme for new worksheets"
-msgstr ""
+msgstr "Tema colore predefinito dell'editor per i nuovi fogli di lavoro"
 
 #. i18n: ectx: property (text), widget (QLabel, label_theme)
 #: settings.ui:79
-#, fuzzy, kde-format
-#| msgid "Default Backend:"
+#, kde-format
 msgid "Default Theme:"
-msgstr "Motore predefinito:"
+msgstr "Tema predefinito:"
 
 #. i18n: ectx: property (toolTip), widget (QSpinBox, kcfg_VisibleLinesLimit)
 #: settings.ui:86
@@ -4972,10 +4971,9 @@ msgid "Drag Entry"
 msgstr "Trascina Voce"
 
 #: worksheettextitem.cpp:894 worksheettextitem.cpp:911
-#, fuzzy, kde-format
-#| msgid "Text Color"
+#, kde-format
 msgid "Select Color"
-msgstr "Colore del testo"
+msgstr "Seleziona colore"
 
 #~ msgid "Reached beginning"
 #~ msgstr "Raggiunto l'inizio"
