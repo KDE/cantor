@@ -1,14 +1,14 @@
 # Copyright (C) 2023 This file is copyright:
 # This file is distributed under the same license as the cantor package.
 #
-# SPDX-FileCopyrightText: 2020, 2021, 2022, 2023, 2024, 2025 Giovanni Sora <g.sora@tiscali.it>
+# SPDX-FileCopyrightText: 2020, 2021, 2022, 2023, 2024, 2025, 2026 Giovanni Sora <g.sora@tiscali.it>
 # giovanni <g.sora@tiscali.it>, 2024.
 msgid ""
 msgstr ""
 "Project-Id-Version: cantor\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-12-12 00:38+0000\n"
-"PO-Revision-Date: 2025-09-24 17:10+0200\n"
+"PO-Revision-Date: 2026-01-09 11:45+0100\n"
 "Last-Translator: giovanni <g.sora@tiscali.it>\n"
 "Language-Team: Interlingua <kde-i18n-doc@kde.org>\n"
 "Language: ia\n"
@@ -2727,7 +2727,7 @@ msgstr "Le retroadministration que es usate per definition"
 #: cantor.kcfg:14
 #, kde-format
 msgid "Default editor color theme"
-msgstr ""
+msgstr "Thema de color de editor predefinite"
 
 #. i18n: ectx: label, entry (TypesetDefault), group (Cantor)
 #: cantor.kcfg:18
@@ -4128,12 +4128,12 @@ msgstr "Non trovate"
 #: searchbar.cpp:224
 #, kde-format
 msgid "Reached end of document, continuing from top..."
-msgstr ""
+msgstr "Attingite fin de documento, continuante ab le initio..."
 
 #: searchbar.cpp:339
 #, kde-format
 msgid "Reached beginning of document, continuing from bottom..."
-msgstr ""
+msgstr "Attingite initio de documento, continuante ab le fin..."
 
 #: searchbar.cpp:433
 #, kde-format
@@ -4209,14 +4209,13 @@ msgstr "Retroadministration predefinite:"
 #: settings.ui:76 settings.ui:129
 #, kde-format
 msgid "Default editor color theme for new worksheets"
-msgstr ""
+msgstr "Thema de color de editor predefinite per nove folios de labor"
 
 #. i18n: ectx: property (text), widget (QLabel, label_theme)
 #: settings.ui:79
-#, fuzzy, kde-format
-#| msgid "Default Backend:"
+#, kde-format
 msgid "Default Theme:"
-msgstr "Retroadministration predefinite:"
+msgstr "Thema predefinite:"
 
 #. i18n: ectx: property (toolTip), widget (QSpinBox, kcfg_VisibleLinesLimit)
 #: settings.ui:86
@@ -4982,10 +4981,9 @@ msgid "Drag Entry"
 msgstr "Entrata Obscur"
 
 #: worksheettextitem.cpp:894 worksheettextitem.cpp:911
-#, fuzzy, kde-format
-#| msgid "Text Color"
+#, kde-format
 msgid "Select Color"
-msgstr "Color de texto "
+msgstr "Selectiona Color"
 
 #~ msgid "Reached beginning"
 #~ msgstr "Attingite initio"
