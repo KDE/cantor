@@ -1,14 +1,14 @@
 # Copyright (C) 2023 This file is copyright:
 # This file is distributed under the same license as the cantor package.
 #
-# SPDX-FileCopyrightText: 2020, 2021, 2022, 2023, 2024, 2025 Giovanni Sora <g.sora@tiscali.it>
+# SPDX-FileCopyrightText: 2020, 2021, 2022, 2023, 2024, 2025, 2026 Giovanni Sora <g.sora@tiscali.it>
 # giovanni <g.sora@tiscali.it>, 2024.
 msgid ""
 msgstr ""
 "Project-Id-Version: cantor\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-11-17 14:38+0000\n"
-"PO-Revision-Date: 2025-09-24 17:10+0200\n"
+"PO-Revision-Date: 2026-01-16 11:43+0100\n"
 "Last-Translator: giovanni <g.sora@tiscali.it>\n"
 "Language-Team: Interlingua <kde-i18n-doc@kde.org>\n"
 "Language: ia\n"
@@ -1769,7 +1769,7 @@ msgstr "predefinite: %1"
 #: backends/qalculate/qalculatesyntaxhelpobject.cpp:210
 #, kde-format
 msgid "The function's name"
-msgstr "Le nmine de function"
+msgstr "Le nomine de function"
 
 #: backends/qalculate/qalculatesyntaxhelpobject.cpp:212
 #, kde-format
