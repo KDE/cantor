@@ -58,6 +58,19 @@ void CantorCompletionModel::startCompletionRequest()
     if (!m_pendingView || !m_session)
         return;
 
+    KTextEditor::Cursor currentPos = m_pendingView->cursorPosition();
+    if (currentPos.line() != m_pendingRange.start().line())
+        return;
+
+    if (currentPos.column() > 0)
+    {
+        QChar lastChar = m_pendingView->document()->characterAt(KTextEditor::Cursor(currentPos.line(), currentPos.column() - 1));
+        if (!lastChar.isLetterOrNumber() && lastChar != QLatin1Char('_') && lastChar != QLatin1Char('.'))
+            return;
+    }
+    else
+        return;
+
     // Member completion branch
     if (!m_completionContextObject.isEmpty())
     {
@@ -82,7 +95,6 @@ void CantorCompletionModel::startCompletionRequest()
         return;
     }
 
-    // Global completion branch
     const auto* keywordsManager = m_session->keywordsManager();
     const auto* varModel = m_session->variableModel();
     if (!keywordsManager || !varModel)
@@ -101,28 +113,26 @@ void CantorCompletionModel::startCompletionRequest()
         if (listName.contains(QStringLiteral("func"), Qt::CaseInsensitive))
             allFunctionsSet.unite(symbols);
 
-        if (listName == QStringLiteral("import") ||
-            listName == QStringLiteral("flow") ||
-            listName == QStringLiteral("flow_yield") ||
-            listName == QStringLiteral("defs") ||
-            listName == QStringLiteral("exceptions") ||
-            listName == QStringLiteral("patternmatching"))
-        {
+        if (listName == QStringLiteral("import") || listName == QStringLiteral("flow") ||
+            listName == QStringLiteral("flow_yield") || listName == QStringLiteral("defs") ||
+            listName == QStringLiteral("exceptions") || listName == QStringLiteral("patternmatching"))
             allKeywordsSet.unite(symbols);
-        }
     }
 
     const QStringList userVariables = varModel->variableNames();
     const QStringList userFunctions = varModel->functions();
 
-    const QSet<QString> userVariablesSet(userVariables.constBegin(), userVariables.constEnd());
-    const QSet<QString> userFunctionsSet(userFunctions.constBegin(), userFunctions.constEnd());
+    const QSet<QString> userVariablesSet(userVariables.begin(), userVariables.end());
+    const QSet<QString> userFunctionsSet(userFunctions.begin(), userFunctions.end());
 
     allSymbolsSet.unite(userVariablesSet);
     allFunctionsSet.unite(userFunctionsSet);
-    allSymbolsSet.unite(userFunctionsSet);
 
-    QString prefix = m_pendingView->document()->text(m_pendingRange);
+    KTextEditor::Range currentWordRange = m_pendingView->document()->wordRangeAt(currentPos);
+    QString prefix = m_pendingView->document()->text(currentWordRange);
+
+    if (prefix.trimmed().isEmpty())
+        return;
 
     beginResetModel();
     m_matches.clear();
@@ -130,15 +140,20 @@ void CantorCompletionModel::startCompletionRequest()
     for (const QString& match : allSymbolsSet)
     {
         if (prefix.isEmpty() || match.startsWith(prefix, Qt::CaseInsensitive))
-            m_matches.append({match, allFunctionsSet.contains(match), allKeywordsSet.contains(match), false});
+        {
+            bool isFunc = allFunctionsSet.contains(match);
+            bool isKey = allKeywordsSet.contains(match);
+            bool isVar = userVariablesSet.contains(match);
+
+            m_matches.append({match, isFunc, isKey, false, isVar});
+        }
     }
 
-    std::sort(m_matches.begin(), m_matches.end(), [](const auto& a, const auto& b)
-    {
+    std::sort(m_matches.begin(), m_matches.end(), [](const auto& a, const auto& b) {
         return a.name.localeAwareCompare(b.name) < 0;
     });
 
-    setRowCount(m_matches.size());
+    setRowCount(0);
     endResetModel();
 
     Q_EMIT modelIsReady(m_matches);
@@ -149,6 +164,20 @@ void CantorCompletionModel::handleMemberCompletionResult(Cantor::Expression::Sta
     if (status != Cantor::Expression::Done)
         return;
 
+    if (m_pendingView && m_pendingView->cursorPosition().line() != m_pendingRange.start().line())
+        return;
+
+    if (m_pendingView)
+    {
+        KTextEditor::Cursor currentPos = m_pendingView->cursorPosition();
+        if (currentPos.column() > 0)
+        {
+            QChar lastChar = m_pendingView->document()->characterAt(KTextEditor::Cursor(currentPos.line(), currentPos.column() - 1));
+            if (!lastChar.isLetterOrNumber() && lastChar != QLatin1Char('_') && lastChar != QLatin1Char('.'))
+                return;
+        }
+    }
+
     auto* expr = qobject_cast<Cantor::Expression*>(sender());
     if (!expr || expr->results().isEmpty())
         return;
@@ -158,35 +187,30 @@ void CantorCompletionModel::handleMemberCompletionResult(Cantor::Expression::Sta
         return;
 
     const QString resultString = result->data().toString().trimmed();
-    const QStringList records = resultString.split(QStringLiteral(";"),
-                                                   Qt::SkipEmptyParts);
+    const QStringList records = resultString.split(QStringLiteral(";"), Qt::SkipEmptyParts);
 
     beginResetModel();
     m_matches.clear();
 
-    const QString prefix = m_pendingView->document()->text(m_pendingRange);
+    KTextEditor::Range currentWordRange = m_pendingView->document()->wordRangeAt(m_pendingView->cursorPosition());
+    const QString prefix = m_pendingView->document()->text(currentWordRange);
 
     for (const QString& record : records)
     {
         const QStringList parts = record.split(QStringLiteral(","));
-        if (parts.size() != 2)
-            continue;
-
+        if (parts.size() != 2) continue;
         const QString name = parts[0];
         const bool isFunction = (parts[1] == QLatin1String("1"));
 
         if (!name.startsWith(QLatin1String("__")) && (prefix.isEmpty() || name.startsWith(prefix, Qt::CaseInsensitive)))
-            // Member can be either a function (method) or an attribute
-            m_matches.append({name, isFunction, false, !isFunction});
+            m_matches.append({name, isFunction, false, !isFunction, false});
     }
 
-    std::sort(m_matches.begin(), m_matches.end(),
-              [](const auto& a, const auto& b)
-              {
-                  return a.name.localeAwareCompare(b.name) < 0;
-              });
+    std::sort(m_matches.begin(), m_matches.end(), [](const auto& a, const auto& b) {
+        return a.name.localeAwareCompare(b.name) < 0;
+    });
 
-    setRowCount(m_matches.size());
+    setRowCount(0);
     endResetModel();
 
     Q_EMIT modelIsReady(m_matches);
@@ -213,10 +237,35 @@ void CantorCompletionModel::executeCompletionItem(KTextEditor::View* view, const
 
     if (item.isFunction)
         textToInsert += QStringLiteral("()");
-    else if (item.isKeyword || item.isAttribute)
+    else if (item.isKeyword || item.isAttribute || item.isVariable)
         textToInsert += QLatin1Char(' ');
 
     KTextEditor::Range rangeToReplace = view->document()->wordRangeAt(view->cursorPosition());
+    view->document()->replaceText(rangeToReplace, textToInsert);
+
+    if (item.isFunction)
+    {
+        KTextEditor::Cursor newCursorPos = rangeToReplace.start();
+        newCursorPos.setColumn(newCursorPos.column() + item.name.length() + 1);
+        view->setCursorPosition(newCursorPos);
+    }
+}
+
+void CantorCompletionModel::executeCompletionItem(KTextEditor::View* view, int row)
+{
+    if (!view || row < 0 || row >= m_matches.count())
+        return;
+
+    const CompletionItem& item = m_matches.at(row);
+    QString textToInsert = item.name;
+
+    if (item.isFunction)
+        textToInsert += QStringLiteral("()");
+    else if (item.isKeyword || item.isAttribute || item.isVariable)
+        textToInsert += QLatin1Char(' ');
+
+    KTextEditor::Range rangeToReplace = view->document()->wordRangeAt(view->cursorPosition());
+
     view->document()->replaceText(rangeToReplace, textToInsert);
 
     if (item.isFunction)
@@ -241,4 +290,10 @@ bool CantorCompletionModel::shouldStartCompletion(KTextEditor::View*, const QStr
             return true;
     }
     return false;
+}
+
+void CantorCompletionModel::abortCompletion()
+{
+    if (m_debounceTimer && m_debounceTimer->isActive())
+        m_debounceTimer->stop();
 }

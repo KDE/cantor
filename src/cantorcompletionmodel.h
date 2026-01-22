@@ -26,6 +26,7 @@ public:
         bool isFunction = false;
         bool isKeyword = false;
         bool isAttribute = false;
+        bool isVariable = false;
     };
 
     explicit CantorCompletionModel(WorksheetTextEditorItem* parent);
@@ -33,10 +34,12 @@ public:
 
     void completionInvoked(KTextEditor::View*, const KTextEditor::Range&, InvocationType) override;
     void executeCompletionItem(KTextEditor::View*, const KTextEditor::Range&, const QModelIndex&) const override;
+    void executeCompletionItem(KTextEditor::View* view, int row);
     QVariant data(const QModelIndex&, int) const override;
 
     KTextEditor::Range completionRange(KTextEditor::View*, const KTextEditor::Cursor&) override;
     bool shouldStartCompletion(KTextEditor::View*, const QString&, bool, const KTextEditor::Cursor&) override;
+    void abortCompletion();
 
 Q_SIGNALS:
     void modelIsReady(const QList<CantorCompletionModel::CompletionItem>&);

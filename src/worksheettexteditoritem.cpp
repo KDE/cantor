@@ -9,6 +9,7 @@
 
 #include <KColorScheme>
 #include <KSyntaxHighlighting/Repository>
+#include <KActionCollection>
 
 #include <QApplication>
 #include <QClipboard>
@@ -40,7 +41,7 @@ WorksheetTextEditorItem::WorksheetTextEditorItem(EditorMode initialMode, Workshe
     m_view->setConfigValue(QStringLiteral("folding-bar"), false);
     m_view->setConfigValue(QStringLiteral("folding-preview"), false);
     m_view->setConfigValue(QStringLiteral("line-numbers"), false);
-    
+
 #if KCOREADDONS_VERSION >= QT_VERSION_CHECK(6, 20, 0)
     m_view->setConfigValue(QStringLiteral("disable-current-line-highlight-if-inactive"), true);
     m_view->setConfigValue(QStringLiteral("hide-cursor-if-inactive"), true);
@@ -114,7 +115,7 @@ WorksheetTextEditorItem::WorksheetTextEditorItem(EditorMode initialMode, Workshe
     connect(m_view, &KTextEditor::View::cursorPositionChanged, this, [this]()
     {
         auto cursor = m_view->cursorPosition();
-        if (!cursor.isValid()) 
+        if (!cursor.isValid())
             return;
         int lineLength = m_document->lineLength(cursor.line());
         QString textLine = m_document->text(KTextEditor::Range(cursor.line(), 0, cursor.line(), lineLength));
@@ -562,7 +563,7 @@ KTextEditor::Range WorksheetTextEditorItem::search(const QString& pattern, KText
 
     QList<KTextEditor::Range> matches = m_document->searchText(searchRange, pattern, options);
 
-    if (matches.isEmpty()) 
+    if (matches.isEmpty())
         return KTextEditor::Range::invalid();
 
     return (options & KTextEditor::Backwards) ? matches.last() : matches.first();
@@ -855,13 +856,15 @@ bool WorksheetTextEditorItem::eventFilter(QObject* object, QEvent* event)
             if (m_customCompleter->isVisible())
             {
                 QKeyEvent* keyEvent = static_cast<QKeyEvent*>(event);
-                switch (keyEvent->key())
+                int key = keyEvent->key();
+                switch (key)
                 {
                     case Qt::Key_Up:
                     case Qt::Key_Down:
                     {
                         int count = m_customCompleter->count();
-                        if (count > 0) {
+                        if (count > 0)
+                        {
                             int currentRow = m_customCompleter->currentRow();
                             currentRow += (keyEvent->key() == Qt::Key_Up) ? -1 : 1;
                             m_customCompleter->setCurrentRow((currentRow + count) % count);
@@ -870,15 +873,23 @@ bool WorksheetTextEditorItem::eventFilter(QObject* object, QEvent* event)
                     }
                     case Qt::Key_Enter:
                     case Qt::Key_Return:
+                        if (m_completionModel)
+                            m_completionModel->abortCompletion();
+                        if (keyEvent->modifiers() & Qt::ShiftModifier)
+                        {
+                            m_customCompleter->hide();
+                            m_view->setFocus();
+                            QApplication::sendEvent(m_view, event);
+                            return true;
+                        }
                     case Qt::Key_Tab:
                         onCompleterItemSelected();
                         return true;
-
-                    case Qt::Key_Space:
                     case Qt::Key_Escape:
                         if (m_customCompleter && m_customCompleter->isVisible())
                             m_customCompleter->hide();
                         return true;
+
                     case Qt::Key_Backspace:
                     {
                         bool textDeleted = false;
@@ -907,17 +918,31 @@ bool WorksheetTextEditorItem::eventFilter(QObject* object, QEvent* event)
                             m_customCompleter->hide();
                         return true;
                     }
+                    case Qt::Key_Space:
+                        if (m_customCompleter && m_customCompleter->isVisible())
+                            m_customCompleter->hide();
                     default:
                     {
-                        const QString& textToInsert = keyEvent->text();
-                        if (!textToInsert.isEmpty())
+                        QString text = keyEvent->text();
+                        if (!text.isEmpty())
                         {
-                            m_document->insertText(m_view->cursorPosition(), textToInsert);
+                            m_document->insertText(m_view->cursorPosition(), text);
+                            QChar c = text.at(0);
+                            bool isIdentifierPart = c.isLetterOrNumber() || c == QLatin1Char('_') || c == QLatin1Char('.');
 
-                            KTextEditor::Range range = m_view->document()->wordRangeAt(m_view->cursorPosition());
-                            m_completionModel->completionInvoked(m_view, range, KTextEditor::CodeCompletionModel::AutomaticInvocation);
+                            if (!isIdentifierPart)
+                            {
+                                m_customCompleter->hide();
+                                m_completionModel->abortCompletion();
+                            }
+                            else
+                            {
+                                KTextEditor::Range range = m_view->document()->wordRangeAt(m_view->cursorPosition());
+                                m_completionModel->completionInvoked(m_view, range, KTextEditor::CodeCompletionModel::AutomaticInvocation);
+                            }
+
+                            return true;
                         }
-                        return true;
                     }
                 }
             }
@@ -926,6 +951,12 @@ bool WorksheetTextEditorItem::eventFilter(QObject* object, QEvent* event)
         else if (object == m_view)
         {
             QKeyEvent* keyEvent = static_cast<QKeyEvent*>(event);
+
+            if (keyEvent->key() == Qt::Key_Enter || keyEvent->key() == Qt::Key_Return)
+            {
+                if (m_completionModel)
+                    m_completionModel->abortCompletion();
+            }
 
             bool completionActive = m_view->isCompletionActive();
             bool customCompleterVisible = m_customCompleter && m_customCompleter->isVisible();
@@ -955,6 +986,8 @@ bool WorksheetTextEditorItem::eventFilter(QObject* object, QEvent* event)
 
 void WorksheetTextEditorItem::keyPressEvent(QKeyEvent* event)
 {
+    const int key = event->key();
+    const auto modifiers = event->modifiers();
     worksheet()->resetEntryCursor();
 
     if (!m_view)
@@ -966,407 +999,104 @@ void WorksheetTextEditorItem::keyPressEvent(QKeyEvent* event)
     if (!m_view->hasFocus())
         m_view->setFocus();
 
-    if (event->modifiers() == Qt::NoModifier ||((event->modifiers() & Qt::ShiftModifier) && !(event->modifiers() & ~Qt::ShiftModifier)))
+    QString actionName;
+    const KTextEditor::Cursor cursor = m_view->cursorPosition();
+    const bool isSimpleNav = (modifiers == Qt::NoModifier) || ((modifiers & Qt::ShiftModifier) && !(modifiers & ~Qt::ShiftModifier));
+
+    switch (key)
     {
-        const KTextEditor::Cursor cursor = m_view->cursorPosition();
-        switch (event->key())
-        {
-            case Qt::Key_Up:
-                if (cursor.line() == 0)
-                {
-                    Q_EMIT moveToPrevious(BottomRight, 0);
-                    event->accept();
-                    return;
-                }
-                break;
-            case Qt::Key_Left:
-                if (cursor.line() == 0 && cursor.column() == 0)
-                {
-                    Q_EMIT moveToPrevious(BottomRight, 0);
-                    event->accept();
-                    return;
-                }
-                break;
-            case Qt::Key_Down:
-                if (cursor.line() == m_document->lines() - 1)
-                {
-                    Q_EMIT moveToNext(TopLeft, 0);
-                    event->accept();
-                    return;
-                }
-                break;
-            case Qt::Key_Right:
-                if (cursor == m_document->documentEnd())
-                {
-                    Q_EMIT moveToNext(TopLeft, 0);
-                    event->accept();
-                    return;
-                }
-                break;
-        }
+        case Qt::Key_Up:
+            if (isSimpleNav && modifiers == Qt::NoModifier && cursor.line() == 0)
+            {
+                Q_EMIT moveToPrevious(BottomRight, 0);
+                event->accept();
+                return;
+            }
+            if (modifiers & Qt::ControlModifier)
+                actionName = QStringLiteral("scroll_line_up");
+        else
+            actionName = (modifiers & Qt::ShiftModifier) ? QStringLiteral("select_line_up") : QStringLiteral("move_line_up");
+        break;
+
+        case Qt::Key_Down:
+            if (isSimpleNav && modifiers == Qt::NoModifier && cursor.line() == m_document->lines() - 1)
+            {
+                Q_EMIT moveToNext(TopLeft, 0);
+                event->accept();
+                return;
+            }
+            if (modifiers & Qt::ControlModifier)
+                actionName = QStringLiteral("scroll_line_down");
+        else
+            actionName = (modifiers & Qt::ShiftModifier) ? QStringLiteral("select_line_down") : QStringLiteral("move_line_down");
+        break;
+
+        case Qt::Key_Left:
+            if (isSimpleNav && modifiers == Qt::NoModifier && cursor.line() == 0 && cursor.column() == 0)
+            {
+                Q_EMIT moveToPrevious(BottomRight, 0);
+                event->accept();
+                return;
+            }
+            if (modifiers & Qt::ControlModifier)
+                actionName = (modifiers & Qt::ShiftModifier) ? QStringLiteral("select_word_left") : QStringLiteral("word_left");
+        else
+            actionName = (modifiers & Qt::ShiftModifier) ? QStringLiteral("select_char_left") : QStringLiteral("move_cursor_left");
+        break;
+
+        case Qt::Key_Right:
+            if (isSimpleNav && modifiers == Qt::NoModifier && cursor == m_document->documentEnd())
+            {
+                Q_EMIT moveToNext(TopLeft, 0);
+                event->accept();
+                return;
+            }
+            if (modifiers & Qt::ControlModifier)
+                actionName = (modifiers & Qt::ShiftModifier) ? QStringLiteral("select_word_right") : QStringLiteral("word_right");
+        else
+            actionName = (modifiers & Qt::ShiftModifier) ? QStringLiteral("select_char_right") : QStringLiteral("move_cursor_right");
+        break;
+
+
+        case Qt::Key_Home:
+            if (modifiers & Qt::ControlModifier)
+                actionName = (modifiers & Qt::ShiftModifier) ? QStringLiteral("select_top") : QStringLiteral("top");
+        else
+            actionName = (modifiers & Qt::ShiftModifier) ? QStringLiteral("select_beginning_of_line") : QStringLiteral("beginning_of_line");
+        break;
+
+        case Qt::Key_End:
+            if (modifiers & Qt::ControlModifier)
+                actionName = (modifiers & Qt::ShiftModifier) ? QStringLiteral("select_bottom") : QStringLiteral("bottom");
+        else
+            actionName = (modifiers & Qt::ShiftModifier) ? QStringLiteral("select_end_of_line") : QStringLiteral("end_of_line");
+        break;
+
+        case Qt::Key_PageUp:
+            actionName = (modifiers & Qt::ShiftModifier) ? QStringLiteral("select_page_up") : QStringLiteral("scroll_page_up");
+            break;
+
+        case Qt::Key_PageDown:
+            actionName = (modifiers & Qt::ShiftModifier) ? QStringLiteral("select_page_down") : QStringLiteral("scroll_page_down");
+            break;
+
+        case Qt::Key_Backspace:
+            actionName = (modifiers & Qt::ControlModifier) ? QStringLiteral("delete_word_left") : QStringLiteral("backspace");
+            break;
+
+        case Qt::Key_Delete:
+            actionName = (modifiers & Qt::ControlModifier) ? QStringLiteral("delete_word_right") : QStringLiteral("delete_next_character");
+            break;
     }
 
-    switch (event->key())
+    if (!actionName.isEmpty() && m_view->actionCollection())
     {
-        case Qt::Key_Home:
-            {
-                KTextEditor::Range selection = m_view->selectionRange();
-                if(selection.isValid())
-                    m_view->removeSelection();
-
-                KTextEditor::Cursor cursor = m_view->cursorPosition();
-                if (event->modifiers() & Qt::ControlModifier)
-                {
-                    m_view->setCursorPosition(KTextEditor::Cursor(0, 0));
-                }
-                else if (event->modifiers() & Qt::ShiftModifier)
-                {
-                    KTextEditor::Range selection = m_view->selectionRange();
-                    if (!selection.isValid())
-                        m_view->setSelection(KTextEditor::Range(cursor.line(), 0, cursor.line(), cursor.column()));
-                    else
-                    {
-                        KTextEditor::Cursor start = selection.start();
-                        KTextEditor::Cursor end = selection.end();
-                        if (cursor == end)
-                            m_view->setSelection(KTextEditor::Range(start, KTextEditor::Cursor(cursor.line(), 0)));
-                        else 
-                            m_view->setSelection(KTextEditor::Range(KTextEditor::Cursor(cursor.line(), 0), end));
-                    }
-                }
-                else
-                    m_view->setCursorPosition(KTextEditor::Cursor(cursor.line(), 0));
-                event->accept();
-                return;
-            }
-        case Qt::Key_End:
-            {
-                KTextEditor::Range selection = m_view->selectionRange();
-                if(selection.isValid())
-                    m_view->removeSelection();
-
-                KTextEditor::Cursor cursor = m_view->cursorPosition();
-                int lineLength = m_document->lineLength(cursor.line());
-
-                if (event->modifiers() & Qt::ControlModifier)
-                {
-                    int lastLine = m_document->lines() - 1;
-                    int lastLineLength = m_document->lineLength(lastLine);
-                    m_view->setCursorPosition(KTextEditor::Cursor(lastLine, lastLineLength));
-                }
-                else if (event->modifiers() & Qt::ShiftModifier)
-                {
-                    KTextEditor::Range selection = m_view->selectionRange();
-                    if (!selection.isValid())
-                        m_view->setSelection(KTextEditor::Range(cursor.line(), cursor.column(), cursor.line(), lineLength));
-                    else
-                    {
-                        KTextEditor::Cursor start = selection.start();
-                        KTextEditor::Cursor end = selection.end();
-                        if (cursor == end)
-                            m_view->setSelection(KTextEditor::Range(start, KTextEditor::Cursor(cursor.line(), lineLength)));
-                        else
-                            m_view->setSelection(KTextEditor::Range(KTextEditor::Cursor(cursor.line(), lineLength), end));
-                    }
-                }
-                else
-                    m_view->setCursorPosition(KTextEditor::Cursor(cursor.line(), lineLength));
-                event->accept();
-                return;
-            }
-        case Qt::Key_Left:
+        if (QAction* action = m_view->actionCollection()->action(actionName))
         {
-            KTextEditor::Range selection = m_view->selectionRange();
-            if(selection.isValid())
-                m_view->removeSelection();
-
-            if (event->modifiers() == Qt::NoModifier || event->modifiers() == Qt::ShiftModifier)
-            {
-                KTextEditor::Cursor cursor = m_view->cursorPosition();
-                KTextEditor::Cursor newCursor = cursor;
-
-                if (cursor.column() > 0)
-                    newCursor = KTextEditor::Cursor(cursor.line(), cursor.column() - 1);
-                else if (cursor.line() > 0)
-                {
-                    int prevLineLength = m_document->lineLength(cursor.line() - 1);
-                    newCursor = KTextEditor::Cursor(cursor.line() - 1, prevLineLength);
-                }
-
-                if (event->modifiers() & Qt::ShiftModifier)
-                {
-                    KTextEditor::Range selection = m_view->selectionRange();
-                    if (!selection.isValid())
-                    {
-                        m_view->setSelection(KTextEditor::Range(newCursor, cursor));
-                        m_view->setCursorPosition(newCursor);
-                    }
-                    else
-                    {
-                        KTextEditor::Cursor start = selection.start();
-                        KTextEditor::Cursor end = selection.end();
-                        if (cursor == end) {
-                            m_view->setSelection(KTextEditor::Range(start, newCursor));
-                            m_view->setCursorPosition(newCursor);
-                        }
-                        else
-                        {
-                            m_view->setSelection(KTextEditor::Range(newCursor, end));
-                            m_view->setCursorPosition(newCursor);
-                        }
-                    }
-                }
-                else
-                    m_view->setCursorPosition(newCursor);
-                event->accept();
-                return;
-            }
-            break;
+            action->trigger();
+            event->accept();
+            return;
         }
-        case Qt::Key_Right:
-        {
-            KTextEditor::Range selection = m_view->selectionRange();
-            if(selection.isValid())
-                m_view->removeSelection();
-
-            if (event->modifiers() == Qt::NoModifier || event->modifiers() == Qt::ShiftModifier)
-            {
-                KTextEditor::Cursor cursor = m_view->cursorPosition();
-                KTextEditor::Cursor newCursor = cursor;
-
-                if (cursor.column() < m_document->lineLength(cursor.line()))
-                    newCursor = KTextEditor::Cursor(cursor.line(), cursor.column() + 1);
-                else if (cursor.line() < m_document->lines() - 1)
-                    newCursor = KTextEditor::Cursor(cursor.line() + 1, 0);
-
-                if (event->modifiers() & Qt::ShiftModifier)
-                {
-                    KTextEditor::Range selection = m_view->selectionRange();
-                    if (!selection.isValid())
-                    {
-                        m_view->setSelection(KTextEditor::Range(cursor, newCursor));
-                        m_view->setCursorPosition(newCursor);
-                    }
-                    else
-                    {
-                        KTextEditor::Cursor start = selection.start();
-                        KTextEditor::Cursor end = selection.end();
-                        if (cursor == end)
-                        {
-                            m_view->setSelection(KTextEditor::Range(start, newCursor));
-                            m_view->setCursorPosition(newCursor);
-                        }
-                        else
-                        {
-                            m_view->setSelection(KTextEditor::Range(newCursor, end));
-                            m_view->setCursorPosition(newCursor);
-                        }
-                    }
-                }
-                else
-                    m_view->setCursorPosition(newCursor);
-                event->accept();
-                return;
-            }
-            break;
-        }
-        case Qt::Key_Up:
-        {
-            KTextEditor::Range selection = m_view->selectionRange();
-            if(selection.isValid())
-                m_view->removeSelection();
-
-            if (event->modifiers() == Qt::NoModifier || event->modifiers() == Qt::ShiftModifier)
-            {
-                KTextEditor::Cursor cursor = m_view->cursorPosition();
-                KTextEditor::Cursor newCursor = cursor;
-
-                if (cursor.line() > 0)
-                {
-                    int targetColumn = qMin(cursor.column(), m_document->lineLength(cursor.line() - 1));
-                    newCursor = KTextEditor::Cursor(cursor.line() - 1, targetColumn);
-                }
-
-                if (event->modifiers() & Qt::ShiftModifier)
-                {
-                    KTextEditor::Range selection = m_view->selectionRange();
-                    if (!selection.isValid()) {
-                        m_view->setSelection(KTextEditor::Range(newCursor, cursor));
-                        m_view->setCursorPosition(newCursor);
-                    }
-                    else
-                    {
-                        KTextEditor::Cursor start = selection.start();
-                        KTextEditor::Cursor end = selection.end();
-                        if (cursor == end)
-                        {
-                            m_view->setSelection(KTextEditor::Range(start, newCursor));
-                            m_view->setCursorPosition(newCursor);
-                        }
-                        else
-                        {
-                            m_view->setSelection(KTextEditor::Range(newCursor, end));
-                            m_view->setCursorPosition(newCursor);
-                        }
-                    }
-                }
-                else
-                    m_view->setCursorPosition(newCursor);
-                event->accept();
-                return;
-            }
-            break;
-        }
-        case Qt::Key_Down:
-        {
-            KTextEditor::Range selection = m_view->selectionRange();
-            if(selection.isValid())
-                m_view->removeSelection();
-
-            if (event->modifiers() == Qt::NoModifier || event->modifiers() == Qt::ShiftModifier)
-            {
-                KTextEditor::Cursor cursor = m_view->cursorPosition();
-                KTextEditor::Cursor newCursor = cursor;
-
-                if (cursor.line() < m_document->lines() - 1)
-                {
-                    int targetColumn = qMin(cursor.column(), m_document->lineLength(cursor.line() + 1));
-                    newCursor = KTextEditor::Cursor(cursor.line() + 1, targetColumn);
-                }
-
-                if (event->modifiers() & Qt::ShiftModifier)
-                {
-                    KTextEditor::Range selection = m_view->selectionRange();
-                    if (!selection.isValid())
-                    {
-                        m_view->setSelection(KTextEditor::Range(cursor, newCursor));
-                        m_view->setCursorPosition(newCursor);
-                    }
-                    else
-                    {
-                        KTextEditor::Cursor start = selection.start();
-                        KTextEditor::Cursor end = selection.end();
-                        if (cursor == end)
-                        {
-                            m_view->setSelection(KTextEditor::Range(start, newCursor));
-                            m_view->setCursorPosition(newCursor);
-                        }
-                        else
-                        {
-                            m_view->setSelection(KTextEditor::Range(newCursor, end));
-                            m_view->setCursorPosition(newCursor);
-                        }
-                    }
-                }
-                else
-                    m_view->setCursorPosition(newCursor);
-                event->accept();
-                return;
-            }
-            break;
-        }
-        case Qt::Key_Backspace:
-
-            {
-                bool textDeleted = false;
-
-                KTextEditor::Range selection = m_view->selectionRange();
-                if (selection.isValid())
-                {
-                    textDeleted = m_document->removeText(selection);
-                    m_view->removeSelection();
-                }
-                else
-                {
-                    KTextEditor::Cursor cursor = m_view->cursorPosition();
-                    if (cursor.column() > 0)
-                    {
-                        KTextEditor::Range range(cursor.line(), cursor.column() - 1, cursor.line(), cursor.column());
-                        textDeleted = m_document->removeText(range);
-                    }
-                    else if (cursor.line() > 0)
-                    {
-                        int prevLineLength = m_document->lineLength(cursor.line() - 1);
-                        KTextEditor::Range range(cursor.line() - 1, prevLineLength, cursor.line(), 0);
-                        textDeleted = m_document->removeText(range);
-                    }
-                }
-
-                if (textDeleted) {
-                    QTimer::singleShot(0, this, [this]()
-                    {
-                        if (m_view && m_view->hasFocus() && m_completionModel)
-                        {
-                            KTextEditor::Cursor cursor = m_view->cursorPosition();
-                            QString line = m_document->line(cursor.line());
-                            QString textBeforeCursor = line.left(cursor.column());
-
-                            if (!textBeforeCursor.isEmpty())
-                            {
-                                const QChar lastChar = textBeforeCursor.back();
-                                if (lastChar.isLetter() || lastChar == QLatin1Char('_'))
-                                {
-                                    KTextEditor::Range range = m_view->document()->wordRangeAt(cursor);
-                                    m_completionModel->completionInvoked(m_view, range, KTextEditor::CodeCompletionModel::AutomaticInvocation);
-                                }
-                            }
-                        }
-                    });
-                }
-
-                event->accept();
-                return;
-            }
-        case Qt::Key_Delete:
-            {
-                bool textDeleted = false;
-
-                KTextEditor::Range selection = m_view->selectionRange();
-                if (selection.isValid())
-                {
-                    textDeleted = m_document->removeText(selection);
-                    m_view->removeSelection();
-                }
-                else
-                {
-                    KTextEditor::Cursor cursor = m_view->cursorPosition();
-                    if (cursor.column() < m_document->lineLength(cursor.line()))
-                    {
-                        KTextEditor::Range range(cursor.line(), cursor.column(), cursor.line(), cursor.column() + 1);
-                        textDeleted = m_document->removeText(range);
-                    }
-                    else if (cursor.line() < m_document->lines() - 1)
-                    {
-                        KTextEditor::Range range(cursor.line(), cursor.column(), cursor.line() + 1, 0);
-                        textDeleted = m_document->removeText(range);
-                    }
-                }
-                if (textDeleted)
-                {
-                    QTimer::singleShot(0, this, [this]()
-                    {
-                        if (m_view && m_view->hasFocus() && m_completionModel)
-                        {
-                            KTextEditor::Cursor cursor = m_view->cursorPosition();
-                            QString line = m_document->line(cursor.line());
-                            QString textBeforeCursor = line.left(cursor.column());
-
-                            if (!textBeforeCursor.isEmpty())
-                            {
-                                const QChar lastChar = textBeforeCursor.back();
-                                if (lastChar.isLetter() || lastChar == QLatin1Char('_'))
-                                {
-                                    KTextEditor::Range range = m_view->document()->wordRangeAt(cursor);
-                                    m_completionModel->completionInvoked(m_view, range, KTextEditor::CodeCompletionModel::AutomaticInvocation);
-                                }
-                            }
-                        }
-                    });
-                }
-
-                event->accept();
-                return;
-            }
     }
 
     QGraphicsProxyWidget::keyPressEvent(event);
@@ -1438,7 +1168,7 @@ void WorksheetTextEditorItem::mouseReleaseEvent(QGraphicsSceneMouseEvent* event)
             view->document()->replaceText(KTextEditor::Range(pos, pos), text);
         }
 
-    } 
+    }
     else
         QGraphicsProxyWidget::mouseReleaseEvent(event);
 
@@ -1520,15 +1250,15 @@ void WorksheetTextEditorItem::showCustomCompleter(const QList<CantorCompletionMo
 
 void WorksheetTextEditorItem::onCompleterItemSelected()
 {
+    if (m_completionModel)
+        m_completionModel->abortCompletion();
+
     if (!m_customCompleter || !m_customCompleter->currentItem() || !m_completionModel)
         return;
 
     int currentIndex = m_customCompleter->currentRow();
 
-    QModelIndex modelIndex = m_completionModel->index(currentIndex, 0);
-
-    if (modelIndex.isValid())
-        m_completionModel->executeCompletionItem(m_view, KTextEditor::Range(), modelIndex);
+    m_completionModel->executeCompletionItem(m_view, currentIndex);
 
     if (m_customCompleter && m_customCompleter->isVisible())
         m_customCompleter->hide();
