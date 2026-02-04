@@ -2127,7 +2127,7 @@ msgstr "새 항목 추가"
 #: backends/qthelpconfig.cpp:63
 #, kde-format
 msgid "Name cannot be empty."
-msgstr "이름을 비워둘 수 없습니다."
+msgstr "이름을 비워 둘 수 없습니다."
 
 #: backends/qthelpconfig.cpp:83
 #, kde-format
