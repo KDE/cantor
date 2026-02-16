@@ -10,7 +10,6 @@
 #include "textresult.h"
 #include "helpresult.h"
 #include "imageresult.h"
-#include "epsresult.h"
 #include "settings.h"
 #include "defaultvariablemodel.h"
 
@@ -627,11 +626,7 @@ void QalculateExpression::evaluatePlotCommand()
     if (plotInline && plotParameters.filename.empty()) {
         // TODO: get a temporary file name here
         if (!m_tempFile) {
-#ifdef WITH_EPS
-            m_tempFile = new QTemporaryFile(QDir::tempPath() + QLatin1String("/cantor_qalculate-XXXXXX.eps" ));
-#else
             m_tempFile = new QTemporaryFile(QDir::tempPath() + QLatin1String("/cantor_qalculate-XXXXXX.png"));
-#endif
             if (!m_tempFile->open()) {
                 setErrorMessage(i18n("Failed to create a temporary file for writing."));
                 setStatus(Cantor::Expression::Error);
@@ -646,28 +641,15 @@ void QalculateExpression::evaluatePlotCommand()
     CALCULATOR->plotVectors(&plotParameters, y_vectors, x_vectors,
 			    plotDataParameterList);
     if (checkForCalculatorMessages() & (MSG_WARN|MSG_ERR)) {
-	deletePlotDataParameters(plotDataParameterList);
-	return;
+        deletePlotDataParameters(plotDataParameterList);
+        return;
     }
 
     deletePlotDataParameters(plotDataParameterList);
 
     if (plotInline) {
-#ifdef WITH_EPS
-	size_t p = plotParameters.filename.size();
-	if (plotParameters.filetype == PLOT_FILETYPE_EPS ||
-	    plotParameters.filetype == PLOT_FILETYPE_PS  ||
-	    (plotParameters.filetype == PLOT_FILETYPE_AUTO && p >= 4 &&
-	     plotParameters.filename.substr(p-4,4) == ".eps") ||
-	    (plotParameters.filetype == PLOT_FILETYPE_AUTO && p >= 3 &&
-	     plotParameters.filename.substr(p-3,3) == ".ps"))
-        setResult(new Cantor::EpsResult(QUrl(QString::fromStdString(plotParameters.filename))));
-	else
-        setResult(new Cantor::ImageResult(QUrl(QString::fromStdString(plotParameters.filename))));
-#else
-    setResult(new Cantor::ImageResult(QUrl::fromLocalFile(QString::fromStdString(plotParameters.filename))));
-#endif
-	setStatus(Cantor::Expression::Done);
+        setResult(new Cantor::ImageResult(QUrl::fromLocalFile(QString::fromStdString(plotParameters.filename))));
+        setStatus(Cantor::Expression::Done);
     }
 }
 

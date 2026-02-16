@@ -1,7 +1,3 @@
-if(LIBSPECTRE_FOUND)
-   include_directories(${LIBSPECTRE_INCLUDE_DIR})
-endif(LIBSPECTRE_FOUND)
-
 set( cantor_LIB_SRCS
   session.cpp
   expression.cpp
@@ -10,7 +6,6 @@ set( cantor_LIB_SRCS
   textresult.cpp
   imageresult.cpp
   mimeresult.cpp
-  epsresult.cpp
   latexresult.cpp
   latexrenderer.cpp
   renderer.cpp
@@ -40,7 +35,6 @@ Set( cantor_LIB_HDRS
   syntaxhelpobject.h
   #results
   animationresult.h
-  epsresult.h
   helpresult.h
   imageresult.h
   latexresult.h
@@ -87,9 +81,9 @@ target_link_libraries( cantorlibs
   Poppler::Qt6
 )
 
-if(LIBSPECTRE_FOUND)
-    target_link_libraries(cantorlibs ${LIBSPECTRE_LIBRARY})
-endif(LIBSPECTRE_FOUND)
+# if(LIBSPECTRE_FOUND)
+#     target_link_libraries(cantorlibs ${LIBSPECTRE_LIBRARY})
+# endif(LIBSPECTRE_FOUND)
 
 set (CANTORLIBS_SOVERSION 28)
 set_target_properties( cantorlibs PROPERTIES VERSION ${RELEASE_SERVICE_VERSION} SOVERSION ${CANTORLIBS_SOVERSION})

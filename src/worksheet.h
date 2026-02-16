@@ -335,7 +335,7 @@ class Worksheet : public QGraphicsScene
     static const double EntryCursorWidth;
 
     Cantor::Session* m_session{nullptr};
-    Cantor::Renderer m_epsRenderer;
+    Cantor::Renderer m_renderer;
     MathRenderer m_mathRenderer;
     WorksheetEntry* m_firstEntry{nullptr};
     WorksheetEntry* m_lastEntry{nullptr};

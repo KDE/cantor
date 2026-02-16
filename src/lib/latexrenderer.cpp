@@ -1,7 +1,7 @@
 /*
-    SPDX-License-Identifier: GPL-2.0-or-later
-    SPDX-FileCopyrightText: 2011 Alexander Rieder <alexanderrieder@gmail.com>
-*/
+ *    SPDX-License-Identifier: GPL-2.0-or-later
+ *    SPDX-FileCopyrightText: 2011 Alexander Rieder <alexanderrieder@gmail.com>
+ */
 
 #include "latexrenderer.h"
 using namespace Cantor;
@@ -21,7 +21,7 @@ using namespace Cantor;
 
 class Cantor::LatexRendererPrivate
 {
-  public:
+public:
     QString latexCode;
     QString header;
     LatexRenderer::Method method;
@@ -30,33 +30,34 @@ class Cantor::LatexRendererPrivate
     QString errorMessage;
     bool success;
     QString latexFilename;
-    QString epsFilename;
+    QString pdfFilename;
     QString uuid;
     QTemporaryFile* texFile;
 };
 
-static const QLatin1String tex("\\documentclass[fleqn]{article}"\
+static const QLatin1String tex("\\documentclass%9{minimal}"\
                          "\\usepackage{latexsym,amsfonts,amssymb,ulem}"\
                          "\\usepackage{amsmath}"\
-                         "\\usepackage[dvips]{graphicx}"\
                          "\\usepackage[utf8]{inputenc}"\
-                         "\\usepackage{xcolor}"\
-                         "\\setlength\\textwidth{5in}"\
-                         "\\setlength{\\parindent}{0pt}"\
-                         "%1"\
-                         "\\pagecolor[rgb]{%2,%3,%4}"\
-                         "\\pagestyle{empty}"\
+                         "\\usepackage{color}"\
+                         "\\usepackage[active,displaymath,tightpage]{preview}"\
+                         "\\setlength\\PreviewBorder{0pt}"\
+                         "\\setlength{\\fboxsep}{0pt}"\
                          "\\begin{document}"\
-                         "\\color[rgb]{%5,%6,%7}"\
-                         "\\fontsize{%8}{%8}\\selectfont\n"\
-                         "%9\n"\
+                         "\\begin{preview}"\
+                         "\\colorbox[rgb]{%1,%2,%3}{"\
+                         "\\color[rgb]{%4,%5,%6}"\
+                         "\\fontsize{%7}{%7}\\selectfont"\
+                         "%8}"\
+                         "\\end{preview}"\
                          "\\end{document}");
 
-static const QLatin1String eqnHeader("\\begin{eqnarray*}%1\\end{eqnarray*}");
+
+static const QLatin1String eqnHeader("$\\displaystyle %1$");
 static const QLatin1String inlineEqnHeader("$%1$");
 
 LatexRenderer::LatexRenderer(QObject* parent) : QObject(parent),
-                                                d(new LatexRendererPrivate)
+d(new LatexRendererPrivate)
 {
     d->method=LatexMethod;
     d->isEquationOnly=false;
@@ -115,7 +116,6 @@ LatexRenderer::EquationType LatexRenderer::equationType() const
     return d->equationType;
 }
 
-
 void LatexRenderer::setErrorMessage(const QString& msg)
 {
     d->errorMessage=msg;
@@ -141,10 +141,9 @@ bool LatexRenderer::isEquationOnly() const
     return d->isEquationOnly;
 }
 
-
 QString LatexRenderer::imagePath() const
 {
-    return d->epsFilename;
+    return d->pdfFilename;
 }
 
 QString Cantor::LatexRenderer::uuid() const
@@ -195,24 +194,34 @@ bool LatexRenderer::renderWithLatex()
     KColorScheme scheme(QPalette::Active);
     const QColor backgroundColor=scheme.background().color();
     const QColor foregroundColor=scheme.foreground().color();
+
     QString expressionTex=tex;
-    expressionTex=expressionTex.arg(d->header)
-                               .arg(backgroundColor.redF()).arg(backgroundColor.greenF()).arg(backgroundColor.blueF())
-                               .arg(foregroundColor.redF()).arg(foregroundColor.greenF()).arg(foregroundColor.blueF());
 
-    int fontPointSize = QApplication::font().pointSize();
-    expressionTex=expressionTex.arg(fontPointSize);
-
+    // Wrap the latex code with equation formatting
+    QString wrappedLatex;
     if(isEquationOnly())
     {
         switch(equationType())
         {
-            case FullEquation: expressionTex=expressionTex.arg(eqnHeader); break;
-            case InlineEquation: expressionTex=expressionTex.arg(inlineEqnHeader); break;
-            case CustomEquation: expressionTex=expressionTex.arg(QLatin1String("%1")); break;
+            case FullEquation: wrappedLatex = eqnHeader; break;
+            case InlineEquation: wrappedLatex = inlineEqnHeader; break;
+            case CustomEquation: wrappedLatex = QLatin1String("%1"); break;
         }
+        wrappedLatex = wrappedLatex.arg(d->latexCode);
     }
-    expressionTex=expressionTex.arg(d->latexCode);
+    else
+    {
+        wrappedLatex = d->latexCode;
+    }
+
+    int fontPointSize = QApplication::font().pointSize();
+
+    expressionTex = expressionTex
+    .arg(backgroundColor.redF()).arg(backgroundColor.greenF()).arg(backgroundColor.blueF())
+    .arg(foregroundColor.redF()).arg(foregroundColor.greenF()).arg(foregroundColor.blueF())
+    .arg(fontPointSize)
+    .arg(wrappedLatex)
+    .arg(QString()); // %9 - empty for documentclass option
 
     // qDebug()<<"full tex:\n"<<expressionTex;
 
@@ -226,60 +235,35 @@ bool LatexRenderer::renderWithLatex()
     p->setWorkingDirectory(dir);
 
     d->uuid = genUuid();
+    d->pdfFilename = dir + QDir::separator() + QStringLiteral("cantor_") + d->uuid + QStringLiteral(".pdf");
 
     qDebug() << CantorLibsSettings::self()->latexCommand();
-    QFileInfo info(CantorLibsSettings::self()->latexCommand());
-    if (info.exists() && info.isExecutable())
+    const QString& pdflatex = QStandardPaths::findExecutable(QLatin1String("pdflatex"));
+    if (!pdflatex.isEmpty())
     {
-        p->setProgram(CantorLibsSettings::self()->latexCommand());
+        p->setProgram(pdflatex);
         p->setArguments({QStringLiteral("-jobname=cantor_") + d->uuid, QStringLiteral("-halt-on-error"), fileName});
 
-        connect(p, SIGNAL(finished(int,QProcess::ExitStatus)), this, SLOT(convertToPs()) );
+        connect(p, SIGNAL(finished(int,QProcess::ExitStatus)), this, SLOT(convertingDone()) );
         p->start();
         return true;
     }
     else
     {
-        setErrorMessage(QStringLiteral("failed to find latex executable"));
+        setErrorMessage(QStringLiteral("failed to find pdflatex executable"));
         return false;
-    }
-}
-
-void LatexRenderer::convertToPs()
-{
-    const QString& dir=QStandardPaths::writableLocation(QStandardPaths::TempLocation);
-
-    QString dviFile = dir + QDir::separator() + QStringLiteral("cantor_") + d->uuid + QStringLiteral(".dvi");
-    d->epsFilename = dir + QDir::separator() + QLatin1String("cantor_")+d->uuid+QLatin1String(".eps");
-
-    QProcess *p=new QProcess( this );
-    qDebug()<<"converting to eps: "<<CantorLibsSettings::self()->dvipsCommand()<<"-E"<<"-o"<<d->epsFilename<<dviFile;
-
-    QFileInfo info(CantorLibsSettings::self()->dvipsCommand());
-    if (info.exists() && info.isExecutable())
-    {
-        p->setProgram(CantorLibsSettings::self()->dvipsCommand());
-        p->setArguments({QStringLiteral("-E"), QStringLiteral("-q"), QStringLiteral("-o"), d->epsFilename, dviFile});
-
-        connect(p, SIGNAL(finished(int,QProcess::ExitStatus)), this, SLOT(convertingDone()) );
-        p->start();
-    }
-    else
-    {
-        setErrorMessage(QStringLiteral("failed to find dvips executable"));
-        Q_EMIT error();
     }
 }
 
 void LatexRenderer::convertingDone()
 {
-    QFileInfo info(d->epsFilename);
+    QFileInfo info(d->pdfFilename);
     qDebug() <<"remove temporary files for " << d->latexFilename;
 
     QString pathWithoutExtension = info.path() + QDir::separator() + info.completeBaseName();
     QFile::remove(pathWithoutExtension + QLatin1String(".log"));
     QFile::remove(pathWithoutExtension + QLatin1String(".aux"));
-    QFile::remove(pathWithoutExtension + QLatin1String(".dvi"));
+    // QFile::remove(pathWithoutExtension + QLatin1String(".dvi"));
 
     if(info.exists())
     {
@@ -292,7 +276,7 @@ void LatexRenderer::convertingDone()
     else
     {
         d->success=false;
-        setErrorMessage(QStringLiteral("failed to create the latex preview image"));
+        setErrorMessage(QStringLiteral("failed to create the latex preview pdf"));
         Q_EMIT error();
     }
 }
@@ -315,7 +299,6 @@ QString LatexRenderer::genUuid()
 
 bool Cantor::LatexRenderer::isLatexAvailable()
 {
-    QFileInfo infoLatex(CantorLibsSettings::self()->latexCommand());
-    QFileInfo infoPs(CantorLibsSettings::self()->dvipsCommand());
-    return infoLatex.exists() && infoLatex.isExecutable() && infoPs.exists() && infoPs.isExecutable();
+    QFileInfo infoPdf(QStandardPaths::findExecutable(QLatin1String("pdflatex")));
+    return infoPdf.exists() && infoPdf.isExecutable();
 }

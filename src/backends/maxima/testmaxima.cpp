@@ -12,7 +12,6 @@
 #include "result.h"
 #include "textresult.h"
 #include "imageresult.h"
-#include "epsresult.h"
 #include "syntaxhelpobject.h"
 #include "defaultvariablemodel.h"
 
@@ -91,7 +90,6 @@ void TestMaxima::testMultilineCommand03()
 }
 
 //WARNING: for this test to work, Integration of Plots must be enabled
-//and CantorLib must be compiled with EPS-support
 void TestMaxima::testPlot()
 {
     QSKIP("Skipping plotting test due to CI environment issues.", SkipSingle);

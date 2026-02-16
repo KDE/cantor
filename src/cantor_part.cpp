@@ -296,12 +296,10 @@ CantorPart::CantorPart(QObject* parent, const QVariantList& args)
     m_editActions.push_back(insertMarkdownEntry);
 #endif
 
-#ifdef WITH_EPS
     QAction* insertLatexEntry = new QAction(QIcon::fromTheme(QLatin1String("text-x-tex")), i18n("Insert LaTeX Entry"), collection);
     collection->addAction(QLatin1String("insert_latex_entry"),  insertLatexEntry);
     connect(insertLatexEntry, SIGNAL(triggered()), m_worksheet, SLOT(insertLatexEntry()));
     m_editActions.push_back(insertLatexEntry);
-#endif
 
     QAction* insertPageBreakEntry = new QAction(QIcon::fromTheme(QLatin1String("go-next-view-page")), i18n("Insert Page Break"), collection);
     collection->addAction(QLatin1String("insert_page_break_entry"), insertPageBreakEntry);
@@ -881,12 +879,9 @@ void CantorPart::searchBarDeleted()
 void CantorPart::adjustGuiToSession()
 {
     auto capabilities = m_worksheet->session()->backend()->capabilities();
-#ifdef WITH_EPS
     if (Cantor::LatexRenderer::isLatexAvailable())
         m_typeset->setVisible(capabilities.testFlag(Cantor::Backend::LaTexOutput));
-#else
-    m_typeset->setVisible(false);
-#endif
+
     m_completion->setVisible(capabilities.testFlag(Cantor::Backend::Completion));
 }
 

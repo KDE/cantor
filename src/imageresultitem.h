@@ -10,7 +10,6 @@
 #include "worksheetimageitem.h"
 
 class CommandEntry;
-class EpsRenderer;
 
 class ImageResultItem : public WorksheetImageItem, public ResultItem
 {

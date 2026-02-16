@@ -27,7 +27,7 @@ class CANTOR_EXPORT Renderer
                             Delimiter = 4};
     enum FormulaType {LatexFormula = Cantor::LatexRenderer::LatexMethod,
                       MmlFormula = Cantor::LatexRenderer::MmlMethod};
-    enum Method {PDF, EPS};
+    enum Method {PDF};
 
     QTextImageFormat render(QTextDocument *document, const Cantor::LatexRenderer* latex);
     QTextImageFormat render(QTextDocument *document, Method method, const QUrl& url, const QString& uuid);
@@ -40,7 +40,7 @@ class CANTOR_EXPORT Renderer
     QSizeF renderToResource(QTextDocument *document, Method method, const QUrl& url, const QUrl& internal);
 
     QImage renderToImage(const QUrl& url, Method method, QSizeF* size = nullptr);
-    static QImage epsRenderToImage(const QUrl& url, double scale, bool useHighRes, QSizeF* size = nullptr, QString* errorReason = nullptr);
+
     static QImage pdfRenderToImage(const QUrl& url, double scale, bool useHighRes, QSizeF* size = nullptr, QString* errorReason = nullptr);
 
   private:

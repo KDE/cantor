@@ -13,7 +13,6 @@
 #include "imageresult.h"
 #include "textresult.h"
 #include "helpresult.h"
-#include "epsresult.h"
 #include "syntaxhelpobject.h"
 #include "defaultvariablemodel.h"
 
@@ -483,8 +482,7 @@ void TestOctave::testVariableCreatingFromCodeWithPlot()
     QVERIFY(e->result() != nullptr);
 
     bool eps = (OctaveExpression::plotExtensions[OctaveSettings::inlinePlotFormat()] == QLatin1String("eps"));
-    int plotType = eps ? (int)Cantor::EpsResult::Type : (int)Cantor::ImageResult::Type;
-    QVERIFY(e->result()->type() == plotType);
+    QVERIFY(e->result()->type() == Cantor::ImageResult::Type);
 
     QCOMPARE(1, model->rowCount());
     QCOMPARE(model->index(0,0).data().toString(), QLatin1String("x"));

@@ -6,18 +6,18 @@
 #ifndef _LATEXRESULT_H
 #define _LATEXRESULT_H
 
-#include "epsresult.h"
+#include "imageresult.h"
 #include "cantor_export.h"
+
+#include <QImage>
 
 namespace Cantor{
 class LatexResultPrivate;
 
-/**Class used for LaTeX results, it is basically an Eps result,
-   but it exports a different type, and additionally stores the
-   LaTeX code, used to generate the Eps, so it can be retrieved
-   later
+/**Class used for LaTeX results. It stores the image result of the rendered LaTeX code,
+ a nd additionally stores the LaTeX code itself for later retrieval.
 **/
-class CANTOR_EXPORT LatexResult : public EpsResult
+class CANTOR_EXPORT LatexResult : public ImageResult
 {
   public:
     enum {Type=7};

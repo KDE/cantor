@@ -13,9 +13,7 @@
 #include "lib/renderer.h"
 #include "lib/mimeresult.h"
 #include "lib/htmlresult.h"
-#ifdef WITH_EPS
 #include "mathrendertask.h"
-#endif
 #include "settings.h"
 #include "worksheetview.h"
 
@@ -135,7 +133,6 @@ void TextResultItem::setLatex(Cantor::LatexResult* result)
         latex = latex.left(latex.size() - 15);
     }
 
-#ifdef WITH_EPS
     if (result->isCodeShown()) {
         if (latex.isEmpty())
             cursor.removeSelectedText();
@@ -143,14 +140,15 @@ void TextResultItem::setLatex(Cantor::LatexResult* result)
             cursor.insertText(latex);
     } else {
         QTextImageFormat format;
+        QImage image = result->data().value<QImage>();
 
-        if (!result->image().isNull() && worksheet()->renderer()->scale() == 1.0)
-            cursor.insertText(QString(QChar::ObjectReplacementCharacter), toFormat(result->image(), latex));
+        if (!image.isNull() && worksheet()->renderer()->scale() == 1.0)
+            cursor.insertText(QString(QChar::ObjectReplacementCharacter), toFormat(image, latex));
         else
         {
             QString uuid = Cantor::LatexRenderer::genUuid();
             auto* renderer = qobject_cast<Worksheet*>(scene())->renderer();;
-            format = renderer->render(cursor.document(), Cantor::Renderer::EPS, result->url(), uuid);
+            format = renderer->render(cursor.document(), Cantor::Renderer::PDF, result->url(), uuid);
             format.setProperty(Cantor::Renderer::CantorFormula,
                             Cantor::Renderer::LatexFormula);
             format.setProperty(Cantor::Renderer::Code, latex);
@@ -161,9 +159,6 @@ void TextResultItem::setLatex(Cantor::LatexResult* result)
                 cursor.insertText(i18n("Cannot render Eps file. You may need additional packages"));
         }
     }
-#else
-    cursor.insertText(QString(QChar::ObjectReplacementCharacter), toFormat(result->image(), latex));
-#endif
 }
 
 double TextResultItem::width() const

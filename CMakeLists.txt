@@ -82,36 +82,8 @@ endif ()
 
 find_package(Poppler "22.02.0" COMPONENTS Qt6)
 
-option(USE_LIBSPECTRE "Use libspectre library" ON)
 
 add_subdirectory(thirdparty)
-# Need to set this here, because variable can't move from subdirectory (thirdparty) to upper cmake scope
-set(Discount_FOUND TRUE)
-
-if(NOT WIN32 AND USE_LIBSPECTRE)
-    set_package_properties(LibSpectre PROPERTIES DESCRIPTION "A PostScript rendering library"
-        URL "https://www.freedesktop.org/wiki/Software/libspectre/"
-        TYPE OPTIONAL
-        PURPOSE "Support for rendering EPS files in Cantor")
-
-    find_package(LibSpectre)
-    if(LIBSPECTRE_FOUND)
-        set(WITH_EPS On)
-    else(LIBSPECTRE_FOUND)
-        set(WITH_EPS Off)
-    endif(LIBSPECTRE_FOUND)
-
-else()
-    set(WITH_EPS Off)
-endif()
-
-#[[
-find_package(Discount 2.2.0)
-set_package_properties(Discount PROPERTIES DESCRIPTION "A C implementation of the Markdown markup language"
-    URL "https://www.pell.portland.or.us/~orc/Code/discount/"
-    TYPE OPTIONAL
-    PURPOSE "Used for Markdown entries in Cantor")
-]]#
 
 add_definitions(
     -DQT_NO_CAST_TO_ASCII

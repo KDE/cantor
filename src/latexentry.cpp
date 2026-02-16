@@ -106,7 +106,8 @@ void LatexEntry::setContent(const QDomElement& content, const KZip& file)
 
     if(content.hasAttribute(QLatin1String("filename")))
     {
-        const KArchiveEntry* imageEntry=file.directory()->entry(content.attribute(QLatin1String("filename")));
+        const QString fileName = content.attribute(QLatin1String("filename"));
+        const KArchiveEntry* imageEntry = file.directory()->entry(fileName);
         if (imageEntry&&imageEntry->isFile())
         {
             const KArchiveFile* imageFile=static_cast<const KArchiveFile*>(imageEntry);
@@ -114,19 +115,30 @@ void LatexEntry::setContent(const QDomElement& content, const KZip& file)
             imageFile->copyTo(dir);
             imagePath = dir + QDir::separator() + imageFile->name();
 
-#ifdef LIBSPECTRE_FOUND
-            QString uuid = Cantor::LatexRenderer::genUuid();
-            m_renderedFormat = worksheet()->renderer()->render(m_textItem->document(), Cantor::Renderer::EPS, QUrl::fromLocalFile(imagePath), uuid);
-            qDebug()<<"rendering successful? " << !m_renderedFormat.name().isEmpty();
+            if (fileName.endsWith(QLatin1String(".eps"), Qt::CaseInsensitive))
+            {
+                qDebug() << "Detected old EPS file, rerendering to PDF...";
+                if (renderLatexCode())
+                {
+                    useLatexCode = false;
+                }
+            }
+            else
+            {
+                QString uuid = Cantor::LatexRenderer::genUuid();
+                m_renderedFormat = worksheet()->renderer()->render(m_textItem->document(), Cantor::Renderer::PDF, QUrl::fromLocalFile(imagePath), uuid);
 
-            m_renderedFormat.setProperty(Cantor::Renderer::CantorFormula, Cantor::Renderer::LatexFormula);
-            m_renderedFormat.setProperty(Cantor::Renderer::ImagePath, imagePath);
-            m_renderedFormat.setProperty(Cantor::Renderer::Code, m_latex);
+                if (!m_renderedFormat.name().isEmpty())
+                {
+                    m_renderedFormat.setProperty(Cantor::Renderer::CantorFormula, Cantor::Renderer::LatexFormula);
+                    m_renderedFormat.setProperty(Cantor::Renderer::ImagePath, imagePath);
+                    m_renderedFormat.setProperty(Cantor::Renderer::Code, m_latex);
 
-            cursor.insertText(QString(QChar::ObjectReplacementCharacter), m_renderedFormat);
-            useLatexCode = false;
-            m_textItem->denyEditing();
-#endif
+                    cursor.insertText(QString(QChar::ObjectReplacementCharacter), m_renderedFormat);
+                    useLatexCode = false;
+                    m_textItem->denyEditing();
+                }
+            }
         }
     }
 
@@ -268,20 +280,16 @@ QDomElement LatexEntry::toXml(QDomDocument& doc, KZip* archive)
     {
         QTextImageFormat format=cursor.charFormat().toImageFormat();
         QString fileName = format.property(Cantor::Renderer::ImagePath).toString();
-        // Check, if eps file exists, and if not true, rerender latex code
-        bool isEpsFileExists = QFile::exists(fileName);
+        bool isImageFileExists = QFile::exists(fileName);
 
-#ifdef LIBSPECTRE_FOUND
-        if (!isEpsFileExists && renderLatexCode())
+        if (!isImageFileExists && renderLatexCode())
         {
             cursor = m_textItem->document()->find(QString(QChar::ObjectReplacementCharacter));
             format=cursor.charFormat().toImageFormat();
             fileName = format.property(Cantor::Renderer::ImagePath).toString();
-            isEpsFileExists = QFile::exists(fileName);
+            isImageFileExists = QFile::exists(fileName);
         }
-#endif
-
-        if (isEpsFileExists && archive)
+        if (isImageFileExists && archive)
         {
             const QUrl& url=QUrl::fromLocalFile(fileName);
             archive->addLocalFile(url.toLocalFile(), url.fileName());
@@ -363,10 +371,10 @@ void LatexEntry::updateEntry()
     QTextCursor cursor = m_textItem->document()->find(QString(QChar::ObjectReplacementCharacter));
     while (!cursor.isNull())
     {
-        qDebug()<<"found a formula... rendering the eps...";
+        qDebug() << "Found a formula, re-rendering using PDF renderer...";
         QTextImageFormat format=cursor.charFormat().toImageFormat();
         const QUrl& url=QUrl::fromLocalFile(format.property(Cantor::Renderer::ImagePath).toString());
-        QSizeF s = worksheet()->renderer()->renderToResource(m_textItem->document(), Cantor::Renderer::EPS, url, QUrl(format.name()));
+        QSizeF s = worksheet()->renderer()->renderToResource(m_textItem->document(), Cantor::Renderer::PDF, url, QUrl(format.name()));
         qDebug()<<"rendering successful? "<< s.isValid();
 
         cursor.movePosition(QTextCursor::NextCharacter);
@@ -502,17 +510,25 @@ bool LatexEntry::renderLatexCode()
 {
     bool success = false;
     QString latex = latexCode();
+
+    // For LaTeXEntry, always use display mode: strip delimiters and use FullEquation
+    // This ensures consistent rendering for both $ and $ inputs
+    latex = latex.trimmed();
+    latex.remove(QLatin1String("$"));
+    latex = latex.trimmed();
+
     m_renderedFormat = QTextImageFormat(); // clear rendered image
     Cantor::LatexRenderer* renderer = new Cantor::LatexRenderer(this);
     renderer->setLatexCode(latex);
-    renderer->setEquationOnly(false);
+    renderer->setEquationOnly(true);
+    renderer->setEquationType(Cantor::LatexRenderer::FullEquation);
     renderer->setMethod(Cantor::LatexRenderer::LatexMethod);
     renderer->renderBlocking();
 
     if (renderer->renderingSuccessful())
     {
-        Cantor::Renderer* epsRend = worksheet()->renderer();
-        m_renderedFormat = epsRend->render(m_textItem->document(), renderer);
+        Cantor::Renderer* pdfRend = worksheet()->renderer();
+        m_renderedFormat = pdfRend->render(m_textItem->document(), renderer);
         success = !m_renderedFormat.name().isEmpty();
     }
     else

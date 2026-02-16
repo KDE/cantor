@@ -44,7 +44,7 @@ public:
 
 static const QString tex=QLatin1String("\\documentclass[12pt,fleqn]{article}          \n "\
                          "\\usepackage{latexsym,amsfonts,amssymb,ulem}  \n "\
-                         "\\usepackage[dvips]{graphicx}                 \n "\
+                         "\\usepackage{graphicx}                 \n "\
                          "\\setlength\\textwidth{5in}                   \n "\
                          "\\setlength{\\parindent}{0pt}                 \n "\
                          "%1                                            \n "\
@@ -123,7 +123,6 @@ void Expression::addResult(Result* result)
     if(result!=nullptr)
     {
         qDebug()<<"setting result to a type "<<result->type()<<" result";
-        #ifdef WITH_EPS
         //If it's text, and latex typesetting is enabled, render it
         if ( session() &&
              session()->isTypesettingEnabled()&&
@@ -137,7 +136,6 @@ void Expression::addResult(Result* result)
             renderResultAsLatex(result);
             return;
         }
-        #endif
     }
 
     d->results << result;

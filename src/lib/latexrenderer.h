@@ -58,7 +58,6 @@ class CANTOR_EXPORT LatexRenderer : public QObject
   private Q_SLOTS:
     bool renderWithLatex();
     bool renderWithMml();
-    void convertToPs();
     void convertingDone();
 
   private:

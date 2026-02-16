@@ -13,7 +13,6 @@
 #include "lib/textresult.h"
 #include "lib/latexresult.h"
 #include "lib/imageresult.h"
-#include "lib/epsresult.h"
 #include "lib/animationresult.h"
 #include "lib/mimeresult.h"
 #include "lib/htmlresult.h"
@@ -34,7 +33,6 @@ ResultItem* ResultItem::create(WorksheetEntry* parent, Cantor::Result* result)
     case Cantor::HtmlResult::Type:
         return new TextResultItem(parent, result);
     case Cantor::ImageResult::Type:
-    case Cantor::EpsResult::Type:
         return new ImageResultItem(parent, result);
     case Cantor::AnimationResult::Type:
         return new AnimationResultItem(parent, result);

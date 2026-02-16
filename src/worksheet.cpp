@@ -85,9 +85,9 @@ Worksheet::Worksheet(Cantor::Backend* backend, QWidget* parent, bool useDefaultW
     {
         const bool isDarkMode = (QApplication::palette().color(QPalette::Base).lightness() < 128);
         const QString preferredTheme = isDarkMode ? QStringLiteral("Breeze Dark") : QStringLiteral("Breeze Light");
-        
+
         m_currentTheme = repository.theme(preferredTheme);
-        
+
         if (!m_currentTheme.isValid())
             m_currentTheme = repository.defaultTheme();
     }
@@ -156,14 +156,14 @@ void Worksheet::loginToSession()
 
 void Worksheet::print(QPrinter* printer)
 {
-    m_epsRenderer.useHighResolution(true);
+    m_renderer.useHighResolution(true);
     m_mathRenderer.useHighResolution(true);
     m_isPrinting = true;
 
     const auto originalTheme = m_currentTheme;
     const auto& repository = KTextEditor::Editor::instance()->repository();
     KSyntaxHighlighting::Theme printTheme = repository.theme(QStringLiteral("Breeze Light"));
-    if (!printTheme.isValid()) 
+    if (!printTheme.isValid())
         printTheme = repository.defaultTheme();
 
     bool themeSwitched = false;
@@ -211,9 +211,9 @@ void Worksheet::print(QPrinter* printer)
 
     painter.end();
     m_isPrinting = false;
-    m_epsRenderer.useHighResolution(false);
+    m_renderer.useHighResolution(false);
     m_mathRenderer.useHighResolution(false);
-    m_epsRenderer.setScale(-1);  // force update in next call to setViewSize,
+    m_renderer.setScale(-1);  // force update in next call to setViewSize,
     worksheetView()->updateSceneSize(); // ... which happens in here
 
     if (themeSwitched)
@@ -235,8 +235,8 @@ void Worksheet::setViewSize(qreal w, qreal h, qreal s, bool forceUpdate)
     Q_UNUSED(h);
 
     m_viewWidth = w;
-    if (s != m_epsRenderer.scale() || forceUpdate) {
-        m_epsRenderer.setScale(s);
+    if (s != m_renderer.scale() || forceUpdate) {
+        m_renderer.setScale(s);
         m_mathRenderer.setScale(s);
         for (auto* entry = firstEntry(); entry; entry = entry->next())
             entry->updateEntry();
@@ -537,7 +537,7 @@ void Worksheet::setWorksheetCursor(const WorksheetCursor& cursor)
 
 void Worksheet::setWorksheetCursor(const KWorksheetCursor& cursor)
 {
-    if(!cursor.isValid()) 
+    if(!cursor.isValid())
         return;
 
     if (m_lastFocusedTextItem)
@@ -1809,7 +1809,7 @@ void Worksheet::removeCurrentEntry()
 
 Cantor::Renderer* Worksheet::renderer()
 {
-    return &m_epsRenderer;
+    return &m_renderer;
 }
 
 MathRenderer* Worksheet::mathRenderer()
@@ -1854,10 +1854,8 @@ void Worksheet::populateMenu(QMenu* menu, QPointF pos)
             if (entry->type() != MarkdownEntry::Type)
                 convertTo->addAction(QIcon::fromTheme(QLatin1String("text-x-markdown")), i18n("Markdown"), entry, &WorksheetEntry::convertToMarkdownEntry);
     #endif
-    #ifdef WITH_EPS
             if (entry->type() != LatexEntry::Type)
                 convertTo->addAction(QIcon::fromTheme(QLatin1String("text-x-tex")), i18n("LaTeX"), entry, &WorksheetEntry::convertToLatexEntry);
-    #endif
             if (entry->type() != ImageEntry::Type)
                 convertTo->addAction(QIcon::fromTheme(QLatin1String("image-x-generic")), i18n("Image"), entry, &WorksheetEntry::convertToImageEntry);
 
@@ -1881,9 +1879,7 @@ void Worksheet::populateMenu(QMenu* menu, QPointF pos)
     #ifdef Discount_FOUND
             insert->addAction(QIcon::fromTheme(QLatin1String("text-x-markdown")), i18n("Markdown"), entry, SLOT(insertMarkdownEntry()));
     #endif
-    #ifdef WITH_EPS
             insert->addAction(QIcon::fromTheme(QLatin1String("text-x-tex")), i18n("LaTeX"), entry, SLOT(insertLatexEntry()));
-    #endif
             insert->addAction(QIcon::fromTheme(QLatin1String("image-x-generic")), i18n("Image"), entry, SLOT(insertImageEntry()));
             insert->addSeparator();
             insert->addAction(QIcon::fromTheme(QLatin1String("newline")), i18n("Horizontal Line"), entry, SLOT(insertHorizontalRuleEntry()));
@@ -1901,9 +1897,7 @@ void Worksheet::populateMenu(QMenu* menu, QPointF pos)
     #ifdef Discount_FOUND
             insertBefore->addAction(QIcon::fromTheme(QLatin1String("text-x-markdown")), i18n("Markdown"), entry, SLOT(insertMarkdownEntryBefore()));
     #endif
-    #ifdef WITH_EPS
             insertBefore->addAction(QIcon::fromTheme(QLatin1String("text-x-tex")), i18n("LaTeX"), entry, SLOT(insertLatexEntryBefore()));
-    #endif
             insertBefore->addAction(QIcon::fromTheme(QLatin1String("image-x-generic")), i18n("Image"), entry, SLOT(insertImageEntryBefore()));
             insertBefore->addSeparator();
             insertBefore->addAction(QIcon::fromTheme(QLatin1String("newline")), i18n("Horizontal Line"), entry, SLOT(insertHorizontalRuleEntryBefore()));
@@ -1919,9 +1913,8 @@ void Worksheet::populateMenu(QMenu* menu, QPointF pos)
     #ifdef Discount_FOUND
             insertMenu->addAction(QIcon::fromTheme(QLatin1String("text-x-markdown")), i18n("Markdown"), this, &Worksheet::appendMarkdownEntry);
     #endif
-    #ifdef WITH_EPS
+
             insertMenu->addAction(QIcon::fromTheme(QLatin1String("text-x-tex")), i18n("LaTeX"), this, &Worksheet::appendLatexEntry);
-    #endif
             insertMenu->addAction(QIcon::fromTheme(QLatin1String("image-x-generic")), i18n("Image"), this, &Worksheet::appendImageEntry);
             insertMenu->addSeparator();
             insertMenu->addAction(QIcon::fromTheme(QLatin1String("newline")), i18n("Horizontal Line"), this, &Worksheet::appendHorizontalRuleEntry);
@@ -2318,7 +2311,7 @@ void Worksheet::updateFocusedTextItem(WorksheetTextItem* newItem)
 
     if (newItem) {
         WorksheetEntry* entry = qobject_cast<WorksheetEntry*>(newItem->parentObject());
-        if (entry) 
+        if (entry)
             setAcceptRichText(entry->acceptRichText());
 
         Q_EMIT undoAvailable(newItem->isUndoAvailable());
@@ -2370,7 +2363,7 @@ void Worksheet::updateFocusedTextItem(WorksheetTextEditorItem* newItem)
         if (newItem && m_lastFocusedTextItem != newItem) {
             connect(this, &Worksheet::copy, newItem, &WorksheetTextEditorItem::copy);
             Q_EMIT copyAvailable(newItem->isCopyAvailable());
-        } 
+        }
         else if (!newItem)
             Q_EMIT copyAvailable(false);
         m_lastFocusedTextItem = newItem;
@@ -3139,7 +3132,7 @@ void Worksheet::handleSettingsChanges()
     {
         const bool isDarkMode = (QApplication::palette().color(QPalette::Base).lightness() < 128);
         const QString preferredTheme = isDarkMode ? QStringLiteral("Breeze Dark") : QStringLiteral("Breeze Light");
-        
+
         m_currentTheme = repository.theme(preferredTheme);
 
         if (!m_currentTheme.isValid())

@@ -7,7 +7,6 @@
 
 #include "lib/jupyterutils.h"
 #include "lib/imageresult.h"
-#include "lib/epsresult.h"
 #include "lib/textresult.h"
 #include "lib/latexresult.h"
 #include "lib/animationresult.h"
@@ -132,14 +131,14 @@ void LoadedExpression::loadFromXml(const QDomElement& xml, const KZip& file)
                     const QByteArray& ba = QByteArray::fromBase64(resultElement.attribute(QLatin1String("image")).toLatin1());
                     QImage image;
                     image.loadFromData(ba);
-                    addResult(new Cantor::EpsResult(imageUrl, image));
+                    addResult(new Cantor::ImageResult(imageUrl, resultElement.text()));
                 }
-                else if(imageFile->name().endsWith(QLatin1String(".eps")))
+                else if(imageFile->name().endsWith(QLatin1String(".eps"), Qt::CaseInsensitive))
                 {
                     const QByteArray& ba = QByteArray::fromBase64(resultElement.attribute(QLatin1String("image")).toLatin1());
                     QImage image;
                     image.loadFromData(ba);
-                    addResult(new Cantor::EpsResult(imageUrl, image));
+                    addResult(new Cantor::ImageResult(imageUrl, resultElement.text()));
                 }
                 else
                 {

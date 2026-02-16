@@ -9,7 +9,6 @@
 #include "textresult.h"
 #include "imageresult.h"
 #include "helpresult.h"
-#include "epsresult.h"
 #include "rsession.h"
 
 #include <QDebug>

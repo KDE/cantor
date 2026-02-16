@@ -28,9 +28,9 @@ class Cantor::LatexResultPrivate
     QString plain;
 };
 
-LatexResult::LatexResult(const QString& code, const QUrl &url, const QString& plain, const QImage& image) : EpsResult( url, image ),
-                                                                                       d(new LatexResultPrivate)
+LatexResult::LatexResult(const QString& code, const QUrl &url, const QString& plain, const QImage& image) : ImageResult(url, plain), d(new LatexResultPrivate)
 {
+    Q_UNUSED(image);
     d->code=code;
     d->plain=plain;
 }
@@ -50,7 +50,7 @@ QString LatexResult::mimeType()
     if(isCodeShown())
         return QStringLiteral("text/plain");
     else
-        return EpsResult::mimeType();
+        return ImageResult::mimeType();
 }
 
 QString LatexResult::code()
@@ -83,7 +83,7 @@ QVariant LatexResult::data()
     if(isCodeShown())
         return QVariant(code());
     else
-        return EpsResult::data();
+        return ImageResult::data();
 }
 
 QString LatexResult::toHtml()
@@ -95,7 +95,7 @@ QString LatexResult::toHtml()
     }
     else
     {
-        return EpsResult::toHtml();
+        return ImageResult::toHtml();
     }
 }
 
@@ -107,8 +107,12 @@ QString LatexResult::toLatex()
 QDomElement LatexResult::toXml(QDomDocument& doc)
 {
     qDebug()<<"saving textresult "<<toHtml();
-    QDomElement e = EpsResult::toXml(doc);
+    QDomElement e = ImageResult::toXml(doc);
     e.setAttribute(QStringLiteral("type"), QStringLiteral("latex"));
+
+    while (!e.hasChildNodes() == false)
+        e.removeChild(e.firstChild());
+
     QDomText txt=doc.createTextNode(code());
     e.appendChild(txt);
 
@@ -130,8 +134,9 @@ QJsonValue Cantor::LatexResult::toJupyterJson()
     QJsonObject data;
     data.insert(QLatin1String("text/plain"), JupyterUtils::toJupyterMultiline(d->plain));
     data.insert(QLatin1String("text/latex"), JupyterUtils::toJupyterMultiline(d->code));
-    if (!image().isNull())
-        data.insert(JupyterUtils::pngMime, JupyterUtils::packMimeBundle(image(), JupyterUtils::pngMime));
+    QImage image = this->data().value<QImage>();
+    if (!image.isNull())
+        data.insert(JupyterUtils::pngMime, JupyterUtils::packMimeBundle(image, JupyterUtils::pngMime));
     root.insert(QLatin1String("data"), data);
 
     root.insert(QLatin1String("metadata"), jupyterMetadata());
@@ -155,7 +160,7 @@ void LatexResult::save(const QString& filename)
         file.close();
     }else
     {
-        EpsResult::save(filename);
+        ImageResult::save(filename);
     }
 }
 

@@ -40,7 +40,7 @@ class WorksheetImageItem : public QGraphicsObject
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *option,
                QWidget *widget = nullptr) override;
 
-    void setEps(const QUrl &url);
+    void setPdf(const QUrl &url);
     void setImage(const QImage& img);
     void setImage(const QImage& img, QSize displaySize);
     void setPixmap(const QPixmap& pixmap);

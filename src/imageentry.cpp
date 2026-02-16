@@ -270,13 +270,13 @@ void ImageEntry::updateEntry()
         if (!m_fileName.isNull()) {
             QString imagePath = QStandardPaths::writableLocation(QStandardPaths::TempLocation) + QDir::separator() + m_fileName;
             if (imagePath.endsWith(QLatin1String(".eps"), Qt::CaseInsensitive)) {
-                m_imageItem->setEps(QUrl::fromLocalFile(imagePath));
+                m_imageItem->setPdf(QUrl::fromLocalFile(imagePath));
             } else {
                 m_imageItem->setImage(QImage(imagePath));
             }
         } else {
             if (m_imagePath.endsWith(QLatin1String(".eps"), Qt::CaseInsensitive)) {
-                m_imageItem->setEps(QUrl::fromLocalFile(m_imagePath));
+                m_imageItem->setPdf(QUrl::fromLocalFile(m_imagePath));
             } else {
                 QImage img(m_imagePath);
                 m_imageItem->setImage(img);

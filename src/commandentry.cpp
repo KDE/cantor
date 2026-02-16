@@ -15,7 +15,6 @@
 #include "lib/jupyterutils.h"
 #include "lib/result.h"
 #include "lib/helpresult.h"
-#include "lib/epsresult.h"
 #include "lib/latexresult.h"
 #include "lib/syntaxhelpobject.h"
 #include "lib/session.h"
