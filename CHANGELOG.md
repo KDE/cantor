@@ -1,7 +1,7 @@
 # Changelog
 ## 25.04
     * Better error handling when the external Maxima process fails to start
-    * Added the missing hanlding of the "integrated plots" setting for R, Python and Julia
+    * Added the missing handling of the "integrated plots" setting for R, Python and Julia
     * Activate integrated plots on default also for Python and Scilab
 
 ## 24.12

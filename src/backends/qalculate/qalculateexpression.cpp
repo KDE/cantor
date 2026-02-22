@@ -625,17 +625,22 @@ void QalculateExpression::evaluatePlotCommand()
     }
 
     if (plotInline && plotParameters.filename.empty()) {
-	// TODO: get a temporary file name here
-    if (!m_tempFile) {
+        // TODO: get a temporary file name here
+        if (!m_tempFile) {
 #ifdef WITH_EPS
-        m_tempFile=new QTemporaryFile(QDir::tempPath() + QLatin1String("/cantor_qalculate-XXXXXX.eps" ));
+            m_tempFile = new QTemporaryFile(QDir::tempPath() + QLatin1String("/cantor_qalculate-XXXXXX.eps" ));
 #else
-        m_tempFile=new QTemporaryFile(QDir::tempPath() + QLatin1String("/cantor_qalculate-XXXXXX.png"));
+            m_tempFile = new QTemporaryFile(QDir::tempPath() + QLatin1String("/cantor_qalculate-XXXXXX.png"));
 #endif
-	    m_tempFile->open();
-	}
-	plotParameters.filename = m_tempFile->fileName().toLatin1().data();
-	plotParameters.filetype = PLOT_FILETYPE_AUTO;
+            if (!m_tempFile->open()) {
+                setErrorMessage(i18n("Failed to creat a temporary file for writing."));
+                setStatus(Cantor::Expression::Error);
+                return;
+            }
+        }
+
+        plotParameters.filename = m_tempFile->fileName().toLatin1().data();
+        plotParameters.filetype = PLOT_FILETYPE_AUTO;
     }
 
     CALCULATOR->plotVectors(&plotParameters, y_vectors, x_vectors,

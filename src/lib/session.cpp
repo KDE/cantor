@@ -53,7 +53,7 @@ Session::Session(Backend* backend, DefaultVariableModel* model) : QObject(backen
 
 Session::Session(Backend* backend, DefaultVariableModel* model, KeywordsManager* keywordsManager) : QObject(backend), d(new SessionPrivate)
 {
-    d->backend = backend;    
+    d->backend = backend;
     d->variableModel = model;
     d->m_keywordsManager = keywordsManager;
 }
@@ -119,7 +119,7 @@ void Session::finishFirstExpression(bool setDoneAfterUpdate)
     auto* finishedExpression = d->expressionQueue.takeFirst();
     const bool needsUpdateTrigger = !finishedExpression->isInternal() && !finishedExpression->isHelpRequest();
 
-    if (!d->expressionQueue.isEmpty()) 
+    if (!d->expressionQueue.isEmpty())
         runFirstExpression();
     else if (d->variableModel && needsUpdateTrigger)
     {
@@ -132,7 +132,7 @@ void Session::finishFirstExpression(bool setDoneAfterUpdate)
         if (d->expressionQueue.isEmpty())
             changeStatus(Done);
     }
-    else 
+    else
         changeStatus(Done);
 }
 

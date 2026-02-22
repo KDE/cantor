@@ -82,7 +82,12 @@ void MaximaExpression::evaluate()
             extension = QLatin1String("png");
 
         m_tempFile = new QTemporaryFile(QDir::tempPath() + QLatin1String("/cantor_maxima-XXXXXX.%1").arg(extension));
-        m_tempFile->open();
+        if (!m_tempFile->open())
+        {
+            setErrorMessage(i18n("Failed to creat a temporary file for writing."));
+            setStatus(Cantor::Expression::Error);
+            return;
+        }
 
         m_fileWatch.removePaths(m_fileWatch.files());
         m_fileWatch.addPath(m_tempFile->fileName());

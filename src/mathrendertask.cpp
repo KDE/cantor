@@ -66,7 +66,8 @@ void MathRenderTask::run()
     const QString& tempDir=QStandardPaths::writableLocation(QStandardPaths::TempLocation);
 
     QTemporaryFile texFile(tempDir + QDir::separator() + QLatin1String("cantor_tex-XXXXXX.tex"));
-    texFile.open();
+    if (!texFile.open())
+        return;
 
     // make sure we have preview.sty available
     if (!tempDir.contains(QLatin1String("preview.sty")))

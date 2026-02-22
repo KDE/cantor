@@ -18,6 +18,8 @@
 #include <QTemporaryFile>
 #include <QFileSystemWatcher>
 
+#include <KLocalizedString>
+
 #include "pythonsession.h"
 
 PythonExpression::PythonExpression(Cantor::Session* session, bool internal) : Cantor::Expression(session, internal)
@@ -54,7 +56,12 @@ QString PythonExpression::internalCommand()
             extension = QLatin1String("png");
 
         m_tempFile = new QTemporaryFile(QDir::tempPath() + QLatin1String("/cantor_python-XXXXXX.%1").arg(extension));
-        m_tempFile->open();
+        if (!m_tempFile->open())
+        {
+            setErrorMessage(i18n("Failed to creat a temporary file for writing."));
+            setStatus(Cantor::Expression::Error);
+            return QString();
+        }
         QString saveFigCommand = QLatin1String("savefig('%1')");
         cmd.replace(QLatin1String("show()"), saveFigCommand.arg(m_tempFile->fileName()));
 

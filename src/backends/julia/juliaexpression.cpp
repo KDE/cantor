@@ -3,14 +3,12 @@
     SPDX-FileCopyrightText: 2016 Ivan Lakhtanov <ivan.lakhtanov@gmail.com>
 */
 #include "juliaexpression.h"
-
-#include <QDir>
-#include <QUuid>
-
 #include "settings.h"
 #include "juliasession.h"
 #include "textresult.h"
 #include "imageresult.h"
+
+#include <QFileInfo>
 
 const QStringList JuliaExpression::plotExtensions({
     QLatin1String("svg"),

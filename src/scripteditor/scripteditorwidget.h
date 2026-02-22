@@ -9,13 +9,12 @@
 #include <KXmlGuiWindow>
 
 class QTemporaryFile;
-class QGridLayout;
+
 namespace KTextEditor
 {
     class View;
     class Document;
 }
-
 
 class ScriptEditorWidget : public KXmlGuiWindow
 {
@@ -39,9 +38,9 @@ class ScriptEditorWidget : public KXmlGuiWindow
 
   private:
     QString m_filter;
-    KTextEditor::View* m_editor;
-    KTextEditor::Document* m_script;
-    QTemporaryFile* m_tmpFile;
+    KTextEditor::View* m_editor = nullptr;
+    KTextEditor::Document* m_script = nullptr;
+    QTemporaryFile* m_tmpFile = nullptr;
 };
 
 #endif /* _SCRIPTEDITORWIDGET_H */

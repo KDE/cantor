@@ -140,7 +140,7 @@ void JuliaSession::login()
     std::uniform_int_distribution<int> rand_dist(0, 999999999);
     m_plotFilePrefixPath =
         QDir::tempPath()
-        + QLatin1String("/cantor_octave_")
+        + QLatin1String("/cantor_julia_")
         + QString::number(m_process->processId())
         + QLatin1String("_")
         + QString::number(rand_dist(mt))

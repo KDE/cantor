@@ -426,7 +426,8 @@ QUrl JupyterUtils::loadGifHtml(const QJsonValue& html)
 
         QTemporaryFile file;
         file.setAutoRemove(false);
-        file.open();
+        if (!file.open())
+            return QUrl();
         file.write(bytes);
         file.close();
 

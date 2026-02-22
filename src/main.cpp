@@ -1,7 +1,7 @@
 /*
     SPDX-License-Identifier: GPL-2.0-or-later
     SPDX-FileCopyrightText: 2009 Alexander Rieder <alexanderrieder@gmail.com>
-    SPDX-FileCopyrightText: 2016-2024 Alexander Semke <alexander.semke@web.de>
+    SPDX-FileCopyrightText: 2016-2026 Alexander Semke <alexander.semke@web.de>
 */
 
 #include "cantor.h"
@@ -42,21 +42,6 @@ int main(int argc, char **argv)
 
     KCrash::initialize();
 
-    // Migrating configuration from 4.x applications to KF5-based applications
-    QStringList configFiles;
-    QStringList rcFiles;
-
-    configFiles << QLatin1String("cantorrc");
-    rcFiles << QLatin1String("cantor_part.rc") << QLatin1String("cantor_scripteditor.rc")
-            << QLatin1String("cantor_shell.rc") << QLatin1String("cantor_advancedplot_assistant.rc")
-            << QLatin1String("cantor_differentiate_assistant.rc") << QLatin1String("cantor_import_package_assistant.rc")
-            << QLatin1String("cantor_integrate_assistant.rc") << QLatin1String("cantor_create_matrix_assistant.rc")
-            << QLatin1String("cantor_eigenvalues_assistant.rc") << QLatin1String("cantor_eigenvectors_assistant.rc")
-            << QLatin1String("cantor_invert_matrix_assistant.rc") << QLatin1String("cantor_plot2d_assistant.rc")
-            << QLatin1String("cantor_plot3d_assistant.rc") << QLatin1String("cantor_runscript_assistant.rc")
-            << QLatin1String("cantor_solve_assistant.rc") << QLatin1String("cantor_qalculateplotassistant.rc");
-
-
     KLocalizedString::setApplicationDomain("cantor");
     app.setApplicationName(QLatin1String("cantor"));
     app.setOrganizationDomain(QLatin1String("kde.org"));
@@ -88,9 +73,7 @@ int main(int argc, char **argv)
 
     const QCommandLineOption backendOption(QStringList()<<QLatin1String("b")<<QLatin1String("backend"), i18n("Use  backend <backend>"), QLatin1String("backend"));
     parser.addOption(backendOption);
-
     parser.addPositionalArgument(QStringLiteral("files"),  i18n("Documents to open."),  QStringLiteral("[files...]"));
-
 
     about.setupCommandLine(&parser);
     parser.process(app);
@@ -130,4 +113,3 @@ int main(int argc, char **argv)
 
     return app.exec();
 }
-

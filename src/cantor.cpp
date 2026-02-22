@@ -183,7 +183,7 @@ void CantorShell::setupActions()
 
 void CantorShell::saveProperties(KConfigGroup & config)
 {
-    const int tabCount = m_tabWidget->count();
+   const int tabCount = m_tabWidget->count();
     config.writeEntry("tabCount", tabCount);
     config.writeEntry("activeTab", m_tabWidget->currentIndex());
 

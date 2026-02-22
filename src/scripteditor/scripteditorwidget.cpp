@@ -6,7 +6,6 @@
 #include "scripteditorwidget.h"
 
 #include <QTemporaryFile>
-
 #include <QUrl>
 
 #include <KLocalizedString>
@@ -27,10 +26,7 @@
 using namespace Qt::Literals::StringLiterals;
 
 ScriptEditorWidget::ScriptEditorWidget(const QString& filter, const QString& highlightingMode, QWidget* parent) : KXmlGuiWindow(parent),
-m_filter(filter),
-m_editor(nullptr),
-m_script(nullptr),
-m_tmpFile(nullptr)
+m_filter(filter)
 {
     setObjectName(QStringLiteral("ScriptEditor"));
 
@@ -41,7 +37,7 @@ m_tmpFile(nullptr)
     runAction->setIcon(QIcon::fromTheme(u"system-run"_s));
     runAction->setText(i18n("Run Script"));
 
-    KTextEditor::Editor* editor = KTextEditor::Editor::instance();
+    auto* editor = KTextEditor::Editor::instance();
     if (!editor)
     {
         KMessageBox::error(this,  i18n("A KDE text-editor component could not be found;\n"
@@ -102,23 +98,23 @@ void ScriptEditorWidget::run()
     {
         // If the script is not in a local file, write it to a temporary file
         if(m_tmpFile==nullptr)
-        {
             m_tmpFile=new QTemporaryFile();
-        }
         else
-        {
             m_tmpFile->resize(0);
-        }
-        m_tmpFile->open();
-        QString text=m_script->text();
+
+        if (!m_tmpFile->open())
+            return;
+
+        QString text = m_script->text();
         m_tmpFile->write(text.toUtf8());
         m_tmpFile->close();
 
-        filename=m_tmpFile->fileName();
-    }else
+        filename = m_tmpFile->fileName();
+    }
+    else
     {
         m_script->save();
-        filename=m_script->url().toLocalFile();
+        filename = m_script->url().toLocalFile();
     }
 
     qDebug()<<"running "<<filename;
@@ -138,12 +134,7 @@ void ScriptEditorWidget::updateCaption()
     QString fileName = m_script->url().toLocalFile();
     bool modified = m_script->isModified();
     if (fileName.isEmpty())
-    {
         setCaption(i18n("Script Editor"), modified);
-    }else
-    {
+    else
          setCaption(i18n("Script Editor - %1", fileName), modified);
-    }
 }
-
-
