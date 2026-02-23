@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: cantor\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-12-12 00:38+0000\n"
+"POT-Creation-Date: 2026-02-23 00:39+0000\n"
 "PO-Revision-Date: 2024-12-25 19:37+0530\n"
 "Last-Translator: kali <shreekantkalwar@gmail.com>\n"
 "Language-Team: Sanskrit <kde-i18n-doc@kde.org>\n"
@@ -274,7 +274,7 @@ msgid "2nd Variable"
 msgstr "२ चर"
 
 #: assistants/runscript/runscriptassistant.cpp:26
-#: scripteditor/scripteditorwidget.cpp:42
+#: scripteditor/scripteditorwidget.cpp:38
 #, kde-format
 msgid "Run Script"
 msgstr "स्क्रिप्ट् चालयन्तु"
@@ -866,22 +866,29 @@ msgstr ""
 msgid "Path to the Maxima executable"
 msgstr "Maxima कार्यान्वयनीयस्य मार्गः"
 
-#: backends/maxima/maximaexpression.cpp:110
+#: backends/maxima/maximaexpression.cpp:87
+#: backends/python/pythonexpression.cpp:61
+#: backends/qalculate/qalculateexpression.cpp:636
+#, kde-format
+msgid "Failed to creat a temporary file for writing."
+msgstr ""
+
+#: backends/maxima/maximaexpression.cpp:115
 #, kde-format
 msgid "Error: Too many */"
 msgstr "त्रुटिः अतिशयेन */ ."
 
-#: backends/maxima/maximaexpression.cpp:123
+#: backends/maxima/maximaexpression.cpp:128
 #, kde-format
 msgid "Error: Too many /*"
 msgstr "त्रुटिः : अतिशयेन /* ."
 
-#: backends/maxima/maximaexpression.cpp:129
+#: backends/maxima/maximaexpression.cpp:134
 #, kde-format
 msgid "Error: expected \" before ;"
 msgstr "त्रुटिः अपेक्षितः \" पूर्वं ;"
 
-#: backends/maxima/maximaexpression.cpp:427
+#: backends/maxima/maximaexpression.cpp:432
 #, kde-format
 msgid "Waiting for the plot result"
 msgstr "कथानकस्य परिणामस्य प्रतीक्षां कुर्वन्"
@@ -980,7 +987,7 @@ msgstr "भूखण्डानां एकीकरणं अक्षमं 
 
 #: backends/octave/octavesession.cpp:390 backends/sage/sagesession.cpp:358
 #: backends/sage/sagesession.cpp:369 cantor.cpp:233 cantor.cpp:235
-#: cantor.cpp:354 cantor.cpp:361 lib/session.cpp:334 main.cpp:63 main.cpp:122
+#: cantor.cpp:354 cantor.cpp:361 lib/session.cpp:334 main.cpp:48 main.cpp:105
 #: markdownentry.cpp:813 textentry.cpp:564 worksheet.cpp:1298
 #, kde-format
 msgid "Cantor"
@@ -1662,14 +1669,14 @@ msgstr "%1 कृते अमान्यविकल्पः: %2"
 msgid "found multiple expressions in one plot command (%1 and %2)."
 msgstr "एकस्मिन् प्लॉट् आदेशे (%1 तथा %2) बहुविधव्यञ्जनानि प्राप्तवन्तः ।"
 
-#: backends/qalculate/qalculateexpression.cpp:681
-#: backends/qalculate/qalculateexpression.cpp:789
+#: backends/qalculate/qalculateexpression.cpp:686
+#: backends/qalculate/qalculateexpression.cpp:794
 #, kde-format
 msgid "ERROR"
 msgstr "त्रुटि"
 
-#: backends/qalculate/qalculateexpression.cpp:683
-#: backends/qalculate/qalculateexpression.cpp:791
+#: backends/qalculate/qalculateexpression.cpp:688
+#: backends/qalculate/qalculateexpression.cpp:796
 #, kde-format
 msgid "WARNING"
 msgstr "चेतवानी"
@@ -3037,7 +3044,7 @@ msgstr "CantorPart"
 msgid "(C) 2009-2015 Alexander Rieder"
 msgstr "(C) 2009-2015 अलेक्जेंडर रीडर"
 
-#: cantor_part.cpp:423 main.cpp:78
+#: cantor_part.cpp:423 main.cpp:63
 #, kde-format
 msgid "Alexander Rieder"
 msgstr "अलेक्जेण्डर रीडर"
@@ -3758,93 +3765,93 @@ msgstr ""
 "भवान् %1 चित्रसंकुलस्य समर्थनं चिनोति, परन्तु अनुपलब्धानां आवश्यकतानां कारणात् समर्थनं सक्रियं "
 "कर्तुं न शक्यते, अतः अस्य संकुलस्य एकीकरणं निष्क्रियं भविष्यति । %2"
 
-#: main.cpp:69
+#: main.cpp:54
 #, kde-format
 msgid "KDE Frontend to mathematical applications"
 msgstr "गणितीय-अनुप्रयोगानाम् KDE Frontend इति"
 
-#: main.cpp:71
+#: main.cpp:56
 #, kde-format
 msgid "(C) 2016 Filipe Saraiva<br/>(C) 2009-2015 Alexander Rieder"
 msgstr "(C) 2016 फिलिपे सरायवा<br/> (C) 2009-2015 अलेक्जेंडर रीडर"
 
-#: main.cpp:75
+#: main.cpp:60
 #, kde-format
 msgid "Filipe Saraiva"
 msgstr "फिलिपे सरायव"
 
-#: main.cpp:75
+#: main.cpp:60
 #, kde-format
 msgid "Maintainer<br/>Qt5/KF5 port, Scilab and Python backends"
 msgstr "परिपालकः<br/> Qt5/KF5 पोर्ट्, Scilab तथा Python बैकएण्ड्स्"
 
-#: main.cpp:76
+#: main.cpp:61
 #, kde-format
 msgid "Nikita Sirgienko"
 msgstr "निकिता सिर्गिएन्को"
 
-#: main.cpp:76 main.cpp:77
+#: main.cpp:61 main.cpp:62
 #, kde-format
 msgctxt "@info:credit"
 msgid "Developer"
 msgstr "विकासकः"
 
-#: main.cpp:77
+#: main.cpp:62
 #, kde-format
 msgid "Alexander Semke"
 msgstr "अलेक्जेण्डर सेम्के"
 
-#: main.cpp:78
+#: main.cpp:63
 #, kde-format
 msgid "Original author<br/>Maintainer (2009 - 2015)"
 msgstr "मूल लेखक<br/> अनुरक्षणकर्ता (२००९ - २०१५)"
 
-#: main.cpp:79
+#: main.cpp:64
 #, kde-format
 msgid "Aleix Pol Gonzalez"
 msgstr "एलेक्स पोल गोन्जालेज"
 
-#: main.cpp:79
+#: main.cpp:64
 #, kde-format
 msgid "KAlgebra backend"
 msgstr "KAlgebra पृष्ठभाग"
 
-#: main.cpp:80
+#: main.cpp:65
 #, kde-format
 msgid "Miha Čančula"
 msgstr "मिहा कन्चुला"
 
-#: main.cpp:80
+#: main.cpp:65
 #, kde-format
 msgid "Octave backend"
 msgstr "सप्तकः पृष्ठभागः"
 
-#: main.cpp:81
+#: main.cpp:66
 #, kde-format
 msgid "Martin Küttler"
 msgstr "मार्टिन् कुटलर"
 
-#: main.cpp:81
+#: main.cpp:66
 #, kde-format
 msgid "Interface"
 msgstr "अन्तरफलकम्"
 
-#: main.cpp:83 main.cpp:84
+#: main.cpp:68 main.cpp:69
 #, kde-format
 msgid "Cantor icon"
 msgstr "Cantor चिह्न"
 
-#: main.cpp:89
+#: main.cpp:74
 #, kde-format
 msgid "Use  backend <backend>"
 msgstr "पृष्ठभाग <backend> इत्यस्य उपयोगं कुर्वन्तु"
 
-#: main.cpp:92
+#: main.cpp:76
 #, kde-format
 msgid "Documents to open."
 msgstr "दस्तावेजाः उद्घाटयितुं।"
 
-#: main.cpp:122
+#: main.cpp:105
 #, kde-format
 msgid "Couldn't open the file %1"
 msgstr "%1 सञ्चिकां उद्घाटयितुं न शक्तम्"
@@ -4036,7 +4043,7 @@ msgstr "परिणामं रक्षतु"
 msgid "Remove result"
 msgstr "परिणामं निष्कासयन्तु"
 
-#: scripteditor/scripteditorwidget.cpp:47
+#: scripteditor/scripteditorwidget.cpp:43
 #, kde-format
 msgid ""
 "A KDE text-editor component could not be found;\n"
@@ -4045,12 +4052,12 @@ msgstr ""
 "KDE पाठ-सम्पादकघटकः न लब्धः;\n"
 "कृपया स्वस्य KDE संस्थापनं पश्यन्तु ।"
 
-#: scripteditor/scripteditorwidget.cpp:142
+#: scripteditor/scripteditorwidget.cpp:137
 #, kde-format
 msgid "Script Editor"
 msgstr "स्क्रिप्ट सम्पादक"
 
-#: scripteditor/scripteditorwidget.cpp:145
+#: scripteditor/scripteditorwidget.cpp:139
 #, kde-format
 msgid "Script Editor - %1"
 msgstr "स्क्रिप्ट सम्पादकः - %1"

@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-12-12 00:38+0000\n"
+"POT-Creation-Date: 2026-02-23 00:39+0000\n"
 "PO-Revision-Date: 2025-07-20 00:51+0200\n"
 "Last-Translator: Shinjo Park <kde@peremen.name>\n"
 "Language-Team: Korean <kde-kr@kde.org>\n"
@@ -272,7 +272,7 @@ msgid "2nd Variable"
 msgstr "2번째 변수"
 
 #: assistants/runscript/runscriptassistant.cpp:26
-#: scripteditor/scripteditorwidget.cpp:42
+#: scripteditor/scripteditorwidget.cpp:38
 #, kde-format
 msgid "Run Script"
 msgstr "스크립트 실행"
@@ -863,22 +863,29 @@ msgstr ""
 msgid "Path to the Maxima executable"
 msgstr "Maxima 실행 파일 경로"
 
-#: backends/maxima/maximaexpression.cpp:110
+#: backends/maxima/maximaexpression.cpp:87
+#: backends/python/pythonexpression.cpp:61
+#: backends/qalculate/qalculateexpression.cpp:636
+#, kde-format
+msgid "Failed to creat a temporary file for writing."
+msgstr ""
+
+#: backends/maxima/maximaexpression.cpp:115
 #, kde-format
 msgid "Error: Too many */"
 msgstr "오류: */ 문자열이 너무 많음"
 
-#: backends/maxima/maximaexpression.cpp:123
+#: backends/maxima/maximaexpression.cpp:128
 #, kde-format
 msgid "Error: Too many /*"
 msgstr "오류: /* 문자열이 너무 많음"
 
-#: backends/maxima/maximaexpression.cpp:129
+#: backends/maxima/maximaexpression.cpp:134
 #, kde-format
 msgid "Error: expected \" before ;"
 msgstr "오류: ; 앞에 \"가 와야 함"
 
-#: backends/maxima/maximaexpression.cpp:427
+#: backends/maxima/maximaexpression.cpp:432
 #, kde-format
 msgid "Waiting for the plot result"
 msgstr "플롯 결과 대기 중"
@@ -977,7 +984,7 @@ msgstr "플롯 통합이 비활성화됩니다."
 
 #: backends/octave/octavesession.cpp:390 backends/sage/sagesession.cpp:358
 #: backends/sage/sagesession.cpp:369 cantor.cpp:233 cantor.cpp:235
-#: cantor.cpp:354 cantor.cpp:361 lib/session.cpp:334 main.cpp:63 main.cpp:122
+#: cantor.cpp:354 cantor.cpp:361 lib/session.cpp:334 main.cpp:48 main.cpp:105
 #: markdownentry.cpp:813 textentry.cpp:564 worksheet.cpp:1298
 #, kde-format
 msgid "Cantor"
@@ -1660,14 +1667,14 @@ msgstr "%1의 옵션 잘못됨: %2"
 msgid "found multiple expressions in one plot command (%1 and %2)."
 msgstr "플롯 명령 한 개에서 여러 수식을 찾았습니다(%1, %2)."
 
-#: backends/qalculate/qalculateexpression.cpp:681
-#: backends/qalculate/qalculateexpression.cpp:789
+#: backends/qalculate/qalculateexpression.cpp:686
+#: backends/qalculate/qalculateexpression.cpp:794
 #, kde-format
 msgid "ERROR"
 msgstr "오류"
 
-#: backends/qalculate/qalculateexpression.cpp:683
-#: backends/qalculate/qalculateexpression.cpp:791
+#: backends/qalculate/qalculateexpression.cpp:688
+#: backends/qalculate/qalculateexpression.cpp:796
 #, kde-format
 msgid "WARNING"
 msgstr "경고"
@@ -3028,7 +3035,7 @@ msgstr "CantorPart"
 msgid "(C) 2009-2015 Alexander Rieder"
 msgstr "(C) 2009-2015 Alexander Rieder"
 
-#: cantor_part.cpp:423 main.cpp:78
+#: cantor_part.cpp:423 main.cpp:63
 #, kde-format
 msgid "Alexander Rieder"
 msgstr "Alexander Rieder"
@@ -3747,93 +3754,93 @@ msgstr ""
 "%1 그래픽 패키지 지원을 선택했지만 필요한 항목이 없어서 지원을 활성화할 수 없"
 "습니다. 이 패키지 통합이 비활성화됩니다. %2"
 
-#: main.cpp:69
+#: main.cpp:54
 #, kde-format
 msgid "KDE Frontend to mathematical applications"
 msgstr "KDE 수학 앱 프론트엔드"
 
-#: main.cpp:71
+#: main.cpp:56
 #, kde-format
 msgid "(C) 2016 Filipe Saraiva<br/>(C) 2009-2015 Alexander Rieder"
 msgstr "(C) 2016 Filipe Saraiva<br/>(C) 2009-2015 Alexander Rieder"
 
-#: main.cpp:75
+#: main.cpp:60
 #, kde-format
 msgid "Filipe Saraiva"
 msgstr "Filipe Saraiva"
 
-#: main.cpp:75
+#: main.cpp:60
 #, kde-format
 msgid "Maintainer<br/>Qt5/KF5 port, Scilab and Python backends"
 msgstr "관리자<br />Qt5/KF5 이식, Scilab 및 Python 백엔드"
 
-#: main.cpp:76
+#: main.cpp:61
 #, kde-format
 msgid "Nikita Sirgienko"
 msgstr "Nikita Sirgienko"
 
-#: main.cpp:76 main.cpp:77
+#: main.cpp:61 main.cpp:62
 #, kde-format
 msgctxt "@info:credit"
 msgid "Developer"
 msgstr "개발자"
 
-#: main.cpp:77
+#: main.cpp:62
 #, kde-format
 msgid "Alexander Semke"
 msgstr "Alexander Semke"
 
-#: main.cpp:78
+#: main.cpp:63
 #, kde-format
 msgid "Original author<br/>Maintainer (2009 - 2015)"
 msgstr "원 작성자<br/>관리자(2009년-2015년)"
 
-#: main.cpp:79
+#: main.cpp:64
 #, kde-format
 msgid "Aleix Pol Gonzalez"
 msgstr "Aleix Pol Gonzalez"
 
-#: main.cpp:79
+#: main.cpp:64
 #, kde-format
 msgid "KAlgebra backend"
 msgstr "KAlgebra 백엔드"
 
-#: main.cpp:80
+#: main.cpp:65
 #, kde-format
 msgid "Miha Čančula"
 msgstr "Miha Čančula"
 
-#: main.cpp:80
+#: main.cpp:65
 #, kde-format
 msgid "Octave backend"
 msgstr "Octave 백엔드"
 
-#: main.cpp:81
+#: main.cpp:66
 #, kde-format
 msgid "Martin Küttler"
 msgstr "Martin Küttler"
 
-#: main.cpp:81
+#: main.cpp:66
 #, kde-format
 msgid "Interface"
 msgstr "인터페이스"
 
-#: main.cpp:83 main.cpp:84
+#: main.cpp:68 main.cpp:69
 #, kde-format
 msgid "Cantor icon"
 msgstr "Cantor 아이콘"
 
-#: main.cpp:89
+#: main.cpp:74
 #, kde-format
 msgid "Use  backend <backend>"
 msgstr "<backend> 백엔드 사용"
 
-#: main.cpp:92
+#: main.cpp:76
 #, kde-format
 msgid "Documents to open."
 msgstr "열 문서입니다."
 
-#: main.cpp:122
+#: main.cpp:105
 #, kde-format
 msgid "Couldn't open the file %1"
 msgstr "%1 파일을 열 수 없음"
@@ -4025,7 +4032,7 @@ msgstr "결과 저장"
 msgid "Remove result"
 msgstr "결과 삭제"
 
-#: scripteditor/scripteditorwidget.cpp:47
+#: scripteditor/scripteditorwidget.cpp:43
 #, kde-format
 msgid ""
 "A KDE text-editor component could not be found;\n"
@@ -4034,12 +4041,12 @@ msgstr ""
 "KDE 텍스트 편집기 구성 요소를 찾을 수 없습니다.\n"
 "설치 상태를 확인하십시오."
 
-#: scripteditor/scripteditorwidget.cpp:142
+#: scripteditor/scripteditorwidget.cpp:137
 #, kde-format
 msgid "Script Editor"
 msgstr "스크립트 편집기"
 
-#: scripteditor/scripteditorwidget.cpp:145
+#: scripteditor/scripteditorwidget.cpp:139
 #, kde-format
 msgid "Script Editor - %1"
 msgstr "스크립트 편집기 - %1"

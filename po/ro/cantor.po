@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-12-12 00:38+0000\n"
+"POT-Creation-Date: 2026-02-23 00:39+0000\n"
 "PO-Revision-Date: 2022-08-14 16:51+0100\n"
 "Last-Translator: Sergiu Bivol <sergiu@cip.md>\n"
 "Language-Team: Romanian <kde-i18n-ro@kde.org>\n"
@@ -277,7 +277,7 @@ msgid "2nd Variable"
 msgstr "A 2-a varibilă"
 
 #: assistants/runscript/runscriptassistant.cpp:26
-#: scripteditor/scripteditorwidget.cpp:42
+#: scripteditor/scripteditorwidget.cpp:38
 #, kde-format
 msgid "Run Script"
 msgstr "Rulează script"
@@ -862,22 +862,29 @@ msgstr ""
 msgid "Path to the Maxima executable"
 msgstr "Calea către programul Maxima"
 
-#: backends/maxima/maximaexpression.cpp:110
+#: backends/maxima/maximaexpression.cpp:87
+#: backends/python/pythonexpression.cpp:61
+#: backends/qalculate/qalculateexpression.cpp:636
+#, kde-format
+msgid "Failed to creat a temporary file for writing."
+msgstr ""
+
+#: backends/maxima/maximaexpression.cpp:115
 #, kde-format
 msgid "Error: Too many */"
 msgstr ""
 
-#: backends/maxima/maximaexpression.cpp:123
+#: backends/maxima/maximaexpression.cpp:128
 #, kde-format
 msgid "Error: Too many /*"
 msgstr ""
 
-#: backends/maxima/maximaexpression.cpp:129
+#: backends/maxima/maximaexpression.cpp:134
 #, kde-format
 msgid "Error: expected \" before ;"
 msgstr ""
 
-#: backends/maxima/maximaexpression.cpp:427
+#: backends/maxima/maximaexpression.cpp:432
 #, kde-format
 msgid "Waiting for the plot result"
 msgstr ""
@@ -991,7 +998,7 @@ msgstr ""
 
 #: backends/octave/octavesession.cpp:390 backends/sage/sagesession.cpp:358
 #: backends/sage/sagesession.cpp:369 cantor.cpp:233 cantor.cpp:235
-#: cantor.cpp:354 cantor.cpp:361 lib/session.cpp:334 main.cpp:63 main.cpp:122
+#: cantor.cpp:354 cantor.cpp:361 lib/session.cpp:334 main.cpp:48 main.cpp:105
 #: markdownentry.cpp:813 textentry.cpp:564 worksheet.cpp:1298
 #, kde-format
 msgid "Cantor"
@@ -1660,14 +1667,14 @@ msgstr ""
 msgid "found multiple expressions in one plot command (%1 and %2)."
 msgstr ""
 
-#: backends/qalculate/qalculateexpression.cpp:681
-#: backends/qalculate/qalculateexpression.cpp:789
+#: backends/qalculate/qalculateexpression.cpp:686
+#: backends/qalculate/qalculateexpression.cpp:794
 #, kde-format
 msgid "ERROR"
 msgstr ""
 
-#: backends/qalculate/qalculateexpression.cpp:683
-#: backends/qalculate/qalculateexpression.cpp:791
+#: backends/qalculate/qalculateexpression.cpp:688
+#: backends/qalculate/qalculateexpression.cpp:796
 #, kde-format
 msgid "WARNING"
 msgstr ""
@@ -3072,7 +3079,7 @@ msgstr "Parte a Cantor"
 msgid "(C) 2009-2015 Alexander Rieder"
 msgstr "(C) 2009-2010 Alexander Rieder"
 
-#: cantor_part.cpp:423 main.cpp:78
+#: cantor_part.cpp:423 main.cpp:63
 #, kde-format
 msgid "Alexander Rieder"
 msgstr "Alexander Rieder"
@@ -3790,100 +3797,100 @@ msgid ""
 "will be disabled. %2"
 msgstr ""
 
-#: main.cpp:69
+#: main.cpp:54
 #, kde-format
 msgid "KDE Frontend to mathematical applications"
 msgstr "Interfață KDE pentru aplicații matematice"
 
-#: main.cpp:71
+#: main.cpp:56
 #, fuzzy, kde-format
 #| msgid "(C) 2009-2010 Alexander Rieder"
 msgid "(C) 2016 Filipe Saraiva<br/>(C) 2009-2015 Alexander Rieder"
 msgstr "(C) 2009-2010 Alexander Rieder"
 
-#: main.cpp:75
+#: main.cpp:60
 #, kde-format
 msgid "Filipe Saraiva"
 msgstr ""
 
-#: main.cpp:75
+#: main.cpp:60
 #, fuzzy, kde-format
 #| msgid "Octave backend"
 msgid "Maintainer<br/>Qt5/KF5 port, Scilab and Python backends"
 msgstr "Platformă Octave"
 
-#: main.cpp:76
+#: main.cpp:61
 #, kde-format
 msgid "Nikita Sirgienko"
 msgstr ""
 
-#: main.cpp:76 main.cpp:77
+#: main.cpp:61 main.cpp:62
 #, kde-format
 msgctxt "@info:credit"
 msgid "Developer"
 msgstr ""
 
-#: main.cpp:77
+#: main.cpp:62
 #, fuzzy, kde-format
 #| msgid "Alexander Rieder"
 msgid "Alexander Semke"
 msgstr "Alexander Rieder"
 
-#: main.cpp:78
+#: main.cpp:63
 #, kde-format
 msgid "Original author<br/>Maintainer (2009 - 2015)"
 msgstr ""
 
-#: main.cpp:79
+#: main.cpp:64
 #, kde-format
 msgid "Aleix Pol Gonzalez"
 msgstr "Aleix Pol Gonzalez"
 
-#: main.cpp:79
+#: main.cpp:64
 #, kde-format
 msgid "KAlgebra backend"
 msgstr "K platformă pentru algebră"
 
-#: main.cpp:80
+#: main.cpp:65
 #, kde-format
 msgid "Miha Čančula"
 msgstr "Miha Čančula"
 
-#: main.cpp:80
+#: main.cpp:65
 #, kde-format
 msgid "Octave backend"
 msgstr "Platformă Octave"
 
-#: main.cpp:81
+#: main.cpp:66
 #, kde-format
 msgid "Martin Küttler"
 msgstr ""
 
-#: main.cpp:81
+#: main.cpp:66
 #, fuzzy, kde-format
 #| msgid "Integrate"
 msgid "Interface"
 msgstr "Integrează"
 
-#: main.cpp:83 main.cpp:84
+#: main.cpp:68 main.cpp:69
 #, fuzzy, kde-format
 #| msgid "Cantor"
 msgid "Cantor icon"
 msgstr "Cantor"
 
-#: main.cpp:89
+#: main.cpp:74
 #, fuzzy, kde-format
 #| msgid "Use this backend"
 msgid "Use  backend <backend>"
 msgstr "Utilizează această platformă"
 
-#: main.cpp:92
+#: main.cpp:76
 #, fuzzy, kde-format
 #| msgid "Document to open"
 msgid "Documents to open."
 msgstr "Document de deschis"
 
-#: main.cpp:122
+#: main.cpp:105
 #, fuzzy, kde-format
 #| msgid "Error opening file %1"
 msgid "Couldn't open the file %1"
@@ -4089,7 +4096,7 @@ msgstr "Salvează rezultatul"
 msgid "Remove result"
 msgstr "Șterge rezultatul"
 
-#: scripteditor/scripteditorwidget.cpp:47
+#: scripteditor/scripteditorwidget.cpp:43
 #, kde-format
 msgid ""
 "A KDE text-editor component could not be found;\n"
@@ -4098,12 +4105,12 @@ msgstr ""
 "Nu a putut fi găsită o componentă KDE pentru editarea textului;\n"
 "verificați instalarea KDE."
 
-#: scripteditor/scripteditorwidget.cpp:142
+#: scripteditor/scripteditorwidget.cpp:137
 #, kde-format
 msgid "Script Editor"
 msgstr "Redactor de scripturi"
 
-#: scripteditor/scripteditorwidget.cpp:145
+#: scripteditor/scripteditorwidget.cpp:139
 #, kde-format
 msgid "Script Editor - %1"
 msgstr "Editor de scripturi -%1"

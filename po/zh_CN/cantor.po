@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kdeorg\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-12-12 00:38+0000\n"
+"POT-Creation-Date: 2026-02-23 00:39+0000\n"
 "PO-Revision-Date: 2024-04-22 16:04\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Simplified\n"
@@ -272,7 +272,7 @@ msgid "2nd Variable"
 msgstr "第二个变量"
 
 #: assistants/runscript/runscriptassistant.cpp:26
-#: scripteditor/scripteditorwidget.cpp:42
+#: scripteditor/scripteditorwidget.cpp:38
 #, kde-format
 msgid "Run Script"
 msgstr "运行脚本"
@@ -823,22 +823,29 @@ msgstr ""
 msgid "Path to the Maxima executable"
 msgstr "Maxima 可执行文件路径"
 
-#: backends/maxima/maximaexpression.cpp:110
+#: backends/maxima/maximaexpression.cpp:87
+#: backends/python/pythonexpression.cpp:61
+#: backends/qalculate/qalculateexpression.cpp:636
+#, kde-format
+msgid "Failed to creat a temporary file for writing."
+msgstr ""
+
+#: backends/maxima/maximaexpression.cpp:115
 #, kde-format
 msgid "Error: Too many */"
 msgstr "错误：太多 */"
 
-#: backends/maxima/maximaexpression.cpp:123
+#: backends/maxima/maximaexpression.cpp:128
 #, kde-format
 msgid "Error: Too many /*"
 msgstr "错误：太多 /*"
 
-#: backends/maxima/maximaexpression.cpp:129
+#: backends/maxima/maximaexpression.cpp:134
 #, kde-format
 msgid "Error: expected \" before ;"
 msgstr "错误: ; 之前应该有 \";"
 
-#: backends/maxima/maximaexpression.cpp:427
+#: backends/maxima/maximaexpression.cpp:432
 #, kde-format
 msgid "Waiting for the plot result"
 msgstr "等待图表生成结果"
@@ -936,7 +943,7 @@ msgstr "绘图集成将被禁用。"
 
 #: backends/octave/octavesession.cpp:390 backends/sage/sagesession.cpp:358
 #: backends/sage/sagesession.cpp:369 cantor.cpp:233 cantor.cpp:235
-#: cantor.cpp:354 cantor.cpp:361 lib/session.cpp:334 main.cpp:63 main.cpp:122
+#: cantor.cpp:354 cantor.cpp:361 lib/session.cpp:334 main.cpp:48 main.cpp:105
 #: markdownentry.cpp:813 textentry.cpp:564 worksheet.cpp:1298
 #, kde-format
 msgid "Cantor"
@@ -1605,14 +1612,14 @@ msgstr "%1 的 %2 选项无效"
 msgid "found multiple expressions in one plot command (%1 and %2)."
 msgstr "在一个绘图命令中找到多个表达式( %1 与 %2 )。"
 
-#: backends/qalculate/qalculateexpression.cpp:681
-#: backends/qalculate/qalculateexpression.cpp:789
+#: backends/qalculate/qalculateexpression.cpp:686
+#: backends/qalculate/qalculateexpression.cpp:794
 #, kde-format
 msgid "ERROR"
 msgstr "错误"
 
-#: backends/qalculate/qalculateexpression.cpp:683
-#: backends/qalculate/qalculateexpression.cpp:791
+#: backends/qalculate/qalculateexpression.cpp:688
+#: backends/qalculate/qalculateexpression.cpp:796
 #, kde-format
 msgid "WARNING"
 msgstr "警告"
@@ -2946,7 +2953,7 @@ msgstr "Cantor 部件"
 msgid "(C) 2009-2015 Alexander Rieder"
 msgstr "(C) 2009-2015 Alexander Rieder"
 
-#: cantor_part.cpp:423 main.cpp:78
+#: cantor_part.cpp:423 main.cpp:63
 #, kde-format
 msgid "Alexander Rieder"
 msgstr "Alexander Rieder"
@@ -3653,93 +3660,93 @@ msgid ""
 "will be disabled. %2"
 msgstr ""
 
-#: main.cpp:69
+#: main.cpp:54
 #, kde-format
 msgid "KDE Frontend to mathematical applications"
 msgstr "数学应用程序的 KDE 前端"
 
-#: main.cpp:71
+#: main.cpp:56
 #, kde-format
 msgid "(C) 2016 Filipe Saraiva<br/>(C) 2009-2015 Alexander Rieder"
 msgstr "(C) 2016 Filipe Saraiva<br/>(C) 2009-2015 Alexander Rieder"
 
-#: main.cpp:75
+#: main.cpp:60
 #, kde-format
 msgid "Filipe Saraiva"
 msgstr "Filipe Saraiva"
 
-#: main.cpp:75
+#: main.cpp:60
 #, kde-format
 msgid "Maintainer<br/>Qt5/KF5 port, Scilab and Python backends"
 msgstr "维护者<br/>Qt5/KF5 移植，Scilab 和 Python 后端"
 
-#: main.cpp:76
+#: main.cpp:61
 #, kde-format
 msgid "Nikita Sirgienko"
 msgstr "Nikita Sirgienko"
 
-#: main.cpp:76 main.cpp:77
+#: main.cpp:61 main.cpp:62
 #, kde-format
 msgctxt "@info:credit"
 msgid "Developer"
 msgstr "开发人员"
 
-#: main.cpp:77
+#: main.cpp:62
 #, kde-format
 msgid "Alexander Semke"
 msgstr "Alexander Semke"
 
-#: main.cpp:78
+#: main.cpp:63
 #, kde-format
 msgid "Original author<br/>Maintainer (2009 - 2015)"
 msgstr "原作者<br/>维护者 (2009-2015)"
 
-#: main.cpp:79
+#: main.cpp:64
 #, kde-format
 msgid "Aleix Pol Gonzalez"
 msgstr "Aleix Pol Gonzalez"
 
-#: main.cpp:79
+#: main.cpp:64
 #, kde-format
 msgid "KAlgebra backend"
 msgstr "KAlgebra 后端"
 
-#: main.cpp:80
+#: main.cpp:65
 #, kde-format
 msgid "Miha Čančula"
 msgstr "Miha Čančula"
 
-#: main.cpp:80
+#: main.cpp:65
 #, kde-format
 msgid "Octave backend"
 msgstr "Octave 后端"
 
-#: main.cpp:81
+#: main.cpp:66
 #, kde-format
 msgid "Martin Küttler"
 msgstr "Martin Küttler"
 
-#: main.cpp:81
+#: main.cpp:66
 #, kde-format
 msgid "Interface"
 msgstr "界面"
 
-#: main.cpp:83 main.cpp:84
+#: main.cpp:68 main.cpp:69
 #, kde-format
 msgid "Cantor icon"
 msgstr "Cantor 图标"
 
-#: main.cpp:89
+#: main.cpp:74
 #, kde-format
 msgid "Use  backend <backend>"
 msgstr "使用后端 <backend>"
 
-#: main.cpp:92
+#: main.cpp:76
 #, kde-format
 msgid "Documents to open."
 msgstr "要打开的文档。"
 
-#: main.cpp:122
+#: main.cpp:105
 #, kde-format
 msgid "Couldn't open the file %1"
 msgstr "无法打开文件 %1"
@@ -3931,7 +3938,7 @@ msgstr "保存结果"
 msgid "Remove result"
 msgstr "删除结果"
 
-#: scripteditor/scripteditorwidget.cpp:47
+#: scripteditor/scripteditorwidget.cpp:43
 #, kde-format
 msgid ""
 "A KDE text-editor component could not be found;\n"
@@ -3940,12 +3947,12 @@ msgstr ""
 "找不到 KDE 文本编辑器组件；\n"
 "请检查您的 KDE 安装。"
 
-#: scripteditor/scripteditorwidget.cpp:142
+#: scripteditor/scripteditorwidget.cpp:137
 #, kde-format
 msgid "Script Editor"
 msgstr "脚本编辑器"
 
-#: scripteditor/scripteditorwidget.cpp:145
+#: scripteditor/scripteditorwidget.cpp:139
 #, kde-format
 msgid "Script Editor - %1"
 msgstr "脚本编辑器 - %1"

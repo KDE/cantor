@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: cantor\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-12-12 00:38+0000\n"
+"POT-Creation-Date: 2026-02-23 00:39+0000\n"
 "PO-Revision-Date: 2025-12-12 15:13+0100\n"
 "Last-Translator: Vincenzo Reale <>\n"
 "Language-Team: Italian <kde-i18n-it@kde.org>\n"
@@ -275,7 +275,7 @@ msgid "2nd Variable"
 msgstr "2a variabile"
 
 #: assistants/runscript/runscriptassistant.cpp:26
-#: scripteditor/scripteditorwidget.cpp:42
+#: scripteditor/scripteditorwidget.cpp:38
 #, kde-format
 msgid "Run Script"
 msgstr "Avvia script"
@@ -884,22 +884,29 @@ msgstr ""
 msgid "Path to the Maxima executable"
 msgstr "Percorso dell'eseguibile di Maxima"
 
-#: backends/maxima/maximaexpression.cpp:110
+#: backends/maxima/maximaexpression.cpp:87
+#: backends/python/pythonexpression.cpp:61
+#: backends/qalculate/qalculateexpression.cpp:636
+#, kde-format
+msgid "Failed to creat a temporary file for writing."
+msgstr ""
+
+#: backends/maxima/maximaexpression.cpp:115
 #, kde-format
 msgid "Error: Too many */"
 msgstr "Errore: troppi */"
 
-#: backends/maxima/maximaexpression.cpp:123
+#: backends/maxima/maximaexpression.cpp:128
 #, kde-format
 msgid "Error: Too many /*"
 msgstr "Errore: troppi /*"
 
-#: backends/maxima/maximaexpression.cpp:129
+#: backends/maxima/maximaexpression.cpp:134
 #, kde-format
 msgid "Error: expected \" before ;"
 msgstr "Errore: atteso \" prima di ;"
 
-#: backends/maxima/maximaexpression.cpp:427
+#: backends/maxima/maximaexpression.cpp:432
 #, kde-format
 msgid "Waiting for the plot result"
 msgstr "In attesa del risultato del grafico"
@@ -1002,7 +1009,7 @@ msgstr "L'integrazione dei grafici verrà disabilitata."
 
 #: backends/octave/octavesession.cpp:390 backends/sage/sagesession.cpp:358
 #: backends/sage/sagesession.cpp:369 cantor.cpp:233 cantor.cpp:235
-#: cantor.cpp:354 cantor.cpp:361 lib/session.cpp:334 main.cpp:63 main.cpp:122
+#: cantor.cpp:354 cantor.cpp:361 lib/session.cpp:334 main.cpp:48 main.cpp:105
 #: markdownentry.cpp:813 textentry.cpp:564 worksheet.cpp:1298
 #, kde-format
 msgid "Cantor"
@@ -1693,14 +1700,14 @@ msgstr "opzione non valida per %1: %2"
 msgid "found multiple expressions in one plot command (%1 and %2)."
 msgstr "trovate espressioni multiple in un comando «plot» (%1 e %2)."
 
-#: backends/qalculate/qalculateexpression.cpp:681
-#: backends/qalculate/qalculateexpression.cpp:789
+#: backends/qalculate/qalculateexpression.cpp:686
+#: backends/qalculate/qalculateexpression.cpp:794
 #, kde-format
 msgid "ERROR"
 msgstr "ERRORE"
 
-#: backends/qalculate/qalculateexpression.cpp:683
-#: backends/qalculate/qalculateexpression.cpp:791
+#: backends/qalculate/qalculateexpression.cpp:688
+#: backends/qalculate/qalculateexpression.cpp:796
 #, kde-format
 msgid "WARNING"
 msgstr "AVVISO"
@@ -3085,7 +3092,7 @@ msgstr "Componente Cantor"
 msgid "(C) 2009-2015 Alexander Rieder"
 msgstr "(C) 2009-2015 Alexander Rieder"
 
-#: cantor_part.cpp:423 main.cpp:78
+#: cantor_part.cpp:423 main.cpp:63
 #, kde-format
 msgid "Alexander Rieder"
 msgstr "Alexander Rieder"
@@ -3811,93 +3818,93 @@ msgstr ""
 "attivato per mancanza di requisiti. L?integrazione per questo pacchetto "
 "verrà disabilitata. %2"
 
-#: main.cpp:69
+#: main.cpp:54
 #, kde-format
 msgid "KDE Frontend to mathematical applications"
 msgstr "Interfaccia KDE per applicazioni matematiche"
 
-#: main.cpp:71
+#: main.cpp:56
 #, kde-format
 msgid "(C) 2016 Filipe Saraiva<br/>(C) 2009-2015 Alexander Rieder"
 msgstr "(C) 2016 Filipe Saraiva<br/>(C) 2009-2015 Alexander Rieder"
 
-#: main.cpp:75
+#: main.cpp:60
 #, kde-format
 msgid "Filipe Saraiva"
 msgstr "Filipe Saraiva"
 
-#: main.cpp:75
+#: main.cpp:60
 #, kde-format
 msgid "Maintainer<br/>Qt5/KF5 port, Scilab and Python backends"
 msgstr "Responsabile<br/>Conversione a Qt5/KF5, motori Scilab e Python"
 
-#: main.cpp:76
+#: main.cpp:61
 #, kde-format
 msgid "Nikita Sirgienko"
 msgstr "Nikita Sirgienko"
 
-#: main.cpp:76 main.cpp:77
+#: main.cpp:61 main.cpp:62
 #, kde-format
 msgctxt "@info:credit"
 msgid "Developer"
 msgstr "Sviluppatore"
 
-#: main.cpp:77
+#: main.cpp:62
 #, kde-format
 msgid "Alexander Semke"
 msgstr "Alexander Semke"
 
-#: main.cpp:78
+#: main.cpp:63
 #, kde-format
 msgid "Original author<br/>Maintainer (2009 - 2015)"
 msgstr "Autore originale<br/>Responsabile (2009 - 2015)"
 
-#: main.cpp:79
+#: main.cpp:64
 #, kde-format
 msgid "Aleix Pol Gonzalez"
 msgstr "Aleix Pol Gonzalez"
 
-#: main.cpp:79
+#: main.cpp:64
 #, kde-format
 msgid "KAlgebra backend"
 msgstr "Motore di KAlgebra"
 
-#: main.cpp:80
+#: main.cpp:65
 #, kde-format
 msgid "Miha Čančula"
 msgstr "Miha Čančula"
 
-#: main.cpp:80
+#: main.cpp:65
 #, kde-format
 msgid "Octave backend"
 msgstr "Motore di Octave"
 
-#: main.cpp:81
+#: main.cpp:66
 #, kde-format
 msgid "Martin Küttler"
 msgstr "Martin Küttler"
 
-#: main.cpp:81
+#: main.cpp:66
 #, kde-format
 msgid "Interface"
 msgstr "Interfaccia"
 
-#: main.cpp:83 main.cpp:84
+#: main.cpp:68 main.cpp:69
 #, kde-format
 msgid "Cantor icon"
 msgstr "Icona di Cantor"
 
-#: main.cpp:89
+#: main.cpp:74
 #, kde-format
 msgid "Use  backend <backend>"
 msgstr "Usa il motore <backend>"
 
-#: main.cpp:92
+#: main.cpp:76
 #, kde-format
 msgid "Documents to open."
 msgstr "Documento da aprire."
 
-#: main.cpp:122
+#: main.cpp:105
 #, kde-format
 msgid "Couldn't open the file %1"
 msgstr "Impossibile aprire il file «%1»"
@@ -4089,7 +4096,7 @@ msgstr "Salva risultato"
 msgid "Remove result"
 msgstr "Rimuovi risultato"
 
-#: scripteditor/scripteditorwidget.cpp:47
+#: scripteditor/scripteditorwidget.cpp:43
 #, kde-format
 msgid ""
 "A KDE text-editor component could not be found;\n"
@@ -4098,12 +4105,12 @@ msgstr ""
 "Impossibile trovare un componente di editor di testi per KDE;\n"
 "controlla la tua installazione di KDE."
 
-#: scripteditor/scripteditorwidget.cpp:142
+#: scripteditor/scripteditorwidget.cpp:137
 #, kde-format
 msgid "Script Editor"
 msgstr "Editor degli script"
 
-#: scripteditor/scripteditorwidget.cpp:145
+#: scripteditor/scripteditorwidget.cpp:139
 #, kde-format
 msgid "Script Editor - %1"
 msgstr "Editor degli script - %1"
