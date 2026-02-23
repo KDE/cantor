@@ -633,7 +633,7 @@ void QalculateExpression::evaluatePlotCommand()
             m_tempFile = new QTemporaryFile(QDir::tempPath() + QLatin1String("/cantor_qalculate-XXXXXX.png"));
 #endif
             if (!m_tempFile->open()) {
-                setErrorMessage(i18n("Failed to creat a temporary file for writing."));
+                setErrorMessage(i18n("Failed to create a temporary file for writing."));
                 setStatus(Cantor::Expression::Error);
                 return;
             }

@@ -58,7 +58,7 @@ QString PythonExpression::internalCommand()
         m_tempFile = new QTemporaryFile(QDir::tempPath() + QLatin1String("/cantor_python-XXXXXX.%1").arg(extension));
         if (!m_tempFile->open())
         {
-            setErrorMessage(i18n("Failed to creat a temporary file for writing."));
+            setErrorMessage(i18n("Failed to create a temporary file for writing."));
             setStatus(Cantor::Expression::Error);
             return QString();
         }
