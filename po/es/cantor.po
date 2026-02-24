@@ -1,22 +1,22 @@
 # Spanish translations for cantor.po package.
-# Copyright (C) 2009-2025 This file is copyright:
+# Copyright (C) 2009-2026 This file is copyright:
 # This file is distributed under the same license as the cantor package.
 #
-# SPDX-FileCopyrightText: 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025 Eloy Cuadra <ecuadra@eloihr.net>
+# SPDX-FileCopyrightText: 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025, 2026 Eloy Cuadra <ecuadra@eloihr.net>
 # SPDX-FileCopyrightText: 2009 Ignacio Poggi <ignaciop.3@gmail.com>
 msgid ""
 msgstr ""
 "Project-Id-Version: cantor\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-02-23 00:39+0000\n"
-"PO-Revision-Date: 2025-12-12 11:06+0100\n"
+"POT-Creation-Date: 2026-02-24 00:38+0000\n"
+"PO-Revision-Date: 2026-02-23 15:49+0100\n"
 "Last-Translator: Eloy Cuadra <ecuadra@eloihr.net>\n"
 "Language-Team: Spanish <kde-l10n-es@kde.org>\n"
 "Language: es\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Lokalize 25.08.3\n"
+"X-Generator: Lokalize 25.12.2\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 
 #, kde-format
@@ -887,9 +887,10 @@ msgstr "Ruta al ejecutable de Maxima"
 #: backends/maxima/maximaexpression.cpp:87
 #: backends/python/pythonexpression.cpp:61
 #: backends/qalculate/qalculateexpression.cpp:636
-#, kde-format
-msgid "Failed to creat a temporary file for writing."
-msgstr ""
+#, fuzzy, kde-format
+#| msgid "Failed to creat a temporary file for writing."
+msgid "Failed to create a temporary file for writing."
+msgstr "No se ha podido crear un archivo temporal para escritura."
 
 #: backends/maxima/maximaexpression.cpp:115
 #, kde-format

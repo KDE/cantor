@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-02-23 00:39+0000\n"
+"POT-Creation-Date: 2026-02-24 00:38+0000\n"
 "PO-Revision-Date: 2013-11-01 23:02+0600\n"
 "Last-Translator: Sairan Kikkarin <sairan@computer.org>\n"
 "Language-Team: Kazakh <kde-i18n-doc@kde.org>\n"
@@ -870,7 +870,7 @@ msgstr "Maxima орындалатын файлының жолы"
 #: backends/python/pythonexpression.cpp:61
 #: backends/qalculate/qalculateexpression.cpp:636
 #, kde-format
-msgid "Failed to creat a temporary file for writing."
+msgid "Failed to create a temporary file for writing."
 msgstr ""
 
 #: backends/maxima/maximaexpression.cpp:115

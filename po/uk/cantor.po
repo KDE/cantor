@@ -3,13 +3,13 @@
 # This file is distributed under the license LGPL version 2.1 or
 # version 3 or later versions approved by the membership of KDE e.V.
 #
-# Yuri Chornoivan <yurchor@ukr.net>, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025.
+# Yuri Chornoivan <yurchor@ukr.net>, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025, 2026.
 msgid ""
 msgstr ""
 "Project-Id-Version: cantor\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-02-23 00:39+0000\n"
-"PO-Revision-Date: 2025-12-12 13:04+0200\n"
+"POT-Creation-Date: 2026-02-24 00:38+0000\n"
+"PO-Revision-Date: 2026-02-23 08:53+0200\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian <trans-uk@lists.fedoraproject.org>\n"
 "Language: uk\n"
@@ -890,9 +890,10 @@ msgstr "Шлях до виконуваного файла Maxima"
 #: backends/maxima/maximaexpression.cpp:87
 #: backends/python/pythonexpression.cpp:61
 #: backends/qalculate/qalculateexpression.cpp:636
-#, kde-format
-msgid "Failed to creat a temporary file for writing."
-msgstr ""
+#, fuzzy, kde-format
+#| msgid "Failed to creat a temporary file for writing."
+msgid "Failed to create a temporary file for writing."
+msgstr "Не вдалося створити тимчасовий файл для запису."
 
 #: backends/maxima/maximaexpression.cpp:115
 #, kde-format

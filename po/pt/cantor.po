@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: mathematik\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-02-23 00:39+0000\n"
+"POT-Creation-Date: 2026-02-24 00:38+0000\n"
 "PO-Revision-Date: 2023-05-06 11:51+0100\n"
 "Last-Translator: José Nuno Coelho Pires <zepires@gmail.com>\n"
 "Language-Team: Portuguese <kde-i18n-pt@kde.org>\n"
@@ -903,7 +903,7 @@ msgstr "Localização do executável Maxima"
 #: backends/python/pythonexpression.cpp:61
 #: backends/qalculate/qalculateexpression.cpp:636
 #, kde-format
-msgid "Failed to creat a temporary file for writing."
+msgid "Failed to create a temporary file for writing."
 msgstr ""
 
 #: backends/maxima/maximaexpression.cpp:115

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: cantor\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-02-23 00:39+0000\n"
+"POT-Creation-Date: 2026-02-24 00:38+0000\n"
 "PO-Revision-Date: 2025-09-07 23:34+0100\n"
 "Last-Translator: Oliver Kellogg <olivermkellogg@gmail.com>\n"
 "Language-Team: esperanto <kde-i18n-eo@kde.org>\n"
@@ -884,7 +884,7 @@ msgstr "Vojo al la plenumebla Maxima"
 #: backends/python/pythonexpression.cpp:61
 #: backends/qalculate/qalculateexpression.cpp:636
 #, kde-format
-msgid "Failed to creat a temporary file for writing."
+msgid "Failed to create a temporary file for writing."
 msgstr ""
 
 #: backends/maxima/maximaexpression.cpp:115
