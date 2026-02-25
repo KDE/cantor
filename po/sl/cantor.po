@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-02-24 00:38+0000\n"
-"PO-Revision-Date: 2026-02-23 06:59+0100\n"
+"PO-Revision-Date: 2026-02-24 07:11+0100\n"
 "Last-Translator: Matjaž Jeran <matjaz.jeran@amis.net>\n"
 "Language-Team: Slovenian <lugos-slo@lugos.si>\n"
 "Language: sl\n"
@@ -876,10 +876,9 @@ msgstr "Pot do izvedljive datoteke Maxima"
 #: backends/maxima/maximaexpression.cpp:87
 #: backends/python/pythonexpression.cpp:61
 #: backends/qalculate/qalculateexpression.cpp:636
-#, fuzzy, kde-format
-#| msgid "Failed to creat a temporary file for writing."
+#, kde-format
 msgid "Failed to create a temporary file for writing."
-msgstr "Ni bilo mogoče ustvariti začasne datoteke za pisanje."
+msgstr "Neuspelo kreiranje začasne datoteke za pisanje."
 
 #: backends/maxima/maximaexpression.cpp:115
 #, kde-format
