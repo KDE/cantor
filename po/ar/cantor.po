@@ -4054,8 +4054,8 @@ msgid ""
 "A KDE text-editor component could not be found;\n"
 "please check your KDE installation."
 msgstr ""
-"لم يعثر على مكوّن محرّر نصوص كدي؛\n"
-"من فضلك، افحص تثبيت كدي."
+"لم يعثر على مكوّن محرّر نصوص كِيدِي؛\n"
+"من فضلك، افحص تثبيت كِيدِي."
 
 #: scripteditor/scripteditorwidget.cpp:137
 #, kde-format
