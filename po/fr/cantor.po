@@ -13,7 +13,7 @@ msgstr ""
 "Project-Id-Version: cantor\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-02-24 00:38+0000\n"
-"PO-Revision-Date: 2025-12-13 08:42+0100\n"
+"PO-Revision-Date: 2026-02-26 07:28+0100\n"
 "Last-Translator: Xavier Besnard <xavier.besnard@kde.org>\n"
 "Language-Team: \n"
 "Language: fr\n"
@@ -904,7 +904,7 @@ msgstr "Emplacement de l'exécutable Maxima"
 #: backends/qalculate/qalculateexpression.cpp:636
 #, kde-format
 msgid "Failed to create a temporary file for writing."
-msgstr ""
+msgstr "Impossible de créer un fichier temporaire en écriture."
 
 #: backends/maxima/maximaexpression.cpp:115
 #, kde-format
