@@ -23,6 +23,7 @@ set( cantor_LIB_SRCS
   jupyterutils.cpp
   graphicpackage.cpp
   keywordsmanager.cpp
+  pdfresult.cpp
 )
 
 Set( cantor_LIB_HDRS
@@ -52,6 +53,7 @@ Set( cantor_LIB_HDRS
   panelplugin.h
   panelpluginhandler.h
   keywordsmanager.h
+  pdfresult.h
 )
 
 ki18n_wrap_ui(cantor_LIB_SRCS directives/axisrange.ui directives/plottitle.ui)

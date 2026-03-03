@@ -41,17 +41,16 @@ static const QLatin1String tex("\\documentclass%9{minimal}"\
                          "\\usepackage[utf8]{inputenc}"\
                          "\\usepackage{color}"\
                          "\\usepackage[active,displaymath,tightpage]{preview}"\
-                         "\\setlength\\PreviewBorder{0pt}"\
+                         "\\setlength\\PreviewBorder{2pt}"\
                          "\\setlength{\\fboxsep}{0pt}"\
                          "\\begin{document}"\
-                         "\\begin{preview}"\
-                         "\\colorbox[rgb]{%1,%2,%3}{"\
+                         "\\pagecolor[rgb]{%1,%2,%3}"\
+                         "\\begin{preview}\n"\
                          "\\color[rgb]{%4,%5,%6}"\
-                         "\\fontsize{%7}{%7}\\selectfont"\
-                         "%8}"\
+                         "\\fontsize{%7}{%7}\\selectfont\n"\
+                         "%8\n"\
                          "\\end{preview}"\
                          "\\end{document}");
-
 
 static const QLatin1String eqnHeader("$\\displaystyle %1$");
 static const QLatin1String inlineEqnHeader("$%1$");

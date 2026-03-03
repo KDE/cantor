@@ -709,9 +709,8 @@ void WorksheetTextItem::paint(QPainter* painter, const QStyleOptionGraphicsItem*
     if (worksheet())
     {
         const auto& theme = worksheet()->theme();
-        if (textInteractionFlags() != Qt::NoTextInteraction)
+        if (isEditable())
         {
-
             QColor bgColor = theme.editorColor(KSyntaxHighlighting::Theme::EditorColorRole::BackgroundColor);
             if (bgColor.isValid())
             {

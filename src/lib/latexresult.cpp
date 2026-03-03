@@ -28,9 +28,8 @@ class Cantor::LatexResultPrivate
     QString plain;
 };
 
-LatexResult::LatexResult(const QString& code, const QUrl &url, const QString& plain, const QImage& image) : ImageResult(url, plain), d(new LatexResultPrivate)
+LatexResult::LatexResult(const QString& code, const QUrl &url, const QString& plain, const QByteArray& pdfData) : PdfResult(url, pdfData), d(new LatexResultPrivate)
 {
-    Q_UNUSED(image);
     d->code=code;
     d->plain=plain;
 }
@@ -50,7 +49,7 @@ QString LatexResult::mimeType()
     if(isCodeShown())
         return QStringLiteral("text/plain");
     else
-        return ImageResult::mimeType();
+        return PdfResult::mimeType();
 }
 
 QString LatexResult::code()
@@ -83,7 +82,7 @@ QVariant LatexResult::data()
     if(isCodeShown())
         return QVariant(code());
     else
-        return ImageResult::data();
+        return PdfResult::data();
 }
 
 QString LatexResult::toHtml()
@@ -95,7 +94,7 @@ QString LatexResult::toHtml()
     }
     else
     {
-        return ImageResult::toHtml();
+        return PdfResult::toHtml();
     }
 }
 
@@ -107,7 +106,7 @@ QString LatexResult::toLatex()
 QDomElement LatexResult::toXml(QDomDocument& doc)
 {
     qDebug()<<"saving textresult "<<toHtml();
-    QDomElement e = ImageResult::toXml(doc);
+    QDomElement e = PdfResult::toXml(doc);
     e.setAttribute(QStringLiteral("type"), QStringLiteral("latex"));
 
     while (!e.hasChildNodes() == false)
@@ -160,7 +159,7 @@ void LatexResult::save(const QString& filename)
         file.close();
     }else
     {
-        ImageResult::save(filename);
+        PdfResult::save(filename);
     }
 }
 

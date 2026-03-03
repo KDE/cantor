@@ -6,7 +6,7 @@
 #ifndef _LATEXRESULT_H
 #define _LATEXRESULT_H
 
-#include "imageresult.h"
+#include "pdfresult.h"
 #include "cantor_export.h"
 
 #include <QImage>
@@ -17,11 +17,11 @@ class LatexResultPrivate;
 /**Class used for LaTeX results. It stores the image result of the rendered LaTeX code,
  a nd additionally stores the LaTeX code itself for later retrieval.
 **/
-class CANTOR_EXPORT LatexResult : public ImageResult
+class CANTOR_EXPORT LatexResult : public PdfResult
 {
   public:
     enum {Type=7};
-    LatexResult( const QString& code, const QUrl& url, const QString& plain = QString(), const QImage& image = QImage());
+    LatexResult( const QString& code, const QUrl& url, const QString& plain = QString(), const QByteArray& pdfData = QByteArray());
     ~LatexResult() override;
 
     int type() override;

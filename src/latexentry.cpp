@@ -238,28 +238,35 @@ QJsonValue LatexEntry::toJupyterJson()
     if (!cursor.isNull())
     {
         QTextImageFormat format=cursor.charFormat().toImageFormat();
+        QString fileName = format.property(Cantor::Renderer::ImagePath).toString();
+        bool isImageFileExists = QFile::exists(fileName);
 
-        QUrl internal;
-        internal.setUrl(format.name());
-        const QImage& image = m_textItem->document()->resource(QTextDocument::ImageResource, internal).value<QImage>();
-        if (!image.isNull())
+        if (!isImageFileExists && renderLatexCode())
         {
-            QByteArray ba;
-            QBuffer buffer(&ba);
-            buffer.open(QIODevice::WriteOnly);
-            image.save(&buffer, "PNG");
+            cursor = m_textItem->document()->find(QString(QChar::ObjectReplacementCharacter));
+            format=cursor.charFormat().toImageFormat();
+            fileName = format.property(Cantor::Renderer::ImagePath).toString();
+            isImageFileExists = QFile::exists(fileName);
+        }
 
-            // Add image result with latex rendered image to this Jupyter code cell
-            QJsonObject imageResult;
-            imageResult.insert(Cantor::JupyterUtils::outputTypeKey, QLatin1String("display_data"));
+        if (isImageFileExists)
+        {
+            QFile pdfFile(fileName);
+            if (pdfFile.open(QIODevice::ReadOnly))
+            {
+                QByteArray ba = pdfFile.readAll();
 
-            QJsonObject data;
-            data.insert(Cantor::JupyterUtils::pngMime, Cantor::JupyterUtils::toJupyterMultiline(QString::fromLatin1(ba.toBase64())));
-            imageResult.insert(QLatin1String("data"), data);
+                // Add image result with latex rendered PDF to this Jupyter code cell
+                QJsonObject imageResult;
+                imageResult.insert(Cantor::JupyterUtils::outputTypeKey, QLatin1String("display_data"));
 
-            imageResult.insert(Cantor::JupyterUtils::metadataKey, QJsonObject());
+                QJsonObject data;
+                data.insert(QLatin1String("application/pdf"), Cantor::JupyterUtils::toJupyterMultiline(QString::fromLatin1(ba.toBase64())));
+                imageResult.insert(QLatin1String("data"), data);
+                imageResult.insert(Cantor::JupyterUtils::metadataKey, QJsonObject());
 
-            outputs.append(imageResult);
+                outputs.append(imageResult);
+            }
         }
     }
     entry.insert(Cantor::JupyterUtils::outputsKey, outputs);
@@ -299,16 +306,6 @@ QDomElement LatexEntry::toXml(QDomDocument& doc, KZip* archive)
         // Save also rendered QImage, if exist.
         QUrl internal;
         internal.setUrl(format.name());
-
-        const QImage& image = m_textItem->document()->resource(QTextDocument::ImageResource, internal).value<QImage>();
-        if (!image.isNull())
-        {
-            QByteArray ba;
-            QBuffer buffer(&ba);
-            buffer.open(QIODevice::WriteOnly);
-            image.save(&buffer, "PNG");
-            el.setAttribute(QLatin1String("image"), QString::fromLatin1(ba.toBase64()));
-        }
     }
 
     return el;
@@ -508,6 +505,12 @@ bool LatexEntry::wantToEvaluate()
 
 bool LatexEntry::renderLatexCode()
 {
+    if (!Cantor::LatexRenderer::isLatexAvailable())
+    {
+        m_textItem->denyEditing();
+        return true;
+    }
+
     bool success = false;
     QString latex = latexCode();
 

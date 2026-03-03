@@ -117,10 +117,25 @@ void LoadedExpression::loadFromXml(const QDomElement& xml, const KZip& file)
                 QUrl imageUrl = QUrl::fromLocalFile(QDir(dir).absoluteFilePath(imageFile->name()));
                 if(type==QLatin1String("latex"))
                 {
-                    const QByteArray& ba = QByteArray::fromBase64(resultElement.attribute(QLatin1String("image")).toLatin1());
-                    QImage image;
-                    image.loadFromData(ba);
-                    addResult(new Cantor::LatexResult(resultElement.text(), imageUrl, QString(), image));
+                    const QString& filename=resultElement.attribute(QLatin1String("filename"));
+                    const KArchiveEntry* imageEntry=file.directory()->entry(filename);
+                    if (imageEntry&&imageEntry->isFile())
+                    {
+                        const KArchiveFile* imageFile=static_cast<const KArchiveFile*>(imageEntry);
+                        const QString& dir=QStandardPaths::writableLocation(QStandardPaths::TempLocation);
+                        imageFile->copyTo(dir);
+                        QUrl imageUrl=QUrl::fromLocalFile(dir+QDir::separator()+imageFile->name());
+
+                        QByteArray pdfData;
+                        QFile f(imageUrl.toLocalFile());
+                        if (f.open(QIODevice::ReadOnly))
+                        {
+                            pdfData = f.readAll();
+                            f.close();
+                        }
+
+                        addResult(new Cantor::LatexResult(resultElement.text(), imageUrl, QString(), pdfData));
+                    }
                 }
                 else if(type==QLatin1String("animation"))
                 {
@@ -245,8 +260,6 @@ void LoadedExpression::loadFromJupyter(const QJsonObject& cell)
             }
             else if (mainKey == Cantor::JupyterUtils::latexMime)
             {
-                // Some latex results contains already rendered images, so use them, if presents
-                const QImage& image = Cantor::JupyterUtils::loadImage(data, Cantor::JupyterUtils::pngMime);
 
                 QString latex = Cantor::JupyterUtils::fromJupyterMultiline(data.value(mainKey));
                 QScopedPointer<Cantor::LatexRenderer> renderer(new Cantor::LatexRenderer(this));
@@ -255,7 +268,18 @@ void LoadedExpression::loadFromJupyter(const QJsonObject& cell)
                 renderer->setMethod(Cantor::LatexRenderer::LatexMethod);
                 renderer->renderBlocking();
 
-                result = new Cantor::LatexResult(latex, QUrl::fromLocalFile(renderer->imagePath()), text, image);
+                QByteArray pdfData;
+                if (renderer->renderingSuccessful())
+                {
+                    QFile f(renderer->imagePath());
+                    if (f.open(QIODevice::ReadOnly))
+                    {
+                        pdfData = f.readAll();
+                        f.close();
+                    }
+                }
+
+                result = new Cantor::LatexResult(latex, QUrl::fromLocalFile(renderer->imagePath()), text, pdfData);
 
                 // If we have failed to render LaTeX i think Cantor should show the latex code at least
                 if (!renderer->renderingSuccessful())
