@@ -112,6 +112,19 @@ QString Expression::errorMessage()
     return d->error;
 }
 
+/*!
+ * default implementation that takes the incoming error string as it is
+ * and updates the expression status also adding an error result item.
+ * in case additonal parsing is required for the incoming error output,
+ * the derived classes need to implement this handling accordingly.
+ */
+void Expression::parseError(const QString& error)
+{
+    qDebug() << "error: " << error;
+    setErrorMessage(error);
+    setStatus(Cantor::Expression::Error);
+}
+
 void Expression::setResult(Result* result)
 {
     clearResults();

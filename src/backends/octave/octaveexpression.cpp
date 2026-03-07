@@ -218,10 +218,7 @@ void OctaveExpression::parseError(const QString& error)
         addResult(new Cantor::TextResult(error));
     }
     else
-    {
-        setErrorMessage(error);
-        setStatus(Error);
-    }
+        Expression::parseError(error);
 }
 
 void OctaveExpression::imageChanged()

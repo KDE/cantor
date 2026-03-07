@@ -1,7 +1,7 @@
 /*
     SPDX-License-Identifier: GPL-2.0-or-later
     SPDX-FileCopyrightText: 2009-2012 Alexander Rieder <alexanderrieder@gmail.com>
-    SPDX-FileCopyrightText: 2017-2022 by Alexander Semke (alexander.semke@web.de)
+    SPDX-FileCopyrightText: 2017-2026 by Alexander Semke (alexander.semke@web.de)
 */
 
 #include "maximaexpression.h"
@@ -37,8 +37,6 @@ MaximaExpression::~MaximaExpression() {
 
 void MaximaExpression::evaluate()
 {
-    m_gotErrorContent = false;
-
     if(m_tempFile)
     {
         delete m_tempFile;
@@ -497,11 +495,6 @@ void MaximaExpression::parseResult(const QString& resultContent)
     }
 
     addResult(result);
-}
-
-void MaximaExpression::parseError(const QString& out)
-{
-    m_errorBuffer.append(out);
 }
 
 void MaximaExpression::addInformation(const QString& information)

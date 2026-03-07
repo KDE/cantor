@@ -1,7 +1,7 @@
 /*
     SPDX-License-Identifier: GPL-2.0-or-later
     SPDX-FileCopyrightText: 2009 Alexander Rieder <alexanderrieder@gmail.com>
-        SPDX-FileCopyrightText: 2018-2022 by Alexander Semke (alexander.semke@web.de)
+        SPDX-FileCopyrightText: 2018-2026 by Alexander Semke (alexander.semke@web.de)
 */
 
 #ifndef _EXPRESSION_H
@@ -80,7 +80,7 @@ class CANTOR_EXPORT Expression : public QObject
     virtual void interrupt();
 
     virtual void parseOutput(const QString&) = 0;
-    virtual void parseError(const QString&) = 0;
+    virtual void parseError(const QString&);
 
     /**
      * Returns the unique id of the Expression

@@ -136,13 +136,6 @@ void SageExpression::parseOutput(const QString& text)
     }
 }
 
-void SageExpression::parseError(const QString& text)
-{
-    qDebug() << "error";
-    setErrorMessage(text);
-    setStatus(Cantor::Expression::Error);
-}
-
 void SageExpression::addFileResult( const QString& path )
 {
   QUrl url = QUrl::fromLocalFile(path);

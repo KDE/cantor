@@ -8,22 +8,16 @@
 
 #include "expression.h"
 
-struct lua_State;
-
 class LuaExpression : public Cantor::Expression
 {
     Q_OBJECT
 
 public:
-    explicit LuaExpression( Cantor::Session* session, bool internal = false);
+    explicit LuaExpression( Cantor::Session*, bool internal = false);
     ~LuaExpression() override = default;
 
     void evaluate() override;
     void parseOutput(const QString&) override;
-    void parseError(const QString&) override;
-
-private:
-    QString m_errorBuffer;
 };
 
 #endif /* _LUAEXPRESSION_H */

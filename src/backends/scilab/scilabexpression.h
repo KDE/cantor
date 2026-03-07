@@ -28,8 +28,8 @@ class ScilabExpression : public Cantor::Expression
 
     private:
         QString m_output;
-        bool m_finished;
-        bool m_plotPending;
+        bool m_finished = false;
+        bool m_plotPending = false;
 };
 
 #endif /* _SCILABEXPRESSION_H */

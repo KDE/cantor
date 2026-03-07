@@ -17,10 +17,7 @@ class SageExpression : public Cantor::Expression
 
     void evaluate() override;
     void parseOutput(const QString&) override;
-    void parseError(const QString&) override;
-
     void addFileResult(const QString&);
-
     void onProcessError(const QString&);
 
   public Q_SLOTS:

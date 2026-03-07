@@ -116,9 +116,7 @@ void QalculateExpression::parseError(const QString& error)
     QString errorStr = error;
     errorStr.remove(QLatin1String(">"));
     errorStr  = errorStr.trimmed();
-    qDebug() << "Error from qalc for command: " << command() <<  " " << error;
-    setErrorMessage(errorStr);
-    setStatus(Cantor::Expression::Error);
+    Expression::parseError(errorStr);
 }
 
 void QalculateExpression::evaluatePlotCommand()

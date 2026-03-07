@@ -58,13 +58,6 @@ void RExpression::parseOutput(const QString& text)
     setStatus(Cantor::Expression::Done);
 }
 
-void RExpression::parseError(const QString& text)
-{
-    qDebug() << "error text: " << text;
-    setErrorMessage(text);
-    setStatus(Cantor::Expression::Error);
-}
-
 void RExpression::addInformation(const QString& information)
 {
     static_cast<RSession*>(session())->sendInputToServer(information);

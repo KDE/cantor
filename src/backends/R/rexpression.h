@@ -20,7 +20,6 @@ class RExpression : public Cantor::Expression
     void evaluate() override;
     void interrupt() override;
     void parseOutput(const QString&) override;
-    void parseError(const QString&) override;
     void showFilesAsResult(const QStringList&);
 
     void addInformation(const QString&) override;

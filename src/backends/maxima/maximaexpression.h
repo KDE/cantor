@@ -1,14 +1,13 @@
 /*
     SPDX-License-Identifier: GPL-2.0-or-later
     SPDX-FileCopyrightText: 2009-2012 Alexander Rieder <alexanderrieder@gmail.com>
-    SPDX-FileCopyrightText: 2018-2021 by Alexander Semke (alexander.semke@web.de)
+    SPDX-FileCopyrightText: 2018-2026 by Alexander Semke (alexander.semke@web.de)
 */
 
 #ifndef _MAXIMAEXPRESSION_H
 #define _MAXIMAEXPRESSION_H
 
 #include "expression.h"
-#include <QStringList>
 #include <QFileSystemWatcher>
 
 class QTemporaryFile;
@@ -29,7 +28,6 @@ public:
 
     //reads from @param out until a prompt indicates that a new expression has started
     void parseOutput(const QString&) override;
-    void parseError(const QString&) override;
 
     void addInformation(const QString&) override;
 
@@ -47,8 +45,6 @@ private:
     bool m_isDraw = false;
     Cantor::Result* m_plotResult = nullptr;
     int m_plotResultIndex = -1;
-    QString m_errorBuffer;
-    bool m_gotErrorContent = false;
 };
 
 #endif /* _MAXIMAEXPRESSION_H */

@@ -21,7 +21,6 @@ class PythonExpression : public Cantor::Expression
 
     void parseOutput(const QString&) override;
     void parseWarning(const QString&);
-    void parseError(const QString&) override;
 
 private:
     void imageChanged();

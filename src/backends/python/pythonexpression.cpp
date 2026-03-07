@@ -127,14 +127,6 @@ void PythonExpression::parseOutput(const QString& output)
     setStatus(Cantor::Expression::Done);
 }
 
-void PythonExpression::parseError(const QString& error)
-{
-    qDebug() << "expression error: " << error;
-    setErrorMessage(error);
-
-    setStatus(Cantor::Expression::Error);
-}
-
 void PythonExpression::parseWarning(const QString& warning)
 {
     if (!warning.isEmpty())

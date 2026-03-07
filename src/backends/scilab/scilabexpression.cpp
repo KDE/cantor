@@ -23,11 +23,8 @@
 
 using ScilabPlotResult = Cantor::ImageResult;
 
-ScilabExpression::ScilabExpression( Cantor::Session* session, bool internal ) : Cantor::Expression(session, internal),
-m_finished(false),
-m_plotPending(false)
+ScilabExpression::ScilabExpression( Cantor::Session* session, bool internal ) : Cantor::Expression(session, internal)
 {
-    qDebug() << "ScilabExpression constructor";
 }
 
 void ScilabExpression::evaluate()
@@ -91,18 +88,13 @@ void ScilabExpression::parseOutput(const QString& output)
 
 void ScilabExpression::parseError(const QString& error)
 {
-    qDebug() << "error" << error;
-
-    setErrorMessage(error);
-
-    evalFinished();
-    setStatus(Cantor::Expression::Error);
+    Expression::parseError(error);
+    evalFinished(); // TODO: remove this, the update of the model should be handled the same way as for other backends
 }
 
 void ScilabExpression::parsePlotFile(QString filename)
 {
     qDebug() << "parsePlotFile";
-
     qDebug() << "ScilabExpression::parsePlotFile: " << filename;
 
     setResult(new ScilabPlotResult(QUrl::fromLocalFile(filename)));
@@ -121,7 +113,6 @@ void ScilabExpression::evalFinished()
     const auto lines = m_output.simplified().split(QLatin1Char('\n'), Qt::SkipEmptyParts);
     for (const QString& line : lines) {
         if (m_output.contains(QLatin1Char('='))){
-
             qDebug() << line;
 
             QStringList parts = line.split(QLatin1Char('='));
