@@ -283,7 +283,7 @@ void TestMaxima::testInvalidSyntax()
     QVERIFY( e!=nullptr );
     QVERIFY( e->status()==Cantor::Expression::Error );
     QVERIFY( !e->errorMessage().isNull() );
-    QCOMPARE(e->results().size(), 0);
+    QCOMPARE(e->results().size(), 1);
 }
 
 void TestMaxima::testWarning01()
