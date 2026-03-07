@@ -168,11 +168,11 @@ Cantor::Expression* MaximaSession::evaluateExpression(const QString& cmd, Cantor
 
 void MaximaSession::readStdErr()
 {
-   qDebug()<<"reading stdErr";
    if (!m_process)
        return;
    QString out = QString::fromLocal8Bit(m_process->readAllStandardError());
-
+   qDebug() << "reading stdErr: " << out;
+   qDebug() << "queue size: " << expressionQueue().size();
    if(expressionQueue().size()>0)
    {
        auto* expr = expressionQueue().first();

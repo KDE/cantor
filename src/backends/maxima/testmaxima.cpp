@@ -291,7 +291,7 @@ void TestMaxima::testWarning01()
     auto* e = evalExp( QLatin1String("rat(0.75*10)") );
 
     QVERIFY(e != nullptr);
-    QVERIFY(e->results().size() == 2); //two results, the warning and the actual result of the calculation
+    QCOMPARE(e->results().size(), 2); //two results, the warning and the actual result of the calculation
 
     //the actual warning string "rat: replaced 7.5 by 15/2 = 7.5" which we don't checked since it's translated,
     //we just check it's existence.
@@ -313,7 +313,7 @@ void TestMaxima::testWarning02()
     auto* e = evalExp( QLatin1String("tex(\"sin(x)\")") );
 
     QVERIFY(e != nullptr);
-    QVERIFY(e->results().size() == 2); //two results, the TeX output and an additional 'false'
+    QCOMPARE(e->results().size(), 2); //two results, the TeX output and an additional 'false'
 
     //the actual TeX string is of no interest for us, we just check its existence.
     auto* result = dynamic_cast<Cantor::TextResult*>(e->results().at(0));
