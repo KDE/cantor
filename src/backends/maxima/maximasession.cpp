@@ -177,6 +177,7 @@ void MaximaSession::readStdErr()
    {
        auto* expr = expressionQueue().first();
        expr->parseError(out);
+       m_cache.clear();
    }
 }
 
