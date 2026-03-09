@@ -45,6 +45,7 @@ WorksheetTextEditorItem::WorksheetTextEditorItem(EditorMode initialMode, Workshe
 #if KCOREADDONS_VERSION >= QT_VERSION_CHECK(6, 20, 0)
     m_view->setConfigValue(QStringLiteral("disable-current-line-highlight-if-inactive"), true);
     m_view->setConfigValue(QStringLiteral("hide-cursor-if-inactive"), true);
+    m_view->setConfigValue(QStringLiteral("disable-bracket-match-highlight-if-inactive"), true);
 #endif
 
     if (m_view)
