@@ -4995,12 +4995,3 @@ msgstr "Arrossega l'entrada"
 #, kde-format
 msgid "Select Color"
 msgstr "Selecció de color"
-
-#~ msgid "Reached beginning"
-#~ msgstr "S'ha arribat al principi"
-
-#~ msgid "Reached end"
-#~ msgstr "S'ha arribat al final"
-
-#~ msgid "Package for Plot Assistant:"
-#~ msgstr "Paquet de l'assistent «Plot»:"
