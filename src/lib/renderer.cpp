@@ -8,6 +8,7 @@
 #include <QUuid>
 #include <QDebug>
 #include <QMutex>
+#include <QScreen>
 
 #include <config-cantorlib.h>
 
@@ -49,7 +50,7 @@ void Renderer::useHighResolution(bool b)
     d->useHighRes = b;
 }
 
-QTextImageFormat Renderer::render(QTextDocument *document, Method method, const QUrl &url, const QString& uuid)
+QTextImageFormat Renderer::render(QTextDocument *document, const QUrl &url, const QString& uuid)
 {
     QTextImageFormat format;
 
@@ -57,7 +58,7 @@ QTextImageFormat Renderer::render(QTextDocument *document, Method method, const 
     internal.setScheme(QLatin1String("internal"));
     internal.setPath(uuid);
 
-    QSizeF s = renderToResource(document, method, url, internal);
+    QSizeF s = renderToResource(document,url, internal);
 
     if(s.isValid())
     {
@@ -71,7 +72,7 @@ QTextImageFormat Renderer::render(QTextDocument *document, Method method, const 
 
 QTextImageFormat Renderer::render(QTextDocument *document, const Cantor::LatexRenderer* latex)
 {
-    QTextImageFormat format = render(document, Method::PDF, QUrl::fromLocalFile(latex->imagePath()), latex->uuid());
+    QTextImageFormat format = render(document, QUrl::fromLocalFile(latex->imagePath()), latex->uuid());
 
     if (!format.name().isEmpty())
     {
@@ -83,10 +84,10 @@ QTextImageFormat Renderer::render(QTextDocument *document, const Cantor::LatexRe
     return format;
 }
 
-QSizeF Renderer::renderToResource(QTextDocument *document, Method method, const QUrl &url, const QUrl& internal)
+QSizeF Renderer::renderToResource(QTextDocument *document,const QUrl &url, const QUrl& internal)
 {
     QSizeF size;
-    QImage img = renderToImage(url, method, &size);
+    QImage img = renderToImage(url, &size);
 
     qDebug() << internal;
     document->addResource(QTextDocument::ImageResource, internal, QVariant(img) );
@@ -116,15 +117,21 @@ QImage Renderer::pdfRenderToImage(const QUrl& url, double scale, bool highResolu
 
     QSize pageSize = pdfPage->pageSize();
 
-    double realScale = 2.0 * 1.8;
-    qreal w = 2.0 * pageSize.width();
-    qreal h = 2.0 * pageSize.height();
-    if(highResolution)
-        realScale *= 5;
-    else
-        realScale *= scale;
+    double dpiX = QGuiApplication::primaryScreen()->physicalDotsPerInchX();
+    double dpiScale = dpiX / 72.0;
 
-    QImage image = pdfPage->renderToImage(72.0*realScale, 72.0*realScale);
+    const double SUPERSAMPLE = 2.0;
+    double renderScale = dpiScale * SUPERSAMPLE;
+
+    qreal w = dpiScale * pageSize.width();
+    qreal h = dpiScale * pageSize.height();
+
+    if(highResolution)
+        renderScale *= 5;
+    else
+        renderScale *= scale;
+
+    QImage image = pdfPage->renderToImage(72.0 * renderScale, 72.0 * renderScale);
 
     popplerMutex.lock();
     popplerMutex.unlock();
@@ -145,7 +152,7 @@ QImage Renderer::pdfRenderToImage(const QUrl& url, double scale, bool highResolu
     return image;
 }
 
-QImage Renderer::renderToImage(const QUrl& url, Method method, QSizeF* size)
+QImage Renderer::renderToImage(const QUrl& url, QSizeF* size)
 {
     return pdfRenderToImage(url, d->scale, d->useHighRes, size);
 }

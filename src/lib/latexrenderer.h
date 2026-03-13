@@ -33,6 +33,9 @@ class CANTOR_EXPORT LatexRenderer : public QObject
     void setEquationType(EquationType type);
     EquationType equationType() const;
 
+    void setBackgroundColor(const QColor& bg);
+    void setTextColor(const QColor& fg);
+
     QString errorMessage() const;
     bool renderingSuccessful() const;
 

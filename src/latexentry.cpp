@@ -126,7 +126,7 @@ void LatexEntry::setContent(const QDomElement& content, const KZip& file)
             else
             {
                 QString uuid = Cantor::LatexRenderer::genUuid();
-                m_renderedFormat = worksheet()->renderer()->render(m_textItem->document(), Cantor::Renderer::PDF, QUrl::fromLocalFile(imagePath), uuid);
+                m_renderedFormat = worksheet()->renderer()->render(m_textItem->document(), QUrl::fromLocalFile(imagePath), uuid);
 
                 if (!m_renderedFormat.name().isEmpty())
                 {
@@ -371,7 +371,7 @@ void LatexEntry::updateEntry()
         qDebug() << "Found a formula, re-rendering using PDF renderer...";
         QTextImageFormat format=cursor.charFormat().toImageFormat();
         const QUrl& url=QUrl::fromLocalFile(format.property(Cantor::Renderer::ImagePath).toString());
-        QSizeF s = worksheet()->renderer()->renderToResource(m_textItem->document(), Cantor::Renderer::PDF, url, QUrl(format.name()));
+        QSizeF s = worksheet()->renderer()->renderToResource(m_textItem->document(), url, QUrl(format.name()));
         qDebug()<<"rendering successful? "<< s.isValid();
 
         cursor.movePosition(QTextCursor::NextCharacter);
@@ -523,6 +523,10 @@ bool LatexEntry::renderLatexCode()
     m_renderedFormat = QTextImageFormat(); // clear rendered image
     Cantor::LatexRenderer* renderer = new Cantor::LatexRenderer(this);
     renderer->setLatexCode(latex);
+    QColor bgColor = worksheet()->themeColor(KSyntaxHighlighting::Theme::TemplateBackground);
+    QColor textColor = QColor(worksheet()->theme().textColor(KSyntaxHighlighting::Theme::Normal));
+    renderer->setBackgroundColor(bgColor);
+    renderer->setTextColor(textColor);
     renderer->setEquationOnly(true);
     renderer->setEquationType(Cantor::LatexRenderer::FullEquation);
     renderer->setMethod(Cantor::LatexRenderer::LatexMethod);
@@ -577,4 +581,8 @@ void LatexEntry::updateAfterSettingsChanges()
 {
     WorksheetEntry::updateAfterSettingsChanges();
     m_textItem->updateThemeColors();
+    if (!m_renderedFormat.name().isEmpty())
+    {
+        renderLatexCode();
+    }
 }

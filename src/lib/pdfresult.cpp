@@ -8,6 +8,7 @@
 #include <KZip>
 #include <QJsonObject>
 #include <QDebug>
+#include <QScreen>
 
 using namespace Cantor;
 
@@ -82,16 +83,23 @@ QImage PdfResult::renderToImage(double scale, bool useHighRes)
     if (!pdfPage)
         return QImage();
 
-    double realScale = 2.0 * 1.8;
-    if (useHighRes)
-        realScale *= 5;
-    else
-        realScale *= scale;
+    double dpiX = QGuiApplication::primaryScreen()->physicalDotsPerInchX();
+    double dpiScale = dpiX / 72.0;
 
-    QImage image = pdfPage->renderToImage(72.0 * realScale, 72.0 * realScale);
+    const double SUPERSAMPLE = 2.0;
+    double renderScale = dpiScale * SUPERSAMPLE;
+
+    if (useHighRes)
+        renderScale *= 5;
+    else
+        renderScale *= scale;
+
+    QImage image = pdfPage->renderToImage(72.0 * renderScale, 72.0 * renderScale);
 
     if (!image.isNull())
-        image = image.convertToFormat(QImage::Format_ARGB32).scaled(image.size() / 1.8, Qt::IgnoreAspectRatio, Qt::SmoothTransformation);
+    {
+        image = image.convertToFormat(QImage::Format_ARGB32).scaled(image.size() / SUPERSAMPLE, Qt::IgnoreAspectRatio, Qt::SmoothTransformation);
+    }
 
     return image;
 }

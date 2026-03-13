@@ -83,10 +83,6 @@ target_link_libraries( cantorlibs
   Poppler::Qt6
 )
 
-# if(LIBSPECTRE_FOUND)
-#     target_link_libraries(cantorlibs ${LIBSPECTRE_LIBRARY})
-# endif(LIBSPECTRE_FOUND)
-
 set (CANTORLIBS_SOVERSION 28)
 set_target_properties( cantorlibs PROPERTIES VERSION ${RELEASE_SERVICE_VERSION} SOVERSION ${CANTORLIBS_SOVERSION})
 

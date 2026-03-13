@@ -148,7 +148,7 @@ void TextResultItem::setLatex(Cantor::LatexResult* result)
         {
             QString uuid = Cantor::LatexRenderer::genUuid();
             auto* renderer = qobject_cast<Worksheet*>(scene())->renderer();;
-            format = renderer->render(cursor.document(), Cantor::Renderer::PDF, result->url(), uuid);
+            format = renderer->render(cursor.document(), result->url(), uuid);
             format.setProperty(Cantor::Renderer::CantorFormula,
                             Cantor::Renderer::LatexFormula);
             format.setProperty(Cantor::Renderer::Code, latex);

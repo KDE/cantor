@@ -11,6 +11,7 @@
 #include "expression.h"
 #include "result.h"
 #include "imageresult.h"
+#include "pdfresult.h"
 #include "textresult.h"
 #include "helpresult.h"
 #include "syntaxhelpobject.h"
@@ -482,7 +483,7 @@ void TestOctave::testVariableCreatingFromCodeWithPlot()
     QVERIFY(e->result() != nullptr);
 
     bool eps = (OctaveExpression::plotExtensions[OctaveSettings::inlinePlotFormat()] == QLatin1String("eps"));
-    QVERIFY(e->result()->type() == Cantor::ImageResult::Type);
+    QVERIFY(e->result()->type() == Cantor::PdfResult::Type);
 
     QCOMPARE(1, model->rowCount());
     QCOMPARE(model->index(0,0).data().toString(), QLatin1String("x"));

@@ -96,7 +96,7 @@ void WorksheetImageItem::paint(QPainter *painter,
 
 void WorksheetImageItem::setPdf(const QUrl& url)
 {
-    const QImage img = worksheet()->renderer()->renderToImage(url, Cantor::Renderer::PDF, &m_size);
+    const QImage img = worksheet()->renderer()->renderToImage(url, &m_size);
     m_pixmap = QPixmap::fromImage(img.convertToFormat(QImage::Format_ARGB32));
 }
 

@@ -33,6 +33,8 @@ public:
     QString pdfFilename;
     QString uuid;
     QTemporaryFile* texFile;
+    QColor bgColor{Qt::white};
+    QColor textColor{Qt::black};
 };
 
 static const QLatin1String tex("\\documentclass%9{minimal}"\
@@ -216,8 +218,8 @@ bool LatexRenderer::renderWithLatex()
     int fontPointSize = QApplication::font().pointSize();
 
     expressionTex = expressionTex
-    .arg(backgroundColor.redF()).arg(backgroundColor.greenF()).arg(backgroundColor.blueF())
-    .arg(foregroundColor.redF()).arg(foregroundColor.greenF()).arg(foregroundColor.blueF())
+    .arg(d->bgColor.redF()).arg(d->bgColor.greenF()).arg(d->bgColor.blueF())
+    .arg(d->textColor.redF()).arg(d->textColor.greenF()).arg(d->textColor.blueF())
     .arg(fontPointSize)
     .arg(wrappedLatex)
     .arg(QString()); // %9 - empty for documentclass option
@@ -262,7 +264,6 @@ void LatexRenderer::convertingDone()
     QString pathWithoutExtension = info.path() + QDir::separator() + info.completeBaseName();
     QFile::remove(pathWithoutExtension + QLatin1String(".log"));
     QFile::remove(pathWithoutExtension + QLatin1String(".aux"));
-    // QFile::remove(pathWithoutExtension + QLatin1String(".dvi"));
 
     if(info.exists())
     {
@@ -300,4 +301,12 @@ bool Cantor::LatexRenderer::isLatexAvailable()
 {
     QFileInfo infoPdf(QStandardPaths::findExecutable(QLatin1String("pdflatex")));
     return infoPdf.exists() && infoPdf.isExecutable();
+}
+
+void LatexRenderer::setBackgroundColor(const QColor& bg) {
+    d->bgColor = bg;
+}
+
+void LatexRenderer::setTextColor(const QColor& fg) {
+    d->textColor = fg;
 }

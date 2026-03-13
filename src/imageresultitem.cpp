@@ -46,20 +46,6 @@ void ImageResultItem::update()
             setImage(m_result->data().value<QImage>());
     }
         break;
-//     case Cantor::EpsResult::Type:
-//     {
-//         Cantor::EpsResult* epsResult = static_cast<Cantor::EpsResult*>(m_result);
-// #ifdef WITH_EPS
-//         bool cacheVersionEnough = worksheet()->renderer()->scale() == 1.0 && !worksheet()->isPrinting();
-//         if (!epsResult->image().isNull() && cacheVersionEnough)
-//             setImage(epsResult->image());
-//         else
-//             setEps(m_result->data().toUrl());
-// #else
-//         setImage(epsResult->image());
-// #endif
-//     }
-//         break;
     default:
         break;
     }

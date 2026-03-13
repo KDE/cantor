@@ -10,6 +10,7 @@
 #include "defaultvariablemodel.h"
 #include <helpresult.h>
 #include "imageresult.h"
+#include "pdfresult.h"
 #include "settings.h"
 #include "textresult.h"
 
@@ -235,7 +236,8 @@ void OctaveExpression::imageChanged()
     }
 
     const QUrl& url = QUrl::fromLocalFile(m_plotFilename);
-    auto* newResult = new Cantor::ImageResult(url);
+    QByteArray pdfData = file.readAll();
+    auto* newResult = new Cantor::PdfResult(url, pdfData);
 
     bool found = false;
     for (int i = 0; i < results().size(); i++)
