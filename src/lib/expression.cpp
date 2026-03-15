@@ -120,7 +120,7 @@ QString Expression::errorMessage()
  */
 void Expression::parseError(const QString& error)
 {
-    qDebug() << "error: " << error;
+    qDebug() << "parse error: " << error;
     setErrorMessage(error);
     setStatus(Cantor::Expression::Error);
 }
@@ -203,17 +203,6 @@ const QVector<Result*>& Expression::results() const
 void Expression::setStatus(Expression::Status status)
 {
     d->status=status;
-
-    if (status == Expression::Error && !d->error.isEmpty()) {
-        auto* errorResult = new TextResult(d->error);
-        addResult(errorResult);
-    }
-
-    if (status == Expression::Interrupted) {
-        auto* interruptedResult = new TextResult(i18n("Interrupted"));
-        addResult(interruptedResult);
-    }
-
     Q_EMIT statusChanged(status);
 
     bool isFinished = status == Expression::Done || status == Expression::Error || status == Expression::Interrupted;
