@@ -199,9 +199,6 @@ void TestOctave::testComment04()
 
     QVERIFY(e != nullptr);
 
-   if(session()->status()==Cantor::Session::Running)
-        waitForSignal(session(), SIGNAL(statusChanged(Cantor::Session::Status)));
-
     QCOMPARE(e->status(), Cantor::Expression::Status::Done);
     QVERIFY(e->result() == nullptr); // empty result output
 
@@ -231,9 +228,6 @@ void TestOctave::testComment05()
 
     QVERIFY(e != nullptr);
 
-   if(session()->status()==Cantor::Session::Running)
-        waitForSignal(session(), SIGNAL(statusChanged(Cantor::Session::Status)));
-
     QCOMPARE(e->status(), Cantor::Expression::Status::Done);
     QVERIFY(e->result() == nullptr); // empty result output
 
@@ -262,9 +256,6 @@ void TestOctave::testComment06()
 
     QVERIFY(e != nullptr);
 
-   if(session()->status()==Cantor::Session::Running)
-        waitForSignal(session(), SIGNAL(statusChanged(Cantor::Session::Status)));
-
     QCOMPARE(e->status(), Cantor::Expression::Status::Done);
     QVERIFY(e->result() == nullptr); // empty result output
 
@@ -292,9 +283,6 @@ void TestOctave::testComment07()
     ));
 
     QVERIFY(e != nullptr);
-
-   if(session()->status()==Cantor::Session::Running)
-        waitForSignal(session(), SIGNAL(statusChanged(Cantor::Session::Status)));
 
     QCOMPARE(e->status(), Cantor::Expression::Status::Done);
     QVERIFY(e->result() == nullptr); // empty result output
@@ -325,9 +313,6 @@ void TestOctave::testComment08()
     ));
 
     QVERIFY(e != nullptr);
-
-   if(session()->status()==Cantor::Session::Running)
-        waitForSignal(session(), SIGNAL(statusChanged(Cantor::Session::Status)));
 
     QCOMPARE(e->status(), Cantor::Expression::Status::Done);
     QVERIFY(e->result() == nullptr); // empty result output
@@ -360,9 +345,6 @@ void TestOctave::testComment09()
 
     QVERIFY(e != nullptr);
 
-   if(session()->status()==Cantor::Session::Running)
-        waitForSignal(session(), SIGNAL(statusChanged(Cantor::Session::Status)));
-
     QCOMPARE(e->status(), Cantor::Expression::Status::Done);
     QVERIFY(e->result() == nullptr); // empty result output
 
@@ -382,9 +364,6 @@ void TestOctave::testVariablesCreatingFromCode()
 
     auto* e = evalExp(QLatin1String("a = 15; b = 'S';"));
     QVERIFY(e != nullptr);
-
-    if(session()->status()==Cantor::Session::Running)
-        waitForSignal(session(), SIGNAL(statusChanged(Cantor::Session::Status)));
 
     QCOMPARE(2, model->rowCount());
 
@@ -411,9 +390,6 @@ void TestOctave::testVariablesMultiRowValues()
     auto* e3 = evalExp(QLatin1String("mat = columnVec * rowVec;"));
     QVERIFY(e3 != nullptr);
 
-    if(session()->status() == Cantor::Session::Running)
-        waitForSignal(session(), SIGNAL(statusChanged(Cantor::Session::Status)));
-
     QCOMPARE(3, model->rowCount());
 
     QCOMPARE(model->index(0,0).data().toString(), QLatin1String("rowVec"));
@@ -437,9 +413,6 @@ void TestOctave::testVariableChangeSizeType()
     auto* e1 = evalExp(QLatin1String("test = \"abcd\";"));
     QVERIFY(e1 != nullptr);
 
-    if(session()->status() == Cantor::Session::Running)
-        waitForSignal(session(), SIGNAL(statusChanged(Cantor::Session::Status)));
-
     QCOMPARE(1, model->rowCount());
     QCOMPARE(model->index(0,0).data().toString(), QLatin1String("test"));
     QCOMPARE(model->index(0,1).data().toString(), QLatin1String("abcd"));
@@ -449,9 +422,6 @@ void TestOctave::testVariableChangeSizeType()
     // change from string to integer
     auto* e2 = evalExp(QLatin1String("test = 1;"));
     QVERIFY(e2 != nullptr);
-
-    if(session()->status() == Cantor::Session::Running)
-        waitForSignal(session(), SIGNAL(statusChanged(Cantor::Session::Status)));
 
     QCOMPARE(1, model->rowCount());
     QCOMPARE(model->index(0,0).data().toString(), QLatin1String("test"));
@@ -476,9 +446,6 @@ void TestOctave::testVariableCreatingFromCodeWithPlot()
     ));
     QVERIFY(e != nullptr);
 
-    if(session()->status()==Cantor::Session::Running)
-        waitForSignal(session(), SIGNAL(statusChanged(Cantor::Session::Status)));
-
     QCOMPARE(e->status(), Cantor::Expression::Done);
     QVERIFY(e->result() != nullptr);
 
@@ -498,9 +465,6 @@ void TestOctave::testVariableCleanupAfterRestart()
     auto* e = evalExp(QLatin1String("a = 15; b = 'S';"));
     QVERIFY(e != nullptr);
 
-    if(session()->status()==Cantor::Session::Running)
-        waitForSignal(session(), SIGNAL(statusChanged(Cantor::Session::Status)));
-
     QCOMPARE(2, static_cast<QAbstractItemModel*>(model)->rowCount());
 
     session()->logout();
@@ -514,9 +478,6 @@ void TestOctave::testPlot()
     auto* e = evalExp(QLatin1String("x=-10:0.1:10; plot(x,sin(x));"));
     QVERIFY(e != nullptr);
 
-    if(session()->status() == Cantor::Session::Running)
-        waitForSignal(session(), SIGNAL(statusChanged(Cantor::Session::Status)));
-
     QVERIFY(e->result() != nullptr);
     QCOMPARE(e->result()->type(), (int)Cantor::ImageResult::Type );
     QVERIFY(!e->result()->data().isNull());
@@ -528,9 +489,6 @@ void TestOctave::testCantorPlot2d()
     auto* e = evalExp( QLatin1String("cantor_plot2d('sin(x)', 'x', -10,10);") );
     QVERIFY(e != nullptr);
 
-    if(session()->status() == Cantor::Session::Running)
-        waitForSignal(session(), SIGNAL(statusChanged(Cantor::Session::Status)));
-
     QVERIFY(e->result() != nullptr);
     QCOMPARE(e->result()->type(), (int)Cantor::ImageResult::Type );
     QVERIFY(!e->result()->data().isNull());
@@ -541,9 +499,6 @@ void TestOctave::testCantorPlot3d()
 {
     auto* e = evalExp( QLatin1String("cantor_plot3d('cos(x)*sin(y)', 'x', -10,10, 'y', -10,10);") );
     QVERIFY(e != nullptr);
-
-    if(session()->status() == Cantor::Session::Running)
-        waitForSignal(session(), SIGNAL(statusChanged(Cantor::Session::Status)));
 
     QVERIFY(e->result() != nullptr);
     QCOMPARE(e->result()->type(), (int)Cantor::ImageResult::Type );

@@ -165,9 +165,6 @@ void TestPython3::testSimplePlot()
     ));
     QVERIFY(e != nullptr);
     QVERIFY(e->errorMessage().isEmpty() == true);
-
-    if(session()->status()==Cantor::Session::Running)
-        waitForSignal(session(), SIGNAL(statusChanged(Cantor::Session::Status)));
     //the variable model should have two entries now
     QVERIFY(model->rowCount() == 2);
 
@@ -239,9 +236,6 @@ void TestPython3::testVariablesCreatingFromCode()
     auto* e = evalExp(QLatin1String("a = 15; b = 'S';"));
     QVERIFY(e != nullptr);
 
-    if(session()->status() == Cantor::Session::Running)
-        waitForSignal(session(), SIGNAL(statusChanged(Cantor::Session::Status)));
-
     QCOMPARE(2, model->rowCount());
 
     QCOMPARE(model->index(0,0).data().toString(), QLatin1String("a"));
@@ -265,9 +259,6 @@ void TestPython3::testVariableChangeSizeType()
     auto* e = evalExp(QLatin1String("test = \"abcd\";"));
     QVERIFY(e != nullptr);
 
-    if(session()->status() == Cantor::Session::Running)
-        waitForSignal(session(), SIGNAL(statusChanged(Cantor::Session::Status)));
-
     QCOMPARE(1, model->rowCount());
     QCOMPARE(model->index(0,0).data().toString(), QLatin1String("test"));
     QCOMPARE(model->index(0,1).data().toString(), QLatin1String("'abcd'"));
@@ -281,9 +272,6 @@ void TestPython3::testVariableChangeSizeType()
     // change from string to integer
     e = evalExp(QLatin1String("test = 1;"));
     QVERIFY(e != nullptr);
-
-    if(session()->status() == Cantor::Session::Running)
-        waitForSignal(session(), SIGNAL(statusChanged(Cantor::Session::Status)));
 
     QCOMPARE(1, model->rowCount());
     QCOMPARE(model->index(0,0).data().toString(), QLatin1String("test"));
@@ -301,9 +289,6 @@ void TestPython3::testVariableCleanupAfterRestart()
 
     auto* e = evalExp(QLatin1String("a = 15; b = 'S';"));
     QVERIFY(e != nullptr);
-
-    if(session()->status()==Cantor::Session::Running)
-        waitForSignal(session(), SIGNAL(statusChanged(Cantor::Session::Status)));
 
     QCOMPARE(2, model->rowCount());
 
@@ -324,9 +309,6 @@ void TestPython3::testDictVariable()
     auto* e = evalExp(QLatin1String("d = {'value': 33}"));
 
     QVERIFY(e != nullptr);
-
-    if(session()->status() == Cantor::Session::Running)
-        waitForSignal(session(), SIGNAL(statusChanged(Cantor::Session::Status)));
 
     QCOMPARE(1, static_cast<QAbstractItemModel*>(model)->rowCount());
     QCOMPARE(model->index(0,0).data().toString(), QLatin1String("d"));
@@ -372,9 +354,6 @@ void TestPython3::testInterrupt()
     auto* e = evalExp(QLatin1String("2+2"));
     QVERIFY(e != nullptr);
 
-    if (session()->status() == Cantor::Session::Running)
-        waitForSignal(session(), SIGNAL(statusChanged(Cantor::Session::Status)));
-
     QCOMPARE(e->status(), Cantor::Expression::Done);
     QVERIFY(e->result());
     QCOMPARE(e->result()->data().toString(), QLatin1String("4"));
@@ -385,9 +364,6 @@ void TestPython3::testWarning()
     auto* e = evalExp(QLatin1String("import warnings; warnings.warn('Test')"));
 
     QVERIFY(e != nullptr);
-
-    if (session()->status() == Cantor::Session::Running)
-        waitForSignal(session(), SIGNAL(statusChanged(Cantor::Session::Status)));
 
     QCOMPARE(e->status(), Cantor::Expression::Status::Done);
     QCOMPARE(e->results().size(), 1);

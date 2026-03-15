@@ -85,9 +85,6 @@ void TestR::testVariablesCreatingFromCode()
     QVERIFY(e!=nullptr);
     QVERIFY(e->result() != nullptr);
 
-    while (session()->status() != Cantor::Session::Done)
-        waitForSignal(session(), SIGNAL(statusChanged(Cantor::Session::Status)));
-
     QCOMPARE(model->rowCount(), 3);
 
     QCOMPARE(model->index(0,0).data().toString(), QLatin1String("a1"));
@@ -114,9 +111,6 @@ void TestR::testVariableCleanupAfterRestart()
 
     Cantor::Expression* e=evalExp(QLatin1String("h1 = 15; h2 = 'S';"));
     QVERIFY(e!=nullptr);
-
-    while (session()->status() != Cantor::Session::Done)
-        waitForSignal(session(), SIGNAL(statusChanged(Cantor::Session::Status)));
 
     QCOMPARE(model->rowCount(), 2);
 

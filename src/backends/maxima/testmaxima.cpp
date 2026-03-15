@@ -161,9 +161,6 @@ void TestMaxima::testPlotWithAnotherTextResults()
         "4*4;"
     ));
 
-    if(session()->status() == Cantor::Session::Running)
-        waitForSignal(session(), SIGNAL(statusChanged(Cantor::Session::Status)));
-
     QVERIFY( e!=nullptr );
     QVERIFY( e->errorMessage().isNull() );
     QCOMPARE(e->results().size(), 3);
@@ -474,9 +471,6 @@ void TestMaxima::testVariableModel()
     QVERIFY(e2 != nullptr);
     QVERIFY(e3 != nullptr);
     QVERIFY(e4 != nullptr);
-
-    if(session()->status() == Cantor::Session::Running)
-        waitForSignal(session(), SIGNAL(statusChanged(Cantor::Session::Status)));
 
     QCOMPARE(4, model->rowCount());
 

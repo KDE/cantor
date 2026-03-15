@@ -105,9 +105,6 @@ void TestSage::testNoOutput()
 
     QVERIFY(e != nullptr);
 
-   if(session()->status()==Cantor::Session::Running)
-        waitForSignal(session(), SIGNAL(statusChanged(Cantor::Session::Status)));
-
     QVERIFY(e->result() != nullptr);
     QCOMPARE(e->result()->data().toString(), QLatin1String("2"));
 }
