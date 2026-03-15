@@ -37,6 +37,8 @@ MaximaExpression::~MaximaExpression() {
 
 void MaximaExpression::evaluate()
 {
+    m_errorBuffer.clear();
+
     if(m_tempFile)
     {
         delete m_tempFile;
@@ -303,6 +305,11 @@ void MaximaExpression::parseOutput(const QString& out)
         lastResultEnd = 0;
 
     errorContent += out.mid(lastResultEnd, promptStart - lastResultEnd).trimmed();
+
+    // if there was no error output on stdout, check the stderr content, if available.
+     if (errorContent.isEmpty() && !m_errorBuffer.isEmpty())
+        errorContent = m_errorBuffer.trimmed();
+
     if (errorContent.isEmpty())
     {
         // For plots we set Done status in imageChanged
@@ -495,6 +502,17 @@ void MaximaExpression::parseResult(const QString& resultContent)
     }
 
     addResult(result);
+}
+
+/*!
+ * overrides the base implementation, we need to accumulate the error output to collect
+ * errors (written to stderr and not to stdout starting from Maxima v5.48). The actual parsing
+ * of it is done in parseOutput() after the new prompt was written to stdout.
+ */
+void MaximaExpression::parseError(const QString& out)
+{
+    qDebug()<<"append error " << out;
+    m_errorBuffer.append(out);
 }
 
 void MaximaExpression::addInformation(const QString& information)

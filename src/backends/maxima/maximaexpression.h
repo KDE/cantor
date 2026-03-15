@@ -28,7 +28,7 @@ public:
 
     //reads from @param out until a prompt indicates that a new expression has started
     void parseOutput(const QString&) override;
-
+    void parseError(const QString&) override;
     void addInformation(const QString&) override;
 
 private Q_SLOTS:
@@ -45,6 +45,7 @@ private:
     bool m_isDraw = false;
     Cantor::Result* m_plotResult = nullptr;
     int m_plotResultIndex = -1;
+    QString m_errorBuffer;
 };
 
 #endif /* _MAXIMAEXPRESSION_H */

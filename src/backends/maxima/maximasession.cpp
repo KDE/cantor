@@ -172,12 +172,10 @@ void MaximaSession::readStdErr()
        return;
    QString out = QString::fromLocal8Bit(m_process->readAllStandardError());
    qDebug() << "reading stdErr: " << out;
-   qDebug() << "queue size: " << expressionQueue().size();
    if(expressionQueue().size()>0)
    {
        auto* expr = expressionQueue().first();
        expr->parseError(out);
-       m_cache.clear();
    }
 }
 
