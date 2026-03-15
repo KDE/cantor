@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: cantor\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-02-24 00:38+0000\n"
+"POT-Creation-Date: 2026-03-15 00:40+0000\n"
 "PO-Revision-Date: 2024-12-08 14:27+0530\n"
 "Last-Translator: Kishore G <kishore96@gmail.com>\n"
 "Language-Team: Tamil <kde-i18n-doc@kde.org>\n"
@@ -433,7 +433,7 @@ msgid "Failed to start Julia, please check Julia installation."
 msgstr ""
 
 #: backends/julia/juliasession.cpp:115 backends/julia/juliasession.cpp:124
-#: backends/maxima/maximasession.cpp:296 cantor_part.cpp:979
+#: backends/maxima/maximasession.cpp:296 cantor_part.cpp:974
 #: lib/session.cpp:264 lib/session.cpp:266 worksheet.cpp:1216
 #: worksheet.cpp:1244 worksheet.cpp:1259 worksheet.cpp:1275
 #, kde-format
@@ -531,7 +531,7 @@ msgstr ""
 #: backends/qalculate/settings.ui:347 backends/qalculate/settings.ui:364
 #: backends/R/settings.ui:160 backends/R/settings.ui:189
 #: backends/sage/settings.ui:69 backends/sage/settings.ui:114
-#: backends/scilab/settings.ui:47 commandentry.cpp:347
+#: backends/scilab/settings.ui:47 commandentry.cpp:346
 #, kde-format
 msgid "Enabled"
 msgstr "இயக்கு"
@@ -817,7 +817,7 @@ msgstr ""
 
 #: backends/maxima/maximaexpression.cpp:87
 #: backends/python/pythonexpression.cpp:61
-#: backends/qalculate/qalculateexpression.cpp:636
+#: backends/qalculate/qalculateexpression.cpp:631
 #, kde-format
 msgid "Failed to create a temporary file for writing."
 msgstr ""
@@ -900,7 +900,7 @@ msgid ""
 "numerical experiments using a language that is mostly compatible with Matlab."
 msgstr ""
 
-#: backends/octave/octaveexpression.cpp:232
+#: backends/octave/octaveexpression.cpp:233
 #, kde-format
 msgid "Invalid image file generated."
 msgstr "செல்லுபடியாகாத படக்கோப்பு உருவாக்கப்பட்டது."
@@ -1400,7 +1400,7 @@ msgstr "EPS"
 
 #. i18n: ectx: property (text), item, widget (KComboBox, saveFileBox)
 #: backends/qalculate/plotassistant/qalculateplotdialog.ui:575
-#: worksheet.cpp:1859 worksheet.cpp:1885 worksheet.cpp:1905 worksheet.cpp:1923
+#: worksheet.cpp:1858 worksheet.cpp:1882 worksheet.cpp:1900 worksheet.cpp:1917
 #, kde-format
 msgid "LaTeX"
 msgstr "LaTeX"
@@ -1557,49 +1557,49 @@ msgstr ""
 msgid "Legend position in plots."
 msgstr ""
 
-#: backends/qalculate/qalculateexpression.cpp:141
+#: backends/qalculate/qalculateexpression.cpp:140
 #, kde-format
 msgid "Qalculate reports it cannot print. Is gnuplot installed?"
 msgstr ""
 
-#: backends/qalculate/qalculateexpression.cpp:162
+#: backends/qalculate/qalculateexpression.cpp:161
 #, kde-format
 msgid "missing %1"
 msgstr "காணாத %1"
 
-#: backends/qalculate/qalculateexpression.cpp:252
+#: backends/qalculate/qalculateexpression.cpp:251
 #, kde-format
 msgid "%1 must be a number."
 msgstr "%1 எண்ணாக இருக்க வேண்டும்."
 
-#: backends/qalculate/qalculateexpression.cpp:253
+#: backends/qalculate/qalculateexpression.cpp:252
 #, kde-format
 msgid "%1 must be a integer."
 msgstr ""
 
-#: backends/qalculate/qalculateexpression.cpp:254
+#: backends/qalculate/qalculateexpression.cpp:253
 #, kde-format
 msgid "%1 must be a boolean."
 msgstr ""
 
-#: backends/qalculate/qalculateexpression.cpp:255
+#: backends/qalculate/qalculateexpression.cpp:254
 #, kde-format
 msgid "invalid option for %1: %2"
 msgstr "%1-க்கான செல்லுபடியாகா தேர்வு: %2"
 
-#: backends/qalculate/qalculateexpression.cpp:582
+#: backends/qalculate/qalculateexpression.cpp:581
 #, kde-format
 msgid "found multiple expressions in one plot command (%1 and %2)."
 msgstr ""
 
-#: backends/qalculate/qalculateexpression.cpp:686
-#: backends/qalculate/qalculateexpression.cpp:794
+#: backends/qalculate/qalculateexpression.cpp:668
+#: backends/qalculate/qalculateexpression.cpp:776
 #, kde-format
 msgid "ERROR"
 msgstr "சிக்கல்"
 
-#: backends/qalculate/qalculateexpression.cpp:688
-#: backends/qalculate/qalculateexpression.cpp:796
+#: backends/qalculate/qalculateexpression.cpp:670
+#: backends/qalculate/qalculateexpression.cpp:778
 #, kde-format
 msgid "WARNING"
 msgstr "எச்சரிக்கை"
@@ -2224,7 +2224,7 @@ msgid ""
 "provides an Open Source route to participation in that activity."
 msgstr ""
 
-#: backends/R/rexpression.cpp:109 backends/R/rexpression.cpp:110
+#: backends/R/rexpression.cpp:108 backends/R/rexpression.cpp:109
 #, kde-format
 msgid "Error opening file %1"
 msgstr "%1 கோப்பைத் திறப்பதில் சிக்கல்"
@@ -2496,12 +2496,12 @@ msgstr "அமர்வு %1"
 msgid "Failed to find the Cantor Part with error %1"
 msgstr "%1 சிக்கலால் கேண்ட்டொர்"
 
-#: cantor.cpp:464 cantor_part.cpp:646
+#: cantor.cpp:464 cantor_part.cpp:644
 #, kde-format
 msgid "Calculating..."
 msgstr "கணிக்கிறது..."
 
-#: cantor.cpp:467 cantor_part.cpp:657 cantor_part.cpp:725
+#: cantor.cpp:467 cantor_part.cpp:655 cantor_part.cpp:723
 #, kde-format
 msgid "Ready"
 msgstr "தயார்"
@@ -2531,7 +2531,7 @@ msgstr "தற்போதைய பணித்தாள் மாற்றப�
 msgid "Save Project"
 msgstr "பணித்தாளை சேமி"
 
-#: cantor.cpp:662 commandentry.cpp:168 commandentry.cpp:199
+#: cantor.cpp:662 commandentry.cpp:167 commandentry.cpp:198
 #: horizontalruleentry.cpp:328
 #, kde-format
 msgid "Default"
@@ -2768,23 +2768,23 @@ msgstr ""
 msgid "Save Plain Text"
 msgstr "வெறும் உரையாக செமி"
 
-#: cantor_part.cpp:189 cantor_part.cpp:545
+#: cantor_part.cpp:189 cantor_part.cpp:543
 #, kde-format
 msgid "Export to PDF"
 msgstr "PDF-ஆக ஏற்றுமதி செய்"
 
-#: cantor_part.cpp:193 cantor_part.cpp:557 worksheet.cpp:1319
+#: cantor_part.cpp:193 cantor_part.cpp:555 worksheet.cpp:1319
 #: worksheet.cpp:1325
 #, kde-format
 msgid "Export to LaTeX"
 msgstr "LaTeX-ஆக ஏற்றுமதி செய்"
 
-#: cantor_part.cpp:208 cantor_part.cpp:653 worksheet.cpp:1945
+#: cantor_part.cpp:208 cantor_part.cpp:651 worksheet.cpp:1938
 #, kde-format
 msgid "Evaluate Worksheet"
 msgstr "பணித்தாளை செயல்படுத்து"
 
-#: cantor_part.cpp:214 worksheet.cpp:1953
+#: cantor_part.cpp:214 worksheet.cpp:1946
 #, kde-format
 msgid "Zoom"
 msgstr "உருப்பெருக்கம்"
@@ -2855,38 +2855,38 @@ msgstr "உரைப்பதிவை நுழை"
 msgid "Insert Markdown Entry"
 msgstr "Markdown பதிவை நுழை"
 
-#: cantor_part.cpp:300
+#: cantor_part.cpp:299
 #, kde-format
 msgid "Insert LaTeX Entry"
 msgstr "LaTeX பதிவை நுழை"
 
-#: cantor_part.cpp:306
+#: cantor_part.cpp:304
 #, kde-format
 msgid "Insert Page Break"
 msgstr "பக்கமுறிவை நுழை"
 
-#: cantor_part.cpp:311 markdownentry.cpp:62
+#: cantor_part.cpp:309 markdownentry.cpp:62
 #, kde-format
 msgid "Insert Image"
 msgstr "படத்தை நுழை"
 
-#: cantor_part.cpp:316
+#: cantor_part.cpp:314
 #, kde-format
 msgid "Collapse All Results"
 msgstr "அனைத்து விடைகளையும் சுருக்கு"
 
-#: cantor_part.cpp:321
+#: cantor_part.cpp:319
 #, kde-format
 msgid "Expand All Results"
 msgstr "அனைத்து விடைகளையும் விரிவுபடுத்து"
 
-#: cantor_part.cpp:326
+#: cantor_part.cpp:324
 #, fuzzy, kde-format
 #| msgid "Remove All Results"
 msgid "Delete All Results"
 msgstr "அனைத்து விடைகளையும் நீக்கு"
 
-#: cantor_part.cpp:331
+#: cantor_part.cpp:329
 #, fuzzy, kde-format
 #| msgid "Remove current Entry"
 msgid "Delete current Entry"
@@ -2897,130 +2897,130 @@ msgstr "தற்போதைய பதிவை நீக்கு"
 #. collection->addAction(QLatin1String("file_publish_worksheet"), publishWorksheet);
 #. connect(publishWorksheet, &QAction::triggered, this, SLOT(publishWorksheet()));
 #.
-#: cantor_part.cpp:347
+#: cantor_part.cpp:345
 #, kde-format
 msgid "Show Script Editor"
 msgstr "சிறுநிரல் திருத்தியை காட்டு"
 
-#: cantor_part.cpp:352
+#: cantor_part.cpp:350
 #, kde-format
 msgid "Show Completion"
 msgstr "உரைநிறைவைக் காட்டு"
 
-#: cantor_part.cpp:417
+#: cantor_part.cpp:415
 #, kde-format
 msgid "CantorPart"
 msgstr ""
 
-#: cantor_part.cpp:419
+#: cantor_part.cpp:417
 #, kde-format
 msgid "(C) 2009-2015 Alexander Rieder"
 msgstr ""
 
-#: cantor_part.cpp:423 main.cpp:63
+#: cantor_part.cpp:421 main.cpp:63
 #, kde-format
 msgid "Alexander Rieder"
 msgstr ""
 
-#: cantor_part.cpp:475
+#: cantor_part.cpp:473
 #, kde-format
 msgid "Cantor Worksheet (*.cws)"
 msgstr "கேண்ட்டொர் பணித்தாள் (*.cws)"
 
-#: cantor_part.cpp:476
+#: cantor_part.cpp:474
 #, kde-format
 msgid "Jupyter Notebook (*.ipynb)"
 msgstr "ஜுப்பிட்டர் பணித்தாள் (*.ipynb)"
 
-#: cantor_part.cpp:492
+#: cantor_part.cpp:490
 #, kde-format
 msgid "Save as"
 msgstr "இப்படி சேமி"
 
-#: cantor_part.cpp:538 panelplugins/variablemgr/variablemanagerwidget.cpp:176
+#: cantor_part.cpp:536 panelplugins/variablemgr/variablemanagerwidget.cpp:176
 #, kde-format
 msgid "Save"
 msgstr "சேமி"
 
-#: cantor_part.cpp:538 textresultitem.cpp:213
+#: cantor_part.cpp:536 textresultitem.cpp:208
 #, kde-format
 msgid "Text Files (*.txt)"
 msgstr "உரை கோப்புகள் (*.txt)"
 
-#: cantor_part.cpp:545
+#: cantor_part.cpp:543
 #, kde-format
 msgid "PDF Files (*.pdf)"
 msgstr "PDF கோப்புகள் (*.pdf)"
 
-#: cantor_part.cpp:557
+#: cantor_part.cpp:555
 #, kde-format
 msgid "TeX Files (*.tex)"
 msgstr "TeX கோப்புகள் (*.tex)"
 
-#: cantor_part.cpp:602
+#: cantor_part.cpp:600
 #, kde-format
 msgid ""
 "All the available calculation results will be lost. Do you really want to "
 "restart %1?"
 msgstr "அனைத்து விடைகளையும் இழப்பீர்கள். உறுதியாக %1 தனை மீள்துவக்க வேண்டுமா?"
 
-#: cantor_part.cpp:603
+#: cantor_part.cpp:601
 #, kde-format
 msgid "Restart %1?"
 msgstr "%1 தனை மீள்துவக்கலாமா?"
 
-#: cantor_part.cpp:643 worksheet.cpp:1948
+#: cantor_part.cpp:641 worksheet.cpp:1941
 #, kde-format
 msgid "Interrupt"
 msgstr "குறுக்கிடு"
 
-#: cantor_part.cpp:669
+#: cantor_part.cpp:667
 #, kde-format
 msgid "Session Error: %1"
 msgstr "அமர்வில் சிக்கல்: %1"
 
-#: cantor_part.cpp:715
+#: cantor_part.cpp:713
 #, kde-format
 msgid "Initialization complete"
 msgstr "துவக்கம் முடிந்தது"
 
-#: cantor_part.cpp:720
+#: cantor_part.cpp:718
 #, kde-format
 msgid "Initializing..."
 msgstr "துவக்கப்படுகிறது..."
 
-#: cantor_part.cpp:778
+#: cantor_part.cpp:776
 #, kde-format
 msgid "[read-only]"
 msgstr "[படித்தல் மட்டும்]"
 
-#: cantor_part.cpp:896
+#: cantor_part.cpp:891
 #, kde-format
 msgid "Do you want to upload current Worksheet to public web server?"
 msgstr "தற்போதைய பணித்தாளை உறுதியாக பொது சேவையகத்திற்கு பதிவேற்ற வேண்டுமா?"
 
-#: cantor_part.cpp:897
+#: cantor_part.cpp:892
 #, kde-format
 msgid "Question - Cantor"
 msgstr "கேள்வி - கேண்ட்டொர்"
 
-#: cantor_part.cpp:898
+#: cantor_part.cpp:893
 #, kde-format
 msgctxt "@action:button"
 msgid "Upload"
 msgstr ""
 
-#: cantor_part.cpp:906
+#: cantor_part.cpp:901
 #, kde-format
 msgid "The Worksheet is not saved. You should save it before uploading."
 msgstr "இப்பணித்தாள் சேமிக்கப்பட்டிருக்கவில்லை. பதிவேற்றுமுன் இதை சேமிக்க வேண்டும்."
 
-#: cantor_part.cpp:907
+#: cantor_part.cpp:902
 #, kde-format
 msgid "Warning - Cantor"
 msgstr "எச்சரிக்கை - கேண்ட்டொர்"
 
-#: cantor_part.cpp:979
+#: cantor_part.cpp:974
 #, kde-format
 msgid "This backend does not support scripts."
 msgstr "இப்பின்நிலை சிறுநிரல்களை ஆதரிக்காது."
@@ -3073,17 +3073,17 @@ msgstr "பலகைகள்"
 msgid "&Settings"
 msgstr "&அமைப்புகள்"
 
-#: commandentry.cpp:160
+#: commandentry.cpp:159
 #, kde-format
 msgid "Background Color"
 msgstr "பின்புல நிறம்"
 
-#: commandentry.cpp:192
+#: commandentry.cpp:191
 #, kde-format
 msgid "Text Color"
 msgstr "உரையின் நிறம்"
 
-#: commandentry.cpp:220
+#: commandentry.cpp:219
 #, kde-format
 msgid "Font"
 msgstr "எழுத்துரு"
@@ -3094,7 +3094,7 @@ msgstr "எழுத்துரு"
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_SubsectionFontBold)
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_ParagraphFontBold)
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_SubparagraphFontBold)
-#: commandentry.cpp:223 formating.ui:84 formating.ui:141 formating.ui:198
+#: commandentry.cpp:222 formating.ui:84 formating.ui:141 formating.ui:198
 #: formating.ui:255 formating.ui:312 formating.ui:369
 #, kde-format
 msgid "Bold"
@@ -3106,53 +3106,53 @@ msgstr "தடித்தது"
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_SubsectionFontItalic)
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_ParagraphFontItalic)
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_SubparagraphFontItalic)
-#: commandentry.cpp:230 formating.ui:91 formating.ui:148 formating.ui:205
+#: commandentry.cpp:229 formating.ui:91 formating.ui:148 formating.ui:205
 #: formating.ui:262 formating.ui:319 formating.ui:376
 #, kde-format
 msgid "Italic"
 msgstr "சாய்வெழுத்து"
 
-#: commandentry.cpp:239
+#: commandentry.cpp:238
 #, kde-format
 msgid "Increase Size"
 msgstr "எழுத்துருவை பெரிதாக்கு"
 
-#: commandentry.cpp:243
+#: commandentry.cpp:242
 #, kde-format
 msgid "Decrease Size"
 msgstr "எழுத்துருவை சிறிதாக்கு"
 
-#: commandentry.cpp:249
+#: commandentry.cpp:248
 #, kde-format
 msgid "Select"
 msgstr "தேர்ந்தெடு"
 
-#: commandentry.cpp:253
+#: commandentry.cpp:252
 #, kde-format
 msgid "Reset to Default"
 msgstr "இயல்பிருப்பை மீட்டமை"
 
-#: commandentry.cpp:334
+#: commandentry.cpp:333
 #, kde-format
 msgid "Show Results"
 msgstr "விடைகளைக் காட்டு"
 
-#: commandentry.cpp:336
+#: commandentry.cpp:335
 #, kde-format
 msgid "Hide Results"
 msgstr "விடைகளை மறை"
 
-#: commandentry.cpp:341 worksheet.cpp:1937
+#: commandentry.cpp:340 worksheet.cpp:1930
 #, kde-format
 msgid "Show Help"
 msgstr "உதவியைக் காட்டு"
 
-#: commandentry.cpp:354
+#: commandentry.cpp:353
 #, kde-format
 msgid "Appearance"
 msgstr "தோற்றம்"
 
-#: commandentry.cpp:624 commandentry.cpp:888 lib/expression.cpp:202
+#: commandentry.cpp:623 commandentry.cpp:887 lib/expression.cpp:200
 #, kde-format
 msgid "Interrupted"
 msgstr "இடைமறிக்கப்பட்டது"
@@ -3392,19 +3392,19 @@ msgstr "பட அமைப்புகளை மாற்ற இங்கு �
 msgid "Cannot load image %1"
 msgstr "%1 எனும் படத்தை ஏற்ற முடியவில்லை"
 
-#: imageresultitem.cpp:90
+#: imageresultitem.cpp:75
 #, fuzzy, kde-format
 #| msgid "%1 files (*.%2)"
 msgctxt "%1 and %2 are file extensions"
 msgid "%1 files (*.%2)"
 msgstr "%1 கோப்புகள் (*.%2)"
 
-#: imageresultitem.cpp:93
+#: imageresultitem.cpp:78
 #, kde-format
 msgid "EPS files (*.eps)"
 msgstr "EPS கோப்புகள் (*.eps)"
 
-#: imageresultitem.cpp:96
+#: imageresultitem.cpp:81
 #, kde-format
 msgid "Save image result"
 msgstr "படத்தை சேமி"
@@ -3906,12 +3906,12 @@ msgstr "மதிப்பை நகலெடு"
 msgid "Copy Name and Value"
 msgstr "பெயரையும் மதிப்பையும் நகலெடு"
 
-#: resultitem.cpp:48
+#: resultitem.cpp:46
 #, kde-format
 msgid "Save result"
 msgstr "விடையை சேமி"
 
-#: resultitem.cpp:49
+#: resultitem.cpp:47
 #, kde-format
 msgid "Remove result"
 msgstr "விடையை நீக்கு"
@@ -3972,8 +3972,8 @@ msgstr "விடைகள்"
 msgid "Errors"
 msgstr "சிக்கல்கள்"
 
-#: searchbar.cpp:531 searchbar.cpp:560 worksheet.cpp:1851 worksheet.cpp:1880
-#: worksheet.cpp:1900 worksheet.cpp:1918
+#: searchbar.cpp:531 searchbar.cpp:560 worksheet.cpp:1851 worksheet.cpp:1878
+#: worksheet.cpp:1896 worksheet.cpp:1912
 #, kde-format
 msgid "Text"
 msgstr "உரை"
@@ -4203,47 +4203,47 @@ msgstr "சாதாரண பெட்டியாக மாற்று"
 msgid "Target MIME type:"
 msgstr "இலக்கின் மைம் வகை:"
 
-#: textresultitem.cpp:63
+#: textresultitem.cpp:61
 #, kde-format
 msgid "Copy result"
 msgstr "விடையை நகலெடு"
 
-#: textresultitem.cpp:72
+#: textresultitem.cpp:70
 #, kde-format
 msgid "Show Rendered"
 msgstr "அச்சுக்கோர்த்ததைக் காட்டு"
 
-#: textresultitem.cpp:74
+#: textresultitem.cpp:72
 #, kde-format
 msgid "Show Code"
 msgstr "நிரல்தொடரைக் காட்டு"
 
-#: textresultitem.cpp:82 textresultitem.cpp:95
+#: textresultitem.cpp:80 textresultitem.cpp:93
 #, kde-format
 msgid "Show HTML Code"
 msgstr "HTML நிரல்தொடரைக் காட்டு"
 
-#: textresultitem.cpp:84 textresultitem.cpp:90
+#: textresultitem.cpp:82 textresultitem.cpp:88
 #, kde-format
 msgid "Show Plain Alternative"
 msgstr "சாதாரண உரையாக‍க் காட்டு"
 
-#: textresultitem.cpp:88
+#: textresultitem.cpp:86
 #, kde-format
 msgid "Show Html"
 msgstr "HTMLஐ காட்டு"
 
-#: textresultitem.cpp:94
+#: textresultitem.cpp:92
 #, kde-format
 msgid "Show HTML"
 msgstr "HTMLஐ காட்டு"
 
-#: textresultitem.cpp:161
+#: textresultitem.cpp:159
 #, kde-format
 msgid "Cannot render Eps file. You may need additional packages"
 msgstr "Eps கோப்பைக் காட்ட முடியவில்லை. கூடுதல் நிரல்களை நிறுவ‍வேண்டியிருக்கலாம்"
 
-#: textresultitem.cpp:213
+#: textresultitem.cpp:208
 #, kde-format
 msgid "Save text result"
 msgstr "உரைவடிவ விடையை செமி"
@@ -4383,226 +4383,226 @@ msgstr "செல்லுபடியாகாத ஜூப்பிட்ட�
 msgid "Convert To"
 msgstr "இதற்கு மாற்று"
 
-#: worksheet.cpp:1848 worksheet.cpp:1879 worksheet.cpp:1899 worksheet.cpp:1917
+#: worksheet.cpp:1848 worksheet.cpp:1877 worksheet.cpp:1895 worksheet.cpp:1911
 #, kde-format
 msgid "Command"
 msgstr "கட்டளை"
 
-#: worksheet.cpp:1855 worksheet.cpp:1882 worksheet.cpp:1902 worksheet.cpp:1920
+#: worksheet.cpp:1855 worksheet.cpp:1880 worksheet.cpp:1898 worksheet.cpp:1914
 #, kde-format
 msgid "Markdown"
 msgstr "மார்க்டவுன்"
 
-#: worksheet.cpp:1862 worksheet.cpp:1887 worksheet.cpp:1907 worksheet.cpp:1925
+#: worksheet.cpp:1860 worksheet.cpp:1883 worksheet.cpp:1901 worksheet.cpp:1918
 #, kde-format
 msgid "Image"
 msgstr "படம்"
 
-#: worksheet.cpp:1865 worksheet.cpp:1890 worksheet.cpp:1910 worksheet.cpp:1928
+#: worksheet.cpp:1863 worksheet.cpp:1886 worksheet.cpp:1904 worksheet.cpp:1921
 #, kde-format
 msgid "Page Break"
 msgstr "பக்க முடிவு"
 
-#: worksheet.cpp:1868 worksheet.cpp:1889 worksheet.cpp:1909 worksheet.cpp:1927
+#: worksheet.cpp:1866 worksheet.cpp:1885 worksheet.cpp:1903 worksheet.cpp:1920
 #, kde-format
 msgid "Horizontal Line"
 msgstr "கிடைமட்டக் கோடு"
 
-#: worksheet.cpp:1871 worksheet.cpp:1892 worksheet.cpp:1912 worksheet.cpp:1930
+#: worksheet.cpp:1869 worksheet.cpp:1888 worksheet.cpp:1906 worksheet.cpp:1923
 #, kde-format
 msgid "Hierarchy Entry"
 msgstr ""
 
-#: worksheet.cpp:1874
+#: worksheet.cpp:1872
 #, kde-format
 msgid "Insert After"
 msgstr "பின்னே நுழை"
 
-#: worksheet.cpp:1895
+#: worksheet.cpp:1891
 #, kde-format
 msgid "Insert Before"
 msgstr "முன்னே நுழை"
 
-#: worksheet.cpp:1914
+#: worksheet.cpp:1908
 #, kde-format
 msgid "Insert"
 msgstr "நுழை"
 
-#: worksheet.cpp:1957
+#: worksheet.cpp:1950
 #, kde-format
 msgid "Zoom In"
 msgstr "பெரிதாக்கு"
 
-#: worksheet.cpp:1960
+#: worksheet.cpp:1953
 #, kde-format
 msgid "Zoom Out"
 msgstr "சிறிதாக்கு"
 
-#: worksheet.cpp:1964
+#: worksheet.cpp:1957
 #, kde-format
 msgid "Original Size"
 msgstr "உண்மையான அளவு"
 
-#: worksheet.cpp:1972
+#: worksheet.cpp:1965
 #, kde-format
 msgid "Move Entries Up"
 msgstr "பதிவுகளை மேலே நகர்த்து"
 
-#: worksheet.cpp:1973
+#: worksheet.cpp:1966
 #, kde-format
 msgid "Move Entries Down"
 msgstr "பதிவுகளை கீழே நகர்த்து"
 
-#: worksheet.cpp:1974
+#: worksheet.cpp:1967
 #, kde-format
 msgid "Evaluate Entries"
 msgstr "பதிவுகளை மதிப்பிடு"
 
-#: worksheet.cpp:1976 worksheet.cpp:2905
+#: worksheet.cpp:1969 worksheet.cpp:2898
 #, kde-format
 msgid "Delete Entries"
 msgstr "பதிவுகளை நீக்கு"
 
-#: worksheet.cpp:1989
+#: worksheet.cpp:1982
 #, kde-format
 msgid "Collapse Command Entry Results"
 msgstr "கட்டளையின் வெளியீட்டை சுருக்கு"
 
-#: worksheet.cpp:1990
+#: worksheet.cpp:1983
 #, kde-format
 msgid "Expand Command Entry Results"
 msgstr "கட்டளையின் வெளியீட்டை விரி"
 
-#: worksheet.cpp:1992
+#: worksheet.cpp:1985
 #, kde-format
 msgid "Delete Command Entry Results"
 msgstr "கட்டளையின் வெளியீட்டை நீக்கு"
 
-#: worksheet.cpp:1994
+#: worksheet.cpp:1987
 #, kde-format
 msgid "Exclude Command Entry From Execution"
 msgstr "கட்டளையை முடக்கு"
 
-#: worksheet.cpp:1995
+#: worksheet.cpp:1988
 #, kde-format
 msgid "Add Command Entry To Execution"
 msgstr "கட்டளையை இயக்கு"
 
-#: worksheet.cpp:2103
+#: worksheet.cpp:2096
 #, kde-format
 msgctxt "@action"
 msgid "Text &Color..."
 msgstr "&உரையின் நிறம்..."
 
-#: worksheet.cpp:2104
+#: worksheet.cpp:2097
 #, kde-format
 msgctxt "@label text color"
 msgid "Color"
 msgstr "நிறம்"
 
-#: worksheet.cpp:2111
+#: worksheet.cpp:2104
 #, kde-format
 msgctxt "@action"
 msgid "Text &Highlight..."
 msgstr "உரையை முன்னிலைப்படுத்து…"
 
-#: worksheet.cpp:2117
+#: worksheet.cpp:2110
 #, kde-format
 msgctxt "@action"
 msgid "&Font"
 msgstr "&எழுத்துரு"
 
-#: worksheet.cpp:2126
+#: worksheet.cpp:2119
 #, kde-format
 msgctxt "@action"
 msgid "Font &Size"
 msgstr "எழுத்துருவின் &அளவு"
 
-#: worksheet.cpp:2132
+#: worksheet.cpp:2125
 #, kde-format
 msgctxt "@action boldify selected text"
 msgid "&Bold"
 msgstr "&தடித்தது"
 
-#: worksheet.cpp:2143
+#: worksheet.cpp:2136
 #, kde-format
 msgctxt "@action italicize selected text"
 msgid "&Italic"
 msgstr "&சாய்வெழுத்து"
 
-#: worksheet.cpp:2155
+#: worksheet.cpp:2148
 #, kde-format
 msgctxt "@action underline selected text"
 msgid "&Underline"
 msgstr "அ&டிக்கோடு"
 
-#: worksheet.cpp:2166
+#: worksheet.cpp:2159
 #, kde-format
 msgctxt "@action"
 msgid "&Strike Out"
 msgstr "&குறுக்கடி"
 
-#: worksheet.cpp:2177
+#: worksheet.cpp:2170
 #, kde-format
 msgctxt "@action"
 msgid "Align &Left"
 msgstr "&இடப்புறமாக சீரமை"
 
-#: worksheet.cpp:2180
+#: worksheet.cpp:2173
 #, kde-format
 msgctxt "@label left justify"
 msgid "Left"
 msgstr "இடதில்"
 
-#: worksheet.cpp:2187
+#: worksheet.cpp:2180
 #, kde-format
 msgctxt "@action"
 msgid "Align &Center"
 msgstr "&நடுப்பகுதிக்கு சீரமை"
 
-#: worksheet.cpp:2190
+#: worksheet.cpp:2183
 #, kde-format
 msgctxt "@label center justify"
 msgid "Center"
 msgstr "நடுவில்"
 
-#: worksheet.cpp:2197
+#: worksheet.cpp:2190
 #, kde-format
 msgctxt "@action"
 msgid "Align &Right"
 msgstr "&வலதுபுறமாக சீரமை"
 
-#: worksheet.cpp:2200
+#: worksheet.cpp:2193
 #, kde-format
 msgctxt "@label right justify"
 msgid "Right"
 msgstr "வலதாக"
 
-#: worksheet.cpp:2207
+#: worksheet.cpp:2200
 #, kde-format
 msgctxt "@action"
 msgid "&Justify"
 msgstr "&சீராக்கு"
 
-#: worksheet.cpp:2210
+#: worksheet.cpp:2203
 #, kde-format
 msgctxt "@label justify fill"
 msgid "Justify"
 msgstr "சீராக்கு"
 
-#: worksheet.cpp:2904
+#: worksheet.cpp:2897
 #, kde-format
 msgid ""
 "This step cannot be undone. Do you really want to delete the selected "
 "entries?"
 msgstr ""
 
-#: worksheet.cpp:2994
+#: worksheet.cpp:2987
 #, kde-format
 msgid "This step cannot be undone. Do you really want to delete all results?"
 msgstr ""
 
-#: worksheet.cpp:2995
+#: worksheet.cpp:2988
 #, fuzzy, kde-format
 #| msgid "Remove all results"
 msgid "Delete all results"
@@ -4772,7 +4772,7 @@ msgstr "பதிவை செயல்படுத்து"
 msgid "Drag Entry"
 msgstr "பெட்டியை இழு"
 
-#: worksheettextitem.cpp:894 worksheettextitem.cpp:911
+#: worksheettextitem.cpp:893 worksheettextitem.cpp:910
 #, fuzzy, kde-format
 #| msgid "Text Color"
 msgid "Select Color"

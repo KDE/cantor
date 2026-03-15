@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-02-24 00:38+0000\n"
+"POT-Creation-Date: 2026-03-15 00:40+0000\n"
 "PO-Revision-Date: 2013-11-01 23:02+0600\n"
 "Last-Translator: Sairan Kikkarin <sairan@computer.org>\n"
 "Language-Team: Kazakh <kde-i18n-doc@kde.org>\n"
@@ -446,7 +446,7 @@ msgid "Failed to start Julia, please check Julia installation."
 msgstr "Sage жегу жаңылысы"
 
 #: backends/julia/juliasession.cpp:115 backends/julia/juliasession.cpp:124
-#: backends/maxima/maximasession.cpp:296 cantor_part.cpp:979
+#: backends/maxima/maximasession.cpp:296 cantor_part.cpp:974
 #: lib/session.cpp:264 lib/session.cpp:266 worksheet.cpp:1216
 #: worksheet.cpp:1244 worksheet.cpp:1259 worksheet.cpp:1275
 #, kde-format
@@ -548,7 +548,7 @@ msgstr ""
 #: backends/qalculate/settings.ui:347 backends/qalculate/settings.ui:364
 #: backends/R/settings.ui:160 backends/R/settings.ui:189
 #: backends/sage/settings.ui:69 backends/sage/settings.ui:114
-#: backends/scilab/settings.ui:47 commandentry.cpp:347
+#: backends/scilab/settings.ui:47 commandentry.cpp:346
 #, kde-format
 msgid "Enabled"
 msgstr "Рұқсат етілсін"
@@ -868,7 +868,7 @@ msgstr "Maxima орындалатын файлының жолы"
 
 #: backends/maxima/maximaexpression.cpp:87
 #: backends/python/pythonexpression.cpp:61
-#: backends/qalculate/qalculateexpression.cpp:636
+#: backends/qalculate/qalculateexpression.cpp:631
 #, kde-format
 msgid "Failed to create a temporary file for writing."
 msgstr ""
@@ -966,7 +966,7 @@ msgstr ""
 "сызықтық емес теңдеу және басқа да сандық есептердің шешімін ыңғайлы "
 "командалық жолы интерфейсімен шығарып беретін тіл."
 
-#: backends/octave/octaveexpression.cpp:232
+#: backends/octave/octaveexpression.cpp:233
 #, kde-format
 msgid "Invalid image file generated."
 msgstr ""
@@ -1481,7 +1481,7 @@ msgstr "EPS"
 
 #. i18n: ectx: property (text), item, widget (KComboBox, saveFileBox)
 #: backends/qalculate/plotassistant/qalculateplotdialog.ui:575
-#: worksheet.cpp:1859 worksheet.cpp:1885 worksheet.cpp:1905 worksheet.cpp:1923
+#: worksheet.cpp:1858 worksheet.cpp:1882 worksheet.cpp:1900 worksheet.cpp:1917
 #, kde-format
 msgid "LaTeX"
 msgstr "LaTeX"
@@ -1648,49 +1648,49 @@ msgstr "Графиктің стилі ғой."
 msgid "Legend position in plots."
 msgstr "График түсіндірмесінің орны."
 
-#: backends/qalculate/qalculateexpression.cpp:141
+#: backends/qalculate/qalculateexpression.cpp:140
 #, kde-format
 msgid "Qalculate reports it cannot print. Is gnuplot installed?"
 msgstr "Qalculate баса алмайды. Ggnuplot орнатылған ба?"
 
-#: backends/qalculate/qalculateexpression.cpp:162
+#: backends/qalculate/qalculateexpression.cpp:161
 #, kde-format
 msgid "missing %1"
 msgstr "%1 жетіспейді"
 
-#: backends/qalculate/qalculateexpression.cpp:252
+#: backends/qalculate/qalculateexpression.cpp:251
 #, kde-format
 msgid "%1 must be a number."
 msgstr "%1 сан болу тиіс."
 
-#: backends/qalculate/qalculateexpression.cpp:253
+#: backends/qalculate/qalculateexpression.cpp:252
 #, kde-format
 msgid "%1 must be a integer."
 msgstr "%1 бүтін сан болу тиіс."
 
-#: backends/qalculate/qalculateexpression.cpp:254
+#: backends/qalculate/qalculateexpression.cpp:253
 #, kde-format
 msgid "%1 must be a boolean."
 msgstr "%1 логикалық мән болу тиіс."
 
-#: backends/qalculate/qalculateexpression.cpp:255
+#: backends/qalculate/qalculateexpression.cpp:254
 #, kde-format
 msgid "invalid option for %1: %2"
 msgstr "%1 үшін жарамсыз параметрі: %2"
 
-#: backends/qalculate/qalculateexpression.cpp:582
+#: backends/qalculate/qalculateexpression.cpp:581
 #, kde-format
 msgid "found multiple expressions in one plot command (%1 and %2)."
 msgstr "График командасында бірнеше өрнек (%1 және %2\")"
 
-#: backends/qalculate/qalculateexpression.cpp:686
-#: backends/qalculate/qalculateexpression.cpp:794
+#: backends/qalculate/qalculateexpression.cpp:668
+#: backends/qalculate/qalculateexpression.cpp:776
 #, kde-format
 msgid "ERROR"
 msgstr "ҚАТЕ"
 
-#: backends/qalculate/qalculateexpression.cpp:688
-#: backends/qalculate/qalculateexpression.cpp:796
+#: backends/qalculate/qalculateexpression.cpp:670
+#: backends/qalculate/qalculateexpression.cpp:778
 #, kde-format
 msgid "WARNING"
 msgstr "ЕСКЕРТУ"
@@ -2350,7 +2350,7 @@ msgstr ""
 "шоғырландыру, ...) амалдарды жасау және графиктарды сызу құралы. S тілін "
 "статистика саласында жиі қолданады. R деген оның еркін таратылатын жуықтауы."
 
-#: backends/R/rexpression.cpp:109 backends/R/rexpression.cpp:110
+#: backends/R/rexpression.cpp:108 backends/R/rexpression.cpp:109
 #, kde-format
 msgid "Error opening file %1"
 msgstr "%1 файлын ашу қатесі"
@@ -2663,12 +2663,12 @@ msgstr "%1 сеансы"
 msgid "Failed to find the Cantor Part with error %1"
 msgstr "Cantor бөлшегі табылмады."
 
-#: cantor.cpp:464 cantor_part.cpp:646
+#: cantor.cpp:464 cantor_part.cpp:644
 #, kde-format
 msgid "Calculating..."
 msgstr "Есептеу..."
 
-#: cantor.cpp:467 cantor_part.cpp:657 cantor_part.cpp:725
+#: cantor.cpp:467 cantor_part.cpp:655 cantor_part.cpp:723
 #, kde-format
 msgid "Ready"
 msgstr "Дайын"
@@ -2701,7 +2701,7 @@ msgstr ""
 msgid "Save Project"
 msgstr "Нәтижені сақтау"
 
-#: cantor.cpp:662 commandentry.cpp:168 commandentry.cpp:199
+#: cantor.cpp:662 commandentry.cpp:167 commandentry.cpp:198
 #: horizontalruleentry.cpp:328
 #, fuzzy, kde-format
 #| msgid "Defaults"
@@ -2938,24 +2938,24 @@ msgstr ""
 msgid "Save Plain Text"
 msgstr "Жәй мәтінді сақтау"
 
-#: cantor_part.cpp:189 cantor_part.cpp:545
+#: cantor_part.cpp:189 cantor_part.cpp:543
 #, fuzzy, kde-format
 #| msgid "Export to LaTeX"
 msgid "Export to PDF"
 msgstr "LaTeX-ке экспорттау"
 
-#: cantor_part.cpp:193 cantor_part.cpp:557 worksheet.cpp:1319
+#: cantor_part.cpp:193 cantor_part.cpp:555 worksheet.cpp:1319
 #: worksheet.cpp:1325
 #, kde-format
 msgid "Export to LaTeX"
 msgstr "LaTeX-ке экспорттау"
 
-#: cantor_part.cpp:208 cantor_part.cpp:653 worksheet.cpp:1945
+#: cantor_part.cpp:208 cantor_part.cpp:651 worksheet.cpp:1938
 #, kde-format
 msgid "Evaluate Worksheet"
 msgstr "Құжатты есептеу"
 
-#: cantor_part.cpp:214 worksheet.cpp:1953
+#: cantor_part.cpp:214 worksheet.cpp:1946
 #, kde-format
 msgid "Zoom"
 msgstr ""
@@ -3029,39 +3029,39 @@ msgstr "Мәтін жазуын енгізу"
 msgid "Insert Markdown Entry"
 msgstr "Команда жазуын енгізу"
 
-#: cantor_part.cpp:300
+#: cantor_part.cpp:299
 #, kde-format
 msgid "Insert LaTeX Entry"
 msgstr "Latex жазуын енгізу"
 
-#: cantor_part.cpp:306
+#: cantor_part.cpp:304
 #, kde-format
 msgid "Insert Page Break"
 msgstr "Бет үзілімін енгізу"
 
-#: cantor_part.cpp:311 markdownentry.cpp:62
+#: cantor_part.cpp:309 markdownentry.cpp:62
 #, kde-format
 msgid "Insert Image"
 msgstr "Кескінді енгізу"
 
-#: cantor_part.cpp:316
+#: cantor_part.cpp:314
 #, kde-format
 msgid "Collapse All Results"
 msgstr ""
 
-#: cantor_part.cpp:321
+#: cantor_part.cpp:319
 #, fuzzy, kde-format
 #| msgid "Results"
 msgid "Expand All Results"
 msgstr "Нәтижелер"
 
-#: cantor_part.cpp:326
+#: cantor_part.cpp:324
 #, fuzzy, kde-format
 #| msgid "Remove result"
 msgid "Delete All Results"
 msgstr "Нәтижені өшіру"
 
-#: cantor_part.cpp:331
+#: cantor_part.cpp:329
 #, fuzzy, kde-format
 #| msgid "Remove current Entry"
 msgid "Delete current Entry"
@@ -3072,136 +3072,136 @@ msgstr "Назардағы жазуды өшіру"
 #. collection->addAction(QLatin1String("file_publish_worksheet"), publishWorksheet);
 #. connect(publishWorksheet, &QAction::triggered, this, SLOT(publishWorksheet()));
 #.
-#: cantor_part.cpp:347
+#: cantor_part.cpp:345
 #, kde-format
 msgid "Show Script Editor"
 msgstr "Скрипт редакторы көрсетілсін"
 
-#: cantor_part.cpp:352
+#: cantor_part.cpp:350
 #, kde-format
 msgid "Show Completion"
 msgstr "Автотолықтырулар көрсетілсін"
 
-#: cantor_part.cpp:417
+#: cantor_part.cpp:415
 #, kde-format
 msgid "CantorPart"
 msgstr "CantorPart"
 
-#: cantor_part.cpp:419
+#: cantor_part.cpp:417
 #, fuzzy, kde-format
 #| msgid "(C) 2009-2012 Alexander Rieder"
 msgid "(C) 2009-2015 Alexander Rieder"
 msgstr "(C) 2009-2012 Alexander Rieder"
 
-#: cantor_part.cpp:423 main.cpp:63
+#: cantor_part.cpp:421 main.cpp:63
 #, kde-format
 msgid "Alexander Rieder"
 msgstr "Alexander Rieder"
 
-#: cantor_part.cpp:475
+#: cantor_part.cpp:473
 #, fuzzy, kde-format
 #| msgid "*.cws|Cantor Worksheet"
 msgid "Cantor Worksheet (*.cws)"
 msgstr "*.cws|Cantor құжаты"
 
-#: cantor_part.cpp:476
+#: cantor_part.cpp:474
 #, kde-format
 msgid "Jupyter Notebook (*.ipynb)"
 msgstr ""
 
-#: cantor_part.cpp:492
+#: cantor_part.cpp:490
 #, fuzzy, kde-format
 #| msgid "Save result"
 msgid "Save as"
 msgstr "Нәтижені сақтау"
 
-#: cantor_part.cpp:538 panelplugins/variablemgr/variablemanagerwidget.cpp:176
+#: cantor_part.cpp:536 panelplugins/variablemgr/variablemanagerwidget.cpp:176
 #, kde-format
 msgid "Save"
 msgstr ""
 
-#: cantor_part.cpp:538 textresultitem.cpp:213
+#: cantor_part.cpp:536 textresultitem.cpp:208
 #, kde-format
 msgid "Text Files (*.txt)"
 msgstr ""
 
-#: cantor_part.cpp:545
+#: cantor_part.cpp:543
 #, kde-format
 msgid "PDF Files (*.pdf)"
 msgstr ""
 
-#: cantor_part.cpp:557
+#: cantor_part.cpp:555
 #, kde-format
 msgid "TeX Files (*.tex)"
 msgstr ""
 
-#: cantor_part.cpp:602
+#: cantor_part.cpp:600
 #, kde-format
 msgid ""
 "All the available calculation results will be lost. Do you really want to "
 "restart %1?"
 msgstr ""
 
-#: cantor_part.cpp:603
+#: cantor_part.cpp:601
 #, fuzzy, kde-format
 #| msgid "Restart Backend"
 msgid "Restart %1?"
 msgstr "Орындауыш тетігін қайта жегу"
 
-#: cantor_part.cpp:643 worksheet.cpp:1948
+#: cantor_part.cpp:641 worksheet.cpp:1941
 #, kde-format
 msgid "Interrupt"
 msgstr "Есепті үзу"
 
-#: cantor_part.cpp:669
+#: cantor_part.cpp:667
 #, kde-format
 msgid "Session Error: %1"
 msgstr "Сеанс қатесі: %1"
 
-#: cantor_part.cpp:715
+#: cantor_part.cpp:713
 #, kde-format
 msgid "Initialization complete"
 msgstr "Сеансты бастау күйіне келтірілді"
 
-#: cantor_part.cpp:720
+#: cantor_part.cpp:718
 #, fuzzy, kde-format
 #| msgid "Initializing Session"
 msgid "Initializing..."
 msgstr "Сеансты бастау күйіне келтіру"
 
-#: cantor_part.cpp:778
+#: cantor_part.cpp:776
 #, kde-format
 msgid "[read-only]"
 msgstr ""
 
-#: cantor_part.cpp:896
+#: cantor_part.cpp:891
 #, kde-format
 msgid "Do you want to upload current Worksheet to public web server?"
 msgstr ""
 "Назардағы құжатты жариялап ашық веб -серверге жүктеп беруді қалайсыз ба?"
 
-#: cantor_part.cpp:897
+#: cantor_part.cpp:892
 #, kde-format
 msgid "Question - Cantor"
 msgstr "Сұрақ - Cantor"
 
-#: cantor_part.cpp:898
+#: cantor_part.cpp:893
 #, kde-format
 msgctxt "@action:button"
 msgid "Upload"
 msgstr ""
 
-#: cantor_part.cpp:906
+#: cantor_part.cpp:901
 #, kde-format
 msgid "The Worksheet is not saved. You should save it before uploading."
 msgstr "Құжат сақталмаған. Жүктеп берудің алдында сақтау керек."
 
-#: cantor_part.cpp:907
+#: cantor_part.cpp:902
 #, kde-format
 msgid "Warning - Cantor"
 msgstr "Ескерту - Cantor"
 
-#: cantor_part.cpp:979
+#: cantor_part.cpp:974
 #, kde-format
 msgid "This backend does not support scripts."
 msgstr "Бұл тетік скрипттерді қолдамайды."
@@ -3255,19 +3255,19 @@ msgstr "Панельдер"
 msgid "&Settings"
 msgstr "&Баптау"
 
-#: commandentry.cpp:160
+#: commandentry.cpp:159
 #, kde-format
 msgid "Background Color"
 msgstr ""
 
-#: commandentry.cpp:192
+#: commandentry.cpp:191
 #, fuzzy, kde-format
 #| msgctxt "@action"
 #| msgid "Text &Color..."
 msgid "Text Color"
 msgstr "Мәтіннің &түсі..."
 
-#: commandentry.cpp:220
+#: commandentry.cpp:219
 #, fuzzy, kde-format
 #| msgctxt "@action"
 #| msgid "&Font"
@@ -3280,7 +3280,7 @@ msgstr "&Қаріп"
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_SubsectionFontBold)
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_ParagraphFontBold)
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_SubparagraphFontBold)
-#: commandentry.cpp:223 formating.ui:84 formating.ui:141 formating.ui:198
+#: commandentry.cpp:222 formating.ui:84 formating.ui:141 formating.ui:198
 #: formating.ui:255 formating.ui:312 formating.ui:369
 #, fuzzy, kde-format
 #| msgctxt "@action boldify selected text"
@@ -3294,7 +3294,7 @@ msgstr "Қал&ың"
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_SubsectionFontItalic)
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_ParagraphFontItalic)
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_SubparagraphFontItalic)
-#: commandentry.cpp:230 formating.ui:91 formating.ui:148 formating.ui:205
+#: commandentry.cpp:229 formating.ui:91 formating.ui:148 formating.ui:205
 #: formating.ui:262 formating.ui:319 formating.ui:376
 #, fuzzy, kde-format
 #| msgctxt "@action italicize selected text"
@@ -3302,50 +3302,50 @@ msgstr "Қал&ың"
 msgid "Italic"
 msgstr "Көл&беу"
 
-#: commandentry.cpp:239
+#: commandentry.cpp:238
 #, kde-format
 msgid "Increase Size"
 msgstr ""
 
-#: commandentry.cpp:243
+#: commandentry.cpp:242
 #, kde-format
 msgid "Decrease Size"
 msgstr ""
 
-#: commandentry.cpp:249
+#: commandentry.cpp:248
 #, kde-format
 msgid "Select"
 msgstr ""
 
-#: commandentry.cpp:253
+#: commandentry.cpp:252
 #, kde-format
 msgid "Reset to Default"
 msgstr ""
 
-#: commandentry.cpp:334
+#: commandentry.cpp:333
 #, fuzzy, kde-format
 #| msgid "Results"
 msgid "Show Results"
 msgstr "Нәтижелер"
 
-#: commandentry.cpp:336
+#: commandentry.cpp:335
 #, fuzzy, kde-format
 #| msgid "Results"
 msgid "Hide Results"
 msgstr "Нәтижелер"
 
-#: commandentry.cpp:341 worksheet.cpp:1937
+#: commandentry.cpp:340 worksheet.cpp:1930
 #, fuzzy, kde-format
 #| msgid "Show %1 Help"
 msgid "Show Help"
 msgstr "%1 анықтамасын көрсету"
 
-#: commandentry.cpp:354
+#: commandentry.cpp:353
 #, kde-format
 msgid "Appearance"
 msgstr ""
 
-#: commandentry.cpp:624 commandentry.cpp:888 lib/expression.cpp:202
+#: commandentry.cpp:623 commandentry.cpp:887 lib/expression.cpp:200
 #, kde-format
 msgid "Interrupted"
 msgstr "Есеп үзілді"
@@ -3592,18 +3592,18 @@ msgstr "Файл таңдау диалогын қос түртіп ашу"
 msgid "Cannot load image %1"
 msgstr "%1 кескіні жүктелмеді "
 
-#: imageresultitem.cpp:90
+#: imageresultitem.cpp:75
 #, kde-format
 msgctxt "%1 and %2 are file extensions"
 msgid "%1 files (*.%2)"
 msgstr ""
 
-#: imageresultitem.cpp:93
+#: imageresultitem.cpp:78
 #, kde-format
 msgid "EPS files (*.eps)"
 msgstr ""
 
-#: imageresultitem.cpp:96
+#: imageresultitem.cpp:81
 #, fuzzy, kde-format
 #| msgid "Save result"
 msgid "Save image result"
@@ -4119,12 +4119,12 @@ msgstr "Мәні"
 msgid "Copy Name and Value"
 msgstr ""
 
-#: resultitem.cpp:48
+#: resultitem.cpp:46
 #, kde-format
 msgid "Save result"
 msgstr "Нәтижені сақтау"
 
-#: resultitem.cpp:49
+#: resultitem.cpp:47
 #, kde-format
 msgid "Remove result"
 msgstr "Нәтижені өшіру"
@@ -4184,8 +4184,8 @@ msgstr "Нәтижелер"
 msgid "Errors"
 msgstr "Қателер"
 
-#: searchbar.cpp:531 searchbar.cpp:560 worksheet.cpp:1851 worksheet.cpp:1880
-#: worksheet.cpp:1900 worksheet.cpp:1918
+#: searchbar.cpp:531 searchbar.cpp:560 worksheet.cpp:1851 worksheet.cpp:1878
+#: worksheet.cpp:1896 worksheet.cpp:1912
 #, kde-format
 msgid "Text"
 msgstr "Мәтін"
@@ -4426,51 +4426,51 @@ msgstr ""
 msgid "Target MIME type:"
 msgstr ""
 
-#: textresultitem.cpp:63
+#: textresultitem.cpp:61
 #, fuzzy, kde-format
 #| msgid "Remove result"
 msgid "Copy result"
 msgstr "Нәтижені өшіру"
 
-#: textresultitem.cpp:72
+#: textresultitem.cpp:70
 #, kde-format
 msgid "Show Rendered"
 msgstr "Кескіндеп көрсету"
 
-#: textresultitem.cpp:74
+#: textresultitem.cpp:72
 #, kde-format
 msgid "Show Code"
 msgstr "Кодын көрсету"
 
-#: textresultitem.cpp:82 textresultitem.cpp:95
+#: textresultitem.cpp:80 textresultitem.cpp:93
 #, fuzzy, kde-format
 #| msgid "Show Code"
 msgid "Show HTML Code"
 msgstr "Кодын көрсету"
 
-#: textresultitem.cpp:84 textresultitem.cpp:90
+#: textresultitem.cpp:82 textresultitem.cpp:88
 #, kde-format
 msgid "Show Plain Alternative"
 msgstr ""
 
-#: textresultitem.cpp:88
+#: textresultitem.cpp:86
 #, fuzzy, kde-format
 #| msgid "Show %1 Help"
 msgid "Show Html"
 msgstr "%1 анықтамасын көрсету"
 
-#: textresultitem.cpp:94
+#: textresultitem.cpp:92
 #, fuzzy, kde-format
 #| msgid "Show %1 Help"
 msgid "Show HTML"
 msgstr "%1 анықтамасын көрсету"
 
-#: textresultitem.cpp:161
+#: textresultitem.cpp:159
 #, kde-format
 msgid "Cannot render Eps file. You may need additional packages"
 msgstr "Eps файлы кескінделмеді. Қосымша дестелер қажеті мүмкін"
 
-#: textresultitem.cpp:213
+#: textresultitem.cpp:208
 #, fuzzy, kde-format
 #| msgid "Save result"
 msgid "Save text result"
@@ -4615,240 +4615,240 @@ msgstr ""
 msgid "Convert To"
 msgstr "Мәтін жазуын енгізу"
 
-#: worksheet.cpp:1848 worksheet.cpp:1879 worksheet.cpp:1899 worksheet.cpp:1917
+#: worksheet.cpp:1848 worksheet.cpp:1877 worksheet.cpp:1895 worksheet.cpp:1911
 #, fuzzy, kde-format
 #| msgid "Commands"
 msgid "Command"
 msgstr "Командалар"
 
-#: worksheet.cpp:1855 worksheet.cpp:1882 worksheet.cpp:1902 worksheet.cpp:1920
+#: worksheet.cpp:1855 worksheet.cpp:1880 worksheet.cpp:1898 worksheet.cpp:1914
 #, fuzzy, kde-format
 #| msgid "Insert Command Entry"
 msgid "Markdown"
 msgstr "Команда жазуын енгізу"
 
-#: worksheet.cpp:1862 worksheet.cpp:1887 worksheet.cpp:1907 worksheet.cpp:1925
+#: worksheet.cpp:1860 worksheet.cpp:1883 worksheet.cpp:1901 worksheet.cpp:1918
 #, kde-format
 msgid "Image"
 msgstr "Кескін"
 
-#: worksheet.cpp:1865 worksheet.cpp:1890 worksheet.cpp:1910 worksheet.cpp:1928
+#: worksheet.cpp:1863 worksheet.cpp:1886 worksheet.cpp:1904 worksheet.cpp:1921
 #, kde-format
 msgid "Page Break"
 msgstr "Бет үзілімі"
 
-#: worksheet.cpp:1868 worksheet.cpp:1889 worksheet.cpp:1909 worksheet.cpp:1927
+#: worksheet.cpp:1866 worksheet.cpp:1885 worksheet.cpp:1903 worksheet.cpp:1920
 #, fuzzy, kde-format
 #| msgid "Points and Lines"
 msgid "Horizontal Line"
 msgstr "Нүктелер мен сызықтар"
 
-#: worksheet.cpp:1871 worksheet.cpp:1892 worksheet.cpp:1912 worksheet.cpp:1930
+#: worksheet.cpp:1869 worksheet.cpp:1888 worksheet.cpp:1906 worksheet.cpp:1923
 #, fuzzy, kde-format
 #| msgid "Drag Entry"
 msgid "Hierarchy Entry"
 msgstr "Жазуды сүйреу"
 
-#: worksheet.cpp:1874
+#: worksheet.cpp:1872
 #, fuzzy, kde-format
 #| msgid "Insert Text Entry"
 msgid "Insert After"
 msgstr "Мәтін жазуын енгізу"
 
-#: worksheet.cpp:1895
+#: worksheet.cpp:1891
 #, fuzzy, kde-format
 #| msgid "Insert Before"
 msgid "Insert Before"
 msgstr "Алдына енгізу"
 
-#: worksheet.cpp:1914
+#: worksheet.cpp:1908
 #, kde-format
 msgid "Insert"
 msgstr "Ендіру"
 
-#: worksheet.cpp:1957
+#: worksheet.cpp:1950
 #, kde-format
 msgid "Zoom In"
 msgstr ""
 
-#: worksheet.cpp:1960
+#: worksheet.cpp:1953
 #, kde-format
 msgid "Zoom Out"
 msgstr ""
 
-#: worksheet.cpp:1964
+#: worksheet.cpp:1957
 #, fuzzy, kde-format
 #| msgid "Print Size"
 msgid "Original Size"
 msgstr "Өлшемін басу"
 
-#: worksheet.cpp:1972
+#: worksheet.cpp:1965
 #, kde-format
 msgid "Move Entries Up"
 msgstr ""
 
-#: worksheet.cpp:1973
+#: worksheet.cpp:1966
 #, fuzzy, kde-format
 #| msgid "Insert Text Entry"
 msgid "Move Entries Down"
 msgstr "Мәтін жазуын енгізу"
 
-#: worksheet.cpp:1974
+#: worksheet.cpp:1967
 #, fuzzy, kde-format
 #| msgid "Evaluate Entry"
 msgid "Evaluate Entries"
 msgstr "Жазуды есептеу"
 
-#: worksheet.cpp:1976 worksheet.cpp:2905
+#: worksheet.cpp:1969 worksheet.cpp:2898
 #, fuzzy, kde-format
 #| msgid "Evaluate Entry"
 msgid "Delete Entries"
 msgstr "Жазуды есептеу"
 
-#: worksheet.cpp:1989
+#: worksheet.cpp:1982
 #, fuzzy, kde-format
 #| msgid "Insert Command Entry"
 msgid "Collapse Command Entry Results"
 msgstr "Команда жазуын енгізу"
 
-#: worksheet.cpp:1990
+#: worksheet.cpp:1983
 #, fuzzy, kde-format
 #| msgid "Append Command Entry"
 msgid "Expand Command Entry Results"
 msgstr "Команда жазуын жалғау"
 
-#: worksheet.cpp:1992
+#: worksheet.cpp:1985
 #, fuzzy, kde-format
 #| msgid "Command Entry"
 msgid "Delete Command Entry Results"
 msgstr "Команда жазуы"
 
-#: worksheet.cpp:1994
+#: worksheet.cpp:1987
 #, kde-format
 msgid "Exclude Command Entry From Execution"
 msgstr ""
 
-#: worksheet.cpp:1995
+#: worksheet.cpp:1988
 #, fuzzy, kde-format
 #| msgid "Append Command Entry"
 msgid "Add Command Entry To Execution"
 msgstr "Команда жазуын жалғау"
 
-#: worksheet.cpp:2103
+#: worksheet.cpp:2096
 #, kde-format
 msgctxt "@action"
 msgid "Text &Color..."
 msgstr "Мәтіннің &түсі..."
 
-#: worksheet.cpp:2104
+#: worksheet.cpp:2097
 #, kde-format
 msgctxt "@label text color"
 msgid "Color"
 msgstr "Түсі"
 
-#: worksheet.cpp:2111
+#: worksheet.cpp:2104
 #, kde-format
 msgctxt "@action"
 msgid "Text &Highlight..."
 msgstr "Мәтінді &белгілеу..."
 
-#: worksheet.cpp:2117
+#: worksheet.cpp:2110
 #, kde-format
 msgctxt "@action"
 msgid "&Font"
 msgstr "&Қаріп"
 
-#: worksheet.cpp:2126
+#: worksheet.cpp:2119
 #, kde-format
 msgctxt "@action"
 msgid "Font &Size"
 msgstr "Қаріп өл&шемі"
 
-#: worksheet.cpp:2132
+#: worksheet.cpp:2125
 #, kde-format
 msgctxt "@action boldify selected text"
 msgid "&Bold"
 msgstr "Қал&ың"
 
-#: worksheet.cpp:2143
+#: worksheet.cpp:2136
 #, kde-format
 msgctxt "@action italicize selected text"
 msgid "&Italic"
 msgstr "Көл&беу"
 
-#: worksheet.cpp:2155
+#: worksheet.cpp:2148
 #, kde-format
 msgctxt "@action underline selected text"
 msgid "&Underline"
 msgstr "&Асты сызылған"
 
-#: worksheet.cpp:2166
+#: worksheet.cpp:2159
 #, kde-format
 msgctxt "@action"
 msgid "&Strike Out"
 msgstr "&Сызып тастаған"
 
-#: worksheet.cpp:2177
+#: worksheet.cpp:2170
 #, kde-format
 msgctxt "@action"
 msgid "Align &Left"
 msgstr "&Солға туралау"
 
-#: worksheet.cpp:2180
+#: worksheet.cpp:2173
 #, kde-format
 msgctxt "@label left justify"
 msgid "Left"
 msgstr "Солға"
 
-#: worksheet.cpp:2187
+#: worksheet.cpp:2180
 #, kde-format
 msgctxt "@action"
 msgid "Align &Center"
 msgstr "&Ортаға туралау"
 
-#: worksheet.cpp:2190
+#: worksheet.cpp:2183
 #, kde-format
 msgctxt "@label center justify"
 msgid "Center"
 msgstr "Ортаға"
 
-#: worksheet.cpp:2197
+#: worksheet.cpp:2190
 #, kde-format
 msgctxt "@action"
 msgid "Align &Right"
 msgstr "&Оңға туралау"
 
-#: worksheet.cpp:2200
+#: worksheet.cpp:2193
 #, kde-format
 msgctxt "@label right justify"
 msgid "Right"
 msgstr "Оңға"
 
-#: worksheet.cpp:2207
+#: worksheet.cpp:2200
 #, kde-format
 msgctxt "@action"
 msgid "&Justify"
 msgstr "&Ені бойынша"
 
-#: worksheet.cpp:2210
+#: worksheet.cpp:2203
 #, kde-format
 msgctxt "@label justify fill"
 msgid "Justify"
 msgstr "Ені бойынша"
 
-#: worksheet.cpp:2904
+#: worksheet.cpp:2897
 #, kde-format
 msgid ""
 "This step cannot be undone. Do you really want to delete the selected "
 "entries?"
 msgstr ""
 
-#: worksheet.cpp:2994
+#: worksheet.cpp:2987
 #, kde-format
 msgid "This step cannot be undone. Do you really want to delete all results?"
 msgstr ""
 
-#: worksheet.cpp:2995
+#: worksheet.cpp:2988
 #, fuzzy, kde-format
 #| msgid "Remove result"
 msgid "Delete all results"
@@ -5020,7 +5020,7 @@ msgstr "Мәтін жазуы"
 msgid "Drag Entry"
 msgstr "Жазуды сүйреу"
 
-#: worksheettextitem.cpp:894 worksheettextitem.cpp:911
+#: worksheettextitem.cpp:893 worksheettextitem.cpp:910
 #, fuzzy, kde-format
 #| msgctxt "@action"
 #| msgid "Text &Color..."
