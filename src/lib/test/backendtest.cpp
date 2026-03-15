@@ -50,7 +50,7 @@ Cantor::Expression* BackendTest::evalExp(const QString& exp )
     if(e->status() == Cantor::Expression::Computing)
        waitForSignal(e, SIGNAL(statusChanged(Cantor::Expression::Status)));
 
-    if(m_session->status() == Cantor::Session::Running)
+    while (m_session->status() == Cantor::Session::Running)
         waitForSignal(m_session, SIGNAL(statusChanged(Cantor::Session::Status)));
 
    return e;
