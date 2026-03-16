@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: cantor\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-03-15 00:40+0000\n"
+"POT-Creation-Date: 2026-03-16 00:39+0000\n"
 "PO-Revision-Date: 2025-09-25 13:01+0300\n"
 "Last-Translator: Toms Trasuns <toms.trasuns@posteo.net>\n"
 "Language-Team: Latvian <kde-i18n-doc@kde.org>\n"
@@ -443,7 +443,7 @@ msgid "Failed to start Julia, please check Julia installation."
 msgstr "Neizdevās palaist „Julia“, pārbaudiet „Julia“ instalāciju."
 
 #: backends/julia/juliasession.cpp:115 backends/julia/juliasession.cpp:124
-#: backends/maxima/maximasession.cpp:296 cantor_part.cpp:974
+#: backends/maxima/maximasession.cpp:295 cantor_part.cpp:974
 #: lib/session.cpp:264 lib/session.cpp:266 worksheet.cpp:1216
 #: worksheet.cpp:1244 worksheet.cpp:1259 worksheet.cpp:1275
 #, kde-format
@@ -879,7 +879,7 @@ msgstr "Ceļš uz „Maxima“ izpilddatni"
 
 #: backends/maxima/maximaexpression.cpp:87
 #: backends/python/pythonexpression.cpp:61
-#: backends/qalculate/qalculateexpression.cpp:631
+#: backends/qalculate/qalculateexpression.cpp:629
 #, kde-format
 msgid "Failed to create a temporary file for writing."
 msgstr ""
@@ -899,7 +899,7 @@ msgstr "Kļūda: pārāk daudz /*"
 msgid "Error: expected \" before ;"
 msgstr "Kļūda: pirms ; tika gaidīts \""
 
-#: backends/maxima/maximaexpression.cpp:432
+#: backends/maxima/maximaexpression.cpp:437
 #, kde-format
 msgid "Waiting for the plot result"
 msgstr "Gaida grafika rezultātu"
@@ -922,17 +922,17 @@ msgid ""
 msgstr ""
 "„Maxima“ neatbildēja ar atbilstoši uzvedni. Pārbaudiet „Maxima“ instalāciju."
 
-#: backends/maxima/maximasession.cpp:215
+#: backends/maxima/maximasession.cpp:214
 #, kde-format
 msgid "Failed to start Maxima"
 msgstr "Neizdevās palaist „Maxima“"
 
-#: backends/maxima/maximasession.cpp:282
+#: backends/maxima/maximasession.cpp:281
 #, kde-format
 msgid "Maxima crashed. restarting..."
 msgstr "Maxima avarēja. Pārstartē..."
 
-#: backends/maxima/maximasession.cpp:296
+#: backends/maxima/maximasession.cpp:295
 #, kde-format
 msgid "Maxima crashed twice within a short time. Stopping to try starting"
 msgstr ""
@@ -970,7 +970,7 @@ msgstr ""
 "skaitlisko eksperimentu veikšanai, lietojot valodu, kas lielā mērā ir "
 "savietojama ar „Matlab“."
 
-#: backends/octave/octaveexpression.cpp:233
+#: backends/octave/octaveexpression.cpp:230
 #, kde-format
 msgid "Invalid image file generated."
 msgstr "Ģenerēta nederīga attēla datne."
@@ -1656,50 +1656,50 @@ msgstr "Grafiku stils."
 msgid "Legend position in plots."
 msgstr "Leģendas novietojums grafikos."
 
-#: backends/qalculate/qalculateexpression.cpp:140
+#: backends/qalculate/qalculateexpression.cpp:138
 #, kde-format
 msgid "Qalculate reports it cannot print. Is gnuplot installed?"
 msgstr "„Qalculate“ ziņo, ka drukāšana neizdevās. Vai „gnuplot“ ir instalēts?"
 
-#: backends/qalculate/qalculateexpression.cpp:161
+#: backends/qalculate/qalculateexpression.cpp:159
 #, kde-format
 msgid "missing %1"
 msgstr "trūkst „%1“"
 
-#: backends/qalculate/qalculateexpression.cpp:251
+#: backends/qalculate/qalculateexpression.cpp:249
 #, kde-format
 msgid "%1 must be a number."
 msgstr "%1 jābūt skaitlim."
 
-#: backends/qalculate/qalculateexpression.cpp:252
+#: backends/qalculate/qalculateexpression.cpp:250
 #, kde-format
 msgid "%1 must be a integer."
 msgstr "%1 jābūt veselam skaitlim."
 
-#: backends/qalculate/qalculateexpression.cpp:253
+#: backends/qalculate/qalculateexpression.cpp:251
 #, kde-format
 msgid "%1 must be a boolean."
 msgstr "%1 jābūt Būla funkcijas vērtībai."
 
-#: backends/qalculate/qalculateexpression.cpp:254
+#: backends/qalculate/qalculateexpression.cpp:252
 #, kde-format
 msgid "invalid option for %1: %2"
 msgstr "nederīga %1 opcija: %2"
 
-#: backends/qalculate/qalculateexpression.cpp:581
+#: backends/qalculate/qalculateexpression.cpp:579
 #, kde-format
 msgid "found multiple expressions in one plot command (%1 and %2)."
 msgstr ""
 "atrastas vairākas izteiksmes vienā grafika veidošanas komandā (%1 un %2)."
 
-#: backends/qalculate/qalculateexpression.cpp:668
-#: backends/qalculate/qalculateexpression.cpp:776
+#: backends/qalculate/qalculateexpression.cpp:666
+#: backends/qalculate/qalculateexpression.cpp:774
 #, kde-format
 msgid "ERROR"
 msgstr "KĻŪDA"
 
-#: backends/qalculate/qalculateexpression.cpp:670
-#: backends/qalculate/qalculateexpression.cpp:778
+#: backends/qalculate/qalculateexpression.cpp:668
+#: backends/qalculate/qalculateexpression.cpp:776
 #, kde-format
 msgid "WARNING"
 msgstr "BRĪDINĀJUMS"
@@ -2366,7 +2366,7 @@ msgstr ""
 "metodoloģijā, bet R piedāvā atvērtā pirmkoda ceļu, lai piedalītos šajās "
 "aktivitātēs."
 
-#: backends/R/rexpression.cpp:108 backends/R/rexpression.cpp:109
+#: backends/R/rexpression.cpp:101 backends/R/rexpression.cpp:102
 #, kde-format
 msgid "Error opening file %1"
 msgstr "Kļūda, atverot datni „%1“"
@@ -2433,12 +2433,12 @@ msgstr "Ceļš uz „Sage“ izpilddatni"
 msgid "Enable LaTeX typesetting for Sage backend"
 msgstr "Ieslēgt „LaTeX“ salikumu „Sage“ aizmugursistēmai"
 
-#: backends/sage/sageexpression.cpp:230 backends/sage/sageexpression.cpp:235
+#: backends/sage/sageexpression.cpp:223 backends/sage/sageexpression.cpp:228
 #, kde-format
 msgid "Result of %1"
 msgstr "%1 rezultāts"
 
-#: backends/sage/sageexpression.cpp:243
+#: backends/sage/sageexpression.cpp:236
 #, kde-format
 msgid ""
 "%1\n"
@@ -3320,7 +3320,7 @@ msgstr "Rādīt palīdzību"
 msgid "Appearance"
 msgstr "Izskats"
 
-#: commandentry.cpp:623 commandentry.cpp:887 lib/expression.cpp:200
+#: commandentry.cpp:623 commandentry.cpp:887
 #, kde-format
 msgid "Interrupted"
 msgstr "Pārtraukts"

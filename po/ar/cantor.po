@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: cantor\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-03-15 00:40+0000\n"
+"POT-Creation-Date: 2026-03-16 00:39+0000\n"
 "PO-Revision-Date: 2026-02-25 19:07+0400\n"
 "Last-Translator: Zayed Al-Saidi <zayed.alsaidi@gmail.com>\n"
 "Language-Team: ar\n"
@@ -438,7 +438,7 @@ msgid "Failed to start Julia, please check Julia installation."
 msgstr "فشل في تشغيل Julia، يرجى التحقق من تثبيت Julia."
 
 #: backends/julia/juliasession.cpp:115 backends/julia/juliasession.cpp:124
-#: backends/maxima/maximasession.cpp:296 cantor_part.cpp:974
+#: backends/maxima/maximasession.cpp:295 cantor_part.cpp:974
 #: lib/session.cpp:264 lib/session.cpp:266 worksheet.cpp:1216
 #: worksheet.cpp:1244 worksheet.cpp:1259 worksheet.cpp:1275
 #, kde-format
@@ -865,7 +865,7 @@ msgstr "مسار ملف Maxima التنفيذي"
 
 #: backends/maxima/maximaexpression.cpp:87
 #: backends/python/pythonexpression.cpp:61
-#: backends/qalculate/qalculateexpression.cpp:631
+#: backends/qalculate/qalculateexpression.cpp:629
 #, kde-format
 msgid "Failed to create a temporary file for writing."
 msgstr "فشل في إنشاء ملف مؤقت للكتابة."
@@ -885,7 +885,7 @@ msgstr "خطأ: الكثير من /*"
 msgid "Error: expected \" before ;"
 msgstr "خطأ: توقع وجود \" قبل ؛"
 
-#: backends/maxima/maximaexpression.cpp:432
+#: backends/maxima/maximaexpression.cpp:437
 #, kde-format
 msgid "Waiting for the plot result"
 msgstr "انتظر نتيجة المخطط"
@@ -907,17 +907,17 @@ msgid ""
 "installation."
 msgstr "لم يستجب Maxima بالمحفّز الصحيح، يرجى التحقق من تثبيت Maxima."
 
-#: backends/maxima/maximasession.cpp:215
+#: backends/maxima/maximasession.cpp:214
 #, kde-format
 msgid "Failed to start Maxima"
 msgstr "فشل في تشغيل Maxima"
 
-#: backends/maxima/maximasession.cpp:282
+#: backends/maxima/maximasession.cpp:281
 #, kde-format
 msgid "Maxima crashed. restarting..."
 msgstr "تعطل Maxima. إعادة التشغيل..."
 
-#: backends/maxima/maximasession.cpp:296
+#: backends/maxima/maximasession.cpp:295
 #, kde-format
 msgid "Maxima crashed twice within a short time. Stopping to try starting"
 msgstr "تعطل Maxima مرتين في وقت قصير. إيقاف محاولة التشغيل"
@@ -951,7 +951,7 @@ msgstr ""
 ">توفر واجهة سطر أوامر ملائمة لحل المشكلات الخطية وغير الخطية عدديًا، ولإجراء "
 "تجارب عددية أخرى باستخدام لغة متوافقة إلى حد كبير مع Matlab."
 
-#: backends/octave/octaveexpression.cpp:233
+#: backends/octave/octaveexpression.cpp:230
 #, kde-format
 msgid "Invalid image file generated."
 msgstr "أُنشئ ملف صورة غير صالح."
@@ -1630,49 +1630,49 @@ msgstr "نمط المخططات."
 msgid "Legend position in plots."
 msgstr "موضع وسيلة الإيضاح في المخططات."
 
-#: backends/qalculate/qalculateexpression.cpp:140
+#: backends/qalculate/qalculateexpression.cpp:138
 #, kde-format
 msgid "Qalculate reports it cannot print. Is gnuplot installed?"
 msgstr "يفيد Qalculate بأنه لا يمكنه الطباعة. هل gnuplot مثبَّت؟"
 
-#: backends/qalculate/qalculateexpression.cpp:161
+#: backends/qalculate/qalculateexpression.cpp:159
 #, kde-format
 msgid "missing %1"
 msgstr "مفقود %1"
 
-#: backends/qalculate/qalculateexpression.cpp:251
+#: backends/qalculate/qalculateexpression.cpp:249
 #, kde-format
 msgid "%1 must be a number."
 msgstr "يجب أن يكون %1 عددًا."
 
-#: backends/qalculate/qalculateexpression.cpp:252
+#: backends/qalculate/qalculateexpression.cpp:250
 #, kde-format
 msgid "%1 must be a integer."
 msgstr "يجب أن يكون %1 عددًا صحيحًا."
 
-#: backends/qalculate/qalculateexpression.cpp:253
+#: backends/qalculate/qalculateexpression.cpp:251
 #, kde-format
 msgid "%1 must be a boolean."
 msgstr "يجب أن يكون %1 قيمة منطقية."
 
-#: backends/qalculate/qalculateexpression.cpp:254
+#: backends/qalculate/qalculateexpression.cpp:252
 #, kde-format
 msgid "invalid option for %1: %2"
 msgstr "خيار غير صالح لـ %1: %2"
 
-#: backends/qalculate/qalculateexpression.cpp:581
+#: backends/qalculate/qalculateexpression.cpp:579
 #, kde-format
 msgid "found multiple expressions in one plot command (%1 and %2)."
 msgstr "عُثر على عدة تعابير في أمر رسم بياني واحد (%1 و %2)."
 
-#: backends/qalculate/qalculateexpression.cpp:668
-#: backends/qalculate/qalculateexpression.cpp:776
+#: backends/qalculate/qalculateexpression.cpp:666
+#: backends/qalculate/qalculateexpression.cpp:774
 #, kde-format
 msgid "ERROR"
 msgstr "خطأ"
 
-#: backends/qalculate/qalculateexpression.cpp:670
-#: backends/qalculate/qalculateexpression.cpp:778
+#: backends/qalculate/qalculateexpression.cpp:668
+#: backends/qalculate/qalculateexpression.cpp:776
 #, kde-format
 msgid "WARNING"
 msgstr "تحذير"
@@ -2330,7 +2330,7 @@ msgstr ""
 "والبيانية، وهي قابلة للتمديد بشكل كبير. لغة S هي غالبًا الوسيلة المفضلة للبحث "
 "في المنهجية الإحصائية، وR توفِّر مسارًا مفتوح المصدر للمشاركة في هذا النشاط."
 
-#: backends/R/rexpression.cpp:108 backends/R/rexpression.cpp:109
+#: backends/R/rexpression.cpp:101 backends/R/rexpression.cpp:102
 #, kde-format
 msgid "Error opening file %1"
 msgstr "خطأ في فتح الملف %1"
@@ -2397,12 +2397,12 @@ msgstr "المسار إلى ملف Sage التنفيذي"
 msgid "Enable LaTeX typesetting for Sage backend"
 msgstr "فعّل تنضيد LaTeX للواجهة الخلفية لـ Sage"
 
-#: backends/sage/sageexpression.cpp:230 backends/sage/sageexpression.cpp:235
+#: backends/sage/sageexpression.cpp:223 backends/sage/sageexpression.cpp:228
 #, kde-format
 msgid "Result of %1"
 msgstr "نتيجة %1"
 
-#: backends/sage/sageexpression.cpp:243
+#: backends/sage/sageexpression.cpp:236
 #, kde-format
 msgid ""
 "%1\n"
@@ -3290,7 +3290,7 @@ msgstr "اعرض المساعدة"
 msgid "Appearance"
 msgstr "المظهر"
 
-#: commandentry.cpp:623 commandentry.cpp:887 lib/expression.cpp:200
+#: commandentry.cpp:623 commandentry.cpp:887
 #, kde-format
 msgid "Interrupted"
 msgstr "مُقاطع"

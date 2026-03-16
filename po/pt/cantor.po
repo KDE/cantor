@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: mathematik\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-03-15 00:40+0000\n"
+"POT-Creation-Date: 2026-03-16 00:39+0000\n"
 "PO-Revision-Date: 2023-05-06 11:51+0100\n"
 "Last-Translator: José Nuno Coelho Pires <zepires@gmail.com>\n"
 "Language-Team: Portuguese <kde-i18n-pt@kde.org>\n"
@@ -457,7 +457,7 @@ msgid "Failed to start Julia, please check Julia installation."
 msgstr "Não foi possível iniciar o processo do Julia."
 
 #: backends/julia/juliasession.cpp:115 backends/julia/juliasession.cpp:124
-#: backends/maxima/maximasession.cpp:296 cantor_part.cpp:974
+#: backends/maxima/maximasession.cpp:295 cantor_part.cpp:974
 #: lib/session.cpp:264 lib/session.cpp:266 worksheet.cpp:1216
 #: worksheet.cpp:1244 worksheet.cpp:1259 worksheet.cpp:1275
 #, kde-format
@@ -901,7 +901,7 @@ msgstr "Localização do executável Maxima"
 
 #: backends/maxima/maximaexpression.cpp:87
 #: backends/python/pythonexpression.cpp:61
-#: backends/qalculate/qalculateexpression.cpp:631
+#: backends/qalculate/qalculateexpression.cpp:629
 #, kde-format
 msgid "Failed to create a temporary file for writing."
 msgstr ""
@@ -921,7 +921,7 @@ msgstr "Erro: Demasiados /*"
 msgid "Error: expected \" before ;"
 msgstr "Erro: era esperado um '\"' antes do ';'"
 
-#: backends/maxima/maximaexpression.cpp:432
+#: backends/maxima/maximaexpression.cpp:437
 #, kde-format
 msgid "Waiting for the plot result"
 msgstr "À espera do resultado do gráfico"
@@ -943,17 +943,17 @@ msgid ""
 "installation."
 msgstr ""
 
-#: backends/maxima/maximasession.cpp:215
+#: backends/maxima/maximasession.cpp:214
 #, kde-format
 msgid "Failed to start Maxima"
 msgstr "Não foi possível iniciar o Maxima"
 
-#: backends/maxima/maximasession.cpp:282
+#: backends/maxima/maximasession.cpp:281
 #, kde-format
 msgid "Maxima crashed. restarting..."
 msgstr "O Maxima estoirou. A reiniciá-lo..."
 
-#: backends/maxima/maximasession.cpp:296
+#: backends/maxima/maximasession.cpp:295
 #, kde-format
 msgid "Maxima crashed twice within a short time. Stopping to try starting"
 msgstr ""
@@ -991,7 +991,7 @@ msgstr ""
 "lineares e também para efectuar outras experiências numéricas, usando uma "
 "linguagem que é bastante compatível com o Matlab."
 
-#: backends/octave/octaveexpression.cpp:233
+#: backends/octave/octaveexpression.cpp:230
 #, kde-format
 msgid "Invalid image file generated."
 msgstr "Foi gerado um ficheiro de imagem inválido."
@@ -1676,51 +1676,51 @@ msgstr "O estilo dos gráficos."
 msgid "Legend position in plots."
 msgstr "A posição da legenda dos gráficos."
 
-#: backends/qalculate/qalculateexpression.cpp:140
+#: backends/qalculate/qalculateexpression.cpp:138
 #, kde-format
 msgid "Qalculate reports it cannot print. Is gnuplot installed?"
 msgstr ""
 "O Qalculate diz que não consegue imprimir. Será que o 'gnuplot' está "
 "instalado?"
 
-#: backends/qalculate/qalculateexpression.cpp:161
+#: backends/qalculate/qalculateexpression.cpp:159
 #, kde-format
 msgid "missing %1"
 msgstr "falta o %1"
 
-#: backends/qalculate/qalculateexpression.cpp:251
+#: backends/qalculate/qalculateexpression.cpp:249
 #, kde-format
 msgid "%1 must be a number."
 msgstr "O %1 deverá ser um número."
 
-#: backends/qalculate/qalculateexpression.cpp:252
+#: backends/qalculate/qalculateexpression.cpp:250
 #, kde-format
 msgid "%1 must be a integer."
 msgstr "O %1 deverá ser um número inteiro."
 
-#: backends/qalculate/qalculateexpression.cpp:253
+#: backends/qalculate/qalculateexpression.cpp:251
 #, kde-format
 msgid "%1 must be a boolean."
 msgstr "O %1 deverá ser um valor booleano."
 
-#: backends/qalculate/qalculateexpression.cpp:254
+#: backends/qalculate/qalculateexpression.cpp:252
 #, kde-format
 msgid "invalid option for %1: %2"
 msgstr "Opção inválida para o %1: %2"
 
-#: backends/qalculate/qalculateexpression.cpp:581
+#: backends/qalculate/qalculateexpression.cpp:579
 #, kde-format
 msgid "found multiple expressions in one plot command (%1 and %2)."
 msgstr "foram encontradas várias expressões num comando do gráfico (%1 e %2)."
 
-#: backends/qalculate/qalculateexpression.cpp:668
-#: backends/qalculate/qalculateexpression.cpp:776
+#: backends/qalculate/qalculateexpression.cpp:666
+#: backends/qalculate/qalculateexpression.cpp:774
 #, kde-format
 msgid "ERROR"
 msgstr "ERRO"
 
-#: backends/qalculate/qalculateexpression.cpp:670
-#: backends/qalculate/qalculateexpression.cpp:778
+#: backends/qalculate/qalculateexpression.cpp:668
+#: backends/qalculate/qalculateexpression.cpp:776
 #, kde-format
 msgid "WARNING"
 msgstr "ATENÇÃO"
@@ -2397,7 +2397,7 @@ msgstr ""
 "metodologias estatísticas, sendo que o R oferece uma rota 'open-source' para "
 "participar nessa actividade."
 
-#: backends/R/rexpression.cpp:108 backends/R/rexpression.cpp:109
+#: backends/R/rexpression.cpp:101 backends/R/rexpression.cpp:102
 #, kde-format
 msgid "Error opening file %1"
 msgstr "Erro ao abrir o ficheiro %1"
@@ -2464,12 +2464,12 @@ msgstr "Localização do executável Sage"
 msgid "Enable LaTeX typesetting for Sage backend"
 msgstr "Activar a Formatação em LaTeX para a infra-estrutura do Sage"
 
-#: backends/sage/sageexpression.cpp:230 backends/sage/sageexpression.cpp:235
+#: backends/sage/sageexpression.cpp:223 backends/sage/sageexpression.cpp:228
 #, kde-format
 msgid "Result of %1"
 msgstr "Resultado do %1"
 
-#: backends/sage/sageexpression.cpp:243
+#: backends/sage/sageexpression.cpp:236
 #, kde-format
 msgid ""
 "%1\n"
@@ -3354,7 +3354,7 @@ msgstr "Mostrar a Ajuda"
 msgid "Appearance"
 msgstr "Aparência"
 
-#: commandentry.cpp:623 commandentry.cpp:887 lib/expression.cpp:200
+#: commandentry.cpp:623 commandentry.cpp:887
 #, kde-format
 msgid "Interrupted"
 msgstr "Interrompido"

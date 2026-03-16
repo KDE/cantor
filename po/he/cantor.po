@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: cantor\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-03-15 00:40+0000\n"
+"POT-Creation-Date: 2026-03-16 00:39+0000\n"
 "PO-Revision-Date: 2026-02-26 08:53+0200\n"
 "Last-Translator: Yaron Shahrabani <sh.yaron@gmail.com>\n"
 "Language-Team: צוות התרגום של KDE ישראל\n"
@@ -435,7 +435,7 @@ msgid "Failed to start Julia, please check Julia installation."
 msgstr "הפעלת Julia נכשלה, נא לבדוק שההתקנה של Julia תקינה."
 
 #: backends/julia/juliasession.cpp:115 backends/julia/juliasession.cpp:124
-#: backends/maxima/maximasession.cpp:296 cantor_part.cpp:974
+#: backends/maxima/maximasession.cpp:295 cantor_part.cpp:974
 #: lib/session.cpp:264 lib/session.cpp:266 worksheet.cpp:1216
 #: worksheet.cpp:1244 worksheet.cpp:1259 worksheet.cpp:1275
 #, kde-format
@@ -861,7 +861,7 @@ msgstr "נתיב לקובץ ההפעלה של Maxima"
 
 #: backends/maxima/maximaexpression.cpp:87
 #: backends/python/pythonexpression.cpp:61
-#: backends/qalculate/qalculateexpression.cpp:631
+#: backends/qalculate/qalculateexpression.cpp:629
 #, kde-format
 msgid "Failed to create a temporary file for writing."
 msgstr "יצירת קובץ זמני לכתיבה נכשלה."
@@ -881,7 +881,7 @@ msgstr "שגיאה: יותר מדי ‎/*‎"
 msgid "Error: expected \" before ;"
 msgstr "שגיאה: אמור להיות \" לפני ;"
 
-#: backends/maxima/maximaexpression.cpp:432
+#: backends/maxima/maximaexpression.cpp:437
 #, kde-format
 msgid "Waiting for the plot result"
 msgstr "בהמתנה לתוצאת השרטוט"
@@ -903,17 +903,17 @@ msgid ""
 "installation."
 msgstr "Maxima לא הגיבה עם הבקשה המתאימה, נא לבדוק שההתקנה של Maxima תקינה."
 
-#: backends/maxima/maximasession.cpp:215
+#: backends/maxima/maximasession.cpp:214
 #, kde-format
 msgid "Failed to start Maxima"
 msgstr "הפעלת Maxima נכשלה"
 
-#: backends/maxima/maximasession.cpp:282
+#: backends/maxima/maximasession.cpp:281
 #, kde-format
 msgid "Maxima crashed. restarting..."
 msgstr "Maxima קרסה. מופעלת מחדש…"
 
-#: backends/maxima/maximasession.cpp:296
+#: backends/maxima/maximasession.cpp:295
 #, kde-format
 msgid "Maxima crashed twice within a short time. Stopping to try starting"
 msgstr "Maxima קרסה פעמיים תוך זמן קצר. לא יתבצע ניסיון נוסף להפעילאותה"
@@ -947,7 +947,7 @@ msgstr ""
 "מספקת ממשק שורת פקודה נוח לפתרון בעיות לינאריות וא־לינאריות באופן מספרי "
 "ולביצוע ניסויים מספריים אחרים עם שפה שברובה תואמת ל־Matlab."
 
-#: backends/octave/octaveexpression.cpp:233
+#: backends/octave/octaveexpression.cpp:230
 #, kde-format
 msgid "Invalid image file generated."
 msgstr "נוצר קובץ תמונה שגוי."
@@ -1627,49 +1627,49 @@ msgstr "סגנון השרטוטים."
 msgid "Legend position in plots."
 msgstr "מקום המקרא בשרטוטים."
 
-#: backends/qalculate/qalculateexpression.cpp:140
+#: backends/qalculate/qalculateexpression.cpp:138
 #, kde-format
 msgid "Qalculate reports it cannot print. Is gnuplot installed?"
 msgstr "Qalculate מדווח שלא יכול להדפיס. gnuplot מותקן?"
 
-#: backends/qalculate/qalculateexpression.cpp:161
+#: backends/qalculate/qalculateexpression.cpp:159
 #, kde-format
 msgid "missing %1"
 msgstr "%1 חסר"
 
-#: backends/qalculate/qalculateexpression.cpp:251
+#: backends/qalculate/qalculateexpression.cpp:249
 #, kde-format
 msgid "%1 must be a number."
 msgstr "%1 חייב להיות מספק."
 
-#: backends/qalculate/qalculateexpression.cpp:252
+#: backends/qalculate/qalculateexpression.cpp:250
 #, kde-format
 msgid "%1 must be a integer."
 msgstr "%1 חייב להיות מספר שלם וחיובי."
 
-#: backends/qalculate/qalculateexpression.cpp:253
+#: backends/qalculate/qalculateexpression.cpp:251
 #, kde-format
 msgid "%1 must be a boolean."
 msgstr "%1 חייב להיות בוליאני."
 
-#: backends/qalculate/qalculateexpression.cpp:254
+#: backends/qalculate/qalculateexpression.cpp:252
 #, kde-format
 msgid "invalid option for %1: %2"
 msgstr "אפשרות שגויה עבור %1‏: %2"
 
-#: backends/qalculate/qalculateexpression.cpp:581
+#: backends/qalculate/qalculateexpression.cpp:579
 #, kde-format
 msgid "found multiple expressions in one plot command (%1 and %2)."
 msgstr "נמצאו מגוון ביטויים בפקודת שרטוט אחת (%1 ו־%2)."
 
-#: backends/qalculate/qalculateexpression.cpp:668
-#: backends/qalculate/qalculateexpression.cpp:776
+#: backends/qalculate/qalculateexpression.cpp:666
+#: backends/qalculate/qalculateexpression.cpp:774
 #, kde-format
 msgid "ERROR"
 msgstr "שגיאה"
 
-#: backends/qalculate/qalculateexpression.cpp:670
-#: backends/qalculate/qalculateexpression.cpp:778
+#: backends/qalculate/qalculateexpression.cpp:668
+#: backends/qalculate/qalculateexpression.cpp:776
 #, kde-format
 msgid "WARNING"
 msgstr "אזהרה"
@@ -2324,7 +2324,7 @@ msgstr ""
 "גמישה מאוד. שפת S היא בדרך כלל המנגנון הנבחר למתודולוגיית מחקר בסטטיסטיקה, ו־"
 "R מספקת ניתוב בקוד פתוח להשתתפות בפעילות הזאת."
 
-#: backends/R/rexpression.cpp:108 backends/R/rexpression.cpp:109
+#: backends/R/rexpression.cpp:101 backends/R/rexpression.cpp:102
 #, kde-format
 msgid "Error opening file %1"
 msgstr "שגיאה בפתיחת הקובץ %1"
@@ -2390,12 +2390,12 @@ msgstr "נתיב לקובץ ההפעלה של Sage"
 msgid "Enable LaTeX typesetting for Sage backend"
 msgstr "הפעלת סידור LaTeX לדפוס למנגנון Sage"
 
-#: backends/sage/sageexpression.cpp:230 backends/sage/sageexpression.cpp:235
+#: backends/sage/sageexpression.cpp:223 backends/sage/sageexpression.cpp:228
 #, kde-format
 msgid "Result of %1"
 msgstr "תוצאה של %1"
 
-#: backends/sage/sageexpression.cpp:243
+#: backends/sage/sageexpression.cpp:236
 #, kde-format
 msgid ""
 "%1\n"
@@ -3276,7 +3276,7 @@ msgstr "הצגת עזרה"
 msgid "Appearance"
 msgstr "מראה"
 
-#: commandentry.cpp:623 commandentry.cpp:887 lib/expression.cpp:200
+#: commandentry.cpp:623 commandentry.cpp:887
 #, kde-format
 msgid "Interrupted"
 msgstr "הופרעה"
