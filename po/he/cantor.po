@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: cantor\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-03-16 00:39+0000\n"
-"PO-Revision-Date: 2026-02-26 08:53+0200\n"
+"PO-Revision-Date: 2026-03-20 08:13+0200\n"
 "Last-Translator: Yaron Shahrabani <sh.yaron@gmail.com>\n"
 "Language-Team: צוות התרגום של KDE ישראל\n"
 "Language: he\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=4; plural=(n == 1) ? 0 : ((n == 2) ? 1 : ((n > 10 && "
 "n % 10 == 0) ? 2 : 3));\n"
-"X-Generator: Lokalize 25.12.1\n"
+"X-Generator: Lokalize 25.12.3\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -2337,7 +2337,7 @@ msgstr "קובץ סקריפט R‏ (‎*.R)"
 #: backends/R/rserver/rserver.cpp:364
 #, kde-format
 msgid "Error Parsing Command"
-msgstr "שגיאה בפענוח פקודה"
+msgstr "שגיאה בפיענוח פקודה"
 
 #. i18n: ectx: label, entry (localDoc), group (RBackend)
 #: backends/R/rserver/rserver.kcfg:9
@@ -2440,7 +2440,7 @@ msgstr ""
 #: backends/sage/sagesession.cpp:354
 #, kde-format
 msgid "The Sage process crashed while evaluating this expression"
-msgstr "תהליך Sage קרס תוך כדי פענוח הביטוי"
+msgstr "תהליך Sage קרס תוך כדי פיענוח הביטוי"
 
 #: backends/sage/sagesession.cpp:358
 #, kde-format
@@ -2450,7 +2450,7 @@ msgstr "תהליך Sage קרס"
 #: backends/sage/sagesession.cpp:365
 #, kde-format
 msgid "The Sage process exited while evaluating this expression"
-msgstr "תהליך Sage הסתיים תוך כדי פענוח הביטוי"
+msgstr "תהליך Sage הסתיים תוך כדי פיענוח הביטוי"
 
 #: backends/sage/sagesession.cpp:369
 #, kde-format
@@ -3659,7 +3659,7 @@ msgstr "פתיחת הקובץ %1 במהלך בדיקות שילוב השרטוט
 #: lib/backend.cpp:222
 #, kde-format
 msgid "Failed to parse the result during the plot integration test."
-msgstr "פענוח התוצאה במהלך בדיקת שילוב השרטוט נכשל."
+msgstr "פיענוח התוצאה במהלך בדיקת שילוב השרטוט נכשל."
 
 #. i18n: ectx: label, entry (latexCommand), group (Cantor)
 #: lib/cantor_libs.kcfg:10
