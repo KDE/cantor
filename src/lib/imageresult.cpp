@@ -54,7 +54,11 @@ ImageResult::ImageResult(const QUrl &url, const QString& alt) :  d(new ImageResu
         if (d->data.isEmpty())
             return;
 
-        const int dpi = QGuiApplication::primaryScreen()->logicalDotsPerInchX();
+        const double dpi = QGuiApplication::primaryScreen()->logicalDotsPerInchX();
+        const double pixelRatio = QGuiApplication::primaryScreen()->devicePixelRatio();
+
+        const double superSample = 2.0;
+        const double totalScale = (dpi / 72.0) * pixelRatio * superSample;
 
         if (d->extension == QLatin1String("pdf"))
         {
@@ -76,7 +80,18 @@ ImageResult::ImageResult(const QUrl &url, const QString& alt) :  d(new ImageResu
             document->setRenderHint(Poppler::Document::TextSlightHinting);
             document->setRenderHint(Poppler::Document::ThinLineSolid);
 
-            d->img = page->renderToImage(dpi, dpi);
+            d->img = page->renderToImage(72.0 * totalScale, 72.0 * totalScale);
+
+            if (!d->img.isNull()) {
+                if (d->img.format() != QImage::Format_ARGB32_Premultiplied)
+                    d->img = d->img.convertToFormat(QImage::Format_ARGB32_Premultiplied);
+
+                double ratio = pixelRatio * superSample;
+                d->img.setDevicePixelRatio(ratio);
+
+                if (!d->displaySize.isValid())
+                    d->displaySize = QSize(qRound(d->img.width() / ratio), qRound(d->img.height() / ratio));
+            }
         }
         else
         {
@@ -84,15 +99,24 @@ ImageResult::ImageResult(const QUrl &url, const QString& alt) :  d(new ImageResu
 
             // SVG document size is in points, convert to pixels
             const auto& size = renderer.defaultSize();
-            int w = size.width() / 72 * dpi;
-            int h = size.height() / 72 * dpi;
-            d->img = QImage(w, h, QImage::Format_ARGB32);
+            if (!d->displaySize.isValid())
+                d->displaySize = QSize(qRound(size.width() * dpi / 72.0), qRound(size.height() * dpi / 72.0));
+            int w = qRound(size.width() * totalScale);
+            int h = qRound(size.height() * totalScale);
+
+            d->img = QImage(w, h, QImage::Format_ARGB32_Premultiplied);
+            d->img.fill(Qt::transparent);
 
             // render
             QPainter painter;
             painter.begin(&d->img);
+            painter.setRenderHint(QPainter::Antialiasing, true);
+            painter.setRenderHint(QPainter::TextAntialiasing, true);
+            painter.setRenderHint(QPainter::SmoothPixmapTransform, true);
             renderer.render(&painter);
             painter.end();
+
+            d->img.setDevicePixelRatio(pixelRatio * superSample);
         }
     }
     else // raster formats

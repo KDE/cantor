@@ -99,6 +99,7 @@ QImage Renderer::pdfRenderToImage(const QUrl& url, double scale, bool highResolu
     popplerMutex.lock();
     auto document = Poppler::Document::load(url.toLocalFile());
     popplerMutex.unlock();
+
     if (document == nullptr)
     {
         if (errorReason)
@@ -106,32 +107,28 @@ QImage Renderer::pdfRenderToImage(const QUrl& url, double scale, bool highResolu
         return QImage();
     }
 
+    document->setRenderHint(Poppler::Document::Antialiasing, true);
+    document->setRenderHint(Poppler::Document::TextAntialiasing, true);
+    document->setRenderHint(Poppler::Document::TextHinting, true);
+
     auto pdfPage = document->page(0);
     if (pdfPage == nullptr)
     {
         if (errorReason)
             *errorReason = QString::fromLatin1("Poppler library failed to access first page of %1 document").arg(url.toLocalFile());
-
         return QImage();
     }
 
-    QSize pageSize = pdfPage->pageSize();
-
     double dpiX = QGuiApplication::primaryScreen()->physicalDotsPerInchX();
-    double dpiScale = dpiX / 72.0;
 
-    const double SUPERSAMPLE = 2.0;
-    double renderScale = dpiScale * SUPERSAMPLE;
+    double superSample = 2.0;
+    double effectiveScale = (2.0 / 1.8) * scale * superSample;
 
-    qreal w = dpiScale * pageSize.width();
-    qreal h = dpiScale * pageSize.height();
+    if (highResolution)
+        effectiveScale = (2.0 / 1.8) * 5.0 * superSample;
 
-    if(highResolution)
-        renderScale *= 5;
-    else
-        renderScale *= scale;
-
-    QImage image = pdfPage->renderToImage(72.0 * renderScale, 72.0 * renderScale);
+    double targetDpi = dpiX * effectiveScale;
+    QImage image = pdfPage->renderToImage(targetDpi, targetDpi);
 
     popplerMutex.lock();
     popplerMutex.unlock();
@@ -140,18 +137,17 @@ QImage Renderer::pdfRenderToImage(const QUrl& url, double scale, bool highResolu
     {
         if (errorReason)
             *errorReason = QString::fromLatin1("Poppler library failed to render pdf %1 to image").arg(url.toLocalFile());
-
         return image;
     }
 
-    // Resize with smooth transformation for more beautiful result
-    image = image.convertToFormat(QImage::Format_ARGB32).scaled(image.size()/1.8, Qt::IgnoreAspectRatio, Qt::SmoothTransformation);
+    if (image.format() != QImage::Format_ARGB32_Premultiplied)
+        image = image.convertToFormat(QImage::Format_ARGB32_Premultiplied);
 
     if (size)
-        *size = QSizeF(w, h);
+        *size = QSizeF(image.width() / superSample, image.height() / superSample);
+
     return image;
 }
-
 QImage Renderer::renderToImage(const QUrl& url, QSizeF* size)
 {
     return pdfRenderToImage(url, d->scale, d->useHighRes, size);

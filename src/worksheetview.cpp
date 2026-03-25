@@ -22,6 +22,9 @@ WorksheetView::WorksheetView(Worksheet* scene, QWidget* parent) : QGraphicsView(
     setAlignment(Qt::AlignLeft | Qt::AlignTop);
     //setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     setHorizontalScrollBarPolicy(Qt::ScrollBarAsNeeded);
+    setRenderHint(QPainter::Antialiasing, true);
+    setRenderHint(QPainter::TextAntialiasing, true);
+    setRenderHint(QPainter::SmoothPixmapTransform, true);
 }
 
 void WorksheetView::makeVisible(const QRectF& sceneRect)

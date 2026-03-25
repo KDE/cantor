@@ -73,21 +73,25 @@ QImage PdfResult::renderToImage(double scale, bool useHighRes)
         return QImage();
 
     popplerPdfMutex.lock();
-    std::unique_ptr<Poppler::Document> document = Poppler::Document::loadFromData(d->pdfData);
+    auto document = Poppler::Document::loadFromData(d->pdfData);
     popplerPdfMutex.unlock();
 
-    if (!document || document->isLocked())
+    if (document == nullptr)
         return QImage();
 
-    std::unique_ptr<Poppler::Page> pdfPage = document->page(0);
-    if (!pdfPage)
+    document->setRenderHint(Poppler::Document::Antialiasing, true);
+    document->setRenderHint(Poppler::Document::TextAntialiasing, true);
+    document->setRenderHint(Poppler::Document::TextHinting, true);
+
+    auto pdfPage = document->page(0);
+    if (pdfPage == nullptr)
         return QImage();
 
     double dpiX = QGuiApplication::primaryScreen()->physicalDotsPerInchX();
     double dpiScale = dpiX / 72.0;
 
-    const double SUPERSAMPLE = 2.0;
-    double renderScale = dpiScale * SUPERSAMPLE;
+    const double superSample = 2.0;
+    double renderScale = dpiScale * superSample;
 
     if (useHighRes)
         renderScale *= 5;
@@ -98,7 +102,10 @@ QImage PdfResult::renderToImage(double scale, bool useHighRes)
 
     if (!image.isNull())
     {
-        image = image.convertToFormat(QImage::Format_ARGB32).scaled(image.size() / SUPERSAMPLE, Qt::IgnoreAspectRatio, Qt::SmoothTransformation);
+        if (image.format() != QImage::Format_ARGB32_Premultiplied)
+            image = image.convertToFormat(QImage::Format_ARGB32_Premultiplied);
+
+        image.setDevicePixelRatio(superSample);
     }
 
     return image;
