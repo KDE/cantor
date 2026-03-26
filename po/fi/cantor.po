@@ -2,14 +2,14 @@
 # Author: Artnay
 # Author: Lliehu
 # Author: Niklas Laxström
-# SPDX-FileCopyrightText: 2018, 2019, 2020, 2022, 2024, 2025 Tommi Nieminen <translator@legisign.org>
+# SPDX-FileCopyrightText: 2018, 2019, 2020, 2022, 2024, 2025, 2026 Tommi Nieminen <translator@legisign.org>
 # Lasse Liehu <lasse.liehu@gmail.com>, 2012, 2013, 2014, 2015, 2016.
 msgid ""
 msgstr ""
 "Project-Id-Version: cantor\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-03-16 00:39+0000\n"
-"PO-Revision-Date: 2025-07-21 21:23+0300\n"
+"PO-Revision-Date: 2026-03-13 13:56+0200\n"
 "Last-Translator: Tommi Nieminen <translator@legisign.org>\n"
 "Language-Team: Finnish <kde-i18n-doc@kde.org>\n"
 "Language: fi\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Lokalize 23.08.5\n"
+"X-Generator: Lokalize 25.04.0\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -486,6 +486,11 @@ msgid ""
 "perform it in Julia REPL that is able to show the current progress of the "
 "package installation."
 msgstr ""
+"Julialle tuetaan toistaiseksi vain GR-visualisointisovelluskehystä (https://"
+"gr-framework.org/). Tämä paketti on asennettava ensin, ellei niin ole jo "
+"tehty: aja Cantorissa tai Julian REPLissä Pkg.install(\"GR\"). Huomaa, että "
+"toimenpide kestää hetken ja on parempi suorittaa Julian REPLissä, joka osaa "
+"näyttää paketin asennuksen etenemisen."
 
 # Ei perusasetukset, koska tässä on general vs backend specific settings
 #. i18n: ectx: attribute (title), widget (QWidget, tabGeneral)
@@ -810,6 +815,38 @@ msgid ""
 "i> returns <i>done</i> unless no examples are found or there is no argument, "
 "in which case <i>example</i> returns the list of all recognized topics."
 msgstr ""
+"<h1>Maximan ohjejärjestelmä</h1><h2><i>apropos</i>-funktio</h2>Funktio etsii "
+"Maxima-nimiä, joissa annettu nimi esiintyy; <i>nimen</i> on oltava "
+"merkkijono tai symboli. Näin <i>apropos(exp)</i> palauttaa luettelon "
+"kaikista lipuista ja funktioista, joiden nimen osana on ”exp”, kuten "
+"<i>expand</i>, <i>exp</i> ja <i>exponentialize</i>. Jos muistaa vain osan "
+"Maxima-komennon tai -muuttujan nimestä, voi tällä komennolla löytää loput. "
+"Samoin voi kirjoittaa <i>apropos(tr_)</i> ja saada luettelon kaikista "
+"kääntäjään liittyvistä valitsimista, joista useimmat alkavat <i>tr_</i>."
+"<br><br><i>apropos(\"\")</i> palauttaa luettelon kaikista Maximan nimistä."
+"<br><br><i>apropos</i> palauttaa tyhjän luettelon [], ellei nimiä löydy."
+"<br><br><h2><i>describe</i>-funktio</h2><i>describe(mkijono)</i> on sama "
+"kuin describe(mkijono, exact).<br><br><i>describe(mkijono, exact)</i> löytää "
+"kohteen, jos sellaista on, jonka nimi (kirjaintasosta riippumatta) vastaa "
+"annettua merkkijonoa.<br><br><i>describe(mkijono, inexact)</i> löytyy kaikki "
+"dokumentoidut kohteet, joiden nimissä annettu mkijono esiintyy. Jos niitä on "
+"useampia, Maxima pyytää käyttäjää valitsemaan näytettävät kohteet."
+"<br><br><i>? jono</i> (missä on sanaväli <i>?</i>:n ja <i>jonon</i> välissä) "
+"on sama kuin <i>describe(\"jono\", exact)</i>, ja <i>?? jono</i> on sama "
+"kuin <i>describe(\"jono\", inexact)</i>.<br><br><i>describe(, inexact)</i> "
+"tuottaa luettelon kaikista verkkokäsikirjassa dokumentoiduista aiheista."
+"<br><br><i>describe</i> lainaa parametrinsa. <i>describe> palauttaa arvon "
+"<i>true</i>, jos dokumentaatiota löytyy, muuten <i>false</i>."
+"<br><h2><i>example</i>-funktio</h2><i>example(aihe)</i> näyttää joitakin "
+"esimerkkejä <i>aiheesta</i>, joka on symboli tai merkkijono. Jotta ohjeen "
+"saisi operaattoreista kuten <i>if</i>, <i>do</i> tai <i>lambda</i>, "
+"parametrin on oltava merkkijono. Useimmat aiheet ovat funktioiden nimiä."
+"<br><br><i>example()</i> palauttaa luettelo kaikista tunnetuista aiheista."
+"<br><br>Esimerkit sisältävän tiedoston nimi annetaan globaalissa muuttujassa "
+"<i>manual_demo</i>, jonka oletusarvo on <i>\"manual.demo\"</i>."
+"<br><br><i>example</i> lainaa parametrinsa. <i>example</i> palauttaa "
+"<i>done</i>, ellei esimerkkejä löytynyt, tai jos parametri puuttuu, "
+"<i>example</i> palauttaa luettelon kaikista tunnetuista aiheista."
 
 #: backends/maxima/maximabackend.cpp:111
 #, kde-format
@@ -1645,7 +1682,7 @@ msgstr "%1 on oltava totuusarvo."
 #: backends/qalculate/qalculateexpression.cpp:252
 #, kde-format
 msgid "invalid option for %1: %2"
-msgstr ""
+msgstr "virheellinen valitsin: %1: %2"
 
 #: backends/qalculate/qalculateexpression.cpp:579
 #, kde-format
@@ -1822,6 +1859,7 @@ msgstr ""
 #, kde-format
 msgid "Plot smoothing. One of none, unique, csplines, bezier, sbezier"
 msgstr ""
+"Kaavion pehmennys. Jokin arvoista none, unique, csplines, bezier, sbezier"
 
 #: backends/qalculate/qalculatesyntaxhelpobject.cpp:229
 #, kde-format
@@ -2042,7 +2080,7 @@ msgstr "Kaaviot"
 #: backends/qalculate/settings.ui:317
 #, kde-format
 msgid "Display plots inline:"
-msgstr ""
+msgstr "Näytä kaaviot upotettuna:"
 
 #. i18n: ectx: property (text), widget (QLabel, label_12)
 #: backends/qalculate/settings.ui:354
@@ -2669,7 +2707,7 @@ msgstr "Oletusarvoisesti käytettävä taustaosa"
 #: cantor.kcfg:14
 #, kde-format
 msgid "Default editor color theme"
-msgstr ""
+msgstr "Muokkaimen oletusväriteema"
 
 #. i18n: ectx: label, entry (TypesetDefault), group (Cantor)
 #: cantor.kcfg:18
@@ -4063,12 +4101,12 @@ msgstr "Ei löytynyt"
 #: searchbar.cpp:224
 #, kde-format
 msgid "Reached end of document, continuing from top..."
-msgstr ""
+msgstr "Saavutettiin tiedoston loppu, jatketaan alusta…"
 
 #: searchbar.cpp:339
 #, kde-format
 msgid "Reached beginning of document, continuing from bottom..."
-msgstr ""
+msgstr "Saavutettiin tiedoston alku, jatketaan lopusta…"
 
 #: searchbar.cpp:433
 #, kde-format
@@ -4148,14 +4186,13 @@ msgstr "Oletustaustajärjestelmä:"
 #: settings.ui:76 settings.ui:129
 #, kde-format
 msgid "Default editor color theme for new worksheets"
-msgstr ""
+msgstr "Uusien työvihkojen muokkaimen oletusväriteema"
 
 #. i18n: ectx: property (text), widget (QLabel, label_theme)
 #: settings.ui:79
-#, fuzzy, kde-format
-#| msgid "Default Backend:"
+#, kde-format
 msgid "Default Theme:"
-msgstr "Oletustaustajärjestelmä:"
+msgstr "Oletusteema:"
 
 #. i18n: ectx: property (toolTip), widget (QSpinBox, kcfg_VisibleLinesLimit)
 #: settings.ui:86
@@ -4494,7 +4531,7 @@ msgstr ""
 #: worksheet.cpp:1684
 #, kde-format
 msgid "an object with keys: %1"
-msgstr ""
+msgstr "olio avaimilla: %1"
 
 #: worksheet.cpp:1686
 #, kde-format
@@ -4907,10 +4944,9 @@ msgid "Drag Entry"
 msgstr "Vedä kenttää"
 
 #: worksheettextitem.cpp:893 worksheettextitem.cpp:910
-#, fuzzy, kde-format
-#| msgid "Text Color"
+#, kde-format
 msgid "Select Color"
-msgstr "Tekstiväri"
+msgstr "Valitse väri"
 
 #~ msgid "Reached beginning"
 #~ msgstr "Saavutettiin alku"
