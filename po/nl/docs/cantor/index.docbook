@@ -256,7 +256,7 @@
     </varlistentry>
     <varlistentry>
       <term
->Octave:</term>
+>Octaaf:</term>
       <listitem>
   <para
 >&GNU; Octave is een hogere programmeertaal, speciaal geschikt voor numerieke berekeningen. Het bevat een gemakkelijk te gebruiken interface voor de opdrachtregel, voor het numeriek oplossen van lineaire en niet-lineaire berekeningen, en voor het uitvoeren van andere numerieke experimenten op een manier die het meest lijkt op die van <ulink url="http://www.mathworks.com/products/matlab/"
