@@ -84,14 +84,13 @@ parts:
     after:
       - libgpgmepp-qt6
     plugin: cmake
-    source: https://poppler.freedesktop.org/poppler-25.07.0.tar.xz
+    source: https://poppler.freedesktop.org/poppler-26.02.0.tar.xz
     build-packages:
       - cmake
       - libfreetype6-dev
       - libfontconfig1-dev
       - libjpeg-dev
       - zlib1g-dev
-      - libnss3-dev
       - liblcms2-dev
       - libcurl4-openssl-dev
       - libopenjp2-7-dev
@@ -121,7 +120,6 @@ parts:
       - libldap2
       - libnghttp2-14
       - libnspr4
-      - libnss3
       - libpcre2-16-0
       - libpng16-16
       - libpsl5
