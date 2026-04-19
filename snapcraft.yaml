@@ -14,6 +14,12 @@ apps:
     common-id: org.kde.cantor.desktop
     desktop: usr/share/applications/org.kde.cantor.desktop
     command: usr/bin/cantor
+    plugs:
+      - audio-playback
+      - home
+      - browser-support
+    environment:
+      QTWEBENGINE_DISABLE_SANDBOX: 1
 environment:
   PATH_TO_CANTOR_PLUGINS: $SNAP/usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR/qt6/plugins/cantor/backends
 slots:
@@ -31,7 +37,7 @@ parts:
       - libgl-dev
       - libeigen3-dev
     source: https://invent.kde.org/education/analitza.git
-    source-branch: master
+    source-branch: 26.04
     cmake-parameters:
       - -DCMAKE_INSTALL_PREFIX=/usr
       - -DCMAKE_BUILD_TYPE=Release
@@ -188,6 +194,8 @@ parts:
       - maxima
       - octave
       - scilab
+      - maxima-sage
+      - lua5.5
     cmake-parameters:
       - -DCMAKE_INSTALL_PREFIX=/usr
       - -DCMAKE_BUILD_TYPE=Release
