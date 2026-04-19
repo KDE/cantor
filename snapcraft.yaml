@@ -37,7 +37,7 @@ parts:
       - libgl-dev
       - libeigen3-dev
     source: https://invent.kde.org/education/analitza.git
-    source-branch: 26.04
+    source-branch: release/26.04
     cmake-parameters:
       - -DCMAKE_INSTALL_PREFIX=/usr
       - -DCMAKE_BUILD_TYPE=Release
