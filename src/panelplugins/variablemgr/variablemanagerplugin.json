@@ -70,6 +70,7 @@
         "Name[ta]": "மாறிகள்",
         "Name[tr]": "Değişkenler",
         "Name[uk]": "Змінні",
+        "Name[zh_CN]": "变量",
         "Name[zh_TW]": "變數"
     },
     "RequiredExtensions": "VariableManagementExtension"
