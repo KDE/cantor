@@ -29,6 +29,7 @@
         "Description[sv]": "Ett insticksprogram för Cantors panel",
         "Description[tr]": "Cantor’un paneli için bir eklenti",
         "Description[uk]": "Додаток панелі Cantor",
+        "Description[zh_CN]": "Cantor 面板插件",
         "ServiceType": "Cantor/PanelPlugin"
     }
 }
