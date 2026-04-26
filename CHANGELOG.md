@@ -1,4 +1,17 @@
 # Changelog
+
+## 26.04
+    * Switched to the more powerfull KTextEditor framework for command entries
+    * Use PDF to render LaTeX results in command and LaTex entries
+    * Removed the dependency on libspectre that was used for EPS rendering
+
+## 25.12
+    * Implemented XSMP session restore
+    * Fixed the build with julia 1.12
+
+## 25.08
+    * [qalculate] fix qalculate backend with recent versions of libqalculate
+
 ## 25.04
     * Better error handling when the external Maxima process fails to start
     * Added the missing handling of the "integrated plots" setting for R, Python and Julia
