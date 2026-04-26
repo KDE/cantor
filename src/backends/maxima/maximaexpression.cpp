@@ -515,11 +515,27 @@ void MaximaExpression::parseError(const QString& out)
     m_errorBuffer.append(out);
 }
 
+void MaximaExpression::parseHelpSelectionPrompt(const QString& prompt)
+{
+    if (!m_errorBuffer.isEmpty())
+    {
+        auto* result = new Cantor::HelpResult(QLatin1Char(' ') + m_errorBuffer.trimmed());
+        setResult(result);
+        m_errorBuffer.clear();
+    }
+
+    m_isHelpRequestAdditional = true;
+    Q_EMIT needsAdditionalInformation(prompt);
+}
+
 void MaximaExpression::addInformation(const QString& information)
 {
     qDebug()<<"adding information";
     QString inf=information;
-    if(!inf.endsWith(QLatin1Char(';')))
+
+    // don't add semicolons for help request selections - the cl-info
+    // module expects plain numbers/text, not Maxima expressions
+    if(!m_isHelpRequestAdditional && !inf.endsWith(QLatin1Char(';')))
         inf+=QLatin1Char(';');
     Cantor::Expression::addInformation(inf);
 

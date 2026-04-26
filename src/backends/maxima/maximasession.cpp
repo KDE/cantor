@@ -186,7 +186,28 @@ void MaximaSession::readStdOut()
 
     //collect the multi-line output until Maxima has finished the calculation and returns a new prompt
     if ( !out.contains(QLatin1String("</cantor-prompt>")) )
+    {
+        // The Maxima help system's selection prompt ("Enter space-separated numbers, `all' or `none': ")
+        // is not wrapped in <cantor-prompt> tags. Without this detection, parseOutput() would never
+        // be called, causing a deadlock where we wait for a prompt that never comes while Maxima
+        // waits for user input.
+        if (!expressionQueue().isEmpty())
+        {
+            auto* expr = static_cast<MaximaExpression*>(expressionQueue().first());
+            if (expr->isHelpRequest()
+                && m_cache.contains(QLatin1String("Enter space-separated numbers")))
+            {
+                const QString err = QString::fromLocal8Bit(m_process->readAllStandardError());
+                if (!err.isEmpty())
+                    expr->parseError(err);
+
+                QString prompt = m_cache.trimmed();
+                m_cache.clear();
+                expr->parseHelpSelectionPrompt(prompt);
+            }
+        }
         return;
+    }
 
     if(expressionQueue().isEmpty())
     {
@@ -199,6 +220,12 @@ void MaximaSession::readStdOut()
     auto* expr = expressionQueue().first();
     if (!expr)
         return; //should never happen
+
+    // flush any pending stderr before parsing stdout to ensure
+    // error messages are available in the error buffer for parseOutput()
+    const QString err = QString::fromLocal8Bit(m_process->readAllStandardError());
+    if (!err.isEmpty())
+        expr->parseError(err);
 
     qDebug()<<"output: " << m_cache;
     expr->parseOutput(m_cache);

@@ -403,14 +403,19 @@ void TestMaxima::testInformationRequest()
 
 void TestMaxima::testHelpRequest()
 {
-    QSKIP("TODO: failing on CI");
     //execute "??print"
     auto* e = session()->evaluateExpression(QLatin1String("??print"));
     QVERIFY(e != nullptr);
 
     //help result will be shown, but maxima still expects further input
-    waitForSignal(e, SIGNAL(needsAdditionalInformation(QString)));
-    QVERIFY(e->status() != Cantor::Expression::Done);
+    if (e->status() != Cantor::Expression::Done)
+        waitForSignal(e, SIGNAL(needsAdditionalInformation(QString)));
+
+    //if the expression already completed, the help system is not functional
+    //(e.g. missing maxima-index.lisp), skip the rest of the test
+    if (e->status() == Cantor::Expression::Done)
+        QSKIP("Maxima help index files not available");
+
     QVERIFY(e->results().size() == 1); // one HelpResult showing the possible options for the answer
 
     //ask for help for the first flag of the print command

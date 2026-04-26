@@ -31,6 +31,8 @@ public:
     void parseError(const QString&) override;
     void addInformation(const QString&) override;
 
+    void parseHelpSelectionPrompt(const QString&);
+
 private Q_SLOTS:
     void imageChanged();
 
