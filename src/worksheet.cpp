@@ -811,12 +811,15 @@ void Worksheet::evaluateCurrentEntry()
         loginToSession();
 
     // evaluate the current entry if the login was successful
-    if (m_session && m_session->status() == Cantor::Session::Done)
+    if (!m_session)
+        return;
+
+    // the current status of the session should be Done or Running - the later is the case when we're
+    // waiting for the additional input like Maxima's help requests or assumptions for integrate(), etc.
+    if (m_session->status() == Cantor::Session::Done || m_session->status() == Cantor::Session::Running)
     {
-        auto* entry = currentEntry();
-        if(!entry)
-            return;
-        entry->evaluateCurrentItem();
+        if(auto* entry = currentEntry())
+            entry->evaluateCurrentItem();
     }
 }
 
