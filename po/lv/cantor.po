@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: cantor\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-03-16 00:39+0000\n"
+"POT-Creation-Date: 2026-04-27 00:38+0000\n"
 "PO-Revision-Date: 2025-09-25 13:01+0300\n"
 "Last-Translator: Toms Trasuns <toms.trasuns@posteo.net>\n"
 "Language-Team: Latvian <kde-i18n-doc@kde.org>\n"
@@ -443,9 +443,9 @@ msgid "Failed to start Julia, please check Julia installation."
 msgstr "Neizdevās palaist „Julia“, pārbaudiet „Julia“ instalāciju."
 
 #: backends/julia/juliasession.cpp:115 backends/julia/juliasession.cpp:124
-#: backends/maxima/maximasession.cpp:295 cantor_part.cpp:974
-#: lib/session.cpp:264 lib/session.cpp:266 worksheet.cpp:1216
-#: worksheet.cpp:1244 worksheet.cpp:1259 worksheet.cpp:1275
+#: backends/maxima/maximasession.cpp:322 cantor_part.cpp:974
+#: lib/session.cpp:264 lib/session.cpp:266 worksheet.cpp:1219
+#: worksheet.cpp:1247 worksheet.cpp:1262 worksheet.cpp:1278
 #, kde-format
 msgid "Error - Cantor"
 msgstr "Kļūda — „Cantor“"
@@ -922,17 +922,17 @@ msgid ""
 msgstr ""
 "„Maxima“ neatbildēja ar atbilstoši uzvedni. Pārbaudiet „Maxima“ instalāciju."
 
-#: backends/maxima/maximasession.cpp:214
+#: backends/maxima/maximasession.cpp:241
 #, kde-format
 msgid "Failed to start Maxima"
 msgstr "Neizdevās palaist „Maxima“"
 
-#: backends/maxima/maximasession.cpp:281
+#: backends/maxima/maximasession.cpp:308
 #, kde-format
 msgid "Maxima crashed. restarting..."
 msgstr "Maxima avarēja. Pārstartē..."
 
-#: backends/maxima/maximasession.cpp:295
+#: backends/maxima/maximasession.cpp:322
 #, kde-format
 msgid "Maxima crashed twice within a short time. Stopping to try starting"
 msgstr ""
@@ -1003,7 +1003,7 @@ msgstr "Grafiku integrācija būs izslēgta"
 #: backends/octave/octavesession.cpp:390 backends/sage/sagesession.cpp:358
 #: backends/sage/sagesession.cpp:369 cantor.cpp:233 cantor.cpp:235
 #: cantor.cpp:354 cantor.cpp:361 lib/session.cpp:334 main.cpp:48 main.cpp:105
-#: markdownentry.cpp:813 textentry.cpp:564 worksheet.cpp:1298
+#: markdownentry.cpp:813 textentry.cpp:564 worksheet.cpp:1301
 #, kde-format
 msgid "Cantor"
 msgstr "Cantor"
@@ -1479,7 +1479,7 @@ msgstr "EPS"
 
 #. i18n: ectx: property (text), item, widget (KComboBox, saveFileBox)
 #: backends/qalculate/plotassistant/qalculateplotdialog.ui:575
-#: worksheet.cpp:1858 worksheet.cpp:1882 worksheet.cpp:1900 worksheet.cpp:1917
+#: worksheet.cpp:1861 worksheet.cpp:1885 worksheet.cpp:1903 worksheet.cpp:1920
 #, kde-format
 msgid "LaTeX"
 msgstr "LaTeX"
@@ -2940,18 +2940,18 @@ msgstr "Saglabāt kā vienkāršu tekstu"
 msgid "Export to PDF"
 msgstr "Eksportēt uz PDF"
 
-#: cantor_part.cpp:193 cantor_part.cpp:555 worksheet.cpp:1319
-#: worksheet.cpp:1325
+#: cantor_part.cpp:193 cantor_part.cpp:555 worksheet.cpp:1322
+#: worksheet.cpp:1328
 #, kde-format
 msgid "Export to LaTeX"
 msgstr "Eksportēt uz „LaTex“"
 
-#: cantor_part.cpp:208 cantor_part.cpp:651 worksheet.cpp:1938
+#: cantor_part.cpp:208 cantor_part.cpp:651 worksheet.cpp:1941
 #, kde-format
 msgid "Evaluate Worksheet"
 msgstr "Risināt darblapu"
 
-#: cantor_part.cpp:214 worksheet.cpp:1946
+#: cantor_part.cpp:214 worksheet.cpp:1949
 #, kde-format
 msgid "Zoom"
 msgstr "Tuvinājums"
@@ -3136,7 +3136,7 @@ msgstr ""
 msgid "Restart %1?"
 msgstr "Vai pārstartēt „%1“?"
 
-#: cantor_part.cpp:641 worksheet.cpp:1941
+#: cantor_part.cpp:641 worksheet.cpp:1944
 #, kde-format
 msgid "Interrupt"
 msgstr "Pārtraukums"
@@ -3310,7 +3310,7 @@ msgstr "Rādīt rezultātus"
 msgid "Hide Results"
 msgstr "Slēpt rezultātus"
 
-#: commandentry.cpp:340 worksheet.cpp:1930
+#: commandentry.cpp:340 worksheet.cpp:1933
 #, kde-format
 msgid "Show Help"
 msgstr "Rādīt palīdzību"
@@ -4140,8 +4140,8 @@ msgstr "Rezultāti"
 msgid "Errors"
 msgstr "Kļūdas"
 
-#: searchbar.cpp:531 searchbar.cpp:560 worksheet.cpp:1851 worksheet.cpp:1878
-#: worksheet.cpp:1896 worksheet.cpp:1912
+#: searchbar.cpp:531 searchbar.cpp:560 worksheet.cpp:1854 worksheet.cpp:1881
+#: worksheet.cpp:1899 worksheet.cpp:1915
 #, kde-format
 msgid "Text"
 msgstr "Teksts"
@@ -4423,22 +4423,22 @@ msgstr ""
 msgid "Save text result"
 msgstr "Saglabāt teksta rezultātu"
 
-#: worksheet.cpp:1215
+#: worksheet.cpp:1218
 #, kde-format
 msgid "Cannot write file %1."
 msgstr "Neizdevās rakstīt datnē „%1“."
 
-#: worksheet.cpp:1243 worksheet.cpp:1258
+#: worksheet.cpp:1246 worksheet.cpp:1261
 #, kde-format
 msgid "Cannot write file."
 msgstr "Neizdevās rakstīt datnē."
 
-#: worksheet.cpp:1275 worksheet.cpp:1319
+#: worksheet.cpp:1278 worksheet.cpp:1322
 #, kde-format
 msgid "Error saving file %1"
 msgstr "Kļūda, saglabājot datni „%1“"
 
-#: worksheet.cpp:1298
+#: worksheet.cpp:1301
 #, kde-format
 msgid ""
 "In read-only mode Cantor couldn't guarantee, that the export will be valid "
@@ -4447,39 +4447,39 @@ msgstr ""
 "Tikai lasīšanas režīmā „Cantor“ nevar garantēt, ka eksports būs derīgs "
 "priekš „%1“"
 
-#: worksheet.cpp:1325
+#: worksheet.cpp:1328
 #, kde-format
 msgid "Error loading latex.xsl stylesheet"
 msgstr "Kļūda, ielādējot „latex.xsl“ stila lapu"
 
-#: worksheet.cpp:1366
+#: worksheet.cpp:1369
 #, kde-format
 msgid "Couldn't open the file %1."
 msgstr "Nevarēja atvērt datni „%1“."
 
-#: worksheet.cpp:1366 worksheet.cpp:1389 worksheet.cpp:1409 worksheet.cpp:1426
-#: worksheet.cpp:1458 worksheet.cpp:1469 worksheet.cpp:1578 worksheet.cpp:1593
-#: worksheet.cpp:1635 worksheet.cpp:1646 worksheet.cpp:1765 worksheet.cpp:1767
+#: worksheet.cpp:1369 worksheet.cpp:1392 worksheet.cpp:1412 worksheet.cpp:1429
+#: worksheet.cpp:1461 worksheet.cpp:1472 worksheet.cpp:1581 worksheet.cpp:1596
+#: worksheet.cpp:1638 worksheet.cpp:1649 worksheet.cpp:1768 worksheet.cpp:1770
 #, kde-format
 msgid "Open File"
 msgstr "Atvērt datni"
 
-#: worksheet.cpp:1389
+#: worksheet.cpp:1392
 #, kde-format
 msgid "Couldn't open the selected file for reading."
 msgstr "Nevarēja lasīšanai atvērt atlasīto datni."
 
-#: worksheet.cpp:1409
+#: worksheet.cpp:1412
 #, kde-format
 msgid "The selected file is not a valid Cantor or Jupyter project file."
 msgstr "Atlasītā datne nav derīga „Cantor“ vai „Jupyter“ projekta datne."
 
-#: worksheet.cpp:1426
+#: worksheet.cpp:1429
 #, kde-format
 msgid "The selected file is not a valid Cantor project file."
 msgstr "Atlasītā datne nav derīga „Cantor“ projekta datne."
 
-#: worksheet.cpp:1448
+#: worksheet.cpp:1451
 #, kde-format
 msgid ""
 "This worksheet was created using Python2 which is not supported anymore. "
@@ -4488,12 +4488,12 @@ msgstr ""
 "Šī darblapa ir izveidota ar „Python2“, kas vairs nav atbalstīts. Programma "
 "tā vietā izmantos „Python3“."
 
-#: worksheet.cpp:1449 worksheet.cpp:1617
+#: worksheet.cpp:1452 worksheet.cpp:1620
 #, kde-format
 msgid "Python2 not supported anymore"
 msgstr "„Python2“ vairs nav atbalstīts"
 
-#: worksheet.cpp:1458 worksheet.cpp:1634
+#: worksheet.cpp:1461 worksheet.cpp:1637
 #, kde-format
 msgid ""
 "%1 backend was not found. Editing and executing entries is not possible."
@@ -4501,7 +4501,7 @@ msgstr ""
 "„%1“ aizmugursistēma nav atrasta. Ierakstu rediģēšana un izpildīšana nav "
 "iespējama."
 
-#: worksheet.cpp:1467 worksheet.cpp:1644
+#: worksheet.cpp:1470 worksheet.cpp:1647
 #, kde-format
 msgid ""
 "There are some problems with the %1 backend,\n"
@@ -4512,7 +4512,7 @@ msgstr ""
 "Pārbaudiet sistēmas konfigurāciju vai instalējiet vajadzīgās pakotnes.\n"
 "Apskatīt varēsiet tikai šo darblapu."
 
-#: worksheet.cpp:1577
+#: worksheet.cpp:1580
 #, kde-format
 msgid ""
 "Jupyter notebooks with versions lower than 4.5 (detected version %1.%2) are "
@@ -4521,7 +4521,7 @@ msgstr ""
 "„Jupyter“ piezīmju grāmatas ar versiju, kas ir zemākas par 4.5 (konstatētā "
 "versija %1.%2) nav atbalstītas."
 
-#: worksheet.cpp:1592
+#: worksheet.cpp:1595
 #, kde-format
 msgid ""
 "Jupyter notebooks with versions higher than 4.5 (detected version %1.%2) are "
@@ -4530,7 +4530,7 @@ msgstr ""
 "„Jupyter“ piezīmju grāmatas ar versijām, kas ir augstākas par 4.5 "
 "(konstatētā versija %1.%2) nav atbalstītas."
 
-#: worksheet.cpp:1616
+#: worksheet.cpp:1619
 #, kde-format
 msgid ""
 "This notebook was created using Python2 which is not supported anymore. "
@@ -4539,256 +4539,256 @@ msgstr ""
 "Šī piezīmju grāmata ir izveidota ar „Python2“, kas vairs nav atbalstīts. Tā "
 "vietā programma izmantos „Python3“"
 
-#: worksheet.cpp:1684
+#: worksheet.cpp:1687
 #, kde-format
 msgid "an object with keys: %1"
 msgstr "objekts ar atslēgām: %1"
 
-#: worksheet.cpp:1686
+#: worksheet.cpp:1689
 #, kde-format
 msgid "non object JSON value"
 msgstr "ne objekta JSON vērtība"
 
-#: worksheet.cpp:1689
+#: worksheet.cpp:1692
 #, kde-format
 msgid "found incorrect data (%1) that is not Jupyter cell"
 msgstr "atrasti nekorekti dati (%1), kas nav „Jupyter“ šūna"
 
-#: worksheet.cpp:1765
+#: worksheet.cpp:1768
 #, kde-format
 msgid "The file is not valid Jupyter notebook"
 msgstr "Datne nav derīga „Jupyter“ piezīmju grāmata"
 
-#: worksheet.cpp:1767
+#: worksheet.cpp:1770
 #, kde-format
 msgid "Invalid Jupyter notebook scheme: %1"
 msgstr "Nederīga „Jupyter“ piezīmju grāmatas shēma: %1"
 
-#: worksheet.cpp:1843
+#: worksheet.cpp:1846
 #, kde-format
 msgid "Convert To"
 msgstr "Pārveidot par"
 
-#: worksheet.cpp:1848 worksheet.cpp:1877 worksheet.cpp:1895 worksheet.cpp:1911
+#: worksheet.cpp:1851 worksheet.cpp:1880 worksheet.cpp:1898 worksheet.cpp:1914
 #, kde-format
 msgid "Command"
 msgstr "Komanda"
 
-#: worksheet.cpp:1855 worksheet.cpp:1880 worksheet.cpp:1898 worksheet.cpp:1914
+#: worksheet.cpp:1858 worksheet.cpp:1883 worksheet.cpp:1901 worksheet.cpp:1917
 #, kde-format
 msgid "Markdown"
 msgstr "Markdown"
 
-#: worksheet.cpp:1860 worksheet.cpp:1883 worksheet.cpp:1901 worksheet.cpp:1918
+#: worksheet.cpp:1863 worksheet.cpp:1886 worksheet.cpp:1904 worksheet.cpp:1921
 #, kde-format
 msgid "Image"
 msgstr "Attēls"
 
-#: worksheet.cpp:1863 worksheet.cpp:1886 worksheet.cpp:1904 worksheet.cpp:1921
+#: worksheet.cpp:1866 worksheet.cpp:1889 worksheet.cpp:1907 worksheet.cpp:1924
 #, kde-format
 msgid "Page Break"
 msgstr "Lapas atdalītājs"
 
-#: worksheet.cpp:1866 worksheet.cpp:1885 worksheet.cpp:1903 worksheet.cpp:1920
+#: worksheet.cpp:1869 worksheet.cpp:1888 worksheet.cpp:1906 worksheet.cpp:1923
 #, kde-format
 msgid "Horizontal Line"
 msgstr "Horizontāla līnija"
 
-#: worksheet.cpp:1869 worksheet.cpp:1888 worksheet.cpp:1906 worksheet.cpp:1923
+#: worksheet.cpp:1872 worksheet.cpp:1891 worksheet.cpp:1909 worksheet.cpp:1926
 #, kde-format
 msgid "Hierarchy Entry"
 msgstr "Hierarhijas ieraksts"
 
-#: worksheet.cpp:1872
+#: worksheet.cpp:1875
 #, kde-format
 msgid "Insert After"
 msgstr "Ievietot pēc"
 
-#: worksheet.cpp:1891
+#: worksheet.cpp:1894
 #, kde-format
 msgid "Insert Before"
 msgstr "Ievietot pirms"
 
-#: worksheet.cpp:1908
+#: worksheet.cpp:1911
 #, kde-format
 msgid "Insert"
 msgstr "Ievietot"
 
-#: worksheet.cpp:1950
+#: worksheet.cpp:1953
 #, kde-format
 msgid "Zoom In"
 msgstr "Tuvināt"
 
-#: worksheet.cpp:1953
+#: worksheet.cpp:1956
 #, kde-format
 msgid "Zoom Out"
 msgstr "Tālināt"
 
-#: worksheet.cpp:1957
+#: worksheet.cpp:1960
 #, kde-format
 msgid "Original Size"
 msgstr "Sākotnējais izmērs"
 
-#: worksheet.cpp:1965
+#: worksheet.cpp:1968
 #, kde-format
 msgid "Move Entries Up"
 msgstr "Pārvietot ierakstus augšup"
 
-#: worksheet.cpp:1966
+#: worksheet.cpp:1969
 #, kde-format
 msgid "Move Entries Down"
 msgstr "Pārvietot ierakstus lejup"
 
-#: worksheet.cpp:1967
+#: worksheet.cpp:1970
 #, kde-format
 msgid "Evaluate Entries"
 msgstr "Risināt ierakstus"
 
-#: worksheet.cpp:1969 worksheet.cpp:2898
+#: worksheet.cpp:1972 worksheet.cpp:2901
 #, kde-format
 msgid "Delete Entries"
 msgstr "Dzēst ierakstus"
 
-#: worksheet.cpp:1982
+#: worksheet.cpp:1985
 #, kde-format
 msgid "Collapse Command Entry Results"
 msgstr "Sakļaut komandu ieraksta rezultātus"
 
-#: worksheet.cpp:1983
+#: worksheet.cpp:1986
 #, kde-format
 msgid "Expand Command Entry Results"
 msgstr "Izvērst komandu ieraksta rezultātus"
 
-#: worksheet.cpp:1985
+#: worksheet.cpp:1988
 #, kde-format
 msgid "Delete Command Entry Results"
 msgstr "Dzēst komandu ieraksta rezultātus"
 
-#: worksheet.cpp:1987
+#: worksheet.cpp:1990
 #, kde-format
 msgid "Exclude Command Entry From Execution"
 msgstr "Noņemt komandu ierakstu no izpildes"
 
-#: worksheet.cpp:1988
+#: worksheet.cpp:1991
 #, kde-format
 msgid "Add Command Entry To Execution"
 msgstr "Pievienot komandu ierakstu izpildei"
 
-#: worksheet.cpp:2096
+#: worksheet.cpp:2099
 #, kde-format
 msgctxt "@action"
 msgid "Text &Color..."
 msgstr "Teksta &krāsa..."
 
-#: worksheet.cpp:2097
+#: worksheet.cpp:2100
 #, kde-format
 msgctxt "@label text color"
 msgid "Color"
 msgstr "Krāsa"
 
-#: worksheet.cpp:2104
+#: worksheet.cpp:2107
 #, kde-format
 msgctxt "@action"
 msgid "Text &Highlight..."
 msgstr "Teksta &izcelšana..."
 
-#: worksheet.cpp:2110
+#: worksheet.cpp:2113
 #, kde-format
 msgctxt "@action"
 msgid "&Font"
 msgstr "&Fonts"
 
-#: worksheet.cpp:2119
+#: worksheet.cpp:2122
 #, kde-format
 msgctxt "@action"
 msgid "Font &Size"
 msgstr "Fonta i&zmērs"
 
-#: worksheet.cpp:2125
+#: worksheet.cpp:2128
 #, kde-format
 msgctxt "@action boldify selected text"
 msgid "&Bold"
 msgstr "&Trekns"
 
-#: worksheet.cpp:2136
+#: worksheet.cpp:2139
 #, kde-format
 msgctxt "@action italicize selected text"
 msgid "&Italic"
 msgstr "&Slīpraksts"
 
-#: worksheet.cpp:2148
+#: worksheet.cpp:2151
 #, kde-format
 msgctxt "@action underline selected text"
 msgid "&Underline"
 msgstr "&Pasvītrots"
 
-#: worksheet.cpp:2159
+#: worksheet.cpp:2162
 #, kde-format
 msgctxt "@action"
 msgid "&Strike Out"
 msgstr "Pā&rsvīrtots"
 
-#: worksheet.cpp:2170
+#: worksheet.cpp:2173
 #, kde-format
 msgctxt "@action"
 msgid "Align &Left"
 msgstr "Izlīdzināt gar &kreiso"
 
-#: worksheet.cpp:2173
+#: worksheet.cpp:2176
 #, kde-format
 msgctxt "@label left justify"
 msgid "Left"
 msgstr "Pa kreisi"
 
-#: worksheet.cpp:2180
+#: worksheet.cpp:2183
 #, kde-format
 msgctxt "@action"
 msgid "Align &Center"
 msgstr "Izlīdzināt &centrā"
 
-#: worksheet.cpp:2183
+#: worksheet.cpp:2186
 #, kde-format
 msgctxt "@label center justify"
 msgid "Center"
 msgstr "Centrā"
 
-#: worksheet.cpp:2190
+#: worksheet.cpp:2193
 #, kde-format
 msgctxt "@action"
 msgid "Align &Right"
 msgstr "Izlīdzināt gar &labo"
 
-#: worksheet.cpp:2193
+#: worksheet.cpp:2196
 #, kde-format
 msgctxt "@label right justify"
 msgid "Right"
 msgstr "Pa labi"
 
-#: worksheet.cpp:2200
+#: worksheet.cpp:2203
 #, kde-format
 msgctxt "@action"
 msgid "&Justify"
 msgstr "&Abpuslīdzināt"
 
-#: worksheet.cpp:2203
+#: worksheet.cpp:2206
 #, kde-format
 msgctxt "@label justify fill"
 msgid "Justify"
 msgstr "Abpuslīdzināt"
 
-#: worksheet.cpp:2897
+#: worksheet.cpp:2900
 #, kde-format
 msgid ""
 "This step cannot be undone. Do you really want to delete the selected "
 "entries?"
 msgstr "Šo soli nevar atsaukt. Vai tiešām vēlaties dzēst atlasītos ierakstus?"
 
-#: worksheet.cpp:2987
+#: worksheet.cpp:2990
 #, kde-format
 msgid "This step cannot be undone. Do you really want to delete all results?"
 msgstr "Šo soli nevarēs atcelt. Vai tiešām vēlaties dzēst visus rezultātus?"
 
-#: worksheet.cpp:2988
+#: worksheet.cpp:2991
 #, kde-format
 msgid "Delete all results"
 msgstr "Dzēst visus rezultātus"
