@@ -1095,8 +1095,8 @@ msgid ""
 "For using integrated graphics with Matplotlib package, you need to install "
 "\"matplotlib\" python package first."
 msgstr ""
-"Pour utiliser le graphisme intégré avec le paquet « Matplotlib », vous devez "
-"installer le paquet Python « Matplotlib » tout d'abord."
+"Pour utiliser le graphisme intégré avec le paquet « matplotlib », vous devez "
+"installer le paquet Python « matplotlib » tout d'abord."
 
 #: backends/python/pythonsession.cpp:309
 #, kde-format

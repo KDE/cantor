@@ -3946,7 +3946,7 @@ msgstr "Zavrieť"
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Jump to next match"
-msgstr "Prejsť na ďaľšiu zhodu"
+msgstr "Prejsť na ďalšiu zhodu"
 
 #: panelplugins/documentationpanel/documentationpanelwidget.cpp:137
 #, kde-format
