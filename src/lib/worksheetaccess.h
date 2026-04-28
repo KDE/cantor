@@ -27,6 +27,8 @@ class CANTOR_EXPORT WorksheetAccessInterface : public QObject
     virtual void loadWorksheetFromByteArray(QByteArray* data) = 0;
 
     virtual Session* session() = 0;
+
+    virtual void setTheme(const QString& themeName) = 0;
   public Q_SLOTS:
       virtual void evaluate() = 0;
       virtual void interrupt() = 0;

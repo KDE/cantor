@@ -81,7 +81,17 @@ class WorksheetAccessInterfaceImpl : public Cantor::WorksheetAccessInterface
         return m_worksheet->session();
     }
 
-  void evaluate() override
+    void setTheme(const QString& themeName) override
+    {
+        if (m_worksheet)
+        {
+            m_worksheet->updateThemeAndEntries(themeName);
+            if (m_worksheet->worksheetView())
+                m_worksheet->worksheetView()->applyThemeToBackground();
+        }
+    }
+
+    void evaluate() override
     {
         m_worksheet->evaluate();
     }
