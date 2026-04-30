@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-04-27 00:38+0000\n"
+"POT-Creation-Date: 2026-04-30 00:38+0000\n"
 "PO-Revision-Date: 2026-04-26 23:01+0200\n"
 "Last-Translator: Shinjo Park <kde@peremen.name>\n"
 "Language-Team: Korean <kde-kr@kde.org>\n"
@@ -437,7 +437,7 @@ msgid "Failed to start Julia, please check Julia installation."
 msgstr "Julia 프로세스를 시작할 수 없습니다. 설치 상태를 확인하십시오."
 
 #: backends/julia/juliasession.cpp:115 backends/julia/juliasession.cpp:124
-#: backends/maxima/maximasession.cpp:322 cantor_part.cpp:974
+#: backends/maxima/maximasession.cpp:322 cantor_part.cpp:984
 #: lib/session.cpp:264 lib/session.cpp:266 worksheet.cpp:1219
 #: worksheet.cpp:1247 worksheet.cpp:1262 worksheet.cpp:1278
 #, kde-format
@@ -2616,12 +2616,12 @@ msgstr "세션 %1"
 msgid "Failed to find the Cantor Part with error %1"
 msgstr "Cantor 부분을 찾을 수 없습니다. 오류 %1"
 
-#: cantor.cpp:464 cantor_part.cpp:644
+#: cantor.cpp:464 cantor_part.cpp:654
 #, kde-format
 msgid "Calculating..."
 msgstr "계산 중..."
 
-#: cantor.cpp:467 cantor_part.cpp:655 cantor_part.cpp:723
+#: cantor.cpp:467 cantor_part.cpp:665 cantor_part.cpp:733
 #, kde-format
 msgid "Ready"
 msgstr "준비"
@@ -2883,33 +2883,33 @@ msgstr "하위 문단 계층 구조 글꼴 이탤릭"
 msgid "Hierarchy font bold for subparagraph"
 msgstr "하위 문단 계층 구조 글꼴 굵게"
 
-#: cantor_part.cpp:148
+#: cantor_part.cpp:158
 #, kde-format
 msgid "Save Plain Text"
 msgstr "일반 텍스트로 저장"
 
-#: cantor_part.cpp:189 cantor_part.cpp:543
+#: cantor_part.cpp:199 cantor_part.cpp:553
 #, kde-format
 msgid "Export to PDF"
 msgstr "PDF로 내보내기"
 
-#: cantor_part.cpp:193 cantor_part.cpp:555 worksheet.cpp:1322
+#: cantor_part.cpp:203 cantor_part.cpp:565 worksheet.cpp:1322
 #: worksheet.cpp:1328
 #, kde-format
 msgid "Export to LaTeX"
 msgstr "LaTeX으로 내보내기"
 
-#: cantor_part.cpp:208 cantor_part.cpp:651 worksheet.cpp:1941
+#: cantor_part.cpp:218 cantor_part.cpp:661 worksheet.cpp:1941
 #, kde-format
 msgid "Evaluate Worksheet"
 msgstr "워크시트 계산"
 
-#: cantor_part.cpp:214 worksheet.cpp:1949
+#: cantor_part.cpp:224 worksheet.cpp:1949
 #, kde-format
 msgid "Zoom"
 msgstr "확대/축소"
 
-#: cantor_part.cpp:221
+#: cantor_part.cpp:231
 #, kde-format
 msgctxt ""
 "Zoom percentage value %1 will be replaced by the actual zoom factor value, "
@@ -2918,94 +2918,94 @@ msgctxt ""
 msgid "%1%"
 msgstr "%1%"
 
-#: cantor_part.cpp:236
+#: cantor_part.cpp:246
 #, kde-format
 msgid "Typeset using LaTeX"
 msgstr "LaTeX으로 조판"
 
-#: cantor_part.cpp:241
+#: cantor_part.cpp:251
 #, kde-format
 msgid "Syntax Highlighting"
 msgstr "구문 강조"
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_CompletionDefault)
-#: cantor_part.cpp:246 settings.ui:46
+#: cantor_part.cpp:256 settings.ui:46
 #, kde-format
 msgid "Completion"
 msgstr "자동 완성"
 
-#: cantor_part.cpp:251
+#: cantor_part.cpp:261
 #, kde-format
 msgid "Line Numbers"
 msgstr "줄 번호"
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_AnimationDefault)
-#: cantor_part.cpp:256 settings.ui:158
+#: cantor_part.cpp:266 settings.ui:158
 #, kde-format
 msgid "Animations"
 msgstr "애니메이션"
 
-#: cantor_part.cpp:263
+#: cantor_part.cpp:273
 #, kde-format
 msgid "Embedded Math"
 msgstr "임베드된 수식"
 
-#: cantor_part.cpp:269
+#: cantor_part.cpp:279
 #, kde-format
 msgid "Restart Backend"
 msgstr "백엔드 다시 시작"
 
-#: cantor_part.cpp:275 worksheetentry.cpp:883
+#: cantor_part.cpp:285 worksheetentry.cpp:883
 #, kde-format
 msgid "Evaluate Entry"
 msgstr "항목 계산"
 
-#: cantor_part.cpp:281
+#: cantor_part.cpp:291
 #, kde-format
 msgid "Insert Command Entry"
 msgstr "명령 항목 삽입"
 
-#: cantor_part.cpp:287
+#: cantor_part.cpp:297
 #, kde-format
 msgid "Insert Text Entry"
 msgstr "텍스트 항목 삽입"
 
-#: cantor_part.cpp:293
+#: cantor_part.cpp:303
 #, kde-format
 msgid "Insert Markdown Entry"
 msgstr "Markdown 항목 삽입"
 
-#: cantor_part.cpp:299
+#: cantor_part.cpp:309
 #, kde-format
 msgid "Insert LaTeX Entry"
 msgstr "LaTeX 항목 삽입"
 
-#: cantor_part.cpp:304
+#: cantor_part.cpp:314
 #, kde-format
 msgid "Insert Page Break"
 msgstr "쪽 나누기 삽입"
 
-#: cantor_part.cpp:309 markdownentry.cpp:62
+#: cantor_part.cpp:319 markdownentry.cpp:62
 #, kde-format
 msgid "Insert Image"
 msgstr "그림 삽입"
 
-#: cantor_part.cpp:314
+#: cantor_part.cpp:324
 #, kde-format
 msgid "Collapse All Results"
 msgstr "모든 결과 접기"
 
-#: cantor_part.cpp:319
+#: cantor_part.cpp:329
 #, kde-format
 msgid "Expand All Results"
 msgstr "모든 결과 펴기"
 
-#: cantor_part.cpp:324
+#: cantor_part.cpp:334
 #, kde-format
 msgid "Delete All Results"
 msgstr "모든 결과 삭제"
 
-#: cantor_part.cpp:329
+#: cantor_part.cpp:339
 #, kde-format
 msgid "Delete current Entry"
 msgstr "현재 항목 삭제"
@@ -3015,130 +3015,130 @@ msgstr "현재 항목 삭제"
 #. collection->addAction(QLatin1String("file_publish_worksheet"), publishWorksheet);
 #. connect(publishWorksheet, &QAction::triggered, this, SLOT(publishWorksheet()));
 #.
-#: cantor_part.cpp:345
+#: cantor_part.cpp:355
 #, kde-format
 msgid "Show Script Editor"
 msgstr "스크립트 편집기 표시"
 
-#: cantor_part.cpp:350
+#: cantor_part.cpp:360
 #, kde-format
 msgid "Show Completion"
 msgstr "자동 완성 표시"
 
-#: cantor_part.cpp:415
+#: cantor_part.cpp:425
 #, kde-format
 msgid "CantorPart"
 msgstr "CantorPart"
 
-#: cantor_part.cpp:417
+#: cantor_part.cpp:427
 #, kde-format
 msgid "(C) 2009-2015 Alexander Rieder"
 msgstr "(C) 2009-2015 Alexander Rieder"
 
-#: cantor_part.cpp:421 main.cpp:63
+#: cantor_part.cpp:431 main.cpp:63
 #, kde-format
 msgid "Alexander Rieder"
 msgstr "Alexander Rieder"
 
-#: cantor_part.cpp:473
+#: cantor_part.cpp:483
 #, kde-format
 msgid "Cantor Worksheet (*.cws)"
 msgstr "Cantor 워크시트 (*.cws)"
 
-#: cantor_part.cpp:474
+#: cantor_part.cpp:484
 #, kde-format
 msgid "Jupyter Notebook (*.ipynb)"
 msgstr "Jupyter 노트북 (*.ipynb)"
 
-#: cantor_part.cpp:490
+#: cantor_part.cpp:500
 #, kde-format
 msgid "Save as"
 msgstr "다른 이름으로 저장"
 
-#: cantor_part.cpp:536 panelplugins/variablemgr/variablemanagerwidget.cpp:176
+#: cantor_part.cpp:546 panelplugins/variablemgr/variablemanagerwidget.cpp:176
 #, kde-format
 msgid "Save"
 msgstr "저장"
 
-#: cantor_part.cpp:536 textresultitem.cpp:208
+#: cantor_part.cpp:546 textresultitem.cpp:208
 #, kde-format
 msgid "Text Files (*.txt)"
 msgstr "텍스트 파일 (*.txt)"
 
-#: cantor_part.cpp:543
+#: cantor_part.cpp:553
 #, kde-format
 msgid "PDF Files (*.pdf)"
 msgstr "PDF 파일 (*.pdf)"
 
-#: cantor_part.cpp:555
+#: cantor_part.cpp:565
 #, kde-format
 msgid "TeX Files (*.tex)"
 msgstr "TeX 파일 (*.tex)"
 
-#: cantor_part.cpp:600
+#: cantor_part.cpp:610
 #, kde-format
 msgid ""
 "All the available calculation results will be lost. Do you really want to "
 "restart %1?"
 msgstr "모든 계산 결과가 손실됩니다. %1을(를) 다시 시작하시겠습니까?"
 
-#: cantor_part.cpp:601
+#: cantor_part.cpp:611
 #, kde-format
 msgid "Restart %1?"
 msgstr "%1을(를) 다시 시작하시겠습니까?"
 
-#: cantor_part.cpp:641 worksheet.cpp:1944
+#: cantor_part.cpp:651 worksheet.cpp:1944
 #, kde-format
 msgid "Interrupt"
 msgstr "중지"
 
-#: cantor_part.cpp:667
+#: cantor_part.cpp:677
 #, kde-format
 msgid "Session Error: %1"
 msgstr "세션 오류: %1"
 
-#: cantor_part.cpp:713
+#: cantor_part.cpp:723
 #, kde-format
 msgid "Initialization complete"
 msgstr "초기화 완료"
 
-#: cantor_part.cpp:718
+#: cantor_part.cpp:728
 #, kde-format
 msgid "Initializing..."
 msgstr "초기화 중..."
 
-#: cantor_part.cpp:776
+#: cantor_part.cpp:786
 #, kde-format
 msgid "[read-only]"
 msgstr "[읽기 전용]"
 
-#: cantor_part.cpp:891
+#: cantor_part.cpp:901
 #, kde-format
 msgid "Do you want to upload current Worksheet to public web server?"
 msgstr "현재 워크시트를 공개 웹 서버에 업로드하시겠습니까?"
 
-#: cantor_part.cpp:892
+#: cantor_part.cpp:902
 #, kde-format
 msgid "Question - Cantor"
 msgstr "질문 - Cantor"
 
-#: cantor_part.cpp:893
+#: cantor_part.cpp:903
 #, kde-format
 msgctxt "@action:button"
 msgid "Upload"
 msgstr "업로드"
 
-#: cantor_part.cpp:901
+#: cantor_part.cpp:911
 #, kde-format
 msgid "The Worksheet is not saved. You should save it before uploading."
 msgstr "이 워크시트를 업로드하기 전에 저장해야 합니다."
 
-#: cantor_part.cpp:902
+#: cantor_part.cpp:912
 #, kde-format
 msgid "Warning - Cantor"
 msgstr "경고 - Cantor"
 
-#: cantor_part.cpp:974
+#: cantor_part.cpp:984
 #, kde-format
 msgid "This backend does not support scripts."
 msgstr "이 백엔드는 스크립트를 지원하지 않습니다."
