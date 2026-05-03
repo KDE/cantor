@@ -13,7 +13,7 @@ msgstr ""
 "Project-Id-Version: kdeedu-kde4\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-04-30 00:38+0000\n"
-"PO-Revision-Date: 2026-03-09 21:28+0300\n"
+"PO-Revision-Date: 2026-05-02 19:42+0300\n"
 "Last-Translator: Emir SARI <emir_sari@icloud.com>\n"
 "Language-Team: Turkish <kde-l10n-tr@kde.org>\n"
 "Language: tr\n"
@@ -21,12 +21,12 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"X-Generator: Lokalize 25.12.2\n"
+"X-Generator: Lokalize 25.12.3\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
 msgid "Your names"
-msgstr "Serdar Soytetir, Renan Çakırerk, Emir SARI"
+msgstr "Serdar SOYTETİR, Renan Çakırerk, Emir SARI"
 
 #, kde-format
 msgctxt "EMAIL OF TRANSLATORS"
@@ -2185,7 +2185,7 @@ msgstr "Qt Sıkıştırılmış Yardım Dosyası geçerli değil."
 #: backends/qthelpconfig.cpp:179
 #, kde-format
 msgid "Documentation already imported"
-msgstr "Belgelendirme halihazırda içe aktarılmış"
+msgstr "Belgelendirme hâlihazırda içe aktarılmış"
 
 #: backends/qthelpconfig.cpp:269
 #, kde-format
@@ -2416,7 +2416,7 @@ msgid ""
 "into a common Python-based interface."
 msgstr ""
 "<b>Sage</b>, GPL lisanlı açık kaynaklı bir matematik yazılımıdır. <br/"
-">Halihazırda bulunan birçok açık kaynaklı paketin gücünü Python tabanlı bir "
+">Hâlihazırda bulunan birçok açık kaynaklı paketin gücünü Python tabanlı bir "
 "arayüzde birleştirir."
 
 #. i18n: ectx: label, entry (Path), group (SageBackend)
@@ -2565,7 +2565,7 @@ msgstr "Çizim tümleştirmesi:"
 #: cantor.cpp:109
 #, kde-format
 msgid "The file %1 is already opened."
-msgstr "%1 dosyası halihazırda açık."
+msgstr "%1 dosyası hâlihazırda açık."
 
 #: cantor.cpp:109 cantor.cpp:245
 #, kde-format
