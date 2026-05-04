@@ -18,6 +18,8 @@ add_custom_target(renvvars DEPENDS renvvars.h)
 add_custom_command(OUTPUT rautoloads.h COMMAND ${R_EXECUTABLE} --slave --file=${CMAKE_CURRENT_SOURCE_DIR}/tools/autoloads.r > ${CMAKE_CURRENT_BINARY_DIR}/rautoloads.h )
 add_custom_target(rautoloads DEPENDS rautoloads.h)
 
+add_definitions(-DENABLE_LEGACY_NONAPI)
+
 add_executable( cantor_rserver ${RServer_SRCS} )
 set_target_properties( cantor_rserver PROPERTIES INSTALL_RPATH_USE_LINK_PATH false)
 target_link_libraries( cantor_rserver cantorlibs ${R_LIBRARIES} KF6::KIOCore)
