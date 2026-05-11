@@ -1,5 +1,15 @@
 [KNewStuff3]
 Name=Example Projects
+Name[ca]=Projectes d'exemple
+Name[ca@valencia]=Projectes d'exemple
+Name[es]=Proyectos de ejemplo
+Name[ka]=მაგალითი პროექტები
+Name[nl]=Voorbeeldprojecten
+Name[pt_BR]=Projetos de exemplo
+Name[sl]=Primeri projektov
+Name[ta]=எடுத்துக்காட்டு கோப்புகள்
+Name[tr]=Örnek Projeler
+Name[uk]=Приклади проєктів
 ProvidersUrl=https://autoconfig.kde.org/ocs/providers.xml
 Categories=Cantor (Maxima),Cantor (Sage),Cantor (KAlgebra),Cantor (Qalculate),Cantor (Python),Cantor (Scilab),Cantor (Octave),Cantor (R),Cantor (Lua),Cantor (Julia)
 TargetDir=cantor/examples
