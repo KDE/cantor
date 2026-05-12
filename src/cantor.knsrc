@@ -10,6 +10,7 @@ Name[sl]=Primeri projektov
 Name[ta]=எடுத்துக்காட்டு கோப்புகள்
 Name[tr]=Örnek Projeler
 Name[uk]=Приклади проєктів
+Name[zh_CN]=示例项目
 ProvidersUrl=https://autoconfig.kde.org/ocs/providers.xml
 Categories=Cantor (Maxima),Cantor (Sage),Cantor (KAlgebra),Cantor (Qalculate),Cantor (Python),Cantor (Scilab),Cantor (Octave),Cantor (R),Cantor (Lua),Cantor (Julia)
 TargetDir=cantor/examples
