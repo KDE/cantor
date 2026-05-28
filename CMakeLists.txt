@@ -85,6 +85,7 @@ find_package(Poppler "22.02.0" COMPONENTS Qt6)
 
 
 add_subdirectory(thirdparty)
+set(Discount_FOUND TRUE)
 
 add_definitions(
     -DQT_NO_CAST_TO_ASCII

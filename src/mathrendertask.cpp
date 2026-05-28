@@ -14,6 +14,7 @@
 #include <QScopedPointer>
 #include <QApplication>
 #include <QDebug>
+#include <QFile>
 
 #include "lib/renderer.h"
 
@@ -38,6 +39,22 @@ static const QLatin1String mathTex("\\documentclass%9{minimal}"\
 
 static const QLatin1String eqnHeader("$\\displaystyle %1$");
 static const QLatin1String inlineEqnHeader("$%1$");
+
+namespace {
+    QString markdownMathCacheDir()
+    {
+        QString dir = QStandardPaths::writableLocation(QStandardPaths::CacheLocation);
+
+        if (dir.isEmpty())
+            dir = QStandardPaths::writableLocation(QStandardPaths::TempLocation);
+
+        dir += QDir::separator() + QLatin1String("markdown-math");
+
+        QDir().mkpath(dir);
+
+        return dir;
+    }
+}
 
 MathRenderTask::MathRenderTask(
         int jobId,
@@ -64,7 +81,7 @@ void MathRenderTask::run()
     QSharedPointer<MathRenderResult> result(new MathRenderResult());
     result->jobId = m_jobId;
 
-    const QString& tempDir=QStandardPaths::writableLocation(QStandardPaths::TempLocation);
+    const QString tempDir = markdownMathCacheDir();
 
     QTemporaryFile texFile(tempDir + QDir::separator() + QLatin1String("cantor_tex-XXXXXX.tex"));
     if (!texFile.open())
@@ -75,7 +92,9 @@ void MathRenderTask::run()
     }
 
     // make sure we have preview.sty available
-    if (!tempDir.contains(QLatin1String("preview.sty")))
+    const QString previewStylePath = tempDir + QDir::separator() + QLatin1String("preview.sty");
+
+    if (!QFile::exists(previewStylePath))
     {
         QString file = QStandardPaths::locate(QStandardPaths::AppDataLocation, QLatin1String("latex/preview.sty"));
 
@@ -89,8 +108,8 @@ void MathRenderTask::run()
             finalize(result);
             return;
         }
-        else
-            QFile::copy(file, tempDir + QDir::separator() + QLatin1String("preview.sty"));
+
+        QFile::copy(file, previewStylePath);
     }
     QString expressionTex=mathTex;
 

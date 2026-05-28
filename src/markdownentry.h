@@ -76,8 +76,9 @@ class MarkdownEntry : public WorksheetEntry
     void setPlainText(const QString& plain);
     void renderMath();
     void renderMathExpression(int jobId, QString mathCode);
-    void setRenderedMath(int jobId, const QTextImageFormat& format, const QUrl& internal, const QImage& image);
+    bool setRenderedMath(int jobId, const QTextImageFormat& format, const QUrl& internal, const QImage& image);
     QTextCursor findMath(int id);
+    QTextCursor findMathText(int id);
     void markUpMath();
     void addImageAttachment(const QString& name, const QImage& image);
 
