@@ -8,24 +8,25 @@ msgstr ""
 "Project-Id-Version: cantor\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-04-30 00:38+0000\n"
-"PO-Revision-Date: 2013-09-08 07:05+0900\n"
-"Last-Translator: Gheyret Kenji <gheyret@gmail.com>\n"
+"PO-Revision-Date: 2026-05-29 17:15-0400\n"
+"Last-Translator: Abduqadir Abliz <sahranbay@gmail.com>\n"
 "Language-Team: Uyghur Computer Science Association <UKIJ@yahoogroups.com>\n"
 "Language: ug\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
+"X-Generator: Poedit 3.9\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
 msgid "Your names"
-msgstr "ئابدۇقادىر ئابلىز, غەيرەت كەنجى"
+msgstr "ئابدۇقادىر ئابلىز، غەيرەت كەنجى"
 
 #, kde-format
 msgctxt "EMAIL OF TRANSLATORS"
 msgid "Your emails"
-msgstr "sahran.ug@gmail.com,  gheyret@gmail.com"
+msgstr "sahranbay@gmail.com, gheyret@gmail.com"
 
 #: animationresultitem.cpp:38
 #, kde-format
@@ -35,7 +36,7 @@ msgstr "ۋاقىتلىق توختا"
 #: animationresultitem.cpp:41
 #, kde-format
 msgid "Start"
-msgstr "باشلاش"
+msgstr "باشلا"
 
 #: animationresultitem.cpp:45
 #, kde-format
@@ -45,17 +46,17 @@ msgstr "توختا"
 #: animationresultitem.cpp:111
 #, kde-format
 msgid "Save animation result"
-msgstr ""
+msgstr "جانلاندۇرۇم نەتىجىسىنى ساقلا"
 
 #: animationresultitem.cpp:111
 #, kde-format
 msgid "Animations (*.gif)"
-msgstr ""
+msgstr "جانلاندۇرۇم (*.gif)"
 
 #: assistants/advancedplot/advancedplotassistant.cpp:31
 #, kde-format
 msgid "Advanced Plotting"
-msgstr ""
+msgstr "ئالىي سىزمىچىلىق"
 
 #. i18n: ectx: property (text), widget (QLabel, label_2)
 #: assistants/advancedplot/advancedplotdialog.ui:24
@@ -78,7 +79,7 @@ msgstr "ئىپادە:"
 #: assistants/advancedplot/advancedplotdialog.ui:45
 #, kde-format
 msgid "Additional options:"
-msgstr "قوشۇمچە تاللانمىلار:"
+msgstr "قوشۇمچە تاللانما:"
 
 #. i18n: ectx: Menu (Plot)
 #: assistants/advancedplot/cantor_advancedplot_assistant.rc:4
@@ -87,13 +88,13 @@ msgstr "قوشۇمچە تاللانمىلار:"
 #: backends/qalculate/plotassistant/cantor_qalculateplotassistant.rc:4
 #, kde-format
 msgid "&Plot"
-msgstr ""
+msgstr "سىزمىچىلىق(&P)"
 
 #. i18n: ectx: property (title), widget (QGroupBox, directiveContainer)
 #: assistants/advancedplot/directivecontainer.ui:14
 #, kde-format
 msgid "Option active"
-msgstr ""
+msgstr "تاللانما ئاكتىپ"
 
 #. i18n: ectx: Menu (calculate)
 #: assistants/differentiate/cantor_differentiate_assistant.rc:4
@@ -106,14 +107,14 @@ msgstr "ھېسابلا(&C)"
 #: assistants/differentiate/differentiateassistant.cpp:26
 #, kde-format
 msgid "Differentiate"
-msgstr "ھاسىلە"
+msgstr "دىففېرېنسىيال"
 
 #. i18n: ectx: property (text), widget (QLabel, label_2)
 #: assistants/differentiate/differentiatedlg.ui:29
 #: assistants/integrate/integratedlg.ui:29
 #, kde-format
 msgid "Variable:"
-msgstr ""
+msgstr "ئۆزگەرگۈچى:"
 
 #. i18n: ectx: property (text), widget (KLineEdit, variable)
 #. i18n: ectx: property (text), widget (KLineEdit, xVarEdit)
@@ -128,24 +129,24 @@ msgstr "x"
 #: assistants/differentiate/differentiatedlg.ui:47
 #, kde-format
 msgid "Times: "
-msgstr ""
+msgstr "ۋاقىت: "
 
 #. i18n: ectx: Menu (import_package)
 #: assistants/importpackage/cantor_import_package_assistant.rc:4
 #, kde-format
 msgid "&Package"
-msgstr ""
+msgstr "بوغچا(&P)"
 
 #: assistants/importpackage/importpackageassistant.cpp:27
 #, kde-format
 msgid "Import Package"
-msgstr ""
+msgstr "بوغچا ئەكىر"
 
 #. i18n: ectx: property (text), widget (QLabel, label)
 #: assistants/importpackage/importpackagedlg.ui:17
 #, kde-format
 msgid "Package:"
-msgstr ""
+msgstr "بوغچا:"
 
 #: assistants/integrate/integrateassistant.cpp:27
 #, kde-format
@@ -156,7 +157,7 @@ msgstr "ئىنتېگرال"
 #: assistants/integrate/integratedlg.ui:49
 #, kde-format
 msgid "Lower limit:"
-msgstr "توۋەن چەك:"
+msgstr "تۆۋەن چەك:"
 
 #. i18n: ectx: property (text), widget (QLabel, label_4)
 #: assistants/integrate/integratedlg.ui:63
@@ -168,7 +169,7 @@ msgstr "يۇقىرى چەك:"
 #: assistants/integrate/integratedlg.ui:77
 #, kde-format
 msgid "definite integral"
-msgstr ""
+msgstr "ئېنىق ئىنتېگرال"
 
 #. i18n: ectx: Menu (linear_algebra)
 #: assistants/linearalgebra/creatematrix/cantor_create_matrix_assistant.rc:4
@@ -177,18 +178,18 @@ msgstr ""
 #: assistants/linearalgebra/invertmatrix/cantor_invert_matrix_assistant.rc:4
 #, kde-format
 msgid "&Linear Algebra"
-msgstr ""
+msgstr "سىزىقلىق ئالگېبرا(&L)"
 
 #: assistants/linearalgebra/creatematrix/creatematrixassistant.cpp:25
 #, kde-format
 msgid "Create Matrix"
-msgstr "ماترىتسا قۇرۇش"
+msgstr "ماترىتسا قۇر"
 
 #. i18n: ectx: property (text), widget (QLabel, label_2)
 #: assistants/linearalgebra/creatematrix/creatematrixdlg.ui:19
 #, kde-format
 msgid "Columns:"
-msgstr "ئىستون:"
+msgstr "رەت:"
 
 #. i18n: ectx: property (text), widget (QLabel, label)
 #: assistants/linearalgebra/creatematrix/creatematrixdlg.ui:37
@@ -295,10 +296,9 @@ msgid "Variables:"
 msgstr ""
 
 #: backendchoosedialog.cpp:64
-#, fuzzy, kde-format
-#| msgid "Restart Backend"
+#, kde-format
 msgid "Select the Backend"
-msgstr "ئارقا ئۇچنى قايتا باشلاش"
+msgstr ""
 
 #: backendchoosedialog.cpp:110
 #, kde-format
@@ -306,28 +306,18 @@ msgid "<h1>%1</h1><div><b>Recommended version:</b> %2</div>"
 msgstr ""
 
 #: backendchoosedialog.cpp:113
-#, fuzzy, kde-format
-#| msgid ""
-#| "<h1>%1</h1><div>%2</div><br/><div>See <a href=\"%3\">%3</a> for more "
-#| "information</div>"
+#, kde-format
 msgid ""
 "<hr><div>%1</div><br><div>See <a href=\"%2\">%2</a> for more information.</"
 "div>"
 msgstr ""
-"<h1>%1</h1><div>%2</div><br/><div>تېخىمۇ كوپ ئۆچۈر ئۈچۈن<a href=\"%3\">%3</"
-"a> قاراڭ</div>"
 
 #: backendchoosedialog.cpp:125
-#, fuzzy, kde-format
-#| msgid ""
-#| "<h1>%1</h1><div>%2</div><br/><div>See <a href=\"%3\">%3</a> for more "
-#| "information</div>"
+#, kde-format
 msgid ""
 "<hr><div><b><font color='#e50000'>Some requirements are not fulfilled: </"
 "font></b>%1</div>"
 msgstr ""
-"<h1>%1</h1><div>%2</div><br/><div>تېخىمۇ كوپ ئۆچۈر ئۈچۈن<a href=\"%3\">%3</"
-"a> قاراڭ</div>"
 
 #. i18n: ectx: property (text), widget (QCheckBox, makeDefault)
 #: backendchooser.ui:37
@@ -503,7 +493,7 @@ msgstr "ئادەتتىكى"
 #: backends/R/settings.ui:168 backends/sage/settings.ui:217
 #, kde-format
 msgid "PDF"
-msgstr ""
+msgstr "PDF"
 
 #. i18n: ectx: property (toolTip), widget (QCheckBox, kcfg_integratePlots)
 #: backends/julia/settings.ui:46 backends/maxima/settings.ui:81
@@ -540,18 +530,16 @@ msgstr ""
 #: backends/scilab/settings.ui:47 commandentry.cpp:346
 #, kde-format
 msgid "Enabled"
-msgstr "ئىناۋەتلىك قىلىنغان"
+msgstr "قوزغىتىلغان"
 
 #. i18n: ectx: property (text), widget (QLabel, label_5)
 #. i18n: ectx: property (text), widget (QLabel, label_3)
 #: backends/julia/settings.ui:56 backends/maxima/settings.ui:91
 #: backends/octave/settings.ui:133 backends/python/settings.ui:104
 #: backends/R/settings.ui:108 backends/sage/settings.ui:121
-#, fuzzy, kde-format
-#| msgctxt "@action"
-#| msgid "Font &Size"
+#, kde-format
 msgid "Size:"
-msgstr "خەت نۇسخا چوڭلۇقى(&S)"
+msgstr "چوڭلۇقى:"
 
 #. i18n: ectx: property (toolTip), widget (QCheckBox, kcfg_variableManagement)
 #: backends/julia/settings.ui:63 backends/maxima/settings.ui:59
@@ -567,10 +555,9 @@ msgstr ""
 #: backends/julia/settings.ui:73 backends/maxima/settings.ui:234
 #: backends/octave/settings.ui:150 backends/python/settings.ui:87
 #: backends/R/settings.ui:131 backends/sage/settings.ui:104
-#, fuzzy, kde-format
-#| msgid "Integrate"
+#, kde-format
 msgid "Integrated:"
-msgstr "ئىنتېگرال"
+msgstr ""
 
 #. i18n: ectx: property (text), widget (QLabel, lVariableManagement)
 #: backends/julia/settings.ui:80 backends/maxima/settings.ui:52
@@ -584,10 +571,9 @@ msgstr ""
 #: backends/julia/settings.ui:108 backends/maxima/settings.ui:119
 #: backends/octave/settings.ui:73 backends/python/settings.ui:132
 #: backends/R/settings.ui:48 backends/sage/settings.ui:149
-#, fuzzy, kde-format
-#| msgid "Width"
+#, kde-format
 msgid "width:"
-msgstr "كەڭلىك"
+msgstr ""
 
 #. i18n: ectx: property (suffix), widget (QDoubleSpinBox, kcfg_plotWidth)
 #. i18n: ectx: property (suffix), widget (QDoubleSpinBox, kcfg_plotHeight)
@@ -599,16 +585,15 @@ msgstr "كەڭلىك"
 #: backends/sage/settings.ui:156 backends/sage/settings.ui:186
 #, kde-format
 msgid "cm"
-msgstr ""
+msgstr "سانتىمېتىر"
 
 #. i18n: ectx: property (text), widget (QLabel, lPlotHeight)
 #: backends/julia/settings.ui:138 backends/maxima/settings.ui:149
 #: backends/octave/settings.ui:103 backends/python/settings.ui:162
 #: backends/R/settings.ui:78 backends/sage/settings.ui:179
-#, fuzzy, kde-format
-#| msgid "Height"
+#, kde-format
 msgid "height:"
-msgstr "ئېگىزلىك"
+msgstr ""
 
 #. i18n: ectx: property (text), widget (QLabel, label_4)
 #. i18n: ectx: property (text), item, widget (KComboBox, kcfg_plotExtenstionGraphicPackage)
@@ -616,10 +601,9 @@ msgstr "ئېگىزلىك"
 #: backends/maxima/settings.ui:74 backends/octave/settings.ui:162
 #: backends/python/settings.ui:80 backends/R/settings.ui:143
 #: backends/sage/settings.ui:97
-#, fuzzy, kde-format
-#| msgid "Plot"
+#, kde-format
 msgid "Plots"
-msgstr "سىزمىچىلىق"
+msgstr ""
 
 #. i18n: ectx: property (text), widget (QLabel, label_3)
 #. i18n: ectx: property (text), widget (QLabel, label_2)
@@ -647,10 +631,9 @@ msgstr ""
 
 #. i18n: ectx: property (text), item, widget (KComboBox, kcfg_plotExtenstionGraphicPackage)
 #: backends/julia/settings.ui:236
-#, fuzzy, kde-format
-#| msgid "Plot"
+#, kde-format
 msgid "PyPlot"
-msgstr "سىزمىچىلىق"
+msgstr ""
 
 #. i18n: ectx: property (text), item, widget (KComboBox, kcfg_plotExtenstionGraphicPackage)
 #: backends/julia/settings.ui:241
@@ -694,10 +677,9 @@ msgstr ""
 #: backends/python/settings.ui:300 backends/qalculate/settings.ui:600
 #: backends/R/settings.ui:240 backends/sage/settings.ui:264
 #: backends/scilab/settings.ui:88
-#, fuzzy, kde-format
-#| msgid "Document to open"
+#, kde-format
 msgid "Documentation"
-msgstr "ئاچىدىغان پۈتۈك"
+msgstr "قوللانما"
 
 #: backends/kalgebra/kalgebrabackend.cpp:58
 #, kde-format
@@ -892,7 +874,7 @@ msgstr ""
 #: backends/scilab/settings.ui:27
 #, kde-format
 msgid "Executable:"
-msgstr ""
+msgstr "ئىجرا قىلغىلى بولىدۇ:"
 
 #: backends/octave/octavebackend.cpp:64
 #, kde-format
@@ -929,7 +911,7 @@ msgstr ""
 #: backends/octave/octavesession.cpp:276 backends/sage/sageexpression.cpp:49
 #, kde-format
 msgid "Syntax Error"
-msgstr "گرامماتىكىلىق خاتالىق"
+msgstr "گىرامماتىكىلىق خاتالىق"
 
 #: backends/octave/octavesession.cpp:385
 #, kde-format
@@ -1028,10 +1010,9 @@ msgstr ""
 
 #. i18n: ectx: property (text), item, widget (KComboBox, kcfg_plotExtenstionGraphicPackage)
 #: backends/python/settings.ui:248
-#, fuzzy, kde-format
-#| msgid "Plot"
+#, kde-format
 msgid "plot.ly"
-msgstr "سىزمىچىلىق"
+msgstr ""
 
 #. i18n: ectx: property (text), item, widget (KComboBox, kcfg_plotExtenstionGraphicPackage)
 #: backends/python/settings.ui:258
@@ -1049,7 +1030,7 @@ msgstr ""
 #: backends/qalculate/plotassistant/qalculateplotdialog.ui:24
 #, kde-format
 msgid "Functions"
-msgstr "فۇنكسىيىلەر"
+msgstr "فۇنكسىيە"
 
 #. i18n: ectx: property (text), widget (QTableWidget, functionTable)
 #: backends/qalculate/plotassistant/qalculateplotdialog.ui:40
@@ -1131,7 +1112,7 @@ msgstr "كۆزنەكچىلەر"
 #: backends/qalculate/settings.ui:465
 #, kde-format
 msgid "Histogram"
-msgstr "سىتاتىسكا گرافىكى، چاسا دىئاگرامما"
+msgstr "چاسا دىياگرامما"
 
 #. i18n: ectx: property (text), item, widget (KComboBox, styleBox)
 #: backends/qalculate/plotassistant/qalculateplotdialog.ui:170
@@ -1231,7 +1212,7 @@ msgstr "-"
 #: backends/qalculate/plotassistant/qalculateplotdialog.ui:274
 #, kde-format
 msgid "10"
-msgstr "10"
+msgstr ""
 
 #. i18n: ectx: property (text), widget (QRadioButton, stepsButton)
 #: backends/qalculate/plotassistant/qalculateplotdialog.ui:283
@@ -1241,10 +1222,9 @@ msgstr ""
 
 #. i18n: ectx: property (text), widget (QRadioButton, stepButton)
 #: backends/qalculate/plotassistant/qalculateplotdialog.ui:293
-#, fuzzy, kde-format
-#| msgid "Steps"
+#, kde-format
 msgid "Step si&ze"
-msgstr "قەدەم"
+msgstr ""
 
 #. i18n: ectx: attribute (title), widget (QWidget, tab_4)
 #: backends/qalculate/plotassistant/qalculateplotdialog.ui:324
@@ -1274,7 +1254,7 @@ msgstr ""
 #: backends/qalculate/plotassistant/qalculateplotdialog.ui:395
 #, kde-format
 msgid "Legend position"
-msgstr ""
+msgstr "ئىسخېما ئورنى"
 
 #. i18n: ectx: property (text), item, widget (KComboBox, legendBox)
 #. i18n: ectx: property (text), item, widget (KComboBox, kcfg_plotLegend)
@@ -1282,7 +1262,7 @@ msgstr ""
 #: backends/qalculate/settings.ui:499
 #, kde-format
 msgid "Hide legend"
-msgstr ""
+msgstr "ئىسخېما يوشۇر"
 
 #. i18n: ectx: property (text), item, widget (KComboBox, legendBox)
 #. i18n: ectx: property (text), item, widget (KComboBox, kcfg_plotLegend)
@@ -1330,49 +1310,49 @@ msgstr "ئاستى"
 #: backends/qalculate/settings.ui:529
 #, kde-format
 msgid "Outside"
-msgstr ""
+msgstr "سىرتقى"
 
 #. i18n: ectx: property (text), widget (QCheckBox, gridCheckBox)
 #: backends/qalculate/plotassistant/qalculateplotdialog.ui:445
 #, kde-format
 msgid "Display Grid"
-msgstr ""
+msgstr "شادا كۆرسەت"
 
 #. i18n: ectx: property (text), widget (QCheckBox, borderCheckBox)
 #: backends/qalculate/plotassistant/qalculateplotdialog.ui:452
 #, kde-format
 msgid "Display full border"
-msgstr ""
+msgstr "تولۇق چېگرانى كۆرسەت"
 
 #. i18n: ectx: property (text), widget (QCheckBox, colorCheckBox)
 #: backends/qalculate/plotassistant/qalculateplotdialog.ui:463
 #, kde-format
 msgid "Use Colors"
-msgstr ""
+msgstr "رەڭ ئىشلەت"
 
 #. i18n: ectx: property (text), widget (QCheckBox, inlineCheckBox)
 #: backends/qalculate/plotassistant/qalculateplotdialog.ui:470
 #, kde-format
 msgid "Display inline"
-msgstr ""
+msgstr "قۇر ئىچىدە كۆرسەت"
 
 #. i18n: ectx: property (text), widget (QCheckBox, xLogCheckBox)
 #: backends/qalculate/plotassistant/qalculateplotdialog.ui:481
 #, kde-format
 msgid "Logarithmic x scale"
-msgstr ""
+msgstr "لوگارىفما x شىكالىسى"
 
 #. i18n: ectx: property (text), widget (QCheckBox, yLogCheckBox)
 #: backends/qalculate/plotassistant/qalculateplotdialog.ui:502
 #, kde-format
 msgid "Logarithmic y scale"
-msgstr ""
+msgstr "لوگارىفما y شىكالىسى"
 
 #. i18n: ectx: property (title), widget (QGroupBox, groupBox_3)
 #: backends/qalculate/plotassistant/qalculateplotdialog.ui:521
 #, kde-format
 msgid "File Options"
-msgstr "ھۆججەت تاللانمىلىرى"
+msgstr "ھۆججەت تاللانما"
 
 #. i18n: ectx: property (text), widget (QCheckBox, saveCheckBox)
 #: backends/qalculate/plotassistant/qalculateplotdialog.ui:527
@@ -1384,7 +1364,7 @@ msgstr ""
 #: backends/qalculate/plotassistant/qalculateplotdialog.ui:547
 #, kde-format
 msgid "File type"
-msgstr "ھۆججەت تىپى"
+msgstr "ھۆججەت تۈرى"
 
 #. i18n: ectx: property (text), item, widget (KComboBox, saveFileBox)
 #: backends/qalculate/plotassistant/qalculateplotdialog.ui:555
@@ -1402,7 +1382,7 @@ msgstr "PNG"
 #: backends/qalculate/plotassistant/qalculateplotdialog.ui:565
 #, kde-format
 msgid "PS"
-msgstr ""
+msgstr "PS"
 
 #. i18n: ectx: property (text), item, widget (KComboBox, saveFileBox)
 #: backends/qalculate/plotassistant/qalculateplotdialog.ui:570
@@ -1427,7 +1407,7 @@ msgstr "SVG"
 #: backends/qalculate/plotassistant/qalculateplotdialog.ui:585
 #, kde-format
 msgid "FIG"
-msgstr ""
+msgstr "FIG"
 
 #: backends/qalculate/qalculatebackend.cpp:51
 #, kde-format
@@ -1607,7 +1587,7 @@ msgstr ""
 #: backends/qalculate/qalculateexpression.cpp:774
 #, kde-format
 msgid "ERROR"
-msgstr "ERROR"
+msgstr ""
 
 #: backends/qalculate/qalculateexpression.cpp:668
 #: backends/qalculate/qalculateexpression.cpp:776
@@ -1658,7 +1638,7 @@ msgstr "پۈتۈن سان"
 #: backends/qalculate/qalculatesyntaxhelpobject.cpp:148
 #, kde-format
 msgid "boolean"
-msgstr "لوگىكىلىق قىممەت"
+msgstr "بۇلىن قىممىتى"
 
 #: backends/qalculate/qalculatesyntaxhelpobject.cpp:149
 #, kde-format
@@ -1668,27 +1648,27 @@ msgstr "نومۇر"
 #: backends/qalculate/qalculatesyntaxhelpobject.cpp:150
 #, kde-format
 msgid "default: %1"
-msgstr ""
+msgstr "كۆڭۈلدىكى: %1"
 
 #: backends/qalculate/qalculatesyntaxhelpobject.cpp:210
 #, kde-format
 msgid "The function's name"
-msgstr ""
+msgstr "فۇنكسىيە ئىسمى"
 
 #: backends/qalculate/qalculatesyntaxhelpobject.cpp:212
 #, kde-format
 msgid "Title label"
-msgstr ""
+msgstr "ماۋزۇ بەلگىسى"
 
 #: backends/qalculate/qalculatesyntaxhelpobject.cpp:213
 #, kde-format
 msgid "x-axis label"
-msgstr ""
+msgstr "X ئوقىنىڭ بەلگىسى"
 
 #: backends/qalculate/qalculatesyntaxhelpobject.cpp:214
 #, kde-format
 msgid "y-axis label"
-msgstr ""
+msgstr "Y ئوقىنىڭ بەلگىسى"
 
 #: backends/qalculate/qalculatesyntaxhelpobject.cpp:215
 #, kde-format
@@ -1710,12 +1690,12 @@ msgstr ""
 #: backends/qalculate/qalculatesyntaxhelpobject.cpp:218
 #, kde-format
 msgid "Minimum x-axis value."
-msgstr ""
+msgstr "X ئوقىنىڭ ئەڭ كىچىك قىممىتى."
 
 #: backends/qalculate/qalculatesyntaxhelpobject.cpp:219
 #, kde-format
 msgid "Maximum x-axis value."
-msgstr ""
+msgstr "X ئوقىنىڭ ئەڭ چوڭ قىممىتى."
 
 #: backends/qalculate/qalculatesyntaxhelpobject.cpp:220
 #, kde-format
@@ -1939,7 +1919,7 @@ msgstr "رادىئان"
 #: backends/qalculate/settings.ui:245
 #, kde-format
 msgid "Degrees"
-msgstr "گرادۇس"
+msgstr "گىرادۇس"
 
 #. i18n: ectx: property (text), item, widget (KComboBox, kcfg_angleUnit)
 #: backends/qalculate/settings.ui:250
@@ -2051,11 +2031,10 @@ msgid "Modify Entry"
 msgstr ""
 
 #: backends/qthelpconfig.cpp:46
-#, fuzzy, kde-format
-#| msgid "Variable"
+#, kde-format
 msgctxt "@title:window"
 msgid "Add New Entry"
-msgstr "ئۆزگىرىشچان"
+msgstr ""
 
 #: backends/qthelpconfig.cpp:63
 #, kde-format
@@ -2063,23 +2042,20 @@ msgid "Name cannot be empty."
 msgstr ""
 
 #: backends/qthelpconfig.cpp:83
-#, fuzzy, kde-format
-#| msgid "Document to open"
+#, kde-format
 msgid "Add local documentation"
-msgstr "ئاچىدىغان پۈتۈك"
+msgstr ""
 
 #: backends/qthelpconfig.cpp:99
-#, fuzzy, kde-format
-#| msgid "Document to open"
+#, kde-format
 msgctxt "@action:button Allow user to get some API documentation with GHNS"
 msgid "Get New Documentation"
-msgstr "ئاچىدىغان پۈتۈك"
+msgstr ""
 
 #: backends/qthelpconfig.cpp:102
-#, fuzzy, kde-format
-#| msgid "Additional options:"
+#, kde-format
 msgid "Download additional documentations"
-msgstr "قوشۇمچە تاللانمىلار:"
+msgstr ""
 
 #: backends/qthelpconfig.cpp:170
 #, kde-format
@@ -2095,13 +2071,13 @@ msgstr ""
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Modify"
-msgstr ""
+msgstr "ئۆزگەرت"
 
 #: backends/qthelpconfig.cpp:274
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Delete"
-msgstr ""
+msgstr "ئۆچۈر"
 
 #: backends/qthelpconfig.cpp:282
 #, kde-format
@@ -2127,12 +2103,11 @@ msgstr "ئاتى"
 #, kde-format
 msgctxt "@title:column"
 msgid "Path"
-msgstr ""
+msgstr "يول"
 
 #. i18n: ectx: property (text), widget (QPushButton, addButton)
 #: backends/qthelpconfig.ui:79
-#, fuzzy, kde-format
-#| msgid "Add"
+#, kde-format
 msgctxt "@action:button"
 msgid "Add"
 msgstr "قوش"
@@ -2142,20 +2117,18 @@ msgstr "قوش"
 #, kde-format
 msgctxt "@label:chooser"
 msgid "Icon:"
-msgstr ""
+msgstr "سىنبەلگە:"
 
 #. i18n: ectx: property (toolTip), widget (KIconButton, qchIcon)
 #: backends/qthelpconfigeditdialog.ui:24
-#, fuzzy, kde-format
-#| msgid "Restart Backend"
+#, kde-format
 msgctxt "@info:tooltip"
 msgid "Select an icon"
-msgstr "ئارقا ئۇچنى قايتا باشلاش"
+msgstr ""
 
 #. i18n: ectx: property (text), widget (QLabel, lName)
 #: backends/qthelpconfigeditdialog.ui:34
-#, fuzzy, kde-format
-#| msgid "Name:"
+#, kde-format
 msgctxt "@label:textbox"
 msgid "Name:"
 msgstr "ئاتى:"
@@ -2179,7 +2152,7 @@ msgstr ""
 #, kde-format
 msgctxt "@label:textbox"
 msgid "Path:"
-msgstr ""
+msgstr "يول:"
 
 #. i18n: ectx: property (toolTip), widget (KUrlRequester, qchRequester)
 #: backends/qthelpconfigeditdialog.ui:64
@@ -2421,10 +2394,9 @@ msgstr ""
 
 #. i18n: ectx: property (text), widget (QLabel, lPlotIntegration)
 #: backends/scilab/settings.ui:37
-#, fuzzy, kde-format
-#| msgid "Integrate"
+#, kde-format
 msgid "Plot Integration:"
-msgstr "ئىنتېگرال"
+msgstr ""
 
 #: cantor.cpp:109
 #, kde-format
@@ -2432,16 +2404,14 @@ msgid "The file %1 is already opened."
 msgstr ""
 
 #: cantor.cpp:109 cantor.cpp:245
-#, fuzzy, kde-format
-#| msgid "&Open Example"
+#, kde-format
 msgid "Open file"
-msgstr "مىسالنى ئاچ(&O)"
+msgstr "ھۆججەت ئاچ"
 
 #: cantor.cpp:151
-#, fuzzy, kde-format
-#| msgid "&Open Example"
+#, kde-format
 msgid "Download Examples"
-msgstr "مىسالنى ئاچ(&O)"
+msgstr ""
 
 #: cantor.cpp:154
 #, kde-format
@@ -2501,7 +2471,7 @@ msgstr ""
 #: cantor.cpp:389
 #, kde-format
 msgid "Session %1"
-msgstr "ئەڭگىمە %1"
+msgstr "جەريانچاق %1"
 
 #: cantor.cpp:406
 #, kde-format
@@ -2529,10 +2499,9 @@ msgid "Multiple unsaved Worksheets are opened. Do you want to close them?"
 msgstr ""
 
 #: cantor.cpp:598
-#, fuzzy, kde-format
-#| msgid "Cantor"
+#, kde-format
 msgid "Close Cantor"
-msgstr "Cantor"
+msgstr ""
 
 #: cantor.cpp:617
 #, kde-format
@@ -2546,15 +2515,14 @@ msgstr ""
 
 #: cantor.cpp:662 commandentry.cpp:167 commandentry.cpp:198
 #: horizontalruleentry.cpp:328
-#, fuzzy, kde-format
-#| msgid "Defaults"
+#, kde-format
 msgid "Default"
-msgstr "كۆڭۈلدىكى قىممەتلەر"
+msgstr "كۆڭۈلدىكى"
 
 #: cantor.cpp:678
 #, kde-format
 msgid "Formatting"
-msgstr ""
+msgstr "فورمات"
 
 #. i18n: ectx: label, entry (DefaultBackend), group (Cantor)
 #: cantor.kcfg:10
@@ -2799,17 +2767,16 @@ msgstr ""
 #: cantor_part.cpp:224 worksheet.cpp:1949
 #, kde-format
 msgid "Zoom"
-msgstr ""
+msgstr "نىسبەت"
 
 #: cantor_part.cpp:231
-#, fuzzy, kde-format
-#| msgid "%1: %2"
+#, kde-format
 msgctxt ""
 "Zoom percentage value %1 will be replaced by the actual zoom factor value, "
 "so make sure you include it in your translation in order to not to break "
 "anything"
 msgid "%1%"
-msgstr "%1: %2"
+msgstr "%1%"
 
 #: cantor_part.cpp:246
 #, kde-format
@@ -2819,7 +2786,7 @@ msgstr ""
 #: cantor_part.cpp:251
 #, kde-format
 msgid "Syntax Highlighting"
-msgstr "گرامماتىكىلىق يورۇتۇش"
+msgstr "گىرامماتىكىلىق يورۇتۇش"
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_CompletionDefault)
 #: cantor_part.cpp:256 settings.ui:46
@@ -2834,10 +2801,9 @@ msgstr "قۇر نومۇرى"
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_AnimationDefault)
 #: cantor_part.cpp:266 settings.ui:158
-#, fuzzy, kde-format
-#| msgid "Functions"
+#, kde-format
 msgid "Animations"
-msgstr "فۇنكسىيىلەر"
+msgstr "جانلاندۇرۇم"
 
 #: cantor_part.cpp:273
 #, kde-format
@@ -2865,10 +2831,9 @@ msgid "Insert Text Entry"
 msgstr ""
 
 #: cantor_part.cpp:303
-#, fuzzy, kde-format
-#| msgid "Insert Before"
+#, kde-format
 msgid "Insert Markdown Entry"
-msgstr "ئالدىغا قىستۇر"
+msgstr ""
 
 #: cantor_part.cpp:309
 #, kde-format
@@ -2891,16 +2856,14 @@ msgid "Collapse All Results"
 msgstr ""
 
 #: cantor_part.cpp:329
-#, fuzzy, kde-format
-#| msgid "Results"
+#, kde-format
 msgid "Expand All Results"
-msgstr "نەتىجە"
+msgstr ""
 
 #: cantor_part.cpp:334
-#, fuzzy, kde-format
-#| msgid "Results"
+#, kde-format
 msgid "Delete All Results"
-msgstr "نەتىجە"
+msgstr ""
 
 #: cantor_part.cpp:339
 #, kde-format
@@ -2925,7 +2888,7 @@ msgstr ""
 #: cantor_part.cpp:425
 #, kde-format
 msgid "CantorPart"
-msgstr "CantorPart"
+msgstr ""
 
 #: cantor_part.cpp:427
 #, kde-format
@@ -2950,12 +2913,12 @@ msgstr ""
 #: cantor_part.cpp:500
 #, kde-format
 msgid "Save as"
-msgstr ""
+msgstr "باشقا ئاتتا ساقلا"
 
 #: cantor_part.cpp:546 panelplugins/variablemgr/variablemanagerwidget.cpp:176
 #, kde-format
 msgid "Save"
-msgstr ""
+msgstr "ساقلا"
 
 #: cantor_part.cpp:546 textresultitem.cpp:208
 #, kde-format
@@ -2980,10 +2943,9 @@ msgid ""
 msgstr ""
 
 #: cantor_part.cpp:611
-#, fuzzy, kde-format
-#| msgid "Restart Backend"
+#, kde-format
 msgid "Restart %1?"
-msgstr "ئارقا ئۇچنى قايتا باشلاش"
+msgstr ""
 
 #: cantor_part.cpp:651 worksheet.cpp:1944
 #, kde-format
@@ -3003,7 +2965,7 @@ msgstr ""
 #: cantor_part.cpp:728
 #, kde-format
 msgid "Initializing..."
-msgstr ""
+msgstr "دەسلەپلەشتۈرۈۋاتىدۇ…"
 
 #: cantor_part.cpp:786
 #, kde-format
@@ -3024,7 +2986,7 @@ msgstr ""
 #, kde-format
 msgctxt "@action:button"
 msgid "Upload"
-msgstr ""
+msgstr "يۈكلە"
 
 #: cantor_part.cpp:911
 #, kde-format
@@ -3061,10 +3023,9 @@ msgstr ""
 
 #. i18n: ectx: Menu (settings)
 #: cantor_part.rc:51
-#, fuzzy, kde-format
-#| msgid "&Settings"
+#, kde-format
 msgid "Settings"
-msgstr "تەڭشەك(&S)"
+msgstr "تەڭشەك"
 
 #. i18n: ectx: Menu (file)
 #: cantor_shell.rc:4
@@ -3082,7 +3043,7 @@ msgstr "يېڭى(&N)"
 #: cantor_shell.rc:24
 #, kde-format
 msgid "Panels"
-msgstr "تاختايلار"
+msgstr "كۆزنەكچە"
 
 #. i18n: ectx: Menu (settings)
 #: cantor_shell.rc:29
@@ -3093,21 +3054,17 @@ msgstr "تەڭشەك(&S)"
 #: commandentry.cpp:159
 #, kde-format
 msgid "Background Color"
-msgstr ""
+msgstr "تەگلىك رەڭگى"
 
 #: commandentry.cpp:191
-#, fuzzy, kde-format
-#| msgctxt "@action"
-#| msgid "Text &Color..."
+#, kde-format
 msgid "Text Color"
-msgstr "تېكىست رېڭى(&C)…"
+msgstr "تېكىست رەڭگى"
 
 #: commandentry.cpp:219
-#, fuzzy, kde-format
-#| msgctxt "@action"
-#| msgid "&Font"
+#, kde-format
 msgid "Font"
-msgstr "خەت نۇسخا(&F)"
+msgstr "خەت نۇسخا"
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_ChapterFontBold)
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_SubchapterFontBold)
@@ -3117,11 +3074,9 @@ msgstr "خەت نۇسخا(&F)"
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_SubparagraphFontBold)
 #: commandentry.cpp:222 formating.ui:84 formating.ui:141 formating.ui:198
 #: formating.ui:255 formating.ui:312 formating.ui:369
-#, fuzzy, kde-format
-#| msgctxt "@action boldify selected text"
-#| msgid "&Bold"
+#, kde-format
 msgid "Bold"
-msgstr "توم(&B)"
+msgstr "توم"
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_ChapterFontItalic)
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_SubchapterFontItalic)
@@ -3131,11 +3086,9 @@ msgstr "توم(&B)"
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_SubparagraphFontItalic)
 #: commandentry.cpp:229 formating.ui:91 formating.ui:148 formating.ui:205
 #: formating.ui:262 formating.ui:319 formating.ui:376
-#, fuzzy, kde-format
-#| msgctxt "@action italicize selected text"
-#| msgid "&Italic"
+#, kde-format
 msgid "Italic"
-msgstr "يانتۇ(&I)"
+msgstr "يانتۇ"
 
 #: commandentry.cpp:238
 #, kde-format
@@ -3150,7 +3103,7 @@ msgstr ""
 #: commandentry.cpp:248
 #, kde-format
 msgid "Select"
-msgstr ""
+msgstr "تاللا"
 
 #: commandentry.cpp:252
 #, kde-format
@@ -3158,27 +3111,24 @@ msgid "Reset to Default"
 msgstr ""
 
 #: commandentry.cpp:333
-#, fuzzy, kde-format
-#| msgid "Results"
+#, kde-format
 msgid "Show Results"
-msgstr "نەتىجە"
+msgstr ""
 
 #: commandentry.cpp:335
-#, fuzzy, kde-format
-#| msgid "Results"
+#, kde-format
 msgid "Hide Results"
-msgstr "نەتىجە"
+msgstr ""
 
 #: commandentry.cpp:340 worksheet.cpp:1933
-#, fuzzy, kde-format
-#| msgid "Results"
+#, kde-format
 msgid "Show Help"
-msgstr "نەتىجە"
+msgstr ""
 
 #: commandentry.cpp:353
 #, kde-format
 msgid "Appearance"
-msgstr ""
+msgstr "قىياپەت"
 
 #: commandentry.cpp:623 commandentry.cpp:887
 #, kde-format
@@ -3279,11 +3229,9 @@ msgstr ""
 #. i18n: ectx: property (text), widget (QLabel, lSubparagraphFontSize)
 #: formating.ui:61 formating.ui:118 formating.ui:175 formating.ui:232
 #: formating.ui:289 formating.ui:346
-#, fuzzy, kde-format
-#| msgctxt "@action"
-#| msgid "Font &Size"
+#, kde-format
 msgid "Font Si&ze:"
-msgstr "خەت نۇسخا چوڭلۇقى(&S)"
+msgstr ""
 
 #. i18n: ectx: attribute (title), widget (QWidget, SubchapterTab)
 #: formating.ui:99
@@ -3318,7 +3266,7 @@ msgstr ""
 #: hierarchyentry.cpp:22
 #, kde-format
 msgid "Chapter"
-msgstr ""
+msgstr "باب"
 
 #: hierarchyentry.cpp:22
 #, kde-format
@@ -3326,21 +3274,19 @@ msgid "Subchapter"
 msgstr ""
 
 #: hierarchyentry.cpp:22
-#, fuzzy, kde-format
-#| msgid "function"
+#, kde-format
 msgid "Section"
-msgstr "فۇنكسىيە"
+msgstr ""
 
 #: hierarchyentry.cpp:22
-#, fuzzy, kde-format
-#| msgid "function"
+#, kde-format
 msgid "Subsection"
-msgstr "فۇنكسىيە"
+msgstr ""
 
 #: hierarchyentry.cpp:22
 #, kde-format
 msgid "Paragraph"
-msgstr ""
+msgstr "ئابزاس"
 
 #: hierarchyentry.cpp:22
 #, kde-format
@@ -3353,10 +3299,9 @@ msgid "Set Hierarchy Level"
 msgstr ""
 
 #: horizontalruleentry.cpp:20
-#, fuzzy, kde-format
-#| msgid "Completion Style:"
+#, kde-format
 msgid "Solid Line Style"
-msgstr "تاماملاش ئۇسلۇبى:"
+msgstr ""
 
 #: horizontalruleentry.cpp:20
 #, kde-format
@@ -3364,10 +3309,9 @@ msgid "Dash Line Style"
 msgstr ""
 
 #: horizontalruleentry.cpp:20
-#, fuzzy, kde-format
-#| msgid "Completion Style:"
+#, kde-format
 msgid "Dot Line Style"
-msgstr "تاماملاش ئۇسلۇبى:"
+msgstr ""
 
 #: horizontalruleentry.cpp:20
 #, kde-format
@@ -3387,12 +3331,12 @@ msgstr ""
 #: horizontalruleentry.cpp:299
 #, kde-format
 msgid "Thin"
-msgstr ""
+msgstr "نېپىز"
 
 #: horizontalruleentry.cpp:303
 #, kde-format
 msgid "Medium"
-msgstr ""
+msgstr "ئوتتۇراھال"
 
 #: horizontalruleentry.cpp:307
 #, kde-format
@@ -3400,17 +3344,14 @@ msgid "Thick"
 msgstr ""
 
 #: horizontalruleentry.cpp:320
-#, fuzzy, kde-format
-#| msgctxt "@action"
-#| msgid "Text &Color..."
+#, kde-format
 msgid "Line Color"
-msgstr "تېكىست رېڭى(&C)…"
+msgstr "سىزىق رەڭگى"
 
 #: horizontalruleentry.cpp:351
-#, fuzzy, kde-format
-#| msgid "Style"
+#, kde-format
 msgid "Line Style"
-msgstr "ئۇسلۇب"
+msgstr ""
 
 #: imageentry.cpp:47 imageentry.cpp:370
 #, kde-format
@@ -3439,10 +3380,9 @@ msgid "EPS files (*.eps)"
 msgstr ""
 
 #: imageresultitem.cpp:81
-#, fuzzy, kde-format
-#| msgid "Remove Entry"
+#, kde-format
 msgid "Save image result"
-msgstr "تۈرنى چىقىرىۋەت"
+msgstr ""
 
 #. i18n: ectx: property (windowTitle), widget (QWidget, ImageSettingsBase)
 #: imagesettings.ui:14
@@ -3478,10 +3418,9 @@ msgstr "ئېگىزلىك"
 
 #. i18n: ectx: property (title), widget (QGroupBox, gbPreview)
 #: imagesettings.ui:76
-#, fuzzy, kde-format
-#| msgid "&Previous"
+#, kde-format
 msgid "Preview"
-msgstr "ئالدىنقى(&P)"
+msgstr "ئالدىن كۆزەت"
 
 #. i18n: ectx: property (title), widget (QGroupBox, groupBox_2)
 #: imagesettings.ui:88
@@ -3496,8 +3435,7 @@ msgid "Use Display Size"
 msgstr ""
 
 #: imagesettingsdialog.cpp:23
-#, fuzzy, kde-format
-#| msgid "Image Settings"
+#, kde-format
 msgctxt "@title:window"
 msgid "Image Settings"
 msgstr "سۈرەت تەڭشەك"
@@ -3523,10 +3461,9 @@ msgid "Open image file"
 msgstr ""
 
 #: imagesettingsdialog.cpp:153 markdownentry.cpp:791
-#, fuzzy, kde-format
-#| msgid "Image"
+#, kde-format
 msgid "Images (%1)"
-msgstr "سۈرەت"
+msgstr "سۈرەت (%1)"
 
 #: latexentry.cpp:60 textentry.cpp:112
 #, kde-format
@@ -3587,7 +3524,7 @@ msgstr ""
 #, kde-format
 msgctxt "@title:column"
 msgid "Type"
-msgstr ""
+msgstr "تۈرى"
 
 #: lib/defaultvariablemodel.cpp:76
 #, kde-format
@@ -3599,7 +3536,7 @@ msgstr ""
 #, kde-format
 msgctxt "@title:column"
 msgid "Dimension"
-msgstr ""
+msgstr "ئۆلچەم"
 
 #: lib/defaultvariablemodel.cpp:80
 #, kde-format
@@ -3611,13 +3548,13 @@ msgstr "قىممەت"
 #: lib/directives/axisrange.ui:19
 #, kde-format
 msgid "From:"
-msgstr "ئەۋەتكۈچى:"
+msgstr "كىمدىن:"
 
 #. i18n: ectx: property (text), widget (QLabel, label_2)
 #: lib/directives/axisrange.ui:40
 #, kde-format
 msgid "To:"
-msgstr "خەت تاپشۇرۇۋالغۇچى："
+msgstr "كىمگە:"
 
 #: lib/directives/plotdirectives.cpp:19
 #, kde-format
@@ -3694,7 +3631,7 @@ msgstr ""
 #, kde-format
 msgctxt "@info:credit"
 msgid "Developer"
-msgstr ""
+msgstr "ئىجادكار"
 
 #: main.cpp:62
 #, kde-format
@@ -3737,22 +3674,19 @@ msgid "Interface"
 msgstr "ئارايۈز"
 
 #: main.cpp:68 main.cpp:69
-#, fuzzy, kde-format
-#| msgid "Cantor"
+#, kde-format
 msgid "Cantor icon"
-msgstr "Cantor"
+msgstr ""
 
 #: main.cpp:74
-#, fuzzy, kde-format
-#| msgid "Use this backend"
+#, kde-format
 msgid "Use  backend <backend>"
-msgstr "مەزكۇر ئارقا ئۇچنى ئىشلەت"
+msgstr ""
 
 #: main.cpp:76
-#, fuzzy, kde-format
-#| msgid "Document to open"
+#, kde-format
 msgid "Documents to open."
-msgstr "ئاچىدىغان پۈتۈك"
+msgstr "ئاچىدىغان پۈتۈك."
 
 #: main.cpp:105
 #, kde-format
@@ -3762,7 +3696,7 @@ msgstr ""
 #: markdownentry.cpp:69
 #, kde-format
 msgid "Enter Edit Mode"
-msgstr ""
+msgstr "تەھرىرلەش ھالىتىگە كىرىدۇ"
 
 #: markdownentry.cpp:77
 #, kde-format
@@ -3770,10 +3704,9 @@ msgid "Clear Attachments"
 msgstr ""
 
 #: markdownentry.cpp:603
-#, fuzzy, kde-format
-#| msgid "Syntax Error"
+#, kde-format
 msgid "Cantor Math Error"
-msgstr "گرامماتىكىلىق خاتالىق"
+msgstr ""
 
 #: markdownentry.cpp:812
 #, kde-format
@@ -3813,26 +3746,25 @@ msgstr ""
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Close"
-msgstr ""
+msgstr "ياپ"
 
 #: panelplugins/documentationpanel/documentationpanelwidget.cpp:133
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Jump to next match"
-msgstr ""
+msgstr "كېيىنكى ماس كەلگەنگە ئاتلا"
 
 #: panelplugins/documentationpanel/documentationpanelwidget.cpp:137
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Jump to previous match"
-msgstr ""
+msgstr "ئالدىنقى ماس كەلگەنگە ئاتلا"
 
 #: panelplugins/documentationpanel/documentationpanelwidget.cpp:141
-#, fuzzy, kde-format
-#| msgid "&Match case"
+#, kde-format
 msgctxt "@info:tooltip"
 msgid "Match case sensitively"
-msgstr "چوڭ-كىچىكلىكىگە قارا(&M)"
+msgstr ""
 
 #: panelplugins/documentationpanel/documentationpanelwidget.cpp:410
 #, kde-format
@@ -3845,27 +3777,24 @@ msgid "Download Successful"
 msgstr ""
 
 #: panelplugins/filebrowserpanel/filebrowserpanelplugin.cpp:137
-#, fuzzy, kde-format
-#| msgid "Cantor"
+#, kde-format
 msgid "Cantor files"
-msgstr "Cantor"
+msgstr ""
 
 #: panelplugins/filebrowserpanel/filebrowserpanelplugin.cpp:138
-#, fuzzy, kde-format
-#| msgid "&Open Example"
+#, kde-format
 msgid "Jupyter files"
-msgstr "مىسالنى ئاچ(&O)"
+msgstr ""
 
 #: panelplugins/filebrowserpanel/filebrowserpanelplugin.cpp:139
 #, kde-format
 msgid "All supported files"
-msgstr ""
+msgstr "قوللايدىغان بارلىق ھۆججەت"
 
 #: panelplugins/filebrowserpanel/filebrowserpanelplugin.cpp:140
-#, fuzzy, kde-format
-#| msgid "file"
+#, kde-format
 msgid "All files"
-msgstr "ھۆججەت"
+msgstr "ھەممە ھۆججەت"
 
 #. i18n: ectx: property (text), widget (QLabel, label)
 #: panelplugins/variablemgr/newvardlg.ui:17
@@ -3881,10 +3810,9 @@ msgstr "قىممىتى:"
 
 #: panelplugins/variablemgr/variablemanagerwidget.cpp:48
 #: panelplugins/variablemgr/variablemanagerwidget.cpp:205
-#, fuzzy, kde-format
-#| msgid "Variable"
+#, kde-format
 msgid "Add New Variable"
-msgstr "ئۆزگىرىشچان"
+msgstr ""
 
 #: panelplugins/variablemgr/variablemanagerwidget.cpp:54
 #, kde-format
@@ -3892,28 +3820,25 @@ msgid "Load Variables"
 msgstr ""
 
 #: panelplugins/variablemgr/variablemanagerwidget.cpp:60
-#, fuzzy, kde-format
-#| msgid "Remove Entry"
+#, kde-format
 msgid "Save Variables"
-msgstr "تۈرنى چىقىرىۋەت"
+msgstr ""
 
 #: panelplugins/variablemgr/variablemanagerwidget.cpp:66
 #: panelplugins/variablemgr/variablemanagerwidget.cpp:144
-#, fuzzy, kde-format
-#| msgid "Remove Entry"
+#, kde-format
 msgid "Remove Variables"
-msgstr "تۈرنى چىقىرىۋەت"
+msgstr ""
 
 #: panelplugins/variablemgr/variablemanagerwidget.cpp:76
-#, fuzzy, kde-format
-#| msgid "Search in:"
+#, kde-format
 msgid "Search/Filter"
-msgstr "ئىزدەش:"
+msgstr ""
 
 #: panelplugins/variablemgr/variablemanagerwidget.cpp:87
 #, kde-format
 msgid "Case Sensitive"
-msgstr ""
+msgstr "چوڭ كىچىك ھەرپنى پەرقلەندۈر"
 
 #: panelplugins/variablemgr/variablemanagerwidget.cpp:91
 #, kde-format
@@ -3926,23 +3851,19 @@ msgid "Are you sure you want to remove all variables?"
 msgstr ""
 
 #: panelplugins/variablemgr/variablemanagerwidget.cpp:190
-#, fuzzy, kde-format
-#| msgid "file"
+#, kde-format
 msgid "Load file"
-msgstr "ھۆججەت"
+msgstr ""
 
 #: panelplugins/variablemgr/variablemanagerwidget.cpp:291
-#, fuzzy, kde-format
-#| msgid "Name"
+#, kde-format
 msgid "Copy Name"
-msgstr "ئاتى"
+msgstr ""
 
 #: panelplugins/variablemgr/variablemanagerwidget.cpp:292
-#, fuzzy, kde-format
-#| msgctxt "@title:column"
-#| msgid "Value"
+#, kde-format
 msgid "Copy Value"
-msgstr "قىممەت"
+msgstr "قىممىتىنى كۆچۈر"
 
 #: panelplugins/variablemgr/variablemanagerwidget.cpp:293
 #, kde-format
@@ -3965,8 +3886,8 @@ msgid ""
 "A KDE text-editor component could not be found;\n"
 "please check your KDE installation."
 msgstr ""
-"ك د ئې(KDE) تەھرىرلىگۈچ بۆلىكى تېپىلمىدى؛\n"
-" ك د ئې(KDE) نىڭ ئورنىتىلىشىنى تەكشۈرۈڭ."
+"KDE تېكىست تەھرىرلىگۈچ بۆلىكى تېپىلمىدى؛\n"
+"KDE نىڭ ئورنىتىلىشىنى تەكشۈرۈڭ."
 
 #: scripteditor/scripteditorwidget.cpp:137
 #, kde-format
@@ -4002,7 +3923,7 @@ msgstr[0] ""
 #: searchbar.cpp:530 searchbar.cpp:559
 #, kde-format
 msgid "Commands"
-msgstr "بۇيرۇقلار"
+msgstr "بۇيرۇق"
 
 #: searchbar.cpp:530 searchbar.cpp:559
 #, kde-format
@@ -4027,24 +3948,21 @@ msgstr ""
 
 #. i18n: ectx: property (text), widget (QLabel, label_4)
 #: settings.ui:23
-#, fuzzy, kde-format
-#| msgid "Evaluate"
+#, kde-format
 msgid "Evaluation:"
-msgstr "باھا"
+msgstr ""
 
 #. i18n: ectx: property (toolTip), widget (QCheckBox, kcfg_CompletionDefault)
 #: settings.ui:43
-#, fuzzy, kde-format
-#| msgid "Enable Syntax Highlighting"
+#, kde-format
 msgid "Enable syntax completion"
-msgstr "گرامماتىكا يورۇق كۆرسىتىشنى قوزغىتىش"
+msgstr ""
 
 #. i18n: ectx: property (text), widget (QLabel, label_2)
 #: settings.ui:59
-#, fuzzy, kde-format
-#| msgid "Start"
+#, kde-format
 msgid "Startup:"
-msgstr "باشلاش"
+msgstr ""
 
 #. i18n: ectx: property (toolTip), widget (QLabel, label)
 #. i18n: ectx: property (toolTip), widget (KComboBox, kcfg_DefaultBackend)
@@ -4059,7 +3977,7 @@ msgstr ""
 #: settings.ui:69
 #, kde-format
 msgid "Default Backend:"
-msgstr "كۆڭۈلدىكى ئارقا ئۇچ"
+msgstr "كۆڭۈلدىكى ئارقا ئۇچ:"
 
 #. i18n: ectx: property (toolTip), widget (QLabel, label_theme)
 #. i18n: ectx: property (toolTip), widget (KComboBox, kcfg_DefaultTheme)
@@ -4070,10 +3988,9 @@ msgstr ""
 
 #. i18n: ectx: property (text), widget (QLabel, label_theme)
 #: settings.ui:79
-#, fuzzy, kde-format
-#| msgid "Default Backend:"
+#, kde-format
 msgid "Default Theme:"
-msgstr "كۆڭۈلدىكى ئارقا ئۇچ"
+msgstr ""
 
 #. i18n: ectx: property (toolTip), widget (QSpinBox, kcfg_VisibleLinesLimit)
 #: settings.ui:86
@@ -4150,10 +4067,9 @@ msgstr ""
 
 #. i18n: ectx: property (text), widget (QLabel, label_5)
 #: settings.ui:256
-#, fuzzy, kde-format
-#| msgid "Insert Before"
+#, kde-format
 msgid "Markdown:"
-msgstr "ئالدىغا قىستۇر"
+msgstr ""
 
 #. i18n: ectx: property (toolTip), widget (QCheckBox, kcfg_UseOldCantorEntriesIndent)
 #: settings.ui:263
@@ -4185,31 +4101,27 @@ msgstr ""
 
 #. i18n: ectx: property (toolTip), widget (QCheckBox, kcfg_ExpressionNumberingDefault)
 #: settings.ui:303
-#, fuzzy, kde-format
-#| msgid "Line Numbers"
+#, kde-format
 msgid "Show line numbers"
-msgstr "قۇر نومۇرى"
+msgstr ""
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_ExpressionNumberingDefault)
 #: settings.ui:306
-#, fuzzy, kde-format
-#| msgid "Line Numbers"
+#, kde-format
 msgid "Line numbers"
 msgstr "قۇر نومۇرى"
 
 #. i18n: ectx: property (toolTip), widget (QCheckBox, kcfg_HighlightDefault)
 #: settings.ui:313
-#, fuzzy, kde-format
-#| msgid "Enable Syntax Highlighting"
+#, kde-format
 msgid "Enable syntax highlighting"
-msgstr "گرامماتىكا يورۇق كۆرسىتىشنى قوزغىتىش"
+msgstr ""
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_HighlightDefault)
 #: settings.ui:316
-#, fuzzy, kde-format
-#| msgid "Syntax Highlighting"
+#, kde-format
 msgid "Syntax highlighting"
-msgstr "گرامماتىكىلىق يورۇتۇش"
+msgstr ""
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_WarnAboutEntryDelete)
 #: settings.ui:323
@@ -4219,10 +4131,9 @@ msgstr ""
 
 #. i18n: ectx: property (placeholderText), widget (KLineEdit, pattern)
 #: standardsearchbar.ui:35
-#, fuzzy, kde-format
-#| msgid "Find:"
+#, kde-format
 msgid "Find…"
-msgstr "ئىزدە:"
+msgstr "ئىزدە…"
 
 #: textentry.cpp:56
 #, kde-format
@@ -4235,10 +4146,9 @@ msgid "Add custom target"
 msgstr ""
 
 #: textentry.cpp:77
-#, fuzzy, kde-format
-#| msgid "Text Entry"
+#, kde-format
 msgid "Convert to Text Entry"
-msgstr "تېكىست كىرگۈ"
+msgstr ""
 
 #: textentry.cpp:82
 #, kde-format
@@ -4251,10 +4161,9 @@ msgid "Target MIME type:"
 msgstr ""
 
 #: textresultitem.cpp:61
-#, fuzzy, kde-format
-#| msgid "Results"
+#, kde-format
 msgid "Copy result"
-msgstr "نەتىجە"
+msgstr ""
 
 #: textresultitem.cpp:70
 #, kde-format
@@ -4331,10 +4240,9 @@ msgstr ""
 #: worksheet.cpp:1369 worksheet.cpp:1392 worksheet.cpp:1412 worksheet.cpp:1429
 #: worksheet.cpp:1461 worksheet.cpp:1472 worksheet.cpp:1581 worksheet.cpp:1596
 #: worksheet.cpp:1638 worksheet.cpp:1649 worksheet.cpp:1768 worksheet.cpp:1770
-#, fuzzy, kde-format
-#| msgid "&Open Example"
+#, kde-format
 msgid "Open File"
-msgstr "مىسالنى ئاچ(&O)"
+msgstr "ھۆججەت ئاچ"
 
 #: worksheet.cpp:1392
 #, kde-format
@@ -4424,22 +4332,19 @@ msgid "Invalid Jupyter notebook scheme: %1"
 msgstr ""
 
 #: worksheet.cpp:1846
-#, fuzzy, kde-format
-#| msgid "Text Entry"
+#, kde-format
 msgid "Convert To"
-msgstr "تېكىست كىرگۈ"
+msgstr "ئايلاندۇر"
 
 #: worksheet.cpp:1851 worksheet.cpp:1880 worksheet.cpp:1898 worksheet.cpp:1914
-#, fuzzy, kde-format
-#| msgid "Commands"
+#, kde-format
 msgid "Command"
-msgstr "بۇيرۇقلار"
+msgstr "بۇيرۇق"
 
 #: worksheet.cpp:1858 worksheet.cpp:1883 worksheet.cpp:1901 worksheet.cpp:1917
-#, fuzzy, kde-format
-#| msgid "Insert Before"
+#, kde-format
 msgid "Markdown"
-msgstr "ئالدىغا قىستۇر"
+msgstr "Markdown"
 
 #: worksheet.cpp:1863 worksheet.cpp:1886 worksheet.cpp:1904 worksheet.cpp:1921
 #, kde-format
@@ -4454,7 +4359,7 @@ msgstr "بەت ئايرىش بەلگىسى"
 #: worksheet.cpp:1869 worksheet.cpp:1888 worksheet.cpp:1906 worksheet.cpp:1923
 #, kde-format
 msgid "Horizontal Line"
-msgstr ""
+msgstr "يانتۇ سىزىق"
 
 #: worksheet.cpp:1872 worksheet.cpp:1891 worksheet.cpp:1909 worksheet.cpp:1926
 #, kde-format
@@ -4462,16 +4367,14 @@ msgid "Hierarchy Entry"
 msgstr ""
 
 #: worksheet.cpp:1875
-#, fuzzy, kde-format
-#| msgid "Insert Image"
+#, kde-format
 msgid "Insert After"
-msgstr "سۈرەت قىستۇر"
+msgstr ""
 
 #: worksheet.cpp:1894
-#, fuzzy, kde-format
-#| msgid "Insert Before"
+#, kde-format
 msgid "Insert Before"
-msgstr "ئالدىغا قىستۇر"
+msgstr ""
 
 #: worksheet.cpp:1911
 #, kde-format
@@ -4481,18 +4384,17 @@ msgstr "قىستۇر"
 #: worksheet.cpp:1953
 #, kde-format
 msgid "Zoom In"
-msgstr ""
+msgstr "يېقىنلات"
 
 #: worksheet.cpp:1956
 #, kde-format
 msgid "Zoom Out"
-msgstr ""
+msgstr "يىراقلات"
 
 #: worksheet.cpp:1960
-#, fuzzy, kde-format
-#| msgid "Print Size"
+#, kde-format
 msgid "Original Size"
-msgstr "بېسىش چوڭلۇقى"
+msgstr "ئەسلى چوڭلۇقى"
 
 #: worksheet.cpp:1968
 #, kde-format
@@ -4500,22 +4402,19 @@ msgid "Move Entries Up"
 msgstr ""
 
 #: worksheet.cpp:1969
-#, fuzzy, kde-format
-#| msgid "Text Entry"
+#, kde-format
 msgid "Move Entries Down"
-msgstr "تېكىست كىرگۈ"
+msgstr ""
 
 #: worksheet.cpp:1970
-#, fuzzy, kde-format
-#| msgid "Evaluate"
+#, kde-format
 msgid "Evaluate Entries"
-msgstr "باھا"
+msgstr ""
 
 #: worksheet.cpp:1972 worksheet.cpp:2901
-#, fuzzy, kde-format
-#| msgid "Evaluate"
+#, kde-format
 msgid "Delete Entries"
-msgstr "باھا"
+msgstr ""
 
 #: worksheet.cpp:1985
 #, kde-format
@@ -4528,10 +4427,9 @@ msgid "Expand Command Entry Results"
 msgstr ""
 
 #: worksheet.cpp:1988
-#, fuzzy, kde-format
-#| msgid "Remove Entry"
+#, kde-format
 msgid "Delete Command Entry Results"
-msgstr "تۈرنى چىقىرىۋەت"
+msgstr ""
 
 #: worksheet.cpp:1990
 #, kde-format
@@ -4619,7 +4517,7 @@ msgstr "ئوتتۇرىغا توغرىلا(&C)"
 #, kde-format
 msgctxt "@label center justify"
 msgid "Center"
-msgstr "مەركەز"
+msgstr "ئوتتۇرا"
 
 #: worksheet.cpp:2193
 #, kde-format
@@ -4658,36 +4556,34 @@ msgid "This step cannot be undone. Do you really want to delete all results?"
 msgstr ""
 
 #: worksheet.cpp:2991
-#, fuzzy, kde-format
-#| msgid "Remove Entry"
+#, kde-format
 msgid "Delete all results"
-msgstr "تۈرنى چىقىرىۋەت"
+msgstr ""
 
 #: worksheetentry.cpp:67
 #, kde-format
 msgid "White"
-msgstr ""
+msgstr "ئاق"
 
 #: worksheetentry.cpp:67
 #, kde-format
 msgid "Black"
-msgstr ""
+msgstr "قارا"
 
 #: worksheetentry.cpp:68
 #, kde-format
 msgid "Dark Red"
-msgstr ""
+msgstr "توق قىزىل"
 
 #: worksheetentry.cpp:68
-#, fuzzy, kde-format
-#| msgid "Ready"
+#, kde-format
 msgid "Red"
-msgstr "تەييار"
+msgstr "قىزىل"
 
 #: worksheetentry.cpp:68
 #, kde-format
 msgid "Light Red"
-msgstr ""
+msgstr "ئاچ قىزىل"
 
 #: worksheetentry.cpp:69
 #, kde-format
@@ -4697,27 +4593,27 @@ msgstr ""
 #: worksheetentry.cpp:69
 #, kde-format
 msgid "Green"
-msgstr ""
+msgstr "يېشىل"
 
 #: worksheetentry.cpp:69
 #, kde-format
 msgid "Light Green"
-msgstr ""
+msgstr "ئاچ يېشىل"
 
 #: worksheetentry.cpp:70
 #, kde-format
 msgid "Dark Blue"
-msgstr ""
+msgstr "قارامتۇل كۆك"
 
 #: worksheetentry.cpp:70
 #, kde-format
 msgid "Blue"
-msgstr ""
+msgstr "كۆك"
 
 #: worksheetentry.cpp:70
 #, kde-format
 msgid "Light Blue"
-msgstr ""
+msgstr "ئاچ كۆك"
 
 #: worksheetentry.cpp:71
 #, kde-format
@@ -4727,7 +4623,7 @@ msgstr ""
 #: worksheetentry.cpp:71
 #, kde-format
 msgid "Yellow"
-msgstr ""
+msgstr "سېرىق"
 
 #: worksheetentry.cpp:71
 #, kde-format
@@ -4742,12 +4638,12 @@ msgstr ""
 #: worksheetentry.cpp:72
 #, kde-format
 msgid "Cyan"
-msgstr ""
+msgstr "كۆكۈچ"
 
 #: worksheetentry.cpp:72
 #, kde-format
 msgid "Light Cyan"
-msgstr ""
+msgstr "ئاچراق توق يېشىل"
 
 #: worksheetentry.cpp:73
 #, kde-format
@@ -4757,12 +4653,12 @@ msgstr ""
 #: worksheetentry.cpp:73
 #, kde-format
 msgid "Magenta"
-msgstr ""
+msgstr "ھال رەڭ"
 
 #: worksheetentry.cpp:73
 #, kde-format
 msgid "Light Magenta"
-msgstr ""
+msgstr "ئاچ ھال رەڭ"
 
 #: worksheetentry.cpp:74
 #, kde-format
@@ -4772,7 +4668,7 @@ msgstr ""
 #: worksheetentry.cpp:74
 #, kde-format
 msgid "Orange"
-msgstr ""
+msgstr "قىزغۇچ سېرىق"
 
 #: worksheetentry.cpp:74
 #, kde-format
@@ -4787,7 +4683,7 @@ msgstr ""
 #: worksheetentry.cpp:75
 #, kde-format
 msgid "Grey"
-msgstr ""
+msgstr "كۈلرەڭ"
 
 #: worksheetentry.cpp:75
 #, kde-format
@@ -4797,17 +4693,17 @@ msgstr ""
 #: worksheetentry.cpp:446
 #, kde-format
 msgid "Move Up"
-msgstr ""
+msgstr "ئۈستىگە"
 
 #: worksheetentry.cpp:454
 #, kde-format
 msgid "Move Down"
-msgstr ""
+msgstr "ئاستىغا"
 
 #: worksheetentry.cpp:461
 #, kde-format
 msgid "Delete"
-msgstr ""
+msgstr "ئۆچۈر"
 
 #: worksheetentry.cpp:744
 #, kde-format
@@ -4815,10 +4711,9 @@ msgid "This step cannot be undone. Do you really want to delete this entry?"
 msgstr ""
 
 #: worksheetentry.cpp:744 worksheetentry.cpp:874
-#, fuzzy, kde-format
-#| msgid "Text Entry"
+#, kde-format
 msgid "Delete Entry"
-msgstr "تېكىست كىرگۈ"
+msgstr "تۈر ئۆچۈر"
 
 #: worksheetentry.cpp:879
 #, kde-format
@@ -4826,13 +4721,10 @@ msgid "Drag Entry"
 msgstr ""
 
 #: worksheettextitem.cpp:893 worksheettextitem.cpp:910
-#, fuzzy, kde-format
-#| msgctxt "@action"
-#| msgid "Text &Color..."
+#, kde-format
 msgid "Select Color"
-msgstr "تېكىست رېڭى(&C)…"
+msgstr "رەڭ تاللا"
 
-#, fuzzy
 #~| msgid "Remove Entry"
 #~ msgid "Remove Entries"
 #~ msgstr "تۈرنى چىقىرىۋەت"
@@ -4843,27 +4735,22 @@ msgstr "تېكىست رېڭى(&C)…"
 #~ msgid "Defaults"
 #~ msgstr "كۆڭۈلدىكى قىممەتلەر"
 
-#, fuzzy
 #~| msgid "Plot"
 #~ msgid "Plot.ly"
 #~ msgstr "سىزمىچىلىق"
 
-#, fuzzy
 #~| msgid "Document to open"
 #~ msgid "Documentation:"
 #~ msgstr "ئاچىدىغان پۈتۈك"
 
-#, fuzzy
 #~| msgid "Insert Image"
 #~ msgid "Choose Image"
 #~ msgstr "سۈرەت قىستۇر"
 
-#, fuzzy
 #~| msgid "Insert Before"
 #~ msgid "Insert Hierarchy Entry"
 #~ msgstr "ئالدىغا قىستۇر"
 
-#, fuzzy
 #~| msgid "Insert Image"
 #~ msgid "Insert Image Attachment"
 #~ msgstr "سۈرەت قىستۇر"
