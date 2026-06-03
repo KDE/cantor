@@ -43,6 +43,7 @@
   <name xml:lang="sv">Cantor</name>
   <name xml:lang="ta">கேண்ட்டொர்</name>
   <name xml:lang="tr">Cantor</name>
+  <name xml:lang="ug">Cantor</name>
   <name xml:lang="uk">Cantor</name>
   <name xml:lang="zh-CN">Cantor</name>
   <name xml:lang="zh-TW">Cantor</name>
@@ -74,6 +75,7 @@
   <summary xml:lang="sv">Gränssnitt till matematisk programvara</summary>
   <summary xml:lang="ta">கணித நிரல்களுக்கான இடைமுகப்பு</summary>
   <summary xml:lang="tr">Matematik yazılımları için ön uç</summary>
+  <summary xml:lang="ug">ماتېماتىكىلىق يۇمشاق دېتال ئالدى ئۇچى</summary>
   <summary xml:lang="uk">Графічна оболонка до математичного програмного забезпечення</summary>
   <summary xml:lang="zh-CN">数学软件前端</summary>
   <description>
