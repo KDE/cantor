@@ -42,8 +42,8 @@
             "sources": [
                 {
                     "type": "archive",
-                    "url": "https://poppler.freedesktop.org/poppler-25.12.0.tar.xz",
-                    "sha256": "c18b40eb36b1a0c5b86e29ca054bf0770304583da4f2cdd42fe86eca6a20de48",
+                    "url": "https://poppler.freedesktop.org/poppler-26.06.0.tar.xz",
+                    "sha256": "4cb4e5a3dc8cb5eec751c8a23c8ba19f61f96dedc0cd07d2aee6b0c8e2cf6ba4",
                     "x-checker-data": {
                         "type": "anitya",
                         "project-id": 3686,
@@ -86,8 +86,8 @@
             "sources": [
                 {
                     "type": "archive",
-                    "url": "https://download.kde.org/stable/release-service/25.08.3/src/analitza-25.08.3.tar.xz",
-                    "sha256": "1abe741c3f189b3d8cb8cf34b516890fd64cf21ba75d0f558b3711956b83e4d1",
+                    "url": "https://download.kde.org/stable/release-service/26.04.2/src/analitza-26.04.2.tar.xz",
+                    "sha256": "66e9bcdf400595a03dfadc59b45e380b1a6cbe6fbc3522af0d772edf5c35ed2a",
                     "x-checker-data": {
                         "type": "anitya",
                         "project-id": 8763,
