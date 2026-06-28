@@ -450,7 +450,7 @@ msgstr "Ha fallat mentre s'iniciava Julia. Verifiqueu la seua instal·lació."
 #: worksheet.cpp:1247 worksheet.cpp:1262 worksheet.cpp:1278
 #, kde-format
 msgid "Error - Cantor"
-msgstr "Error - Cantor"
+msgstr "Error – Cantor"
 
 #: backends/julia/juliasession.cpp:115
 #, kde-format
@@ -459,7 +459,7 @@ msgid ""
 "file - \"%1\""
 msgstr ""
 "No s'ha pogut iniciar la sessió amb Julia per un problema intern de «julia», "
-"ja que falta el fitxer intern - «%1»"
+"ja que falta el fitxer intern – «%1»"
 
 #: backends/julia/juliasession.cpp:124
 #, kde-format
@@ -1122,7 +1122,7 @@ msgstr "bokeh"
 #: backends/qalculate/plotassistant/qalculateplotdialog.ui:14
 #, kde-format
 msgid "Cantor - Plot Dialog"
-msgstr "Cantor - diàleg de les gràfiques"
+msgstr "Cantor – diàleg de les gràfiques"
 
 #. i18n: ectx: attribute (title), widget (QWidget, tab)
 #: backends/qalculate/plotassistant/qalculateplotdialog.ui:24
@@ -3197,7 +3197,7 @@ msgstr "Voleu pujar el full de treball actual a un servidor web públic?"
 #: cantor_part.cpp:902
 #, kde-format
 msgid "Question - Cantor"
-msgstr "Pregunta - Cantor"
+msgstr "Pregunta – Cantor"
 
 #: cantor_part.cpp:903
 #, kde-format
@@ -3214,7 +3214,7 @@ msgstr ""
 #: cantor_part.cpp:912
 #, kde-format
 msgid "Warning - Cantor"
-msgstr "Avís - Cantor"
+msgstr "Avís – Cantor"
 
 #: cantor_part.cpp:984
 #, kde-format
@@ -3412,7 +3412,7 @@ msgstr "Substituïx-ho &tot"
 #: extendedsearchbar.ui:139
 #, kde-format
 msgid "Search in:"
-msgstr "Busca a:"
+msgstr "Busca en:"
 
 #. i18n: ectx: property (text), widget (QToolButton, matchCase)
 #. i18n: ectx: property (text), widget (QCheckBox, matchCase)
@@ -3876,7 +3876,7 @@ msgstr "Alexander Semke"
 #: main.cpp:63
 #, kde-format
 msgid "Original author<br/>Maintainer (2009 - 2015)"
-msgstr "Autor original<br/>Mantenidor (2009 - 2015)"
+msgstr "Autor original<br/>Mantenidor (2009 – 2015)"
 
 #: main.cpp:64
 #, kde-format
@@ -4132,7 +4132,7 @@ msgstr "Editor de scripts"
 #: scripteditor/scripteditorwidget.cpp:139
 #, kde-format
 msgid "Script Editor - %1"
-msgstr "Editor de scripts - %1"
+msgstr "Editor de scripts – %1"
 
 #: searchbar.cpp:151 searchbar.cpp:218 searchbar.cpp:262 searchbar.cpp:333
 #, kde-format
