@@ -64,6 +64,12 @@ CantorShell::CantorShell() : KParts::MainWindow(), m_tabWidget(new QTabWidget(th
 
     connect(m_tabWidget, &QTabWidget::currentChanged, this, &CantorShell::activateWorksheet);
     connect(m_tabWidget, &QTabWidget::tabCloseRequested, this, &CantorShell::closeTab);
+    connect(this, &CantorShell::requestNavigateToTocNode, this, &CantorShell::forwardNavigateToTocNode);
+    connect(this, &CantorShell::requestChangeHierarchyLevel, this, &CantorShell::forwardChangeHierarchyLevel);
+    connect(this, &CantorShell::requestDeleteHierarchyEntry, this, &CantorShell::forwardDeleteHierarchyEntry);
+    connect(this, &CantorShell::requestRenameHierarchyEntry, this, &CantorShell::forwardRenameHierarchyEntry);
+    connect(this, &CantorShell::requestRenamePlot, this, &CantorShell::forwardRenamePlot);
+    connect(this, &CantorShell::requestDeletePlot, this, &CantorShell::forwardDeletePlot);
 
     // apply the saved mainwindow settings, if any, and ask the mainwindow
     // to automatically save settings if changed: window size, toolbar
@@ -236,6 +242,60 @@ void CantorShell::optionsConfigureKeys()
     dlg.configure( true );
 }
 
+void CantorShell::forwardNavigateToTocNode(const QString& nodeId)
+{
+    if (m_part)
+        QMetaObject::invokeMethod(m_part, "requestNavigateToTocNode", Qt::DirectConnection, Q_ARG(QString, nodeId));
+}
+
+void CantorShell::forwardRenameHierarchyEntry(const QString& hierarchyId, const QString& newName)
+{
+    if (m_part)
+        QMetaObject::invokeMethod(m_part, "requestRenameHierarchyEntry", Qt::DirectConnection, Q_ARG(QString, hierarchyId), Q_ARG(QString, newName));
+}
+
+void CantorShell::forwardChangeHierarchyLevel(const QString& hierarchyId, int levelDelta)
+{
+    if (m_part)
+        QMetaObject::invokeMethod(m_part, "requestChangeHierarchyLevel", Qt::DirectConnection, Q_ARG(QString, hierarchyId), Q_ARG(int, levelDelta));
+}
+
+void CantorShell::forwardDeleteHierarchyEntry(const QString& hierarchyId, bool deleteContents)
+{
+    if (m_part)
+        QMetaObject::invokeMethod(m_part, "requestDeleteHierarchyEntry", Qt::DirectConnection, Q_ARG(QString, hierarchyId), Q_ARG(bool, deleteContents));
+}
+
+void CantorShell::forwardRenamePlot(const QString& commandId, const QString& resultId, const QString& newTitle)
+{
+    if (m_part)
+        QMetaObject::invokeMethod(m_part, "requestRenamePlot", Qt::DirectConnection, Q_ARG(QString, commandId), Q_ARG(QString, resultId), Q_ARG(QString, newTitle));
+}
+
+void CantorShell::forwardDeletePlot(const QString& commandId, const QString& resultId)
+{
+    if (m_part)
+        QMetaObject::invokeMethod(m_part, "requestDeletePlot", Qt::DirectConnection, Q_ARG(QString, commandId), Q_ARG(QString, resultId));
+}
+
+void CantorShell::handleTocNodesChanged(QVariantList nodes)
+{
+    if (sender() == m_part)
+        Q_EMIT tocNodesChanged(nodes);
+}
+
+void CantorShell::handleCurrentTocNodeChanged(const QString& nodeId)
+{
+    if (sender() == m_part)
+        Q_EMIT currentTocNodeChanged(nodeId);
+}
+
+void CantorShell::handleTocReadOnlyChanged(bool readOnly)
+{
+    if (sender() == m_part)
+        Q_EMIT tocReadOnlyChanged(readOnly);
+}
+
 void CantorShell::fileOpen()
 {
     // this slot is called whenever the File->Open menu is selected,
@@ -370,9 +430,9 @@ void CantorShell::addWorksheet(const QString& backendName)
         connect(part, SIGNAL(setCaption(QString,QIcon)), this, SLOT(setTabCaption(QString,QIcon)));
         connect(part, SIGNAL(worksheetSave(QUrl)), this, SLOT(onWorksheetSave(QUrl)));
         connect(part, SIGNAL(showHelp(QString)), this, SIGNAL(showHelp(QString)));
-        connect(part, SIGNAL(hierarchyChanged(QStringList, QStringList, QList<int>)), this, SIGNAL(hierarchyChanged(QStringList, QStringList, QList<int>)));
-        connect(part, SIGNAL(hierarhyEntryNameChange(QString, QString, int)), this, SIGNAL(hierarhyEntryNameChange(QString, QString, int)));
-        connect(this, SIGNAL(requestScrollToHierarchyEntry(QString)), part, SIGNAL(requestScrollToHierarchyEntry(QString)));
+        connect(part, SIGNAL(tocNodesChanged(QVariantList)), this, SLOT(handleTocNodesChanged(QVariantList)));
+        connect(part, SIGNAL(currentTocNodeChanged(QString)), this, SLOT(handleCurrentTocNodeChanged(QString)));
+        connect(part, SIGNAL(tocReadOnlyChanged(bool)), this, SLOT(handleTocReadOnlyChanged(bool)));
         connect(this, SIGNAL(settingsChanges()), part, SIGNAL(settingsChanges()));
         connect(part, SIGNAL(requestDocumentation(QString)), this, SIGNAL(requestDocumentation(QString)));
 
@@ -475,6 +535,9 @@ void CantorShell::activateWorksheet(int index)
             updateWindowTitle(m_part->url().fileName(), m_part->isModified());
 
             updatePanel();
+
+            Q_EMIT tocReadOnlyChanged(!m_part->isReadWrite());
+            QMetaObject::invokeMethod(m_part, "requestTocNodeSnapshot", Qt::QueuedConnection);
         }
         else
             qDebug()<<"selected part doesn't exist";
