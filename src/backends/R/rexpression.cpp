@@ -73,13 +73,17 @@ void RExpression::showFilesAsResult(const QStringList& files)
         qDebug()<<"MimeType: "<<type.name();
         if(type.name() == QLatin1String("application/pdf"))
         {
-            setResult(new Cantor::ImageResult(QUrl::fromLocalFile(file)));
+            auto* result = new Cantor::ImageResult(QUrl::fromLocalFile(file));
+            result->setRole(Cantor::Result::Role::Plot);
+            setResult(result);
             setStatus(Cantor::Expression::Done);
         }
         else
             if (type.name().contains(QLatin1String("image")))
         {
-            setResult(new Cantor::ImageResult(QUrl::fromLocalFile(file)));
+            auto* result = new Cantor::ImageResult(QUrl::fromLocalFile(file));
+            result->setRole(Cantor::Result::Role::Plot);
+            setResult(result);
             setStatus(Cantor::Expression::Done);
         }
         else if(type.inherits(QLatin1String("text/plain"))

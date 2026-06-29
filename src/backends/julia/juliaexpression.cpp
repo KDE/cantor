@@ -69,7 +69,9 @@ void JuliaExpression::finalize(const QString& output, const QString& error, bool
     } else {
         if (!m_plot_filename.isEmpty() && QFileInfo(m_plot_filename).exists()) {
             // If we have plot in result, show it
-            setResult(new Cantor::ImageResult(QUrl::fromLocalFile(m_plot_filename)));
+            auto* result = new Cantor::ImageResult(QUrl::fromLocalFile(m_plot_filename));
+            result->setRole(Cantor::Result::Role::Plot);
+            setResult(result);
         } else {
             if (!output.isEmpty())
                 setResult(new Cantor::TextResult(output));

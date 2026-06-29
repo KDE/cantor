@@ -97,7 +97,9 @@ void ScilabExpression::parsePlotFile(QString filename)
     qDebug() << "parsePlotFile";
     qDebug() << "ScilabExpression::parsePlotFile: " << filename;
 
-    setResult(new ScilabPlotResult(QUrl::fromLocalFile(filename)));
+    auto* result = new ScilabPlotResult(QUrl::fromLocalFile(filename));
+    result->setRole(Cantor::Result::Role::Plot);
+    setResult(result);
 
     setPlotPending(false);
 

@@ -35,9 +35,11 @@ public:
 
 private Q_SLOTS:
     void imageChanged();
+    void loadPlotResult();
 
 private:
     void parseResult(const QString&);
+    void schedulePlotResultLoad();
 
     QTemporaryFile* m_tempFile = nullptr;
     QFileSystemWatcher m_fileWatch;
@@ -47,6 +49,9 @@ private:
     bool m_isDraw = false;
     Cantor::Result* m_plotResult = nullptr;
     int m_plotResultIndex = -1;
+    bool m_plotResultLoadScheduled = false;
+    qint64 m_plotFileLastSize = -1;
+    int m_plotResultLoadAttempts = 0;
     QString m_errorBuffer;
 };
 
