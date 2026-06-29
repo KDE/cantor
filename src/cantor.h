@@ -14,6 +14,7 @@
 #include <QList>
 #include <QStringList>
 #include <QMap>
+#include <QVariantList>
 
 #include "lib/panelpluginhandler.h"
 #include "lib/panelplugin.h"
@@ -66,9 +67,15 @@ protected:
 
 Q_SIGNALS:
     void showHelp(QString);
-    void hierarchyChanged(QStringList, QStringList, QList<int>);
-    void hierarhyEntryNameChange(QString, QString, int);
-    void requestScrollToHierarchyEntry(QString);
+    void tocNodesChanged(QVariantList);
+    void currentTocNodeChanged(QString);
+    void requestNavigateToTocNode(QString nodeId);
+    void requestRenameHierarchyEntry(QString hierarchyId, QString newName);
+    void requestChangeHierarchyLevel(QString hierarchyId, int levelDelta);
+    void requestDeleteHierarchyEntry(QString hierarchyId, bool deleteContents);
+    void requestRenamePlot(QString commandId, QString resultId, QString newTitle);
+    void requestDeletePlot(QString commandId, QString resultId);
+    void tocReadOnlyChanged(bool readOnly);
     void settingsChanges();
     void requestDocumentation(const QString&);
 
@@ -87,6 +94,15 @@ private Q_SLOTS:
 
     void setTabCaption(const QString&, const QIcon&);
     void updateBackendForPart(const QString&);
+    void forwardNavigateToTocNode(const QString& nodeId);
+    void forwardRenameHierarchyEntry(const QString& hierarchyId, const QString& newName);
+    void forwardChangeHierarchyLevel(const QString& hierarchyId, int levelDelta);
+    void forwardDeleteHierarchyEntry(const QString& hierarchyId, bool deleteContents);
+    void forwardRenamePlot(const QString& commandId, const QString& resultId, const QString& newTitle);
+    void forwardDeletePlot(const QString& commandId, const QString& resultId);
+    void handleTocNodesChanged(QVariantList nodes);
+    void handleCurrentTocNodeChanged(const QString& nodeId);
+    void handleTocReadOnlyChanged(bool readOnly);
     void closeTab(int index = -1);
 
     void showSettings();

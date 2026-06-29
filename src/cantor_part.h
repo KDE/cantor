@@ -8,6 +8,7 @@
 
 #include <QPointer>
 #include <QRegularExpression>
+#include <QVariantList>
 #include <QVector>
 
 #include <KParts/ReadWritePart>
@@ -67,11 +68,18 @@ public:
 Q_SIGNALS:
     void setCaption(const QString& caption, const QIcon& icon);
     void showHelp(const QString&);
-    void hierarchyChanged(QStringList, QStringList, QList<int>);
-    void hierarhyEntryNameChange(QString name, QString searchName, int depth);
+    void tocNodesChanged(QVariantList nodes);
+    void currentTocNodeChanged(QString nodeId);
     void worksheetSave(const QUrl&);
     void setBackendName(const QString&);
-    void requestScrollToHierarchyEntry(QString);
+    void requestRenameHierarchyEntry(QString hierarchyId, QString newName);
+    void requestNavigateToTocNode(QString nodeId);
+    void requestChangeHierarchyLevel(QString hierarchyId, int levelDelta);
+    void requestDeleteHierarchyEntry(QString hierarchyId, bool deleteContents);
+    void requestRenamePlot(QString commandId, QString resultId, QString newTitle);
+    void requestDeletePlot(QString commandId, QString resultId);
+    void tocReadOnlyChanged(bool readOnly);
+    void requestTocNodeSnapshot();
     void settingsChanges();
     void requestDocumentation(const QString& keyword);
 

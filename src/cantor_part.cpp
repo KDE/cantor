@@ -125,15 +125,23 @@ CantorPart::CantorPart(QObject* parent, const QVariantList& args)
     layout->setContentsMargins({});
     m_worksheet = new Worksheet(b, centralWidget);
     m_worksheetview = new WorksheetView(m_worksheet, centralWidget);
+    connect(m_worksheetview, &WorksheetView::viewRectChanged, m_worksheet, &Worksheet::updateCurrentHierarchyFromView);
+    connect(m_worksheetview, &WorksheetView::userScrollStarted, m_worksheet, &Worksheet::followHierarchyFromView);
     QTimer::singleShot(0, m_worksheet, &Worksheet::handleSettingsChanges);
     m_worksheetview->setEnabled(false); //disable input until the session has successfully logged in and emits the ready signal
     connect(m_worksheet, &Worksheet::modified, this, static_cast<void (KParts::ReadWritePart::*)()>(&KParts::ReadWritePart::setModified));
     connect(m_worksheet, &Worksheet::modified, this, &CantorPart::updateCaption);
     connect(m_worksheet, &Worksheet::showHelp, this, &CantorPart::showHelp);
     connect(m_worksheet, &Worksheet::loaded, this, &CantorPart::initialized);
-    connect(m_worksheet, &Worksheet::hierarchyChanged, this, &CantorPart::hierarchyChanged);
-    connect(m_worksheet, &Worksheet::hierarhyEntryNameChange, this, &CantorPart::hierarhyEntryNameChange);
-    connect(this, &CantorPart::requestScrollToHierarchyEntry, m_worksheet, &Worksheet::requestScrollToHierarchyEntry);
+    connect(m_worksheet, &Worksheet::tocNodesChanged, this, &CantorPart::tocNodesChanged);
+    connect(m_worksheet, &Worksheet::currentTocNodeChanged, this, &CantorPart::currentTocNodeChanged);
+    connect(this, &CantorPart::requestNavigateToTocNode, m_worksheet, &Worksheet::navigateToTocNode);
+    connect(this, &CantorPart::requestRenameHierarchyEntry, m_worksheet, &Worksheet::renameHierarchyEntry);
+    connect(this, &CantorPart::requestChangeHierarchyLevel, m_worksheet, &Worksheet::changeHierarchyLevel);
+    connect(this, &CantorPart::requestDeleteHierarchyEntry, m_worksheet, &Worksheet::deleteHierarchyEntry);
+    connect(this, &CantorPart::requestRenamePlot, m_worksheet, &Worksheet::renamePlot);
+    connect(this, &CantorPart::requestDeletePlot, m_worksheet, &Worksheet::deletePlot);
+    connect(this, &CantorPart::requestTocNodeSnapshot, m_worksheet, &Worksheet::emitTocNodeSnapshot);
     connect(this, &CantorPart::settingsChanges, m_worksheet, &Worksheet::handleSettingsChanges);
     connect(m_worksheet, &Worksheet::requestDocumentation, this, &CantorPart::documentationRequested);
 
@@ -394,6 +402,7 @@ void CantorPart::setReadWrite(bool rw)
     m_worksheetview->setInteractive(rw);
 
     ReadWritePart::setReadWrite(rw);
+    Q_EMIT tocReadOnlyChanged(!rw);
 }
 
 void CantorPart::setReadOnly()

@@ -30,6 +30,22 @@
       <label>Enable Numbering of Expressions by default</label>
       <default>false</default>
     </entry>
+    <entry name="ShowTocChaptersDefault" type="Bool">
+      <label>Show chapters in the Worksheet Structure Navigator by default</label>
+      <default>true</default>
+    </entry>
+    <entry name="ShowTocSectionsDefault" type="Bool">
+      <label>Show sections in the Worksheet Structure Navigator by default</label>
+      <default>true</default>
+    </entry>
+    <entry name="ShowTocCommandEntriesDefault" type="Bool">
+      <label>Show command entries in the Worksheet Structure Navigator by default</label>
+      <default>false</default>
+    </entry>
+    <entry name="ShowTocPlotsDefault" type="Bool">
+      <label>Show plots in the Worksheet Structure Navigator by default</label>
+      <default>false</default>
+    </entry>
     <entry name="AnimationDefault" type="Bool">
       <label>Animate changes in the Worksheet by default</label>
       <default>true</default>
@@ -164,4 +180,3 @@
     </entry>
   </group>
 </kcfg>
-
