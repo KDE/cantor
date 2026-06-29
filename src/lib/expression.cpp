@@ -157,34 +157,54 @@ void Expression::addResult(Result* result)
 
 void Expression::clearResults()
 {
-    qDeleteAll(d->results);
+    const auto oldResults = d->results;
     d->results.clear();
     Q_EMIT resultsCleared();
+    qDeleteAll(oldResults);
 }
 
 void Expression::removeResult(Result* result)
 {
     int index = d->results.indexOf(result);
-    d->results.remove(index);
-    delete result;
+    if (index < 0)
+        return;
+
+    Result* removedResult = d->results.takeAt(index);
     Q_EMIT resultRemoved(index);
+    delete removedResult;
 }
 
 void Expression::replaceResult(int index, Result* result)
 {
-    if (result)
+    if (!result)
+        return;
+
+    if (index < 0 || index >= d->results.size())
     {
-        //insert the new result
-        d->results.insert(index, result);
-
-        //delete the previous result
-        Result* oldResult = d->results.at(index+1);
-        d->results.remove(index+1);
-        delete oldResult;
-
-        //notify about the replacement
-        Q_EMIT resultReplaced(index);
+        delete result;
+        return;
     }
+
+    Result* oldResult = d->results.at(index);
+    if (oldResult == result)
+    {
+        Q_EMIT resultReplaced(index);
+        return;
+    }
+
+    if (oldResult)
+    {
+        result->setResultId(oldResult->resultId());
+        if (!oldResult->displayName().isEmpty())
+            result->setDisplayName(oldResult->displayName());
+    }
+
+    d->results[index] = result;
+
+    // Notify before releasing the previous Result ownership.
+    Q_EMIT resultReplaced(index);
+
+    delete oldResult;
 }
 
 Result* Expression::result()
@@ -202,6 +222,9 @@ const QVector<Result*>& Expression::results() const
 
 void Expression::setStatus(Expression::Status status)
 {
+    if (d->status == status)
+        return;
+
     d->status=status;
     Q_EMIT statusChanged(status);
 

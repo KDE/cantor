@@ -109,6 +109,7 @@ QDomElement TextResult::toXml(QDomDocument& doc)
     QDomElement e = doc.createElement(QStringLiteral("Result"));
     e.setAttribute(QStringLiteral("type"), QStringLiteral("text"));
     e.setAttribute(QStringLiteral("stderr"), d->isStderr);
+    applyXmlResultMetadata(e);
 
     if (d->format == LatexFormat)
         e.setAttribute(QStringLiteral("format"), QStringLiteral("latex"));

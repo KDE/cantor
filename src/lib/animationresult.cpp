@@ -75,6 +75,7 @@ QDomElement AnimationResult::toXml(QDomDocument& doc)
     QDomElement e=doc.createElement(QStringLiteral("Result"));
     e.setAttribute(QStringLiteral("type"), QStringLiteral("animation"));
     e.setAttribute(QStringLiteral("filename"), d->url.fileName());
+    applyXmlResultMetadata(e);
     qDebug()<<"done";
 
     return e;

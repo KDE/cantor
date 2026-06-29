@@ -13,6 +13,7 @@
 #include "lib/latexrenderer.h"
 #include "lib/mimeresult.h"
 #include "lib/htmlresult.h"
+#include "lib/pdfresult.h"
 
 #include <QDir>
 #include <QStandardPaths>
@@ -47,9 +48,18 @@ void LoadedExpression::loadFromXml(const QDomElement& xml, const KZip& file)
     for (int i = 0; i < results.size(); i++)
     {
         const QDomElement& resultElement = results.at(i).toElement();
+        const auto addLoadedResult = [this, &resultElement](Cantor::Result* result)
+        {
+            if (!result)
+                return;
+
+            result->loadXmlResultMetadata(resultElement);
+            addResult(result);
+        };
+
         const QString& type = resultElement.attribute(QLatin1String("type"));
         qDebug() << "type" << type;
-        if ( type == QLatin1String("text"))
+        if (type == QLatin1String("text"))
         {
             const QString& format = resultElement.attribute(QLatin1String("format"));
             bool isStderr = resultElement.attribute(QLatin1String("stderr")).toInt();
@@ -57,7 +67,7 @@ void LoadedExpression::loadFromXml(const QDomElement& xml, const KZip& file)
             if (format == QLatin1String("latex"))
                 result->setFormat(Cantor::TextResult::LatexFormat);
             result->setStdErr(isStderr);
-            addResult(result);
+            addLoadedResult(result);
         }
         else if (type == QLatin1String("mime"))
         {
@@ -75,7 +85,7 @@ void LoadedExpression::loadFromXml(const QDomElement& xml, const KZip& file)
                 mimeBundle.insert(mimeType, value);
             }
 
-            addResult(new Cantor::MimeResult(mimeBundle));
+            addLoadedResult(new Cantor::MimeResult(mimeBundle));
         }
         else if (type == QLatin1String("html"))
         {
@@ -104,12 +114,12 @@ void LoadedExpression::loadFromXml(const QDomElement& xml, const KZip& file)
             Cantor::HtmlResult* result = new Cantor::HtmlResult(html, plain, alternatives);
             result->setFormat(format);
 
-            addResult(result);
+            addLoadedResult(result);
         }
-        else if (type == QLatin1String("image") || type == QLatin1String("latex") || type == QLatin1String("animation") || type == QLatin1String("epsimage"))
+        else if (type == QLatin1String("image") || type == QLatin1String("latex") || type == QLatin1String("animation") || type == QLatin1String("epsimage") || type == QLatin1String("pdf"))
         {
-            const KArchiveEntry* imageEntry=file.directory()->entry(resultElement.attribute(QLatin1String("filename")));
-            if (imageEntry&&imageEntry->isFile())
+            const KArchiveEntry* imageEntry = file.directory()->entry(resultElement.attribute(QLatin1String("filename")));
+            if (imageEntry && imageEntry->isFile())
             {
                 const KArchiveFile* imageFile=static_cast<const KArchiveFile*>(imageEntry);
                 QString dir=QStandardPaths::writableLocation(QStandardPaths::TempLocation);
@@ -134,30 +144,42 @@ void LoadedExpression::loadFromXml(const QDomElement& xml, const KZip& file)
                             f.close();
                         }
 
-                        addResult(new Cantor::LatexResult(resultElement.text(), imageUrl, QString(), pdfData));
+                        addLoadedResult(new Cantor::LatexResult(resultElement.text(), imageUrl, QString(), pdfData));
                     }
                 }
-                else if(type==QLatin1String("animation"))
+                else if (type == QLatin1String("pdf"))
                 {
-                    addResult(new Cantor::AnimationResult(imageUrl));
+                    QByteArray pdfData;
+                    QFile f(imageUrl.toLocalFile());
+                    if (f.open(QIODevice::ReadOnly))
+                    {
+                        pdfData = f.readAll();
+                        f.close();
+                    }
+
+                    addLoadedResult(new Cantor::PdfResult(imageUrl, pdfData));
                 }
-                else if(type==QLatin1String("epsimage"))
+                else if (type == QLatin1String("animation"))
+                {
+                    addLoadedResult(new Cantor::AnimationResult(imageUrl));
+                }
+                else if (type == QLatin1String("epsimage"))
                 {
                     const QByteArray& ba = QByteArray::fromBase64(resultElement.attribute(QLatin1String("image")).toLatin1());
                     QImage image;
                     image.loadFromData(ba);
-                    addResult(new Cantor::ImageResult(imageUrl, resultElement.text()));
+                    addLoadedResult(new Cantor::ImageResult(imageUrl, resultElement.text()));
                 }
-                else if(imageFile->name().endsWith(QLatin1String(".eps"), Qt::CaseInsensitive))
+                else if (imageFile->name().endsWith(QLatin1String(".eps"), Qt::CaseInsensitive))
                 {
                     const QByteArray& ba = QByteArray::fromBase64(resultElement.attribute(QLatin1String("image")).toLatin1());
                     QImage image;
                     image.loadFromData(ba);
-                    addResult(new Cantor::ImageResult(imageUrl, resultElement.text()));
+                    addLoadedResult(new Cantor::ImageResult(imageUrl, resultElement.text()));
                 }
                 else
                 {
-                    addResult(new Cantor::ImageResult(imageUrl, resultElement.text()));
+                    addLoadedResult(new Cantor::ImageResult(imageUrl, resultElement.text()));
                 }
             }
         }
