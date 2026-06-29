@@ -25,6 +25,14 @@ WorksheetView::WorksheetView(Worksheet* scene, QWidget* parent) : QGraphicsView(
     setRenderHint(QPainter::Antialiasing, true);
     setRenderHint(QPainter::TextAntialiasing, true);
     setRenderHint(QPainter::SmoothPixmapTransform, true);
+
+    connect(verticalScrollBar(), &QScrollBar::sliderMoved, this, [this](int) {
+        Q_EMIT userScrollStarted();
+    });
+
+    connect(verticalScrollBar(), &QScrollBar::actionTriggered, this, [this](int) {
+        Q_EMIT userScrollStarted();
+    });
 }
 
 void WorksheetView::makeVisible(const QRectF& sceneRect)
@@ -128,11 +136,9 @@ void WorksheetView::makeVisible(const QRectF& sceneRect)
 
 void WorksheetView::scrollTo(int y)
 {
-    if (!verticalScrollBar())
-        return;
-
-    qreal dy = y - verticalScrollBar()->value();
-    scrollBy(dy);
+    QRectF targetRect = viewRect();
+    targetRect.moveTop(y);
+    makeVisible(targetRect);
 }
 
 
@@ -220,11 +226,10 @@ QPointF WorksheetView::sceneCursorPos() const
 
 QRectF WorksheetView::viewRect() const
 {
-    const qreal w = viewport()->width() / m_scale;
-    const qreal h = viewport()->height() / m_scale;
-    qreal y = verticalScrollBar()->value();
-    qreal x = horizontalScrollBar() ? horizontalScrollBar()->value() : 0;
-    return QRectF(x, y, w, h);
+    if (!viewport())
+        return {};
+
+    return mapToScene(viewport()->rect()).boundingRect();
 }
 
 void WorksheetView::resizeEvent(QResizeEvent* event)
@@ -250,11 +255,16 @@ void WorksheetView::wheelEvent(QWheelEvent* event)
 {
     if ((QApplication::keyboardModifiers() & Qt::ControlModifier)) {
         //https://wiki.qt.io/Smooth_Zoom_In_QGraphicsView
-        QPoint numDegrees = event->angleDelta() / 8;
-        int numSteps = numDegrees.y() / 15; // see QWheelEvent documentation
+        const QPoint numDegrees = event->angleDelta() / 8;
+        const int numSteps = numDegrees.y() / 15;
         zoom(numSteps);
-    } else
-        QGraphicsView::wheelEvent(event);
+        return;
+    }
+    const bool hasVerticalMovement = event->angleDelta().y() != 0 || event->pixelDelta().y() != 0;
+    if (hasVerticalMovement)
+        Q_EMIT userScrollStarted();
+
+    QGraphicsView::wheelEvent(event);
 }
 
 void WorksheetView::zoom(int numSteps)

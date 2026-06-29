@@ -828,8 +828,7 @@ void WorksheetEntry::remove()
     else
         worksheet()->setLastEntry(previous());
 
-    if (type() == HierarchyEntry::Type)
-        worksheet()->updateHierarchyLayout();
+    worksheet()->updateHierarchyLayout();
 
     // make the entry invisible to QGraphicsScene's itemAt() function
     forceRemove();

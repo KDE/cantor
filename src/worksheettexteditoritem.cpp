@@ -89,7 +89,8 @@ WorksheetTextEditorItem::WorksheetTextEditorItem(EditorMode initialMode, Workshe
         m_view->registerCompletionModel(m_completionModel);
         connect(m_completionModel, &CantorCompletionModel::modelIsReady, this, &WorksheetTextEditorItem::showCustomCompleter);
 
-        auto* model = session()->variableModel();
+        auto* currentSession = session();
+        auto* model = currentSession ? currentSession->variableModel() : nullptr;
         if (model) {
             connect(model, &Cantor::DefaultVariableModel::initialModelPopulated, this, [this]() {
                 if (m_view && m_document)
@@ -987,6 +988,7 @@ bool WorksheetTextEditorItem::eventFilter(QObject* object, QEvent* event)
 
 void WorksheetTextEditorItem::keyPressEvent(QKeyEvent* event)
 {
+    worksheet()->updateFocusedTextItem(this);
     const int key = event->key();
     const auto modifiers = event->modifiers();
     worksheet()->resetEntryCursor();
@@ -1122,6 +1124,7 @@ void WorksheetTextEditorItem::focusOutEvent(QFocusEvent* event)
 
 void WorksheetTextEditorItem::mousePressEvent(QGraphicsSceneMouseEvent* event)
 {
+    worksheet()->updateFocusedTextItem(this);
     QGraphicsProxyWidget::mousePressEvent(event);
     KTextEditor::View* view = m_view;
 

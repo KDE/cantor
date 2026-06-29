@@ -403,6 +403,7 @@ Cantor::Session* WorksheetTextItem::session()
 
 void WorksheetTextItem::keyPressEvent(QKeyEvent* event)
 {
+    worksheet()->updateFocusedTextItem(this);
     switch (event->key()) {
     case Qt::Key_Left:
         if (event->modifiers() == Qt::NoModifier && textCursor().atStart()) {
@@ -521,6 +522,7 @@ void WorksheetTextItem::focusOutEvent(QFocusEvent* event)
 
 void WorksheetTextItem::mousePressEvent(QGraphicsSceneMouseEvent* event)
 {
+    worksheet()->updateFocusedTextItem(this);
     int p = textCursor().position();
     bool b = textCursor().hasSelection();
 
