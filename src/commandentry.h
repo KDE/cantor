@@ -39,6 +39,8 @@ class CommandEntry : public WorksheetEntry
     int type() const override;
 
     QString command();
+    const QString& commandId() const;
+    void regenerateCommandId();
     void setExpression(Cantor::Expression*);
     Cantor::Expression* expression();
 
@@ -47,6 +49,9 @@ class CommandEntry : public WorksheetEntry
     bool isEmpty() override;
     bool isExcludedFromExecution();
     bool isResultCollapsed();
+    int resultItemCount() const;
+    ResultItem* resultItemAt(int index) const;
+    ResultItem* resultItemById(const QString& resultId) const;
 
     void setContent(const QString&) override;
     void setContent(const QDomElement&, const KZip&) override;
@@ -105,6 +110,7 @@ class CommandEntry : public WorksheetEntry
 
     void populateMenu(QMenu*, QPointF) override;
     void updateAfterSettingsChanges() override;
+    void resultItemClicked(Cantor::Result* result);
   protected:
     bool wantToEvaluate() override;
 
@@ -121,6 +127,7 @@ class CommandEntry : public WorksheetEntry
     static const double VerticalSpacing;
 
     WorksheetTextItem* m_promptItem;
+    QString m_commandId;
     WorksheetTextEditorItem* m_commandItem;
     QVector<ResultItem*> m_resultItems;
     bool m_resultsCollapsed;

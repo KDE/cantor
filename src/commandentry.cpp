@@ -35,10 +35,10 @@
 #include <QTextBlock>
 #include <QTextDocumentFragment>
 #include <QPainter>
+#include <QUuid>
 
 #include <KLocalizedString>
 #include <KColorScheme>
-#include <KSyntaxHighlighting/Repository>
 #include <KSyntaxHighlighting/Definition>
 
 const QString CommandEntry::Prompt     = QLatin1String(">>> ");
@@ -46,42 +46,29 @@ const QString CommandEntry::MidPrompt  = QLatin1String(">>  ");
 const QString CommandEntry::HidePrompt = QLatin1String(">   ");
 const double CommandEntry::VerticalSpacing = 4;
 
-namespace {
-    QString getThemeNameFromIndex (int index)
-    {
-        if (index <= 0)
-            return QString ();
-        const auto& repository = KTextEditor::Editor::instance()->repository();
-        const auto& themes = repository.themes();
-
-        const int themeListIndex = index - 1;
-        if (themeListIndex>= 0 && themeListIndex < themes.count ())
-            return themes.at (themeListIndex).name ();
-
-        return QString ();
-    }
-}
-
 CommandEntry::CommandEntry(Worksheet* worksheet) : WorksheetEntry(worksheet),
     m_promptItem(new WorksheetTextItem(this, Qt::NoTextInteraction)),
+    m_commandId(QUuid::createUuid().toString(QUuid::WithoutBraces)),
     m_commandItem(new WorksheetTextEditorItem(WorksheetTextEditorItem::Editable, this, this)),
     m_resultsCollapsed(false),
     m_errorItem(nullptr),
     m_expression(nullptr),
+    m_dynamicHighlighter(nullptr),
     m_evaluationOption(DoNothing),
+    m_promptItemAnimation(nullptr),
     m_menusInitialized(false),
     m_textColorCustom(false),
     m_backgroundColorCustom(false),
     m_backgroundColorActionGroup(nullptr),
     m_backgroundColorMenu(nullptr),
     m_textColorActionGroup(nullptr),
+    m_themeActionGroup(nullptr),
     m_textColorMenu(nullptr),
     m_fontMenu(nullptr),
-    m_isExecutionEnabled(true),
-    m_dynamicHighlighter(nullptr)
+    m_isExecutionEnabled(true)
 {
     m_promptItem->setPlainText(Prompt);
-    m_promptItem->setItemDragable(true);;
+    m_promptItem->setItemDragable(true);
     m_commandItem->enableCompletion(true);
 
     if(worksheet && worksheet->session() && worksheet->session()->backend())
@@ -430,6 +417,46 @@ QString CommandEntry::command()
     return cmd;
 }
 
+const QString& CommandEntry::commandId() const
+{
+    return m_commandId;
+}
+
+void CommandEntry::regenerateCommandId()
+{
+    m_commandId = QUuid::createUuid().toString(QUuid::WithoutBraces);
+}
+
+int CommandEntry::resultItemCount() const
+{
+    return m_resultItems.size();
+}
+
+ResultItem* CommandEntry::resultItemAt(int index) const
+{
+    if (index < 0 || index >= m_resultItems.size())
+        return nullptr;
+
+    return m_resultItems.at(index);
+}
+
+ResultItem* CommandEntry::resultItemById(const QString& resultId) const
+{
+    if (resultId.isEmpty())
+        return nullptr;
+
+    for (auto* item : m_resultItems)
+    {
+        if (!item || !item->result())
+            continue;
+
+        if (item->result()->resultId() == resultId)
+            return item;
+    }
+
+    return nullptr;
+}
+
 void CommandEntry::setExpression(Cantor::Expression* expr)
 {
     /*
@@ -465,7 +492,12 @@ void CommandEntry::setExpression(Cantor::Expression* expr)
     connect(expr, &Cantor::Expression::resultsCleared, this, &CommandEntry::clearResultItems);
     connect(expr, &Cantor::Expression::resultRemoved, this, &CommandEntry::removeResultItem);
     connect(expr, &Cantor::Expression::resultReplaced, this, &CommandEntry::replaceResultItem);
-    connect(expr, &Cantor::Expression::idChanged, this,  [=]() { updatePrompt();} );
+    connect(expr, &Cantor::Expression::idChanged, this, [=]()
+    {
+        updatePrompt();
+        if (worksheet())
+            worksheet()->refreshTocStructure();
+    });
     connect(expr, &Cantor::Expression::statusChanged, this, &CommandEntry::expressionChangedStatus);
     connect(expr, &Cantor::Expression::needsAdditionalInformation, this, &CommandEntry::showAdditionalInformationPrompt);
     connect(expr, &Cantor::Expression::statusChanged, this,  [=]() { updatePrompt();} );
@@ -499,6 +531,10 @@ void CommandEntry::setContent(const QString& content)
 void CommandEntry::setContent(const QDomElement& content, const KZip& file)
 {
     m_commandItem->setPlainText(content.firstChildElement(QLatin1String("Command")).text());
+    const QString storedCommandId = content.attribute(QLatin1String("command-id"));
+
+    if (!storedCommandId.isEmpty())
+        m_commandId = storedCommandId;
 
     LoadedExpression* expr = new LoadedExpression( worksheet()->session() );
     expr->loadFromXml(content, file);
@@ -556,6 +592,11 @@ void CommandEntry::setContent(const QDomElement& content, const KZip& file)
 void CommandEntry::setContentFromJupyter(const QJsonObject& cell)
 {
     m_commandItem->setPlainText(Cantor::JupyterUtils::getSource(cell));
+    const QJsonObject cantorMetadata = Cantor::JupyterUtils::getCantorMetadata(cell);
+    const QString storedCommandId = cantorMetadata.value(QLatin1String("command-id")).toString();
+
+    if (!storedCommandId.isEmpty())
+        m_commandId = storedCommandId;
 
     LoadedExpression* expr=new LoadedExpression( worksheet()->session() );
     expr->loadFromJupyter(cell);
@@ -596,6 +637,10 @@ QJsonValue CommandEntry::toJupyterJson()
     QJsonObject metadata(jupyterMetadata());
     if (m_resultsCollapsed)
         metadata.insert(QLatin1String("collapsed"), true);
+
+    QJsonObject cantorMetadata = metadata.value(Cantor::JupyterUtils::cantorMetadataKey).toObject();
+    cantorMetadata.insert(QLatin1String("command-id"), m_commandId);
+    metadata.insert(Cantor::JupyterUtils::cantorMetadataKey, cantorMetadata);
 
     entry.insert(QLatin1String("metadata"), metadata);
 
@@ -653,6 +698,7 @@ QString CommandEntry::toPlain(const QString& commandSep, const QString& commentS
 QDomElement CommandEntry::toXml(QDomDocument& doc, KZip* archive)
 {
     QDomElement exprElem = doc.createElement( QLatin1String("Expression") );
+    exprElem.setAttribute(QLatin1String("command-id"), m_commandId);
     QDomElement cmdElem = doc.createElement( QLatin1String("Command") );
     cmdElem.appendChild(doc.createTextNode( command() ));
     exprElem.appendChild(cmdElem);
@@ -832,13 +878,33 @@ void CommandEntry::updateEntry()
         if (m_resultsCollapsed)
             expandResults();
 
+        bool addedResultItem = false;
         for (int i = m_resultItems.size(); i < expr->results().size(); i++)
-            m_resultItems << ResultItem::create(this, expr->results()[i]);
+        {
+            if (auto* resultItem = ResultItem::create(this, expr->results()[i]))
+            {
+                m_resultItems << resultItem;
+                addedResultItem = true;
+            }
+        }
+
+        if (addedResultItem && worksheet())
+            worksheet()->scheduleTocStructureRefresh();
     }
     else
     {
-        for (ResultItem* item: m_resultItems)
+        for (int i = 0; i < m_resultItems.size(); ++i)
+        {
+            auto* item = m_resultItems.at(i);
+            auto* result = i < expr->results().size() ? expr->results().at(i) : nullptr;
+            if (!item || item->result() != result)
+            {
+                replaceResultItem(i);
+                continue;
+            }
+
             item->update();
+        }
     }
 
     m_controlElement.isCollapsable = m_errorItem != nullptr
@@ -999,27 +1065,107 @@ void CommandEntry::removeResult(Cantor::Result* result)
 
 void CommandEntry::removeResultItem(int index)
 {
-    fadeOutItem(m_resultItems[index]->graphicsObject());
-    m_resultItems.remove(index);
+    if (index < 0 || index >= m_resultItems.size())
+        return;
+
+    auto* item = m_resultItems.takeAt(index);
+    if (item)
+    {
+        item->setResult(nullptr);
+        if (auto* object = item->graphicsObject())
+            object->hide();
+        item->deleteLater();
+    }
+
     recalculateSize();
+    if (worksheet())
+        worksheet()->scheduleTocStructureRefresh();
 }
 
 void CommandEntry::clearResultItems()
 {
-    //fade out all result graphic objects
-    for(auto* item : m_resultItems)
-        fadeOutItem(item->graphicsObject());
+    const bool hadResultItems = !m_resultItems.isEmpty();
+
+    for (auto* item : m_resultItems)
+    {
+        if (!item)
+            continue;
+
+        item->setResult(nullptr);
+        if (auto* object = item->graphicsObject())
+            object->hide();
+        item->deleteLater();
+    }
 
     m_resultItems.clear();
     recalculateSize();
+    if (hadResultItems && worksheet())
+        worksheet()->scheduleTocStructureRefresh();
 }
 
 void CommandEntry::replaceResultItem(int index)
 {
+    if (!m_expression)
+        return;
+
+    const auto& results = m_expression->results();
+    if (index < 0 || index >= results.size())
+        return;
+
+    auto* newItem = ResultItem::create(this, results[index]);
+    if (index >= m_resultItems.size())
+    {
+        if (newItem)
+        {
+            if (index == m_resultItems.size())
+                m_resultItems.append(newItem);
+            else
+            {
+                newItem->deleteLater();
+                return;
+            }
+
+            recalculateSize();
+            if (worksheet())
+                worksheet()->scheduleTocStructureRefresh();
+        }
+        return;
+    }
+
     auto* previousItem = m_resultItems[index];
-    m_resultItems[index] = ResultItem::create(this, m_expression->results()[index]);
-    previousItem->deleteLater();
+    if (!newItem)
+    {
+        if (previousItem)
+        {
+            previousItem->setResult(nullptr);
+            if (auto* object = previousItem->graphicsObject())
+                object->hide();
+            previousItem->deleteLater();
+        }
+        m_resultItems.remove(index);
+        recalculateSize();
+        if (worksheet())
+            worksheet()->scheduleTocStructureRefresh();
+        return;
+    }
+
+    m_resultItems[index] = newItem;
+    if (previousItem)
+    {
+        previousItem->setResult(nullptr);
+        if (previousItem->graphicsObject())
+            previousItem->graphicsObject()->hide();
+        previousItem->deleteLater();
+    }
     recalculateSize();
+    if (worksheet())
+        worksheet()->scheduleTocStructureRefresh();
+}
+
+void CommandEntry::resultItemClicked(Cantor::Result* result)
+{
+    if (worksheet())
+        worksheet()->updateCurrentTocNodeFromResult(this, result);
 }
 
 void CommandEntry::updatePrompt(const QString& postfix)

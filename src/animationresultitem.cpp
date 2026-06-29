@@ -10,6 +10,7 @@
 #include "lib/animationresult.h"
 
 #include <QFileDialog>
+#include <QGraphicsSceneMouseEvent>
 #include <QMovie>
 
 #include <KLocalizedString>
@@ -130,4 +131,12 @@ void AnimationResultItem::pauseMovie()
 void AnimationResultItem::deleteLater()
 {
     WorksheetImageItem::deleteLater();
+}
+
+void AnimationResultItem::mousePressEvent(QGraphicsSceneMouseEvent* event)
+{
+    if (auto* commandEntry = parentEntry())
+        commandEntry->resultItemClicked(m_result);
+
+    WorksheetImageItem::mousePressEvent(event);
 }
