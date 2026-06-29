@@ -37,6 +37,7 @@ public:
 Q_SIGNALS:
     void viewRectChanged(QRectF) const;
     void scaleFactorChanged(double scale);
+    void userScrollStarted();
 
 public Q_SLOTS:
     void applyThemeToBackground();

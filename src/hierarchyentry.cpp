@@ -16,6 +16,7 @@
 #include <QPainter>
 #include <QDebug>
 #include <QActionGroup>
+#include <QUuid>
 
 #include <KLocalizedString>
 
@@ -26,17 +27,24 @@ HierarchyEntry::HierarchyEntry(Worksheet* worksheet) : WorksheetEntry(worksheet)
     , m_textItem(new WorksheetTextItem(this, Qt::TextEditorInteraction))
     , m_depth(HierarchyLevel::Chapter)
     , m_hierarchyNumber(1)
+    , m_hierarchyId(QUuid::createUuid().toString(QUuid::WithoutBraces))
     , m_hidedSubentries(nullptr)
 {
     // Font and sizes should be regulated from future Settings "Styles" option
     m_textItem->enableRichText(false);
+    connect(m_textItem->document(), &QTextDocument::contentsChanged, this, [this]() {
+        auto* ws = this->worksheet();
+        if (!ws || ws->isLoadingFromFile())
+            return;
+
+        ws->updateHierarchyLayout();
+        ws->setModified();
+    });
 
     connect(m_textItem, &WorksheetTextItem::moveToPrevious, this, &HierarchyEntry::moveToPreviousEntry);
     connect(m_textItem, &WorksheetTextItem::moveToNext, this, &HierarchyEntry::moveToNextEntry);
     // Modern syntax of signal/stots don't work on this connection (arguments don't match)
     connect(m_textItem, SIGNAL(execute()), this, SLOT(evaluate()));
-
-    connect(this, &HierarchyEntry::hierarhyEntryNameChange, worksheet, &Worksheet::hierarhyEntryNameChange);
 
     connect(&m_controlElement, &WorksheetControlItem::doubleClick, this, &HierarchyEntry::handleControlElementDoubleClick);
 
@@ -91,6 +99,30 @@ bool HierarchyEntry::focusEntry(int pos, qreal xCoord)
     return true;
 }
 
+bool HierarchyEntry::hasHiddenSubentries() const
+{
+    return m_hidedSubentries != nullptr;
+}
+
+WorksheetEntry* HierarchyEntry::hiddenSubentries() const
+{
+    return m_hidedSubentries;
+}
+
+WorksheetEntry* HierarchyEntry::takeHiddenSubentries()
+{
+    WorksheetEntry* hiddenSubentries = m_hidedSubentries;
+
+    m_hidedSubentries = nullptr;
+
+    if (hiddenSubentries)
+    {
+        m_controlElement.isCollapsed = false;
+        m_controlElement.update();
+    }
+
+    return hiddenSubentries;
+}
 
 void HierarchyEntry::setContent(const QString& content)
 {
@@ -104,6 +136,10 @@ void HierarchyEntry::setContent(const QDomElement& content, const KZip& file)
         return;
 
     m_textItem->setPlainText(content.firstChildElement(QLatin1String("body")).text());
+    const QString storedHierarchyId = content.attribute(QLatin1String("hierarchy-id"));
+
+    if (!storedHierarchyId.isEmpty())
+        m_hierarchyId = storedHierarchyId;
 
     const QDomElement& subentriesMainElem = content.firstChildElement(QLatin1String("HidedSubentries"));
     if (!subentriesMainElem.isNull())
@@ -157,6 +193,10 @@ void HierarchyEntry::setContentFromJupyter(const QJsonObject& cell)
 
         m_depth = (HierarchyLevel)cantorMetadata.value(QLatin1String("level")).toInt();
         m_hierarchyNumber= cantorMetadata.value(QLatin1String("level-number")).toInt();
+        const QString storedHierarchyId = cantorMetadata.value(QLatin1String("hierarchy-id")).toString();
+
+        if (!storedHierarchyId.isEmpty())
+            m_hierarchyId = storedHierarchyId;
 
         updateFonts(true);
     }
@@ -188,6 +228,7 @@ QJsonValue HierarchyEntry::toJupyterJson()
 
     cantorMetadata.insert(QLatin1String("level"), (int)m_depth);
     cantorMetadata.insert(QLatin1String("level-number"), m_hierarchyNumber);
+    cantorMetadata.insert(QLatin1String("hierarchy-id"), m_hierarchyId);
 
     // Don't store subentriesMainElem, because actually too complex
     // Maybe this is a place for future work
@@ -239,6 +280,7 @@ QDomElement HierarchyEntry::toXml(QDomDocument& doc, KZip* archive)
 
     el.setAttribute(QLatin1String("level"), (int)m_depth);
     el.setAttribute(QLatin1String("level-number"), m_hierarchyNumber);
+    el.setAttribute(QLatin1String("hierarchy-id"), m_hierarchyId);
 
     return el;
 }
@@ -259,9 +301,7 @@ QString HierarchyEntry::toPlain(const QString& commandSep, const QString& commen
 
 bool HierarchyEntry::evaluate(EvaluationOption evalOp)
 {
-    Q_EMIT hierarhyEntryNameChange(text(), hierarchyText(), ((int)m_depth)-1);
     evaluateNext(evalOp);
-
     return true;
 }
 
@@ -335,6 +375,16 @@ QString HierarchyEntry::hierarchyText() const
 HierarchyEntry::HierarchyLevel HierarchyEntry::level() const
 {
     return m_depth;
+}
+
+const QString& HierarchyEntry::hierarchyId() const
+{
+    return m_hierarchyId;
+}
+
+void HierarchyEntry::regenerateHierarchyId()
+{
+    m_hierarchyId = QUuid::createUuid().toString(QUuid::WithoutBraces);
 }
 
 void HierarchyEntry::setLevel(HierarchyEntry::HierarchyLevel depth)
@@ -417,32 +467,40 @@ void HierarchyEntry::recalculateControlGeometry()
 void HierarchyEntry::startDrag(QPointF grabPos)
 {
     // We need reset entry cursor manually, because otherwise the entry cursor will be visible on draggable item
+    if (worksheet()->expandHierarchyForStructureChange(this))
+    {
+        worksheet()->updateHierarchyLayout();
+        worksheet()->updateLayout();
+    }
+
     worksheet()->resetEntryCursor();
 
-    QDrag* drag = new QDrag(worksheetView());
+    auto* drag = new QDrag(worksheetView());
     const qreal scale = worksheet()->renderer()->scale();
+    const QRectF hierarchyBound(boundingRect().x(), boundingRect().y(), boundingRect().width(), m_controlElement.boundingRect().height());
+    const QSizeF hierarchyZoneSize(size().width(), m_controlElement.boundingRect().height());
 
-    QRectF hierarchyBound(boundingRect().x(), boundingRect().y(), boundingRect().width(), m_controlElement.boundingRect().height());
-    QSizeF hierarchyZoneSize(size().width(), m_controlElement.boundingRect().height());
-
-    QPixmap pixmap((hierarchyZoneSize*scale).toSize());
+    QPixmap pixmap((hierarchyZoneSize * scale).toSize());
     pixmap.fill(QColor(255, 255, 255, 0));
 
     QPainter painter(&pixmap);
+
     const QRectF sceneRect = mapRectToScene(hierarchyBound);
     worksheet()->render(&painter, pixmap.rect(), sceneRect);
+
     painter.end();
+    const QBitmap mask = pixmap.createMaskFromColor(QColor(255, 255, 255), Qt::MaskInColor);
 
-    QBitmap mask = pixmap.createMaskFromColor(QColor(255, 255, 255), Qt::MaskInColor);
     pixmap.setMask(mask);
-
     drag->setPixmap(pixmap);
-    if (grabPos.isNull()) {
+
+    if (grabPos.isNull())
+    {
         const QPointF scenePos = worksheetView()->sceneCursorPos();
         drag->setHotSpot((mapFromScene(scenePos) * scale).toPoint());
-    } else {
-        drag->setHotSpot((grabPos * scale).toPoint());
     }
+    else
+        drag->setHotSpot((grabPos * scale).toPoint());
     drag->setMimeData(new QMimeData());
 
     worksheet()->startDragWithHierarchy(this, drag, hierarchyZoneSize);
@@ -527,25 +585,30 @@ void HierarchyEntry::updateFonts(bool force)
     }
 }
 
-
 void HierarchyEntry::handleControlElementDoubleClick()
 {
-    qDebug() << "HierarchyEntry::handleControlElementDoubleClick";
     if (m_controlElement.isCollapsed)
     {
-        worksheet()->insertSubentriesForHierarchy(this, m_hidedSubentries);
-        m_controlElement.isCollapsed = false;
+        WorksheetEntry* hiddenSubentries = takeHiddenSubentries();
+
+        if (hiddenSubentries)
+            worksheet()->insertSubentriesForHierarchy(this, hiddenSubentries);
     }
     else
     {
-        m_hidedSubentries = worksheet()->cutSubentriesForHierarchy(this);
-        m_controlElement.isCollapsed = true;
+        WorksheetEntry* hiddenSubentries = worksheet()->cutSubentriesForHierarchy(this);
+
+        if (hiddenSubentries)
+        {
+            m_hidedSubentries = hiddenSubentries;
+            m_controlElement.isCollapsed = true;
+        }
     }
 
     m_controlElement.update();
 
-    worksheet()->updateLayout();
     worksheet()->updateHierarchyLayout();
+    worksheet()->updateLayout();
 }
 
 void HierarchyEntry::updateAfterSettingsChanges()

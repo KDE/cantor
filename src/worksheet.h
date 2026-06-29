@@ -15,6 +15,9 @@
 #include <QDomDocument>
 #include <QGraphicsScene>
 #include <QQueue>
+#include <QVariantList>
+
+#include <functional>
 
 #include "lib/renderer.h"
 #include "mathrender.h"
@@ -24,9 +27,11 @@ namespace Cantor {
     class Backend;
     class Session;
     class Expression;
+    class Result;
 }
 
 class WorksheetEntry;
+class CommandEntry;
 class WorksheetView;
 class HierarchyEntry;
 class PlaceHolderEntry;
@@ -48,9 +53,16 @@ class Worksheet : public QGraphicsScene
 {
   Q_OBJECT
   public:
-    enum Type {
+    enum Type
+    {
       CantorWorksheet,
       JupyterNotebook
+    };
+
+    enum class HierarchyTrackingSource
+    {
+        Viewport,
+        FocusedEntry
     };
 
     Worksheet(Cantor::Backend*, QWidget*, bool useDeafultWorksheetParameters = true);
@@ -99,6 +111,7 @@ class Worksheet : public QGraphicsScene
 
     WorksheetEntry* cutSubentriesForHierarchy(HierarchyEntry*);
     void insertSubentriesForHierarchy(HierarchyEntry*, WorksheetEntry*);
+    bool expandHierarchyForStructureChange(HierarchyEntry*);
 
     KWorksheetCursor worksheetCursor();
     void setWorksheetCursor(const KWorksheetCursor&);
@@ -183,6 +196,9 @@ class Worksheet : public QGraphicsScene
     void updateLayout();
     void updateHierarchyLayout();
     void updateHierarchyControlsLayout(WorksheetEntry* startEntry = nullptr);
+    void updateCurrentHierarchyFromView(const QRectF& viewRect);
+    void updateCurrentHierarchyFromEntry(WorksheetEntry* entry);
+    void followHierarchyFromView();
     void updateEntrySize(WorksheetEntry*);
 
     void print(QPrinter*);
@@ -217,6 +233,9 @@ class Worksheet : public QGraphicsScene
     bool load(const QString&);
 
     void gotResult(Cantor::Expression* expr = nullptr);
+    void refreshTocStructure();
+    void scheduleTocStructureRefresh();
+    void emitTocNodeSnapshot();
 
     void removeCurrentEntry();
 
@@ -262,7 +281,13 @@ class Worksheet : public QGraphicsScene
     void addToExectuionSelection();
     void excludeFromExecutionSelection();
 
-    void requestScrollToHierarchyEntry(QString);
+    void renameHierarchyEntry(const QString& hierarchyId, const QString& newName);
+    void changeHierarchyLevel(QString hierarchyId, int levelDelta);
+    void deleteHierarchyEntry(const QString& hierarchyId, bool deleteContents);
+    void renamePlot(const QString& commandId, const QString& resultId, const QString& newTitle);
+    void deletePlot(const QString& commandId, const QString& resultId);
+    void navigateToTocNode(QString nodeId);
+    void updateCurrentTocNodeFromResult(CommandEntry* commandEntry, Cantor::Result* result);
     void clearAllSelections();
     void handleSettingsChanges();
 
@@ -270,8 +295,8 @@ class Worksheet : public QGraphicsScene
     void modified();
     void loaded();
     void showHelp(const QString&);
-    void hierarchyChanged(const QStringList&, const QStringList&, const QList<int>&);
-    void hierarhyEntryNameChange(QString name, QString searchName, int depth);
+    void tocNodesChanged(QVariantList nodes);
+    void currentTocNodeChanged(QString nodeId);
     void updatePrompt();
     void undoAvailable(bool);
     void redoAvailable(bool);
@@ -299,6 +324,40 @@ class Worksheet : public QGraphicsScene
 
     bool isValidEntry(WorksheetEntry*);
 
+  private:
+    struct HierarchySearchResult
+    {
+        HierarchyEntry* entry{nullptr};
+        QVector<HierarchyEntry*> collapsedAncestors;
+    };
+
+    struct CommandSearchResult
+    {
+        CommandEntry* entry{nullptr};
+        QVector<HierarchyEntry*> collapsedAncestors;
+    };
+
+    QVariantList collectTocNodes();
+    bool visitLogicalEntries(WorksheetEntry* first, const std::function<bool(WorksheetEntry*)>& visitor);
+    bool visitLogicalEntries(const std::function<bool(WorksheetEntry*)>& visitor);
+    bool findHierarchyEntryById(WorksheetEntry* first, const QString& hierarchyId, QVector<HierarchyEntry*> collapsedAncestors, HierarchySearchResult& result);
+    HierarchySearchResult findHierarchyEntryById(const QString& hierarchyId);
+    bool findCommandEntryById(WorksheetEntry* first, const QString& commandId, QVector<HierarchyEntry*> collapsedAncestors, CommandSearchResult& result);
+    CommandSearchResult findCommandEntryById(const QString& commandId);
+    bool expandHierarchyAncestors(const QVector<HierarchyEntry*>& ancestors);
+    QString buildCommandNodeId(CommandEntry* entry);
+    QString buildPlotNodeId(const QString& commandId, const QString& resultId) const;
+    bool parseCommandNodeId(const QString& nodeId, QString* commandId) const;
+    bool parsePlotNodeId(const QString& nodeId, QString* commandId, QString* resultId) const;
+    bool navigateToPlotResult(CommandEntry* commandEntry, const QString& resultId);
+    void setCurrentTocNode(const QString& nodeId);
+    QString hierarchyIdForEntry(WorksheetEntry* entry) const;
+    QString commandTocTitle() const;
+    QString commandTocDisplayText(CommandEntry* entry) const;
+    QString plotTocTitle(Cantor::Result* result) const;
+    QString plotTocDisplayText(CommandEntry* entry, Cantor::Result* result, int plotOrdinal, int plotCount) const;
+    bool isPlotResult(Cantor::Result* result);
+
   private Q_SLOTS:
     //void checkEntriesForSanity();
 
@@ -318,6 +377,7 @@ class Worksheet : public QGraphicsScene
     WorksheetEntry* entryAt(qreal x, qreal y);
     WorksheetEntry* entryAt(QPointF);
     WorksheetEntry* entryAt(int row);
+    void removeDragPlaceholder();
     void updateEntryCursor(QGraphicsSceneMouseEvent*);
     void addEntryFromEntryCursor();
     void drawEntryCursor();
@@ -327,6 +387,13 @@ class Worksheet : public QGraphicsScene
     void showInvalidNotebookSchemeError(QString additionalInfo = QString());
     void initSession(Cantor::Backend*);
     std::vector<WorksheetEntry*> hierarchySubelements(HierarchyEntry*) const;
+    void updateCurrentHierarchy(WorksheetEntry* entry);
+    void normalizeDraggedHierarchyLevels(HierarchyEntry* rootEntry, WorksheetEntry* previousEntry, const std::vector<WorksheetEntry*>& subentries);
+
+    QString m_currentTocNodeId;
+    HierarchyTrackingSource m_hierarchyTrackingSource{HierarchyTrackingSource::Viewport};
+
+    bool m_layoutUpdateInProgress{false};
 
     static const double LeftMargin;
     static const double RightMargin;
@@ -395,6 +462,8 @@ class Worksheet : public QGraphicsScene
     QQueue<WorksheetEntry*> m_circularFocusBuffer;
 
     size_t m_hierarchyMaxDepth{0};
+    QVariantList m_tocNodeSnapshot;
+    bool m_tocRefreshScheduled{false};
 };
 
 #endif // WORKSHEET_H

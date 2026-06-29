@@ -39,8 +39,14 @@ class HierarchyEntry : public WorksheetEntry
     enum {Type = UserType + 9};
     int type() const override;
 
+    bool hasHiddenSubentries() const;
+    WorksheetEntry* hiddenSubentries() const;
+    WorksheetEntry* takeHiddenSubentries();
+
     QString text() const;
     QString hierarchyText() const;
+    const QString& hierarchyId() const;
+    void regenerateHierarchyId();
 
     HierarchyLevel level() const;
     void setLevel(HierarchyLevel);
@@ -76,9 +82,6 @@ class HierarchyEntry : public WorksheetEntry
 
     void startDrag(QPointF grabPos = QPointF()) override;
 
-  Q_SIGNALS:
-    void hierarhyEntryNameChange(QString name, QString searchName, int depth);
-
   public Q_SLOTS:
     bool evaluate(WorksheetEntry::EvaluationOption evalOp = FocusNext) override;
     void updateEntry() override;
@@ -97,14 +100,15 @@ class HierarchyEntry : public WorksheetEntry
     void updateFonts(bool force = false);
 
   private:
-
     WorksheetTextItem* m_hierarchyLevelItem;
     WorksheetTextItem* m_textItem;
     HierarchyLevel m_depth;
     int m_hierarchyNumber;
+    QString m_hierarchyId;
     QActionGroup* m_setLevelActionGroup;
     QMenu* m_setLevelMenu;
     WorksheetEntry* m_hidedSubentries;
+
 };
 
 #endif // HIEARARCHYENTRY_H
