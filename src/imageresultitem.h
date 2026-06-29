@@ -10,6 +10,7 @@
 #include "worksheetimageitem.h"
 
 class CommandEntry;
+class QGraphicsSceneMouseEvent;
 
 class ImageResultItem : public WorksheetImageItem, public ResultItem
 {
@@ -29,6 +30,9 @@ class ImageResultItem : public WorksheetImageItem, public ResultItem
     double height() const override;
 
     void deleteLater() override;
+
+  protected:
+    void mousePressEvent(QGraphicsSceneMouseEvent* event) override;
 
   protected Q_SLOTS:
     void saveResult();

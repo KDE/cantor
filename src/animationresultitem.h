@@ -10,6 +10,7 @@
 #include "worksheetimageitem.h"
 
 class QMovie;
+class QGraphicsSceneMouseEvent;
 
 class CommandEntry;
 class WorksheetEntry;
@@ -34,6 +35,9 @@ class AnimationResultItem : public WorksheetImageItem, public ResultItem
     double width() const override;
     double height() const override;
 
+  protected:
+    void mousePressEvent(QGraphicsSceneMouseEvent* event) override;
+
   protected Q_SLOTS:
     void saveResult();
     void stopMovie();
@@ -52,4 +56,3 @@ class AnimationResultItem : public WorksheetImageItem, public ResultItem
 };
 
 #endif //ANIMATIONRESULTITEM_H
-

@@ -8,11 +8,13 @@
 #include "commandentry.h"
 #include "worksheetview.h"
 #include "lib/imageresult.h"
+#include "lib/pdfresult.h"
 
 #include <config-cantor.h>
 
 #include <KLocalizedString>
 #include <QFileDialog>
+#include <QGraphicsSceneMouseEvent>
 #include <QImageReader>
 
 ImageResultItem::ImageResultItem(QGraphicsObject* parent, Cantor::Result* result)
@@ -35,7 +37,7 @@ void ImageResultItem::populateMenu(QMenu* menu, QPointF)
 
 void ImageResultItem::update()
 {
-    Q_ASSERT(m_result->type() == Cantor::ImageResult::Type);
+    Q_ASSERT(m_result->type() == Cantor::ImageResult::Type || m_result->type() == Cantor::PdfResult::Type);
     switch(m_result->type()) {
     case Cantor::ImageResult::Type:
     {
@@ -45,6 +47,9 @@ void ImageResultItem::update()
         else
             setImage(m_result->data().value<QImage>());
     }
+        break;
+    case Cantor::PdfResult::Type:
+        setImage(m_result->data().value<QImage>());
         break;
     default:
         break;
@@ -74,6 +79,8 @@ void ImageResultItem::saveResult()
         auto* imageResult = static_cast<Cantor::ImageResult*>(result());
         format = i18nc("%1 and %2 are file extensions", "%1 files (*.%2)", imageResult->extension().toUpper(), imageResult->extension());
     }
+    else if (m_result->type() == Cantor::PdfResult::Type)
+        format = i18n("PDF files (*.pdf)");
     else
         format = i18n("EPS files (*.eps)");
 
@@ -88,4 +95,12 @@ void ImageResultItem::saveResult()
 void ImageResultItem::deleteLater()
 {
     WorksheetImageItem::deleteLater();
+}
+
+void ImageResultItem::mousePressEvent(QGraphicsSceneMouseEvent* event)
+{
+    if (auto* commandEntry = parentEntry())
+        commandEntry->resultItemClicked(m_result);
+
+    WorksheetImageItem::mousePressEvent(event);
 }

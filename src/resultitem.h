@@ -48,6 +48,7 @@ class ResultItem
     virtual void updateTheme() {};
     QGraphicsObject* graphicsObject();
     Cantor::Result* result();
+    void setResult(Cantor::Result* result);
     CommandEntry* parentEntry();
 
   protected:

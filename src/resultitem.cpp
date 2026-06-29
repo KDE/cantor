@@ -14,6 +14,7 @@
 #include "lib/latexresult.h"
 #include "lib/imageresult.h"
 #include "lib/animationresult.h"
+#include "lib/pdfresult.h"
 #include "lib/mimeresult.h"
 #include "lib/htmlresult.h"
 
@@ -26,9 +27,17 @@ ResultItem::ResultItem(Cantor::Result* result):
 
 ResultItem* ResultItem::create(WorksheetEntry* parent, Cantor::Result* result)
 {
-    switch(result->type()) {
+    if (!result)
+        return nullptr;
+
+    if (result->type() == Cantor::LatexResult::Type)
+        return new TextResultItem(parent, result);
+
+    if (dynamic_cast<Cantor::PdfResult*>(result))
+        return new ImageResultItem(parent, result);
+
+    switch (result->type()) {
     case Cantor::TextResult::Type:
-    case Cantor::LatexResult::Type:
     case Cantor::MimeResult::Type:
     case Cantor::HtmlResult::Type:
         return new TextResultItem(parent, result);
@@ -64,7 +73,15 @@ Cantor::Result* ResultItem::result()
     return m_result;
 }
 
+void ResultItem::setResult(Cantor::Result* result)
+{
+    m_result = result;
+}
+
 void ResultItem::needRemove()
 {
+    if (!m_result)
+        return;
+
     parentEntry()->removeResult(m_result);
 }
