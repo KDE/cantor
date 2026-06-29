@@ -69,6 +69,7 @@ QDomElement MimeResult::toXml(QDomDocument& doc)
     qDebug()<<"saving mime result with types" << d->mimeBundle.keys();
     QDomElement e=doc.createElement(QStringLiteral("Result"));
     e.setAttribute(QStringLiteral("type"), QStringLiteral("mime"));
+    applyXmlResultMetadata(e);
 
     for (const QString& key : d->mimeBundle.keys())
     {

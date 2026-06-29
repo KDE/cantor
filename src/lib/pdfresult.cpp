@@ -116,6 +116,7 @@ QDomElement PdfResult::toXml(QDomDocument& doc)
     QDomElement e = doc.createElement(QStringLiteral("Result"));
     e.setAttribute(QStringLiteral("type"), QStringLiteral("pdf"));
     e.setAttribute(QStringLiteral("filename"), d->url.fileName());
+    applyXmlResultMetadata(e);
     return e;
 }
 

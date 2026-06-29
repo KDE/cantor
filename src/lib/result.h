@@ -9,6 +9,7 @@
 #include <QVariant>
 #include <QDomElement>
 #include <QJsonArray>
+#include <QString>
 #include "cantor_export.h"
 
 class KZip;
@@ -24,6 +25,13 @@ class ResultPrivate;
 class CANTOR_EXPORT Result
 {
   public:
+    /** Describes how UI code should treat this result. */
+    enum class Role
+    {
+        Generic,
+        Plot
+    };
+
     /**
      * Default constructor
      */
@@ -94,6 +102,26 @@ class CANTOR_EXPORT Result
      * @param filename name of the file
      */
     virtual void save(const QString& filename) = 0;
+
+    /** Stable document-local identifier. */
+    QString resultId() const;
+    void setResultId(const QString& id);
+    void regenerateResultId();
+
+    /** Optional user-visible label; empty means use the default label. */
+    QString displayName() const;
+
+    void setDisplayName(const QString& name);
+
+    /** UI role assigned by the backend or loader. */
+    Role role() const;
+    void setRole(Role role);
+
+    static QString roleToString(Role role);
+    static Role roleFromString(const QString& roleName);
+
+    void applyXmlResultMetadata(QDomElement& element) const;
+    void loadXmlResultMetadata(const QDomElement& element);
 
     /**
      * This functions handle Jupyter metadata of

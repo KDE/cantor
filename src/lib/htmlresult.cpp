@@ -88,6 +88,7 @@ QDomElement Cantor::HtmlResult::toXml(QDomDocument& doc)
 {
     QDomElement e=doc.createElement(QStringLiteral("Result"));
     e.setAttribute(QStringLiteral("type"), QStringLiteral("html"));
+    applyXmlResultMetadata(e);
     switch(d->format)
     {
         case HtmlResult::HtmlSource:

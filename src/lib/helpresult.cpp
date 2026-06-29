@@ -47,6 +47,7 @@ QDomElement HelpResult::toXml(QDomDocument& doc)
     //No need to save results of a help request
     QDomElement e=doc.createElement(QStringLiteral("Result"));
     e.setAttribute(QStringLiteral("type"), QStringLiteral("help"));
+    applyXmlResultMetadata(e);
     return e;
 }
 
