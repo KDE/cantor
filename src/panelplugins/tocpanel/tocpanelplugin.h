@@ -6,17 +6,23 @@
 #ifndef _FILEBROWSERPANELPLUGIN_H
 #define _FILEBROWSERPANELPLUGIN_H
 
-#include <QStringListModel>
-
+#include <QHash>
+#include <QList>
+#include <QPoint>
 #include <QPointer>
-
+#include <QSet>
+#include <QStandardItemModel>
+#include <QString>
+#include <QVariantList>
+#include <QVector>
 #include "panelplugin.h"
 
 class QWidget;
+class QEvent;
 class QModelIndex;
-class QPushButton;
-class QLineEdit;
-class QComboBox;
+class QMenu;
+class QStandardItem;
+class QTreeView;
 
 class TableOfContentPanelPlugin : public Cantor::PanelPlugin
 {
@@ -35,22 +41,113 @@ class TableOfContentPanelPlugin : public Cantor::PanelPlugin
 
     void restoreState(const State& state) override;
 
-
   Q_SIGNALS:
-    void requestScrollToHierarchyEntry(QString);
+    void requestNavigateToTocNode(QString nodeId);
+    void requestRenameHierarchyEntry(QString hierarchyId, QString newName);
+    void requestChangeHierarchyLevel(QString hierarchyId, int levelDelta);
+    void requestDeleteHierarchyEntry(QString hierarchyId, bool deleteContents);
+    void requestRenamePlot(QString commandId, QString resultId, QString newTitle);
+    void requestDeletePlot(QString commandId, QString resultId);
+
+  protected:
+    bool eventFilter(QObject* watched, QEvent* event) override;
 
   private Q_SLOTS:
+    void handleClicked(const QModelIndex&);
     void handleDoubleClicked(const QModelIndex&);
-    void handleHierarchyChanges(QStringList names, QStringList searchStrings, QList<int> depths);
-    void handleHierarhyEntryNameChange(QString name, QString searchString, int deapth);
+    void handleTocNodeChanges(const QVariantList& nodes);
+    void handleCurrentTocNodeChanged(const QString& nodeId);
+    void handleExpanded(const QModelIndex& index);
+    void handleCollapsed(const QModelIndex& index);
+    void handleContextMenuRequested(const QPoint& position);
+    void handleReadOnlyChanged(bool readOnly);
 
-  private:
+private:
+    enum ItemRole
+    {
+        HierarchyIdRole = Qt::UserRole + 1,
+        NodeIdRole,
+        ParentNodeIdRole,
+        NodeTypeRole,
+        DepthRole,
+        NameRole,
+        DisplayTextRole,
+        HierarchyTextRole,
+        EntryIdRole,
+        ResultIdRole,
+        CustomTitleRole,
+        ResultIndexRole,
+        EditableRole,
+        NavigableRole
+    };
+
+    struct TocNode
+    {
+        QString id;
+        QString parentId;
+        QString type;
+        QString title;
+        QString displayText;
+        QString hierarchyText;
+        QString hierarchyId;
+        QString entryId;
+        QString resultId;
+        QString customTitle;
+        int resultIndex{-1};
+        int depth{0};
+        int parentIndex{-1};
+        bool editable{false};
+        bool navigable{false};
+    };
+
     void constructMainWidget();
+    void rebuildModel();
+    void applyTocNodeChanges(const QVariantList& nodes);
+    void updateCurrentNodeSelection();
+    void restoreExpansionState();
+    void expandIndexParents(const QModelIndex& index);
+    bool shouldDisplayNode(int index) const;
+    int findVisibleAncestorIndex(int index) const;
+    void clearNodes();
+    void addVisibleItemsMenu(QMenu* menu);
+    void resetVisibilityToDefaults();
+    void cleanupStateAfterNodeChange();
+    void beginRename(const QModelIndex& index);
+    void handleEditorCommit(QWidget* editor);
+    void handleEditorClosed();
+    void finishEditorSession();
+    void cancelEditorSession();
 
-  private:
-    QPointer<QWidget> m_mainWidget;
-    QStringListModel m_model;
-    QStringList m_hierarchyPositionStringList;
+private:
+    QPointer<QTreeView> m_mainWidget;
+    QStandardItemModel m_model;
+
+    QVector<TocNode> m_nodes;
+    QHash<QString, int> m_nodeIndexById;
+
+    QHash<QString, QStandardItem*> m_itemsByNodeId;
+
+    bool m_showChapters{true};
+    bool m_showSections{true};
+    bool m_showCommandEntries{false};
+    bool m_showPlots{false};
+    bool m_readOnly{false};
+
+    QSet<QString> m_expandedNodeIds;
+
+    QString m_currentNodeId;
+    bool m_updatingModel{false};
+    bool m_expansionStateInitialized{false};
+    bool m_editorActive{false};
+    bool m_hasPendingNodeSnapshot{false};
+    bool m_hasPendingRename{false};
+    QString m_pendingRenameNodeType;
+    QString m_editingNodeId;
+    QString m_pendingRenameHierarchyId;
+    QString m_pendingRenameCommandId;
+    QString m_pendingRenameResultId;
+    QString m_pendingRenameTitle;
+    QVariantList m_pendingNodeSnapshot;
 };
 
 #endif /* _FILEBROWSERPANELPLUGIN_H */
