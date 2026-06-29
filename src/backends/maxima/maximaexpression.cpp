@@ -17,6 +17,8 @@
 #include <QApplication>
 #include <QDebug>
 #include <QDir>
+#include <QFileInfo>
+#include <QImage>
 #include <QRegularExpression>
 #include <QScreen>
 #include <QTemporaryFile>
@@ -46,6 +48,9 @@ void MaximaExpression::evaluate()
         m_isPlot = false;
         m_plotResult = nullptr;
         m_plotResultIndex = -1;
+        m_plotResultLoadScheduled = false;
+        m_plotFileLastSize = -1;
+        m_plotResultLoadAttempts = 0;
     }
 
     QString cmd = command();
@@ -434,7 +439,10 @@ void MaximaExpression::parseResult(const QString& resultContent)
             if (m_plotResult)
                 result = m_plotResult;
             else
+            {
+                schedulePlotResultLoad();
                 result = new Cantor::TextResult(i18n("Waiting for the plot result"));
+            }
         }
         else
             result = new Cantor::TextResult(textContent);
@@ -544,17 +552,63 @@ void MaximaExpression::addInformation(const QString& information)
 
 void MaximaExpression::imageChanged()
 {
-    if(m_tempFile->size()>0)
-    {
-        m_plotResult = new Cantor::ImageResult( QUrl::fromLocalFile(m_tempFile->fileName()) );
+    schedulePlotResultLoad();
+}
 
-        // Check, that we already parse maxima output for this plot, and if not, keep it up to this moment
-        // If it's true, replace text info result by real plot and set status as Done
-        if (m_plotResultIndex != -1)
+void MaximaExpression::schedulePlotResultLoad()
+{
+    if (m_plotResult || m_plotResultLoadScheduled)
+        return;
+
+    m_plotResultLoadScheduled = true;
+    QTimer::singleShot(100, this, &MaximaExpression::loadPlotResult);
+}
+
+void MaximaExpression::loadPlotResult()
+{
+    m_plotResultLoadScheduled = false;
+
+    if (!m_tempFile || m_plotResult)
+        return;
+
+    const QFileInfo plotFileInfo(m_tempFile->fileName());
+    if (!plotFileInfo.exists() || plotFileInfo.size() <= 0)
+    {
+        if (m_plotResultLoadAttempts < 10)
         {
-            replaceResult(m_plotResultIndex, m_plotResult);
-            if (status() != Cantor::Expression::Error)
-                setStatus(Cantor::Expression::Done);
+            ++m_plotResultLoadAttempts;
+            schedulePlotResultLoad();
         }
+        else if (m_plotResultIndex != -1 && status() == Cantor::Expression::Computing)
+            setStatus(Cantor::Expression::Done);
+
+        return;
+    }
+
+    // QFileSystemWatcher can notify before gnuplot finishes writing.
+    if (plotFileInfo.size() != m_plotFileLastSize)
+    {
+        m_plotFileLastSize = plotFileInfo.size();
+        schedulePlotResultLoad();
+        return;
+    }
+
+    auto* plotResult = new Cantor::ImageResult(QUrl::fromLocalFile(m_tempFile->fileName()));
+    if (plotResult->data().value<QImage>().isNull() && m_plotResultLoadAttempts < 10)
+    {
+        delete plotResult;
+        ++m_plotResultLoadAttempts;
+        schedulePlotResultLoad();
+        return;
+    }
+
+    m_plotResult = plotResult;
+    m_plotResult->setRole(Cantor::Result::Role::Plot);
+
+    if (m_plotResultIndex != -1)
+    {
+        replaceResult(m_plotResultIndex, m_plotResult);
+        if (status() == Cantor::Expression::Computing)
+            setStatus(Cantor::Expression::Done);
     }
 }

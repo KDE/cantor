@@ -235,6 +235,7 @@ void OctaveExpression::imageChanged()
     const QUrl& url = QUrl::fromLocalFile(m_plotFilename);
     QByteArray pdfData = file.readAll();
     auto* newResult = new Cantor::PdfResult(url, pdfData);
+    newResult->setRole(Cantor::Result::Role::Plot);
 
     bool found = false;
     for (int i = 0; i < results().size(); i++)

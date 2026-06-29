@@ -143,6 +143,7 @@ void PythonExpression::imageChanged()
         return;
 
     auto* newResult = new Cantor::ImageResult(QUrl::fromLocalFile(m_tempFile->fileName()));
+    newResult->setRole(Cantor::Result::Role::Plot);
     if (result() == nullptr)
         setResult(newResult);
     else
@@ -153,6 +154,7 @@ void PythonExpression::imageChanged()
             {
                 replaceResult(i, newResult);
                 found = true;
+                break;
             }
         if (!found)
             addResult(newResult);
