@@ -38,7 +38,6 @@
 #include <QActionGroup>
 #include <QFile>
 
-#include <kcoreaddons_version.h>
 #include <KMessageBox>
 #include <KActionCollection>
 #include <KFontAction>
@@ -2112,11 +2111,7 @@ void Worksheet::initActions()
     // Font Family
     m_fontAction = new KFontAction(i18nc("@action", "&Font"), m_collection);
     m_richTextActionList.append(m_fontAction);
-#if KCOREADDONS_VERSION >= QT_VERSION_CHECK(5, 78, 0)
     connect(m_fontAction, &KFontAction::textTriggered, this, &Worksheet::setFontFamily);
-#else
-    connect(m_fontAction, QOverload<const QString&>::of(&KFontAction::triggered), this, &Worksheet::setFontFamily);
-#endif
 
     // Font Size
     m_fontSizeAction = new KFontSizeAction(i18nc("@action", "Font &Size"), m_collection);
