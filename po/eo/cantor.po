@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: cantor\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-04-30 00:38+0000\n"
+"POT-Creation-Date: 2026-07-11 00:38+0000\n"
 "PO-Revision-Date: 2025-09-07 23:34+0100\n"
 "Last-Translator: Oliver Kellogg <olivermkellogg@gmail.com>\n"
 "Language-Team: esperanto <kde-i18n-eo@kde.org>\n"
@@ -445,8 +445,8 @@ msgstr "Malsukcesis lanĉi Julia, bonvolu kontroli ties instalon."
 
 #: backends/julia/juliasession.cpp:115 backends/julia/juliasession.cpp:124
 #: backends/maxima/maximasession.cpp:322 cantor_part.cpp:984
-#: lib/session.cpp:264 lib/session.cpp:266 worksheet.cpp:1219
-#: worksheet.cpp:1247 worksheet.cpp:1262 worksheet.cpp:1278
+#: lib/session.cpp:264 lib/session.cpp:266 worksheet.cpp:1218
+#: worksheet.cpp:1246 worksheet.cpp:1261 worksheet.cpp:1277
 #, kde-format
 msgid "Error - Cantor"
 msgstr "Eraro - Kantoro"
@@ -1004,7 +1004,7 @@ msgstr "La integriĝo de desegnoj estos malŝaltita."
 #: backends/octave/octavesession.cpp:390 backends/sage/sagesession.cpp:358
 #: backends/sage/sagesession.cpp:369 cantor.cpp:233 cantor.cpp:235
 #: cantor.cpp:354 cantor.cpp:361 lib/session.cpp:334 main.cpp:48 main.cpp:105
-#: markdownentry.cpp:813 textentry.cpp:564 worksheet.cpp:1301
+#: markdownentry.cpp:813 textentry.cpp:564 worksheet.cpp:1300
 #, kde-format
 msgid "Cantor"
 msgstr "Cantor"
@@ -1478,7 +1478,7 @@ msgstr "EPS"
 
 #. i18n: ectx: property (text), item, widget (KComboBox, saveFileBox)
 #: backends/qalculate/plotassistant/qalculateplotdialog.ui:575
-#: worksheet.cpp:1861 worksheet.cpp:1885 worksheet.cpp:1903 worksheet.cpp:1920
+#: worksheet.cpp:1860 worksheet.cpp:1884 worksheet.cpp:1902 worksheet.cpp:1919
 #, kde-format
 msgid "LaTeX"
 msgstr "LaTeX"
@@ -2928,18 +2928,18 @@ msgstr "Konservi Klaran Tekston"
 msgid "Export to PDF"
 msgstr "Eksporti al PDF"
 
-#: cantor_part.cpp:203 cantor_part.cpp:565 worksheet.cpp:1322
-#: worksheet.cpp:1328
+#: cantor_part.cpp:203 cantor_part.cpp:565 worksheet.cpp:1321
+#: worksheet.cpp:1327
 #, kde-format
 msgid "Export to LaTeX"
 msgstr "Eksporti al LaTeX"
 
-#: cantor_part.cpp:218 cantor_part.cpp:661 worksheet.cpp:1941
+#: cantor_part.cpp:218 cantor_part.cpp:661 worksheet.cpp:1940
 #, kde-format
 msgid "Evaluate Worksheet"
 msgstr "Taksi Laborfolion"
 
-#: cantor_part.cpp:224 worksheet.cpp:1949
+#: cantor_part.cpp:224 worksheet.cpp:1948
 #, kde-format
 msgid "Zoom"
 msgstr "Zomi"
@@ -3124,7 +3124,7 @@ msgstr ""
 msgid "Restart %1?"
 msgstr "Ĉu rekomenci %1?"
 
-#: cantor_part.cpp:651 worksheet.cpp:1944
+#: cantor_part.cpp:651 worksheet.cpp:1943
 #, kde-format
 msgid "Interrupt"
 msgstr "Interrompoj"
@@ -3298,7 +3298,7 @@ msgstr "Montri Rezultojn"
 msgid "Hide Results"
 msgstr "Kaŝi Rezultojn"
 
-#: commandentry.cpp:340 worksheet.cpp:1933
+#: commandentry.cpp:340 worksheet.cpp:1932
 #, kde-format
 msgid "Show Help"
 msgstr "Montri Helpon"
@@ -4128,8 +4128,8 @@ msgstr "Rezultoj"
 msgid "Errors"
 msgstr "Eraroj"
 
-#: searchbar.cpp:531 searchbar.cpp:560 worksheet.cpp:1854 worksheet.cpp:1881
-#: worksheet.cpp:1899 worksheet.cpp:1915
+#: searchbar.cpp:531 searchbar.cpp:560 worksheet.cpp:1853 worksheet.cpp:1880
+#: worksheet.cpp:1898 worksheet.cpp:1914
 #, kde-format
 msgid "Text"
 msgstr "Teksto"
@@ -4412,22 +4412,22 @@ msgstr "Ne povas bildigi Eps-dosieron. Vi eble bezonos pliajn pakaĵojn"
 msgid "Save text result"
 msgstr "Konservi tekstrezulton"
 
-#: worksheet.cpp:1218
+#: worksheet.cpp:1217
 #, kde-format
 msgid "Cannot write file %1."
 msgstr "Ne povas skribi dosieron %1."
 
-#: worksheet.cpp:1246 worksheet.cpp:1261
+#: worksheet.cpp:1245 worksheet.cpp:1260
 #, kde-format
 msgid "Cannot write file."
 msgstr "Ne povas skribi dosieron."
 
-#: worksheet.cpp:1278 worksheet.cpp:1322
+#: worksheet.cpp:1277 worksheet.cpp:1321
 #, kde-format
 msgid "Error saving file %1"
 msgstr "Eraro dum konservado de dosiero %1"
 
-#: worksheet.cpp:1301
+#: worksheet.cpp:1300
 #, kde-format
 msgid ""
 "In read-only mode Cantor couldn't guarantee, that the export will be valid "
@@ -4436,40 +4436,40 @@ msgstr ""
 "En nurlegebla reĝimo Cantor ne povis garantii, ke la eksporto estos valida "
 "por %1"
 
-#: worksheet.cpp:1328
+#: worksheet.cpp:1327
 #, kde-format
 msgid "Error loading latex.xsl stylesheet"
 msgstr "Eraro dum ŝargo de latex.xsl stilfolio"
 
-#: worksheet.cpp:1369
+#: worksheet.cpp:1368
 #, kde-format
 msgid "Couldn't open the file %1."
 msgstr "Ne eblis malfermi la dosieron %1."
 
-#: worksheet.cpp:1369 worksheet.cpp:1392 worksheet.cpp:1412 worksheet.cpp:1429
-#: worksheet.cpp:1461 worksheet.cpp:1472 worksheet.cpp:1581 worksheet.cpp:1596
-#: worksheet.cpp:1638 worksheet.cpp:1649 worksheet.cpp:1768 worksheet.cpp:1770
+#: worksheet.cpp:1368 worksheet.cpp:1391 worksheet.cpp:1411 worksheet.cpp:1428
+#: worksheet.cpp:1460 worksheet.cpp:1471 worksheet.cpp:1580 worksheet.cpp:1595
+#: worksheet.cpp:1637 worksheet.cpp:1648 worksheet.cpp:1767 worksheet.cpp:1769
 #, kde-format
 msgid "Open File"
 msgstr "Malfermu Dosieron"
 
-#: worksheet.cpp:1392
+#: worksheet.cpp:1391
 #, kde-format
 msgid "Couldn't open the selected file for reading."
 msgstr "Ne eblis malfermi la elektitan dosieron por legado."
 
-#: worksheet.cpp:1412
+#: worksheet.cpp:1411
 #, kde-format
 msgid "The selected file is not a valid Cantor or Jupyter project file."
 msgstr ""
 "La elektita dosiero ne estas valida projekto-dosiero de Cantor aŭ Jupyter."
 
-#: worksheet.cpp:1429
+#: worksheet.cpp:1428
 #, kde-format
 msgid "The selected file is not a valid Cantor project file."
 msgstr "La elektita dosiero ne estas valida Cantor-projektdosiero."
 
-#: worksheet.cpp:1451
+#: worksheet.cpp:1450
 #, kde-format
 msgid ""
 "This worksheet was created using Python2 which is not supported anymore. "
@@ -4478,19 +4478,19 @@ msgstr ""
 "Ĉi tiu laborfolio estis kreita per Python2, kiu ne plu estas subtenata. "
 "Python3 estos uzata."
 
-#: worksheet.cpp:1452 worksheet.cpp:1620
+#: worksheet.cpp:1451 worksheet.cpp:1619
 #, kde-format
 msgid "Python2 not supported anymore"
 msgstr "Python2 ne plu estas subtenata"
 
-#: worksheet.cpp:1461 worksheet.cpp:1637
+#: worksheet.cpp:1460 worksheet.cpp:1636
 #, kde-format
 msgid ""
 "%1 backend was not found. Editing and executing entries is not possible."
 msgstr ""
 "%1 backend ne estis trovita. Redakti kaj efektivigi enskribojn ne eblas."
 
-#: worksheet.cpp:1470 worksheet.cpp:1647
+#: worksheet.cpp:1469 worksheet.cpp:1646
 #, kde-format
 msgid ""
 "There are some problems with the %1 backend,\n"
@@ -4501,7 +4501,7 @@ msgstr ""
 "bonvolu kontroli vian agordon aŭ instali la bezonatajn pakaĵojn.\n"
 "Vi nur povos vidi ĉi tiun laborfolion."
 
-#: worksheet.cpp:1580
+#: worksheet.cpp:1579
 #, kde-format
 msgid ""
 "Jupyter notebooks with versions lower than 4.5 (detected version %1.%2) are "
@@ -4510,7 +4510,7 @@ msgstr ""
 "Jupyter-kajeroj kun versioj pli malaltaj ol 4.5 (detektita versio %1.%2) ne "
 "estas subtenataj."
 
-#: worksheet.cpp:1595
+#: worksheet.cpp:1594
 #, kde-format
 msgid ""
 "Jupyter notebooks with versions higher than 4.5 (detected version %1.%2) are "
@@ -4519,7 +4519,7 @@ msgstr ""
 "Jupyter-kajeroj kun versioj pli altaj ol 4.5 (detektita versio %1.%2) ne "
 "estas subtenataj."
 
-#: worksheet.cpp:1619
+#: worksheet.cpp:1618
 #, kde-format
 msgid ""
 "This notebook was created using Python2 which is not supported anymore. "
@@ -4528,244 +4528,244 @@ msgstr ""
 "Ĉi tiu kajero estis kreita per Python2, kiu ne plu estas subtenata. Python3 "
 "estos uzata."
 
-#: worksheet.cpp:1687
+#: worksheet.cpp:1686
 #, kde-format
 msgid "an object with keys: %1"
 msgstr "objekto kun ŝlosiloj: %1"
 
-#: worksheet.cpp:1689
+#: worksheet.cpp:1688
 #, kde-format
 msgid "non object JSON value"
 msgstr "neobjekta JSON-valoro"
 
-#: worksheet.cpp:1692
+#: worksheet.cpp:1691
 #, kde-format
 msgid "found incorrect data (%1) that is not Jupyter cell"
 msgstr "trovis malĝustajn datumojn (%1) kiuj ne estas Jupyter-ĉelo"
 
-#: worksheet.cpp:1768
+#: worksheet.cpp:1767
 #, kde-format
 msgid "The file is not valid Jupyter notebook"
 msgstr "La dosiero ne validas Jupyter kajero"
 
-#: worksheet.cpp:1770
+#: worksheet.cpp:1769
 #, kde-format
 msgid "Invalid Jupyter notebook scheme: %1"
 msgstr "Nevalida Jupyter-kajeroskemo: %1"
 
-#: worksheet.cpp:1846
+#: worksheet.cpp:1845
 #, kde-format
 msgid "Convert To"
 msgstr "Konverti Al"
 
-#: worksheet.cpp:1851 worksheet.cpp:1880 worksheet.cpp:1898 worksheet.cpp:1914
+#: worksheet.cpp:1850 worksheet.cpp:1879 worksheet.cpp:1897 worksheet.cpp:1913
 #, kde-format
 msgid "Command"
 msgstr "Komando"
 
-#: worksheet.cpp:1858 worksheet.cpp:1883 worksheet.cpp:1901 worksheet.cpp:1917
+#: worksheet.cpp:1857 worksheet.cpp:1882 worksheet.cpp:1900 worksheet.cpp:1916
 #, kde-format
 msgid "Markdown"
 msgstr "Markdown"
 
-#: worksheet.cpp:1863 worksheet.cpp:1886 worksheet.cpp:1904 worksheet.cpp:1921
+#: worksheet.cpp:1862 worksheet.cpp:1885 worksheet.cpp:1903 worksheet.cpp:1920
 #, kde-format
 msgid "Image"
 msgstr "Bildo"
 
-#: worksheet.cpp:1866 worksheet.cpp:1889 worksheet.cpp:1907 worksheet.cpp:1924
+#: worksheet.cpp:1865 worksheet.cpp:1888 worksheet.cpp:1906 worksheet.cpp:1923
 #, kde-format
 msgid "Page Break"
 msgstr "Paĝrompo"
 
-#: worksheet.cpp:1869 worksheet.cpp:1888 worksheet.cpp:1906 worksheet.cpp:1923
+#: worksheet.cpp:1868 worksheet.cpp:1887 worksheet.cpp:1905 worksheet.cpp:1922
 #, kde-format
 msgid "Horizontal Line"
 msgstr "Horizontala Linio"
 
-#: worksheet.cpp:1872 worksheet.cpp:1891 worksheet.cpp:1909 worksheet.cpp:1926
+#: worksheet.cpp:1871 worksheet.cpp:1890 worksheet.cpp:1908 worksheet.cpp:1925
 #, kde-format
 msgid "Hierarchy Entry"
 msgstr "Hierarkia Eniro"
 
-#: worksheet.cpp:1875
+#: worksheet.cpp:1874
 #, kde-format
 msgid "Insert After"
 msgstr "Enmeti Post"
 
-#: worksheet.cpp:1894
+#: worksheet.cpp:1893
 #, kde-format
 msgid "Insert Before"
 msgstr "Enmeti Antaŭe"
 
-#: worksheet.cpp:1911
+#: worksheet.cpp:1910
 #, kde-format
 msgid "Insert"
 msgstr "Enmeti"
 
-#: worksheet.cpp:1953
+#: worksheet.cpp:1952
 #, kde-format
 msgid "Zoom In"
 msgstr "Zoom En"
 
-#: worksheet.cpp:1956
+#: worksheet.cpp:1955
 #, kde-format
 msgid "Zoom Out"
 msgstr "Malzomi"
 
-#: worksheet.cpp:1960
+#: worksheet.cpp:1959
 #, kde-format
 msgid "Original Size"
 msgstr "Originala Grandeco"
 
-#: worksheet.cpp:1968
+#: worksheet.cpp:1967
 #, kde-format
 msgid "Move Entries Up"
 msgstr "Movi Enirojn Supren"
 
-#: worksheet.cpp:1969
+#: worksheet.cpp:1968
 #, kde-format
 msgid "Move Entries Down"
 msgstr "Movi Enirojn Malsupren"
 
-#: worksheet.cpp:1970
+#: worksheet.cpp:1969
 #, kde-format
 msgid "Evaluate Entries"
 msgstr "Taksi Enirojn"
 
-#: worksheet.cpp:1972 worksheet.cpp:2901
+#: worksheet.cpp:1971 worksheet.cpp:2896
 #, kde-format
 msgid "Delete Entries"
 msgstr "Forigi Erojn"
 
-#: worksheet.cpp:1985
+#: worksheet.cpp:1984
 #, kde-format
 msgid "Collapse Command Entry Results"
 msgstr "Kolapsi Komand-Enirajn Rezultojn"
 
-#: worksheet.cpp:1986
+#: worksheet.cpp:1985
 #, kde-format
 msgid "Expand Command Entry Results"
 msgstr "Plivastigi komandajn rezultojn"
 
-#: worksheet.cpp:1988
+#: worksheet.cpp:1987
 #, kde-format
 msgid "Delete Command Entry Results"
 msgstr "Forigi Komanderajn Rezultojn"
 
-#: worksheet.cpp:1990
+#: worksheet.cpp:1989
 #, kde-format
 msgid "Exclude Command Entry From Execution"
 msgstr "Ekskludi Komand-Eniron De Rulo"
 
-#: worksheet.cpp:1991
+#: worksheet.cpp:1990
 #, kde-format
 msgid "Add Command Entry To Execution"
 msgstr "Aldoni komandan eniron al rulo"
 
-#: worksheet.cpp:2099
+#: worksheet.cpp:2098
 #, kde-format
 msgctxt "@action"
 msgid "Text &Color..."
 msgstr "Teksta &Koloro..."
 
-#: worksheet.cpp:2100
+#: worksheet.cpp:2099
 #, kde-format
 msgctxt "@label text color"
 msgid "Color"
 msgstr "Koloro"
 
-#: worksheet.cpp:2107
+#: worksheet.cpp:2106
 #, kde-format
 msgctxt "@action"
 msgid "Text &Highlight..."
 msgstr "Teksta &Elstarigo..."
 
-#: worksheet.cpp:2113
+#: worksheet.cpp:2112
 #, kde-format
 msgctxt "@action"
 msgid "&Font"
 msgstr "&Tiparo"
 
-#: worksheet.cpp:2122
+#: worksheet.cpp:2117
 #, kde-format
 msgctxt "@action"
 msgid "Font &Size"
 msgstr "Tipara Grande&co"
 
-#: worksheet.cpp:2128
+#: worksheet.cpp:2123
 #, kde-format
 msgctxt "@action boldify selected text"
 msgid "&Bold"
 msgstr "&Grasa"
 
-#: worksheet.cpp:2139
+#: worksheet.cpp:2134
 #, kde-format
 msgctxt "@action italicize selected text"
 msgid "&Italic"
 msgstr "Kurs&iva"
 
-#: worksheet.cpp:2151
+#: worksheet.cpp:2146
 #, kde-format
 msgctxt "@action underline selected text"
 msgid "&Underline"
 msgstr "S&ubstreki"
 
-#: worksheet.cpp:2162
+#: worksheet.cpp:2157
 #, kde-format
 msgctxt "@action"
 msgid "&Strike Out"
 msgstr "For&streki"
 
-#: worksheet.cpp:2173
+#: worksheet.cpp:2168
 #, kde-format
 msgctxt "@action"
 msgid "Align &Left"
 msgstr "Vicigi Ma&ldekstre"
 
-#: worksheet.cpp:2176
+#: worksheet.cpp:2171
 #, kde-format
 msgctxt "@label left justify"
 msgid "Left"
 msgstr "Maldekstre"
 
-#: worksheet.cpp:2183
+#: worksheet.cpp:2178
 #, kde-format
 msgctxt "@action"
 msgid "Align &Center"
 msgstr "Vicigi &Centre"
 
-#: worksheet.cpp:2186
+#: worksheet.cpp:2181
 #, kde-format
 msgctxt "@label center justify"
 msgid "Center"
 msgstr "Centre"
 
-#: worksheet.cpp:2193
+#: worksheet.cpp:2188
 #, kde-format
 msgctxt "@action"
 msgid "Align &Right"
 msgstr "Vicigi Dekst&re"
 
-#: worksheet.cpp:2196
+#: worksheet.cpp:2191
 #, kde-format
 msgctxt "@label right justify"
 msgid "Right"
 msgstr "Dekstre"
 
-#: worksheet.cpp:2203
+#: worksheet.cpp:2198
 #, kde-format
 msgctxt "@action"
 msgid "&Justify"
 msgstr "Ĝ&israndigi"
 
-#: worksheet.cpp:2206
+#: worksheet.cpp:2201
 #, kde-format
 msgctxt "@label justify fill"
 msgid "Justify"
 msgstr "Ĝisrandigi"
 
-#: worksheet.cpp:2900
+#: worksheet.cpp:2895
 #, kde-format
 msgid ""
 "This step cannot be undone. Do you really want to delete the selected "
@@ -4774,13 +4774,13 @@ msgstr ""
 "Ĉi tiu paŝo ne povas esti malfarata. Ĉu vi vere volas forigi la elektitajn "
 "erojn?"
 
-#: worksheet.cpp:2990
+#: worksheet.cpp:2985
 #, kde-format
 msgid "This step cannot be undone. Do you really want to delete all results?"
 msgstr ""
 "Ĉi tiu paŝo ne povas esti malfarata. Ĉu vi vere volas forigi ĉiujn rezultojn?"
 
-#: worksheet.cpp:2991
+#: worksheet.cpp:2986
 #, kde-format
 msgid "Delete all results"
 msgstr "Forigi ĉiujn rezultojn"
