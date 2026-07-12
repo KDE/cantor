@@ -46,6 +46,8 @@ class TableOfContentPanelPlugin : public Cantor::PanelPlugin
     void requestRenameHierarchyEntry(QString hierarchyId, QString newName);
     void requestChangeHierarchyLevel(QString hierarchyId, int levelDelta);
     void requestDeleteHierarchyEntry(QString hierarchyId, bool deleteContents);
+    void requestRenameCommandEntry(QString commandId, QString newTitle);
+    void requestDeleteCommandEntry(QString commandId);
     void requestRenamePlot(QString commandId, QString resultId, QString newTitle);
     void requestDeletePlot(QString commandId, QString resultId);
 

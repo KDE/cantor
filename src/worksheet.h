@@ -277,6 +277,8 @@ class Worksheet : public QGraphicsScene
     void renameHierarchyEntry(const QString& hierarchyId, const QString& newName);
     void changeHierarchyLevel(QString hierarchyId, int levelDelta);
     void deleteHierarchyEntry(const QString& hierarchyId, bool deleteContents);
+    void renameCommandEntry(const QString& commandId, const QString& newTitle);
+    void deleteCommandEntry(const QString& commandId);
     void renamePlot(const QString& commandId, const QString& resultId, const QString& newTitle);
     void deletePlot(const QString& commandId, const QString& resultId);
     void navigateToTocNode(QString nodeId);

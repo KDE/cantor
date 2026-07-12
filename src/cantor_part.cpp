@@ -139,6 +139,8 @@ CantorPart::CantorPart(QObject* parent, const QVariantList& args)
     connect(this, &CantorPart::requestRenameHierarchyEntry, m_worksheet, &Worksheet::renameHierarchyEntry);
     connect(this, &CantorPart::requestChangeHierarchyLevel, m_worksheet, &Worksheet::changeHierarchyLevel);
     connect(this, &CantorPart::requestDeleteHierarchyEntry, m_worksheet, &Worksheet::deleteHierarchyEntry);
+    connect(this, &CantorPart::requestRenameCommandEntry, m_worksheet, &Worksheet::renameCommandEntry);
+    connect(this, &CantorPart::requestDeleteCommandEntry, m_worksheet, &Worksheet::deleteCommandEntry);
     connect(this, &CantorPart::requestRenamePlot, m_worksheet, &Worksheet::renamePlot);
     connect(this, &CantorPart::requestDeletePlot, m_worksheet, &Worksheet::deletePlot);
     connect(this, &CantorPart::requestTocNodeSnapshot, m_worksheet, &Worksheet::emitTocNodeSnapshot);

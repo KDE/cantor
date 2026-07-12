@@ -3136,6 +3136,16 @@ void Worksheet::updateCurrentTocNodeFromResult(CommandEntry* commandEntry, Canto
     m_hierarchyManager->updateCurrentTocNodeFromResult(commandEntry, result);
 }
 
+void Worksheet::renameCommandEntry(const QString& commandId, const QString& newTitle)
+{
+    m_hierarchyManager->renameCommandEntry(commandId, newTitle);
+}
+
+void Worksheet::deleteCommandEntry(const QString& commandId)
+{
+    m_hierarchyManager->deleteCommandEntry(commandId);
+}
+
 void Worksheet::renamePlot(const QString& commandId, const QString& resultId, const QString& newTitle)
 {
     m_hierarchyManager->renamePlot(commandId, resultId, newTitle);
