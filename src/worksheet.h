@@ -17,8 +17,6 @@
 #include <QQueue>
 #include <QVariantList>
 
-#include <functional>
-
 #include "lib/renderer.h"
 #include "mathrender.h"
 #include "worksheetcursor.h"
@@ -34,6 +32,7 @@ class WorksheetEntry;
 class CommandEntry;
 class WorksheetView;
 class HierarchyEntry;
+class WorksheetHierarchyManager;
 class PlaceHolderEntry;
 class WorksheetTextItem;
 
@@ -57,12 +56,6 @@ class Worksheet : public QGraphicsScene
     {
       CantorWorksheet,
       JupyterNotebook
-    };
-
-    enum class HierarchyTrackingSource
-    {
-        Viewport,
-        FocusedEntry
     };
 
     Worksheet(Cantor::Backend*, QWidget*, bool useDeafultWorksheetParameters = true);
@@ -325,38 +318,7 @@ class Worksheet : public QGraphicsScene
     bool isValidEntry(WorksheetEntry*);
 
   private:
-    struct HierarchySearchResult
-    {
-        HierarchyEntry* entry{nullptr};
-        QVector<HierarchyEntry*> collapsedAncestors;
-    };
-
-    struct CommandSearchResult
-    {
-        CommandEntry* entry{nullptr};
-        QVector<HierarchyEntry*> collapsedAncestors;
-    };
-
-    QVariantList collectTocNodes();
-    bool visitLogicalEntries(WorksheetEntry* first, const std::function<bool(WorksheetEntry*)>& visitor);
-    bool visitLogicalEntries(const std::function<bool(WorksheetEntry*)>& visitor);
-    bool findHierarchyEntryById(WorksheetEntry* first, const QString& hierarchyId, QVector<HierarchyEntry*> collapsedAncestors, HierarchySearchResult& result);
-    HierarchySearchResult findHierarchyEntryById(const QString& hierarchyId);
-    bool findCommandEntryById(WorksheetEntry* first, const QString& commandId, QVector<HierarchyEntry*> collapsedAncestors, CommandSearchResult& result);
-    CommandSearchResult findCommandEntryById(const QString& commandId);
-    bool expandHierarchyAncestors(const QVector<HierarchyEntry*>& ancestors);
-    QString buildCommandNodeId(CommandEntry* entry);
-    QString buildPlotNodeId(const QString& commandId, const QString& resultId) const;
-    bool parseCommandNodeId(const QString& nodeId, QString* commandId) const;
-    bool parsePlotNodeId(const QString& nodeId, QString* commandId, QString* resultId) const;
-    bool navigateToPlotResult(CommandEntry* commandEntry, const QString& resultId);
-    void setCurrentTocNode(const QString& nodeId);
-    QString hierarchyIdForEntry(WorksheetEntry* entry) const;
-    QString commandTocTitle() const;
-    QString commandTocDisplayText(CommandEntry* entry) const;
-    QString plotTocTitle(Cantor::Result* result) const;
-    QString plotTocDisplayText(CommandEntry* entry, Cantor::Result* result, int plotOrdinal, int plotCount) const;
-    bool isPlotResult(Cantor::Result* result);
+    friend class WorksheetHierarchyManager;
 
   private Q_SLOTS:
     //void checkEntriesForSanity();
@@ -390,9 +352,6 @@ class Worksheet : public QGraphicsScene
     void updateCurrentHierarchy(WorksheetEntry* entry);
     void normalizeDraggedHierarchyLevels(HierarchyEntry* rootEntry, WorksheetEntry* previousEntry, const std::vector<WorksheetEntry*>& subentries);
 
-    QString m_currentTocNodeId;
-    HierarchyTrackingSource m_hierarchyTrackingSource{HierarchyTrackingSource::Viewport};
-
     bool m_layoutUpdateInProgress{false};
 
     static const double LeftMargin;
@@ -400,6 +359,8 @@ class Worksheet : public QGraphicsScene
     static const double TopMargin;
     static const double EntryCursorLength;
     static const double EntryCursorWidth;
+
+    WorksheetHierarchyManager* m_hierarchyManager{nullptr};
 
     Cantor::Session* m_session{nullptr};
     Cantor::Renderer m_renderer;
@@ -461,9 +422,6 @@ class Worksheet : public QGraphicsScene
     QVector<WorksheetEntry*> m_selectedEntries;
     QQueue<WorksheetEntry*> m_circularFocusBuffer;
 
-    size_t m_hierarchyMaxDepth{0};
-    QVariantList m_tocNodeSnapshot;
-    bool m_tocRefreshScheduled{false};
 };
 
 #endif // WORKSHEET_H
