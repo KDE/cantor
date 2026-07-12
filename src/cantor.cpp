@@ -68,6 +68,8 @@ CantorShell::CantorShell() : KParts::MainWindow(), m_tabWidget(new QTabWidget(th
     connect(this, &CantorShell::requestChangeHierarchyLevel, this, &CantorShell::forwardChangeHierarchyLevel);
     connect(this, &CantorShell::requestDeleteHierarchyEntry, this, &CantorShell::forwardDeleteHierarchyEntry);
     connect(this, &CantorShell::requestRenameHierarchyEntry, this, &CantorShell::forwardRenameHierarchyEntry);
+    connect(this, &CantorShell::requestRenameCommandEntry, this, &CantorShell::forwardRenameCommandEntry);
+    connect(this, &CantorShell::requestDeleteCommandEntry, this, &CantorShell::forwardDeleteCommandEntry);
     connect(this, &CantorShell::requestRenamePlot, this, &CantorShell::forwardRenamePlot);
     connect(this, &CantorShell::requestDeletePlot, this, &CantorShell::forwardDeletePlot);
 
@@ -264,6 +266,18 @@ void CantorShell::forwardDeleteHierarchyEntry(const QString& hierarchyId, bool d
 {
     if (m_part)
         QMetaObject::invokeMethod(m_part, "requestDeleteHierarchyEntry", Qt::DirectConnection, Q_ARG(QString, hierarchyId), Q_ARG(bool, deleteContents));
+}
+
+void CantorShell::forwardRenameCommandEntry(const QString& commandId, const QString& newTitle)
+{
+    if (m_part)
+        QMetaObject::invokeMethod(m_part, "requestRenameCommandEntry", Qt::DirectConnection, Q_ARG(QString, commandId), Q_ARG(QString, newTitle));
+}
+
+void CantorShell::forwardDeleteCommandEntry(const QString& commandId)
+{
+    if (m_part)
+        QMetaObject::invokeMethod(m_part, "requestDeleteCommandEntry", Qt::DirectConnection, Q_ARG(QString, commandId));
 }
 
 void CantorShell::forwardRenamePlot(const QString& commandId, const QString& resultId, const QString& newTitle)

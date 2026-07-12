@@ -19,12 +19,6 @@ namespace Cantor {
     class Result;
 }
 
-/*
- * Helper owned by Worksheet for managing the structure shown in the
- * Table of Contents panel. This includes hierarchy entries, command
- * entries, plot result nodes, navigation, and structure-related editing
- * actions.
- */
 class WorksheetHierarchyManager : public QObject
 {
   public:
@@ -47,6 +41,8 @@ class WorksheetHierarchyManager : public QObject
     void renameHierarchyEntry(const QString& hierarchyId, const QString& newName);
     void changeHierarchyLevel(const QString& hierarchyId, int levelDelta);
     void deleteHierarchyEntry(const QString& hierarchyId, bool deleteContents);
+    void renameCommandEntry(const QString& commandId, const QString& newTitle);
+    void deleteCommandEntry(const QString& commandId);
     void renamePlot(const QString& commandId, const QString& resultId, const QString& newTitle);
     void deletePlot(const QString& commandId, const QString& resultId);
     void navigateToTocNode(QString nodeId);
@@ -93,7 +89,7 @@ class WorksheetHierarchyManager : public QObject
     bool navigateToPlotResult(CommandEntry* commandEntry, const QString& resultId);
     void setCurrentTocNode(const QString& nodeId);
     QString hierarchyIdForEntry(WorksheetEntry* entry) const;
-    QString commandTocTitle() const;
+    QString commandTocTitle(CommandEntry* entry) const;
     QString commandTocDisplayText(CommandEntry* entry) const;
     QString plotTocTitle(Cantor::Result* result) const;
     QString plotTocDisplayText(CommandEntry* entry, Cantor::Result* result, int plotOrdinal, int plotCount) const;

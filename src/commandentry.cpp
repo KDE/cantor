@@ -427,6 +427,16 @@ void CommandEntry::regenerateCommandId()
     m_commandId = QUuid::createUuid().toString(QUuid::WithoutBraces);
 }
 
+QString CommandEntry::displayName() const
+{
+    return m_displayName;
+}
+
+void CommandEntry::setDisplayName(const QString& name)
+{
+    m_displayName = name.trimmed();
+}
+
 int CommandEntry::resultItemCount() const
 {
     return m_resultItems.size();
@@ -455,6 +465,37 @@ ResultItem* CommandEntry::resultItemById(const QString& resultId) const
     }
 
     return nullptr;
+}
+
+void CommandEntry::cachePlotResultMetadata()
+{
+    m_plotResultMetadataToRestore.clear();
+
+    if (!m_expression)
+        return;
+
+    for (auto* result : m_expression->results())
+    {
+        if (!result || result->role() != Cantor::Result::Role::Plot)
+            continue;
+
+        m_plotResultMetadataToRestore.append({result->resultId(), result->displayName()});
+    }
+}
+
+void CommandEntry::restorePlotResultMetadata(Cantor::Result* result, int plotIndex)
+{
+    if (!result || result->role() != Cantor::Result::Role::Plot)
+        return;
+
+    if (plotIndex < 0 || plotIndex >= m_plotResultMetadataToRestore.size())
+        return;
+
+    const PlotResultMetadata& metadata = m_plotResultMetadataToRestore.at(plotIndex);
+    if (!metadata.first.isEmpty())
+        result->setResultId(metadata.first);
+    if (!metadata.second.isEmpty())
+        result->setDisplayName(metadata.second);
 }
 
 void CommandEntry::setExpression(Cantor::Expression* expr)
@@ -536,6 +577,8 @@ void CommandEntry::setContent(const QDomElement& content, const KZip& file)
     if (!storedCommandId.isEmpty())
         m_commandId = storedCommandId;
 
+    m_displayName = content.attribute(QLatin1String("command-title")).trimmed();
+
     LoadedExpression* expr = new LoadedExpression( worksheet()->session() );
     expr->loadFromXml(content, file);
 
@@ -598,6 +641,12 @@ void CommandEntry::setContentFromJupyter(const QJsonObject& cell)
     if (!storedCommandId.isEmpty())
         m_commandId = storedCommandId;
 
+    const QJsonValue storedTitle = cantorMetadata.value(QLatin1String("command-title"));
+    if (storedTitle.isString())
+        m_displayName = storedTitle.toString().trimmed();
+    else
+        m_displayName.clear();
+
     LoadedExpression* expr=new LoadedExpression( worksheet()->session() );
     expr->loadFromJupyter(cell);
     setExpression(expr);
@@ -640,6 +689,10 @@ QJsonValue CommandEntry::toJupyterJson()
 
     QJsonObject cantorMetadata = metadata.value(Cantor::JupyterUtils::cantorMetadataKey).toObject();
     cantorMetadata.insert(QLatin1String("command-id"), m_commandId);
+    if (m_displayName.isEmpty())
+        cantorMetadata.remove(QLatin1String("command-title"));
+    else
+        cantorMetadata.insert(QLatin1String("command-title"), m_displayName);
     metadata.insert(Cantor::JupyterUtils::cantorMetadataKey, cantorMetadata);
 
     entry.insert(QLatin1String("metadata"), metadata);
@@ -699,6 +752,8 @@ QDomElement CommandEntry::toXml(QDomDocument& doc, KZip* archive)
 {
     QDomElement exprElem = doc.createElement( QLatin1String("Expression") );
     exprElem.setAttribute(QLatin1String("command-id"), m_commandId);
+    if (!m_displayName.isEmpty())
+        exprElem.setAttribute(QLatin1String("command-title"), m_displayName);
     QDomElement cmdElem = doc.createElement( QLatin1String("Command") );
     cmdElem.appendChild(doc.createTextNode( command() ));
     exprElem.appendChild(cmdElem);
@@ -839,6 +894,7 @@ bool CommandEntry::evaluate(EvaluationOption evalOp)
         auto* expr = worksheet()->session()->evaluateExpression(cmd);
         connect(expr, &Cantor::Expression::gotResult, this, [=]() { worksheet()->gotResult(expr); });
 
+        cachePlotResultMetadata();
         setExpression(expr);
 
         return true;
@@ -879,9 +935,21 @@ void CommandEntry::updateEntry()
             expandResults();
 
         bool addedResultItem = false;
+        int plotIndex = 0;
+        for (int i = 0; i < m_resultItems.size() && i < expr->results().size(); ++i)
+        {
+            auto* result = expr->results().at(i);
+            if (result && result->role() == Cantor::Result::Role::Plot)
+                ++plotIndex;
+        }
+
         for (int i = m_resultItems.size(); i < expr->results().size(); i++)
         {
-            if (auto* resultItem = ResultItem::create(this, expr->results()[i]))
+            auto* result = expr->results()[i];
+            if (result && result->role() == Cantor::Result::Role::Plot)
+                restorePlotResultMetadata(result, plotIndex++);
+
+            if (auto* resultItem = ResultItem::create(this, result))
             {
                 m_resultItems << resultItem;
                 addedResultItem = true;

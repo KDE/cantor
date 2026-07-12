@@ -331,15 +331,31 @@ bool WorksheetEntry::focusEntry(int pos, qreal xCoord)
 void WorksheetEntry::moveToPreviousEntry(int pos, qreal x)
 {
     WorksheetEntry* entry = previous();
-    while (entry && !(entry->wantFocus() && entry->focusEntry(pos, x)))
+    while (entry)
+    {
+        if (entry->wantFocus() && entry->focusEntry(pos, x))
+        {
+            worksheet()->makeVisible(entry);
+            return;
+        }
+
         entry = entry->previous();
+    }
 }
 
 void WorksheetEntry::moveToNextEntry(int pos, qreal x)
 {
     WorksheetEntry* entry = next();
-    while (entry && !(entry->wantFocus() && entry->focusEntry(pos, x)))
+    while (entry)
+    {
+        if (entry->wantFocus() && entry->focusEntry(pos, x))
+        {
+            worksheet()->makeVisible(entry);
+            return;
+        }
+
         entry = entry->next();
+    }
 }
 
 Worksheet* WorksheetEntry::worksheet()

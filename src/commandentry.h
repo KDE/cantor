@@ -9,6 +9,7 @@
 #define COMMANDENTRY_H
 
 #include <QPointer>
+#include <QPair>
 #include <QTimer>
 
 #include "worksheetentry.h"
@@ -41,6 +42,8 @@ class CommandEntry : public WorksheetEntry
     QString command();
     const QString& commandId() const;
     void regenerateCommandId();
+    QString displayName() const;
+    void setDisplayName(const QString& name);
     void setExpression(Cantor::Expression*);
     Cantor::Expression* expression();
 
@@ -122,6 +125,10 @@ class CommandEntry : public WorksheetEntry
     QPoint toGlobalPosition(QPointF);
     void initMenus();
 
+    using PlotResultMetadata = QPair<QString, QString>;
+
+    void cachePlotResultMetadata();
+    void restorePlotResultMetadata(Cantor::Result* result, int plotIndex);
 
     enum CompletionMode {PreliminaryCompletion, FinalCompletion};
     static const double VerticalSpacing;
@@ -134,6 +141,8 @@ class CommandEntry : public WorksheetEntry
     WorksheetTextItem* m_errorItem;
     QList<WorksheetTextItem*> m_informationItems;
     Cantor::Expression* m_expression;
+    QVector<PlotResultMetadata> m_plotResultMetadataToRestore;
+    QString m_displayName;
 
     DynamicHighlighter* m_dynamicHighlighter;
     bool m_variableHighlightingEnabled = true;

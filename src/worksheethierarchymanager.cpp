@@ -154,11 +154,12 @@ QVariantList WorksheetHierarchyManager::collectTocNodes() const
             commandNode.insert(QStringLiteral("id"), commandNodeId);
             commandNode.insert(QStringLiteral("parentId"), parentNodeId);
             commandNode.insert(QStringLiteral("type"), QString(TocNodeTypeCommand));
-            commandNode.insert(QStringLiteral("title"), commandTocTitle());
+            commandNode.insert(QStringLiteral("title"), commandTocTitle(commandEntry));
+            commandNode.insert(QStringLiteral("customTitle"), commandEntry->displayName());
             commandNode.insert(QStringLiteral("displayText"), commandTocDisplayText(commandEntry));
             commandNode.insert(QStringLiteral("hierarchyText"), QString());
             commandNode.insert(QStringLiteral("depth"), hierarchyDepths.isEmpty() ? 0 : hierarchyDepths.last() + 1);
-            commandNode.insert(QStringLiteral("editable"), false);
+            commandNode.insert(QStringLiteral("editable"), true);
             commandNode.insert(QStringLiteral("navigable"), true);
             commandNode.insert(QStringLiteral("hierarchyId"), QString());
             commandNode.insert(QStringLiteral("resultIndex"), -1);
@@ -264,15 +265,18 @@ bool WorksheetHierarchyManager::parsePlotNodeId(const QString& nodeId, QString* 
     return true;
 }
 
-QString WorksheetHierarchyManager::commandTocTitle() const
+QString WorksheetHierarchyManager::commandTocTitle(CommandEntry* entry) const
 {
+    if (entry && !entry->displayName().isEmpty())
+        return entry->displayName();
+
     return i18n("Command");
 }
 
 QString WorksheetHierarchyManager::commandTocDisplayText(CommandEntry* entry) const
 {
     auto* expression = entry ? entry->expression() : nullptr;
-    const QString title = commandTocTitle();
+    const QString title = commandTocTitle(entry);
     if (m_worksheet->m_showExpressionIds && expression && expression->id() != -1)
         return i18n("%1 %2", title, expression->id());
 
@@ -840,6 +844,50 @@ void WorksheetHierarchyManager::updateCurrentTocNodeFromResult(CommandEntry* com
         setCurrentTocNode(buildPlotNodeId(commandEntry->commandId(), result->resultId()));
     else
         updateCurrentHierarchyFromEntry(commandEntry);
+}
+
+void WorksheetHierarchyManager::renameCommandEntry(const QString& commandId, const QString& newTitle)
+{
+    if (m_worksheet->m_readOnly || commandId.isEmpty())
+        return;
+
+    QString normalizedTitle = newTitle;
+    normalizedTitle.replace(QLatin1Char('\r'), QLatin1Char(' '));
+    normalizedTitle.replace(QLatin1Char('\n'), QLatin1Char(' '));
+    normalizedTitle = normalizedTitle.trimmed();
+
+    const CommandSearchResult commandSearch = findCommandEntryById(commandId);
+    auto* commandEntry = commandSearch.entry;
+
+    if (!commandEntry || commandEntry->displayName() == normalizedTitle)
+        return;
+
+    commandEntry->setDisplayName(normalizedTitle);
+    m_worksheet->setModified();
+    scheduleTocStructureRefresh();
+}
+
+void WorksheetHierarchyManager::deleteCommandEntry(const QString& commandId)
+{
+    if (m_worksheet->m_readOnly || commandId.isEmpty())
+        return;
+
+    const CommandSearchResult commandSearch = findCommandEntryById(commandId);
+    auto* commandEntry = commandSearch.entry;
+
+    if (!commandEntry)
+        return;
+
+    const bool expanded = expandHierarchyAncestors(commandSearch.collapsedAncestors);
+    if (expanded)
+    {
+        updateHierarchyLayout();
+        m_worksheet->updateLayout();
+    }
+
+    m_worksheet->clearAllSelections();
+    m_worksheet->notifyEntryFocus(nullptr);
+    commandEntry->startRemoving(false);
 }
 
 void WorksheetHierarchyManager::renamePlot(const QString& commandId, const QString& resultId, const QString& newTitle)

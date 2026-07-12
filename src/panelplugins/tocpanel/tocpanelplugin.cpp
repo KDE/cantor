@@ -74,13 +74,13 @@ public:
         }
 
         const QString nodeType = index.data(m_nodeTypeRole).toString();
-        const bool isPlotNode = nodeType == TocNodeTypePlot;
+        const bool usesCustomTitle = nodeType == TocNodeTypePlot || nodeType == TocNodeTypeCommand;
         const QString title = index.data(m_nameRole).toString();
         const QString customTitle = index.data(m_customTitleRole).toString();
-        const QString editTitle = isPlotNode && !customTitle.isEmpty() ? customTitle : title;
+        const QString editTitle = usesCustomTitle && !customTitle.isEmpty() ? customTitle : title;
 
-        lineEdit->setText(isPlotNode ? editTitle : title);
-        if (isPlotNode)
+        lineEdit->setText(usesCustomTitle ? editTitle : title);
+        if (usesCustomTitle)
             lineEdit->setPlaceholderText(title);
 
         lineEdit->setProperty("tocNodeId", index.data(m_nodeIdRole));
@@ -88,7 +88,7 @@ public:
         lineEdit->setProperty("tocHierarchyId", index.data(m_hierarchyIdRole));
         lineEdit->setProperty("tocCommandId", index.data(m_entryIdRole));
         lineEdit->setProperty("tocResultId", index.data(m_resultIdRole));
-        lineEdit->setProperty("tocOriginalTitle", isPlotNode ? editTitle : title);
+        lineEdit->setProperty("tocOriginalTitle", usesCustomTitle ? editTitle : title);
         lineEdit->selectAll();
     }
 
@@ -141,6 +141,8 @@ void TableOfContentPanelPlugin::connectToShell(QObject* cantorShell)
     connect(cantorShell, SIGNAL(currentTocNodeChanged(QString)), this, SLOT(handleCurrentTocNodeChanged(QString)));
     connect(this, SIGNAL(requestChangeHierarchyLevel(QString,int)), cantorShell, SIGNAL(requestChangeHierarchyLevel(QString,int)));
     connect(this, SIGNAL(requestDeleteHierarchyEntry(QString,bool)), cantorShell, SIGNAL(requestDeleteHierarchyEntry(QString,bool)));
+    connect(this, SIGNAL(requestRenameCommandEntry(QString,QString)), cantorShell, SIGNAL(requestRenameCommandEntry(QString,QString)));
+    connect(this, SIGNAL(requestDeleteCommandEntry(QString)), cantorShell, SIGNAL(requestDeleteCommandEntry(QString)));
     connect(this, SIGNAL(requestRenamePlot(QString,QString,QString)), cantorShell, SIGNAL(requestRenamePlot(QString,QString,QString)));
     connect(this, SIGNAL(requestDeletePlot(QString,QString)), cantorShell, SIGNAL(requestDeletePlot(QString,QString)));
     connect(cantorShell, SIGNAL(tocReadOnlyChanged(bool)), this, SLOT(handleReadOnlyChanged(bool)));
@@ -523,11 +525,15 @@ void TableOfContentPanelPlugin::beginRename(const QModelIndex& index)
     const QString hierarchyId = index.data(HierarchyIdRole).toString();
     const QString nodeType = index.data(NodeTypeRole).toString();
     const bool isPlotNode = nodeType == TocNodeTypePlot;
+    const bool isCommandNode = nodeType == TocNodeTypeCommand;
 
     if (nodeId.isEmpty() || !index.data(EditableRole).toBool())
         return;
 
-    if (!isPlotNode && hierarchyId.isEmpty())
+    if (!isPlotNode && !isCommandNode && hierarchyId.isEmpty())
+        return;
+
+    if (isCommandNode && index.data(EntryIdRole).toString().isEmpty())
         return;
 
     if (isPlotNode && (index.data(EntryIdRole).toString().isEmpty() || index.data(ResultIdRole).toString().isEmpty()))
@@ -589,7 +595,8 @@ void TableOfContentPanelPlugin::handleEditorCommit(QWidget* editor)
     if (position >= 0 && position < m_nodes.size())
     {
         const TocNode& node = m_nodes.at(position);
-        oldName = nodeType == TocNodeTypePlot && !node.customTitle.isEmpty() ? node.customTitle : node.title;
+        const bool usesCustomTitle = nodeType == TocNodeTypePlot || nodeType == TocNodeTypeCommand;
+        oldName = usesCustomTitle && !node.customTitle.isEmpty() ? node.customTitle : node.title;
     }
 
     if (newName == oldName)
@@ -602,6 +609,13 @@ void TableOfContentPanelPlugin::handleEditorCommit(QWidget* editor)
 
         m_pendingRenameCommandId = commandId;
         m_pendingRenameResultId = resultId;
+    }
+    else if (nodeType == TocNodeTypeCommand)
+    {
+        if (commandId.isEmpty())
+            return;
+
+        m_pendingRenameCommandId = commandId;
     }
     else
     {
@@ -655,6 +669,8 @@ void TableOfContentPanelPlugin::finishEditorSession()
 
         if (nodeType == TocNodeTypePlot)
             Q_EMIT requestRenamePlot(commandId, resultId, title);
+        else if (nodeType == TocNodeTypeCommand)
+            Q_EMIT requestRenameCommandEntry(commandId, title);
         else
             Q_EMIT requestRenameHierarchyEntry(hierarchyId, title);
     }
@@ -899,12 +915,45 @@ void TableOfContentPanelPlugin::handleContextMenuRequested(const QPoint& positio
         }
         else if (nodeType == TocNodeTypeCommand)
         {
+            const QString commandId = index.data(EntryIdRole).toString();
+            const QString displayText = index.data(DisplayTextRole).toString();
             QAction* goToCommandAction = menu.addAction(i18n("Go to Command"));
             goToCommandAction->setEnabled(!nodeId.isEmpty() && index.data(NavigableRole).toBool());
             connect(goToCommandAction, &QAction::triggered, this, [this, nodeId]()
             {
                 if (!nodeId.isEmpty())
                     Q_EMIT requestNavigateToTocNode(nodeId);
+            });
+
+            menu.addSeparator();
+
+            QAction* renameAction = menu.addAction(QIcon::fromTheme(QStringLiteral("edit-rename")), i18n("Rename Command"));
+            renameAction->setEnabled(!m_readOnly && !nodeId.isEmpty() && !commandId.isEmpty());
+            connect(renameAction, &QAction::triggered, this, [this, nodeId]()
+            {
+                if (auto* item = m_itemsByNodeId.value(nodeId, nullptr))
+                    beginRename(item->index());
+            });
+
+            QAction* deleteAction = menu.addAction(QIcon::fromTheme(QStringLiteral("edit-delete")), i18n("Delete Command"));
+            deleteAction->setEnabled(!m_readOnly && !commandId.isEmpty());
+            connect(deleteAction, &QAction::triggered, this, [this, commandId, displayText]()
+            {
+                if (Settings::warnAboutEntryDelete())
+                {
+                    const QString commandTitle = displayText.isEmpty() ? i18n("Command") : displayText;
+                    const auto result = KMessageBox::warningTwoActions(
+                        m_mainWidget,
+                        i18n("Do you really want to delete \"%1\"? This action cannot be undone.", commandTitle),
+                        i18n("Delete Command"),
+                        KStandardGuiItem::remove(),
+                        KStandardGuiItem::cancel());
+
+                    if (result != KMessageBox::PrimaryAction)
+                        return;
+                }
+
+                Q_EMIT requestDeleteCommandEntry(commandId);
             });
         }
         else if (nodeType == TocNodeTypePlot)

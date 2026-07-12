@@ -73,6 +73,8 @@ Q_SIGNALS:
     void requestRenameHierarchyEntry(QString hierarchyId, QString newName);
     void requestChangeHierarchyLevel(QString hierarchyId, int levelDelta);
     void requestDeleteHierarchyEntry(QString hierarchyId, bool deleteContents);
+    void requestRenameCommandEntry(QString commandId, QString newTitle);
+    void requestDeleteCommandEntry(QString commandId);
     void requestRenamePlot(QString commandId, QString resultId, QString newTitle);
     void requestDeletePlot(QString commandId, QString resultId);
     void tocReadOnlyChanged(bool readOnly);
@@ -98,6 +100,8 @@ private Q_SLOTS:
     void forwardRenameHierarchyEntry(const QString& hierarchyId, const QString& newName);
     void forwardChangeHierarchyLevel(const QString& hierarchyId, int levelDelta);
     void forwardDeleteHierarchyEntry(const QString& hierarchyId, bool deleteContents);
+    void forwardRenameCommandEntry(const QString& commandId, const QString& newTitle);
+    void forwardDeleteCommandEntry(const QString& commandId);
     void forwardRenamePlot(const QString& commandId, const QString& resultId, const QString& newTitle);
     void forwardDeletePlot(const QString& commandId, const QString& resultId);
     void handleTocNodesChanged(QVariantList nodes);
