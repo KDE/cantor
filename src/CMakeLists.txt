@@ -63,6 +63,7 @@ set(cantor_PART_SRCS
    cantor_part.cpp
    cantorcompletionmodel.cpp
    worksheet.cpp
+   worksheethierarchymanager.cpp
    worksheetview.cpp
    worksheetentry.cpp
    worksheettexteditoritem.cpp

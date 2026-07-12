@@ -1,5 +1,6 @@
 set(worksheettest_SRCS
     ../worksheet.cpp
+    ../worksheethierarchymanager.cpp
     ../worksheetview.cpp
     ../worksheetentry.cpp
     ../worksheettexteditoritem.cpp
