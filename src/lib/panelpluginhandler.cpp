@@ -106,7 +106,14 @@ QList<PanelPlugin*> PanelPluginHandler::activePluginsForSession(Session* session
         }
 
         if (previousPluginStates.contains(plugin->name()))
-            plugin->restoreState(previousPluginStates[plugin->name()]);
+        {
+            PanelPlugin::State state = previousPluginStates[plugin->name()];
+            // A worksheet can replace its Session while loading a file. Panel
+            // UI state remains reusable, but the stored Session pointer may no
+            // longer be alive when returning to the worksheet.
+            state.session = session;
+            plugin->restoreState(state);
+        }
         else
         {
             Cantor::PanelPlugin::State initState;

@@ -12,16 +12,19 @@
 #include <QDebug>
 #include <QItemSelectionModel>
 #include <QKeyEvent>
+#include <QLabel>
 #include <QLineEdit>
 #include <QMenu>
 #include <QModelIndex>
 #include <QScopedValueRollback>
+#include <QSignalBlocker>
 #include <QStandardItem>
 #include <QStyledItemDelegate>
 #include <QTreeView>
 #include <QTimer>
 #include <QVariantList>
 #include <QVariantMap>
+#include <QVBoxLayout>
 #include <QWidget>
 
 #include <KLocalizedString>
@@ -119,10 +122,8 @@ TableOfContentPanelPlugin::TableOfContentPanelPlugin(QObject* parent, const QLis
 
 TableOfContentPanelPlugin::~TableOfContentPanelPlugin()
 {
-    if (m_mainWidget)
-    {
-        m_mainWidget->deleteLater();
-    }
+    if (m_containerWidget)
+        m_containerWidget->deleteLater();
 }
 
 QWidget* TableOfContentPanelPlugin::widget()
@@ -130,7 +131,7 @@ QWidget* TableOfContentPanelPlugin::widget()
     if (!m_mainWidget)
         constructMainWidget();
 
-    return m_mainWidget;
+    return m_containerWidget;
 }
 
 void TableOfContentPanelPlugin::connectToShell(QObject* cantorShell)
@@ -165,6 +166,12 @@ void TableOfContentPanelPlugin::handleClicked(const QModelIndex& index)
         return;
 
     Q_EMIT requestNavigateToTocNode(nodeId);
+
+    // Navigation focuses the target worksheet entry. Keep focus in the TOC
+    // when navigation originated here so subsequent TOC shortcuts keep
+    // operating on the selected node.
+    if (m_mainWidget)
+        m_mainWidget->setFocus(Qt::MouseFocusReason);
 }
 
 void TableOfContentPanelPlugin::handleDoubleClicked(const QModelIndex& index)
@@ -174,7 +181,20 @@ void TableOfContentPanelPlugin::handleDoubleClicked(const QModelIndex& index)
 
 void TableOfContentPanelPlugin::constructMainWidget()
 {
-    auto* view = new QTreeView;
+    auto* container = new QWidget;
+    auto* layout = new QVBoxLayout(container);
+    layout->setContentsMargins(0, 0, 0, 0);
+    layout->setSpacing(4);
+
+    auto* searchEdit = new QLineEdit(container);
+    searchEdit->setClearButtonEnabled(true);
+    searchEdit->setPlaceholderText(i18n("Search Table of Contents"));
+
+    auto* view = new QTreeView(container);
+    auto* emptyLabel = new QLabel(container);
+    emptyLabel->setAlignment(Qt::AlignCenter);
+    emptyLabel->setWordWrap(true);
+    emptyLabel->hide();
 
     view->setEditTriggers(QAbstractItemView::NoEditTriggers);
     view->setSelectionBehavior(QAbstractItemView::SelectRows);
@@ -186,6 +206,7 @@ void TableOfContentPanelPlugin::constructMainWidget()
     view->setContextMenuPolicy(Qt::CustomContextMenu);
     view->installEventFilter(this);
     view->viewport()->installEventFilter(this);
+    searchEdit->installEventFilter(this);
 
     auto* delegate = new HierarchyNameDelegate(NameRole, NodeIdRole, HierarchyIdRole, NodeTypeRole, CustomTitleRole, EntryIdRole, ResultIdRole, view);
 
@@ -199,19 +220,91 @@ void TableOfContentPanelPlugin::constructMainWidget()
     connect(view, &QTreeView::collapsed, this, &TableOfContentPanelPlugin::handleCollapsed);
     connect(delegate, &QAbstractItemDelegate::commitData, this, &TableOfContentPanelPlugin::handleEditorCommit);
     connect(delegate, &QAbstractItemDelegate::closeEditor, this, &TableOfContentPanelPlugin::handleEditorClosed);
+    connect(searchEdit, &QLineEdit::textChanged, this, [this](const QString& text)
+    {
+        m_searchText = text.trimmed();
+        rebuildModel();
+    });
 
+    layout->addWidget(searchEdit);
+    layout->addWidget(emptyLabel, 1);
+    layout->addWidget(view, 1);
+
+    m_containerWidget = container;
+    m_searchEdit = searchEdit;
+    m_emptyLabel = emptyLabel;
     m_mainWidget = view;
     rebuildModel();
 }
 
 bool TableOfContentPanelPlugin::eventFilter(QObject* watched, QEvent* event)
 {
-    if (m_mainWidget && (watched == m_mainWidget || watched == m_mainWidget->viewport()) && event->type() == QEvent::KeyPress)
+    const bool watchesToc = m_mainWidget && (watched == m_mainWidget || watched == m_mainWidget->viewport());
+
+    if (watchesToc && event->type() == QEvent::ShortcutOverride)
     {
         auto* keyEvent = static_cast<QKeyEvent*>(event);
+        const bool tocShortcut = keyEvent->matches(QKeySequence::Find)
+            || keyEvent->key() == Qt::Key_F2
+            || keyEvent->key() == Qt::Key_Delete
+            || keyEvent->key() == Qt::Key_Menu
+            || (keyEvent->key() == Qt::Key_F10 && keyEvent->modifiers() & Qt::ShiftModifier);
+
+        if (tocShortcut)
+        {
+            keyEvent->accept();
+            return true;
+        }
+    }
+
+    if (m_searchEdit && watched == m_searchEdit && event->type() == QEvent::KeyPress)
+    {
+        auto* keyEvent = static_cast<QKeyEvent*>(event);
+        if (keyEvent->key() == Qt::Key_Escape && !m_searchEdit->text().isEmpty())
+        {
+            m_searchEdit->clear();
+            return true;
+        }
+    }
+
+    if (watchesToc && event->type() == QEvent::KeyPress)
+    {
+        auto* keyEvent = static_cast<QKeyEvent*>(event);
+        if (keyEvent->matches(QKeySequence::Find) && m_searchEdit)
+        {
+            m_searchEdit->setFocus();
+            m_searchEdit->selectAll();
+            return true;
+        }
+
         if (keyEvent->key() == Qt::Key_F2 && !m_readOnly)
         {
             beginRename(m_mainWidget->currentIndex());
+            return true;
+        }
+
+        const QModelIndex index = m_mainWidget->currentIndex();
+        if ((keyEvent->key() == Qt::Key_Return || keyEvent->key() == Qt::Key_Enter) && index.isValid())
+        {
+            handleClicked(index);
+            return true;
+        }
+
+        if ((keyEvent->key() == Qt::Key_Menu || (keyEvent->key() == Qt::Key_F10 && keyEvent->modifiers() & Qt::ShiftModifier)) && index.isValid())
+        {
+            showContextMenuForIndex(index);
+            return true;
+        }
+
+        if (keyEvent->key() == Qt::Key_Delete && !m_readOnly && index.isValid())
+        {
+            deleteItemAtIndex(index);
+            return true;
+        }
+
+        if (keyEvent->key() == Qt::Key_Escape && m_searchEdit && !m_searchEdit->text().isEmpty())
+        {
+            m_searchEdit->clear();
             return true;
         }
     }
@@ -219,9 +312,75 @@ bool TableOfContentPanelPlugin::eventFilter(QObject* watched, QEvent* event)
     return Cantor::PanelPlugin::eventFilter(watched, event);
 }
 
+void TableOfContentPanelPlugin::deleteItemAtIndex(const QModelIndex& index)
+{
+    if (!index.isValid() || m_readOnly)
+        return;
+
+    const QString hierarchyId = index.data(HierarchyIdRole).toString();
+    const QString nodeType = index.data(NodeTypeRole).toString();
+    const QString displayText = index.data(DisplayTextRole).toString();
+
+    if (!hierarchyId.isEmpty())
+    {
+        const QString headingTitle = displayText.isEmpty() ? i18n("Heading") : displayText;
+        const auto result = KMessageBox::warningTwoActions(
+            m_mainWidget,
+            i18n("Do you really want to delete the heading \"%1\"? Its contents will be kept. This action cannot be undone.", headingTitle),
+            i18n("Delete Heading"),
+            KStandardGuiItem::remove(),
+            KStandardGuiItem::cancel());
+
+        if (result == KMessageBox::PrimaryAction)
+            Q_EMIT requestDeleteHierarchyEntry(hierarchyId, false);
+        return;
+    }
+
+    const QString commandId = index.data(EntryIdRole).toString();
+    if (nodeType == TocNodeTypeCommand && !commandId.isEmpty())
+    {
+        if (Settings::warnAboutEntryDelete())
+        {
+            const QString commandTitle = displayText.isEmpty() ? i18n("Command") : displayText;
+            const auto result = KMessageBox::warningTwoActions(
+                m_mainWidget,
+                i18n("Do you really want to delete \"%1\"? This action cannot be undone.", commandTitle),
+                i18n("Delete Command"),
+                KStandardGuiItem::remove(),
+                KStandardGuiItem::cancel());
+
+            if (result != KMessageBox::PrimaryAction)
+                return;
+        }
+
+        Q_EMIT requestDeleteCommandEntry(commandId);
+        return;
+    }
+
+    const QString resultId = index.data(ResultIdRole).toString();
+    if (nodeType == TocNodeTypePlot && !commandId.isEmpty() && !resultId.isEmpty())
+    {
+        const QString plotTitle = displayText.isEmpty() ? i18n("Plot") : displayText;
+        const auto result = KMessageBox::warningTwoActions(
+            m_mainWidget,
+            i18n("Do you really want to delete \"%1\"? This action cannot be undone.", plotTitle),
+            i18n("Delete Plot"),
+            KStandardGuiItem::remove(),
+            KStandardGuiItem::cancel());
+
+        if (result == KMessageBox::PrimaryAction)
+            Q_EMIT requestDeletePlot(commandId, resultId);
+    }
+}
+
 void TableOfContentPanelPlugin::rebuildModel()
 {
+    if (!m_modelFilteredBySearch)
+        saveCurrentExpansionState();
+
     QScopedValueRollback<bool> guard(m_updatingModel, true);
+
+    updateSearchVisibility();
 
     m_model.clear();
     m_itemsByNodeId.clear();
@@ -254,6 +413,8 @@ void TableOfContentPanelPlugin::rebuildModel()
         item->setData(node.resultIndex, ResultIndexRole);
         item->setData(node.editable, EditableRole);
         item->setData(node.navigable, NavigableRole);
+        item->setData(node.canPromote, CanPromoteRole);
+        item->setData(node.canDemote, CanDemoteRole);
 
         parentItem->appendRow(item);
         visibleItems[i] = item;
@@ -262,7 +423,38 @@ void TableOfContentPanelPlugin::rebuildModel()
     }
 
     restoreExpansionState();
+    if (!m_searchText.isEmpty() && m_mainWidget)
+        m_mainWidget->expandAll();
     updateCurrentNodeSelection();
+    const bool isEmpty = m_model.rowCount() == 0;
+    if (m_emptyLabel)
+    {
+        m_emptyLabel->setText(m_searchText.isEmpty()
+            ? i18n("No visible items in the Table of Contents")
+            : i18n("No matching items"));
+        m_emptyLabel->setVisible(isEmpty);
+    }
+    if (m_mainWidget)
+        m_mainWidget->setVisible(!isEmpty);
+    m_modelFilteredBySearch = !m_searchText.isEmpty();
+}
+
+void TableOfContentPanelPlugin::saveCurrentExpansionState()
+{
+    if (!m_mainWidget)
+        return;
+
+    for (auto it = m_itemsByNodeId.cbegin(); it != m_itemsByNodeId.cend(); ++it)
+    {
+        QStandardItem* item = it.value();
+        if (!item || !item->hasChildren())
+            continue;
+
+        if (m_mainWidget->isExpanded(item->index()))
+            m_expandedNodeIds.insert(it.key());
+        else
+            m_expandedNodeIds.remove(it.key());
+    }
 }
 
 void TableOfContentPanelPlugin::restoreExpansionState()
@@ -336,6 +528,15 @@ void TableOfContentPanelPlugin::updateCurrentNodeSelection()
 void TableOfContentPanelPlugin::restoreState(const Cantor::PanelPlugin::State& state)
 {
     cancelEditorSession();
+
+    if (m_searchEdit)
+    {
+        const QSignalBlocker blocker(m_searchEdit);
+        m_searchEdit->clear();
+    }
+    m_searchText.clear();
+    m_modelFilteredBySearch = false;
+
     clearNodes();
 
     resetVisibilityToDefaults();
@@ -442,6 +643,9 @@ void TableOfContentPanelPlugin::handleTocNodeChanges(const QVariantList& nodes)
 
 void TableOfContentPanelPlugin::applyTocNodeChanges(const QVariantList& nodes)
 {
+    if (!m_modelFilteredBySearch)
+        saveCurrentExpansionState();
+
     clearNodes();
     m_nodes.reserve(nodes.size());
 
@@ -491,6 +695,8 @@ void TableOfContentPanelPlugin::applyTocNodeChanges(const QVariantList& nodes)
         tocNode.depth = node.value(QStringLiteral("depth"), 0).toInt();
         tocNode.editable = node.value(QStringLiteral("editable"), false).toBool();
         tocNode.navigable = node.value(QStringLiteral("navigable"), false).toBool();
+        tocNode.canPromote = node.value(QStringLiteral("canPromote"), false).toBool();
+        tocNode.canDemote = node.value(QStringLiteral("canDemote"), false).toBool();
 
         if (tocNode.displayText.isEmpty())
             tocNode.displayText = tocNode.title;
@@ -695,7 +901,11 @@ bool TableOfContentPanelPlugin::shouldDisplayNode(int index) const
     if (index < 0 || index >= m_nodes.size())
         return false;
 
-    const QString& type = m_nodes.at(index).type;
+    const TocNode& node = m_nodes.at(index);
+    if (!m_searchText.isEmpty() && !m_searchVisibleNodeIds.contains(node.id))
+        return false;
+
+    const QString& type = node.type;
 
     if (type == TocNodeTypeChapter)
         return m_showChapters;
@@ -707,6 +917,27 @@ bool TableOfContentPanelPlugin::shouldDisplayNode(int index) const
         return m_showPlots;
 
     return true;
+}
+
+void TableOfContentPanelPlugin::updateSearchVisibility()
+{
+    m_searchVisibleNodeIds.clear();
+    if (m_searchText.isEmpty())
+        return;
+
+    for (int index = 0; index < m_nodes.size(); ++index)
+    {
+        const TocNode& node = m_nodes.at(index);
+        if (!node.title.contains(m_searchText, Qt::CaseInsensitive)
+            && !node.displayText.contains(m_searchText, Qt::CaseInsensitive)
+            && !node.customTitle.contains(m_searchText, Qt::CaseInsensitive))
+        {
+            continue;
+        }
+
+        for (int visibleIndex = index; visibleIndex >= 0; visibleIndex = m_nodes.at(visibleIndex).parentIndex)
+            m_searchVisibleNodeIds.insert(m_nodes.at(visibleIndex).id);
+    }
 }
 
 int TableOfContentPanelPlugin::findVisibleAncestorIndex(int index) const
@@ -824,6 +1055,9 @@ void TableOfContentPanelPlugin::handleReadOnlyChanged(bool readOnly)
 
 void TableOfContentPanelPlugin::handleExpanded(const QModelIndex& index)
 {
+    if (m_updatingModel)
+        return;
+
     const QString nodeId = index.data(NodeIdRole).toString();
 
     if (!nodeId.isEmpty())
@@ -832,10 +1066,22 @@ void TableOfContentPanelPlugin::handleExpanded(const QModelIndex& index)
 
 void TableOfContentPanelPlugin::handleCollapsed(const QModelIndex& index)
 {
+    if (m_updatingModel)
+        return;
+
     const QString nodeId = index.data(NodeIdRole).toString();
 
     if (!nodeId.isEmpty())
         m_expandedNodeIds.remove(nodeId);
+}
+
+void TableOfContentPanelPlugin::showContextMenuForIndex(const QModelIndex& index)
+{
+    if (!m_mainWidget || !index.isValid())
+        return;
+
+    m_mainWidget->setCurrentIndex(index);
+    handleContextMenuRequested(m_mainWidget->visualRect(index).center());
 }
 
 void TableOfContentPanelPlugin::handleContextMenuRequested(const QPoint& position)
@@ -857,8 +1103,6 @@ void TableOfContentPanelPlugin::handleContextMenuRequested(const QPoint& positio
         const QString nodeType = index.data(NodeTypeRole).toString();
 
         auto* item = m_model.itemFromIndex(index);
-
-        const int depth = index.data(DepthRole).toInt();
 
         if (!hierarchyId.isEmpty())
         {
@@ -884,14 +1128,14 @@ void TableOfContentPanelPlugin::handleContextMenuRequested(const QPoint& positio
             menu.addSeparator();
 
             QAction* promoteAction = menu.addAction(QIcon::fromTheme(QStringLiteral("format-indent-less")), i18n("Promote Heading"));
-            promoteAction->setEnabled(!m_readOnly && depth > 0);
+            promoteAction->setEnabled(!m_readOnly && index.data(CanPromoteRole).toBool());
             connect(promoteAction, &QAction::triggered, this, [this, hierarchyId]()
             {
                 Q_EMIT requestChangeHierarchyLevel(hierarchyId, -1);
             });
 
             QAction* demoteAction = menu.addAction(QIcon::fromTheme(QStringLiteral("format-indent-more")), i18n("Demote Heading"));
-            demoteAction->setEnabled(!m_readOnly && depth < 5);
+            demoteAction->setEnabled(!m_readOnly && index.data(CanDemoteRole).toBool());
             connect(demoteAction, &QAction::triggered, this, [this, hierarchyId]()
             {
                 Q_EMIT requestChangeHierarchyLevel(hierarchyId, 1);

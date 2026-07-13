@@ -646,9 +646,7 @@ void QalculateExpression::evaluatePlotCommand()
     deletePlotDataParameters(plotDataParameterList);
 
     if (plotInline) {
-        auto* result = new Cantor::ImageResult(QUrl::fromLocalFile(QString::fromStdString(plotParameters.filename)));
-        result->setRole(Cantor::Result::Role::Plot);
-        setResult(result);
+        setResult(new Cantor::ImageResult(QUrl::fromLocalFile(QString::fromStdString(plotParameters.filename))));
         setStatus(Cantor::Expression::Done);
     }
 }

@@ -24,7 +24,6 @@ class Cantor::ResultPrivate
     QJsonObject* jupyterMetadata{nullptr};
     QString resultId;
     QString displayName;
-    Result::Role role{Result::Role::Generic};
     int executionIndex{-1};
 };
 
@@ -65,7 +64,6 @@ QJsonObject Cantor::Result::jupyterMetadata() const
     QJsonObject cantorMetadata = metadata.value(JupyterUtils::cantorMetadataKey).toObject();
 
     cantorMetadata.insert(QLatin1String("result-id"), d->resultId);
-    cantorMetadata.insert(QLatin1String("result-role"), roleToString(d->role));
     if (d->displayName.isEmpty())
         cantorMetadata.remove(QLatin1String("result-title"));
     else
@@ -85,8 +83,6 @@ void Cantor::Result::setJupyterMetadata(const QJsonObject& metadata)
     const QString storedResultId = cantorMetadata.value(QLatin1String("result-id")).toString();
     if (!storedResultId.isEmpty())
         d->resultId = storedResultId;
-
-    d->role = roleFromString(cantorMetadata.value(QLatin1String("result-role")).toString());
 
     const QJsonValue storedTitle = cantorMetadata.value(QLatin1String("result-title"));
     if (storedTitle.isString())
@@ -133,41 +129,9 @@ void Cantor::Result::setDisplayName(const QString& name)
     d->displayName = name.trimmed();
 }
 
-Cantor::Result::Role Cantor::Result::role() const
-{
-    return d->role;
-}
-
-void Cantor::Result::setRole(Role role)
-{
-    d->role = role;
-}
-
-QString Cantor::Result::roleToString(Role role)
-{
-    switch (role)
-    {
-        case Role::Plot:
-            return QStringLiteral("plot");
-        case Role::Generic:
-            return QStringLiteral("generic");
-    }
-
-    return QStringLiteral("generic");
-}
-
-Cantor::Result::Role Cantor::Result::roleFromString(const QString& roleName)
-{
-    if (roleName == QLatin1String("plot"))
-        return Role::Plot;
-
-    return Role::Generic;
-}
-
 void Cantor::Result::applyXmlResultMetadata(QDomElement& element) const
 {
     element.setAttribute(QLatin1String("result-id"), d->resultId);
-    element.setAttribute(QLatin1String("result-role"), roleToString(d->role));
     if (!d->displayName.isEmpty())
         element.setAttribute(QLatin1String("result-title"), d->displayName);
 }
@@ -178,6 +142,5 @@ void Cantor::Result::loadXmlResultMetadata(const QDomElement& element)
     if (!storedResultId.isEmpty())
         d->resultId = storedResultId;
 
-    d->role = roleFromString(element.attribute(QLatin1String("result-role")));
     d->displayName = element.attribute(QLatin1String("result-title")).trimmed();
 }

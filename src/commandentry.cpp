@@ -15,6 +15,9 @@
 #include "lib/jupyterutils.h"
 #include "lib/result.h"
 #include "lib/helpresult.h"
+#include "lib/imageresult.h"
+#include "lib/animationresult.h"
+#include "lib/pdfresult.h"
 #include "lib/latexresult.h"
 #include "lib/syntaxhelpobject.h"
 #include "lib/session.h"
@@ -41,6 +44,19 @@
 #include <KColorScheme>
 #include <KSyntaxHighlighting/Definition>
 
+namespace
+{
+bool isVisualResult(Cantor::Result* result)
+{
+    if (!result)
+        return false;
+
+    return result->type() == Cantor::ImageResult::Type
+        || result->type() == Cantor::AnimationResult::Type
+        || result->type() == Cantor::PdfResult::Type;
+}
+}
+
 const QString CommandEntry::Prompt     = QLatin1String(">>> ");
 const QString CommandEntry::MidPrompt  = QLatin1String(">>  ");
 const QString CommandEntry::HidePrompt = QLatin1String(">   ");
@@ -62,7 +78,6 @@ CommandEntry::CommandEntry(Worksheet* worksheet) : WorksheetEntry(worksheet),
     m_backgroundColorActionGroup(nullptr),
     m_backgroundColorMenu(nullptr),
     m_textColorActionGroup(nullptr),
-    m_themeActionGroup(nullptr),
     m_textColorMenu(nullptr),
     m_fontMenu(nullptr),
     m_isExecutionEnabled(true)
@@ -83,11 +98,8 @@ CommandEntry::CommandEntry(Worksheet* worksheet) : WorksheetEntry(worksheet),
 
         m_commandItem->setSyntaxHighlightingMode(highlightingMode);
 
-        if (worksheet)
-        {
-            const auto& parentTheme = worksheet->theme();
-            m_commandItem->setTheme(parentTheme.name());
-        }
+        const auto& parentTheme = worksheet->theme();
+        m_commandItem->setTheme(parentTheme.name());
 
         if (worksheet && worksheet->session() && worksheet->session()->variableModel())
         {
@@ -476,7 +488,7 @@ void CommandEntry::cachePlotResultMetadata()
 
     for (auto* result : m_expression->results())
     {
-        if (!result || result->role() != Cantor::Result::Role::Plot)
+        if (!isVisualResult(result))
             continue;
 
         m_plotResultMetadataToRestore.append({result->resultId(), result->displayName()});
@@ -485,7 +497,7 @@ void CommandEntry::cachePlotResultMetadata()
 
 void CommandEntry::restorePlotResultMetadata(Cantor::Result* result, int plotIndex)
 {
-    if (!result || result->role() != Cantor::Result::Role::Plot)
+    if (!isVisualResult(result))
         return;
 
     if (plotIndex < 0 || plotIndex >= m_plotResultMetadataToRestore.size())
@@ -939,14 +951,14 @@ void CommandEntry::updateEntry()
         for (int i = 0; i < m_resultItems.size() && i < expr->results().size(); ++i)
         {
             auto* result = expr->results().at(i);
-            if (result && result->role() == Cantor::Result::Role::Plot)
+            if (isVisualResult(result))
                 ++plotIndex;
         }
 
         for (int i = m_resultItems.size(); i < expr->results().size(); i++)
         {
             auto* result = expr->results()[i];
-            if (result && result->role() == Cantor::Result::Role::Plot)
+            if (isVisualResult(result))
                 restorePlotResultMetadata(result, plotIndex++);
 
             if (auto* resultItem = ResultItem::create(this, result))

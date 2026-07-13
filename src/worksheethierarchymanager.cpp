@@ -125,6 +125,52 @@ QVariantList WorksheetHierarchyManager::collectTocNodes() const
             const QString displayText = hierarchyEntry->hierarchyText().isEmpty()
                 ? hierarchyEntry->text()
                 : hierarchyEntry->hierarchyText() + QLatin1Char(' ') + hierarchyEntry->text();
+            const int minimumLevel = static_cast<int>(HierarchyEntry::HierarchyLevel::Chapter);
+            const int maximumLevel = static_cast<int>(HierarchyEntry::HierarchyLevel::Subparagraph);
+            const int currentLevel = static_cast<int>(hierarchyEntry->level());
+
+            bool canDemote = currentLevel < maximumLevel;
+            if (canDemote)
+            {
+                bool hasPreviousSibling = false;
+                for (auto* previous = hierarchyEntry->previous(); previous; previous = previous->previous())
+                {
+                    if (previous->type() != HierarchyEntry::Type)
+                        continue;
+
+                    const int previousLevel = static_cast<int>(static_cast<HierarchyEntry*>(previous)->level());
+                    if (previousLevel < currentLevel)
+                        break;
+                    if (previousLevel == currentLevel)
+                    {
+                        hasPreviousSibling = true;
+                        break;
+                    }
+                }
+
+                canDemote = hasPreviousSibling;
+            }
+
+            if (canDemote)
+            {
+                WorksheetEntry* firstSubentry = hierarchyEntry->hasHiddenSubentries()
+                    ? hierarchyEntry->hiddenSubentries()
+                    : hierarchyEntry->next();
+                for (auto* child = firstSubentry; child; child = child->next())
+                {
+                    if (child->type() != HierarchyEntry::Type)
+                        continue;
+
+                    const int childLevel = static_cast<int>(static_cast<HierarchyEntry*>(child)->level());
+                    if (childLevel <= currentLevel)
+                        break;
+                    if (childLevel >= maximumLevel)
+                    {
+                        canDemote = false;
+                        break;
+                    }
+                }
+            }
 
             QVariantMap node;
             node.insert(QStringLiteral("id"), hierarchyId);
@@ -136,6 +182,8 @@ QVariantList WorksheetHierarchyManager::collectTocNodes() const
             node.insert(QStringLiteral("depth"), depth);
             node.insert(QStringLiteral("editable"), true);
             node.insert(QStringLiteral("navigable"), true);
+            node.insert(QStringLiteral("canPromote"), currentLevel > minimumLevel);
+            node.insert(QStringLiteral("canDemote"), canDemote);
             node.insert(QStringLiteral("hierarchyId"), hierarchyId);
             node.insert(QStringLiteral("resultIndex"), -1);
             node.insert(QStringLiteral("entryId"), hierarchyId);
@@ -311,7 +359,7 @@ QString WorksheetHierarchyManager::plotTocDisplayText(CommandEntry* entry, Canto
 
 bool WorksheetHierarchyManager::isPlotResult(Cantor::Result* result) const
 {
-    if (!result || result->role() != Cantor::Result::Role::Plot)
+    if (!result)
         return false;
 
     return result->type() == Cantor::ImageResult::Type
@@ -1279,6 +1327,31 @@ void WorksheetHierarchyManager::updateCurrentHierarchyFromView(const QRectF& vie
             break;
 
         activeEntry = entry;
+    }
+
+    if (activeEntry && activeEntry->type() == CommandEntry::Type)
+    {
+        auto* commandEntry = static_cast<CommandEntry*>(activeEntry);
+        QString activePlotNodeId;
+
+        for (int index = 0; index < commandEntry->resultItemCount(); ++index)
+        {
+            ResultItem* resultItem = commandEntry->resultItemAt(index);
+            if (!resultItem || !isPlotResult(resultItem->result()))
+                continue;
+
+            QGraphicsObject* object = resultItem->graphicsObject();
+            if (!object || !object->isVisible() || object->sceneBoundingRect().top() > activationY)
+                continue;
+
+            activePlotNodeId = buildPlotNodeId(commandEntry->commandId(), resultItem->result()->resultId());
+        }
+
+        if (!activePlotNodeId.isEmpty())
+        {
+            setCurrentTocNode(activePlotNodeId);
+            return;
+        }
     }
 
     updateCurrentHierarchy(activeEntry);

@@ -157,7 +157,6 @@ class CommandEntry : public WorksheetEntry
     QActionGroup* m_backgroundColorActionGroup;
     QMenu* m_backgroundColorMenu;
     QActionGroup* m_textColorActionGroup;
-    QActionGroup* m_themeActionGroup;
     QColor m_defaultDefaultTextColor;
     QMenu* m_textColorMenu;
     QMenu* m_fontMenu;

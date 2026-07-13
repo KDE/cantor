@@ -464,7 +464,8 @@ void CantorShell::addWorksheet(const QString& backendName)
         m_tabWidget->setCurrentIndex(tab);
         // Setting focus on worksheet view, because Qt clear focus of added widget inside addTab
         // This fix https://bugs.kde.org/show_bug.cgi?id=395976
-        part->widget()->findChild<QGraphicsView*>()->setFocus();
+        if (auto* worksheetView = part->widget()->findChild<QGraphicsView*>())
+            worksheetView->setFocus();
 
         // Force run updateCaption for getting proper backend icon
         QMetaObject::invokeMethod(part, "updateCaption");
@@ -500,11 +501,13 @@ void CantorShell::activateWorksheet(int index)
         m_pluginsVisibility[m_part] = std::move(visiblePanelNames);
 
         auto* wa = m_part->findChild<Cantor::WorksheetAccessInterface*>(Cantor::WorksheetAccessInterface::Name);
-        assert(wa);
         Cantor::PanelPluginHandler::PanelStates states;
-        auto plugins = m_panelHandler.plugins(wa->session());
-        for(auto* plugin : plugins)
-            states.insert(plugin->name(), plugin->saveState());
+        if (wa)
+        {
+            const auto plugins = m_panelHandler.plugins(wa->session());
+            for (auto* plugin : plugins)
+                states.insert(plugin->name(), plugin->saveState());
+        }
 
         m_pluginsStates[m_part] = std::move(states);
     }
@@ -530,7 +533,7 @@ void CantorShell::activateWorksheet(int index)
 
             //update the status bar
             auto* wa = m_part->findChild<Cantor::WorksheetAccessInterface*>(Cantor::WorksheetAccessInterface::Name);
-            if (wa->session())
+            if (wa && wa->session())
             {
                 auto status = wa->session()->status();
                 switch (status) {
