@@ -220,16 +220,12 @@ void SageExpression::evalFinished()
         if(type.inherits(QLatin1String("image/gif")))
         {
             qDebug()<<"adding animation";
-            auto* result = new Cantor::AnimationResult(QUrl::fromLocalFile(m_imagePath), i18n("Result of %1" , command() ) );
-            result->setRole(Cantor::Result::Role::Plot);
-            addResult(result);
+            addResult( new Cantor::AnimationResult(QUrl::fromLocalFile(m_imagePath), i18n("Result of %1" , command() ) ) );
         }
         else
         {
             qDebug()<<"adding image";
-            auto* result = new Cantor::ImageResult(QUrl::fromLocalFile(m_imagePath ), i18n("Result of %1" , command() ) );
-            result->setRole(Cantor::Result::Role::Plot);
-            addResult(result);
+            addResult( new Cantor::ImageResult(QUrl::fromLocalFile(m_imagePath ), i18n("Result of %1" , command() ) ) );
         }
     }
     setStatus(Cantor::Expression::Done);

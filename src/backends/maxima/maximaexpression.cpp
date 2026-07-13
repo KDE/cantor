@@ -603,7 +603,6 @@ void MaximaExpression::loadPlotResult()
     }
 
     m_plotResult = plotResult;
-    m_plotResult->setRole(Cantor::Result::Role::Plot);
 
     if (m_plotResultIndex != -1)
     {

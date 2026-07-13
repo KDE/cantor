@@ -25,13 +25,6 @@ class ResultPrivate;
 class CANTOR_EXPORT Result
 {
   public:
-    /** Describes how UI code should treat this result. */
-    enum class Role
-    {
-        Generic,
-        Plot
-    };
-
     /**
      * Default constructor
      */
@@ -112,13 +105,6 @@ class CANTOR_EXPORT Result
     QString displayName() const;
 
     void setDisplayName(const QString& name);
-
-    /** UI role assigned by the backend or loader. */
-    Role role() const;
-    void setRole(Role role);
-
-    static QString roleToString(Role role);
-    static Role roleFromString(const QString& roleName);
 
     void applyXmlResultMetadata(QDomElement& element) const;
     void loadXmlResultMetadata(const QDomElement& element);

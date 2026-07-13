@@ -19,6 +19,8 @@
 
 class QWidget;
 class QEvent;
+class QLineEdit;
+class QLabel;
 class QModelIndex;
 class QMenu;
 class QStandardItem;
@@ -80,7 +82,9 @@ private:
         CustomTitleRole,
         ResultIndexRole,
         EditableRole,
-        NavigableRole
+        NavigableRole,
+        CanPromoteRole,
+        CanDemoteRole
     };
 
     struct TocNode
@@ -100,6 +104,8 @@ private:
         int parentIndex{-1};
         bool editable{false};
         bool navigable{false};
+        bool canPromote{false};
+        bool canDemote{false};
     };
 
     void constructMainWidget();
@@ -119,8 +125,15 @@ private:
     void handleEditorClosed();
     void finishEditorSession();
     void cancelEditorSession();
+    void updateSearchVisibility();
+    void saveCurrentExpansionState();
+    void showContextMenuForIndex(const QModelIndex& index);
+    void deleteItemAtIndex(const QModelIndex& index);
 
 private:
+    QPointer<QWidget> m_containerWidget;
+    QPointer<QLineEdit> m_searchEdit;
+    QPointer<QLabel> m_emptyLabel;
     QPointer<QTreeView> m_mainWidget;
     QStandardItemModel m_model;
 
@@ -136,9 +149,12 @@ private:
     bool m_readOnly{false};
 
     QSet<QString> m_expandedNodeIds;
+    QSet<QString> m_searchVisibleNodeIds;
 
     QString m_currentNodeId;
+    QString m_searchText;
     bool m_updatingModel{false};
+    bool m_modelFilteredBySearch{false};
     bool m_expansionStateInitialized{false};
     bool m_editorActive{false};
     bool m_hasPendingNodeSnapshot{false};

@@ -107,7 +107,20 @@ VariableManagerWidget::VariableManagerWidget(Cantor::Session* session, QWidget* 
 
 void VariableManagerWidget::setSession(Cantor::Session* session)
 {
+    if (m_model)
+        disconnect(m_model, nullptr, this, nullptr);
+
+    if (m_treeView)
+        m_treeView->setModel(nullptr);
+
     m_session = session;
+    m_model = nullptr;
+
+    m_loadBtn->setEnabled(true);
+    m_saveBtn->setEnabled(true);
+    m_newBtn->setEnabled(true);
+    m_clearBtn->setEnabled(true);
+
     if (session)
     {
         m_model = session->variableDataModel();
