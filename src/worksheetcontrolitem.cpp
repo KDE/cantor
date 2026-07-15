@@ -21,6 +21,11 @@ WorksheetControlItem::WorksheetControlItem(Worksheet* worksheet, WorksheetEntry*
     setFlags(flags() | QGraphicsItem::ItemIsMovable | QGraphicsItem::ItemIsFocusable);
 }
 
+QRectF WorksheetControlItem::boundingRect() const
+{
+    return rect().normalized().adjusted(-1, -1, 1, 1);
+}
+
 void WorksheetControlItem::paint(QPainter* painter, const QStyleOptionGraphicsItem* option, QWidget* widget)
 {
     Q_UNUSED(option);

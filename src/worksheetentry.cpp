@@ -19,18 +19,16 @@
 #include "worksheettoolbutton.h"
 #include "worksheetview.h"
 
-#include <QDrag>
 #include <QIcon>
 #include <QPropertyAnimation>
 #include <QParallelAnimationGroup>
 #include <QMetaMethod>
-#include <QMimeData>
 #include <QGraphicsProxyWidget>
-#include <QBitmap>
 #include <QJsonArray>
 #include <QJsonObject>
 #include <QPainter>
 #include <QGraphicsSceneMouseEvent>
+#include <QtMath>
 
 #include <KColorScheme>
 #include <KLocalizedString>
@@ -278,29 +276,26 @@ void WorksheetEntry::startDrag(QPointF grabPos)
     // We need reset entry cursor manually, because otherwise the entry cursor will be visible on draggable item
     worksheet()->resetEntryCursor();
 
-    QDrag* drag = new QDrag(worksheetView());
-    qDebug() << size();
     const qreal scale = worksheet()->renderer()->scale();
-    QPixmap pixmap((size()*scale).toSize());
+    constexpr qreal previewMargin = 2.0;
+    const QRectF previewRect = boundingRect().adjusted(-previewMargin, -previewMargin, previewMargin, previewMargin);
+    const QSizeF previewPixelSize = previewRect.size() * scale;
+    QPixmap pixmap(qCeil(previewPixelSize.width()), qCeil(previewPixelSize.height()));
     pixmap.fill(QColor(255, 255, 255, 0));
     QPainter painter(&pixmap);
-    const QRectF sceneRect = mapRectToScene(boundingRect());
-    worksheet()->render(&painter, pixmap.rect(), sceneRect);
+    const QRectF sceneRect = mapRectToScene(previewRect);
+    worksheet()->render(&painter, QRectF(QPointF(), previewPixelSize), sceneRect);
     painter.end();
-    QBitmap mask = pixmap.createMaskFromColor(QColor(255, 255, 255),
-                                              Qt::MaskInColor);
-    pixmap.setMask(mask);
 
-    drag->setPixmap(pixmap);
+    QPoint hotSpot;
     if (grabPos.isNull()) {
         const QPointF scenePos = worksheetView()->sceneCursorPos();
-        drag->setHotSpot((mapFromScene(scenePos) * scale).toPoint());
+        hotSpot = ((mapFromScene(scenePos) - previewRect.topLeft()) * scale).toPoint();
     } else {
-        drag->setHotSpot((grabPos * scale).toPoint());
+        hotSpot = ((grabPos - previewRect.topLeft()) * scale).toPoint();
     }
-    drag->setMimeData(new QMimeData());
 
-    worksheet()->startDrag(this, drag);
+    worksheet()->startDrag(this, pixmap, hotSpot);
 }
 
 
@@ -509,7 +504,7 @@ void WorksheetEntry::evaluateNext(EvaluationOption opt)
             entry->evaluate(EvaluateNext);
         } else if (opt == FocusNext) {
             worksheet()->setModified();
-            entry->focusEntry(WorksheetTextEditorItem::BottomRight);
+            worksheet()->focusEntry(entry, WorksheetTextEditorItem::BottomRight);
         } 
         else 
             worksheet()->setModified();
@@ -517,7 +512,7 @@ void WorksheetEntry::evaluateNext(EvaluationOption opt)
         if (!worksheet()->isLoadingFromFile() && (!isEmpty() || type() != CommandEntry::Type))
             worksheet()->appendCommandEntry();
         else
-            focusEntry();
+            worksheet()->focusEntry(this);
         worksheet()->setModified();
     }
 }
@@ -762,12 +757,6 @@ void WorksheetEntry::startRemoving(bool warn)
             return;
     }
 
-    if (!worksheet()->animationsEnabled()) {
-        m_aboutToBeRemoved = true;
-        remove();
-        return;
-    }
-
     if (m_aboutToBeRemoved)
         return;
 
@@ -775,15 +764,20 @@ void WorksheetEntry::startRemoving(bool warn)
         if (!next()) {
             if (previous() && previous()->isEmpty() &&
                 !previous()->aboutToBeRemoved()) {
-                previous()->focusEntry();
+                worksheet()->focusEntry(previous());
             } else {
                 WorksheetEntry* next = worksheet()->appendCommandEntry();
                 setNext(next);
-                next->focusEntry();
             }
         } else {
-            next()->focusEntry();
+            worksheet()->focusEntry(next());
         }
+    }
+
+    if (!worksheet()->animationsEnabled()) {
+        m_aboutToBeRemoved = true;
+        remove();
+        return;
     }
 
     if (m_animation) {
@@ -1025,66 +1019,113 @@ void WorksheetEntry::setCellSelected(bool val)
 
 void WorksheetEntry::moveToNext(bool updateLayout)
 {
-    WorksheetEntry* next = this->next();
-    if (next)
+    WorksheetEntry* blockLast = this;
+    if (type() == HierarchyEntry::Type)
     {
-        if (next->next())
-        {
-            next->next()->setPrevious(this);
-            this->setNext(next->next());
-        }
-        else
-        {
-            worksheet()->setLastEntry(this);
-            this->setNext(nullptr);
-        }
-
-        next->setPrevious(this->previous());
-        next->setNext(this);
-
-        this->setPrevious(next);
-        if (next->previous())
-            next->previous()->setNext(next);
-        else
-            worksheet()->setFirstEntry(next);
-
-        if (updateLayout)
-            worksheet()->updateLayout();
-
-        worksheet()->setModified();
+        const auto subentries = worksheet()->hierarchySubelements(static_cast<HierarchyEntry*>(this));
+        if (!subentries.empty())
+            blockLast = subentries.back();
     }
+
+    WorksheetEntry* nextBlockFirst = blockLast->next();
+    if (!nextBlockFirst)
+        return;
+
+    WorksheetEntry* nextBlockLast = nextBlockFirst;
+    if (type() == HierarchyEntry::Type && nextBlockFirst->type() == HierarchyEntry::Type)
+    {
+        const auto subentries = worksheet()->hierarchySubelements(static_cast<HierarchyEntry*>(nextBlockFirst));
+        if (!subentries.empty())
+            nextBlockLast = subentries.back();
+    }
+
+    WorksheetEntry* before = previous();
+    WorksheetEntry* after = nextBlockLast->next();
+
+    if (before)
+        before->setNext(nextBlockFirst);
+    else
+        worksheet()->setFirstEntry(nextBlockFirst);
+    nextBlockFirst->setPrevious(before);
+
+    nextBlockLast->setNext(this);
+    setPrevious(nextBlockLast);
+
+    blockLast->setNext(after);
+    if (after)
+        after->setPrevious(blockLast);
+    else
+        worksheet()->setLastEntry(blockLast);
+
+    if (updateLayout)
+    {
+        worksheet()->updateHierarchyLayout();
+        worksheet()->updateLayout();
+    }
+
+    worksheet()->setModified();
 }
 
 void WorksheetEntry::moveToPrevious(bool updateLayout)
 {
-    WorksheetEntry* previous = this->previous();
-    if (previous)
+    WorksheetEntry* previousBlockLast = previous();
+    if (!previousBlockLast)
+        return;
+
+    WorksheetEntry* blockLast = this;
+    WorksheetEntry* previousBlockFirst = previousBlockLast;
+
+    if (type() == HierarchyEntry::Type)
     {
-        if (previous->previous())
+        auto* hierarchyEntry = static_cast<HierarchyEntry*>(this);
+        const auto subentries = worksheet()->hierarchySubelements(hierarchyEntry);
+        if (!subentries.empty())
+            blockLast = subentries.back();
+
+        for (auto* candidate = previousBlockLast; candidate; candidate = candidate->previous())
         {
-            previous->previous()->setNext(this);
-            this->setPrevious(previous->previous());
+            if (candidate->type() != HierarchyEntry::Type)
+                continue;
+
+            auto* candidateHierarchy = static_cast<HierarchyEntry*>(candidate);
+            if (candidateHierarchy->level() < hierarchyEntry->level())
+                break;
+            if (candidateHierarchy->level() != hierarchyEntry->level())
+                continue;
+
+            const auto candidateSubentries = worksheet()->hierarchySubelements(candidateHierarchy);
+            WorksheetEntry* candidateLast = candidateSubentries.empty() ? candidate : candidateSubentries.back();
+            if (candidateLast == previousBlockLast)
+                previousBlockFirst = candidate;
+            break;
         }
-        else
-        {
-            worksheet()->setFirstEntry(this);
-            this->setPrevious(nullptr);
-        }
-
-        previous->setNext(this->next());
-        previous->setPrevious(this);
-
-        this->setNext(previous);
-        if (previous->next())
-            previous->next()->setPrevious(previous);
-        else
-            worksheet()->setLastEntry(previous);
-
-        if (updateLayout)
-            worksheet()->updateLayout();
-
-        worksheet()->setModified();
     }
+
+    WorksheetEntry* before = previousBlockFirst->previous();
+    WorksheetEntry* after = blockLast->next();
+
+    if (before)
+        before->setNext(this);
+    else
+        worksheet()->setFirstEntry(this);
+    setPrevious(before);
+
+    blockLast->setNext(previousBlockFirst);
+    previousBlockFirst->setPrevious(blockLast);
+
+    previousBlockLast->setNext(after);
+    if (after)
+        after->setPrevious(previousBlockLast);
+    else
+        worksheet()->setLastEntry(previousBlockLast);
+
+    if (updateLayout)
+    {
+        worksheet()->updateHierarchyLayout();
+        worksheet()->updateLayout();
+    }
+
+    worksheet()->setModified();
 }
 
 void WorksheetEntry::recalculateControlGeometry()

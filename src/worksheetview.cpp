@@ -186,21 +186,8 @@ void WorksheetView::scrollBy(int dy)
     if (!verticalScrollBar())
         return;
 
-    int ny = verticalScrollBar()->value() + dy;
-    if (ny < 0)
-        ny = 0;
-    else if (ny > verticalScrollBar()->maximum())
-        ny = verticalScrollBar()->maximum();
-
-    int x;
-    if (horizontalScrollBar())
-        x = horizontalScrollBar()->value();
-    else
-        x = 0;
-
-    const qreal w = viewport()->width() / m_scale;
-    const qreal h = viewport()->height() / m_scale;
-    makeVisible(QRectF(x, ny, w, h));
+    endAnimation();
+    verticalScrollBar()->setValue(verticalScrollBar()->value() + dy);
 }
 
 void WorksheetView::endAnimation()

@@ -37,9 +37,11 @@ class PlaceHolderEntry;
 class WorksheetTextItem;
 
 class QAction;
-class QDrag;
+class QEventLoop;
 class QGraphicsObject;
+class QGraphicsPixmapItem;
 class QMenu;
+class QPixmap;
 class QPrinter;
 class QSyntaxHighlighter;
 class KActionCollection;
@@ -84,8 +86,8 @@ class Worksheet : public QGraphicsScene
 
     void setModified();
 
-    void startDrag(WorksheetEntry*, QDrag*);
-    void startDragWithHierarchy(HierarchyEntry*, QDrag*, QSizeF responsibleZoneSize);
+    void startDrag(WorksheetEntry*, const QPixmap&, const QPoint& hotSpot);
+    void startDragWithHierarchy(HierarchyEntry*, const QPixmap&, const QPoint& hotSpot, QSizeF responsibleZoneSize);
 
     void setActionCollection(KActionCollection*);
     QMenu* createContextMenu();
@@ -197,6 +199,7 @@ class Worksheet : public QGraphicsScene
     void print(QPrinter*);
     void paste();
     void focusEntry(WorksheetEntry*);
+    void focusEntry(WorksheetEntry*, int pos, qreal xCoord = 0);
 
     void evaluate();
     void evaluateCurrentEntry();
@@ -320,7 +323,11 @@ class Worksheet : public QGraphicsScene
     bool isValidEntry(WorksheetEntry*);
 
   private:
+    friend class WorksheetEntry;
+
     friend class WorksheetHierarchyManager;
+
+    bool eventFilter(QObject*, QEvent*) override;
 
   private Q_SLOTS:
     //void checkEntriesForSanity();
@@ -341,6 +348,8 @@ class Worksheet : public QGraphicsScene
     WorksheetEntry* entryAt(qreal x, qreal y);
     WorksheetEntry* entryAt(QPointF);
     WorksheetEntry* entryAt(int row);
+    bool execEntryDrag(const QPixmap&, const QPoint& hotSpot);
+    void updateDragPosition(const QPointF&);
     void removeDragPlaceholder();
     void updateEntryCursor(QGraphicsSceneMouseEvent*);
     void addEntryFromEntryCursor();
@@ -370,6 +379,11 @@ class Worksheet : public QGraphicsScene
     WorksheetEntry* m_firstEntry{nullptr};
     WorksheetEntry* m_lastEntry{nullptr};
     WorksheetEntry* m_dragEntry{nullptr};
+    QEventLoop* m_entryDragEventLoop{nullptr};
+    QGraphicsPixmapItem* m_dragPixmapItem{nullptr};
+    QPointF m_dragHotSpot;
+    bool m_dragAccepted{false};
+    bool m_dragWithHierarchy{false};
     std::vector<WorksheetEntry*> m_hierarchySubentriesDrag;
     QSizeF m_hierarchyDragSize;
     WorksheetEntry* m_choosenCursorEntry{nullptr};

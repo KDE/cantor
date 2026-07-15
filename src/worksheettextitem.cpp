@@ -404,6 +404,23 @@ Cantor::Session* WorksheetTextItem::session()
 void WorksheetTextItem::keyPressEvent(QKeyEvent* event)
 {
     worksheet()->updateFocusedTextItem(this);
+
+    if (!worksheet()->isReadOnly() && event->modifiers() == Qt::ControlModifier
+        && (event->key() == Qt::Key_Up || event->key() == Qt::Key_Down))
+    {
+        auto* entry = qobject_cast<WorksheetEntry*>(parentObject());
+        if (entry)
+        {
+            if (event->key() == Qt::Key_Up)
+                entry->moveToPrevious();
+            else
+                entry->moveToNext();
+        }
+
+        event->accept();
+        return;
+    }
+
     switch (event->key()) {
     case Qt::Key_Left:
         if (event->modifiers() == Qt::NoModifier && textCursor().atStart()) {

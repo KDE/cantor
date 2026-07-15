@@ -16,6 +16,7 @@ class WorksheetControlItem: public QObject, public QGraphicsRectItem
   Q_OBJECT
   public:
     WorksheetControlItem(Worksheet* worksheet, WorksheetEntry* parent);
+    QRectF boundingRect() const override;
 
   Q_SIGNALS:
     void doubleClick();

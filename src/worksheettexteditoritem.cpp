@@ -1002,6 +1002,22 @@ void WorksheetTextEditorItem::keyPressEvent(QKeyEvent* event)
     if (!m_view->hasFocus())
         m_view->setFocus();
 
+    if (!worksheet()->isReadOnly() && modifiers == Qt::ControlModifier
+        && (key == Qt::Key_Up || key == Qt::Key_Down))
+    {
+        auto* entry = qobject_cast<WorksheetEntry*>(parentObject());
+        if (entry)
+        {
+            if (key == Qt::Key_Up)
+                entry->moveToPrevious();
+            else
+                entry->moveToNext();
+        }
+
+        event->accept();
+        return;
+    }
+
     QString actionName;
     const KTextEditor::Cursor cursor = m_view->cursorPosition();
     const bool isSimpleNav = (modifiers == Qt::NoModifier) || ((modifiers & Qt::ShiftModifier) && !(modifiers & ~Qt::ShiftModifier));

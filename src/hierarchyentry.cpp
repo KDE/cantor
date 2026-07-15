@@ -10,12 +10,10 @@
 
 #include <QJsonObject>
 #include <QRegularExpression>
-#include <QDrag>
-#include <QBitmap>
-#include <QMimeData>
 #include <QPainter>
 #include <QDebug>
 #include <QActionGroup>
+#include <QtMath>
 #include <QUuid>
 
 #include <KLocalizedString>
@@ -475,35 +473,35 @@ void HierarchyEntry::startDrag(QPointF grabPos)
 
     worksheet()->resetEntryCursor();
 
-    auto* drag = new QDrag(worksheetView());
     const qreal scale = worksheet()->renderer()->scale();
-    const QRectF hierarchyBound(boundingRect().x(), boundingRect().y(), boundingRect().width(), m_controlElement.boundingRect().height());
-    const QSizeF hierarchyZoneSize(size().width(), m_controlElement.boundingRect().height());
+    const qreal hierarchyHeight = m_controlElement.rect().height();
+    const QRectF hierarchyContentBound(boundingRect().x(), boundingRect().y(), boundingRect().width(), hierarchyHeight);
+    const QRectF hierarchyBound = hierarchyContentBound.united(
+        m_controlElement.mapRectToParent(m_controlElement.boundingRect()));
+    const QSizeF hierarchyZoneSize(size().width(), hierarchyHeight);
+    constexpr qreal previewMargin = 2.0;
+    const QRectF previewRect = hierarchyBound.adjusted(-previewMargin, -previewMargin, previewMargin, previewMargin);
+    const QSizeF previewPixelSize = previewRect.size() * scale;
 
-    QPixmap pixmap((hierarchyZoneSize * scale).toSize());
+    QPixmap pixmap(qCeil(previewPixelSize.width()), qCeil(previewPixelSize.height()));
     pixmap.fill(QColor(255, 255, 255, 0));
 
     QPainter painter(&pixmap);
 
-    const QRectF sceneRect = mapRectToScene(hierarchyBound);
-    worksheet()->render(&painter, pixmap.rect(), sceneRect);
+    const QRectF sceneRect = mapRectToScene(previewRect);
+    worksheet()->render(&painter, QRectF(QPointF(), previewPixelSize), sceneRect);
 
     painter.end();
-    const QBitmap mask = pixmap.createMaskFromColor(QColor(255, 255, 255), Qt::MaskInColor);
-
-    pixmap.setMask(mask);
-    drag->setPixmap(pixmap);
-
+    QPoint hotSpot;
     if (grabPos.isNull())
     {
         const QPointF scenePos = worksheetView()->sceneCursorPos();
-        drag->setHotSpot((mapFromScene(scenePos) * scale).toPoint());
+        hotSpot = ((mapFromScene(scenePos) - previewRect.topLeft()) * scale).toPoint();
     }
     else
-        drag->setHotSpot((grabPos * scale).toPoint());
-    drag->setMimeData(new QMimeData());
+        hotSpot = ((grabPos - previewRect.topLeft()) * scale).toPoint();
 
-    worksheet()->startDragWithHierarchy(this, drag, hierarchyZoneSize);
+    worksheet()->startDragWithHierarchy(this, pixmap, hotSpot, hierarchyZoneSize);
 }
 
 void HierarchyEntry::updateFonts(bool force)
@@ -613,5 +611,8 @@ void HierarchyEntry::handleControlElementDoubleClick()
 
 void HierarchyEntry::updateAfterSettingsChanges()
 {
+    WorksheetEntry::updateAfterSettingsChanges();
+    m_hierarchyLevelItem->updateThemeColors();
+    m_textItem->updateThemeColors();
     updateFonts();
 }
