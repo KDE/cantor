@@ -30,17 +30,21 @@
 #include <QApplication>
 #include <QBuffer>
 #include <QByteArray>
-#include <QDrag>
+#include <QEventLoop>
+#include <QGraphicsPixmapItem>
 #include <QGraphicsSceneMouseEvent>
 #include <QJsonArray>
 #include <QJsonDocument>
 #include <QJsonObject>
+#include <QMouseEvent>
 #include <QPrinter>
 #include <QRegularExpression>
+#include <QSet>
 #include <QTimer>
 #include <QActionGroup>
 #include <QFile>
 #include <QScopedValueRollback>
+#include <QWheelEvent>
 
 #include <kcoreaddons_version.h>
 #include <KMessageBox>
@@ -62,6 +66,13 @@ const double Worksheet::RightMargin = 4;
 const double Worksheet::TopMargin = 12;
 const double Worksheet::EntryCursorLength = 30;
 const double Worksheet::EntryCursorWidth = 2;
+
+namespace
+{
+constexpr int DragScrollMargin = 48;
+constexpr int DragScrollInterval = 50;
+constexpr int DragScrollStep = 4;
+}
 
 Worksheet::Worksheet(Cantor::Backend* backend, QWidget* parent, bool useDefaultWorksheetParameters)
     : QGraphicsScene(parent),
@@ -612,12 +623,21 @@ void Worksheet::invalidateLastEntry()
 
 WorksheetEntry* Worksheet::entryAt(qreal x, qreal y)
 {
-    auto* item = itemAt(x, y, QTransform());
-    while (item && (item->type() <= QGraphicsItem::UserType ||
-                    item->type() >= QGraphicsItem::UserType + 100))
-        item = item->parentItem();
-    if (item)
-        return qobject_cast<WorksheetEntry*>(item->toGraphicsObject());
+    const auto sceneItems = items(QPointF(x, y));
+    for (auto* sceneItem : sceneItems)
+    {
+        auto* item = sceneItem;
+        while (item && (item->type() <= QGraphicsItem::UserType ||
+                        item->type() >= QGraphicsItem::UserType + 100))
+            item = item->parentItem();
+
+        if (item)
+        {
+            if (auto* entry = qobject_cast<WorksheetEntry*>(item->toGraphicsObject()))
+                return entry;
+        }
+    }
+
     return nullptr;
 }
 
@@ -628,9 +648,23 @@ WorksheetEntry* Worksheet::entryAt(QPointF p)
 
 void Worksheet::focusEntry(WorksheetEntry* entry)
 {
+    focusEntry(entry, WorksheetTextEditorItem::TopLeft);
+}
+
+void Worksheet::focusEntry(WorksheetEntry* entry, int pos, qreal xCoord)
+{
     if (!entry)
         return;
-    entry->focusEntry();
+
+    if (entry->focusEntry(pos, xCoord))
+    {
+        const KWorksheetCursor cursor = worksheetCursor();
+        if (cursor.isValid())
+            makeVisible(cursor);
+        else
+            makeVisible(entry);
+    }
+
     resetEntryCursor();
     //bool rt = entry->acceptRichText();
     //setActionsEnabled(rt);
@@ -638,14 +672,49 @@ void Worksheet::focusEntry(WorksheetEntry* entry)
     //ensureCursorVisible();
 }
 
-void Worksheet::startDrag(WorksheetEntry* entry, QDrag* drag)
+bool Worksheet::execEntryDrag(const QPixmap& pixmap, const QPoint& hotSpot)
 {
-    if (m_readOnly || !entry || !drag)
+    const qreal scale = renderer()->scale();
+    m_dragPixmapItem = addPixmap(pixmap);
+    m_dragPixmapItem->setOpacity(0.75);
+    m_dragPixmapItem->setScale(scale > 0 ? 1.0 / scale : 1.0);
+    m_dragPixmapItem->setZValue(1000);
+    m_dragHotSpot = scale > 0 ? QPointF(hotSpot) / scale : QPointF(hotSpot);
+
+    QEventLoop eventLoop;
+    m_entryDragEventLoop = &eventLoop;
+    m_dragAccepted = false;
+
+    qApp->installEventFilter(this);
+    QApplication::setOverrideCursor(Qt::ClosedHandCursor);
+    updateDragPosition(worksheetView()->sceneCursorPos());
+    eventLoop.exec();
+    QApplication::restoreOverrideCursor();
+    qApp->removeEventFilter(this);
+
+    m_entryDragEventLoop = nullptr;
+
+    if (m_dragScrollTimer)
+    {
+        delete m_dragScrollTimer;
+        m_dragScrollTimer = nullptr;
+    }
+
+    delete m_dragPixmapItem;
+    m_dragPixmapItem = nullptr;
+
+    return m_dragAccepted;
+}
+
+void Worksheet::startDrag(WorksheetEntry* entry, const QPixmap& pixmap, const QPoint& hotSpot)
+{
+    if (m_readOnly || !entry || pixmap.isNull())
         return;
 
     resetEntryCursor();
 
     m_dragEntry = entry;
+    m_dragWithHierarchy = false;
 
     WorksheetEntry* originalPrevious = entry->previous();
     WorksheetEntry* originalNext = entry->next();
@@ -668,11 +737,11 @@ void Worksheet::startDrag(WorksheetEntry* entry, QDrag* drag)
 
     m_dragEntry->hide();
 
-    const Qt::DropAction action = drag->exec();
+    const bool accepted = execEntryDrag(pixmap, hotSpot);
 
     bool positionChanged = false;
 
-    if (action == Qt::MoveAction && m_placeholderEntry)
+    if (accepted && m_placeholderEntry)
     {
         previous = m_placeholderEntry->previous();
         next = m_placeholderEntry->next();
@@ -695,33 +764,33 @@ void Worksheet::startDrag(WorksheetEntry* entry, QDrag* drag)
         setLastEntry(m_dragEntry);
 
     m_dragEntry->show();
-    const bool hierarchyMoved = m_dragEntry->type() == HierarchyEntry::Type;
-
-    m_dragEntry->focusEntry();
+    WorksheetEntry* draggedEntry = m_dragEntry;
     const QPointF scenePosition = worksheetView()->sceneCursorPos();
 
-    if (entryAt(scenePosition) != m_dragEntry)
-        m_dragEntry->hideActionBar();
+    if (entryAt(scenePosition) != draggedEntry)
+        draggedEntry->hideActionBar();
 
     m_dragEntry = nullptr;
 
-    if (hierarchyMoved && positionChanged)
+    if (positionChanged)
         updateHierarchyLayout();
 
     updateLayout();
+    focusEntry(draggedEntry);
 
     if (positionChanged)
         setModified();
 }
 
-void Worksheet::startDragWithHierarchy(HierarchyEntry* entry, QDrag* drag, QSizeF responsibleZoneSize)
+void Worksheet::startDragWithHierarchy(HierarchyEntry* entry, const QPixmap& pixmap, const QPoint& hotSpot, QSizeF responsibleZoneSize)
 {
-    if (m_readOnly || !entry || !drag)
+    if (m_readOnly || !entry || pixmap.isNull())
         return;
 
     resetEntryCursor();
 
     m_dragEntry = entry;
+    m_dragWithHierarchy = true;
     m_hierarchySubentriesDrag = hierarchySubelements(entry);
     m_hierarchyDragSize = responsibleZoneSize;
 
@@ -755,11 +824,11 @@ void Worksheet::startDragWithHierarchy(HierarchyEntry* entry, QDrag* drag, QSize
     for (auto* subentry : m_hierarchySubentriesDrag)
         subentry->hide();
 
-    const Qt::DropAction action = drag->exec();
+    const bool accepted = execEntryDrag(pixmap, hotSpot);
 
     bool positionChanged = false;
 
-    if (action == Qt::MoveAction && m_placeholderEntry)
+    if (accepted && m_placeholderEntry)
     {
         previous = m_placeholderEntry->previous();
         next = m_placeholderEntry->next();
@@ -792,11 +861,11 @@ void Worksheet::startDragWithHierarchy(HierarchyEntry* entry, QDrag* drag, QSize
     for (auto* subentry : m_hierarchySubentriesDrag)
         subentry->show();
 
-    m_dragEntry->focusEntry();
+    WorksheetEntry* draggedEntry = m_dragEntry;
 
     const QPointF scenePosition = worksheetView()->sceneCursorPos();
-    if (entryAt(scenePosition) != m_dragEntry)
-        m_dragEntry->hideActionBar();
+    if (entryAt(scenePosition) != draggedEntry)
+        draggedEntry->hideActionBar();
 
 #ifndef NDEBUG
     for (auto* current = firstEntry(); current; current = current->next())
@@ -805,9 +874,11 @@ void Worksheet::startDragWithHierarchy(HierarchyEntry* entry, QDrag* drag, QSize
 
     m_hierarchySubentriesDrag.clear();
     m_dragEntry = nullptr;
+    m_dragWithHierarchy = false;
 
     updateHierarchyLayout();
     updateLayout();
+    focusEntry(draggedEntry);
 
     if (positionChanged)
         setModified();
@@ -821,7 +892,7 @@ void Worksheet::evaluate()
         loginToSession();
 
     // evaluate the worksheet if the login was successful
-    if (m_session && m_session->status() == Cantor::Session::Done) {
+    if (m_session && m_session->status() == Cantor::Session::Done && firstEntry()) {
         firstEntry()->evaluate(WorksheetEntry::EvaluateNext);
         setModified();
     }
@@ -2095,7 +2166,27 @@ void Worksheet::mousePressEvent(QGraphicsSceneMouseEvent* event)
 void Worksheet::keyPressEvent(QKeyEvent* event)
 {
     if (m_readOnly)
+    {
+        const bool navigationKey = event->key() == Qt::Key_Left
+            || event->key() == Qt::Key_Right
+            || event->key() == Qt::Key_Up
+            || event->key() == Qt::Key_Down
+            || event->key() == Qt::Key_Home
+            || event->key() == Qt::Key_End
+            || event->key() == Qt::Key_PageUp
+            || event->key() == Qt::Key_PageDown
+            || event->key() == Qt::Key_Tab
+            || event->key() == Qt::Key_Backtab
+            || event->key() == Qt::Key_Escape;
+        const bool safeModifiers = !(event->modifiers() & (Qt::ControlModifier | Qt::AltModifier | Qt::MetaModifier));
+        const bool safeShortcut = event->matches(QKeySequence::Copy) || event->matches(QKeySequence::SelectAll);
+
+        if ((navigationKey && safeModifiers) || safeShortcut)
+            QGraphicsScene::keyPressEvent(event);
+        else
+            event->ignore();
         return;
+    }
 
     if ((event->modifiers() & Qt::ControlModifier) && (event->key() == Qt::Key_1))
         worksheetView()->actualSize();
@@ -2103,6 +2194,75 @@ void Worksheet::keyPressEvent(QKeyEvent* event)
         addEntryFromEntryCursor(); //add new entry when entry cursor is actived when user starts typing text
 
     QGraphicsScene::keyPressEvent(event);
+}
+
+bool Worksheet::eventFilter(QObject* watched, QEvent* event)
+{
+    if (m_dragEntry && m_entryDragEventLoop)
+    {
+        if (event->type() == QEvent::MouseMove && watched->isWidgetType())
+        {
+            updateDragPosition(worksheetView()->sceneCursorPos());
+            event->accept();
+            return true;
+        }
+
+        if (event->type() == QEvent::Wheel)
+        {
+            auto* wheelEvent = static_cast<QWheelEvent*>(event);
+            int delta = wheelEvent->pixelDelta().y();
+            if (delta == 0)
+                delta = wheelEvent->angleDelta().y() / 2;
+
+            if (delta != 0)
+            {
+                worksheetView()->scrollBy(-delta);
+                updateDragPosition(worksheetView()->sceneCursorPos());
+            }
+
+            wheelEvent->accept();
+            return true;
+        }
+
+        if (event->type() == QEvent::MouseButtonRelease && watched->isWidgetType())
+        {
+            auto* mouseEvent = static_cast<QMouseEvent*>(event);
+            if (mouseEvent->button() == Qt::LeftButton)
+            {
+                m_dragAccepted = true;
+                m_entryDragEventLoop->quit();
+                mouseEvent->accept();
+                return true;
+            }
+        }
+
+        if (event->type() == QEvent::KeyPress)
+        {
+            auto* keyEvent = static_cast<QKeyEvent*>(event);
+            if (keyEvent->key() == Qt::Key_Escape)
+            {
+                m_dragAccepted = false;
+                m_entryDragEventLoop->quit();
+            }
+
+            keyEvent->accept();
+            return true;
+        }
+
+        if (event->type() == QEvent::ShortcutOverride || event->type() == QEvent::KeyRelease)
+        {
+            event->accept();
+            return true;
+        }
+
+        if (event->type() == QEvent::ApplicationDeactivate)
+        {
+            m_dragAccepted = false;
+            m_entryDragEventLoop->quit();
+        }
+    }
+
+    return QGraphicsScene::eventFilter(watched, event);
 }
 
 void Worksheet::setActionCollection(KActionCollection* collection)
@@ -2659,14 +2819,14 @@ void Worksheet::dragLeaveEvent(QGraphicsSceneDragDropEvent* event)
     updateLayout();
 }
 
-void Worksheet::dragMoveEvent(QGraphicsSceneDragDropEvent* event)
+void Worksheet::updateDragPosition(const QPointF& pos)
 {
-    if (!m_dragEntry) {
-        QGraphicsScene::dragMoveEvent(event);
+    if (!m_dragEntry)
         return;
-    }
 
-    QPointF pos = event->scenePos();
+    if (m_dragPixmapItem)
+        m_dragPixmapItem->setPos(pos - m_dragHotSpot);
+
     auto* entry = entryAt(pos);
     WorksheetEntry* prev = nullptr;
     WorksheetEntry* next = nullptr;
@@ -2686,8 +2846,6 @@ void Worksheet::dragMoveEvent(QGraphicsSceneDragDropEvent* event)
         }
     }
 
-    const bool dragWithHierarchy = !m_hierarchySubentriesDrag.empty();
-
     if (m_placeholderEntry)
     {
         if (prev == m_placeholderEntry)
@@ -2699,7 +2857,7 @@ void Worksheet::dragMoveEvent(QGraphicsSceneDragDropEvent* event)
 
     if (prev || next)
     {
-        const QSizeF placeholderSize = dragWithHierarchy ? m_hierarchyDragSize : m_dragEntry->size();
+        const QSizeF placeholderSize = m_dragWithHierarchy ? m_hierarchyDragSize : m_dragEntry->size();
 
         if (!m_placeholderEntry)
             m_placeholderEntry = new PlaceHolderEntry(this, QSizeF(0, 0));
@@ -2742,16 +2900,27 @@ void Worksheet::dragMoveEvent(QGraphicsSceneDragDropEvent* event)
 
     const QPoint viewPos = worksheetView()->mapFromScene(pos);
     const int viewHeight = worksheetView()->viewport()->height();
-    if ((viewPos.y() < 10 || viewPos.y() > viewHeight - 10) &&
+    if ((viewPos.y() < DragScrollMargin || viewPos.y() > viewHeight - DragScrollMargin) &&
         !m_dragScrollTimer) {
         m_dragScrollTimer = new QTimer(this);
         m_dragScrollTimer->setSingleShot(true);
-        m_dragScrollTimer->setInterval(100);
+        m_dragScrollTimer->setInterval(DragScrollInterval);
         connect(m_dragScrollTimer, SIGNAL(timeout()), this,
                 SLOT(updateDragScrollTimer()));
         m_dragScrollTimer->start();
     }
 
+}
+
+void Worksheet::dragMoveEvent(QGraphicsSceneDragDropEvent* event)
+{
+    if (!m_dragEntry)
+    {
+        QGraphicsScene::dragMoveEvent(event);
+        return;
+    }
+
+    updateDragPosition(event->scenePos());
     event->accept();
 }
 
@@ -2771,16 +2940,18 @@ void Worksheet::updateDragScrollTimer()
     const QWidget* viewport = worksheetView()->viewport();
     const int viewHeight = viewport->height();
     if (!m_dragEntry || !(viewport->rect().contains(viewPos)) ||
-        (viewPos.y() >= 10 && viewPos.y() <= viewHeight - 10)) {
+        (viewPos.y() >= DragScrollMargin && viewPos.y() <= viewHeight - DragScrollMargin)) {
         delete m_dragScrollTimer;
         m_dragScrollTimer = nullptr;
         return;
     }
 
-    if (viewPos.y() < 10)
-        worksheetView()->scrollBy(-10*(10 - viewPos.y()));
+    if (viewPos.y() < DragScrollMargin)
+        worksheetView()->scrollBy(-DragScrollStep * (DragScrollMargin - viewPos.y()));
     else
-        worksheetView()->scrollBy(10*(viewHeight - viewPos.y()));
+        worksheetView()->scrollBy(DragScrollStep * (viewPos.y() - (viewHeight - DragScrollMargin)));
+
+    updateDragPosition(worksheetView()->sceneCursorPos());
 
     m_dragScrollTimer->start();
 }
@@ -3000,41 +3171,119 @@ void Worksheet::selectionEvaluate()
     // run entries in worksheet order: from top to down
     for (auto* entry = firstEntry(); entry; entry = entry->next())
         if (m_selectedEntries.indexOf(entry) != -1)
-            entry->evaluate();
+            entry->evaluate(WorksheetEntry::DoNothing);
 }
 
 void Worksheet::selectionMoveUp()
 {
-    bool moveHierarchyEntry = false;
+    bool moved = false;
+    WorksheetEntry* focusTarget = nullptr;
+    QSet<WorksheetEntry*> entriesMovedWithHierarchy;
+    for (auto* selectedEntry : m_selectedEntries)
+    {
+        if (selectedEntry->type() != HierarchyEntry::Type)
+            continue;
+
+        const auto subentries = hierarchySubelements(static_cast<HierarchyEntry*>(selectedEntry));
+        for (auto* subentry : subentries)
+            entriesMovedWithHierarchy.insert(subentry);
+    }
+
     // movement up should have an order from top to down.
     for(auto* entry = firstEntry(); entry; entry = entry->next())
         if(m_selectedEntries.indexOf(entry) != -1)
-            if (entry->previous() && m_selectedEntries.indexOf(entry->previous()) == -1)
+        {
+            if (entriesMovedWithHierarchy.contains(entry))
+                continue;
+
+            if (!focusTarget)
+                focusTarget = entry;
+            WorksheetEntry* previousEntry = entry->previous();
+            bool previousBlockSelected = previousEntry && m_selectedEntries.indexOf(previousEntry) != -1;
+            if (!previousBlockSelected && entry->type() == HierarchyEntry::Type)
             {
-                entry->moveToPrevious(false);
-                if (entry->type() == HierarchyEntry::Type)
-                    moveHierarchyEntry = true;
+                auto* hierarchyEntry = static_cast<HierarchyEntry*>(entry);
+                for (auto* selectedEntry : m_selectedEntries)
+                {
+                    if (selectedEntry->type() != HierarchyEntry::Type)
+                        continue;
+
+                    auto* selectedHierarchy = static_cast<HierarchyEntry*>(selectedEntry);
+                    if (selectedHierarchy->level() != hierarchyEntry->level())
+                        continue;
+
+                    const auto subentries = hierarchySubelements(selectedHierarchy);
+                    WorksheetEntry* selectedBlockLast = subentries.empty() ? selectedEntry : subentries.back();
+                    if (selectedBlockLast == previousEntry)
+                    {
+                        previousBlockSelected = true;
+                        break;
+                    }
+                }
             }
-    if (moveHierarchyEntry)
+
+            if (previousEntry && !previousBlockSelected)
+            {
+                WorksheetEntry* oldPrevious = previousEntry;
+                entry->moveToPrevious(false);
+                moved = moved || entry->previous() != oldPrevious;
+            }
+        }
+
+    if (moved)
+    {
         updateHierarchyLayout();
-    updateLayout();
+        updateLayout();
+        makeVisible(focusTarget);
+    }
 }
 
 void Worksheet::selectionMoveDown()
 {
-    bool moveHierarchyEntry = false;
+    bool moved = false;
+    WorksheetEntry* focusTarget = nullptr;
+    QSet<WorksheetEntry*> entriesMovedWithHierarchy;
+    for (auto* selectedEntry : m_selectedEntries)
+    {
+        if (selectedEntry->type() != HierarchyEntry::Type)
+            continue;
+
+        const auto subentries = hierarchySubelements(static_cast<HierarchyEntry*>(selectedEntry));
+        for (auto* subentry : subentries)
+            entriesMovedWithHierarchy.insert(subentry);
+    }
+
     // movement up should have an order from down to top.
     for(auto* entry = lastEntry(); entry; entry = entry->previous())
         if(m_selectedEntries.indexOf(entry) != -1)
-            if (entry->next() && m_selectedEntries.indexOf(entry->next()) == -1)
+        {
+            if (entriesMovedWithHierarchy.contains(entry))
+                continue;
+
+            if (!focusTarget)
+                focusTarget = entry;
+            WorksheetEntry* nextEntry = entry->next();
+            if (entry->type() == HierarchyEntry::Type)
             {
-                entry->moveToNext(false);
-                if (entry->type() == HierarchyEntry::Type)
-                    moveHierarchyEntry = true;
+                const auto subentries = hierarchySubelements(static_cast<HierarchyEntry*>(entry));
+                if (!subentries.empty())
+                    nextEntry = subentries.back()->next();
             }
-    if (moveHierarchyEntry)
+
+            if (nextEntry && m_selectedEntries.indexOf(nextEntry) == -1)
+            {
+                WorksheetEntry* oldPrevious = entry->previous();
+                entry->moveToNext(false);
+                moved = moved || entry->previous() != oldPrevious;
+            }
+        }
+
+    if (moved)
+    {
         updateHierarchyLayout();
-    updateLayout();
+        updateLayout();
+        makeVisible(focusTarget);
+    }
 }
 
 void Worksheet::notifyEntryFocus(WorksheetEntry* entry)
