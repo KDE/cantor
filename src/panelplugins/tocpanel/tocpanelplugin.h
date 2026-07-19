@@ -65,6 +65,7 @@ class TableOfContentPanelPlugin : public Cantor::PanelPlugin
     void handleCollapsed(const QModelIndex& index);
     void handleContextMenuRequested(const QPoint& position);
     void handleReadOnlyChanged(bool readOnly);
+    void handleSettingsChanges();
 
 private:
     enum ItemRole
@@ -128,6 +129,7 @@ private:
     void updateSearchVisibility();
     void saveCurrentExpansionState();
     void showContextMenuForIndex(const QModelIndex& index);
+    void showContextMenu(const QModelIndex& index, const QPoint& globalPosition);
     void deleteItemAtIndex(const QModelIndex& index);
 
 private:
@@ -146,6 +148,10 @@ private:
     bool m_showSections{true};
     bool m_showCommandEntries{false};
     bool m_showPlots{false};
+    bool m_defaultShowChapters{true};
+    bool m_defaultShowSections{true};
+    bool m_defaultShowCommandEntries{false};
+    bool m_defaultShowPlots{false};
     bool m_readOnly{false};
 
     QSet<QString> m_expandedNodeIds;

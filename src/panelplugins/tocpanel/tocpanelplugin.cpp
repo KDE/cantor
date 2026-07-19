@@ -10,6 +10,7 @@
 #include <QAbstractItemDelegate>
 #include <QAction>
 #include <QDebug>
+#include <QIcon>
 #include <QItemSelectionModel>
 #include <QKeyEvent>
 #include <QLabel>
@@ -40,6 +41,20 @@ const QLatin1String TocNodeTypeChapter("chapter");
 const QLatin1String TocNodeTypeSection("section");
 const QLatin1String TocNodeTypeCommand("command");
 const QLatin1String TocNodeTypePlot("plot");
+
+QIcon iconForTocNodeType(const QString& nodeType)
+{
+    if (nodeType == TocNodeTypeChapter)
+        return QIcon::fromTheme(QStringLiteral("view-list-tree"));
+    if (nodeType == TocNodeTypeSection)
+        return QIcon::fromTheme(QStringLiteral("format-list-ordered"));
+    if (nodeType == TocNodeTypeCommand)
+        return QIcon::fromTheme(QStringLiteral("code-context"));
+    if (nodeType == TocNodeTypePlot)
+        return QIcon::fromTheme(QStringLiteral("office-chart-line"));
+
+    return {};
+}
 
 class HierarchyNameDelegate : public QStyledItemDelegate
 {
@@ -147,6 +162,7 @@ void TableOfContentPanelPlugin::connectToShell(QObject* cantorShell)
     connect(this, SIGNAL(requestRenamePlot(QString,QString,QString)), cantorShell, SIGNAL(requestRenamePlot(QString,QString,QString)));
     connect(this, SIGNAL(requestDeletePlot(QString,QString)), cantorShell, SIGNAL(requestDeletePlot(QString,QString)));
     connect(cantorShell, SIGNAL(tocReadOnlyChanged(bool)), this, SLOT(handleReadOnlyChanged(bool)));
+    connect(cantorShell, SIGNAL(settingsChanges()), this, SLOT(handleSettingsChanges()));
 }
 
 bool TableOfContentPanelPlugin::showOnStartup()
@@ -194,6 +210,7 @@ void TableOfContentPanelPlugin::constructMainWidget()
     auto* emptyLabel = new QLabel(container);
     emptyLabel->setAlignment(Qt::AlignCenter);
     emptyLabel->setWordWrap(true);
+    emptyLabel->setContextMenuPolicy(Qt::CustomContextMenu);
     emptyLabel->hide();
 
     view->setEditTriggers(QAbstractItemView::NoEditTriggers);
@@ -218,6 +235,10 @@ void TableOfContentPanelPlugin::constructMainWidget()
     connect(view, &QTreeView::customContextMenuRequested, this, &TableOfContentPanelPlugin::handleContextMenuRequested);
     connect(view, &QTreeView::expanded, this, &TableOfContentPanelPlugin::handleExpanded);
     connect(view, &QTreeView::collapsed, this, &TableOfContentPanelPlugin::handleCollapsed);
+    connect(emptyLabel, &QLabel::customContextMenuRequested, this, [this, emptyLabel](const QPoint& position)
+    {
+        showContextMenu(QModelIndex{}, emptyLabel->mapToGlobal(position));
+    });
     connect(delegate, &QAbstractItemDelegate::commitData, this, &TableOfContentPanelPlugin::handleEditorCommit);
     connect(delegate, &QAbstractItemDelegate::closeEditor, this, &TableOfContentPanelPlugin::handleEditorClosed);
     connect(searchEdit, &QLineEdit::textChanged, this, [this](const QString& text)
@@ -397,6 +418,7 @@ void TableOfContentPanelPlugin::rebuildModel()
         QStandardItem* parentItem = parentIndex >= 0 ? visibleItems.at(parentIndex) : m_model.invisibleRootItem();
 
         auto* item = new QStandardItem(node.displayText);
+        item->setIcon(iconForTocNodeType(node.type));
         item->setEditable(node.editable && !m_readOnly);
 
         item->setData(node.id, NodeIdRole);
@@ -961,10 +983,15 @@ void TableOfContentPanelPlugin::clearNodes()
 
 void TableOfContentPanelPlugin::resetVisibilityToDefaults()
 {
-    m_showChapters = Settings::showTocChaptersDefault();
-    m_showSections = Settings::showTocSectionsDefault();
-    m_showCommandEntries = Settings::showTocCommandEntriesDefault();
-    m_showPlots = Settings::showTocPlotsDefault();
+    m_defaultShowChapters = Settings::showTocChaptersDefault();
+    m_defaultShowSections = Settings::showTocSectionsDefault();
+    m_defaultShowCommandEntries = Settings::showTocCommandEntriesDefault();
+    m_defaultShowPlots = Settings::showTocPlotsDefault();
+
+    m_showChapters = m_defaultShowChapters;
+    m_showSections = m_defaultShowSections;
+    m_showCommandEntries = m_defaultShowCommandEntries;
+    m_showPlots = m_defaultShowPlots;
 }
 
 void TableOfContentPanelPlugin::cleanupStateAfterNodeChange()
@@ -1053,6 +1080,43 @@ void TableOfContentPanelPlugin::handleReadOnlyChanged(bool readOnly)
     rebuildModel();
 }
 
+void TableOfContentPanelPlugin::handleSettingsChanges()
+{
+    const bool showChapters = Settings::showTocChaptersDefault();
+    const bool showSections = Settings::showTocSectionsDefault();
+    const bool showCommandEntries = Settings::showTocCommandEntriesDefault();
+    const bool showPlots = Settings::showTocPlotsDefault();
+
+    bool changed = false;
+    if (showChapters != m_defaultShowChapters)
+    {
+        m_defaultShowChapters = showChapters;
+        m_showChapters = showChapters;
+        changed = true;
+    }
+    if (showSections != m_defaultShowSections)
+    {
+        m_defaultShowSections = showSections;
+        m_showSections = showSections;
+        changed = true;
+    }
+    if (showCommandEntries != m_defaultShowCommandEntries)
+    {
+        m_defaultShowCommandEntries = showCommandEntries;
+        m_showCommandEntries = showCommandEntries;
+        changed = true;
+    }
+    if (showPlots != m_defaultShowPlots)
+    {
+        m_defaultShowPlots = showPlots;
+        m_showPlots = showPlots;
+        changed = true;
+    }
+
+    if (changed)
+        rebuildModel();
+}
+
 void TableOfContentPanelPlugin::handleExpanded(const QModelIndex& index)
 {
     if (m_updatingModel)
@@ -1089,10 +1153,16 @@ void TableOfContentPanelPlugin::handleContextMenuRequested(const QPoint& positio
     if (!m_mainWidget)
         return;
 
-    if (m_editorActive)
+    showContextMenu(m_mainWidget->indexAt(position), m_mainWidget->viewport()->mapToGlobal(position));
+}
+
+void TableOfContentPanelPlugin::showContextMenu(const QModelIndex& index, const QPoint& globalPosition)
+{
+    if (!m_mainWidget)
         return;
 
-    const QModelIndex index = m_mainWidget->indexAt(position);
+    if (m_editorActive)
+        return;
 
     QMenu menu(m_mainWidget);
 
@@ -1290,7 +1360,7 @@ void TableOfContentPanelPlugin::handleContextMenuRequested(const QPoint& positio
             m_mainWidget->collapseAll();
     });
 
-    menu.exec(m_mainWidget->viewport()->mapToGlobal(position));
+    menu.exec(globalPosition);
 }
 
 K_PLUGIN_FACTORY_WITH_JSON(tocpanelplugin, "tocpanelplugin.json", registerPlugin<TableOfContentPanelPlugin>();)

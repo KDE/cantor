@@ -29,11 +29,17 @@
 #include <QDir>
 #include <QDockWidget>
 #include <QFileDialog>
+#include <QFontComboBox>
+#include <QFormLayout>
 #include <QStatusBar>
 #include <QGraphicsView>
+#include <QHBoxLayout>
+#include <QLabel>
 #include <QPushButton>
 #include <QRegularExpression>
 #include <QMenuBar>
+#include <QSpinBox>
+#include <QToolButton>
 
 #include "lib/backend.h"
 #include "lib/worksheetaccess.h"
@@ -748,14 +754,89 @@ void CantorShell::showSettings()
         base.kcfg_DefaultTheme->addItem(theme.translatedName(), theme.name());
     }
 
-    QWidget *formattingSettings = new QWidget;
-    Ui::SettingsFormatting formatting;
-    formatting.setupUi(formattingSettings);
+    QWidget *tocSettings = new QWidget;
+    Ui::SettingsToc toc;
+    toc.setupUi(tocSettings);
+
+    for (auto* fontFamilyEditor : tocSettings->findChildren<QFontComboBox*>())
+        fontFamilyEditor->setProperty("kcfg_property", QByteArray("currentFont"));
+
+    const auto addFontSizeButtons = [](QSpinBox* spinBox)
+    {
+        auto* formLayout = qobject_cast<QFormLayout*>(spinBox->parentWidget()->layout());
+        if (!formLayout)
+            return;
+
+        int row = -1;
+        QFormLayout::ItemRole role = QFormLayout::FieldRole;
+        formLayout->getWidgetPosition(spinBox, &row, &role);
+        if (row < 0)
+            return;
+
+        auto* editor = new QWidget(spinBox->parentWidget());
+        auto* layout = new QHBoxLayout(editor);
+        layout->setContentsMargins(0, 0, 0, 0);
+        layout->setSpacing(2);
+
+        formLayout->removeWidget(spinBox);
+        spinBox->setButtonSymbols(QAbstractSpinBox::NoButtons);
+        spinBox->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Preferred);
+        layout->addWidget(spinBox);
+
+        auto* decreaseButton = new QToolButton(editor);
+        decreaseButton->setText(QStringLiteral("−"));
+        decreaseButton->setToolTip(i18n("Decrease font size"));
+        decreaseButton->setAutoRepeat(true);
+        layout->addWidget(decreaseButton);
+
+        auto* increaseButton = new QToolButton(editor);
+        increaseButton->setText(QStringLiteral("+"));
+        increaseButton->setToolTip(i18n("Increase font size"));
+        increaseButton->setAutoRepeat(true);
+        layout->addWidget(increaseButton);
+
+        connect(decreaseButton, &QToolButton::clicked, spinBox, &QSpinBox::stepDown);
+        connect(increaseButton, &QToolButton::clicked, spinBox, &QSpinBox::stepUp);
+
+        const auto updateButtons = [spinBox, decreaseButton, increaseButton](int value)
+        {
+            decreaseButton->setEnabled(value > spinBox->minimum());
+            increaseButton->setEnabled(value < spinBox->maximum());
+        };
+        connect(spinBox, &QSpinBox::valueChanged, editor, updateButtons);
+        updateButtons(spinBox->value());
+
+        formLayout->setWidget(row, role, editor);
+    };
+
+    const QList<QSpinBox*> fontSizeEditors = {
+        toc.kcfg_ChapterFontSize,
+        toc.kcfg_SubchapterFontSize,
+        toc.kcfg_SectionFontSize,
+        toc.kcfg_SubsectionFontSize,
+        toc.kcfg_ParagraphFontSize,
+        toc.kcfg_SubparagraphFontSize,
+    };
+    for (auto* fontSizeEditor : fontSizeEditors)
+        addFontSizeButtons(fontSizeEditor);
+
+    const auto tocLabels = tocSettings->findChildren<QLabel*>();
+    int tocLabelWidth = 0;
+    for (const auto* label : tocLabels)
+    {
+        if (label->buddy())
+            tocLabelWidth = qMax(tocLabelWidth, label->sizeHint().width());
+    }
+    for (auto* label : tocLabels)
+    {
+        if (label->buddy())
+            label->setMinimumWidth(tocLabelWidth);
+    }
 
     base.kcfg_DefaultBackend->addItems(Cantor::Backend::listAvailableBackends());
 
     dialog->addPage(generalSettings, i18n("General"), QLatin1String("preferences-other"));
-    dialog->addPage(formattingSettings, i18n("Formatting"), QLatin1String("preferences-other"));
+    dialog->addPage(tocSettings, i18n("Table of Contents"), QLatin1String("view-list-tree"));
     for (auto* backend : Cantor::Backend::availableBackends())
     {
         if (backend->config()) //It has something to configure, so add it to the dialog
