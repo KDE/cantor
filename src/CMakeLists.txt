@@ -18,7 +18,7 @@ add_subdirectory(panelplugins)
 
 #build the config object in a separate library, shared between shell and part
 kconfig_add_kcfg_files(config_SRCS settings.kcfgc)
-add_library( cantor_config SHARED ${config_SRCS} )
+add_library( cantor_config SHARED ${config_SRCS} hierarchyfontsettings.cpp )
 target_link_libraries( cantor_config KF6::ConfigGui Qt6::Widgets )
 generate_export_header( cantor_config BASE_NAME cantor_config )
 install( TARGETS cantor_config ${KDE_INSTALL_TARGETS_DEFAULT_ARGS} )
@@ -42,7 +42,7 @@ ecm_add_app_icon(cantor_SRCS ICONS ${ICONS_SRCS})
 add_executable(cantor ${cantor_SRCS})
 
 target_link_libraries(cantor KF6::Parts KF6::NewStuffWidgets KF6::ConfigCore KF6::CoreAddons KF6::ConfigGui
-    KF6::Crash KF6::XmlGui KF6::TextEditor cantorlibs cantor_config)
+    KF6::Crash KF6::XmlGui KF6::TextEditor KF6::WidgetsAddons cantorlibs cantor_config)
 
 if (ENABLE_EMBEDDED_DOCUMENTATION)
     target_link_libraries(cantor Qt6::WebEngineCore)

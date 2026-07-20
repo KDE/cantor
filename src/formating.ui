@@ -110,9 +110,9 @@
         <number>9</number>
        </property>
        <item row="0" column="0">
-        <widget class="QLabel" name="lChapterFontFamily">
+        <widget class="QLabel" name="lChapterFont">
          <property name="text">
-          <string>Fon&amp;t Family:</string>
+          <string>&amp;Font:</string>
          </property>
          <property name="buddy">
           <cstring>kcfg_ChapterFontFamily</cstring>
@@ -120,44 +120,7 @@
         </widget>
        </item>
        <item row="0" column="1">
-        <widget class="QFontComboBox" name="kcfg_ChapterFontFamily"/>
-       </item>
-       <item row="1" column="0">
-        <widget class="QLabel" name="lChapterFontSize">
-         <property name="text">
-          <string>Font Si&amp;ze:</string>
-         </property>
-         <property name="buddy">
-          <cstring>kcfg_ChapterFontSize</cstring>
-         </property>
-        </widget>
-       </item>
-       <item row="1" column="1">
-        <widget class="QSpinBox" name="kcfg_ChapterFontSize">
-         <property name="minimum">
-          <number>8</number>
-         </property>
-         <property name="maximum">
-          <number>40</number>
-         </property>
-         <property name="value">
-          <number>14</number>
-         </property>
-        </widget>
-       </item>
-       <item row="2" column="1">
-        <widget class="QCheckBox" name="kcfg_ChapterFontBold">
-         <property name="text">
-          <string>Bold</string>
-         </property>
-        </widget>
-       </item>
-       <item row="3" column="1">
-        <widget class="QCheckBox" name="kcfg_ChapterFontItalic">
-         <property name="text">
-          <string>Italic</string>
-         </property>
-        </widget>
+        <widget class="KFontRequester" name="kcfg_ChapterFontFamily"/>
        </item>
       </layout>
      </widget>
@@ -170,9 +133,9 @@
         <number>9</number>
        </property>
        <item row="0" column="0">
-        <widget class="QLabel" name="lSubchapterFontFamily">
+        <widget class="QLabel" name="lSubchapterFont">
          <property name="text">
-          <string>Fon&amp;t Family:</string>
+          <string>&amp;Font:</string>
          </property>
          <property name="buddy">
           <cstring>kcfg_SubchapterFontFamily</cstring>
@@ -180,44 +143,7 @@
         </widget>
        </item>
        <item row="0" column="1">
-        <widget class="QFontComboBox" name="kcfg_SubchapterFontFamily"/>
-       </item>
-       <item row="1" column="0">
-        <widget class="QLabel" name="lSubchapterFontSize">
-         <property name="text">
-          <string>Font Si&amp;ze:</string>
-         </property>
-         <property name="buddy">
-          <cstring>kcfg_SubchapterFontSize</cstring>
-         </property>
-        </widget>
-       </item>
-       <item row="1" column="1">
-        <widget class="QSpinBox" name="kcfg_SubchapterFontSize">
-         <property name="minimum">
-          <number>8</number>
-         </property>
-         <property name="maximum">
-          <number>40</number>
-         </property>
-         <property name="value">
-          <number>14</number>
-         </property>
-        </widget>
-       </item>
-       <item row="2" column="1">
-        <widget class="QCheckBox" name="kcfg_SubchapterFontBold">
-         <property name="text">
-          <string>Bold</string>
-         </property>
-        </widget>
-       </item>
-       <item row="3" column="1">
-        <widget class="QCheckBox" name="kcfg_SubchapterFontItalic">
-         <property name="text">
-          <string>Italic</string>
-         </property>
-        </widget>
+        <widget class="KFontRequester" name="kcfg_SubchapterFontFamily"/>
        </item>
       </layout>
      </widget>
@@ -230,9 +156,9 @@
         <number>9</number>
        </property>
        <item row="0" column="0">
-        <widget class="QLabel" name="lSectionFontFamily">
+        <widget class="QLabel" name="lSectionFont">
          <property name="text">
-          <string>Fon&amp;t Family:</string>
+          <string>&amp;Font:</string>
          </property>
          <property name="buddy">
           <cstring>kcfg_SectionFontFamily</cstring>
@@ -240,44 +166,7 @@
         </widget>
        </item>
        <item row="0" column="1">
-        <widget class="QFontComboBox" name="kcfg_SectionFontFamily"/>
-       </item>
-       <item row="1" column="0">
-        <widget class="QLabel" name="lSectionFontSize">
-         <property name="text">
-          <string>Font Si&amp;ze:</string>
-         </property>
-         <property name="buddy">
-          <cstring>kcfg_SectionFontSize</cstring>
-         </property>
-        </widget>
-       </item>
-       <item row="1" column="1">
-        <widget class="QSpinBox" name="kcfg_SectionFontSize">
-         <property name="minimum">
-          <number>8</number>
-         </property>
-         <property name="maximum">
-          <number>40</number>
-         </property>
-         <property name="value">
-          <number>14</number>
-         </property>
-        </widget>
-       </item>
-       <item row="2" column="1">
-        <widget class="QCheckBox" name="kcfg_SectionFontBold">
-         <property name="text">
-          <string>Bold</string>
-         </property>
-        </widget>
-       </item>
-       <item row="3" column="1">
-        <widget class="QCheckBox" name="kcfg_SectionFontItalic">
-         <property name="text">
-          <string>Italic</string>
-         </property>
-        </widget>
+        <widget class="KFontRequester" name="kcfg_SectionFontFamily"/>
        </item>
       </layout>
      </widget>
@@ -290,9 +179,9 @@
         <number>9</number>
        </property>
        <item row="0" column="0">
-        <widget class="QLabel" name="lSubsectionFontFamily">
+        <widget class="QLabel" name="lSubsectionFont">
          <property name="text">
-          <string>Fon&amp;t Family:</string>
+          <string>&amp;Font:</string>
          </property>
          <property name="buddy">
           <cstring>kcfg_SubsectionFontFamily</cstring>
@@ -300,44 +189,7 @@
         </widget>
        </item>
        <item row="0" column="1">
-        <widget class="QFontComboBox" name="kcfg_SubsectionFontFamily"/>
-       </item>
-       <item row="1" column="0">
-        <widget class="QLabel" name="lSubsetctionFontSize">
-         <property name="text">
-          <string>Font Si&amp;ze:</string>
-         </property>
-         <property name="buddy">
-          <cstring>kcfg_SubsectionFontSize</cstring>
-         </property>
-        </widget>
-       </item>
-       <item row="1" column="1">
-        <widget class="QSpinBox" name="kcfg_SubsectionFontSize">
-         <property name="minimum">
-          <number>8</number>
-         </property>
-         <property name="maximum">
-          <number>40</number>
-         </property>
-         <property name="value">
-          <number>14</number>
-         </property>
-        </widget>
-       </item>
-       <item row="2" column="1">
-        <widget class="QCheckBox" name="kcfg_SubsectionFontBold">
-         <property name="text">
-          <string>Bold</string>
-         </property>
-        </widget>
-       </item>
-       <item row="3" column="1">
-        <widget class="QCheckBox" name="kcfg_SubsectionFontItalic">
-         <property name="text">
-          <string>Italic</string>
-         </property>
-        </widget>
+        <widget class="KFontRequester" name="kcfg_SubsectionFontFamily"/>
        </item>
       </layout>
      </widget>
@@ -350,9 +202,9 @@
         <number>9</number>
        </property>
        <item row="0" column="0">
-        <widget class="QLabel" name="lParagraphFontFamily">
+        <widget class="QLabel" name="lParagraphFont">
          <property name="text">
-          <string>Fon&amp;t Family:</string>
+          <string>&amp;Font:</string>
          </property>
          <property name="buddy">
           <cstring>kcfg_ParagraphFontFamily</cstring>
@@ -360,44 +212,7 @@
         </widget>
        </item>
        <item row="0" column="1">
-        <widget class="QFontComboBox" name="kcfg_ParagraphFontFamily"/>
-       </item>
-       <item row="1" column="0">
-        <widget class="QLabel" name="lParagrapshFontSize">
-         <property name="text">
-          <string>Font Si&amp;ze:</string>
-         </property>
-         <property name="buddy">
-          <cstring>kcfg_ParagraphFontSize</cstring>
-         </property>
-        </widget>
-       </item>
-       <item row="1" column="1">
-        <widget class="QSpinBox" name="kcfg_ParagraphFontSize">
-         <property name="minimum">
-          <number>8</number>
-         </property>
-         <property name="maximum">
-          <number>40</number>
-         </property>
-         <property name="value">
-          <number>14</number>
-         </property>
-        </widget>
-       </item>
-       <item row="2" column="1">
-        <widget class="QCheckBox" name="kcfg_ParagraphFontBold">
-         <property name="text">
-          <string>Bold</string>
-         </property>
-        </widget>
-       </item>
-       <item row="3" column="1">
-        <widget class="QCheckBox" name="kcfg_ParagraphFontItalic">
-         <property name="text">
-          <string>Italic</string>
-         </property>
-        </widget>
+        <widget class="KFontRequester" name="kcfg_ParagraphFontFamily"/>
        </item>
       </layout>
      </widget>
@@ -410,9 +225,9 @@
         <number>9</number>
        </property>
        <item row="0" column="0">
-        <widget class="QLabel" name="lSubparagraphFontFamily">
+        <widget class="QLabel" name="lSubparagraphFont">
          <property name="text">
-          <string>Fon&amp;t Family:</string>
+          <string>&amp;Font:</string>
          </property>
          <property name="buddy">
           <cstring>kcfg_SubparagraphFontFamily</cstring>
@@ -420,44 +235,7 @@
         </widget>
        </item>
        <item row="0" column="1">
-        <widget class="QFontComboBox" name="kcfg_SubparagraphFontFamily"/>
-       </item>
-       <item row="1" column="0">
-        <widget class="QLabel" name="lSubparagraphFontSize">
-         <property name="text">
-          <string>Font Si&amp;ze:</string>
-         </property>
-         <property name="buddy">
-          <cstring>kcfg_SubparagraphFontSize</cstring>
-         </property>
-        </widget>
-       </item>
-       <item row="1" column="1">
-        <widget class="QSpinBox" name="kcfg_SubparagraphFontSize">
-         <property name="minimum">
-          <number>8</number>
-         </property>
-         <property name="maximum">
-          <number>40</number>
-         </property>
-         <property name="value">
-          <number>14</number>
-         </property>
-        </widget>
-       </item>
-       <item row="2" column="1">
-        <widget class="QCheckBox" name="kcfg_SubparagraphFontBold">
-         <property name="text">
-          <string>Bold</string>
-         </property>
-        </widget>
-       </item>
-       <item row="3" column="1">
-        <widget class="QCheckBox" name="kcfg_SubparagraphFontItalic">
-         <property name="text">
-          <string>Italic</string>
-         </property>
-        </widget>
+        <widget class="KFontRequester" name="kcfg_SubparagraphFontFamily"/>
        </item>
       </layout>
      </widget>
@@ -481,28 +259,28 @@
      <item row="0" column="0">
       <widget class="QCheckBox" name="kcfg_ShowTocChaptersDefault">
        <property name="text">
-        <string>Show chapters</string>
+        <string>Chapters</string>
        </property>
       </widget>
      </item>
      <item row="1" column="0">
       <widget class="QCheckBox" name="kcfg_ShowTocSectionsDefault">
        <property name="text">
-        <string>Show sections</string>
+        <string>Sections</string>
        </property>
       </widget>
      </item>
      <item row="0" column="1">
       <widget class="QCheckBox" name="kcfg_ShowTocCommandEntriesDefault">
        <property name="text">
-        <string>Show command entries</string>
+        <string>Command entries</string>
        </property>
       </widget>
      </item>
      <item row="1" column="1">
       <widget class="QCheckBox" name="kcfg_ShowTocPlotsDefault">
        <property name="text">
-        <string>Show plots</string>
+        <string>Plots</string>
        </property>
       </widget>
      </item>
@@ -523,6 +301,13 @@
    </item>
   </layout>
  </widget>
+ <customwidgets>
+  <customwidget>
+   <class>KFontRequester</class>
+   <extends>QWidget</extends>
+   <header>kfontrequester.h</header>
+  </customwidget>
+ </customwidgets>
  <resources/>
  <connections>
   <connection>
