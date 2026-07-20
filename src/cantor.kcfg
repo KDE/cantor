@@ -82,6 +82,10 @@
       <label>Limit of visible lines for text result</label>
       <default>0</default>
     </entry>
+    <entry name="HierarchyFontSettingsMigrated" type="Bool">
+      <label>Whether the hierarchy font settings have been migrated to complete fonts</label>
+      <default>false</default>
+    </entry>
     <entry name="ChapterFontFamily" type="Font">
       <label>Hierarchy font for chapter</label>
       <default code="true">QApplication::font()</default>

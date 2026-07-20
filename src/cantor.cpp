@@ -9,9 +9,9 @@
 #include <cassert>
 
 #include <KActionCollection>
+#include <KConfig>
 #include <KConfigDialog>
 #include <KConfigGroup>
-#include <KConfig>
 #include <KMessageBox>
 #include <KShortcutsDialog>
 #include <KStandardAction>
@@ -29,22 +29,18 @@
 #include <QDir>
 #include <QDockWidget>
 #include <QFileDialog>
-#include <QFontComboBox>
-#include <QFormLayout>
 #include <QStatusBar>
 #include <QGraphicsView>
-#include <QHBoxLayout>
 #include <QLabel>
 #include <QPushButton>
 #include <QRegularExpression>
 #include <QMenuBar>
-#include <QSpinBox>
-#include <QToolButton>
 
 #include "lib/backend.h"
 #include "lib/worksheetaccess.h"
 
 #include "backendchoosedialog.h"
+#include "hierarchyfontsettings.h"
 #include "settings.h"
 #include "ui_settings.h"
 #include "ui_formating.h"
@@ -737,6 +733,8 @@ void CantorShell::closeEvent(QCloseEvent* event) {
 
 void CantorShell::showSettings()
 {
+    migrateHierarchyFontSettings();
+
     KConfigDialog *dialog = new KConfigDialog(this,  QLatin1String("settings"), Settings::self());
     dialog->setFaceType(KPageDialog::FlatList);
     dialog->resize(1000, 700);
@@ -757,68 +755,6 @@ void CantorShell::showSettings()
     QWidget *tocSettings = new QWidget;
     Ui::SettingsToc toc;
     toc.setupUi(tocSettings);
-
-    for (auto* fontFamilyEditor : tocSettings->findChildren<QFontComboBox*>())
-        fontFamilyEditor->setProperty("kcfg_property", QByteArray("currentFont"));
-
-    const auto addFontSizeButtons = [](QSpinBox* spinBox)
-    {
-        auto* formLayout = qobject_cast<QFormLayout*>(spinBox->parentWidget()->layout());
-        if (!formLayout)
-            return;
-
-        int row = -1;
-        QFormLayout::ItemRole role = QFormLayout::FieldRole;
-        formLayout->getWidgetPosition(spinBox, &row, &role);
-        if (row < 0)
-            return;
-
-        auto* editor = new QWidget(spinBox->parentWidget());
-        auto* layout = new QHBoxLayout(editor);
-        layout->setContentsMargins(0, 0, 0, 0);
-        layout->setSpacing(2);
-
-        formLayout->removeWidget(spinBox);
-        spinBox->setButtonSymbols(QAbstractSpinBox::NoButtons);
-        spinBox->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Preferred);
-        layout->addWidget(spinBox);
-
-        auto* decreaseButton = new QToolButton(editor);
-        decreaseButton->setText(QStringLiteral("−"));
-        decreaseButton->setToolTip(i18n("Decrease font size"));
-        decreaseButton->setAutoRepeat(true);
-        layout->addWidget(decreaseButton);
-
-        auto* increaseButton = new QToolButton(editor);
-        increaseButton->setText(QStringLiteral("+"));
-        increaseButton->setToolTip(i18n("Increase font size"));
-        increaseButton->setAutoRepeat(true);
-        layout->addWidget(increaseButton);
-
-        connect(decreaseButton, &QToolButton::clicked, spinBox, &QSpinBox::stepDown);
-        connect(increaseButton, &QToolButton::clicked, spinBox, &QSpinBox::stepUp);
-
-        const auto updateButtons = [spinBox, decreaseButton, increaseButton](int value)
-        {
-            decreaseButton->setEnabled(value > spinBox->minimum());
-            increaseButton->setEnabled(value < spinBox->maximum());
-        };
-        connect(spinBox, &QSpinBox::valueChanged, editor, updateButtons);
-        updateButtons(spinBox->value());
-
-        formLayout->setWidget(row, role, editor);
-    };
-
-    const QList<QSpinBox*> fontSizeEditors = {
-        toc.kcfg_ChapterFontSize,
-        toc.kcfg_SubchapterFontSize,
-        toc.kcfg_SectionFontSize,
-        toc.kcfg_SubsectionFontSize,
-        toc.kcfg_ParagraphFontSize,
-        toc.kcfg_SubparagraphFontSize,
-    };
-    for (auto* fontSizeEditor : fontSizeEditors)
-        addFontSizeButtons(fontSizeEditor);
 
     const auto tocLabels = tocSettings->findChildren<QLabel*>();
     int tocLabelWidth = 0;
@@ -843,8 +779,8 @@ void CantorShell::showSettings()
             dialog->addPage(backend->settingsWidget(dialog), backend->config(), backend->name(),  backend->icon());
     }
 
-    dialog->show();
     connect(dialog, &KConfigDialog::settingsChanged, this, &CantorShell::settingsChanges);
+    dialog->show();
 }
 
 void CantorShell::openExample()

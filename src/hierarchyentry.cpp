@@ -4,6 +4,7 @@
 */
 
 #include "hierarchyentry.h"
+#include "hierarchyfontsettings.h"
 #include "settings.h"
 #include "worksheetview.h"
 #include "lib/jupyterutils.h"
@@ -506,49 +507,33 @@ void HierarchyEntry::startDrag(QPointF grabPos)
 
 void HierarchyEntry::updateFonts(bool force)
 {
+    migrateHierarchyFontSettings();
+
     QFont font;
     switch(m_depth)
     {
         case HierarchyLevel::Chapter:
             font = Settings::chapterFontFamily();
-            font.setPointSize(Settings::chapterFontSize());
-            font.setItalic(Settings::chapterFontItalic());
-            font.setBold(Settings::chapterFontBold());
             break;
 
         case HierarchyLevel::Subchapter:
             font = Settings::subchapterFontFamily();
-            font.setPointSize(Settings::subchapterFontSize());
-            font.setItalic(Settings::subchapterFontItalic());
-            font.setBold(Settings::subchapterFontBold());
             break;
 
         case HierarchyLevel::Section:
             font = Settings::sectionFontFamily();
-            font.setPointSize(Settings::sectionFontSize());
-            font.setItalic(Settings::sectionFontItalic());
-            font.setBold(Settings::sectionFontBold());
             break;
 
         case HierarchyLevel::Subsection:
             font = Settings::subsectionFontFamily();
-            font.setPointSize(Settings::subsectionFontSize());
-            font.setItalic(Settings::subsectionFontItalic());
-            font.setBold(Settings::subsectionFontBold());
             break;
 
         case HierarchyLevel::Paragraph:
             font = Settings::paragraphFontFamily();
-            font.setPointSize(Settings::paragraphFontSize());
-            font.setItalic(Settings::paragraphFontItalic());
-            font.setBold(Settings::paragraphFontBold());
             break;
 
         case HierarchyLevel::Subparagraph:
             font = Settings::subparagraphFontFamily();
-            font.setPointSize(Settings::subparagraphFontSize());
-            font.setItalic(Settings::subparagraphFontItalic());
-            font.setBold(Settings::subparagraphFontBold());
             break;
 
         default:
@@ -556,12 +541,7 @@ void HierarchyEntry::updateFonts(bool force)
             break;
     }
 
-    const QFont& currectFont = m_textItem->font();
-    bool isSameFont =
-           currectFont.family() == font.family()
-        && currectFont.pointSize() == font.pointSize()
-        && currectFont.bold() == font.bold()
-        && currectFont.italic() == font.italic();
+    const bool isSameFont = m_textItem->font() == font;
 
     if (force || !isSameFont)
     {
