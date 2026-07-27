@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: mathematik\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-07-11 00:38+0000\n"
+"POT-Creation-Date: 2026-07-27 00:39+0000\n"
 "PO-Revision-Date: 2026-07-05 16:40+0200\n"
 "Last-Translator: Stefan Asserhäll <stefan.asserhall@gmail.com>\n"
 "Language-Team: Swedish <kde-i18n-doc@kde.org>\n"
@@ -29,27 +29,27 @@ msgctxt "EMAIL OF TRANSLATORS"
 msgid "Your emails"
 msgstr "stefan.asserhall@gmail.com"
 
-#: animationresultitem.cpp:38
+#: animationresultitem.cpp:39
 #, kde-format
 msgid "Pause"
 msgstr "Paus"
 
-#: animationresultitem.cpp:41
+#: animationresultitem.cpp:42
 #, kde-format
 msgid "Start"
 msgstr "Starta"
 
-#: animationresultitem.cpp:45
+#: animationresultitem.cpp:46
 #, kde-format
 msgid "Stop"
 msgstr "Stoppa"
 
-#: animationresultitem.cpp:111
+#: animationresultitem.cpp:112
 #, kde-format
 msgid "Save animation result"
 msgstr "Spara animeringsresultat"
 
-#: animationresultitem.cpp:111
+#: animationresultitem.cpp:112
 #, kde-format
 msgid "Animations (*.gif)"
 msgstr "Animeringar (*.gif)"
@@ -62,6 +62,9 @@ msgstr "Avancerat diagram"
 #. i18n: ectx: property (text), widget (QLabel, label_2)
 #: assistants/advancedplot/advancedplotdialog.ui:24
 #: backends/qalculate/plotassistant/qalculateplotassistant.cpp:24
+#: panelplugins/tocpanel/tocpanelplugin.cpp:384
+#: panelplugins/tocpanel/tocpanelplugin.cpp:1300
+#: worksheethierarchymanager.cpp:339
 #, kde-format
 msgid "Plot"
 msgstr "Rita"
@@ -440,9 +443,9 @@ msgid "Failed to start Julia, please check Julia installation."
 msgstr "Misslyckades starta Julia. Kontrollera Julias installation."
 
 #: backends/julia/juliasession.cpp:115 backends/julia/juliasession.cpp:124
-#: backends/maxima/maximasession.cpp:322 cantor_part.cpp:984
-#: lib/session.cpp:264 lib/session.cpp:266 worksheet.cpp:1218
-#: worksheet.cpp:1246 worksheet.cpp:1261 worksheet.cpp:1277
+#: backends/maxima/maximasession.cpp:322 cantor_part.cpp:995
+#: lib/session.cpp:264 lib/session.cpp:266 worksheet.cpp:1310
+#: worksheet.cpp:1338 worksheet.cpp:1353 worksheet.cpp:1369
 #, kde-format
 msgid "Error - Cantor"
 msgstr "Fel - Cantor"
@@ -499,7 +502,7 @@ msgstr ""
 #: backends/maxima/settings.ui:36 backends/octave/settings.ui:36
 #: backends/python/settings.ui:36 backends/qalculate/settings.ui:36
 #: backends/R/settings.ui:21 backends/sage/settings.ui:36
-#: backends/scilab/settings.ui:21 cantor.cpp:677
+#: backends/scilab/settings.ui:21 cantor.cpp:774
 #, kde-format
 msgid "General"
 msgstr "Allmänt"
@@ -546,7 +549,7 @@ msgstr ""
 #: backends/qalculate/settings.ui:347 backends/qalculate/settings.ui:364
 #: backends/R/settings.ui:160 backends/R/settings.ui:189
 #: backends/sage/settings.ui:69 backends/sage/settings.ui:114
-#: backends/scilab/settings.ui:47 commandentry.cpp:346
+#: backends/scilab/settings.ui:47 commandentry.cpp:345
 #, kde-format
 msgid "Enabled"
 msgstr "Aktiverad"
@@ -616,12 +619,13 @@ msgstr "cm"
 msgid "height:"
 msgstr "höjd:"
 
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_ShowTocPlotsDefault)
 #. i18n: ectx: property (text), widget (QLabel, label_4)
 #. i18n: ectx: property (text), item, widget (KComboBox, kcfg_plotExtenstionGraphicPackage)
 #: backends/julia/settings.ui:173 backends/julia/settings.ui:231
 #: backends/maxima/settings.ui:74 backends/octave/settings.ui:162
 #: backends/python/settings.ui:80 backends/R/settings.ui:143
-#: backends/sage/settings.ui:97
+#: backends/sage/settings.ui:97 formating.ui:283
 #, kde-format
 msgid "Plots"
 msgstr "Diagram"
@@ -877,29 +881,29 @@ msgstr ""
 msgid "Path to the Maxima executable"
 msgstr "Sökväg till körbar fil för Maxima"
 
-#: backends/maxima/maximaexpression.cpp:87
+#: backends/maxima/maximaexpression.cpp:92
 #: backends/python/pythonexpression.cpp:61
 #: backends/qalculate/qalculateexpression.cpp:629
 #, kde-format
 msgid "Failed to create a temporary file for writing."
 msgstr "Misslyckades skapa en tillfällig fil för skrivning."
 
-#: backends/maxima/maximaexpression.cpp:115
+#: backends/maxima/maximaexpression.cpp:120
 #, kde-format
 msgid "Error: Too many */"
 msgstr "Fel: För många */"
 
-#: backends/maxima/maximaexpression.cpp:128
+#: backends/maxima/maximaexpression.cpp:133
 #, kde-format
 msgid "Error: Too many /*"
 msgstr "Fel: För många /*"
 
-#: backends/maxima/maximaexpression.cpp:134
+#: backends/maxima/maximaexpression.cpp:139
 #, kde-format
 msgid "Error: expected \" before ;"
 msgstr "Fel: Förväntade \" innan ;"
 
-#: backends/maxima/maximaexpression.cpp:437
+#: backends/maxima/maximaexpression.cpp:444
 #, kde-format
 msgid "Waiting for the plot result"
 msgstr "Väntar på diagramresultatet"
@@ -999,9 +1003,9 @@ msgid "The integration of plots will be disabled."
 msgstr "Integrering av diagram kommer att inaktiveras."
 
 #: backends/octave/octavesession.cpp:390 backends/sage/sagesession.cpp:358
-#: backends/sage/sagesession.cpp:369 cantor.cpp:233 cantor.cpp:235
-#: cantor.cpp:354 cantor.cpp:361 lib/session.cpp:334 main.cpp:48 main.cpp:105
-#: markdownentry.cpp:813 textentry.cpp:564 worksheet.cpp:1300
+#: backends/sage/sagesession.cpp:369 cantor.cpp:243 cantor.cpp:245
+#: cantor.cpp:430 cantor.cpp:437 lib/session.cpp:334 main.cpp:48 main.cpp:105
+#: markdownentry.cpp:813 textentry.cpp:564 worksheet.cpp:1392
 #, kde-format
 msgid "Cantor"
 msgstr "Cantor"
@@ -1476,7 +1480,7 @@ msgstr "EPS"
 
 #. i18n: ectx: property (text), item, widget (KComboBox, saveFileBox)
 #: backends/qalculate/plotassistant/qalculateplotdialog.ui:575
-#: worksheet.cpp:1860 worksheet.cpp:1884 worksheet.cpp:1902 worksheet.cpp:1919
+#: worksheet.cpp:1953 worksheet.cpp:1977 worksheet.cpp:1995 worksheet.cpp:2012
 #, kde-format
 msgid "LaTeX"
 msgstr "Latex"
@@ -2014,7 +2018,7 @@ msgid "Combined"
 msgstr "Kombinerat"
 
 #. i18n: ectx: attribute (title), widget (QWidget, tab_2)
-#: backends/qalculate/settings.ui:205 worksheetentry.cpp:439
+#: backends/qalculate/settings.ui:205 worksheetentry.cpp:450
 #, kde-format
 msgid "Evaluate"
 msgstr "Beräkna"
@@ -2559,37 +2563,37 @@ msgstr "Misslyckades starta Scilab. Kontrollera Scilabs installation."
 msgid "Plot Integration:"
 msgstr "Diagramintegrering:"
 
-#: cantor.cpp:109
+#: cantor.cpp:119
 #, kde-format
 msgid "The file %1 is already opened."
 msgstr "Filen %1 är redan öppen."
 
-#: cantor.cpp:109 cantor.cpp:245
+#: cantor.cpp:119 cantor.cpp:321
 #, kde-format
 msgid "Open file"
 msgstr "Öppna fil"
 
-#: cantor.cpp:151
+#: cantor.cpp:161
 #, kde-format
 msgid "Download Examples"
 msgstr "Ladda ner exempel"
 
-#: cantor.cpp:154
+#: cantor.cpp:164
 #, kde-format
 msgid "&Open Example"
 msgstr "Ö&ppna exempel"
 
-#: cantor.cpp:159
+#: cantor.cpp:169
 #, kde-format
 msgid "Go to previous worksheet"
 msgstr "Gå till föregående arbetsblad"
 
-#: cantor.cpp:171
+#: cantor.cpp:181
 #, kde-format
 msgid "Go to next worksheet"
 msgstr "Gå till nästa arbetsblad"
 
-#: cantor.cpp:244
+#: cantor.cpp:320
 #, kde-format
 msgid ""
 "All supported files (*.cws *ipynb);;Cantor Worksheet (*.cws);;Jupyter "
@@ -2598,7 +2602,7 @@ msgstr ""
 "Alla filer som stöds (*.cws *ipynb);;Cantor-arbetsblad (*.cws);;Jupyter "
 "anteckningsblock (*.ipynb)"
 
-#: cantor.cpp:312
+#: cantor.cpp:388
 #, kde-format
 msgid ""
 "<h1>No Backend Found</h1>\n"
@@ -2625,17 +2629,17 @@ msgstr[1] ""
 "<li>Installera paket för någon av följande programvaror:</li>     %2   </ul> "
 "</div>"
 
-#: cantor.cpp:332
+#: cantor.cpp:408
 #, kde-format
 msgid "Error"
 msgstr "Fel"
 
-#: cantor.cpp:354
+#: cantor.cpp:430
 #, kde-format
 msgid "Backend %1 is not installed"
 msgstr "Bakgrundsprogrammet %1 är inte installerat"
 
-#: cantor.cpp:361
+#: cantor.cpp:437
 #, kde-format
 msgid ""
 "%1 backend installed, but inactive. Please check installation and Cantor "
@@ -2644,61 +2648,61 @@ msgstr ""
 "Gränssnitt %1 installerat, men inaktivt. Kontrollera installationen och "
 "Cantors inställningar."
 
-#: cantor.cpp:389
+#: cantor.cpp:465
 #, kde-format
 msgid "Session %1"
 msgstr "Session %1"
 
-#: cantor.cpp:406
+#: cantor.cpp:483
 #, kde-format
 msgid "Failed to find the Cantor Part with error %1"
 msgstr "Misslyckades hitta Cantor-delprogram med fel %1"
 
-#: cantor.cpp:464 cantor_part.cpp:654
+#: cantor.cpp:543 cantor_part.cpp:665
 #, kde-format
 msgid "Calculating..."
 msgstr "Beräknar..."
 
-#: cantor.cpp:467 cantor_part.cpp:665 cantor_part.cpp:733
+#: cantor.cpp:546 cantor_part.cpp:676 cantor_part.cpp:744
 #, kde-format
 msgid "Ready"
 msgstr "Klar"
 
-#: cantor.cpp:511
+#: cantor.cpp:593
 #, kde-format
 msgid "Changed"
 msgstr "Ändrad"
 
-#: cantor.cpp:597
+#: cantor.cpp:679
 #, kde-format
 msgid "Multiple unsaved Worksheets are opened. Do you want to close them?"
 msgstr "Flera osparade arbetsblad är öppna. Vill du stänga dem?"
 
-#: cantor.cpp:598
+#: cantor.cpp:680
 #, kde-format
 msgid "Close Cantor"
 msgstr "Stäng Cantor"
 
-#: cantor.cpp:617
+#: cantor.cpp:699
 #, kde-format
 msgid "The current project has been modified. Do you want to save it?"
 msgstr "Aktuellt projekt har ändrats. Vill du spara det?"
 
-#: cantor.cpp:618
+#: cantor.cpp:700
 #, kde-format
 msgid "Save Project"
 msgstr "Spara projekt"
 
-#: cantor.cpp:662 commandentry.cpp:167 commandentry.cpp:198
+#: cantor.cpp:746 commandentry.cpp:166 commandentry.cpp:197
 #: horizontalruleentry.cpp:328
 #, kde-format
 msgid "Default"
 msgstr "Standardvärde"
 
-#: cantor.cpp:678
+#: cantor.cpp:775
 #, kde-format
-msgid "Formatting"
-msgstr "Formatering"
+msgid "Table of Contents"
+msgstr ""
 
 #. i18n: ectx: label, entry (DefaultBackend), group (Cantor)
 #: cantor.kcfg:10
@@ -2736,14 +2740,41 @@ msgstr "Aktivera normalt komplettering"
 msgid "Enable Numbering of Expressions by default"
 msgstr "Aktivera normalt numrering av uttryck"
 
-#. i18n: ectx: label, entry (AnimationDefault), group (Cantor)
+#. i18n: ectx: label, entry (ShowTocChaptersDefault), group (Cantor)
 #: cantor.kcfg:34
+#, fuzzy, kde-format
+#| msgid "Animate changes in the Worksheet by default"
+msgid "Show chapters in the Worksheet Structure Navigator by default"
+msgstr "Animera normalt ändringar av arbetsbladet"
+
+#. i18n: ectx: label, entry (ShowTocSectionsDefault), group (Cantor)
+#: cantor.kcfg:38
+#, fuzzy, kde-format
+#| msgid "Animate changes in the Worksheet by default"
+msgid "Show sections in the Worksheet Structure Navigator by default"
+msgstr "Animera normalt ändringar av arbetsbladet"
+
+#. i18n: ectx: label, entry (ShowTocCommandEntriesDefault), group (Cantor)
+#: cantor.kcfg:42
+#, fuzzy, kde-format
+#| msgid "Animate changes in the Worksheet by default"
+msgid "Show command entries in the Worksheet Structure Navigator by default"
+msgstr "Animera normalt ändringar av arbetsbladet"
+
+#. i18n: ectx: label, entry (ShowTocPlotsDefault), group (Cantor)
+#: cantor.kcfg:46
+#, kde-format
+msgid "Show plots in the Worksheet Structure Navigator by default"
+msgstr ""
+
+#. i18n: ectx: label, entry (AnimationDefault), group (Cantor)
+#: cantor.kcfg:50
 #, kde-format
 msgid "Animate changes in the Worksheet by default"
 msgstr "Animera normalt ändringar av arbetsbladet"
 
 #. i18n: ectx: label, entry (EmbeddedMathDefault), group (Cantor)
-#: cantor.kcfg:38
+#: cantor.kcfg:54
 #, kde-format
 msgid ""
 "Enable rendering math expressions inside $$..$$ in Text and Markdown entries "
@@ -2753,26 +2784,26 @@ msgstr ""
 "poster (kräver att pdflatex är installerat)"
 
 #. i18n: ectx: label, entry (WarnAboutEntryDelete), group (Cantor)
-#: cantor.kcfg:42
+#: cantor.kcfg:58
 #, kde-format
 msgid "Ask for confirmation when deleting an entry"
 msgstr "Fråga efter bekräftelse när en post tas bort"
 
 #. i18n: ectx: label, entry (AutoEval), group (Cantor)
-#: cantor.kcfg:46
+#: cantor.kcfg:62
 #, kde-format
 msgid "Automatically reevaluate the entries below the current"
 msgstr "Utvärdera automatiskt posterna under den nuvarande igen"
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_WarnAboutSessionRestart)
 #. i18n: ectx: label, entry (WarnAboutSessionRestart), group (Cantor)
-#: cantor.kcfg:50 settings.ui:289
+#: cantor.kcfg:66 settings.ui:289
 #, kde-format
 msgid "Ask for confirmation when restarting the backend"
 msgstr "Fråga efter bekräftelse när bakgrundsprogrammet startas om"
 
 #. i18n: ectx: label, entry (StoreTextEntryFormatting), group (Cantor)
-#: cantor.kcfg:54
+#: cantor.kcfg:70
 #, kde-format
 msgid ""
 "Save rich text formatting of TextEntry, when save Worksheet in Jupyter "
@@ -2782,174 +2813,181 @@ msgstr ""
 "anteckningsblockformat"
 
 #. i18n: ectx: label, entry (UseOldCantorEntriesIndent), group (Cantor)
-#: cantor.kcfg:58
+#: cantor.kcfg:74
 #, kde-format
 msgid "Use old style Cantor entries placement style"
 msgstr "Använd gammaldags placeringsstil för Cantor-poster"
 
 #. i18n: ectx: label, entry (ShowMathRenderError), group (Cantor)
-#: cantor.kcfg:62
+#: cantor.kcfg:78
 #, kde-format
 msgid "Show embedded math render error"
 msgstr "Visa fel för inbäddad matematikåtergivning"
 
 #. i18n: ectx: label, entry (VisibleLinesLimit), group (Cantor)
-#: cantor.kcfg:66
+#: cantor.kcfg:82
 #, kde-format
 msgid "Limit of visible lines for text result"
 msgstr "Gräns för synliga rader med textresultat"
 
+#. i18n: ectx: label, entry (HierarchyFontSettingsMigrated), group (Cantor)
+#: cantor.kcfg:86
+#, kde-format
+msgid ""
+"Whether the hierarchy font settings have been migrated to complete fonts"
+msgstr ""
+
 #. i18n: ectx: label, entry (ChapterFontFamily), group (Cantor)
-#: cantor.kcfg:70
+#: cantor.kcfg:90
 #, kde-format
 msgid "Hierarchy font for chapter"
 msgstr "hierarkiskt teckensnitt för kapitel"
 
 #. i18n: ectx: label, entry (ChapterFontSize), group (Cantor)
-#: cantor.kcfg:74
+#: cantor.kcfg:94
 #, kde-format
 msgid "Hierarchy font size for chapter"
 msgstr "Hierarkisk teckenstorlek för kapitel"
 
 #. i18n: ectx: label, entry (ChapterFontItalic), group (Cantor)
-#: cantor.kcfg:78
+#: cantor.kcfg:98
 #, kde-format
 msgid "Hierarchy font italic for chapter"
 msgstr "Kursivt hierarkiskt teckensnitt för kapitel"
 
 #. i18n: ectx: label, entry (ChapterFontBold), group (Cantor)
-#: cantor.kcfg:82
+#: cantor.kcfg:102
 #, kde-format
 msgid "Hierarchy font bold for chapter"
 msgstr "Fetstilt hierarkiskt teckensnitt för kapitel"
 
 #. i18n: ectx: label, entry (SubchapterFontFamily), group (Cantor)
-#: cantor.kcfg:86
+#: cantor.kcfg:106
 #, kde-format
 msgid "Hierarchy font for subchapter"
 msgstr "Hierarkiskt teckensnitt för delkapitel"
 
 #. i18n: ectx: label, entry (SubchapterFontSize), group (Cantor)
-#: cantor.kcfg:90
+#: cantor.kcfg:110
 #, kde-format
 msgid "Hierarchy font size for subchapter"
 msgstr "Hierarkisk teckenstorlek för delkapitel"
 
 #. i18n: ectx: label, entry (SubchapterFontItalic), group (Cantor)
-#: cantor.kcfg:94
+#: cantor.kcfg:114
 #, kde-format
 msgid "Hierarchy font italic for subchapter"
 msgstr "Kursivt hierarkiskt teckensnitt för delkapitel"
 
 #. i18n: ectx: label, entry (SubchapterFontBold), group (Cantor)
-#: cantor.kcfg:98
+#: cantor.kcfg:118
 #, kde-format
 msgid "Hierarchy font bold for subchapter"
 msgstr "Fetstilt hierarkiskt teckensnitt för delkapitel"
 
 #. i18n: ectx: label, entry (SectionFontFamily), group (Cantor)
 #. i18n: ectx: label, entry (SectionFontSize), group (Cantor)
-#: cantor.kcfg:102 cantor.kcfg:106
+#: cantor.kcfg:122 cantor.kcfg:126
 #, kde-format
 msgid "Hierarchy font for section"
 msgstr "Hierarkiskt teckensnitt för avsnitt"
 
 #. i18n: ectx: label, entry (SectionFontItalic), group (Cantor)
-#: cantor.kcfg:110
+#: cantor.kcfg:130
 #, kde-format
 msgid "Hierarchy font italic for section"
 msgstr "Kursivt hierarkiskt teckensnitt för avsnitt"
 
 #. i18n: ectx: label, entry (SectionFontBold), group (Cantor)
-#: cantor.kcfg:114
+#: cantor.kcfg:134
 #, kde-format
 msgid "Hierarchy font bold for section"
 msgstr "Fetstilt hierarkiskt teckensnitt för avsnitt"
 
 #. i18n: ectx: label, entry (SubsectionFontFamily), group (Cantor)
 #. i18n: ectx: label, entry (SubsectionFontSize), group (Cantor)
-#: cantor.kcfg:118 cantor.kcfg:122
+#: cantor.kcfg:138 cantor.kcfg:142
 #, kde-format
 msgid "Hierarchy font for subsection"
 msgstr "Hierarkiskt teckensnitt för delavsnitt"
 
 #. i18n: ectx: label, entry (SubsectionFontItalic), group (Cantor)
-#: cantor.kcfg:126
+#: cantor.kcfg:146
 #, kde-format
 msgid "Hierarchy font italic for subsection"
 msgstr "Kursivt hierarkiskt teckensnitt för delavsnitt"
 
 #. i18n: ectx: label, entry (SubsectionFontBold), group (Cantor)
-#: cantor.kcfg:130
+#: cantor.kcfg:150
 #, kde-format
 msgid "Hierarchy font bold for subsection"
 msgstr "Fetstilt hierarkiskt teckensnitt för delavsnitt"
 
 #. i18n: ectx: label, entry (ParagraphFontFamily), group (Cantor)
 #. i18n: ectx: label, entry (ParagraphFontSize), group (Cantor)
-#: cantor.kcfg:134 cantor.kcfg:138
+#: cantor.kcfg:154 cantor.kcfg:158
 #, kde-format
 msgid "Hierarchy font for paragraph"
 msgstr "Hierarkiskt teckensnitt för stycke"
 
 #. i18n: ectx: label, entry (ParagraphFontItalic), group (Cantor)
-#: cantor.kcfg:142
+#: cantor.kcfg:162
 #, kde-format
 msgid "Hierarchy font italic for paragraph"
 msgstr "Kursivt hierarkiskt teckensnitt för stycke"
 
 #. i18n: ectx: label, entry (ParagraphFontBold), group (Cantor)
-#: cantor.kcfg:146
+#: cantor.kcfg:166
 #, kde-format
 msgid "Hierarchy font bold for paragraph"
 msgstr "Fetstilt hierarkiskt teckensnitt för stycke"
 
 #. i18n: ectx: label, entry (SubparagraphFontFamily), group (Cantor)
 #. i18n: ectx: label, entry (SubparagraphFontSize), group (Cantor)
-#: cantor.kcfg:150 cantor.kcfg:154
+#: cantor.kcfg:170 cantor.kcfg:174
 #, kde-format
 msgid "Hierarchy font for subparagraph"
 msgstr "Hierarkiskt teckensnitt för delstycke"
 
 #. i18n: ectx: label, entry (SubparagraphFontItalic), group (Cantor)
-#: cantor.kcfg:158
+#: cantor.kcfg:178
 #, kde-format
 msgid "Hierarchy font italic for subparagraph"
 msgstr "Kursivt hierarkiskt teckensnitt för delstycke"
 
 #. i18n: ectx: label, entry (SubparagraphFontBold), group (Cantor)
-#: cantor.kcfg:162
+#: cantor.kcfg:182
 #, kde-format
 msgid "Hierarchy font bold for subparagraph"
 msgstr "Fetstilt hierarkiskt teckensnitt för delstycke"
 
-#: cantor_part.cpp:158
+#: cantor_part.cpp:168
 #, kde-format
 msgid "Save Plain Text"
 msgstr "Spara vanlig text"
 
-#: cantor_part.cpp:199 cantor_part.cpp:553
+#: cantor_part.cpp:209 cantor_part.cpp:564
 #, kde-format
 msgid "Export to PDF"
 msgstr "Exportera till PDF"
 
-#: cantor_part.cpp:203 cantor_part.cpp:565 worksheet.cpp:1321
-#: worksheet.cpp:1327
+#: cantor_part.cpp:213 cantor_part.cpp:576 worksheet.cpp:1413
+#: worksheet.cpp:1419
 #, kde-format
 msgid "Export to LaTeX"
 msgstr "Exportera till Latex"
 
-#: cantor_part.cpp:218 cantor_part.cpp:661 worksheet.cpp:1940
+#: cantor_part.cpp:228 cantor_part.cpp:672 worksheet.cpp:2033
 #, kde-format
 msgid "Evaluate Worksheet"
 msgstr "Beräkna arbetsblad"
 
-#: cantor_part.cpp:224 worksheet.cpp:1948
+#: cantor_part.cpp:234 worksheet.cpp:2041
 #, kde-format
 msgid "Zoom"
 msgstr "Zooma"
 
-#: cantor_part.cpp:231
+#: cantor_part.cpp:241
 #, kde-format
 msgctxt ""
 "Zoom percentage value %1 will be replaced by the actual zoom factor value, "
@@ -2958,94 +2996,94 @@ msgctxt ""
 msgid "%1%"
 msgstr "%1 %"
 
-#: cantor_part.cpp:246
+#: cantor_part.cpp:256
 #, kde-format
 msgid "Typeset using LaTeX"
 msgstr "Typsätt med Latex"
 
-#: cantor_part.cpp:251
+#: cantor_part.cpp:261
 #, kde-format
 msgid "Syntax Highlighting"
 msgstr "Syntaxfärgläggning"
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_CompletionDefault)
-#: cantor_part.cpp:256 settings.ui:46
+#: cantor_part.cpp:266 settings.ui:46
 #, kde-format
 msgid "Completion"
 msgstr "Komplettering"
 
-#: cantor_part.cpp:261
+#: cantor_part.cpp:271
 #, kde-format
 msgid "Line Numbers"
 msgstr "Radnummer"
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_AnimationDefault)
-#: cantor_part.cpp:266 settings.ui:158
+#: cantor_part.cpp:276 settings.ui:158
 #, kde-format
 msgid "Animations"
 msgstr "Animeringar"
 
-#: cantor_part.cpp:273
+#: cantor_part.cpp:283
 #, kde-format
 msgid "Embedded Math"
 msgstr "Inbäddad matematik"
 
-#: cantor_part.cpp:279
+#: cantor_part.cpp:289
 #, kde-format
 msgid "Restart Backend"
 msgstr "Starta om bakgrundsprogram"
 
-#: cantor_part.cpp:285 worksheetentry.cpp:883
+#: cantor_part.cpp:295 worksheetentry.cpp:892
 #, kde-format
 msgid "Evaluate Entry"
 msgstr "Beräkna post"
 
-#: cantor_part.cpp:291
+#: cantor_part.cpp:301
 #, kde-format
 msgid "Insert Command Entry"
 msgstr "Infoga kommandopost"
 
-#: cantor_part.cpp:297
+#: cantor_part.cpp:307
 #, kde-format
 msgid "Insert Text Entry"
 msgstr "Infoga textpost"
 
-#: cantor_part.cpp:303
+#: cantor_part.cpp:313
 #, kde-format
 msgid "Insert Markdown Entry"
 msgstr "Infoga Markdown-post"
 
-#: cantor_part.cpp:309
+#: cantor_part.cpp:319
 #, kde-format
 msgid "Insert LaTeX Entry"
 msgstr "Infoga Latex-post"
 
-#: cantor_part.cpp:314
+#: cantor_part.cpp:324
 #, kde-format
 msgid "Insert Page Break"
 msgstr "Infoga sidbrytning"
 
-#: cantor_part.cpp:319 markdownentry.cpp:62
+#: cantor_part.cpp:329 markdownentry.cpp:62
 #, kde-format
 msgid "Insert Image"
 msgstr "Infoga bild"
 
-#: cantor_part.cpp:324
+#: cantor_part.cpp:334
 #, kde-format
 msgid "Collapse All Results"
 msgstr "Dra ihop alla resultat"
 
-#: cantor_part.cpp:329
+#: cantor_part.cpp:339
 #, kde-format
 msgid "Expand All Results"
 msgstr "Expandera alla resultat"
 
-#: cantor_part.cpp:334
+#: cantor_part.cpp:344
 #, kde-format
 msgid "Delete All Results"
 msgstr "Ta bort alla resultat"
 
-#: cantor_part.cpp:339
+#: cantor_part.cpp:349
 #, kde-format
 msgid "Delete current Entry"
 msgstr "Ta bort nuvarande post"
@@ -3055,67 +3093,67 @@ msgstr "Ta bort nuvarande post"
 #. collection->addAction(QLatin1String("file_publish_worksheet"), publishWorksheet);
 #. connect(publishWorksheet, &QAction::triggered, this, SLOT(publishWorksheet()));
 #.
-#: cantor_part.cpp:355
+#: cantor_part.cpp:365
 #, kde-format
 msgid "Show Script Editor"
 msgstr "Visa skripteditor"
 
-#: cantor_part.cpp:360
+#: cantor_part.cpp:370
 #, kde-format
 msgid "Show Completion"
 msgstr "Visa komplettering"
 
-#: cantor_part.cpp:425
+#: cantor_part.cpp:436
 #, kde-format
 msgid "CantorPart"
 msgstr "Cantor-delprogram"
 
-#: cantor_part.cpp:427
+#: cantor_part.cpp:438
 #, kde-format
 msgid "(C) 2009-2015 Alexander Rieder"
 msgstr "© 2009-2015 Alexander Rieder"
 
-#: cantor_part.cpp:431 main.cpp:63
+#: cantor_part.cpp:442 main.cpp:63
 #, kde-format
 msgid "Alexander Rieder"
 msgstr "Alexander Rieder"
 
-#: cantor_part.cpp:483
+#: cantor_part.cpp:494
 #, kde-format
 msgid "Cantor Worksheet (*.cws)"
 msgstr "Cantor-arbetsblad (*.cws)"
 
-#: cantor_part.cpp:484
+#: cantor_part.cpp:495
 #, kde-format
 msgid "Jupyter Notebook (*.ipynb)"
 msgstr "Jupyter anteckningsblock (*.ipynb)"
 
-#: cantor_part.cpp:500
+#: cantor_part.cpp:511
 #, kde-format
 msgid "Save as"
 msgstr "Spara som"
 
-#: cantor_part.cpp:546 panelplugins/variablemgr/variablemanagerwidget.cpp:176
+#: cantor_part.cpp:557 panelplugins/variablemgr/variablemanagerwidget.cpp:189
 #, kde-format
 msgid "Save"
 msgstr "Spara"
 
-#: cantor_part.cpp:546 textresultitem.cpp:208
+#: cantor_part.cpp:557 textresultitem.cpp:208
 #, kde-format
 msgid "Text Files (*.txt)"
 msgstr "Textfiler (*.txt)"
 
-#: cantor_part.cpp:553
+#: cantor_part.cpp:564
 #, kde-format
 msgid "PDF Files (*.pdf)"
 msgstr "PDF-filer (*.pdf)"
 
-#: cantor_part.cpp:565
+#: cantor_part.cpp:576
 #, kde-format
 msgid "TeX Files (*.tex)"
 msgstr "Tex-filer (*.tex)"
 
-#: cantor_part.cpp:610
+#: cantor_part.cpp:621
 #, kde-format
 msgid ""
 "All the available calculation results will be lost. Do you really want to "
@@ -3124,63 +3162,63 @@ msgstr ""
 "Alla tillgängliga beräkningsresultat kommer att gå förlorade. Vill du "
 "verkligen starta om %1?"
 
-#: cantor_part.cpp:611
+#: cantor_part.cpp:622
 #, kde-format
 msgid "Restart %1?"
 msgstr "Starta om %1?"
 
-#: cantor_part.cpp:651 worksheet.cpp:1943
+#: cantor_part.cpp:662 worksheet.cpp:2036
 #, kde-format
 msgid "Interrupt"
 msgstr "Avbrott"
 
-#: cantor_part.cpp:677
+#: cantor_part.cpp:688
 #, kde-format
 msgid "Session Error: %1"
 msgstr "Sessionsfel: %1"
 
-#: cantor_part.cpp:723
+#: cantor_part.cpp:734
 #, kde-format
 msgid "Initialization complete"
 msgstr "Initiering färdig"
 
-#: cantor_part.cpp:728
+#: cantor_part.cpp:739
 #, kde-format
 msgid "Initializing..."
 msgstr "Initierar..."
 
-#: cantor_part.cpp:786
+#: cantor_part.cpp:797
 #, kde-format
 msgid "[read-only]"
 msgstr "[skrivskyddad]"
 
-#: cantor_part.cpp:901
+#: cantor_part.cpp:912
 #, kde-format
 msgid "Do you want to upload current Worksheet to public web server?"
 msgstr "Vill du ladda upp nuvarande arbetsblad till en öppen webbserver?"
 
-#: cantor_part.cpp:902
+#: cantor_part.cpp:913
 #, kde-format
 msgid "Question - Cantor"
 msgstr "Fråga - Cantor"
 
-#: cantor_part.cpp:903
+#: cantor_part.cpp:914
 #, kde-format
 msgctxt "@action:button"
 msgid "Upload"
 msgstr "Ladda upp"
 
-#: cantor_part.cpp:911
+#: cantor_part.cpp:922
 #, kde-format
 msgid "The Worksheet is not saved. You should save it before uploading."
 msgstr "Arbetsbladet har inte sparats. Du bör spara det innan uppladdning."
 
-#: cantor_part.cpp:912
+#: cantor_part.cpp:923
 #, kde-format
 msgid "Warning - Cantor"
 msgstr "Varning - Cantor"
 
-#: cantor_part.cpp:984
+#: cantor_part.cpp:995
 #, kde-format
 msgid "This backend does not support scripts."
 msgstr "Bakgrundsprogrammet stöder inte skript."
@@ -3233,86 +3271,72 @@ msgstr "Paneler"
 msgid "&Settings"
 msgstr "In&ställningar"
 
-#: commandentry.cpp:159
+#: commandentry.cpp:158
 #, kde-format
 msgid "Background Color"
 msgstr "Bakgrundsfärg"
 
-#: commandentry.cpp:191
+#: commandentry.cpp:190
 #, kde-format
 msgid "Text Color"
 msgstr "Textfärg"
 
-#: commandentry.cpp:219
+#: commandentry.cpp:218
 #, kde-format
 msgid "Font"
 msgstr "Teckensnitt"
 
-#. i18n: ectx: property (text), widget (QCheckBox, kcfg_ChapterFontBold)
-#. i18n: ectx: property (text), widget (QCheckBox, kcfg_SubchapterFontBold)
-#. i18n: ectx: property (text), widget (QCheckBox, kcfg_SectionFontBold)
-#. i18n: ectx: property (text), widget (QCheckBox, kcfg_SubsectionFontBold)
-#. i18n: ectx: property (text), widget (QCheckBox, kcfg_ParagraphFontBold)
-#. i18n: ectx: property (text), widget (QCheckBox, kcfg_SubparagraphFontBold)
-#: commandentry.cpp:222 formating.ui:84 formating.ui:141 formating.ui:198
-#: formating.ui:255 formating.ui:312 formating.ui:369
+#: commandentry.cpp:221
 #, kde-format
 msgid "Bold"
 msgstr "Fetstil"
 
-#. i18n: ectx: property (text), widget (QCheckBox, kcfg_ChapterFontItalic)
-#. i18n: ectx: property (text), widget (QCheckBox, kcfg_SubchapterFontItalic)
-#. i18n: ectx: property (text), widget (QCheckBox, kcfg_SectionFontItalic)
-#. i18n: ectx: property (text), widget (QCheckBox, kcfg_SubsectionFontItalic)
-#. i18n: ectx: property (text), widget (QCheckBox, kcfg_ParagraphFontItalic)
-#. i18n: ectx: property (text), widget (QCheckBox, kcfg_SubparagraphFontItalic)
-#: commandentry.cpp:229 formating.ui:91 formating.ui:148 formating.ui:205
-#: formating.ui:262 formating.ui:319 formating.ui:376
+#: commandentry.cpp:228
 #, kde-format
 msgid "Italic"
 msgstr "Kursiv"
 
-#: commandentry.cpp:238
+#: commandentry.cpp:237
 #, kde-format
 msgid "Increase Size"
 msgstr "Öka storlek"
 
-#: commandentry.cpp:242
+#: commandentry.cpp:241
 #, kde-format
 msgid "Decrease Size"
 msgstr "Minska storlek"
 
-#: commandentry.cpp:248
+#: commandentry.cpp:247
 #, kde-format
 msgid "Select"
 msgstr "Välj"
 
-#: commandentry.cpp:252
+#: commandentry.cpp:251
 #, kde-format
 msgid "Reset to Default"
 msgstr "Återställ till standardvärde"
 
-#: commandentry.cpp:333
+#: commandentry.cpp:332
 #, kde-format
 msgid "Show Results"
 msgstr "Visa resultat"
 
-#: commandentry.cpp:335
+#: commandentry.cpp:334
 #, kde-format
 msgid "Hide Results"
 msgstr "Dölj resultat"
 
-#: commandentry.cpp:340 worksheet.cpp:1932
+#: commandentry.cpp:339 worksheet.cpp:2025
 #, kde-format
 msgid "Show Help"
 msgstr "Visa hjälp"
 
-#: commandentry.cpp:353
+#: commandentry.cpp:352
 #, kde-format
 msgid "Appearance"
 msgstr "Utseende"
 
-#: commandentry.cpp:623 commandentry.cpp:887
+#: commandentry.cpp:733 commandentry.cpp:1033
 #, kde-format
 msgid "Interrupted"
 msgstr "Avbruten"
@@ -3385,97 +3409,98 @@ msgstr "Sök i:"
 msgid "&Match case"
 msgstr "&Matcha skiftläge"
 
-#. i18n: ectx: attribute (title), widget (QWidget, ChapterTab)
-#: formating.ui:42
-#, kde-format
-msgid "Chapter Font"
-msgstr "Teckensnitt för kapitel"
+#. i18n: ectx: property (text), widget (QLabel, hierarchyEntriesLabel)
+#: formating.ui:35
+#, fuzzy, kde-format
+#| msgid "Hierarchy Entry"
+msgid "Hierarchy Entries:"
+msgstr "Hierarkisk post"
 
-#. i18n: ectx: property (text), widget (QLabel, lChapterFontFamily)
-#. i18n: ectx: property (text), widget (QLabel, lSubchapterFontFamily)
-#. i18n: ectx: property (text), widget (QLabel, lSectionFontFamily)
-#. i18n: ectx: property (text), widget (QLabel, lSubsectionFontFamily)
-#. i18n: ectx: property (text), widget (QLabel, lParagraphFontFamily)
-#. i18n: ectx: property (text), widget (QLabel, lSubparagraphFontFamily)
-#: formating.ui:48 formating.ui:105 formating.ui:162 formating.ui:219
-#: formating.ui:276 formating.ui:333
-#, kde-format
-msgid "Fon&t Family:"
-msgstr "&Teckenfamilj:"
+#. i18n: ectx: property (text), widget (QLabel, hierarchyLevelLabel)
+#: formating.ui:50
+#, fuzzy, kde-format
+#| msgid "Set Hierarchy Level"
+msgid "Hierarchy level:"
+msgstr "Ange hierarkinivå"
 
-#. i18n: ectx: property (text), widget (QLabel, lChapterFontSize)
-#. i18n: ectx: property (text), widget (QLabel, lSubchapterFontSize)
-#. i18n: ectx: property (text), widget (QLabel, lSectionFontSize)
-#. i18n: ectx: property (text), widget (QLabel, lSubsetctionFontSize)
-#. i18n: ectx: property (text), widget (QLabel, lParagrapshFontSize)
-#. i18n: ectx: property (text), widget (QLabel, lSubparagraphFontSize)
-#: formating.ui:61 formating.ui:118 formating.ui:175 formating.ui:232
-#: formating.ui:289 formating.ui:346
-#, kde-format
-msgid "Font Si&ze:"
-msgstr "Te&ckenstorlek:"
-
-#. i18n: ectx: attribute (title), widget (QWidget, SubchapterTab)
-#: formating.ui:99
-#, kde-format
-msgid "Subchapter Font"
-msgstr "Teckensnitt för delkapitel"
-
-#. i18n: ectx: attribute (title), widget (QWidget, SectionTab)
-#: formating.ui:156
-#, kde-format
-msgid "Section Font"
-msgstr "Teckensnitt för avsnitt"
-
-#. i18n: ectx: attribute (title), widget (QWidget, SubsectionTab)
-#: formating.ui:213
-#, kde-format
-msgid "Subsection Font"
-msgstr "Teckensnitt för delavsnitt"
-
-#. i18n: ectx: attribute (title), widget (QWidget, ParagraphTab)
-#: formating.ui:270
-#, kde-format
-msgid "Paragraph Font"
-msgstr "Teckensnitt för stycke"
-
-#. i18n: ectx: attribute (title), widget (QWidget, SubparagraphTab)
-#: formating.ui:327
-#, kde-format
-msgid "Subparagraph Font"
-msgstr "Teckensnitt för delstycke"
-
-#: hierarchyentry.cpp:22
+#. i18n: ectx: property (text), item, widget (QComboBox, hierarchyLevelComboBox)
+#: formating.ui:61 hierarchyentry.cpp:22
 #, kde-format
 msgid "Chapter"
 msgstr "Kapitel"
 
-#: hierarchyentry.cpp:22
+#. i18n: ectx: property (text), item, widget (QComboBox, hierarchyLevelComboBox)
+#: formating.ui:66 hierarchyentry.cpp:22
 #, kde-format
 msgid "Subchapter"
 msgstr "Delkapitel"
 
-#: hierarchyentry.cpp:22
+#. i18n: ectx: property (text), item, widget (QComboBox, hierarchyLevelComboBox)
+#: formating.ui:71 hierarchyentry.cpp:22
 #, kde-format
 msgid "Section"
 msgstr "Avsnitt"
 
-#: hierarchyentry.cpp:22
+#. i18n: ectx: property (text), item, widget (QComboBox, hierarchyLevelComboBox)
+#: formating.ui:76 hierarchyentry.cpp:22
 #, kde-format
 msgid "Subsection"
 msgstr "Delavsnitt"
 
-#: hierarchyentry.cpp:22
+#. i18n: ectx: property (text), item, widget (QComboBox, hierarchyLevelComboBox)
+#: formating.ui:81 hierarchyentry.cpp:22
 #, kde-format
 msgid "Paragraph"
 msgstr "Stycke"
 
-#: hierarchyentry.cpp:22
+#. i18n: ectx: property (text), item, widget (QComboBox, hierarchyLevelComboBox)
+#: formating.ui:86 hierarchyentry.cpp:22
 #, kde-format
 msgid "Subparagraph"
 msgstr "Delstycke"
 
-#: hierarchyentry.cpp:48
+#. i18n: ectx: property (text), widget (QLabel, lChapterFont)
+#. i18n: ectx: property (text), widget (QLabel, lSubchapterFont)
+#. i18n: ectx: property (text), widget (QLabel, lSectionFont)
+#. i18n: ectx: property (text), widget (QLabel, lSubsectionFont)
+#. i18n: ectx: property (text), widget (QLabel, lParagraphFont)
+#. i18n: ectx: property (text), widget (QLabel, lSubparagraphFont)
+#: formating.ui:115 formating.ui:138 formating.ui:161 formating.ui:184
+#: formating.ui:207 formating.ui:230
+#, fuzzy, kde-format
+#| msgctxt "@action"
+#| msgid "&Font"
+msgid "&Font:"
+msgstr "&Teckensnitt"
+
+#. i18n: ectx: property (text), widget (QLabel, visibleItemsLabel)
+#: formating.ui:253
+#, kde-format
+msgid "Visible Items:"
+msgstr ""
+
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_ShowTocChaptersDefault)
+#: formating.ui:262
+#, fuzzy, kde-format
+#| msgid "Chapter"
+msgid "Chapters"
+msgstr "Kapitel"
+
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_ShowTocSectionsDefault)
+#: formating.ui:269
+#, fuzzy, kde-format
+#| msgid "Section"
+msgid "Sections"
+msgstr "Avsnitt"
+
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_ShowTocCommandEntriesDefault)
+#: formating.ui:276
+#, fuzzy, kde-format
+#| msgid "Commands"
+msgid "Command entries"
+msgstr "Kommandon"
+
+#: hierarchyentry.cpp:55
 #, kde-format
 msgid "Set Hierarchy Level"
 msgstr "Ange hierarkinivå"
@@ -3550,18 +3575,24 @@ msgstr "Dubbelklicka här för att anpassa bildinställningar"
 msgid "Cannot load image %1"
 msgstr "Kan inte läsa in bild %1"
 
-#: imageresultitem.cpp:75
+#: imageresultitem.cpp:80
 #, kde-format
 msgctxt "%1 and %2 are file extensions"
 msgid "%1 files (*.%2)"
 msgstr "%1 filer (*.%2)"
 
-#: imageresultitem.cpp:78
+#: imageresultitem.cpp:83
+#, fuzzy, kde-format
+#| msgid "PDF Files (*.pdf)"
+msgid "PDF files (*.pdf)"
+msgstr "PDF-filer (*.pdf)"
+
+#: imageresultitem.cpp:85
 #, kde-format
 msgid "EPS files (*.eps)"
 msgstr "EPS-filer (*.eps)"
 
-#: imageresultitem.cpp:81
+#: imageresultitem.cpp:88
 #, kde-format
 msgid "Save image result"
 msgstr "Spara bildresultat"
@@ -3994,6 +4025,186 @@ msgstr "Alla filer som stöds"
 msgid "All files"
 msgstr "Alla filer"
 
+#: panelplugins/tocpanel/tocpanelplugin.cpp:207
+#, kde-format
+msgid "Search Table of Contents"
+msgstr ""
+
+#: panelplugins/tocpanel/tocpanelplugin.cpp:347
+#, kde-format
+msgid "Heading"
+msgstr ""
+
+#: panelplugins/tocpanel/tocpanelplugin.cpp:350
+#, kde-format
+msgid ""
+"Do you really want to delete the heading \"%1\"? Its contents will be kept. "
+"This action cannot be undone."
+msgstr ""
+
+#: panelplugins/tocpanel/tocpanelplugin.cpp:351
+#: worksheethierarchymanager.cpp:1175
+#, fuzzy, kde-format
+#| msgid "Delete Entry"
+msgid "Delete Heading"
+msgstr "Ta bort post"
+
+#: panelplugins/tocpanel/tocpanelplugin.cpp:365
+#: panelplugins/tocpanel/tocpanelplugin.cpp:1258 worksheet.cpp:1943
+#: worksheet.cpp:1972 worksheet.cpp:1990 worksheet.cpp:2006
+#: worksheethierarchymanager.cpp:321
+#, kde-format
+msgid "Command"
+msgstr "Kommando"
+
+#: panelplugins/tocpanel/tocpanelplugin.cpp:368
+#: panelplugins/tocpanel/tocpanelplugin.cpp:387
+#: panelplugins/tocpanel/tocpanelplugin.cpp:1261
+#: panelplugins/tocpanel/tocpanelplugin.cpp:1303
+#, kde-format
+msgid "Do you really want to delete \"%1\"? This action cannot be undone."
+msgstr ""
+
+#: panelplugins/tocpanel/tocpanelplugin.cpp:369
+#: panelplugins/tocpanel/tocpanelplugin.cpp:1252
+#: panelplugins/tocpanel/tocpanelplugin.cpp:1262
+#, fuzzy, kde-format
+#| msgid "Delete Command Entry Results"
+msgid "Delete Command"
+msgstr "Ta bort kommandoresultat"
+
+#: panelplugins/tocpanel/tocpanelplugin.cpp:388
+#: panelplugins/tocpanel/tocpanelplugin.cpp:1296
+#: panelplugins/tocpanel/tocpanelplugin.cpp:1304
+#, fuzzy, kde-format
+#| msgid "Delete"
+msgid "Delete Plot"
+msgstr "Ta bort"
+
+#: panelplugins/tocpanel/tocpanelplugin.cpp:455
+#, kde-format
+msgid "No visible items in the Table of Contents"
+msgstr ""
+
+#: panelplugins/tocpanel/tocpanelplugin.cpp:456
+#, kde-format
+msgid "No matching items"
+msgstr ""
+
+#: panelplugins/tocpanel/tocpanelplugin.cpp:1016
+#, kde-format
+msgid "Visible Items"
+msgstr ""
+
+#: panelplugins/tocpanel/tocpanelplugin.cpp:1018
+#, fuzzy, kde-format
+#| msgid "Chapter"
+msgid "Show Chapters"
+msgstr "Kapitel"
+
+#: panelplugins/tocpanel/tocpanelplugin.cpp:1027
+#, fuzzy, kde-format
+#| msgid "Show Completion"
+msgid "Show Sections"
+msgstr "Visa komplettering"
+
+#: panelplugins/tocpanel/tocpanelplugin.cpp:1036
+#, fuzzy, kde-format
+#| msgid "Insert Command Entry"
+msgid "Show Command Entries"
+msgstr "Infoga kommandopost"
+
+#: panelplugins/tocpanel/tocpanelplugin.cpp:1045
+#, fuzzy, kde-format
+#| msgid "Show Results"
+msgid "Show Plots"
+msgstr "Visa resultat"
+
+#: panelplugins/tocpanel/tocpanelplugin.cpp:1056
+#, fuzzy, kde-format
+#| msgid "Reset to Default"
+msgid "Reset to Defaults"
+msgstr "Återställ till standardvärde"
+
+#: panelplugins/tocpanel/tocpanelplugin.cpp:1179
+#, kde-format
+msgid "Go to Heading"
+msgstr ""
+
+#: panelplugins/tocpanel/tocpanelplugin.cpp:1189
+#, fuzzy, kde-format
+#| msgid "Unnamed"
+msgid "Rename"
+msgstr "Namnlös"
+
+#: panelplugins/tocpanel/tocpanelplugin.cpp:1200
+#, kde-format
+msgid "Promote Heading"
+msgstr ""
+
+#: panelplugins/tocpanel/tocpanelplugin.cpp:1207
+#, kde-format
+msgid "Demote Heading"
+msgstr ""
+
+#: panelplugins/tocpanel/tocpanelplugin.cpp:1216
+#, fuzzy, kde-format
+#| msgid "Delete current Entry"
+msgid "Delete Heading Only"
+msgstr "Ta bort nuvarande post"
+
+#: panelplugins/tocpanel/tocpanelplugin.cpp:1223
+#, fuzzy, kde-format
+#| msgid "Delete Command Entry Results"
+msgid "Delete Section and Contents"
+msgstr "Ta bort kommandoresultat"
+
+#: panelplugins/tocpanel/tocpanelplugin.cpp:1234
+#, fuzzy, kde-format
+#| msgid "Command"
+msgid "Go to Command"
+msgstr "Kommando"
+
+#: panelplugins/tocpanel/tocpanelplugin.cpp:1244
+#, fuzzy, kde-format
+#| msgid "Command"
+msgid "Rename Command"
+msgstr "Kommando"
+
+#: panelplugins/tocpanel/tocpanelplugin.cpp:1278
+#, kde-format
+msgid "Go to Plot"
+msgstr ""
+
+#: panelplugins/tocpanel/tocpanelplugin.cpp:1288
+#, kde-format
+msgid "Rename Plot"
+msgstr ""
+
+#: panelplugins/tocpanel/tocpanelplugin.cpp:1319
+#, fuzzy, kde-format
+#| msgid "Completion"
+msgid "Collapse Section"
+msgstr "Komplettering"
+
+#: panelplugins/tocpanel/tocpanelplugin.cpp:1331
+#, fuzzy, kde-format
+#| msgid "Section"
+msgid "Expand Section"
+msgstr "Avsnitt"
+
+#: panelplugins/tocpanel/tocpanelplugin.cpp:1349
+#, fuzzy, kde-format
+#| msgid "Expand All Results"
+msgid "Expand All"
+msgstr "Expandera alla resultat"
+
+#: panelplugins/tocpanel/tocpanelplugin.cpp:1356
+#, fuzzy, kde-format
+#| msgid "Collapse All Results"
+msgid "Collapse All"
+msgstr "Dra ihop alla resultat"
+
 #. i18n: ectx: property (text), widget (QLabel, label)
 #: panelplugins/variablemgr/newvardlg.ui:17
 #, kde-format
@@ -4007,7 +4218,7 @@ msgid "Value:"
 msgstr "Värde:"
 
 #: panelplugins/variablemgr/variablemanagerwidget.cpp:48
-#: panelplugins/variablemgr/variablemanagerwidget.cpp:205
+#: panelplugins/variablemgr/variablemanagerwidget.cpp:218
 #, kde-format
 msgid "Add New Variable"
 msgstr "Lägg till ny variabel"
@@ -4023,7 +4234,7 @@ msgid "Save Variables"
 msgstr "Spara variabler"
 
 #: panelplugins/variablemgr/variablemanagerwidget.cpp:66
-#: panelplugins/variablemgr/variablemanagerwidget.cpp:144
+#: panelplugins/variablemgr/variablemanagerwidget.cpp:157
 #, kde-format
 msgid "Remove Variables"
 msgstr "Ta bort variabler"
@@ -4043,37 +4254,37 @@ msgstr "Skiftlägeskänslig"
 msgid "Match Complete Word"
 msgstr "Matcha hela ord"
 
-#: panelplugins/variablemgr/variablemanagerwidget.cpp:143
+#: panelplugins/variablemgr/variablemanagerwidget.cpp:156
 #, kde-format
 msgid "Are you sure you want to remove all variables?"
 msgstr "Är du säker på att du vill ta bort alla variabler?"
 
-#: panelplugins/variablemgr/variablemanagerwidget.cpp:190
+#: panelplugins/variablemgr/variablemanagerwidget.cpp:203
 #, kde-format
 msgid "Load file"
 msgstr "Läs in fil"
 
-#: panelplugins/variablemgr/variablemanagerwidget.cpp:291
+#: panelplugins/variablemgr/variablemanagerwidget.cpp:304
 #, kde-format
 msgid "Copy Name"
 msgstr "Kopiera namn"
 
-#: panelplugins/variablemgr/variablemanagerwidget.cpp:292
+#: panelplugins/variablemgr/variablemanagerwidget.cpp:305
 #, kde-format
 msgid "Copy Value"
 msgstr "Kopiera värde"
 
-#: panelplugins/variablemgr/variablemanagerwidget.cpp:293
+#: panelplugins/variablemgr/variablemanagerwidget.cpp:306
 #, kde-format
 msgid "Copy Name and Value"
 msgstr "Kopiera namn och värde"
 
-#: resultitem.cpp:46
+#: resultitem.cpp:55
 #, kde-format
 msgid "Save result"
 msgstr "Spara resultat"
 
-#: resultitem.cpp:47
+#: resultitem.cpp:56
 #, kde-format
 msgid "Remove result"
 msgstr "Ta bort resultat"
@@ -4134,8 +4345,8 @@ msgstr "Resultat"
 msgid "Errors"
 msgstr "Fel"
 
-#: searchbar.cpp:531 searchbar.cpp:560 worksheet.cpp:1853 worksheet.cpp:1880
-#: worksheet.cpp:1898 worksheet.cpp:1914
+#: searchbar.cpp:531 searchbar.cpp:560 worksheet.cpp:1946 worksheet.cpp:1973
+#: worksheet.cpp:1991 worksheet.cpp:2007
 #, kde-format
 msgid "Text"
 msgstr "Text"
@@ -4417,22 +4628,22 @@ msgstr "Kan inte återge eps-fil. Ytterligare paket kan behövas."
 msgid "Save text result"
 msgstr "Spara textresultat"
 
-#: worksheet.cpp:1217
+#: worksheet.cpp:1309
 #, kde-format
 msgid "Cannot write file %1."
 msgstr "Kan inte skriva till filen %1."
 
-#: worksheet.cpp:1245 worksheet.cpp:1260
+#: worksheet.cpp:1337 worksheet.cpp:1352
 #, kde-format
 msgid "Cannot write file."
 msgstr "Kan inte skriva filen."
 
-#: worksheet.cpp:1277 worksheet.cpp:1321
+#: worksheet.cpp:1369 worksheet.cpp:1413
 #, kde-format
 msgid "Error saving file %1"
 msgstr "Fel när filen %1 skulle sparas"
 
-#: worksheet.cpp:1300
+#: worksheet.cpp:1392
 #, kde-format
 msgid ""
 "In read-only mode Cantor couldn't guarantee, that the export will be valid "
@@ -4440,39 +4651,39 @@ msgid ""
 msgstr ""
 "I skrivskyddat läge kan inte Cantor garantera att export är giltig för %1"
 
-#: worksheet.cpp:1327
+#: worksheet.cpp:1419
 #, kde-format
 msgid "Error loading latex.xsl stylesheet"
 msgstr "Fel vid inläsning av stilmallen latex.xsl"
 
-#: worksheet.cpp:1368
+#: worksheet.cpp:1460
 #, kde-format
 msgid "Couldn't open the file %1."
 msgstr "Kunde inte öppna filen %1."
 
-#: worksheet.cpp:1368 worksheet.cpp:1391 worksheet.cpp:1411 worksheet.cpp:1428
-#: worksheet.cpp:1460 worksheet.cpp:1471 worksheet.cpp:1580 worksheet.cpp:1595
-#: worksheet.cpp:1637 worksheet.cpp:1648 worksheet.cpp:1767 worksheet.cpp:1769
+#: worksheet.cpp:1460 worksheet.cpp:1483 worksheet.cpp:1503 worksheet.cpp:1520
+#: worksheet.cpp:1552 worksheet.cpp:1563 worksheet.cpp:1672 worksheet.cpp:1687
+#: worksheet.cpp:1729 worksheet.cpp:1740 worksheet.cpp:1859 worksheet.cpp:1861
 #, kde-format
 msgid "Open File"
 msgstr "Öppna fil"
 
-#: worksheet.cpp:1391
+#: worksheet.cpp:1483
 #, kde-format
 msgid "Couldn't open the selected file for reading."
 msgstr "Kunde inte öppna den valda filen för läsning."
 
-#: worksheet.cpp:1411
+#: worksheet.cpp:1503
 #, kde-format
 msgid "The selected file is not a valid Cantor or Jupyter project file."
 msgstr "Den valda filen är inte en giltig Cantor eller Jupyter projektfil."
 
-#: worksheet.cpp:1428
+#: worksheet.cpp:1520
 #, kde-format
 msgid "The selected file is not a valid Cantor project file."
 msgstr "Den valda filen är inte en giltig Cantor projektfil."
 
-#: worksheet.cpp:1450
+#: worksheet.cpp:1542
 #, kde-format
 msgid ""
 "This worksheet was created using Python2 which is not supported anymore. "
@@ -4481,12 +4692,12 @@ msgstr ""
 "Det här arbetsbladet skapades med användning av Python 2 som inte längre "
 "stöds. Python 3 kommer att användas."
 
-#: worksheet.cpp:1451 worksheet.cpp:1619
+#: worksheet.cpp:1543 worksheet.cpp:1711
 #, kde-format
 msgid "Python2 not supported anymore"
 msgstr "Python 2 stöds inte längre"
 
-#: worksheet.cpp:1460 worksheet.cpp:1636
+#: worksheet.cpp:1552 worksheet.cpp:1728
 #, kde-format
 msgid ""
 "%1 backend was not found. Editing and executing entries is not possible."
@@ -4494,7 +4705,7 @@ msgstr ""
 "Bakgrundsprogrammet %1 hittades inte. Redigering och utvärdering av poster "
 "är inte möjlig."
 
-#: worksheet.cpp:1469 worksheet.cpp:1646
+#: worksheet.cpp:1561 worksheet.cpp:1738
 #, kde-format
 msgid ""
 "There are some problems with the %1 backend,\n"
@@ -4505,7 +4716,7 @@ msgstr ""
 "Kontrollera din inställning, eller installera nödvändiga paket.\n"
 "Du kommer bara att kunna granska det här arbetsbladet."
 
-#: worksheet.cpp:1579
+#: worksheet.cpp:1671
 #, kde-format
 msgid ""
 "Jupyter notebooks with versions lower than 4.5 (detected version %1.%2) are "
@@ -4514,7 +4725,7 @@ msgstr ""
 "Jupyter anteckningsblock med version tidigare än 4.5 stöds inte (detekterade "
 "version %1.%2)."
 
-#: worksheet.cpp:1594
+#: worksheet.cpp:1686
 #, kde-format
 msgid ""
 "Jupyter notebooks with versions higher than 4.5 (detected version %1.%2) are "
@@ -4523,7 +4734,7 @@ msgstr ""
 "Jupyter anteckningsblock med version senare än 4.5 stöds inte (detekterade "
 "version %1.%2)."
 
-#: worksheet.cpp:1618
+#: worksheet.cpp:1710
 #, kde-format
 msgid ""
 "This notebook was created using Python2 which is not supported anymore. "
@@ -4532,244 +4743,239 @@ msgstr ""
 "Det här anteckningsblocket skapades med användning av Python 2 som inte "
 "längre stöds. Python 3 kommer att användas."
 
-#: worksheet.cpp:1686
+#: worksheet.cpp:1778
 #, kde-format
 msgid "an object with keys: %1"
 msgstr "ett objekt med nycklar: %1"
 
-#: worksheet.cpp:1688
+#: worksheet.cpp:1780
 #, kde-format
 msgid "non object JSON value"
 msgstr "icke-objekt JSON-värde"
 
-#: worksheet.cpp:1691
+#: worksheet.cpp:1783
 #, kde-format
 msgid "found incorrect data (%1) that is not Jupyter cell"
 msgstr "hittade felaktig data (%1) som inte är en Jupyter-cell"
 
-#: worksheet.cpp:1767
+#: worksheet.cpp:1859
 #, kde-format
 msgid "The file is not valid Jupyter notebook"
 msgstr "Filen är inte ett giltigt Jupyter anteckningsblock"
 
-#: worksheet.cpp:1769
+#: worksheet.cpp:1861
 #, kde-format
 msgid "Invalid Jupyter notebook scheme: %1"
 msgstr "Ogiltig Jupyter anteckningsblockschema: %1"
 
-#: worksheet.cpp:1845
+#: worksheet.cpp:1938
 #, kde-format
 msgid "Convert To"
 msgstr "Konvertera till"
 
-#: worksheet.cpp:1850 worksheet.cpp:1879 worksheet.cpp:1897 worksheet.cpp:1913
-#, kde-format
-msgid "Command"
-msgstr "Kommando"
-
-#: worksheet.cpp:1857 worksheet.cpp:1882 worksheet.cpp:1900 worksheet.cpp:1916
+#: worksheet.cpp:1950 worksheet.cpp:1975 worksheet.cpp:1993 worksheet.cpp:2009
 #, kde-format
 msgid "Markdown"
 msgstr "Markdown"
 
-#: worksheet.cpp:1862 worksheet.cpp:1885 worksheet.cpp:1903 worksheet.cpp:1920
+#: worksheet.cpp:1955 worksheet.cpp:1978 worksheet.cpp:1996 worksheet.cpp:2013
 #, kde-format
 msgid "Image"
 msgstr "Bild"
 
-#: worksheet.cpp:1865 worksheet.cpp:1888 worksheet.cpp:1906 worksheet.cpp:1923
+#: worksheet.cpp:1958 worksheet.cpp:1981 worksheet.cpp:1999 worksheet.cpp:2016
 #, kde-format
 msgid "Page Break"
 msgstr "Sidbrytning"
 
-#: worksheet.cpp:1868 worksheet.cpp:1887 worksheet.cpp:1905 worksheet.cpp:1922
+#: worksheet.cpp:1961 worksheet.cpp:1980 worksheet.cpp:1998 worksheet.cpp:2015
 #, kde-format
 msgid "Horizontal Line"
 msgstr "Horisontell linje"
 
-#: worksheet.cpp:1871 worksheet.cpp:1890 worksheet.cpp:1908 worksheet.cpp:1925
+#: worksheet.cpp:1964 worksheet.cpp:1983 worksheet.cpp:2001 worksheet.cpp:2018
 #, kde-format
 msgid "Hierarchy Entry"
 msgstr "Hierarkisk post"
 
-#: worksheet.cpp:1874
+#: worksheet.cpp:1967
 #, kde-format
 msgid "Insert After"
 msgstr "Infoga efter"
 
-#: worksheet.cpp:1893
+#: worksheet.cpp:1986
 #, kde-format
 msgid "Insert Before"
 msgstr "Infoga före"
 
-#: worksheet.cpp:1910
+#: worksheet.cpp:2003
 #, kde-format
 msgid "Insert"
 msgstr "Infoga"
 
-#: worksheet.cpp:1952
+#: worksheet.cpp:2045
 #, kde-format
 msgid "Zoom In"
 msgstr "Zooma in"
 
-#: worksheet.cpp:1955
+#: worksheet.cpp:2048
 #, kde-format
 msgid "Zoom Out"
 msgstr "Zooma ut"
 
-#: worksheet.cpp:1959
+#: worksheet.cpp:2052
 #, kde-format
 msgid "Original Size"
 msgstr "Originalstorlek"
 
-#: worksheet.cpp:1967
+#: worksheet.cpp:2060
 #, kde-format
 msgid "Move Entries Up"
 msgstr "Flytta upp poster"
 
-#: worksheet.cpp:1968
+#: worksheet.cpp:2061
 #, kde-format
 msgid "Move Entries Down"
 msgstr "Flytta ner poster"
 
-#: worksheet.cpp:1969
+#: worksheet.cpp:2062
 #, kde-format
 msgid "Evaluate Entries"
 msgstr "Beräkna poster"
 
-#: worksheet.cpp:1971 worksheet.cpp:2896
+#: worksheet.cpp:2064 worksheet.cpp:3147
 #, kde-format
 msgid "Delete Entries"
 msgstr "Ta bort poster"
 
-#: worksheet.cpp:1984
+#: worksheet.cpp:2077
 #, kde-format
 msgid "Collapse Command Entry Results"
 msgstr "Dra ihop kommandoresultat"
 
-#: worksheet.cpp:1985
+#: worksheet.cpp:2078
 #, kde-format
 msgid "Expand Command Entry Results"
 msgstr "Expandera kommandoresultat"
 
-#: worksheet.cpp:1987
+#: worksheet.cpp:2080
 #, kde-format
 msgid "Delete Command Entry Results"
 msgstr "Ta bort kommandoresultat"
 
-#: worksheet.cpp:1989
+#: worksheet.cpp:2082
 #, kde-format
 msgid "Exclude Command Entry From Execution"
 msgstr "Undanta kommandopost från körning"
 
-#: worksheet.cpp:1990
+#: worksheet.cpp:2083
 #, kde-format
 msgid "Add Command Entry To Execution"
 msgstr "Lägg till kommandopost för körning"
 
-#: worksheet.cpp:2098
+#: worksheet.cpp:2280
 #, kde-format
 msgctxt "@action"
 msgid "Text &Color..."
 msgstr "Text&färg..."
 
-#: worksheet.cpp:2099
+#: worksheet.cpp:2281
 #, kde-format
 msgctxt "@label text color"
 msgid "Color"
 msgstr "Färg"
 
-#: worksheet.cpp:2106
+#: worksheet.cpp:2288
 #, kde-format
 msgctxt "@action"
 msgid "Text &Highlight..."
 msgstr "Textfärg&läggning..."
 
-#: worksheet.cpp:2112
+#: worksheet.cpp:2294
 #, kde-format
 msgctxt "@action"
 msgid "&Font"
 msgstr "&Teckensnitt"
 
-#: worksheet.cpp:2117
+#: worksheet.cpp:2299
 #, kde-format
 msgctxt "@action"
 msgid "Font &Size"
 msgstr "Tecken&storlek"
 
-#: worksheet.cpp:2123
+#: worksheet.cpp:2305
 #, kde-format
 msgctxt "@action boldify selected text"
 msgid "&Bold"
 msgstr "&Fetstil"
 
-#: worksheet.cpp:2134
+#: worksheet.cpp:2316
 #, kde-format
 msgctxt "@action italicize selected text"
 msgid "&Italic"
 msgstr "&Kursiv"
 
-#: worksheet.cpp:2146
+#: worksheet.cpp:2328
 #, kde-format
 msgctxt "@action underline selected text"
 msgid "&Underline"
 msgstr "&Understryket"
 
-#: worksheet.cpp:2157
+#: worksheet.cpp:2339
 #, kde-format
 msgctxt "@action"
 msgid "&Strike Out"
 msgstr "Över&struket"
 
-#: worksheet.cpp:2168
+#: worksheet.cpp:2350
 #, kde-format
 msgctxt "@action"
 msgid "Align &Left"
 msgstr "Justera &vänster"
 
-#: worksheet.cpp:2171
+#: worksheet.cpp:2353
 #, kde-format
 msgctxt "@label left justify"
 msgid "Left"
 msgstr "Vänster"
 
-#: worksheet.cpp:2178
+#: worksheet.cpp:2360
 #, kde-format
 msgctxt "@action"
 msgid "Align &Center"
 msgstr "&Centrera"
 
-#: worksheet.cpp:2181
+#: worksheet.cpp:2363
 #, kde-format
 msgctxt "@label center justify"
 msgid "Center"
 msgstr "Centrera"
 
-#: worksheet.cpp:2188
+#: worksheet.cpp:2370
 #, kde-format
 msgctxt "@action"
 msgid "Align &Right"
 msgstr "Justera &höger"
 
-#: worksheet.cpp:2191
+#: worksheet.cpp:2373
 #, kde-format
 msgctxt "@label right justify"
 msgid "Right"
 msgstr "Höger"
 
-#: worksheet.cpp:2198
+#: worksheet.cpp:2380
 #, kde-format
 msgctxt "@action"
 msgid "&Justify"
 msgstr "&Justera"
 
-#: worksheet.cpp:2201
+#: worksheet.cpp:2383
 #, kde-format
 msgctxt "@label justify fill"
 msgid "Justify"
 msgstr "Justera"
 
-#: worksheet.cpp:2895
+#: worksheet.cpp:3144
 #, kde-format
 msgid ""
 "This step cannot be undone. Do you really want to delete the selected "
@@ -4777,180 +4983,238 @@ msgid ""
 msgstr ""
 "Steget går inte att ångra. Vill du verkligen ta bort de markerade posterna?"
 
-#: worksheet.cpp:2985
+#: worksheet.cpp:3319
 #, kde-format
 msgid "This step cannot be undone. Do you really want to delete all results?"
 msgstr "Steget går inte att ångra. Vill du verkligen ta bort alla resultat?"
 
-#: worksheet.cpp:2986
+#: worksheet.cpp:3320
 #, kde-format
 msgid "Delete all results"
 msgstr "Ta bort alla resultat"
 
-#: worksheetentry.cpp:67
+#: worksheetentry.cpp:65
 #, kde-format
 msgid "White"
 msgstr "Vit"
 
-#: worksheetentry.cpp:67
+#: worksheetentry.cpp:65
 #, kde-format
 msgid "Black"
 msgstr "Svart"
 
-#: worksheetentry.cpp:68
+#: worksheetentry.cpp:66
 #, kde-format
 msgid "Dark Red"
 msgstr "Mörkröd"
 
-#: worksheetentry.cpp:68
+#: worksheetentry.cpp:66
 #, kde-format
 msgid "Red"
 msgstr "Röd"
 
-#: worksheetentry.cpp:68
+#: worksheetentry.cpp:66
 #, kde-format
 msgid "Light Red"
 msgstr "Ljusröd"
 
-#: worksheetentry.cpp:69
+#: worksheetentry.cpp:67
 #, kde-format
 msgid "Dark Green"
 msgstr "Mörkgrön"
 
-#: worksheetentry.cpp:69
+#: worksheetentry.cpp:67
 #, kde-format
 msgid "Green"
 msgstr "Grön"
 
-#: worksheetentry.cpp:69
+#: worksheetentry.cpp:67
 #, kde-format
 msgid "Light Green"
 msgstr "Ljusgrön"
 
-#: worksheetentry.cpp:70
+#: worksheetentry.cpp:68
 #, kde-format
 msgid "Dark Blue"
 msgstr "Mörkblå"
 
-#: worksheetentry.cpp:70
+#: worksheetentry.cpp:68
 #, kde-format
 msgid "Blue"
 msgstr "Blå"
 
-#: worksheetentry.cpp:70
+#: worksheetentry.cpp:68
 #, kde-format
 msgid "Light Blue"
 msgstr "Ljusblå"
 
-#: worksheetentry.cpp:71
+#: worksheetentry.cpp:69
 #, kde-format
 msgid "Dark Yellow"
 msgstr "Mörkgul"
 
-#: worksheetentry.cpp:71
+#: worksheetentry.cpp:69
 #, kde-format
 msgid "Yellow"
 msgstr "Gul"
 
-#: worksheetentry.cpp:71
+#: worksheetentry.cpp:69
 #, kde-format
 msgid "Light Yellow"
 msgstr "Ljusgul"
 
-#: worksheetentry.cpp:72
+#: worksheetentry.cpp:70
 #, kde-format
 msgid "Dark Cyan"
 msgstr "Mörkturkos"
 
-#: worksheetentry.cpp:72
+#: worksheetentry.cpp:70
 #, kde-format
 msgid "Cyan"
 msgstr "Turkos"
 
-#: worksheetentry.cpp:72
+#: worksheetentry.cpp:70
 #, kde-format
 msgid "Light Cyan"
 msgstr "Ljusturkos"
 
-#: worksheetentry.cpp:73
+#: worksheetentry.cpp:71
 #, kde-format
 msgid "Dark Magenta"
 msgstr "Mörk magenta"
 
-#: worksheetentry.cpp:73
+#: worksheetentry.cpp:71
 #, kde-format
 msgid "Magenta"
 msgstr "Magenta"
 
-#: worksheetentry.cpp:73
+#: worksheetentry.cpp:71
 #, kde-format
 msgid "Light Magenta"
 msgstr "Ljus magenta"
 
-#: worksheetentry.cpp:74
+#: worksheetentry.cpp:72
 #, kde-format
 msgid "Dark Orange"
 msgstr "Mörkorange"
 
-#: worksheetentry.cpp:74
+#: worksheetentry.cpp:72
 #, kde-format
 msgid "Orange"
 msgstr "Orange"
 
-#: worksheetentry.cpp:74
+#: worksheetentry.cpp:72
 #, kde-format
 msgid "Light Orange"
 msgstr "Ljusorange"
 
-#: worksheetentry.cpp:75
+#: worksheetentry.cpp:73
 #, kde-format
 msgid "Dark Grey"
 msgstr "Mörkgrå"
 
-#: worksheetentry.cpp:75
+#: worksheetentry.cpp:73
 #, kde-format
 msgid "Grey"
 msgstr "Grå"
 
-#: worksheetentry.cpp:75
+#: worksheetentry.cpp:73
 #, kde-format
 msgid "Light Grey"
 msgstr "Ljusgrå"
 
-#: worksheetentry.cpp:446
+#: worksheetentry.cpp:457
 #, kde-format
 msgid "Move Up"
 msgstr "Flytta upp"
 
-#: worksheetentry.cpp:454
+#: worksheetentry.cpp:465
 #, kde-format
 msgid "Move Down"
 msgstr "Flytta ner"
 
-#: worksheetentry.cpp:461
+#: worksheetentry.cpp:472
 #, kde-format
 msgid "Delete"
 msgstr "Ta bort"
 
-#: worksheetentry.cpp:744
+#: worksheetentry.cpp:755
 #, kde-format
 msgid "This step cannot be undone. Do you really want to delete this entry?"
 msgstr "Steget går inte att ångra. Vill du verkligen ta bort posten?"
 
-#: worksheetentry.cpp:744 worksheetentry.cpp:874
+#: worksheetentry.cpp:755 worksheetentry.cpp:883
 #, kde-format
 msgid "Delete Entry"
 msgstr "Ta bort post"
 
-#: worksheetentry.cpp:879
+#: worksheetentry.cpp:888
 #, kde-format
 msgid "Drag Entry"
 msgstr "Dra post"
 
-#: worksheettextitem.cpp:893 worksheettextitem.cpp:910
+#: worksheethierarchymanager.cpp:329 worksheethierarchymanager.cpp:351
+#: worksheethierarchymanager.cpp:355
+#, kde-format
+msgid "%1 %2"
+msgstr ""
+
+#: worksheethierarchymanager.cpp:349
+#, kde-format
+msgid "%1 %2.%3"
+msgstr ""
+
+#: worksheethierarchymanager.cpp:1158
+#, kde-format
+msgid ""
+"Do you really want to delete the heading \"%1\" and all entries in this "
+"section? This action cannot be undone."
+msgstr ""
+
+#: worksheethierarchymanager.cpp:1164
+#, fuzzy, kde-format
+#| msgid "Section"
+msgid "Delete Section"
+msgstr "Avsnitt"
+
+#: worksheethierarchymanager.cpp:1168
+#, kde-format
+msgid ""
+"Do you really want to delete only the heading \"%1\"? The contents of the "
+"section will remain in the worksheet. This action cannot be undone."
+msgstr ""
+
+#: worksheettextitem.cpp:912 worksheettextitem.cpp:929
 #, kde-format
 msgid "Select Color"
 msgstr "Välj färg"
+
+#~ msgid "Formatting"
+#~ msgstr "Formatering"
+
+#~ msgid "Chapter Font"
+#~ msgstr "Teckensnitt för kapitel"
+
+#~ msgid "Fon&t Family:"
+#~ msgstr "&Teckenfamilj:"
+
+#~ msgid "Font Si&ze:"
+#~ msgstr "Te&ckenstorlek:"
+
+#~ msgid "Subchapter Font"
+#~ msgstr "Teckensnitt för delkapitel"
+
+#~ msgid "Section Font"
+#~ msgstr "Teckensnitt för avsnitt"
+
+#~ msgid "Subsection Font"
+#~ msgstr "Teckensnitt för delavsnitt"
+
+#~ msgid "Paragraph Font"
+#~ msgstr "Teckensnitt för stycke"
+
+#~ msgid "Subparagraph Font"
+#~ msgstr "Teckensnitt för delstycke"
 
 #~ msgid "Reached beginning"
 #~ msgstr "Början uppnådd"
@@ -5368,9 +5632,6 @@ msgstr "Välj färg"
 
 #~ msgid "Path to Octave:"
 #~ msgstr "Sökväg till Octave:"
-
-#~ msgid "Unnamed"
-#~ msgstr "Namnlös"
 
 #~ msgctxt "The url to the documentation Python 2"
 #~ msgid "https://docs.python.org/2/"
