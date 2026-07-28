@@ -9,14 +9,14 @@ msgstr ""
 "Project-Id-Version: mathematik\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-07-27 00:39+0000\n"
-"PO-Revision-Date: 2026-07-05 16:40+0200\n"
+"PO-Revision-Date: 2026-07-27 09:57+0200\n"
 "Last-Translator: Stefan Asserhäll <stefan.asserhall@gmail.com>\n"
 "Language-Team: Swedish <kde-i18n-doc@kde.org>\n"
 "Language: sv\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Lokalize 26.04.2\n"
+"X-Generator: Lokalize 26.04.3\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 
 #, kde-format
@@ -2702,7 +2702,7 @@ msgstr "Standardvärde"
 #: cantor.cpp:775
 #, kde-format
 msgid "Table of Contents"
-msgstr ""
+msgstr "Innehållsförteckning"
 
 #. i18n: ectx: label, entry (DefaultBackend), group (Cantor)
 #: cantor.kcfg:10
@@ -2742,30 +2742,27 @@ msgstr "Aktivera normalt numrering av uttryck"
 
 #. i18n: ectx: label, entry (ShowTocChaptersDefault), group (Cantor)
 #: cantor.kcfg:34
-#, fuzzy, kde-format
-#| msgid "Animate changes in the Worksheet by default"
+#, kde-format
 msgid "Show chapters in the Worksheet Structure Navigator by default"
-msgstr "Animera normalt ändringar av arbetsbladet"
+msgstr "Visa normalt kapitel i strukturnavigeringen för arbetsblad"
 
 #. i18n: ectx: label, entry (ShowTocSectionsDefault), group (Cantor)
 #: cantor.kcfg:38
-#, fuzzy, kde-format
-#| msgid "Animate changes in the Worksheet by default"
+#, kde-format
 msgid "Show sections in the Worksheet Structure Navigator by default"
-msgstr "Animera normalt ändringar av arbetsbladet"
+msgstr "Visa normalt sektioner i strukturnavigeringen för arbetsblad"
 
 #. i18n: ectx: label, entry (ShowTocCommandEntriesDefault), group (Cantor)
 #: cantor.kcfg:42
-#, fuzzy, kde-format
-#| msgid "Animate changes in the Worksheet by default"
+#, kde-format
 msgid "Show command entries in the Worksheet Structure Navigator by default"
-msgstr "Animera normalt ändringar av arbetsbladet"
+msgstr "Visa normalt kommandoposter i strukturnavigeringen för arbetsblad"
 
 #. i18n: ectx: label, entry (ShowTocPlotsDefault), group (Cantor)
 #: cantor.kcfg:46
 #, kde-format
 msgid "Show plots in the Worksheet Structure Navigator by default"
-msgstr ""
+msgstr "Visa normalt diagram i strukturnavigeringen för arbetsblad"
 
 #. i18n: ectx: label, entry (AnimationDefault), group (Cantor)
 #: cantor.kcfg:50
@@ -2835,7 +2832,7 @@ msgstr "Gräns för synliga rader med textresultat"
 #, kde-format
 msgid ""
 "Whether the hierarchy font settings have been migrated to complete fonts"
-msgstr ""
+msgstr "Om hierarkin för teckensnitt har migrerats till kompletta teckensnitt"
 
 #. i18n: ectx: label, entry (ChapterFontFamily), group (Cantor)
 #: cantor.kcfg:90
@@ -2890,38 +2887,38 @@ msgstr "Fetstilt hierarkiskt teckensnitt för delkapitel"
 #: cantor.kcfg:122 cantor.kcfg:126
 #, kde-format
 msgid "Hierarchy font for section"
-msgstr "Hierarkiskt teckensnitt för avsnitt"
+msgstr "Hierarkiskt teckensnitt för sektioner"
 
 #. i18n: ectx: label, entry (SectionFontItalic), group (Cantor)
 #: cantor.kcfg:130
 #, kde-format
 msgid "Hierarchy font italic for section"
-msgstr "Kursivt hierarkiskt teckensnitt för avsnitt"
+msgstr "Kursivt hierarkiskt teckensnitt för sektioner"
 
 #. i18n: ectx: label, entry (SectionFontBold), group (Cantor)
 #: cantor.kcfg:134
 #, kde-format
 msgid "Hierarchy font bold for section"
-msgstr "Fetstilt hierarkiskt teckensnitt för avsnitt"
+msgstr "Fetstilt hierarkiskt teckensnitt för sektioner"
 
 #. i18n: ectx: label, entry (SubsectionFontFamily), group (Cantor)
 #. i18n: ectx: label, entry (SubsectionFontSize), group (Cantor)
 #: cantor.kcfg:138 cantor.kcfg:142
 #, kde-format
 msgid "Hierarchy font for subsection"
-msgstr "Hierarkiskt teckensnitt för delavsnitt"
+msgstr "Hierarkiskt teckensnitt för delsektioner"
 
 #. i18n: ectx: label, entry (SubsectionFontItalic), group (Cantor)
 #: cantor.kcfg:146
 #, kde-format
 msgid "Hierarchy font italic for subsection"
-msgstr "Kursivt hierarkiskt teckensnitt för delavsnitt"
+msgstr "Kursivt hierarkiskt teckensnitt för delsektioner"
 
 #. i18n: ectx: label, entry (SubsectionFontBold), group (Cantor)
 #: cantor.kcfg:150
 #, kde-format
 msgid "Hierarchy font bold for subsection"
-msgstr "Fetstilt hierarkiskt teckensnitt för delavsnitt"
+msgstr "Fetstilt hierarkiskt teckensnitt för delsektioner"
 
 #. i18n: ectx: label, entry (ParagraphFontFamily), group (Cantor)
 #. i18n: ectx: label, entry (ParagraphFontSize), group (Cantor)
@@ -3411,17 +3408,15 @@ msgstr "&Matcha skiftläge"
 
 #. i18n: ectx: property (text), widget (QLabel, hierarchyEntriesLabel)
 #: formating.ui:35
-#, fuzzy, kde-format
-#| msgid "Hierarchy Entry"
+#, kde-format
 msgid "Hierarchy Entries:"
-msgstr "Hierarkisk post"
+msgstr "Hierarkiska poster:"
 
 #. i18n: ectx: property (text), widget (QLabel, hierarchyLevelLabel)
 #: formating.ui:50
-#, fuzzy, kde-format
-#| msgid "Set Hierarchy Level"
+#, kde-format
 msgid "Hierarchy level:"
-msgstr "Ange hierarkinivå"
+msgstr "Hierarkinivå:"
 
 #. i18n: ectx: property (text), item, widget (QComboBox, hierarchyLevelComboBox)
 #: formating.ui:61 hierarchyentry.cpp:22
@@ -3439,13 +3434,13 @@ msgstr "Delkapitel"
 #: formating.ui:71 hierarchyentry.cpp:22
 #, kde-format
 msgid "Section"
-msgstr "Avsnitt"
+msgstr "Sektion"
 
 #. i18n: ectx: property (text), item, widget (QComboBox, hierarchyLevelComboBox)
 #: formating.ui:76 hierarchyentry.cpp:22
 #, kde-format
 msgid "Subsection"
-msgstr "Delavsnitt"
+msgstr "Delsektion"
 
 #. i18n: ectx: property (text), item, widget (QComboBox, hierarchyLevelComboBox)
 #: formating.ui:81 hierarchyentry.cpp:22
@@ -3467,38 +3462,33 @@ msgstr "Delstycke"
 #. i18n: ectx: property (text), widget (QLabel, lSubparagraphFont)
 #: formating.ui:115 formating.ui:138 formating.ui:161 formating.ui:184
 #: formating.ui:207 formating.ui:230
-#, fuzzy, kde-format
-#| msgctxt "@action"
-#| msgid "&Font"
+#, kde-format
 msgid "&Font:"
-msgstr "&Teckensnitt"
+msgstr "&Teckensnitt:"
 
 #. i18n: ectx: property (text), widget (QLabel, visibleItemsLabel)
 #: formating.ui:253
 #, kde-format
 msgid "Visible Items:"
-msgstr ""
+msgstr "Synliga objekt:"
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_ShowTocChaptersDefault)
 #: formating.ui:262
-#, fuzzy, kde-format
-#| msgid "Chapter"
+#, kde-format
 msgid "Chapters"
 msgstr "Kapitel"
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_ShowTocSectionsDefault)
 #: formating.ui:269
-#, fuzzy, kde-format
-#| msgid "Section"
+#, kde-format
 msgid "Sections"
-msgstr "Avsnitt"
+msgstr "Sektioner"
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_ShowTocCommandEntriesDefault)
 #: formating.ui:276
-#, fuzzy, kde-format
-#| msgid "Commands"
+#, kde-format
 msgid "Command entries"
-msgstr "Kommandon"
+msgstr "Kommandoposter"
 
 #: hierarchyentry.cpp:55
 #, kde-format
@@ -3582,8 +3572,7 @@ msgid "%1 files (*.%2)"
 msgstr "%1 filer (*.%2)"
 
 #: imageresultitem.cpp:83
-#, fuzzy, kde-format
-#| msgid "PDF Files (*.pdf)"
+#, kde-format
 msgid "PDF files (*.pdf)"
 msgstr "PDF-filer (*.pdf)"
 
@@ -4028,12 +4017,12 @@ msgstr "Alla filer"
 #: panelplugins/tocpanel/tocpanelplugin.cpp:207
 #, kde-format
 msgid "Search Table of Contents"
-msgstr ""
+msgstr "Sök i innehållsförteckningen"
 
 #: panelplugins/tocpanel/tocpanelplugin.cpp:347
 #, kde-format
 msgid "Heading"
-msgstr ""
+msgstr "Rubrik"
 
 #: panelplugins/tocpanel/tocpanelplugin.cpp:350
 #, kde-format
@@ -4041,13 +4030,14 @@ msgid ""
 "Do you really want to delete the heading \"%1\"? Its contents will be kept. "
 "This action cannot be undone."
 msgstr ""
+"Vill du verkligen ta bort rubriken \"%1\"? Dess innehåll kommer att "
+"behållas. Åtgärden kan inte ångras."
 
 #: panelplugins/tocpanel/tocpanelplugin.cpp:351
 #: worksheethierarchymanager.cpp:1175
-#, fuzzy, kde-format
-#| msgid "Delete Entry"
+#, kde-format
 msgid "Delete Heading"
-msgstr "Ta bort post"
+msgstr "Ta bort rubrik"
 
 #: panelplugins/tocpanel/tocpanelplugin.cpp:365
 #: panelplugins/tocpanel/tocpanelplugin.cpp:1258 worksheet.cpp:1943
@@ -4063,147 +4053,131 @@ msgstr "Kommando"
 #: panelplugins/tocpanel/tocpanelplugin.cpp:1303
 #, kde-format
 msgid "Do you really want to delete \"%1\"? This action cannot be undone."
-msgstr ""
+msgstr "Vill du verkligen ta bort \"%1\"? Åtgärden kan inte ångras."
 
 #: panelplugins/tocpanel/tocpanelplugin.cpp:369
 #: panelplugins/tocpanel/tocpanelplugin.cpp:1252
 #: panelplugins/tocpanel/tocpanelplugin.cpp:1262
-#, fuzzy, kde-format
-#| msgid "Delete Command Entry Results"
+#, kde-format
 msgid "Delete Command"
-msgstr "Ta bort kommandoresultat"
+msgstr "Ta bort kommando"
 
 #: panelplugins/tocpanel/tocpanelplugin.cpp:388
 #: panelplugins/tocpanel/tocpanelplugin.cpp:1296
 #: panelplugins/tocpanel/tocpanelplugin.cpp:1304
-#, fuzzy, kde-format
-#| msgid "Delete"
+#, kde-format
 msgid "Delete Plot"
-msgstr "Ta bort"
+msgstr "Ta bort diagram"
 
 #: panelplugins/tocpanel/tocpanelplugin.cpp:455
 #, kde-format
 msgid "No visible items in the Table of Contents"
-msgstr ""
+msgstr "Inga synliga objekt i innehållsförteckningen"
 
 #: panelplugins/tocpanel/tocpanelplugin.cpp:456
 #, kde-format
 msgid "No matching items"
-msgstr ""
+msgstr "Inga motsvarande objekt"
 
 #: panelplugins/tocpanel/tocpanelplugin.cpp:1016
 #, kde-format
 msgid "Visible Items"
-msgstr ""
+msgstr "Synliga objekt"
 
 #: panelplugins/tocpanel/tocpanelplugin.cpp:1018
-#, fuzzy, kde-format
-#| msgid "Chapter"
+#, kde-format
 msgid "Show Chapters"
-msgstr "Kapitel"
+msgstr "Visa kapitel"
 
 #: panelplugins/tocpanel/tocpanelplugin.cpp:1027
-#, fuzzy, kde-format
-#| msgid "Show Completion"
+#, kde-format
 msgid "Show Sections"
-msgstr "Visa komplettering"
+msgstr "Visa sektioner"
 
 #: panelplugins/tocpanel/tocpanelplugin.cpp:1036
-#, fuzzy, kde-format
-#| msgid "Insert Command Entry"
+#, kde-format
 msgid "Show Command Entries"
-msgstr "Infoga kommandopost"
+msgstr "Visa kommandoposter"
 
 #: panelplugins/tocpanel/tocpanelplugin.cpp:1045
-#, fuzzy, kde-format
-#| msgid "Show Results"
+#, kde-format
 msgid "Show Plots"
-msgstr "Visa resultat"
+msgstr "Visa diagram"
 
 #: panelplugins/tocpanel/tocpanelplugin.cpp:1056
-#, fuzzy, kde-format
-#| msgid "Reset to Default"
+#, kde-format
 msgid "Reset to Defaults"
-msgstr "Återställ till standardvärde"
+msgstr "Återställ till förval"
 
 #: panelplugins/tocpanel/tocpanelplugin.cpp:1179
 #, kde-format
 msgid "Go to Heading"
-msgstr ""
+msgstr "Gå till rubrik"
 
 #: panelplugins/tocpanel/tocpanelplugin.cpp:1189
-#, fuzzy, kde-format
-#| msgid "Unnamed"
+#, kde-format
 msgid "Rename"
-msgstr "Namnlös"
+msgstr "Byt namn"
 
 #: panelplugins/tocpanel/tocpanelplugin.cpp:1200
 #, kde-format
 msgid "Promote Heading"
-msgstr ""
+msgstr "Befordra rubrik"
 
 #: panelplugins/tocpanel/tocpanelplugin.cpp:1207
 #, kde-format
 msgid "Demote Heading"
-msgstr ""
+msgstr "Degradera rubrik"
 
 #: panelplugins/tocpanel/tocpanelplugin.cpp:1216
-#, fuzzy, kde-format
-#| msgid "Delete current Entry"
+#, kde-format
 msgid "Delete Heading Only"
-msgstr "Ta bort nuvarande post"
+msgstr "Ta bara bort rubrik"
 
 #: panelplugins/tocpanel/tocpanelplugin.cpp:1223
-#, fuzzy, kde-format
-#| msgid "Delete Command Entry Results"
+#, kde-format
 msgid "Delete Section and Contents"
-msgstr "Ta bort kommandoresultat"
+msgstr "Ta bort sektion och innehåll"
 
 #: panelplugins/tocpanel/tocpanelplugin.cpp:1234
-#, fuzzy, kde-format
-#| msgid "Command"
+#, kde-format
 msgid "Go to Command"
-msgstr "Kommando"
+msgstr "Gå till kommando"
 
 #: panelplugins/tocpanel/tocpanelplugin.cpp:1244
-#, fuzzy, kde-format
-#| msgid "Command"
+#, kde-format
 msgid "Rename Command"
-msgstr "Kommando"
+msgstr "Byt namn på kommando"
 
 #: panelplugins/tocpanel/tocpanelplugin.cpp:1278
 #, kde-format
 msgid "Go to Plot"
-msgstr ""
+msgstr "Gå till diagram"
 
 #: panelplugins/tocpanel/tocpanelplugin.cpp:1288
 #, kde-format
 msgid "Rename Plot"
-msgstr ""
+msgstr "Byt namn på diagram"
 
 #: panelplugins/tocpanel/tocpanelplugin.cpp:1319
-#, fuzzy, kde-format
-#| msgid "Completion"
+#, kde-format
 msgid "Collapse Section"
-msgstr "Komplettering"
+msgstr "Dra ihop sektion"
 
 #: panelplugins/tocpanel/tocpanelplugin.cpp:1331
-#, fuzzy, kde-format
-#| msgid "Section"
+#, kde-format
 msgid "Expand Section"
-msgstr "Avsnitt"
+msgstr "Expandera sektion"
 
 #: panelplugins/tocpanel/tocpanelplugin.cpp:1349
-#, fuzzy, kde-format
-#| msgid "Expand All Results"
+#, kde-format
 msgid "Expand All"
-msgstr "Expandera alla resultat"
+msgstr "Expandera alla"
 
 #: panelplugins/tocpanel/tocpanelplugin.cpp:1356
-#, fuzzy, kde-format
-#| msgid "Collapse All Results"
+#, kde-format
 msgid "Collapse All"
-msgstr "Dra ihop alla resultat"
+msgstr "Dra ihop alla"
 
 #. i18n: ectx: property (text), widget (QLabel, label)
 #: panelplugins/variablemgr/newvardlg.ui:17
@@ -5157,12 +5131,12 @@ msgstr "Dra post"
 #: worksheethierarchymanager.cpp:355
 #, kde-format
 msgid "%1 %2"
-msgstr ""
+msgstr "%1 %2"
 
 #: worksheethierarchymanager.cpp:349
 #, kde-format
 msgid "%1 %2.%3"
-msgstr ""
+msgstr "%1 %2.%3"
 
 #: worksheethierarchymanager.cpp:1158
 #, kde-format
@@ -5170,12 +5144,13 @@ msgid ""
 "Do you really want to delete the heading \"%1\" and all entries in this "
 "section? This action cannot be undone."
 msgstr ""
+"Vill du verkligen ta bort rubriken \"%1\" och alla poster i det här "
+"sektionen? Åtgärden kan inte ångras."
 
 #: worksheethierarchymanager.cpp:1164
-#, fuzzy, kde-format
-#| msgid "Section"
+#, kde-format
 msgid "Delete Section"
-msgstr "Avsnitt"
+msgstr "Ta bort sektion"
 
 #: worksheethierarchymanager.cpp:1168
 #, kde-format
@@ -5183,6 +5158,8 @@ msgid ""
 "Do you really want to delete only the heading \"%1\"? The contents of the "
 "section will remain in the worksheet. This action cannot be undone."
 msgstr ""
+"Vill du verkligen bara ta bort rubriken \"%1\"? Innehållet i sektionen finns "
+"kvar i arbetsbladet. Åtgärden kan inte ångras."
 
 #: worksheettextitem.cpp:912 worksheettextitem.cpp:929
 #, kde-format

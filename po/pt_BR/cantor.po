@@ -5,7 +5,7 @@
 # Luiz Fernando Ranghetti <elchevive@opensuse.org>, 2009, 2010, 2011, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024.
 # André Marcelo Alvarenga <alvarenga@kde.org>, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2018, 2019, 2020.
 # Aracele Torres <araceletorres@gmail.com>, 2010, 2011.
-# SPDX-FileCopyrightText: 2011, 2025, 2026 Marcus Gama <marcus.gama@gmail.com>
+# SPDX-FileCopyrightText: 2011, 2025-2026 Marcus Gama <marcus.gama@gmail.com>
 # Geraldo Simiao <geraldosimiao@fedoraproject.org>, 2023.
 # SPDX-FileCopyrightText: 2025 Guilherme Marçal Silva <guimarcalsilva@gmail.com>
 msgid ""
@@ -13,7 +13,7 @@ msgstr ""
 "Project-Id-Version: cantor\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-07-27 00:39+0000\n"
-"PO-Revision-Date: 2026-02-24 08:46-0300\n"
+"PO-Revision-Date: 2026-07-27 07:09-0300\n"
 "Last-Translator: Marcus Gama <marcus.gama@gmail.com>\n"
 "Language-Team: Brazilian Portuguese <kde-i18n-pt_BR@kde.org>\n"
 "Language: pt_BR\n"
@@ -21,7 +21,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"X-Generator: Lokalize 25.12.2\n"
+"X-Generator: Lokalize 26.04.3\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -2732,7 +2732,7 @@ msgstr "Padrão"
 #: cantor.cpp:775
 #, kde-format
 msgid "Table of Contents"
-msgstr ""
+msgstr "Sumário"
 
 #. i18n: ectx: label, entry (DefaultBackend), group (Cantor)
 #: cantor.kcfg:10
@@ -2772,30 +2772,28 @@ msgstr "Habilitar a numeração de expressões por padrão"
 
 #. i18n: ectx: label, entry (ShowTocChaptersDefault), group (Cantor)
 #: cantor.kcfg:34
-#, fuzzy, kde-format
-#| msgid "Animate changes in the Worksheet by default"
+#, kde-format
 msgid "Show chapters in the Worksheet Structure Navigator by default"
-msgstr "Animar as alterações na planilha por padrão"
+msgstr "Mostrar capítulos no navegador de estrutura da planilha por padrão"
 
 #. i18n: ectx: label, entry (ShowTocSectionsDefault), group (Cantor)
 #: cantor.kcfg:38
-#, fuzzy, kde-format
-#| msgid "Animate changes in the Worksheet by default"
+#, kde-format
 msgid "Show sections in the Worksheet Structure Navigator by default"
-msgstr "Animar as alterações na planilha por padrão"
+msgstr "Mostrar seções no navegador de estrutura da planilha por padrão"
 
 #. i18n: ectx: label, entry (ShowTocCommandEntriesDefault), group (Cantor)
 #: cantor.kcfg:42
-#, fuzzy, kde-format
-#| msgid "Animate changes in the Worksheet by default"
+#, kde-format
 msgid "Show command entries in the Worksheet Structure Navigator by default"
-msgstr "Animar as alterações na planilha por padrão"
+msgstr ""
+"Mostrar entradas de comando no navegador de estrutura da planilha por padrão"
 
 #. i18n: ectx: label, entry (ShowTocPlotsDefault), group (Cantor)
 #: cantor.kcfg:46
 #, kde-format
 msgid "Show plots in the Worksheet Structure Navigator by default"
-msgstr ""
+msgstr "Mostrar gráficos no navegador de estrutura da planilha por padrão"
 
 #. i18n: ectx: label, entry (AnimationDefault), group (Cantor)
 #: cantor.kcfg:50
@@ -2867,6 +2865,8 @@ msgstr "Limite de linhas visíveis para o resultado de texto"
 msgid ""
 "Whether the hierarchy font settings have been migrated to complete fonts"
 msgstr ""
+"Se as configurações de fonte da hierarquia foram migradas para fontes "
+"completas"
 
 #. i18n: ectx: label, entry (ChapterFontFamily), group (Cantor)
 #: cantor.kcfg:90
@@ -3442,17 +3442,15 @@ msgstr "Diferenciar &maiúsculas de minúsculas"
 
 #. i18n: ectx: property (text), widget (QLabel, hierarchyEntriesLabel)
 #: formating.ui:35
-#, fuzzy, kde-format
-#| msgid "Hierarchy Entry"
+#, kde-format
 msgid "Hierarchy Entries:"
-msgstr "Entrada de hierarquia"
+msgstr "Entradas de hierarquia:"
 
 #. i18n: ectx: property (text), widget (QLabel, hierarchyLevelLabel)
 #: formating.ui:50
-#, fuzzy, kde-format
-#| msgid "Set Hierarchy Level"
+#, kde-format
 msgid "Hierarchy level:"
-msgstr "Definir nível hierárquico"
+msgstr "Nível hierárquico:"
 
 #. i18n: ectx: property (text), item, widget (QComboBox, hierarchyLevelComboBox)
 #: formating.ui:61 hierarchyentry.cpp:22
@@ -3498,38 +3496,33 @@ msgstr "Subparágrafo"
 #. i18n: ectx: property (text), widget (QLabel, lSubparagraphFont)
 #: formating.ui:115 formating.ui:138 formating.ui:161 formating.ui:184
 #: formating.ui:207 formating.ui:230
-#, fuzzy, kde-format
-#| msgctxt "@action"
-#| msgid "&Font"
+#, kde-format
 msgid "&Font:"
-msgstr "&Fonte"
+msgstr "&Fonte:"
 
 #. i18n: ectx: property (text), widget (QLabel, visibleItemsLabel)
 #: formating.ui:253
 #, kde-format
 msgid "Visible Items:"
-msgstr ""
+msgstr "Itens visíveis:"
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_ShowTocChaptersDefault)
 #: formating.ui:262
-#, fuzzy, kde-format
-#| msgid "Chapter"
+#, kde-format
 msgid "Chapters"
-msgstr "Capítulo"
+msgstr "Capítulos"
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_ShowTocSectionsDefault)
 #: formating.ui:269
-#, fuzzy, kde-format
-#| msgid "Section"
+#, kde-format
 msgid "Sections"
-msgstr "Seção"
+msgstr "Seções"
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_ShowTocCommandEntriesDefault)
 #: formating.ui:276
-#, fuzzy, kde-format
-#| msgid "Commands"
+#, kde-format
 msgid "Command entries"
-msgstr "Comandos"
+msgstr "Entradas de comando"
 
 #: hierarchyentry.cpp:55
 #, kde-format
@@ -3613,8 +3606,7 @@ msgid "%1 files (*.%2)"
 msgstr "Arquivos %1 (*.%2)"
 
 #: imageresultitem.cpp:83
-#, fuzzy, kde-format
-#| msgid "PDF Files (*.pdf)"
+#, kde-format
 msgid "PDF files (*.pdf)"
 msgstr "Arquivos PDF (*.pdf)"
 
@@ -4059,12 +4051,12 @@ msgstr "Todos os arquivos"
 #: panelplugins/tocpanel/tocpanelplugin.cpp:207
 #, kde-format
 msgid "Search Table of Contents"
-msgstr ""
+msgstr "Pesquisar no sumário"
 
 #: panelplugins/tocpanel/tocpanelplugin.cpp:347
 #, kde-format
 msgid "Heading"
-msgstr ""
+msgstr "Cabeçalho"
 
 #: panelplugins/tocpanel/tocpanelplugin.cpp:350
 #, kde-format
@@ -4072,13 +4064,14 @@ msgid ""
 "Do you really want to delete the heading \"%1\"? Its contents will be kept. "
 "This action cannot be undone."
 msgstr ""
+"Você realmente deseja excluir o cabeçalho \"%1\"? O conteúdo dele será "
+"mantido. Esta ação não pode ser desfeita."
 
 #: panelplugins/tocpanel/tocpanelplugin.cpp:351
 #: worksheethierarchymanager.cpp:1175
-#, fuzzy, kde-format
-#| msgid "Delete Entry"
+#, kde-format
 msgid "Delete Heading"
-msgstr "Excluir entrada"
+msgstr "Excluir cabeçalho"
 
 #: panelplugins/tocpanel/tocpanelplugin.cpp:365
 #: panelplugins/tocpanel/tocpanelplugin.cpp:1258 worksheet.cpp:1943
@@ -4094,147 +4087,131 @@ msgstr "Comando"
 #: panelplugins/tocpanel/tocpanelplugin.cpp:1303
 #, kde-format
 msgid "Do you really want to delete \"%1\"? This action cannot be undone."
-msgstr ""
+msgstr "Você realmente deseja excluir \"%1\"? Esta ação não pode ser desfeita."
 
 #: panelplugins/tocpanel/tocpanelplugin.cpp:369
 #: panelplugins/tocpanel/tocpanelplugin.cpp:1252
 #: panelplugins/tocpanel/tocpanelplugin.cpp:1262
-#, fuzzy, kde-format
-#| msgid "Delete Command Entry Results"
+#, kde-format
 msgid "Delete Command"
-msgstr "Excluir os resultados da entrada de comando"
+msgstr "Excluir comando"
 
 #: panelplugins/tocpanel/tocpanelplugin.cpp:388
 #: panelplugins/tocpanel/tocpanelplugin.cpp:1296
 #: panelplugins/tocpanel/tocpanelplugin.cpp:1304
-#, fuzzy, kde-format
-#| msgid "Delete"
+#, kde-format
 msgid "Delete Plot"
-msgstr "Excluir"
+msgstr "Excluir gráfico"
 
 #: panelplugins/tocpanel/tocpanelplugin.cpp:455
 #, kde-format
 msgid "No visible items in the Table of Contents"
-msgstr ""
+msgstr "Nenhum item visível no Sumário"
 
 #: panelplugins/tocpanel/tocpanelplugin.cpp:456
 #, kde-format
 msgid "No matching items"
-msgstr ""
+msgstr "Nenhum item correspondente"
 
 #: panelplugins/tocpanel/tocpanelplugin.cpp:1016
 #, kde-format
 msgid "Visible Items"
-msgstr ""
+msgstr "Itens visíveis"
 
 #: panelplugins/tocpanel/tocpanelplugin.cpp:1018
-#, fuzzy, kde-format
-#| msgid "Chapter"
+#, kde-format
 msgid "Show Chapters"
-msgstr "Capítulo"
+msgstr "Mostrar capítulos"
 
 #: panelplugins/tocpanel/tocpanelplugin.cpp:1027
-#, fuzzy, kde-format
-#| msgid "Show Completion"
+#, kde-format
 msgid "Show Sections"
-msgstr "Exibir completamento"
+msgstr "Mostrar seções"
 
 #: panelplugins/tocpanel/tocpanelplugin.cpp:1036
-#, fuzzy, kde-format
-#| msgid "Insert Command Entry"
+#, kde-format
 msgid "Show Command Entries"
-msgstr "Inserir entrada de comando"
+msgstr "Mostrar entradas de comando"
 
 #: panelplugins/tocpanel/tocpanelplugin.cpp:1045
-#, fuzzy, kde-format
-#| msgid "Show Results"
+#, kde-format
 msgid "Show Plots"
-msgstr "Mostrar os resultados"
+msgstr "Mostrar gráficos"
 
 #: panelplugins/tocpanel/tocpanelplugin.cpp:1056
-#, fuzzy, kde-format
-#| msgid "Reset to Default"
+#, kde-format
 msgid "Reset to Defaults"
-msgstr "Restaurar para o padrão"
+msgstr "Restaurar padrões"
 
 #: panelplugins/tocpanel/tocpanelplugin.cpp:1179
 #, kde-format
 msgid "Go to Heading"
-msgstr ""
+msgstr "Ir para o cabeçalho"
 
 #: panelplugins/tocpanel/tocpanelplugin.cpp:1189
-#, fuzzy, kde-format
-#| msgid "Unnamed"
+#, kde-format
 msgid "Rename"
-msgstr "Sem nome"
+msgstr "Renomear"
 
 #: panelplugins/tocpanel/tocpanelplugin.cpp:1200
 #, kde-format
 msgid "Promote Heading"
-msgstr ""
+msgstr "Promover cabeçalho"
 
 #: panelplugins/tocpanel/tocpanelplugin.cpp:1207
 #, kde-format
 msgid "Demote Heading"
-msgstr ""
+msgstr "Rebaixar cabeçalho"
 
 #: panelplugins/tocpanel/tocpanelplugin.cpp:1216
-#, fuzzy, kde-format
-#| msgid "Delete current Entry"
+#, kde-format
 msgid "Delete Heading Only"
-msgstr "Excluir entrada atual"
+msgstr "Excluir somente o cabeçalho"
 
 #: panelplugins/tocpanel/tocpanelplugin.cpp:1223
-#, fuzzy, kde-format
-#| msgid "Delete Command Entry Results"
+#, kde-format
 msgid "Delete Section and Contents"
-msgstr "Excluir os resultados da entrada de comando"
+msgstr "Excluir seção e conteúdo"
 
 #: panelplugins/tocpanel/tocpanelplugin.cpp:1234
-#, fuzzy, kde-format
-#| msgid "Command"
+#, kde-format
 msgid "Go to Command"
-msgstr "Comando"
+msgstr "Ir para o comando"
 
 #: panelplugins/tocpanel/tocpanelplugin.cpp:1244
-#, fuzzy, kde-format
-#| msgid "Command"
+#, kde-format
 msgid "Rename Command"
-msgstr "Comando"
+msgstr "Renomear comando"
 
 #: panelplugins/tocpanel/tocpanelplugin.cpp:1278
 #, kde-format
 msgid "Go to Plot"
-msgstr ""
+msgstr "Ir para o gráfico"
 
 #: panelplugins/tocpanel/tocpanelplugin.cpp:1288
 #, kde-format
 msgid "Rename Plot"
-msgstr ""
+msgstr "Renomear o gráfico"
 
 #: panelplugins/tocpanel/tocpanelplugin.cpp:1319
-#, fuzzy, kde-format
-#| msgid "Completion"
+#, kde-format
 msgid "Collapse Section"
-msgstr "Completamento"
+msgstr "Recolher seção"
 
 #: panelplugins/tocpanel/tocpanelplugin.cpp:1331
-#, fuzzy, kde-format
-#| msgid "Section"
+#, kde-format
 msgid "Expand Section"
-msgstr "Seção"
+msgstr "Expandir seção"
 
 #: panelplugins/tocpanel/tocpanelplugin.cpp:1349
-#, fuzzy, kde-format
-#| msgid "Expand All Results"
+#, kde-format
 msgid "Expand All"
-msgstr "Expandir todos os resultados"
+msgstr "Expandir tudo"
 
 #: panelplugins/tocpanel/tocpanelplugin.cpp:1356
-#, fuzzy, kde-format
-#| msgid "Collapse All Results"
+#, kde-format
 msgid "Collapse All"
-msgstr "Recolher todos os resultados"
+msgstr "Recolher tudo"
 
 #. i18n: ectx: property (text), widget (QLabel, label)
 #: panelplugins/variablemgr/newvardlg.ui:17
@@ -5199,12 +5176,12 @@ msgstr "Arrastar a entrada"
 #: worksheethierarchymanager.cpp:355
 #, kde-format
 msgid "%1 %2"
-msgstr ""
+msgstr "%1 %2"
 
 #: worksheethierarchymanager.cpp:349
 #, kde-format
 msgid "%1 %2.%3"
-msgstr ""
+msgstr "%1 %2.%3"
 
 #: worksheethierarchymanager.cpp:1158
 #, kde-format
@@ -5212,12 +5189,13 @@ msgid ""
 "Do you really want to delete the heading \"%1\" and all entries in this "
 "section? This action cannot be undone."
 msgstr ""
+"Você realmente deseja excluir o cabeçalho \"%1\" e todas as entradas nesta "
+"seção? Esta ação não pode ser desfeita."
 
 #: worksheethierarchymanager.cpp:1164
-#, fuzzy, kde-format
-#| msgid "Section"
+#, kde-format
 msgid "Delete Section"
-msgstr "Seção"
+msgstr "Excluir seção"
 
 #: worksheethierarchymanager.cpp:1168
 #, kde-format
@@ -5225,6 +5203,8 @@ msgid ""
 "Do you really want to delete only the heading \"%1\"? The contents of the "
 "section will remain in the worksheet. This action cannot be undone."
 msgstr ""
+"Você realmente deseja excluir apenas o cabeçalho \"%1\"? O conteúdo da seção "
+"permanecerá na planilha. Esta ação não pode ser desfeita."
 
 #: worksheettextitem.cpp:912 worksheettextitem.cpp:929
 #, kde-format

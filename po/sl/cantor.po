@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-07-27 00:39+0000\n"
-"PO-Revision-Date: 2026-02-24 07:11+0100\n"
+"PO-Revision-Date: 2026-07-27 08:15+0200\n"
 "Last-Translator: Matjaž Jeran <matjaz.jeran@amis.net>\n"
 "Language-Team: Slovenian <lugos-slo@lugos.si>\n"
 "Language: sl\n"
@@ -19,7 +19,7 @@ msgstr ""
 "Plural-Forms: nplurals=4; plural=(n%100==1 ? 1 : n%100==2 ? 2 : n%100==3 || n"
 "%100==4 ? 3 : 0);\n"
 "Translator: Andrej Mernik <andrejm@ubuntu.si>\n"
-"X-Generator: Poedit 3.8\n"
+"X-Generator: Poedit 3.9\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -2710,7 +2710,7 @@ msgstr "Privzeto"
 #: cantor.cpp:775
 #, kde-format
 msgid "Table of Contents"
-msgstr ""
+msgstr "Kazalo vsebine"
 
 #. i18n: ectx: label, entry (DefaultBackend), group (Cantor)
 #: cantor.kcfg:10
@@ -2750,30 +2750,27 @@ msgstr "Privzeto omogoči številčenje izrazov"
 
 #. i18n: ectx: label, entry (ShowTocChaptersDefault), group (Cantor)
 #: cantor.kcfg:34
-#, fuzzy, kde-format
-#| msgid "Animate changes in the Worksheet by default"
+#, kde-format
 msgid "Show chapters in the Worksheet Structure Navigator by default"
-msgstr "Privzeto animiraj spremembe na delovnem listu"
+msgstr "Privzeto prikaži poglavja v Navigatorju strukture delovnega lista"
 
 #. i18n: ectx: label, entry (ShowTocSectionsDefault), group (Cantor)
 #: cantor.kcfg:38
-#, fuzzy, kde-format
-#| msgid "Animate changes in the Worksheet by default"
+#, kde-format
 msgid "Show sections in the Worksheet Structure Navigator by default"
-msgstr "Privzeto animiraj spremembe na delovnem listu"
+msgstr "Privzeto prikaži razdelje v Navigatorju strukture delovnega lista"
 
 #. i18n: ectx: label, entry (ShowTocCommandEntriesDefault), group (Cantor)
 #: cantor.kcfg:42
-#, fuzzy, kde-format
-#| msgid "Animate changes in the Worksheet by default"
+#, kde-format
 msgid "Show command entries in the Worksheet Structure Navigator by default"
-msgstr "Privzeto animiraj spremembe na delovnem listu"
+msgstr "Privzeto prikaži vnose ukazov v Navigatorju strukture delovnega lista"
 
 #. i18n: ectx: label, entry (ShowTocPlotsDefault), group (Cantor)
 #: cantor.kcfg:46
 #, kde-format
 msgid "Show plots in the Worksheet Structure Navigator by default"
-msgstr ""
+msgstr "Privzeto prikaži grafe v Navigatorju strukture delovnega lista"
 
 #. i18n: ectx: label, entry (AnimationDefault), group (Cantor)
 #: cantor.kcfg:50
@@ -2843,7 +2840,7 @@ msgstr "Omejitev vidnih črt za besedilni rezultat"
 #, kde-format
 msgid ""
 "Whether the hierarchy font settings have been migrated to complete fonts"
-msgstr ""
+msgstr "Ali so bile nastavitve hierarhije pisav preseljene v celotne pisave"
 
 #. i18n: ectx: label, entry (ChapterFontFamily), group (Cantor)
 #: cantor.kcfg:90
@@ -3419,17 +3416,15 @@ msgstr "Ujemanje velikosti črk"
 
 #. i18n: ectx: property (text), widget (QLabel, hierarchyEntriesLabel)
 #: formating.ui:35
-#, fuzzy, kde-format
-#| msgid "Hierarchy Entry"
+#, kde-format
 msgid "Hierarchy Entries:"
-msgstr "Vnos hierarhije"
+msgstr "Vnosi hierarhije:"
 
 #. i18n: ectx: property (text), widget (QLabel, hierarchyLevelLabel)
 #: formating.ui:50
-#, fuzzy, kde-format
-#| msgid "Set Hierarchy Level"
+#, kde-format
 msgid "Hierarchy level:"
-msgstr "Nastavi raven hierarhije"
+msgstr "Raven hierarhije:"
 
 #. i18n: ectx: property (text), item, widget (QComboBox, hierarchyLevelComboBox)
 #: formating.ui:61 hierarchyentry.cpp:22
@@ -3475,38 +3470,33 @@ msgstr "Pododstavek"
 #. i18n: ectx: property (text), widget (QLabel, lSubparagraphFont)
 #: formating.ui:115 formating.ui:138 formating.ui:161 formating.ui:184
 #: formating.ui:207 formating.ui:230
-#, fuzzy, kde-format
-#| msgctxt "@action"
-#| msgid "&Font"
+#, kde-format
 msgid "&Font:"
-msgstr "Pisava"
+msgstr "Pisava:"
 
 #. i18n: ectx: property (text), widget (QLabel, visibleItemsLabel)
 #: formating.ui:253
 #, kde-format
 msgid "Visible Items:"
-msgstr ""
+msgstr "Vidne postavke:"
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_ShowTocChaptersDefault)
 #: formating.ui:262
-#, fuzzy, kde-format
-#| msgid "Chapter"
+#, kde-format
 msgid "Chapters"
-msgstr "Poglavje"
+msgstr "Poglavja"
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_ShowTocSectionsDefault)
 #: formating.ui:269
-#, fuzzy, kde-format
-#| msgid "Section"
+#, kde-format
 msgid "Sections"
-msgstr "Sekcija"
+msgstr "Razdelki"
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_ShowTocCommandEntriesDefault)
 #: formating.ui:276
-#, fuzzy, kde-format
-#| msgid "Commands"
+#, kde-format
 msgid "Command entries"
-msgstr "Ukazi"
+msgstr "Vnosi ukazov"
 
 #: hierarchyentry.cpp:55
 #, kde-format
@@ -3590,10 +3580,9 @@ msgid "%1 files (*.%2)"
 msgstr "%1 datoteke (*.%2)"
 
 #: imageresultitem.cpp:83
-#, fuzzy, kde-format
-#| msgid "PDF Files (*.pdf)"
+#, kde-format
 msgid "PDF files (*.pdf)"
-msgstr "datoteke PDF (*.pdf)"
+msgstr "Datoteke PDF (*.pdf)"
 
 #: imageresultitem.cpp:85
 #, kde-format
@@ -4036,12 +4025,12 @@ msgstr "Vse datoteke"
 #: panelplugins/tocpanel/tocpanelplugin.cpp:207
 #, kde-format
 msgid "Search Table of Contents"
-msgstr ""
+msgstr "Preišči kazalo vsebine"
 
 #: panelplugins/tocpanel/tocpanelplugin.cpp:347
 #, kde-format
 msgid "Heading"
-msgstr ""
+msgstr "Naslov"
 
 #: panelplugins/tocpanel/tocpanelplugin.cpp:350
 #, kde-format
@@ -4049,13 +4038,14 @@ msgid ""
 "Do you really want to delete the heading \"%1\"? Its contents will be kept. "
 "This action cannot be undone."
 msgstr ""
+"Ali res želite izbrisati naslov \"%1\"? Njegova vsebina bo ohranjena. Tega "
+"dejanja ni mogoče razveljaviti."
 
 #: panelplugins/tocpanel/tocpanelplugin.cpp:351
 #: worksheethierarchymanager.cpp:1175
-#, fuzzy, kde-format
-#| msgid "Delete Entry"
+#, kde-format
 msgid "Delete Heading"
-msgstr "Izbriši vnos"
+msgstr "Izbriši naslov"
 
 #: panelplugins/tocpanel/tocpanelplugin.cpp:365
 #: panelplugins/tocpanel/tocpanelplugin.cpp:1258 worksheet.cpp:1943
@@ -4071,147 +4061,131 @@ msgstr "Ukaz"
 #: panelplugins/tocpanel/tocpanelplugin.cpp:1303
 #, kde-format
 msgid "Do you really want to delete \"%1\"? This action cannot be undone."
-msgstr ""
+msgstr "Ali res želite izbrisati \"%1\"? Tega dejanja ni mogoče razveljaviti."
 
 #: panelplugins/tocpanel/tocpanelplugin.cpp:369
 #: panelplugins/tocpanel/tocpanelplugin.cpp:1252
 #: panelplugins/tocpanel/tocpanelplugin.cpp:1262
-#, fuzzy, kde-format
-#| msgid "Delete Command Entry Results"
+#, kde-format
 msgid "Delete Command"
-msgstr "Izbriši rezultate ukaznega vnosa"
+msgstr "Izbriši ukaz"
 
 #: panelplugins/tocpanel/tocpanelplugin.cpp:388
 #: panelplugins/tocpanel/tocpanelplugin.cpp:1296
 #: panelplugins/tocpanel/tocpanelplugin.cpp:1304
-#, fuzzy, kde-format
-#| msgid "Delete"
+#, kde-format
 msgid "Delete Plot"
-msgstr "Izbriši"
+msgstr "Izbriši graf"
 
 #: panelplugins/tocpanel/tocpanelplugin.cpp:455
 #, kde-format
 msgid "No visible items in the Table of Contents"
-msgstr ""
+msgstr "Ni vidnih postavk v kazalu vsebine"
 
 #: panelplugins/tocpanel/tocpanelplugin.cpp:456
 #, kde-format
 msgid "No matching items"
-msgstr ""
+msgstr "Ni ustreznih postavk"
 
 #: panelplugins/tocpanel/tocpanelplugin.cpp:1016
 #, kde-format
 msgid "Visible Items"
-msgstr ""
+msgstr "Vidne postavke"
 
 #: panelplugins/tocpanel/tocpanelplugin.cpp:1018
-#, fuzzy, kde-format
-#| msgid "Chapter"
+#, kde-format
 msgid "Show Chapters"
-msgstr "Poglavje"
+msgstr "Prikaži poglavja"
 
 #: panelplugins/tocpanel/tocpanelplugin.cpp:1027
-#, fuzzy, kde-format
-#| msgid "Show Completion"
+#, kde-format
 msgid "Show Sections"
-msgstr "Prikaži dokončevanje"
+msgstr "Prikaži razdelke"
 
 #: panelplugins/tocpanel/tocpanelplugin.cpp:1036
-#, fuzzy, kde-format
-#| msgid "Insert Command Entry"
+#, kde-format
 msgid "Show Command Entries"
-msgstr "Vstavi ukazni vnos"
+msgstr "Prikaži vnose ukazov"
 
 #: panelplugins/tocpanel/tocpanelplugin.cpp:1045
-#, fuzzy, kde-format
-#| msgid "Show Results"
+#, kde-format
 msgid "Show Plots"
-msgstr "Prikaži rezultate"
+msgstr "Prikaži grafe"
 
 #: panelplugins/tocpanel/tocpanelplugin.cpp:1056
-#, fuzzy, kde-format
-#| msgid "Reset to Default"
+#, kde-format
 msgid "Reset to Defaults"
 msgstr "Ponovno nastavi na privzeto"
 
 #: panelplugins/tocpanel/tocpanelplugin.cpp:1179
 #, kde-format
 msgid "Go to Heading"
-msgstr ""
+msgstr "Pojdi na naslov"
 
 #: panelplugins/tocpanel/tocpanelplugin.cpp:1189
-#, fuzzy, kde-format
-#| msgid "Unnamed"
+#, kde-format
 msgid "Rename"
-msgstr "Neimenovano"
+msgstr "Preimenuj"
 
 #: panelplugins/tocpanel/tocpanelplugin.cpp:1200
 #, kde-format
 msgid "Promote Heading"
-msgstr ""
+msgstr "Povišaj naslov"
 
 #: panelplugins/tocpanel/tocpanelplugin.cpp:1207
 #, kde-format
 msgid "Demote Heading"
-msgstr ""
+msgstr "Ponižaj naslov"
 
 #: panelplugins/tocpanel/tocpanelplugin.cpp:1216
-#, fuzzy, kde-format
-#| msgid "Delete current Entry"
+#, kde-format
 msgid "Delete Heading Only"
-msgstr "Izbriši trenutni vnos"
+msgstr "Izbriši samo naslov"
 
 #: panelplugins/tocpanel/tocpanelplugin.cpp:1223
-#, fuzzy, kde-format
-#| msgid "Delete Command Entry Results"
+#, kde-format
 msgid "Delete Section and Contents"
-msgstr "Izbriši rezultate ukaznega vnosa"
+msgstr "Izbriši razdelek in vsebino"
 
 #: panelplugins/tocpanel/tocpanelplugin.cpp:1234
-#, fuzzy, kde-format
-#| msgid "Command"
+#, kde-format
 msgid "Go to Command"
-msgstr "Ukaz"
+msgstr "Pojdi na ukaz"
 
 #: panelplugins/tocpanel/tocpanelplugin.cpp:1244
-#, fuzzy, kde-format
-#| msgid "Command"
+#, kde-format
 msgid "Rename Command"
-msgstr "Ukaz"
+msgstr "Preimenuj ukaz"
 
 #: panelplugins/tocpanel/tocpanelplugin.cpp:1278
 #, kde-format
 msgid "Go to Plot"
-msgstr ""
+msgstr "Pojdi na graf"
 
 #: panelplugins/tocpanel/tocpanelplugin.cpp:1288
 #, kde-format
 msgid "Rename Plot"
-msgstr ""
+msgstr "Preimenuj graf"
 
 #: panelplugins/tocpanel/tocpanelplugin.cpp:1319
-#, fuzzy, kde-format
-#| msgid "Completion"
+#, kde-format
 msgid "Collapse Section"
-msgstr "Dokončevanje"
+msgstr "Strni razdelek"
 
 #: panelplugins/tocpanel/tocpanelplugin.cpp:1331
-#, fuzzy, kde-format
-#| msgid "Section"
+#, kde-format
 msgid "Expand Section"
-msgstr "Sekcija"
+msgstr "Razširi razdelek"
 
 #: panelplugins/tocpanel/tocpanelplugin.cpp:1349
-#, fuzzy, kde-format
-#| msgid "Expand All Results"
+#, kde-format
 msgid "Expand All"
-msgstr "Razširi vse rezultate"
+msgstr "Razširi vse"
 
 #: panelplugins/tocpanel/tocpanelplugin.cpp:1356
-#, fuzzy, kde-format
-#| msgid "Collapse All Results"
+#, kde-format
 msgid "Collapse All"
-msgstr "Strni vse rezultate"
+msgstr "Strni vse"
 
 #. i18n: ectx: property (text), widget (QLabel, label)
 #: panelplugins/variablemgr/newvardlg.ui:17
@@ -5167,12 +5141,12 @@ msgstr "Povlecite vnos"
 #: worksheethierarchymanager.cpp:355
 #, kde-format
 msgid "%1 %2"
-msgstr ""
+msgstr "%1 %2"
 
 #: worksheethierarchymanager.cpp:349
 #, kde-format
 msgid "%1 %2.%3"
-msgstr ""
+msgstr "%1 %2.%3"
 
 #: worksheethierarchymanager.cpp:1158
 #, kde-format
@@ -5180,12 +5154,13 @@ msgid ""
 "Do you really want to delete the heading \"%1\" and all entries in this "
 "section? This action cannot be undone."
 msgstr ""
+"Ali res želite izbrisati naslov \"%1\" in vse vnose v tem razdelku? Tega "
+"dejanja ni mogoče razveljaviti."
 
 #: worksheethierarchymanager.cpp:1164
-#, fuzzy, kde-format
-#| msgid "Section"
+#, kde-format
 msgid "Delete Section"
-msgstr "Sekcija"
+msgstr "Izbriši razdelek"
 
 #: worksheethierarchymanager.cpp:1168
 #, kde-format
@@ -5193,6 +5168,8 @@ msgid ""
 "Do you really want to delete only the heading \"%1\"? The contents of the "
 "section will remain in the worksheet. This action cannot be undone."
 msgstr ""
+"Ali res želite izbrisati samo naslov \"%1\"? Vsebina razdelka bo ostala na "
+"delovnem listu. Tega dejanja ni mogoče razveljaviti."
 
 #: worksheettextitem.cpp:912 worksheettextitem.cpp:929
 #, kde-format

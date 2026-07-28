@@ -4965,7 +4965,3 @@ msgstr ""
 #| msgid "Use Colors"
 msgid "Select Color"
 msgstr "Bruk fargar"
-
-#, fuzzy
-#~ msgid "Font Si&ze:"
-#~ msgstr "Skrift&storleik"
