@@ -36,6 +36,7 @@ class CANTOR_EXPORT ImageResult : public Result
 
     QSize displaySize();
     void setDisplaySize(QSize size);
+    QImage renderToDisplaySize(const QSize& size);
 
     QString originalFormat();
     void setOriginalFormat(const QString& format);

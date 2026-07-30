@@ -53,6 +53,18 @@ void LoadedExpression::loadFromXml(const QDomElement& xml, const KZip& file)
             if (!result)
                 return;
 
+            bool widthValid = false;
+            bool heightValid = false;
+            const int width = resultElement.attribute(QLatin1String("display-width")).toInt(&widthValid);
+            const int height = resultElement.attribute(QLatin1String("display-height")).toInt(&heightValid);
+            if (widthValid && heightValid && width > 0 && height > 0) {
+                const QSize displaySize(width, height);
+                if (auto* imageResult = dynamic_cast<Cantor::ImageResult*>(result))
+                    imageResult->setDisplaySize(displaySize);
+                else if (auto* pdfResult = dynamic_cast<Cantor::PdfResult*>(result))
+                    pdfResult->setDisplaySize(displaySize);
+            }
+
             result->loadXmlResultMetadata(resultElement);
             addResult(result);
         };
@@ -306,6 +318,29 @@ void LoadedExpression::loadFromJupyter(const QJsonObject& cell)
                 // If we have failed to render LaTeX i think Cantor should show the latex code at least
                 if (!renderer->renderingSuccessful())
                     static_cast<Cantor::LatexResult*>(result)->showCode();
+            }
+            else if (mainKey == QLatin1String("application/pdf"))
+            {
+                const QByteArray bytes = QByteArray::fromBase64(Cantor::JupyterUtils::fromJupyterMultiline(data.value(mainKey)).toLatin1());
+
+                QTemporaryFile file;
+                file.setAutoRemove(false);
+                if (file.open()) {
+                    file.write(bytes);
+                    file.close();
+
+                    auto* pdfResult = new Cantor::PdfResult(QUrl::fromLocalFile(file.fileName()), bytes);
+                    const QJsonValue size = metadata.value(mainKey);
+                    if (size.isObject()) {
+                        const int width = size.toObject().value(QLatin1String("width")).toInt(-1);
+                        const int height = size.toObject().value(QLatin1String("height")).toInt(-1);
+                        if (width > 0 && height > 0) {
+                            pdfResult->setDisplaySize(QSize(width, height));
+                            metadata.remove(mainKey);
+                        }
+                    }
+                    result = pdfResult;
+                }
             }
             // So this is image
             else if (Cantor::JupyterUtils::imageKeys(data).contains(mainKey))

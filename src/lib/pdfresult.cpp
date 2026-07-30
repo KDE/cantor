@@ -19,6 +19,7 @@ class Cantor::PdfResultPrivate
 public:
     QUrl url;
     QByteArray pdfData;
+    QSize displaySize;
 };
 
 PdfResult::PdfResult(const QUrl& url, const QByteArray& pdfData) : d(new PdfResultPrivate)
@@ -111,11 +112,51 @@ QImage PdfResult::renderToImage(double scale, bool useHighRes)
     return image;
 }
 
+QImage PdfResult::renderToDisplaySize(const QSize& size)
+{
+    if (!size.isValid() || d->pdfData.isEmpty())
+        return QImage();
+
+    popplerPdfMutex.lock();
+    auto document = Poppler::Document::loadFromData(d->pdfData);
+    popplerPdfMutex.unlock();
+    if (!document)
+        return QImage();
+
+    auto page = document->page(0);
+    if (!page)
+        return QImage();
+
+    document->setRenderHint(Poppler::Document::Antialiasing, true);
+    document->setRenderHint(Poppler::Document::TextAntialiasing, true);
+    document->setRenderHint(Poppler::Document::TextHinting, true);
+
+    constexpr qreal superSample = 2.0;
+    const QSize renderSize(qMin(qRound(size.width() * superSample), 16384),
+                           qMin(qRound(size.height() * superSample), 16384));
+    const QSizeF pageSize = page->pageSizeF();
+    if (!pageSize.isValid())
+        return QImage();
+
+    const qreal scale = qMax(renderSize.width() / pageSize.width(), renderSize.height() / pageSize.height());
+    QImage image = page->renderToImage(72.0 * scale, 72.0 * scale);
+    if (!image.isNull()) {
+        if (image.format() != QImage::Format_ARGB32_Premultiplied)
+            image = image.convertToFormat(QImage::Format_ARGB32_Premultiplied);
+        image.setDevicePixelRatio(superSample);
+    }
+    return image;
+}
+
 QDomElement PdfResult::toXml(QDomDocument& doc)
 {
     QDomElement e = doc.createElement(QStringLiteral("Result"));
     e.setAttribute(QStringLiteral("type"), QStringLiteral("pdf"));
     e.setAttribute(QStringLiteral("filename"), d->url.fileName());
+    if (d->displaySize.isValid()) {
+        e.setAttribute(QStringLiteral("display-width"), d->displaySize.width());
+        e.setAttribute(QStringLiteral("display-height"), d->displaySize.height());
+    }
     applyXmlResultMetadata(e);
     return e;
 }
@@ -134,7 +175,14 @@ QJsonValue PdfResult::toJupyterJson()
     data.insert(QLatin1String("application/pdf"), JupyterUtils::toJupyterMultiline(QString::fromLatin1(d->pdfData.toBase64())));
     root.insert(QLatin1String("data"), data);
 
-    root.insert(QLatin1String("metadata"), jupyterMetadata());
+    QJsonObject metadata = jupyterMetadata();
+    if (d->displaySize.isValid()) {
+        QJsonObject size;
+        size.insert(QLatin1String("width"), d->displaySize.width());
+        size.insert(QLatin1String("height"), d->displaySize.height());
+        metadata.insert(QLatin1String("application/pdf"), size);
+    }
+    root.insert(QLatin1String("metadata"), metadata);
     return root;
 }
 
@@ -146,4 +194,14 @@ void PdfResult::save(const QString& fileName)
         file.write(d->pdfData);
         file.close();
     }
+}
+
+QSize PdfResult::displaySize() const
+{
+    return d->displaySize;
+}
+
+void PdfResult::setDisplaySize(const QSize& size)
+{
+    d->displaySize = size;
 }
