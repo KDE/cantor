@@ -20,14 +20,19 @@
 ImageResultItem::ImageResultItem(QGraphicsObject* parent, Cantor::Result* result)
     : WorksheetImageItem(parent), ResultItem(result)
 {
+    setResizable(true);
+    connect(this, &WorksheetImageItem::resizeStarted, this, &ImageResultItem::beginResizePreview);
+    connect(this, &WorksheetImageItem::resizePreviewChanged, this, &ImageResultItem::updateResizePreview);
+    connect(this, &WorksheetImageItem::resizeFinished, this, &ImageResultItem::applyDisplaySize, Qt::QueuedConnection);
+    m_resizePreviewTimer.setInterval(16);
+    m_resizePreviewTimer.setSingleShot(true);
+    connect(&m_resizePreviewTimer, &QTimer::timeout, this, &ImageResultItem::flushResizePreview);
     update();
 }
 
 double ImageResultItem::setGeometry(double x, double y, double w)
 {
-    Q_UNUSED(w);
-    setPos(x,y);
-    return height();
+    return WorksheetImageItem::setGeometry(x, y, w);
 }
 
 void ImageResultItem::populateMenu(QMenu* menu, QPointF)
@@ -49,11 +54,96 @@ void ImageResultItem::update()
     }
         break;
     case Cantor::PdfResult::Type:
-        setImage(m_result->data().value<QImage>());
+        renderPdf(static_cast<Cantor::PdfResult*>(m_result)->displaySize());
         break;
     default:
         break;
     }
+}
+
+void ImageResultItem::beginResizePreview(bool fromTopCorner)
+{
+    auto* commandEntry = parentEntry();
+    if (!commandEntry)
+        return;
+
+    m_parentZValue = commandEntry->zValue();
+    commandEntry->setZValue(1000.0);
+    m_zValue = zValue();
+    setZValue(1000.0);
+    m_parentHeightBeforeResize = commandEntry->size().height();
+    m_imageHeightBeforeResize = height();
+    m_pendingPreviewSize = size();
+    m_resizePreviewDirty = false;
+    m_resizePreviewActive = true;
+    m_moveFollowingEntriesDuringResize = !fromTopCorner;
+}
+
+void ImageResultItem::updateResizePreview(const QSizeF& size)
+{
+    if (!m_moveFollowingEntriesDuringResize)
+        return;
+
+    m_pendingPreviewSize = size;
+    m_resizePreviewDirty = true;
+    if (!m_resizePreviewTimer.isActive())
+        m_resizePreviewTimer.start();
+}
+
+void ImageResultItem::flushResizePreview()
+{
+    if (!m_resizePreviewActive || !m_resizePreviewDirty)
+        return;
+
+    if (auto* commandEntry = parentEntry()) {
+        const qreal height = m_parentHeightBeforeResize + m_pendingPreviewSize.height() - m_imageHeightBeforeResize;
+        commandEntry->setHeightForPreview(height);
+    }
+    m_resizePreviewDirty = false;
+}
+
+void ImageResultItem::applyDisplaySize(const QSizeF& size)
+{
+    m_resizePreviewTimer.stop();
+    m_resizePreviewDirty = false;
+
+    const QSize displaySize(qRound(size.width()), qRound(size.height()));
+    setSize(displaySize);
+    if (m_result->type() == Cantor::ImageResult::Type) {
+        auto* imageResult = static_cast<Cantor::ImageResult*>(m_result);
+        imageResult->setDisplaySize(displaySize);
+        setImage(imageResult->renderToDisplaySize(displaySize), displaySize);
+    }
+    else if (m_result->type() == Cantor::PdfResult::Type) {
+        auto* pdfResult = static_cast<Cantor::PdfResult*>(m_result);
+        pdfResult->setDisplaySize(displaySize);
+        renderPdf(displaySize);
+    }
+
+    if (auto* commandEntry = parentEntry())
+        commandEntry->recalculateSize();
+    if (m_resizePreviewActive) {
+        if (auto* commandEntry = parentEntry())
+            commandEntry->setZValue(m_parentZValue);
+        setZValue(m_zValue);
+        m_resizePreviewActive = false;
+    }
+    if (worksheet())
+        worksheet()->setModified();
+}
+
+void ImageResultItem::renderPdf(const QSize& displaySize)
+{
+    auto* pdfResult = static_cast<Cantor::PdfResult*>(m_result);
+    if (!displaySize.isValid()) {
+        setImage(pdfResult->data().value<QImage>());
+        return;
+    }
+
+    QImage image = pdfResult->renderToDisplaySize(displaySize);
+    if (image.isNull())
+        image = pdfResult->data().value<QImage>();
+    setImage(image, displaySize);
 }
 
 QRectF ImageResultItem::boundingRect() const

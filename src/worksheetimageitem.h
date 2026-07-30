@@ -12,7 +12,9 @@
 class Worksheet;
 class QImage;
 class QGraphicsSceneContextMenuEvent;
+class QFocusEvent;
 class QMenu;
+class WorksheetImageResizeHandle;
 
 class WorksheetImageItem : public QGraphicsObject
 {
@@ -34,6 +36,7 @@ class WorksheetImageItem : public QGraphicsObject
     QSizeF size();
     void setSize(QSizeF size);
     QSize imageSize();
+    void setResizable(bool resizable);
 
     QRectF boundingRect() const override;
 
@@ -51,14 +54,32 @@ class WorksheetImageItem : public QGraphicsObject
 
   Q_SIGNALS:
     void sizeChanged();
+    void resizeStarted(bool fromTopCorner);
+    void resizePreviewChanged(QSizeF size);
+    void resizeFinished(QSizeF size);
     void menuCreated(QMenu*, QPointF);
 
   protected:
     void contextMenuEvent(QGraphicsSceneContextMenuEvent*) override;
+    void focusInEvent(QFocusEvent*) override;
+    void focusOutEvent(QFocusEvent*) override;
 
   private:
+    friend class WorksheetImageResizeHandle;
+
+    void beginResize(int position, const QPointF& scenePos);
+    void continueResize(const QPointF& scenePos);
+    void endResize();
+    void updateResizeHandlePositions();
+
     QPixmap m_pixmap;
     QSizeF m_size;
+    QList<WorksheetImageResizeHandle*> m_resizeHandles;
+    QPointF m_resizeStartScenePos;
+    QPointF m_resizeStartItemPos;
+    QSizeF m_resizeStartSize;
+    int m_resizePosition{0};
+    bool m_resizable{false};
 };
 
 #endif //WORKSHEETIMAGEITEM_H

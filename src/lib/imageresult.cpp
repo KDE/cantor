@@ -186,6 +186,10 @@ QDomElement ImageResult::toXml(QDomDocument& doc)
     auto e = doc.createElement(QStringLiteral("Result"));
     e.setAttribute(QStringLiteral("type"), QStringLiteral("image"));
     e.setAttribute(QStringLiteral("filename"), d->url.fileName());
+    if (d->displaySize.isValid()) {
+        e.setAttribute(QStringLiteral("display-width"), d->displaySize.width());
+        e.setAttribute(QStringLiteral("display-height"), d->displaySize.height());
+    }
     applyXmlResultMetadata(e);
 
     if (!d->alt.isEmpty())
@@ -271,6 +275,65 @@ QSize Cantor::ImageResult::displaySize()
 void Cantor::ImageResult::setDisplaySize(QSize size)
 {
     d->displaySize = size;
+}
+
+QImage Cantor::ImageResult::renderToDisplaySize(const QSize& size)
+{
+    if (!size.isValid())
+        return d->img;
+
+    constexpr qreal superSample = 2.0;
+    const QSize renderSize(qMin(qRound(size.width() * superSample), 16384),
+                           qMin(qRound(size.height() * superSample), 16384));
+
+    if (d->extension == QLatin1String("pdf")) {
+        auto document = Poppler::Document::loadFromData(d->data);
+        if (!document)
+            return d->img;
+
+        auto page = document->page(0);
+        if (!page)
+            return d->img;
+
+        document->setRenderHint(Poppler::Document::Antialiasing, true);
+        document->setRenderHint(Poppler::Document::TextAntialiasing, true);
+        document->setRenderHint(Poppler::Document::TextHinting, true);
+
+        const QSizeF pageSize = page->pageSizeF();
+        if (!pageSize.isValid())
+            return d->img;
+
+        const qreal scale = qMax(renderSize.width() / pageSize.width(), renderSize.height() / pageSize.height());
+        QImage image = page->renderToImage(72.0 * scale, 72.0 * scale);
+        if (!image.isNull()) {
+            if (image.format() != QImage::Format_ARGB32_Premultiplied)
+                image = image.convertToFormat(QImage::Format_ARGB32_Premultiplied);
+            image.setDevicePixelRatio(superSample);
+        }
+        return image;
+    }
+
+    QByteArray svgData = d->data;
+    if (svgData.isEmpty() && d->originalFormat == JupyterUtils::svgMime)
+        svgData = d->svgContent.toUtf8();
+
+    if (d->extension == QLatin1String("svg") || d->originalFormat == JupyterUtils::svgMime) {
+        QSvgRenderer renderer(svgData);
+        if (!renderer.isValid())
+            return d->img;
+
+        QImage image(renderSize, QImage::Format_ARGB32_Premultiplied);
+        image.fill(Qt::transparent);
+        QPainter painter(&image);
+        painter.setRenderHint(QPainter::Antialiasing, true);
+        painter.setRenderHint(QPainter::TextAntialiasing, true);
+        painter.setRenderHint(QPainter::SmoothPixmapTransform, true);
+        renderer.render(&painter);
+        image.setDevicePixelRatio(superSample);
+        return image;
+    }
+
+    return d->img;
 }
 
 void Cantor::ImageResult::setOriginalFormat(const QString& format)

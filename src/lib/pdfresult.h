@@ -5,6 +5,7 @@
 #include <QUrl>
 #include <QByteArray>
 #include <QImage>
+#include <QSize>
 
 namespace Cantor
 {
@@ -31,8 +32,11 @@ namespace Cantor
         void save(const QString& filename) override;
 
         QImage renderToImage(double scale, bool useHighRes = true);
+        QImage renderToDisplaySize(const QSize& size);
 
         QByteArray pdfData() const;
+        QSize displaySize() const;
+        void setDisplaySize(const QSize& size);
 
     private:
         PdfResultPrivate* d;

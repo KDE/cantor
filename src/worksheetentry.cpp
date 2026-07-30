@@ -540,6 +540,18 @@ void WorksheetEntry::recalculateSize()
     worksheet()->updateLayout();
 }
 
+void WorksheetEntry::setHeightForPreview(qreal height)
+{
+    QSizeF previewSize = size();
+    previewSize.setHeight(qMax<qreal>(0.0, height));
+    if (previewSize == size())
+        return;
+
+    setSize(previewSize);
+    recalculateControlGeometry();
+    worksheet()->updateEntrySize(this);
+}
+
 QPropertyAnimation* WorksheetEntry::sizeChangeAnimation(QSizeF s)
 {
     QSizeF oldSize;

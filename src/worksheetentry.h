@@ -160,6 +160,7 @@ class WorksheetEntry : public QGraphicsObject
     void moveToPreviousEntry(int pos = WorksheetTextEditorItem::BottomRight, qreal x = 0);
     void moveToNextEntry(int pos = WorksheetTextEditorItem::TopLeft, qreal x = 0);
     void recalculateSize();
+    void setHeightForPreview(qreal height);
 
     // similar to recalculateSize, but the size change is animated
     void animateSizeChange();
