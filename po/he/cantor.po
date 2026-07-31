@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: cantor\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-07-27 00:39+0000\n"
-"PO-Revision-Date: 2026-07-28 09:46+0300\n"
+"PO-Revision-Date: 2026-07-30 09:06+0300\n"
 "Last-Translator: Yaron Shahrabani <sh.yaron@gmail.com>\n"
 "Language-Team: צוות התרגום של KDE ישראל\n"
 "Language: he\n"
@@ -2708,30 +2708,27 @@ msgstr "הפעלת מספור ביטויים כברירת מחדל"
 
 #. i18n: ectx: label, entry (ShowTocChaptersDefault), group (Cantor)
 #: cantor.kcfg:34
-#, fuzzy, kde-format
-#| msgid "Animate changes in the Worksheet by default"
+#, kde-format
 msgid "Show chapters in the Worksheet Structure Navigator by default"
-msgstr "הנפשת שינויים בגיליון העבודה כברירת מחדל"
+msgstr "הצגת פרקים בדפדפן מבנה גיליון העבודה כברירת מחדל"
 
 #. i18n: ectx: label, entry (ShowTocSectionsDefault), group (Cantor)
 #: cantor.kcfg:38
-#, fuzzy, kde-format
-#| msgid "Animate changes in the Worksheet by default"
+#, kde-format
 msgid "Show sections in the Worksheet Structure Navigator by default"
-msgstr "הנפשת שינויים בגיליון העבודה כברירת מחדל"
+msgstr "הצגת מקטעים בדפדפן מבנה גיליון העבודה כברירת מחדל"
 
 #. i18n: ectx: label, entry (ShowTocCommandEntriesDefault), group (Cantor)
 #: cantor.kcfg:42
-#, fuzzy, kde-format
-#| msgid "Animate changes in the Worksheet by default"
+#, kde-format
 msgid "Show command entries in the Worksheet Structure Navigator by default"
-msgstr "הנפשת שינויים בגיליון העבודה כברירת מחדל"
+msgstr "הצגת רשומות פקודות בדפדפן מבנה גיליון העבודה כברירת מחדל"
 
 #. i18n: ectx: label, entry (ShowTocPlotsDefault), group (Cantor)
 #: cantor.kcfg:46
 #, kde-format
 msgid "Show plots in the Worksheet Structure Navigator by default"
-msgstr ""
+msgstr "הצגת שרטוטים בדפדפן מבנה גיליון העבודה כברירת מחדל"
 
 #. i18n: ectx: label, entry (AnimationDefault), group (Cantor)
 #: cantor.kcfg:50
