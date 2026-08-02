@@ -53,16 +53,31 @@ void LoadedExpression::loadFromXml(const QDomElement& xml, const KZip& file)
             if (!result)
                 return;
 
+            auto* imageResult = dynamic_cast<Cantor::ImageResult*>(result);
+            auto* pdfResult = dynamic_cast<Cantor::PdfResult*>(result);
+
             bool widthValid = false;
             bool heightValid = false;
             const int width = resultElement.attribute(QLatin1String("display-width")).toInt(&widthValid);
             const int height = resultElement.attribute(QLatin1String("display-height")).toInt(&heightValid);
             if (widthValid && heightValid && width > 0 && height > 0) {
                 const QSize displaySize(width, height);
-                if (auto* imageResult = dynamic_cast<Cantor::ImageResult*>(result))
+                if (imageResult)
                     imageResult->setDisplaySize(displaySize);
-                else if (auto* pdfResult = dynamic_cast<Cantor::PdfResult*>(result))
+                else if (pdfResult)
                     pdfResult->setDisplaySize(displaySize);
+            }
+
+            bool originalWidthValid = false;
+            bool originalHeightValid = false;
+            const int originalWidth = resultElement.attribute(QLatin1String("original-width")).toInt(&originalWidthValid);
+            const int originalHeight = resultElement.attribute(QLatin1String("original-height")).toInt(&originalHeightValid);
+            if (originalWidthValid && originalHeightValid && originalWidth > 0 && originalHeight > 0) {
+                const QSize originalSize(originalWidth, originalHeight);
+                if (imageResult)
+                    imageResult->setOriginalSize(originalSize);
+                else if (pdfResult)
+                    pdfResult->setOriginalSize(originalSize);
             }
 
             result->loadXmlResultMetadata(resultElement);
@@ -336,6 +351,10 @@ void LoadedExpression::loadFromJupyter(const QJsonObject& cell)
                         const int height = size.toObject().value(QLatin1String("height")).toInt(-1);
                         if (width > 0 && height > 0) {
                             pdfResult->setDisplaySize(QSize(width, height));
+                            const int originalWidth = size.toObject().value(QLatin1String("original-width")).toInt(-1);
+                            const int originalHeight = size.toObject().value(QLatin1String("original-height")).toInt(-1);
+                            if (originalWidth > 0 && originalHeight > 0)
+                                pdfResult->setOriginalSize(QSize(originalWidth, originalHeight));
                             metadata.remove(mainKey);
                         }
                     }
@@ -360,7 +379,12 @@ void LoadedExpression::loadFromJupyter(const QJsonObject& cell)
 
                     if (w != -1 && h != -1)
                     {
-                        static_cast<Cantor::ImageResult*>(result)->setDisplaySize(QSize(w, h));
+                        auto* imageResult = static_cast<Cantor::ImageResult*>(result);
+                        imageResult->setDisplaySize(QSize(w, h));
+                        const int originalWidth = size.toObject().value(QLatin1String("original-width")).toInt(-1);
+                        const int originalHeight = size.toObject().value(QLatin1String("original-height")).toInt(-1);
+                        if (originalWidth > 0 && originalHeight > 0)
+                            imageResult->setOriginalSize(QSize(originalWidth, originalHeight));
                         // Remove size information, because we don't need it after setting display size
                         // Also, we encode image to 'image/png' on saving as .ipynb, even original image don't png
                         // So, without removing the size info here, after loading for example 'image/tiff' to Cantor from .ipynb and saving the worksheet
