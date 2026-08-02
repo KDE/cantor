@@ -37,6 +37,8 @@ namespace Cantor
         QByteArray pdfData() const;
         QSize displaySize() const;
         void setDisplaySize(const QSize& size);
+        QSize originalSize() const;
+        void setOriginalSize(const QSize& size);
 
     private:
         PdfResultPrivate* d;

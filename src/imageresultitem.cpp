@@ -28,6 +28,26 @@ ImageResultItem::ImageResultItem(QGraphicsObject* parent, Cantor::Result* result
     m_resizePreviewTimer.setSingleShot(true);
     connect(&m_resizePreviewTimer, &QTimer::timeout, this, &ImageResultItem::flushResizePreview);
     update();
+
+    if (m_result->type() == Cantor::ImageResult::Type) {
+        auto* imageResult = static_cast<Cantor::ImageResult*>(m_result);
+        m_originalSize = imageResult->originalSize();
+        if (!m_originalSize.isValid()) {
+            m_originalSize = size().toSize();
+            imageResult->setOriginalSize(m_originalSize);
+        }
+    }
+    else if (m_result->type() == Cantor::PdfResult::Type) {
+        auto* pdfResult = static_cast<Cantor::PdfResult*>(m_result);
+        m_originalSize = pdfResult->originalSize();
+        if (!m_originalSize.isValid()) {
+            if (pdfResult->displaySize().isValid())
+                m_originalSize = pdfResult->renderToImage(1.0, false).deviceIndependentSize().toSize();
+            else
+                m_originalSize = size().toSize();
+            pdfResult->setOriginalSize(m_originalSize);
+        }
+    }
 }
 
 double ImageResultItem::setGeometry(double x, double y, double w)
@@ -37,6 +57,8 @@ double ImageResultItem::setGeometry(double x, double y, double w)
 
 void ImageResultItem::populateMenu(QMenu* menu, QPointF)
 {
+    menu->addAction(QIcon::fromTheme(QLatin1String("zoom-original")), i18n("Original Size"), this, &ImageResultItem::restoreOriginalSize);
+    menu->addSeparator();
     ResultItem::addCommonActions(this, menu);
 }
 
@@ -180,6 +202,12 @@ void ImageResultItem::saveResult()
                                                            format);
     if (!fileName.isEmpty())
         result()->save(fileName);
+}
+
+void ImageResultItem::restoreOriginalSize()
+{
+    if (m_originalSize.isValid() && m_originalSize != size().toSize())
+        applyDisplaySize(m_originalSize);
 }
 
 void ImageResultItem::deleteLater()

@@ -38,6 +38,7 @@ class ImageResultItem : public WorksheetImageItem, public ResultItem
 
   protected Q_SLOTS:
     void saveResult();
+    void restoreOriginalSize();
 
   private:
     void beginResizePreview(bool fromTopCorner);
@@ -50,6 +51,7 @@ class ImageResultItem : public WorksheetImageItem, public ResultItem
     qreal m_zValue{0.0};
     qreal m_parentHeightBeforeResize{0.0};
     qreal m_imageHeightBeforeResize{0.0};
+    QSize m_originalSize;
     QSizeF m_pendingPreviewSize;
     QTimer m_resizePreviewTimer;
     bool m_resizePreviewDirty{false};

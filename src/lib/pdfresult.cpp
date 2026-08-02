@@ -20,6 +20,7 @@ public:
     QUrl url;
     QByteArray pdfData;
     QSize displaySize;
+    QSize originalSize;
 };
 
 PdfResult::PdfResult(const QUrl& url, const QByteArray& pdfData) : d(new PdfResultPrivate)
@@ -157,6 +158,10 @@ QDomElement PdfResult::toXml(QDomDocument& doc)
         e.setAttribute(QStringLiteral("display-width"), d->displaySize.width());
         e.setAttribute(QStringLiteral("display-height"), d->displaySize.height());
     }
+    if (d->originalSize.isValid()) {
+        e.setAttribute(QStringLiteral("original-width"), d->originalSize.width());
+        e.setAttribute(QStringLiteral("original-height"), d->originalSize.height());
+    }
     applyXmlResultMetadata(e);
     return e;
 }
@@ -180,6 +185,10 @@ QJsonValue PdfResult::toJupyterJson()
         QJsonObject size;
         size.insert(QLatin1String("width"), d->displaySize.width());
         size.insert(QLatin1String("height"), d->displaySize.height());
+        if (d->originalSize.isValid()) {
+            size.insert(QLatin1String("original-width"), d->originalSize.width());
+            size.insert(QLatin1String("original-height"), d->originalSize.height());
+        }
         metadata.insert(QLatin1String("application/pdf"), size);
     }
     root.insert(QLatin1String("metadata"), metadata);
@@ -204,4 +213,14 @@ QSize PdfResult::displaySize() const
 void PdfResult::setDisplaySize(const QSize& size)
 {
     d->displaySize = size;
+}
+
+QSize PdfResult::originalSize() const
+{
+    return d->originalSize;
+}
+
+void PdfResult::setOriginalSize(const QSize& size)
+{
+    d->originalSize = size;
 }

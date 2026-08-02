@@ -31,6 +31,7 @@ class Cantor::ImageResultPrivate
     QImage img;
     QString alt;
     QSize displaySize;
+    QSize originalSize;
     QString extension;
     QByteArray data; // byte array used to store the contnent of PDF and SVG files
 
@@ -121,12 +122,18 @@ ImageResult::ImageResult(const QUrl &url, const QString& alt) :  d(new ImageResu
     }
     else // raster formats
         d->img.load(d->url.toLocalFile());
+
+    if (d->displaySize.isValid())
+        d->originalSize = d->displaySize;
+    else if (!d->img.isNull())
+        d->originalSize = d->img.size();
 }
 
 Cantor::ImageResult::ImageResult(const QImage& image, const QString& alt) :  d(new ImageResultPrivate)
 {
     d->img = image;
     d->alt = alt;
+    d->originalSize = image.size();
 
     QTemporaryFile imageFile;
     imageFile.setAutoRemove(false);
@@ -190,6 +197,10 @@ QDomElement ImageResult::toXml(QDomDocument& doc)
         e.setAttribute(QStringLiteral("display-width"), d->displaySize.width());
         e.setAttribute(QStringLiteral("display-height"), d->displaySize.height());
     }
+    if (d->originalSize.isValid()) {
+        e.setAttribute(QStringLiteral("original-width"), d->originalSize.width());
+        e.setAttribute(QStringLiteral("original-height"), d->originalSize.height());
+    }
     applyXmlResultMetadata(e);
 
     if (!d->alt.isEmpty())
@@ -235,6 +246,10 @@ QJsonValue Cantor::ImageResult::toJupyterJson()
         QJsonObject size;
         size.insert(QLatin1String("width"), displaySize().width());
         size.insert(QLatin1String("height"), displaySize().height());
+        if (d->originalSize.isValid()) {
+            size.insert(QLatin1String("original-width"), d->originalSize.width());
+            size.insert(QLatin1String("original-height"), d->originalSize.height());
+        }
         metadata.insert(d->originalFormat, size);
     }
     root.insert(QLatin1String("metadata"), metadata);
@@ -275,6 +290,16 @@ QSize Cantor::ImageResult::displaySize()
 void Cantor::ImageResult::setDisplaySize(QSize size)
 {
     d->displaySize = size;
+}
+
+QSize Cantor::ImageResult::originalSize() const
+{
+    return d->originalSize;
+}
+
+void Cantor::ImageResult::setOriginalSize(const QSize& size)
+{
+    d->originalSize = size;
 }
 
 QImage Cantor::ImageResult::renderToDisplaySize(const QSize& size)
