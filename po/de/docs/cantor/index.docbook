@@ -53,9 +53,9 @@
 >&FDLNotice;</legalnotice>
 
 <date
->2020-12-16</date>
+>2023-11-29</date>
 <releaseinfo
->Anwendungen 20.12</releaseinfo>
+>Anwendungen 23.08</releaseinfo>
 
 <abstract>
 <para
@@ -71,6 +71,8 @@
 >Mathematik</keyword>
 <keyword
 >Mathe</keyword>
+<keyword
+>Statistik</keyword>
 <keyword
 >Cantor</keyword>
 <keyword
@@ -100,12 +102,12 @@
 >Einleitung</title>
 
 <para
->&cantor; ist ein Programm, um Ihre Lieblings-Mathematikpakete in &kde; mit einem Arbeitsblatt als grafische Schnittstelle zu benutzen. Dialoge unterstützen Sie bei häufig vorkommenden Aufgaben und Sie können Arbeitsblätter mit anderen gemeinsam nutzen. </para>
+>&cantor; ist ein Programm, um Ihre Lieblings-Mathematikpakete in &kde; mit einem Arbeitsblatt als grafische Schnittstelle zu verwenden. Dialoge unterstützen Sie bei häufig vorkommenden Aufgaben und Sie können Arbeitsblätter mit anderen gemeinsam nutzen. </para>
 </chapter>
 
 <chapter id="using-kapp">
 <title
->&cantor; benutzen</title>
+>&cantor; verwenden</title>
 
 <para
 >Bildschirmfoto: <screenshot>
@@ -142,7 +144,7 @@
 ></listitem>
   <listitem
 ><para
->Mit der Funktion „Neue Erweiterungen“ können Beispiel-Arbeitsblätter aus dem Internet herunter- oder hochgeladen werden.</para
+>Mit der Funktion „Neue Erweiterungen“ können Beispiel-Arbeitsblätter herunter- oder hochgeladen werden.</para
 ></listitem>
   <listitem
 ><para
@@ -191,8 +193,8 @@
 >R:</term>
       <listitem>
 	<para
->„R“ ist eine Sprache und eine Umgebung für statistische Berechnungen und Grafiken, ähnlich zur Sprache und Umgebung „S“. Es stellt eine große Auswahl an statistischen (lineare und nicht lineare Modellierung, klassische statistische Tests, Zeitreihenanalyse, Klassifikation, Clustering, ...) und grafischen Techniken bereit und lässt sich stark erweitern. Die Sprache „S“ ist oft das bevorzugte Mittel für Forschungen mit statistischer Methodologie und „R“ stellt die Open-Source-Mittel für die Teilnahme an diesen Aktivitäten bereit. Weitere Informationen finden Sie auf der Webseite <ulink url="https://www.r-project.org"
->http://www.r-project.org</ulink
+>„R“ ist eine Sprache und eine Umgebung für statistische Berechnungen und Grafiken, ähnlich zur Sprache und Umgebung „S“. Es stellt eine große Auswahl an statistischen (lineare und nicht lineare Modellierung, klassische statistische Tests, Zeitreihenanalyse, Klassifikation, Clusterbildung, Datenwissenschaft …) und grafischen Techniken bereit und lässt sich stark erweitern. Die Sprache „S“ ist oft das bevorzugte Mittel für Forschungen mit statistischer Methodologie und „R“ stellt die Open-Source-Mittel für die Teilnahme an diesen Aktivitäten bereit. Weitere Informationen finden Sie auf der Webseite <ulink url="https://www.r-project.org"
+>https://www.r-project.org</ulink
 >. </para>
       </listitem>
     </varlistentry>
@@ -201,8 +203,8 @@
 >Julia:</term>
       <listitem>
 	<para
->Julia ist eine leistungsstarke höhere Programmiersprache  für technische Berechnungen, mit einer Syntax, die den Benutzern von andere technische Berechnungsumgebungen bekannt ist. Sie bietet einen hochentwickelte Compiler, verteilte parallele Ausführung, numerische Genauigkeit und eine umfangreiche mathematische Funktionsbibliothek. Weitere Informationen finden Sie in der <ulink url="https://docs.julialang.org/en/"
->Julia-Dokumentation</ulink
+>Julia ist eine leistungsstarke dynamische universell einsetzbare höhere Programmiersprache für technische Berechnungen, mit einer Syntax, die den Benutzern von anderen technischen Berechnungsumgebungen bekannt ist. Sie bietet einen hochentwickelten Compiler, verteilte parallele Ausführung, numerische Genauigkeit und eine umfangreiche mathematische Funktionsbibliothek. Weitere Informationen finden Sie auf der <ulink url="https://julialang.org/"
+>Julia-Webseite</ulink
 >. </para>
       </listitem>
     </varlistentry>
@@ -231,7 +233,7 @@
 >Python2 und Python3:</term>
       <listitem>
   <para
->Python ist eine außergewöhnlich leistungsfähige dynamische Programmiersprache, die in vielen verschiedenen Anwendungsbereichen benutzt wird. Es gibt mehrere Python-Pakete für wissenschaftliche Programmierung. </para>
+>Python ist eine außergewöhnlich leistungsfähige dynamische Programmiersprache, die in vielen verschiedenen Anwendungsbereichen verwendet wird. Es gibt mehrere Python-Pakete für wissenschaftliche Programmierung. </para>
   <para
 >Python wird unter der „Python Software Foundation“-Lizenz (kompatibel zur GPL) verbreitet. Weitere Informationen dazu finden Sie auf <ulink url="https://www.python.org/"
 >offiziellen Webseite</ulink
@@ -240,7 +242,7 @@
     <para
 >Diese Modul fügt den zusätzlichen Eintrag <guimenu
 >Paket</guimenu
-> zum Hauptmenü von &cantor; hinzu. Benutzen Sie dann <menuchoice
+> zum Hauptmenü von &cantor; hinzu. Verwenden Sie dann <menuchoice
 ><guimenu
 >Paket</guimenu
 ><guimenuitem
@@ -271,10 +273,10 @@
 >Octave:</term>
       <listitem>
   <para
->&GNU; Octave ist eine „höhere Programmiersprache“, die hauptsächlich für numerische Berechnungen vorgesehen ist. Sie stellt eine praktische Befehlszeilenoberfläche für das numerische Lösen von linearen und nichtlinearen Problemen und für das Durchführen von anderen numerischen Experimenten bereit. Die Sprache ist dabei weitestgehend kompatibel zu <ulink url="https://www.mathworks.com/products/matlab.html"
->Matlab</ulink
->. Weitere Informationen finden Sie unter <ulink url="https://www.gnu.org/software/octave/"
->https://www.gnu.org/software/octave/</ulink
+>&GNU; Octave ist eine höhere Programmiersprache, die hauptsächlich für numerische Berechnungen vorgesehen ist. Sie stellt eine praktische Befehlszeilenoberfläche für das numerische Lösen von linearen und nichtlinearen Problemen und für das Durchführen von anderen numerischen Experimenten bereit. Die Sprache ist dabei weitestgehend kompatibel zu <ulink url="https://www.mathworks.com/products/matlab.html"
+>MATLAB</ulink
+>. Weitere Informationen finden Sie unter <ulink url="https://octave.org/"
+>https://octave.org/</ulink
 >. </para>
       </listitem>
     </varlistentry>
@@ -290,7 +292,7 @@
 >. </para>
   <para
 >Dieses Modul unterstützt <ulink url="https://luajit.org/"
->luajit 2</ulink
+>LuaJIT 2</ulink
 >. </para>
       </listitem>
     </varlistentry>
@@ -362,9 +364,9 @@
 <title
 >Das Arbeitsblatt</title>
 <para
->Das Arbeitsblatt ist der wichtigste Bereich für die Arbeit mit &cantor;. Hier geben Sie Ausdrücke ein, lassen sie vom Modul auswerten und hier werden die Ergebnisse angezeigt. Die Befehle, die im Arbeitsblatt benutzt werden können, sind durch das ausgewählte Modul vorgeben. Daher sollten Sie die Syntax des gewählten Moduls lernen. Im Menü <guibutton
+>Das Arbeitsblatt ist der wichtigste Bereich für die Arbeit mit &cantor;. Hier geben Sie Ausdrücke ein, lassen sie vom Modul auswerten und hier werden die Ergebnisse angezeigt. Die Befehle, die im Arbeitsblatt verwendet werden können, sind durch das ausgewählte Modul vorgeben. Daher sollten Sie die Syntax des gewählten Moduls lernen. Im Menü <guibutton
 >Hilfe</guibutton
-> finden Sie einen Eintrag für das aktuell benutzte Modul, damit können Sie die Dokumentation des Moduls online lesen. Brauchen Sie zu einem bekannten Befehl weitere Hilfe, geben Sie "? <replaceable
+> finden Sie einen Eintrag für das aktuell verwendete Modul, damit können Sie die Dokumentation des Moduls online lesen. Benötigen Sie zu einem bekannten Befehl weitere Hilfe, geben Sie "? <replaceable
 >befehl</replaceable
 >" ein, dann wird die Dokumentation zum Befehl rechts im Arbeitsblatt angezeigt. Möchten Sie einige Beispielarbeitsblätter laden, wählen Sie im Menü <menuchoice
 ><guimenu
@@ -484,7 +486,7 @@
   </mediaobject>
 </screenshot>
 <para
->Dieser Dialog kann zur Eingabe von Matrizen benutzt werden. Die Dimension der Matrizen und die Elemente können hier definiert werden. </para>
+>Dieser Dialog kann zur Eingabe von Matrizen verwendet werden. Die Dimension der Matrizen und die Elemente können hier definiert werden. </para>
 <para
 >Mit der &Tab;taste können Sie schnell zwischen den Zellen bei der Eingabe navigieren. </para>
 </sect2>
@@ -683,7 +685,7 @@
 >Das Hauptfenster von &cantor;</title>
 
 <para
->&cantor; benutzt die bekannten &kde;-Menüeinträge, weitere Informationen dazu finden Sie im Kapitel <ulink url="help:/fundamentals/menus.html"
+>&cantor; verwendet die bekannten &kde;-Menüeinträge, weitere Informationen dazu finden Sie im Kapitel <ulink url="help:/fundamentals/menus.html"
 >Menüs</ulink
 > der &kde;-Grundlagen. </para>
 
@@ -771,7 +773,7 @@
 <listitem
 ><para
 ><action
->Wählt ein Arbeitsblatt aus der Liste der zuletzt benutzen Dateien.</action
+>Wählt ein Arbeitsblatt aus der Liste der zuletzt verwenden Dateien.</action
 ></para
 ></listitem>
 </varlistentry>
@@ -1472,7 +1474,7 @@
 <title
 >Die Menüs Einstellungen und Hilfe</title>
 <para
->&cantor; benutzt die bekannten &kde;-Menüeinträge <guimenu
+>&cantor; verwendet die bekannten &kde;-Menüeinträge <guimenu
 >Einstellungen</guimenu
 > und <guimenu
 >Hilfe</guimenu
