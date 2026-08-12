@@ -1547,8 +1547,8 @@ msgid ""
 "Show that the digit series of a number continues forever with three dots, "
 "instead of rounding (ex. 2/3 displays as 0.666666... instead of 0.666667)."
 msgstr ""
-"اعرض أن سلسلة الأرقام لعدد تستمر للأبد مع ثلاث نقاط، بدلاً من التقريب (مثال: "
-"2/3 يُعرض كـ 0.666666... بدلاً من 0.666667)."
+"اعرض أن سلسلة الأرقام لعدد تستمر للأبد مع ثلاث نقاط، بدلًا من التقريب (مثال: "
+"2/3 يُعرض كـ 0.666666... بدلًا من 0.666667)."
 
 #. i18n: ectx: label, entry (useAllPrefixes), group (QalculateBackend)
 #: backends/qalculate/qalculatebackend.kcfg:62
@@ -1567,7 +1567,7 @@ msgid ""
 "If true, negative exponents will be used instead of division (ex. 5/x^2 "
 "becomes 5*x^-2)."
 msgstr ""
-"إذا كانت القيمة صحيحة، فستُستخدم الأسس السالبة بدلاً من القسمة (مثال: 5/x^2 "
+"إذا كانت القيمة صحيحة، فستُستخدم الأسس السالبة بدلًا من القسمة (مثال: 5/x^2 "
 "يصبح 5*x^-2)."
 
 #. i18n: ectx: label, entry (minExp), group (QalculateBackend)
@@ -1859,7 +1859,7 @@ msgstr "استخدم مقياسًا على المحور الصادي الثان�
 #: backends/qalculate/qalculatesyntaxhelpobject.cpp:232
 #, kde-format
 msgid "If the plot is to be drawn inline, instead of in a new window."
-msgstr "إذا كان يجب رسم المخطط مباشرة، بدلاً من نافذة جديدة."
+msgstr "إذا كان يجب رسم المخطط مباشرة، بدلًا من نافذة جديدة."
 
 #: backends/qalculate/qalculatesyntaxhelpobject.cpp:233
 #, kde-format
@@ -4206,7 +4206,7 @@ msgstr "هل أنت متأكّد من إزالة كلّ المتغيّرات؟"
 #: panelplugins/variablemgr/variablemanagerwidget.cpp:203
 #, kde-format
 msgid "Load file"
-msgstr "حمّل ملفاً"
+msgstr "حمّل ملفًا"
 
 #: panelplugins/variablemgr/variablemanagerwidget.cpp:304
 #, kde-format
@@ -5071,7 +5071,7 @@ msgstr "احذف"
 #: worksheetentry.cpp:755
 #, kde-format
 msgid "This step cannot be undone. Do you really want to delete this entry?"
-msgstr "هذه الخطوة لا يمكن التراجع عنها، هل ترغب حقاً في إزالة هذه المدخلة؟"
+msgstr "هذه الخطوة لا يمكن التراجع عنها، هل ترغب حقًا في إزالة هذه المدخلة؟"
 
 #: worksheetentry.cpp:755 worksheetentry.cpp:883
 #, kde-format
@@ -5120,7 +5120,7 @@ msgstr ""
 #: worksheettextitem.cpp:912 worksheettextitem.cpp:929
 #, kde-format
 msgid "Select Color"
-msgstr "اختر لوناً"
+msgstr "اختر لونًا"
 
 #~ msgid "Formatting"
 #~ msgstr "التنسيق"
