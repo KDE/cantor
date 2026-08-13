@@ -30,7 +30,6 @@ class TextEntry : public WorksheetEntry
     int type() const override;
 
     QString text() const;
-
     bool isEmpty() override;
 
     bool acceptRichText() override;
@@ -49,6 +48,12 @@ class TextEntry : public WorksheetEntry
     QDomElement toXml(QDomDocument& doc, KZip* archive) override;
     QJsonValue toJupyterJson() override;
     QString toPlain(const QString& commandSep, const QString& commentStartingSeq, const QString& commentEndingSeq) override;
+
+    WorksheetEntry::Capabilities capabilities() const override;
+    bool canSplitCell() const override;
+    bool canMergeCellWith(const WorksheetEntry* other) const override;
+    bool mergeCellContent(WorksheetEntry* other) override;
+    bool splitCellContent(WorksheetEntry* newEntry) override;
 
     void layOutForWidth(qreal entry_zone_x, qreal w, bool force = false) override;
 

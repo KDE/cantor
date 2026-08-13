@@ -90,6 +90,50 @@ void LatexEntry::setContent(const QString& content)
 {
     m_latex = content;
     m_textItem->setPlainText(m_latex);
+    m_textItem->allowEditing();
+}
+
+WorksheetEntry::Capabilities LatexEntry::capabilities() const
+{
+    return CellMerging | CellSplitting;
+}
+
+bool LatexEntry::canSplitCell() const
+{
+    return m_textItem->isEditable();
+}
+
+bool LatexEntry::canMergeCellWith(const WorksheetEntry* other) const
+{
+    return qobject_cast<const LatexEntry*>(other) != nullptr;
+}
+
+bool LatexEntry::mergeCellContent(WorksheetEntry* other)
+{
+    auto* latexEntry = qobject_cast<LatexEntry*>(other);
+    if (!latexEntry)
+        return false;
+
+    setContent(latexCode() + QLatin1Char('\n') + latexEntry->latexCode());
+    return true;
+}
+
+bool LatexEntry::splitCellContent(WorksheetEntry* newEntry)
+{
+    auto* latexEntry = qobject_cast<LatexEntry*>(newEntry);
+    if (!latexEntry || !canSplitCell())
+        return false;
+
+    const QString content = latexCode();
+    const int position = m_textItem->textCursor().position();
+    const auto splitPositions = cellSplitPositions(content, position);
+    if (splitPositions.first < 0)
+        return false;
+
+    setContent(content.left(splitPositions.first));
+    latexEntry->setContent(content.mid(splitPositions.second));
+    latexEntry->setJupyterMetadata(jupyterMetadata());
+    return true;
 }
 
 void LatexEntry::setContent(const QDomElement& content, const KZip& file)

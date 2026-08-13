@@ -174,6 +174,8 @@ private:
     QAction* m_save;
     QAction* m_findNext;
     QAction* m_findPrev;
+    QAction* m_mergeCells{nullptr};
+    QAction* m_splitCell{nullptr};
     KToggleAction* m_typeset;
     KToggleAction* m_highlight;
     KToggleAction* m_completion;
