@@ -8,6 +8,7 @@
 #define WORKSHEETENTRY_H
 
 #include <QGraphicsObject>
+#include <QPair>
 
 #include "worksheet.h"
 #include "worksheettexteditoritem.h"
@@ -52,7 +53,7 @@ class WorksheetEntry : public QGraphicsObject
     WorksheetEntry* next() const;
     WorksheetEntry* previous() const;
 
-    void forceRemove();
+    void forceRemove(bool updateLayout = true);
 
     void setNext(WorksheetEntry*);
     void setPrevious(WorksheetEntry*);
@@ -69,6 +70,19 @@ class WorksheetEntry : public QGraphicsObject
     virtual QDomElement toXml(QDomDocument&, KZip*)=0;
     virtual QJsonValue toJupyterJson()=0;
     virtual QString toPlain(const QString& commandSep, const QString& commentStartingSeq, const QString& commentEndingSeq)=0;
+
+    enum Capability {
+        Nothing = 0x0,
+        CellMerging = 0x1,
+        CellSplitting = 0x2
+    };
+    Q_DECLARE_FLAGS(Capabilities, Capability)
+
+    virtual Capabilities capabilities() const;
+    virtual bool canSplitCell() const;
+    virtual bool canMergeCellWith(const WorksheetEntry* other) const;
+    virtual bool mergeCellContent(WorksheetEntry* other);
+    virtual bool splitCellContent(WorksheetEntry* newEntry);
 
     virtual void interruptEvaluation() {};
 
@@ -204,6 +218,7 @@ class WorksheetEntry : public QGraphicsObject
 
     QJsonObject jupyterMetadata() const;
     void setJupyterMetadata(const QJsonObject&);
+    static QPair<int, int> cellSplitPositions(const QString& content, int cursorPosition);
 
     virtual void recalculateControlGeometry();
 
@@ -227,5 +242,7 @@ class WorksheetEntry : public QGraphicsObject
     QJsonObject* m_jupyterMetadata{nullptr};
     bool m_isCellSelected{false};
 };
+
+Q_DECLARE_OPERATORS_FOR_FLAGS(WorksheetEntry::Capabilities)
 
 #endif // WORKSHEETENTRY_H

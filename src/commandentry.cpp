@@ -581,6 +581,64 @@ void CommandEntry::setContent(const QString& content)
     m_commandItem->setPlainText(content);
 }
 
+WorksheetEntry::Capabilities CommandEntry::capabilities() const
+{
+    return CellMerging | CellSplitting;
+}
+
+bool CommandEntry::canSplitCell() const
+{
+    return m_commandItem->isEditable() && m_commandItem->view()->cursorPosition().isValid();
+}
+
+bool CommandEntry::canMergeCellWith(const WorksheetEntry* other) const
+{
+    return qobject_cast<const CommandEntry*>(other) != nullptr;
+}
+
+bool CommandEntry::mergeCellContent(WorksheetEntry* other)
+{
+    const auto& commandEntry = qobject_cast<CommandEntry*>(other);
+    if (!commandEntry)
+        return false;
+
+    removeResults();
+    setContent(command() + QLatin1Char('\n') + commandEntry->command());
+    return true;
+}
+
+bool CommandEntry::splitCellContent(WorksheetEntry* newEntry)
+{
+    const auto& commandEntry = qobject_cast<CommandEntry*>(newEntry);
+    if (!commandEntry || !canSplitCell())
+        return false;
+
+    const KTextEditor::Cursor cursor = m_commandItem->view()->cursorPosition();
+    const KTextEditor::Range range(KTextEditor::Cursor(0, 0), cursor);
+    const int position = m_commandItem->document()->text(range).size();
+    const QString content = command();
+    const auto splitPositions = cellSplitPositions(content, position);
+    if (splitPositions.first < 0)
+        return false;
+
+    removeResults();
+    setContent(content.left(splitPositions.first));
+    commandEntry->setContent(content.mid(splitPositions.second));
+    commandEntry->setJupyterMetadata(jupyterMetadata());
+
+    commandEntry->m_backgroundColorCustom = m_backgroundColorCustom;
+    commandEntry->m_textColorCustom = m_textColorCustom;
+    if (m_backgroundColorCustom)
+        commandEntry->m_commandItem->setBackgroundColor(m_isExecutionEnabled ? m_commandItem->backgroundColor() : m_activeExecutionBackgroundColor);
+    if (m_textColorCustom)
+        commandEntry->m_commandItem->setDefaultTextColor(m_isExecutionEnabled ? m_commandItem->defaultTextColor() : m_activeExecutionTextColor);
+    commandEntry->m_commandItem->setFont(m_commandItem->editorFont());
+    if (!m_isExecutionEnabled)
+        commandEntry->excludeFromExecution();
+
+    return true;
+}
+
 void CommandEntry::setContent(const QDomElement& content, const KZip& file)
 {
     m_commandItem->setPlainText(content.firstChildElement(QLatin1String("Command")).text());

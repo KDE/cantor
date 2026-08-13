@@ -238,6 +238,9 @@ class Worksheet : public QGraphicsScene
 
     void removeCurrentEntry();
 
+    void mergeSelectedEntries();
+    void splitCurrentEntry();
+
     void setFirstEntry(WorksheetEntry*);
     void setLastEntry(WorksheetEntry*);
     void invalidateFirstEntry();
@@ -309,6 +312,7 @@ class Worksheet : public QGraphicsScene
     void cut();
     void copy();
     void requestDocumentation(const QString&);
+    void cellActionsChanged(bool mergeAvailable, bool splitAvailable);
 
   protected:
     void contextMenuEvent(QGraphicsSceneContextMenuEvent*) override;
@@ -345,6 +349,8 @@ class Worksheet : public QGraphicsScene
     void selectionMoveUp();
     void selectionMoveDown();
 
+    bool splitEntry(WorksheetEntry* entry);
+
     void animateEntryCursor();
 
   private:
@@ -365,6 +371,10 @@ class Worksheet : public QGraphicsScene
     bool loadJupyterNotebook(const QJsonDocument& doc);
     void showInvalidNotebookSchemeError(QString additionalInfo = QString());
     void initSession(Cantor::Backend*);
+    QVector<WorksheetEntry*> mergeableSelectedEntries();
+    bool canMergeSelectedEntries();
+    bool canSplitEntry(WorksheetEntry* entry) const;
+    void updateCellActionAvailability();
     std::vector<WorksheetEntry*> hierarchySubelements(HierarchyEntry*) const;
     void updateCurrentHierarchy(WorksheetEntry* entry);
     void normalizeDraggedHierarchyLevels(HierarchyEntry* rootEntry, WorksheetEntry* previousEntry, const std::vector<WorksheetEntry*>& subentries);

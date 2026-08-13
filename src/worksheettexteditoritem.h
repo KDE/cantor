@@ -124,6 +124,7 @@ public:
     void setFontSize(int size);
 
     QColor themeDefaultTextColor() const { return m_themeDefaultTextColor; }
+    const QFont& editorFont() const { return m_currentFont; }
     void setFont(const QFont& font);
     void setTheme(const QString& themeName);
     void increaseFontSize();

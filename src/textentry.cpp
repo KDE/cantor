@@ -25,6 +25,27 @@
 #include <QStringList>
 #include <QInputDialog>
 #include <QActionGroup>
+#include <QTextBlock>
+#include <QTextDocumentFragment>
+
+namespace
+{
+void copyImageResources(const QTextDocument* source, QTextDocument* target)
+{
+    for (QTextBlock block = source->begin(); block.isValid(); block = block.next())
+    {
+        for (auto it = block.begin(); !it.atEnd(); ++it)
+        {
+            const auto& format = it.fragment().charFormat();
+            if (!format.isImageFormat())
+                continue;
+
+            const QUrl url(format.toImageFormat().name());
+            target->addResource(QTextDocument::ImageResource, url, source->resource(QTextDocument::ImageResource, url));
+        }
+    }
+}
+}
 
 QStringList standartRawCellTargetNames = {QLatin1String("None"), QLatin1String("LaTeX"), QLatin1String("reST"), QLatin1String("HTML"), QLatin1String("Markdown")};
 QStringList standartRawCellTargetMimes = {QString(), QLatin1String("text/latex"), QLatin1String("text/restructuredtext"), QLatin1String("text/html"), QLatin1String("text/markdown")};
@@ -142,6 +163,80 @@ bool TextEntry::focusEntry(int pos, qreal xCoord)
 void TextEntry::setContent(const QString& content)
 {
     m_textItem->setPlainText(content);
+}
+
+WorksheetEntry::Capabilities TextEntry::capabilities() const
+{
+    return CellMerging | CellSplitting;
+}
+
+bool TextEntry::canSplitCell() const
+{
+    return m_textItem->isEditable();
+}
+
+bool TextEntry::canMergeCellWith(const WorksheetEntry* other) const
+{
+    const auto* textEntry = qobject_cast<const TextEntry*>(other);
+    return textEntry && textEntry->m_rawCell == m_rawCell && (!m_rawCell || textEntry->m_convertTarget == m_convertTarget);
+}
+
+bool TextEntry::mergeCellContent(WorksheetEntry* other)
+{
+    auto* textEntry = qobject_cast<TextEntry*>(other);
+    if (!textEntry)
+        return false;
+
+    copyImageResources(textEntry->m_textItem->document(), m_textItem->document());
+    QTextCursor sourceCursor(textEntry->m_textItem->document());
+    sourceCursor.movePosition(QTextCursor::End, QTextCursor::KeepAnchor);
+
+    QTextCursor targetCursor(m_textItem->document());
+    targetCursor.movePosition(QTextCursor::End);
+    targetCursor.insertText(QLatin1String("\n"));
+    targetCursor.insertFragment(QTextDocumentFragment(sourceCursor));
+    return true;
+}
+
+bool TextEntry::splitCellContent(WorksheetEntry* newEntry)
+{
+    auto* textEntry = qobject_cast<TextEntry*>(newEntry);
+    if (!textEntry || !canSplitCell())
+        return false;
+
+    const int position = m_textItem->textCursor().position();
+    auto* document = m_textItem->document();
+    const auto splitPositions = cellSplitPositions(document->toPlainText(), position);
+    if (splitPositions.first < 0)
+        return false;
+
+    QTextCursor firstCursor(document);
+    firstCursor.setPosition(splitPositions.first, QTextCursor::KeepAnchor);
+    QTextCursor secondCursor(document);
+    secondCursor.setPosition(splitPositions.second);
+    secondCursor.movePosition(QTextCursor::End, QTextCursor::KeepAnchor);
+    const QTextDocumentFragment firstFragment(firstCursor);
+    const QTextDocumentFragment secondFragment(secondCursor);
+
+    copyImageResources(document, textEntry->m_textItem->document());
+    document->clear();
+    QTextCursor targetCursor(document);
+    targetCursor.insertFragment(firstFragment);
+    QTextCursor newCursor(textEntry->m_textItem->document());
+    newCursor.insertFragment(secondFragment);
+
+    textEntry->setJupyterMetadata(jupyterMetadata());
+    textEntry->m_rawCell = m_rawCell;
+    textEntry->m_convertTarget = m_convertTarget;
+    if (m_rawCell)
+    {
+        const int index = standartRawCellTargetMimes.indexOf(m_convertTarget);
+        if (index != -1)
+            textEntry->m_targetMenu->actions().at(index)->setChecked(true);
+        else
+            textEntry->addNewTarget(m_convertTarget);
+    }
+    return true;
 }
 
 void TextEntry::setContent(const QDomElement& content, const KZip& file)

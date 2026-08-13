@@ -1,5 +1,5 @@
 <!DOCTYPE kpartgui SYSTEM "kpartgui.dtd">
-<kpartgui name="cantor_part" version="4">
+<kpartgui name="cantor_part" version="5">
 <MenuBar>
   <Menu name="file">
     <Action name="file_save"/>
@@ -41,6 +41,9 @@
     <Action name="insert_latex_entry"/>
     <Action name="insert_image_entry"/>
     <Action name="insert_page_break_entry"/>
+    <Separator/>
+    <Action name="merge_cells"/>
+    <Action name="split_cell"/>
     <Separator/>
     <Action name="all_entries_collapse_results"/>
     <Action name="all_entries_uncollapse_results"/>

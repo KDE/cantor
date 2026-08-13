@@ -352,6 +352,23 @@ CantorPart::CantorPart(QObject* parent, const QVariantList& args)
     connect(removeCurrent, &QAction::triggered, m_worksheet, &Worksheet::removeCurrentEntry);
     m_editActions.push_back(removeCurrent);
 
+    m_mergeCells = new QAction(QIcon::fromTheme(QLatin1String("merge")), i18n("Merge Cells"), collection);
+    m_mergeCells->setEnabled(false);
+    collection->addAction(QLatin1String("merge_cells"), m_mergeCells);
+    connect(m_mergeCells, &QAction::triggered, m_worksheet, &Worksheet::mergeSelectedEntries);
+    m_editActions.push_back(m_mergeCells);
+
+    m_splitCell = new QAction(QIcon::fromTheme(QLatin1String("split")), i18n("Split Cell"), collection);
+    m_splitCell->setEnabled(false);
+    collection->addAction(QLatin1String("split_cell"), m_splitCell);
+    connect(m_splitCell, &QAction::triggered, m_worksheet, &Worksheet::splitCurrentEntry);
+    m_editActions.push_back(m_splitCell);
+    connect(m_worksheet, &Worksheet::cellActionsChanged, this,
+            [this](bool mergeAvailable, bool splitAvailable) {
+                m_mergeCells->setEnabled(mergeAvailable);
+                m_splitCell->setEnabled(splitAvailable);
+            });
+
     // Disabled, because uploading to kde store from program don't work
     // See https://phabricator.kde.org/T9980 for details
     // If this situation will changed, then uncomment this action

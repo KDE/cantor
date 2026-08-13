@@ -127,6 +127,54 @@ WorksheetEntry* WorksheetEntry::create(int t, Worksheet* worksheet)
     }
 }
 
+WorksheetEntry::Capabilities WorksheetEntry::capabilities() const
+{
+    return Nothing;
+}
+
+bool WorksheetEntry::canSplitCell() const
+{
+    return false;
+}
+
+bool WorksheetEntry::canMergeCellWith(const WorksheetEntry* other) const
+{
+    Q_UNUSED(other);
+    return false;
+}
+
+bool WorksheetEntry::mergeCellContent(WorksheetEntry* other)
+{
+    Q_UNUSED(other);
+    return false;
+}
+
+bool WorksheetEntry::splitCellContent(WorksheetEntry* newEntry)
+{
+    Q_UNUSED(newEntry);
+    return false;
+}
+
+QPair<int, int> WorksheetEntry::cellSplitPositions(const QString& content, int cursorPosition)
+{
+    if (cursorPosition < 0 || cursorPosition > content.size())
+        return {-1, -1};
+
+    const int lineStart = cursorPosition == 0 ? 0 : content.lastIndexOf(QLatin1Char('\n'), cursorPosition - 1) + 1;
+    int lineEnd = content.indexOf(QLatin1Char('\n'), cursorPosition);
+    if (lineEnd == -1)
+        lineEnd = content.size();
+
+    if (!content.mid(lineStart, lineEnd - lineStart).trimmed().isEmpty())
+        return {cursorPosition, cursorPosition};
+
+    int firstEnd = lineStart;
+    if (firstEnd > 0 && content.at(firstEnd - 1) == QLatin1Char('\n'))
+        --firstEnd;
+    const int secondStart = lineEnd < content.size() ? lineEnd + 1 : lineEnd;
+    return {firstEnd, secondStart};
+}
+
 void WorksheetEntry::insertCommandEntry()
 {
     worksheet()->insertCommandEntry(this);
@@ -1024,10 +1072,11 @@ void WorksheetEntry::setJupyterMetadata(const QJsonObject& metadata)
     *m_jupyterMetadata = metadata;
 }
 
-void WorksheetEntry::forceRemove()
+void WorksheetEntry::forceRemove(bool updateLayout)
 {
     hide();
-    worksheet()->updateLayout();
+    if (updateLayout)
+        worksheet()->updateLayout();
     deleteLater();
 }
 
@@ -1038,7 +1087,11 @@ bool WorksheetEntry::isCellSelected()
 
 void WorksheetEntry::setCellSelected(bool val)
 {
+    if (m_controlElement.isSelected == val)
+        return;
+
     m_controlElement.isSelected = val;
+    worksheet()->updateCellActionAvailability();
 }
 
 void WorksheetEntry::moveToNext(bool updateLayout)

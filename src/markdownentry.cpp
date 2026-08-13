@@ -26,6 +26,7 @@
 #include <QClipboard>
 #include <QMimeData>
 #include <QGraphicsSceneDragDropEvent>
+#include <QSet>
 #include <QTextBlock>
 
 #include <KLocalizedString>
@@ -107,7 +108,135 @@ void MarkdownEntry::setContent(const QString& content)
 {
     rendered = false;
     plain = content;
+    html.clear();
+    foundMath.clear();
     setPlainText(plain);
+}
+
+WorksheetEntry::Capabilities MarkdownEntry::capabilities() const
+{
+    return CellMerging | CellSplitting;
+}
+
+bool MarkdownEntry::canSplitCell() const
+{
+    return m_textItem->isEditable();
+}
+
+bool MarkdownEntry::canMergeCellWith(const WorksheetEntry* other) const
+{
+    return qobject_cast<const MarkdownEntry*>(other) != nullptr;
+}
+
+bool MarkdownEntry::mergeCellContent(WorksheetEntry* other)
+{
+    auto* markdownEntry = qobject_cast<MarkdownEntry*>(other);
+    if (!markdownEntry)
+        return false;
+
+    const auto replaceAttachmentReferences = [](QString& source, const QUrl& oldUrl, const QUrl& newUrl) {
+        source.replace(QLatin1Char('(') + oldUrl.toString(), QLatin1Char('(') + newUrl.toString());
+        source.replace(QLatin1Char('<') + oldUrl.toString(), QLatin1Char('<') + newUrl.toString());
+    };
+
+    QString otherSource = markdownEntry->rendered ? markdownEntry->plain : markdownEntry->m_textItem->toPlainText();
+    QSet<QString> usedUrls;
+    for (const auto& attachment : attachedImages)
+        usedUrls.insert(attachment.first.toString());
+
+    struct Attachment
+    {
+        QUrl url;
+        QString mimeType;
+        QVariant image;
+    };
+    QVector<Attachment> attachments;
+    for (const auto& attachment : markdownEntry->attachedImages)
+    {
+        const QUrl oldUrl = attachment.first;
+        QUrl newUrl = oldUrl;
+        if (usedUrls.contains(newUrl.toString()))
+        {
+            const QString originalPath = oldUrl.path();
+            const int extensionPosition = originalPath.lastIndexOf(QLatin1Char('.'));
+            const QString base = extensionPosition > 0 ? originalPath.left(extensionPosition) : originalPath;
+            const QString extension = extensionPosition > 0 ? originalPath.mid(extensionPosition) : QString();
+            int suffix = 2;
+            do
+            {
+                newUrl.setPath(base + QLatin1Char('_') + QString::number(suffix++) + extension);
+            }
+            while (usedUrls.contains(newUrl.toString()));
+            replaceAttachmentReferences(otherSource, oldUrl, newUrl);
+        }
+
+        usedUrls.insert(newUrl.toString());
+        attachments.append({newUrl, attachment.second, markdownEntry->m_textItem->document()->resource(QTextDocument::ImageResource, oldUrl)});
+    }
+
+    const QString source = rendered ? plain : m_textItem->toPlainText();
+    setContent(source + QLatin1Char('\n') + otherSource);
+    for (const auto& attachment : attachments)
+    {
+        attachedImages.emplace_back(attachment.url, attachment.mimeType);
+        m_textItem->document()->addResource(QTextDocument::ImageResource, attachment.url, attachment.image);
+    }
+    return true;
+}
+
+bool MarkdownEntry::splitCellContent(WorksheetEntry* newEntry)
+{
+    auto* markdownEntry = qobject_cast<MarkdownEntry*>(newEntry);
+    if (!markdownEntry || !canSplitCell())
+        return false;
+
+    const QString source = m_textItem->toPlainText();
+    const int position = m_textItem->textCursor().position();
+    const auto splitPositions = cellSplitPositions(source, position);
+    if (splitPositions.first < 0)
+        return false;
+
+    struct Attachment
+    {
+        QUrl url;
+        QString mimeType;
+        QVariant image;
+    };
+    QVector<Attachment> attachments;
+    for (const auto& attachment : attachedImages)
+    {
+        attachments.append({attachment.first, attachment.second, m_textItem->document()->resource(QTextDocument::ImageResource, attachment.first)});
+    }
+
+    const QString firstSource = source.left(splitPositions.first);
+    const QString secondSource = source.mid(splitPositions.second);
+
+    const auto referencesAttachment = [](const QString& source, const QUrl& url) {
+        const QString pattern = QStringLiteral("(?:\\(|<)%1(?=[\\s)>])").arg(QRegularExpression::escape(url.toString()));
+        return QRegularExpression(pattern).match(source).hasMatch();
+    };
+
+    attachedImages.clear();
+    markdownEntry->attachedImages.clear();
+    setContent(firstSource);
+    markdownEntry->setContent(secondSource);
+
+    for (const auto& attachment : attachments)
+    {
+        if (referencesAttachment(firstSource, attachment.url))
+        {
+            attachedImages.emplace_back(attachment.url, attachment.mimeType);
+            m_textItem->document()->addResource(QTextDocument::ImageResource, attachment.url, attachment.image);
+        }
+        if (referencesAttachment(secondSource, attachment.url))
+        {
+            markdownEntry->attachedImages.emplace_back(attachment.url, attachment.mimeType);
+            markdownEntry->m_textItem->document()->addResource(QTextDocument::ImageResource, attachment.url, attachment.image);
+        }
+    }
+
+    markdownEntry->setJupyterMetadata(jupyterMetadata());
+    return true;
 }
 
 void MarkdownEntry::setContent(const QDomElement& content, const KZip& file)

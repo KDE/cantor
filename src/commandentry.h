@@ -64,6 +64,12 @@ class CommandEntry : public WorksheetEntry
     QJsonValue toJupyterJson() override;
     QString toPlain(const QString& commandSep, const QString& commentStartingSeq, const QString& commentEndingSeq) override;
 
+    WorksheetEntry::Capabilities capabilities() const override;
+    bool canSplitCell() const override;
+    bool canMergeCellWith(const WorksheetEntry* other) const override;
+    bool mergeCellContent(WorksheetEntry* other) override;
+    bool splitCellContent(WorksheetEntry* newEntry) override;
+
 
     bool acceptRichText() override;
     void setVariableHighlightingEnabled(bool enabled);

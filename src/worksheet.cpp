@@ -71,6 +71,7 @@ namespace
 constexpr int DragScrollMargin = 48;
 constexpr int DragScrollInterval = 50;
 constexpr int DragScrollStep = 4;
+
 }
 
 Worksheet::Worksheet(Cantor::Backend* backend, QWidget* parent, bool useDefaultWorksheetParameters)
@@ -1674,6 +1675,9 @@ int Worksheet::typeForTagName(const QString& tag)
 void Worksheet::initSession(Cantor::Backend* backend)
 {
     m_session = backend->createSession();
+    connect(m_session, &Cantor::Session::statusChanged, this, [this]() {
+        updateCellActionAvailability();
+    });
     if (m_useDefaultWorksheetParameters)
     {
         if (Cantor::LatexRenderer::isLatexAvailable())
@@ -1936,6 +1940,144 @@ void Worksheet::removeCurrentEntry()
     entry->startRemoving();
 }
 
+void Worksheet::mergeSelectedEntries()
+{
+    if (isRunning())
+        return;
+
+    const auto& entries = mergeableSelectedEntries();
+    if (entries.size() < 2)
+        return;
+
+    auto* mergedEntry = entries.first();
+    for (int i = 1; i < entries.size(); ++i)
+        if (!mergedEntry->mergeCellContent(entries.at(i)))
+            return;
+
+    auto* next = entries.last()->next();
+    mergedEntry->setNext(next);
+    if (next)
+        next->setPrevious(mergedEntry);
+    else
+        setLastEntry(mergedEntry);
+
+    for (int i = 1; i < entries.size(); ++i)
+    {
+        auto* entry = entries.at(i);
+        if (entry->isAncestorOf(m_lastFocusedTextItem))
+            updateFocusedTextItem(static_cast<WorksheetTextEditorItem*>(nullptr));
+        if (entry->isAncestorOf(m_legacylastFocusedTextItem))
+            updateFocusedTextItem(static_cast<WorksheetTextItem*>(nullptr));
+
+        entry->setPrevious(nullptr);
+        entry->setNext(nullptr);
+        entry->setCellSelected(false);
+        entry->clearFocus();
+        entry->forceRemove(false);
+    }
+
+    mergedEntry->setCellSelected(false);
+    m_selectedEntries.clear();
+    m_circularFocusBuffer.clear();
+    updateHierarchyLayout();
+    updateLayout();
+    focusEntry(mergedEntry);
+    setModified();
+    updateCellActionAvailability();
+}
+
+void Worksheet::splitCurrentEntry()
+{
+    splitEntry(currentEntry());
+}
+
+bool Worksheet::splitEntry(WorksheetEntry* entry)
+{
+    if (isRunning() || !isValidEntry(entry) || !canSplitEntry(entry))
+        return false;
+
+    auto* newEntry = WorksheetEntry::create(entry->type(), this);
+    if (!newEntry)
+        return false;
+
+    if (!entry->splitCellContent(newEntry))
+    {
+        newEntry->forceRemove(false);
+        return false;
+    }
+
+    auto* next = entry->next();
+    newEntry->setPrevious(entry);
+    newEntry->setNext(next);
+    entry->setNext(newEntry);
+
+    if (next)
+        next->setPrevious(newEntry);
+    else
+        setLastEntry(newEntry);
+
+    updateHierarchyLayout();
+    updateLayout();
+    focusEntry(newEntry);
+    setModified();
+    updateCellActionAvailability();
+    return true;
+}
+
+QVector<WorksheetEntry*> Worksheet::mergeableSelectedEntries()
+{
+    QVector<WorksheetEntry*> entries;
+    int selectedType = 0;
+    bool selectionEnded = false;
+
+    for (auto* entry = firstEntry(); entry; entry = entry->next())
+    {
+        if (!entry->isCellSelected())
+        {
+            if (!entries.isEmpty())
+                selectionEnded = true;
+            continue;
+        }
+
+        if (selectionEnded || !entry->capabilities().testFlag(WorksheetEntry::CellMerging))
+            return {};
+        if (entries.isEmpty())
+            selectedType = entry->type();
+        else if (entry->type() != selectedType || !entries.first()->canMergeCellWith(entry))
+            return {};
+        entries.append(entry);
+    }
+
+    return entries;
+}
+
+bool Worksheet::canMergeSelectedEntries()
+{
+    return !m_readOnly && !isRunning() && mergeableSelectedEntries().size() > 1;
+}
+
+bool Worksheet::canSplitEntry(WorksheetEntry* entry) const
+{
+    return !m_readOnly && entry && entry->capabilities().testFlag(WorksheetEntry::CellSplitting) && entry->canSplitCell();
+}
+
+void Worksheet::updateCellActionAvailability()
+{
+    bool hasSelectedEntries = false;
+    for (auto* entry = firstEntry(); entry; entry = entry->next())
+    {
+        if (entry->isCellSelected())
+        {
+            hasSelectedEntries = true;
+            break;
+        }
+    }
+
+    auto* entry = currentEntry();
+    const bool splitAvailable = !hasSelectedEntries && !isRunning() && isValidEntry(entry) && canSplitEntry(entry);
+    Q_EMIT cellActionsChanged(canMergeSelectedEntries(), splitAvailable);
+}
+
 Cantor::Renderer* Worksheet::renderer()
 {
     return &m_renderer;
@@ -1964,10 +2106,18 @@ void Worksheet::populateMenu(QMenu* menu, QPointF pos)
             auto* item =
                 qgraphicsitem_cast<WorksheetTextEditorItem*>(itemAt(pos, QTransform()));
             if (item && item->isEditable())
-                m_lastFocusedTextItem = item;
+                updateFocusedTextItem(item);
         }
 
         if (entry) {
+            if (entry->capabilities().testFlag(WorksheetEntry::CellSplitting))
+            {
+                auto* splitAction = menu->addAction(QIcon::fromTheme(QLatin1String("split")), i18n("Split Cell"));
+                splitAction->setEnabled(!isRunning() && canSplitEntry(entry));
+                connect(splitAction, &QAction::triggered, this, [this, entry]() { splitEntry(entry); });
+                menu->addSeparator();
+            }
+
             //"Convert To" menu
             QMenu* convertTo = new QMenu(i18n("Convert To"));
             convertTo->setIcon(QIcon::fromTheme(QLatin1String("gtk-convert")));
@@ -2091,6 +2241,9 @@ void Worksheet::populateMenu(QMenu* menu, QPointF pos)
     else
     {
         menu->clear();
+        auto* mergeAction = menu->addAction(QIcon::fromTheme(QLatin1String("merge")), i18n("Merge Cells"), this, &Worksheet::mergeSelectedEntries);
+        mergeAction->setEnabled(canMergeSelectedEntries());
+        menu->addSeparator();
         menu->addAction(QIcon::fromTheme(QLatin1String("go-up")), i18n("Move Entries Up"), this, &Worksheet::selectionMoveUp);
         menu->addAction(QIcon::fromTheme(QLatin1String("go-down")), i18n("Move Entries Down"), this, &Worksheet::selectionMoveDown);
         menu->addAction(QIcon::fromTheme(QLatin1String("media-playback-start")), i18n("Evaluate Entries"), this, &Worksheet::selectionEvaluate);
@@ -2193,6 +2346,8 @@ void Worksheet::mousePressEvent(QGraphicsSceneMouseEvent* event)
 
             updateEntryCursor(event);
         }
+
+        updateCellActionAvailability();
     }
 }
 
@@ -2560,6 +2715,7 @@ void Worksheet::updateFocusedTextItem(WorksheetTextItem* newItem)
         Q_EMIT pasteAvailable(false);
     }
     m_legacylastFocusedTextItem = newItem;
+    updateCellActionAvailability();
 }
 
 void Worksheet::updateFocusedTextItem(WorksheetTextEditorItem* newItem)
@@ -2596,6 +2752,7 @@ void Worksheet::updateFocusedTextItem(WorksheetTextEditorItem* newItem)
         else if (!newItem)
             Q_EMIT copyAvailable(false);
         m_lastFocusedTextItem = newItem;
+        updateCellActionAvailability();
         return;
     }
 
@@ -2637,6 +2794,7 @@ void Worksheet::updateFocusedTextItem(WorksheetTextEditorItem* newItem)
         Q_EMIT pasteAvailable(false);
     }
     m_lastFocusedTextItem = newItem;
+    updateCellActionAvailability();
 }
 
 
@@ -3193,6 +3351,7 @@ void Worksheet::selectionRemove()
     }
 
     m_selectedEntries.clear();
+    updateCellActionAvailability();
 }
 
 void Worksheet::selectionEvaluate()
@@ -3326,6 +3485,8 @@ void Worksheet::notifyEntryFocus(WorksheetEntry* entry)
     }
     else
         m_circularFocusBuffer.clear();
+
+    updateCellActionAvailability();
 }
 
 void Worksheet::collapseAllResults()

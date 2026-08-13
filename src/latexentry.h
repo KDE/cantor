@@ -38,6 +38,12 @@ class LatexEntry : public WorksheetEntry
     QJsonValue toJupyterJson() override;
     QString toPlain(const QString& commandSep, const QString& commentStartingSeq, const QString& commentEndingSeq) override;
 
+    WorksheetEntry::Capabilities capabilities() const override;
+    bool canSplitCell() const override;
+    bool canMergeCellWith(const WorksheetEntry* other) const override;
+    bool mergeCellContent(WorksheetEntry* other) override;
+    bool splitCellContent(WorksheetEntry* newEntry) override;
+
     void layOutForWidth(qreal entry_zone_x, qreal w, bool force = false) override;
 
     int searchText(const QString& text, const QString& pattern,
