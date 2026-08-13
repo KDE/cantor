@@ -1013,6 +1013,7 @@ void CommandEntry::expressionChangedStatus(Cantor::Expression::Status status)
         }
         case Cantor::Expression::Error:
         case Cantor::Expression::Interrupted:
+            worksheet()->resetEvaluationEndpoint();
             m_promptItemAnimation->stop();
             m_promptItem->setOpacity(1.);
             m_commandItem->setFocusAt(WorksheetTextEditorItem::BottomRight, 0);

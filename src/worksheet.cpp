@@ -886,15 +886,47 @@ void Worksheet::startDragWithHierarchy(HierarchyEntry* entry, const QPixmap& pix
 void Worksheet::evaluate()
 {
     qDebug()<<"evaluate worksheet";
+    evaluateEntries(firstEntry(), nullptr);
+}
+
+void Worksheet::evaluateFromEntry(WorksheetEntry* entry)
+{
+    evaluateEntries(entry, nullptr);
+}
+
+void Worksheet::evaluateToEntry(WorksheetEntry* entry)
+{
+    evaluateEntries(firstEntry(), entry);
+}
+
+void Worksheet::evaluateEntries(WorksheetEntry* first, WorksheetEntry* last)
+{
+    resetEvaluationEndpoint();
+
     // login if not done yet
     if (!m_readOnly && m_session && m_session->status() == Cantor::Session::Disable)
         loginToSession();
 
     // evaluate the worksheet if the login was successful
-    if (m_session && m_session->status() == Cantor::Session::Done && firstEntry()) {
-        firstEntry()->evaluate(WorksheetEntry::EvaluateNext);
+    if (m_session && m_session->status() == Cantor::Session::Done && first) {
+        m_evaluationLastEntry = last;
+        first->evaluate(WorksheetEntry::EvaluateNext);
         setModified();
     }
+}
+
+void Worksheet::resetEvaluationEndpoint()
+{
+    m_evaluationLastEntry = nullptr;
+}
+
+bool Worksheet::stopEvaluationAfter(WorksheetEntry* entry)
+{
+    if (entry != m_evaluationLastEntry)
+        return false;
+
+    resetEvaluationEndpoint();
+    return true;
 }
 
 void Worksheet::evaluateCurrentEntry()
@@ -1164,6 +1196,8 @@ WorksheetEntry* Worksheet::insertHierarchyEntryBefore(WorksheetEntry* current)
 
 void Worksheet::interrupt()
 {
+    resetEvaluationEndpoint();
+
     if (m_session->status() == Cantor::Session::Running)
     {
         m_session->interrupt();

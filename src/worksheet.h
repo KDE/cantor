@@ -202,6 +202,9 @@ class Worksheet : public QGraphicsScene
     void focusEntry(WorksheetEntry*, int pos, qreal xCoord = 0);
 
     void evaluate();
+    void evaluateFromEntry(WorksheetEntry* entry);
+    void evaluateToEntry(WorksheetEntry* entry);
+    void resetEvaluationEndpoint();
     void evaluateCurrentEntry();
     void interrupt();
     void interruptCurrentEntryEvaluation();
@@ -345,6 +348,9 @@ class Worksheet : public QGraphicsScene
     void animateEntryCursor();
 
   private:
+    void evaluateEntries(WorksheetEntry* first, WorksheetEntry* last);
+    bool stopEvaluationAfter(WorksheetEntry* entry);
+
     WorksheetEntry* entryAt(qreal x, qreal y);
     WorksheetEntry* entryAt(QPointF);
     WorksheetEntry* entryAt(int row);
@@ -378,6 +384,7 @@ class Worksheet : public QGraphicsScene
     MathRenderer m_mathRenderer;
     WorksheetEntry* m_firstEntry{nullptr};
     WorksheetEntry* m_lastEntry{nullptr};
+    WorksheetEntry* m_evaluationLastEntry{nullptr};
     WorksheetEntry* m_dragEntry{nullptr};
     QEventLoop* m_entryDragEventLoop{nullptr};
     QGraphicsPixmapItem* m_dragPixmapItem{nullptr};

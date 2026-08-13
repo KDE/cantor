@@ -450,6 +450,15 @@ void WorksheetEntry::populateMenu(QMenu* menu, QPointF pos)
         action = new QAction(QIcon::fromTheme(QLatin1String("media-playback-start")), i18n("Evaluate"));
         connect(action, SIGNAL(triggered()), this, SLOT(evaluate()));
         menu->insertAction(firstAction, action);
+
+        action = new QAction(QIcon::fromTheme(QLatin1String("media-playback-start")), i18n("Evaluate Selected Entry and All Below"));
+        connect(action, &QAction::triggered, this, [this] { worksheet()->evaluateFromEntry(this); });
+        menu->insertAction(firstAction, action);
+
+        action = new QAction(QIcon::fromTheme(QLatin1String("media-playback-start")), i18n("Evaluate Selected Entry and All Above"));
+        connect(action, &QAction::triggered, this, [this] { worksheet()->evaluateToEntry(this); });
+        menu->insertAction(firstAction, action);
+
         menu->insertSeparator(firstAction);
     }
 
@@ -492,6 +501,9 @@ void WorksheetEntry::evaluateNext(EvaluationOption opt)
     // This internal evaluation shouldn't marked as
     // modifying change.
     if (opt == InternalEvaluation)
+        return;
+
+    if (opt == EvaluateNext && worksheet()->stopEvaluationAfter(this))
         return;
 
     WorksheetEntry* entry = next();
