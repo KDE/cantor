@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: mathematik\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-07-27 00:39+0000\n"
+"POT-Creation-Date: 2026-08-15 00:40+0000\n"
 "PO-Revision-Date: 2025-03-19 13:13+0100\n"
 "Last-Translator: Adrián Chaves (Gallaecio) <adrian@chaves.gal>\n"
 "Language-Team: Proxecto Trasno (proxecto@trasno.gal)\n"
@@ -3052,7 +3052,7 @@ msgstr "Matemáticas incrustadas"
 msgid "Restart Backend"
 msgstr "Reiniciar a infraestrutura"
 
-#: cantor_part.cpp:295 worksheetentry.cpp:892
+#: cantor_part.cpp:295 worksheetentry.cpp:904
 #, kde-format
 msgid "Evaluate Entry"
 msgstr "Avaliar a entrada"
@@ -3594,25 +3594,30 @@ msgstr "Prema duplo para configurar as imaxes"
 msgid "Cannot load image %1"
 msgstr "Non é posíbel cargar a imaxe %1"
 
-#: imageresultitem.cpp:80
+#: imageresultitem.cpp:60 worksheet.cpp:2052
+#, kde-format
+msgid "Original Size"
+msgstr "Tamaño orixinal"
+
+#: imageresultitem.cpp:192
 #, fuzzy, kde-format
 #| msgid "%1 files (*.%2)"
 msgctxt "%1 and %2 are file extensions"
 msgid "%1 files (*.%2)"
 msgstr "Ficheiros %1 (*.%2)"
 
-#: imageresultitem.cpp:83
+#: imageresultitem.cpp:195
 #, fuzzy, kde-format
 #| msgid "PDF Files (*.pdf)"
 msgid "PDF files (*.pdf)"
 msgstr "Ficheiros PDF (*.pdf)"
 
-#: imageresultitem.cpp:85
+#: imageresultitem.cpp:197
 #, kde-format
 msgid "EPS files (*.eps)"
 msgstr "Ficheiros EPS (*.eps)"
 
-#: imageresultitem.cpp:88
+#: imageresultitem.cpp:200
 #, kde-format
 msgid "Save image result"
 msgstr "Gardar o resultado da imaxe"
@@ -4855,11 +4860,6 @@ msgstr "Achegar"
 msgid "Zoom Out"
 msgstr "Afastar"
 
-#: worksheet.cpp:2052
-#, kde-format
-msgid "Original Size"
-msgstr "Tamaño orixinal"
-
 #: worksheet.cpp:2060
 #, kde-format
 msgid "Move Entries Up"
@@ -5173,18 +5173,18 @@ msgstr "Baixar"
 msgid "Delete"
 msgstr "Eliminar"
 
-#: worksheetentry.cpp:755
+#: worksheetentry.cpp:767
 #, kde-format
 msgid "This step cannot be undone. Do you really want to delete this entry?"
 msgstr ""
 "Este paso non se pode desfacer. Seguro que quere eliminar esta entrada?"
 
-#: worksheetentry.cpp:755 worksheetentry.cpp:883
+#: worksheetentry.cpp:767 worksheetentry.cpp:895
 #, kde-format
 msgid "Delete Entry"
 msgstr "Eliminar a entrada"
 
-#: worksheetentry.cpp:888
+#: worksheetentry.cpp:900
 #, kde-format
 msgid "Drag Entry"
 msgstr "Arrastrar a entrada"

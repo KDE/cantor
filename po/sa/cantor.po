@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: cantor\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-07-27 00:39+0000\n"
+"POT-Creation-Date: 2026-08-15 00:40+0000\n"
 "PO-Revision-Date: 2024-12-25 19:37+0530\n"
 "Last-Translator: kali <shreekantkalwar@gmail.com>\n"
 "Language-Team: Sanskrit <kde-i18n-doc@kde.org>\n"
@@ -3002,7 +3002,7 @@ msgstr "एम्बेडेड गणित"
 msgid "Restart Backend"
 msgstr "Backend पुनः आरभत"
 
-#: cantor_part.cpp:295 worksheetentry.cpp:892
+#: cantor_part.cpp:295 worksheetentry.cpp:904
 #, kde-format
 msgid "Evaluate Entry"
 msgstr "प्रविष्टेः मूल्याङ्कनं कुर्वन्तु"
@@ -3543,25 +3543,30 @@ msgstr "चित्रसेटिंग्स् विन्यस्तु�
 msgid "Cannot load image %1"
 msgstr "%1 प्रतिबिम्बं लोड् कर्तुं न शक्यते"
 
-#: imageresultitem.cpp:80
+#: imageresultitem.cpp:60 worksheet.cpp:2052
+#, kde-format
+msgid "Original Size"
+msgstr "मूल आकार"
+
+#: imageresultitem.cpp:192
 #, fuzzy, kde-format
 #| msgid "%1 files (*.%2)"
 msgctxt "%1 and %2 are file extensions"
 msgid "%1 files (*.%2)"
 msgstr "%1 सञ्चिकाः (*.%2)"
 
-#: imageresultitem.cpp:83
+#: imageresultitem.cpp:195
 #, fuzzy, kde-format
 #| msgid "PDF Files (*.pdf)"
 msgid "PDF files (*.pdf)"
 msgstr "PDF सञ्चिकाः (*.pdf) ."
 
-#: imageresultitem.cpp:85
+#: imageresultitem.cpp:197
 #, kde-format
 msgid "EPS files (*.eps)"
 msgstr "EPS सञ्चिकाः (*.eps) ."
 
-#: imageresultitem.cpp:88
+#: imageresultitem.cpp:200
 #, kde-format
 msgid "Save image result"
 msgstr "चित्रफलं रक्षतु"
@@ -4785,11 +4790,6 @@ msgstr "Zoom In इति"
 msgid "Zoom Out"
 msgstr "Zoom Out इति"
 
-#: worksheet.cpp:2052
-#, kde-format
-msgid "Original Size"
-msgstr "मूल आकार"
-
 #: worksheet.cpp:2060
 #, kde-format
 msgid "Move Entries Up"
@@ -5099,17 +5099,17 @@ msgstr "अधः गच्छतु"
 msgid "Delete"
 msgstr "लुप्"
 
-#: worksheetentry.cpp:755
+#: worksheetentry.cpp:767
 #, kde-format
 msgid "This step cannot be undone. Do you really want to delete this entry?"
 msgstr "एतत् पदं अकृतुं न शक्यते । किं भवान् वास्तवमेव एतत् प्रविष्टिं विलोपयितुम् इच्छति ?"
 
-#: worksheetentry.cpp:755 worksheetentry.cpp:883
+#: worksheetentry.cpp:767 worksheetentry.cpp:895
 #, kde-format
 msgid "Delete Entry"
 msgstr "प्रविष्टि विलोपयतु"
 
-#: worksheetentry.cpp:888
+#: worksheetentry.cpp:900
 #, kde-format
 msgid "Drag Entry"
 msgstr "प्रविष्टि खींचें"

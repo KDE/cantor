@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kdeorg\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-07-27 00:39+0000\n"
+"POT-Creation-Date: 2026-08-15 00:40+0000\n"
 "PO-Revision-Date: 2024-04-22 16:04\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Simplified\n"
@@ -2953,7 +2953,7 @@ msgstr "嵌入式数学"
 msgid "Restart Backend"
 msgstr "重启后端"
 
-#: cantor_part.cpp:295 worksheetentry.cpp:892
+#: cantor_part.cpp:295 worksheetentry.cpp:904
 #, kde-format
 msgid "Evaluate Entry"
 msgstr "计算条目"
@@ -3486,23 +3486,28 @@ msgstr "双击编辑图像设置"
 msgid "Cannot load image %1"
 msgstr "无法加载图片 %1"
 
-#: imageresultitem.cpp:80
+#: imageresultitem.cpp:60 worksheet.cpp:2052
+#, kde-format
+msgid "Original Size"
+msgstr "原始大小"
+
+#: imageresultitem.cpp:192
 #, kde-format
 msgctxt "%1 and %2 are file extensions"
 msgid "%1 files (*.%2)"
 msgstr "%1 文件 (*.%2)"
 
-#: imageresultitem.cpp:83
+#: imageresultitem.cpp:195
 #, kde-format
 msgid "PDF files (*.pdf)"
 msgstr ""
 
-#: imageresultitem.cpp:85
+#: imageresultitem.cpp:197
 #, kde-format
 msgid "EPS files (*.eps)"
 msgstr "EPS 文件 (*.eps)"
 
-#: imageresultitem.cpp:88
+#: imageresultitem.cpp:200
 #, kde-format
 msgid "Save image result"
 msgstr "保存图像结果"
@@ -4685,11 +4690,6 @@ msgstr "放大"
 msgid "Zoom Out"
 msgstr "缩小"
 
-#: worksheet.cpp:2052
-#, kde-format
-msgid "Original Size"
-msgstr "原始大小"
-
 #: worksheet.cpp:2060
 #, kde-format
 msgid "Move Entries Up"
@@ -4999,17 +4999,17 @@ msgstr "下移"
 msgid "Delete"
 msgstr "删除"
 
-#: worksheetentry.cpp:755
+#: worksheetentry.cpp:767
 #, kde-format
 msgid "This step cannot be undone. Do you really want to delete this entry?"
 msgstr "此步骤不可撤消。您真的想要删除此条目吗？"
 
-#: worksheetentry.cpp:755 worksheetentry.cpp:883
+#: worksheetentry.cpp:767 worksheetentry.cpp:895
 #, kde-format
 msgid "Delete Entry"
 msgstr "删除条目"
 
-#: worksheetentry.cpp:888
+#: worksheetentry.cpp:900
 #, kde-format
 msgid "Drag Entry"
 msgstr "拖动项目"

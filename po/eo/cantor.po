@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: cantor\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-07-27 00:39+0000\n"
+"POT-Creation-Date: 2026-08-15 00:40+0000\n"
 "PO-Revision-Date: 2025-09-07 23:34+0100\n"
 "Last-Translator: Oliver Kellogg <olivermkellogg@gmail.com>\n"
 "Language-Team: esperanto <kde-i18n-eo@kde.org>\n"
@@ -3028,7 +3028,7 @@ msgstr "Enigita Matematiko"
 msgid "Restart Backend"
 msgstr "Restartigi malantaŭaĵon"
 
-#: cantor_part.cpp:295 worksheetentry.cpp:892
+#: cantor_part.cpp:295 worksheetentry.cpp:904
 #, kde-format
 msgid "Evaluate Entry"
 msgstr "Taksi Eniron"
@@ -3571,24 +3571,29 @@ msgstr "Duoble alklaku ĉi tie por agordi bildajn agordojn"
 msgid "Cannot load image %1"
 msgstr "Ne povas ŝargi bildon %1"
 
-#: imageresultitem.cpp:80
+#: imageresultitem.cpp:60 worksheet.cpp:2052
+#, kde-format
+msgid "Original Size"
+msgstr "Originala Grandeco"
+
+#: imageresultitem.cpp:192
 #, kde-format
 msgctxt "%1 and %2 are file extensions"
 msgid "%1 files (*.%2)"
 msgstr "%1-dosieroj (*.%2)"
 
-#: imageresultitem.cpp:83
+#: imageresultitem.cpp:195
 #, fuzzy, kde-format
 #| msgid "PDF Files (*.pdf)"
 msgid "PDF files (*.pdf)"
 msgstr "PDF-dosieroj (*.pdf)"
 
-#: imageresultitem.cpp:85
+#: imageresultitem.cpp:197
 #, kde-format
 msgid "EPS files (*.eps)"
 msgstr "EPS-dosieroj (*.eps)"
 
-#: imageresultitem.cpp:88
+#: imageresultitem.cpp:200
 #, kde-format
 msgid "Save image result"
 msgstr "Konservi bildorezulton"
@@ -4818,11 +4823,6 @@ msgstr "Zoom En"
 msgid "Zoom Out"
 msgstr "Malzomi"
 
-#: worksheet.cpp:2052
-#, kde-format
-msgid "Original Size"
-msgstr "Originala Grandeco"
-
 #: worksheet.cpp:2060
 #, kde-format
 msgid "Move Entries Up"
@@ -5135,18 +5135,18 @@ msgstr "Movi Malsupren"
 msgid "Delete"
 msgstr "Forigi"
 
-#: worksheetentry.cpp:755
+#: worksheetentry.cpp:767
 #, kde-format
 msgid "This step cannot be undone. Do you really want to delete this entry?"
 msgstr ""
 "Ĉi tiu paŝo ne povas esti malfarata. Ĉu vi vere volas forigi ĉi tiun eron?"
 
-#: worksheetentry.cpp:755 worksheetentry.cpp:883
+#: worksheetentry.cpp:767 worksheetentry.cpp:895
 #, kde-format
 msgid "Delete Entry"
 msgstr "Forigi Eron"
 
-#: worksheetentry.cpp:888
+#: worksheetentry.cpp:900
 #, kde-format
 msgid "Drag Entry"
 msgstr "Treni Eron"

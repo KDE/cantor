@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: mathematik\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-07-27 00:39+0000\n"
+"POT-Creation-Date: 2026-08-15 00:40+0000\n"
 "PO-Revision-Date: 2020-05-12 10:53+0300\n"
 "Last-Translator: Marek Laane <qiilaq69@gmail.com>\n"
 "Language-Team: Estonian <kde-et@lists.linux.ee>\n"
@@ -2987,7 +2987,7 @@ msgstr "Põimitud matemaatika"
 msgid "Restart Backend"
 msgstr "Käivita taustaprogramm uuesti"
 
-#: cantor_part.cpp:295 worksheetentry.cpp:892
+#: cantor_part.cpp:295 worksheetentry.cpp:904
 #, kde-format
 msgid "Evaluate Entry"
 msgstr "Hinda kirjet"
@@ -3539,23 +3539,29 @@ msgstr "Topeltklõps avab failivalimisdialoogi"
 msgid "Cannot load image %1"
 msgstr "Pildi %1 laadimine nurjus"
 
-#: imageresultitem.cpp:80
+#: imageresultitem.cpp:60 worksheet.cpp:2052
+#, fuzzy, kde-format
+#| msgid "Print Size"
+msgid "Original Size"
+msgstr "Trükkimise suurus"
+
+#: imageresultitem.cpp:192
 #, kde-format
 msgctxt "%1 and %2 are file extensions"
 msgid "%1 files (*.%2)"
 msgstr ""
 
-#: imageresultitem.cpp:83
+#: imageresultitem.cpp:195
 #, kde-format
 msgid "PDF files (*.pdf)"
 msgstr ""
 
-#: imageresultitem.cpp:85
+#: imageresultitem.cpp:197
 #, kde-format
 msgid "EPS files (*.eps)"
 msgstr ""
 
-#: imageresultitem.cpp:88
+#: imageresultitem.cpp:200
 #, fuzzy, kde-format
 #| msgid "Save result"
 msgid "Save image result"
@@ -4816,12 +4822,6 @@ msgstr ""
 msgid "Zoom Out"
 msgstr ""
 
-#: worksheet.cpp:2052
-#, fuzzy, kde-format
-#| msgid "Print Size"
-msgid "Original Size"
-msgstr "Trükkimise suurus"
-
 #: worksheet.cpp:2060
 #, kde-format
 msgid "Move Entries Up"
@@ -5137,19 +5137,19 @@ msgstr "Liiguta alla"
 msgid "Delete"
 msgstr ""
 
-#: worksheetentry.cpp:755
+#: worksheetentry.cpp:767
 #, fuzzy, kde-format
 #| msgid "Do you also want to export the images?"
 msgid "This step cannot be undone. Do you really want to delete this entry?"
 msgstr "Kas eksportida ka pildid?"
 
-#: worksheetentry.cpp:755 worksheetentry.cpp:883
+#: worksheetentry.cpp:767 worksheetentry.cpp:895
 #, fuzzy, kde-format
 #| msgid "Text Entry"
 msgid "Delete Entry"
 msgstr "Tekstikirje"
 
-#: worksheetentry.cpp:888
+#: worksheetentry.cpp:900
 #, kde-format
 msgid "Drag Entry"
 msgstr "Lohista kirjet"

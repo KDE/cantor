@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kdeedu-kde4\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-07-27 00:39+0000\n"
+"POT-Creation-Date: 2026-08-15 00:40+0000\n"
 "PO-Revision-Date: 2026-07-27 19:33+0300\n"
 "Last-Translator: Emir SARI <emir_sari@icloud.com>\n"
 "Language-Team: Turkish <kde-l10n-tr@kde.org>\n"
@@ -3036,7 +3036,7 @@ msgstr "Gömülü Matematik"
 msgid "Restart Backend"
 msgstr "Arka Ucu Yeniden Başlat"
 
-#: cantor_part.cpp:295 worksheetentry.cpp:892
+#: cantor_part.cpp:295 worksheetentry.cpp:904
 #, kde-format
 msgid "Evaluate Entry"
 msgstr "Girdiyi Değerlendir"
@@ -3573,23 +3573,28 @@ msgstr "Görsel ayarlarını yapılandırmak için burada çift tıklayın"
 msgid "Cannot load image %1"
 msgstr "%1 görseli yüklenemiyor"
 
-#: imageresultitem.cpp:80
+#: imageresultitem.cpp:60 worksheet.cpp:2052
+#, kde-format
+msgid "Original Size"
+msgstr "Özgün Boyut"
+
+#: imageresultitem.cpp:192
 #, kde-format
 msgctxt "%1 and %2 are file extensions"
 msgid "%1 files (*.%2)"
 msgstr "%1 dosyaları (*.%2)"
 
-#: imageresultitem.cpp:83
+#: imageresultitem.cpp:195
 #, kde-format
 msgid "PDF files (*.pdf)"
 msgstr "PDF dosyaları (*.pdf)"
 
-#: imageresultitem.cpp:85
+#: imageresultitem.cpp:197
 #, kde-format
 msgid "EPS files (*.eps)"
 msgstr "EPS dosyaları (*.eps)"
 
-#: imageresultitem.cpp:88
+#: imageresultitem.cpp:200
 #, kde-format
 msgid "Save image result"
 msgstr "Görsel sonucunu kaydet"
@@ -4808,11 +4813,6 @@ msgstr "Yakınlaştır"
 msgid "Zoom Out"
 msgstr "Uzaklaştır"
 
-#: worksheet.cpp:2052
-#, kde-format
-msgid "Original Size"
-msgstr "Özgün Boyut"
-
 #: worksheet.cpp:2060
 #, kde-format
 msgid "Move Entries Up"
@@ -5124,17 +5124,17 @@ msgstr "Aşağı Taşı"
 msgid "Delete"
 msgstr "Sil"
 
-#: worksheetentry.cpp:755
+#: worksheetentry.cpp:767
 #, kde-format
 msgid "This step cannot be undone. Do you really want to delete this entry?"
 msgstr "Bu adım geri alınamaz. Bu girdiyi silmeyi gerçekten istiyor musunuz?"
 
-#: worksheetentry.cpp:755 worksheetentry.cpp:883
+#: worksheetentry.cpp:767 worksheetentry.cpp:895
 #, kde-format
 msgid "Delete Entry"
 msgstr "Girdiyi Sil"
 
-#: worksheetentry.cpp:888
+#: worksheetentry.cpp:900
 #, kde-format
 msgid "Drag Entry"
 msgstr "Girdiyi Sürükle"

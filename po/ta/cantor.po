@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: cantor\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-07-27 00:39+0000\n"
+"POT-Creation-Date: 2026-08-15 00:40+0000\n"
 "PO-Revision-Date: 2024-12-08 14:27+0530\n"
 "Last-Translator: Kishore G <kishore96@gmail.com>\n"
 "Language-Team: Tamil <kde-i18n-doc@kde.org>\n"
@@ -2873,7 +2873,7 @@ msgstr "உட்பொதிந்த கணிதக் காட்சி"
 msgid "Restart Backend"
 msgstr "பின்நிலையை மீள்துவக்கு"
 
-#: cantor_part.cpp:295 worksheetentry.cpp:892
+#: cantor_part.cpp:295 worksheetentry.cpp:904
 #, kde-format
 msgid "Evaluate Entry"
 msgstr "பதிவை செயல்படுத்து"
@@ -3413,25 +3413,30 @@ msgstr "பட அமைப்புகளை மாற்ற இங்கு �
 msgid "Cannot load image %1"
 msgstr "%1 எனும் படத்தை ஏற்ற முடியவில்லை"
 
-#: imageresultitem.cpp:80
+#: imageresultitem.cpp:60 worksheet.cpp:2052
+#, kde-format
+msgid "Original Size"
+msgstr "உண்மையான அளவு"
+
+#: imageresultitem.cpp:192
 #, fuzzy, kde-format
 #| msgid "%1 files (*.%2)"
 msgctxt "%1 and %2 are file extensions"
 msgid "%1 files (*.%2)"
 msgstr "%1 கோப்புகள் (*.%2)"
 
-#: imageresultitem.cpp:83
+#: imageresultitem.cpp:195
 #, fuzzy, kde-format
 #| msgid "PDF Files (*.pdf)"
 msgid "PDF files (*.pdf)"
 msgstr "PDF கோப்புகள் (*.pdf)"
 
-#: imageresultitem.cpp:85
+#: imageresultitem.cpp:197
 #, kde-format
 msgid "EPS files (*.eps)"
 msgstr "EPS கோப்புகள் (*.eps)"
 
-#: imageresultitem.cpp:88
+#: imageresultitem.cpp:200
 #, kde-format
 msgid "Save image result"
 msgstr "படத்தை சேமி"
@@ -4640,11 +4645,6 @@ msgstr "பெரிதாக்கு"
 msgid "Zoom Out"
 msgstr "சிறிதாக்கு"
 
-#: worksheet.cpp:2052
-#, kde-format
-msgid "Original Size"
-msgstr "உண்மையான அளவு"
-
 #: worksheet.cpp:2060
 #, kde-format
 msgid "Move Entries Up"
@@ -4957,19 +4957,19 @@ msgstr "கீழே நகர்த்து"
 msgid "Delete"
 msgstr "நீக்கு"
 
-#: worksheetentry.cpp:755
+#: worksheetentry.cpp:767
 #, fuzzy, kde-format
 #| msgid "Do you really want to remove this entry?"
 msgid "This step cannot be undone. Do you really want to delete this entry?"
 msgstr "இப்பெட்டியை உறுதியாக நீக்க வேண்டுமா?"
 
-#: worksheetentry.cpp:755 worksheetentry.cpp:883
+#: worksheetentry.cpp:767 worksheetentry.cpp:895
 #, fuzzy, kde-format
 #| msgid "Evaluate Entry"
 msgid "Delete Entry"
 msgstr "பதிவை செயல்படுத்து"
 
-#: worksheetentry.cpp:888
+#: worksheetentry.cpp:900
 #, kde-format
 msgid "Drag Entry"
 msgstr "பெட்டியை இழு"

@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: cantor\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-07-27 00:39+0000\n"
+"POT-Creation-Date: 2026-08-15 00:40+0000\n"
 "PO-Revision-Date: 2026-02-28 21:21+0100\n"
 "Last-Translator: Iñigo Salvador Azurmendi <xalba@ni.eus>\n"
 "Language-Team: Basque <kde-i18n-eu@kde.org>\n"
@@ -3046,7 +3046,7 @@ msgstr "Kapsulatutako matematika"
 msgid "Restart Backend"
 msgstr "Berrabiarazi bizkarraldekoa"
 
-#: cantor_part.cpp:295 worksheetentry.cpp:892
+#: cantor_part.cpp:295 worksheetentry.cpp:904
 #, kde-format
 msgid "Evaluate Entry"
 msgstr "Ebaluatu sarrera"
@@ -3588,24 +3588,29 @@ msgstr "Klik bikoitza hemen irudi-ezarpenak konfiguratzeko"
 msgid "Cannot load image %1"
 msgstr "Ezin du %1 irudia zamatu"
 
-#: imageresultitem.cpp:80
+#: imageresultitem.cpp:60 worksheet.cpp:2052
+#, kde-format
+msgid "Original Size"
+msgstr "Jatorrizko neurria"
+
+#: imageresultitem.cpp:192
 #, kde-format
 msgctxt "%1 and %2 are file extensions"
 msgid "%1 files (*.%2)"
 msgstr "%1 fitxategi (*.%2)"
 
-#: imageresultitem.cpp:83
+#: imageresultitem.cpp:195
 #, fuzzy, kde-format
 #| msgid "PDF Files (*.pdf)"
 msgid "PDF files (*.pdf)"
 msgstr "PDF fitxategiak (*.pdf)"
 
-#: imageresultitem.cpp:85
+#: imageresultitem.cpp:197
 #, kde-format
 msgid "EPS files (*.eps)"
 msgstr "EPS fitxategiak (*.eps)"
 
-#: imageresultitem.cpp:88
+#: imageresultitem.cpp:200
 #, kde-format
 msgid "Save image result"
 msgstr "Gorde irudi-emaitza"
@@ -4841,11 +4846,6 @@ msgstr "Zooma gerturatu"
 msgid "Zoom Out"
 msgstr "Zooma urrundu"
 
-#: worksheet.cpp:2052
-#, kde-format
-msgid "Original Size"
-msgstr "Jatorrizko neurria"
-
 #: worksheet.cpp:2060
 #, kde-format
 msgid "Move Entries Up"
@@ -5157,17 +5157,17 @@ msgstr "Eraman behera"
 msgid "Delete"
 msgstr "Ezabatu"
 
-#: worksheetentry.cpp:755
+#: worksheetentry.cpp:767
 #, kde-format
 msgid "This step cannot be undone. Do you really want to delete this entry?"
 msgstr "Urrats hau ezin da desegin. Sarrera hau benetan ezabatu nahi duzu?"
 
-#: worksheetentry.cpp:755 worksheetentry.cpp:883
+#: worksheetentry.cpp:767 worksheetentry.cpp:895
 #, kde-format
 msgid "Delete Entry"
 msgstr "Sarrera ezabatu"
 
-#: worksheetentry.cpp:888
+#: worksheetentry.cpp:900
 #, kde-format
 msgid "Drag Entry"
 msgstr "Sarrera arrastatu"

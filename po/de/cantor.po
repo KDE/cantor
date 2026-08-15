@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: cantor\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-07-27 00:39+0000\n"
+"POT-Creation-Date: 2026-08-15 00:40+0000\n"
 "PO-Revision-Date: 2026-04-13 21:20+0200\n"
 "Last-Translator: Alexander Becker <alex-at-kde-l10n-de@freenet.de>\n"
 "Language-Team: German <kde-i18n-de@kde.org>\n"
@@ -3016,7 +3016,7 @@ msgstr "Eingebettete Mathematik"
 msgid "Restart Backend"
 msgstr "Modul neu starten"
 
-#: cantor_part.cpp:295 worksheetentry.cpp:892
+#: cantor_part.cpp:295 worksheetentry.cpp:904
 #, kde-format
 msgid "Evaluate Entry"
 msgstr "Eintrag auswerten"
@@ -3561,24 +3561,29 @@ msgstr "Doppelklick zum Bearbeiten der Bild-Einstellungen"
 msgid "Cannot load image %1"
 msgstr "Das Bild %1 kann nicht geladen werden"
 
-#: imageresultitem.cpp:80
+#: imageresultitem.cpp:60 worksheet.cpp:2052
+#, kde-format
+msgid "Original Size"
+msgstr "Originalgröße"
+
+#: imageresultitem.cpp:192
 #, kde-format
 msgctxt "%1 and %2 are file extensions"
 msgid "%1 files (*.%2)"
 msgstr "%1-Dateien (*.%2)"
 
-#: imageresultitem.cpp:83
+#: imageresultitem.cpp:195
 #, fuzzy, kde-format
 #| msgid "PDF Files (*.pdf)"
 msgid "PDF files (*.pdf)"
 msgstr "PDF-Dateien (*.pdf)"
 
-#: imageresultitem.cpp:85
+#: imageresultitem.cpp:197
 #, kde-format
 msgid "EPS files (*.eps)"
 msgstr "EPS-Dateien (*.eps)"
 
-#: imageresultitem.cpp:88
+#: imageresultitem.cpp:200
 #, kde-format
 msgid "Save image result"
 msgstr "Bildergebnis speichern"
@@ -4826,11 +4831,6 @@ msgstr "Vergrößern"
 msgid "Zoom Out"
 msgstr "Verkleinern"
 
-#: worksheet.cpp:2052
-#, kde-format
-msgid "Original Size"
-msgstr "Originalgröße"
-
 #: worksheet.cpp:2060
 #, kde-format
 msgid "Move Entries Up"
@@ -5144,19 +5144,19 @@ msgstr "Nach unten verschieben"
 msgid "Delete"
 msgstr "Löschen"
 
-#: worksheetentry.cpp:755
+#: worksheetentry.cpp:767
 #, kde-format
 msgid "This step cannot be undone. Do you really want to delete this entry?"
 msgstr ""
 "Dieser Schritt kann nicht rückgängig gemacht werden. Möchten Sie wirklich "
 "diesen Eintrag löschen?"
 
-#: worksheetentry.cpp:755 worksheetentry.cpp:883
+#: worksheetentry.cpp:767 worksheetentry.cpp:895
 #, kde-format
 msgid "Delete Entry"
 msgstr "Eintrag löschen"
 
-#: worksheetentry.cpp:888
+#: worksheetentry.cpp:900
 #, kde-format
 msgid "Drag Entry"
 msgstr "Eintrag ziehen"

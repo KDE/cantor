@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-07-27 00:39+0000\n"
+"POT-Creation-Date: 2026-08-15 00:40+0000\n"
 "PO-Revision-Date: 2013-11-01 23:02+0600\n"
 "Last-Translator: Sairan Kikkarin <sairan@computer.org>\n"
 "Language-Team: Kazakh <kde-i18n-doc@kde.org>\n"
@@ -3045,7 +3045,7 @@ msgstr ""
 msgid "Restart Backend"
 msgstr "Орындауыш тетігін қайта жегу"
 
-#: cantor_part.cpp:295 worksheetentry.cpp:892
+#: cantor_part.cpp:295 worksheetentry.cpp:904
 #, kde-format
 msgid "Evaluate Entry"
 msgstr "Жазуды есептеу"
@@ -3613,23 +3613,29 @@ msgstr "Файл таңдау диалогын қос түртіп ашу"
 msgid "Cannot load image %1"
 msgstr "%1 кескіні жүктелмеді "
 
-#: imageresultitem.cpp:80
+#: imageresultitem.cpp:60 worksheet.cpp:2052
+#, fuzzy, kde-format
+#| msgid "Print Size"
+msgid "Original Size"
+msgstr "Өлшемін басу"
+
+#: imageresultitem.cpp:192
 #, kde-format
 msgctxt "%1 and %2 are file extensions"
 msgid "%1 files (*.%2)"
 msgstr ""
 
-#: imageresultitem.cpp:83
+#: imageresultitem.cpp:195
 #, kde-format
 msgid "PDF files (*.pdf)"
 msgstr ""
 
-#: imageresultitem.cpp:85
+#: imageresultitem.cpp:197
 #, kde-format
 msgid "EPS files (*.eps)"
 msgstr ""
 
-#: imageresultitem.cpp:88
+#: imageresultitem.cpp:200
 #, fuzzy, kde-format
 #| msgid "Save result"
 msgid "Save image result"
@@ -4876,12 +4882,6 @@ msgstr ""
 msgid "Zoom Out"
 msgstr ""
 
-#: worksheet.cpp:2052
-#, fuzzy, kde-format
-#| msgid "Print Size"
-msgid "Original Size"
-msgstr "Өлшемін басу"
-
 #: worksheet.cpp:2060
 #, kde-format
 msgid "Move Entries Up"
@@ -5203,19 +5203,19 @@ msgstr ""
 msgid "Delete"
 msgstr ""
 
-#: worksheetentry.cpp:755
+#: worksheetentry.cpp:767
 #, fuzzy, kde-format
 #| msgid "Do you also want to export the images?"
 msgid "This step cannot be undone. Do you really want to delete this entry?"
 msgstr "Кескінді де экспорт етуді қалайсыз ба?"
 
-#: worksheetentry.cpp:755 worksheetentry.cpp:883
+#: worksheetentry.cpp:767 worksheetentry.cpp:895
 #, fuzzy, kde-format
 #| msgid "Text Entry"
 msgid "Delete Entry"
 msgstr "Мәтін жазуы"
 
-#: worksheetentry.cpp:888
+#: worksheetentry.cpp:900
 #, kde-format
 msgid "Drag Entry"
 msgstr "Жазуды сүйреу"

@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: cantor\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-07-27 00:39+0000\n"
+"POT-Creation-Date: 2026-08-15 00:40+0000\n"
 "PO-Revision-Date: 2026-08-01 14:57+0300\n"
 "Last-Translator: Yaron Shahrabani <sh.yaron@gmail.com>\n"
 "Language-Team: צוות התרגום של KDE ישראל\n"
@@ -2996,7 +2996,7 @@ msgstr "מתמטיקה משובצת"
 msgid "Restart Backend"
 msgstr "הפעלת מנגנון מחדש"
 
-#: cantor_part.cpp:295 worksheetentry.cpp:892
+#: cantor_part.cpp:295 worksheetentry.cpp:904
 #, kde-format
 msgid "Evaluate Entry"
 msgstr "הערכת רשומה"
@@ -3529,23 +3529,28 @@ msgstr "לחיצה כפולה כאן להגדרת התמונה"
 msgid "Cannot load image %1"
 msgstr "לא ניתן לטעון את התמונה %1"
 
-#: imageresultitem.cpp:80
+#: imageresultitem.cpp:60 worksheet.cpp:2052
+#, kde-format
+msgid "Original Size"
+msgstr "גודל מקורי"
+
+#: imageresultitem.cpp:192
 #, kde-format
 msgctxt "%1 and %2 are file extensions"
 msgid "%1 files (*.%2)"
 msgstr "קובצי %1 ‏(‎*.%2)"
 
-#: imageresultitem.cpp:83
+#: imageresultitem.cpp:195
 #, kde-format
 msgid "PDF files (*.pdf)"
 msgstr "קובצי PDF‏ (‎*.pdf)"
 
-#: imageresultitem.cpp:85
+#: imageresultitem.cpp:197
 #, kde-format
 msgid "EPS files (*.eps)"
 msgstr "קובצי EPS ‏(‎*.eps)"
 
-#: imageresultitem.cpp:88
+#: imageresultitem.cpp:200
 #, kde-format
 msgid "Save image result"
 msgstr "שמירת תוצאת תמונה"
@@ -4736,11 +4741,6 @@ msgstr "התקרבות"
 msgid "Zoom Out"
 msgstr "התרחקות"
 
-#: worksheet.cpp:2052
-#, kde-format
-msgid "Original Size"
-msgstr "גודל מקורי"
-
 #: worksheet.cpp:2060
 #, kde-format
 msgid "Move Entries Up"
@@ -5050,17 +5050,17 @@ msgstr "הורדה למטה"
 msgid "Delete"
 msgstr "מחיקה"
 
-#: worksheetentry.cpp:755
+#: worksheetentry.cpp:767
 #, kde-format
 msgid "This step cannot be undone. Do you really want to delete this entry?"
 msgstr "זה צעד בלתי הפיך. למחוק את הרשומה הזאת?"
 
-#: worksheetentry.cpp:755 worksheetentry.cpp:883
+#: worksheetentry.cpp:767 worksheetentry.cpp:895
 #, kde-format
 msgid "Delete Entry"
 msgstr "מחיקת רשומה"
 
-#: worksheetentry.cpp:888
+#: worksheetentry.cpp:900
 #, kde-format
 msgid "Drag Entry"
 msgstr "גרירת רשומה"

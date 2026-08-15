@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: mathematik\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-07-27 00:39+0000\n"
+"POT-Creation-Date: 2026-08-15 00:40+0000\n"
 "PO-Revision-Date: 2024-03-07 20:07+0900\n"
 "Last-Translator: Kisaragi Hiu <mail@kisaragi-hiu.com>\n"
 "Language-Team: Traditional Chinese <zh-l10n@lists.slat.org>\n"
@@ -2964,7 +2964,7 @@ msgstr "內嵌數學式"
 msgid "Restart Backend"
 msgstr "重新啟動後端介面"
 
-#: cantor_part.cpp:295 worksheetentry.cpp:892
+#: cantor_part.cpp:295 worksheetentry.cpp:904
 #, kde-format
 msgid "Evaluate Entry"
 msgstr "計算項目"
@@ -3506,25 +3506,30 @@ msgstr "在此雙擊以調整影像設定"
 msgid "Cannot load image %1"
 msgstr "無法載入影像 %1"
 
-#: imageresultitem.cpp:80
+#: imageresultitem.cpp:60 worksheet.cpp:2052
+#, kde-format
+msgid "Original Size"
+msgstr "原始大小"
+
+#: imageresultitem.cpp:192
 #, fuzzy, kde-format
 #| msgid "%1 files (*.%2)"
 msgctxt "%1 and %2 are file extensions"
 msgid "%1 files (*.%2)"
 msgstr "%1 檔案 (*.%2)"
 
-#: imageresultitem.cpp:83
+#: imageresultitem.cpp:195
 #, fuzzy, kde-format
 #| msgid "EPS files (*.eps)"
 msgid "PDF files (*.pdf)"
 msgstr "EPS 檔案 (*.eps)"
 
-#: imageresultitem.cpp:85
+#: imageresultitem.cpp:197
 #, kde-format
 msgid "EPS files (*.eps)"
 msgstr "EPS 檔案 (*.eps)"
 
-#: imageresultitem.cpp:88
+#: imageresultitem.cpp:200
 #, kde-format
 msgid "Save image result"
 msgstr "儲存影像結果"
@@ -4715,11 +4720,6 @@ msgstr "放大"
 msgid "Zoom Out"
 msgstr "縮小"
 
-#: worksheet.cpp:2052
-#, kde-format
-msgid "Original Size"
-msgstr "原始大小"
-
 #: worksheet.cpp:2060
 #, kde-format
 msgid "Move Entries Up"
@@ -5034,19 +5034,19 @@ msgstr "下移"
 msgid "Delete"
 msgstr "刪除"
 
-#: worksheetentry.cpp:755
+#: worksheetentry.cpp:767
 #, fuzzy, kde-format
 #| msgid "Do you really want to remove this entry?"
 msgid "This step cannot be undone. Do you really want to delete this entry?"
 msgstr "您確定要移除這個項目嗎？"
 
-#: worksheetentry.cpp:755 worksheetentry.cpp:883
+#: worksheetentry.cpp:767 worksheetentry.cpp:895
 #, fuzzy, kde-format
 #| msgid "Text Entry"
 msgid "Delete Entry"
 msgstr "文字項目"
 
-#: worksheetentry.cpp:888
+#: worksheetentry.cpp:900
 #, kde-format
 msgid "Drag Entry"
 msgstr "拖曳項目"

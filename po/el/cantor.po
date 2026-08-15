@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-07-27 00:39+0000\n"
+"POT-Creation-Date: 2026-08-15 00:40+0000\n"
 "PO-Revision-Date: 2023-07-25 19:54+0300\n"
 "Last-Translator: Theofilos Intzoglou <int.teo@gmail.com>\n"
 "Language-Team: Greek <kde-i18n-el@kde.org>\n"
@@ -3072,7 +3072,7 @@ msgstr "Ενσωματωμένα μαθηματικά"
 msgid "Restart Backend"
 msgstr "Επανεκκίνηση συστήματος υποστήριξης"
 
-#: cantor_part.cpp:295 worksheetentry.cpp:892
+#: cantor_part.cpp:295 worksheetentry.cpp:904
 #, kde-format
 msgid "Evaluate Entry"
 msgstr "Υπολογισμός καταχώρησης"
@@ -3620,25 +3620,30 @@ msgstr "Διπλό κλικ εδώ για να διαμορφώσετε τις �
 msgid "Cannot load image %1"
 msgstr "Αδυναμία φόρτωσης εικόνας %1"
 
-#: imageresultitem.cpp:80
+#: imageresultitem.cpp:60 worksheet.cpp:2052
+#, kde-format
+msgid "Original Size"
+msgstr "Αρχικό μέγεθος"
+
+#: imageresultitem.cpp:192
 #, fuzzy, kde-format
 #| msgid "%1 files (*.%2)"
 msgctxt "%1 and %2 are file extensions"
 msgid "%1 files (*.%2)"
 msgstr "%1 αρχεία (*.%2)"
 
-#: imageresultitem.cpp:83
+#: imageresultitem.cpp:195
 #, fuzzy, kde-format
 #| msgid "EPS files (*.eps)"
 msgid "PDF files (*.pdf)"
 msgstr "EPS αρχεία (*.eps)"
 
-#: imageresultitem.cpp:85
+#: imageresultitem.cpp:197
 #, kde-format
 msgid "EPS files (*.eps)"
 msgstr "EPS αρχεία (*.eps)"
 
-#: imageresultitem.cpp:88
+#: imageresultitem.cpp:200
 #, kde-format
 msgid "Save image result"
 msgstr "Αποθήκευση αποτελέσματος εικόνας"
@@ -4881,11 +4886,6 @@ msgstr "Μεγέθυνση"
 msgid "Zoom Out"
 msgstr "Σμίκρυνση"
 
-#: worksheet.cpp:2052
-#, kde-format
-msgid "Original Size"
-msgstr "Αρχικό μέγεθος"
-
 #: worksheet.cpp:2060
 #, kde-format
 msgid "Move Entries Up"
@@ -5198,19 +5198,19 @@ msgstr "Μετακίνηση κάτω"
 msgid "Delete"
 msgstr "Διαγραφή"
 
-#: worksheetentry.cpp:755
+#: worksheetentry.cpp:767
 #, fuzzy, kde-format
 #| msgid "Do you really want to remove this entry?"
 msgid "This step cannot be undone. Do you really want to delete this entry?"
 msgstr "Θέλετε πράγματι να αφαιρέσετε αυτήν την καταχώρηση;"
 
-#: worksheetentry.cpp:755 worksheetentry.cpp:883
+#: worksheetentry.cpp:767 worksheetentry.cpp:895
 #, fuzzy, kde-format
 #| msgid "Text Entry"
 msgid "Delete Entry"
 msgstr "Καταχώρηση κειμένου"
 
-#: worksheetentry.cpp:888
+#: worksheetentry.cpp:900
 #, kde-format
 msgid "Drag Entry"
 msgstr "Σύρσιμο καταχώρησης"

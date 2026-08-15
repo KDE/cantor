@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: cantor\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-07-27 00:39+0000\n"
+"POT-Creation-Date: 2026-08-15 00:40+0000\n"
 "PO-Revision-Date: 2023-12-06 19:20+0100\n"
 "Last-Translator: Roman Paholik <wizzardsk@gmail.com>\n"
 "Language-Team: Slovak <kde-sk@linux.sk>\n"
@@ -2701,7 +2701,7 @@ msgstr "Predvolené"
 #: cantor.cpp:775
 #, kde-format
 msgid "Table of Contents"
-msgstr ""
+msgstr "Obsah"
 
 #. i18n: ectx: label, entry (DefaultBackend), group (Cantor)
 #: cantor.kcfg:10
@@ -2741,30 +2741,29 @@ msgstr "Povoliť vyčíslenie výrazov v predvolenom nastavení"
 
 #. i18n: ectx: label, entry (ShowTocChaptersDefault), group (Cantor)
 #: cantor.kcfg:34
-#, fuzzy, kde-format
-#| msgid "Animate changes in the Worksheet by default"
+#, kde-format
 msgid "Show chapters in the Worksheet Structure Navigator by default"
-msgstr "Animovať zmeny v pracovnom liste v predvolenom nastavení"
+msgstr "Predvolene zobrazovať kapitoly v navigátore štruktúry pracovného hárka"
 
 #. i18n: ectx: label, entry (ShowTocSectionsDefault), group (Cantor)
 #: cantor.kcfg:38
-#, fuzzy, kde-format
-#| msgid "Animate changes in the Worksheet by default"
+#, kde-format
 msgid "Show sections in the Worksheet Structure Navigator by default"
-msgstr "Animovať zmeny v pracovnom liste v predvolenom nastavení"
+msgstr "Predvolene zobrazovať sekcie v navigátore štruktúry pracovného hárka"
 
 #. i18n: ectx: label, entry (ShowTocCommandEntriesDefault), group (Cantor)
 #: cantor.kcfg:42
-#, fuzzy, kde-format
-#| msgid "Animate changes in the Worksheet by default"
+#, kde-format
 msgid "Show command entries in the Worksheet Structure Navigator by default"
-msgstr "Animovať zmeny v pracovnom liste v predvolenom nastavení"
+msgstr ""
+"Predvolene zobrazovať príkazové položky v navigátore štruktúry pracovného "
+"hárka"
 
 #. i18n: ectx: label, entry (ShowTocPlotsDefault), group (Cantor)
 #: cantor.kcfg:46
 #, kde-format
 msgid "Show plots in the Worksheet Structure Navigator by default"
-msgstr ""
+msgstr "Predvolene zobrazovať grafy v navigátore štruktúry pracovného hárka"
 
 #. i18n: ectx: label, entry (AnimationDefault), group (Cantor)
 #: cantor.kcfg:50
@@ -2834,7 +2833,7 @@ msgstr "Limit viditeľných riadkov pre textový výsledok"
 #, kde-format
 msgid ""
 "Whether the hierarchy font settings have been migrated to complete fonts"
-msgstr ""
+msgstr "Či boli nastavenia písma hierarchie prevedené na úplné písma"
 
 #. i18n: ectx: label, entry (ChapterFontFamily), group (Cantor)
 #: cantor.kcfg:90
@@ -3032,7 +3031,7 @@ msgstr "Zabudovaná matematika"
 msgid "Restart Backend"
 msgstr "Reštartovať backend"
 
-#: cantor_part.cpp:295 worksheetentry.cpp:892
+#: cantor_part.cpp:295 worksheetentry.cpp:904
 #, kde-format
 msgid "Evaluate Entry"
 msgstr "Vyhodnotiť položku"
@@ -3410,17 +3409,15 @@ msgstr "Rozlišovať veľkosť"
 
 #. i18n: ectx: property (text), widget (QLabel, hierarchyEntriesLabel)
 #: formating.ui:35
-#, fuzzy, kde-format
-#| msgid "Hierarchy Entry"
+#, kde-format
 msgid "Hierarchy Entries:"
-msgstr "Položka hierarchie"
+msgstr "Položky hierarchie:"
 
 #. i18n: ectx: property (text), widget (QLabel, hierarchyLevelLabel)
 #: formating.ui:50
-#, fuzzy, kde-format
-#| msgid "Set Hierarchy Level"
+#, kde-format
 msgid "Hierarchy level:"
-msgstr "Nastaviť úroveň hierarchie"
+msgstr "Úroveň hierarchie:"
 
 #. i18n: ectx: property (text), item, widget (QComboBox, hierarchyLevelComboBox)
 #: formating.ui:61 hierarchyentry.cpp:22
@@ -3466,38 +3463,33 @@ msgstr "Pododsek"
 #. i18n: ectx: property (text), widget (QLabel, lSubparagraphFont)
 #: formating.ui:115 formating.ui:138 formating.ui:161 formating.ui:184
 #: formating.ui:207 formating.ui:230
-#, fuzzy, kde-format
-#| msgctxt "@action"
-#| msgid "&Font"
+#, kde-format
 msgid "&Font:"
-msgstr "&Písmo"
+msgstr "&Písmo:"
 
 #. i18n: ectx: property (text), widget (QLabel, visibleItemsLabel)
 #: formating.ui:253
 #, kde-format
 msgid "Visible Items:"
-msgstr ""
+msgstr "Viditeľné položky:"
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_ShowTocChaptersDefault)
 #: formating.ui:262
-#, fuzzy, kde-format
-#| msgid "Chapter"
+#, kde-format
 msgid "Chapters"
-msgstr "Kapitola"
+msgstr "Kapitoly"
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_ShowTocSectionsDefault)
 #: formating.ui:269
-#, fuzzy, kde-format
-#| msgid "Section"
+#, kde-format
 msgid "Sections"
-msgstr "Oblasť"
+msgstr "Sekcie"
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_ShowTocCommandEntriesDefault)
 #: formating.ui:276
-#, fuzzy, kde-format
-#| msgid "Commands"
+#, kde-format
 msgid "Command entries"
-msgstr "Príkazy"
+msgstr "Príkazové položky"
 
 #: hierarchyentry.cpp:55
 #, kde-format
@@ -3574,24 +3566,28 @@ msgstr "Dvojitým kliknutím nakonfigurujte nastavenia obrázku"
 msgid "Cannot load image %1"
 msgstr "Nemožno načítať obrázok %1"
 
-#: imageresultitem.cpp:80
+#: imageresultitem.cpp:60 worksheet.cpp:2052
+#, kde-format
+msgid "Original Size"
+msgstr "Originálna veľkosť"
+
+#: imageresultitem.cpp:192
 #, kde-format
 msgctxt "%1 and %2 are file extensions"
 msgid "%1 files (*.%2)"
 msgstr "%1 files (*.%2)"
 
-#: imageresultitem.cpp:83
-#, fuzzy, kde-format
-#| msgid "PDF Files (*.pdf)"
+#: imageresultitem.cpp:195
+#, kde-format
 msgid "PDF files (*.pdf)"
 msgstr "PDF súbory (*.pdf)"
 
-#: imageresultitem.cpp:85
+#: imageresultitem.cpp:197
 #, kde-format
 msgid "EPS files (*.eps)"
 msgstr "Súbory EPS (*.eps)"
 
-#: imageresultitem.cpp:88
+#: imageresultitem.cpp:200
 #, kde-format
 msgid "Save image result"
 msgstr "Uložiť výsledok obrázku"
@@ -4024,12 +4020,12 @@ msgstr "Všetky súbory"
 #: panelplugins/tocpanel/tocpanelplugin.cpp:207
 #, kde-format
 msgid "Search Table of Contents"
-msgstr ""
+msgstr "Hľadať v obsahu"
 
 #: panelplugins/tocpanel/tocpanelplugin.cpp:347
 #, kde-format
 msgid "Heading"
-msgstr ""
+msgstr "Nadpis"
 
 #: panelplugins/tocpanel/tocpanelplugin.cpp:350
 #, kde-format
@@ -4037,13 +4033,14 @@ msgid ""
 "Do you really want to delete the heading \"%1\"? Its contents will be kept. "
 "This action cannot be undone."
 msgstr ""
+"Naozaj chcete odstrániť nadpis \"%1\"? Jeho obsah zostane zachovaný. Túto "
+"akciu nemožno vrátiť späť."
 
 #: panelplugins/tocpanel/tocpanelplugin.cpp:351
 #: worksheethierarchymanager.cpp:1175
-#, fuzzy, kde-format
-#| msgid "Delete Entry"
+#, kde-format
 msgid "Delete Heading"
-msgstr "Odstrániť položku"
+msgstr "Odstrániť nadpis"
 
 #: panelplugins/tocpanel/tocpanelplugin.cpp:365
 #: panelplugins/tocpanel/tocpanelplugin.cpp:1258 worksheet.cpp:1943
@@ -4059,147 +4056,131 @@ msgstr "Príkaz"
 #: panelplugins/tocpanel/tocpanelplugin.cpp:1303
 #, kde-format
 msgid "Do you really want to delete \"%1\"? This action cannot be undone."
-msgstr ""
+msgstr "Naozaj chcete odstrániť \"%1\"? Túto akciu nemožno vrátiť späť."
 
 #: panelplugins/tocpanel/tocpanelplugin.cpp:369
 #: panelplugins/tocpanel/tocpanelplugin.cpp:1252
 #: panelplugins/tocpanel/tocpanelplugin.cpp:1262
-#, fuzzy, kde-format
-#| msgid "Delete Command Entry Results"
+#, kde-format
 msgid "Delete Command"
-msgstr "Odstrániť výsledky príkazovej položky"
+msgstr "Odstrániť príkaz"
 
 #: panelplugins/tocpanel/tocpanelplugin.cpp:388
 #: panelplugins/tocpanel/tocpanelplugin.cpp:1296
 #: panelplugins/tocpanel/tocpanelplugin.cpp:1304
-#, fuzzy, kde-format
-#| msgid "Delete"
+#, kde-format
 msgid "Delete Plot"
-msgstr "Vymazať zoznam"
+msgstr "Vymazať graf"
 
 #: panelplugins/tocpanel/tocpanelplugin.cpp:455
 #, kde-format
 msgid "No visible items in the Table of Contents"
-msgstr ""
+msgstr "V obsahu nie sú žiadne viditeľné položky"
 
 #: panelplugins/tocpanel/tocpanelplugin.cpp:456
 #, kde-format
 msgid "No matching items"
-msgstr ""
+msgstr "Žiadne zodpovedajúce položky"
 
 #: panelplugins/tocpanel/tocpanelplugin.cpp:1016
 #, kde-format
 msgid "Visible Items"
-msgstr ""
+msgstr "Viditeľné položky"
 
 #: panelplugins/tocpanel/tocpanelplugin.cpp:1018
-#, fuzzy, kde-format
-#| msgid "Chapter"
+#, kde-format
 msgid "Show Chapters"
-msgstr "Kapitola"
+msgstr "Zobraziť kapitoly"
 
 #: panelplugins/tocpanel/tocpanelplugin.cpp:1027
-#, fuzzy, kde-format
-#| msgid "Show Completion"
+#, kde-format
 msgid "Show Sections"
-msgstr "Ukázať dokončovanie"
+msgstr "Zobraziť sekcie"
 
 #: panelplugins/tocpanel/tocpanelplugin.cpp:1036
-#, fuzzy, kde-format
-#| msgid "Insert Command Entry"
+#, kde-format
 msgid "Show Command Entries"
-msgstr "Vložiť  položku príkazu"
+msgstr "Zobraziť príkazové položky"
 
 #: panelplugins/tocpanel/tocpanelplugin.cpp:1045
-#, fuzzy, kde-format
-#| msgid "Show Results"
+#, kde-format
 msgid "Show Plots"
-msgstr "Zobraziť výsledky"
+msgstr "Zobraziť grafy"
 
 #: panelplugins/tocpanel/tocpanelplugin.cpp:1056
-#, fuzzy, kde-format
-#| msgid "Reset to Default"
+#, kde-format
 msgid "Reset to Defaults"
 msgstr "Vrátiť na predvolené"
 
 #: panelplugins/tocpanel/tocpanelplugin.cpp:1179
 #, kde-format
 msgid "Go to Heading"
-msgstr ""
+msgstr "Prejsť na nadpis"
 
 #: panelplugins/tocpanel/tocpanelplugin.cpp:1189
-#, fuzzy, kde-format
-#| msgid "Unnamed"
+#, kde-format
 msgid "Rename"
-msgstr "Nepomenované"
+msgstr "Premenovať"
 
 #: panelplugins/tocpanel/tocpanelplugin.cpp:1200
 #, kde-format
 msgid "Promote Heading"
-msgstr ""
+msgstr "Zvýšiť úroveň nadpisu"
 
 #: panelplugins/tocpanel/tocpanelplugin.cpp:1207
 #, kde-format
 msgid "Demote Heading"
-msgstr ""
+msgstr "Znížiť úroveň nadpisu"
 
 #: panelplugins/tocpanel/tocpanelplugin.cpp:1216
-#, fuzzy, kde-format
-#| msgid "Delete current Entry"
+#, kde-format
 msgid "Delete Heading Only"
-msgstr "Odstrániť súčasnú položku"
+msgstr "Odstrániť len nadpis"
 
 #: panelplugins/tocpanel/tocpanelplugin.cpp:1223
-#, fuzzy, kde-format
-#| msgid "Delete Command Entry Results"
+#, kde-format
 msgid "Delete Section and Contents"
-msgstr "Odstrániť výsledky príkazovej položky"
+msgstr "Odstrániť sekciu aj obsah"
 
 #: panelplugins/tocpanel/tocpanelplugin.cpp:1234
-#, fuzzy, kde-format
-#| msgid "Command"
+#, kde-format
 msgid "Go to Command"
-msgstr "Príkaz"
+msgstr "Prejsť na príkaz"
 
 #: panelplugins/tocpanel/tocpanelplugin.cpp:1244
-#, fuzzy, kde-format
-#| msgid "Command"
+#, kde-format
 msgid "Rename Command"
-msgstr "Príkaz"
+msgstr "Premenovať príkaz"
 
 #: panelplugins/tocpanel/tocpanelplugin.cpp:1278
 #, kde-format
 msgid "Go to Plot"
-msgstr ""
+msgstr "Prejsť na graf"
 
 #: panelplugins/tocpanel/tocpanelplugin.cpp:1288
 #, kde-format
 msgid "Rename Plot"
-msgstr ""
+msgstr "Premenovať graf"
 
 #: panelplugins/tocpanel/tocpanelplugin.cpp:1319
-#, fuzzy, kde-format
-#| msgid "Completion"
+#, kde-format
 msgid "Collapse Section"
-msgstr "Dokončovanie"
+msgstr "Zbaliť sekciu"
 
 #: panelplugins/tocpanel/tocpanelplugin.cpp:1331
-#, fuzzy, kde-format
-#| msgid "Section"
+#, kde-format
 msgid "Expand Section"
-msgstr "Oblasť"
+msgstr "Rozbaliť sekciu"
 
 #: panelplugins/tocpanel/tocpanelplugin.cpp:1349
-#, fuzzy, kde-format
-#| msgid "Expand All Results"
+#, kde-format
 msgid "Expand All"
-msgstr "Rozbaliť všetky výsledky"
+msgstr "Rozbaliť všetko"
 
 #: panelplugins/tocpanel/tocpanelplugin.cpp:1356
-#, fuzzy, kde-format
-#| msgid "Collapse All Results"
+#, kde-format
 msgid "Collapse All"
-msgstr "Zbaliť všetky výsledky"
+msgstr "Zbaliť všetko"
 
 #. i18n: ectx: property (text), widget (QLabel, label)
 #: panelplugins/variablemgr/newvardlg.ui:17
@@ -4813,11 +4794,6 @@ msgstr "Priblížiť"
 msgid "Zoom Out"
 msgstr "Oddialiť"
 
-#: worksheet.cpp:2052
-#, kde-format
-msgid "Original Size"
-msgstr "Originálna veľkosť"
-
 #: worksheet.cpp:2060
 #, kde-format
 msgid "Move Entries Up"
@@ -5129,18 +5105,18 @@ msgstr "Posunúť dole"
 msgid "Delete"
 msgstr "Vymazať zoznam"
 
-#: worksheetentry.cpp:755
+#: worksheetentry.cpp:767
 #, kde-format
 msgid "This step cannot be undone. Do you really want to delete this entry?"
 msgstr ""
 "Tento krok nie je možné vrátiť späť. Naozaj chcete odstrániť túto položku?"
 
-#: worksheetentry.cpp:755 worksheetentry.cpp:883
+#: worksheetentry.cpp:767 worksheetentry.cpp:895
 #, kde-format
 msgid "Delete Entry"
 msgstr "Odstrániť položku"
 
-#: worksheetentry.cpp:888
+#: worksheetentry.cpp:900
 #, kde-format
 msgid "Drag Entry"
 msgstr "Presunúť položku"
@@ -5149,12 +5125,12 @@ msgstr "Presunúť položku"
 #: worksheethierarchymanager.cpp:355
 #, kde-format
 msgid "%1 %2"
-msgstr ""
+msgstr "%1 %2"
 
 #: worksheethierarchymanager.cpp:349
 #, kde-format
 msgid "%1 %2.%3"
-msgstr ""
+msgstr "%1 %2.%3"
 
 #: worksheethierarchymanager.cpp:1158
 #, kde-format
@@ -5162,12 +5138,13 @@ msgid ""
 "Do you really want to delete the heading \"%1\" and all entries in this "
 "section? This action cannot be undone."
 msgstr ""
+"Naozaj chcete odstrániť nadpis \"%1\" a všetky položky v tejto sekcii? Túto "
+"akciu nemožno vrátiť späť."
 
 #: worksheethierarchymanager.cpp:1164
-#, fuzzy, kde-format
-#| msgid "Section"
+#, kde-format
 msgid "Delete Section"
-msgstr "Oblasť"
+msgstr "Odstrániť sekciu"
 
 #: worksheethierarchymanager.cpp:1168
 #, kde-format
@@ -5175,6 +5152,8 @@ msgid ""
 "Do you really want to delete only the heading \"%1\"? The contents of the "
 "section will remain in the worksheet. This action cannot be undone."
 msgstr ""
+"Naozaj chcete odstrániť len nadpis \"%1\"? Obsah sekcie zostane v pracovnom "
+"hárku. Túto akciu nemožno vrátiť späť."
 
 #: worksheettextitem.cpp:912 worksheettextitem.cpp:929
 #, kde-format

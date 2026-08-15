@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: cantor\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-07-27 00:39+0000\n"
+"POT-Creation-Date: 2026-08-15 00:40+0000\n"
 "PO-Revision-Date: 2026-07-27 10:26+0200\n"
 "Last-Translator: Temuri Doghonadze <temuri.doghonadze@gmail.com>\n"
 "Language-Team: Georgian <kde-i18n-doc@kde.org>\n"
@@ -3037,7 +3037,7 @@ msgstr "ჩადგმული მათემატიკა"
 msgid "Restart Backend"
 msgstr "უკანაბოლოს გადატვირთვა"
 
-#: cantor_part.cpp:295 worksheetentry.cpp:892
+#: cantor_part.cpp:295 worksheetentry.cpp:904
 #, kde-format
 msgid "Evaluate Entry"
 msgstr "გამოსახულების დათვლა"
@@ -3572,23 +3572,28 @@ msgstr "გამოსახულების პარამეტრებ�
 msgid "Cannot load image %1"
 msgstr "%1 გამოსახულების ჩატვირთვა სეუძლებელია"
 
-#: imageresultitem.cpp:80
+#: imageresultitem.cpp:60 worksheet.cpp:2052
+#, kde-format
+msgid "Original Size"
+msgstr "საწყისი ზომა"
+
+#: imageresultitem.cpp:192
 #, kde-format
 msgctxt "%1 and %2 are file extensions"
 msgid "%1 files (*.%2)"
 msgstr "%1 ფაილი (*.%2)"
 
-#: imageresultitem.cpp:83
+#: imageresultitem.cpp:195
 #, kde-format
 msgid "PDF files (*.pdf)"
 msgstr "PDF ფაილები (*.pdf)"
 
-#: imageresultitem.cpp:85
+#: imageresultitem.cpp:197
 #, kde-format
 msgid "EPS files (*.eps)"
 msgstr "EPS ფაილები (*.eps)"
 
-#: imageresultitem.cpp:88
+#: imageresultitem.cpp:200
 #, kde-format
 msgid "Save image result"
 msgstr "გამოსახულების შედეგის შენახვა"
@@ -4803,11 +4808,6 @@ msgstr "გადიდება"
 msgid "Zoom Out"
 msgstr "დაპატარავება"
 
-#: worksheet.cpp:2052
-#, kde-format
-msgid "Original Size"
-msgstr "საწყისი ზომა"
-
 #: worksheet.cpp:2060
 #, kde-format
 msgid "Move Entries Up"
@@ -5117,17 +5117,17 @@ msgstr "ჩამოწევა"
 msgid "Delete"
 msgstr "წაშლა"
 
-#: worksheetentry.cpp:755
+#: worksheetentry.cpp:767
 #, kde-format
 msgid "This step cannot be undone. Do you really want to delete this entry?"
 msgstr "ეს საფეხური შეუქცევადია. ნამდვილად გსურთ ამ ჩანაწერის წაშლა?"
 
-#: worksheetentry.cpp:755 worksheetentry.cpp:883
+#: worksheetentry.cpp:767 worksheetentry.cpp:895
 #, kde-format
 msgid "Delete Entry"
 msgstr "ჩანაწერის წაშლა"
 
-#: worksheetentry.cpp:888
+#: worksheetentry.cpp:900
 #, kde-format
 msgid "Drag Entry"
 msgstr "ელემენტის გადათრევა"
