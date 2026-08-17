@@ -4,20 +4,20 @@
 #
 # SPDX-FileCopyrightText: 2009, 2010, 2011, 2012 Orestes Mas <orestes@tsc.upc.edu>
 # SPDX-FileCopyrightText: 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022 Antoni Bella Pérez <antonibella5@yahoo.com>
-# SPDX-FileCopyrightText: 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025, 2026 Josep M. Ferrer <txemaq@gmail.com>
+# SPDX-FileCopyrightText: 2010-2026 Josep M. Ferrer <txemaq@gmail.com>
 msgid ""
 msgstr ""
 "Project-Id-Version: cantor\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-04-30 00:38+0000\n"
-"PO-Revision-Date: 2026-02-24 09:24+0100\n"
+"PO-Revision-Date: 2026-08-16 09:51+0200\n"
 "Last-Translator: Josep M. Ferrer <txemaq@gmail.com>\n"
 "Language-Team: Catalan <kde-i18n-ca@kde.org>\n"
 "Language: ca\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Lokalize 25.04.0\n"
+"X-Generator: Lokalize 26.04.3\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Accelerator-Marker: &\n"
 
@@ -1873,8 +1873,8 @@ msgid ""
 "Where the plot legend shall be placed. One of none, top_left, top_right, "
 "bottom_left, bottom_right, below, outside"
 msgstr ""
-"On s'ha d'ubicar la llegenda de la gràfica. Ha de ser Cap, Superior "
-"esquerra, superior dreta, Inferior esquerra, Inferior dreta, Sota o Exterior"
+"On s'ha d'ubicar la llegenda de la gràfica. Ha de ser cap, superior "
+"esquerra, superior dreta, inferior esquerra, inferior dreta, sota o exterior"
 
 #: backends/qalculate/qalculatesyntaxhelpobject.cpp:228
 #, kde-format
@@ -4995,12 +4995,3 @@ msgstr "Arrossega l'entrada"
 #, kde-format
 msgid "Select Color"
 msgstr "Selecció de color"
-
-#~ msgid "Reached beginning"
-#~ msgstr "S'ha arribat al principi"
-
-#~ msgid "Reached end"
-#~ msgstr "S'ha arribat al final"
-
-#~ msgid "Package for Plot Assistant:"
-#~ msgstr "Paquet de l'assistent «Plot»:"
