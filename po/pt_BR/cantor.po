@@ -13,7 +13,7 @@ msgstr ""
 "Project-Id-Version: cantor\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-08-16 00:39+0000\n"
-"PO-Revision-Date: 2026-07-27 07:09-0300\n"
+"PO-Revision-Date: 2026-08-16 07:48-0300\n"
 "Last-Translator: Marcus Gama <marcus.gama@gmail.com>\n"
 "Language-Team: Brazilian Portuguese <kde-i18n-pt_BR@kde.org>\n"
 "Language: pt_BR\n"
@@ -5144,12 +5144,12 @@ msgstr "Cinza claro"
 #: worksheetentry.cpp:454
 #, kde-format
 msgid "Evaluate Selected Entry and All Below"
-msgstr ""
+msgstr "Avaliar a entrada selecionada e todas as subsequentes"
 
 #: worksheetentry.cpp:458
 #, kde-format
 msgid "Evaluate Selected Entry and All Above"
-msgstr ""
+msgstr "Avaliar a entrada selecionada e todas as anteriores"
 
 #: worksheetentry.cpp:466
 #, kde-format

@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: cantor\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-08-16 00:39+0000\n"
-"PO-Revision-Date: 2026-07-27 09:03+0300\n"
+"PO-Revision-Date: 2026-08-16 14:19+0300\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian <trans-uk@lists.fedoraproject.org>\n"
 "Language: uk\n"
@@ -5168,12 +5168,12 @@ msgstr "світло-сірий"
 #: worksheetentry.cpp:454
 #, kde-format
 msgid "Evaluate Selected Entry and All Below"
-msgstr ""
+msgstr "Обчислити позначений запис і усі записи нижче"
 
 #: worksheetentry.cpp:458
 #, kde-format
 msgid "Evaluate Selected Entry and All Above"
-msgstr ""
+msgstr "Обчислити позначений запис і усі записи вище"
 
 #: worksheetentry.cpp:466
 #, kde-format
