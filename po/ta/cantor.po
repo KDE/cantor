@@ -1,21 +1,21 @@
 # Copyright (C) 2023 This file is copyright:
 # This file is distributed under the same license as the cantor package.
 #
-# SPDX-FileCopyrightText: 2022, 2023, 2024 Kishore G <kishore96@gmail.com>
+# SPDX-FileCopyrightText: 2022-2024, 2026 Kishore G <kishore96@gmail.com>
 msgid ""
 msgstr ""
 "Project-Id-Version: cantor\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-08-16 00:39+0000\n"
-"PO-Revision-Date: 2024-12-08 14:27+0530\n"
+"PO-Revision-Date: 2026-08-17 15:18+0530\n"
 "Last-Translator: Kishore G <kishore96@gmail.com>\n"
-"Language-Team: Tamil <kde-i18n-doc@kde.org>\n"
+"Language-Team: Tamil <kde-l10n-ta@kde.org>\n"
 "Language: ta\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Lokalize 24.08.3\n"
+"X-Generator: Lokalize 26.04.3\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -400,7 +400,7 @@ msgstr "படங்களை பணித்தாளிலேயே காட�
 #: backends/sage/sagebackend.kcfg:29
 #, kde-format
 msgid "Default plot width"
-msgstr ""
+msgstr "இயல்பிருப்பு வரைபட அகலம்"
 
 #. i18n: ectx: label, entry (plotHeight), group (SageBackend)
 #. i18n: ectx: label, entry (plotHeight), group (JuliaBackend)
@@ -412,7 +412,7 @@ msgstr ""
 #: backends/sage/sagebackend.kcfg:33
 #, kde-format
 msgid "Default plot height"
-msgstr ""
+msgstr "இயல்பிருப்பு வரைபட உயரம்"
 
 #. i18n: ectx: label, entry (plotExtenstionGraphicPackage), group (JuliaBackend)
 #: backends/julia/juliabackend.kcfg:43
@@ -652,10 +652,9 @@ msgstr "Gadfly"
 #. i18n: ectx: property (text), widget (QLabel, label3)
 #. i18n: ectx: property (text), widget (QLabel, label4)
 #: backends/julia/settings.ui:252 backends/python/settings.ui:221
-#, fuzzy, kde-format
-#| msgid "Plot Assistant"
+#, kde-format
 msgid "Plot Assistant:"
-msgstr "வரைபட உதவிநிரல்"
+msgstr "வரைபட உதவிநிரல்:"
 
 #. i18n: ectx: attribute (title), widget (QWidget, tabAutorun)
 #. i18n: ectx: attribute (title), widget (QWidget, tabAutoran)
@@ -723,7 +722,7 @@ msgstr ""
 #, kde-format
 msgctxt "Lua official documentation"
 msgid "https://www.lua.org/docs.html"
-msgstr ""
+msgstr "https://www.lua.org/docs.html"
 
 #: backends/lua/luabackend.cpp:59
 #, kde-format
@@ -742,7 +741,7 @@ msgstr ""
 #: backends/lua/luaextensions.cpp:20
 #, kde-format
 msgid "Lua script file (*.lua)"
-msgstr ""
+msgstr "Lua சிறுநிரல் கோப்பு (*.lua)"
 
 #: backends/lua/luasession.cpp:59
 #, kde-format
