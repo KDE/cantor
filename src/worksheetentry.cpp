@@ -495,23 +495,39 @@ void WorksheetEntry::populateMenu(QMenu* menu, QPointF pos)
     QAction* action;
     if (!worksheet()->isRunning() && wantToEvaluate())
     {
-        action = new QAction(QIcon::fromTheme(QLatin1String("media-playback-start")), i18n("Evaluate"));
-        connect(action, SIGNAL(triggered()), this, SLOT(evaluate()));
-        menu->insertAction(firstAction, action);
+        if (m_prev || m_next) {
+            auto* evaluateMenu = new QMenu(i18n("Evaluate"), menu);
 
-        action = new QAction(QIcon::fromTheme(QLatin1String("media-playback-start")), i18n("Evaluate Selected Entry and All Below"));
-        connect(action, &QAction::triggered, this, [this] { worksheet()->evaluateFromEntry(this); });
-        menu->insertAction(firstAction, action);
+            if (m_prev) {
+                action = new QAction(QIcon::fromTheme(QLatin1String("go-top")), i18n("Selected Entry and All Above"), evaluateMenu);
+                connect(action, &QAction::triggered, this, [this] { worksheet()->evaluateToEntry(this); });
+                evaluateMenu->addAction(action);
+            }
 
-        action = new QAction(QIcon::fromTheme(QLatin1String("media-playback-start")), i18n("Evaluate Selected Entry and All Above"));
-        connect(action, &QAction::triggered, this, [this] { worksheet()->evaluateToEntry(this); });
-        menu->insertAction(firstAction, action);
+            action = new QAction(QIcon::fromTheme(QLatin1String("go-next")), i18n("Selected Entry"), evaluateMenu);
+            connect(action, SIGNAL(triggered()), this, SLOT(evaluate()));
+            evaluateMenu->addAction(action);
+
+            if (m_next) {
+                action = new QAction(QIcon::fromTheme(QLatin1String("go-bottom")), i18n("Selected Entry and All Below"), evaluateMenu);
+                connect(action, &QAction::triggered, this, [this] { worksheet()->evaluateFromEntry(this); });
+                evaluateMenu->addAction(action);
+            }
+
+            evaluateMenu->menuAction()->setIcon(QIcon::fromTheme(QLatin1String("media-playback-start")));
+
+            menu->insertMenu(firstAction, evaluateMenu);
+        } else {
+            action = new QAction(QIcon::fromTheme(QLatin1String("media-playback-start")), i18n("Evaluate"), menu);
+            connect(action, SIGNAL(triggered()), this, SLOT(evaluate()));
+            menu->insertAction(firstAction, action);
+        }
 
         menu->insertSeparator(firstAction);
     }
 
     if (m_prev) {
-        action = new QAction(QIcon::fromTheme(QLatin1String("go-up")), i18n("Move Up"));
+        action = new QAction(QIcon::fromTheme(QLatin1String("go-up")), i18n("Move Up"), menu);
     //     connect(action, &QAction::triggered, this, &WorksheetEntry::moveToPrevious); //TODO: doesn't work
         connect(action, SIGNAL(triggered()), this, SLOT(moveToPrevious()));
         action->setShortcut(Qt::CTRL | Qt::Key_Up);
@@ -519,14 +535,14 @@ void WorksheetEntry::populateMenu(QMenu* menu, QPointF pos)
     }
 
     if (m_next) {
-        action = new QAction(QIcon::fromTheme(QLatin1String("go-down")), i18n("Move Down"));
+        action = new QAction(QIcon::fromTheme(QLatin1String("go-down")), i18n("Move Down"), menu);
         connect(action, &QAction::triggered, [=]() {moveToNext();});
         action->setShortcut(Qt::CTRL | Qt::Key_Down);
         menu->insertAction(firstAction, action);
         menu->insertSeparator(firstAction);
     }
 
-    action = new QAction(QIcon::fromTheme(QLatin1String("edit-delete")), i18n("Delete"));
+    action = new QAction(QIcon::fromTheme(QLatin1String("edit-delete")), i18n("Delete"), menu);
     connect(action, &QAction::triggered, [=]() {startRemoving();});
     action->setShortcut(Qt::ShiftModifier | Qt::Key_Delete);
     menu->insertAction(firstAction, action);
