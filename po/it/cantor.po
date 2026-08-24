@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: cantor\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-04-30 00:38+0000\n"
-"PO-Revision-Date: 2026-04-10 15:53+0200\n"
+"PO-Revision-Date: 2026-08-22 10:04+0200\n"
 "Last-Translator: Paolo Zamponi <feus73@gmail.com>\n"
 "Language-Team: Italian <kde-i18n-it@kde.org>\n"
 "Language: it\n"
@@ -2030,7 +2030,7 @@ msgstr "Combinato"
 #: backends/qalculate/settings.ui:205 worksheetentry.cpp:439
 #, kde-format
 msgid "Evaluate"
-msgstr "Valutazione"
+msgstr "Vàluta"
 
 #. i18n: ectx: property (text), widget (QLabel, label_2)
 #: backends/qalculate/settings.ui:211
