@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: cantor\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-08-16 00:39+0000\n"
-"PO-Revision-Date: 2026-08-11 17:52+0200\n"
+"PO-Revision-Date: 2026-08-22 10:04+0200\n"
 "Last-Translator: Paolo Zamponi <feus73@gmail.com>\n"
 "Language-Team: Italian <kde-i18n-it@kde.org>\n"
 "Language: it\n"
@@ -2034,7 +2034,7 @@ msgstr "Combinato"
 #: backends/qalculate/settings.ui:205 worksheetentry.cpp:450
 #, kde-format
 msgid "Evaluate"
-msgstr "Valutazione"
+msgstr "Vàluta"
 
 #. i18n: ectx: property (text), widget (QLabel, label_2)
 #: backends/qalculate/settings.ui:211
@@ -5138,12 +5138,12 @@ msgstr "Grigio chiaro"
 #: worksheetentry.cpp:454
 #, kde-format
 msgid "Evaluate Selected Entry and All Below"
-msgstr ""
+msgstr "Vàluta la voce selezionata e tutte quelle sottostanti"
 
 #: worksheetentry.cpp:458
 #, kde-format
 msgid "Evaluate Selected Entry and All Above"
-msgstr ""
+msgstr "Vàluta la voce selezionata e tutte quelle precedenti"
 
 #: worksheetentry.cpp:466
 #, kde-format
