@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-08-25 00:40+0000\n"
+"POT-Creation-Date: 2026-08-26 00:40+0000\n"
 "PO-Revision-Date: 2024-10-18 17:19+0100\n"
 "Last-Translator: Steve Allewell <steve.allewell@gmail.com>\n"
 "Language-Team: British English\n"
@@ -2011,7 +2011,8 @@ msgid "Combined"
 msgstr "Combined"
 
 #. i18n: ectx: attribute (title), widget (QWidget, tab_2)
-#: backends/qalculate/settings.ui:205 worksheetentry.cpp:498
+#: backends/qalculate/settings.ui:205 worksheetentry.cpp:499
+#: worksheetentry.cpp:521
 #, kde-format
 msgid "Evaluate"
 msgstr "Evaluate"
@@ -3025,7 +3026,7 @@ msgstr "Embedded Maths"
 msgid "Restart Backend"
 msgstr "Restart Backend"
 
-#: cantor_part.cpp:295 worksheetentry.cpp:964
+#: cantor_part.cpp:295 worksheetentry.cpp:980
 #, kde-format
 msgid "Evaluate Entry"
 msgstr "Evaluate Entry"
@@ -5127,40 +5128,46 @@ msgstr "Light Grey"
 
 #: worksheetentry.cpp:502
 #, kde-format
-msgid "Evaluate Selected Entry and All Below"
+msgid "Selected Entry and All Above"
 msgstr ""
 
-#: worksheetentry.cpp:506
+#: worksheetentry.cpp:507
+#, fuzzy, kde-format
+#| msgid "Delete Entry"
+msgid "Selected Entry"
+msgstr "Delete Entry"
+
+#: worksheetentry.cpp:512
 #, kde-format
-msgid "Evaluate Selected Entry and All Above"
+msgid "Selected Entry and All Below"
 msgstr ""
 
-#: worksheetentry.cpp:514
+#: worksheetentry.cpp:530
 #, kde-format
 msgid "Move Up"
 msgstr "Move Up"
 
-#: worksheetentry.cpp:522
+#: worksheetentry.cpp:538
 #, kde-format
 msgid "Move Down"
 msgstr "Move Down"
 
-#: worksheetentry.cpp:529
+#: worksheetentry.cpp:545
 #, kde-format
 msgid "Delete"
 msgstr "Delete"
 
-#: worksheetentry.cpp:827
+#: worksheetentry.cpp:843
 #, kde-format
 msgid "This step cannot be undone. Do you really want to delete this entry?"
 msgstr "This step cannot be undone. Do you really want to delete this entry?"
 
-#: worksheetentry.cpp:827 worksheetentry.cpp:955
+#: worksheetentry.cpp:843 worksheetentry.cpp:971
 #, kde-format
 msgid "Delete Entry"
 msgstr "Delete Entry"
 
-#: worksheetentry.cpp:960
+#: worksheetentry.cpp:976
 #, kde-format
 msgid "Drag Entry"
 msgstr "Drag Entry"

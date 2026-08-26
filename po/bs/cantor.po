@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kdeedu\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-08-25 00:40+0000\n"
+"POT-Creation-Date: 2026-08-26 00:40+0000\n"
 "PO-Revision-Date: 2014-01-31 20:51+0100\n"
 "Last-Translator: Samir Ribić <megaribi@epn.ba>\n"
 "Language-Team: Bosnian <bs@li.org>\n"
@@ -2025,7 +2025,8 @@ msgid "Combined"
 msgstr "Kombinovano"
 
 #. i18n: ectx: attribute (title), widget (QWidget, tab_2)
-#: backends/qalculate/settings.ui:205 worksheetentry.cpp:498
+#: backends/qalculate/settings.ui:205 worksheetentry.cpp:499
+#: worksheetentry.cpp:521
 #, kde-format
 msgid "Evaluate"
 msgstr "Procijeni"
@@ -3066,7 +3067,7 @@ msgstr ""
 msgid "Restart Backend"
 msgstr "Ponovo pokreni Pozadinu"
 
-#: cantor_part.cpp:295 worksheetentry.cpp:964
+#: cantor_part.cpp:295 worksheetentry.cpp:980
 #, kde-format
 msgid "Evaluate Entry"
 msgstr "Procjeni ulazne podatke"
@@ -5221,42 +5222,48 @@ msgstr ""
 
 #: worksheetentry.cpp:502
 #, kde-format
-msgid "Evaluate Selected Entry and All Below"
+msgid "Selected Entry and All Above"
 msgstr ""
 
-#: worksheetentry.cpp:506
+#: worksheetentry.cpp:507
+#, fuzzy, kde-format
+#| msgid "Text Entry"
+msgid "Selected Entry"
+msgstr "Unos teksta"
+
+#: worksheetentry.cpp:512
 #, kde-format
-msgid "Evaluate Selected Entry and All Above"
+msgid "Selected Entry and All Below"
 msgstr ""
 
-#: worksheetentry.cpp:514
+#: worksheetentry.cpp:530
 #, kde-format
 msgid "Move Up"
 msgstr ""
 
-#: worksheetentry.cpp:522
+#: worksheetentry.cpp:538
 #, kde-format
 msgid "Move Down"
 msgstr ""
 
-#: worksheetentry.cpp:529
+#: worksheetentry.cpp:545
 #, kde-format
 msgid "Delete"
 msgstr ""
 
-#: worksheetentry.cpp:827
+#: worksheetentry.cpp:843
 #, fuzzy, kde-format
 #| msgid "Do you also want to export the images?"
 msgid "This step cannot be undone. Do you really want to delete this entry?"
 msgstr "Da li želite proslijediti slike?"
 
-#: worksheetentry.cpp:827 worksheetentry.cpp:955
+#: worksheetentry.cpp:843 worksheetentry.cpp:971
 #, fuzzy, kde-format
 #| msgid "Text Entry"
 msgid "Delete Entry"
 msgstr "Unos teksta"
 
-#: worksheetentry.cpp:960
+#: worksheetentry.cpp:976
 #, kde-format
 msgid "Drag Entry"
 msgstr "Prevuci element"

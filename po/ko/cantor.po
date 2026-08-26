@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-08-25 00:40+0000\n"
+"POT-Creation-Date: 2026-08-26 00:40+0000\n"
 "PO-Revision-Date: 2026-05-26 21:25+0200\n"
 "Last-Translator: Shinjo Park <kde@peremen.name>\n"
 "Language-Team: Korean <kde-kr@kde.org>\n"
@@ -1997,7 +1997,8 @@ msgid "Combined"
 msgstr "대분수"
 
 #. i18n: ectx: attribute (title), widget (QWidget, tab_2)
-#: backends/qalculate/settings.ui:205 worksheetentry.cpp:498
+#: backends/qalculate/settings.ui:205 worksheetentry.cpp:499
+#: worksheetentry.cpp:521
 #, kde-format
 msgid "Evaluate"
 msgstr "계산"
@@ -2993,7 +2994,7 @@ msgstr "임베드된 수식"
 msgid "Restart Backend"
 msgstr "백엔드 다시 시작"
 
-#: cantor_part.cpp:295 worksheetentry.cpp:964
+#: cantor_part.cpp:295 worksheetentry.cpp:980
 #, kde-format
 msgid "Evaluate Entry"
 msgstr "항목 계산"
@@ -5073,40 +5074,46 @@ msgstr "밝은 회색"
 
 #: worksheetentry.cpp:502
 #, kde-format
-msgid "Evaluate Selected Entry and All Below"
+msgid "Selected Entry and All Above"
 msgstr ""
 
-#: worksheetentry.cpp:506
+#: worksheetentry.cpp:507
+#, fuzzy, kde-format
+#| msgid "Delete Entry"
+msgid "Selected Entry"
+msgstr "항목 삭제"
+
+#: worksheetentry.cpp:512
 #, kde-format
-msgid "Evaluate Selected Entry and All Above"
+msgid "Selected Entry and All Below"
 msgstr ""
 
-#: worksheetentry.cpp:514
+#: worksheetentry.cpp:530
 #, kde-format
 msgid "Move Up"
 msgstr "위로 이동"
 
-#: worksheetentry.cpp:522
+#: worksheetentry.cpp:538
 #, kde-format
 msgid "Move Down"
 msgstr "아래로 이동"
 
-#: worksheetentry.cpp:529
+#: worksheetentry.cpp:545
 #, kde-format
 msgid "Delete"
 msgstr "삭제"
 
-#: worksheetentry.cpp:827
+#: worksheetentry.cpp:843
 #, kde-format
 msgid "This step cannot be undone. Do you really want to delete this entry?"
 msgstr "이 작업은 실행 취소할 수 없습니다. 이 항목을 삭제하시겠습니까?"
 
-#: worksheetentry.cpp:827 worksheetentry.cpp:955
+#: worksheetentry.cpp:843 worksheetentry.cpp:971
 #, kde-format
 msgid "Delete Entry"
 msgstr "항목 삭제"
 
-#: worksheetentry.cpp:960
+#: worksheetentry.cpp:976
 #, kde-format
 msgid "Drag Entry"
 msgstr "항목 드래그"

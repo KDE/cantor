@@ -11,8 +11,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: cantor\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-08-25 00:40+0000\n"
-"PO-Revision-Date: 2026-08-16 14:25+0200\n"
+"POT-Creation-Date: 2026-08-26 00:40+0000\n"
+"PO-Revision-Date: 2026-08-25 10:53+0200\n"
 "Last-Translator: Freek de Kruijf <freekdekruijf@kde.nl>\n"
 "Language-Team: \n"
 "Language: nl\n"
@@ -2030,7 +2030,8 @@ msgid "Combined"
 msgstr "Samengesteld"
 
 #. i18n: ectx: attribute (title), widget (QWidget, tab_2)
-#: backends/qalculate/settings.ui:205 worksheetentry.cpp:498
+#: backends/qalculate/settings.ui:205 worksheetentry.cpp:499
+#: worksheetentry.cpp:521
 #, kde-format
 msgid "Evaluate"
 msgstr "Berekenen"
@@ -3049,7 +3050,7 @@ msgstr "Ingebedde Math"
 msgid "Restart Backend"
 msgstr "Backend herstarten"
 
-#: cantor_part.cpp:295 worksheetentry.cpp:964
+#: cantor_part.cpp:295 worksheetentry.cpp:980
 #, kde-format
 msgid "Evaluate Entry"
 msgstr "Invoer berekenen"
@@ -3107,12 +3108,12 @@ msgstr "Huidig item verwijderen"
 #: cantor_part.cpp:355 worksheet.cpp:2244
 #, kde-format
 msgid "Merge Cells"
-msgstr ""
+msgstr "Cellen samenvoegen"
 
 #: cantor_part.cpp:361 worksheet.cpp:2115
 #, kde-format
 msgid "Split Cell"
-msgstr ""
+msgstr "Cellen splitsen"
 
 #. i18n("Publish Worksheet"), collection);
 #. publishWorksheet->setIcon(QIcon::fromTheme(QLatin1String("get-hot-new-stuff")));
@@ -5137,41 +5138,49 @@ msgid "Light Grey"
 msgstr "Lichtgrijs"
 
 #: worksheetentry.cpp:502
-#, kde-format
-msgid "Evaluate Selected Entry and All Below"
-msgstr "Evalueer geselecteerd item en alle daaronder"
-
-#: worksheetentry.cpp:506
-#, kde-format
-msgid "Evaluate Selected Entry and All Above"
+#, fuzzy, kde-format
+#| msgid "Evaluate Selected Entry and All Above"
+msgid "Selected Entry and All Above"
 msgstr "Evalueer geselecteerd item en alle daarboven"
 
-#: worksheetentry.cpp:514
+#: worksheetentry.cpp:507
+#, fuzzy, kde-format
+#| msgid "Delete Entry"
+msgid "Selected Entry"
+msgstr "Item verwijderen"
+
+#: worksheetentry.cpp:512
+#, fuzzy, kde-format
+#| msgid "Evaluate Selected Entry and All Below"
+msgid "Selected Entry and All Below"
+msgstr "Evalueer geselecteerd item en alle daaronder"
+
+#: worksheetentry.cpp:530
 #, kde-format
 msgid "Move Up"
 msgstr "Omhoog"
 
-#: worksheetentry.cpp:522
+#: worksheetentry.cpp:538
 #, kde-format
 msgid "Move Down"
 msgstr "Omlaag"
 
-#: worksheetentry.cpp:529
+#: worksheetentry.cpp:545
 #, kde-format
 msgid "Delete"
 msgstr "Verwijderen"
 
-#: worksheetentry.cpp:827
+#: worksheetentry.cpp:843
 #, kde-format
 msgid "This step cannot be undone. Do you really want to delete this entry?"
 msgstr "Deze stap kan niet ongedaan worden. Wilt u dit item verwijderen?"
 
-#: worksheetentry.cpp:827 worksheetentry.cpp:955
+#: worksheetentry.cpp:843 worksheetentry.cpp:971
 #, kde-format
 msgid "Delete Entry"
 msgstr "Item verwijderen"
 
-#: worksheetentry.cpp:960
+#: worksheetentry.cpp:976
 #, kde-format
 msgid "Drag Entry"
 msgstr "Invoer slepen"

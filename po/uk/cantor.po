@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: cantor\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-08-25 00:40+0000\n"
-"PO-Revision-Date: 2026-08-16 14:19+0300\n"
+"POT-Creation-Date: 2026-08-26 00:40+0000\n"
+"PO-Revision-Date: 2026-08-25 08:43+0300\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian <trans-uk@lists.fedoraproject.org>\n"
 "Language: uk\n"
@@ -2054,7 +2054,8 @@ msgid "Combined"
 msgstr "комбінований"
 
 #. i18n: ectx: attribute (title), widget (QWidget, tab_2)
-#: backends/qalculate/settings.ui:205 worksheetentry.cpp:498
+#: backends/qalculate/settings.ui:205 worksheetentry.cpp:499
+#: worksheetentry.cpp:521
 #, kde-format
 msgid "Evaluate"
 msgstr "Обчислення"
@@ -3087,7 +3088,7 @@ msgstr "Вбудовані формули"
 msgid "Restart Backend"
 msgstr "Перезапустити модуль"
 
-#: cantor_part.cpp:295 worksheetentry.cpp:964
+#: cantor_part.cpp:295 worksheetentry.cpp:980
 #, kde-format
 msgid "Evaluate Entry"
 msgstr "Обчислити запис"
@@ -3145,12 +3146,12 @@ msgstr "Вилучити поточний запис"
 #: cantor_part.cpp:355 worksheet.cpp:2244
 #, kde-format
 msgid "Merge Cells"
-msgstr ""
+msgstr "Об'єднати комірки"
 
 #: cantor_part.cpp:361 worksheet.cpp:2115
 #, kde-format
 msgid "Split Cell"
-msgstr ""
+msgstr "Розділити комірку"
 
 #. i18n("Publish Worksheet"), collection);
 #. publishWorksheet->setIcon(QIcon::fromTheme(QLatin1String("get-hot-new-stuff")));
@@ -5176,43 +5177,51 @@ msgid "Light Grey"
 msgstr "світло-сірий"
 
 #: worksheetentry.cpp:502
-#, kde-format
-msgid "Evaluate Selected Entry and All Below"
-msgstr "Обчислити позначений запис і усі записи нижче"
-
-#: worksheetentry.cpp:506
-#, kde-format
-msgid "Evaluate Selected Entry and All Above"
+#, fuzzy, kde-format
+#| msgid "Evaluate Selected Entry and All Above"
+msgid "Selected Entry and All Above"
 msgstr "Обчислити позначений запис і усі записи вище"
 
-#: worksheetentry.cpp:514
+#: worksheetentry.cpp:507
+#, fuzzy, kde-format
+#| msgid "Delete Entry"
+msgid "Selected Entry"
+msgstr "Вилучити запис"
+
+#: worksheetentry.cpp:512
+#, fuzzy, kde-format
+#| msgid "Evaluate Selected Entry and All Below"
+msgid "Selected Entry and All Below"
+msgstr "Обчислити позначений запис і усі записи нижче"
+
+#: worksheetentry.cpp:530
 #, kde-format
 msgid "Move Up"
 msgstr "Пересунути вище"
 
-#: worksheetentry.cpp:522
+#: worksheetentry.cpp:538
 #, kde-format
 msgid "Move Down"
 msgstr "Пересунути нижче"
 
-#: worksheetentry.cpp:529
+#: worksheetentry.cpp:545
 #, kde-format
 msgid "Delete"
 msgstr "Вилучити"
 
-#: worksheetentry.cpp:827
+#: worksheetentry.cpp:843
 #, kde-format
 msgid "This step cannot be undone. Do you really want to delete this entry?"
 msgstr ""
 "Наслідки цього кроку не можна буде скасувати. Ви справді хочете вилучити цей "
 "запис?"
 
-#: worksheetentry.cpp:827 worksheetentry.cpp:955
+#: worksheetentry.cpp:843 worksheetentry.cpp:971
 #, kde-format
 msgid "Delete Entry"
 msgstr "Вилучити запис"
 
-#: worksheetentry.cpp:960
+#: worksheetentry.cpp:976
 #, kde-format
 msgid "Drag Entry"
 msgstr "Перетягнути запис"

@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-08-25 00:40+0000\n"
-"PO-Revision-Date: 2026-08-19 11:54+0200\n"
+"POT-Creation-Date: 2026-08-26 00:40+0000\n"
+"PO-Revision-Date: 2026-08-25 11:11+0200\n"
 "Last-Translator: Libor Filípek <libor.filipek@gmail.com>\n"
 "Language-Team: Czech <kde-i18n-doc@kde.org>\n"
 "Language: cs\n"
@@ -19,7 +19,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
-"X-Generator: Lokalize 26.04.3\n"
+"X-Generator: Lokalize 26.08.0\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -2030,7 +2030,8 @@ msgid "Combined"
 msgstr "Složený"
 
 #. i18n: ectx: attribute (title), widget (QWidget, tab_2)
-#: backends/qalculate/settings.ui:205 worksheetentry.cpp:498
+#: backends/qalculate/settings.ui:205 worksheetentry.cpp:499
+#: worksheetentry.cpp:521
 #, kde-format
 msgid "Evaluate"
 msgstr "Vyhodnotit"
@@ -3046,7 +3047,7 @@ msgstr "Integrovaná matematika"
 msgid "Restart Backend"
 msgstr "Restartovat podpůrnou vrstvu"
 
-#: cantor_part.cpp:295 worksheetentry.cpp:964
+#: cantor_part.cpp:295 worksheetentry.cpp:980
 #, kde-format
 msgid "Evaluate Entry"
 msgstr "Vyhodnotit záznam"
@@ -3104,12 +3105,12 @@ msgstr "Odstranit aktuální položku"
 #: cantor_part.cpp:355 worksheet.cpp:2244
 #, kde-format
 msgid "Merge Cells"
-msgstr ""
+msgstr "Sloučit buňky"
 
 #: cantor_part.cpp:361 worksheet.cpp:2115
 #, kde-format
 msgid "Split Cell"
-msgstr ""
+msgstr "Rozdělit buňku"
 
 #. i18n("Publish Worksheet"), collection);
 #. publishWorksheet->setIcon(QIcon::fromTheme(QLatin1String("get-hot-new-stuff")));
@@ -5122,41 +5123,49 @@ msgid "Light Grey"
 msgstr "Světle šedá"
 
 #: worksheetentry.cpp:502
-#, kde-format
-msgid "Evaluate Selected Entry and All Below"
-msgstr "Vyhodnotit vybraný záznam a všechny níže uvedené"
-
-#: worksheetentry.cpp:506
-#, kde-format
-msgid "Evaluate Selected Entry and All Above"
+#, fuzzy, kde-format
+#| msgid "Evaluate Selected Entry and All Above"
+msgid "Selected Entry and All Above"
 msgstr "Vyhodnotit vybraný záznam a všechny výše uvedené"
 
-#: worksheetentry.cpp:514
+#: worksheetentry.cpp:507
+#, fuzzy, kde-format
+#| msgid "Delete Entry"
+msgid "Selected Entry"
+msgstr "Smazat záznam"
+
+#: worksheetentry.cpp:512
+#, fuzzy, kde-format
+#| msgid "Evaluate Selected Entry and All Below"
+msgid "Selected Entry and All Below"
+msgstr "Vyhodnotit vybraný záznam a všechny níže uvedené"
+
+#: worksheetentry.cpp:530
 #, kde-format
 msgid "Move Up"
 msgstr "Přesunout nahoru"
 
-#: worksheetentry.cpp:522
+#: worksheetentry.cpp:538
 #, kde-format
 msgid "Move Down"
 msgstr "Přesunout dolů"
 
-#: worksheetentry.cpp:529
+#: worksheetentry.cpp:545
 #, kde-format
 msgid "Delete"
 msgstr "Smazat"
 
-#: worksheetentry.cpp:827
+#: worksheetentry.cpp:843
 #, kde-format
 msgid "This step cannot be undone. Do you really want to delete this entry?"
 msgstr "Tento krok nelze vrátit zpět. Opravdu chcete tuto položku smazat?"
 
-#: worksheetentry.cpp:827 worksheetentry.cpp:955
+#: worksheetentry.cpp:843 worksheetentry.cpp:971
 #, kde-format
 msgid "Delete Entry"
 msgstr "Smazat záznam"
 
-#: worksheetentry.cpp:960
+#: worksheetentry.cpp:976
 #, kde-format
 msgid "Drag Entry"
 msgstr "Přesunout záznam"
