@@ -13,7 +13,7 @@ msgstr ""
 "Project-Id-Version: kdeedu-kde4\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-08-26 00:40+0000\n"
-"PO-Revision-Date: 2026-08-25 19:48+0300\n"
+"PO-Revision-Date: 2026-08-26 13:04+0300\n"
 "Last-Translator: Emir SARI <emir_sari@icloud.com>\n"
 "Language-Team: Turkish <kde-l10n-tr@kde.org>\n"
 "Language: tr\n"
@@ -21,7 +21,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"X-Generator: Lokalize 26.04.2\n"
+"X-Generator: Lokalize 26.08.0\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -5121,22 +5121,19 @@ msgid "Light Grey"
 msgstr "Açık Gri"
 
 #: worksheetentry.cpp:502
-#, fuzzy, kde-format
-#| msgid "Evaluate Selected Entry and All Above"
+#, kde-format
 msgid "Selected Entry and All Above"
-msgstr "Seçili Girdiyi ve Üstündekileri Değerlendir"
+msgstr "Seçili Girdi ve Üstündekiler"
 
 #: worksheetentry.cpp:507
-#, fuzzy, kde-format
-#| msgid "Delete Entry"
+#, kde-format
 msgid "Selected Entry"
-msgstr "Girdiyi Sil"
+msgstr "Seçili Girdi"
 
 #: worksheetentry.cpp:512
-#, fuzzy, kde-format
-#| msgid "Evaluate Selected Entry and All Below"
+#, kde-format
 msgid "Selected Entry and All Below"
-msgstr "Seçili Girdiyi ve Altındakileri Değerlendir"
+msgstr "Seçili Girdi ve Altındakiler"
 
 #: worksheetentry.cpp:530
 #, kde-format

@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: cantor\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-08-26 00:40+0000\n"
-"PO-Revision-Date: 2026-08-25 06:25+0200\n"
+"PO-Revision-Date: 2026-08-26 06:44+0200\n"
 "Last-Translator: Temuri Doghonadze <temuri.doghonadze@gmail.com>\n"
 "Language-Team: Georgian <kde-i18n-doc@kde.org>\n"
 "Language: ka\n"
@@ -5114,22 +5114,19 @@ msgid "Light Grey"
 msgstr "ღია ნაცრისფერი"
 
 #: worksheetentry.cpp:502
-#, fuzzy, kde-format
-#| msgid "Evaluate Selected Entry and All Above"
+#, kde-format
 msgid "Selected Entry and All Above"
-msgstr "მონიშნული ჩანაწერის და მის მაღლა ყველას გამოთვლა"
+msgstr "მონიშნული ჩანაწერი და მის მაღლა ყველა"
 
 #: worksheetentry.cpp:507
-#, fuzzy, kde-format
-#| msgid "Delete Entry"
+#, kde-format
 msgid "Selected Entry"
-msgstr "ჩანაწერის წაშლა"
+msgstr "მონიშნული ჩანაწერი"
 
 #: worksheetentry.cpp:512
-#, fuzzy, kde-format
-#| msgid "Evaluate Selected Entry and All Below"
+#, kde-format
 msgid "Selected Entry and All Below"
-msgstr "მონიშნული ჩანაწერის და მის დაბლა ყველას გამოთვლა"
+msgstr "მონიშნული ჩანაწერი და მის დაბლა ყველა"
 
 #: worksheetentry.cpp:530
 #, kde-format

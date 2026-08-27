@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: cantor\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-08-26 00:40+0000\n"
-"PO-Revision-Date: 2026-08-25 08:27+0200\n"
+"PO-Revision-Date: 2026-08-26 09:10+0200\n"
 "Last-Translator: Josep M. Ferrer <txemaq@gmail.com>\n"
 "Language-Team: Catalan <kde-i18n-ca@kde.org>\n"
 "Language: ca\n"
@@ -5160,22 +5160,19 @@ msgid "Light Grey"
 msgstr "Gris clar"
 
 #: worksheetentry.cpp:502
-#, fuzzy, kde-format
-#| msgid "Evaluate Selected Entry and All Above"
+#, kde-format
 msgid "Selected Entry and All Above"
-msgstr "Avalua l'entrada seleccionada i totes les de dalt"
+msgstr "Entrada seleccionada i totes les de dalt"
 
 #: worksheetentry.cpp:507
-#, fuzzy, kde-format
-#| msgid "Delete Entry"
+#, kde-format
 msgid "Selected Entry"
-msgstr "Suprimeix l'entrada"
+msgstr "Entrada seleccionada"
 
 #: worksheetentry.cpp:512
-#, fuzzy, kde-format
-#| msgid "Evaluate Selected Entry and All Below"
+#, kde-format
 msgid "Selected Entry and All Below"
-msgstr "Avalua l'entrada seleccionada i totes les de sota"
+msgstr "Entrada seleccionada i totes les de sota"
 
 #: worksheetentry.cpp:530
 #, kde-format

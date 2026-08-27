@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-08-26 00:40+0000\n"
-"PO-Revision-Date: 2026-08-25 11:11+0200\n"
+"PO-Revision-Date: 2026-08-26 11:10+0200\n"
 "Last-Translator: Libor Filípek <libor.filipek@gmail.com>\n"
 "Language-Team: Czech <kde-i18n-doc@kde.org>\n"
 "Language: cs\n"
@@ -5123,22 +5123,19 @@ msgid "Light Grey"
 msgstr "Světle šedá"
 
 #: worksheetentry.cpp:502
-#, fuzzy, kde-format
-#| msgid "Evaluate Selected Entry and All Above"
+#, kde-format
 msgid "Selected Entry and All Above"
-msgstr "Vyhodnotit vybraný záznam a všechny výše uvedené"
+msgstr "Vybraný záznam a vše výše"
 
 #: worksheetentry.cpp:507
-#, fuzzy, kde-format
-#| msgid "Delete Entry"
+#, kde-format
 msgid "Selected Entry"
-msgstr "Smazat záznam"
+msgstr "Vybraný záznam"
 
 #: worksheetentry.cpp:512
-#, fuzzy, kde-format
-#| msgid "Evaluate Selected Entry and All Below"
+#, kde-format
 msgid "Selected Entry and All Below"
-msgstr "Vyhodnotit vybraný záznam a všechny níže uvedené"
+msgstr "Vybraný záznam a vše níže"
 
 #: worksheetentry.cpp:530
 #, kde-format

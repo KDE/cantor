@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-08-26 00:40+0000\n"
-"PO-Revision-Date: 2026-08-25 06:13+0200\n"
+"PO-Revision-Date: 2026-08-26 07:16+0200\n"
 "Last-Translator: Matjaž Jeran <matjaz.jeran@amis.net>\n"
 "Language-Team: Slovenian <lugos-slo@lugos.si>\n"
 "Language: sl\n"
@@ -5119,22 +5119,19 @@ msgid "Light Grey"
 msgstr "Svetlo siva"
 
 #: worksheetentry.cpp:502
-#, fuzzy, kde-format
-#| msgid "Evaluate Selected Entry and All Above"
+#, kde-format
 msgid "Selected Entry and All Above"
-msgstr "Ovrednoti izbrani vnos in vse zgoraj"
+msgstr "Izbrani vnos in vse zgoraj"
 
 #: worksheetentry.cpp:507
-#, fuzzy, kde-format
-#| msgid "Delete Entry"
+#, kde-format
 msgid "Selected Entry"
-msgstr "Izbriši vnos"
+msgstr "Izbrani vnos"
 
 #: worksheetentry.cpp:512
-#, fuzzy, kde-format
-#| msgid "Evaluate Selected Entry and All Below"
+#, kde-format
 msgid "Selected Entry and All Below"
-msgstr "Ovrednoti izbrani vnos in vse spodaj"
+msgstr "Izbrani vnos in vse spodaj"
 
 #: worksheetentry.cpp:530
 #, kde-format
