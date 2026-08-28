@@ -13,7 +13,7 @@ msgstr ""
 "Project-Id-Version: cantor\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-08-26 00:40+0000\n"
-"PO-Revision-Date: 2026-08-17 09:56+0200\n"
+"PO-Revision-Date: 2026-08-26 10:03+0200\n"
 "Last-Translator: Xavier Besnard <xavier.besnard@kde.org>\n"
 "Language-Team: fr\n"
 "Language: fr\n"
@@ -23,7 +23,7 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 "X-Accelerator-Marker: &\n"
 "X-Environment: kde\n"
-"X-Generator: Lokalize 26.07.90\n"
+"X-Generator: Lokalize 26.08.0\n"
 "X-Text-Markup: kde4\n"
 
 #, kde-format
@@ -3160,12 +3160,12 @@ msgstr "Supprimer l'entrée actuelle"
 #: cantor_part.cpp:355 worksheet.cpp:2244
 #, kde-format
 msgid "Merge Cells"
-msgstr ""
+msgstr "Fusionner les cellules"
 
 #: cantor_part.cpp:361 worksheet.cpp:2115
 #, kde-format
 msgid "Split Cell"
-msgstr ""
+msgstr "Scinder la cellule"
 
 #. i18n("Publish Worksheet"), collection);
 #. publishWorksheet->setIcon(QIcon::fromTheme(QLatin1String("get-hot-new-stuff")));
