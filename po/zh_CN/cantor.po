@@ -5001,10 +5001,9 @@ msgid "Selected Entry and All Above"
 msgstr ""
 
 #: worksheetentry.cpp:507
-#, fuzzy, kde-format
-#| msgid "Delete Entry"
+#, kde-format
 msgid "Selected Entry"
-msgstr "删除条目"
+msgstr ""
 
 #: worksheetentry.cpp:512
 #, kde-format
