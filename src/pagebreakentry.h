@@ -24,10 +24,12 @@ class PageBreakEntry : public WorksheetEntry
     bool isEmpty() override;
     bool acceptRichText() override;
     void setContent(const QString& content) override;
+    void setContent(const QDomElement& content) override;
     void setContent(const QDomElement& content, const KZip& file) override;
     void setContentFromJupyter(const QJsonObject & cell) override;
     static bool isConvertableToPageBreakEntry(const QJsonObject& cell);
-    QDomElement toXml(QDomDocument& doc, KZip* archive) override;
+    QDomElement toXml(QDomDocument& doc) override;
+    QDomElement toXml(QDomDocument& doc, KZip& archive) override;
     QJsonValue toJupyterJson() override;
     QString toPlain(const QString& commandSep, const QString& commentStartingSeq, const QString& commentEndingSeq) override;
 
@@ -50,4 +52,3 @@ class PageBreakEntry : public WorksheetEntry
 };
 
 #endif /* PAGEBREAKENTRY_H */
-

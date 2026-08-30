@@ -10,6 +10,7 @@
 #include <QPalette>
 #include <QJsonValue>
 #include <QJsonObject>
+#include <QTextOption>
 #include <KColorScheme>
 #include <KLocalizedString>
 
@@ -19,6 +20,9 @@ PageBreakEntry::PageBreakEntry(Worksheet* worksheet)
   : WorksheetEntry(worksheet)
 {
     m_msgItem = new WorksheetTextItem(this);
+    QTextOption textOption = m_msgItem->document()->defaultTextOption();
+    textOption.setAlignment(Qt::AlignHCenter);
+    m_msgItem->document()->setDefaultTextOption(textOption);
 
     QTextCursor cursor = m_msgItem->textCursor();
     KColorScheme color = KColorScheme(QPalette::Normal, KColorScheme::View);
@@ -26,7 +30,6 @@ PageBreakEntry::PageBreakEntry(Worksheet* worksheet)
     cformat.setForeground(color.foreground(KColorScheme::InactiveText));
 
     cursor.insertText(i18n("--- Page Break ---"), cformat);
-    m_msgItem->setAlignment(Qt::AlignCenter);
 
     setFlag(QGraphicsItem::ItemIsFocusable);
 }
@@ -57,11 +60,15 @@ void PageBreakEntry::setContent(const QString& content)
     return;
 }
 
-void PageBreakEntry::setContent(const QDomElement& content, const KZip& file)
+void PageBreakEntry::setContent(const QDomElement& content)
 {
     Q_UNUSED(content);
+}
+
+void PageBreakEntry::setContent(const QDomElement& content, const KZip& file)
+{
     Q_UNUSED(file);
-    return;
+    setContent(content);
 }
 
 void PageBreakEntry::setContentFromJupyter(const QJsonObject& cell)
@@ -93,12 +100,16 @@ QJsonValue PageBreakEntry::toJupyterJson()
     return root;
 }
 
-QDomElement PageBreakEntry::toXml(QDomDocument& doc, KZip* archive)
+QDomElement PageBreakEntry::toXml(QDomDocument& doc)
 {
-    Q_UNUSED(archive);
-
     QDomElement pgbrk = doc.createElement(QLatin1String("PageBreak"));
     return pgbrk;
+}
+
+QDomElement PageBreakEntry::toXml(QDomDocument& doc, KZip& archive)
+{
+    Q_UNUSED(archive);
+    return toXml(doc);
 }
 
 QString PageBreakEntry::toPlain(const QString& commandSep, const QString& commentStartingSeq, const QString& commentEndingSeq)
@@ -116,7 +127,7 @@ void PageBreakEntry::layOutForWidth(qreal entry_zone_x, qreal w, bool force)
     const qreal margin = worksheet()->isPrinting() ? 0 : RightMargin;
 
     if (m_msgItem->isVisible()) {
-        m_msgItem->setGeometry(entry_zone_x, 0, w - margin - entry_zone_x, true);
+        m_msgItem->setGeometry(entry_zone_x, 0, w - margin - entry_zone_x, false);
 
         setSize(QSizeF(m_msgItem->width() + margin + entry_zone_x, m_msgItem->height() + VerticalMargin));
     } else {
