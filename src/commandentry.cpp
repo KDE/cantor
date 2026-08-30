@@ -214,41 +214,41 @@ void CommandEntry::initMenus()
             action->setChecked(true);
     }
 
-    QFont font = m_commandItem->font();
+    QFont font = m_commandItem->view()->font();
     m_fontMenu = new QMenu(i18n("Font"));
     m_fontMenu->setIcon(QIcon::fromTheme(QLatin1String("preferences-desktop-font")));
 
-    QAction* action = new QAction(QIcon::fromTheme(QLatin1String("format-text-bold")), i18n("Bold"));
-    action->setCheckable(true);
-    connect(action, &QAction::triggered, this, &CommandEntry::fontBoldTriggered);
-    m_fontMenu->addAction(action);
+    m_fontBoldAction = new QAction(QIcon::fromTheme(QLatin1String("format-text-bold")), i18n("Bold"), m_fontMenu);
+    m_fontBoldAction->setCheckable(true);
+    connect(m_fontBoldAction, &QAction::triggered, this, &CommandEntry::fontBoldTriggered);
+    m_fontMenu->addAction(m_fontBoldAction);
     if (font.bold())
-        action->setChecked(true);
+        m_fontBoldAction->setChecked(true);
 
-    action = new QAction(QIcon::fromTheme(QLatin1String("format-text-italic")), i18n("Italic"));
-    action->setCheckable(true);
-    connect(action, &QAction::triggered, this, &CommandEntry::fontItalicTriggered);
-    m_fontMenu->addAction(action);
+    m_fontItalicAction = new QAction(QIcon::fromTheme(QLatin1String("format-text-italic")), i18n("Italic"), m_fontMenu);
+    m_fontItalicAction->setCheckable(true);
+    connect(m_fontItalicAction, &QAction::triggered, this, &CommandEntry::fontItalicTriggered);
+    m_fontMenu->addAction(m_fontItalicAction);
     if (font.italic())
-        action->setChecked(true);
+        m_fontItalicAction->setChecked(true);
 
     m_fontMenu->addSeparator();
 
-    action = new QAction(QIcon::fromTheme(QLatin1String("format-font-size-less")), i18n("Increase Size"));
+    QAction* action = new QAction(QIcon::fromTheme(QLatin1String("format-font-size-less")), i18n("Increase Size"), m_fontMenu);
     connect(action, &QAction::triggered, this, &CommandEntry::fontIncreaseTriggered);
     m_fontMenu->addAction(action);
 
-    action = new QAction(QIcon::fromTheme(QLatin1String("format-font-size-more")), i18n("Decrease Size"));
+    action = new QAction(QIcon::fromTheme(QLatin1String("format-font-size-more")), i18n("Decrease Size"), m_fontMenu);
     connect(action, &QAction::triggered, this, &CommandEntry::fontDecreaseTriggered);
     m_fontMenu->addAction(action);
 
     m_fontMenu->addSeparator();
 
-    action = new QAction(QIcon::fromTheme(QLatin1String("preferences-desktop-font")), i18n("Select"));
+    action = new QAction(QIcon::fromTheme(QLatin1String("preferences-desktop-font")), i18n("Select"), m_fontMenu);
     connect(action, &QAction::triggered, this, &CommandEntry::fontSelectTriggered);
     m_fontMenu->addAction(action);
 
-    action = new QAction(QIcon::fromTheme(QLatin1String("preferences-desktop-font")), i18n("Reset to Default"));
+    action = new QAction(QIcon::fromTheme(QLatin1String("preferences-desktop-font")), i18n("Reset to Default"), m_fontMenu);
     connect(action, &QAction::triggered, this, &CommandEntry::resetFontTriggered);
     m_fontMenu->addAction(action);
 
@@ -316,10 +316,16 @@ void CommandEntry::fontDecreaseTriggered()
 void CommandEntry::fontSelectTriggered()
 {
     bool ok;
-    QFont font = QFontDialog::getFont(&ok, m_commandItem->font(), nullptr);
+    QFont font = QFontDialog::getFont(&ok, m_commandItem->view()->font(), nullptr);
 
-    if (ok)
+    if (ok) {
+        if (m_fontBoldAction)
+            m_fontBoldAction->setChecked(font.bold());
+        if (m_fontItalicAction)
+            m_fontItalicAction->setChecked(font.italic());
+
         m_commandItem->setFont(font);
+    }
 }
 
 void CommandEntry::populateMenu(QMenu* menu, QPointF pos)
@@ -639,18 +645,10 @@ bool CommandEntry::splitCellContent(WorksheetEntry* newEntry)
     return true;
 }
 
-void CommandEntry::setContent(const QDomElement& content, const KZip& file)
+void CommandEntry::setContent(const QDomElement& content)
 {
     m_commandItem->setPlainText(content.firstChildElement(QLatin1String("Command")).text());
-    const QString storedCommandId = content.attribute(QLatin1String("command-id"));
-
-    if (!storedCommandId.isEmpty())
-        m_commandId = storedCommandId;
-
     m_displayName = content.attribute(QLatin1String("command-title")).trimmed();
-
-    LoadedExpression* expr = new LoadedExpression( worksheet()->session() );
-    expr->loadFromXml(content, file);
 
     //background color
     QDomElement backgroundElem = content.firstChildElement(QLatin1String("Background"));
@@ -690,16 +688,27 @@ void CommandEntry::setContent(const QDomElement& content, const KZip& file)
             font.setPointSize(fontElem.attribute(QLatin1String("pointSize")).toInt());
             font.setWeight(static_cast<QFont::Weight>(fontElem.attribute(QLatin1String("weight")).toInt()));
             font.setItalic(fontElem.attribute(QLatin1String("italic")).toInt());
+            font.setStrikeOut(fontElem.attribute(QLatin1String("strikeout")).toInt());
+            font.setUnderline(fontElem.attribute(QLatin1String("underline")).toInt());
             m_commandItem->setFont(font);
         }
     }
 
-    m_isExecutionEnabled = !(bool)(content.attribute(QLatin1String("ExecutionDisabled"), QLatin1String("0")).toInt());
-    if (m_isExecutionEnabled == false)
+    if (content.attribute(QLatin1String("ExecutionDisabled"), QLatin1String("0")).toInt())
         excludeFromExecution();
+}
 
+void CommandEntry::setContent(const QDomElement& content, const KZip& file)
+{
+    setContent(content);
+
+    const QString storedCommandId = content.attribute(QLatin1String("command-id"));
+    if (!storedCommandId.isEmpty())
+        m_commandId = storedCommandId;
+
+    LoadedExpression* expr = new LoadedExpression( worksheet()->session() );
+    expr->loadFromXml(content, file);
     setExpression(expr);
-
 }
 
 void CommandEntry::setContentFromJupyter(const QJsonObject& cell)
@@ -818,10 +827,9 @@ QString CommandEntry::toPlain(const QString& commandSep, const QString& commentS
     return command() + commandSep;
 }
 
-QDomElement CommandEntry::toXml(QDomDocument& doc, KZip* archive)
+QDomElement CommandEntry::toXml(QDomDocument& doc)
 {
     QDomElement exprElem = doc.createElement( QLatin1String("Expression") );
-    exprElem.setAttribute(QLatin1String("command-id"), m_commandId);
     if (!m_displayName.isEmpty())
         exprElem.setAttribute(QLatin1String("command-title"), m_displayName);
     QDomElement cmdElem = doc.createElement( QLatin1String("Command") );
@@ -830,26 +838,6 @@ QDomElement CommandEntry::toXml(QDomDocument& doc, KZip* archive)
 
     if (!m_isExecutionEnabled)
         exprElem.setAttribute(QLatin1String("ExecutionDisabled"), true);
-
-    // save results of the expression if they exist
-    if (expression())
-    {
-        const QString& errorMessage = expression()->errorMessage();
-        if (!errorMessage.isEmpty())
-        {
-            QDomElement errorElem = doc.createElement( QLatin1String("Error") );
-            errorElem.appendChild(doc.createTextNode(errorMessage));
-            exprElem.appendChild(errorElem);
-        }
-        for (auto* result : expression()->results())
-        {
-            const QDomElement& resultElem = result->toXml(doc);
-            exprElem.appendChild(resultElem);
-
-            if (archive)
-                result->saveAdditionalData(archive);
-        }
-    }
 
     bool isBackgroundColorNotDefault = false;
     // If user can change value from menu (menus have been inited) - check via menu
@@ -869,7 +857,7 @@ QDomElement CommandEntry::toXml(QDomDocument& doc, KZip* archive)
     }
 
     //save the text properties if they differ from default values
-    const QFont& font = m_commandItem->font();
+    const QFont font = m_commandItem->view()->font();
     const QColor& textColor = (m_isExecutionEnabled ? m_commandItem->defaultTextColor() : m_activeExecutionTextColor);
     bool isFontNotDefault = font != QFontDatabase::systemFont(QFontDatabase::FixedFont);
 
@@ -893,6 +881,8 @@ QDomElement CommandEntry::toXml(QDomDocument& doc, KZip* archive)
         fontElem.setAttribute(QLatin1String("pointSize"), QString::number(font.pointSize()));
         fontElem.setAttribute(QLatin1String("weight"), QString::number(font.weight()));
         fontElem.setAttribute(QLatin1String("italic"), QString::number(font.italic()));
+        fontElem.setAttribute(QLatin1String("strikeout"), font.strikeOut());
+        fontElem.setAttribute(QLatin1String("underline"), font.underline());
         textElem.appendChild(fontElem);
 
         //text color
@@ -910,6 +900,32 @@ QDomElement CommandEntry::toXml(QDomDocument& doc, KZip* archive)
     return exprElem;
 }
 
+QDomElement CommandEntry::toXml(QDomDocument& doc, KZip& archive)
+{
+    auto exprElem = toXml(doc);
+    exprElem.setAttribute(QLatin1String("command-id"), m_commandId);
+
+    // save results of the expression if they exist
+    if (expression())
+    {
+        const QString& errorMessage = expression()->errorMessage();
+        if (!errorMessage.isEmpty())
+        {
+            QDomElement errorElem = doc.createElement( QLatin1String("Error") );
+            errorElem.appendChild(doc.createTextNode(errorMessage));
+            exprElem.appendChild(errorElem);
+        }
+        for (auto* result : expression()->results())
+        {
+            const QDomElement& resultElem = result->toXml(doc);
+            exprElem.appendChild(resultElem);
+
+            result->saveAdditionalData(&archive);
+        }
+    }
+
+    return exprElem;
+}
 
 QString CommandEntry::currentLine()
 {

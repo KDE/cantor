@@ -57,10 +57,12 @@ class CommandEntry : public WorksheetEntry
     ResultItem* resultItemById(const QString& resultId) const;
 
     void setContent(const QString&) override;
+    void setContent(const QDomElement&) override;
     void setContent(const QDomElement&, const KZip&) override;
     void setContentFromJupyter(const QJsonObject&) override;
 
-    QDomElement toXml(QDomDocument&, KZip*) override;
+    QDomElement toXml(QDomDocument&) override;
+    QDomElement toXml(QDomDocument&, KZip&) override;
     QJsonValue toJupyterJson() override;
     QString toPlain(const QString& commandSep, const QString& commentStartingSeq, const QString& commentEndingSeq) override;
 
@@ -166,6 +168,8 @@ class CommandEntry : public WorksheetEntry
     QColor m_defaultDefaultTextColor;
     QMenu* m_textColorMenu;
     QMenu* m_fontMenu;
+    QAction* m_fontBoldAction{nullptr};
+    QAction* m_fontItalicAction{nullptr};
 
     bool m_isExecutionEnabled;
     QColor m_activeExecutionTextColor;
