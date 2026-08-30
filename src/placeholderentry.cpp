@@ -40,8 +40,14 @@ void PlaceHolderEntry::setContent(const QString&)
 {
 }
 
-void PlaceHolderEntry::setContent(const QDomElement&, const KZip&)
+void PlaceHolderEntry::setContent(const QDomElement& content)
 {
+    Q_UNUSED(content);
+}
+
+void PlaceHolderEntry::setContent(const QDomElement& content, const KZip&)
+{
+    setContent(content);
 }
 
 void PlaceHolderEntry::setContentFromJupyter(const QJsonObject& cell)
@@ -50,15 +56,19 @@ void PlaceHolderEntry::setContentFromJupyter(const QJsonObject& cell)
     return;
 }
 
+QDomElement PlaceHolderEntry::toXml(QDomDocument&)
+{
+    return QDomElement();
+}
+
+QDomElement PlaceHolderEntry::toXml(QDomDocument& doc, KZip&)
+{
+    return toXml(doc);
+}
+
 QJsonValue PlaceHolderEntry::toJupyterJson()
 {
     return QJsonValue();
-}
-
-
-QDomElement PlaceHolderEntry::toXml(QDomDocument&, KZip*)
-{
-    return QDomElement();
 }
 
 QString PlaceHolderEntry::toPlain(const QString&, const QString&, const QString&){
@@ -105,4 +115,3 @@ void PlaceHolderEntry::changeSize(QSizeF s)
     sizeAn->setEasingCurve(QEasingCurve::InOutQuad);
     sizeAn->start(QAbstractAnimation::DeleteWhenStopped);
 }
-

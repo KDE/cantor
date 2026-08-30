@@ -20,9 +20,11 @@ class PlaceHolderEntry : public WorksheetEntry
     bool isEmpty() override;
     bool acceptRichText() override;
     void setContent(const QString&) override;
+    void setContent(const QDomElement&) override;
     void setContent(const QDomElement&, const KZip&) override;
     void setContentFromJupyter(const QJsonObject & cell) override;
-    QDomElement toXml(QDomDocument&, KZip*) override;
+    QDomElement toXml(QDomDocument&) override;
+    QDomElement toXml(QDomDocument&, KZip&) override;
     QJsonValue toJupyterJson() override;
     QString toPlain(const QString&, const QString&, const QString&) override;
     void layOutForWidth(qreal entry_zone_x, qreal w, bool force = false) override;
