@@ -25,8 +25,17 @@
 #include <QStringList>
 #include <QInputDialog>
 #include <QActionGroup>
+#include <QBuffer>
+#include <QDir>
+#include <QFile>
+#include <QStandardPaths>
+#include <QTemporaryDir>
 #include <QTextBlock>
 #include <QTextDocumentFragment>
+#include <QUuid>
+
+#include <KArchiveDirectory>
+#include <KArchiveFile>
 
 namespace
 {
@@ -75,9 +84,10 @@ TextEntry::TextEntry(Worksheet* worksheet) : WorksheetEntry(worksheet)
 	connect(m_targetActionGroup, &QActionGroup::triggered, this, &TextEntry::convertTargetChanged);
 
     m_targetMenu = new QMenu(i18n("Raw Cell Targets"));
-	for (const QString& key : standartRawCellTargetNames)
+	for (int i = 0; i < standartRawCellTargetNames.size(); ++i)
     {
-		QAction* action = new QAction(key, m_targetActionGroup);
+		QAction* action = new QAction(standartRawCellTargetNames[i], m_targetActionGroup);
+		action->setData(standartRawCellTargetMimes[i]);
 		action->setCheckable(true);
 		m_targetMenu->addAction(action);
 	}
@@ -239,9 +249,8 @@ bool TextEntry::splitCellContent(WorksheetEntry* newEntry)
     return true;
 }
 
-void TextEntry::setContent(const QDomElement& content, const KZip& file)
+void TextEntry::setContent(const QDomElement& content)
 {
-    Q_UNUSED(file);
     if(content.firstChildElement(QLatin1String("body")).isNull())
         return;
 
@@ -265,6 +274,86 @@ void TextEntry::setContent(const QDomElement& content, const KZip& file)
     doc.appendChild(n);
     QString html = doc.toString();
     m_textItem->setHtml(html);
+    m_textItem->document()->clearUndoRedoStacks();
+}
+
+void TextEntry::setContent(const QDomElement& content, const KZip& file)
+{
+    setContent(content);
+
+    QString renderedMathTempDirectory;
+    const QDomNodeList renderedMath = content.elementsByTagName(QLatin1String("RenderedMath"));
+    for (int i = renderedMath.count() - 1; i >= 0; --i)
+    {
+        const QDomElement mathElement = renderedMath.at(i).toElement();
+        const QString code = mathElement.attribute(QLatin1String("code"));
+        const QString delimiter = mathElement.attribute(QLatin1String("delimiter"), QLatin1String("$$"));
+
+        bool sourcePositionOk = false;
+        const int sourcePosition = mathElement.attribute(QLatin1String("sourcePosition")).toInt(&sourcePositionOk);
+        if (!sourcePositionOk || sourcePosition < 0 || sourcePosition >= m_textItem->document()->characterCount())
+            continue;
+
+        QTextCursor sourceCursor(m_textItem->document());
+        sourceCursor.setPosition(sourcePosition);
+        QTextCursor formulaCursor = findLatexCode(sourceCursor);
+        if (formulaCursor.isNull() || formulaCursor.selectionStart() != sourcePosition)
+            continue;
+
+        QString selectedCode = formulaCursor.selectedText();
+        selectedCode.replace(QChar::ParagraphSeparator, QLatin1Char('\n'));
+        selectedCode.replace(QChar::LineSeparator, QLatin1Char('\n'));
+        if (selectedCode != delimiter + code + delimiter)
+            continue;
+
+        QImage image;
+        image.loadFromData(QByteArray::fromBase64(mathElement.text().toLatin1()), "PNG");
+        if (image.isNull())
+            continue;
+
+        QUrl internal;
+        internal.setScheme(QLatin1String("internal"));
+        internal.setPath(QUuid::createUuid().toString());
+        m_textItem->document()->addResource(QTextDocument::ImageResource, internal, image);
+
+        QTextImageFormat format;
+        format.setName(internal.url());
+        format.setWidth(mathElement.attribute(QLatin1String("width"), QString::number(image.width())).toDouble());
+        format.setHeight(mathElement.attribute(QLatin1String("height"), QString::number(image.height())).toDouble());
+        format.setProperty(Cantor::Renderer::CantorFormula, mathElement.attribute(QLatin1String("type")).toInt());
+        format.setProperty(Cantor::Renderer::Code, code);
+        format.setProperty(Cantor::Renderer::Delimiter, delimiter);
+
+        const int verticalAlignment = mathElement.attribute(QLatin1String("verticalAlignment"), QString::number(QTextCharFormat::AlignBaseline)).toInt();
+        format.setVerticalAlignment(static_cast<QTextCharFormat::VerticalAlignment>(verticalAlignment));
+
+        const QString archivePath = mathElement.attribute(QLatin1String("path"));
+        const KArchiveDirectory* directory = archivePath.isEmpty() ? nullptr : file.directory();
+        const KArchiveEntry* archiveEntry = directory ? directory->entry(archivePath) : nullptr;
+        if (archiveEntry && archiveEntry->isFile() && archivePath.endsWith(QLatin1String(".pdf"), Qt::CaseInsensitive))
+        {
+            const auto* archiveFile = static_cast<const KArchiveFile*>(archiveEntry);
+            if (renderedMathTempDirectory.isEmpty())
+            {
+                QTemporaryDir tempDirectory(QStandardPaths::writableLocation(QStandardPaths::TempLocation)
+                                            + QDir::separator() + QLatin1String("cantor_textentry-XXXXXX"));
+                if (tempDirectory.isValid())
+                {
+                    tempDirectory.setAutoRemove(false);
+                    renderedMathTempDirectory = tempDirectory.path();
+                }
+            }
+
+            if (!renderedMathTempDirectory.isEmpty() && archiveFile->copyTo(renderedMathTempDirectory))
+            {
+                const QString imagePath = renderedMathTempDirectory + QDir::separator() + archiveFile->name();
+                format.setProperty(Cantor::Renderer::ImagePath, imagePath);
+            }
+        }
+
+        formulaCursor.insertText(QString(QChar::ObjectReplacementCharacter), format);
+    }
+    m_textItem->document()->clearUndoRedoStacks();
 }
 
 void TextEntry::setContentFromJupyter(const QJsonObject& cell)
@@ -365,10 +454,8 @@ QJsonValue TextEntry::toJupyterJson()
     return entry;
 }
 
-QDomElement TextEntry::toXml(QDomDocument& doc, KZip* archive)
+QDomElement TextEntry::toXml(QDomDocument& doc)
 {
-    Q_UNUSED(archive);
-
     QScopedPointer<QTextDocument> document(m_textItem->document()->clone());
 
     //make sure that the latex code is shown instead of the rendered formulas
@@ -392,6 +479,61 @@ QDomElement TextEntry::toXml(QDomDocument& doc, KZip* archive)
         el.setAttribute(QLatin1String("convertTarget"), m_convertTarget);
 
     return el;
+}
+
+QDomElement TextEntry::toXml(QDomDocument& doc, KZip& archive)
+{
+    QDomElement element = toXml(doc);
+
+    int sourcePositionAdjustment = 0;
+    QTextCursor cursor = m_textItem->document()->find(QString(QChar::ObjectReplacementCharacter));
+    while (!cursor.isNull())
+    {
+        const QTextImageFormat format = cursor.charFormat().toImageFormat();
+        if (format.hasProperty(Cantor::Renderer::CantorFormula))
+        {
+            const QString code = format.property(Cantor::Renderer::Code).toString();
+            QString delimiter = format.property(Cantor::Renderer::Delimiter).toString();
+            if (delimiter.isEmpty())
+                delimiter = QLatin1String("$$");
+
+            const int sourcePosition = cursor.selectionStart() + sourcePositionAdjustment;
+            sourcePositionAdjustment += delimiter.size() * 2 + code.size() - 1;
+
+            const QImage image = m_textItem->document()->resource(QTextDocument::ImageResource, QUrl(format.name())).value<QImage>();
+            if (!image.isNull())
+            {
+                QByteArray data;
+                QBuffer buffer(&data);
+                buffer.open(QIODevice::WriteOnly);
+                image.save(&buffer, "PNG");
+
+                QDomElement mathElement = doc.createElement(QLatin1String("RenderedMath"));
+                mathElement.setAttribute(QLatin1String("code"), code);
+                mathElement.setAttribute(QLatin1String("delimiter"), delimiter);
+                mathElement.setAttribute(QLatin1String("sourcePosition"), sourcePosition);
+                mathElement.setAttribute(QLatin1String("type"), format.intProperty(Cantor::Renderer::CantorFormula));
+                mathElement.setAttribute(QLatin1String("width"), format.width());
+                mathElement.setAttribute(QLatin1String("height"), format.height());
+                mathElement.setAttribute(QLatin1String("verticalAlignment"), static_cast<int>(format.verticalAlignment()));
+
+                const QString imagePath = format.property(Cantor::Renderer::ImagePath).toString();
+                if (QFile::exists(imagePath))
+                {
+                    const QString archivePath = QLatin1String("cantor_textentry_")
+                        + QUuid::createUuid().toString(QUuid::WithoutBraces)
+                        + QLatin1String(".pdf");
+                    if (archive.addLocalFile(imagePath, archivePath))
+                        mathElement.setAttribute(QLatin1String("path"), archivePath);
+                }
+
+                mathElement.appendChild(doc.createTextNode(QString::fromLatin1(data.toBase64())));
+                element.appendChild(mathElement);
+            }
+        }
+        cursor = m_textItem->document()->find(QString(QChar::ObjectReplacementCharacter), cursor);
+    }
+    return element;
 }
 
 QString TextEntry::toPlain(const QString& commandSep, const QString& commentStartingSeq, const QString& commentEndingSeq)
@@ -590,7 +732,7 @@ void TextEntry::layOutForWidth(qreal entry_zone_x, qreal w, bool force)
 
 bool TextEntry::wantToEvaluate()
 {
-    return !findLatexCode().isNull();
+    return !m_rawCell && worksheet()->embeddedMathEnabled() && !findLatexCode().isNull();
 }
 
 bool TextEntry::isConvertableToTextEntry(const QJsonObject& cell)
@@ -648,12 +790,7 @@ void TextEntry::convertToTextEntry()
 
 void TextEntry::convertTargetChanged(QAction* action)
 {
-    int index = standartRawCellTargetNames.indexOf(action->text());
-    if (index != -1)
-    {
-        m_convertTarget = standartRawCellTargetMimes[index];
-    }
-    else if (action == m_ownTarget)
+    if (action == m_ownTarget)
     {
         bool ok;
         const QString& target = QInputDialog::getText(worksheet()->worksheetView(), i18n("Cantor"), i18n("Target MIME type:"), QLineEdit::Normal, QString(), &ok);
@@ -665,13 +802,21 @@ void TextEntry::convertTargetChanged(QAction* action)
     }
     else
     {
-        m_convertTarget = action->text();
+        m_convertTarget = action->data().toString();
     }
 }
 
 void TextEntry::addNewTarget(const QString& target)
 {
+    for (auto* action : m_targetMenu->actions()) {
+        if (action->data().toString() == target) {
+            action->setChecked(true);
+            return;
+        }
+    }
+
     QAction* action = new QAction(target, m_targetActionGroup);
+    action->setData(target);
     action->setCheckable(true);
     action->setChecked(true);
     m_targetMenu->insertAction(m_targetMenu->actions().last(), action);
