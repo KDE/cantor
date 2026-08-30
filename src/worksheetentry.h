@@ -64,10 +64,12 @@ class WorksheetEntry : public QGraphicsObject
     virtual bool acceptRichText() = 0;
 
     virtual void setContent(const QString&)=0;
+    virtual void setContent(const QDomElement&)=0;
     virtual void setContent(const QDomElement&, const KZip&)=0;
     virtual void setContentFromJupyter(const QJsonObject&)=0;
 
-    virtual QDomElement toXml(QDomDocument&, KZip*)=0;
+    virtual QDomElement toXml(QDomDocument&)=0;
+    virtual QDomElement toXml(QDomDocument&, KZip&)=0;
     virtual QJsonValue toJupyterJson()=0;
     virtual QString toPlain(const QString& commandSep, const QString& commentStartingSeq, const QString& commentEndingSeq)=0;
 
