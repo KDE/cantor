@@ -83,10 +83,8 @@ void HorizontalRuleEntry::setContent(const QString&)
 {
 }
 
-void HorizontalRuleEntry::setContent(const QDomElement& content, const KZip& archive)
+void HorizontalRuleEntry::setContent(const QDomElement& content)
 {
-    Q_UNUSED(archive);
-
     m_type = (LineType)(content.attribute(QLatin1String("thickness"), QString::number((int)LineType::Medium)).toInt());
     m_style = (Qt::PenStyle)(content.attribute(QLatin1String("style"), QString::number((int)Qt::SolidLine)).toInt());
 
@@ -98,6 +96,13 @@ void HorizontalRuleEntry::setContent(const QDomElement& content, const KZip& arc
         m_color.setBlue(backgroundElem.attribute(QLatin1String("blue")).toInt());
         m_lineColorCustom = true;
     }
+    setLineType(m_type);
+}
+
+void HorizontalRuleEntry::setContent(const QDomElement& content, const KZip& archive)
+{
+    Q_UNUSED(archive);
+    setContent(content);
 }
 
 void HorizontalRuleEntry::setContentFromJupyter(const QJsonObject& cell)
@@ -151,11 +156,8 @@ QJsonValue HorizontalRuleEntry::toJupyterJson()
     return entry;
 }
 
-
-QDomElement HorizontalRuleEntry::toXml(QDomDocument& doc, KZip* archive)
+QDomElement HorizontalRuleEntry::toXml(QDomDocument& doc)
 {
-    Q_UNUSED(archive);
-
     QDomElement el = doc.createElement(QLatin1String("HorizontalRule"));
     el.setAttribute(QLatin1String("thickness"), (int)m_type);
     el.setAttribute(QLatin1String("style"), (int)m_style);
@@ -171,6 +173,12 @@ QDomElement HorizontalRuleEntry::toXml(QDomDocument& doc, KZip* archive)
     }
 
     return el;
+}
+
+QDomElement HorizontalRuleEntry::toXml(QDomDocument& doc, KZip& archive)
+{
+    Q_UNUSED(archive);
+    return toXml(doc);
 }
 
 QString HorizontalRuleEntry::toPlain(const QString&, const QString&, const QString&){
