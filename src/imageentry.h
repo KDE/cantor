@@ -23,7 +23,7 @@ class ImageEntry : public WorksheetEntry
 
   public:
     explicit ImageEntry(Worksheet* worksheet);
-    ~ImageEntry() override = default;
+    ~ImageEntry() override;
 
     enum {Type = UserType + 4};
     int type() const override;
@@ -31,9 +31,11 @@ class ImageEntry : public WorksheetEntry
     bool isEmpty() override;
     bool acceptRichText() override;
     void setContent(const QString& content) override;
+    void setContent(const QDomElement& content) override;
     void setContent(const QDomElement& content, const KZip& file) override;
     void setContentFromJupyter(const QJsonObject & cell) override;
-    QDomElement toXml(QDomDocument& doc, KZip* archive) override;
+    QDomElement toXml(QDomDocument& doc) override;
+    QDomElement toXml(QDomDocument& doc, KZip& archive) override;
     QJsonValue toJupyterJson() override;
     QString toPlain(const QString& commandSep, const QString& commentStartingSeq, const QString& commentEndingSeq) override;
 
@@ -61,8 +63,13 @@ class ImageEntry : public WorksheetEntry
     void mouseDoubleClickEvent(QGraphicsSceneMouseEvent*) override;
 
   private:
-    QString m_imagePath;
-    QString m_fileName;
+    void loadSizeProperties(const QDomElement& content);
+    void appendSizeProperties(QDomDocument& doc, QDomElement& image) const;
+    void clearInternalImage();
+
+    QString m_userImagePath;
+    QString m_archiveTempDirPath;
+    QString m_internalImagePath;
     ImageSize m_displaySize;
     ImageSize m_printSize;
     bool m_useDisplaySizeForPrinting;

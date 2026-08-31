@@ -10,11 +10,16 @@
 #include "lib/jupyterutils.h"
 
 #include <QDir>
+#include <QFileInfo>
 #include <QMenu>
 #include <QFileSystemWatcher>
 #include <QJsonValue>
 #include <QJsonObject>
 #include <QStandardPaths>
+#include <QTemporaryDir>
+#include <QTemporaryFile>
+#include <QTextOption>
+#include <QUuid>
 
 #include <KLocalizedString>
 #include <KZip>
@@ -23,6 +28,9 @@ ImageEntry::ImageEntry(Worksheet* worksheet) : WorksheetEntry(worksheet)
 {
     m_imageItem = nullptr;
     m_textItem = new WorksheetTextItem(this);
+    QTextOption textOption = m_textItem->document()->defaultTextOption();
+    textOption.setAlignment(Qt::AlignHCenter);
+    m_textItem->document()->setDefaultTextOption(textOption);
     m_imageWatcher = new QFileSystemWatcher(this);
     m_displaySize.width = -1;
     m_displaySize.height = -1;
@@ -37,6 +45,11 @@ ImageEntry::ImageEntry(Worksheet* worksheet) : WorksheetEntry(worksheet)
 
     setFlag(QGraphicsItem::ItemIsFocusable);
     updateEntry();
+}
+
+ImageEntry::~ImageEntry()
+{
+    clearInternalImage();
 }
 
 void ImageEntry::populateMenu(QMenu* menu, QPointF pos)
@@ -73,29 +86,74 @@ void ImageEntry::setContent(const QString& content)
 
 void ImageEntry::setContent(const QDomElement& content, const KZip& file)
 {
-    Q_UNUSED(file);
-
     QDomElement fileName = content.firstChildElement(QLatin1String("FileName"));
     if (!fileName.isNull()) {
-        m_fileName = fileName.text();
-
-        const KArchiveEntry* imageEntry = file.directory()->entry(m_fileName);
+        const KArchiveEntry* imageEntry = file.directory()->entry(fileName.text());
         if (imageEntry && imageEntry->isFile())
         {
             const KArchiveFile* imageFile = static_cast<const KArchiveFile*>(imageEntry);
-            const QString& dir = QStandardPaths::writableLocation(QStandardPaths::TempLocation);
-            imageFile->copyTo(dir);
+            QTemporaryDir temporaryDirectory(QStandardPaths::writableLocation(QStandardPaths::TempLocation) + QDir::separator() + QLatin1String("cantor-imageentry-XXXXXX"));
+            if (temporaryDirectory.isValid() && imageFile->copyTo(temporaryDirectory.path()))
+            {
+                clearInternalImage();
+                m_archiveTempDirPath = temporaryDirectory.path();
+                temporaryDirectory.setAutoRemove(false);
+                m_internalImagePath = temporaryDirectory.filePath(imageFile->name());
+                if (!m_userImagePath.isEmpty() && m_imageWatcher->files().contains(m_userImagePath))
+                    m_imageWatcher->removePath(m_userImagePath);
+                m_userImagePath.clear();
+            }
+        }
+    } else {
+        // to support the legacy way
+        QDomElement pathElement = content.firstChildElement(QLatin1String("Path"));
+        QString path = pathElement.text();
+        if (!path.isEmpty())
+        {
+            clearInternalImage();
+
+            if (!m_userImagePath.isEmpty() && m_imageWatcher->files().contains(m_userImagePath))
+                m_imageWatcher->removePath(m_userImagePath);
+            m_userImagePath = path;
         }
     }
 
-    static QStringList unitNames;
-    if (unitNames.isEmpty())
-        unitNames << QLatin1String("(auto)") << QLatin1String("px") << QLatin1String("%");
+    loadSizeProperties(content);
+    updateEntry();
+}
 
-    QDomElement pathElement = content.firstChildElement(QLatin1String("Path"));
-    QDomElement displayElement = content.firstChildElement(QLatin1String("Display"));
-    QDomElement printElement = content.firstChildElement(QLatin1String("Print"));
-    m_imagePath = pathElement.text();
+void ImageEntry::setContent(const QDomElement& content)
+{
+    const QDomElement dataElement = content.firstChildElement(QLatin1String("Data"));
+    const QByteArray data = QByteArray::fromBase64(dataElement.text().toLatin1());
+    if (!data.isEmpty())
+    {
+        QString suffix = dataElement.attribute(QLatin1String("suffix"));
+        if (suffix.isEmpty())
+            suffix = QLatin1String("png");
+        QTemporaryFile file(QStandardPaths::writableLocation(QStandardPaths::TempLocation) + QDir::separator() + QLatin1String("cantor-clipboard-XXXXXX.") + suffix);
+        if (file.open() && file.write(data) == data.size())
+        {
+            file.close();
+            file.setAutoRemove(false);
+            QFileInfo fileInfo(file.fileName());
+            clearInternalImage();
+            m_internalImagePath = fileInfo.absoluteFilePath();
+            if (!m_userImagePath.isEmpty() && m_imageWatcher->files().contains(m_userImagePath))
+                m_imageWatcher->removePath(m_userImagePath);
+            m_userImagePath.clear();
+        }
+    }
+
+    loadSizeProperties(content);
+    updateEntry();
+}
+
+void ImageEntry::loadSizeProperties(const QDomElement& content)
+{
+    static const QStringList unitNames = {QLatin1String("(auto)"), QLatin1String("px"), QLatin1String("%")};
+    const QDomElement displayElement = content.firstChildElement(QLatin1String("Display"));
+    const QDomElement printElement = content.firstChildElement(QLatin1String("Print"));
     m_displaySize.width = displayElement.attribute(QLatin1String("width")).toDouble();
     m_displaySize.height = displayElement.attribute(QLatin1String("height")).toDouble();
     m_displaySize.widthUnit = unitNames.indexOf(displayElement.attribute(QLatin1String("widthUnit")));
@@ -105,7 +163,6 @@ void ImageEntry::setContent(const QDomElement& content, const KZip& file)
     m_printSize.height = printElement.attribute(QLatin1String("height")).toDouble();
     m_printSize.widthUnit = unitNames.indexOf(printElement.attribute(QLatin1String("widthUnit")));
     m_printSize.heightUnit = unitNames.indexOf(printElement.attribute(QLatin1String("heightUnit")));
-    updateEntry();
 }
 
 void ImageEntry::setContentFromJupyter(const QJsonObject& cell)
@@ -119,7 +176,7 @@ QJsonValue ImageEntry::toJupyterJson()
 {
     QJsonValue value;
 
-    if (!m_imagePath.isEmpty() && m_imageItem)
+    if (!(m_userImagePath.isEmpty() && m_internalImagePath.isEmpty()) && m_imageItem)
     {
         const QImage& image = m_imageItem->pixmap().toImage();
         if (!image.isNull())
@@ -149,60 +206,88 @@ QJsonValue ImageEntry::toJupyterJson()
     return value;
 }
 
-QDomElement ImageEntry::toXml(QDomDocument& doc, KZip* archive)
+QDomElement ImageEntry::toXml(QDomDocument& doc, KZip& archive)
 {
-    Q_UNUSED(archive);
-
-    static QStringList unitNames;
-    if (unitNames.isEmpty())
-        unitNames << QLatin1String("(auto)") << QLatin1String("px") << QLatin1String("%");
-
-    archive->addLocalFile(m_imagePath, QUrl::fromLocalFile(m_imagePath).fileName());
-
     QDomElement image = doc.createElement(QLatin1String("Image"));
+
+    const QString imagePath = m_userImagePath.isEmpty() ? m_internalImagePath : m_userImagePath;
+    const QFileInfo imageInfo(imagePath);
+
+    QString archiveName = QLatin1String("cantor_imageentry_") + QUuid::createUuid().toString(QUuid::WithoutBraces);
+
+    const QString suffix = imageInfo.suffix();
+    if (!suffix.isEmpty())
+    {
+        archiveName += QLatin1Char('.');
+        archiveName += suffix;
+    }
+
+    const QString sourcePath = imageInfo.canonicalFilePath();
+    if (!sourcePath.isEmpty() && archive.addLocalFile(sourcePath, archiveName))
+    {
+        QDomElement fileNameElement = doc.createElement(QLatin1String("FileName"));
+        fileNameElement.appendChild(doc.createTextNode(archiveName));
+        image.appendChild(fileNameElement);
+    }
+
+    appendSizeProperties(doc, image);
+
+    QDomElement latexSizeElement = doc.createElement(QLatin1String("LatexSizeString"));
+    const QString sizeString = m_useDisplaySizeForPrinting ? latexSizeString(m_displaySize) : latexSizeString(m_printSize);
+    latexSizeElement.appendChild(doc.createTextNode(sizeString));
+    image.appendChild(latexSizeElement);
+
+    // Preserve the legacy Path consumed by latex.xsl; archive import uses FileName.
     QDomElement path = doc.createElement(QLatin1String("Path"));
-    QDomElement fileName = doc.createElement(QLatin1String("FileName"));
-    QDomText pathText = doc.createTextNode(m_imagePath);
-    QDomText fileNameText = doc.createTextNode(QUrl::fromLocalFile(m_imagePath).fileName());
-    path.appendChild(pathText);
-    fileName.appendChild(fileNameText);
-    image.appendChild(fileName);
+    path.appendChild(doc.createTextNode(imagePath));
     image.appendChild(path);
 
-    QDomElement display = doc.createElement(QLatin1String("Display"));
-    display.setAttribute(QLatin1String("width"), m_displaySize.width);
-    display.setAttribute(QLatin1String("widthUnit"), unitNames[m_displaySize.widthUnit]);
-    display.setAttribute(QLatin1String("height"), m_displaySize.height);
-    display.setAttribute(QLatin1String("heightUnit"), unitNames[m_displaySize.heightUnit]);
-    image.appendChild(display);
-
-    QDomElement print = doc.createElement(QLatin1String("Print"));
-    print.setAttribute(QLatin1String("useDisplaySize"), m_useDisplaySizeForPrinting);
-    print.setAttribute(QLatin1String("width"), m_printSize.width);
-    print.setAttribute(QLatin1String("widthUnit"), unitNames[m_printSize.widthUnit]);
-    print.setAttribute(QLatin1String("height"), m_printSize.height);
-    print.setAttribute(QLatin1String("heightUnit"), unitNames[m_printSize.heightUnit]);
-    image.appendChild(print);
-
-    // For the conversion to latex
-    QDomElement latexSize = doc.createElement(QLatin1String("LatexSizeString"));
-    QString sizeString;
-    if (m_useDisplaySizeForPrinting)
-        sizeString = latexSizeString(m_displaySize);
-    else
-        sizeString = latexSizeString(m_printSize);
-    QDomText latexSizeString = doc.createTextNode(sizeString);
-    latexSize.appendChild(latexSizeString);
-    image.appendChild(latexSize);
-
     return image;
+}
+
+QDomElement ImageEntry::toXml(QDomDocument& doc)
+{
+    QDomElement image = doc.createElement(QLatin1String("Image"));
+    QString sourcePath = m_userImagePath.isEmpty() ? m_internalImagePath : m_userImagePath;
+
+    QFile file(sourcePath);
+    if (file.open(QIODevice::ReadOnly))
+    {
+        QDomElement dataElement = doc.createElement(QLatin1String("Data"));
+        dataElement.setAttribute(QLatin1String("name"), QFileInfo(sourcePath).fileName());
+        dataElement.setAttribute(QLatin1String("suffix"), QFileInfo(sourcePath).suffix());
+        dataElement.appendChild(doc.createTextNode(QString::fromLatin1(file.readAll().toBase64())));
+        image.appendChild(dataElement);
+    }
+
+    appendSizeProperties(doc, image);
+    return image;
+}
+
+void ImageEntry::appendSizeProperties(QDomDocument& doc, QDomElement& image) const
+{
+    static const QStringList unitNames = {QLatin1String("(auto)"), QLatin1String("px"), QLatin1String("%")};
+    QDomElement displayElement = doc.createElement(QLatin1String("Display"));
+    displayElement.setAttribute(QLatin1String("width"), m_displaySize.width);
+    displayElement.setAttribute(QLatin1String("widthUnit"), unitNames.value(m_displaySize.widthUnit, unitNames[0]));
+    displayElement.setAttribute(QLatin1String("height"), m_displaySize.height);
+    displayElement.setAttribute(QLatin1String("heightUnit"), unitNames.value(m_displaySize.heightUnit, unitNames[0]));
+    image.appendChild(displayElement);
+
+    QDomElement printElement = doc.createElement(QLatin1String("Print"));
+    printElement.setAttribute(QLatin1String("useDisplaySize"), m_useDisplaySizeForPrinting);
+    printElement.setAttribute(QLatin1String("width"), m_printSize.width);
+    printElement.setAttribute(QLatin1String("widthUnit"), unitNames.value(m_printSize.widthUnit, unitNames[0]));
+    printElement.setAttribute(QLatin1String("height"), m_printSize.height);
+    printElement.setAttribute(QLatin1String("heightUnit"), unitNames.value(m_printSize.heightUnit, unitNames[0]));
+    image.appendChild(printElement);
 }
 
 QString ImageEntry::toPlain(const QString& commandSep, const QString& commentStartingSeq, const QString& commentEndingSeq)
 {
     Q_UNUSED(commandSep);
-
-    return commentStartingSeq + QLatin1String("image: ") + m_imagePath  + commentEndingSeq;
+    QString imagePath = m_userImagePath.isEmpty() ? m_internalImagePath : m_userImagePath;
+    return commentStartingSeq + QLatin1String("image: ") + imagePath  + commentEndingSeq;
 }
 
 QString ImageEntry::latexSizeString(const ImageSize& imgSize)
@@ -252,7 +337,7 @@ qreal ImageEntry::height()
 void ImageEntry::updateEntry()
 {
     qreal oldHeight = height();
-    if (m_imagePath.isEmpty()) {
+    if (m_userImagePath.isEmpty() && m_internalImagePath.isEmpty()) {
         m_textItem->setPlainText(i18n("Double click here to configure image settings"));
         m_textItem->setVisible(true);
         if (m_imageItem)
@@ -263,40 +348,26 @@ void ImageEntry::updateEntry()
         if (!m_imageItem)
             m_imageItem = new WorksheetImageItem(this);
 
-        // This if-else block was used for backward compatibility for *cws files
-        // without FileName tag. After some releases from 20.08 version, it will
-        // be possible to remove the else part and strip the m_imagePath from the
-        // code and Path tag from the CWS format
-        if (!m_fileName.isNull()) {
-            QString imagePath = QStandardPaths::writableLocation(QStandardPaths::TempLocation) + QDir::separator() + m_fileName;
-            if (imagePath.endsWith(QLatin1String(".eps"), Qt::CaseInsensitive)) {
-                m_imageItem->setPdf(QUrl::fromLocalFile(imagePath));
-            } else {
-                m_imageItem->setImage(QImage(imagePath));
-            }
-        } else {
-            if (m_imagePath.endsWith(QLatin1String(".eps"), Qt::CaseInsensitive)) {
-                m_imageItem->setPdf(QUrl::fromLocalFile(m_imagePath));
-            } else {
-                QImage img(m_imagePath);
-                m_imageItem->setImage(img);
-            }
-        }
+        QString imagePath = m_userImagePath.isEmpty() ? m_internalImagePath : m_userImagePath;
+        // we no longer have an EPS renderer. The old EPS branch called setPdf(),
+        // which is PDF-only after the removal of libspectre and cannot render EPS.
+        m_imageItem->setImage(QImage(imagePath));
 
         if (!m_imageItem->imageIsValid()) {
-            const QString msg = i18n("Cannot load image %1", m_imagePath);
+            if (m_imageWatcher->files().contains(imagePath))
+                m_imageWatcher->removePath(imagePath);
+            const QString msg = i18n("Cannot load image %1", imagePath);
             m_textItem->setPlainText(msg);
             m_textItem->setVisible(true);
             m_imageItem->setVisible(false);
         } else {
+            if (!m_imageWatcher->files().contains(imagePath))
+                m_imageWatcher->addPath(imagePath);
             QSizeF size;
             if (worksheet()->isPrinting() && ! m_useDisplaySizeForPrinting)
                 size = imageSize(m_printSize);
             else
                 size = imageSize(m_displaySize);
-            // Hack: Eps images need to be scaled
-            if (m_imagePath.endsWith(QLatin1String(".eps"), Qt::CaseInsensitive))
-                size /= worksheet()->renderer()->scale();
             m_imageItem->setSize(size);
             m_textItem->setVisible(false);
             m_imageItem->setVisible(true);
@@ -340,8 +411,9 @@ QSizeF ImageEntry::imageSize(const ImageSize& imgSize)
 
 void ImageEntry::startConfigDialog()
 {
+    QString imagePath = m_userImagePath.isEmpty() ? m_internalImagePath : m_userImagePath;
     ImageSettingsDialog* dialog = new ImageSettingsDialog(worksheet()->worksheetView());
-    dialog->setData(m_imagePath, m_displaySize, m_printSize,
+    dialog->setData(imagePath, m_displaySize, m_printSize,
                     m_useDisplaySizeForPrinting);
     connect(dialog, &ImageSettingsDialog::dataChanged, this, &ImageEntry::setImageData);
     dialog->show();
@@ -352,10 +424,24 @@ void ImageEntry::setImageData(const QString& path,
                               const ImageSize& printSize,
                               bool useDisplaySizeForPrinting)
 {
-    if (path != m_imagePath) {
-        m_imageWatcher->removePath(m_imagePath);
-        m_imageWatcher->addPath(path);
-        m_imagePath = path;
+    if (path.isEmpty())
+    {
+        if (!m_userImagePath.isEmpty() && m_imageWatcher->files().contains(m_userImagePath))
+            m_imageWatcher->removePath(m_userImagePath);
+
+        m_userImagePath.clear();
+        clearInternalImage();
+    }
+    else {
+        if (path != m_internalImagePath && path != m_userImagePath) {
+            if (!m_userImagePath.isEmpty() && m_imageWatcher->files().contains(m_userImagePath))
+                m_imageWatcher->removePath(m_userImagePath);
+            m_userImagePath = path;
+        }
+
+        if (path != m_internalImagePath) {
+            clearInternalImage();
+        }
     }
 
     m_displaySize = displaySize;
@@ -384,7 +470,7 @@ void ImageEntry::layOutForWidth(qreal entry_zone_x, qreal w, bool force)
         m_imageItem->setGeometry(entry_zone_x, 0, w - margin - entry_zone_x, true);
         width = m_imageItem->width();
     } else {
-        m_textItem->setGeometry(entry_zone_x, 0, w - margin - entry_zone_x, true);
+        m_textItem->setGeometry(entry_zone_x, 0, w - margin - entry_zone_x, false);
         width = m_textItem->width();
     }
 
@@ -404,4 +490,19 @@ bool ImageEntry::wantFocus()
 void ImageEntry::mouseDoubleClickEvent(QGraphicsSceneMouseEvent*)
 {
     startConfigDialog();
+}
+
+void ImageEntry::clearInternalImage()
+{
+    if (!m_internalImagePath.isEmpty())
+    {
+        if (m_imageWatcher->files().contains(m_internalImagePath))
+            m_imageWatcher->removePath(m_internalImagePath);
+        m_internalImagePath.clear();
+    }
+
+    if (!m_archiveTempDirPath.isEmpty())
+    {
+        m_archiveTempDirPath.clear();
+    }
 }
