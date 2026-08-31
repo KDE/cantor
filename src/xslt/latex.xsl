@@ -76,4 +76,16 @@
     <xsl:value-of select="normalize-space()"/>
 </xsl:template>
 
+<xsl:template match="Latex">
+    <xsl:apply-templates select="Code"/>
+</xsl:template>
+
+<xsl:template match="Text[body]">
+    <xsl:apply-templates select="body"/>
+</xsl:template>
+
+<xsl:template match="Markdown">
+    <xsl:apply-templates select="Plain"/>
+</xsl:template>
+
 </xsl:stylesheet>

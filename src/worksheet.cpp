@@ -1648,8 +1648,21 @@ void Worksheet::saveLatex(const QString& filename)
         return;
     }
 
+    QByteArray worksheetXml;
+    {
+        // the temporary archive is auto removed at the end of the block
+        QTemporaryFile temporaryArchiveFile;
+        KZip temporaryArchive(&temporaryArchiveFile);
+        if (!temporaryArchive.open(QIODevice::WriteOnly))
+        {
+            KMessageBox::error(worksheetView(), i18n("Cannot create temporary archive."), i18n("Export to LaTeX"));
+            return;
+        }
+        worksheetXml = toXML(&temporaryArchive).toByteArray();
+    }
+
     xsltStylesheetPtr xsltStyleSheet = xsltParseStylesheetFile((const xmlChar *)stylesheet.toLocal8Bit().constData());
-    xmlDocPtr output = xmlReadDoc((const xmlChar *)toXML().toString().toStdString().c_str(), nullptr, "utf-8", XML_PARSE_RECOVER | XML_PARSE_NOENT | XML_PARSE_DTDLOAD);
+    xmlDocPtr output = xmlReadDoc(reinterpret_cast<const xmlChar*>(worksheetXml.constData()), nullptr, "utf-8", XML_PARSE_RECOVER | XML_PARSE_NOENT | XML_PARSE_DTDLOAD);
 
     const char *params[16+1];
     params[0] = nullptr;
