@@ -42,6 +42,7 @@ class HierarchyEntry : public WorksheetEntry
     bool hasHiddenSubentries() const;
     WorksheetEntry* hiddenSubentries() const;
     WorksheetEntry* takeHiddenSubentries();
+    void setHiddenSubentries(WorksheetEntry&);
 
     QString text() const;
     QString hierarchyText() const;
@@ -64,11 +65,13 @@ class HierarchyEntry : public WorksheetEntry
     bool focusEntry(int pos = WorksheetTextItem::TopLeft, qreal xCoord=0) override;
 
     void setContent(const QString& content) override;
+    void setContent(const QDomElement& content) override;
     void setContent(const QDomElement& content, const KZip& file) override;
     void setContentFromJupyter(const QJsonObject& cell) override;
     static bool isConvertableToHierarchyEntry(const QJsonObject& cell);
 
-    QDomElement toXml(QDomDocument& doc, KZip* archive) override;
+    QDomElement toXml(QDomDocument& doc) override;
+    QDomElement toXml(QDomDocument& doc, KZip& archive) override;
     QJsonValue toJupyterJson() override;
     QString toPlain(const QString& commandSep, const QString& commentStartingSeq, const QString& commentEndingSeq) override;
 
@@ -100,6 +103,9 @@ class HierarchyEntry : public WorksheetEntry
     void updateFonts(bool force = false);
 
   private:
+    void loadContent(const QDomElement& content, const KZip* archive);
+    QDomElement saveContent(QDomDocument& doc, KZip* archive);
+
     WorksheetTextItem* m_hierarchyLevelItem;
     WorksheetTextItem* m_textItem;
     HierarchyLevel m_depth;

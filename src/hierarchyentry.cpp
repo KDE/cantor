@@ -123,29 +123,42 @@ WorksheetEntry* HierarchyEntry::takeHiddenSubentries()
     return hiddenSubentries;
 }
 
+void HierarchyEntry::setHiddenSubentries(WorksheetEntry& hiddenSubentries)
+{
+    m_hidedSubentries = &hiddenSubentries;
+    m_controlElement.isCollapsed = true;
+    m_controlElement.isCollapsable = true;
+    m_controlElement.update();
+
+    for (auto* entry = &hiddenSubentries; entry; entry = entry->next())
+        entry->hide();
+}
+
 void HierarchyEntry::setContent(const QString& content)
 {
     m_textItem->setPlainText(content);
 }
 
-void HierarchyEntry::setContent(const QDomElement& content, const KZip& file)
+void HierarchyEntry::loadContent(const QDomElement& content, const KZip* file)
 {
-    Q_UNUSED(file);
     if(content.firstChildElement(QLatin1String("body")).isNull())
         return;
 
     m_textItem->setPlainText(content.firstChildElement(QLatin1String("body")).text());
-    const QString storedHierarchyId = content.attribute(QLatin1String("hierarchy-id"));
 
-    if (!storedHierarchyId.isEmpty())
-        m_hierarchyId = storedHierarchyId;
+    if (file)
+    {
+        const QString storedHierarchyId = content.attribute(QLatin1String("hierarchy-id"));
+        if (!storedHierarchyId.isEmpty())
+            m_hierarchyId = storedHierarchyId;
+        const QString storedLevelNumber = content.attribute(QLatin1String("level-number"));
+        if (!storedLevelNumber.isEmpty())
+            m_hierarchyNumber = storedLevelNumber.toInt();
+    }
 
     const QDomElement& subentriesMainElem = content.firstChildElement(QLatin1String("HidedSubentries"));
     if (!subentriesMainElem.isNull())
     {
-        m_controlElement.isCollapsable = true;
-        m_controlElement.isCollapsed = true;
-
         const QDomNodeList& entries = subentriesMainElem.childNodes();
 
         WorksheetEntry* tail = nullptr;
@@ -156,12 +169,15 @@ void HierarchyEntry::setContent(const QDomElement& content, const KZip& file)
             Q_ASSERT(type != 0);
 
             WorksheetEntry* entry = WorksheetEntry::create(type, worksheet());
-            entry->setContent(entryElem, file);
+            if (file)
+                entry->setContent(entryElem, *file);
+            else
+                entry->setContent(entryElem);
             entry->hide();
 
             // set m_hidedSubentries to head element
             if (!m_hidedSubentries)
-                m_hidedSubentries = entry;
+                setHiddenSubentries(*entry);
 
             if (tail)
             {
@@ -177,10 +193,19 @@ void HierarchyEntry::setContent(const QDomElement& content, const KZip& file)
         }
     }
 
-    m_depth = (HierarchyLevel)content.attribute(QLatin1String("level")).toInt();
-    m_hierarchyNumber = content.attribute(QLatin1String("level-number")).toInt();
+    m_depth = (HierarchyLevel)content.attribute(QLatin1String("level"), QLatin1String("1")).toInt();
 
     updateFonts(true);
+}
+
+void HierarchyEntry::setContent(const QDomElement& content)
+{
+    loadContent(content, nullptr);
+}
+
+void HierarchyEntry::setContent(const QDomElement& content, const KZip& file)
+{
+    loadContent(content, &file);
 }
 
 void HierarchyEntry::setContentFromJupyter(const QJsonObject& cell)
@@ -259,9 +284,8 @@ bool HierarchyEntry::isConvertableToHierarchyEntry(const QJsonObject& cell)
     return textContent == source;
 }
 
-QDomElement HierarchyEntry::toXml(QDomDocument& doc, KZip* archive)
+QDomElement HierarchyEntry::saveContent(QDomDocument& doc, KZip* archive)
 {
-    Q_UNUSED(archive);
     QDomElement el = doc.createElement(QLatin1String("Hierarchy"));
 
     QDomElement textBodyEl = doc.createElement(QLatin1String("body"));
@@ -273,15 +297,30 @@ QDomElement HierarchyEntry::toXml(QDomDocument& doc, KZip* archive)
     {
         QDomElement entriesElem = doc.createElement(QLatin1String("HidedSubentries"));
         for (WorksheetEntry* entry = m_hidedSubentries; entry; entry = entry->next())
-            entriesElem.appendChild(entry->toXml(doc, archive));
+            if (archive)
+                entriesElem.appendChild(entry->toXml(doc, *archive));
+            else
+                entriesElem.appendChild(entry->toXml(doc));
         el.appendChild(entriesElem);
     }
 
     el.setAttribute(QLatin1String("level"), (int)m_depth);
-    el.setAttribute(QLatin1String("level-number"), m_hierarchyNumber);
-    el.setAttribute(QLatin1String("hierarchy-id"), m_hierarchyId);
+    if (archive) {
+        el.setAttribute(QLatin1String("level-number"), m_hierarchyNumber);
+        el.setAttribute(QLatin1String("hierarchy-id"), m_hierarchyId);
+    }
 
     return el;
+}
+
+QDomElement HierarchyEntry::toXml(QDomDocument& doc)
+{
+    return saveContent(doc, nullptr);
+}
+
+QDomElement HierarchyEntry::toXml(QDomDocument& doc, KZip& archive)
+{
+    return saveContent(doc, &archive);
 }
 
 QString HierarchyEntry::toPlain(const QString& commandSep, const QString& commentStartingSeq, const QString& commentEndingSeq)
@@ -577,10 +616,7 @@ void HierarchyEntry::handleControlElementDoubleClick()
         WorksheetEntry* hiddenSubentries = worksheet()->cutSubentriesForHierarchy(this);
 
         if (hiddenSubentries)
-        {
-            m_hidedSubentries = hiddenSubentries;
-            m_controlElement.isCollapsed = true;
-        }
+            setHiddenSubentries(*hiddenSubentries);
     }
 
     m_controlElement.update();
