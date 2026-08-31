@@ -21,6 +21,7 @@
 #include <QJsonValue>
 #include <QJsonObject>
 #include <QJsonArray>
+#include <QTemporaryDir>
 
 #include <KZip>
 #include <KLocalizedString>
@@ -136,59 +137,48 @@ bool LatexEntry::splitCellContent(WorksheetEntry* newEntry)
     return true;
 }
 
+void LatexEntry::setContent(const QDomElement& content)
+{
+    const QDomElement codeElement = content.firstChildElement(QLatin1String("Code"));
+    setContent(codeElement.isNull() ? content.text() : codeElement.text());
+    m_textItem->document()->clearUndoRedoStacks();
+}
+
 void LatexEntry::setContent(const QDomElement& content, const KZip& file)
 {
-    m_latex = content.text();
-    qDebug() << m_latex;
+    setContent(content);
 
     m_textItem->document()->clear();
     QTextCursor cursor = m_textItem->textCursor();
     cursor.movePosition(QTextCursor::Start);
 
     QString imagePath;
+    QString fileName;
     bool useLatexCode = true;
 
     if(content.hasAttribute(QLatin1String("filename")))
     {
-        const QString fileName = content.attribute(QLatin1String("filename"));
+        fileName = content.attribute(QLatin1String("filename"));
         const KArchiveEntry* imageEntry = file.directory()->entry(fileName);
-        if (imageEntry&&imageEntry->isFile())
+        if (imageEntry && imageEntry->isFile() && fileName.endsWith(QLatin1String(".pdf"), Qt::CaseInsensitive))
         {
             const KArchiveFile* imageFile=static_cast<const KArchiveFile*>(imageEntry);
-            const QString& dir=QStandardPaths::writableLocation(QStandardPaths::TempLocation);
-            imageFile->copyTo(dir);
-            imagePath = dir + QDir::separator() + imageFile->name();
+            const QString tempRoot = QStandardPaths::writableLocation(QStandardPaths::TempLocation);
 
-            if (fileName.endsWith(QLatin1String(".eps"), Qt::CaseInsensitive))
+            QTemporaryDir tempDir(QDir(tempRoot).filePath(QStringLiteral("cantor-latex-XXXXXX")));
+            if (tempDir.isValid() && imageFile->copyTo(tempDir.path()))
             {
-                qDebug() << "Detected old EPS file, rerendering to PDF...";
-                if (renderLatexCode())
-                {
-                    useLatexCode = false;
-                }
-            }
-            else
-            {
-                QString uuid = Cantor::LatexRenderer::genUuid();
-                m_renderedFormat = worksheet()->renderer()->render(m_textItem->document(), QUrl::fromLocalFile(imagePath), uuid);
-
-                if (!m_renderedFormat.name().isEmpty())
-                {
-                    m_renderedFormat.setProperty(Cantor::Renderer::CantorFormula, Cantor::Renderer::LatexFormula);
-                    m_renderedFormat.setProperty(Cantor::Renderer::ImagePath, imagePath);
-                    m_renderedFormat.setProperty(Cantor::Renderer::Code, m_latex);
-
-                    cursor.insertText(QString(QChar::ObjectReplacementCharacter), m_renderedFormat);
-                    useLatexCode = false;
-                    m_textItem->denyEditing();
-                }
+                imagePath = QDir(tempDir.path()).filePath(imageFile->name());
+                tempDir.setAutoRemove(false);
             }
         }
     }
 
-    if (useLatexCode && content.hasAttribute(QLatin1String("image")))
+    if (content.hasAttribute(QLatin1String("image")) || !content.firstChildElement(QLatin1String("RenderedImage")).isNull())
     {
-        const QByteArray& ba = QByteArray::fromBase64(content.attribute(QLatin1String("image")).toLatin1());
+        const QDomElement imageElement = content.firstChildElement(QLatin1String("RenderedImage"));
+        const QString imageData = imageElement.isNull() ? content.attribute(QLatin1String("image")) : imageElement.text();
+        const QByteArray ba = QByteArray::fromBase64(imageData.toLatin1());
         QImage image;
         if (image.loadFromData(ba))
         {
@@ -200,8 +190,8 @@ void LatexEntry::setContent(const QDomElement& content, const KZip& file)
             m_textItem->document()->addResource(QTextDocument::ImageResource, internal, QVariant(image));
 
             m_renderedFormat.setName(internal.url());
-            m_renderedFormat.setWidth(image.width());
-            m_renderedFormat.setHeight(image.height());
+            m_renderedFormat.setWidth(imageElement.attribute(QLatin1String("width"), QString::number(image.width())).toDouble());
+            m_renderedFormat.setHeight(imageElement.attribute(QLatin1String("height"), QString::number(image.height())).toDouble());
 
             m_renderedFormat.setProperty(Cantor::Renderer::CantorFormula, Cantor::Renderer::LatexFormula);
             if (!imagePath.isEmpty())
@@ -214,8 +204,25 @@ void LatexEntry::setContent(const QDomElement& content, const KZip& file)
         }
     }
 
+    if (useLatexCode && !imagePath.isEmpty() && fileName.endsWith(QLatin1String(".pdf"), Qt::CaseInsensitive))
+    {
+        QString uuid = Cantor::LatexRenderer::genUuid();
+        m_renderedFormat = worksheet()->renderer()->render(m_textItem->document(), QUrl::fromLocalFile(imagePath), uuid);
+
+        if (!m_renderedFormat.name().isEmpty())
+        {
+            m_renderedFormat.setProperty(Cantor::Renderer::CantorFormula, Cantor::Renderer::LatexFormula);
+            m_renderedFormat.setProperty(Cantor::Renderer::ImagePath, imagePath);
+            m_renderedFormat.setProperty(Cantor::Renderer::Code, m_latex);
+
+            cursor.insertText(QString(QChar::ObjectReplacementCharacter), m_renderedFormat);
+            useLatexCode = false;
+            m_textItem->denyEditing();
+        }
+    }
+
     if (useLatexCode)
-        cursor.insertText(m_latex);
+        setContent(content);
 }
 
 void LatexEntry::setContentFromJupyter(const QJsonObject& cell)
@@ -321,35 +328,45 @@ QJsonValue LatexEntry::toJupyterJson()
     return entry;
 }
 
-QDomElement LatexEntry::toXml(QDomDocument& doc, KZip* archive)
+QDomElement LatexEntry::toXml(QDomDocument& doc)
 {
-    QDomElement el = doc.createElement(QLatin1String("Latex"));
-    el.appendChild( doc.createTextNode( latexCode() ));
+    QDomElement element = doc.createElement(QLatin1String("Latex"));
+    QDomElement codeElement = doc.createElement(QLatin1String("Code"));
+    codeElement.appendChild(doc.createTextNode(latexCode()));
+    element.appendChild(codeElement);
+    return element;
+}
+
+QDomElement LatexEntry::toXml(QDomDocument& doc, KZip& archive)
+{
+    QDomElement el = toXml(doc);
 
     QTextCursor cursor = m_textItem->document()->find(QString(QChar::ObjectReplacementCharacter));
     if (!cursor.isNull())
     {
         QTextImageFormat format=cursor.charFormat().toImageFormat();
         QString fileName = format.property(Cantor::Renderer::ImagePath).toString();
-        bool isImageFileExists = QFile::exists(fileName);
-
-        if (!isImageFileExists && renderLatexCode())
-        {
-            cursor = m_textItem->document()->find(QString(QChar::ObjectReplacementCharacter));
-            format=cursor.charFormat().toImageFormat();
-            fileName = format.property(Cantor::Renderer::ImagePath).toString();
-            isImageFileExists = QFile::exists(fileName);
-        }
-        if (isImageFileExists && archive)
+        if (QFile::exists(fileName))
         {
             const QUrl& url=QUrl::fromLocalFile(fileName);
-            archive->addLocalFile(url.toLocalFile(), url.fileName());
-            el.setAttribute(QLatin1String("filename"), url.fileName());
+            if (archive.addLocalFile(url.toLocalFile(), url.fileName()))
+                el.setAttribute(QLatin1String("filename"), url.fileName());
         }
 
-        // Save also rendered QImage, if exist.
-        QUrl internal;
-        internal.setUrl(format.name());
+        const QImage image = m_textItem->document()->resource(QTextDocument::ImageResource, QUrl(format.name())).value<QImage>();
+        if (!image.isNull())
+        {
+            QByteArray data;
+            QBuffer buffer(&data);
+            buffer.open(QIODevice::WriteOnly);
+            image.save(&buffer, "PNG");
+
+            QDomElement imageElement = doc.createElement(QLatin1String("RenderedImage"));
+            imageElement.setAttribute(QLatin1String("width"), format.width());
+            imageElement.setAttribute(QLatin1String("height"), format.height());
+            imageElement.appendChild(doc.createTextNode(QString::fromLatin1(data.toBase64())));
+            el.appendChild(imageElement);
+        }
     }
 
     return el;
@@ -413,10 +430,16 @@ void LatexEntry::updateEntry()
     while (!cursor.isNull())
     {
         qDebug() << "Found a formula, re-rendering using PDF renderer...";
-        QTextImageFormat format=cursor.charFormat().toImageFormat();
-        const QUrl& url=QUrl::fromLocalFile(format.property(Cantor::Renderer::ImagePath).toString());
-        QSizeF s = worksheet()->renderer()->renderToResource(m_textItem->document(), url, QUrl(format.name()));
-        qDebug()<<"rendering successful? "<< s.isValid();
+        const QTextImageFormat format = cursor.charFormat().toImageFormat();
+        const QString imagePath = format.property(Cantor::Renderer::ImagePath).toString();
+        if (!imagePath.isEmpty() && QFile::exists(imagePath))
+        {
+            QSizeF size;
+            const QImage image = worksheet()->renderer()->renderToImage(QUrl::fromLocalFile(imagePath), &size);
+            if (!image.isNull())
+                m_textItem->document()->addResource(QTextDocument::ImageResource, QUrl(format.name()), image);
+            qDebug()<<"rendering successful? "<< !image.isNull();
+        }
 
         cursor.movePosition(QTextCursor::NextCharacter);
 
@@ -544,19 +567,17 @@ void LatexEntry::layOutForWidth(qreal entry_zone_x, qreal w, bool force)
 
 bool LatexEntry::wantToEvaluate()
 {
-    return !isOneImageOnly();
+    return Cantor::LatexRenderer::isLatexAvailable() && !isOneImageOnly();
 }
 
 bool LatexEntry::renderLatexCode()
 {
     if (!Cantor::LatexRenderer::isLatexAvailable())
-    {
-        m_textItem->denyEditing();
-        return true;
-    }
+        return false;
 
     bool success = false;
-    QString latex = latexCode();
+    const QString source = latexCode();
+    QString latex = source;
 
     // For LaTeXEntry, always use display mode: strip delimiters and use FullEquation
     // This ensures consistent rendering for both $ and $ inputs
@@ -581,6 +602,8 @@ bool LatexEntry::renderLatexCode()
         Cantor::Renderer* pdfRend = worksheet()->renderer();
         m_renderedFormat = pdfRend->render(m_textItem->document(), renderer);
         success = !m_renderedFormat.name().isEmpty();
+        if (success)
+            m_renderedFormat.setProperty(Cantor::Renderer::Code, source);
     }
     else
         qWarning() << "Fail to render LatexEntry with error " << renderer->errorMessage();

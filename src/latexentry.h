@@ -30,11 +30,17 @@ class LatexEntry : public WorksheetEntry
     bool focusEntry(int pos = WorksheetTextItem::TopLeft, qreal xCoord = 0) override;
 
     void setContent(const QString& content) override;
+    // Source-only XML used by worksheet-entry copy/paste.
+    void setContent(const QDomElement& content) override;
+    // Project XML: restores the source and any archived rendered representation.
     void setContent(const QDomElement& content, const KZip& file) override;
     void setContentFromJupyter(const QJsonObject & cell) override;
     static bool isConvertableToLatexEntry(const QJsonObject& cell);
 
-    QDomElement toXml(QDomDocument& doc, KZip* archive) override;
+    // Source-only XML used by worksheet-entry copy/paste.
+    QDomElement toXml(QDomDocument& doc) override;
+    // Project XML: stores the source and the complete rendered representation.
+    QDomElement toXml(QDomDocument& doc, KZip& archive) override;
     QJsonValue toJupyterJson() override;
     QString toPlain(const QString& commandSep, const QString& commentStartingSeq, const QString& commentEndingSeq) override;
 
