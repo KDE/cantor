@@ -37,6 +37,9 @@ class WorksheetTest: public QObject
     void testCommandEntryExecutionAction2();
     void testCollapsingAllResultsAction();
     void testRemovingAllResultsAction();
+    void testWorksheetEntryClipboard();
+    void testWorksheetEntryClipboardImages();
+    void testWorksheetEntryClipboardHierarchy();
 
     /* common features tests */
     void testMathRender();

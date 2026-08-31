@@ -4,9 +4,15 @@
 */
 
 #include <QtTest>
+#include <QApplication>
+#include <QClipboard>
 #include <QDebug>
+#include <QDir>
+#include <QFontDatabase>
 #include <KLocalizedString>
 #include <QMovie>
+#include <QMimeData>
+#include <QTemporaryFile>
 #include <KZip>
 #include <KActionCollection>
 
@@ -19,6 +25,10 @@
 #include "../markdownentry.h"
 #include "../commandentry.h"
 #include "../latexentry.h"
+#include "../imageentry.h"
+#include "../hierarchyentry.h"
+#include "../horizontalruleentry.h"
+#include "../pagebreakentry.h"
 #include "../lib/backend.h"
 #include "../lib/expression.h"
 #include "../lib/result.h"
@@ -30,6 +40,7 @@
 #include "../lib/htmlresult.h"
 
 #include "config-cantor-test.h"
+#include <config-cantor.h>
 
 static const QString dataPath = QString::fromLocal8Bit(PATH_TO_TEST_NOTEBOOKS)+QLatin1String("/");
 
@@ -6982,6 +6993,385 @@ void WorksheetTest::testRemovingAllResultsAction()
     QCOMPARE(entry, nullptr);
 }
 
+void WorksheetTest::testWorksheetEntryClipboard()
+{
+    Worksheet worksheet(nullptr, nullptr, false);
+    WorksheetView view(&worksheet, nullptr);
+
+    QDomDocument commandSetupDocument;
+    QDomElement commandSetup = commandSetupDocument.createElement(QLatin1String("Expression"));
+    commandSetup.setAttribute(QLatin1String("command-title"), QLatin1String("Answer"));
+    commandSetup.setAttribute(QLatin1String("ExecutionDisabled"), 1);
+    QDomElement commandContent = commandSetupDocument.createElement(QLatin1String("Command"));
+    commandContent.appendChild(commandSetupDocument.createTextNode(QLatin1String("print(42)")));
+    commandSetup.appendChild(commandContent);
+
+    const QColor commandBackground(12, 34, 56);
+    QDomElement commandBackgroundElement = commandSetupDocument.createElement(QLatin1String("Background"));
+    commandBackgroundElement.setAttribute(QLatin1String("red"), commandBackground.red());
+    commandBackgroundElement.setAttribute(QLatin1String("green"), commandBackground.green());
+    commandBackgroundElement.setAttribute(QLatin1String("blue"), commandBackground.blue());
+    commandSetup.appendChild(commandBackgroundElement);
+
+    const QColor commandTextColor(78, 90, 123);
+    const QFont fixedFont = QFontDatabase::systemFont(QFontDatabase::FixedFont);
+    const int commandPointSize = fixedFont.pointSize() + 2;
+    QDomElement commandTextElement = commandSetupDocument.createElement(QLatin1String("Text"));
+    QDomElement commandColorElement = commandSetupDocument.createElement(QLatin1String("Color"));
+    commandColorElement.setAttribute(QLatin1String("red"), commandTextColor.red());
+    commandColorElement.setAttribute(QLatin1String("green"), commandTextColor.green());
+    commandColorElement.setAttribute(QLatin1String("blue"), commandTextColor.blue());
+    commandTextElement.appendChild(commandColorElement);
+    QDomElement commandFontElement = commandSetupDocument.createElement(QLatin1String("Font"));
+    commandFontElement.setAttribute(QLatin1String("family"), fixedFont.family());
+    commandFontElement.setAttribute(QLatin1String("pointSize"), commandPointSize);
+    commandFontElement.setAttribute(QLatin1String("weight"), static_cast<int>(QFont::Bold));
+    commandFontElement.setAttribute(QLatin1String("italic"), 1);
+    commandFontElement.setAttribute(QLatin1String("strikeout"), 1);
+    commandFontElement.setAttribute(QLatin1String("underline"), 1);
+    commandTextElement.appendChild(commandFontElement);
+    commandSetup.appendChild(commandTextElement);
+
+    auto* command = static_cast<CommandEntry*>(worksheet.appendCommandEntry());
+    command->setContent(commandSetup);
+    const QString commandId = command->commandId();
+
+    worksheet.copyEntry(command);
+    QVERIFY(worksheet.canPasteEntry());
+    const QMimeData* mimeData = QApplication::clipboard()->mimeData();
+    QVERIFY(mimeData->hasFormat(QStringLiteral("application/x-cantor-worksheet-entry+xml")));
+    QVERIFY(!mimeData->hasText());
+
+    auto* pastedEntry = worksheet.pasteEntryBelow(command);
+    QVERIFY(pastedEntry);
+    QCOMPARE(pastedEntry->type(), CommandEntry::Type);
+    auto* commandCopy = static_cast<CommandEntry*>(pastedEntry);
+    QCOMPARE(command->next(), commandCopy);
+    QCOMPARE(commandCopy->previous(), command);
+    QCOMPARE(commandCopy->command(), QLatin1String("print(42)"));
+    QCOMPARE(commandCopy->displayName(), QLatin1String("Answer"));
+    QVERIFY(commandCopy->isExcludedFromExecution());
+    QVERIFY(commandCopy->commandId() != commandId);
+    QVERIFY(!commandCopy->expression());
+
+    QDomDocument commandDocument;
+    const QDomElement commandElement = commandCopy->toXml(commandDocument);
+    QVERIFY(!commandElement.hasAttribute(QLatin1String("command-id")));
+    QVERIFY(commandElement.firstChildElement(QLatin1String("Result")).isNull());
+    const QDomElement copiedBackground = commandElement.firstChildElement(QLatin1String("Background"));
+    QCOMPARE(copiedBackground.attribute(QLatin1String("red")).toInt(), commandBackground.red());
+    QCOMPARE(copiedBackground.attribute(QLatin1String("green")).toInt(), commandBackground.green());
+    QCOMPARE(copiedBackground.attribute(QLatin1String("blue")).toInt(), commandBackground.blue());
+    const QDomElement copiedText = commandElement.firstChildElement(QLatin1String("Text"));
+    const QDomElement copiedColor = copiedText.firstChildElement(QLatin1String("Color"));
+    QCOMPARE(copiedColor.attribute(QLatin1String("red")).toInt(), commandTextColor.red());
+    QCOMPARE(copiedColor.attribute(QLatin1String("green")).toInt(), commandTextColor.green());
+    QCOMPARE(copiedColor.attribute(QLatin1String("blue")).toInt(), commandTextColor.blue());
+    const QDomElement copiedFont = copiedText.firstChildElement(QLatin1String("Font"));
+    QCOMPARE(copiedFont.attribute(QLatin1String("family")), fixedFont.family());
+    QCOMPARE(copiedFont.attribute(QLatin1String("pointSize")).toInt(), commandPointSize);
+    QCOMPARE(copiedFont.attribute(QLatin1String("weight")).toInt(), static_cast<int>(QFont::Bold));
+    QCOMPARE(copiedFont.attribute(QLatin1String("italic")).toInt(), 1);
+    QCOMPARE(copiedFont.attribute(QLatin1String("strikeout")).toInt(), 1);
+    QCOMPARE(copiedFont.attribute(QLatin1String("underline")).toInt(), 1);
+
+    auto* text = static_cast<TextEntry*>(worksheet.appendTextEntry());
+    text->setContent(QLatin1String("formatted text"));
+    QDomDocument textSetupDocument;
+    QDomElement textSetup = text->toXml(textSetupDocument);
+    textSetup.setAttribute(QLatin1String("convertTarget"), QLatin1String("text/x-rst"));
+    text->setContent(textSetup);
+    worksheet.copyEntry(text);
+    pastedEntry = worksheet.pasteEntryBelow(text);
+    QVERIFY(pastedEntry);
+    QCOMPARE(pastedEntry->type(), TextEntry::Type);
+    auto* textCopy = static_cast<TextEntry*>(pastedEntry);
+    QCOMPARE(text->next(), textCopy);
+    QCOMPARE(textCopy->previous(), text);
+    QCOMPARE(plainText(textCopy), QLatin1String("formatted text"));
+    QDomDocument textDocument;
+    QCOMPARE(textCopy->toXml(textDocument).attribute(QLatin1String("convertTarget")), QLatin1String("text/x-rst"));
+
+    auto* markdown = static_cast<MarkdownEntry*>(worksheet.appendMarkdownEntry());
+    markdown->setContent(QLatin1String("**markdown**"));
+    worksheet.copyEntry(markdown);
+    pastedEntry = worksheet.pasteEntryBelow(markdown);
+    QVERIFY(pastedEntry);
+    QCOMPARE(pastedEntry->type(), MarkdownEntry::Type);
+    auto* markdownCopy = static_cast<MarkdownEntry*>(pastedEntry);
+    QCOMPARE(markdown->next(), markdownCopy);
+    QCOMPARE(markdownCopy->previous(), markdown);
+    QCOMPARE(markdownCopy->plainText(), QLatin1String("**markdown**"));
+    QDomDocument markdownCopyDocument;
+    QCOMPARE(markdownCopy->toXml(markdownCopyDocument).attribute(QLatin1String("rendered")).toInt(), 0);
+
+#ifdef Discount_FOUND
+    auto* renderedMarkdown = static_cast<MarkdownEntry*>(worksheet.appendMarkdownEntry());
+    renderedMarkdown->setContent(QLatin1String("# rendered\n$ x + y $"));
+    QVERIFY(renderedMarkdown->evaluate(WorksheetEntry::InternalEvaluation));
+    QDomDocument renderedMarkdownDocument;
+    QCOMPARE(renderedMarkdown->toXml(renderedMarkdownDocument).attribute(QLatin1String("rendered")).toInt(), 0);
+
+    worksheet.copyEntry(renderedMarkdown);
+    QVERIFY(worksheet.canPasteEntry());
+    pastedEntry = worksheet.pasteEntryBelow(renderedMarkdown);
+    QVERIFY(pastedEntry);
+    QCOMPARE(pastedEntry->type(), MarkdownEntry::Type);
+    auto* renderedMarkdownCopy = static_cast<MarkdownEntry*>(pastedEntry);
+    QCOMPARE(renderedMarkdown->next(), renderedMarkdownCopy);
+    QCOMPARE(renderedMarkdownCopy->previous(), renderedMarkdown);
+    QCOMPARE(renderedMarkdownCopy->plainText(), QLatin1String("# rendered\n$ x + y $"));
+    const auto renderedState = [](MarkdownEntry* entry) {
+        QDomDocument document;
+        return entry->toXml(document).attribute(QLatin1String("rendered")).toInt();
+    };
+    QApplication::processEvents();
+    QCOMPARE(renderedState(renderedMarkdownCopy), 0);
+#endif
+
+    auto* latex = static_cast<LatexEntry*>(worksheet.appendLatexEntry());
+    latex->setContent(QLatin1String("x^2"));
+    worksheet.copyEntry(latex);
+    pastedEntry = worksheet.pasteEntryBelow(latex);
+    QVERIFY(pastedEntry);
+    QCOMPARE(pastedEntry->type(), LatexEntry::Type);
+    auto* latexCopy = static_cast<LatexEntry*>(pastedEntry);
+    QCOMPARE(latex->next(), latexCopy);
+    QCOMPARE(latexCopy->previous(), latex);
+    QCOMPARE(latexCopy->plain(), QLatin1String("x^2"));
+
+    auto* rule = static_cast<HorizontalRuleEntry*>(worksheet.appendHorizontalRuleEntry());
+    QDomDocument ruleSetupDocument;
+    QDomElement ruleSetup = ruleSetupDocument.createElement(QLatin1String("HorizontalRule"));
+    ruleSetup.setAttribute(QLatin1String("thickness"), static_cast<int>(HorizontalRuleEntry::Thick));
+    ruleSetup.setAttribute(QLatin1String("style"), static_cast<int>(Qt::DashDotLine));
+    const QColor ruleColor(23, 45, 67);
+    QDomElement ruleColorElement = ruleSetupDocument.createElement(QLatin1String("lineColor"));
+    ruleColorElement.setAttribute(QLatin1String("red"), ruleColor.red());
+    ruleColorElement.setAttribute(QLatin1String("green"), ruleColor.green());
+    ruleColorElement.setAttribute(QLatin1String("blue"), ruleColor.blue());
+    ruleSetup.appendChild(ruleColorElement);
+    rule->setContent(ruleSetup);
+    worksheet.copyEntry(rule);
+    pastedEntry = worksheet.pasteEntryBelow(rule);
+    QVERIFY(pastedEntry);
+    QCOMPARE(pastedEntry->type(), HorizontalRuleEntry::Type);
+    QCOMPARE(rule->next(), pastedEntry);
+    QCOMPARE(pastedEntry->previous(), rule);
+    QDomDocument ruleDocument;
+    const QDomElement copiedRule = pastedEntry->toXml(ruleDocument);
+    QCOMPARE(copiedRule.attribute(QLatin1String("thickness")).toInt(), static_cast<int>(HorizontalRuleEntry::Thick));
+    QCOMPARE(copiedRule.attribute(QLatin1String("style")).toInt(), static_cast<int>(Qt::DashDotLine));
+    const QDomElement copiedRuleColor = copiedRule.firstChildElement(QLatin1String("lineColor"));
+    QCOMPARE(copiedRuleColor.attribute(QLatin1String("red")).toInt(), ruleColor.red());
+    QCOMPARE(copiedRuleColor.attribute(QLatin1String("green")).toInt(), ruleColor.green());
+    QCOMPARE(copiedRuleColor.attribute(QLatin1String("blue")).toInt(), ruleColor.blue());
+
+    auto* pageBreak = worksheet.appendPageBreakEntry();
+    worksheet.copyEntry(pageBreak);
+    auto* pageBreakCopy = worksheet.pasteEntryBelow(pageBreak);
+    QVERIFY(pageBreakCopy);
+    QCOMPARE(pageBreakCopy->type(), PageBreakEntry::Type);
+    QCOMPARE(pageBreak->next(), pageBreakCopy);
+    QCOMPARE(pageBreakCopy->previous(), pageBreak);
+
+    auto* invalidVersionMimeData = new QMimeData;
+    invalidVersionMimeData->setData(QStringLiteral("application/x-cantor-worksheet-entry+xml"), QByteArrayLiteral("<CantorWorksheetEntries version=\"2\"><Text><body/></Text></CantorWorksheetEntries>"));
+    QApplication::clipboard()->setMimeData(invalidVersionMimeData);
+    QVERIFY(!worksheet.canPasteEntry());
+    QVERIFY(!worksheet.pasteEntryBelow(pageBreak));
+
+    auto* invalidEntryMimeData = new QMimeData;
+    invalidEntryMimeData->setData(QStringLiteral("application/x-cantor-worksheet-entry+xml"), QByteArrayLiteral("<CantorWorksheetEntries version=\"1\"><Text/></CantorWorksheetEntries>"));
+    QApplication::clipboard()->setMimeData(invalidEntryMimeData);
+    QVERIFY(!worksheet.canPasteEntry());
+    QVERIFY(!worksheet.pasteEntryBelow(pageBreak));
+}
+
+void WorksheetTest::testWorksheetEntryClipboardImages()
+{
+    Worksheet worksheet(nullptr, nullptr, false);
+    WorksheetView view(&worksheet, nullptr);
+
+    QTemporaryFile imageFile(QDir::tempPath() + QLatin1String("/cantor-clipboard-test-XXXXXX.png"));
+    QVERIFY(imageFile.open());
+    QImage image(13, 7, QImage::Format_ARGB32);
+    image.fill(Qt::red);
+    imageFile.close();
+    QVERIFY(image.save(imageFile.fileName(), "PNG"));
+
+    ImageSize displaySize;
+    displaySize.width = 50;
+    displaySize.height = 25;
+    displaySize.widthUnit = ImageSize::Percent;
+    displaySize.heightUnit = ImageSize::Pixel;
+    ImageSize printSize;
+    printSize.width = 120;
+    printSize.height = 80;
+    printSize.widthUnit = ImageSize::Pixel;
+    printSize.heightUnit = ImageSize::Pixel;
+
+    auto* imageEntry = static_cast<ImageEntry*>(worksheet.appendImageEntry());
+    imageEntry->setImageData(imageFile.fileName(), displaySize, printSize, false);
+    worksheet.copyEntry(imageEntry);
+    QVERIFY(imageFile.remove());
+
+    auto* pastedEntry = worksheet.pasteEntryBelow(imageEntry);
+    QVERIFY(pastedEntry);
+    QCOMPARE(pastedEntry->type(), ImageEntry::Type);
+    QCOMPARE(imageEntry->next(), pastedEntry);
+    QCOMPARE(pastedEntry->previous(), imageEntry);
+    QDomDocument imageDocument;
+    const QDomElement imageElement = pastedEntry->toXml(imageDocument);
+    const QByteArray imageData = QByteArray::fromBase64(imageElement.firstChildElement(QLatin1String("Data")).text().toLatin1());
+    const QImage copiedImage = QImage::fromData(imageData, "PNG");
+    QVERIFY(!copiedImage.isNull());
+    QCOMPARE(copiedImage.size(), image.size());
+    QCOMPARE(copiedImage.pixelColor(0, 0), QColor(Qt::red));
+    const QDomElement copiedDisplay = imageElement.firstChildElement(QLatin1String("Display"));
+    QCOMPARE(copiedDisplay.attribute(QLatin1String("width")).toDouble(), displaySize.width);
+    QCOMPARE(copiedDisplay.attribute(QLatin1String("height")).toDouble(), displaySize.height);
+    QCOMPARE(copiedDisplay.attribute(QLatin1String("widthUnit")), QLatin1String("%"));
+    QCOMPARE(copiedDisplay.attribute(QLatin1String("heightUnit")), QLatin1String("px"));
+    const QDomElement copiedPrint = imageElement.firstChildElement(QLatin1String("Print"));
+    QCOMPARE(copiedPrint.attribute(QLatin1String("useDisplaySize")).toInt(), 0);
+    QCOMPARE(copiedPrint.attribute(QLatin1String("width")).toDouble(), printSize.width);
+    QCOMPARE(copiedPrint.attribute(QLatin1String("height")).toDouble(), printSize.height);
+    QCOMPARE(copiedPrint.attribute(QLatin1String("widthUnit")), QLatin1String("px"));
+    QCOMPARE(copiedPrint.attribute(QLatin1String("heightUnit")), QLatin1String("px"));
+
+    QImage renderedImage(9, 5, QImage::Format_ARGB32);
+    renderedImage.fill(Qt::blue);
+    QByteArray renderedData;
+    QBuffer renderedBuffer(&renderedData);
+    QVERIFY(renderedBuffer.open(QIODevice::WriteOnly));
+    QVERIFY(renderedImage.save(&renderedBuffer, "PNG"));
+
+    QDomDocument latexDocument;
+    QDomElement latexElement = latexDocument.createElement(QLatin1String("Latex"));
+    QDomElement codeElement = latexDocument.createElement(QLatin1String("Code"));
+    codeElement.appendChild(latexDocument.createTextNode(QLatin1String("x+y")));
+    latexElement.appendChild(codeElement);
+    QDomElement renderedElement = latexDocument.createElement(QLatin1String("RenderedImage"));
+    renderedElement.appendChild(latexDocument.createTextNode(QString::fromLatin1(renderedData.toBase64())));
+    latexElement.appendChild(renderedElement);
+
+    QBuffer emptyArchiveData;
+    KZip emptyArchive(&emptyArchiveData);
+    auto* latexEntry = static_cast<LatexEntry*>(worksheet.appendLatexEntry());
+    latexEntry->setContent(latexElement, emptyArchive);
+    QVERIFY(!latexEntry->canSplitCell());
+
+    worksheet.copyEntry(latexEntry);
+    pastedEntry = worksheet.pasteEntryBelow(latexEntry);
+    QVERIFY(pastedEntry);
+    QCOMPARE(pastedEntry->type(), LatexEntry::Type);
+    QCOMPARE(latexEntry->next(), pastedEntry);
+    QCOMPARE(pastedEntry->previous(), latexEntry);
+    auto* latexCopy = static_cast<LatexEntry*>(pastedEntry);
+    QDomDocument latexRoundTripDocument;
+    const QDomElement latexRoundTrip = latexCopy->toXml(latexRoundTripDocument);
+    QCOMPARE(latexRoundTrip.firstChildElement(QLatin1String("Code")).text(), QLatin1String("x+y"));
+    QVERIFY(latexRoundTrip.firstChildElement(QLatin1String("RenderedImage")).isNull());
+    QVERIFY(latexCopy->canSplitCell());
+
+    QDomDocument markdownDocument;
+    QDomElement markdownElement = markdownDocument.createElement(QLatin1String("Markdown"));
+    markdownElement.setAttribute(QLatin1String("rendered"), 0);
+    QDomElement plainElement = markdownDocument.createElement(QLatin1String("Plain"));
+    plainElement.appendChild(markdownDocument.createTextNode(QLatin1String("![image](attachment:test.png)")));
+    markdownElement.appendChild(plainElement);
+    QDomElement attachmentElement = markdownDocument.createElement(QLatin1String("Attachment"));
+    attachmentElement.setAttribute(QLatin1String("url"), QLatin1String("attachment:test.png"));
+    attachmentElement.appendChild(markdownDocument.createTextNode(QString::fromLatin1(renderedData.toBase64())));
+    markdownElement.appendChild(attachmentElement);
+
+    auto* markdownEntry = static_cast<MarkdownEntry*>(worksheet.appendMarkdownEntry());
+    markdownEntry->setContent(markdownElement);
+    worksheet.copyEntry(markdownEntry);
+    pastedEntry = worksheet.pasteEntryBelow(markdownEntry);
+    QVERIFY(pastedEntry);
+    QCOMPARE(pastedEntry->type(), MarkdownEntry::Type);
+    QCOMPARE(markdownEntry->next(), pastedEntry);
+    QCOMPARE(pastedEntry->previous(), markdownEntry);
+    auto* markdownCopy = static_cast<MarkdownEntry*>(pastedEntry);
+    QCOMPARE(markdownCopy->plainText(), QLatin1String("![image](attachment:test.png)"));
+    QDomDocument markdownRoundTripDocument;
+    const QDomElement markdownRoundTrip = markdownCopy->toXml(markdownRoundTripDocument);
+    const QDomElement copiedAttachment = markdownRoundTrip.firstChildElement(QLatin1String("Attachment"));
+    QVERIFY(!copiedAttachment.isNull());
+    QCOMPARE(copiedAttachment.attribute(QLatin1String("url")), QLatin1String("attachment:test.png"));
+    const QImage copiedAttachmentImage = QImage::fromData(QByteArray::fromBase64(copiedAttachment.text().toLatin1()), "PNG");
+    QCOMPARE(copiedAttachmentImage.size(), renderedImage.size());
+    QCOMPARE(copiedAttachmentImage.pixelColor(0, 0), QColor(Qt::blue));
+}
+
+void WorksheetTest::testWorksheetEntryClipboardHierarchy()
+{
+    Worksheet worksheet(nullptr, nullptr, false);
+    WorksheetView view(&worksheet, nullptr);
+
+    auto* source = static_cast<HierarchyEntry*>(worksheet.appendHierarchyEntry());
+    source->setContent(QLatin1String("First chapter"));
+    source->setLevel(HierarchyEntry::HierarchyLevel::Chapter);
+    const QString sourceId = source->hierarchyId();
+    auto* child = worksheet.appendTextEntry();
+    child->setContent(QLatin1String("chapter body"));
+    auto* sentinel = static_cast<HierarchyEntry*>(worksheet.appendHierarchyEntry());
+    sentinel->setContent(QLatin1String("Second chapter"));
+    sentinel->setLevel(HierarchyEntry::HierarchyLevel::Chapter);
+    worksheet.updateHierarchyLayout();
+    QVERIFY(!source->hasHiddenSubentries());
+
+    worksheet.copyEntry(source);
+    auto* copiedHierarchy = static_cast<HierarchyEntry*>(worksheet.pasteEntryBelow(source));
+    QVERIFY(copiedHierarchy);
+    QCOMPARE(source->next(), copiedHierarchy);
+    QCOMPARE(copiedHierarchy->previous(), source);
+    QVERIFY(copiedHierarchy->hierarchyId() != sourceId);
+    QCOMPARE(copiedHierarchy->text(), QLatin1String("First chapter"));
+    QCOMPARE(copiedHierarchy->level(), source->level());
+    auto* copiedChild = copiedHierarchy->next();
+    QVERIFY(copiedChild);
+    QVERIFY(copiedChild != child);
+    QCOMPARE(copiedChild->type(), TextEntry::Type);
+    QCOMPARE(copiedChild->previous(), copiedHierarchy);
+    QCOMPARE(plainText(copiedChild), QLatin1String("chapter body"));
+    QCOMPARE(copiedChild->next(), child);
+    QCOMPARE(child->previous(), copiedChild);
+    QCOMPARE(child->next(), sentinel);
+    QCOMPARE(sentinel->previous(), child);
+
+    Worksheet collapsedWorksheet(nullptr, nullptr, false);
+    WorksheetView collapsedView(&collapsedWorksheet, nullptr);
+    auto* collapsed = static_cast<HierarchyEntry*>(collapsedWorksheet.appendHierarchyEntry());
+    collapsed->setContent(QLatin1String("Collapsed"));
+    auto* hidden = WorksheetEntry::create(TextEntry::Type, &collapsedWorksheet);
+    hidden->setContent(QLatin1String("hidden body"));
+    collapsed->setHiddenSubentries(*hidden);
+    QVERIFY(collapsed->hasHiddenSubentries());
+    QCOMPARE(collapsed->hiddenSubentries(), hidden);
+    auto* afterCollapsed = static_cast<HierarchyEntry*>(collapsedWorksheet.appendHierarchyEntry());
+    afterCollapsed->setLevel(HierarchyEntry::HierarchyLevel::Chapter);
+
+    collapsedWorksheet.copyEntry(collapsed);
+    auto* collapsedCopy = static_cast<HierarchyEntry*>(collapsedWorksheet.pasteEntryBelow(collapsed));
+    QVERIFY(collapsedCopy);
+    QCOMPARE(collapsed->next(), collapsedCopy);
+    QCOMPARE(collapsedCopy->previous(), collapsed);
+    QCOMPARE(collapsedCopy->text(), collapsed->text());
+    QCOMPARE(collapsedCopy->level(), collapsed->level());
+    QVERIFY(collapsedCopy->hasHiddenSubentries());
+    auto* hiddenCopy = collapsedCopy->hiddenSubentries();
+    QVERIFY(hiddenCopy != hidden);
+    QCOMPARE(hiddenCopy->type(), TextEntry::Type);
+    QCOMPARE(hiddenCopy->previous(), nullptr);
+    QCOMPARE(hiddenCopy->next(), nullptr);
+    QCOMPARE(plainText(hiddenCopy), QLatin1String("hidden body"));
+    QCOMPARE(collapsedCopy->next(), afterCollapsed);
+    QCOMPARE(afterCollapsed->previous(), collapsedCopy);
+}
+
 void WorksheetTest::testMathRender()
 {
     Cantor::Backend* backend = Cantor::Backend::getBackend(QLatin1String("python"));
@@ -7006,7 +7396,7 @@ void WorksheetTest::testMathRender()
     QDomDocument doc;
     QBuffer buffer;
     KZip archive(&buffer);
-    QDomElement elem = entry->toXml(doc, &archive);
+    QDomElement elem = entry->toXml(doc, archive);
 
     QDomNodeList list = elem.elementsByTagName(QLatin1String("EmbeddedMath"));
     QCOMPARE(list.count(), 1);
@@ -7039,7 +7429,7 @@ void WorksheetTest::testMathRender2()
     QDomDocument doc;
     QBuffer buffer;
     KZip archive(&buffer);
-    QDomElement elem = entry->toXml(doc, &archive);
+    QDomElement elem = entry->toXml(doc, archive);
 
     doc.appendChild(elem);
 
