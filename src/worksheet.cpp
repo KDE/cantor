@@ -1680,27 +1680,26 @@ void Worksheet::saveLatex(const QString& filename)
 
     const char *params[16+1];
     params[0] = nullptr;
-    auto res = xsltApplyStylesheet(xsltStyleSheet, output, params);
-    if (res) {
+    auto transformedDocument = xsltApplyStylesheet(xsltStyleSheet, output, params);
+    if (transformedDocument) {
         xmlChar *xmlResultBuffer = nullptr;
         int xmlResultLength = 0;
-        int res = xsltSaveResultToString(&xmlResultBuffer, &xmlResultLength, output, xsltStyleSheet);
+        const int res = xsltSaveResultToString(&xmlResultBuffer, &xmlResultLength, transformedDocument, xsltStyleSheet);
         if (res != -1) {
-            QString outString = QString::fromUtf8((char *)xmlResultBuffer);
+            QString outString = QString::fromUtf8((char *)xmlResultBuffer, xmlResultLength);
 
             // Transform HTML escaped special characters to valid LaTeX characters (&, <, >)
             QTextStream stream(&file);
             stream << outString.replace(QLatin1String("&amp;"), QLatin1String("&"))
                          .replace(QLatin1String("&gt;"), QLatin1String(">"))
                          .replace(QLatin1String("&lt;"), QLatin1String("<"));
-            file.close();
         }
 
         xmlFree(xmlResultBuffer);
     }
 
     xsltFreeStylesheet(xsltStyleSheet);
-    xmlFreeDoc(res);
+    xmlFreeDoc(transformedDocument);
     xmlFreeDoc(output);
 
     xsltCleanupGlobals();
