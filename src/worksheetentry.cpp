@@ -550,6 +550,11 @@ void WorksheetEntry::populateMenu(QMenu* menu, QPointF pos)
     action->setEnabled(worksheet()->canPasteEntry());
     connect(action, &QAction::triggered, this, [this]() { worksheet()->pasteEntryBelow(this); });
     menu->insertAction(firstAction, action);
+
+    action = new QAction(QIcon::fromTheme(QLatin1String("edit-duplicate")), i18n("Duplicate Entry Below"), menu);
+    connect(action, &QAction::triggered, this, [this]() { worksheet()->duplicateEntryBelow(this); });
+    menu->insertAction(firstAction, action);
+
     menu->insertSeparator(firstAction);
 
     action = new QAction(QIcon::fromTheme(QLatin1String("edit-delete")), i18n("Delete"), menu);

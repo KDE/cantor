@@ -191,6 +191,7 @@ class Worksheet : public QGraphicsScene
 
     void copyEntry(WorksheetEntry* current);
     WorksheetEntry* pasteEntryBelow(WorksheetEntry* current = nullptr);
+    WorksheetEntry* duplicateEntryBelow(WorksheetEntry* current);
 
     void updateLayout();
     void updateHierarchyLayout();

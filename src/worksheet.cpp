@@ -1344,6 +1344,17 @@ WorksheetEntry* Worksheet::pasteEntryBelow(const QDomDocument& document, Workshe
     return entries.front();
 }
 
+WorksheetEntry* Worksheet::duplicateEntryBelow(WorksheetEntry* current)
+{
+    if (!current)
+        current = currentEntry();
+
+    if (m_readOnly || !current || !isValidEntry(current))
+        return nullptr;
+
+    return pasteEntryBelow(entryClipboardXml(current), current);
+}
+
 WorksheetEntry* Worksheet::insertTextEntryBefore(WorksheetEntry* current)
 {
     return insertEntryBefore(TextEntry::Type, current);
