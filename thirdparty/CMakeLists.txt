@@ -29,5 +29,7 @@ set_target_properties(Discount::Lib PROPERTIES
 )
 add_dependencies(Discount::Lib discount_project-build)
 
+set(Discount_FOUND TRUE PARENT_SCOPE)
+
 # preview.sty
 install(FILES preview.sty DESTINATION ${KDE_INSTALL_DATADIR}/cantor/latex)
