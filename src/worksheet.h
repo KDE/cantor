@@ -96,6 +96,7 @@ class Worksheet : public QGraphicsScene
     MathRenderer* mathRenderer();
     bool isEmpty();
     bool isLoadingFromFile();
+    bool canPasteEntry() const;
 
     WorksheetEntry* currentEntry();
     WorksheetEntry* firstEntry();
@@ -187,6 +188,9 @@ class Worksheet : public QGraphicsScene
     WorksheetEntry* insertLatexEntryBefore(WorksheetEntry* current = nullptr);
     WorksheetEntry* insertHorizontalRuleEntryBefore(WorksheetEntry* current = nullptr);
     WorksheetEntry* insertHierarchyEntryBefore(WorksheetEntry* current = nullptr);
+
+    void copyEntry(WorksheetEntry* current);
+    WorksheetEntry* pasteEntryBelow(WorksheetEntry* current = nullptr);
 
     void updateLayout();
     void updateHierarchyLayout();
@@ -376,6 +380,8 @@ class Worksheet : public QGraphicsScene
     bool canSplitEntry(WorksheetEntry* entry) const;
     void updateCellActionAvailability();
     std::vector<WorksheetEntry*> hierarchySubelements(HierarchyEntry*) const;
+    QDomDocument entryClipboardXml(WorksheetEntry*);
+    WorksheetEntry* pasteEntryBelow(const QDomDocument&, WorksheetEntry*);
     void updateCurrentHierarchy(WorksheetEntry* entry);
     void normalizeDraggedHierarchyLevels(HierarchyEntry* rootEntry, WorksheetEntry* previousEntry, const std::vector<WorksheetEntry*>& subentries);
 

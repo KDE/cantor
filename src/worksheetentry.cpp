@@ -542,6 +542,16 @@ void WorksheetEntry::populateMenu(QMenu* menu, QPointF pos)
         menu->insertSeparator(firstAction);
     }
 
+    action = new QAction(QIcon::fromTheme(QLatin1String("edit-copy")), i18n("Copy Entry"), menu);
+    connect(action, &QAction::triggered, this, [this]() { worksheet()->copyEntry(this); });
+    menu->insertAction(firstAction, action);
+
+    action = new QAction(QIcon::fromTheme(QLatin1String("edit-paste")), i18n("Paste Entry Below"), menu);
+    action->setEnabled(worksheet()->canPasteEntry());
+    connect(action, &QAction::triggered, this, [this]() { worksheet()->pasteEntryBelow(this); });
+    menu->insertAction(firstAction, action);
+    menu->insertSeparator(firstAction);
+
     action = new QAction(QIcon::fromTheme(QLatin1String("edit-delete")), i18n("Delete"), menu);
     connect(action, &QAction::triggered, [=]() {startRemoving();});
     action->setShortcut(Qt::ShiftModifier | Qt::Key_Delete);

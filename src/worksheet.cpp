@@ -30,6 +30,7 @@
 #include <QApplication>
 #include <QBuffer>
 #include <QByteArray>
+#include <QClipboard>
 #include <QEventLoop>
 #include <QGraphicsPixmapItem>
 #include <QGraphicsSceneMouseEvent>
@@ -37,9 +38,11 @@
 #include <QJsonDocument>
 #include <QJsonObject>
 #include <QMouseEvent>
+#include <QMimeData>
 #include <QPrinter>
 #include <QRegularExpression>
 #include <QSet>
+#include <QTemporaryFile>
 #include <QTimer>
 #include <QActionGroup>
 #include <QFile>
@@ -72,6 +75,82 @@ constexpr int DragScrollMargin = 48;
 constexpr int DragScrollInterval = 50;
 constexpr int DragScrollStep = 4;
 
+const QString WorksheetEntryMimeType = QStringLiteral("application/x-cantor-worksheet-entry+xml");
+const QString WorksheetEntryClipboardRoot = QStringLiteral("CantorWorksheetEntries");
+const QString WorksheetEntryClipboardVersion = QStringLiteral("1");
+
+bool isValidClipboardEntryElement(const QDomElement& element)
+{
+    if (Worksheet::typeForTagName(element.tagName()) == 0)
+        return false;
+
+    if (element.tagName() == QLatin1String("Expression"))
+        return !element.firstChildElement(QLatin1String("Command")).isNull();
+    if (element.tagName() == QLatin1String("Text"))
+        return !element.firstChildElement(QLatin1String("body")).isNull();
+    if (element.tagName() == QLatin1String("Markdown"))
+        return !element.firstChildElement(QLatin1String("Plain")).isNull();
+    if (element.tagName() == QLatin1String("Latex"))
+        return !element.firstChildElement(QLatin1String("Code")).isNull();
+    if (element.tagName() == QLatin1String("Image"))
+    {
+        if (element.firstChildElement(QLatin1String("Display")).isNull() || element.firstChildElement(QLatin1String("Print")).isNull())
+            return false;
+
+        const QDomElement data = element.firstChildElement(QLatin1String("Data"));
+        return data.isNull() || !QByteArray::fromBase64(data.text().toLatin1()).isEmpty();
+    }
+
+    if (element.tagName() != QLatin1String("Hierarchy"))
+        return true;
+
+    if (element.firstChildElement(QLatin1String("body")).isNull())
+        return false;
+
+    bool levelOk = false;
+    const int level = element.attribute(QLatin1String("level")).toInt(&levelOk);
+    if (!levelOk || level <= 0 || level >= static_cast<int>(HierarchyEntry::HierarchyLevel::EndValue))
+        return false;
+
+    const QDomElement hidden = element.firstChildElement(QLatin1String("HidedSubentries"));
+    for (QDomElement child = hidden.firstChildElement(); !child.isNull(); child = child.nextSiblingElement())
+    {
+        if (!isValidClipboardEntryElement(child))
+            return false;
+    }
+    return true;
+}
+
+bool isValidClipboardDocument(const QDomDocument& document)
+{
+    const QDomElement root = document.documentElement();
+    if (root.tagName() != WorksheetEntryClipboardRoot
+        || root.attribute(QLatin1String("version")) != WorksheetEntryClipboardVersion)
+        return false;
+
+    QDomElement entry = root.firstChildElement();
+    if (entry.isNull())
+        return false;
+
+    for (; !entry.isNull(); entry = entry.nextSiblingElement())
+    {
+        if (!isValidClipboardEntryElement(entry))
+            return false;
+    }
+    return true;
+}
+
+QDomDocument clipboardDocument()
+{
+    const QMimeData* mimeData = QApplication::clipboard()->mimeData();
+    if (!mimeData || !mimeData->hasFormat(WorksheetEntryMimeType))
+        return QDomDocument();
+
+    QDomDocument document;
+    if (!document.setContent(mimeData->data(WorksheetEntryMimeType)) || !isValidClipboardDocument(document))
+        return QDomDocument();
+    return document;
+}
 }
 
 Worksheet::Worksheet(Cantor::Backend* backend, QWidget* parent, bool useDefaultWorksheetParameters)
@@ -1152,6 +1231,116 @@ WorksheetEntry* Worksheet::insertEntryBefore(int type, WorksheetEntry* current)
     return entry;
 }
 
+QDomDocument Worksheet::entryClipboardXml(WorksheetEntry* source)
+{
+    QDomDocument document(QLatin1String("CantorWorksheetEntryClipboard"));
+    if (!source || !isValidEntry(source))
+        return document;
+
+    QDomElement root = document.createElement(WorksheetEntryClipboardRoot);
+    root.setAttribute(QLatin1String("version"), WorksheetEntryClipboardVersion);
+    document.appendChild(root);
+    root.appendChild(source->toXml(document));
+
+    if (source->type() == HierarchyEntry::Type)
+    {
+        auto* hierarchy = static_cast<HierarchyEntry*>(source);
+        if (!hierarchy->hasHiddenSubentries())
+        {
+            const auto subentries = hierarchySubelements(hierarchy);
+            for (auto* subentry : subentries)
+                root.appendChild(subentry->toXml(document));
+        }
+    }
+    return document;
+}
+
+void Worksheet::copyEntry(WorksheetEntry* current)
+{
+    if (!current)
+        current = currentEntry();
+
+    const QDomDocument document = entryClipboardXml(current);
+
+    const QByteArray data = document.toByteArray();
+
+    QDomDocument serializedDocument;
+    if (!serializedDocument.setContent(data) || !isValidClipboardDocument(serializedDocument))
+        return;
+
+    auto* mimeData = new QMimeData;
+    mimeData->setData(WorksheetEntryMimeType, data);
+    QApplication::clipboard()->setMimeData(mimeData);
+}
+
+bool Worksheet::canPasteEntry() const
+{
+    return !m_readOnly && !clipboardDocument().isNull();
+}
+
+WorksheetEntry* Worksheet::pasteEntryBelow(WorksheetEntry* current)
+{
+    if (!current)
+        current = currentEntry();
+    if (m_readOnly || !current || !isValidEntry(current))
+        return nullptr;
+
+    const QDomDocument document = clipboardDocument();
+    if (document.isNull())
+        return nullptr;
+    return pasteEntryBelow(document, current);
+}
+
+WorksheetEntry* Worksheet::pasteEntryBelow(const QDomDocument& document, WorksheetEntry* current)
+{
+    if (!current || !isValidEntry(current) || !isValidClipboardDocument(document))
+        return nullptr;
+
+    std::vector<WorksheetEntry*> entries;
+    const QDomElement root = document.documentElement();
+    for (QDomElement element = root.firstChildElement(); !element.isNull(); element = element.nextSiblingElement())
+    {
+        auto* entry = WorksheetEntry::create(typeForTagName(element.tagName()), this);
+        if (!entry)
+        {
+            for (auto* createdEntry : entries)
+                delete createdEntry;
+            return nullptr;
+        }
+        entry->setContent(element);
+        entries.push_back(entry);
+    }
+
+    if (entries.empty())
+        return nullptr;
+
+    // Paste immediately after the selected entry, not after an expanded hierarchy
+    // subtree. Collapse the hierarchy first to paste after the complete section.
+    WorksheetEntry* insertionPoint = current;
+
+    for (size_t i = 1; i < entries.size(); ++i)
+    {
+        entries[i - 1]->setNext(entries[i]);
+        entries[i]->setPrevious(entries[i - 1]);
+    }
+
+    WorksheetEntry* next = insertionPoint->next();
+    entries.front()->setPrevious(insertionPoint);
+    entries.back()->setNext(next);
+    insertionPoint->setNext(entries.front());
+    if (next)
+        next->setPrevious(entries.back());
+    else
+        setLastEntry(entries.back());
+
+    updateHierarchyLayout();
+    updateLayout();
+    setModified();
+    focusEntry(entries.front());
+    makeVisible(entries.front());
+    return entries.front();
+}
+
 WorksheetEntry* Worksheet::insertTextEntryBefore(WorksheetEntry* current)
 {
     return insertEntryBefore(TextEntry::Type, current);
@@ -1295,7 +1484,11 @@ QDomDocument Worksheet::toXML(KZip* archive)
 
     for( auto* entry = firstEntry(); entry; entry = entry->next())
     {
-        QDomElement el = entry->toXml(doc, archive);
+        QDomElement el;
+        if (archive)
+            el = entry->toXml(doc, *archive);
+        else
+            el = entry->toXml(doc);
         root.appendChild( el );
     }
     return doc;
