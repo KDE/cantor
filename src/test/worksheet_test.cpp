@@ -7041,12 +7041,19 @@ void WorksheetTest::testMathRender2()
     KZip archive(&buffer);
     QDomElement elem = entry->toXml(doc, &archive);
 
-    QDomNodeList list = elem.elementsByTagName(QLatin1String("EmbeddedMath"));
+    doc.appendChild(elem);
+
+    QDomDocument serializedDocument;
+    QVERIFY(serializedDocument.setContent(doc.toByteArray()));
+
+    QDomNodeList list = serializedDocument.elementsByTagName(QLatin1String("EmbeddedMath"));
     QCOMPARE(list.count(), 1);
     QDomElement mathNode = list.at(0).toElement();
     bool rendered = mathNode.attribute(QStringLiteral("rendered")).toInt();
     QCOMPARE(rendered, true);
-    QCOMPARE(mathNode.text(), QLatin1String("$12$"));
+    QCOMPARE(mathNode.text(), QLatin1String("$12$"));
+    QVERIFY(mathNode.hasAttribute(QLatin1String("image")));
+    QVERIFY(!QByteArray::fromBase64(mathNode.attribute(QLatin1String("image")).toLatin1()).isEmpty());
 }
 
 QTEST_MAIN( WorksheetTest )

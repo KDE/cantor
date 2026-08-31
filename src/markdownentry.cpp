@@ -829,6 +829,8 @@ void MarkdownEntry::renderMathExpression(int jobId, QString mathCode)
 
 std::pair<QString, Cantor::LatexRenderer::EquationType> MarkdownEntry::parseMathCode(QString mathCode)
 {
+    mathCode.remove(QChar(0x06));
+
     static const QLatin1String inlineDelimiter("$");
     static const QLatin1String displayedDelimiter("$$");
 
@@ -837,9 +839,6 @@ std::pair<QString, Cantor::LatexRenderer::EquationType> MarkdownEntry::parseMath
         mathCode.remove(0, 2);
         mathCode.chop(2);
 
-        if (mathCode[0] == QChar(6))
-            mathCode.remove(0, 1);
-
         return std::make_pair(mathCode, Cantor::LatexRenderer::FullEquation);
     }
     else if (mathCode.startsWith(inlineDelimiter) && mathCode.endsWith(inlineDelimiter))
@@ -847,16 +846,10 @@ std::pair<QString, Cantor::LatexRenderer::EquationType> MarkdownEntry::parseMath
         mathCode.remove(0, 1);
         mathCode.chop(1);
 
-        if (mathCode[0] == QChar(6))
-            mathCode.remove(0, 1);
-
         return std::make_pair(mathCode, Cantor::LatexRenderer::InlineEquation);
     }
-    else if (mathCode.startsWith(QString::fromUtf8("\\begin{")) && mathCode.endsWith(QLatin1Char('}')))
+    else if (mathCode.startsWith(QString::fromUtf8("\\begin{")) && mathCode.endsWith(QLatin1Char('}')))
     {
-        if (mathCode[1] == QChar(6))
-            mathCode.remove(1, 1);
-
         return std::make_pair(mathCode, Cantor::LatexRenderer::CustomEquation);
     }
     else

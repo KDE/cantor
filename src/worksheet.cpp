@@ -1558,9 +1558,18 @@ bool Worksheet::loadCantorWorksheet(const KZip& archive)
 
     const KArchiveFile* content = static_cast<const KArchiveFile*>(contentEntry);
     QByteArray data = content->data();
+    // Older Markdown archives may contain Discount's U+0006 math marker,
+    // which is forbidden in XML 1.0.
+    data.replace(QByteArray(1, '\x06'), QByteArray());
 
     QDomDocument doc;
-    doc.setContent(data);
+    if (!doc.setContent(data))
+    {
+        qDebug()<<"content.xml file was found but unable to load";
+        QApplication::restoreOverrideCursor();
+        KMessageBox::error(worksheetView(), i18n("The selected file is a corrupt Cantor project file."), i18n("Open File"));
+        return false;
+    }
     QDomElement root = doc.documentElement();
 
     m_backendName = root.attribute(QLatin1String("backend"));
