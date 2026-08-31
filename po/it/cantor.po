@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: cantor\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-08-26 00:40+0000\n"
-"PO-Revision-Date: 2026-08-22 10:04+0200\n"
+"PO-Revision-Date: 2026-08-28 14:58+0200\n"
 "Last-Translator: Paolo Zamponi <feus73@gmail.com>\n"
 "Language-Team: Italian <kde-i18n-it@kde.org>\n"
 "Language: it\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Lokalize 26.04.3\n"
+"X-Generator: Lokalize 26.08.0\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -3116,12 +3116,12 @@ msgstr "Elimina la voce corrente"
 #: cantor_part.cpp:355 worksheet.cpp:2244
 #, kde-format
 msgid "Merge Cells"
-msgstr ""
+msgstr "Unisci celle"
 
 #: cantor_part.cpp:361 worksheet.cpp:2115
 #, kde-format
 msgid "Split Cell"
-msgstr ""
+msgstr "Dividi cella"
 
 #. i18n("Publish Worksheet"), collection);
 #. publishWorksheet->setIcon(QIcon::fromTheme(QLatin1String("get-hot-new-stuff")));
@@ -5147,22 +5147,19 @@ msgid "Light Grey"
 msgstr "Grigio chiaro"
 
 #: worksheetentry.cpp:502
-#, fuzzy, kde-format
-#| msgid "Evaluate Selected Entry and All Above"
+#, kde-format
 msgid "Selected Entry and All Above"
-msgstr "Vàluta la voce selezionata e tutte quelle precedenti"
+msgstr "La voce selezionata e tutte quelle soprastanti"
 
 #: worksheetentry.cpp:507
-#, fuzzy, kde-format
-#| msgid "Delete Entry"
+#, kde-format
 msgid "Selected Entry"
-msgstr "Elimina voce"
+msgstr "Voce selezionata"
 
 #: worksheetentry.cpp:512
-#, fuzzy, kde-format
-#| msgid "Evaluate Selected Entry and All Below"
+#, kde-format
 msgid "Selected Entry and All Below"
-msgstr "Vàluta la voce selezionata e tutte quelle sottostanti"
+msgstr "La voce selezionata e tutte quelle sottostanti"
 
 #: worksheetentry.cpp:530
 #, kde-format
