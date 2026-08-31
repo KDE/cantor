@@ -87,8 +87,12 @@ class TextEntry : public WorksheetEntry
 
   private:
     QTextCursor findLatexCode(const QTextCursor& cursor = QTextCursor()) const;
+    QTextCursor findMathJobMarker(int jobId) const;
+    void clearMathJobMarker(QTextCursor markerCursor, int jobId);
     QString showLatexCode(QTextCursor& cursor);
     void addNewTarget(const QString& target);
+
+    static constexpr int MathJobProperty = QTextFormat::UserProperty + 1;
 
   private:
     bool m_rawCell;
@@ -96,6 +100,7 @@ class TextEntry : public WorksheetEntry
     QActionGroup* m_targetActionGroup;
     QAction* m_ownTarget;
     QMenu* m_targetMenu;
+    int m_nextMathJobId;
 
     WorksheetTextItem* m_textItem;
 };

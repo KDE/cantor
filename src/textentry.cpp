@@ -65,6 +65,7 @@ TextEntry::TextEntry(Worksheet* worksheet) : WorksheetEntry(worksheet)
     , m_targetActionGroup(nullptr)
     , m_ownTarget{nullptr}
     , m_targetMenu(nullptr)
+    , m_nextMathJobId(0)
     , m_textItem(new WorksheetTextItem(this, Qt::TextEditorInteraction))
 {
     m_textItem->enableRichText(true);
@@ -561,7 +562,6 @@ QString TextEntry::toPlain(const QString& commandSep, const QString& commentStar
 
 bool TextEntry::evaluate(EvaluationOption evalOp)
 {
-    int i = 0;
     if (worksheet()->embeddedMathEnabled() && !m_rawCell)
     {
         // Render math in $$...$$ via Latex
@@ -576,8 +576,16 @@ bool TextEntry::evaluate(EvaluationOption evalOp)
             latexCode.replace(QChar::ParagraphSeparator, QLatin1Char('\n'));
             latexCode.replace(QChar::LineSeparator, QLatin1Char('\n'));
 
+            const int jobId = ++m_nextMathJobId;
+            QTextCursor markerCursor(cursor);
+            markerCursor.setPosition(cursor.selectionStart());
+            markerCursor.movePosition(QTextCursor::NextCharacter, QTextCursor::KeepAnchor);
+            QTextCharFormat markerFormat;
+            markerFormat.setProperty(MathJobProperty, jobId);
+            markerCursor.mergeCharFormat(markerFormat);
+
             MathRenderer* renderer = worksheet()->mathRenderer();
-            renderer->renderExpression(++i, latexCode, Cantor::LatexRenderer::InlineEquation, this, SLOT(handleMathRender(QSharedPointer<MathRenderResult>)));
+            renderer->renderExpression(jobId, latexCode, Cantor::LatexRenderer::InlineEquation, this, SLOT(handleMathRender(QSharedPointer<MathRenderResult>)));
 
             cursor = findLatexCode(cursor);
         }
@@ -629,11 +637,47 @@ QTextCursor TextEntry::findLatexCode(const QTextCursor& cursor) const
     return startCursor;
 }
 
+QTextCursor TextEntry::findMathJobMarker(int jobId) const
+{
+    QTextDocument* document = m_textItem->document();
+    for (QTextBlock block = document->begin(); block.isValid(); block = block.next())
+    {
+        for (auto it = block.begin(); !it.atEnd(); ++it)
+        {
+            const QTextFragment fragment = it.fragment();
+            if (!fragment.isValid() || fragment.charFormat().intProperty(MathJobProperty) != jobId)
+                continue;
+
+            QTextCursor cursor(document);
+            cursor.setPosition(fragment.position());
+            cursor.movePosition(QTextCursor::NextCharacter, QTextCursor::KeepAnchor);
+            return cursor;
+        }
+    }
+    return QTextCursor();
+}
+
+void TextEntry::clearMathJobMarker(QTextCursor markerCursor, int jobId)
+{
+    if (markerCursor.isNull())
+        return;
+
+    QTextCharFormat format = markerCursor.charFormat();
+    if (format.intProperty(MathJobProperty) != jobId)
+        return;
+
+    format.clearProperty(MathJobProperty);
+    markerCursor.setCharFormat(format);
+}
+
 QString TextEntry::showLatexCode(QTextCursor& cursor)
 {
     QString latexCode = cursor.charFormat().property(Cantor::Renderer::Code).toString();
+    QString delimiter = cursor.charFormat().property(Cantor::Renderer::Delimiter).toString();
+    if (delimiter.isEmpty())
+        delimiter = QLatin1String("$$");
     cursor.deletePreviousChar();
-    latexCode = QLatin1String("$$") + latexCode + QLatin1String("$$");
+    latexCode = delimiter + latexCode + delimiter;
     cursor.insertText(latexCode);
     return latexCode;
 }
@@ -754,21 +798,43 @@ bool TextEntry::isConvertableToTextEntry(const QJsonObject& cell)
 
 void TextEntry::handleMathRender(QSharedPointer<MathRenderResult> result)
 {
+    QTextCursor markerCursor = findMathJobMarker(result->jobId);
     if (!result->successful)
     {
+        clearMathJobMarker(markerCursor, result->jobId);
         qDebug() << "TextEntry: math render failed with message" << result->errorMessage;
+        return;
+    }
+
+    if (m_rawCell)
+    {
+        clearMathJobMarker(markerCursor, result->jobId);
         return;
     }
 
     const QString& code = result->renderedMath.property(Cantor::Renderer::Code).toString();
     const QString& delimiter = QLatin1String("$$");
-    QTextCursor cursor = m_textItem->document()->find(delimiter + code + delimiter);
-    if (!cursor.isNull())
+    if (markerCursor.isNull())
+        return;
+
+    QTextCursor sourceCursor(m_textItem->document());
+    sourceCursor.setPosition(markerCursor.selectionStart());
+    QTextCursor formulaCursor = findLatexCode(sourceCursor);
+
+    QString selectedCode = formulaCursor.selectedText();
+    selectedCode.replace(QChar::ParagraphSeparator, QLatin1Char('\n'));
+    selectedCode.replace(QChar::LineSeparator, QLatin1Char('\n'));
+    if (formulaCursor.isNull()
+        || formulaCursor.selectionStart() != markerCursor.selectionStart()
+        || selectedCode != delimiter + code + delimiter)
     {
-        m_textItem->document()->addResource(QTextDocument::ImageResource, result->uniqueUrl, QVariant(result->image));
-        result->renderedMath.setProperty(Cantor::Renderer::Delimiter, QLatin1String("$$"));
-        cursor.insertText(QString(QChar::ObjectReplacementCharacter), result->renderedMath);
+        clearMathJobMarker(markerCursor, result->jobId);
+        return;
     }
+
+    m_textItem->document()->addResource(QTextDocument::ImageResource, result->uniqueUrl, QVariant(result->image));
+    result->renderedMath.setProperty(Cantor::Renderer::Delimiter, delimiter);
+    formulaCursor.insertText(QString(QChar::ObjectReplacementCharacter), result->renderedMath);
 }
 
 void TextEntry::convertToRawCell()

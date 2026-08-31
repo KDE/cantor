@@ -62,12 +62,17 @@ void MathRenderTask::run()
 {
     qDebug()<<"MathRenderTask::run " << m_jobId;
     QSharedPointer<MathRenderResult> result(new MathRenderResult());
+    result->jobId = m_jobId;
 
     const QString& tempDir=QStandardPaths::writableLocation(QStandardPaths::TempLocation);
 
     QTemporaryFile texFile(tempDir + QDir::separator() + QLatin1String("cantor_tex-XXXXXX.tex"));
     if (!texFile.open())
+    {
+        result->errorMessage = QStringLiteral("Failed to create a temporary file for math rendering: %1").arg(texFile.errorString());
+        finalize(result);
         return;
+    }
 
     // make sure we have preview.sty available
     if (!tempDir.contains(QLatin1String("preview.sty")))
@@ -170,8 +175,6 @@ void MathRenderTask::run()
 
     result->renderedMath = data.first;
     result->image = data.second;
-    result->jobId = m_jobId;
-
     QUrl internal;
     internal.setScheme(QLatin1String("internal"));
     internal.setPath(uuid);
