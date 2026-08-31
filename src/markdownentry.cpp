@@ -27,6 +27,7 @@
 #include <QMimeData>
 #include <QGraphicsSceneDragDropEvent>
 #include <QSet>
+#include <QTemporaryDir>
 #include <QTextBlock>
 
 #include <KLocalizedString>
@@ -239,27 +240,14 @@ bool MarkdownEntry::splitCellContent(WorksheetEntry* newEntry)
     return true;
 }
 
-void MarkdownEntry::setContent(const QDomElement& content, const KZip& file)
+void MarkdownEntry::setContent(const QDomElement& content)
 {
-    rendered = content.attribute(QLatin1String("rendered"), QLatin1String("1")) == QLatin1String("1");
-    QDomElement htmlEl = content.firstChildElement(QLatin1String("HTML"));
-    if(!htmlEl.isNull())
-        html = htmlEl.text();
-    else
-    {
-        html = QLatin1String("");
-        rendered = false; // No html provided. Assume that it hasn't been rendered.
-    }
     QDomElement plainEl = content.firstChildElement(QLatin1String("Plain"));
     if(!plainEl.isNull())
         plain = plainEl.text();
-    else
-    {
-        plain = QLatin1String("");
-        html = QLatin1String(""); // No plain text provided. The entry shouldn't render anything, or the user can't re-edit it.
-    }
 
     const QDomNodeList& attachments = content.elementsByTagName(QLatin1String("Attachment"));
+    attachedImages.clear();
     for (int x = 0; x < attachments.count(); x++)
     {
         const QDomElement& attachment = attachments.at(x).toElement();
@@ -267,31 +255,43 @@ void MarkdownEntry::setContent(const QDomElement& content, const KZip& file)
 
         const QString& base64 = attachment.text();
         QImage image;
-        image.loadFromData(QByteArray::fromBase64(base64.toLatin1()), "PNG");
+        const bool imageLoadSuccess = image.loadFromData(QByteArray::fromBase64(base64.toLatin1()), "PNG");
 
-        attachedImages.push_back(std::make_pair(url, QLatin1String("image/png")));
+        if (imageLoadSuccess) {
+            attachedImages.push_back(std::make_pair(url, QLatin1String("image/png")));
 
-        m_textItem->document()->addResource(QTextDocument::ImageResource, url, QVariant(image));
+            m_textItem->document()->addResource(QTextDocument::ImageResource, url, QVariant(image));
+        }
     }
 
-    if(rendered)
-        setRenderedHtml(html);
-    else
-        setPlainText(plain);
+    rendered = false;
+    setPlainText(plain);
+    m_textItem->document()->clearUndoRedoStacks();
+}
 
-    // Handle math after setting html
-    const QDomNodeList& maths = content.elementsByTagName(QLatin1String("EmbeddedMath"));
-    foundMath.clear();
-    for (int i = 0; i < maths.count(); i++)
-    {
-        const QDomElement& math = maths.at(i).toElement();
-        const QString mathCode = math.text();
+void MarkdownEntry::setContent(const QDomElement& content, const KZip& file)
+{
+    setContent(content);
 
-        foundMath.push_back(std::make_pair(mathCode, false));
-    }
+    const QDomElement htmlElement = content.firstChildElement(QLatin1String("HTML"));
+    rendered = (content.attribute(QLatin1String("rendered"), QLatin1String("1")) == QLatin1String("1")) && !htmlElement.isNull();
 
     if (rendered)
     {
+        html = htmlElement.text();
+        setRenderedHtml(html);
+
+        // Handle math after setting html
+        const QDomNodeList& maths = content.elementsByTagName(QLatin1String("EmbeddedMath"));
+        foundMath.clear();
+        for (int i = 0; i < maths.count(); i++)
+        {
+            const QDomElement& math = maths.at(i).toElement();
+            const QString mathCode = math.text();
+
+            foundMath.push_back(std::make_pair(mathCode, false));
+        }
+
         markUpMath();
 
         for (int i = 0; i < maths.count(); i++)
@@ -302,23 +302,65 @@ void MarkdownEntry::setContent(const QDomElement& content, const KZip& file)
 
             if (mathRendered)
             {
+                QString pdfPath;
+                bool manualRender = true;
+
                 const KArchiveEntry* imageEntry=file.directory()->entry(math.attribute(QLatin1String("path")));
                 if (imageEntry && imageEntry->isFile())
                 {
                     const KArchiveFile* imageFile=static_cast<const KArchiveFile*>(imageEntry);
-                    const QString& dir=QStandardPaths::writableLocation(QStandardPaths::TempLocation);
-                    imageFile->copyTo(dir);
-                    const QString& pdfPath = dir + QDir::separator() + imageFile->name();
+                    const QString tempRoot = QStandardPaths::writableLocation(QStandardPaths::TempLocation);
+                    QTemporaryDir tempDir(QDir(tempRoot).filePath(QStringLiteral("cantor-latex-XXXXXX")));
+                    if (tempDir.isValid() && imageFile->copyTo(tempDir.path()))
+                    {
+                        pdfPath = QDir(tempDir.path()).filePath(imageFile->name());
+                        tempDir.setAutoRemove(false);
+                    }
+                }
 
-                    QString latex;
-                    Cantor::LatexRenderer::EquationType type;
-                    std::tie(latex, type) = parseMathCode(mathCode);
+                QString latex;
+                Cantor::LatexRenderer::EquationType type;
+                std::tie(latex, type) = parseMathCode(mathCode);
 
-                    // Get uuid by removing 'cantor_' and '.pdf' extension
-                    // len('cantor_') == 7, len('.pdf') == 4
-                    QString uuid = pdfPath;
-                    uuid.remove(0, 7);
-                    uuid.chop(4);
+                if (manualRender && math.hasAttribute(QLatin1String("image")))
+                {
+                    const QByteArray ba = QByteArray::fromBase64(math.attribute(QLatin1String("image")).toLatin1());
+                    QImage image;
+                    if (image.loadFromData(ba))
+                    {
+                        QUrl internal;
+                        internal.setScheme(QLatin1String("internal"));
+                        internal.setPath(QUuid::createUuid().toString(QUuid::WithoutBraces));
+
+                        QTextImageFormat format;
+                        format.setName(internal.url());
+                        format.setWidth(math.attribute(QLatin1String("width"), QString::number(image.width())).toDouble());
+                        format.setHeight(math.attribute(QLatin1String("height"), QString::number(image.height())).toDouble());
+                        format.setProperty(Cantor::Renderer::CantorFormula, type);
+                        format.setProperty(Cantor::Renderer::ImagePath, pdfPath);
+                        format.setProperty(Cantor::Renderer::Code, latex);
+                        format.setVerticalAlignment(QTextCharFormat::AlignBaseline);
+                        switch (type)
+                        {
+                            case Cantor::LatexRenderer::FullEquation:
+                                format.setProperty(Cantor::Renderer::Delimiter, QLatin1String("$$"));
+                                break;
+                            case Cantor::LatexRenderer::InlineEquation:
+                                format.setProperty(Cantor::Renderer::Delimiter, QLatin1String("$"));
+                                break;
+                            case Cantor::LatexRenderer::CustomEquation:
+                                format.setProperty(Cantor::Renderer::Delimiter, QString());
+                                break;
+                        }
+                        setRenderedMath(i+1, format, internal, image);
+                        manualRender = false;
+                    }
+
+                }
+
+                if (manualRender && !pdfPath.isEmpty())
+                {
+                    const QString uuid = QUuid::createUuid().toString(QUuid::WithoutBraces);
 
                     bool success;
                     const auto& data = worksheet()->mathRenderer()->renderExpressionFromPdf(pdfPath, uuid, latex, type, &success);
@@ -328,9 +370,11 @@ void MarkdownEntry::setContent(const QDomElement& content, const KZip& file)
                         internal.setScheme(QLatin1String("internal"));
                         internal.setPath(uuid);
                         setRenderedMath(i+1, data.first, internal, data.second);
+                        manualRender = false;
                     }
                 }
-                else if (worksheet()->embeddedMathEnabled())
+
+                if (manualRender && worksheet()->embeddedMathEnabled())
                     renderMathExpression(i+1, mathCode);
             }
         }
@@ -371,78 +415,115 @@ void MarkdownEntry::setContentFromJupyter(const QJsonObject& cell)
     m_textItem->document()->clearUndoRedoStacks();
 }
 
-QDomElement MarkdownEntry::toXml(QDomDocument& doc, KZip* archive)
+QDomElement MarkdownEntry::toXml(QDomDocument& doc, KZip& archive)
 {
-    if(!rendered)
-        plain = m_textItem->toPlainText();
+    QDomElement el = toXml(doc);
 
-    QDomElement el = doc.createElement(QLatin1String("Markdown"));
-    el.setAttribute(QLatin1String("rendered"), (int)rendered);
-
-    QDomElement plainEl = doc.createElement(QLatin1String("Plain"));
-    plainEl.appendChild(doc.createTextNode(plain));
-    el.appendChild(plainEl);
-
-    QDomElement htmlEl = doc.createElement(QLatin1String("HTML"));
-    htmlEl.appendChild(doc.createTextNode(html));
-    el.appendChild(htmlEl);
-
-    QUrl url;
-    QString key;
-    for (const auto& data : attachedImages)
+    if (rendered)
     {
-        std::tie(url, key) = std::move(data);
+        el.setAttribute(QLatin1String("rendered"), true);
 
-        QDomElement attachmentEl = doc.createElement(QLatin1String("Attachment"));
-        attachmentEl.setAttribute(QStringLiteral("url"), url.toString());
+        QDomElement htmlEl = doc.createElement(QLatin1String("HTML"));
+        QString serializedHtml = html;
+        serializedHtml.remove(QChar(0x06));
+        htmlEl.appendChild(doc.createTextNode(serializedHtml));
+        el.appendChild(htmlEl);
 
-        const QImage& image = m_textItem->document()->resource(QTextDocument::ImageResource, url).value<QImage>();
-
-        QByteArray ba;
-        QBuffer buffer(&ba);
-        buffer.open(QIODevice::WriteOnly);
-        image.save(&buffer, "PNG");
-
-        attachmentEl.appendChild(doc.createTextNode(QString::fromLatin1(ba.toBase64())));
-
-        el.appendChild(attachmentEl);
-    }
-
-    // If math rendered, then append result .pdf to archive
-    QTextCursor cursor = m_textItem->document()->find(QString(QChar::ObjectReplacementCharacter));
-    for (const auto& data : foundMath)
-    {
-        QDomElement mathEl = doc.createElement(QLatin1String("EmbeddedMath"));
-        mathEl.setAttribute(QStringLiteral("rendered"), data.second);
-        mathEl.appendChild(doc.createTextNode(data.first));
-
-        if (data.second)
+        // If math rendered, then append result .pdf to archive
+        QTextCursor cursor = m_textItem->document()->find(QString(QChar::ObjectReplacementCharacter));
+        for (const auto& data : foundMath)
         {
-            bool foundNeededImage = false;
-            while(!cursor.isNull() && !foundNeededImage)
-            {
-                QTextImageFormat format=cursor.charFormat().toImageFormat();
-                if (format.hasProperty(Cantor::Renderer::CantorFormula))
-                {
-                    const QString& latex = format.property(Cantor::Renderer::Code).toString();
-                    const QString& delimiter = format.property(Cantor::Renderer::Delimiter).toString();
-                    const QString& code = delimiter + latex + delimiter;
-                    if (code == data.first)
-                    {
-                        const QUrl& url = QUrl::fromLocalFile(format.property(Cantor::Renderer::ImagePath).toString());
-                        archive->addLocalFile(url.toLocalFile(), url.fileName());
-                        mathEl.setAttribute(QStringLiteral("path"), url.fileName());
-                        foundNeededImage = true;
-                    }
-                }
-                cursor = m_textItem->document()->find(QString(QChar::ObjectReplacementCharacter), cursor);
-            }
-        }
+            QDomElement mathEl = doc.createElement(QLatin1String("EmbeddedMath"));
+            mathEl.setAttribute(QStringLiteral("rendered"), data.second);
+            QString serializedMath = data.first;
+            serializedMath.remove(QChar(0x06));
+            mathEl.appendChild(doc.createTextNode(serializedMath));
 
-        el.appendChild(mathEl);
+            if (data.second)
+            {
+                const auto [expectedLatex, expectedType] = parseMathCode(data.first);
+
+                bool foundNeededImage = false;
+                while(!cursor.isNull() && !foundNeededImage)
+                {
+                    QTextImageFormat format=cursor.charFormat().toImageFormat();
+                    if (format.hasProperty(Cantor::Renderer::CantorFormula))
+                    {
+                        const QString latex = format.property(Cantor::Renderer::Code).toString();
+                        const auto renderedType = static_cast<Cantor::LatexRenderer::EquationType>(format.intProperty(Cantor::Renderer::CantorFormula));
+                        if (latex == expectedLatex && renderedType == expectedType)
+                        {
+                            foundNeededImage = true;
+                            const QFileInfo fileInfo(format.property(Cantor::Renderer::ImagePath).toString());
+                            QString archiveName = QLatin1String("cantor_markdownentry_math_") + QUuid::createUuid().toString(QUuid::WithoutBraces);
+                            const QString suffix = fileInfo.suffix();
+                            if (!suffix.isEmpty())
+                            {
+                                archiveName += QLatin1Char('.');
+                                archiveName += suffix;
+                            }
+
+                            QString sourcePath = fileInfo.canonicalFilePath();
+                            if (QFile::exists(sourcePath))
+                            {
+                                if (archive.addLocalFile(sourcePath, archiveName))
+                                    mathEl.setAttribute(QStringLiteral("path"), archiveName);
+                            }
+
+                            const QImage image = m_textItem->document()->resource(QTextDocument::ImageResource, QUrl(format.name())).value<QImage>();
+                            if (!image.isNull())
+                            {
+                                QByteArray data;
+                                QBuffer buffer(&data);
+                                buffer.open(QIODevice::WriteOnly);
+                                image.save(&buffer, "PNG");
+
+                                mathEl.setAttribute(QLatin1String("width"), format.width());
+                                mathEl.setAttribute(QLatin1String("height"), format.height());
+                                mathEl.setAttribute(QLatin1String("image"), QString::fromLatin1(data.toBase64()));
+                            }
+                        }
+                    }
+                    cursor = m_textItem->document()->find(QString(QChar::ObjectReplacementCharacter), cursor);
+                }
+            }
+
+            el.appendChild(mathEl);
+        }
     }
 
     return el;
+}
+
+QDomElement MarkdownEntry::toXml(QDomDocument& doc)
+{
+    QDomElement element = doc.createElement(QLatin1String("Markdown"));
+    element.setAttribute(QLatin1String("rendered"), false);
+
+    const QString source = rendered ? plain : m_textItem->toPlainText();
+
+    QDomElement plainElement = doc.createElement(QLatin1String("Plain"));
+    plainElement.appendChild(doc.createTextNode(source));
+    element.appendChild(plainElement);
+
+    for (const auto& attachment : attachedImages)
+    {
+        const QImage image = m_textItem->document()->resource(QTextDocument::ImageResource, attachment.first).value<QImage>();
+        if (image.isNull())
+            continue;
+
+        QByteArray data;
+        QBuffer buffer(&data);
+        buffer.open(QIODevice::WriteOnly);
+        image.save(&buffer, "PNG");
+
+        QDomElement attachmentElement = doc.createElement(QLatin1String("Attachment"));
+        attachmentElement.setAttribute(QLatin1String("url"), attachment.first.toString());
+        attachmentElement.appendChild(doc.createTextNode(QString::fromLatin1(data.toBase64())));
+        element.appendChild(attachmentElement);
+    }
+
+    return element;
 }
 
 QJsonValue MarkdownEntry::toJupyterJson()
@@ -708,9 +789,7 @@ void MarkdownEntry::setRenderedHtml(const QString& html)
 
 void MarkdownEntry::setPlainText(const QString& plain)
 {
-    QTextDocument* doc = m_textItem->document();
-    doc->setPlainText(plain);
-    m_textItem->setDocument(doc);
+    m_textItem->document()->setPlainText(plain);
     m_textItem->allowEditing();
 }
 
