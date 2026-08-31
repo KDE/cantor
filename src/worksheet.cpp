@@ -229,6 +229,9 @@ Worksheet::~Worksheet()
 {
     m_isClosing = true;
 
+    for (auto* view : views())
+        QObject::disconnect(view, nullptr, this, nullptr);
+
     // This is necessary, because a SearchBar might access firstEntry()
     // while the scene is deleted. Maybe there is a better solution to
     // this problem, but I can't seem to find it.

@@ -230,7 +230,7 @@ void WorksheetTextEditorItem::setDefaultTextColor(const QColor& color)
         m_defaultTextColorRange = m_document->newMovingRange(m_document->documentRange());
         m_defaultTextColorRange->setAttribute(m_defaultTextColorAttribute);
     }
-    else
+    else if (m_defaultTextColorAttribute)
         m_defaultTextColorAttribute->clear();
 
     m_view->update();
