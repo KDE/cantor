@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kdeorg\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-08-26 00:40+0000\n"
+"POT-Creation-Date: 2026-09-01 00:40+0000\n"
 "PO-Revision-Date: 2024-04-22 16:04\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Simplified\n"
@@ -439,8 +439,8 @@ msgstr "无法启动 Julia，请检查 Julia 安装。"
 
 #: backends/julia/juliasession.cpp:115 backends/julia/juliasession.cpp:124
 #: backends/maxima/maximasession.cpp:322 cantor_part.cpp:1012
-#: lib/session.cpp:264 lib/session.cpp:266 worksheet.cpp:1345
-#: worksheet.cpp:1373 worksheet.cpp:1388 worksheet.cpp:1404
+#: lib/session.cpp:264 lib/session.cpp:266 worksheet.cpp:1552
+#: worksheet.cpp:1580 worksheet.cpp:1595 worksheet.cpp:1611
 #, kde-format
 msgid "Error - Cantor"
 msgstr "错误 - Cantor"
@@ -538,7 +538,7 @@ msgstr "如果启用，图表将显示在工作表中。否则，图表将显示
 #: backends/qalculate/settings.ui:347 backends/qalculate/settings.ui:364
 #: backends/R/settings.ui:160 backends/R/settings.ui:189
 #: backends/sage/settings.ui:69 backends/sage/settings.ui:114
-#: backends/scilab/settings.ui:47 commandentry.cpp:345
+#: backends/scilab/settings.ui:47 commandentry.cpp:351
 #, kde-format
 msgid "Enabled"
 msgstr "启用"
@@ -973,7 +973,7 @@ msgstr "绘图集成将被禁用。"
 #: backends/octave/octavesession.cpp:390 backends/sage/sagesession.cpp:358
 #: backends/sage/sagesession.cpp:369 cantor.cpp:243 cantor.cpp:245
 #: cantor.cpp:430 cantor.cpp:437 lib/session.cpp:334 main.cpp:48 main.cpp:105
-#: markdownentry.cpp:942 textentry.cpp:659 worksheet.cpp:1427
+#: markdownentry.cpp:1014 textentry.cpp:862 worksheet.cpp:1634
 #, kde-format
 msgid "Cantor"
 msgstr "Cantor"
@@ -1445,7 +1445,7 @@ msgstr "EPS"
 
 #. i18n: ectx: property (text), item, widget (KComboBox, saveFileBox)
 #: backends/qalculate/plotassistant/qalculateplotdialog.ui:575
-#: worksheet.cpp:2137 worksheet.cpp:2161 worksheet.cpp:2179 worksheet.cpp:2196
+#: worksheet.cpp:2366 worksheet.cpp:2390 worksheet.cpp:2408 worksheet.cpp:2425
 #, kde-format
 msgid "LaTeX"
 msgstr "LaTeX"
@@ -2620,7 +2620,7 @@ msgid "Save Project"
 msgstr "保存项目"
 
 #: cantor.cpp:746 commandentry.cpp:166 commandentry.cpp:197
-#: horizontalruleentry.cpp:328
+#: horizontalruleentry.cpp:336
 #, kde-format
 msgid "Default"
 msgstr "默认"
@@ -2892,18 +2892,18 @@ msgstr "保存纯文本"
 msgid "Export to PDF"
 msgstr "导出为 PDF"
 
-#: cantor_part.cpp:213 cantor_part.cpp:593 worksheet.cpp:1448
-#: worksheet.cpp:1454
+#: cantor_part.cpp:213 cantor_part.cpp:593 worksheet.cpp:1655
+#: worksheet.cpp:1661 worksheet.cpp:1672
 #, kde-format
 msgid "Export to LaTeX"
 msgstr "导出到 LaTex 格式"
 
-#: cantor_part.cpp:228 cantor_part.cpp:689 worksheet.cpp:2217
+#: cantor_part.cpp:228 cantor_part.cpp:689 worksheet.cpp:2446
 #, kde-format
 msgid "Evaluate Worksheet"
 msgstr "计算工作表"
 
-#: cantor_part.cpp:234 worksheet.cpp:2225
+#: cantor_part.cpp:234 worksheet.cpp:2454
 #, kde-format
 msgid "Zoom"
 msgstr "缩放"
@@ -2954,7 +2954,7 @@ msgstr "嵌入式数学"
 msgid "Restart Backend"
 msgstr "重启后端"
 
-#: cantor_part.cpp:295 worksheetentry.cpp:980
+#: cantor_part.cpp:295 worksheetentry.cpp:995
 #, kde-format
 msgid "Evaluate Entry"
 msgstr "计算条目"
@@ -2984,7 +2984,7 @@ msgstr "插入 Latex 条目"
 msgid "Insert Page Break"
 msgstr "插入分页"
 
-#: cantor_part.cpp:329 markdownentry.cpp:63
+#: cantor_part.cpp:329 markdownentry.cpp:64
 #, kde-format
 msgid "Insert Image"
 msgstr "插入图像"
@@ -3009,12 +3009,12 @@ msgstr "删除所有结果"
 msgid "Delete current Entry"
 msgstr "删除当前项"
 
-#: cantor_part.cpp:355 worksheet.cpp:2244
+#: cantor_part.cpp:355 worksheet.cpp:2473
 #, kde-format
 msgid "Merge Cells"
 msgstr ""
 
-#: cantor_part.cpp:361 worksheet.cpp:2115
+#: cantor_part.cpp:361 worksheet.cpp:2344
 #, kde-format
 msgid "Split Cell"
 msgstr ""
@@ -3096,7 +3096,7 @@ msgstr "所有可用的计算结果都将丢失。是否确实要重新启动 %1
 msgid "Restart %1?"
 msgstr "要重新启动 %1 吗？"
 
-#: cantor_part.cpp:679 worksheet.cpp:2220
+#: cantor_part.cpp:679 worksheet.cpp:2449
 #, kde-format
 msgid "Interrupt"
 msgstr "中断"
@@ -3245,27 +3245,27 @@ msgstr "选择"
 msgid "Reset to Default"
 msgstr "重置为默认"
 
-#: commandentry.cpp:332
+#: commandentry.cpp:338
 #, kde-format
 msgid "Show Results"
 msgstr "显示结果"
 
-#: commandentry.cpp:334
+#: commandentry.cpp:340
 #, kde-format
 msgid "Hide Results"
 msgstr "隐藏结果"
 
-#: commandentry.cpp:339 worksheet.cpp:2209
+#: commandentry.cpp:345 worksheet.cpp:2438
 #, kde-format
 msgid "Show Help"
 msgstr "显示帮助"
 
-#: commandentry.cpp:352
+#: commandentry.cpp:358
 #, kde-format
 msgid "Appearance"
 msgstr "外观"
 
-#: commandentry.cpp:791 commandentry.cpp:1092
+#: commandentry.cpp:800 commandentry.cpp:1108
 #, kde-format
 msgid "Interrupted"
 msgstr "已中断"
@@ -3452,52 +3452,52 @@ msgstr "点破折线样式"
 msgid "Dash Dot Dot Line Style"
 msgstr "点破折线样式"
 
-#: horizontalruleentry.cpp:297
+#: horizontalruleentry.cpp:305
 #, kde-format
 msgid "Line Thickness"
 msgstr "线宽"
 
-#: horizontalruleentry.cpp:299
+#: horizontalruleentry.cpp:307
 #, kde-format
 msgid "Thin"
 msgstr "细"
 
-#: horizontalruleentry.cpp:303
+#: horizontalruleentry.cpp:311
 #, kde-format
 msgid "Medium"
 msgstr "中"
 
-#: horizontalruleentry.cpp:307
+#: horizontalruleentry.cpp:315
 #, kde-format
 msgid "Thick"
 msgstr "粗"
 
-#: horizontalruleentry.cpp:320
+#: horizontalruleentry.cpp:328
 #, kde-format
 msgid "Line Color"
 msgstr "线条颜色"
 
-#: horizontalruleentry.cpp:351
+#: horizontalruleentry.cpp:359
 #, kde-format
 msgid "Line Style"
 msgstr "线条样式"
 
-#: imageentry.cpp:47 imageentry.cpp:370
+#: imageentry.cpp:60 imageentry.cpp:456
 #, kde-format
 msgid "Configure Image"
 msgstr "配置图像"
 
-#: imageentry.cpp:256
+#: imageentry.cpp:341
 #, kde-format
 msgid "Double click here to configure image settings"
 msgstr "双击编辑图像设置"
 
-#: imageentry.cpp:287
+#: imageentry.cpp:359
 #, kde-format
 msgid "Cannot load image %1"
 msgstr "无法加载图片 %1"
 
-#: imageresultitem.cpp:60 worksheet.cpp:2236
+#: imageresultitem.cpp:60 worksheet.cpp:2465
 #, kde-format
 msgid "Original Size"
 msgstr "原始大小"
@@ -3594,17 +3594,17 @@ msgstr "像素"
 msgid "%"
 msgstr "%"
 
-#: imagesettingsdialog.cpp:151 markdownentry.cpp:918
+#: imagesettingsdialog.cpp:151 markdownentry.cpp:990
 #, kde-format
 msgid "Open image file"
 msgstr "打开图像文件"
 
-#: imagesettingsdialog.cpp:153 markdownentry.cpp:920
+#: imagesettingsdialog.cpp:153 markdownentry.cpp:992
 #, kde-format
 msgid "Images (%1)"
 msgstr "图像 (%1)"
 
-#: latexentry.cpp:60 textentry.cpp:133
+#: latexentry.cpp:61 textentry.cpp:144
 #, kde-format
 msgid "Show LaTeX code"
 msgstr "显示 LaTeX 代码"
@@ -3839,27 +3839,27 @@ msgstr "要打开的文档。"
 msgid "Couldn't open the file %1"
 msgstr "无法打开文件 %1"
 
-#: markdownentry.cpp:70
+#: markdownentry.cpp:71
 #, kde-format
 msgid "Enter Edit Mode"
 msgstr "进入编辑模式"
 
-#: markdownentry.cpp:78
+#: markdownentry.cpp:79
 #, kde-format
 msgid "Clear Attachments"
 msgstr "清除附件"
 
-#: markdownentry.cpp:732
+#: markdownentry.cpp:811
 #, kde-format
 msgid "Cantor Math Error"
 msgstr "Cantor 数学错误"
 
-#: markdownentry.cpp:941
+#: markdownentry.cpp:1013
 #, kde-format
 msgid "Failed to read the image \"%1\". Error \"%2\""
 msgstr "无法读取图像“%1”。错误“%2”"
 
-#: pagebreakentry.cpp:28
+#: pagebreakentry.cpp:32
 #, kde-format
 msgid "--- Page Break ---"
 msgstr "---分页---"
@@ -3966,8 +3966,8 @@ msgid "Delete Heading"
 msgstr ""
 
 #: panelplugins/tocpanel/tocpanelplugin.cpp:365
-#: panelplugins/tocpanel/tocpanelplugin.cpp:1258 worksheet.cpp:2127
-#: worksheet.cpp:2156 worksheet.cpp:2174 worksheet.cpp:2190
+#: panelplugins/tocpanel/tocpanelplugin.cpp:1258 worksheet.cpp:2356
+#: worksheet.cpp:2385 worksheet.cpp:2403 worksheet.cpp:2419
 #: worksheethierarchymanager.cpp:321
 #, kde-format
 msgid "Command"
@@ -4244,8 +4244,8 @@ msgstr "结果"
 msgid "Errors"
 msgstr "错误"
 
-#: searchbar.cpp:531 searchbar.cpp:560 worksheet.cpp:2130 worksheet.cpp:2157
-#: worksheet.cpp:2175 worksheet.cpp:2191
+#: searchbar.cpp:531 searchbar.cpp:560 worksheet.cpp:2359 worksheet.cpp:2386
+#: worksheet.cpp:2404 worksheet.cpp:2420
 #, kde-format
 msgid "Text"
 msgstr "文本"
@@ -4446,27 +4446,27 @@ msgstr "删除条目时请求确认"
 msgid "Find…"
 msgstr "查找…"
 
-#: textentry.cpp:77
+#: textentry.cpp:87
 #, kde-format
 msgid "Raw Cell Targets"
 msgstr "原始单元格目标"
 
-#: textentry.cpp:84
+#: textentry.cpp:95
 #, kde-format
 msgid "Add custom target"
 msgstr "添加自定义目标"
 
-#: textentry.cpp:98
+#: textentry.cpp:109
 #, kde-format
 msgid "Convert to Text Entry"
 msgstr "转换为文本条目"
 
-#: textentry.cpp:103
+#: textentry.cpp:114
 #, kde-format
 msgid "Convert to Raw Cell"
 msgstr "转换为原始单元格"
 
-#: textentry.cpp:659
+#: textentry.cpp:862
 #, kde-format
 msgid "Target MIME type:"
 msgstr "目标 MIME 类型："
@@ -4516,79 +4516,91 @@ msgstr "无法渲染 Eps 文件。您可能还需要其他软件包"
 msgid "Save text result"
 msgstr "保存文本结果"
 
-#: worksheet.cpp:1344
+#: worksheet.cpp:1551
 #, kde-format
 msgid "Cannot write file %1."
 msgstr "无法写入文件 %1。"
 
-#: worksheet.cpp:1372 worksheet.cpp:1387
+#: worksheet.cpp:1579 worksheet.cpp:1594
 #, kde-format
 msgid "Cannot write file."
 msgstr "无法写入文件。"
 
-#: worksheet.cpp:1404 worksheet.cpp:1448
+#: worksheet.cpp:1611 worksheet.cpp:1655
 #, kde-format
 msgid "Error saving file %1"
 msgstr "保存文件 %1 出错"
 
-#: worksheet.cpp:1427
+#: worksheet.cpp:1634
 #, kde-format
 msgid ""
 "In read-only mode Cantor couldn't guarantee, that the export will be valid "
 "for %1"
 msgstr "在只读模式中，Cantor 无法保证导出对 %1 有效"
 
-#: worksheet.cpp:1454
+#: worksheet.cpp:1661
 #, kde-format
 msgid "Error loading latex.xsl stylesheet"
 msgstr "加载 latex.xsl 样式表时出错"
 
-#: worksheet.cpp:1495
+#: worksheet.cpp:1672
+#, kde-format
+msgid "Cannot create temporary archive."
+msgstr ""
+
+#: worksheet.cpp:1715
 #, kde-format
 msgid "Couldn't open the file %1."
 msgstr "无法打开文件 %1。"
 
-#: worksheet.cpp:1495 worksheet.cpp:1518 worksheet.cpp:1538 worksheet.cpp:1555
-#: worksheet.cpp:1587 worksheet.cpp:1598 worksheet.cpp:1710 worksheet.cpp:1725
-#: worksheet.cpp:1767 worksheet.cpp:1778 worksheet.cpp:1897 worksheet.cpp:1899
+#: worksheet.cpp:1715 worksheet.cpp:1738 worksheet.cpp:1758 worksheet.cpp:1775
+#: worksheet.cpp:1790 worksheet.cpp:1816 worksheet.cpp:1827 worksheet.cpp:1939
+#: worksheet.cpp:1954 worksheet.cpp:1996 worksheet.cpp:2007 worksheet.cpp:2126
+#: worksheet.cpp:2128
 #, kde-format
 msgid "Open File"
 msgstr "打开文件"
 
-#: worksheet.cpp:1518
+#: worksheet.cpp:1738
 #, kde-format
 msgid "Couldn't open the selected file for reading."
 msgstr "无法打开要读取的文件。"
 
-#: worksheet.cpp:1538
+#: worksheet.cpp:1758
 #, kde-format
 msgid "The selected file is not a valid Cantor or Jupyter project file."
 msgstr "所选的文件不是有效的 Cantor 或者 Jupyter 项目文件。"
 
-#: worksheet.cpp:1555
+#: worksheet.cpp:1775
 #, kde-format
 msgid "The selected file is not a valid Cantor project file."
 msgstr "所选的文件不是有效的 Cantor 项目文件。"
 
-#: worksheet.cpp:1577
+#: worksheet.cpp:1790
+#, fuzzy, kde-format
+#| msgid "The selected file is not a valid Cantor project file."
+msgid "The selected file is a corrupt Cantor project file."
+msgstr "所选的文件不是有效的 Cantor 项目文件。"
+
+#: worksheet.cpp:1806
 #, kde-format
 msgid ""
 "This worksheet was created using Python2 which is not supported anymore. "
 "Python3 will be used."
 msgstr "此工作表是使用不再受支持的 Python2 创建的。将会使用 Python3 代替。"
 
-#: worksheet.cpp:1578 worksheet.cpp:1749
+#: worksheet.cpp:1807 worksheet.cpp:1978
 #, kde-format
 msgid "Python2 not supported anymore"
 msgstr "Python2 不再受支持"
 
-#: worksheet.cpp:1587 worksheet.cpp:1766
+#: worksheet.cpp:1816 worksheet.cpp:1995
 #, kde-format
 msgid ""
 "%1 backend was not found. Editing and executing entries is not possible."
 msgstr "未找到 %1 后端。无法编辑和执行条目。"
 
-#: worksheet.cpp:1596 worksheet.cpp:1776
+#: worksheet.cpp:1825 worksheet.cpp:2005
 #, kde-format
 msgid ""
 "There are some problems with the %1 backend,\n"
@@ -4599,21 +4611,21 @@ msgstr ""
 "请检查您的配置，或安装所需的软件包。\n"
 "目前您只能查看此工作表。"
 
-#: worksheet.cpp:1709
+#: worksheet.cpp:1938
 #, kde-format
 msgid ""
 "Jupyter notebooks with versions lower than 4.5 (detected version %1.%2) are "
 "not supported."
 msgstr "不支持低于 4.5 版本的 Jupyter 笔记本 （检测到版本 %1.%2）"
 
-#: worksheet.cpp:1724
+#: worksheet.cpp:1953
 #, kde-format
 msgid ""
 "Jupyter notebooks with versions higher than 4.5 (detected version %1.%2) are "
 "not supported."
 msgstr "不支持高于 4.5 版本的 Jupyter 笔记本（检测到版本 %1.%2）"
 
-#: worksheet.cpp:1748
+#: worksheet.cpp:1977
 #, kde-format
 msgid ""
 "This notebook was created using Python2 which is not supported anymore. "
@@ -4621,246 +4633,246 @@ msgid ""
 msgstr ""
 "此笔记本是使用不再受支持的 Python2 创建的。Cantor 将会使用 Python3 代替。"
 
-#: worksheet.cpp:1816
+#: worksheet.cpp:2045
 #, kde-format
 msgid "an object with keys: %1"
 msgstr "一个包含密钥的对象： %1"
 
-#: worksheet.cpp:1818
+#: worksheet.cpp:2047
 #, kde-format
 msgid "non object JSON value"
 msgstr "非对象类型的 JSON 值"
 
-#: worksheet.cpp:1821
+#: worksheet.cpp:2050
 #, kde-format
 msgid "found incorrect data (%1) that is not Jupyter cell"
 msgstr "发现不是 Jupyter 单元格的无效数据（%1）"
 
-#: worksheet.cpp:1897
+#: worksheet.cpp:2126
 #, kde-format
 msgid "The file is not valid Jupyter notebook"
 msgstr "该文件不是有效的 Jupyter 笔记本"
 
-#: worksheet.cpp:1899
+#: worksheet.cpp:2128
 #, kde-format
 msgid "Invalid Jupyter notebook scheme: %1"
 msgstr "无效的 Jupyter 笔记本方案： %1"
 
-#: worksheet.cpp:2122
+#: worksheet.cpp:2351
 #, kde-format
 msgid "Convert To"
 msgstr "转换为"
 
-#: worksheet.cpp:2134 worksheet.cpp:2159 worksheet.cpp:2177 worksheet.cpp:2193
+#: worksheet.cpp:2363 worksheet.cpp:2388 worksheet.cpp:2406 worksheet.cpp:2422
 #, kde-format
 msgid "Markdown"
 msgstr "Markdown"
 
-#: worksheet.cpp:2139 worksheet.cpp:2162 worksheet.cpp:2180 worksheet.cpp:2197
+#: worksheet.cpp:2368 worksheet.cpp:2391 worksheet.cpp:2409 worksheet.cpp:2426
 #, kde-format
 msgid "Image"
 msgstr "图像"
 
-#: worksheet.cpp:2142 worksheet.cpp:2165 worksheet.cpp:2183 worksheet.cpp:2200
+#: worksheet.cpp:2371 worksheet.cpp:2394 worksheet.cpp:2412 worksheet.cpp:2429
 #, kde-format
 msgid "Page Break"
 msgstr "分页"
 
-#: worksheet.cpp:2145 worksheet.cpp:2164 worksheet.cpp:2182 worksheet.cpp:2199
+#: worksheet.cpp:2374 worksheet.cpp:2393 worksheet.cpp:2411 worksheet.cpp:2428
 #, kde-format
 msgid "Horizontal Line"
 msgstr "水平线"
 
-#: worksheet.cpp:2148 worksheet.cpp:2167 worksheet.cpp:2185 worksheet.cpp:2202
+#: worksheet.cpp:2377 worksheet.cpp:2396 worksheet.cpp:2414 worksheet.cpp:2431
 #, kde-format
 msgid "Hierarchy Entry"
 msgstr "层次结构条目"
 
-#: worksheet.cpp:2151
+#: worksheet.cpp:2380
 #, kde-format
 msgid "Insert After"
 msgstr "在后面插入"
 
-#: worksheet.cpp:2170
+#: worksheet.cpp:2399
 #, kde-format
 msgid "Insert Before"
 msgstr "在前面插入"
 
-#: worksheet.cpp:2187
+#: worksheet.cpp:2416
 #, kde-format
 msgid "Insert"
 msgstr "插入"
 
-#: worksheet.cpp:2229
+#: worksheet.cpp:2458
 #, kde-format
 msgid "Zoom In"
 msgstr "放大"
 
-#: worksheet.cpp:2232
+#: worksheet.cpp:2461
 #, kde-format
 msgid "Zoom Out"
 msgstr "缩小"
 
-#: worksheet.cpp:2247
+#: worksheet.cpp:2476
 #, kde-format
 msgid "Move Entries Up"
 msgstr "上移条目"
 
-#: worksheet.cpp:2248
+#: worksheet.cpp:2477
 #, kde-format
 msgid "Move Entries Down"
 msgstr "下移条目"
 
-#: worksheet.cpp:2249
+#: worksheet.cpp:2478
 #, kde-format
 msgid "Evaluate Entries"
 msgstr "计算条目"
 
-#: worksheet.cpp:2251 worksheet.cpp:3339
+#: worksheet.cpp:2480 worksheet.cpp:3568
 #, kde-format
 msgid "Delete Entries"
 msgstr "删除条目"
 
-#: worksheet.cpp:2264
+#: worksheet.cpp:2493
 #, kde-format
 msgid "Collapse Command Entry Results"
 msgstr "折叠命令条目结果"
 
-#: worksheet.cpp:2265
+#: worksheet.cpp:2494
 #, kde-format
 msgid "Expand Command Entry Results"
 msgstr "展开命令条目结果"
 
-#: worksheet.cpp:2267
+#: worksheet.cpp:2496
 #, kde-format
 msgid "Delete Command Entry Results"
 msgstr "删除命令条目结果"
 
-#: worksheet.cpp:2269
+#: worksheet.cpp:2498
 #, kde-format
 msgid "Exclude Command Entry From Execution"
 msgstr "从执行中排除命令条目"
 
-#: worksheet.cpp:2270
+#: worksheet.cpp:2499
 #, kde-format
 msgid "Add Command Entry To Execution"
 msgstr "添加要执行的命令条目"
 
-#: worksheet.cpp:2469
+#: worksheet.cpp:2698
 #, kde-format
 msgctxt "@action"
 msgid "Text &Color..."
 msgstr "文本颜色(&C)..."
 
-#: worksheet.cpp:2470
+#: worksheet.cpp:2699
 #, kde-format
 msgctxt "@label text color"
 msgid "Color"
 msgstr "颜色"
 
-#: worksheet.cpp:2477
+#: worksheet.cpp:2706
 #, kde-format
 msgctxt "@action"
 msgid "Text &Highlight..."
 msgstr "文本高亮(&H)..."
 
-#: worksheet.cpp:2483
+#: worksheet.cpp:2712
 #, kde-format
 msgctxt "@action"
 msgid "&Font"
 msgstr "字体(&F)"
 
-#: worksheet.cpp:2488
+#: worksheet.cpp:2717
 #, kde-format
 msgctxt "@action"
 msgid "Font &Size"
 msgstr "字体大小(&S)"
 
-#: worksheet.cpp:2494
+#: worksheet.cpp:2723
 #, kde-format
 msgctxt "@action boldify selected text"
 msgid "&Bold"
 msgstr "粗体(&B)"
 
-#: worksheet.cpp:2505
+#: worksheet.cpp:2734
 #, kde-format
 msgctxt "@action italicize selected text"
 msgid "&Italic"
 msgstr "斜体(&I)"
 
-#: worksheet.cpp:2517
+#: worksheet.cpp:2746
 #, kde-format
 msgctxt "@action underline selected text"
 msgid "&Underline"
 msgstr "下划线(&U)"
 
-#: worksheet.cpp:2528
+#: worksheet.cpp:2757
 #, kde-format
 msgctxt "@action"
 msgid "&Strike Out"
 msgstr "删除线(&S)"
 
-#: worksheet.cpp:2539
+#: worksheet.cpp:2768
 #, kde-format
 msgctxt "@action"
 msgid "Align &Left"
 msgstr "左对齐(&L)"
 
-#: worksheet.cpp:2542
+#: worksheet.cpp:2771
 #, kde-format
 msgctxt "@label left justify"
 msgid "Left"
 msgstr "左对齐"
 
-#: worksheet.cpp:2549
+#: worksheet.cpp:2778
 #, kde-format
 msgctxt "@action"
 msgid "Align &Center"
 msgstr "居中对齐(&C)"
 
-#: worksheet.cpp:2552
+#: worksheet.cpp:2781
 #, kde-format
 msgctxt "@label center justify"
 msgid "Center"
 msgstr "居中对齐"
 
-#: worksheet.cpp:2559
+#: worksheet.cpp:2788
 #, kde-format
 msgctxt "@action"
 msgid "Align &Right"
 msgstr "右对齐(&R)"
 
-#: worksheet.cpp:2562
+#: worksheet.cpp:2791
 #, kde-format
 msgctxt "@label right justify"
 msgid "Right"
 msgstr "右对齐"
 
-#: worksheet.cpp:2569
+#: worksheet.cpp:2798
 #, kde-format
 msgctxt "@action"
 msgid "&Justify"
 msgstr "两端对齐(&J)"
 
-#: worksheet.cpp:2572
+#: worksheet.cpp:2801
 #, kde-format
 msgctxt "@label justify fill"
 msgid "Justify"
 msgstr "两端对齐"
 
-#: worksheet.cpp:3336
+#: worksheet.cpp:3565
 #, kde-format
 msgid ""
 "This step cannot be undone. Do you really want to delete the selected "
 "entries?"
 msgstr "此步骤不可撤消。您真的想要删除选中的条目吗？"
 
-#: worksheet.cpp:3514
+#: worksheet.cpp:3743
 #, kde-format
 msgid "This step cannot be undone. Do you really want to delete all results?"
 msgstr "此步骤不可撤消。您真的想要删除所有结果吗？"
 
-#: worksheet.cpp:3515
+#: worksheet.cpp:3744
 #, kde-format
 msgid "Delete all results"
 msgstr "删除所有结果"
@@ -5021,21 +5033,39 @@ msgid "Move Down"
 msgstr "下移"
 
 #: worksheetentry.cpp:545
+#, fuzzy, kde-format
+#| msgctxt "@title:window"
+#| msgid "Modify Entry"
+msgid "Copy Entry"
+msgstr "修改条目"
+
+#: worksheetentry.cpp:549
+#, kde-format
+msgid "Paste Entry Below"
+msgstr ""
+
+#: worksheetentry.cpp:554
+#, fuzzy, kde-format
+#| msgid "Delete Entry"
+msgid "Duplicate Entry Below"
+msgstr "删除条目"
+
+#: worksheetentry.cpp:560
 #, kde-format
 msgid "Delete"
 msgstr "删除"
 
-#: worksheetentry.cpp:843
+#: worksheetentry.cpp:858
 #, kde-format
 msgid "This step cannot be undone. Do you really want to delete this entry?"
 msgstr "此步骤不可撤消。您真的想要删除此条目吗？"
 
-#: worksheetentry.cpp:843 worksheetentry.cpp:971
+#: worksheetentry.cpp:858 worksheetentry.cpp:986
 #, kde-format
 msgid "Delete Entry"
 msgstr "删除条目"
 
-#: worksheetentry.cpp:976
+#: worksheetentry.cpp:991
 #, kde-format
 msgid "Drag Entry"
 msgstr "拖动项目"
