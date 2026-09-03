@@ -72,6 +72,7 @@ void LuaSession::login()
     luaL_openlibs(m_L);
 
     changeStatus(Cantor::Session::Done);
+    static_cast<LuaVariableModel*>(variableModel())->initialize();
     Q_EMIT loginDone();
 }
 
