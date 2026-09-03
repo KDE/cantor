@@ -1,6 +1,7 @@
 set( VariableManagerPlugin_SRCS
      variablemanagerplugin.cpp
      variablemanagerwidget.cpp
+     variablepreviewwindow.cpp
 )
 
 ki18n_wrap_ui(VariableManagerPlugin_SRCS newvardlg.ui)

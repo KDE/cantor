@@ -8,6 +8,8 @@
 #include "backend.h"
 #include "extension.h"
 #include "session.h"
+#include "defaultvariablemodel.h"
+#include "variablepreviewwindow.h"
 
 #include "ui_newvardlg.h"
 
@@ -23,6 +25,8 @@
 #include <QToolButton>
 #include <QTreeView>
 
+#include <utility>
+
 #include <KIconLoader>
 #include <KMessageBox>
 
@@ -35,6 +39,9 @@ VariableManagerWidget::VariableManagerWidget(Cantor::Session* session, QWidget* 
     m_treeView->setRootIsDecorated(false);
     m_treeView->setEditTriggers(QAbstractItemView::NoEditTriggers);
     m_treeView->setAlternatingRowColors(true);
+    m_treeView->setWordWrap(false);
+    m_treeView->setUniformRowHeights(true);
+    m_treeView->setTextElideMode(Qt::ElideRight);
 
     auto* btnLayout = new QHBoxLayout();
     btnLayout->setSpacing(0);
@@ -67,6 +74,12 @@ VariableManagerWidget::VariableManagerWidget(Cantor::Session* session, QWidget* 
     m_clearBtn->setIconSize(QSize(size, size));
     btnLayout->addWidget(m_clearBtn);
 
+    m_previewBtn = new QToolButton(this);
+    m_previewBtn->setIcon(QIcon::fromTheme(QLatin1String("document-preview")));
+    m_previewBtn->setToolTip(i18n("Preview Variable"));
+    m_previewBtn->setIconSize(QSize(size, size));
+    btnLayout->addWidget(m_previewBtn);
+
     auto* spacer = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
     btnLayout->addItem(spacer);
 
@@ -92,6 +105,8 @@ VariableManagerWidget::VariableManagerWidget(Cantor::Session* session, QWidget* 
     m_matchCompleteWordAction->setCheckable(true);
     m_matchCompleteWordAction->setChecked(false);
 
+    m_previewAction = new QAction(QIcon::fromTheme(QLatin1String("document-preview")), i18n("Preview Variable"), this);
+
     //signal-slot connections
     connect(m_leFilter, &QLineEdit::textChanged, this, &VariableManagerWidget::filterTextChanged);
     connect(m_bFilterOptions, &QPushButton::toggled, this, &VariableManagerWidget::toggleFilterOptionsMenu);
@@ -101,12 +116,19 @@ VariableManagerWidget::VariableManagerWidget(Cantor::Session* session, QWidget* 
     connect(m_loadBtn, &QToolButton::clicked, this, &VariableManagerWidget::load);
     connect(m_saveBtn, &QToolButton::clicked, this, &VariableManagerWidget::save);
     connect(m_clearBtn, &QToolButton::clicked, this, &VariableManagerWidget::clearVariables);
+    connect(m_previewBtn, &QToolButton::clicked, this, &VariableManagerWidget::previewSelected);
+    connect(m_previewAction, &QAction::triggered, this, &VariableManagerWidget::previewSelected);
+    connect(m_treeView, &QTreeView::doubleClicked, this, [this](const QModelIndex&) {
+        previewSelected();
+    });
 
     setSession(session);
 }
 
 void VariableManagerWidget::setSession(Cantor::Session* session)
 {
+    closePreviews();
+
     if (m_model)
         disconnect(m_model, nullptr, this, nullptr);
 
@@ -129,7 +151,16 @@ void VariableManagerWidget::setSession(Cantor::Session* session)
 
         connect(m_model, &QAbstractItemModel::rowsInserted, this, &VariableManagerWidget::updateButtons);
         connect(m_model, &QAbstractItemModel::rowsRemoved, this, &VariableManagerWidget::updateButtons);
+        connect(m_model, &QAbstractItemModel::rowsInserted, this, &VariableManagerWidget::resizeNameColumn);
+        connect(m_model, &QAbstractItemModel::modelReset, this, &VariableManagerWidget::resizeNameColumn);
+        connect(m_model, &QAbstractItemModel::dataChanged, this, &VariableManagerWidget::markPreviewsStale);
+        connect(m_model, &QAbstractItemModel::modelReset, this, &VariableManagerWidget::markPreviewsStale);
+        connect(m_model, &QAbstractItemModel::rowsInserted, this, &VariableManagerWidget::markPreviewsStale);
+        connect(m_model, &QAbstractItemModel::rowsRemoved, this, &VariableManagerWidget::markPreviewsStale);
+        connect(m_treeView->selectionModel(), &QItemSelectionModel::currentChanged, this, &VariableManagerWidget::updatePreviewAction);
         updateButtons();
+        updatePreviewAction();
+        resizeNameColumn();
 
         //check for the methods the backend actually supports, and disable the buttons accordingly
         auto* ext = dynamic_cast<Cantor::VariableManagementExtension*>(
@@ -148,6 +179,16 @@ void VariableManagerWidget::setSession(Cantor::Session* session)
                 m_clearBtn->setDisabled(true);
         }
     }
+    else
+        updatePreviewAction();
+}
+
+void VariableManagerWidget::resizeNameColumn()
+{
+    QTimer::singleShot(0, m_treeView, [this]() {
+        if (m_treeView && m_treeView->model())
+            m_treeView->resizeColumnToContents(0);
+    });
 }
 
 void VariableManagerWidget::clearVariables()
@@ -287,9 +328,80 @@ void VariableManagerWidget::filterTextChanged(const QString& text) {
 
 void VariableManagerWidget::updateButtons()
 {
-    bool enabled = (m_treeView->model()->rowCount() != 0);
+    bool enabled = m_treeView->model() && m_treeView->model()->rowCount() != 0;
     m_saveBtn->setEnabled(enabled);
     m_clearBtn->setEnabled(enabled);
+}
+
+Cantor::VariablePreviewData::Reference VariableManagerWidget::selectedPreview() const
+{
+    if (!m_session || !m_session->variableModel())
+        return {};
+
+    const QModelIndex index = m_treeView->currentIndex();
+    if (!index.isValid())
+        return {};
+
+    return m_session->variableModel()->variablePreview(index);
+}
+
+void VariableManagerWidget::updatePreviewAction()
+{
+    const bool enabled = selectedPreview().isPreviewable();
+    m_previewBtn->setEnabled(enabled);
+    m_previewAction->setEnabled(enabled);
+}
+
+void VariableManagerWidget::previewSelected()
+{
+    const auto reference = selectedPreview();
+    if (reference.isPreviewable())
+        openPreview(reference);
+}
+
+void VariableManagerWidget::openPreview(const Cantor::VariablePreviewData::Reference& reference)
+{
+    if (!m_session || !m_session->variableModel() || !reference.isPreviewable())
+        return;
+
+    const QString key = reference.key();
+    if (m_previewWindows.contains(key) && m_previewWindows.value(key))
+    {
+        VariablePreviewWindow* window = m_previewWindows.value(key);
+        window->show();
+        window->raise();
+        window->activateWindow();
+        return;
+    }
+
+    auto* sourceWindow = qobject_cast<VariablePreviewWindow*>(sender());
+    auto* window = new VariablePreviewWindow(m_session->variableModel(), reference, this);
+    m_previewWindows.insert(key, window);
+    connect(window, &VariablePreviewWindow::previewRequested, this, &VariableManagerWidget::openPreview);
+    connect(window, &QObject::destroyed, this, [this, key]() {
+        m_previewWindows.remove(key);
+    });
+    window->show();
+    if (sourceWindow)
+        window->move(sourceWindow->pos() + QPoint(32, 32));
+}
+
+void VariableManagerWidget::markPreviewsStale()
+{
+    for (const auto& window : std::as_const(m_previewWindows))
+        if (window)
+            window->markStale();
+
+    updatePreviewAction();
+}
+
+void VariableManagerWidget::closePreviews()
+{
+    const auto windows = m_previewWindows;
+    for (const auto& window : windows)
+        if (window)
+            window->close();
+    m_previewWindows.clear();
 }
 
 void VariableManagerWidget::contextMenuEvent(QContextMenuEvent* event) {
@@ -305,16 +417,14 @@ void VariableManagerWidget::contextMenuEvent(QContextMenuEvent* event) {
         m_copyValueAction = new QAction(QIcon::fromTheme(QLatin1String("edit-copy")), i18n("Copy Value"), group);
         m_copyNameValueAction = new QAction(QIcon::fromTheme(QLatin1String("edit-copy")), i18n("Copy Name and Value"), group);
         connect(group, &QActionGroup::triggered, this, &VariableManagerWidget::copy);
-
-        //m_dataViewerAction = new QAction(QIcon::fromTheme(QLatin1String("document-preview")), i18n("Data Viewer"), this);
     }
 
     auto* menu = new QMenu(this);
     menu->addAction(m_copyNameAction);
     menu->addAction(m_copyValueAction);
     menu->addAction(m_copyNameValueAction);
-    //menu->addSeparator();
-    //menu->addAction(m_dataViewerAction);
+    menu->addSeparator();
+    menu->addAction(m_previewAction);
 
     menu->exec(event->globalPos());
     delete menu;
