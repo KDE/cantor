@@ -7,8 +7,14 @@
 #include "defaultvariablemodel.h"
 #include "extension.h"
 #include "backend.h"
+#include "result.h"
 
 #include <KLocalizedString>
+
+#include <QTimer>
+#include <QPointer>
+
+#include <utility>
 
 namespace Cantor
 {
@@ -91,20 +97,44 @@ Qt::ItemFlags DefaultVariableModel::flags(const QModelIndex& index) const
 
 QVariant DefaultVariableModel::data(const QModelIndex& index, int role) const
 {
-    if ((role != Qt::DisplayRole && role != DataRole) || !index.isValid())
+    if ((role != Qt::DisplayRole && role != Qt::ToolTipRole && role != DataRole) || !index.isValid())
         return QVariant();
 
     Q_D(const DefaultVariableModel);
     const auto& variable = d->variables.at(index.row());
+
+    if (role == Qt::ToolTipRole)
+    {
+        switch (index.column())
+        {
+            case NameColumn:
+                return variable.name;
+            case ValueColumn:
+                return variable.value.left(2000);
+            case TypeColumn:
+                return variable.type;
+            case SizeColumn:
+                return variable.size == 0 ? QVariant() : QVariant::fromValue<qulonglong>(variable.size);
+            case DimensionColumn:
+                return variable.dimension;
+        }
+    }
+
     switch (index.column())
     {
         case NameColumn:
             return QVariant(variable.name);
         case ValueColumn:
-            if (variable.value.size() <= 100 || role == DefaultVariableModel::DataRole)
+        {
+            if (role == DefaultVariableModel::DataRole)
                 return QVariant(variable.value);
-            else
-                return QVariant(variable.value.left(100) + QStringLiteral("..."));
+
+            QString displayValue = variable.value;
+            displayValue.replace(QStringLiteral("\r\n"), QStringLiteral(" "));
+            displayValue.replace(QLatin1Char('\n'), QLatin1Char(' '));
+            displayValue.replace(QLatin1Char('\r'), QLatin1Char(' '));
+            return displayValue.size() <= 100 ? QVariant(displayValue) : QVariant(displayValue.left(100) + QStringLiteral("..."));
+        }
         case TypeColumn:
             return QVariant(variable.type);
         case SizeColumn:
@@ -179,7 +209,7 @@ void DefaultVariableModel::addVariable(const Cantor::DefaultVariableModel::Varia
         d->variables[index].size = variable.size;
         d->variables[index].dimension = variable.dimension;
         QModelIndex topLeft = createIndex(index, NameColumn);
-        QModelIndex bottomRight = createIndex(index, ValueColumn);
+        QModelIndex bottomRight = createIndex(index, d->columnCount - 1);
         Q_EMIT dataChanged(topLeft, bottomRight);
     }
     else
@@ -246,7 +276,7 @@ void DefaultVariableModel::setVariables(const QList<DefaultVariableModel::Variab
     int i = 0;
     while (i < d->variables.size())
     {
-        Variable var = d->variables[i];
+        auto& var = d->variables[i];
         bool found = false;
         for (const Variable& newvar : newVars)
             if(var.name == newvar.name)
@@ -277,12 +307,13 @@ void DefaultVariableModel::setVariables(const QList<DefaultVariableModel::Variab
             if(var.name == newvar.name)
             {
                 found = true;
-                if (var.value != newvar.value || var.size != newvar.size || var.type != newvar.type)
+                if (var.value != newvar.value || var.size != newvar.size || var.type != newvar.type || var.dimension != newvar.dimension)
                 {
                     var.value = newvar.value;
                     var.size = newvar.size;
                     var.type = newvar.type;
-                    Q_EMIT dataChanged(createIndex(i, NameColumn), createIndex(i, SizeColumn));
+                    var.dimension = newvar.dimension;
+                    Q_EMIT dataChanged(createIndex(i, NameColumn), createIndex(i, d->columnCount - 1));
                 }
                 break;
             }
@@ -369,6 +400,61 @@ QStringList DefaultVariableModel::functions() const
 {
     Q_D(const DefaultVariableModel);
     return d->functions;
+}
+
+VariablePreviewData::Reference DefaultVariableModel::variablePreview(const QModelIndex& index) const
+{
+    VariablePreviewData::Reference reference;
+    if (!index.isValid())
+        return reference;
+
+    const QModelIndex nameIndex = index.siblingAtColumn(NameColumn);
+    reference.variableName = data(nameIndex, Qt::DisplayRole).toString();
+    reference.displayName = reference.variableName;
+    return reference;
+}
+
+VariablePreviewRequest* DefaultVariableModel::requestVariablePreview(const VariablePreviewData::Reference&, qsizetype, qsizetype, QObject* parent)
+{
+    auto* request = new VariablePreviewRequest(parent);
+    QTimer::singleShot(0, request, [request]() {
+        request->fail(i18n("Preview is not supported for this variable."));
+    });
+    return request;
+}
+
+VariablePreviewRequest* DefaultVariableModel::requestVariablePreviewFromCommand(const QString& command, const QString& variableName, QObject* parent)
+{
+    auto* request = new VariablePreviewRequest(parent);
+    auto* expression = session()->evaluateExpression(command, Expression::FinishingBehavior::DoNotDelete, true);
+    QPointer<VariablePreviewRequest> guardedRequest(request);
+    connect(expression, &Expression::statusChanged, this, [expression, guardedRequest, variableName](Expression::Status status) {
+        if (status != Expression::Status::Done && status != Expression::Status::Error && status != Expression::Status::Interrupted)
+            return;
+
+        if (guardedRequest)
+        {
+            if (status == Expression::Status::Done && expression->result())
+            {
+                const QString output = expression->result()->data().toString();
+                const QLatin1String marker("__CANTOR_VARIABLE_PREVIEW__");
+                const qsizetype markerPosition = output.lastIndexOf(marker);
+                VariablePreviewData data;
+                QString error;
+                if (markerPosition != -1 && VariablePreviewData::fromJson(QByteArray::fromBase64(output.mid(markerPosition + marker.size()).trimmed().toLatin1()), variableName, &data, &error))
+                    guardedRequest->complete(std::move(data));
+                else
+                    guardedRequest->fail(error.isEmpty() ? i18n("The backend returned invalid preview data.") : error);
+            }
+            else if (status == Expression::Status::Error)
+                guardedRequest->fail(expression->errorMessage());
+            else
+                guardedRequest->fail(i18n("The preview request was interrupted."));
+        }
+
+        expression->deleteLater();
+    });
+    return request;
 }
 
 bool operator==(const Cantor::DefaultVariableModel::Variable& one, const Cantor::DefaultVariableModel::Variable& other)

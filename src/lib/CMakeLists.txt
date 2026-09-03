@@ -16,6 +16,7 @@ set( cantor_LIB_SRCS
   assistant.cpp
   syntaxhelpobject.cpp
   defaultvariablemodel.cpp
+  variablepreview.cpp
   panelplugin.cpp
   panelpluginhandler.cpp
   worksheetaccess.cpp
@@ -46,6 +47,7 @@ Set( cantor_LIB_HDRS
   htmlresult.h
   #helper classes
   defaultvariablemodel.h
+  variablepreview.h
   worksheetaccess.h
   jupyterutils.h
   graphicpackage.h

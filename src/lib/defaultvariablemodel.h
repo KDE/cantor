@@ -10,6 +10,7 @@
 #include <QAbstractTableModel>
 #include "session.h"
 #include "expression.h"
+#include "variablepreview.h"
 
 namespace Cantor {
 
@@ -88,6 +89,17 @@ public:
      */
     QStringList functions() const;
 
+    /**
+     * Returns the preview reference for the variable at @p index. Backends override this
+     * method to advertise the variable types for which a detailed preview is available.
+     */
+    virtual VariablePreviewData::Reference variablePreview(const QModelIndex& index) const;
+
+    /**
+     * Requests a page of preview data. The returned request is completed asynchronously.
+     */
+    virtual VariablePreviewRequest* requestVariablePreview(const VariablePreviewData::Reference& reference, qsizetype offset, qsizetype limit, QObject* parent = nullptr);
+
     //TODO: improve the description?
     /**
      * Starts updating variable model (variable lists, etc.). Usually executed after finished all user's commands
@@ -155,6 +167,8 @@ Q_SIGNALS:
     void initialModelPopulated();
 
 protected:
+    VariablePreviewRequest* requestVariablePreviewFromCommand(const QString& command, const QString& variableName, QObject* parent = nullptr);
+
     QVariant data(const QModelIndex& index, int role = Qt::DisplayRole) const override;
     bool setData(const QModelIndex& index, const QVariant& value, int role = Qt::EditRole) override;
 
