@@ -58,11 +58,11 @@ void PythonSession::login()
     m_process->setProcessChannelMode(QProcess::ForwardedErrorChannel);
 
 #ifdef Q_OS_WIN
-    const QString& serverExecutablePath = QStandardPaths::findExecutable(QLatin1String("cantor_pythonserver.exe"));
+    const QString serverExecutablePath = pythonServerExecutablePath();
     // On Windows QProcess can't handle paths with spaces, so add escaping
     m_process->start(QLatin1String("\"") + serverExecutablePath + QLatin1String("\""));
 #else
-    const QString& serverExecutablePath = QStandardPaths::findExecutable(QLatin1String("cantor_pythonserver"));
+    const QString serverExecutablePath = pythonServerExecutablePath();
     m_process->start(serverExecutablePath);
 #endif
 
