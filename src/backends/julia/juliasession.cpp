@@ -18,6 +18,7 @@
 #include "defaultvariablemodel.h"
 
 #include "juliaexpression.h"
+#include "juliautils.h"
 #include "settings.h"
 #include "juliavariablemodel.h"
 #include "juliaextensions.h"
@@ -49,13 +50,7 @@ void JuliaSession::login()
     m_process = new KProcess(this);
     m_process->setOutputChannelMode(KProcess::OnlyStdoutChannel);
 
-#ifdef Q_OS_WIN
-    (*m_process)
-        << QStandardPaths::findExecutable(QLatin1String("cantor_juliaserver.exe"));
-#else
-    (*m_process)
-        << QStandardPaths::findExecutable(QLatin1String("cantor_juliaserver"));
-#endif
+    (*m_process) << juliaServerExecutablePath();
 
     connect(m_process, &QProcess::errorOccurred, this, &JuliaSession::reportServerProcessError);
 
@@ -328,5 +323,4 @@ QString JuliaSession::graphicPackageErrorMessage(QString packageId) const
     }
     return text;
 }
-
 
