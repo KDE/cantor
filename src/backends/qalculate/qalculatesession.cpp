@@ -16,6 +16,86 @@
 // Regex to match ANSI escape codes: \x1b\[[0-9;]*m
 static const QRegularExpression ansiRegex(QStringLiteral("\x1b\\[[0-9;]*m"));
 
+namespace
+{
+
+bool parseSaveArguments(const QString& command, QString* value, QString* variable)
+{
+    static const QRegularExpression savePrefix(QStringLiteral(R"(^\s*save\s*\()"), QRegularExpression::CaseInsensitiveOption);
+    const auto prefixMatch = savePrefix.match(command);
+    if (!prefixMatch.hasMatch())
+        return false;
+
+    const qsizetype valueStart = prefixMatch.capturedEnd();
+    qsizetype firstComma = -1;
+    qsizetype secondSeparator = -1;
+    int roundDepth = 1;
+    int squareDepth = 0;
+    bool quoted = false;
+    QChar quote;
+    bool escaped = false;
+    for (qsizetype index = valueStart; index < command.size(); ++index)
+    {
+        const QChar character = command.at(index);
+        if (quoted)
+        {
+            if (escaped)
+                escaped = false;
+            else if (character == QLatin1Char('\\'))
+                escaped = true;
+            else if (character == quote)
+                quoted = false;
+            continue;
+        }
+
+        if (character == QLatin1Char('\"') || character == QLatin1Char('\''))
+        {
+            quoted = true;
+            quote = character;
+        }
+        else if (character == QLatin1Char('('))
+            ++roundDepth;
+        else if (character == QLatin1Char(')'))
+        {
+            --roundDepth;
+            if (roundDepth == 0)
+            {
+                secondSeparator = index;
+                break;
+            }
+        }
+        else if (character == QLatin1Char('['))
+            ++squareDepth;
+        else if (character == QLatin1Char(']'))
+            --squareDepth;
+        else if (character == QLatin1Char(',') && roundDepth == 1 && squareDepth == 0)
+        {
+            if (firstComma < 0)
+                firstComma = index;
+            else
+            {
+                secondSeparator = index;
+                break;
+            }
+        }
+    }
+
+    if (firstComma < 0 || secondSeparator < 0)
+        return false;
+
+    const QString parsedValue = command.mid(valueStart, firstComma - valueStart).trimmed();
+    const QString parsedVariable = command.mid(firstComma + 1, secondSeparator - firstComma - 1).trimmed();
+    static const QRegularExpression variableName(QStringLiteral(R"(^[A-Za-z_]\w*$)"));
+    if (parsedValue.isEmpty() || !variableName.match(parsedVariable).hasMatch())
+        return false;
+
+    *value = parsedValue;
+    *variable = parsedVariable;
+    return true;
+}
+
+}
+
 QalculateSession::QalculateSession( Cantor::Backend* backend)
     : Session(backend ,nullptr, new KeywordsManager(QStringLiteral("Qalculate")))
 {
@@ -139,9 +219,32 @@ void QalculateSession::storeVariables(QString& currentCmd, QString output)
         But since qalc does not  provide a way to get the list of variables, we will have to stick to parsing
     **/
     QRegularExpression regex;
+    regex.setPattern(QStringLiteral("^\\s*([a-zA-Z_][\\w]*)\\s*(?::=|=(?!=))\\s*([\\s\\S]+?)\\s*;?\\s*$"));
+    QRegularExpressionMatch match = regex.match(currentCmd);
+    if (match.hasMatch())
+    {
+        const QString variableName = match.captured(1).trimmed();
+        QString sourceValue = match.captured(2).trimmed();
+        if (sourceValue.endsWith(QLatin1Char(';')))
+            sourceValue.chop(1);
+        variables.insert(variableName, sourceValue.trimmed());
+        variableModel()->update();
+        return;
+    }
+
+    // Preserve matrix row boundaries from the original save() expression.
+    QString savedValue;
+    QString savedVariable;
+    if (parseSaveArguments(currentCmd, &savedValue, &savedVariable))
+    {
+        variables.insert(savedVariable, savedValue);
+        variableModel()->update();
+        return;
+    }
+
     // find the value
     regex.setPattern(QStringLiteral("^[\\s\\w\\W]+=\\s*([\\w\\W]+)$"));
-    QRegularExpressionMatch match = regex.match(output);
+    match = regex.match(output);
     QString value;
     if(match.hasMatch()) {
         value = match.captured(1).trimmed();
@@ -167,18 +270,10 @@ void QalculateSession::storeVariables(QString& currentCmd, QString output)
         var.replace(QLatin1String("\n"), QLatin1String(""));
         var.remove(QLatin1String(">"));
     }
-    else {
-        regex.setPattern(QStringLiteral("^\\s*([a-zA-Z_][\\w]*)\\s*(?::=|=(?!=))\\s*.+$"));
-        match = regex.match(currentCmd);
-        if (match.hasMatch()) {
-            var = match.captured(1).trimmed();
-        }
-    }
-
     if(!value.isEmpty() && !var.isEmpty())
     {
-        variableModel()->update();
         variables.insert(var, value);
+        variableModel()->update();
     }
 
 }
