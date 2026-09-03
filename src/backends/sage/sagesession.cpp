@@ -39,10 +39,13 @@ static QByteArray initCmd = "import os\n"\
                            "print('%s %s' % ('____TMP_DIR____', SAGE_TMP))\n";
 
 static QByteArray newInitCmd =
-    "__CANTOR_IPYTHON_SHELL__=get_ipython()   \n "\
-    "__CANTOR_IPYTHON_SHELL__.autoindent=False\n ";
+    "__CANTOR_IPYTHON_SHELL__ = get_ipython()\n"
+    "__CANTOR_IPYTHON_SHELL__.autoindent = False\n";
 
-static QByteArray endOfInitMarker = "print('____END_OF_INIT____')\n ";
+static QByteArray rememberInitialVariablesCmd =
+    "__CANTOR_INITIAL_OBJECTS__ = {name: id(globals()[name]) for name in dir() if not name.startswith('_')}\n";
+
+static QByteArray endOfInitMarker = "print('____END_OF_INIT____')\n";
 
 
 SageSession::VersionInfo::VersionInfo(int major, int minor)
@@ -111,7 +114,13 @@ void SageSession::login()
         return;
     Q_EMIT loginStarted();
 
-    updateSageVersion();
+    if (!updateSageVersion())
+    {
+        changeStatus(Session::Disable);
+        Q_EMIT error(i18n("Failed to determine the version of Sage. Please check Sage installation."));
+        Q_EMIT loginDone();
+        return;
+    }
 
     QStringList arguments;
     arguments << QLatin1String("-q"); // suppress the banner
@@ -130,7 +139,6 @@ void SageSession::login()
         return;
     }
 
-    connect(m_process, &QProcess::readyRead, this, &SageSession::readStdOut);
     connect(m_process, &QProcess::readyReadStandardOutput, this, &SageSession::readStdOut);
     connect(m_process, &QProcess::readyReadStandardError, this, &SageSession::readStdErr);
     connect(m_process, &QProcess::errorOccurred, this, &SageSession::reportProcessError);
@@ -247,14 +255,13 @@ void SageSession::readStdOut()
         int index = m_outputCache.indexOf(QLatin1String("___TMP_DIR___") )+14;
         int endIndex = m_outputCache.indexOf(QLatin1String("\n"), index);
 
-        if(endIndex == -1)
-            m_tmpPath = m_outputCache.mid( index ).trimmed();
-        else
-            m_tmpPath = m_outputCache.mid( index, endIndex-index ).trimmed();
-
-        qDebug()<<"tmp path: "<<m_tmpPath;
-
-        m_dirWatch.addDir(m_tmpPath, KDirWatch::WatchFiles);
+        const QString tmpPath = endIndex == -1 ? m_outputCache.mid(index).trimmed() : m_outputCache.mid(index, endIndex - index).trimmed();
+        if (tmpPath != m_tmpPath)
+        {
+            m_tmpPath = tmpPath;
+            qDebug()<<"tmp path: "<<m_tmpPath;
+            m_dirWatch.addDir(m_tmpPath, KDirWatch::WatchFiles);
+        }
     }
 
     if(!m_isInitialized)
@@ -264,35 +271,25 @@ void SageSession::readStdOut()
         // s.a. the discussions in
         // https://github.com/sagemath/sage/issues/25363
         // https://bugs.kde.org/show_bug.cgi?id=408176
-        if(updateSageVersion())
+        if(m_sageVersion <= SageSession::VersionInfo(9, 2))
         {
-            if(m_sageVersion <= SageSession::VersionInfo(9, 2))
-            {
-                const QString& message = i18n("Sage version %1.%2 is unsupported. Please update your installation to the versions 9.2 or higher.",
-                                             m_sageVersion.majorVersion(), m_sageVersion.minorVersion());
-                KMessageBox::error(nullptr, message, i18n("Unsupported Version"));
-                interrupt();
-                logout();
-            }
-            else
-            {
-                qDebug()<<"using the current set of commands";
-
-                if(!m_haveSentInitCmd)
-                {
-                    m_process->write(newInitCmd);
-                    defineCustomFunctions();
-                    m_process->write(endOfInitMarker);
-                    m_haveSentInitCmd=true;
-                }
-            }
-        }
-        else
-        {
-            const QString& message = i18n("Failed to determine the version of Sage. Please check your installation and the output of 'sage -v'.");
+            const QString& message = i18n("Sage version %1.%2 is unsupported. Please update your installation to the versions 9.2 or higher.", m_sageVersion.majorVersion(), m_sageVersion.minorVersion());
             KMessageBox::error(nullptr, message, i18n("Unsupported Version"));
             interrupt();
             logout();
+        }
+        else
+        {
+            qDebug()<<"using the current set of commands";
+
+            if(!m_haveSentInitCmd)
+            {
+                m_process->write(newInitCmd);
+                defineCustomFunctions();
+                m_process->write(rememberInitialVariablesCmd);
+                m_process->write(endOfInitMarker);
+                m_haveSentInitCmd=true;
+            }
         }
     }
 
@@ -335,11 +332,18 @@ void SageSession::readStdOut()
 void SageSession::readStdErr()
 {
     qDebug()<<"reading stdErr";
-    QString out = QLatin1String(m_process->readAllStandardError());
+    const QString out = QString::fromUtf8(m_process->readAllStandardError());
+    if (!m_isInitialized)
+    {
+        qDebug() << "Sage startup warning:" << out;
+        return;
+    }
+
     if (!expressionQueue().isEmpty())
     {
         auto* expr = expressionQueue().first();
-        expr->parseError(out);
+        if (expr->status() == Cantor::Expression::Computing)
+            expr->parseError(out);
     }
 }
 
@@ -487,12 +491,11 @@ SageSession::VersionInfo SageSession::sageVersion()
 
 void SageSession::defineCustomFunctions()
 {
-    //typesetting
-    QString cmd = QLatin1String("def __cantor_enable_typesetting(enable):\n"\
-                                "\t if(enable==true):\n "\
-                                "\t \t %display typeset \n"\
-                                "\t else: \n" \
-                                "\t \t %display simple \n\n");
+    const QString cmd = QLatin1String("def __cantor_enable_typesetting(enable):\n"
+                                     "    if enable:\n"
+                                     "        %display typeset\n"
+                                     "    else:\n"
+                                     "        %display simple\n\n");
 
     sendInputToProcess(cmd);
 }
