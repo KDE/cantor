@@ -3,6 +3,7 @@ set( ScilabBackend_SRCS
   scilabsession.cpp
   scilabexpression.cpp
   scilabextensions.cpp
+  scilabvariablemodel.cpp
   scilabsettingswidget.cpp
   ../backendsettingswidget.cpp
 )

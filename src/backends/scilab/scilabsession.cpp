@@ -4,12 +4,13 @@
 */
 
 #include "scilabsession.h"
-#include <defaultvariablemodel.h>
+#include "scilabvariablemodel.h"
 
 #include <QByteArray>
 #include <QDebug>
 #include <QDir>
 #include <QProcess>
+#include <QProcessEnvironment>
 #include <QTextEdit>
 
 #include <KDirWatch>
@@ -17,13 +18,16 @@
 
 #include <settings.h>
 
+#include <utility>
+
 #ifndef Q_OS_WIN
 #include <signal.h>
 #endif
 
-ScilabSession::ScilabSession( Cantor::Backend* backend) : Session(backend, nullptr, new KeywordsManager(QStringLiteral("Scilab"))),
-m_variableModel(new Cantor::DefaultVariableModel(this))
+ScilabSession::ScilabSession(Cantor::Backend* backend)
+    : Session(backend, nullptr, new KeywordsManager(QStringLiteral("Scilab")))
 {
+    setVariableModel(new ScilabVariableModel(this));
 }
 
 ScilabSession::~ScilabSession()
@@ -49,6 +53,9 @@ void ScilabSession::login()
     args << QLatin1String("-nb");
 
     m_process = new QProcess(this);
+    QProcessEnvironment environment = QProcessEnvironment::systemEnvironment();
+    environment.remove(QStringLiteral("DEBUG"));
+    m_process->setProcessEnvironment(environment);
     m_process->setArguments(args);
     m_process->setProgram(ScilabSettings::self()->path().toLocalFile());
 
@@ -245,12 +252,11 @@ void ScilabSession::readOutput()
     if(m_output.contains(QLatin1String("begin-cantor-scilab-command-processing")) &&
         m_output.contains(QLatin1String("terminated-cantor-scilab-command-processing"))){
 
-        m_output.remove(QLatin1String("begin-cantor-scilab-command-processing"));
-        m_output.remove(QLatin1String("terminated-cantor-scilab-command-processing"));
+        QString output = std::exchange(m_output, QString());
+        output.remove(QLatin1String("begin-cantor-scilab-command-processing"));
+        output.remove(QLatin1String("terminated-cantor-scilab-command-processing"));
 
-        expressionQueue().first()->parseOutput(m_output);
-
-        m_output.clear();
+        expressionQueue().first()->parseOutput(output);
     }
 }
 
@@ -279,19 +285,8 @@ void ScilabSession::currentExpressionStatusChanged(Cantor::Expression::Status st
 
         case Cantor::Expression::Done:
         case Cantor::Expression::Error:
-            expressionQueue().removeFirst();
-
-            if (expressionQueue().isEmpty())
-                changeStatus(Done);
-            else
-                runFirstExpression();
-
+            disconnect(expressionQueue().first(), &Cantor::Expression::statusChanged, this, &ScilabSession::currentExpressionStatusChanged);
+            finishFirstExpression();
             break;
     }
 }
-
-Cantor::DefaultVariableModel* ScilabSession::variableModel() const
-{
-    return m_variableModel;
-}
-

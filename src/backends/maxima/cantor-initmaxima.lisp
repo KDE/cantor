@@ -65,7 +65,9 @@
 )
 
 (defun cantor-inspect (var)
-  ;; Avoid $disp abbreviating long variable lists as "...".
+  ;; Emit one complete Cantor result while avoiding $disp abbreviations.
+  (princ "<cantor-result>")
+  (princ "<cantor-text>")
   (linear-displa var)
   (mapc #'(lambda (x)
 	    (linear-displa (eval x))
@@ -73,6 +75,11 @@
 	  )
 	(cdr var)
 	)
+  (princ "</cantor-text>")
+  (princ "</cantor-result>")
+  (mterpri)
+  (finish-output *standard-output*)
+  '$done
 )
 
 ;; Fix bug with maxima tex output, LaTeX and amsmath, until Maxima team don't solve it

@@ -34,7 +34,6 @@ class ScilabSession : public Cantor::Session
 
         Cantor::Expression* evaluateExpression(const QString& command, Cantor::Expression::FinishingBehavior behave = Cantor::Expression::FinishingBehavior::DoNotDelete, bool internal = false) override;
         void runFirstExpression() override;
-        Cantor::DefaultVariableModel* variableModel() const override;
 
     public Q_SLOTS:
         void readOutput();
@@ -46,7 +45,6 @@ class ScilabSession : public Cantor::Session
         KDirWatch* m_watch = nullptr;
         QStringList m_listPlotName;
         QString m_output;
-        Cantor::DefaultVariableModel* m_variableModel;
     private Q_SLOTS:
         void currentExpressionStatusChanged(Cantor::Expression::Status status);
 
