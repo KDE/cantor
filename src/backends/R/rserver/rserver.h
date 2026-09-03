@@ -63,6 +63,7 @@ class RServer : public QObject
     void newPlotDevice();
     void completeCommand(const QString& cmd); // TODO: comment properly, only takes command from start to cursor
     void listSymbols();
+    void previewVariable(const QByteArray& referenceData, qsizetype offset, qsizetype limit);
 
   private:
     const static QChar recordSep;

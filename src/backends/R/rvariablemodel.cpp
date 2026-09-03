@@ -8,6 +8,10 @@
 
 #include <result.h>
 
+#include <QJsonArray>
+#include <QJsonDocument>
+#include <QJsonObject>
+
 using namespace Cantor;
 
 RVariableModel::RVariableModel(RSession* session) : DefaultVariableModel(session)
@@ -44,18 +48,20 @@ void RVariableModel::parseResult(Cantor::Expression::Status status)
             const QString output = m_expression->result()->data().toString();
 
             const QStringList& names = output.section(unitSep, 0, 0).split(recordSep, Qt::SkipEmptyParts);
-            const QStringList& values = output.section(unitSep, 1, 1).split(recordSep, Qt::SkipEmptyParts);
+            const QStringList& values = output.section(unitSep, 1, 1).split(recordSep, Qt::KeepEmptyParts);
             QStringList funcs = output.section(unitSep, 2, 2).split(recordSep, Qt::SkipEmptyParts);
             const QStringList& constants = output.section(unitSep, 3, 3).split(recordSep, Qt::SkipEmptyParts);
+            const QStringList& types = output.section(unitSep, 4, 4).split(recordSep, Qt::KeepEmptyParts);
+            const QStringList& dimensions = output.section(unitSep, 5, 5).split(recordSep, Qt::KeepEmptyParts);
 
             QList<Variable> vars;
             if (!values.isEmpty()) // Variables management disabled
                 for (int i = 0; i < names.size(); i++)
                 {
                     if (i < values.size())
-                        vars.append(Variable{names.at(i), values.at(i)});
+                        vars.append(Variable{names.at(i), values.at(i), 0, types.value(i), dimensions.value(i)});
                     else
-                        vars.append(Variable{names.at(i), QString()});
+                        vars.append(Variable{names.at(i), QString(), 0, types.value(i), dimensions.value(i)});
                 }
             else
                 for (int i = 0; i < names.size(); i++)
@@ -84,6 +90,41 @@ void RVariableModel::parseResult(Cantor::Expression::Status status)
 
     m_expression->deleteLater();
     m_expression = nullptr;
+}
+
+Cantor::VariablePreviewData::Reference RVariableModel::variablePreview(const QModelIndex& index) const
+{
+    auto reference = DefaultVariableModel::variablePreview(index);
+    if (!index.isValid())
+        return reference;
+
+    const auto modelVariables = variables();
+    const auto& variable = modelVariables.at(index.row());
+    const QString& type = variable.type;
+    const QString& dimensions = variable.dimension;
+    if (type == QLatin1String("data.frame") || type == QLatin1String("matrix") || type == QLatin1String("list") || type == QLatin1String("named list"))
+        reference.type = type == QLatin1String("named list") ? VariablePreviewData::Type::Dictionary : VariablePreviewData::Type::Table;
+    else if (!dimensions.contains(QLatin1Char('x')) && dimensions.toLongLong() > 1)
+        reference.type = VariablePreviewData::Type::Table;
+
+    if (reference.isPreviewable())
+    {
+        QJsonObject object;
+        object.insert(QLatin1String("name"), reference.variableName);
+        object.insert(QLatin1String("displayName"), reference.displayName);
+        object.insert(QLatin1String("path"), QJsonArray());
+        reference.backendData = QJsonDocument(object).toJson(QJsonDocument::Compact);
+    }
+    return reference;
+}
+
+Cantor::VariablePreviewRequest* RVariableModel::requestVariablePreview(const Cantor::VariablePreviewData::Reference& reference, qsizetype offset, qsizetype limit, QObject* parent)
+{
+    const QString command = QStringLiteral("%variable preview %1 %2 %3")
+                                .arg(QString::fromLatin1(reference.backendData.toBase64()))
+                                .arg(qMax<qsizetype>(0, offset))
+                                .arg(qMax<qsizetype>(1, limit));
+    return requestVariablePreviewFromCommand(command, reference.variableName, parent);
 }
 
 void RVariableModel::setConstants(QStringList newConstants)

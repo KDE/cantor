@@ -6,6 +6,7 @@
 
 #include "rsession.h"
 #include "rexpression.h"
+#include "rutils.h"
 #include "rvariablemodel.h"
 #include <defaultvariablemodel.h>
 
@@ -40,11 +41,7 @@ void RSession::login()
 
     m_process = new QProcess(this);
     m_process->setProcessChannelMode(QProcess::ForwardedErrorChannel);
-#ifdef Q_OS_WIN
-    m_process->start(QStandardPaths::findExecutable(QLatin1String("cantor_rserver.exe")));
-#else
-    m_process->start(QStandardPaths::findExecutable(QLatin1String("cantor_rserver")));
-#endif
+    m_process->start(rServerExecutablePath());
 
     if (!m_process->waitForStarted())
     {
