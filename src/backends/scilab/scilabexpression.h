@@ -23,9 +23,6 @@ class ScilabExpression : public Cantor::Expression
         void parsePlotFile(QString filename);
         void setPlotPending(bool plot);
 
-    public Q_SLOTS:
-        void evalFinished();
-
     private:
         QString m_output;
         bool m_finished = false;
