@@ -145,11 +145,12 @@ string PythonServer::variables(bool parseValue)
             continue;
         }
 
-            const string field_sep(1, char(17));
+        const string field_sep(1, char(17));
 
         string valueString;
         string sizeString;
         string typeString;
+        string dimensionString;
 
         if (parseValue)
         {
@@ -172,9 +173,19 @@ string PythonServer::variables(bool parseValue)
                 typeString = pyObjectToQString(PyObject_Repr(type_obj));
                 Py_DECREF(type_obj);
             } else { PyErr_Clear(); }
+
+            PyObject* shape_obj = PyObject_GetAttrString(value, "shape");
+            if (shape_obj) {
+                PyObject* shape_repr = PyObject_Repr(shape_obj);
+                if (shape_repr) {
+                    dimensionString = pyObjectToQString(shape_repr);
+                    Py_DECREF(shape_repr);
+                } else { PyErr_Clear(); }
+                Py_DECREF(shape_obj);
+            } else { PyErr_Clear(); }
         }
 
-        vars.push_back(keyString + field_sep + valueString + field_sep + sizeString + field_sep + typeString);
+        vars.push_back(keyString + field_sep + valueString + field_sep + sizeString + field_sep + typeString + field_sep + dimensionString);
     }
 
     PyRun_SimpleStringFlags(

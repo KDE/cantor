@@ -3,6 +3,7 @@ set( PythonBackend_SRCS
   pythonsession.cpp
   pythonexpression.cpp
   pythonvariablemodel.cpp
+  pythonpreviewutils.cpp
   pythonextensions.cpp
   pythonsettingswidget.cpp
   ../backendsettingswidget.cpp
