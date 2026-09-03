@@ -5,6 +5,7 @@ set( SageBackend_SRCS
   sageextensions.cpp
   sagesettingswidget.cpp
   sagevariablemodel.cpp
+  ../python/pythonpreviewutils.cpp
   ../backendsettingswidget.cpp
 )
 
@@ -32,4 +33,3 @@ if(BUILD_TESTING)
 endif()
 
 install(FILES cantor_sage.knsrc  DESTINATION  ${KDE_INSTALL_KNSRCDIR})
-
