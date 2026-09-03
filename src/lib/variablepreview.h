@@ -30,8 +30,8 @@ public:
         QByteArray backendData;
         Type type{Type::Unsupported};
 
-        bool isPreviewable() const;
-        QString key() const;
+        CANTOR_EXPORT bool isPreviewable() const;
+        CANTOR_EXPORT QString key() const;
     };
 
     struct Cell

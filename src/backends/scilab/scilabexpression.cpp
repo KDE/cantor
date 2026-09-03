@@ -10,6 +10,7 @@
 #include "textresult.h"
 #include "imageresult.h"
 #include "helpresult.h"
+#include "session.h"
 
 #include <QDebug>
 #include <QDir>
@@ -19,7 +20,6 @@
 #include <KIconLoader>
 
 #include "settings.h"
-#include "defaultvariablemodel.h"
 
 using ScilabPlotResult = Cantor::ImageResult;
 
@@ -82,14 +82,12 @@ void ScilabExpression::parseOutput(const QString& output)
     if (!m_output.simplified().isEmpty())
         setResult(new Cantor::TextResult(m_output));
 
-    evalFinished();
     setStatus(Cantor::Expression::Done);
 }
 
 void ScilabExpression::parseError(const QString& error)
 {
     Expression::parseError(error);
-    evalFinished(); // TODO: remove this, the update of the model should be handled the same way as for other backends
 }
 
 void ScilabExpression::parsePlotFile(QString filename)
@@ -104,27 +102,6 @@ void ScilabExpression::parsePlotFile(QString filename)
     if (m_finished){
         qDebug() << "ScilabExpression::parsePlotFile: done";
         setStatus(Done);
-    }
-}
-
-void ScilabExpression::evalFinished()
-{
-    qDebug() << "evaluation finished";
-    const auto lines = m_output.simplified().split(QLatin1Char('\n'), Qt::SkipEmptyParts);
-    for (const QString& line : lines) {
-        if (m_output.contains(QLatin1Char('='))){
-            qDebug() << line;
-
-            QStringList parts = line.split(QLatin1Char('='));
-
-            if (parts.size() >= 2){
-                Cantor::DefaultVariableModel* model = dynamic_cast<Cantor::DefaultVariableModel*>(session()->variableModel());
-
-                if (model){
-                    model->addVariable(parts.first().trimmed(), parts.last().trimmed());
-                }
-            }
-        }
     }
 }
 
