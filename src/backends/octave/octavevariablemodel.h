@@ -19,6 +19,9 @@ class OctaveVariableModel : public Cantor::DefaultVariableModel
 
     void update() override;
 
+    Cantor::VariablePreviewData::Reference variablePreview(const QModelIndex& index) const override;
+    Cantor::VariablePreviewRequest* requestVariablePreview(const Cantor::VariablePreviewData::Reference& reference, qsizetype offset, qsizetype limit, QObject* parent = nullptr) override;
+
   private Q_SLOTS:
     void parseNewVariables(Cantor::Expression::Status);
 
