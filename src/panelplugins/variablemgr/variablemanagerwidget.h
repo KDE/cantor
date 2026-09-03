@@ -7,6 +7,10 @@
 #ifndef _VARIABLEMANAGERWIDGET_H
 #define _VARIABLEMANAGERWIDGET_H
 
+#include "variablepreview.h"
+
+#include <QHash>
+#include <QPointer>
 #include <QWidget>
 
 namespace Cantor{
@@ -17,6 +21,7 @@ class QAbstractItemModel;
 class QLineEdit;
 class QToolButton;
 class QTreeView;
+class VariablePreviewWindow;
 
 class VariableManagerWidget : public QWidget
 {
@@ -52,13 +57,23 @@ private:
     QAction* m_copyNameAction{nullptr};
     QAction* m_copyValueAction{nullptr};
     QAction* m_copyNameValueAction{nullptr};
+    QAction* m_previewAction{nullptr};
+    QToolButton* m_previewBtn{nullptr};
+    QHash<QString, QPointer<VariablePreviewWindow>> m_previewWindows;
 
     void contextMenuEvent(QContextMenuEvent*) override;
+    Cantor::VariablePreviewData::Reference selectedPreview() const;
+    void openPreview(const Cantor::VariablePreviewData::Reference& reference);
+    void closePreviews();
 
 private Q_SLOTS:
     void filterTextChanged(const QString&);
     void toggleFilterOptionsMenu(bool);
     void updateButtons();
+    void updatePreviewAction();
+    void previewSelected();
+    void markPreviewsStale();
+    void resizeNameColumn();
     void copy(const QAction*) const;
 };
 
