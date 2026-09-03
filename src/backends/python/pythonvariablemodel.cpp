@@ -5,6 +5,7 @@
 */
 
 #include "pythonvariablemodel.h"
+#include "pythonpreviewutils.h"
 #include "pythonsession.h"
 #include "result.h"
 
@@ -53,8 +54,8 @@ void PythonVariableModel::extractVariables(Cantor::Expression::Status status)
                 QList<Variable> variables;
                 for (const QString& record : records)
                 {
-                    // every variable data has 4 parts/elements separated by DC1(17) - the name of the variable, its size, type and the actual value
-                    const auto& elements = record.split(QChar(17), Qt::SkipEmptyParts);
+                    // DC1 separates name, value, size, type and dimensions.
+                    const auto& elements = record.split(QChar(17), Qt::KeepEmptyParts);
                     int count = elements.count();
                     if (count < 4)
                         continue;
@@ -63,7 +64,8 @@ void PythonVariableModel::extractVariables(Cantor::Expression::Status status)
                     const QString& value = elements.at(1);
                     const QString& size = elements.at(2);
                     const QString& type = elements.at(3);
-                    variables << Variable(name, value, size.toULongLong(), type);
+                    const QString dimensions = elements.value(4);
+                    variables << Variable(name, value, size.toULongLong(), type, dimensions);
                 }
 
                 setVariables(variables);
@@ -84,4 +86,33 @@ void PythonVariableModel::extractVariables(Cantor::Expression::Status status)
 
     m_expression->deleteLater();
     m_expression = nullptr;
+}
+
+Cantor::VariablePreviewData::Reference PythonVariableModel::variablePreview(const QModelIndex& index) const
+{
+    auto reference = DefaultVariableModel::variablePreview(index);
+    if (!index.isValid())
+        return reference;
+
+    const QString typeName = index.siblingAtColumn(2).data().toString();
+    QString dimensions;
+    for (const auto& variable : variables())
+        if (variable.name == reference.variableName)
+        {
+            dimensions = variable.dimension;
+            break;
+        }
+    reference.type = pythonPreviewType(typeName, dimensions);
+    if (reference.isPreviewable())
+        reference.backendData = pythonPreviewReference(reference.variableName);
+    return reference;
+}
+
+Cantor::VariablePreviewRequest* PythonVariableModel::requestVariablePreview(const Cantor::VariablePreviewData::Reference& reference, qsizetype offset, qsizetype limit, QObject* parent)
+{
+    if (!reference.isPreviewable() || reference.backendData.isEmpty())
+        return DefaultVariableModel::requestVariablePreview(reference, offset, limit, parent);
+
+    const QString command = pythonPreviewCommand(reference, offset, limit);
+    return requestVariablePreviewFromCommand(command, reference.variableName, parent);
 }

@@ -7,6 +7,7 @@
 #include "pythonsession.h"
 #include "pythonextensions.h"
 #include "pythonsettingswidget.h"
+#include "pythonutils.h"
 #include "settings.h"
 #include "ui_settings.h"
 
@@ -80,14 +81,9 @@ KConfigSkeleton* PythonBackend::config() const
 
 bool PythonBackend::requirementsFullfilled(QString* const reason) const
 {
-#ifdef Q_OS_WIN
-    const QString& path = QStandardPaths::findExecutable(QLatin1String("cantor_pythonserver.exe"));
-#else
-    const QString& path = QStandardPaths::findExecutable(QLatin1String("cantor_pythonserver"));
-#endif
+    const QString path = pythonServerExecutablePath();
     return Cantor::Backend::checkExecutable(QLatin1String("Cantor Python Server"), path, reason);
 }
 
 K_PLUGIN_FACTORY_WITH_JSON(pythonbackend, "pythonbackend.json", registerPlugin<PythonBackend>();)
 #include "pythonbackend.moc"
-

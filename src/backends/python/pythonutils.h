@@ -6,8 +6,26 @@
 #ifndef _PYTHONUTILS_H
 #define _PYTHONUTILS_H
 
+#include <QCoreApplication>
+#include <QDir>
 #include <QFile>
+#include <QFileInfo>
 #include <QDebug>
+#include <QStandardPaths>
+
+inline QString pythonServerExecutablePath()
+{
+#ifdef Q_OS_WIN
+    const QString executableName = QStringLiteral("cantor_pythonserver.exe");
+#else
+    const QString executableName = QStringLiteral("cantor_pythonserver");
+#endif
+    const QString applicationServer = QDir(QCoreApplication::applicationDirPath()).filePath(executableName);
+    if (QFileInfo(applicationServer).isExecutable())
+        return applicationServer;
+
+    return QStandardPaths::findExecutable(executableName);
+}
 
 inline QString fromSource(const QString& resourceName)
 {
