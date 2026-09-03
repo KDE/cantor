@@ -45,6 +45,7 @@ class RServer : public QObject
     void newPlotDevice();
     void runInternalCommand(const QString&);
     void listSymbols();
+    void previewVariable(const QByteArray& referenceData, qsizetype offset, qsizetype limit);
 
   private:
     bool m_isInitialized{false};
