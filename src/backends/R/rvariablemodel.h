@@ -21,6 +21,8 @@ class RVariableModel : public Cantor::DefaultVariableModel
     //QStringList constants() const;
 
     void update() override;
+    Cantor::VariablePreviewData::Reference variablePreview(const QModelIndex& index) const override;
+    Cantor::VariablePreviewRequest* requestVariablePreview(const Cantor::VariablePreviewData::Reference& reference, qsizetype offset, qsizetype limit, QObject* parent = nullptr) override;
 
   Q_SIGNALS:
     void constantsAdded(QStringList);

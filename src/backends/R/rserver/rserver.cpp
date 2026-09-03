@@ -14,6 +14,9 @@
 #include "settings.h"
 
 #include <QGuiApplication>
+#include <QJsonArray>
+#include <QJsonDocument>
+#include <QJsonObject>
 #include <QScreen>
 
 #include <KIO/DeleteJob>
@@ -33,8 +36,215 @@
 #define R_INTERFACE_PTRS
 #include <R_ext/Parse.h>
 
+#undef error
+#undef isObject
+
 const QChar RServer::recordSep(30);
 const QChar RServer::unitSep(31);
+
+namespace
+{
+QString rString(SEXP string)
+{
+    if (string == NA_STRING)
+        return QStringLiteral("NA");
+    return QString::fromUtf8(translateCharUTF8(string));
+}
+
+QString rTypeName(SEXP value)
+{
+    const SEXP classAttribute = Rf_getAttrib(value, R_ClassSymbol);
+    if (TYPEOF(classAttribute) == STRSXP && XLENGTH(classAttribute) > 0)
+        return rString(STRING_ELT(classAttribute, 0));
+    return QString::fromLatin1(type2char(TYPEOF(value)));
+}
+
+QString rDimensions(SEXP value)
+{
+    if (Rf_inherits(value, "data.frame"))
+    {
+        const qsizetype rows = XLENGTH(value) == 0 ? 0 : XLENGTH(VECTOR_ELT(value, 0));
+        return QStringLiteral("%1x%2").arg(rows).arg(XLENGTH(value));
+    }
+
+    const SEXP dimensions = Rf_getAttrib(value, R_DimSymbol);
+    if (TYPEOF(dimensions) == INTSXP && XLENGTH(dimensions) > 0)
+    {
+        QStringList values;
+        for (R_xlen_t i = 0; i < XLENGTH(dimensions); ++i)
+            values.append(QString::number(INTEGER(dimensions)[i]));
+        return values.join(QLatin1Char('x'));
+    }
+
+    return QString::number(XLENGTH(value));
+}
+
+int rPreviewType(SEXP value)
+{
+    if (Rf_inherits(value, "data.frame") || Rf_isMatrix(value))
+        return 1;
+    if (TYPEOF(value) == VECSXP)
+    {
+        const SEXP names = Rf_getAttrib(value, R_NamesSymbol);
+        return TYPEOF(names) == STRSXP && XLENGTH(names) == XLENGTH(value) ? 2 : 1;
+    }
+    if (Rf_isVectorAtomic(value) && XLENGTH(value) > 1)
+        return 1;
+    return 0;
+}
+
+QString rElementType(SEXP value, R_xlen_t index)
+{
+    if (TYPEOF(value) == VECSXP)
+        return rTypeName(VECTOR_ELT(value, index));
+    if (Rf_inherits(value, "factor"))
+        return QStringLiteral("factor");
+    return QString::fromLatin1(type2char(TYPEOF(value)));
+}
+
+QString rCompactValue(SEXP value, int depth = 0);
+
+QString rElementValue(SEXP value, R_xlen_t index)
+{
+    switch (TYPEOF(value))
+    {
+        case STRSXP:
+            return rString(STRING_ELT(value, index));
+        case LGLSXP:
+        {
+            const int item = LOGICAL(value)[index];
+            return item == NA_LOGICAL ? QStringLiteral("NA") : item ? QStringLiteral("TRUE") : QStringLiteral("FALSE");
+        }
+        case INTSXP:
+        {
+            const int item = INTEGER(value)[index];
+            if (item == NA_INTEGER)
+                return QStringLiteral("NA");
+            if (Rf_inherits(value, "factor"))
+            {
+                const SEXP levels = Rf_getAttrib(value, R_LevelsSymbol);
+                if (item > 0 && item <= XLENGTH(levels))
+                    return rString(STRING_ELT(levels, item - 1));
+            }
+            return QString::number(item);
+        }
+        case REALSXP:
+        {
+            const double item = REAL(value)[index];
+            return R_IsNA(item) ? QStringLiteral("NA") : QString::number(item, 'g', 15);
+        }
+        case CPLXSXP:
+        {
+            const Rcomplex item = COMPLEX(value)[index];
+            return QStringLiteral("%1%2%3i").arg(item.r, 0, 'g', 15).arg(item.i < 0 ? QString() : QStringLiteral("+")).arg(item.i, 0, 'g', 15);
+        }
+        case RAWSXP:
+            return QStringLiteral("0x%1").arg(RAW(value)[index], 2, 16, QLatin1Char('0'));
+        case VECSXP:
+        {
+            SEXP item = VECTOR_ELT(value, index);
+            if (XLENGTH(item) == 1)
+                return rElementValue(item, 0);
+            return rCompactValue(item, 1);
+        }
+        default:
+            return QStringLiteral("<%1>").arg(rTypeName(value));
+    }
+}
+
+QString rQuotedString(QString value)
+{
+    value.replace(QLatin1Char('\\'), QStringLiteral("\\\\"));
+    value.replace(QLatin1Char('\''), QStringLiteral("\\'"));
+    value.replace(QLatin1Char('\n'), QStringLiteral("\\n"));
+    return QLatin1Char('\'') + value + QLatin1Char('\'');
+}
+
+QString rCompactValue(SEXP value, int depth)
+{
+    constexpr R_xlen_t maximumItems = 8;
+    constexpr qsizetype maximumLength = 180;
+
+    if (depth > 3)
+        return QStringLiteral("<%1>").arg(rTypeName(value));
+
+    const R_xlen_t length = XLENGTH(value);
+    if (TYPEOF(value) == VECSXP)
+    {
+        const SEXP names = Rf_getAttrib(value, R_NamesSymbol);
+        const bool hasNames = TYPEOF(names) == STRSXP && XLENGTH(names) == length;
+        QStringList items;
+        for (R_xlen_t i = 0; i < qMin(length, maximumItems); ++i)
+        {
+            QString item = rCompactValue(VECTOR_ELT(value, i), depth + 1);
+            if (hasNames)
+            {
+                const QString name = rString(STRING_ELT(names, i));
+                if (!name.isEmpty())
+                    item.prepend(name + QStringLiteral(" = "));
+            }
+            items.append(item);
+        }
+        if (length > maximumItems)
+            items.append(QStringLiteral("..."));
+        QString result = QStringLiteral("list(%1)").arg(items.join(QStringLiteral(", ")));
+        if (result.size() > maximumLength)
+            result = result.left(maximumLength - 3) + QStringLiteral("...");
+        return result;
+    }
+
+    if (length == 0)
+        return QStringLiteral("%1(0)").arg(rTypeName(value));
+    if (length == 1)
+        return TYPEOF(value) == STRSXP ? rQuotedString(rElementValue(value, 0)) : rElementValue(value, 0);
+
+    QStringList items;
+    for (R_xlen_t i = 0; i < qMin(length, maximumItems); ++i)
+    {
+        const QString item = rElementValue(value, i);
+        items.append(TYPEOF(value) == STRSXP ? rQuotedString(item) : item);
+    }
+    if (length > maximumItems)
+        items.append(QStringLiteral("..."));
+    QString result = QStringLiteral("c(%1)").arg(items.join(QStringLiteral(", ")));
+    if (result.size() > maximumLength)
+        result = result.left(maximumLength - 3) + QStringLiteral("...");
+    return result;
+}
+
+QByteArray rReferenceData(const QString& variableName, const QJsonArray& path, const QString& displayName)
+{
+    QJsonObject object;
+    object.insert(QLatin1String("name"), variableName);
+    object.insert(QLatin1String("path"), path);
+    object.insert(QLatin1String("displayName"), displayName);
+    return QJsonDocument(object).toJson(QJsonDocument::Compact);
+}
+
+QJsonObject rCell(SEXP container, R_xlen_t index, const QString& variableName = QString(), const QJsonArray& path = {}, const QString& displayName = QString())
+{
+    QJsonObject cell;
+    cell.insert(QLatin1String("value"), rElementValue(container, index));
+    cell.insert(QLatin1String("valueType"), rElementType(container, index));
+
+    if (TYPEOF(container) == VECSXP)
+    {
+        SEXP item = VECTOR_ELT(container, index);
+        const int type = rPreviewType(item);
+        if (type != 0)
+        {
+            QJsonArray itemPath = path;
+            itemPath.append(static_cast<qint64>(index));
+            QJsonObject reference;
+            reference.insert(QLatin1String("displayName"), displayName);
+            reference.insert(QLatin1String("backendData"), QString::fromUtf8(rReferenceData(variableName, itemPath, displayName)));
+            reference.insert(QLatin1String("type"), type);
+            cell.insert(QLatin1String("reference"), reference);
+        }
+    }
+    return cell;
+}
+}
 
 
 RServer::RServer() : m_isInitialized(false),m_isCompletionAvailable(false)
@@ -247,6 +457,18 @@ void RServer::runCommand(const QString& cmd, bool internal)
             listSymbols();
             return;
         }
+        else if (cmd.startsWith(QLatin1String("%variable preview ")))
+        {
+            const QStringList parts = cmd.split(QLatin1Char(' '), Qt::SkipEmptyParts);
+            if (parts.size() == 5)
+                previewVariable(QByteArray::fromBase64(parts.at(2).toLatin1()), parts.at(3).toLongLong(), parts.at(4).toLongLong());
+            else
+            {
+                Q_EMIT expressionFinished(RServer::ErrorCode, QStringLiteral("Invalid variable preview request"), QStringList());
+                setStatus(RServer::Idle);
+            }
+            return;
+        }
         else if (cmd.startsWith(completionCommandPrefix))
         {
 
@@ -435,7 +657,7 @@ void RServer::listSymbols()
 {
     setStatus(RServer::Busy);
 
-    QStringList vars, values, funcs, constants;
+    QStringList vars, values, types, dimensions, funcs, constants;
     int errorOccurred; // TODO: error checks
 
     /* Obtaining a list of user namespace objects */
@@ -456,7 +678,10 @@ void RServer::listSymbols()
             {
                 vars << name;
                 values << QString::fromUtf8(translateCharUTF8(asChar(valueAsString)));
+                types << (rPreviewType(value) == 2 ? QStringLiteral("named list") : rTypeName(value));
+                dimensions << rDimensions(value);
             }
+            UNPROTECT(1);
         }
         else
             vars << name;
@@ -504,9 +729,148 @@ void RServer::listSymbols()
     }
     UNPROTECT(1);
 
-    const QString output = vars.join(recordSep) + unitSep + values.join(recordSep) + unitSep + funcs.join(recordSep) + unitSep + constants.join(recordSep);
+    const QString output = vars.join(recordSep) + unitSep + values.join(recordSep) + unitSep + funcs.join(recordSep) + unitSep
+        + constants.join(recordSep) + unitSep + types.join(recordSep) + unitSep + dimensions.join(recordSep);
     Q_EMIT expressionFinished(RServer::SuccessCode, output, QStringList());
     setStatus(Idle);
+}
+
+void RServer::previewVariable(const QByteArray& referenceData, qsizetype offset, qsizetype limit)
+{
+    setStatus(RServer::Busy);
+
+    QJsonParseError parseError;
+    const QJsonDocument referenceDocument = QJsonDocument::fromJson(referenceData, &parseError);
+    if (parseError.error != QJsonParseError::NoError || !referenceDocument.isObject())
+    {
+        Q_EMIT expressionFinished(RServer::ErrorCode, QStringLiteral("Invalid variable reference"), QStringList());
+        setStatus(RServer::Idle);
+        return;
+    }
+
+    const QJsonObject reference = referenceDocument.object();
+    const QString variableName = reference.value(QLatin1String("name")).toString();
+    const QJsonArray path = reference.value(QLatin1String("path")).toArray();
+    SEXP value = findVar(install(variableName.toUtf8().constData()), R_GlobalEnv);
+    if (value == R_UnboundValue)
+    {
+        Q_EMIT expressionFinished(RServer::ErrorCode, QStringLiteral("The variable no longer exists"), QStringList());
+        setStatus(RServer::Idle);
+        return;
+    }
+
+    for (const auto& pathItem : path)
+    {
+        const qsizetype index = pathItem.toInteger();
+        if (TYPEOF(value) != VECSXP || index < 0 || index >= XLENGTH(value))
+        {
+            Q_EMIT expressionFinished(RServer::ErrorCode, QStringLiteral("The nested value no longer exists"), QStringList());
+            setStatus(RServer::Idle);
+            return;
+        }
+        value = VECTOR_ELT(value, index);
+    }
+
+    offset = qMax<qsizetype>(0, offset);
+    limit = qMax<qsizetype>(1, limit);
+    const int previewType = rPreviewType(value);
+    QJsonObject result;
+    result.insert(QLatin1String("type"), previewType);
+    result.insert(QLatin1String("typeName"), rTypeName(value));
+    result.insert(QLatin1String("dimensions"), rDimensions(value));
+    result.insert(QLatin1String("offset"), offset);
+
+    QJsonArray columns;
+    QJsonArray rows;
+    qsizetype totalRows = 0;
+
+    if (previewType == 2)
+    {
+        columns = {QStringLiteral("@key"), QStringLiteral("@type"), QStringLiteral("@value")};
+        const SEXP names = Rf_getAttrib(value, R_NamesSymbol);
+        totalRows = XLENGTH(value);
+        for (qsizetype i = offset; i < qMin(offset + limit, totalRows); ++i)
+        {
+            const QString key = rString(STRING_ELT(names, i));
+            const QString childName = QStringLiteral("%1[[%2]]").arg(reference.value(QLatin1String("displayName")).toString(), key);
+            QJsonArray row;
+            QJsonObject keyCell;
+            keyCell.insert(QLatin1String("value"), key);
+            row.append(keyCell);
+            QJsonObject typeCell;
+            typeCell.insert(QLatin1String("value"), rElementType(value, i));
+            row.append(typeCell);
+            row.append(rCell(value, i, variableName, path, childName));
+            rows.append(row);
+        }
+    }
+    else if (previewType == 1 && Rf_inherits(value, "data.frame"))
+    {
+        const SEXP names = Rf_getAttrib(value, R_NamesSymbol);
+        columns.append(QStringLiteral("@index"));
+        for (R_xlen_t column = 0; column < XLENGTH(value); ++column)
+            columns.append(rString(STRING_ELT(names, column)));
+        totalRows = XLENGTH(value) == 0 ? 0 : XLENGTH(VECTOR_ELT(value, 0));
+        for (qsizetype rowIndex = offset; rowIndex < qMin(offset + limit, totalRows); ++rowIndex)
+        {
+            QJsonArray row;
+            QJsonObject indexCell;
+            indexCell.insert(QLatin1String("value"), QString::number(rowIndex + 1));
+            row.append(indexCell);
+            for (R_xlen_t column = 0; column < XLENGTH(value); ++column)
+                row.append(rCell(VECTOR_ELT(value, column), rowIndex));
+            rows.append(row);
+        }
+    }
+    else if (previewType == 1 && Rf_isMatrix(value))
+    {
+        const SEXP dimensions = Rf_getAttrib(value, R_DimSymbol);
+        const qsizetype rowCount = INTEGER(dimensions)[0];
+        const qsizetype columnCount = INTEGER(dimensions)[1];
+        columns.append(QStringLiteral("@index"));
+        for (qsizetype column = 0; column < columnCount; ++column)
+            columns.append(QString::number(column + 1));
+        totalRows = rowCount;
+        for (qsizetype rowIndex = offset; rowIndex < qMin(offset + limit, totalRows); ++rowIndex)
+        {
+            QJsonArray row;
+            QJsonObject indexCell;
+            indexCell.insert(QLatin1String("value"), QString::number(rowIndex + 1));
+            row.append(indexCell);
+            for (qsizetype column = 0; column < columnCount; ++column)
+                row.append(rCell(value, rowIndex + rowCount * column));
+            rows.append(row);
+        }
+    }
+    else if (previewType == 1)
+    {
+        columns = {QStringLiteral("@index"), QStringLiteral("@type"), QStringLiteral("@value")};
+        totalRows = XLENGTH(value);
+        for (qsizetype i = offset; i < qMin(offset + limit, totalRows); ++i)
+        {
+            QJsonArray row;
+            QJsonObject indexCell;
+            indexCell.insert(QLatin1String("value"), QString::number(i + 1));
+            row.append(indexCell);
+            QJsonObject typeCell;
+            typeCell.insert(QLatin1String("value"), rElementType(value, i));
+            row.append(typeCell);
+            const QString childName = QStringLiteral("%1[[%2]]").arg(reference.value(QLatin1String("displayName")).toString()).arg(i + 1);
+            row.append(rCell(value, i, variableName, path, childName));
+            rows.append(row);
+        }
+    }
+    else
+        result.insert(QLatin1String("errorCode"), QStringLiteral("unsupportedType"));
+
+    result.insert(QLatin1String("columns"), columns);
+    result.insert(QLatin1String("rows"), rows);
+    result.insert(QLatin1String("totalRows"), totalRows);
+    result.insert(QLatin1String("hasMore"), offset + limit < totalRows);
+
+    const QByteArray output = QJsonDocument(result).toJson(QJsonDocument::Compact).toBase64();
+    Q_EMIT expressionFinished(RServer::SuccessCode, QStringLiteral("__CANTOR_VARIABLE_PREVIEW__") + QString::fromLatin1(output), QStringList());
+    setStatus(RServer::Idle);
 }
 
 void RServer::setStatus(Status status)

@@ -7,6 +7,7 @@
 #include "rbackend.h"
 #include "rsession.h"
 #include "rextensions.h"
+#include "rutils.h"
 #include "settings.h"
 #include "rsettingswidget.h"
 
@@ -56,11 +57,7 @@ Cantor::Backend::Capabilities RBackend::capabilities() const
 
 bool RBackend::requirementsFullfilled(QString* const reason) const
 {
-#ifdef Q_OS_WIN
-    const QString& path = QStandardPaths::findExecutable(QLatin1String("cantor_rserver.exe"));
-#else
-    const QString& path = QStandardPaths::findExecutable(QLatin1String("cantor_rserver"));
-#endif
+    const QString path = rServerExecutablePath();
     return Cantor::Backend::checkExecutable(QLatin1String("Cantor RServer"), path, reason);
 }
 
