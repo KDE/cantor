@@ -10,6 +10,14 @@
 #include <QDebug>
 #include <QDBusReply>
 #include <QDBusInterface>
+#include <QDBusPendingCallWatcher>
+#include <QDBusPendingReply>
+#include <QJsonArray>
+#include <QJsonDocument>
+#include <QJsonObject>
+#include <QPointer>
+
+#include <utility>
 #include <QString>
 
 #include "settings.h"
@@ -82,4 +90,56 @@ void JuliaVariableModel::update()
     const QStringList& newFuncs =
         static_cast<QDBusReply<QStringList>>(m_interface->call(QLatin1String("functionsList"))).value();
     setFunctions(newFuncs);
+}
+
+Cantor::VariablePreviewData::Reference JuliaVariableModel::variablePreview(const QModelIndex& index) const
+{
+    auto reference = DefaultVariableModel::variablePreview(index);
+    if (!index.isValid())
+        return reference;
+
+    const QString type = index.siblingAtColumn(2).data().toString();
+    if (type.contains(QLatin1String("Dict")) || type.contains(QLatin1String("NamedTuple")))
+        reference.type = VariablePreviewData::Type::Dictionary;
+    else if (type.contains(QLatin1String("Vector")) || type.contains(QLatin1String("Matrix")) || type.contains(QLatin1String("Array")) || type.contains(QLatin1String("Tuple")) || type.contains(QLatin1String("DataFrame")))
+        reference.type = VariablePreviewData::Type::Table;
+
+    if (reference.isPreviewable())
+    {
+        QJsonObject object;
+        object.insert(QLatin1String("name"), reference.variableName);
+        object.insert(QLatin1String("displayName"), reference.displayName);
+        object.insert(QLatin1String("path"), QJsonArray());
+        reference.backendData = QJsonDocument(object).toJson(QJsonDocument::Compact);
+    }
+    return reference;
+}
+
+Cantor::VariablePreviewRequest* JuliaVariableModel::requestVariablePreview(const Cantor::VariablePreviewData::Reference& reference, qsizetype offset, qsizetype limit, QObject* parent)
+{
+    if (!m_interface || !reference.isPreviewable())
+        return DefaultVariableModel::requestVariablePreview(reference, offset, limit, parent);
+
+    auto* request = new VariablePreviewRequest(parent);
+    auto* watcher = new QDBusPendingCallWatcher(m_interface->asyncCall(QLatin1String("variablePreview"), reference.backendData, static_cast<qlonglong>(qMax<qsizetype>(0, offset)), static_cast<qlonglong>(qMax<qsizetype>(1, limit))), request);
+    QPointer<VariablePreviewRequest> guardedRequest(request);
+    connect(watcher, &QDBusPendingCallWatcher::finished, request, [watcher, guardedRequest, variableName = reference.variableName]() {
+        QDBusPendingReply<QString> reply = *watcher;
+        if (guardedRequest)
+        {
+            if (reply.isError())
+                guardedRequest->fail(reply.error().message());
+            else
+            {
+                VariablePreviewData data;
+                QString error;
+                if (VariablePreviewData::fromJson(QByteArray::fromBase64(reply.value().toLatin1()), variableName, &data, &error))
+                    guardedRequest->complete(std::move(data));
+                else
+                    guardedRequest->fail(error);
+            }
+        }
+        watcher->deleteLater();
+    });
+    return request;
 }

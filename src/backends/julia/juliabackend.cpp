@@ -8,6 +8,7 @@
 #include "juliaextensions.h"
 #include "juliasession.h"
 #include "juliasettingswidget.h"
+#include "juliautils.h"
 #include "settings.h"
 
 #include <KPluginFactory>
@@ -71,11 +72,7 @@ QUrl JuliaBackend::helpUrl() const
 
 bool JuliaBackend::requirementsFullfilled(QString* const reason) const
 {
-#ifdef Q_OS_WIN
-    const QString& path = QStandardPaths::findExecutable(QLatin1String("cantor_juliaserver.exe"));
-#else
-    const QString& path = QStandardPaths::findExecutable(QLatin1String("cantor_juliaserver"));
-#endif
+    const QString path = juliaServerExecutablePath();
     return Cantor::Backend::checkExecutable(QLatin1String("Cantor Julia Server"), path, reason);
 }
 
