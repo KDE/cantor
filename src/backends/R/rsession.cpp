@@ -6,6 +6,7 @@
 
 #include "rsession.h"
 #include "rexpression.h"
+#include "rutils.h"
 #include "rvariablemodel.h"
 #include "rserver/rprotocol.h"
 #include "settings.h"
@@ -58,28 +59,7 @@ void RSession::login()
     m_process->setReadChannel(QProcess::StandardOutput);
 
     // Find the rserver executable
-    QString rserverPath;
-#ifdef Q_OS_WIN
-    rserverPath = QStandardPaths::findExecutable(QLatin1String("cantor_rserver.exe"));
-    if (rserverPath.isEmpty()) {
-        // Also check in same directory as the current executable (for CI/tests)
-        QString localPath = QCoreApplication::applicationDirPath() + QLatin1String("/cantor_rserver.exe");
-        if (QFile::exists(localPath))
-            rserverPath = localPath;
-    }
-#elif defined(Q_OS_MACOS)
-    // On macOS, also check in app bundle next to cantor.app
-    rserverPath = QStandardPaths::findExecutable(QLatin1String("cantor_rserver"));
-    if (rserverPath.isEmpty()) {
-        QDir appDir(QCoreApplication::applicationDirPath());
-        appDir.cdUp(); appDir.cdUp(); appDir.cdUp(); // MacOS -> Contents -> cantor.app -> bin
-        QString bundlePath = appDir.filePath(QLatin1String("cantor_rserver.app/Contents/MacOS/cantor_rserver"));
-        if (QFile::exists(bundlePath))
-            rserverPath = bundlePath;
-    }
-#else
-    rserverPath = QStandardPaths::findExecutable(QLatin1String("cantor_rserver"));
-#endif
+    const QString rserverPath = rServerExecutablePath();
 
     if (rserverPath.isEmpty())
     {
