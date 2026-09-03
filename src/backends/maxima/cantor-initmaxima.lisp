@@ -65,10 +65,11 @@
 )
 
 (defun cantor-inspect (var)
-  ($disp var)
+  ;; Avoid $disp abbreviating long variable lists as "...".
+  (linear-displa var)
   (mapc #'(lambda (x)
-	    ($disp (eval x))
-	    ($disp "-cantor-value-separator-")
+	    (linear-displa (eval x))
+	    (linear-displa "-cantor-value-separator-")
 	  )
 	(cdr var)
 	)
