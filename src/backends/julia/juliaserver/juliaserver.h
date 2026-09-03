@@ -84,6 +84,8 @@ public Q_SLOTS:
      */
     Q_SCRIPTABLE QStringList variableTypesList();
 
+    Q_SCRIPTABLE QString variablePreview(const QByteArray& referenceData, qlonglong offset, qlonglong limit);
+
     /**
      * @return list of function in internal Julia's module
      */
@@ -96,7 +98,6 @@ private:
     QString m_error; //< Stores last stderr output
     QString m_output; //< Stores last stdout output
     bool m_was_exception; //< Stores indicator of exception
-    QStringList parsedModules;
     QStringList m_variables;
     QStringList m_variableValues;
     QStringList m_variableSizes;
