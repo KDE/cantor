@@ -13,7 +13,7 @@ msgstr ""
 "Project-Id-Version: cantor\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-09-02 00:38+0000\n"
-"PO-Revision-Date: 2026-08-27 19:14+0200\n"
+"PO-Revision-Date: 2026-09-02 18:31+0200\n"
 "Last-Translator: Xavier Besnard <xavier.besnard@kde.org>\n"
 "Language-Team: fr\n"
 "Language: fr\n"
@@ -4738,7 +4738,7 @@ msgstr "Problème lors du chargement de la feuille de style « latex.xsl »"
 #: worksheet.cpp:1672
 #, kde-format
 msgid "Cannot create temporary archive."
-msgstr ""
+msgstr "Impossible de créer une archive temporaire."
 
 #: worksheet.cpp:1714
 #, kde-format
@@ -4771,10 +4771,9 @@ msgid "The selected file is not a valid Cantor project file."
 msgstr "Le fichier sélectionné n'est pas un fichier de projet Cantor valable."
 
 #: worksheet.cpp:1789
-#, fuzzy, kde-format
-#| msgid "The selected file is not a valid Cantor project file."
+#, kde-format
 msgid "The selected file is a corrupt Cantor project file."
-msgstr "Le fichier sélectionné n'est pas un fichier de projet Cantor valable."
+msgstr "Le fichier sélectionné est un fichier de projet Cantor corrompu."
 
 #: worksheet.cpp:1805
 #, kde-format
@@ -5242,23 +5241,19 @@ msgid "Move Down"
 msgstr "Déplacer vers le bas"
 
 #: worksheetentry.cpp:545
-#, fuzzy, kde-format
-#| msgctxt "@title:window"
-#| msgid "Modify Entry"
+#, kde-format
 msgid "Copy Entry"
-msgstr "Modifier une entrée"
+msgstr "Copier l'entrée"
 
 #: worksheetentry.cpp:549
-#, fuzzy, kde-format
-#| msgid "Selected Entry and All Below"
+#, kde-format
 msgid "Paste Entry Below"
-msgstr "Entrée sélectionnée et tout ce qui suit"
+msgstr "Coller l'entrée ci-dessous"
 
 #: worksheetentry.cpp:554
-#, fuzzy, kde-format
-#| msgid "Selected Entry and All Below"
+#, kde-format
 msgid "Duplicate Entry Below"
-msgstr "Entrée sélectionnée et tout ce qui suit"
+msgstr "Dupliquer l'entrée ci-dessous"
 
 #: worksheetentry.cpp:560
 #, kde-format

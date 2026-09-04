@@ -4577,10 +4577,9 @@ msgid "The selected file is not a valid Cantor project file."
 msgstr "所选的文件不是有效的 Cantor 项目文件。"
 
 #: worksheet.cpp:1789
-#, fuzzy, kde-format
-#| msgid "The selected file is not a valid Cantor project file."
+#, kde-format
 msgid "The selected file is a corrupt Cantor project file."
-msgstr "所选的文件不是有效的 Cantor 项目文件。"
+msgstr ""
 
 #: worksheet.cpp:1805
 #, kde-format
@@ -5033,11 +5032,9 @@ msgid "Move Down"
 msgstr "下移"
 
 #: worksheetentry.cpp:545
-#, fuzzy, kde-format
-#| msgctxt "@title:window"
-#| msgid "Modify Entry"
+#, kde-format
 msgid "Copy Entry"
-msgstr "修改条目"
+msgstr ""
 
 #: worksheetentry.cpp:549
 #, kde-format
@@ -5045,10 +5042,9 @@ msgid "Paste Entry Below"
 msgstr ""
 
 #: worksheetentry.cpp:554
-#, fuzzy, kde-format
-#| msgid "Delete Entry"
+#, kde-format
 msgid "Duplicate Entry Below"
-msgstr "删除条目"
+msgstr ""
 
 #: worksheetentry.cpp:560
 #, kde-format
