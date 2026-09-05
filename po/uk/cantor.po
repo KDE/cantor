@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: cantor\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-09-02 00:38+0000\n"
+"POT-Creation-Date: 2026-09-05 00:40+0000\n"
 "PO-Revision-Date: 2026-09-01 21:03+0300\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian <trans-uk@lists.fedoraproject.org>\n"
@@ -1022,7 +1022,7 @@ msgstr "Інтегрування графіків вимкнено."
 #: backends/octave/octavesession.cpp:390 backends/sage/sagesession.cpp:358
 #: backends/sage/sagesession.cpp:369 cantor.cpp:243 cantor.cpp:245
 #: cantor.cpp:430 cantor.cpp:437 lib/session.cpp:334 main.cpp:48 main.cpp:105
-#: markdownentry.cpp:1014 textentry.cpp:862 worksheet.cpp:1634
+#: markdownentry.cpp:1168 textentry.cpp:862 worksheet.cpp:1634
 #, kde-format
 msgid "Cantor"
 msgstr "Cantor"
@@ -3118,7 +3118,7 @@ msgstr "Вставити запис LaTeX"
 msgid "Insert Page Break"
 msgstr "Вставити розрив сторінки"
 
-#: cantor_part.cpp:329 markdownentry.cpp:64
+#: cantor_part.cpp:329 markdownentry.cpp:126
 #, kde-format
 msgid "Insert Image"
 msgstr "Вставити зображення"
@@ -3732,12 +3732,12 @@ msgstr "точок"
 msgid "%"
 msgstr "%"
 
-#: imagesettingsdialog.cpp:151 markdownentry.cpp:990
+#: imagesettingsdialog.cpp:151 markdownentry.cpp:1144
 #, kde-format
 msgid "Open image file"
 msgstr "Відкриття файла зображення"
 
-#: imagesettingsdialog.cpp:153 markdownentry.cpp:992
+#: imagesettingsdialog.cpp:153 markdownentry.cpp:1146
 #, kde-format
 msgid "Images (%1)"
 msgstr "Зображення (%1)"
@@ -3985,22 +3985,22 @@ msgstr "Документ, який слід відкрити."
 msgid "Couldn't open the file %1"
 msgstr "Не вдалося відкрити файл %1"
 
-#: markdownentry.cpp:71
+#: markdownentry.cpp:133
 #, kde-format
 msgid "Enter Edit Mode"
 msgstr "Увійти до режиму редагування"
 
-#: markdownentry.cpp:79
+#: markdownentry.cpp:141
 #, kde-format
 msgid "Clear Attachments"
 msgstr "Вилучити долучення"
 
-#: markdownentry.cpp:811
+#: markdownentry.cpp:886
 #, kde-format
 msgid "Cantor Math Error"
 msgstr "Математична помилка у Cantor"
 
-#: markdownentry.cpp:1013
+#: markdownentry.cpp:1167
 #, kde-format
 msgid "Failed to read the image \"%1\". Error \"%2\""
 msgstr "Не вдалося прочитати зображення «%1». Помилка «%2»"

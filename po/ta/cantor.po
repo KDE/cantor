@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: cantor\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-09-02 00:38+0000\n"
+"POT-Creation-Date: 2026-09-05 00:40+0000\n"
 "PO-Revision-Date: 2026-08-17 15:18+0530\n"
 "Last-Translator: Kishore G <kishore96@gmail.com>\n"
 "Language-Team: Tamil <kde-l10n-ta@kde.org>\n"
@@ -936,7 +936,7 @@ msgstr "வரைபட ஒருங்கிணைப்பு முடக்�
 #: backends/octave/octavesession.cpp:390 backends/sage/sagesession.cpp:358
 #: backends/sage/sagesession.cpp:369 cantor.cpp:243 cantor.cpp:245
 #: cantor.cpp:430 cantor.cpp:437 lib/session.cpp:334 main.cpp:48 main.cpp:105
-#: markdownentry.cpp:1014 textentry.cpp:862 worksheet.cpp:1634
+#: markdownentry.cpp:1168 textentry.cpp:862 worksheet.cpp:1634
 #, kde-format
 msgid "Cantor"
 msgstr "கேண்ட்டொர்"
@@ -2903,7 +2903,7 @@ msgstr "LaTeX பதிவை நுழை"
 msgid "Insert Page Break"
 msgstr "பக்கமுறிவை நுழை"
 
-#: cantor_part.cpp:329 markdownentry.cpp:64
+#: cantor_part.cpp:329 markdownentry.cpp:126
 #, kde-format
 msgid "Insert Image"
 msgstr "படத்தை நுழை"
@@ -3522,12 +3522,12 @@ msgstr ""
 msgid "%"
 msgstr "%"
 
-#: imagesettingsdialog.cpp:151 markdownentry.cpp:990
+#: imagesettingsdialog.cpp:151 markdownentry.cpp:1144
 #, kde-format
 msgid "Open image file"
 msgstr "படக்கோப்பைத் திறப்பது"
 
-#: imagesettingsdialog.cpp:153 markdownentry.cpp:992
+#: imagesettingsdialog.cpp:153 markdownentry.cpp:1146
 #, kde-format
 msgid "Images (%1)"
 msgstr "படங்கள் (%1)"
@@ -3771,22 +3771,22 @@ msgstr "திறக்க வேண்டிய ஆவணங்கள்"
 msgid "Couldn't open the file %1"
 msgstr "%1 எனும் கோப்பைத் திறக்க முடியவில்லை"
 
-#: markdownentry.cpp:71
+#: markdownentry.cpp:133
 #, kde-format
 msgid "Enter Edit Mode"
 msgstr "திருத்தும் பயன்முறையில் நுழை"
 
-#: markdownentry.cpp:79
+#: markdownentry.cpp:141
 #, kde-format
 msgid "Clear Attachments"
 msgstr "உடனிணைப்புகளை நீக்கு"
 
-#: markdownentry.cpp:811
+#: markdownentry.cpp:886
 #, kde-format
 msgid "Cantor Math Error"
 msgstr "கேண்ட்டொர் கணித சிக்கல்"
 
-#: markdownentry.cpp:1013
+#: markdownentry.cpp:1167
 #, kde-format
 msgid "Failed to read the image \"%1\". Error \"%2\""
 msgstr "\"%1\" எனும் படக்கோப்பைப் படிக்க முடியவில்லை. சிக்கல் \"%2\""

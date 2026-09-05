@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kdeorg\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-09-02 00:38+0000\n"
+"POT-Creation-Date: 2026-09-05 00:40+0000\n"
 "PO-Revision-Date: 2024-04-22 16:04\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Simplified\n"
@@ -973,7 +973,7 @@ msgstr "绘图集成将被禁用。"
 #: backends/octave/octavesession.cpp:390 backends/sage/sagesession.cpp:358
 #: backends/sage/sagesession.cpp:369 cantor.cpp:243 cantor.cpp:245
 #: cantor.cpp:430 cantor.cpp:437 lib/session.cpp:334 main.cpp:48 main.cpp:105
-#: markdownentry.cpp:1014 textentry.cpp:862 worksheet.cpp:1634
+#: markdownentry.cpp:1168 textentry.cpp:862 worksheet.cpp:1634
 #, kde-format
 msgid "Cantor"
 msgstr "Cantor"
@@ -2984,7 +2984,7 @@ msgstr "插入 Latex 条目"
 msgid "Insert Page Break"
 msgstr "插入分页"
 
-#: cantor_part.cpp:329 markdownentry.cpp:64
+#: cantor_part.cpp:329 markdownentry.cpp:126
 #, kde-format
 msgid "Insert Image"
 msgstr "插入图像"
@@ -3594,12 +3594,12 @@ msgstr "像素"
 msgid "%"
 msgstr "%"
 
-#: imagesettingsdialog.cpp:151 markdownentry.cpp:990
+#: imagesettingsdialog.cpp:151 markdownentry.cpp:1144
 #, kde-format
 msgid "Open image file"
 msgstr "打开图像文件"
 
-#: imagesettingsdialog.cpp:153 markdownentry.cpp:992
+#: imagesettingsdialog.cpp:153 markdownentry.cpp:1146
 #, kde-format
 msgid "Images (%1)"
 msgstr "图像 (%1)"
@@ -3839,22 +3839,22 @@ msgstr "要打开的文档。"
 msgid "Couldn't open the file %1"
 msgstr "无法打开文件 %1"
 
-#: markdownentry.cpp:71
+#: markdownentry.cpp:133
 #, kde-format
 msgid "Enter Edit Mode"
 msgstr "进入编辑模式"
 
-#: markdownentry.cpp:79
+#: markdownentry.cpp:141
 #, kde-format
 msgid "Clear Attachments"
 msgstr "清除附件"
 
-#: markdownentry.cpp:811
+#: markdownentry.cpp:886
 #, kde-format
 msgid "Cantor Math Error"
 msgstr "Cantor 数学错误"
 
-#: markdownentry.cpp:1013
+#: markdownentry.cpp:1167
 #, kde-format
 msgid "Failed to read the image \"%1\". Error \"%2\""
 msgstr "无法读取图像“%1”。错误“%2”"

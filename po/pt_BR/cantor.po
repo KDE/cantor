@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: cantor\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-09-02 00:38+0000\n"
+"POT-Creation-Date: 2026-09-05 00:40+0000\n"
 "PO-Revision-Date: 2026-09-01 06:36-0300\n"
 "Last-Translator: Marcus Gama <marcus.gama@gmail.com>\n"
 "Language-Team: Portuguese <kde-i18n-pt_BR@kde.org>\n"
@@ -1019,7 +1019,7 @@ msgstr "A integração dos gráficos será desabilitada."
 #: backends/octave/octavesession.cpp:390 backends/sage/sagesession.cpp:358
 #: backends/sage/sagesession.cpp:369 cantor.cpp:243 cantor.cpp:245
 #: cantor.cpp:430 cantor.cpp:437 lib/session.cpp:334 main.cpp:48 main.cpp:105
-#: markdownentry.cpp:1014 textentry.cpp:862 worksheet.cpp:1634
+#: markdownentry.cpp:1168 textentry.cpp:862 worksheet.cpp:1634
 #, kde-format
 msgid "Cantor"
 msgstr "Cantor"
@@ -3095,7 +3095,7 @@ msgstr "Inserir entrada de LaTeX"
 msgid "Insert Page Break"
 msgstr "Inserir quebra de página"
 
-#: cantor_part.cpp:329 markdownentry.cpp:64
+#: cantor_part.cpp:329 markdownentry.cpp:126
 #, kde-format
 msgid "Insert Image"
 msgstr "Inserir imagem"
@@ -3707,12 +3707,12 @@ msgstr "px"
 msgid "%"
 msgstr "%"
 
-#: imagesettingsdialog.cpp:151 markdownentry.cpp:990
+#: imagesettingsdialog.cpp:151 markdownentry.cpp:1144
 #, kde-format
 msgid "Open image file"
 msgstr "Abrir arquivo de imagem"
 
-#: imagesettingsdialog.cpp:153 markdownentry.cpp:992
+#: imagesettingsdialog.cpp:153 markdownentry.cpp:1146
 #, kde-format
 msgid "Images (%1)"
 msgstr "Imagens (%1)"
@@ -3961,22 +3961,22 @@ msgstr "Documentos a abrir."
 msgid "Couldn't open the file %1"
 msgstr "Não foi possível abrir o arquivo %1"
 
-#: markdownentry.cpp:71
+#: markdownentry.cpp:133
 #, kde-format
 msgid "Enter Edit Mode"
 msgstr "Entrar no modo de edição"
 
-#: markdownentry.cpp:79
+#: markdownentry.cpp:141
 #, kde-format
 msgid "Clear Attachments"
 msgstr "Limpar anexos"
 
-#: markdownentry.cpp:811
+#: markdownentry.cpp:886
 #, kde-format
 msgid "Cantor Math Error"
 msgstr "Erro matemático do Cantor"
 
-#: markdownentry.cpp:1013
+#: markdownentry.cpp:1167
 #, kde-format
 msgid "Failed to read the image \"%1\". Error \"%2\""
 msgstr "Falha ao ler a imagem \"%1\". Erro \"%2\""

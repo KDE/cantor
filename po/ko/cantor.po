@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-09-02 00:38+0000\n"
+"POT-Creation-Date: 2026-09-05 00:40+0000\n"
 "PO-Revision-Date: 2026-05-26 21:25+0200\n"
 "Last-Translator: Shinjo Park <kde@peremen.name>\n"
 "Language-Team: Korean <kde-kr@kde.org>\n"
@@ -989,7 +989,7 @@ msgstr "플롯 통합이 비활성화됩니다."
 #: backends/octave/octavesession.cpp:390 backends/sage/sagesession.cpp:358
 #: backends/sage/sagesession.cpp:369 cantor.cpp:243 cantor.cpp:245
 #: cantor.cpp:430 cantor.cpp:437 lib/session.cpp:334 main.cpp:48 main.cpp:105
-#: markdownentry.cpp:1014 textentry.cpp:862 worksheet.cpp:1634
+#: markdownentry.cpp:1168 textentry.cpp:862 worksheet.cpp:1634
 #, kde-format
 msgid "Cantor"
 msgstr "Cantor"
@@ -3024,7 +3024,7 @@ msgstr "LaTeX 항목 삽입"
 msgid "Insert Page Break"
 msgstr "쪽 나누기 삽입"
 
-#: cantor_part.cpp:329 markdownentry.cpp:64
+#: cantor_part.cpp:329 markdownentry.cpp:126
 #, kde-format
 msgid "Insert Image"
 msgstr "그림 삽입"
@@ -3642,12 +3642,12 @@ msgstr "픽셀"
 msgid "%"
 msgstr "%"
 
-#: imagesettingsdialog.cpp:151 markdownentry.cpp:990
+#: imagesettingsdialog.cpp:151 markdownentry.cpp:1144
 #, kde-format
 msgid "Open image file"
 msgstr "그림 파일 열기"
 
-#: imagesettingsdialog.cpp:153 markdownentry.cpp:992
+#: imagesettingsdialog.cpp:153 markdownentry.cpp:1146
 #, kde-format
 msgid "Images (%1)"
 msgstr "그림 (%1)"
@@ -3892,22 +3892,22 @@ msgstr "열 문서입니다."
 msgid "Couldn't open the file %1"
 msgstr "%1 파일을 열 수 없음"
 
-#: markdownentry.cpp:71
+#: markdownentry.cpp:133
 #, kde-format
 msgid "Enter Edit Mode"
 msgstr "편집 모드 진입"
 
-#: markdownentry.cpp:79
+#: markdownentry.cpp:141
 #, kde-format
 msgid "Clear Attachments"
 msgstr "첨부 파일 지우기"
 
-#: markdownentry.cpp:811
+#: markdownentry.cpp:886
 #, kde-format
 msgid "Cantor Math Error"
 msgstr "Cantor 수학 오류"
 
-#: markdownentry.cpp:1013
+#: markdownentry.cpp:1167
 #, kde-format
 msgid "Failed to read the image \"%1\". Error \"%2\""
 msgstr "\"%1\" 그림을 읽을 수 없습니다. 오류 \"%2\""
