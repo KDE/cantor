@@ -454,6 +454,10 @@ void Worksheet::followHierarchyFromView()
 
 void Worksheet::updateEntrySize(WorksheetEntry* entry)
 {
+    // only update the worksheet size for an entry which is in the worksheet
+    if (!isValidEntry(entry))
+        return;
+
     QScopedValueRollback<bool> layoutGuard(m_layoutUpdateInProgress, true);
     bool cursorRectVisible = false;
     bool atEnd = worksheetView()->isAtEnd();

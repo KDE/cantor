@@ -621,14 +621,20 @@ qreal WorksheetEntry::setGeometry(qreal x, qreal x1, qreal y, qreal w)
 
 void WorksheetEntry::recalculateSize()
 {
-    qreal height = size().height();
+    qreal oldHeight = size().height();
     layOutForWidth(m_entry_zone_x, size().width(), true);
-    if (height != size().height())
-    {
+    const bool heightChanged = oldHeight != size().height();
+    if (heightChanged)
         recalculateControlGeometry();
-        worksheet()->updateEntrySize(this);
+
+    // only perform worksheet geometry updates if the entry is added to the worksheet
+    if (worksheet()->isValidEntry(this))
+    {
+        if (heightChanged)
+            worksheet()->updateEntrySize(this);
+
+        worksheet()->updateLayout();
     }
-    worksheet()->updateLayout();
 }
 
 void WorksheetEntry::setHeightForPreview(qreal height)
