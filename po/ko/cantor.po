@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-09-05 00:40+0000\n"
+"POT-Creation-Date: 2026-09-07 00:39+0000\n"
 "PO-Revision-Date: 2026-05-26 21:25+0200\n"
 "Last-Translator: Shinjo Park <kde@peremen.name>\n"
 "Language-Team: Korean <kde-kr@kde.org>\n"
@@ -441,8 +441,8 @@ msgstr "Julia 프로세스를 시작할 수 없습니다. 설치 상태를 확�
 
 #: backends/julia/juliasession.cpp:115 backends/julia/juliasession.cpp:124
 #: backends/maxima/maximasession.cpp:322 cantor_part.cpp:1012
-#: lib/session.cpp:264 lib/session.cpp:266 worksheet.cpp:1552
-#: worksheet.cpp:1580 worksheet.cpp:1595 worksheet.cpp:1611
+#: lib/session.cpp:264 lib/session.cpp:266 worksheet.cpp:1556
+#: worksheet.cpp:1584 worksheet.cpp:1599 worksheet.cpp:1615
 #, kde-format
 msgid "Error - Cantor"
 msgstr "오류 - Cantor"
@@ -989,7 +989,7 @@ msgstr "플롯 통합이 비활성화됩니다."
 #: backends/octave/octavesession.cpp:390 backends/sage/sagesession.cpp:358
 #: backends/sage/sagesession.cpp:369 cantor.cpp:243 cantor.cpp:245
 #: cantor.cpp:430 cantor.cpp:437 lib/session.cpp:334 main.cpp:48 main.cpp:105
-#: markdownentry.cpp:1168 textentry.cpp:862 worksheet.cpp:1634
+#: markdownentry.cpp:1168 textentry.cpp:862 worksheet.cpp:1638
 #, kde-format
 msgid "Cantor"
 msgstr "Cantor"
@@ -1462,7 +1462,7 @@ msgstr "EPS"
 
 #. i18n: ectx: property (text), item, widget (KComboBox, saveFileBox)
 #: backends/qalculate/plotassistant/qalculateplotdialog.ui:575
-#: worksheet.cpp:2365 worksheet.cpp:2389 worksheet.cpp:2407 worksheet.cpp:2424
+#: worksheet.cpp:2369 worksheet.cpp:2393 worksheet.cpp:2411 worksheet.cpp:2428
 #, kde-format
 msgid "LaTeX"
 msgstr "LaTeX"
@@ -2932,18 +2932,18 @@ msgstr "일반 텍스트로 저장"
 msgid "Export to PDF"
 msgstr "PDF로 내보내기"
 
-#: cantor_part.cpp:213 cantor_part.cpp:593 worksheet.cpp:1655
-#: worksheet.cpp:1661 worksheet.cpp:1672
+#: cantor_part.cpp:213 cantor_part.cpp:593 worksheet.cpp:1659
+#: worksheet.cpp:1665 worksheet.cpp:1676
 #, kde-format
 msgid "Export to LaTeX"
 msgstr "LaTeX으로 내보내기"
 
-#: cantor_part.cpp:228 cantor_part.cpp:689 worksheet.cpp:2445
+#: cantor_part.cpp:228 cantor_part.cpp:689 worksheet.cpp:2449
 #, kde-format
 msgid "Evaluate Worksheet"
 msgstr "워크시트 계산"
 
-#: cantor_part.cpp:234 worksheet.cpp:2453
+#: cantor_part.cpp:234 worksheet.cpp:2457
 #, kde-format
 msgid "Zoom"
 msgstr "확대/축소"
@@ -2994,7 +2994,7 @@ msgstr "임베드된 수식"
 msgid "Restart Backend"
 msgstr "백엔드 다시 시작"
 
-#: cantor_part.cpp:295 worksheetentry.cpp:995
+#: cantor_part.cpp:295 worksheetentry.cpp:1001
 #, kde-format
 msgid "Evaluate Entry"
 msgstr "항목 계산"
@@ -3049,12 +3049,12 @@ msgstr "모든 결과 삭제"
 msgid "Delete current Entry"
 msgstr "현재 항목 삭제"
 
-#: cantor_part.cpp:355 worksheet.cpp:2472
+#: cantor_part.cpp:355 worksheet.cpp:2476
 #, kde-format
 msgid "Merge Cells"
 msgstr ""
 
-#: cantor_part.cpp:361 worksheet.cpp:2343
+#: cantor_part.cpp:361 worksheet.cpp:2347
 #, kde-format
 msgid "Split Cell"
 msgstr ""
@@ -3136,7 +3136,7 @@ msgstr "모든 계산 결과가 손실됩니다. %1을(를) 다시 시작하시�
 msgid "Restart %1?"
 msgstr "%1을(를) 다시 시작하시겠습니까?"
 
-#: cantor_part.cpp:679 worksheet.cpp:2448
+#: cantor_part.cpp:679 worksheet.cpp:2452
 #, kde-format
 msgid "Interrupt"
 msgstr "중지"
@@ -3295,7 +3295,7 @@ msgstr "결과 표시"
 msgid "Hide Results"
 msgstr "결과 숨기기"
 
-#: commandentry.cpp:345 worksheet.cpp:2437
+#: commandentry.cpp:345 worksheet.cpp:2441
 #, kde-format
 msgid "Show Help"
 msgstr "도움말 표시"
@@ -3544,7 +3544,7 @@ msgstr "그림 설정을 변경하려면 두 번 클릭하십시오"
 msgid "Cannot load image %1"
 msgstr "%1 그림을 불러올 수 없음"
 
-#: imageresultitem.cpp:60 worksheet.cpp:2464
+#: imageresultitem.cpp:60 worksheet.cpp:2468
 #, kde-format
 msgid "Original Size"
 msgstr "원래 크기"
@@ -4020,8 +4020,8 @@ msgid "Delete Heading"
 msgstr "항목 삭제"
 
 #: panelplugins/tocpanel/tocpanelplugin.cpp:365
-#: panelplugins/tocpanel/tocpanelplugin.cpp:1258 worksheet.cpp:2355
-#: worksheet.cpp:2384 worksheet.cpp:2402 worksheet.cpp:2418
+#: panelplugins/tocpanel/tocpanelplugin.cpp:1258 worksheet.cpp:2359
+#: worksheet.cpp:2388 worksheet.cpp:2406 worksheet.cpp:2422
 #: worksheethierarchymanager.cpp:321
 #, kde-format
 msgid "Command"
@@ -4314,8 +4314,8 @@ msgstr "결과"
 msgid "Errors"
 msgstr "오류"
 
-#: searchbar.cpp:531 searchbar.cpp:560 worksheet.cpp:2358 worksheet.cpp:2385
-#: worksheet.cpp:2403 worksheet.cpp:2419
+#: searchbar.cpp:531 searchbar.cpp:560 worksheet.cpp:2362 worksheet.cpp:2389
+#: worksheet.cpp:2407 worksheet.cpp:2423
 #, kde-format
 msgid "Text"
 msgstr "텍스트"
@@ -4589,22 +4589,22 @@ msgstr "EPS 파일을 렌더할 수 없습니다. 추가 패키지가 필요합�
 msgid "Save text result"
 msgstr "텍스트 결과 저장"
 
-#: worksheet.cpp:1551
+#: worksheet.cpp:1555
 #, kde-format
 msgid "Cannot write file %1."
 msgstr "파일 %1에 쓸 수 없습니다."
 
-#: worksheet.cpp:1579 worksheet.cpp:1594
+#: worksheet.cpp:1583 worksheet.cpp:1598
 #, kde-format
 msgid "Cannot write file."
 msgstr "파일에 쓸 수 없습니다."
 
-#: worksheet.cpp:1611 worksheet.cpp:1655
+#: worksheet.cpp:1615 worksheet.cpp:1659
 #, kde-format
 msgid "Error saving file %1"
 msgstr "파일 %1 저장 오류"
 
-#: worksheet.cpp:1634
+#: worksheet.cpp:1638
 #, kde-format
 msgid ""
 "In read-only mode Cantor couldn't guarantee, that the export will be valid "
@@ -4612,51 +4612,51 @@ msgid ""
 msgstr ""
 "읽기 전용 모드에서는 Cantor에서 %1 내보내기가 올바른지 보장할 수 없습니다."
 
-#: worksheet.cpp:1661
+#: worksheet.cpp:1665
 #, kde-format
 msgid "Error loading latex.xsl stylesheet"
 msgstr "latex.xsl 스타일시트를 불러올 수 없음"
 
-#: worksheet.cpp:1672
+#: worksheet.cpp:1676
 #, kde-format
 msgid "Cannot create temporary archive."
 msgstr ""
 
-#: worksheet.cpp:1714
+#: worksheet.cpp:1718
 #, kde-format
 msgid "Couldn't open the file %1."
 msgstr "%1 파일을 열 수 없습니다."
 
-#: worksheet.cpp:1714 worksheet.cpp:1737 worksheet.cpp:1757 worksheet.cpp:1774
-#: worksheet.cpp:1789 worksheet.cpp:1815 worksheet.cpp:1826 worksheet.cpp:1938
-#: worksheet.cpp:1953 worksheet.cpp:1995 worksheet.cpp:2006 worksheet.cpp:2125
-#: worksheet.cpp:2127
+#: worksheet.cpp:1718 worksheet.cpp:1741 worksheet.cpp:1761 worksheet.cpp:1778
+#: worksheet.cpp:1793 worksheet.cpp:1819 worksheet.cpp:1830 worksheet.cpp:1942
+#: worksheet.cpp:1957 worksheet.cpp:1999 worksheet.cpp:2010 worksheet.cpp:2129
+#: worksheet.cpp:2131
 #, kde-format
 msgid "Open File"
 msgstr "파일 열기"
 
-#: worksheet.cpp:1737
+#: worksheet.cpp:1741
 #, kde-format
 msgid "Couldn't open the selected file for reading."
 msgstr "선택한 파일에서 읽으려고 열 수 없습니다."
 
-#: worksheet.cpp:1757
+#: worksheet.cpp:1761
 #, kde-format
 msgid "The selected file is not a valid Cantor or Jupyter project file."
 msgstr "선택한 파일은 올바른 Cantor나 Jupyter 프로젝트 파일이 아닙니다."
 
-#: worksheet.cpp:1774
+#: worksheet.cpp:1778
 #, kde-format
 msgid "The selected file is not a valid Cantor project file."
 msgstr "선택한 파일은 올바른 Cantor 프로젝트 파일이 아닙니다."
 
-#: worksheet.cpp:1789
+#: worksheet.cpp:1793
 #, fuzzy, kde-format
 #| msgid "The selected file is not a valid Cantor project file."
 msgid "The selected file is a corrupt Cantor project file."
 msgstr "선택한 파일은 올바른 Cantor 프로젝트 파일이 아닙니다."
 
-#: worksheet.cpp:1805
+#: worksheet.cpp:1809
 #, kde-format
 msgid ""
 "This worksheet was created using Python2 which is not supported anymore. "
@@ -4665,18 +4665,18 @@ msgstr ""
 "이 워크시트는 더 이상 지원하지 않는 Python 2에서 생성되었습니다. Python 3을 "
 "사용합니다."
 
-#: worksheet.cpp:1806 worksheet.cpp:1977
+#: worksheet.cpp:1810 worksheet.cpp:1981
 #, kde-format
 msgid "Python2 not supported anymore"
 msgstr "Python 2 지원 중단됨"
 
-#: worksheet.cpp:1815 worksheet.cpp:1994
+#: worksheet.cpp:1819 worksheet.cpp:1998
 #, kde-format
 msgid ""
 "%1 backend was not found. Editing and executing entries is not possible."
 msgstr "%1 백엔드를 찾을 수 없습니다. 항목 편집과 실행이 불가능합니다."
 
-#: worksheet.cpp:1824 worksheet.cpp:2004
+#: worksheet.cpp:1828 worksheet.cpp:2008
 #, kde-format
 msgid ""
 "There are some problems with the %1 backend,\n"
@@ -4687,21 +4687,21 @@ msgstr ""
 "설정을 확인하고 필요한 패키지를 설치하십시오.\n"
 "이 워크시트를 볼 수만 있습니다."
 
-#: worksheet.cpp:1937
+#: worksheet.cpp:1941
 #, kde-format
 msgid ""
 "Jupyter notebooks with versions lower than 4.5 (detected version %1.%2) are "
 "not supported."
 msgstr "Jupyter 노트북 버전 4.5 미만(감지된 버전 %1.%2)은 지원하지 않습니다."
 
-#: worksheet.cpp:1952
+#: worksheet.cpp:1956
 #, kde-format
 msgid ""
 "Jupyter notebooks with versions higher than 4.5 (detected version %1.%2) are "
 "not supported."
 msgstr "Jupyter 노트북 버전 4.5 초과(감지된 버전 %1.%2)는 지원하지 않습니다."
 
-#: worksheet.cpp:1976
+#: worksheet.cpp:1980
 #, kde-format
 msgid ""
 "This notebook was created using Python2 which is not supported anymore. "
@@ -4710,246 +4710,246 @@ msgstr ""
 "이 노트북은 더 이상 지원하지 않는 Python 2에서 생성되었습니다. Python 3을 사"
 "용합니다."
 
-#: worksheet.cpp:2044
+#: worksheet.cpp:2048
 #, kde-format
 msgid "an object with keys: %1"
 msgstr "다음 키가 있는 객체: %1"
 
-#: worksheet.cpp:2046
+#: worksheet.cpp:2050
 #, kde-format
 msgid "non object JSON value"
 msgstr "객체가 아닌 JSON 값"
 
-#: worksheet.cpp:2049
+#: worksheet.cpp:2053
 #, kde-format
 msgid "found incorrect data (%1) that is not Jupyter cell"
 msgstr "Jupyter 셀이 아닌 잘못된 데이터(%1) 발견함"
 
-#: worksheet.cpp:2125
+#: worksheet.cpp:2129
 #, kde-format
 msgid "The file is not valid Jupyter notebook"
 msgstr "파일이 올바른 Jupyter 노트북이 아님"
 
-#: worksheet.cpp:2127
+#: worksheet.cpp:2131
 #, kde-format
 msgid "Invalid Jupyter notebook scheme: %1"
 msgstr "잘못된 Jupyter 노트북 스키마: %1"
 
-#: worksheet.cpp:2350
+#: worksheet.cpp:2354
 #, kde-format
 msgid "Convert To"
 msgstr "다음으로 변환"
 
-#: worksheet.cpp:2362 worksheet.cpp:2387 worksheet.cpp:2405 worksheet.cpp:2421
+#: worksheet.cpp:2366 worksheet.cpp:2391 worksheet.cpp:2409 worksheet.cpp:2425
 #, kde-format
 msgid "Markdown"
 msgstr "마크다운"
 
-#: worksheet.cpp:2367 worksheet.cpp:2390 worksheet.cpp:2408 worksheet.cpp:2425
+#: worksheet.cpp:2371 worksheet.cpp:2394 worksheet.cpp:2412 worksheet.cpp:2429
 #, kde-format
 msgid "Image"
 msgstr "그림"
 
-#: worksheet.cpp:2370 worksheet.cpp:2393 worksheet.cpp:2411 worksheet.cpp:2428
+#: worksheet.cpp:2374 worksheet.cpp:2397 worksheet.cpp:2415 worksheet.cpp:2432
 #, kde-format
 msgid "Page Break"
 msgstr "쪽 나누기"
 
-#: worksheet.cpp:2373 worksheet.cpp:2392 worksheet.cpp:2410 worksheet.cpp:2427
+#: worksheet.cpp:2377 worksheet.cpp:2396 worksheet.cpp:2414 worksheet.cpp:2431
 #, kde-format
 msgid "Horizontal Line"
 msgstr "수평선"
 
-#: worksheet.cpp:2376 worksheet.cpp:2395 worksheet.cpp:2413 worksheet.cpp:2430
+#: worksheet.cpp:2380 worksheet.cpp:2399 worksheet.cpp:2417 worksheet.cpp:2434
 #, kde-format
 msgid "Hierarchy Entry"
 msgstr "계층 항목"
 
-#: worksheet.cpp:2379
+#: worksheet.cpp:2383
 #, kde-format
 msgid "Insert After"
 msgstr "이후에 삽입"
 
-#: worksheet.cpp:2398
+#: worksheet.cpp:2402
 #, kde-format
 msgid "Insert Before"
 msgstr "이전에 삽입"
 
-#: worksheet.cpp:2415
+#: worksheet.cpp:2419
 #, kde-format
 msgid "Insert"
 msgstr "삽입"
 
-#: worksheet.cpp:2457
+#: worksheet.cpp:2461
 #, kde-format
 msgid "Zoom In"
 msgstr "확대"
 
-#: worksheet.cpp:2460
+#: worksheet.cpp:2464
 #, kde-format
 msgid "Zoom Out"
 msgstr "축소"
 
-#: worksheet.cpp:2475
+#: worksheet.cpp:2479
 #, kde-format
 msgid "Move Entries Up"
 msgstr "항목 위로 이동"
 
-#: worksheet.cpp:2476
+#: worksheet.cpp:2480
 #, kde-format
 msgid "Move Entries Down"
 msgstr "항목 아래로 이동"
 
-#: worksheet.cpp:2477
+#: worksheet.cpp:2481
 #, kde-format
 msgid "Evaluate Entries"
 msgstr "항목 계산"
 
-#: worksheet.cpp:2479 worksheet.cpp:3567
+#: worksheet.cpp:2483 worksheet.cpp:3571
 #, kde-format
 msgid "Delete Entries"
 msgstr "항목 삭제"
 
-#: worksheet.cpp:2492
+#: worksheet.cpp:2496
 #, kde-format
 msgid "Collapse Command Entry Results"
 msgstr "명령 항목 결과 접기"
 
-#: worksheet.cpp:2493
+#: worksheet.cpp:2497
 #, kde-format
 msgid "Expand Command Entry Results"
 msgstr "명령 항목 결과 펴기"
 
-#: worksheet.cpp:2495
+#: worksheet.cpp:2499
 #, kde-format
 msgid "Delete Command Entry Results"
 msgstr "명령 항목 결과 삭제"
 
-#: worksheet.cpp:2497
+#: worksheet.cpp:2501
 #, kde-format
 msgid "Exclude Command Entry From Execution"
 msgstr "명령 항목을 실행에서 제외"
 
-#: worksheet.cpp:2498
+#: worksheet.cpp:2502
 #, kde-format
 msgid "Add Command Entry To Execution"
 msgstr "명령 항목을 실행에 추가"
 
-#: worksheet.cpp:2697
+#: worksheet.cpp:2701
 #, kde-format
 msgctxt "@action"
 msgid "Text &Color..."
 msgstr "글자색(&C)..."
 
-#: worksheet.cpp:2698
+#: worksheet.cpp:2702
 #, kde-format
 msgctxt "@label text color"
 msgid "Color"
 msgstr "색상"
 
-#: worksheet.cpp:2705
+#: worksheet.cpp:2709
 #, kde-format
 msgctxt "@action"
 msgid "Text &Highlight..."
 msgstr "텍스트 구문 강조(&H)..."
 
-#: worksheet.cpp:2711
+#: worksheet.cpp:2715
 #, kde-format
 msgctxt "@action"
 msgid "&Font"
 msgstr "글꼴(&F)"
 
-#: worksheet.cpp:2716
+#: worksheet.cpp:2720
 #, kde-format
 msgctxt "@action"
 msgid "Font &Size"
 msgstr "글꼴 크기(&S)"
 
-#: worksheet.cpp:2722
+#: worksheet.cpp:2726
 #, kde-format
 msgctxt "@action boldify selected text"
 msgid "&Bold"
 msgstr "굵게(&B)"
 
-#: worksheet.cpp:2733
+#: worksheet.cpp:2737
 #, kde-format
 msgctxt "@action italicize selected text"
 msgid "&Italic"
 msgstr "이탤릭(&I)"
 
-#: worksheet.cpp:2745
+#: worksheet.cpp:2749
 #, kde-format
 msgctxt "@action underline selected text"
 msgid "&Underline"
 msgstr "밑줄(&U)"
 
-#: worksheet.cpp:2756
+#: worksheet.cpp:2760
 #, kde-format
 msgctxt "@action"
 msgid "&Strike Out"
 msgstr "취소선(&S)"
 
-#: worksheet.cpp:2767
+#: worksheet.cpp:2771
 #, kde-format
 msgctxt "@action"
 msgid "Align &Left"
 msgstr "왼쪽 정렬(&L)"
 
-#: worksheet.cpp:2770
+#: worksheet.cpp:2774
 #, kde-format
 msgctxt "@label left justify"
 msgid "Left"
 msgstr "왼쪽"
 
-#: worksheet.cpp:2777
+#: worksheet.cpp:2781
 #, kde-format
 msgctxt "@action"
 msgid "Align &Center"
 msgstr "가운데 정렬(&C)"
 
-#: worksheet.cpp:2780
+#: worksheet.cpp:2784
 #, kde-format
 msgctxt "@label center justify"
 msgid "Center"
 msgstr "가운데"
 
-#: worksheet.cpp:2787
+#: worksheet.cpp:2791
 #, kde-format
 msgctxt "@action"
 msgid "Align &Right"
 msgstr "오른쪽 정렬(&R)"
 
-#: worksheet.cpp:2790
+#: worksheet.cpp:2794
 #, kde-format
 msgctxt "@label right justify"
 msgid "Right"
 msgstr "오른쪽"
 
-#: worksheet.cpp:2797
+#: worksheet.cpp:2801
 #, kde-format
 msgctxt "@action"
 msgid "&Justify"
 msgstr "양쪽 정렬(&J)"
 
-#: worksheet.cpp:2800
+#: worksheet.cpp:2804
 #, kde-format
 msgctxt "@label justify fill"
 msgid "Justify"
 msgstr "맞춤"
 
-#: worksheet.cpp:3564
+#: worksheet.cpp:3568
 #, kde-format
 msgid ""
 "This step cannot be undone. Do you really want to delete the selected "
 "entries?"
 msgstr "이 작업은 실행 취소할 수 없습니다. 선택한 항목을 삭제하시겠습니까?"
 
-#: worksheet.cpp:3742
+#: worksheet.cpp:3746
 #, kde-format
 msgid "This step cannot be undone. Do you really want to delete all results?"
 msgstr "이 작업은 실행 취소할 수 없습니다. 모든 결과를 삭제하시겠습니까?"
 
-#: worksheet.cpp:3743
+#: worksheet.cpp:3747
 #, kde-format
 msgid "Delete all results"
 msgstr "모든 결과 삭제"
@@ -5133,17 +5133,17 @@ msgstr "항목 삭제"
 msgid "Delete"
 msgstr "삭제"
 
-#: worksheetentry.cpp:858
+#: worksheetentry.cpp:864
 #, kde-format
 msgid "This step cannot be undone. Do you really want to delete this entry?"
 msgstr "이 작업은 실행 취소할 수 없습니다. 이 항목을 삭제하시겠습니까?"
 
-#: worksheetentry.cpp:858 worksheetentry.cpp:986
+#: worksheetentry.cpp:864 worksheetentry.cpp:992
 #, kde-format
 msgid "Delete Entry"
 msgstr "항목 삭제"
 
-#: worksheetentry.cpp:991
+#: worksheetentry.cpp:997
 #, kde-format
 msgid "Drag Entry"
 msgstr "항목 드래그"
