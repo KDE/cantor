@@ -1142,7 +1142,7 @@ msgstr "bokeh"
 #: backends/qalculate/plotassistant/qalculateplotdialog.ui:14
 #, kde-format
 msgid "Cantor - Plot Dialog"
-msgstr "Cantor - Boîte de dialogue de tracé"
+msgstr "Cantor - Boite de dialogue de tracé"
 
 #. i18n: ectx: attribute (title), widget (QWidget, tab)
 #: backends/qalculate/plotassistant/qalculateplotdialog.ui:24
