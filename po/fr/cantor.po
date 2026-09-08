@@ -13,7 +13,7 @@ msgstr ""
 "Project-Id-Version: cantor\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-04-30 00:38+0000\n"
-"PO-Revision-Date: 2026-02-26 07:28+0100\n"
+"PO-Revision-Date: 2026-09-02 18:31+0200\n"
 "Last-Translator: Xavier Besnard <xavier.besnard@kde.org>\n"
 "Language-Team: fr\n"
 "Language: fr\n"
@@ -1138,7 +1138,7 @@ msgstr "bokeh"
 #: backends/qalculate/plotassistant/qalculateplotdialog.ui:14
 #, kde-format
 msgid "Cantor - Plot Dialog"
-msgstr "Cantor - Boîte de dialogue de tracé"
+msgstr "Cantor - Boite de dialogue de tracé"
 
 #. i18n: ectx: attribute (title), widget (QWidget, tab)
 #: backends/qalculate/plotassistant/qalculateplotdialog.ui:24
