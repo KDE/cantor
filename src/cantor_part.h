@@ -6,6 +6,7 @@
 #ifndef CANTORPART_H
 #define CANTORPART_H
 
+#include <QImage>
 #include <QPointer>
 #include <QRegularExpression>
 #include <QVariantList>
@@ -70,6 +71,7 @@ Q_SIGNALS:
     void showHelp(const QString&);
     void tocNodesChanged(QVariantList nodes);
     void currentTocNodeChanged(QString nodeId);
+    void plotAnimationFrameChanged(QString resultId, QImage frame);
     void worksheetSave(const QUrl&);
     void setBackendName(const QString&);
     void requestRenameHierarchyEntry(QString hierarchyId, QString newName);
@@ -80,6 +82,9 @@ Q_SIGNALS:
     void requestDeleteCommandEntry(QString commandId);
     void requestRenamePlot(QString commandId, QString resultId, QString newTitle);
     void requestDeletePlot(QString commandId, QString resultId);
+    void requestSavePlot(QString commandId, QString resultId);
+    void requestSaveAllPlots();
+    void requestCopyPlot(QString commandId, QString resultId);
     void tocReadOnlyChanged(bool readOnly);
     void requestTocNodeSnapshot();
     void settingsChanges();

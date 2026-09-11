@@ -3827,6 +3827,21 @@ void Worksheet::deletePlot(const QString& commandId, const QString& resultId)
     m_hierarchyManager->deletePlot(commandId, resultId);
 }
 
+void Worksheet::savePlot(const QString& commandId, const QString& resultId)
+{
+    m_hierarchyManager->savePlot(commandId, resultId);
+}
+
+void Worksheet::saveAllPlots()
+{
+    m_hierarchyManager->saveAllPlots();
+}
+
+void Worksheet::copyPlot(const QString& commandId, const QString& resultId)
+{
+    m_hierarchyManager->copyPlot(commandId, resultId);
+}
+
 void Worksheet::renameHierarchyEntry(const QString& hierarchyId, const QString& newName)
 {
     m_hierarchyManager->renameHierarchyEntry(hierarchyId, newName);

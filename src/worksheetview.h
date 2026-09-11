@@ -60,6 +60,7 @@ private:
 
     qreal m_scale = 1.;
     int m_numScheduledScalings{0};
+    int m_activeZoomAnimations{0};
     QParallelAnimationGroup* m_animation{nullptr};
     QPropertyAnimation* m_hAnimation{nullptr};
     QPropertyAnimation* m_vAnimation{nullptr};
