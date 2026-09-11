@@ -245,6 +245,7 @@ void WorksheetView::wheelEvent(QWheelEvent* event)
         const QPoint numDegrees = event->angleDelta() / 8;
         const int numSteps = numDegrees.y() / 15;
         zoom(numSteps);
+        event->accept();
         return;
     }
     const bool hasVerticalMovement = event->angleDelta().y() != 0 || event->pixelDelta().y() != 0;
@@ -256,12 +257,16 @@ void WorksheetView::wheelEvent(QWheelEvent* event)
 
 void WorksheetView::zoom(int numSteps)
 {
+    if (numSteps == 0)
+        return;
+
     m_numScheduledScalings += numSteps;
     if (m_numScheduledScalings * numSteps < 0) // if user moved the wheel in another direction, we reset previously scheduled scalings
         m_numScheduledScalings = numSteps;
 
     auto* anim = new QTimeLine(350, this);
     anim->setUpdateInterval(20);
+    ++m_activeZoomAnimations;
 
     connect(anim, &QTimeLine::valueChanged, this, &WorksheetView::scalingTime);
     connect(anim, &QTimeLine::finished, this, &WorksheetView::animFinished);
@@ -272,7 +277,6 @@ void WorksheetView::scalingTime()
 {
     qreal factor = 1.0 + qreal(m_numScheduledScalings) / 300.0;
     m_scale *= factor;
-    updateSceneSize();
     scale(factor, factor);
 }
 
@@ -282,7 +286,16 @@ void WorksheetView::animFinished()
         m_numScheduledScalings--;
     else
         m_numScheduledScalings++;
-    sender()->~QObject();
+    if (auto* timeline = qobject_cast<QTimeLine*>(sender()))
+        timeline->deleteLater();
+
+    if (m_activeZoomAnimations > 0)
+        --m_activeZoomAnimations;
+    if (m_activeZoomAnimations != 0)
+        return;
+
+    m_numScheduledScalings = 0;
+    updateSceneSize();
     Q_EMIT scaleFactorChanged(m_scale);
 }
 

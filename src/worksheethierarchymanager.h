@@ -1,6 +1,8 @@
 #ifndef WORKSHEETHIERARCHYMANAGER_H
 #define WORKSHEETHIERARCHYMANAGER_H
 
+#include <QHash>
+#include <QImage>
 #include <QObject>
 #include <QString>
 #include <QVariantList>
@@ -45,6 +47,9 @@ class WorksheetHierarchyManager : public QObject
     void deleteCommandEntry(const QString& commandId);
     void renamePlot(const QString& commandId, const QString& resultId, const QString& newTitle);
     void deletePlot(const QString& commandId, const QString& resultId);
+    void savePlot(const QString& commandId, const QString& resultId);
+    void saveAllPlots();
+    void copyPlot(const QString& commandId, const QString& resultId);
     void navigateToTocNode(QString nodeId);
     void updateCurrentTocNodeFromResult(CommandEntry* commandEntry, Cantor::Result* result);
 
@@ -93,7 +98,16 @@ class WorksheetHierarchyManager : public QObject
     QString commandTocDisplayText(CommandEntry* entry) const;
     QString plotTocTitle(Cantor::Result* result) const;
     QString plotTocDisplayText(CommandEntry* entry, Cantor::Result* result, int plotOrdinal, int plotCount) const;
+    Cantor::Result* findPlotResult(const QString& commandId, const QString& resultId) const;
+    QString plotFileExtension(Cantor::Result* result) const;
+    QImage plotPreview(Cantor::Result* result) const;
     bool isPlotResult(Cantor::Result* result) const;
+
+    struct PlotPreviewCacheEntry
+    {
+        const Cantor::Result* result{nullptr};
+        QImage preview;
+    };
 
     Worksheet* m_worksheet;
     QString m_currentTocNodeId;
@@ -101,6 +115,7 @@ class WorksheetHierarchyManager : public QObject
     size_t m_hierarchyMaxDepth{0};
     QVariantList m_tocNodeSnapshot;
     bool m_tocRefreshScheduled{false};
+    mutable QHash<QString, PlotPreviewCacheEntry> m_plotPreviewCache;
 };
 
 #endif // WORKSHEETHIERARCHYMANAGER_H

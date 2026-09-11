@@ -11,9 +11,10 @@
 #include <QObject>
 #include <KParts/MainWindow>
 
+#include <QImage>
 #include <QList>
-#include <QStringList>
 #include <QMap>
+#include <QStringList>
 #include <QVariantList>
 
 #include "lib/panelpluginhandler.h"
@@ -69,6 +70,7 @@ Q_SIGNALS:
     void showHelp(QString);
     void tocNodesChanged(QVariantList);
     void currentTocNodeChanged(QString);
+    void plotAnimationFrameChanged(QString resultId, QImage frame);
     void requestNavigateToTocNode(QString nodeId);
     void requestRenameHierarchyEntry(QString hierarchyId, QString newName);
     void requestChangeHierarchyLevel(QString hierarchyId, int levelDelta);
@@ -77,6 +79,9 @@ Q_SIGNALS:
     void requestDeleteCommandEntry(QString commandId);
     void requestRenamePlot(QString commandId, QString resultId, QString newTitle);
     void requestDeletePlot(QString commandId, QString resultId);
+    void requestSavePlot(QString commandId, QString resultId);
+    void requestSaveAllPlots();
+    void requestCopyPlot(QString commandId, QString resultId);
     void tocReadOnlyChanged(bool readOnly);
     void settingsChanges();
     void requestDocumentation(const QString&);
@@ -104,8 +109,12 @@ private Q_SLOTS:
     void forwardDeleteCommandEntry(const QString& commandId);
     void forwardRenamePlot(const QString& commandId, const QString& resultId, const QString& newTitle);
     void forwardDeletePlot(const QString& commandId, const QString& resultId);
+    void forwardSavePlot(const QString& commandId, const QString& resultId);
+    void forwardSaveAllPlots();
+    void forwardCopyPlot(const QString& commandId, const QString& resultId);
     void handleTocNodesChanged(QVariantList nodes);
     void handleCurrentTocNodeChanged(const QString& nodeId);
+    void handlePlotAnimationFrameChanged(QString resultId, QImage frame);
     void handleTocReadOnlyChanged(bool readOnly);
     void closeTab(int index = -1);
 
