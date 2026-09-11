@@ -14,6 +14,7 @@
 
 #include <QDomDocument>
 #include <QGraphicsScene>
+#include <QImage>
 #include <QQueue>
 #include <QVariantList>
 
@@ -295,6 +296,9 @@ class Worksheet : public QGraphicsScene
     void deleteCommandEntry(const QString& commandId);
     void renamePlot(const QString& commandId, const QString& resultId, const QString& newTitle);
     void deletePlot(const QString& commandId, const QString& resultId);
+    void savePlot(const QString& commandId, const QString& resultId);
+    void saveAllPlots();
+    void copyPlot(const QString& commandId, const QString& resultId);
     void navigateToTocNode(QString nodeId);
     void updateCurrentTocNodeFromResult(CommandEntry* commandEntry, Cantor::Result* result);
     void clearAllSelections();
@@ -306,6 +310,7 @@ class Worksheet : public QGraphicsScene
     void showHelp(const QString&);
     void tocNodesChanged(QVariantList nodes);
     void currentTocNodeChanged(QString nodeId);
+    void plotAnimationFrameChanged(QString resultId, QImage frame);
     void updatePrompt();
     void undoAvailable(bool);
     void redoAvailable(bool);
