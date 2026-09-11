@@ -80,6 +80,9 @@ double AnimationResultItem::height() const
 
 void AnimationResultItem::setMovie(QMovie* movie)
 {
+    if (m_movie == movie)
+        return;
+
     if (m_movie) {
         m_movie->disconnect(this, SLOT(updateFrame()));
         m_movie->disconnect(this, SLOT(updateSize()));
@@ -95,7 +98,9 @@ void AnimationResultItem::setMovie(QMovie* movie)
 
 void AnimationResultItem::updateFrame()
 {
-    setImage(m_movie->currentImage());
+    const QImage frame = m_movie->currentImage();
+    setImage(frame);
+    Q_EMIT worksheet()->plotAnimationFrameChanged(m_result->resultId(), frame);
     worksheet()->update(mapRectToScene(boundingRect()));
 }
 

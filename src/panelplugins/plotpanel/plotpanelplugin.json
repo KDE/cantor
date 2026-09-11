@@ -1,0 +1,9 @@
+{
+    "KPlugin": {
+        "Description": "A panel for previewing plots in the current worksheet",
+        "Icon": "office-chart-line",
+        "License": "GPL",
+        "Name": "Plots"
+    },
+    "RequiredExtensions": ""
+}

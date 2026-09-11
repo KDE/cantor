@@ -135,6 +135,7 @@ CantorPart::CantorPart(QObject* parent, const QVariantList& args)
     connect(m_worksheet, &Worksheet::loaded, this, &CantorPart::initialized);
     connect(m_worksheet, &Worksheet::tocNodesChanged, this, &CantorPart::tocNodesChanged);
     connect(m_worksheet, &Worksheet::currentTocNodeChanged, this, &CantorPart::currentTocNodeChanged);
+    connect(m_worksheet, &Worksheet::plotAnimationFrameChanged, this, &CantorPart::plotAnimationFrameChanged);
     connect(this, &CantorPart::requestNavigateToTocNode, m_worksheet, &Worksheet::navigateToTocNode);
     connect(this, &CantorPart::requestRenameHierarchyEntry, m_worksheet, &Worksheet::renameHierarchyEntry);
     connect(this, &CantorPart::requestChangeHierarchyLevel, m_worksheet, &Worksheet::changeHierarchyLevel);
@@ -143,6 +144,9 @@ CantorPart::CantorPart(QObject* parent, const QVariantList& args)
     connect(this, &CantorPart::requestDeleteCommandEntry, m_worksheet, &Worksheet::deleteCommandEntry);
     connect(this, &CantorPart::requestRenamePlot, m_worksheet, &Worksheet::renamePlot);
     connect(this, &CantorPart::requestDeletePlot, m_worksheet, &Worksheet::deletePlot);
+    connect(this, &CantorPart::requestSavePlot, m_worksheet, &Worksheet::savePlot);
+    connect(this, &CantorPart::requestSaveAllPlots, m_worksheet, &Worksheet::saveAllPlots);
+    connect(this, &CantorPart::requestCopyPlot, m_worksheet, &Worksheet::copyPlot);
     connect(this, &CantorPart::requestTocNodeSnapshot, m_worksheet, &Worksheet::emitTocNodeSnapshot);
     connect(this, &CantorPart::settingsChanges, m_worksheet, &Worksheet::handleSettingsChanges);
     connect(m_worksheet, &Worksheet::requestDocumentation, this, &CantorPart::documentationRequested);

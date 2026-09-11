@@ -19,13 +19,23 @@
 #include <KMessageBox>
 #include <KStandardGuiItem>
 
+#include <QApplication>
+#include <QClipboard>
+#include <QDir>
+#include <QFileDialog>
+#include <QFileInfo>
+#include <QImageReader>
 #include <QList>
+#include <QMovie>
 #include <QRectF>
+#include <QRegularExpression>
 #include <QSet>
+#include <QSize>
 #include <QTimer>
 #include <QVariantMap>
 
 #include <algorithm>
+#include <utility>
 
 namespace
 {
@@ -105,6 +115,7 @@ QVariantList WorksheetHierarchyManager::collectTocNodes() const
     QVariantList nodes;
     QVector<QString> hierarchyNodeIds;
     QVector<int> hierarchyDepths;
+    QSet<QString> activePlotResultIds;
 
     visitLogicalEntries([&](WorksheetEntry* entry)
     {
@@ -249,12 +260,25 @@ QVariantList WorksheetHierarchyManager::collectTocNodes() const
                     plotNode.insert(QStringLiteral("resultIndex"), index);
                     plotNode.insert(QStringLiteral("resultId"), result->resultId());
                     plotNode.insert(QStringLiteral("entryId"), commandEntry->commandId());
+                    plotNode.insert(QStringLiteral("sourceText"), commandTocDisplayText(commandEntry));
+                    plotNode.insert(QStringLiteral("preview"), plotPreview(result));
+                    plotNode.insert(QStringLiteral("format"), plotFileExtension(result).toUpper());
+                    plotNode.insert(QStringLiteral("animated"), result->type() == Cantor::AnimationResult::Type);
                     nodes.append(plotNode);
+                    activePlotResultIds.insert(result->resultId());
                 }
             }
         }
         return true;
     });
+
+    for (auto it = m_plotPreviewCache.begin(); it != m_plotPreviewCache.end();)
+    {
+        if (!activePlotResultIds.contains(it.key()))
+            it = m_plotPreviewCache.erase(it);
+        else
+            ++it;
+    }
 
     return nodes;
 }
@@ -355,6 +379,77 @@ QString WorksheetHierarchyManager::plotTocDisplayText(CommandEntry* entry, Canto
         return i18n("%1 %2", title, plotOrdinal);
 
     return title;
+}
+
+Cantor::Result* WorksheetHierarchyManager::findPlotResult(const QString& commandId, const QString& resultId) const
+{
+    if (commandId.isEmpty() || resultId.isEmpty())
+        return nullptr;
+
+    const CommandSearchResult commandSearch = findCommandEntryById(commandId);
+    auto* expression = commandSearch.entry ? commandSearch.entry->expression() : nullptr;
+    if (!expression)
+        return nullptr;
+
+    for (auto* result : expression->results())
+    {
+        if (result && result->resultId() == resultId && isPlotResult(result))
+            return result;
+    }
+
+    return nullptr;
+}
+
+QString WorksheetHierarchyManager::plotFileExtension(Cantor::Result* result) const
+{
+    if (!result)
+        return QStringLiteral("png");
+    if (result->type() == Cantor::ImageResult::Type)
+    {
+        const QString extension = static_cast<Cantor::ImageResult*>(result)->extension();
+        return extension.isEmpty() ? QStringLiteral("png") : extension;
+    }
+    if (result->type() == Cantor::PdfResult::Type)
+        return QStringLiteral("pdf");
+    if (result->type() == Cantor::AnimationResult::Type)
+        return QStringLiteral("gif");
+    return QStringLiteral("png");
+}
+
+QImage WorksheetHierarchyManager::plotPreview(Cantor::Result* result) const
+{
+    if (!result)
+        return {};
+
+    const QString resultId = result->resultId();
+    const auto cached = m_plotPreviewCache.constFind(resultId);
+    if (!resultId.isEmpty() && cached != m_plotPreviewCache.cend() && cached->result == result)
+        return cached->preview;
+
+    QImage image;
+    if (result->type() == Cantor::ImageResult::Type)
+        image = result->data().value<QImage>();
+    else if (result->type() == Cantor::PdfResult::Type)
+        image = static_cast<Cantor::PdfResult*>(result)->renderToImage(1.0, false);
+    else if (result->type() == Cantor::AnimationResult::Type)
+    {
+        QImageReader reader(result->url().toLocalFile());
+        reader.setAutoTransform(true);
+        image = reader.read();
+    }
+
+    if (!image.isNull())
+    {
+        constexpr QSize maximumPreviewSize(320, 240);
+        if (image.width() > maximumPreviewSize.width() || image.height() > maximumPreviewSize.height())
+            image = image.scaled(maximumPreviewSize, Qt::KeepAspectRatio, Qt::SmoothTransformation);
+
+        image.setDevicePixelRatio(1.0);
+    }
+
+    if (!resultId.isEmpty())
+        m_plotPreviewCache.insert(resultId, {result, image});
+    return image;
 }
 
 bool WorksheetHierarchyManager::isPlotResult(Cantor::Result* result) const
@@ -999,6 +1094,128 @@ void WorksheetHierarchyManager::deletePlot(const QString& commandId, const QStri
         scheduleTocStructureRefresh();
         return;
     }
+}
+
+void WorksheetHierarchyManager::savePlot(const QString& commandId, const QString& resultId)
+{
+    auto* result = findPlotResult(commandId, resultId);
+    if (!result)
+        return;
+
+    const QString extension = plotFileExtension(result);
+    const QString filter = i18nc("%1 and %2 are file extensions", "%1 files (*.%2)", extension.toUpper(), extension);
+    QString suggestedName;
+    const CommandSearchResult commandSearch = findCommandEntryById(commandId);
+    auto* expression = commandSearch.entry ? commandSearch.entry->expression() : nullptr;
+    if (expression)
+    {
+        int plotCount = 0;
+        int plotOrdinal = 0;
+        for (auto* currentResult : expression->results())
+        {
+            if (!isPlotResult(currentResult))
+                continue;
+            ++plotCount;
+            if (currentResult == result)
+                plotOrdinal = plotCount;
+        }
+        suggestedName = plotTocDisplayText(commandSearch.entry, result, plotOrdinal, plotCount);
+    }
+    if (suggestedName.isEmpty())
+        suggestedName = i18n("Plot");
+    suggestedName.replace(QRegularExpression(QStringLiteral("[\\\\/:*?\"<>|]")), QStringLiteral("_"));
+    suggestedName += QLatin1Char('.') + extension;
+
+    QString fileName = QFileDialog::getSaveFileName(m_worksheet->worksheetView(), i18n("Save Plot"), suggestedName, filter);
+    if (fileName.isEmpty())
+        return;
+    if (QFileInfo(fileName).suffix().isEmpty())
+        fileName += QLatin1Char('.') + extension;
+    result->save(fileName);
+}
+
+void WorksheetHierarchyManager::saveAllPlots()
+{
+    struct PlotToSave
+    {
+        Cantor::Result* result;
+        QString title;
+    };
+
+    QVector<PlotToSave> plots;
+    visitLogicalEntries([&](WorksheetEntry* entry)
+    {
+        if (entry->type() != CommandEntry::Type)
+            return true;
+
+        auto* commandEntry = static_cast<CommandEntry*>(entry);
+        auto* expression = commandEntry->expression();
+        if (!expression)
+            return true;
+
+        int plotCount = 0;
+        for (auto* result : expression->results())
+            plotCount += isPlotResult(result);
+
+        int plotOrdinal = 0;
+        for (auto* result : expression->results())
+        {
+            if (!isPlotResult(result))
+                continue;
+            ++plotOrdinal;
+            const QString title = plotTocDisplayText(commandEntry, result, plotOrdinal, plotCount);
+            plots.append({result, title});
+        }
+        return true;
+    });
+
+    if (plots.isEmpty())
+        return;
+
+    const QString directoryPath = QFileDialog::getExistingDirectory(m_worksheet->worksheetView(), i18n("Save All Plots"));
+    if (directoryPath.isEmpty())
+        return;
+
+    QDir directory(directoryPath);
+    for (const PlotToSave& plot : std::as_const(plots))
+    {
+        const QString extension = plotFileExtension(plot.result);
+        QString baseName = plot.title;
+        baseName.replace(QRegularExpression(QStringLiteral("[\\\\/:*?\"<>|]")), QStringLiteral("_"));
+        baseName = baseName.trimmed();
+        if (baseName.isEmpty())
+            baseName = i18n("Plot");
+
+        QString fileName = baseName + QLatin1Char('.') + extension;
+        for (int suffix = 2; QFileInfo::exists(directory.filePath(fileName)); ++suffix)
+            fileName = QStringLiteral("%1 (%2).%3").arg(baseName).arg(suffix).arg(extension);
+
+        plot.result->save(directory.filePath(fileName));
+    }
+}
+
+void WorksheetHierarchyManager::copyPlot(const QString& commandId, const QString& resultId)
+{
+    auto* result = findPlotResult(commandId, resultId);
+    if (!result)
+        return;
+
+    QImage image;
+    if (result->type() == Cantor::ImageResult::Type)
+        image = result->data().value<QImage>();
+    else if (result->type() == Cantor::PdfResult::Type)
+        image = static_cast<Cantor::PdfResult*>(result)->renderToImage(1.0);
+    else if (result->type() == Cantor::AnimationResult::Type)
+    {
+        auto* movie = qobject_cast<QMovie*>(result->data().value<QObject*>());
+        if (movie)
+            image = movie->currentImage();
+    }
+
+    if (image.isNull())
+        image = plotPreview(result);
+    if (!image.isNull())
+        QApplication::clipboard()->setImage(image);
 }
 
 void WorksheetHierarchyManager::renameHierarchyEntry(const QString& hierarchyId, const QString& newName)

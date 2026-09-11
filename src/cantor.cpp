@@ -74,6 +74,9 @@ CantorShell::CantorShell() : KParts::MainWindow(), m_tabWidget(new QTabWidget(th
     connect(this, &CantorShell::requestDeleteCommandEntry, this, &CantorShell::forwardDeleteCommandEntry);
     connect(this, &CantorShell::requestRenamePlot, this, &CantorShell::forwardRenamePlot);
     connect(this, &CantorShell::requestDeletePlot, this, &CantorShell::forwardDeletePlot);
+    connect(this, &CantorShell::requestSavePlot, this, &CantorShell::forwardSavePlot);
+    connect(this, &CantorShell::requestSaveAllPlots, this, &CantorShell::forwardSaveAllPlots);
+    connect(this, &CantorShell::requestCopyPlot, this, &CantorShell::forwardCopyPlot);
 
     // apply the saved mainwindow settings, if any, and ask the mainwindow
     // to automatically save settings if changed: window size, toolbar
@@ -294,6 +297,24 @@ void CantorShell::forwardDeletePlot(const QString& commandId, const QString& res
         QMetaObject::invokeMethod(m_part, "requestDeletePlot", Qt::DirectConnection, Q_ARG(QString, commandId), Q_ARG(QString, resultId));
 }
 
+void CantorShell::forwardSavePlot(const QString& commandId, const QString& resultId)
+{
+    if (m_part)
+        QMetaObject::invokeMethod(m_part, "requestSavePlot", Qt::DirectConnection, Q_ARG(QString, commandId), Q_ARG(QString, resultId));
+}
+
+void CantorShell::forwardSaveAllPlots()
+{
+    if (m_part)
+        QMetaObject::invokeMethod(m_part, "requestSaveAllPlots", Qt::DirectConnection);
+}
+
+void CantorShell::forwardCopyPlot(const QString& commandId, const QString& resultId)
+{
+    if (m_part)
+        QMetaObject::invokeMethod(m_part, "requestCopyPlot", Qt::DirectConnection, Q_ARG(QString, commandId), Q_ARG(QString, resultId));
+}
+
 void CantorShell::handleTocNodesChanged(QVariantList nodes)
 {
     if (sender() == m_part)
@@ -304,6 +325,12 @@ void CantorShell::handleCurrentTocNodeChanged(const QString& nodeId)
 {
     if (sender() == m_part)
         Q_EMIT currentTocNodeChanged(nodeId);
+}
+
+void CantorShell::handlePlotAnimationFrameChanged(QString resultId, QImage frame)
+{
+    if (sender() == m_part)
+        Q_EMIT plotAnimationFrameChanged(resultId, frame);
 }
 
 void CantorShell::handleTocReadOnlyChanged(bool readOnly)
@@ -448,6 +475,7 @@ void CantorShell::addWorksheet(const QString& backendName)
         connect(part, SIGNAL(showHelp(QString)), this, SIGNAL(showHelp(QString)));
         connect(part, SIGNAL(tocNodesChanged(QVariantList)), this, SLOT(handleTocNodesChanged(QVariantList)));
         connect(part, SIGNAL(currentTocNodeChanged(QString)), this, SLOT(handleCurrentTocNodeChanged(QString)));
+        connect(part, SIGNAL(plotAnimationFrameChanged(QString,QImage)), this, SLOT(handlePlotAnimationFrameChanged(QString,QImage)));
         connect(part, SIGNAL(tocReadOnlyChanged(bool)), this, SLOT(handleTocReadOnlyChanged(bool)));
         connect(this, SIGNAL(settingsChanges()), part, SIGNAL(settingsChanges()));
         connect(part, SIGNAL(requestDocumentation(QString)), this, SIGNAL(requestDocumentation(QString)));
