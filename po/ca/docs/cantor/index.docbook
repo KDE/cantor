@@ -350,7 +350,7 @@
 <title
 >El full de treball</title>
 <para
->El full de treball és l'àrea bàsica per a treballar amb el &cantor;. Utilitzant-lo, podreu introduir expressions, permetent als dorsals realitzar els càlculs i veure el resultat. Les ordres dels fulls de treball accepten dependre del dorsal escollit, de manera que haureu d'aprendre la sintaxi apropiada del dorsal (el botó <guibutton
+>El full de treball és l'àrea bàsica per a treballar amb el &cantor;. Utilitzant-lo, podreu introduir expressions, això permet als dorsals fer els càlculs i veure el resultat. Les ordres dels fulls de treball accepten dependre del dorsal escollit, de manera que haureu d'aprendre la sintaxi apropiada del dorsal (el botó <guibutton
 >Mostra l'ajuda</guibutton
 > us hi durà directament). Si coneixeu l'ordre, però necessiteu informació addicional, podeu escriure «? <replaceable
 >ordre</replaceable
