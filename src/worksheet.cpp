@@ -2174,12 +2174,28 @@ void Worksheet::removeCurrentEntry()
 
 void Worksheet::mergeSelectedEntries()
 {
-    if (isRunning())
+    if (m_readOnly || isRunning())
         return;
 
     const auto& entries = mergeableSelectedEntries();
     if (entries.size() < 2)
         return;
+
+    for (auto* entry : entries)
+    {
+        auto* commandEntry = qobject_cast<CommandEntry*>(entry);
+        if (!commandEntry || !commandEntry->expression() || commandEntry->expression()->results().isEmpty())
+            continue;
+
+        const auto result = KMessageBox::warningTwoActions(worksheetView(),
+                i18n("The results of the selected cells will be deleted. Do you want to continue?"),
+                i18n("Merge Cells"),
+                KGuiItem(i18n("Merge Cells"), QStringLiteral("merge")),
+                KStandardGuiItem::cancel());
+        if (result != KMessageBox::PrimaryAction)
+            return;
+        break;
+    }
 
     auto* mergedEntry = entries.first();
     for (int i = 1; i < entries.size(); ++i)
