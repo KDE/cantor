@@ -7,8 +7,8 @@ msgstr ""
 "Project-Id-Version: cantor\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-09-07 00:39+0000\n"
-"PO-Revision-Date: 2023-12-06 19:20+0100\n"
-"Last-Translator: Roman Paholik <wizzardsk@gmail.com>\n"
+"PO-Revision-Date: 2026-09-14 20:10+0200\n"
+"Last-Translator: Roman Paholík <wizzardsk@gmail.com>\n"
 "Language-Team: Slovak <kde-sk@linux.sk>\n"
 "Language: sk\n"
 "MIME-Version: 1.0\n"
@@ -3090,12 +3090,12 @@ msgstr "Odstrániť súčasnú položku"
 #: cantor_part.cpp:355 worksheet.cpp:2476
 #, kde-format
 msgid "Merge Cells"
-msgstr ""
+msgstr "Spojiť bunky"
 
 #: cantor_part.cpp:361 worksheet.cpp:2347
 #, kde-format
 msgid "Split Cell"
-msgstr ""
+msgstr "Rozdeliť bunku"
 
 #. i18n("Publish Worksheet"), collection);
 #. publishWorksheet->setIcon(QIcon::fromTheme(QLatin1String("get-hot-new-stuff")));
@@ -4643,7 +4643,7 @@ msgstr "Chyba pri načítaní súboru štýlov latex.xsl"
 #: worksheet.cpp:1676
 #, kde-format
 msgid "Cannot create temporary archive."
-msgstr ""
+msgstr "Nedá sa vytvoriť dočasný archív."
 
 #: worksheet.cpp:1718
 #, kde-format
@@ -4674,10 +4674,9 @@ msgid "The selected file is not a valid Cantor project file."
 msgstr "Vybraný súbor nie je platný súbor projektu Cantor."
 
 #: worksheet.cpp:1793
-#, fuzzy, kde-format
-#| msgid "The selected file is not a valid Cantor project file."
+#, kde-format
 msgid "The selected file is a corrupt Cantor project file."
-msgstr "Vybraný súbor nie je platný súbor projektu Cantor."
+msgstr "Vybraný súbor je poškodený súbor projektu Cantor."
 
 #: worksheet.cpp:1809
 #, kde-format
@@ -5116,18 +5115,17 @@ msgstr "Svetlošedá"
 #: worksheetentry.cpp:502
 #, kde-format
 msgid "Selected Entry and All Above"
-msgstr ""
+msgstr "Vybraná položka a všetky nad ňou"
 
 #: worksheetentry.cpp:507
-#, fuzzy, kde-format
-#| msgid "Delete Entry"
+#, kde-format
 msgid "Selected Entry"
-msgstr "Odstrániť položku"
+msgstr "Vybraná položka"
 
 #: worksheetentry.cpp:512
 #, kde-format
 msgid "Selected Entry and All Below"
-msgstr ""
+msgstr "Vybraná položka a všetky pod ňou"
 
 #: worksheetentry.cpp:530
 #, kde-format
@@ -5140,22 +5138,19 @@ msgid "Move Down"
 msgstr "Posunúť dole"
 
 #: worksheetentry.cpp:545
-#, fuzzy, kde-format
-#| msgctxt "@title:window"
-#| msgid "Modify Entry"
+#, kde-format
 msgid "Copy Entry"
-msgstr "Upraviť položku"
+msgstr "Kopírovať položku"
 
 #: worksheetentry.cpp:549
 #, kde-format
 msgid "Paste Entry Below"
-msgstr ""
+msgstr "Vložiť položku nižšie"
 
 #: worksheetentry.cpp:554
-#, fuzzy, kde-format
-#| msgid "Delete Entry"
+#, kde-format
 msgid "Duplicate Entry Below"
-msgstr "Odstrániť položku"
+msgstr "Duplikovať položku nižšie"
 
 #: worksheetentry.cpp:560
 #, kde-format
