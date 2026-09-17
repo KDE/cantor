@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: cantor\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-09-07 00:39+0000\n"
+"POT-Creation-Date: 2026-09-17 00:39+0000\n"
 "PO-Revision-Date: 2024-12-25 19:37+0530\n"
 "Last-Translator: kali <shreekantkalwar@gmail.com>\n"
 "Language-Team: Sanskrit <kde-i18n-doc@kde.org>\n"
@@ -1465,7 +1465,7 @@ msgstr "ईपीएस"
 
 #. i18n: ectx: property (text), item, widget (KComboBox, saveFileBox)
 #: backends/qalculate/plotassistant/qalculateplotdialog.ui:575
-#: worksheet.cpp:2369 worksheet.cpp:2393 worksheet.cpp:2411 worksheet.cpp:2428
+#: worksheet.cpp:2385 worksheet.cpp:2409 worksheet.cpp:2427 worksheet.cpp:2444
 #, kde-format
 msgid "LaTeX"
 msgstr "LaTeX"
@@ -2947,12 +2947,12 @@ msgstr "PDF मध्ये निर्यातं कुर्वन्तु
 msgid "Export to LaTeX"
 msgstr "LaTeX - मध्ये निर्यातं कुर्वन्तु"
 
-#: cantor_part.cpp:228 cantor_part.cpp:689 worksheet.cpp:2449
+#: cantor_part.cpp:228 cantor_part.cpp:689 worksheet.cpp:2465
 #, kde-format
 msgid "Evaluate Worksheet"
 msgstr "कार्यपत्रकस्य मूल्याङ्कनं कुर्वन्तु"
 
-#: cantor_part.cpp:234 worksheet.cpp:2457
+#: cantor_part.cpp:234 worksheet.cpp:2473
 #, kde-format
 msgid "Zoom"
 msgstr "जूम"
@@ -3058,12 +3058,12 @@ msgstr "सर्वाणि परिणामानि विलोपयन�
 msgid "Delete current Entry"
 msgstr "वर्तमान प्रविष्टिं विलोपयन्तु"
 
-#: cantor_part.cpp:355 worksheet.cpp:2476
+#: cantor_part.cpp:355 worksheet.cpp:2192 worksheet.cpp:2193 worksheet.cpp:2492
 #, kde-format
 msgid "Merge Cells"
 msgstr ""
 
-#: cantor_part.cpp:361 worksheet.cpp:2347
+#: cantor_part.cpp:361 worksheet.cpp:2363
 #, kde-format
 msgid "Split Cell"
 msgstr ""
@@ -3146,7 +3146,7 @@ msgstr ""
 msgid "Restart %1?"
 msgstr "%1 पुनः आरभत?"
 
-#: cantor_part.cpp:679 worksheet.cpp:2452
+#: cantor_part.cpp:679 worksheet.cpp:2468
 #, kde-format
 msgid "Interrupt"
 msgstr "व्यवधान"
@@ -3305,7 +3305,7 @@ msgstr "परिणामान् दर्शयतु"
 msgid "Hide Results"
 msgstr "परिणामान् गोपयन्तु"
 
-#: commandentry.cpp:345 worksheet.cpp:2441
+#: commandentry.cpp:345 worksheet.cpp:2457
 #, kde-format
 msgid "Show Help"
 msgstr "सहायतां दर्शयतु"
@@ -3554,7 +3554,7 @@ msgstr "चित्रसेटिंग्स् विन्यस्तु�
 msgid "Cannot load image %1"
 msgstr "%1 प्रतिबिम्बं लोड् कर्तुं न शक्यते"
 
-#: imageresultitem.cpp:60 worksheet.cpp:2468
+#: imageresultitem.cpp:60 worksheet.cpp:2484
 #, kde-format
 msgid "Original Size"
 msgstr "मूल आकार"
@@ -4031,8 +4031,8 @@ msgid "Delete Heading"
 msgstr "प्रविष्टि विलोपयतु"
 
 #: panelplugins/tocpanel/tocpanelplugin.cpp:365
-#: panelplugins/tocpanel/tocpanelplugin.cpp:1258 worksheet.cpp:2359
-#: worksheet.cpp:2388 worksheet.cpp:2406 worksheet.cpp:2422
+#: panelplugins/tocpanel/tocpanelplugin.cpp:1258 worksheet.cpp:2375
+#: worksheet.cpp:2404 worksheet.cpp:2422 worksheet.cpp:2438
 #: worksheethierarchymanager.cpp:321
 #, kde-format
 msgid "Command"
@@ -4325,8 +4325,8 @@ msgstr "परिणामाः"
 msgid "Errors"
 msgstr "दोषाः"
 
-#: searchbar.cpp:531 searchbar.cpp:560 worksheet.cpp:2362 worksheet.cpp:2389
-#: worksheet.cpp:2407 worksheet.cpp:2423
+#: searchbar.cpp:531 searchbar.cpp:560 worksheet.cpp:2378 worksheet.cpp:2405
+#: worksheet.cpp:2423 worksheet.cpp:2439
 #, kde-format
 msgid "Text"
 msgstr "पाठ"
@@ -4758,221 +4758,227 @@ msgstr "सञ्चिका वैधः Jupyter नोटबुकः ना�
 msgid "Invalid Jupyter notebook scheme: %1"
 msgstr "अमान्य Jupyter नोटबुक योजना: %1"
 
-#: worksheet.cpp:2354
+#: worksheet.cpp:2191
+#, kde-format
+msgid ""
+"The results of the selected cells will be deleted. Do you want to continue?"
+msgstr ""
+
+#: worksheet.cpp:2370
 #, kde-format
 msgid "Convert To"
 msgstr "Convert To"
 
-#: worksheet.cpp:2366 worksheet.cpp:2391 worksheet.cpp:2409 worksheet.cpp:2425
+#: worksheet.cpp:2382 worksheet.cpp:2407 worksheet.cpp:2425 worksheet.cpp:2441
 #, kde-format
 msgid "Markdown"
 msgstr "मार्कडाउन"
 
-#: worksheet.cpp:2371 worksheet.cpp:2394 worksheet.cpp:2412 worksheet.cpp:2429
+#: worksheet.cpp:2387 worksheet.cpp:2410 worksheet.cpp:2428 worksheet.cpp:2445
 #, kde-format
 msgid "Image"
 msgstr "छवि"
 
-#: worksheet.cpp:2374 worksheet.cpp:2397 worksheet.cpp:2415 worksheet.cpp:2432
+#: worksheet.cpp:2390 worksheet.cpp:2413 worksheet.cpp:2431 worksheet.cpp:2448
 #, kde-format
 msgid "Page Break"
 msgstr "पृष्ठ विराम"
 
-#: worksheet.cpp:2377 worksheet.cpp:2396 worksheet.cpp:2414 worksheet.cpp:2431
+#: worksheet.cpp:2393 worksheet.cpp:2412 worksheet.cpp:2430 worksheet.cpp:2447
 #, kde-format
 msgid "Horizontal Line"
 msgstr "क्षैतिज रेखा"
 
-#: worksheet.cpp:2380 worksheet.cpp:2399 worksheet.cpp:2417 worksheet.cpp:2434
+#: worksheet.cpp:2396 worksheet.cpp:2415 worksheet.cpp:2433 worksheet.cpp:2450
 #, kde-format
 msgid "Hierarchy Entry"
 msgstr "पदानुक्रम प्रविष्टि"
 
-#: worksheet.cpp:2383
+#: worksheet.cpp:2399
 #, kde-format
 msgid "Insert After"
 msgstr "Insert After इति"
 
-#: worksheet.cpp:2402
+#: worksheet.cpp:2418
 #, kde-format
 msgid "Insert Before"
 msgstr "Insert Befo इति"
 
-#: worksheet.cpp:2419
+#: worksheet.cpp:2435
 #, kde-format
 msgid "Insert"
 msgstr "युज्"
 
-#: worksheet.cpp:2461
+#: worksheet.cpp:2477
 #, kde-format
 msgid "Zoom In"
 msgstr "Zoom In इति"
 
-#: worksheet.cpp:2464
+#: worksheet.cpp:2480
 #, kde-format
 msgid "Zoom Out"
 msgstr "Zoom Out इति"
 
-#: worksheet.cpp:2479
+#: worksheet.cpp:2495
 #, kde-format
 msgid "Move Entries Up"
 msgstr "प्रविष्टयः उपरि चालयन्तु"
 
-#: worksheet.cpp:2480
+#: worksheet.cpp:2496
 #, kde-format
 msgid "Move Entries Down"
 msgstr "प्रविष्टयः अधः चालयन्तु"
 
-#: worksheet.cpp:2481
+#: worksheet.cpp:2497
 #, kde-format
 msgid "Evaluate Entries"
 msgstr "प्रविष्टीनां मूल्याङ्कनं कुर्वन्तु"
 
-#: worksheet.cpp:2483 worksheet.cpp:3571
+#: worksheet.cpp:2499 worksheet.cpp:3587
 #, kde-format
 msgid "Delete Entries"
 msgstr "प्रविष्टयः विलोपयन्तु"
 
-#: worksheet.cpp:2496
+#: worksheet.cpp:2512
 #, kde-format
 msgid "Collapse Command Entry Results"
 msgstr "Collapse आदेश प्रविष्टि परिणाम"
 
-#: worksheet.cpp:2497
+#: worksheet.cpp:2513
 #, kde-format
 msgid "Expand Command Entry Results"
 msgstr "आदेशप्रविष्टिपरिणामान् विस्तारयन्तु"
 
-#: worksheet.cpp:2499
+#: worksheet.cpp:2515
 #, kde-format
 msgid "Delete Command Entry Results"
 msgstr "आदेशप्रविष्टिपरिणामान् विलोपयन्तु"
 
-#: worksheet.cpp:2501
+#: worksheet.cpp:2517
 #, kde-format
 msgid "Exclude Command Entry From Execution"
 msgstr "Exclude Command Entry From Execution इति"
 
-#: worksheet.cpp:2502
+#: worksheet.cpp:2518
 #, kde-format
 msgid "Add Command Entry To Execution"
 msgstr "Add Command Entry To Execution इति"
 
-#: worksheet.cpp:2701
+#: worksheet.cpp:2717
 #, kde-format
 msgctxt "@action"
 msgid "Text &Color..."
 msgstr "पाठ &रंग..."
 
-#: worksheet.cpp:2702
+#: worksheet.cpp:2718
 #, kde-format
 msgctxt "@label text color"
 msgid "Color"
 msgstr "वर्ण"
 
-#: worksheet.cpp:2709
+#: worksheet.cpp:2725
 #, kde-format
 msgctxt "@action"
 msgid "Text &Highlight..."
 msgstr "पाठ &Highlight..."
 
-#: worksheet.cpp:2715
+#: worksheet.cpp:2731
 #, kde-format
 msgctxt "@action"
 msgid "&Font"
 msgstr "&फॉन्ट्"
 
-#: worksheet.cpp:2720
+#: worksheet.cpp:2736
 #, kde-format
 msgctxt "@action"
 msgid "Font &Size"
 msgstr "फ़ॉन्ट & आकार"
 
-#: worksheet.cpp:2726
+#: worksheet.cpp:2742
 #, kde-format
 msgctxt "@action boldify selected text"
 msgid "&Bold"
 msgstr "&विक्रान्तः"
 
-#: worksheet.cpp:2737
+#: worksheet.cpp:2753
 #, kde-format
 msgctxt "@action italicize selected text"
 msgid "&Italic"
 msgstr "&इटालिक"
 
-#: worksheet.cpp:2749
+#: worksheet.cpp:2765
 #, kde-format
 msgctxt "@action underline selected text"
 msgid "&Underline"
 msgstr "&अधोरेखा"
 
-#: worksheet.cpp:2760
+#: worksheet.cpp:2776
 #, kde-format
 msgctxt "@action"
 msgid "&Strike Out"
 msgstr "&स्ट्राइक आउट"
 
-#: worksheet.cpp:2771
+#: worksheet.cpp:2787
 #, kde-format
 msgctxt "@action"
 msgid "Align &Left"
 msgstr "संरेखणं &वाम"
 
-#: worksheet.cpp:2774
+#: worksheet.cpp:2790
 #, kde-format
 msgctxt "@label left justify"
 msgid "Left"
 msgstr "वामः"
 
-#: worksheet.cpp:2781
+#: worksheet.cpp:2797
 #, kde-format
 msgctxt "@action"
 msgid "Align &Center"
 msgstr "संरेखित & केन्द्र"
 
-#: worksheet.cpp:2784
+#: worksheet.cpp:2800
 #, kde-format
 msgctxt "@label center justify"
 msgid "Center"
 msgstr "केंद्र"
 
-#: worksheet.cpp:2791
+#: worksheet.cpp:2807
 #, kde-format
 msgctxt "@action"
 msgid "Align &Right"
 msgstr "Align &Right"
 
-#: worksheet.cpp:2794
+#: worksheet.cpp:2810
 #, kde-format
 msgctxt "@label right justify"
 msgid "Right"
 msgstr "दक्षिणः"
 
-#: worksheet.cpp:2801
+#: worksheet.cpp:2817
 #, kde-format
 msgctxt "@action"
 msgid "&Justify"
 msgstr "&प्रमाणय्"
 
-#: worksheet.cpp:2804
+#: worksheet.cpp:2820
 #, kde-format
 msgctxt "@label justify fill"
 msgid "Justify"
 msgstr "प्रमाणय्"
 
-#: worksheet.cpp:3568
+#: worksheet.cpp:3584
 #, kde-format
 msgid ""
 "This step cannot be undone. Do you really want to delete the selected "
 "entries?"
 msgstr "एतत् पदं अकृतुं न शक्यते । किं भवान् वास्तवमेव चयनितप्रविष्टयः विलोपयितुम् इच्छति?"
 
-#: worksheet.cpp:3746
+#: worksheet.cpp:3762
 #, kde-format
 msgid "This step cannot be undone. Do you really want to delete all results?"
 msgstr "एतत् पदं अकृतुं न शक्यते । किं भवान् वास्तवमेव सर्वाणि परिणामानि विलोपयितुम् इच्छति?"
 
-#: worksheet.cpp:3747
+#: worksheet.cpp:3763
 #, kde-format
 msgid "Delete all results"
 msgstr "सर्वाणि परिणामानि विलोपयन्तु"
