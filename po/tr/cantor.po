@@ -13,7 +13,7 @@ msgstr ""
 "Project-Id-Version: kdeedu-kde4\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-09-17 00:39+0000\n"
-"PO-Revision-Date: 2026-09-02 14:42+0300\n"
+"PO-Revision-Date: 2026-09-17 19:49+0300\n"
 "Last-Translator: Emir SARI <emir_sari@icloud.com>\n"
 "Language-Team: Turkish <kde-l10n-tr@kde.org>\n"
 "Language: tr\n"
@@ -4784,7 +4784,7 @@ msgstr "Geçersiz Jupyter defter şeması: %1"
 #, kde-format
 msgid ""
 "The results of the selected cells will be deleted. Do you want to continue?"
-msgstr ""
+msgstr "Seçili hücrelerin sonuçları silinecek. Sürdürmek istiyor musunuz?"
 
 #: worksheet.cpp:2370
 #, kde-format

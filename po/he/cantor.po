@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: cantor\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-09-17 00:39+0000\n"
-"PO-Revision-Date: 2026-09-01 09:11+0300\n"
+"PO-Revision-Date: 2026-09-17 08:38+0300\n"
 "Last-Translator: Yaron Shahrabani <sh.yaron@gmail.com>\n"
 "Language-Team: צוות התרגום של KDE ישראל\n"
 "Language: he\n"
@@ -4712,7 +4712,7 @@ msgstr "סכמת מחברת Jupyter שגויה: %1"
 #, kde-format
 msgid ""
 "The results of the selected cells will be deleted. Do you want to continue?"
-msgstr ""
+msgstr "תוצאות התאים הנבחרים יימחקו. להמשיך?"
 
 #: worksheet.cpp:2370
 #, kde-format

@@ -9,14 +9,14 @@ msgstr ""
 "Project-Id-Version: cantor\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-09-17 00:39+0000\n"
-"PO-Revision-Date: 2026-09-01 23:53+0100\n"
+"PO-Revision-Date: 2026-09-17 11:30+0100\n"
 "Last-Translator: Eloy Cuadra <ecuadra@eloihr.net>\n"
 "Language-Team: Spanish <kde-l10n-es@kde.org>\n"
 "Language: es\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Lokalize 26.08.0\n"
+"X-Generator: Lokalize 26.08.1\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 
 #, kde-format
@@ -4828,6 +4828,7 @@ msgstr "Esquema no válido de cuaderno de Jupyter: %1"
 msgid ""
 "The results of the selected cells will be deleted. Do you want to continue?"
 msgstr ""
+"Se borrará el resultado de las celdas seleccionadas. ¿Quiere continuar?"
 
 #: worksheet.cpp:2370
 #, kde-format
