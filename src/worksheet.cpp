@@ -16,6 +16,7 @@
 #include "placeholderentry.h"
 #include "settings.h"
 #include "textentry.h"
+#include "worksheetcontrolitem.h"
 #include "worksheethierarchymanager.h"
 #include "worksheetview.h"
 #include "lib/backend.h"
@@ -2589,10 +2590,21 @@ void Worksheet::mousePressEvent(QGraphicsSceneMouseEvent* event)
             }
             m_selectedEntries.clear();
 
-            if (selectedEntry)
-                notifyEntryFocus(selectedEntry);
+            if (selectedEntry && dynamic_cast<WorksheetControlItem*>(mouseGrabberItem()))
+            {
+                clearFocus();
+                resetEntryCursor();
+                m_circularFocusBuffer.clear();
+                selectedEntry->setCellSelected(true);
+                m_selectedEntries.append(selectedEntry);
+            }
+            else
+            {
+                if (selectedEntry)
+                    notifyEntryFocus(selectedEntry);
 
-            updateEntryCursor(event);
+                updateEntryCursor(event);
+            }
         }
 
         updateCellActionAvailability();

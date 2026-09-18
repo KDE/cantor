@@ -165,13 +165,26 @@ QPair<int, int> WorksheetEntry::cellSplitPositions(const QString& content, int c
     if (lineEnd == -1)
         lineEnd = content.size();
 
-    if (!content.mid(lineStart, lineEnd - lineStart).trimmed().isEmpty())
-        return {cursorPosition, cursorPosition};
+    int firstEnd = cursorPosition;
+    int secondStart = cursorPosition;
+    if (content.mid(lineStart, lineEnd - lineStart).trimmed().isEmpty())
+    {
+        firstEnd = lineStart;
+        if (firstEnd > 0 && content.at(firstEnd - 1) == QLatin1Char('\n'))
+            --firstEnd;
+        secondStart = lineEnd < content.size() ? lineEnd + 1 : lineEnd;
+    }
 
-    int firstEnd = lineStart;
-    if (firstEnd > 0 && content.at(firstEnd - 1) == QLatin1Char('\n'))
-        --firstEnd;
-    const int secondStart = lineEnd < content.size() ? lineEnd + 1 : lineEnd;
+    // Skip leading blank lines without removing indentation from the first content line.
+    while (secondStart < content.size())
+    {
+        int nextLineEnd = content.indexOf(QLatin1Char('\n'), secondStart);
+        if (nextLineEnd == -1)
+            nextLineEnd = content.size();
+        if (!content.mid(secondStart, nextLineEnd - secondStart).trimmed().isEmpty())
+            break;
+        secondStart = nextLineEnd < content.size() ? nextLineEnd + 1 : nextLineEnd;
+    }
     return {firstEnd, secondStart};
 }
 
@@ -1128,6 +1141,7 @@ void WorksheetEntry::setCellSelected(bool val)
         return;
 
     m_controlElement.isSelected = val;
+    m_controlElement.update();
     worksheet()->updateCellActionAvailability();
 }
 
