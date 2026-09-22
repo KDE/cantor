@@ -8,9 +8,9 @@ msgstr ""
 "Project-Id-Version: cantor\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-09-20 00:40+0000\n"
-"PO-Revision-Date: 2026-05-29 17:15-0400\n"
+"PO-Revision-Date: 2026-09-22 18:03+0900\n"
 "Last-Translator: Abduqadir Abliz <sahranbay@gmail.com>\n"
-"Language-Team: Uyghur Computer Science Association <UKIJ@yahoogroups.com>\n"
+"Language-Team: Uyghur <kde-i18n-doc@kde.org>\n"
 "Language: ug\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -126,7 +126,7 @@ msgstr "ئۆزگەرگۈچى:"
 #: backends/qalculate/plotassistant/qalculateplotdialog.ui:123
 #, kde-format
 msgid "x"
-msgstr "x"
+msgstr ""
 
 #. i18n: ectx: property (text), widget (QLabel, label_3)
 #: assistants/differentiate/differentiatedlg.ui:47
@@ -496,7 +496,7 @@ msgstr "ئادەتتىكى"
 #: backends/R/settings.ui:168 backends/sage/settings.ui:217
 #, kde-format
 msgid "PDF"
-msgstr "PDF"
+msgstr ""
 
 #. i18n: ectx: property (toolTip), widget (QCheckBox, kcfg_integratePlots)
 #: backends/julia/settings.ui:46 backends/maxima/settings.ui:81
@@ -933,7 +933,7 @@ msgstr ""
 #: markdownentry.cpp:1168 textentry.cpp:862 worksheet.cpp:1639
 #, kde-format
 msgid "Cantor"
-msgstr "Cantor"
+msgstr ""
 
 #: backends/python/pythonbackend.cpp:67
 #, kde-format
@@ -1204,13 +1204,13 @@ msgstr ""
 #: backends/qalculate/plotassistant/qalculateplotdialog.ui:254
 #, kde-format
 msgid "0"
-msgstr "0"
+msgstr ""
 
 #. i18n: ectx: property (text), widget (QLabel, label_2)
 #: backends/qalculate/plotassistant/qalculateplotdialog.ui:261
 #, kde-format
 msgid "-"
-msgstr "-"
+msgstr ""
 
 #. i18n: ectx: property (text), widget (KLineEdit, xMaxEdit)
 #: backends/qalculate/plotassistant/qalculateplotdialog.ui:274
@@ -1380,38 +1380,38 @@ msgstr ""
 #: backends/qalculate/plotassistant/qalculateplotdialog.ui:560
 #, kde-format
 msgid "PNG"
-msgstr "PNG"
+msgstr ""
 
 #. i18n: ectx: property (text), item, widget (KComboBox, saveFileBox)
 #: backends/qalculate/plotassistant/qalculateplotdialog.ui:565
 #, kde-format
 msgid "PS"
-msgstr "PS"
+msgstr ""
 
 #. i18n: ectx: property (text), item, widget (KComboBox, saveFileBox)
 #: backends/qalculate/plotassistant/qalculateplotdialog.ui:570
 #, kde-format
 msgid "EPS"
-msgstr "EPS"
+msgstr ""
 
 #. i18n: ectx: property (text), item, widget (KComboBox, saveFileBox)
 #: backends/qalculate/plotassistant/qalculateplotdialog.ui:575
 #: worksheet.cpp:2386 worksheet.cpp:2410 worksheet.cpp:2428 worksheet.cpp:2445
 #, kde-format
 msgid "LaTeX"
-msgstr "LaTeX"
+msgstr ""
 
 #. i18n: ectx: property (text), item, widget (KComboBox, saveFileBox)
 #: backends/qalculate/plotassistant/qalculateplotdialog.ui:580
 #, kde-format
 msgid "SVG"
-msgstr "SVG"
+msgstr ""
 
 #. i18n: ectx: property (text), item, widget (KComboBox, saveFileBox)
 #: backends/qalculate/plotassistant/qalculateplotdialog.ui:585
 #, kde-format
 msgid "FIG"
-msgstr "FIG"
+msgstr ""
 
 #: backends/qalculate/qalculatebackend.cpp:51
 #, kde-format
@@ -2044,7 +2044,7 @@ msgstr ""
 #: backends/qthelpconfig.cpp:63
 #, kde-format
 msgid "Name cannot be empty."
-msgstr ""
+msgstr "ئات بوش قالمايدۇ."
 
 #: backends/qthelpconfig.cpp:83
 #, kde-format
@@ -2527,7 +2527,7 @@ msgstr "كۆڭۈلدىكى"
 #: cantor.cpp:775
 #, kde-format
 msgid "Table of Contents"
-msgstr ""
+msgstr "مەزمۇن مۇندەرىجىسى"
 
 #. i18n: ectx: label, entry (DefaultBackend), group (Cantor)
 #: cantor.kcfg:10
@@ -2812,7 +2812,7 @@ msgctxt ""
 "so make sure you include it in your translation in order to not to break "
 "anything"
 msgid "%1%"
-msgstr "%1%"
+msgstr ""
 
 #: cantor_part.cpp:256
 #, kde-format
@@ -2909,7 +2909,7 @@ msgstr ""
 #: cantor_part.cpp:355 worksheet.cpp:2193 worksheet.cpp:2194 worksheet.cpp:2493
 #, kde-format
 msgid "Merge Cells"
-msgstr ""
+msgstr "كاتەكچە بىرلەشتۈر"
 
 #: cantor_part.cpp:361 worksheet.cpp:2364
 #, kde-format
@@ -3237,10 +3237,9 @@ msgstr "چوڭ-كىچىكلىكىگە قارا(&M)"
 
 #. i18n: ectx: property (text), widget (QLabel, hierarchyEntriesLabel)
 #: formating.ui:35
-#, fuzzy, kde-format
-#| msgid "Insert Hierarchy Entry"
+#, kde-format
 msgid "Hierarchy Entries:"
-msgstr "ئالدىغا قىستۇر"
+msgstr ""
 
 #. i18n: ectx: property (text), widget (QLabel, hierarchyLevelLabel)
 #: formating.ui:50
@@ -3292,11 +3291,9 @@ msgstr ""
 #. i18n: ectx: property (text), widget (QLabel, lSubparagraphFont)
 #: formating.ui:115 formating.ui:138 formating.ui:161 formating.ui:184
 #: formating.ui:207 formating.ui:230
-#, fuzzy, kde-format
-#| msgctxt "@action"
-#| msgid "&Font"
+#, kde-format
 msgid "&Font:"
-msgstr "خەت نۇسخا(&F)"
+msgstr ""
 
 #. i18n: ectx: property (text), widget (QLabel, visibleItemsLabel)
 #: formating.ui:253
@@ -3306,24 +3303,21 @@ msgstr ""
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_ShowTocChaptersDefault)
 #: formating.ui:262
-#, fuzzy, kde-format
-#| msgid "Chapter"
+#, kde-format
 msgid "Chapters"
-msgstr "باب"
+msgstr ""
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_ShowTocSectionsDefault)
 #: formating.ui:269
-#, fuzzy, kde-format
-#| msgid "Functions"
+#, kde-format
 msgid "Sections"
-msgstr "فۇنكسىيە"
+msgstr ""
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_ShowTocCommandEntriesDefault)
 #: formating.ui:276
-#, fuzzy, kde-format
-#| msgid "Commands"
+#, kde-format
 msgid "Command entries"
-msgstr "بۇيرۇق"
+msgstr ""
 
 #: hierarchyentry.cpp:55
 #, kde-format
@@ -3490,12 +3484,12 @@ msgstr ""
 #: imagesettingsdialog.cpp:40
 #, kde-format
 msgid "px"
-msgstr "px"
+msgstr ""
 
 #: imagesettingsdialog.cpp:40
 #, kde-format
 msgid "%"
-msgstr "%"
+msgstr ""
 
 #: imagesettingsdialog.cpp:151 markdownentry.cpp:1144
 #, kde-format
@@ -3688,7 +3682,7 @@ msgstr ""
 #: main.cpp:64
 #, kde-format
 msgid "Aleix Pol Gonzalez"
-msgstr "Aleix Pol Gonzalez"
+msgstr ""
 
 #: main.cpp:64
 #, kde-format
@@ -3698,7 +3692,7 @@ msgstr "KAlgebra ئارقا ئۇچى"
 #: main.cpp:65
 #, kde-format
 msgid "Miha Čančula"
-msgstr "Miha Čančula"
+msgstr ""
 
 #: main.cpp:65
 #, kde-format
@@ -3846,7 +3840,7 @@ msgstr ""
 #: panelplugins/tocpanel/tocpanelplugin.cpp:347
 #, kde-format
 msgid "Heading"
-msgstr ""
+msgstr "ماۋزۇ"
 
 #: panelplugins/tocpanel/tocpanelplugin.cpp:350
 #, kde-format
@@ -3857,10 +3851,9 @@ msgstr ""
 
 #: panelplugins/tocpanel/tocpanelplugin.cpp:351
 #: worksheethierarchymanager.cpp:1175
-#, fuzzy, kde-format
-#| msgid "Delete Entry"
+#, kde-format
 msgid "Delete Heading"
-msgstr "تۈر ئۆچۈر"
+msgstr ""
 
 #: panelplugins/tocpanel/tocpanelplugin.cpp:365
 #: panelplugins/tocpanel/tocpanelplugin.cpp:1258 worksheet.cpp:2376
@@ -3881,18 +3874,16 @@ msgstr ""
 #: panelplugins/tocpanel/tocpanelplugin.cpp:369
 #: panelplugins/tocpanel/tocpanelplugin.cpp:1252
 #: panelplugins/tocpanel/tocpanelplugin.cpp:1262
-#, fuzzy, kde-format
-#| msgid "Command"
+#, kde-format
 msgid "Delete Command"
-msgstr "بۇيرۇق"
+msgstr "بۇيرۇق ئۆچۈر"
 
 #: panelplugins/tocpanel/tocpanelplugin.cpp:388
 #: panelplugins/tocpanel/tocpanelplugin.cpp:1296
 #: panelplugins/tocpanel/tocpanelplugin.cpp:1304
-#, fuzzy, kde-format
-#| msgid "Delete"
+#, kde-format
 msgid "Delete Plot"
-msgstr "ئۆچۈر"
+msgstr ""
 
 #: panelplugins/tocpanel/tocpanelplugin.cpp:455
 #, kde-format
@@ -3910,10 +3901,9 @@ msgid "Visible Items"
 msgstr ""
 
 #: panelplugins/tocpanel/tocpanelplugin.cpp:1018
-#, fuzzy, kde-format
-#| msgid "Chapter"
+#, kde-format
 msgid "Show Chapters"
-msgstr "باب"
+msgstr ""
 
 #: panelplugins/tocpanel/tocpanelplugin.cpp:1027
 #, kde-format
@@ -3931,10 +3921,9 @@ msgid "Show Plots"
 msgstr ""
 
 #: panelplugins/tocpanel/tocpanelplugin.cpp:1056
-#, fuzzy, kde-format
-#| msgid "Defaults"
+#, kde-format
 msgid "Reset to Defaults"
-msgstr "كۆڭۈلدىكى قىممەتلەر"
+msgstr "كۆڭۈلدىكىگە قايتۇر"
 
 #: panelplugins/tocpanel/tocpanelplugin.cpp:1179
 #, kde-format
@@ -3942,10 +3931,9 @@ msgid "Go to Heading"
 msgstr ""
 
 #: panelplugins/tocpanel/tocpanelplugin.cpp:1189
-#, fuzzy, kde-format
-#| msgid "Unnamed"
+#, kde-format
 msgid "Rename"
-msgstr "ئاتسىز"
+msgstr "ئات ئۆزگەرت"
 
 #: panelplugins/tocpanel/tocpanelplugin.cpp:1200
 #, kde-format
@@ -3968,16 +3956,14 @@ msgid "Delete Section and Contents"
 msgstr ""
 
 #: panelplugins/tocpanel/tocpanelplugin.cpp:1234
-#, fuzzy, kde-format
-#| msgid "Command"
+#, kde-format
 msgid "Go to Command"
-msgstr "بۇيرۇق"
+msgstr ""
 
 #: panelplugins/tocpanel/tocpanelplugin.cpp:1244
-#, fuzzy, kde-format
-#| msgid "Command"
+#, kde-format
 msgid "Rename Command"
-msgstr "بۇيرۇق"
+msgstr ""
 
 #: panelplugins/tocpanel/tocpanelplugin.cpp:1278
 #, kde-format
@@ -3990,10 +3976,9 @@ msgid "Rename Plot"
 msgstr ""
 
 #: panelplugins/tocpanel/tocpanelplugin.cpp:1319
-#, fuzzy, kde-format
-#| msgid "Completion"
+#, kde-format
 msgid "Collapse Section"
-msgstr "تاماملاش"
+msgstr ""
 
 #: panelplugins/tocpanel/tocpanelplugin.cpp:1331
 #, kde-format
@@ -4003,12 +3988,12 @@ msgstr ""
 #: panelplugins/tocpanel/tocpanelplugin.cpp:1349
 #, kde-format
 msgid "Expand All"
-msgstr ""
+msgstr "ھەممىنى ياي"
 
 #: panelplugins/tocpanel/tocpanelplugin.cpp:1356
 #, kde-format
 msgid "Collapse All"
-msgstr ""
+msgstr "ھەممىنى يىغ"
 
 #. i18n: ectx: property (text), widget (QLabel, label)
 #: panelplugins/variablemgr/newvardlg.ui:17
@@ -4570,7 +4555,7 @@ msgstr "ئايلاندۇر"
 #: worksheet.cpp:2383 worksheet.cpp:2408 worksheet.cpp:2426 worksheet.cpp:2442
 #, kde-format
 msgid "Markdown"
-msgstr "Markdown"
+msgstr ""
 
 #: worksheet.cpp:2388 worksheet.cpp:2411 worksheet.cpp:2429 worksheet.cpp:2446
 #, kde-format
@@ -4917,10 +4902,9 @@ msgid "Selected Entry and All Above"
 msgstr ""
 
 #: worksheetentry.cpp:520
-#, fuzzy, kde-format
-#| msgid "Delete Entry"
+#, kde-format
 msgid "Selected Entry"
-msgstr "تۈر ئۆچۈر"
+msgstr ""
 
 #: worksheetentry.cpp:525
 #, kde-format
@@ -4938,10 +4922,9 @@ msgid "Move Down"
 msgstr "ئاستىغا"
 
 #: worksheetentry.cpp:558
-#, fuzzy, kde-format
-#| msgid "Remove Entry"
+#, kde-format
 msgid "Copy Entry"
-msgstr "تۈرنى چىقىرىۋەت"
+msgstr ""
 
 #: worksheetentry.cpp:562
 #, kde-format
@@ -4949,10 +4932,9 @@ msgid "Paste Entry Below"
 msgstr ""
 
 #: worksheetentry.cpp:567
-#, fuzzy, kde-format
-#| msgid "Delete Entry"
+#, kde-format
 msgid "Duplicate Entry Below"
-msgstr "تۈر ئۆچۈر"
+msgstr ""
 
 #: worksheetentry.cpp:573
 #, kde-format
@@ -4993,10 +4975,9 @@ msgid ""
 msgstr ""
 
 #: worksheethierarchymanager.cpp:1164
-#, fuzzy, kde-format
-#| msgid "Delete Entry"
+#, kde-format
 msgid "Delete Section"
-msgstr "تۈر ئۆچۈر"
+msgstr ""
 
 #: worksheethierarchymanager.cpp:1168
 #, kde-format
