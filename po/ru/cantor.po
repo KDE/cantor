@@ -12,7 +12,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-09-20 00:40+0000\n"
-"PO-Revision-Date: 2026-02-23 18:08+0200\n"
+"PO-Revision-Date: 2026-09-23 21:38+0200\n"
 "Last-Translator: Alexander Yavorskiy <kekcuha@gmail.com>\n"
 "Language-Team: Russian <kde-russian@lists.kde.ru>\n"
 "Language: ru\n"
@@ -141,7 +141,7 @@ msgstr "x"
 #: assistants/differentiate/differentiatedlg.ui:47
 #, kde-format
 msgid "Times: "
-msgstr "Порядок производной:"
+msgstr "Порядок производной: "
 
 #. i18n: ectx: Menu (import_package)
 #: assistants/importpackage/cantor_import_package_assistant.rc:4
@@ -2662,22 +2662,22 @@ msgstr[0] ""
 "<div>Возможно:\n"
 "<ul><li>Изменить параметры настройки в диалоге конфигурации;</li> "
 "<li>Установить пакеты, содержащие одну из следующих программ:</li> %2 </ul></"
-"div>"
+"div> "
 msgstr[1] ""
 "<h1>Не обнаружено ни одной базовой системы</h1>\n"
 "<div>Вы можете попробовать:\n"
 "<ul><li>Изменить настройки в диалоге конфигурации;</li> <li>Установить "
-"пакеты, содержащие одну из следующих программ:</li> %2 </ul></div>"
+"пакеты, содержащие одну из следующих программ:</li> %2 </ul></div> "
 msgstr[2] ""
 "<h1>Не обнаружено ни одной базовой системы</h1>\n"
 "<div>Вы можете попробовать:\n"
 "<ul><li>Изменить настройки в диалоге конфигурации;</li> <li>Установить "
-"пакеты, содержащие одну из следующих программ:</li> %2 </ul></div>"
+"пакеты, содержащие одну из следующих программ:</li> %2 </ul></div> "
 msgstr[3] ""
 "<h1>Не обнаружено ни одной базовой системы</h1>\n"
 "<div>Вы можете попробовать:\n"
 "<ul><li>Изменить настройки в диалоге конфигурации;</li> <li>Установить "
-"пакеты, содержащие следующую программу:</li> %2 </ul></div>"
+"пакеты, содержащие следующую программу:</li> %2 </ul></div> "
 
 #: cantor.cpp:408
 #, kde-format
@@ -2755,7 +2755,7 @@ msgstr "По умолчанию"
 #: cantor.cpp:775
 #, kde-format
 msgid "Table of Contents"
-msgstr ""
+msgstr "Содержание"
 
 #. i18n: ectx: label, entry (DefaultBackend), group (Cantor)
 #: cantor.kcfg:10
@@ -2795,30 +2795,28 @@ msgstr "По умолчанию показывать номера строк"
 
 #. i18n: ectx: label, entry (ShowTocChaptersDefault), group (Cantor)
 #: cantor.kcfg:34
-#, fuzzy, kde-format
-#| msgid "Animate changes in the Worksheet by default"
+#, kde-format
 msgid "Show chapters in the Worksheet Structure Navigator by default"
-msgstr "По умолчанию включать анимацию в документе"
+msgstr "По умолчанию показывать главы в навигаторе по структуре документа"
 
 #. i18n: ectx: label, entry (ShowTocSectionsDefault), group (Cantor)
 #: cantor.kcfg:38
-#, fuzzy, kde-format
-#| msgid "Animate changes in the Worksheet by default"
+#, kde-format
 msgid "Show sections in the Worksheet Structure Navigator by default"
-msgstr "По умолчанию включать анимацию в документе"
+msgstr "По умолчанию показывать разделы в навигаторе по структуре документа"
 
 #. i18n: ectx: label, entry (ShowTocCommandEntriesDefault), group (Cantor)
 #: cantor.kcfg:42
-#, fuzzy, kde-format
-#| msgid "Animate changes in the Worksheet by default"
+#, kde-format
 msgid "Show command entries in the Worksheet Structure Navigator by default"
-msgstr "По умолчанию включать анимацию в документе"
+msgstr ""
+"По умолчанию показывать записи команд в навигаторе по структуре документа"
 
 #. i18n: ectx: label, entry (ShowTocPlotsDefault), group (Cantor)
 #: cantor.kcfg:46
 #, kde-format
 msgid "Show plots in the Worksheet Structure Navigator by default"
-msgstr ""
+msgstr "По умолчанию показывать графики в навигаторе по структуре документа"
 
 #. i18n: ectx: label, entry (AnimationDefault), group (Cantor)
 #: cantor.kcfg:50
@@ -2888,7 +2886,7 @@ msgstr "Предельное количество отображаемых ст�
 #, kde-format
 msgid ""
 "Whether the hierarchy font settings have been migrated to complete fonts"
-msgstr ""
+msgstr "Перенесены ли параметры шрифтов иерархии в полные шрифты"
 
 #. i18n: ectx: label, entry (ChapterFontFamily), group (Cantor)
 #: cantor.kcfg:90
@@ -3146,12 +3144,12 @@ msgstr "Удалить текущую запись"
 #: cantor_part.cpp:355 worksheet.cpp:2193 worksheet.cpp:2194 worksheet.cpp:2493
 #, kde-format
 msgid "Merge Cells"
-msgstr ""
+msgstr "Объединить ячейки"
 
 #: cantor_part.cpp:361 worksheet.cpp:2364
 #, kde-format
 msgid "Split Cell"
-msgstr ""
+msgstr "Разделить ячейку"
 
 #. i18n("Publish Worksheet"), collection);
 #. publishWorksheet->setIcon(QIcon::fromTheme(QLatin1String("get-hot-new-stuff")));
@@ -3225,7 +3223,7 @@ msgid ""
 "restart %1?"
 msgstr ""
 "Все доступные результаты расчётов будут потеряны. Действительно "
-"перезапустить %1? "
+"перезапустить %1?"
 
 #: cantor_part.cpp:639
 #, kde-format
@@ -3477,17 +3475,15 @@ msgstr "С &учётом регистра"
 
 #. i18n: ectx: property (text), widget (QLabel, hierarchyEntriesLabel)
 #: formating.ui:35
-#, fuzzy, kde-format
-#| msgid "Hierarchy Entry"
+#, kde-format
 msgid "Hierarchy Entries:"
-msgstr "Запись иерархии"
+msgstr "Записи иерархии:"
 
 #. i18n: ectx: property (text), widget (QLabel, hierarchyLevelLabel)
 #: formating.ui:50
-#, fuzzy, kde-format
-#| msgid "Set Hierarchy Level"
+#, kde-format
 msgid "Hierarchy level:"
-msgstr "Установить уровень иерархии"
+msgstr "Уровень иерархии:"
 
 #. i18n: ectx: property (text), item, widget (QComboBox, hierarchyLevelComboBox)
 #: formating.ui:61 hierarchyentry.cpp:22
@@ -3533,38 +3529,33 @@ msgstr "Подпараграф"
 #. i18n: ectx: property (text), widget (QLabel, lSubparagraphFont)
 #: formating.ui:115 formating.ui:138 formating.ui:161 formating.ui:184
 #: formating.ui:207 formating.ui:230
-#, fuzzy, kde-format
-#| msgctxt "@action"
-#| msgid "&Font"
+#, kde-format
 msgid "&Font:"
-msgstr "&Шрифт"
+msgstr "&Шрифт:"
 
 #. i18n: ectx: property (text), widget (QLabel, visibleItemsLabel)
 #: formating.ui:253
 #, kde-format
 msgid "Visible Items:"
-msgstr ""
+msgstr "Показываемые элементы:"
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_ShowTocChaptersDefault)
 #: formating.ui:262
-#, fuzzy, kde-format
-#| msgid "Chapter"
+#, kde-format
 msgid "Chapters"
-msgstr "Глава"
+msgstr "Главы"
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_ShowTocSectionsDefault)
 #: formating.ui:269
-#, fuzzy, kde-format
-#| msgid "Section"
+#, kde-format
 msgid "Sections"
-msgstr "Раздел"
+msgstr "Разделы"
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_ShowTocCommandEntriesDefault)
 #: formating.ui:276
-#, fuzzy, kde-format
-#| msgid "Commands"
+#, kde-format
 msgid "Command entries"
-msgstr "Выражения"
+msgstr "Записи команд"
 
 #: hierarchyentry.cpp:55
 #, kde-format
@@ -3654,8 +3645,7 @@ msgid "%1 files (*.%2)"
 msgstr "Файлы %1 (*.%2)"
 
 #: imageresultitem.cpp:195
-#, fuzzy, kde-format
-#| msgid "PDF Files (*.pdf)"
+#, kde-format
 msgid "PDF files (*.pdf)"
 msgstr "Файлы PDF (*.pdf)"
 
@@ -4097,12 +4087,12 @@ msgstr "Все файлы"
 #: panelplugins/tocpanel/tocpanelplugin.cpp:207
 #, kde-format
 msgid "Search Table of Contents"
-msgstr ""
+msgstr "Поиск в содержании"
 
 #: panelplugins/tocpanel/tocpanelplugin.cpp:347
 #, kde-format
 msgid "Heading"
-msgstr ""
+msgstr "Заголовок"
 
 #: panelplugins/tocpanel/tocpanelplugin.cpp:350
 #, kde-format
@@ -4110,13 +4100,14 @@ msgid ""
 "Do you really want to delete the heading \"%1\"? Its contents will be kept. "
 "This action cannot be undone."
 msgstr ""
+"Действительно удалить заголовок «%1»? Его содержимое будет сохранено. Это "
+"действие нельзя отменить."
 
 #: panelplugins/tocpanel/tocpanelplugin.cpp:351
 #: worksheethierarchymanager.cpp:1175
-#, fuzzy, kde-format
-#| msgid "Delete Entry"
+#, kde-format
 msgid "Delete Heading"
-msgstr "Удалить запись"
+msgstr "Удалить заголовок"
 
 #: panelplugins/tocpanel/tocpanelplugin.cpp:365
 #: panelplugins/tocpanel/tocpanelplugin.cpp:1258 worksheet.cpp:2376
@@ -4132,147 +4123,131 @@ msgstr "Команда"
 #: panelplugins/tocpanel/tocpanelplugin.cpp:1303
 #, kde-format
 msgid "Do you really want to delete \"%1\"? This action cannot be undone."
-msgstr ""
+msgstr "Действительно удалить «%1»? Это действие нельзя отменить."
 
 #: panelplugins/tocpanel/tocpanelplugin.cpp:369
 #: panelplugins/tocpanel/tocpanelplugin.cpp:1252
 #: panelplugins/tocpanel/tocpanelplugin.cpp:1262
-#, fuzzy, kde-format
-#| msgid "Delete Command Entry Results"
+#, kde-format
 msgid "Delete Command"
-msgstr "Удалить результаты выражений"
+msgstr "Удалить команду"
 
 #: panelplugins/tocpanel/tocpanelplugin.cpp:388
 #: panelplugins/tocpanel/tocpanelplugin.cpp:1296
 #: panelplugins/tocpanel/tocpanelplugin.cpp:1304
-#, fuzzy, kde-format
-#| msgid "Delete"
+#, kde-format
 msgid "Delete Plot"
-msgstr "Удалить"
+msgstr "Удалить график"
 
 #: panelplugins/tocpanel/tocpanelplugin.cpp:455
 #, kde-format
 msgid "No visible items in the Table of Contents"
-msgstr ""
+msgstr "В содержании нет показываемых элементов"
 
 #: panelplugins/tocpanel/tocpanelplugin.cpp:456
 #, kde-format
 msgid "No matching items"
-msgstr ""
+msgstr "Подходящих элементов нет"
 
 #: panelplugins/tocpanel/tocpanelplugin.cpp:1016
 #, kde-format
 msgid "Visible Items"
-msgstr ""
+msgstr "Показываемые элементы"
 
 #: panelplugins/tocpanel/tocpanelplugin.cpp:1018
-#, fuzzy, kde-format
-#| msgid "Chapter"
+#, kde-format
 msgid "Show Chapters"
-msgstr "Глава"
+msgstr "Показывать главы"
 
 #: panelplugins/tocpanel/tocpanelplugin.cpp:1027
-#, fuzzy, kde-format
-#| msgid "Show Completion"
+#, kde-format
 msgid "Show Sections"
-msgstr "Показать варианты автодополнения"
+msgstr "Показывать разделы"
 
 #: panelplugins/tocpanel/tocpanelplugin.cpp:1036
-#, fuzzy, kde-format
-#| msgid "Insert Command Entry"
+#, kde-format
 msgid "Show Command Entries"
-msgstr "Вставить выражение"
+msgstr "Показывать записи команд"
 
 #: panelplugins/tocpanel/tocpanelplugin.cpp:1045
-#, fuzzy, kde-format
-#| msgid "Show Results"
+#, kde-format
 msgid "Show Plots"
-msgstr "Показать результаты"
+msgstr "Показывать графики"
 
 #: panelplugins/tocpanel/tocpanelplugin.cpp:1056
-#, fuzzy, kde-format
-#| msgid "Reset to Default"
+#, kde-format
 msgid "Reset to Defaults"
-msgstr "Вернуться к параметрам по умолчанию"
+msgstr "Восстановить значения по умолчанию"
 
 #: panelplugins/tocpanel/tocpanelplugin.cpp:1179
 #, kde-format
 msgid "Go to Heading"
-msgstr ""
+msgstr "Перейти к заголовку"
 
 #: panelplugins/tocpanel/tocpanelplugin.cpp:1189
-#, fuzzy, kde-format
-#| msgid "Unnamed"
+#, kde-format
 msgid "Rename"
-msgstr "Безымянный"
+msgstr "Переименовать"
 
 #: panelplugins/tocpanel/tocpanelplugin.cpp:1200
 #, kde-format
 msgid "Promote Heading"
-msgstr ""
+msgstr "Повысить уровень заголовка"
 
 #: panelplugins/tocpanel/tocpanelplugin.cpp:1207
 #, kde-format
 msgid "Demote Heading"
-msgstr ""
+msgstr "Понизить уровень заголовка"
 
 #: panelplugins/tocpanel/tocpanelplugin.cpp:1216
-#, fuzzy, kde-format
-#| msgid "Delete current Entry"
+#, kde-format
 msgid "Delete Heading Only"
-msgstr "Удалить текущую запись"
+msgstr "Удалить только заголовок"
 
 #: panelplugins/tocpanel/tocpanelplugin.cpp:1223
-#, fuzzy, kde-format
-#| msgid "Delete Command Entry Results"
+#, kde-format
 msgid "Delete Section and Contents"
-msgstr "Удалить результаты выражений"
+msgstr "Удалить раздел вместе с содержимым"
 
 #: panelplugins/tocpanel/tocpanelplugin.cpp:1234
-#, fuzzy, kde-format
-#| msgid "Command"
+#, kde-format
 msgid "Go to Command"
-msgstr "Команда"
+msgstr "Перейти к команде"
 
 #: panelplugins/tocpanel/tocpanelplugin.cpp:1244
-#, fuzzy, kde-format
-#| msgid "Command"
+#, kde-format
 msgid "Rename Command"
-msgstr "Команда"
+msgstr "Переименовать команду"
 
 #: panelplugins/tocpanel/tocpanelplugin.cpp:1278
 #, kde-format
 msgid "Go to Plot"
-msgstr ""
+msgstr "Перейти к графику"
 
 #: panelplugins/tocpanel/tocpanelplugin.cpp:1288
 #, kde-format
 msgid "Rename Plot"
-msgstr ""
+msgstr "Переименовать график"
 
 #: panelplugins/tocpanel/tocpanelplugin.cpp:1319
-#, fuzzy, kde-format
-#| msgid "Completion"
+#, kde-format
 msgid "Collapse Section"
-msgstr "Автодополнение"
+msgstr "Свернуть раздел"
 
 #: panelplugins/tocpanel/tocpanelplugin.cpp:1331
-#, fuzzy, kde-format
-#| msgid "Section"
+#, kde-format
 msgid "Expand Section"
-msgstr "Раздел"
+msgstr "Развернуть раздел"
 
 #: panelplugins/tocpanel/tocpanelplugin.cpp:1349
-#, fuzzy, kde-format
-#| msgid "Expand All Results"
+#, kde-format
 msgid "Expand All"
-msgstr "Развернуть все результаты"
+msgstr "Развернуть все"
 
 #: panelplugins/tocpanel/tocpanelplugin.cpp:1356
-#, fuzzy, kde-format
-#| msgid "Collapse All Results"
+#, kde-format
 msgid "Collapse All"
-msgstr "Свернуть все результаты"
+msgstr "Свернуть все"
 
 #. i18n: ectx: property (text), widget (QLabel, label)
 #: panelplugins/variablemgr/newvardlg.ui:17
@@ -4735,7 +4710,7 @@ msgstr "Не удалось загрузить таблицу стилей LaTeX
 #: worksheet.cpp:1677
 #, kde-format
 msgid "Cannot create temporary archive."
-msgstr ""
+msgstr "Не удалось создать временный архив."
 
 #: worksheet.cpp:1719
 #, kde-format
@@ -4767,10 +4742,9 @@ msgid "The selected file is not a valid Cantor project file."
 msgstr "Выбранный файл не является корректным файлом проекта Cantor."
 
 #: worksheet.cpp:1794
-#, fuzzy, kde-format
-#| msgid "The selected file is not a valid Cantor project file."
+#, kde-format
 msgid "The selected file is a corrupt Cantor project file."
-msgstr "Выбранный файл не является корректным файлом проекта Cantor."
+msgstr "Выбранный файл проекта Cantor повреждён."
 
 #: worksheet.cpp:1810
 #, kde-format
@@ -4861,7 +4835,7 @@ msgstr "Недопустимая схема Jupyter Notebook: %1"
 #, kde-format
 msgid ""
 "The results of the selected cells will be deleted. Do you want to continue?"
-msgstr ""
+msgstr "Результаты выбранных ячеек будут удалены. Продолжить?"
 
 #: worksheet.cpp:2371
 #, kde-format
@@ -5215,18 +5189,17 @@ msgstr "Светло-серый"
 #: worksheetentry.cpp:515
 #, kde-format
 msgid "Selected Entry and All Above"
-msgstr ""
+msgstr "Выбранную запись и все выше"
 
 #: worksheetentry.cpp:520
-#, fuzzy, kde-format
-#| msgid "Delete Entry"
+#, kde-format
 msgid "Selected Entry"
-msgstr "Удалить запись"
+msgstr "Выбранную запись"
 
 #: worksheetentry.cpp:525
 #, kde-format
 msgid "Selected Entry and All Below"
-msgstr ""
+msgstr "Выбранную запись и все ниже"
 
 #: worksheetentry.cpp:543
 #, kde-format
@@ -5239,23 +5212,19 @@ msgid "Move Down"
 msgstr "Ниже"
 
 #: worksheetentry.cpp:558
-#, fuzzy, kde-format
-#| msgctxt "@title:window"
-#| msgid "Modify Entry"
+#, kde-format
 msgid "Copy Entry"
-msgstr "Изменение записи"
+msgstr "Копировать запись"
 
 #: worksheetentry.cpp:562
-#, fuzzy, kde-format
-#| msgid "Insert Entry Before"
+#, kde-format
 msgid "Paste Entry Below"
-msgstr "Вставить запись выше"
+msgstr "Вставить запись ниже"
 
 #: worksheetentry.cpp:567
-#, fuzzy, kde-format
-#| msgid "Delete Entry"
+#, kde-format
 msgid "Duplicate Entry Below"
-msgstr "Удалить запись"
+msgstr "Продублировать запись ниже"
 
 #: worksheetentry.cpp:573
 #, kde-format
@@ -5281,12 +5250,12 @@ msgstr "Перетащить запись"
 #: worksheethierarchymanager.cpp:355
 #, kde-format
 msgid "%1 %2"
-msgstr ""
+msgstr "%1 %2"
 
 #: worksheethierarchymanager.cpp:349
 #, kde-format
 msgid "%1 %2.%3"
-msgstr ""
+msgstr "%1 %2.%3"
 
 #: worksheethierarchymanager.cpp:1158
 #, kde-format
@@ -5294,12 +5263,13 @@ msgid ""
 "Do you really want to delete the heading \"%1\" and all entries in this "
 "section? This action cannot be undone."
 msgstr ""
+"Действительно удалить заголовок «%1» и все записи в этом разделе? Это "
+"действие нельзя отменить."
 
 #: worksheethierarchymanager.cpp:1164
-#, fuzzy, kde-format
-#| msgid "Section"
+#, kde-format
 msgid "Delete Section"
-msgstr "Раздел"
+msgstr "Удалить раздел"
 
 #: worksheethierarchymanager.cpp:1168
 #, kde-format
@@ -5307,6 +5277,8 @@ msgid ""
 "Do you really want to delete only the heading \"%1\"? The contents of the "
 "section will remain in the worksheet. This action cannot be undone."
 msgstr ""
+"Действительно удалить только заголовок «%1»? Содержимое раздела останется в "
+"документе. Это действие нельзя отменить."
 
 #: worksheettextitem.cpp:912 worksheettextitem.cpp:929
 #, kde-format
