@@ -1,18 +1,19 @@
 <?xml version="1.0" ?>
-<!DOCTYPE book PUBLIC "-//KDE//DTD DocBook XML V4.5-Based Variant V1.1//EN" 
-"dtd/kdedbx45.dtd" [
+<!DOCTYPE book PUBLIC "-//KDE//DTD DocBook XML V4.5-Based Variant V1.1//EN" "dtd/kdedbx45.dtd" [
 
-  <!ENTITY kappname "&cantor;">
-  <!ENTITY package "kdeedu">
+  <!ENTITY latex "L<superscript
+>A</superscript
+>T<subscript
+>E</subscript
+>X">
   <!ENTITY % addindex "IGNORE">
-  <!ENTITY % Russian "INCLUDE"
-> 
+  <!ENTITY % Russian "INCLUDE">
 ]>
-<book lang="&language;">
+<book id="cantor" lang="&language;">
 
 <bookinfo>
 <title
->Руководство &cantor;</title>
+>Руководство пользователя &cantor;</title>
 
 <authorgroup>
 <author
@@ -52,9 +53,9 @@
 >&FDLNotice;</legalnotice>
 
 <date
->26 августа 2009 г.</date>
+>29 ноября 2023 г.</date>
 <releaseinfo
->0.1</releaseinfo>
+>Приложения KDE 23.08</releaseinfo>
 
 <abstract>
 <para
@@ -71,13 +72,27 @@
 <keyword
 >алгебра</keyword>
 <keyword
+>статистика</keyword>
+<keyword
 >Cantor</keyword>
 <keyword
->Sage</keyword>
+>Julia</keyword>
+<keyword
+>Lua</keyword>
+<keyword
+>Maxima</keyword>
+<keyword
+>Octave</keyword>
+<keyword
+>Python</keyword>
+<keyword
+>Qalculate</keyword>
 <keyword
 >R</keyword>
 <keyword
->Maxima</keyword>
+>Sage</keyword>
+<keyword
+>Scilab</keyword>
 </keywordset>
 
 </bookinfo>
@@ -101,9 +116,6 @@
 	<mediaobject>
 	  <imageobject>
 	    <imagedata fileref="screenshot.png" format="PNG"/>
-	  </imageobject>
-	  <imageobject>
-	    <imagedata fileref="screenshot.eps" format="EPS"/>
 	  </imageobject>
 	  <textobject>
 	    <phrase
@@ -132,7 +144,7 @@
 ></listitem>
   <listitem
 ><para
->Возможность загрузки и публикации примеров документов с помощью утилиты «Загрузка материалов из Интернета».</para
+>Загрузка и публикация примеров документов через «Загрузку материалов из Интернета».</para
 ></listitem>
   <listitem
 ><para
@@ -161,8 +173,8 @@
 >Sage:</term>
       <listitem>
 	<para
->Sage — это бесплатная математическая программа с открытым исходным кодом, распространяемая на условиях лицензии GPL. Она использует мощь многих существующих пакетов с открытым исходным кодом, предоставляя к ним общий интерфейс на языке Python. Более подробная информация находится на сайте <ulink url="http://sagemath.org"
->http://sagemath.org</ulink
+>Sage — свободная математическая система с открытым исходным кодом, распространяемая на условиях GPL. Она объединяет возможности многих существующих открытых пакетов в общем интерфейсе на языке Python. Подробнее — на сайте <ulink url="https://sagemath.org"
+>https://sagemath.org</ulink
 >. </para>
 	</listitem>
     </varlistentry>
@@ -181,8 +193,18 @@
 >R:</term>
       <listitem>
 	<para
->R — это язык программирования и среда для статистических вычислений и графики, похожая на язык программирования и среду разработки S. Этот язык предоставляет широкий выбор статистических (линейное и нелинейное моделирование, классические статистические тесты, анализ временных рядов, классификация, кластеризация, ...) и графических инструментов. Кроме того, он легко расширяем. Язык программирования S используется повсеместно для статистических исследований, а язык R — альтернативный вариант с открытым кодом. Более подробная информация находится на сайте <ulink url="http://www.r-project.org"
->http://www.r-project.org</ulink
+>R — язык и среда для статистических вычислений и графики, похожие на язык и среду S. R предоставляет широкий набор статистических методов (линейное и нелинейное моделирование, классические статистические тесты, анализ временных рядов, классификация, кластеризация, анализ данных…) и графических средств и легко расширяется. Язык S часто служит основным инструментом исследований в области статистической методологии, а R даёт открытую альтернативу. Подробнее — на сайте <ulink url="https://www.r-project.org"
+>https://www.r-project.org</ulink
+>. </para>
+      </listitem>
+    </varlistentry>
+    <varlistentry>
+      <term
+>Julia:</term>
+      <listitem>
+	<para
+>Julia — высокоуровневый высокопроизводительный динамический язык программирования общего назначения для технических вычислений с синтаксисом, привычным пользователям других подобных сред. В нём есть развитый компилятор, распределённое параллельное выполнение, высокая точность вычислений и обширная библиотека математических функций. Подробнее — на <ulink url="https://julialang.org/"
+>сайте Julia</ulink
 >. </para>
       </listitem>
     </varlistentry>
@@ -191,8 +213,86 @@
 >KAlgebra:</term>
       <listitem>
 	<para
->KAlgebra — это калькулятор с поддержкой построения графиков на основе языка MathML, входящий в состав образовательного пакета KDE. Более подробная информация находится на сайте <ulink url="http://edu.kde.org/kalgebra/"
->http://edu.kde.org/kalgebra/</ulink
+>&kalgebra; — графический калькулятор на основе MathML из проекта &kde; Education. Подробнее — на сайте <ulink url="https://edu.kde.org/kalgebra/"
+>https://edu.kde.org/kalgebra/</ulink
+>. </para>
+      </listitem>
+    </varlistentry>
+    <varlistentry>
+      <term
+>Qalculate!:</term>
+      <listitem>
+  <para
+>Qalculate! — не очередная программная копия дешёвого калькулятора. Qalculate! стремится в полной мере использовать удобный интерфейс, мощь и гибкость современных компьютеров. Главное в Qalculate! — ввод выражений: вместо того чтобы вводить каждое число по отдельности, можно сразу написать всё выражение, а потом его изменить. Выражения разбираются гибко и терпимо к ошибкам, а если что-то всё же введено неправильно, Qalculate! об этом сообщит. Выражения, которые нельзя решить до конца, ошибкой не считаются: Qalculate! упростит их, насколько возможно, и выдаст ответ в виде выражения. Кроме чисел и арифметических операций, выражение может содержать любые сочетания переменных, единиц измерения и функций. Подробнее — на сайте <ulink url="https://qalculate.github.io/"
+>https://qalculate.github.io/</ulink
+>. </para>
+  </listitem>
+    </varlistentry>
+    <varlistentry>
+      <term
+>Python2 и Python3:</term>
+      <listitem>
+  <para
+>Python — очень мощный динамический язык программирования, применяемый в самых разных областях. Для научных расчётов на Python есть несколько пакетов. </para>
+  <para
+>Python распространяется на условиях лицензии Python Software Foundation (совместима с GPL). Подробнее — на <ulink url="https://www.python.org/"
+>официальном сайте</ulink
+>. </para>
+  <note>
+    <para
+>Эта система добавляет в главное меню &cantor; пункт <guimenu
+>Пакет</guimenu
+> с единственным пунктом <menuchoice
+><guimenu
+>Пакет</guimenu
+><guimenuitem
+>Импорт пакета</guimenuitem
+></menuchoice
+>, который позволяет импортировать в документ пакеты Python. </para>
+  </note>
+    </listitem>
+    </varlistentry>
+    <varlistentry>
+      <term
+>Scilab:</term>
+      <listitem>
+  <para
+>Scilab — это свободное программное обеспечение: кроссплатформенная вычислительная система и высокоуровневый численно-ориентированный язык программирования. </para>
+  <para
+>Scilab распространяется на условиях лицензии CeCILL (совместима с GPL). Подробнее — на сайте <ulink url="https://www.scilab.org/"
+>https://www.scilab.org/</ulink
+>. </para>
+  <warning>
+    <para
+>Для работы с этой системой нужна установленная Scilab версии 5.5 или новее. </para>
+  </warning>
+  </listitem>
+    </varlistentry>
+    <varlistentry>
+      <term
+>Octave:</term>
+      <listitem>
+  <para
+>&GNU; Octave — высокоуровневый язык, предназначенный прежде всего для численных расчётов. Он предоставляет удобный интерфейс командной строки для численного решения линейных и нелинейных задач и других численных экспериментов на языке, в основном совместимом с <ulink url="https://www.mathworks.com/products/matlab.html"
+>MATLAB</ulink
+>. Подробнее — на сайте <ulink url="https://octave.org/"
+>https://octave.org/</ulink
+>. </para>
+      </listitem>
+    </varlistentry>
+    <varlistentry>
+      <term
+>Lua:</term>
+      <listitem>
+  <para
+>Lua — быстрый и лёгкий язык сценариев с простым процедурным синтаксисом. Для Lua есть несколько библиотек для математики и естественных наук. </para>
+  <para
+>Подробнее — на сайте <ulink url="https://www.lua.org/"
+>https://www.lua.org/</ulink
+>. </para>
+  <para
+>Эта система поддерживает <ulink url="https://luajit.org/"
+>LuaJIT 2</ulink
 >. </para>
       </listitem>
     </varlistentry>
@@ -211,9 +311,6 @@
     <imageobject>
       <imagedata fileref="screenshot.png" format="PNG"/>
     </imageobject>
-    <imageobject>
-      <imagedata fileref="screenshot.eps" format="EPS"/>
-    </imageobject>
     <textobject>
       <phrase
 >Снимок экрана с документом &cantor;</phrase>
@@ -225,11 +322,37 @@
 >Интерфейс пользователя &cantor; состоит из трёх частей: <orderedlist>
     <listitem
 ><para
->Панель вкладок, при помощи которой можно переключаться между документами;</para
+>Панель вкладок для переключения между открытыми документами.</para
 ></listitem>
     <listitem
 ><para
->Панель справки, где будет показано описание команды, если ввести «? команда»;</para
+>Панель справки, в которой показывается справка по конкретной команде, если ввести <userinput
+>?? <replaceable
+>команда</replaceable
+></userinput
+>, <userinput
+>describe(<replaceable
+>команда</replaceable
+>)</userinput
+> или <userinput
+>example(<replaceable
+>команда</replaceable
+>)</userinput
+> (модуль <application
+>Maxima</application
+>).</para
+></listitem>
+    <listitem
+><para
+>Панель «Управление переменными» со списком всех переменных текущего документа. Панели «Справка» и «Управление переменными» показаны вкладками на боковой панели окна &cantor;. Управление переменными работает только для систем Maxima (если включено на странице <guilabel
+>Maxima</guilabel
+> диалога <menuchoice
+><guimenu
+>Настройка</guimenu
+><guimenuitem
+>Настроить &cantor;...</guimenuitem
+></menuchoice
+>), &kalgebra;, Octave, Python2, Python3, Qalculate и Scilab.</para
 ></listitem>
     <listitem
 ><para
@@ -241,11 +364,27 @@
 <title
 >Документ</title>
 <para
->В &cantor; вы работаете с документом. В нём можно вводить выражения, производить вычисления и видеть результаты. Набор доступных в выражениях команд зависит от используемой системы компьютерной алгебры, поэтому полезно знать синтаксис конкретной системы. Если вы знаете название команды, можно посмотреть её описание, введя «? команда». Чтобы посмотреть примеры документов &cantor;, выберите пункт меню <guimenu
+>Документ — основное рабочее пространство &cantor;. В нём вводятся выражения, система компьютерной алгебры выполняет вычисления, и здесь же видны результаты. Набор команд зависит от выбранной системы, поэтому стоит изучить её синтаксис (кнопка <guibutton
+>Показать документацию</guibutton
+> сразу откроет справку). Если команда известна, но нужны подробности, введите «? <replaceable
+>команда</replaceable
+>», и справа от документа появится контекстная справка. Чтобы посмотреть примеры документов, выберите пункт меню <menuchoice
+><guimenu
 >Файл</guimenu
-> <guimenuitem
->Загрузить примеры...</guimenuitem
+><guimenuitem
+>Загрузить примеры</guimenuitem
+></menuchoice
 > и загрузите документы, опубликованные другими пользователями. </para>
+<para
+>Для управления записями документа служат кнопки, которые появляются в правой части документа при наведении указателя мыши на запись. У каждой записи три основных действия: <guilabel
+>Посчитать выражение</guilabel
+> — пересчитать результат записи, <guilabel
+>Перетащить запись</guilabel
+> — переместить запись в другое место документа и <guilabel
+>Удалить запись</guilabel
+> — удалить запись из документа. </para>
+<para
+>Шрифт и выравнивание записей документа меняются на панели инструментов над документом. </para>
 <sect3 id="worksheet-settings">
   <title
 >Настройка</title>
@@ -259,14 +398,11 @@
 >Показывать результаты с помощью LaTeX</term>
       <listitem>
 	<para
->Этот параметр влияет на то, в каком виде будут показаны результаты вычислений. Если он включён, результат будет обработан системой LaTeX для создания визуально понятных формул. Например, <quote
+>Этот параметр влияет на то, в каком виде будут показаны результаты вычислений. Если он включён, результат будет обработан системой &latex; для создания визуально понятных формул. Например, <quote
 >3*x^2*sqrt(2)*x+2/3</quote
 > превратится в <inlinemediaobject>
 	      <imageobject>
 		<imagedata fileref="latex_formula.png" format="PNG"/>
-	      </imageobject>
-	      <imageobject>
-		<imagedata fileref="latex_formula.eps" format="EPS"/>
 	      </imageobject>
 	      <textobject
 ><phrase
@@ -302,18 +438,244 @@
 >. </para>
     </listitem>
   </varlistentry>
+  <varlistentry>
+    <term
+>Включить анимацию в документе</term>
+    <listitem>
+      <para
+>Показывать ли изменения в документе с анимацией. </para>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term
+>Внедрённые математические символы</term>
+    <listitem>
+      <para
+>Включена ли по умолчанию отрисовка математических выражений внутри <literal
+>$$..$$</literal
+> в текстовых записях и записях &Markdown; (нужен установленный <application
+>pdflatex</application
+>). </para>
+    </listitem>
+  </varlistentry>
   </variablelist>
 </sect3>
 </sect2>
 </sect1>
-<!--
 <sect1 id="assistant-dlgs">
 <title
->The assistant dialogs</title>
-TODO add screenshots and descriptions of each assistant
+>Диалоги-помощники</title>
+<para
+>Для упрощения основных операций в &cantor; есть несколько диалогов-помощников. </para>
+<para
+>Они вызываются из главного меню. У каждой системы компьютерной алгебры свои диалоги-помощники. </para>
+<sect2 id="create-matrix-dlg">
+<title
+>Диалог «Создание матрицы»</title>
+<screenshot>
+  <screeninfo
+>Снимок диалога создания матрицы в &cantor;</screeninfo>
+  <mediaobject>
+    <imageobject>
+      <imagedata fileref="create-dlg.png" format="PNG"/>
+    </imageobject>
+    <textobject>
+      <phrase
+>Снимок диалога создания матрицы в &cantor;</phrase>
+    </textobject>
+  </mediaobject>
+</screenshot>
+<para
+>В этом диалоге вводятся матрицы: задаются размеры матрицы и её элементы. </para>
+<para
+>При вводе можно быстро переходить между ячейками с помощью клавиши &Tab;. </para>
+</sect2>
+<sect2 id="compute-invert-dlg">
+<title
+>Диалог операций с матрицами</title>
+<screenshot>
+  <screeninfo
+>Снимок диалога ввода матрицы в &cantor;</screeninfo>
+  <mediaobject>
+    <imageobject>
+      <imagedata fileref="matrix-dlg.png" format="PNG"/>
+    </imageobject>
+    <textobject>
+      <phrase
+>Снимок диалога ввода матрицы в &cantor;</phrase>
+    </textobject>
+  </mediaobject>
+</screenshot>
+<para
+>В этом диалоге вводится имя матрицы, для которой нужно найти собственные векторы, собственные значения или обратную матрицу. Значение по умолчанию (<userinput
+>%</userinput
+>) обозначает предыдущий результат вычисления или ввода. </para>
+</sect2>
+<sect2 id="calculate-derivative-dlg">
+<title
+>Диалог дифференцирования</title>
+<screenshot>
+  <screeninfo
+>Снимок диалога дифференцирования в &cantor;</screeninfo>
+  <mediaobject>
+    <imageobject>
+      <imagedata fileref="differentiate-dlg.png" format="PNG"/>
+    </imageobject>
+    <textobject>
+      <phrase
+>Снимок диалога дифференцирования в &cantor;</phrase>
+    </textobject>
+  </mediaobject>
+</screenshot>
+<para
+>В этом диалоге вводятся выражение дифференцируемой функции, имя переменной и порядок производной. </para>
+</sect2>
+<sect2 id="calculate-integral-dlg">
+<title
+>Диалог интегрирования</title>
+<screenshot>
+  <screeninfo
+>Снимок диалога интегрирования в &cantor;</screeninfo>
+  <mediaobject>
+    <imageobject>
+      <imagedata fileref="integrate-dlg.png" format="PNG"/>
+    </imageobject>
+    <textobject>
+      <phrase
+>Снимок диалога интегрирования в &cantor;</phrase>
+    </textobject>
+  </mediaobject>
+</screenshot>
+<para
+>В этом диалоге вводятся выражение интегрируемой функции, имя переменной и пределы интегрирования (для определённого интеграла). </para>
+</sect2>
+<sect2 id="calculate-solve-dlg">
+<title
+>Диалог решения уравнений</title>
+<screenshot>
+  <screeninfo
+>Снимок диалога решения уравнений в &cantor;</screeninfo>
+  <mediaobject>
+    <imageobject>
+      <imagedata fileref="solve-equations-dlg.png" format="PNG"/>
+    </imageobject>
+    <textobject>
+      <phrase
+>Снимок диалога решения уравнений в &cantor;</phrase>
+    </textobject>
+  </mediaobject>
+</screenshot>
+<para
+>В этом диалоге вводятся уравнения (каждое в отдельной строке) и неизвестные (через запятую). </para>
+</sect2>
+<sect2 id="package-import-dlg">
+<title
+>Диалог импорта пакета</title>
+<screenshot>
+  <screeninfo
+>Снимок диалога импорта пакета в &cantor;</screeninfo>
+  <mediaobject>
+    <imageobject>
+      <imagedata fileref="import-dlg.png" format="PNG"/>
+    </imageobject>
+    <textobject>
+      <phrase
+>Снимок диалога импорта пакета в &cantor;</phrase>
+    </textobject>
+  </mediaobject>
+</screenshot>
+<para
+>В этом диалоге вводится имя импортируемого пакета (например, <userinput
+>numpy</userinput
+> для Python). </para>
+</sect2>
+<sect2 id="plot-dlg">
+<title
+>Диалог построения графика</title>
+<screenshot>
+  <screeninfo
+>Снимок диалога построения графика в &cantor; (вкладка «Функции»)</screeninfo>
+  <mediaobject>
+    <imageobject>
+      <imagedata fileref="plot-dlg1.png" format="PNG"/>
+    </imageobject>
+    <textobject>
+      <phrase
+>Снимок диалога построения графика в &cantor; (вкладка «Функции»)</phrase>
+    </textobject>
+  </mediaobject>
+</screenshot>
+<para
+>Параметры этого диалога разбиты на две вкладки. На вкладке <guilabel
+>Функции</guilabel
+> вводятся функции, график которых нужно построить. </para>
+<para
+>Чтобы добавить функцию, нажмите <guibutton
+>Добавить</guibutton
+>. Дважды щёлкните по ячейке <guilabel
+>Заголовок</guilabel
+> и введите заголовок, затем дважды щёлкните по ячейке <guilabel
+>Выражение:</guilabel
+> и введите выражение функции. </para>
+<screenshot>
+  <screeninfo
+>Снимок диалога построения графика в &cantor; (вкладка «Параметры»)</screeninfo>
+  <mediaobject>
+    <imageobject>
+      <imagedata fileref="plot-dlg2.png" format="PNG"/>
+    </imageobject>
+    <textobject>
+      <phrase
+>Снимок диалога построения графика в &cantor; (вкладка «Параметры»)</phrase>
+    </textobject>
+  </mediaobject>
+</screenshot>
+<para
+>На вкладке <guilabel
+>Параметры</guilabel
+> настраиваются параметры графика и легенды. Почти каждый параметр графика можно подстроить так, чтобы рисунок выглядел как нужно. </para>
+</sect2>
+<sect2 id="plot2d-dlg">
+<title
+>Диалог «График функции»</title>
+<screenshot>
+  <screeninfo
+>Снимок диалога графика функции в &cantor;</screeninfo>
+  <mediaobject>
+    <imageobject>
+      <imagedata fileref="plot2d-dlg.png" format="PNG"/>
+    </imageobject>
+    <textobject>
+      <phrase
+>Снимок диалога графика функции в &cantor;</phrase>
+    </textobject>
+  </mediaobject>
+</screenshot>
+<para
+>В этом диалоге вводятся выражение функции, её переменная и пределы изменения переменной. </para>
+</sect2>
+<sect2 id="plot3d-dlg">
+<title
+>Диалог «Поверхность, задаваемая функцией»</title>
+<screenshot>
+  <screeninfo
+>Снимок диалога построения поверхности в &cantor;</screeninfo>
+  <mediaobject>
+    <imageobject>
+      <imagedata fileref="plot3d-dlg.png" format="PNG"/>
+    </imageobject>
+    <textobject>
+      <phrase
+>Снимок диалога построения поверхности в &cantor;</phrase>
+    </textobject>
+  </mediaobject>
+</screenshot>
+<para
+>В этом диалоге вводятся выражение функции, её переменные и пределы изменения каждой переменной. </para>
+</sect2>
 </sect1>
--->
 </chapter>
+
 <chapter id="commands">
 <title
 >Список команд</title>
@@ -322,11 +684,17 @@ TODO add screenshots and descriptions of each assistant
 <title
 >Главное окно &cantor;</title>
 
+<para
+>В &cantor; есть стандартные для &kde; пункты меню, описанные в главе <ulink url="help:/fundamentals/menus.html"
+>Меню</ulink
+> руководства «Основы &kde;». </para>
+
+<para
+>Ниже перечислены дополнительные и особые пункты меню &cantor;. Учтите, что некоторые меню показываются только для систем, в которых реализована соответствующая функция. </para>
+
 <sect2 id="file-menu">
 <title
->Меню <guimenu
->Файл</guimenu
-></title>
+>Меню «Файл»</title>
 <para>
 <variablelist>
 <varlistentry>
@@ -347,29 +715,27 @@ TODO add screenshots and descriptions of each assistant
 <listitem
 ><para
 ><action
->Создаёт новый документ.</action
+>Создать новый документ в новой вкладке, используя выбранную по умолчанию систему компьютерной алгебры.</action
 ></para
 ></listitem>
 </varlistentry>
 <varlistentry>
 <term
 ><menuchoice
-><shortcut
-> <keycombo action="simul"
->&Ctrl;<keycap
->S</keycap
-></keycombo
-> </shortcut
-> <guimenu
+><guimenu
 >Файл</guimenu
+> <guisubmenu
+>Создать</guisubmenu
 > <guimenuitem
->Сохранить</guimenuitem
+><replaceable
+>Система компьютерной алгебры</replaceable
+></guimenuitem
 > </menuchoice
 ></term>
 <listitem
 ><para
 ><action
->Сохраняет документ.</action
+>Создать новый документ в новой вкладке, используя выбранную систему компьютерной алгебры.</action
 ></para
 ></listitem>
 </varlistentry>
@@ -379,18 +745,142 @@ TODO add screenshots and descriptions of each assistant
 ><shortcut
 > <keycombo action="simul"
 >&Ctrl;<keycap
->Q</keycap
+>O</keycap
 ></keycombo
 > </shortcut
 > <guimenu
 >Файл</guimenu
 > <guimenuitem
->Выход</guimenuitem
+>Открыть...</guimenuitem
 > </menuchoice
 ></term>
 <listitem
 ><para
->Завершает работу &cantor;.</para
+><action
+>Открыть документ поддерживаемого формата в диалоге выбора файла.</action
+></para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><menuchoice
+><guimenu
+>Файл</guimenu
+> <guisubmenu
+>Последние файлы</guisubmenu
+> </menuchoice
+></term>
+<listitem
+><para
+><action
+>Выбрать документ из списка недавно открывавшихся файлов.</action
+></para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><menuchoice
+><guimenu
+>Файл</guimenu
+> <guimenuitem
+>Загрузить примеры...</guimenuitem
+> </menuchoice
+></term>
+<listitem
+><para
+><action
+>Открыть диалог загрузки примеров, опубликованных другими пользователями &cantor;, через <ulink url="https://userbase.kde.org/Special:MyLanguage/Glossary#Get_Hot_New_Stuff"
+>GetHotNewStuff</ulink
+>.</action
+></para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><menuchoice
+><guimenu
+>Файл</guimenu
+> <guimenuitem
+>Открыть пример...</guimenuitem
+> </menuchoice
+></term>
+<listitem
+><para
+><action
+>Открыть диалог выбора примера для загрузки.</action
+> Сначала примеры нужно загрузить пунктом <menuchoice
+><guimenu
+>Файл</guimenu
+> <guimenuitem
+>Загрузить примеры</guimenuitem
+></menuchoice
+>.</para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><menuchoice
+><guimenu
+>Файл</guimenu
+> <guimenuitem
+>Сохранить в виде обычного текста</guimenuitem
+> </menuchoice
+></term>
+<listitem
+><para
+><action
+>Сохранить текущий документ как обычный текст.</action
+></para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><menuchoice
+><guimenu
+>Файл</guimenu
+> <guimenuitem
+>Экспорт в LaTeX...</guimenuitem
+> </menuchoice
+></term>
+<listitem
+><para
+><action
+>Сохранить текущий документ в формате &latex;.</action
+></para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><menuchoice
+><guimenu
+>Файл</guimenu
+> <guimenuitem
+>Опубликовать документ</guimenuitem
+> </menuchoice
+></term>
+<listitem
+><para
+><action
+>Открыть диалог публикации текущего документа, чтобы он стал доступен другим пользователям &cantor; через <ulink url="https://userbase.kde.org/Special:MyLanguage/Glossary#Get_Hot_New_Stuff"
+>GetHotNewStuff</ulink
+>.</action
+></para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><menuchoice
+><guimenu
+>Файл</guimenu
+> <guimenuitem
+>Запустить сценарий</guimenuitem
+> </menuchoice
+></term>
+<listitem
+><para
+><action
+>Загрузить и выполнить пакетный сценарий для текущей системы компьютерной алгебры.</action
+></para
 ></listitem>
 </varlistentry>
 </variablelist>
@@ -398,49 +888,612 @@ TODO add screenshots and descriptions of each assistant
 
 </sect2>
 
-<sect2 id="help-menu">
+<sect2 id="view-menu">
 <title
->Меню <guimenu
->Справка</guimenu
-></title>
-&help.menu.documentation; </sect2>
-
-</sect1>
-</chapter>
-
-<chapter id="developers">
-<title
->Руководство разработчика &cantor;</title>
-
-<para
->&cantor; расширяется простыми в написании модулями. Модули бывают: <variablelist>
+>Меню «Вид»</title>
+<para>
+<variablelist>
+<varlistentry>
+<term
+><menuchoice
+><guimenu
+>Вид</guimenu
+><guisubmenu
+>Панели</guisubmenu
+></menuchoice
+></term>
+<listitem
+><para
+>Показать или скрыть вкладки на боковой панели. Варианты: <variablelist>
   <varlistentry>
-    <term
->Для поддержки системы компьютерной алгебры</term>
-    <listitem>
-      <para
->Новый модуль поддержки системы компьютерной алгебры позволит работать с ней из &cantor;. </para>
-    </listitem>
+  <term
+><guimenuitem
+>Диспетчер файлов</guimenuitem
+></term>
+  <listitem
+><para
+><action
+>Показать или скрыть</action
+> вкладку <guilabel
+>Диспетчер файлов</guilabel
+> на боковой панели.</para
+></listitem>
   </varlistentry>
+
   <varlistentry>
-    <term
->Диалоговые окна для упрощения ввода команд</term>
-    <listitem>
-      <para
->Вспомогательные диалоговые окна упрощают и делают наглядным выполнение таких стандартных действий, как например ввод матрицы или запуск сценария. </para>
-    </listitem>
+  <term
+><guimenuitem
+>Справка</guimenuitem
+></term>
+  <listitem
+><para
+><action
+>Показать или скрыть</action
+> вкладку <guilabel
+>Справка</guilabel
+> на боковой панели.</para
+></listitem>
   </varlistentry>
+
+  <varlistentry>
+  <term
+><guimenuitem
+>Управление переменными</guimenuitem
+></term>
+  <listitem
+><para
+><action
+>Показать или скрыть</action
+> вкладку <guilabel
+>Управление переменными</guilabel
+> на боковой панели.</para
+></listitem>
+  </varlistentry>
+</variablelist
+></para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><menuchoice
+><shortcut
+> <keycombo action="simul"
+>&Ctrl;<keycap
+>+</keycap
+></keycombo
+> </shortcut
+> <guimenu
+>Вид</guimenu
+> <guimenuitem
+>Увеличить масштаб</guimenuitem
+> </menuchoice
+></term>
+<listitem
+><para
+><action
+>Увеличить масштаб</action
+> текущего документа на 10%.</para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><menuchoice
+><shortcut
+> <keycombo action="simul"
+>&Ctrl;<keycap
+>-</keycap
+></keycombo
+> </shortcut
+> <guimenu
+>Вид</guimenu
+> <guimenuitem
+>Уменьшить масштаб</guimenuitem
+> </menuchoice
+></term>
+<listitem
+><para
+><action
+>Уменьшить масштаб</action
+> текущего документа на 10%.</para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><menuchoice
+><guimenu
+>Вид</guimenu
+> <guimenuitem
+>Редактор сценариев</guimenuitem
+> </menuchoice
+></term>
+<listitem
+><para
+><action
+>Открыть окно редактора пакетных сценариев для текущей системы компьютерной алгебры.</action
+></para
+></listitem>
+</varlistentry>
 </variablelist>
 </para>
-<para
->На данный момент не написано ни руководства по написанию модулей для Cantor, ни документации по программному интерфейсу. Поэтому при написанием модулей у вас есть только один источник информации — исходный код Cantor. Все определения интерфейса находятся в каталоге lib. В качестве примеров модулей можно рассматривать модули, входящие в состав &cantor;. </para>
+</sect2>
 
+<sect2 id="worsheet-menu">
+<title
+>Меню «Документ»</title>
+<para>
+<variablelist>
+<varlistentry>
+<term
+><menuchoice
+><shortcut
+> <keycombo action="simul"
+>&Ctrl;<keycap
+>E</keycap
+></keycombo
+> </shortcut
+> <guimenu
+>Документ</guimenu
+> <guimenuitem
+>Посчитать все выражения</guimenuitem
+> </menuchoice
+></term>
+<listitem
+><para
+><action
+>Пересчитать</action
+> весь документ.</para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><menuchoice
+><shortcut
+> <keycombo action="simul"
+>&Shift;&Enter;</keycombo
+> </shortcut
+> <guimenu
+>Документ</guimenu
+> <guimenuitem
+>Посчитать выражение</guimenuitem
+> </menuchoice
+></term>
+<listitem
+><para
+><action
+>Посчитать</action
+> текущую запись.</para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><menuchoice
+><shortcut
+> <keycombo action="simul"
+>&Ctrl;&Enter;</keycombo
+> </shortcut
+> <guimenu
+>Документ</guimenu
+> <guimenuitem
+>Вставить выражение</guimenuitem
+> </menuchoice
+></term>
+<listitem
+><para
+><action
+>Вставить новое выражение ниже курсора.</action
+></para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><menuchoice
+><guimenu
+>Документ</guimenu
+> <guimenuitem
+>Вставить фрагмент текста</guimenuitem
+> </menuchoice
+></term>
+<listitem
+><para
+><action
+>Вставить новый текстовый фрагмент ниже курсора.</action
+></para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><menuchoice
+><guimenu
+>Документ</guimenu
+> <guimenuitem
+>Вставить запись Markdown</guimenuitem
+> </menuchoice
+></term>
+<listitem
+><para
+><action
+>Вставить запись &Markdown; ниже курсора</action
+>.</para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><menuchoice
+><guimenu
+>Документ</guimenu
+> <guimenuitem
+>Вставить фрагмент кода LaTeX</guimenuitem
+> </menuchoice
+></term>
+<listitem
+><para
+><action
+>Вставить фрагмент кода &latex; ниже курсора</action
+>.</para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><menuchoice
+><guimenu
+>Документ</guimenu
+> <guimenuitem
+>Вставить изображение ниже</guimenuitem
+> </menuchoice
+></term>
+<listitem
+><para
+><action
+>Вставить изображение ниже курсора.</action
+></para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><menuchoice
+><guimenu
+>Документ</guimenu
+> <guimenuitem
+>Вставить разрыв страницы ниже</guimenuitem
+> </menuchoice
+></term>
+<listitem
+><para
+><action
+>Вставить разрыв страницы ниже курсора.</action
+></para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><menuchoice
+><guimenu
+>Документ</guimenu
+> <guimenuitem
+>Свернуть все результаты</guimenuitem
+> </menuchoice
+></term>
+<listitem
+><para
+><action
+>Свернуть все результаты выражений.</action
+></para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><menuchoice
+><guimenu
+>Документ</guimenu
+> <guimenuitem
+>Развернуть все результаты</guimenuitem
+> </menuchoice
+></term>
+<listitem
+><para
+><action
+>Развернуть все результаты выражений.</action
+></para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><menuchoice
+><guimenu
+>Документ</guimenu
+> <guimenuitem
+>Удалить все результаты</guimenuitem
+> </menuchoice
+></term>
+<listitem
+><para
+><action
+>Удалить все результаты выражений.</action
+></para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><menuchoice
+><shortcut
+> <keycombo action="simul"
+>&Shift;&Del;</keycombo
+> </shortcut
+> <guimenu
+>Документ</guimenu
+> <guimenuitem
+>Удалить текущую запись</guimenuitem
+> </menuchoice
+></term>
+<listitem
+><para
+><action
+>Удалить</action
+> текущую запись из документа.</para
+></listitem>
+</varlistentry>
+</variablelist>
+</para>
+</sect2>
+
+<sect2 id="linear-algebra-menu">
+<title
+>Меню «Линейная алгебра»</title>
+<para>
+<variablelist>
+<varlistentry>
+<term
+><menuchoice
+><guimenu
+>Линейная алгебра</guimenu
+> <guimenuitem
+>Создание матрицы</guimenuitem
+> </menuchoice
+></term>
+<listitem
+><para
+><action
+>Открыть</action
+> <link linkend="create-matrix-dlg"
+>диалог-помощник создания матрицы</link
+>.</para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><menuchoice
+><guimenu
+>Линейная алгебра</guimenu
+> <guimenuitem
+>Найти собственные значения</guimenuitem
+> </menuchoice
+></term>
+<listitem
+><para
+><action
+>Открыть</action
+> <link linkend="compute-invert-dlg"
+>диалог ввода имени матрицы</link
+>, чтобы найти её собственные значения и кратности собственных значений в соответствующем порядке. </para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><menuchoice
+><guimenu
+>Линейная алгебра</guimenu
+> <guimenuitem
+>Найти собственные векторы</guimenuitem
+> </menuchoice
+></term>
+<listitem
+><para
+><action
+>Открыть</action
+> <link linkend="compute-invert-dlg"
+>диалог ввода имени матрицы</link
+>, чтобы найти её собственные значения, их кратности и собственные векторы в соответствующем порядке. </para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><menuchoice
+><guimenu
+>Линейная алгебра</guimenu
+> <guimenuitem
+>Обращение матрицы</guimenuitem
+> </menuchoice
+></term>
+<listitem
+><para
+><action
+>Открыть</action
+> <link linkend="compute-invert-dlg"
+>диалог ввода имени матрицы</link
+>, чтобы найти обратную матрицу. </para
+></listitem>
+</varlistentry>
+</variablelist>
+</para>
+</sect2>
+
+<sect2 id="calculate-menu">
+<title
+>Меню «Алгебра»</title>
+<para>
+<variablelist>
+<varlistentry>
+<term
+><menuchoice
+><guimenu
+>Алгебра</guimenu
+> <guimenuitem
+>Дифференцирование</guimenuitem
+> </menuchoice
+></term>
+<listitem
+><para
+><action
+>Открыть</action
+> <link linkend="calculate-derivative-dlg"
+>диалог параметров дифференцирования</link
+>. </para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><menuchoice
+><guimenu
+>Алгебра</guimenu
+> <guimenuitem
+>Интегрирование</guimenuitem
+> </menuchoice
+></term>
+<listitem
+><para
+><action
+>Открыть</action
+> <link linkend="calculate-integral-dlg"
+>диалог параметров интегрирования</link
+>. </para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><menuchoice
+><guimenu
+>Алгебра</guimenu
+> <guimenuitem
+>Решить уравнения</guimenuitem
+> </menuchoice
+></term>
+<listitem
+><para
+><action
+>Открыть</action
+> <link linkend="calculate-solve-dlg"
+>диалог ввода параметров</link
+> для решения линейных и нелинейных уравнений. </para
+></listitem>
+</varlistentry>
+</variablelist>
+</para>
+</sect2>
+
+<sect2 id="package-menu">
+<title
+>Меню «Пакет»</title>
+<para>
+<variablelist>
+<varlistentry>
+<term
+><menuchoice
+><guimenu
+>Пакет</guimenu
+> <guimenuitem
+>Импорт пакета</guimenuitem
+> </menuchoice
+></term>
+<listitem
+><para
+><action
+>Открыть</action
+> <link linkend="package-import-dlg"
+>диалог импорта пакета</link
+>. </para
+></listitem>
+</varlistentry>
+</variablelist>
+</para>
+</sect2>
+
+<sect2 id="plot-menu">
+<title
+>Меню «График»</title>
+<para>
+<variablelist>
+<varlistentry>
+<term
+><menuchoice
+><guimenu
+>График</guimenu
+> <guimenuitem
+>График</guimenuitem
+> </menuchoice
+></term>
+<listitem
+><para
+><action
+>Открыть</action
+> <link linkend="plot-dlg"
+>диалог параметров графика</link
+>. </para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><menuchoice
+><guimenu
+>График</guimenu
+> <guimenuitem
+>График функции</guimenuitem
+> </menuchoice
+></term>
+<listitem
+><para
+><action
+>Открыть</action
+> <link linkend="plot2d-dlg"
+>диалог параметров графика</link
+>. </para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><menuchoice
+><guimenu
+>График</guimenu
+> <guimenuitem
+>Поверхность, задаваемая функцией</guimenuitem
+> </menuchoice
+></term>
+<listitem
+><para
+><action
+>Открыть</action
+> <link linkend="plot3d-dlg"
+>диалог параметров графика</link
+>. </para
+></listitem>
+</varlistentry>
+</variablelist>
+</para>
+</sect2>
+
+<sect2 id="settings-help-menu">
+<title
+>Меню «Настройка» и «Справка»</title>
+<para
+>Кроме того, в &cantor; есть стандартные для &kde; меню <guimenu
+>Настройка</guimenu
+> и <guimenu
+>Справка</guimenu
+>, описанные в разделах <ulink url="help:/fundamentals/menus.html#menus-settings"
+>Меню «Настройка»</ulink
+> и <ulink url="help:/fundamentals/menus.html#menus-help"
+>Меню «Справка»</ulink
+> руководства «Основы &kde;». </para>
+
+</sect2>
+
+</sect1>
 </chapter>
 
 <chapter id="faq">
 <title
 >Вопросы и ответы</title>
-&reporting.bugs; &updating.documentation; <qandaset id="faqlist">
+
+<qandaset id="faqlist">
 <qandaentry>
   <question
 ><para
@@ -450,17 +1503,25 @@ TODO add screenshots and descriptions of each assistant
 ></question>
   <answer
 ><para
->Не все базовые системы поддерживают каждый параметр.</para
+>Не все системы поддерживают все параметры. Сейчас вывод через &latex; поддерживается для Maxima, Qalculate! и Sage.</para
 ></answer>
 </qandaentry>
 <qandaentry>
   <question
 ><para
->Sage или Maxima установлены, но соответствующая базовая система не появляется в списке.</para
+>Sage, Maxima или другая поддерживаемая система компьютерной алгебры установлена, но в списке её нет.</para
 ></question>
   <answer>
     <para
->Возможно программа &cantor; не смогла найти расположение базовой системы. Откройте диалоговое окно «Настройка» и укажите правильный путь к соответствующей программе. </para>
+>Возможно, &cantor; неправильно определил её расположение. Откройте диалог <menuchoice
+><guimenu
+>Настройка</guimenu
+><guimenuitem
+>Настроить &cantor;...</guimenuitem
+></menuchoice
+> и на странице этой системы укажите в поле <guilabel
+>Путь</guilabel
+> правильный путь к программе. </para>
   </answer>
 </qandaentry>
 <qandaentry>
@@ -470,7 +1531,9 @@ TODO add screenshots and descriptions of each assistant
 ></question>
   <answer
 ><para
->Программа Cantor названа в честь немецкого математика Георга Кантора (Georg Cantor), создателя теории множеств.</para
+>&cantor; назван в честь немецкого математика <ulink url="https://ru.wikipedia.org/wiki/Кантор,_Георг"
+>Георга Кантора</ulink
+> (Georg Cantor), создателя теории множеств.</para
 ></answer>
 </qandaentry>
 </qandaset>
@@ -486,73 +1549,18 @@ TODO add screenshots and descriptions of each assistant
 <para
 >&copy; Alexander Rieder <email
 >alexanderrieder@gmail.com</email
->, программа, 2009 </para>
+>, программа, 2009-2011 </para>
 
 <para
 >&copy; Alexander Rieder <email
 >alexanderrieder@gmail.com</email
->, документация, 2009 </para>
+>, документация, 2009-2011 </para>
 
 <para
 >Перевод на русский язык: Александр Поташев <email
 >aspotashev@gmail.com</email
 ></para
-> 
-&underFDL; &underGPL; </chapter>
-
-<appendix id="installation">
-<title
->Установка</title>
-
-<sect1 id="getting-kapp">
-<title
->Как получить &cantor;</title>
-&install.intro.documentation; </sect1>
-
-<sect1 id="requirements">
-<title
->Системные требования</title>
-
-<para
->Чтобы успешно использовать &cantor;, необходим &kde; 4. Для возможности отрисовки формул требуется установить LaTeX и LibSpectre. Для использования различных базовых систем компьютерной алгебры, их нужно установить. </para>
-
-<!--
-<para>
-All required libraries as well as &cantor; itself can be found
-on <ulink url="ftp://ftp.kapp.org"
->The &cantor; home page</ulink
->.
-</para>
--->
-
-
-<!-- For a list of updates, you may refer to the application web site
-or the ChangeLog file, or ... -->
-<!--
-<para>
-You can find a list of changes at <ulink
-url="http://apps.kde.org/kapp"
->http://apps.kde.org/kapp</ulink
->.
-</para>
--->
-</sect1>
-
-<sect1 id="compilation">
-<title
->Компиляция и установка</title>
-&install.compile.documentation; </sect1>
-
-<sect1 id="configuration">
-<title
->Настройка</title>
-
-<para
->В зависимости от вашей системы может потребоваться настройка путей к различным приложениям, используемым &cantor;. </para>
-
-</sect1>
-
-</appendix>
+> &underFDL; &underGPL; </chapter>
 
 &documentation.index;
 </book>
