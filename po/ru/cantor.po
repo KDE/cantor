@@ -2723,7 +2723,6 @@ msgstr "Готово"
 msgid "Changed"
 msgstr "изменён"
 
-# BUGME: broken English --aspotashev
 #: cantor.cpp:679
 #, kde-format
 msgid "Multiple unsaved Worksheets are opened. Do you want to close them?"
