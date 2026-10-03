@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: cantor\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-09-20 00:40+0000\n"
-"PO-Revision-Date: 2026-03-13 13:56+0200\n"
+"PO-Revision-Date: 2026-10-02 20:44+0300\n"
 "Last-Translator: Tommi Nieminen <translator@legisign.org>\n"
 "Language-Team: Finnish <kde-i18n-doc@kde.org>\n"
 "Language: fi\n"
@@ -883,7 +883,7 @@ msgstr "Maxima-ohjelmatiedoston sijainti"
 #: backends/qalculate/qalculateexpression.cpp:629
 #, kde-format
 msgid "Failed to create a temporary file for writing."
-msgstr ""
+msgstr "Tilapäistiedoston luominen kirjoittamista varten epäonnistui."
 
 #: backends/maxima/maximaexpression.cpp:120
 #, kde-format
@@ -2700,7 +2700,7 @@ msgstr "Oletus"
 #: cantor.cpp:775
 #, kde-format
 msgid "Table of Contents"
-msgstr ""
+msgstr "Sisällysluettelo"
 
 #. i18n: ectx: label, entry (DefaultBackend), group (Cantor)
 #: cantor.kcfg:10
@@ -2763,7 +2763,7 @@ msgstr "Animoi työvihko muutokset oletusarvoisesti"
 #: cantor.kcfg:46
 #, kde-format
 msgid "Show plots in the Worksheet Structure Navigator by default"
-msgstr ""
+msgstr "Näytä kaaviot vihon rakenneselaimessa oletusarvoisesti"
 
 #. i18n: ectx: label, entry (AnimationDefault), group (Cantor)
 #: cantor.kcfg:50
@@ -3428,10 +3428,9 @@ msgstr "Hierarkiarivi"
 
 #. i18n: ectx: property (text), widget (QLabel, hierarchyLevelLabel)
 #: formating.ui:50
-#, fuzzy, kde-format
-#| msgid "Set Hierarchy Level"
+#, kde-format
 msgid "Hierarchy level:"
-msgstr "Aseta jäsennystaso"
+msgstr "Jäsennystaso:"
 
 #. i18n: ectx: property (text), item, widget (QComboBox, hierarchyLevelComboBox)
 #: formating.ui:61 hierarchyentry.cpp:22
@@ -3477,39 +3476,34 @@ msgstr "Alikappaleisto"
 #. i18n: ectx: property (text), widget (QLabel, lSubparagraphFont)
 #: formating.ui:115 formating.ui:138 formating.ui:161 formating.ui:184
 #: formating.ui:207 formating.ui:230
-#, fuzzy, kde-format
-#| msgctxt "@action"
-#| msgid "&Font"
+#, kde-format
 msgid "&Font:"
-msgstr "&Fontti"
+msgstr "&Fontti:"
 
 #. i18n: ectx: property (text), widget (QLabel, visibleItemsLabel)
 #: formating.ui:253
 #, kde-format
 msgid "Visible Items:"
-msgstr ""
+msgstr "Näkyvät kohteet:"
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_ShowTocChaptersDefault)
 #: formating.ui:262
-#, fuzzy, kde-format
-#| msgid "Chapter"
+#, kde-format
 msgid "Chapters"
-msgstr "Luku"
+msgstr "Luvut"
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_ShowTocSectionsDefault)
 #: formating.ui:269
-#, fuzzy, kde-format
-#| msgid "Section"
+#, kde-format
 msgid "Sections"
-msgstr "Osio"
+msgstr "Osiot"
 
 # Konteksti: "Search in: Commands, Results, Errors, Text, LaTeX Code". Käytetään myös kohtana valikossa, josta voi poistaa tai kohtia luettelosta tai lisätä kohtia siihen.
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_ShowTocCommandEntriesDefault)
 #: formating.ui:276
-#, fuzzy, kde-format
-#| msgid "Commands"
+#, kde-format
 msgid "Command entries"
-msgstr "komennoista"
+msgstr "Komentotietueet"
 
 #: hierarchyentry.cpp:55
 #, kde-format
@@ -3598,8 +3592,7 @@ msgid "%1 files (*.%2)"
 msgstr "%1-tiedostot (*.%2)"
 
 #: imageresultitem.cpp:195
-#, fuzzy, kde-format
-#| msgid "PDF Files (*.pdf)"
+#, kde-format
 msgid "PDF files (*.pdf)"
 msgstr "PDF-tiedostot (*.pdf)"
 
@@ -4041,12 +4034,12 @@ msgstr "Kaikki tiedostot"
 #: panelplugins/tocpanel/tocpanelplugin.cpp:207
 #, kde-format
 msgid "Search Table of Contents"
-msgstr ""
+msgstr "Etsi sisällysluettelosta"
 
 #: panelplugins/tocpanel/tocpanelplugin.cpp:347
 #, kde-format
 msgid "Heading"
-msgstr ""
+msgstr "Otsake"
 
 #: panelplugins/tocpanel/tocpanelplugin.cpp:350
 #, kde-format
@@ -4054,13 +4047,14 @@ msgid ""
 "Do you really want to delete the heading \"%1\"? Its contents will be kept. "
 "This action cannot be undone."
 msgstr ""
+"Haluatko varmasti poistaa otsakkeen ”%1”? Sen sisältö säilytetään. Toimintoa "
+"ei voi kumota."
 
 #: panelplugins/tocpanel/tocpanelplugin.cpp:351
 #: worksheethierarchymanager.cpp:1175
-#, fuzzy, kde-format
-#| msgid "Delete Entry"
+#, kde-format
 msgid "Delete Heading"
-msgstr "Poista tietue"
+msgstr "Poista osio"
 
 # Konteksti: "Search in: Commands, Results, Errors, Text, LaTeX Code". Käytetään myös kohtana valikossa, josta voi poistaa tai kohtia luettelosta tai lisätä kohtia siihen.
 #: panelplugins/tocpanel/tocpanelplugin.cpp:365
@@ -4077,151 +4071,135 @@ msgstr "Komento"
 #: panelplugins/tocpanel/tocpanelplugin.cpp:1303
 #, kde-format
 msgid "Do you really want to delete \"%1\"? This action cannot be undone."
-msgstr ""
+msgstr "Haluatko varmasti poistaa kohteen ”%1”? Toimintoa ei voi kumota."
 
 #: panelplugins/tocpanel/tocpanelplugin.cpp:369
 #: panelplugins/tocpanel/tocpanelplugin.cpp:1252
 #: panelplugins/tocpanel/tocpanelplugin.cpp:1262
-#, fuzzy, kde-format
-#| msgid "Delete Command Entry Results"
+#, kde-format
 msgid "Delete Command"
-msgstr "Poista komentotietueen tulokset"
+msgstr "Poista komento"
 
 #: panelplugins/tocpanel/tocpanelplugin.cpp:388
 #: panelplugins/tocpanel/tocpanelplugin.cpp:1296
 #: panelplugins/tocpanel/tocpanelplugin.cpp:1304
-#, fuzzy, kde-format
-#| msgid "Delete"
+#, kde-format
 msgid "Delete Plot"
-msgstr "Poista"
+msgstr "Poista kaavio"
 
 #: panelplugins/tocpanel/tocpanelplugin.cpp:455
 #, kde-format
 msgid "No visible items in the Table of Contents"
-msgstr ""
+msgstr "Ei näkyviä kohteita sisällysluettelossa"
 
 #: panelplugins/tocpanel/tocpanelplugin.cpp:456
 #, kde-format
 msgid "No matching items"
-msgstr ""
+msgstr "Ei vastaavia kohteita"
 
 #: panelplugins/tocpanel/tocpanelplugin.cpp:1016
 #, kde-format
 msgid "Visible Items"
-msgstr ""
+msgstr "Näkyvät kohteet"
 
 #: panelplugins/tocpanel/tocpanelplugin.cpp:1018
-#, fuzzy, kde-format
-#| msgid "Chapter"
+#, kde-format
 msgid "Show Chapters"
-msgstr "Luku"
+msgstr "Näytä luvut"
 
 #: panelplugins/tocpanel/tocpanelplugin.cpp:1027
-#, fuzzy, kde-format
-#| msgid "Show Completion"
+#, kde-format
 msgid "Show Sections"
-msgstr "Näytä täydennys"
+msgstr "Näytä osiot"
 
 #: panelplugins/tocpanel/tocpanelplugin.cpp:1036
-#, fuzzy, kde-format
-#| msgid "Insert Command Entry"
+#, kde-format
 msgid "Show Command Entries"
-msgstr "Lisää komentokenttä"
+msgstr "Lisää komentotietueet"
 
 # Konteksti: "Search in: Commands, Results, Errors, Text, LaTeX Code". Käytetään myös kohtana valikossa, josta voi poistaa tai kohtia luettelosta tai lisätä kohtia siihen.
 #: panelplugins/tocpanel/tocpanelplugin.cpp:1045
-#, fuzzy, kde-format
-#| msgid "Show Results"
+#, kde-format
 msgid "Show Plots"
-msgstr "Näytä tulokset"
+msgstr "Näytä kaaviot"
 
 #: panelplugins/tocpanel/tocpanelplugin.cpp:1056
-#, fuzzy, kde-format
-#| msgid "Reset to Default"
+#, kde-format
 msgid "Reset to Defaults"
 msgstr "Palauta oletukset"
 
 #: panelplugins/tocpanel/tocpanelplugin.cpp:1179
 #, kde-format
 msgid "Go to Heading"
-msgstr ""
+msgstr "Siirry otsakkeeseen"
 
 #: panelplugins/tocpanel/tocpanelplugin.cpp:1189
-#, fuzzy, kde-format
-#| msgid "Unnamed"
+#, kde-format
 msgid "Rename"
-msgstr "Nimetön"
+msgstr "Muuta nimeä"
 
 #: panelplugins/tocpanel/tocpanelplugin.cpp:1200
 #, kde-format
 msgid "Promote Heading"
-msgstr ""
+msgstr "Nosta otsakkeen jäsennystasoa"
 
 #: panelplugins/tocpanel/tocpanelplugin.cpp:1207
 #, kde-format
 msgid "Demote Heading"
-msgstr ""
+msgstr "Laske otsakkeen jäsennystasoa"
 
 #: panelplugins/tocpanel/tocpanelplugin.cpp:1216
-#, fuzzy, kde-format
-#| msgid "Delete current Entry"
+#, kde-format
 msgid "Delete Heading Only"
-msgstr "Poista nykyinen tietue"
+msgstr "Poista vain otsake"
 
 #: panelplugins/tocpanel/tocpanelplugin.cpp:1223
-#, fuzzy, kde-format
-#| msgid "Delete Command Entry Results"
+#, kde-format
 msgid "Delete Section and Contents"
-msgstr "Poista komentotietueen tulokset"
+msgstr "Poista osio sisältöineen"
 
 # Konteksti: "Search in: Commands, Results, Errors, Text, LaTeX Code". Käytetään myös kohtana valikossa, josta voi poistaa tai kohtia luettelosta tai lisätä kohtia siihen.
 #: panelplugins/tocpanel/tocpanelplugin.cpp:1234
-#, fuzzy, kde-format
-#| msgid "Command"
+#, kde-format
 msgid "Go to Command"
-msgstr "Komento"
+msgstr "Siirry komentoon"
 
 # Konteksti: "Search in: Commands, Results, Errors, Text, LaTeX Code". Käytetään myös kohtana valikossa, josta voi poistaa tai kohtia luettelosta tai lisätä kohtia siihen.
 #: panelplugins/tocpanel/tocpanelplugin.cpp:1244
-#, fuzzy, kde-format
-#| msgid "Command"
+#, kde-format
 msgid "Rename Command"
-msgstr "Komento"
+msgstr "Muuta komennon nimeä"
 
 #: panelplugins/tocpanel/tocpanelplugin.cpp:1278
 #, kde-format
 msgid "Go to Plot"
-msgstr ""
+msgstr "Siirry kaavioon"
 
 #: panelplugins/tocpanel/tocpanelplugin.cpp:1288
 #, kde-format
 msgid "Rename Plot"
-msgstr ""
+msgstr "Muuta kaavion nimeä"
 
 #: panelplugins/tocpanel/tocpanelplugin.cpp:1319
-#, fuzzy, kde-format
-#| msgid "Completion"
+#, kde-format
 msgid "Collapse Section"
-msgstr "Täydennys"
+msgstr "Supista osio"
 
 #: panelplugins/tocpanel/tocpanelplugin.cpp:1331
-#, fuzzy, kde-format
-#| msgid "Section"
+#, kde-format
 msgid "Expand Section"
-msgstr "Osio"
+msgstr "Laajenna osio"
 
 # Konteksti: "Search in: Commands, Results, Errors, Text, LaTeX Code". Käytetään myös kohtana valikossa, josta voi poistaa tai kohtia luettelosta tai lisätä kohtia siihen.
 #: panelplugins/tocpanel/tocpanelplugin.cpp:1349
-#, fuzzy, kde-format
-#| msgid "Expand All Results"
+#, kde-format
 msgid "Expand All"
-msgstr "Laajenna kaikki tulokset"
+msgstr "Laajenna kaikki"
 
 #: panelplugins/tocpanel/tocpanelplugin.cpp:1356
-#, fuzzy, kde-format
-#| msgid "Collapse All Results"
+#, kde-format
 msgid "Collapse All"
-msgstr "Supista kaikki tulokset"
+msgstr "Supista kaikki"
 
 #. i18n: ectx: property (text), widget (QLabel, label)
 #: panelplugins/variablemgr/newvardlg.ui:17
@@ -5156,7 +5134,7 @@ msgstr "Vaaleanharmaa"
 #: worksheetentry.cpp:515
 #, kde-format
 msgid "Selected Entry and All Above"
-msgstr ""
+msgstr "Laske valittu tietue ja kaikki alta"
 
 #: worksheetentry.cpp:520
 #, fuzzy, kde-format
@@ -5167,7 +5145,7 @@ msgstr "Poista tietue"
 #: worksheetentry.cpp:525
 #, kde-format
 msgid "Selected Entry and All Below"
-msgstr ""
+msgstr "Laske valittu tietue ja kaikki yltä"
 
 #: worksheetentry.cpp:543
 #, kde-format
@@ -5221,12 +5199,12 @@ msgstr "Vedä kenttää"
 #: worksheethierarchymanager.cpp:355
 #, kde-format
 msgid "%1 %2"
-msgstr ""
+msgstr "%1 %2"
 
 #: worksheethierarchymanager.cpp:349
 #, kde-format
 msgid "%1 %2.%3"
-msgstr ""
+msgstr "%1 %2.%3"
 
 #: worksheethierarchymanager.cpp:1158
 #, kde-format
@@ -5234,12 +5212,13 @@ msgid ""
 "Do you really want to delete the heading \"%1\" and all entries in this "
 "section? This action cannot be undone."
 msgstr ""
+"Haluatko varmasti poistaa otsakkeen ”%1” ja kaikki osion tietueet? Toimintoa "
+"ei voi kumota."
 
 #: worksheethierarchymanager.cpp:1164
-#, fuzzy, kde-format
-#| msgid "Section"
+#, kde-format
 msgid "Delete Section"
-msgstr "Osio"
+msgstr "Poista osio"
 
 #: worksheethierarchymanager.cpp:1168
 #, kde-format
@@ -5247,6 +5226,8 @@ msgid ""
 "Do you really want to delete only the heading \"%1\"? The contents of the "
 "section will remain in the worksheet. This action cannot be undone."
 msgstr ""
+"Haluatko varmasti poistaa vain otsakkeen ”%1”? Osion sisältö säilyy vihossa. "
+"Toimintoa ei voi kumota."
 
 #: worksheettextitem.cpp:912 worksheettextitem.cpp:929
 #, kde-format
