@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: cantor\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-09-20 00:40+0000\n"
+"POT-Creation-Date: 2026-10-05 00:40+0000\n"
 "PO-Revision-Date: 2026-09-17 11:30+0100\n"
 "Last-Translator: Eloy Cuadra <ecuadra@eloihr.net>\n"
 "Language-Team: Spanish <kde-l10n-es@kde.org>\n"
@@ -44,12 +44,12 @@ msgstr "Iniciar"
 msgid "Stop"
 msgstr "Detener"
 
-#: animationresultitem.cpp:112
+#: animationresultitem.cpp:117
 #, kde-format
 msgid "Save animation result"
 msgstr "Guardar la animación del resultado"
 
-#: animationresultitem.cpp:112
+#: animationresultitem.cpp:117
 #, kde-format
 msgid "Animations (*.gif)"
 msgstr "Animaciones (*.gif)"
@@ -62,9 +62,11 @@ msgstr "Gráficos avanzados"
 #. i18n: ectx: property (text), widget (QLabel, label_2)
 #: assistants/advancedplot/advancedplotdialog.ui:24
 #: backends/qalculate/plotassistant/qalculateplotassistant.cpp:24
+#: panelplugins/plotpanel/plotpanelplugin.cpp:290
 #: panelplugins/tocpanel/tocpanelplugin.cpp:384
 #: panelplugins/tocpanel/tocpanelplugin.cpp:1300
-#: worksheethierarchymanager.cpp:339
+#: worksheethierarchymanager.cpp:364 worksheethierarchymanager.cpp:1125
+#: worksheethierarchymanager.cpp:1187
 #, kde-format
 msgid "Plot"
 msgstr "Gráfico"
@@ -444,7 +446,7 @@ msgid "Failed to start Julia, please check Julia installation."
 msgstr "No se ha podido iniciar Julia. Compruebe la instalación de Julia."
 
 #: backends/julia/juliasession.cpp:115 backends/julia/juliasession.cpp:124
-#: backends/maxima/maximasession.cpp:322 cantor_part.cpp:1012
+#: backends/maxima/maximasession.cpp:322 cantor_part.cpp:1016
 #: lib/session.cpp:264 lib/session.cpp:266 worksheet.cpp:1557
 #: worksheet.cpp:1585 worksheet.cpp:1600 worksheet.cpp:1616
 #, kde-format
@@ -506,7 +508,7 @@ msgstr ""
 #: backends/maxima/settings.ui:36 backends/octave/settings.ui:36
 #: backends/python/settings.ui:36 backends/qalculate/settings.ui:36
 #: backends/R/settings.ui:21 backends/sage/settings.ui:36
-#: backends/scilab/settings.ui:21 cantor.cpp:774
+#: backends/scilab/settings.ui:21 cantor.cpp:802
 #, kde-format
 msgid "General"
 msgstr "General"
@@ -1013,8 +1015,8 @@ msgid "The integration of plots will be disabled."
 msgstr "La integración de los gráficos se desactivará."
 
 #: backends/octave/octavesession.cpp:390 backends/sage/sagesession.cpp:358
-#: backends/sage/sagesession.cpp:369 cantor.cpp:243 cantor.cpp:245
-#: cantor.cpp:430 cantor.cpp:437 lib/session.cpp:334 main.cpp:48 main.cpp:105
+#: backends/sage/sagesession.cpp:369 cantor.cpp:246 cantor.cpp:248
+#: cantor.cpp:457 cantor.cpp:464 lib/session.cpp:334 main.cpp:48 main.cpp:105
 #: markdownentry.cpp:1168 textentry.cpp:862 worksheet.cpp:1639
 #, kde-format
 msgid "Cantor"
@@ -2589,37 +2591,37 @@ msgstr "No se ha podido iniciar Scilab. Compruebe la instalación de Scilab."
 msgid "Plot Integration:"
 msgstr "Integración de gráficos:"
 
-#: cantor.cpp:119
+#: cantor.cpp:122
 #, kde-format
 msgid "The file %1 is already opened."
 msgstr "El archivo %1 ya está abierto."
 
-#: cantor.cpp:119 cantor.cpp:321
+#: cantor.cpp:122 cantor.cpp:348
 #, kde-format
 msgid "Open file"
 msgstr "Abrir archivo"
 
-#: cantor.cpp:161
+#: cantor.cpp:164
 #, kde-format
 msgid "Download Examples"
 msgstr "Descargar ejemplos"
 
-#: cantor.cpp:164
+#: cantor.cpp:167
 #, kde-format
 msgid "&Open Example"
 msgstr "Abrir ejempl&o"
 
-#: cantor.cpp:169
+#: cantor.cpp:172
 #, kde-format
 msgid "Go to previous worksheet"
 msgstr "Ir a la hoja de ejercicios anterior"
 
-#: cantor.cpp:181
+#: cantor.cpp:184
 #, kde-format
 msgid "Go to next worksheet"
 msgstr "Ir a la hoja de ejercicios siguiente"
 
-#: cantor.cpp:320
+#: cantor.cpp:347
 #, kde-format
 msgid ""
 "All supported files (*.cws *ipynb);;Cantor Worksheet (*.cws);;Jupyter "
@@ -2628,7 +2630,7 @@ msgstr ""
 "Todos los archivos compatibles (*.cws *ipynb);;Hoja de ejercicios de Cantor "
 "(*.cws);;Cuaderno de Jupyter (*.ipynb)"
 
-#: cantor.cpp:388
+#: cantor.cpp:415
 #, kde-format
 msgid ""
 "<h1>No Backend Found</h1>\n"
@@ -2655,17 +2657,17 @@ msgstr[1] ""
 "li>    <li>Instalar paquetes para alguno de los siguientes programas:</"
 "li>     %2   </ul> </div> "
 
-#: cantor.cpp:408
+#: cantor.cpp:435
 #, kde-format
 msgid "Error"
 msgstr "Error"
 
-#: cantor.cpp:430
+#: cantor.cpp:457
 #, kde-format
 msgid "Backend %1 is not installed"
 msgstr "El motor %1 no está instalado"
 
-#: cantor.cpp:437
+#: cantor.cpp:464
 #, kde-format
 msgid ""
 "%1 backend installed, but inactive. Please check installation and Cantor "
@@ -2674,59 +2676,59 @@ msgstr ""
 "El motor %1 está instalado, aunque inactivo. Compruebe la instalación y las "
 "preferencias de Cantor."
 
-#: cantor.cpp:465
+#: cantor.cpp:493
 #, kde-format
 msgid "Session %1"
 msgstr "Sesión %1"
 
-#: cantor.cpp:483
+#: cantor.cpp:511
 #, kde-format
 msgid "Failed to find the Cantor Part with error %1"
 msgstr "No se ha podido encontrar Cantor Part con el error %1"
 
-#: cantor.cpp:543 cantor_part.cpp:682
+#: cantor.cpp:571 cantor_part.cpp:686
 #, kde-format
 msgid "Calculating..."
 msgstr "Calculando…"
 
-#: cantor.cpp:546 cantor_part.cpp:693 cantor_part.cpp:761
+#: cantor.cpp:574 cantor_part.cpp:697 cantor_part.cpp:765
 #, kde-format
 msgid "Ready"
 msgstr "Listo"
 
-#: cantor.cpp:593
+#: cantor.cpp:621
 #, kde-format
 msgid "Changed"
 msgstr "Modificado"
 
-#: cantor.cpp:679
+#: cantor.cpp:707
 #, kde-format
 msgid "Multiple unsaved Worksheets are opened. Do you want to close them?"
 msgstr ""
 "Varias hojas de ejercicios sin guardar están abiertas. ¿Desea cerrarlas?"
 
-#: cantor.cpp:680
+#: cantor.cpp:708
 #, kde-format
 msgid "Close Cantor"
 msgstr "Cerrar Cantor"
 
-#: cantor.cpp:699
+#: cantor.cpp:727
 #, kde-format
 msgid "The current project has been modified. Do you want to save it?"
 msgstr "El proyecto actual ha sido modificado. ¿Desea guardarlo?"
 
-#: cantor.cpp:700
+#: cantor.cpp:728
 #, kde-format
 msgid "Save Project"
 msgstr "Guardar proyecto"
 
-#: cantor.cpp:746 commandentry.cpp:166 commandentry.cpp:197
+#: cantor.cpp:774 commandentry.cpp:166 commandentry.cpp:197
 #: horizontalruleentry.cpp:336
 #, kde-format
 msgid "Default"
 msgstr "Por omisión"
 
-#: cantor.cpp:775
+#: cantor.cpp:803
 #, kde-format
 msgid "Table of Contents"
 msgstr "Tabla de contenido"
@@ -2997,33 +2999,33 @@ msgstr "Cursiva del tipo de letra jerárquica para subpárrafos"
 msgid "Hierarchy font bold for subparagraph"
 msgstr "Negrita del tipo de letra jerárquica para subpárrafos"
 
-#: cantor_part.cpp:168
+#: cantor_part.cpp:172
 #, kde-format
 msgid "Save Plain Text"
 msgstr "Guardar texto sin formato"
 
-#: cantor_part.cpp:209 cantor_part.cpp:581
+#: cantor_part.cpp:213 cantor_part.cpp:585
 #, kde-format
 msgid "Export to PDF"
 msgstr "Exportar a PDF"
 
-#: cantor_part.cpp:213 cantor_part.cpp:593 worksheet.cpp:1660
+#: cantor_part.cpp:217 cantor_part.cpp:597 worksheet.cpp:1660
 #: worksheet.cpp:1666 worksheet.cpp:1677
 #, kde-format
 msgid "Export to LaTeX"
 msgstr "Exportar a LaTeX"
 
-#: cantor_part.cpp:228 cantor_part.cpp:689 worksheet.cpp:2466
+#: cantor_part.cpp:232 cantor_part.cpp:693 worksheet.cpp:2466
 #, kde-format
 msgid "Evaluate Worksheet"
 msgstr "Evaluar hoja de ejercicios"
 
-#: cantor_part.cpp:234 worksheet.cpp:2474
+#: cantor_part.cpp:238 worksheet.cpp:2474
 #, kde-format
 msgid "Zoom"
 msgstr "Ampliar"
 
-#: cantor_part.cpp:241
+#: cantor_part.cpp:245
 #, kde-format
 msgctxt ""
 "Zoom percentage value %1 will be replaced by the actual zoom factor value, "
@@ -3032,104 +3034,104 @@ msgctxt ""
 msgid "%1%"
 msgstr "%1 %"
 
-#: cantor_part.cpp:256
+#: cantor_part.cpp:260
 #, kde-format
 msgid "Typeset using LaTeX"
 msgstr "Componer usando LaTeX"
 
-#: cantor_part.cpp:261
+#: cantor_part.cpp:265
 #, kde-format
 msgid "Syntax Highlighting"
 msgstr "Resaltado de sintaxis"
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_CompletionDefault)
-#: cantor_part.cpp:266 settings.ui:46
+#: cantor_part.cpp:270 settings.ui:46
 #, kde-format
 msgid "Completion"
 msgstr "Terminación"
 
-#: cantor_part.cpp:271
+#: cantor_part.cpp:275
 #, kde-format
 msgid "Line Numbers"
 msgstr "Números de línea"
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_AnimationDefault)
-#: cantor_part.cpp:276 settings.ui:158
+#: cantor_part.cpp:280 settings.ui:158
 #, kde-format
 msgid "Animations"
 msgstr "Animaciones"
 
-#: cantor_part.cpp:283
+#: cantor_part.cpp:287
 #, kde-format
 msgid "Embedded Math"
 msgstr "Expresiones matemáticas incrustadas"
 
-#: cantor_part.cpp:289
+#: cantor_part.cpp:293
 #, kde-format
 msgid "Restart Backend"
 msgstr "Reiniciar motor"
 
-#: cantor_part.cpp:295 worksheetentry.cpp:1014
+#: cantor_part.cpp:299 worksheetentry.cpp:1014
 #, kde-format
 msgid "Evaluate Entry"
 msgstr "Evaluar entrada"
 
-#: cantor_part.cpp:301
+#: cantor_part.cpp:305
 #, kde-format
 msgid "Insert Command Entry"
 msgstr "Insertar entrada de orden"
 
-#: cantor_part.cpp:307
+#: cantor_part.cpp:311
 #, kde-format
 msgid "Insert Text Entry"
 msgstr "Insertar entrada de texto"
 
-#: cantor_part.cpp:313
+#: cantor_part.cpp:317
 #, kde-format
 msgid "Insert Markdown Entry"
 msgstr "Insertar entrada en Markdown"
 
-#: cantor_part.cpp:319
+#: cantor_part.cpp:323
 #, kde-format
 msgid "Insert LaTeX Entry"
 msgstr "Insertar entrada LaTeX"
 
-#: cantor_part.cpp:324
+#: cantor_part.cpp:328
 #, kde-format
 msgid "Insert Page Break"
 msgstr "Insertar salto de página"
 
-#: cantor_part.cpp:329 markdownentry.cpp:126
+#: cantor_part.cpp:333 markdownentry.cpp:126
 #, kde-format
 msgid "Insert Image"
 msgstr "Insertar imagen"
 
-#: cantor_part.cpp:334
+#: cantor_part.cpp:338
 #, kde-format
 msgid "Collapse All Results"
 msgstr "Contraer todos los resultados"
 
-#: cantor_part.cpp:339
+#: cantor_part.cpp:343
 #, kde-format
 msgid "Expand All Results"
 msgstr "Expandir todos los resultados"
 
-#: cantor_part.cpp:344
+#: cantor_part.cpp:348
 #, kde-format
 msgid "Delete All Results"
 msgstr "Borrar todos los resultados"
 
-#: cantor_part.cpp:349
+#: cantor_part.cpp:353
 #, kde-format
 msgid "Delete current Entry"
 msgstr "Borrar la entrada actual"
 
-#: cantor_part.cpp:355 worksheet.cpp:2193 worksheet.cpp:2194 worksheet.cpp:2493
+#: cantor_part.cpp:359 worksheet.cpp:2193 worksheet.cpp:2194 worksheet.cpp:2493
 #, kde-format
 msgid "Merge Cells"
 msgstr "Fusionar celdas"
 
-#: cantor_part.cpp:361 worksheet.cpp:2364
+#: cantor_part.cpp:365 worksheet.cpp:2364
 #, kde-format
 msgid "Split Cell"
 msgstr "Dividir celda"
@@ -3139,67 +3141,67 @@ msgstr "Dividir celda"
 #. collection->addAction(QLatin1String("file_publish_worksheet"), publishWorksheet);
 #. connect(publishWorksheet, &QAction::triggered, this, SLOT(publishWorksheet()));
 #.
-#: cantor_part.cpp:382
+#: cantor_part.cpp:386
 #, kde-format
 msgid "Show Script Editor"
 msgstr "Mostrar el editor de scripts"
 
-#: cantor_part.cpp:387
+#: cantor_part.cpp:391
 #, kde-format
 msgid "Show Completion"
 msgstr "Mostrar terminación"
 
-#: cantor_part.cpp:453
+#: cantor_part.cpp:457
 #, kde-format
 msgid "CantorPart"
 msgstr "CantorPart"
 
-#: cantor_part.cpp:455
+#: cantor_part.cpp:459
 #, kde-format
 msgid "(C) 2009-2015 Alexander Rieder"
 msgstr "© 2009-2015 Alexander Rieder"
 
-#: cantor_part.cpp:459 main.cpp:63
+#: cantor_part.cpp:463 main.cpp:63
 #, kde-format
 msgid "Alexander Rieder"
 msgstr "Alexander Rieder"
 
-#: cantor_part.cpp:511
+#: cantor_part.cpp:515
 #, kde-format
 msgid "Cantor Worksheet (*.cws)"
 msgstr "Hoja de ejercicios de Cantor (*.cws)"
 
-#: cantor_part.cpp:512
+#: cantor_part.cpp:516
 #, kde-format
 msgid "Jupyter Notebook (*.ipynb)"
 msgstr "Cuaderno de Jupyter (*.ipynb)"
 
-#: cantor_part.cpp:528
+#: cantor_part.cpp:532
 #, kde-format
 msgid "Save as"
 msgstr "Guardar como"
 
-#: cantor_part.cpp:574 panelplugins/variablemgr/variablemanagerwidget.cpp:189
+#: cantor_part.cpp:578 panelplugins/variablemgr/variablemanagerwidget.cpp:189
 #, kde-format
 msgid "Save"
 msgstr "Guardar"
 
-#: cantor_part.cpp:574 textresultitem.cpp:208
+#: cantor_part.cpp:578 textresultitem.cpp:208
 #, kde-format
 msgid "Text Files (*.txt)"
 msgstr "Archivo de texto (*.txt)"
 
-#: cantor_part.cpp:581
+#: cantor_part.cpp:585
 #, kde-format
 msgid "PDF Files (*.pdf)"
 msgstr "Archivos PDF (*.pdf)"
 
-#: cantor_part.cpp:593
+#: cantor_part.cpp:597
 #, kde-format
 msgid "TeX Files (*.tex)"
 msgstr "Archivos TeX (*.tex)"
 
-#: cantor_part.cpp:638
+#: cantor_part.cpp:642
 #, kde-format
 msgid ""
 "All the available calculation results will be lost. Do you really want to "
@@ -3208,65 +3210,65 @@ msgstr ""
 "Se perderán todos los resultados de cálculos disponibles. ¿Realmente quiere "
 "reiniciar %1?"
 
-#: cantor_part.cpp:639
+#: cantor_part.cpp:643
 #, kde-format
 msgid "Restart %1?"
 msgstr "¿Reiniciar %1?"
 
-#: cantor_part.cpp:679 worksheet.cpp:2469
+#: cantor_part.cpp:683 worksheet.cpp:2469
 #, kde-format
 msgid "Interrupt"
 msgstr "Interrumpir"
 
-#: cantor_part.cpp:705
+#: cantor_part.cpp:709
 #, kde-format
 msgid "Session Error: %1"
 msgstr "Error de sesión: %1"
 
-#: cantor_part.cpp:751
+#: cantor_part.cpp:755
 #, kde-format
 msgid "Initialization complete"
 msgstr "Inicialización completa"
 
-#: cantor_part.cpp:756
+#: cantor_part.cpp:760
 #, kde-format
 msgid "Initializing..."
 msgstr "Inicializando…"
 
-#: cantor_part.cpp:814
+#: cantor_part.cpp:818
 #, kde-format
 msgid "[read-only]"
 msgstr "[solo lectura]"
 
-#: cantor_part.cpp:929
+#: cantor_part.cpp:933
 #, kde-format
 msgid "Do you want to upload current Worksheet to public web server?"
 msgstr "¿Desea enviar la hoja de ejercicios actual al servidor web público?"
 
-#: cantor_part.cpp:930
+#: cantor_part.cpp:934
 #, kde-format
 msgid "Question - Cantor"
 msgstr "Pregunta - Cantor"
 
-#: cantor_part.cpp:931
+#: cantor_part.cpp:935
 #, kde-format
 msgctxt "@action:button"
 msgid "Upload"
 msgstr "Enviar"
 
-#: cantor_part.cpp:939
+#: cantor_part.cpp:943
 #, kde-format
 msgid "The Worksheet is not saved. You should save it before uploading."
 msgstr ""
 "La hoja de ejercicios no se ha guardado. Debería guardarla antes de enviarla "
 "a la web."
 
-#: cantor_part.cpp:940
+#: cantor_part.cpp:944
 #, kde-format
 msgid "Warning - Cantor"
 msgstr "Advertencia - Cantor"
 
-#: cantor_part.cpp:1012
+#: cantor_part.cpp:1016
 #, kde-format
 msgid "This backend does not support scripts."
 msgstr "Este motor no permite scripts."
@@ -3621,7 +3623,7 @@ msgstr "No se puede cargar la imagen %1"
 msgid "Original Size"
 msgstr "Tamaño original"
 
-#: imageresultitem.cpp:192
+#: imageresultitem.cpp:192 worksheethierarchymanager.cpp:1106
 #, kde-format
 msgctxt "%1 and %2 are file extensions"
 msgid "%1 files (*.%2)"
@@ -4073,6 +4075,126 @@ msgstr "Todos los archivos permitidos"
 msgid "All files"
 msgstr "Todos los archivos"
 
+#: panelplugins/plotpanel/plotpanelplugin.cpp:140
+#, fuzzy, kde-format
+#| msgid "Plots"
+msgid "Plots panel"
+msgstr "Plots"
+
+#: panelplugins/plotpanel/plotpanelplugin.cpp:151
+#, fuzzy, kde-format
+#| msgid "&Previous"
+msgid "Previous Plot"
+msgstr "An&terior"
+
+#: panelplugins/plotpanel/plotpanelplugin.cpp:152
+#, fuzzy, kde-format
+#| msgid "Delete Plot"
+msgid "Next Plot"
+msgstr "Borrar gráfico"
+
+#: panelplugins/plotpanel/plotpanelplugin.cpp:154
+#, kde-format
+msgid "Group Plots by Source Cell"
+msgstr ""
+
+#: panelplugins/plotpanel/plotpanelplugin.cpp:157
+#, fuzzy, kde-format
+#| msgid "Animations"
+msgid "Animate Previews"
+msgstr "Animaciones"
+
+#: panelplugins/plotpanel/plotpanelplugin.cpp:161
+#, fuzzy, kde-format
+#| msgid "Copy result"
+msgid "Copy Plot"
+msgstr "Copiar el resultado"
+
+#: panelplugins/plotpanel/plotpanelplugin.cpp:162
+#: worksheethierarchymanager.cpp:1129
+#, fuzzy, kde-format
+#| msgid "Save Project"
+msgid "Save Plot"
+msgstr "Guardar proyecto"
+
+#: panelplugins/plotpanel/plotpanelplugin.cpp:163
+#: worksheethierarchymanager.cpp:1175
+#, fuzzy, kde-format
+#| msgid "Save Project"
+msgid "Save All Plots"
+msgstr "Guardar proyecto"
+
+#: panelplugins/plotpanel/plotpanelplugin.cpp:164
+#: panelplugins/plotpanel/plotpanelplugin.cpp:576
+#: panelplugins/tocpanel/tocpanelplugin.cpp:1288
+#, kde-format
+msgid "Rename Plot"
+msgstr "Cambiar nombre de gráfico"
+
+#: panelplugins/plotpanel/plotpanelplugin.cpp:165
+#: panelplugins/plotpanel/plotpanelplugin.cpp:591
+#: panelplugins/tocpanel/tocpanelplugin.cpp:388
+#: panelplugins/tocpanel/tocpanelplugin.cpp:1296
+#: panelplugins/tocpanel/tocpanelplugin.cpp:1304
+#, kde-format
+msgid "Delete Plot"
+msgstr "Borrar gráfico"
+
+#: panelplugins/plotpanel/plotpanelplugin.cpp:169
+#: panelplugins/plotpanel/plotpanelplugin.cpp:170
+#, fuzzy, kde-format
+#| msgid "Search/Filter"
+msgid "Search plots"
+msgstr "Buscar/filtrar"
+
+#: panelplugins/plotpanel/plotpanelplugin.cpp:176
+#, fuzzy, kde-format
+#| msgid "Integrate Plots into the Worksheet"
+msgid "Plots in the current worksheet"
+msgstr "Integrar gráficos en la hoja de ejercicios"
+
+#: panelplugins/plotpanel/plotpanelplugin.cpp:189
+#, kde-format
+msgid "No plots match the search"
+msgstr ""
+
+#: panelplugins/plotpanel/plotpanelplugin.cpp:310
+#, fuzzy, kde-format
+#| msgid "Error: %1"
+msgid "Source: %1"
+msgstr "Error: %1"
+
+#: panelplugins/plotpanel/plotpanelplugin.cpp:312
+#, fuzzy, kde-format
+#| msgid "Error: %1"
+msgid "Format: %1"
+msgstr "Error: %1"
+
+#: panelplugins/plotpanel/plotpanelplugin.cpp:314
+#, kde-format
+msgid "Preview unavailable; open the plot in the worksheet for details."
+msgstr ""
+
+#: panelplugins/plotpanel/plotpanelplugin.cpp:577
+#, kde-format
+msgid "Plot name (leave empty to use the default name):"
+msgstr ""
+
+#: panelplugins/plotpanel/plotpanelplugin.cpp:589
+#: panelplugins/tocpanel/tocpanelplugin.cpp:368
+#: panelplugins/tocpanel/tocpanelplugin.cpp:387
+#: panelplugins/tocpanel/tocpanelplugin.cpp:1261
+#: panelplugins/tocpanel/tocpanelplugin.cpp:1303
+#, kde-format
+msgid "Do you really want to delete \"%1\"? This action cannot be undone."
+msgstr "¿Realmente quiere borrar «%1»? Esta acción no se puede deshacer."
+
+#: panelplugins/plotpanel/plotpanelplugin.cpp:637
+#, fuzzy, kde-format
+#| msgid "&Worksheet"
+msgid "Open in Worksheet"
+msgstr "&Hoja de ejercicios"
+
 #: panelplugins/tocpanel/tocpanelplugin.cpp:207
 #, kde-format
 msgid "Search Table of Contents"
@@ -4093,7 +4215,7 @@ msgstr ""
 "acción no se puede deshacer."
 
 #: panelplugins/tocpanel/tocpanelplugin.cpp:351
-#: worksheethierarchymanager.cpp:1175
+#: worksheethierarchymanager.cpp:1392
 #, kde-format
 msgid "Delete Heading"
 msgstr "Borrar cabecera"
@@ -4101,18 +4223,10 @@ msgstr "Borrar cabecera"
 #: panelplugins/tocpanel/tocpanelplugin.cpp:365
 #: panelplugins/tocpanel/tocpanelplugin.cpp:1258 worksheet.cpp:2376
 #: worksheet.cpp:2405 worksheet.cpp:2423 worksheet.cpp:2439
-#: worksheethierarchymanager.cpp:321
+#: worksheethierarchymanager.cpp:346
 #, kde-format
 msgid "Command"
 msgstr "Orden"
-
-#: panelplugins/tocpanel/tocpanelplugin.cpp:368
-#: panelplugins/tocpanel/tocpanelplugin.cpp:387
-#: panelplugins/tocpanel/tocpanelplugin.cpp:1261
-#: panelplugins/tocpanel/tocpanelplugin.cpp:1303
-#, kde-format
-msgid "Do you really want to delete \"%1\"? This action cannot be undone."
-msgstr "¿Realmente quiere borrar «%1»? Esta acción no se puede deshacer."
 
 #: panelplugins/tocpanel/tocpanelplugin.cpp:369
 #: panelplugins/tocpanel/tocpanelplugin.cpp:1252
@@ -4120,13 +4234,6 @@ msgstr "¿Realmente quiere borrar «%1»? Esta acción no se puede deshacer."
 #, kde-format
 msgid "Delete Command"
 msgstr "Borrar orden"
-
-#: panelplugins/tocpanel/tocpanelplugin.cpp:388
-#: panelplugins/tocpanel/tocpanelplugin.cpp:1296
-#: panelplugins/tocpanel/tocpanelplugin.cpp:1304
-#, kde-format
-msgid "Delete Plot"
-msgstr "Borrar gráfico"
 
 #: panelplugins/tocpanel/tocpanelplugin.cpp:455
 #, kde-format
@@ -4212,11 +4319,6 @@ msgstr "Cambiar nombre de orden"
 #, kde-format
 msgid "Go to Plot"
 msgstr "Ir a gráfico"
-
-#: panelplugins/tocpanel/tocpanelplugin.cpp:1288
-#, kde-format
-msgid "Rename Plot"
-msgstr "Cambiar nombre de gráfico"
 
 #: panelplugins/tocpanel/tocpanelplugin.cpp:1319
 #, kde-format
@@ -5243,18 +5345,18 @@ msgstr "Borrar entrada"
 msgid "Drag Entry"
 msgstr "Arrastrar entrada"
 
-#: worksheethierarchymanager.cpp:329 worksheethierarchymanager.cpp:351
-#: worksheethierarchymanager.cpp:355
+#: worksheethierarchymanager.cpp:354 worksheethierarchymanager.cpp:376
+#: worksheethierarchymanager.cpp:380
 #, kde-format
 msgid "%1 %2"
 msgstr "%1 %2"
 
-#: worksheethierarchymanager.cpp:349
+#: worksheethierarchymanager.cpp:374
 #, kde-format
 msgid "%1 %2.%3"
 msgstr "%1 %2.%3"
 
-#: worksheethierarchymanager.cpp:1158
+#: worksheethierarchymanager.cpp:1375
 #, kde-format
 msgid ""
 "Do you really want to delete the heading \"%1\" and all entries in this "
@@ -5263,12 +5365,12 @@ msgstr ""
 "¿Realmente quiere borrar la cabecera «%1» y todas las entradas de esta "
 "sección? Esta acción no se puede deshacer."
 
-#: worksheethierarchymanager.cpp:1164
+#: worksheethierarchymanager.cpp:1381
 #, kde-format
 msgid "Delete Section"
 msgstr "Borrar sección"
 
-#: worksheethierarchymanager.cpp:1168
+#: worksheethierarchymanager.cpp:1385
 #, kde-format
 msgid ""
 "Do you really want to delete only the heading \"%1\"? The contents of the "
