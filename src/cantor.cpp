@@ -77,6 +77,7 @@ CantorShell::CantorShell() : KParts::MainWindow(), m_tabWidget(new QTabWidget(th
     connect(this, &CantorShell::requestSavePlot, this, &CantorShell::forwardSavePlot);
     connect(this, &CantorShell::requestSaveAllPlots, this, &CantorShell::forwardSaveAllPlots);
     connect(this, &CantorShell::requestCopyPlot, this, &CantorShell::forwardCopyPlot);
+    connect(this, &CantorShell::requestTocNodeSnapshot, this, &CantorShell::forwardTocNodeSnapshot);
 
     // apply the saved mainwindow settings, if any, and ask the mainwindow
     // to automatically save settings if changed: window size, toolbar
@@ -313,6 +314,12 @@ void CantorShell::forwardCopyPlot(const QString& commandId, const QString& resul
 {
     if (m_part)
         QMetaObject::invokeMethod(m_part, "requestCopyPlot", Qt::DirectConnection, Q_ARG(QString, commandId), Q_ARG(QString, resultId));
+}
+
+void CantorShell::forwardTocNodeSnapshot()
+{
+    if (m_part)
+        QMetaObject::invokeMethod(m_part, "requestTocNodeSnapshot", Qt::DirectConnection);
 }
 
 void CantorShell::handleTocNodesChanged(QVariantList nodes)
@@ -584,7 +591,7 @@ void CantorShell::activateWorksheet(int index)
             updatePanel();
 
             Q_EMIT tocReadOnlyChanged(!m_part->isReadWrite());
-            QMetaObject::invokeMethod(m_part, "requestTocNodeSnapshot", Qt::QueuedConnection);
+            Q_EMIT requestTocNodeSnapshot();
         }
         else
             qDebug()<<"selected part doesn't exist";

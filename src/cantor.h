@@ -82,6 +82,7 @@ Q_SIGNALS:
     void requestSavePlot(QString commandId, QString resultId);
     void requestSaveAllPlots();
     void requestCopyPlot(QString commandId, QString resultId);
+    void requestTocNodeSnapshot();
     void tocReadOnlyChanged(bool readOnly);
     void settingsChanges();
     void requestDocumentation(const QString&);
@@ -112,6 +113,7 @@ private Q_SLOTS:
     void forwardSavePlot(const QString& commandId, const QString& resultId);
     void forwardSaveAllPlots();
     void forwardCopyPlot(const QString& commandId, const QString& resultId);
+    void forwardTocNodeSnapshot();
     void handleTocNodesChanged(QVariantList nodes);
     void handleCurrentTocNodeChanged(const QString& nodeId);
     void handlePlotAnimationFrameChanged(QString resultId, QImage frame);

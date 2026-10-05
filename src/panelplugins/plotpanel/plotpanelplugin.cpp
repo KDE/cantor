@@ -102,6 +102,8 @@ void PlotPanelPlugin::connectToShell(QObject* cantorShell)
     connect(this, SIGNAL(requestSavePlot(QString,QString)), cantorShell, SIGNAL(requestSavePlot(QString,QString)));
     connect(this, SIGNAL(requestSaveAllPlots()), cantorShell, SIGNAL(requestSaveAllPlots()));
     connect(this, SIGNAL(requestCopyPlot(QString,QString)), cantorShell, SIGNAL(requestCopyPlot(QString,QString)));
+    connect(this, SIGNAL(requestTocNodeSnapshot()), cantorShell, SIGNAL(requestTocNodeSnapshot()));
+    Q_EMIT requestTocNodeSnapshot();
 }
 
 Cantor::PanelPlugin::State PlotPanelPlugin::saveState()

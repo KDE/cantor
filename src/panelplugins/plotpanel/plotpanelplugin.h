@@ -38,6 +38,7 @@ public:
     void restoreState(const State& state) override;
 
 Q_SIGNALS:
+    void requestTocNodeSnapshot();
     void requestNavigateToTocNode(QString nodeId);
     void requestRenamePlot(QString commandId, QString resultId, QString newTitle);
     void requestDeletePlot(QString commandId, QString resultId);
