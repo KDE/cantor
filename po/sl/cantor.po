@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-10-05 00:40+0000\n"
-"PO-Revision-Date: 2026-09-17 05:46+0200\n"
+"POT-Creation-Date: 2026-10-06 00:40+0000\n"
+"PO-Revision-Date: 2026-10-05 06:55+0200\n"
 "Last-Translator: Matjaž Jeran <matjaz.jeran@amis.net>\n"
 "Language-Team: Slovenian <lugos-slo@lugos.si>\n"
 "Language: sl\n"
@@ -64,7 +64,7 @@ msgstr "Napredno risanje"
 #. i18n: ectx: property (text), widget (QLabel, label_2)
 #: assistants/advancedplot/advancedplotdialog.ui:24
 #: backends/qalculate/plotassistant/qalculateplotassistant.cpp:24
-#: panelplugins/plotpanel/plotpanelplugin.cpp:290
+#: panelplugins/plotpanel/plotpanelplugin.cpp:292
 #: panelplugins/tocpanel/tocpanelplugin.cpp:384
 #: panelplugins/tocpanel/tocpanelplugin.cpp:1300
 #: worksheethierarchymanager.cpp:364 worksheethierarchymanager.cpp:1125
@@ -505,7 +505,7 @@ msgstr ""
 #: backends/maxima/settings.ui:36 backends/octave/settings.ui:36
 #: backends/python/settings.ui:36 backends/qalculate/settings.ui:36
 #: backends/R/settings.ui:21 backends/sage/settings.ui:36
-#: backends/scilab/settings.ui:21 cantor.cpp:802
+#: backends/scilab/settings.ui:21 cantor.cpp:809
 #, kde-format
 msgid "General"
 msgstr "Splošno"
@@ -1003,8 +1003,8 @@ msgid "The integration of plots will be disabled."
 msgstr "Integracija grafov bo onemogočena."
 
 #: backends/octave/octavesession.cpp:390 backends/sage/sagesession.cpp:358
-#: backends/sage/sagesession.cpp:369 cantor.cpp:246 cantor.cpp:248
-#: cantor.cpp:457 cantor.cpp:464 lib/session.cpp:334 main.cpp:48 main.cpp:105
+#: backends/sage/sagesession.cpp:369 cantor.cpp:247 cantor.cpp:249
+#: cantor.cpp:464 cantor.cpp:471 lib/session.cpp:334 main.cpp:48 main.cpp:105
 #: markdownentry.cpp:1168 textentry.cpp:862 worksheet.cpp:1639
 #, kde-format
 msgid "Cantor"
@@ -2566,37 +2566,37 @@ msgstr "Scilaba ni bilo mogoče zagnati, preverite namestitev programa Scilab."
 msgid "Plot Integration:"
 msgstr "Integracija risanja:"
 
-#: cantor.cpp:122
+#: cantor.cpp:123
 #, kde-format
 msgid "The file %1 is already opened."
 msgstr "Datoteka %1 je že odprta."
 
-#: cantor.cpp:122 cantor.cpp:348
+#: cantor.cpp:123 cantor.cpp:355
 #, kde-format
 msgid "Open file"
 msgstr "Odpri datoteko"
 
-#: cantor.cpp:164
+#: cantor.cpp:165
 #, kde-format
 msgid "Download Examples"
 msgstr "Prenesi primere"
 
-#: cantor.cpp:167
+#: cantor.cpp:168
 #, kde-format
 msgid "&Open Example"
 msgstr "&Odpri primer"
 
-#: cantor.cpp:172
+#: cantor.cpp:173
 #, kde-format
 msgid "Go to previous worksheet"
 msgstr "Pojdi na prejšnji delovni list"
 
-#: cantor.cpp:184
+#: cantor.cpp:185
 #, kde-format
 msgid "Go to next worksheet"
 msgstr "Pojdi na naslednji delovni list"
 
-#: cantor.cpp:347
+#: cantor.cpp:354
 #, kde-format
 msgid ""
 "All supported files (*.cws *ipynb);;Cantor Worksheet (*.cws);;Jupyter "
@@ -2605,7 +2605,7 @@ msgstr ""
 "Vse podprte datoteke (*.cws *ipynb);;Cantor Worksheet (*.cws);;Jupyter "
 "Notebook (*.ipynb)"
 
-#: cantor.cpp:415
+#: cantor.cpp:422
 #, kde-format
 msgid ""
 "<h1>No Backend Found</h1>\n"
@@ -2640,17 +2640,17 @@ msgstr[3] ""
 "<ul><li>Spremeniti nastavitve</li><li>Namestiti pakete za enega izmed "
 "naslednjih programov:</li>     %2     </ul></div> "
 
-#: cantor.cpp:435
+#: cantor.cpp:442
 #, kde-format
 msgid "Error"
 msgstr "Napaka"
 
-#: cantor.cpp:457
+#: cantor.cpp:464
 #, kde-format
 msgid "Backend %1 is not installed"
 msgstr "Zaledje %1 ni nameščeno"
 
-#: cantor.cpp:464
+#: cantor.cpp:471
 #, kde-format
 msgid ""
 "%1 backend installed, but inactive. Please check installation and Cantor "
@@ -2659,58 +2659,58 @@ msgstr ""
 "%1 zaledna podpora je nameščena, a ni dejavna. Prosim preverite namestitev "
 "in nastavitve Cantorja"
 
-#: cantor.cpp:493
+#: cantor.cpp:500
 #, kde-format
 msgid "Session %1"
 msgstr "Seja %1"
 
-#: cantor.cpp:511
+#: cantor.cpp:518
 #, kde-format
 msgid "Failed to find the Cantor Part with error %1"
 msgstr "Ni bilo mogoče najti sestavnega dela Cantor z napako %1"
 
-#: cantor.cpp:571 cantor_part.cpp:686
+#: cantor.cpp:578 cantor_part.cpp:686
 #, kde-format
 msgid "Calculating..."
 msgstr "Preračunavanje ..."
 
-#: cantor.cpp:574 cantor_part.cpp:697 cantor_part.cpp:765
+#: cantor.cpp:581 cantor_part.cpp:697 cantor_part.cpp:765
 #, kde-format
 msgid "Ready"
 msgstr "Pripravljen"
 
-#: cantor.cpp:621
+#: cantor.cpp:628
 #, kde-format
 msgid "Changed"
 msgstr "Spremenjeno"
 
-#: cantor.cpp:707
+#: cantor.cpp:714
 #, kde-format
 msgid "Multiple unsaved Worksheets are opened. Do you want to close them?"
 msgstr "Več odprtih delovnih listov še ni shranjenih. Ali jih želite zapreti?"
 
-#: cantor.cpp:708
+#: cantor.cpp:715
 #, kde-format
 msgid "Close Cantor"
 msgstr "Zapri Cantor"
 
-#: cantor.cpp:727
+#: cantor.cpp:734
 #, kde-format
 msgid "The current project has been modified. Do you want to save it?"
 msgstr "Trenutni projekt je bil spremenjen. Ali ga želite shraniti?"
 
-#: cantor.cpp:728
+#: cantor.cpp:735
 #, kde-format
 msgid "Save Project"
 msgstr "Shrani projekt"
 
-#: cantor.cpp:774 commandentry.cpp:166 commandentry.cpp:197
+#: cantor.cpp:781 commandentry.cpp:166 commandentry.cpp:197
 #: horizontalruleentry.cpp:336
 #, kde-format
 msgid "Default"
 msgstr "Privzeto"
 
-#: cantor.cpp:803
+#: cantor.cpp:810
 #, kde-format
 msgid "Table of Contents"
 msgstr "Kazalo vsebine"
@@ -4040,64 +4040,57 @@ msgstr "Vse podprte datoteke"
 msgid "All files"
 msgstr "Vse datoteke"
 
-#: panelplugins/plotpanel/plotpanelplugin.cpp:140
-#, fuzzy, kde-format
-#| msgid "Plots"
+#: panelplugins/plotpanel/plotpanelplugin.cpp:142
+#, kde-format
 msgid "Plots panel"
-msgstr "Grafi"
+msgstr "Plošča grafov"
 
-#: panelplugins/plotpanel/plotpanelplugin.cpp:151
-#, fuzzy, kde-format
-#| msgid "&Previous"
+#: panelplugins/plotpanel/plotpanelplugin.cpp:153
+#, kde-format
 msgid "Previous Plot"
-msgstr "&Predhodno"
-
-#: panelplugins/plotpanel/plotpanelplugin.cpp:152
-#, fuzzy, kde-format
-#| msgid "Delete Plot"
-msgid "Next Plot"
-msgstr "Izbriši graf"
+msgstr "Prejšnji graf"
 
 #: panelplugins/plotpanel/plotpanelplugin.cpp:154
 #, kde-format
+msgid "Next Plot"
+msgstr "Naslednji graf"
+
+#: panelplugins/plotpanel/plotpanelplugin.cpp:156
+#, kde-format
 msgid "Group Plots by Source Cell"
-msgstr ""
+msgstr "Grupiraj grafe po izvorni celici"
 
-#: panelplugins/plotpanel/plotpanelplugin.cpp:157
-#, fuzzy, kde-format
-#| msgid "Animate Worksheet"
+#: panelplugins/plotpanel/plotpanelplugin.cpp:159
+#, kde-format
 msgid "Animate Previews"
-msgstr "Animiraj delovni list"
-
-#: panelplugins/plotpanel/plotpanelplugin.cpp:161
-#, fuzzy, kde-format
-#| msgid "Copy result"
-msgid "Copy Plot"
-msgstr "Kopiraj rezultat"
-
-#: panelplugins/plotpanel/plotpanelplugin.cpp:162
-#: worksheethierarchymanager.cpp:1129
-#, fuzzy, kde-format
-#| msgid "Save Project"
-msgid "Save Plot"
-msgstr "Shrani projekt"
+msgstr "Animiraj predoglede"
 
 #: panelplugins/plotpanel/plotpanelplugin.cpp:163
-#: worksheethierarchymanager.cpp:1175
-#, fuzzy, kde-format
-#| msgid "Save Project"
-msgid "Save All Plots"
-msgstr "Shrani projekt"
+#, kde-format
+msgid "Copy Plot"
+msgstr "Kopiraj graf"
 
 #: panelplugins/plotpanel/plotpanelplugin.cpp:164
-#: panelplugins/plotpanel/plotpanelplugin.cpp:576
+#: worksheethierarchymanager.cpp:1129
+#, kde-format
+msgid "Save Plot"
+msgstr "Shrani graf"
+
+#: panelplugins/plotpanel/plotpanelplugin.cpp:165
+#: worksheethierarchymanager.cpp:1175
+#, kde-format
+msgid "Save All Plots"
+msgstr "Shrani vse grafe"
+
+#: panelplugins/plotpanel/plotpanelplugin.cpp:166
+#: panelplugins/plotpanel/plotpanelplugin.cpp:578
 #: panelplugins/tocpanel/tocpanelplugin.cpp:1288
 #, kde-format
 msgid "Rename Plot"
 msgstr "Preimenuj graf"
 
-#: panelplugins/plotpanel/plotpanelplugin.cpp:165
-#: panelplugins/plotpanel/plotpanelplugin.cpp:591
+#: panelplugins/plotpanel/plotpanelplugin.cpp:167
+#: panelplugins/plotpanel/plotpanelplugin.cpp:593
 #: panelplugins/tocpanel/tocpanelplugin.cpp:388
 #: panelplugins/tocpanel/tocpanelplugin.cpp:1296
 #: panelplugins/tocpanel/tocpanelplugin.cpp:1304
@@ -4105,47 +4098,43 @@ msgstr "Preimenuj graf"
 msgid "Delete Plot"
 msgstr "Izbriši graf"
 
-#: panelplugins/plotpanel/plotpanelplugin.cpp:169
-#: panelplugins/plotpanel/plotpanelplugin.cpp:170
-#, fuzzy, kde-format
-#| msgid "Hierarchy Fonts"
+#: panelplugins/plotpanel/plotpanelplugin.cpp:171
+#: panelplugins/plotpanel/plotpanelplugin.cpp:172
+#, kde-format
 msgid "Search plots"
-msgstr "Hierarhija pisav"
+msgstr "Išči grafe"
 
-#: panelplugins/plotpanel/plotpanelplugin.cpp:176
-#, fuzzy, kde-format
-#| msgid "Integrate Plots into the Worksheet"
+#: panelplugins/plotpanel/plotpanelplugin.cpp:178
+#, kde-format
 msgid "Plots in the current worksheet"
-msgstr "Vgradi grafe v delovni list"
+msgstr "Grafi v trenutnem delovnem listu"
 
-#: panelplugins/plotpanel/plotpanelplugin.cpp:189
+#: panelplugins/plotpanel/plotpanelplugin.cpp:191
 #, kde-format
 msgid "No plots match the search"
-msgstr ""
-
-#: panelplugins/plotpanel/plotpanelplugin.cpp:310
-#, fuzzy, kde-format
-#| msgid "Error: %1"
-msgid "Source: %1"
-msgstr "Napaka: %1"
+msgstr "Noben graf ne ustreza iskanju."
 
 #: panelplugins/plotpanel/plotpanelplugin.cpp:312
-#, fuzzy, kde-format
-#| msgid "Error: %1"
-msgid "Format: %1"
-msgstr "Napaka: %1"
+#, kde-format
+msgid "Source: %1"
+msgstr "Vir: %1"
 
 #: panelplugins/plotpanel/plotpanelplugin.cpp:314
 #, kde-format
-msgid "Preview unavailable; open the plot in the worksheet for details."
-msgstr ""
+msgid "Format: %1"
+msgstr "Format: %1"
 
-#: panelplugins/plotpanel/plotpanelplugin.cpp:577
+#: panelplugins/plotpanel/plotpanelplugin.cpp:316
+#, kde-format
+msgid "Preview unavailable; open the plot in the worksheet for details."
+msgstr "Predogleda ni na voljo; za podrobnosti odprite graf v delovnem listu."
+
+#: panelplugins/plotpanel/plotpanelplugin.cpp:579
 #, kde-format
 msgid "Plot name (leave empty to use the default name):"
-msgstr ""
+msgstr "Ime grafa (pustite prazno za uporabo privzetega imena):"
 
-#: panelplugins/plotpanel/plotpanelplugin.cpp:589
+#: panelplugins/plotpanel/plotpanelplugin.cpp:591
 #: panelplugins/tocpanel/tocpanelplugin.cpp:368
 #: panelplugins/tocpanel/tocpanelplugin.cpp:387
 #: panelplugins/tocpanel/tocpanelplugin.cpp:1261
@@ -4154,11 +4143,10 @@ msgstr ""
 msgid "Do you really want to delete \"%1\"? This action cannot be undone."
 msgstr "Ali res želite izbrisati \"%1\"? Tega dejanja ni mogoče razveljaviti."
 
-#: panelplugins/plotpanel/plotpanelplugin.cpp:637
-#, fuzzy, kde-format
-#| msgid "Animate Worksheet"
+#: panelplugins/plotpanel/plotpanelplugin.cpp:639
+#, kde-format
 msgid "Open in Worksheet"
-msgstr "Animiraj delovni list"
+msgstr "Odpri v delovnem listu"
 
 #: panelplugins/tocpanel/tocpanelplugin.cpp:207
 #, kde-format

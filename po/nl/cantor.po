@@ -11,8 +11,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: cantor\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-10-05 00:40+0000\n"
-"PO-Revision-Date: 2026-09-17 12:55+0200\n"
+"POT-Creation-Date: 2026-10-06 00:40+0000\n"
+"PO-Revision-Date: 2026-10-05 16:15+0200\n"
 "Last-Translator: Freek de Kruijf <freekdekruijf@kde.nl>\n"
 "Language-Team: \n"
 "Language: nl\n"
@@ -65,14 +65,14 @@ msgstr "Gevorderd plotten"
 #. i18n: ectx: property (text), widget (QLabel, label_2)
 #: assistants/advancedplot/advancedplotdialog.ui:24
 #: backends/qalculate/plotassistant/qalculateplotassistant.cpp:24
-#: panelplugins/plotpanel/plotpanelplugin.cpp:290
+#: panelplugins/plotpanel/plotpanelplugin.cpp:292
 #: panelplugins/tocpanel/tocpanelplugin.cpp:384
 #: panelplugins/tocpanel/tocpanelplugin.cpp:1300
 #: worksheethierarchymanager.cpp:364 worksheethierarchymanager.cpp:1125
 #: worksheethierarchymanager.cpp:1187
 #, kde-format
 msgid "Plot"
-msgstr "Plot"
+msgstr "Grafiek"
 
 #. i18n: ectx: property (text), widget (QLabel, label_3)
 #. i18n: ectx: property (text), widget (QLabel, label)
@@ -97,7 +97,7 @@ msgstr "Verdere opties:"
 #: backends/qalculate/plotassistant/cantor_qalculateplotassistant.rc:4
 #, kde-format
 msgid "&Plot"
-msgstr "&Plot"
+msgstr "&Grafiek"
 
 #. i18n: ectx: property (title), widget (QGroupBox, directiveContainer)
 #: assistants/advancedplot/directivecontainer.ui:14
@@ -232,7 +232,7 @@ msgstr "Matrix inverteren"
 #: assistants/plot2d/plot2dassistant.cpp:26
 #, kde-format
 msgid "Plot 2D"
-msgstr "Plot 2D"
+msgstr "Grafiek 2D"
 
 #. i18n: ectx: property (title), widget (QGroupBox, groupBox)
 #: assistants/plot2d/plot2ddlg.ui:31
@@ -267,7 +267,7 @@ msgstr "Maximum:"
 #: assistants/plot3d/plot3dassistant.cpp:26
 #, kde-format
 msgid "Plot 3D"
-msgstr "Plot 3D"
+msgstr "Grafiek 3D"
 
 #. i18n: ectx: property (title), widget (QGroupBox, groupBox)
 #: assistants/plot3d/plot3ddlg.ui:29
@@ -401,7 +401,7 @@ msgstr "Lijst van zelfstartende scripts aan het begin van de sessie"
 #: backends/sage/sagebackend.kcfg:18 backends/scilab/scilabbackend.kcfg:22
 #, kde-format
 msgid "Integrate Plots into the Worksheet"
-msgstr "Plots opnemen in het werkblad"
+msgstr "Grafieken opnemen in het werkblad"
 
 #. i18n: ectx: label, entry (plotWidth), group (SageBackend)
 #. i18n: ectx: label, entry (plotWidth), group (JuliaBackend)
@@ -413,7 +413,7 @@ msgstr "Plots opnemen in het werkblad"
 #: backends/sage/sagebackend.kcfg:29
 #, kde-format
 msgid "Default plot width"
-msgstr "Standaard breedte van plot"
+msgstr "Standaard breedte van grafiek"
 
 #. i18n: ectx: label, entry (plotHeight), group (SageBackend)
 #. i18n: ectx: label, entry (plotHeight), group (JuliaBackend)
@@ -425,18 +425,18 @@ msgstr "Standaard breedte van plot"
 #: backends/sage/sagebackend.kcfg:33
 #, kde-format
 msgid "Default plot height"
-msgstr "Standaard hoogte van plot"
+msgstr "Standaard hoogte van grafiek"
 
 #. i18n: ectx: label, entry (plotExtenstionGraphicPackage), group (JuliaBackend)
 #: backends/julia/juliabackend.kcfg:43
 #, kde-format
 msgid "Graphical package for the Plot-Assistant"
-msgstr "Grafisch pakket voor de Plot-assistent"
+msgstr "Grafisch pakket voor de grafiekassistent"
 
 #: backends/julia/juliaextensions.cpp:239
 #, kde-format
 msgid "# Sorry, but Gadfly don't support 3d plots"
-msgstr "# Spijtig genoeg ondersteunt Gadfly geen 3d-plotten"
+msgstr "# Spijtig genoeg ondersteunt Gadfly geen 3d-grafieken"
 
 #: backends/julia/juliaextensions.cpp:256
 #, kde-format
@@ -508,7 +508,7 @@ msgstr ""
 #: backends/maxima/settings.ui:36 backends/octave/settings.ui:36
 #: backends/python/settings.ui:36 backends/qalculate/settings.ui:36
 #: backends/R/settings.ui:21 backends/sage/settings.ui:36
-#: backends/scilab/settings.ui:21 cantor.cpp:802
+#: backends/scilab/settings.ui:21 cantor.cpp:809
 #, kde-format
 msgid "General"
 msgstr "Algemeen"
@@ -531,8 +531,8 @@ msgid ""
 "If enabled, plots will be shown inside of the worksheet. Otherwise, plots "
 "will be shown in an external window."
 msgstr ""
-"Indien aangezet, worden plots in het werkblad weergegeven. En anders in een "
-"afzonderlijk venster."
+"Indien aangezet, worden grafieken in het werkblad weergegeven. En anders in "
+"een afzonderlijk venster."
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_allowLatex)
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_integratePlots)
@@ -634,7 +634,7 @@ msgstr "hoogte:"
 #: backends/sage/settings.ui:97 formating.ui:283
 #, kde-format
 msgid "Plots"
-msgstr "Plots"
+msgstr "Grafieken"
 
 #. i18n: ectx: property (text), widget (QLabel, label_3)
 #. i18n: ectx: property (text), widget (QLabel, label_2)
@@ -652,7 +652,7 @@ msgstr "Afbeeldingsformaat:"
 #: backends/python/settings.ui:218 backends/python/settings.ui:234
 #, kde-format
 msgid "Graphic package to be used in the Plot Assistant"
-msgstr "Grafisch pakket voor gebruik in de Plot-assistent"
+msgstr "Grafisch pakket voor gebruik in de grafiekassistent"
 
 #. i18n: ectx: property (text), item, widget (KComboBox, kcfg_plotExtenstionGraphicPackage)
 #: backends/julia/settings.ui:226 backends/python/settings.ui:253
@@ -677,7 +677,7 @@ msgstr "Gadfly"
 #: backends/julia/settings.ui:252 backends/python/settings.ui:221
 #, kde-format
 msgid "Plot Assistant:"
-msgstr "Plot-assistent:"
+msgstr "Grafiekassistent:"
 
 #. i18n: ectx: attribute (title), widget (QWidget, tabAutorun)
 #. i18n: ectx: attribute (title), widget (QWidget, tabAutoran)
@@ -880,7 +880,7 @@ msgstr ""
 "vectoren, matrices en tensoren. Met Maxima verkrijgt men numerieke "
 "antwoorden met een hoge precisie, gebruik makend van exacte breuken, gehele "
 "getallen met een willekeurig hoge precisie, en van decimale breuken met een "
-"variabele nauwkeurigheid. Met Maxima kan men plots maken van functies en "
+"variabele nauwkeurigheid. Met Maxima kan men grafieken maken van functies en "
 "gegevens, in twee en drie dimensies. "
 
 #. i18n: ectx: label, entry (Path), group (MaximaBackend)
@@ -914,7 +914,7 @@ msgstr "Fout: \" verwacht voor :"
 #: backends/maxima/maximaexpression.cpp:444
 #, kde-format
 msgid "Waiting for the plot result"
-msgstr "Wachten op plotresultaat"
+msgstr "Wachten op grafiekresultaat"
 
 #: backends/maxima/maximaextensions.cpp:31
 #, kde-format
@@ -1006,16 +1006,16 @@ msgstr "Syntaxisfout"
 #: backends/octave/octavesession.cpp:385
 #, kde-format
 msgid "Plot integration test failed."
-msgstr "Plotintegratietest is mislukt."
+msgstr "Grafiekintegratietest is mislukt."
 
 #: backends/octave/octavesession.cpp:389
 #, kde-format
 msgid "The integration of plots will be disabled."
-msgstr "Het integreren (samenvoegen?) van plots wordt uitgezet."
+msgstr "Het integreren (samenvoegen?) van grafieken wordt uitgezet."
 
 #: backends/octave/octavesession.cpp:390 backends/sage/sagesession.cpp:358
-#: backends/sage/sagesession.cpp:369 cantor.cpp:246 cantor.cpp:248
-#: cantor.cpp:457 cantor.cpp:464 lib/session.cpp:334 main.cpp:48 main.cpp:105
+#: backends/sage/sagesession.cpp:369 cantor.cpp:247 cantor.cpp:249
+#: cantor.cpp:464 cantor.cpp:471 lib/session.cpp:334 main.cpp:48 main.cpp:105
 #: markdownentry.cpp:1168 textentry.cpp:862 worksheet.cpp:1639
 #, kde-format
 msgid "Cantor"
@@ -1042,12 +1042,12 @@ msgstr ""
 #: backends/python/pythonbackend.kcfg:44
 #, kde-format
 msgid "Graphical package to be used for the Plot Assistant"
-msgstr "Grafisch pakket voor gebruik voor de Plot-assistent"
+msgstr "Grafisch pakket voor gebruik voor de grafiekassistent"
 
 #: backends/python/pythonextensions.cpp:283
 #, kde-format
 msgid "# Sorry, but Bokeh doesn't support 3d plotting"
-msgstr "# Spijtig genoeg ondersteunt Bokeh geen 3d-plotten"
+msgstr "# Spijtig genoeg ondersteunt Bokeh geen 3d-grafieken"
 
 #: backends/python/pythonextensions.cpp:299
 #, kde-format
@@ -1124,7 +1124,7 @@ msgstr "bokeh"
 #: backends/qalculate/plotassistant/qalculateplotdialog.ui:14
 #, kde-format
 msgid "Cantor - Plot Dialog"
-msgstr "Cantor - Plot Dialoog"
+msgstr "Cantor - Grafiekdialoog"
 
 #. i18n: ectx: attribute (title), widget (QWidget, tab)
 #: backends/qalculate/plotassistant/qalculateplotdialog.ui:24
@@ -1336,7 +1336,7 @@ msgstr "Opties"
 #: backends/qalculate/plotassistant/qalculateplotdialog.ui:332
 #, kde-format
 msgid "Plot title"
-msgstr "Plotnaam"
+msgstr "Grafieknaam"
 
 #. i18n: ectx: property (text), widget (QLabel, label_20)
 #: backends/qalculate/plotassistant/qalculateplotdialog.ui:353
@@ -1458,7 +1458,7 @@ msgstr "Bestandopties"
 #: backends/qalculate/plotassistant/qalculateplotdialog.ui:527
 #, kde-format
 msgid "Save plot to file"
-msgstr "Plot in bestand opslaan"
+msgstr "Grafiek in bestand opslaan"
 
 #. i18n: ectx: property (text), widget (QLabel, label_23)
 #: backends/qalculate/plotassistant/qalculateplotdialog.ui:547
@@ -1621,14 +1621,14 @@ msgid ""
 "If true, plots will be displayed inside the worksheet. If not they appear in "
 "a separate window."
 msgstr ""
-"Indien True worden plots in het werkblad weergegeven. En anders in een "
+"Indien true worden grafieken in het werkblad weergegeven. En anders in een "
 "afzonderlijk venster."
 
 #. i18n: ectx: label, entry (coloredPlot), group (QalculateBackend)
 #: backends/qalculate/qalculatebackend.kcfg:84
 #, kde-format
 msgid "Whether colors should be used in plots."
-msgstr "Of in plots kleuren worden gebruikt."
+msgstr "Of in grafieken kleuren worden gebruikt."
 
 #. i18n: ectx: label, entry (plotGrid), group (QalculateBackend)
 #: backends/qalculate/qalculatebackend.kcfg:88
@@ -1640,7 +1640,7 @@ msgstr "Of er een rooster moet worden geplot."
 #: backends/qalculate/qalculatebackend.kcfg:92
 #, kde-format
 msgid "Whether full borders should be drawn around the plot."
-msgstr "Of er een rand rondom de plot moet worden getekend."
+msgstr "Of er een rand rondom de grafiek moet worden getekend."
 
 #. i18n: ectx: label, entry (plotLineWidth), group (QalculateBackend)
 #: backends/qalculate/qalculatebackend.kcfg:96
@@ -1658,19 +1658,19 @@ msgstr "Aantal interpolatiestappen bij plotten."
 #: backends/qalculate/qalculatebackend.kcfg:111
 #, kde-format
 msgid "Smoothing mode in plots."
-msgstr "Modus voor gladmaken van plots."
+msgstr "Modus voor gladmaken van grafieken."
 
 #. i18n: ectx: label, entry (plotStyle), group (QalculateBackend)
 #: backends/qalculate/qalculatebackend.kcfg:125
 #, kde-format
 msgid "Style of plots."
-msgstr "Plotstijl:"
+msgstr "Grafiekstijl:"
 
 #. i18n: ectx: label, entry (plotLegend), group (QalculateBackend)
 #: backends/qalculate/qalculatebackend.kcfg:138
 #, kde-format
 msgid "Legend position in plots."
-msgstr "Positie legenda in plots."
+msgstr "Positie legenda in grafieken."
 
 #: backends/qalculate/qalculateexpression.cpp:138
 #, kde-format
@@ -1801,9 +1801,9 @@ msgid ""
 "Image to save plot to. If empty shows plot in a window on the screen. If "
 "inline=true the image is shown regardless of this option."
 msgstr ""
-"afbeeldingsbestand voor opslaan plot. Indien leeg, wordt plot in een venster "
-"op het scherm getoond. Indien inline=true wordt de afbeelding sowieso "
-"getoond."
+"afbeeldingsbestand voor opslaan van grafiek. Indien leeg, wordt de grafiek "
+"in een venster op het scherm getoond. Indien inline=true wordt de afbeelding "
+"sowieso getoond."
 
 #: backends/qalculate/qalculatesyntaxhelpobject.cpp:216
 #, kde-format
@@ -1813,7 +1813,7 @@ msgstr "Afbeeldingstype voor opslaan: auto, png, ps, eps, latex, svg, fig."
 #: backends/qalculate/qalculatesyntaxhelpobject.cpp:217
 #, kde-format
 msgid "Set to true for colored plot, false for monochrome."
-msgstr "True (waar) voor kleurenplot, False (onwaar) voor zwartwit."
+msgstr "True (waar) voor kleurengrafiek, False (onwaar) voor zwartwit."
 
 #: backends/qalculate/qalculatesyntaxhelpobject.cpp:218
 #, kde-format
@@ -1848,13 +1848,13 @@ msgstr "Logaritmische basis voor y-as?"
 #: backends/qalculate/qalculatesyntaxhelpobject.cpp:224
 #, kde-format
 msgid "If a grid shall be shown in the plot."
-msgstr "rooster tonen in plot?"
+msgstr "rooster tonen in grafiek?"
 
 #: backends/qalculate/qalculatesyntaxhelpobject.cpp:225
 #, kde-format
 msgid ""
 "If the plot shall be surrounded by borders on all sides (not just axis)."
-msgstr "Randen tonen rondom plot (niet alleen assen)?"
+msgstr "Randen tonen rondom grafiek (niet alleen assen)?"
 
 #: backends/qalculate/qalculatesyntaxhelpobject.cpp:226
 #, kde-format
@@ -1867,13 +1867,13 @@ msgid ""
 "Where the plot legend shall be placed. One of none, top_left, top_right, "
 "bottom_left, bottom_right, below, outside"
 msgstr ""
-"Plaats van de plotlegenda: geen, linksboven, rechtsboven, linksonder, "
+"Plaats van de grafieklegenda: geen, linksboven, rechtsboven, linksonder, "
 "rechtsonder, eronder, of erbuiten"
 
 #: backends/qalculate/qalculatesyntaxhelpobject.cpp:228
 #, kde-format
 msgid "Plot smoothing. One of none, unique, csplines, bezier, sbezier"
-msgstr "Plot glad maken: niet, uniek, csplines, bezier, sbezier"
+msgstr "Grafiek glad maken: niet, uniek, csplines, bezier, sbezier"
 
 #: backends/qalculate/qalculatesyntaxhelpobject.cpp:229
 #, kde-format
@@ -1881,7 +1881,7 @@ msgid ""
 "Plot style. One of lines, points, points_lines, boxes, histogram, steps, "
 "candlesticks, dots"
 msgstr ""
-"Plotstijl: streepjes, punten, punt_streep, hokjes, histogram, stappen, "
+"Grafiekstijl: streepjes, punten, punt_streep, hokjes, histogram, stappen, "
 "candlesticks, stippen"
 
 #: backends/qalculate/qalculatesyntaxhelpobject.cpp:230
@@ -1897,7 +1897,7 @@ msgstr "Schaal voor tweede y-as."
 #: backends/qalculate/qalculatesyntaxhelpobject.cpp:232
 #, kde-format
 msgid "If the plot is to be drawn inline, instead of in a new window."
-msgstr "Plot in het venster tekenen, of in een nieuw venster?"
+msgstr "Grafiek in het venster tekenen, of in een nieuw venster?"
 
 #: backends/qalculate/qalculatesyntaxhelpobject.cpp:233
 #, kde-format
@@ -2096,7 +2096,7 @@ msgstr "Plotten"
 #: backends/qalculate/settings.ui:317
 #, kde-format
 msgid "Display plots inline:"
-msgstr "Plots in zelfde venster weergeven:"
+msgstr "Grafieken in zelfde venster weergeven:"
 
 #. i18n: ectx: property (text), widget (QLabel, label_12)
 #: backends/qalculate/settings.ui:354
@@ -2157,7 +2157,7 @@ msgstr "Raster tonen:"
 #: backends/qalculate/settings.ui:570
 #, kde-format
 msgid "Plot Style:"
-msgstr "Plotstijl:"
+msgstr "Grafiekstijl:"
 
 #: backends/qthelpconfig.cpp:44
 #, kde-format
@@ -2579,39 +2579,39 @@ msgstr "Scilab starten is mislukt, controleer de installatie van Scilab."
 #: backends/scilab/settings.ui:37
 #, kde-format
 msgid "Plot Integration:"
-msgstr "Plotintegratie:"
+msgstr "Grafiekintegratie:"
 
-#: cantor.cpp:122
+#: cantor.cpp:123
 #, kde-format
 msgid "The file %1 is already opened."
 msgstr "Bestand %1 is al geopend."
 
-#: cantor.cpp:122 cantor.cpp:348
+#: cantor.cpp:123 cantor.cpp:355
 #, kde-format
 msgid "Open file"
 msgstr "Bestand openen"
 
-#: cantor.cpp:164
+#: cantor.cpp:165
 #, kde-format
 msgid "Download Examples"
 msgstr "Voorbeelden downloaden"
 
-#: cantor.cpp:167
+#: cantor.cpp:168
 #, kde-format
 msgid "&Open Example"
 msgstr "Voorbeeld &openen"
 
-#: cantor.cpp:172
+#: cantor.cpp:173
 #, kde-format
 msgid "Go to previous worksheet"
 msgstr "Ga naar vorige werkblad"
 
-#: cantor.cpp:184
+#: cantor.cpp:185
 #, kde-format
 msgid "Go to next worksheet"
 msgstr "Ga naar volgende werkblad"
 
-#: cantor.cpp:347
+#: cantor.cpp:354
 #, kde-format
 msgid ""
 "All supported files (*.cws *ipynb);;Cantor Worksheet (*.cws);;Jupyter "
@@ -2620,7 +2620,7 @@ msgstr ""
 "Alle ondersteunde bestanden (*.cws *ipynb);;Cantor Worksheet (*.cws);;"
 "Jupyter Notebook (*.ipynb)"
 
-#: cantor.cpp:415
+#: cantor.cpp:422
 #, kde-format
 msgid ""
 "<h1>No Backend Found</h1>\n"
@@ -2647,17 +2647,17 @@ msgstr[1] ""
 "<li>Pakketten te installeren voor een van de volgende programma's:</li>     "
 "%2   </ul> </div> "
 
-#: cantor.cpp:435
+#: cantor.cpp:442
 #, kde-format
 msgid "Error"
 msgstr "Fout"
 
-#: cantor.cpp:457
+#: cantor.cpp:464
 #, kde-format
 msgid "Backend %1 is not installed"
 msgstr "Backend %1 is niet geïnstalleerd"
 
-#: cantor.cpp:464
+#: cantor.cpp:471
 #, kde-format
 msgid ""
 "%1 backend installed, but inactive. Please check installation and Cantor "
@@ -2666,59 +2666,59 @@ msgstr ""
 "Backend %1 is geïnstalleerd, maar niet actief. Controleer aub. de "
 "installatie en instellingen van Cantor"
 
-#: cantor.cpp:493
+#: cantor.cpp:500
 #, kde-format
 msgid "Session %1"
 msgstr "Sessie %1"
 
-#: cantor.cpp:511
+#: cantor.cpp:518
 #, kde-format
 msgid "Failed to find the Cantor Part with error %1"
 msgstr "Kon het Cantor-gedeelte niet vinden, foutmelding %1"
 
-#: cantor.cpp:571 cantor_part.cpp:686
+#: cantor.cpp:578 cantor_part.cpp:686
 #, kde-format
 msgid "Calculating..."
 msgstr "Berekenen..."
 
-#: cantor.cpp:574 cantor_part.cpp:697 cantor_part.cpp:765
+#: cantor.cpp:581 cantor_part.cpp:697 cantor_part.cpp:765
 #, kde-format
 msgid "Ready"
 msgstr "Gereed"
 
-#: cantor.cpp:621
+#: cantor.cpp:628
 #, kde-format
 msgid "Changed"
 msgstr "Gewijzigd"
 
-#: cantor.cpp:707
+#: cantor.cpp:714
 #, kde-format
 msgid "Multiple unsaved Worksheets are opened. Do you want to close them?"
 msgstr ""
 "Er zijn meerdere niet opgeslagen open werkbladen. Wilt u die afsluiten?"
 
-#: cantor.cpp:708
+#: cantor.cpp:715
 #, kde-format
 msgid "Close Cantor"
 msgstr "Cantor afsluiten"
 
-#: cantor.cpp:727
+#: cantor.cpp:734
 #, kde-format
 msgid "The current project has been modified. Do you want to save it?"
 msgstr "Het huidige project is gewijzigd. Wilt u dit opslaan?"
 
-#: cantor.cpp:728
+#: cantor.cpp:735
 #, kde-format
 msgid "Save Project"
 msgstr "Project opslaan"
 
-#: cantor.cpp:774 commandentry.cpp:166 commandentry.cpp:197
+#: cantor.cpp:781 commandentry.cpp:166 commandentry.cpp:197
 #: horizontalruleentry.cpp:336
 #, kde-format
 msgid "Default"
 msgstr "Standaard"
 
-#: cantor.cpp:803
+#: cantor.cpp:810
 #, kde-format
 msgid "Table of Contents"
 msgstr "Inhoudsopgave"
@@ -2782,7 +2782,7 @@ msgstr ""
 #: cantor.kcfg:46
 #, kde-format
 msgid "Show plots in the Worksheet Structure Navigator by default"
-msgstr "Plots standaard weergeven in de navigator voor werkbladstructuur"
+msgstr "Grafieken standaard weergeven in de navigator voor werkbladstructuur"
 
 #. i18n: ectx: label, entry (AnimationDefault), group (Cantor)
 #: cantor.kcfg:50
@@ -3746,17 +3746,18 @@ msgid ""
 "plot integration test."
 msgstr ""
 "Programma %1 eindigde het uitvoeren niet na %2 milliseconden gedurende de "
-"plotintegratie test."
+"grafiekintegratie test."
 
 #: lib/backend.cpp:214
 #, kde-format
 msgid "Failed to open the file %1 during the plot integration test."
-msgstr "Openen van bestand %1 lukte niet tijdens de plotintegratie test."
+msgstr "Openen van bestand %1 lukte niet tijdens de grafiekintegratie test."
 
 #: lib/backend.cpp:222
 #, kde-format
 msgid "Failed to parse the result during the plot integration test."
-msgstr "Het lezen van het resultaat tijdens de plotintegratietest is mislukt."
+msgstr ""
+"Het lezen van het resultaat tijdens de grafiekintegratietest is mislukt."
 
 #. i18n: ectx: label, entry (latexCommand), group (Cantor)
 #: lib/cantor_libs.kcfg:10
@@ -3825,7 +3826,7 @@ msgstr "Schaal Y-as"
 #: lib/directives/plottitle.ui:19
 #, kde-format
 msgid "Plot title:"
-msgstr "Plotnaam:"
+msgstr "Grafieknaam:"
 
 #: lib/mimeresult.cpp:33
 #, kde-format
@@ -4052,112 +4053,102 @@ msgstr "Alle ondersteunde bestanden"
 msgid "All files"
 msgstr "Alle bestanden"
 
-#: panelplugins/plotpanel/plotpanelplugin.cpp:140
-#, fuzzy, kde-format
-#| msgid "Plots"
+#: panelplugins/plotpanel/plotpanelplugin.cpp:142
+#, kde-format
 msgid "Plots panel"
-msgstr "Plots"
+msgstr "Grafiekpaneel"
 
-#: panelplugins/plotpanel/plotpanelplugin.cpp:151
-#, fuzzy, kde-format
-#| msgid "&Previous"
+#: panelplugins/plotpanel/plotpanelplugin.cpp:153
+#, kde-format
 msgid "Previous Plot"
-msgstr "&Vorige"
-
-#: panelplugins/plotpanel/plotpanelplugin.cpp:152
-#, fuzzy, kde-format
-#| msgid "Delete Plot"
-msgid "Next Plot"
-msgstr "Plot verwijderen"
+msgstr "Vorige grafiek"
 
 #: panelplugins/plotpanel/plotpanelplugin.cpp:154
 #, kde-format
+msgid "Next Plot"
+msgstr "Volgende grafiek"
+
+#: panelplugins/plotpanel/plotpanelplugin.cpp:156
+#, kde-format
 msgid "Group Plots by Source Cell"
-msgstr ""
+msgstr "Grafieken groeperen op broncel"
 
-#: panelplugins/plotpanel/plotpanelplugin.cpp:157
-#, fuzzy, kde-format
-#| msgid "Animate Worksheet"
+#: panelplugins/plotpanel/plotpanelplugin.cpp:159
+#, kde-format
 msgid "Animate Previews"
-msgstr "Werkblad animeren"
-
-#: panelplugins/plotpanel/plotpanelplugin.cpp:161
-#, fuzzy, kde-format
-#| msgid "Copy result"
-msgid "Copy Plot"
-msgstr "Resultaat kopiëren"
-
-#: panelplugins/plotpanel/plotpanelplugin.cpp:162
-#: worksheethierarchymanager.cpp:1129
-#, fuzzy, kde-format
-#| msgid "Save Project"
-msgid "Save Plot"
-msgstr "Project opslaan"
+msgstr "Voorbeelden animeren"
 
 #: panelplugins/plotpanel/plotpanelplugin.cpp:163
-#: worksheethierarchymanager.cpp:1175
-#, fuzzy, kde-format
-#| msgid "Save Project"
-msgid "Save All Plots"
-msgstr "Project opslaan"
+#, kde-format
+msgid "Copy Plot"
+msgstr "Grafiek kopiëren"
 
 #: panelplugins/plotpanel/plotpanelplugin.cpp:164
-#: panelplugins/plotpanel/plotpanelplugin.cpp:576
+#: worksheethierarchymanager.cpp:1129
+#, kde-format
+msgid "Save Plot"
+msgstr "Grafiek opslaan"
+
+#: panelplugins/plotpanel/plotpanelplugin.cpp:165
+#: worksheethierarchymanager.cpp:1175
+#, kde-format
+msgid "Save All Plots"
+msgstr "Alle grafieken opslaan"
+
+#: panelplugins/plotpanel/plotpanelplugin.cpp:166
+#: panelplugins/plotpanel/plotpanelplugin.cpp:578
 #: panelplugins/tocpanel/tocpanelplugin.cpp:1288
 #, kde-format
 msgid "Rename Plot"
-msgstr "Plot hernoemen"
+msgstr "Grafiek hernoemen"
 
-#: panelplugins/plotpanel/plotpanelplugin.cpp:165
-#: panelplugins/plotpanel/plotpanelplugin.cpp:591
+#: panelplugins/plotpanel/plotpanelplugin.cpp:167
+#: panelplugins/plotpanel/plotpanelplugin.cpp:593
 #: panelplugins/tocpanel/tocpanelplugin.cpp:388
 #: panelplugins/tocpanel/tocpanelplugin.cpp:1296
 #: panelplugins/tocpanel/tocpanelplugin.cpp:1304
 #, kde-format
 msgid "Delete Plot"
-msgstr "Plot verwijderen"
+msgstr "Grafiek verwijderen"
 
-#: panelplugins/plotpanel/plotpanelplugin.cpp:169
-#: panelplugins/plotpanel/plotpanelplugin.cpp:170
-#, fuzzy, kde-format
-#| msgid "Hierarchy Fonts"
+#: panelplugins/plotpanel/plotpanelplugin.cpp:171
+#: panelplugins/plotpanel/plotpanelplugin.cpp:172
+#, kde-format
 msgid "Search plots"
-msgstr "Hiërarchische lettertypen"
+msgstr "Grafieken doorzoeken"
 
-#: panelplugins/plotpanel/plotpanelplugin.cpp:176
-#, fuzzy, kde-format
-#| msgid "Integrate Plots into the Worksheet"
+#: panelplugins/plotpanel/plotpanelplugin.cpp:178
+#, kde-format
 msgid "Plots in the current worksheet"
-msgstr "Plots opnemen in het werkblad"
+msgstr "Grafieken in het huidige werkblad"
 
-#: panelplugins/plotpanel/plotpanelplugin.cpp:189
+#: panelplugins/plotpanel/plotpanelplugin.cpp:191
 #, kde-format
 msgid "No plots match the search"
-msgstr ""
-
-#: panelplugins/plotpanel/plotpanelplugin.cpp:310
-#, fuzzy, kde-format
-#| msgid "Error: %1"
-msgid "Source: %1"
-msgstr "Fout: %1"
+msgstr "Er komen geen grafieken overeen met de zoekopdracht"
 
 #: panelplugins/plotpanel/plotpanelplugin.cpp:312
-#, fuzzy, kde-format
-#| msgid "Error: %1"
-msgid "Format: %1"
-msgstr "Fout: %1"
+#, kde-format
+msgid "Source: %1"
+msgstr "Bron: %1"
 
 #: panelplugins/plotpanel/plotpanelplugin.cpp:314
 #, kde-format
+msgid "Format: %1"
+msgstr "Opmaak: %1"
+
+#: panelplugins/plotpanel/plotpanelplugin.cpp:316
+#, kde-format
 msgid "Preview unavailable; open the plot in the worksheet for details."
 msgstr ""
+"Voorbeeld niet beschikbaar; open de grafiek in het werkblad voor details."
 
-#: panelplugins/plotpanel/plotpanelplugin.cpp:577
+#: panelplugins/plotpanel/plotpanelplugin.cpp:579
 #, kde-format
 msgid "Plot name (leave empty to use the default name):"
-msgstr ""
+msgstr "Naam van de grafiek (laat leeg om de standaardnaam te gebruiken):"
 
-#: panelplugins/plotpanel/plotpanelplugin.cpp:589
+#: panelplugins/plotpanel/plotpanelplugin.cpp:591
 #: panelplugins/tocpanel/tocpanelplugin.cpp:368
 #: panelplugins/tocpanel/tocpanelplugin.cpp:387
 #: panelplugins/tocpanel/tocpanelplugin.cpp:1261
@@ -4167,11 +4158,10 @@ msgid "Do you really want to delete \"%1\"? This action cannot be undone."
 msgstr ""
 "Wilt u \"%1\" echt verwijderen? Deze actie kan niet ongedaan worden gemaakt."
 
-#: panelplugins/plotpanel/plotpanelplugin.cpp:637
-#, fuzzy, kde-format
-#| msgid "Animate Worksheet"
+#: panelplugins/plotpanel/plotpanelplugin.cpp:639
+#, kde-format
 msgid "Open in Worksheet"
-msgstr "Werkblad animeren"
+msgstr "In werkblad openen"
 
 #: panelplugins/tocpanel/tocpanelplugin.cpp:207
 #, kde-format
@@ -4246,7 +4236,7 @@ msgstr "Opdrachtinvoer tonen"
 #: panelplugins/tocpanel/tocpanelplugin.cpp:1045
 #, kde-format
 msgid "Show Plots"
-msgstr "Plots tonen"
+msgstr "Grafieken tonen"
 
 #: panelplugins/tocpanel/tocpanelplugin.cpp:1056
 #, kde-format
@@ -4296,7 +4286,7 @@ msgstr "Opdracht hernoemen"
 #: panelplugins/tocpanel/tocpanelplugin.cpp:1278
 #, kde-format
 msgid "Go to Plot"
-msgstr "Ga naar plot"
+msgstr "Ga naar grafiek"
 
 #: panelplugins/tocpanel/tocpanelplugin.cpp:1319
 #, kde-format

@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: cantor\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-10-05 00:40+0000\n"
-"PO-Revision-Date: 2026-09-17 04:48+0200\n"
+"POT-Creation-Date: 2026-10-06 00:40+0000\n"
+"PO-Revision-Date: 2026-10-05 06:28+0200\n"
 "Last-Translator: Temuri Doghonadze <temuri.doghonadze@gmail.com>\n"
 "Language-Team: Georgian <kde-i18n-doc@kde.org>\n"
 "Language: ka\n"
@@ -61,7 +61,7 @@ msgstr "დამატებითი ხაზვა"
 #. i18n: ectx: property (text), widget (QLabel, label_2)
 #: assistants/advancedplot/advancedplotdialog.ui:24
 #: backends/qalculate/plotassistant/qalculateplotassistant.cpp:24
-#: panelplugins/plotpanel/plotpanelplugin.cpp:290
+#: panelplugins/plotpanel/plotpanelplugin.cpp:292
 #: panelplugins/tocpanel/tocpanelplugin.cpp:384
 #: panelplugins/tocpanel/tocpanelplugin.cpp:1300
 #: worksheethierarchymanager.cpp:364 worksheethierarchymanager.cpp:1125
@@ -503,7 +503,7 @@ msgstr ""
 #: backends/maxima/settings.ui:36 backends/octave/settings.ui:36
 #: backends/python/settings.ui:36 backends/qalculate/settings.ui:36
 #: backends/R/settings.ui:21 backends/sage/settings.ui:36
-#: backends/scilab/settings.ui:21 cantor.cpp:802
+#: backends/scilab/settings.ui:21 cantor.cpp:809
 #, kde-format
 msgid "General"
 msgstr "მთავარი"
@@ -1006,8 +1006,8 @@ msgid "The integration of plots will be disabled."
 msgstr "გრაფიკების ინტეგრაცია გაითიშება."
 
 #: backends/octave/octavesession.cpp:390 backends/sage/sagesession.cpp:358
-#: backends/sage/sagesession.cpp:369 cantor.cpp:246 cantor.cpp:248
-#: cantor.cpp:457 cantor.cpp:464 lib/session.cpp:334 main.cpp:48 main.cpp:105
+#: backends/sage/sagesession.cpp:369 cantor.cpp:247 cantor.cpp:249
+#: cantor.cpp:464 cantor.cpp:471 lib/session.cpp:334 main.cpp:48 main.cpp:105
 #: markdownentry.cpp:1168 textentry.cpp:862 worksheet.cpp:1639
 #, kde-format
 msgid "Cantor"
@@ -2571,37 +2571,37 @@ msgstr "Scilab-ის გაშვება ჩავარდა. შეამ�
 msgid "Plot Integration:"
 msgstr "გრაფიკის ინტეგრაცია:"
 
-#: cantor.cpp:122
+#: cantor.cpp:123
 #, kde-format
 msgid "The file %1 is already opened."
 msgstr "ფაილი %1 უკვე ღიაა."
 
-#: cantor.cpp:122 cantor.cpp:348
+#: cantor.cpp:123 cantor.cpp:355
 #, kde-format
 msgid "Open file"
 msgstr "ფაილის გახსნა"
 
-#: cantor.cpp:164
+#: cantor.cpp:165
 #, kde-format
 msgid "Download Examples"
 msgstr "მაგალითების გადმოწერა"
 
-#: cantor.cpp:167
+#: cantor.cpp:168
 #, kde-format
 msgid "&Open Example"
 msgstr "&მაგალითის გახსნა"
 
-#: cantor.cpp:172
+#: cantor.cpp:173
 #, kde-format
 msgid "Go to previous worksheet"
 msgstr "წინა სამუშაო ცხრილზე გადასვლა"
 
-#: cantor.cpp:184
+#: cantor.cpp:185
 #, kde-format
 msgid "Go to next worksheet"
 msgstr "შემდეგ სამუშაო ცხრილზე გადასვლა"
 
-#: cantor.cpp:347
+#: cantor.cpp:354
 #, kde-format
 msgid ""
 "All supported files (*.cws *ipynb);;Cantor Worksheet (*.cws);;Jupyter "
@@ -2610,7 +2610,7 @@ msgstr ""
 "ყველა მხარდაჭერილი ფაილი (*.cws *ipynb);;Cantor-ის სამუშაო ფურცელი (*.cws);;"
 "Jupyter Notebook (*.ipynb)"
 
-#: cantor.cpp:415
+#: cantor.cpp:422
 #, kde-format
 msgid ""
 "<h1>No Backend Found</h1>\n"
@@ -2635,17 +2635,17 @@ msgstr[1] ""
 "  <ul>    <li>პარამეტრების შეცვლა მორგების დიალოგში;</li>    <li>პაკეტების "
 "დაყენება ერთ-ერთი შემდეგ პროგრამისთვის:</li>     %2   </ul> </div> "
 
-#: cantor.cpp:435
+#: cantor.cpp:442
 #, kde-format
 msgid "Error"
 msgstr "შეცდომა"
 
-#: cantor.cpp:457
+#: cantor.cpp:464
 #, kde-format
 msgid "Backend %1 is not installed"
 msgstr "უკანაბოლო %1 დაყენებული არაა"
 
-#: cantor.cpp:464
+#: cantor.cpp:471
 #, kde-format
 msgid ""
 "%1 backend installed, but inactive. Please check installation and Cantor "
@@ -2654,58 +2654,58 @@ msgstr ""
 "უკანაბოლო %1 დაყენებულია, აქტიური კი - არა. შეამოწმეთ პროგრამის ფაილები და "
 "Cantor-ის პარამეტრები"
 
-#: cantor.cpp:493
+#: cantor.cpp:500
 #, kde-format
 msgid "Session %1"
 msgstr "სესია %1"
 
-#: cantor.cpp:511
+#: cantor.cpp:518
 #, kde-format
 msgid "Failed to find the Cantor Part with error %1"
 msgstr "Cantor Part-ის მოძებნა ჩავარდა შეცდომით %1"
 
-#: cantor.cpp:571 cantor_part.cpp:686
+#: cantor.cpp:578 cantor_part.cpp:686
 #, kde-format
 msgid "Calculating..."
 msgstr "გაანგარიშება..."
 
-#: cantor.cpp:574 cantor_part.cpp:697 cantor_part.cpp:765
+#: cantor.cpp:581 cantor_part.cpp:697 cantor_part.cpp:765
 #, kde-format
 msgid "Ready"
 msgstr "მზადაა"
 
-#: cantor.cpp:621
+#: cantor.cpp:628
 #, kde-format
 msgid "Changed"
 msgstr "შეცვლილია"
 
-#: cantor.cpp:707
+#: cantor.cpp:714
 #, kde-format
 msgid "Multiple unsaved Worksheets are opened. Do you want to close them?"
 msgstr "გახსნილია ერთზე მეტი შეუნახავი სამუშაო ფურცელი. გნებავთ მათი დახურვა?"
 
-#: cantor.cpp:708
+#: cantor.cpp:715
 #, kde-format
 msgid "Close Cantor"
 msgstr "Cantor-ისდახურვა"
 
-#: cantor.cpp:727
+#: cantor.cpp:734
 #, kde-format
 msgid "The current project has been modified. Do you want to save it?"
 msgstr "მიმდინარე პროექტი შეიცვალა. გნებავთ, შეინახოთ ის?"
 
-#: cantor.cpp:728
+#: cantor.cpp:735
 #, kde-format
 msgid "Save Project"
 msgstr "პროექტის შენახვა"
 
-#: cantor.cpp:774 commandentry.cpp:166 commandentry.cpp:197
+#: cantor.cpp:781 commandentry.cpp:166 commandentry.cpp:197
 #: horizontalruleentry.cpp:336
 #, kde-format
 msgid "Default"
 msgstr "სტანდარტული"
 
-#: cantor.cpp:803
+#: cantor.cpp:810
 #, kde-format
 msgid "Table of Contents"
 msgstr "სარჩევი"
@@ -4036,64 +4036,57 @@ msgstr "ყველა მხარდაჭერილი ფაილი"
 msgid "All files"
 msgstr "ყველა ფაილი"
 
-#: panelplugins/plotpanel/plotpanelplugin.cpp:140
-#, fuzzy, kde-format
-#| msgid "Plots"
+#: panelplugins/plotpanel/plotpanelplugin.cpp:142
+#, kde-format
 msgid "Plots panel"
-msgstr "გრაფიკები"
+msgstr "გრაფიკების პანელი"
 
-#: panelplugins/plotpanel/plotpanelplugin.cpp:151
-#, fuzzy, kde-format
-#| msgid "&Previous"
+#: panelplugins/plotpanel/plotpanelplugin.cpp:153
+#, kde-format
 msgid "Previous Plot"
-msgstr "&წინა"
-
-#: panelplugins/plotpanel/plotpanelplugin.cpp:152
-#, fuzzy, kde-format
-#| msgid "Delete Plot"
-msgid "Next Plot"
-msgstr "გრაფიკის წაშლა"
+msgstr "წინა გრაფიკი"
 
 #: panelplugins/plotpanel/plotpanelplugin.cpp:154
 #, kde-format
+msgid "Next Plot"
+msgstr "შემდეგი გრაფიკი"
+
+#: panelplugins/plotpanel/plotpanelplugin.cpp:156
+#, kde-format
 msgid "Group Plots by Source Cell"
-msgstr ""
+msgstr "გრაფიკების დაჯგუფება წყარო უჯრედით"
 
-#: panelplugins/plotpanel/plotpanelplugin.cpp:157
-#, fuzzy, kde-format
-#| msgid "Animations"
+#: panelplugins/plotpanel/plotpanelplugin.cpp:159
+#, kde-format
 msgid "Animate Previews"
-msgstr "ანიმაციები"
-
-#: panelplugins/plotpanel/plotpanelplugin.cpp:161
-#, fuzzy, kde-format
-#| msgid "Copy result"
-msgid "Copy Plot"
-msgstr "შედეგის კოპირება"
-
-#: panelplugins/plotpanel/plotpanelplugin.cpp:162
-#: worksheethierarchymanager.cpp:1129
-#, fuzzy, kde-format
-#| msgid "Save Project"
-msgid "Save Plot"
-msgstr "პროექტის შენახვა"
+msgstr "მინიატურების ანიმაცია"
 
 #: panelplugins/plotpanel/plotpanelplugin.cpp:163
-#: worksheethierarchymanager.cpp:1175
-#, fuzzy, kde-format
-#| msgid "Save Project"
-msgid "Save All Plots"
-msgstr "პროექტის შენახვა"
+#, kde-format
+msgid "Copy Plot"
+msgstr "გრაფიკის კოპირება"
 
 #: panelplugins/plotpanel/plotpanelplugin.cpp:164
-#: panelplugins/plotpanel/plotpanelplugin.cpp:576
+#: worksheethierarchymanager.cpp:1129
+#, kde-format
+msgid "Save Plot"
+msgstr "გრაფიკის შენახვა"
+
+#: panelplugins/plotpanel/plotpanelplugin.cpp:165
+#: worksheethierarchymanager.cpp:1175
+#, kde-format
+msgid "Save All Plots"
+msgstr "ყველა გრაფიკის შენახვა"
+
+#: panelplugins/plotpanel/plotpanelplugin.cpp:166
+#: panelplugins/plotpanel/plotpanelplugin.cpp:578
 #: panelplugins/tocpanel/tocpanelplugin.cpp:1288
 #, kde-format
 msgid "Rename Plot"
 msgstr "გრაფიკის სახელის გადარქმევა"
 
-#: panelplugins/plotpanel/plotpanelplugin.cpp:165
-#: panelplugins/plotpanel/plotpanelplugin.cpp:591
+#: panelplugins/plotpanel/plotpanelplugin.cpp:167
+#: panelplugins/plotpanel/plotpanelplugin.cpp:593
 #: panelplugins/tocpanel/tocpanelplugin.cpp:388
 #: panelplugins/tocpanel/tocpanelplugin.cpp:1296
 #: panelplugins/tocpanel/tocpanelplugin.cpp:1304
@@ -4101,47 +4094,45 @@ msgstr "გრაფიკის სახელის გადარქმე�
 msgid "Delete Plot"
 msgstr "გრაფიკის წაშლა"
 
-#: panelplugins/plotpanel/plotpanelplugin.cpp:169
-#: panelplugins/plotpanel/plotpanelplugin.cpp:170
-#, fuzzy, kde-format
-#| msgid "Hierarchy Fonts"
+#: panelplugins/plotpanel/plotpanelplugin.cpp:171
+#: panelplugins/plotpanel/plotpanelplugin.cpp:172
+#, kde-format
 msgid "Search plots"
-msgstr "იერარქიის ფონტები"
+msgstr "გრაფიკების ძებნა"
 
-#: panelplugins/plotpanel/plotpanelplugin.cpp:176
-#, fuzzy, kde-format
-#| msgid "Integrate Plots into the Worksheet"
+#: panelplugins/plotpanel/plotpanelplugin.cpp:178
+#, kde-format
 msgid "Plots in the current worksheet"
-msgstr "სამუშაო ფურცელზე ნახაზების ინტეგრაცია"
+msgstr "გრაფიკები მიმდინარე სამუშაო ფურცელში"
 
-#: panelplugins/plotpanel/plotpanelplugin.cpp:189
+#: panelplugins/plotpanel/plotpanelplugin.cpp:191
 #, kde-format
 msgid "No plots match the search"
-msgstr ""
-
-#: panelplugins/plotpanel/plotpanelplugin.cpp:310
-#, fuzzy, kde-format
-#| msgid "Error: %1"
-msgid "Source: %1"
-msgstr "შეცდომა: %1"
+msgstr "თქვენს პირობას გრაფიკები არ ემთხვევა"
 
 #: panelplugins/plotpanel/plotpanelplugin.cpp:312
-#, fuzzy, kde-format
-#| msgid "Error: %1"
-msgid "Format: %1"
-msgstr "შეცდომა: %1"
+#, kde-format
+msgid "Source: %1"
+msgstr "წყარო: %1"
 
 #: panelplugins/plotpanel/plotpanelplugin.cpp:314
 #, kde-format
+msgid "Format: %1"
+msgstr "ფორმატი: %1"
+
+#: panelplugins/plotpanel/plotpanelplugin.cpp:316
+#, kde-format
 msgid "Preview unavailable; open the plot in the worksheet for details."
 msgstr ""
+"მინიატურა ხელმისაწვდომი არაა. დეტალებისთვის გახსენით გრაფიკი სამუშაო "
+"ფურცელზე."
 
-#: panelplugins/plotpanel/plotpanelplugin.cpp:577
+#: panelplugins/plotpanel/plotpanelplugin.cpp:579
 #, kde-format
 msgid "Plot name (leave empty to use the default name):"
-msgstr ""
+msgstr "გრაფიკის სახელი (ნაგულისხმევი სახელის გამოსაყენებლად დატოვეთ ცარიელი):"
 
-#: panelplugins/plotpanel/plotpanelplugin.cpp:589
+#: panelplugins/plotpanel/plotpanelplugin.cpp:591
 #: panelplugins/tocpanel/tocpanelplugin.cpp:368
 #: panelplugins/tocpanel/tocpanelplugin.cpp:387
 #: panelplugins/tocpanel/tocpanelplugin.cpp:1261
@@ -4150,11 +4141,10 @@ msgstr ""
 msgid "Do you really want to delete \"%1\"? This action cannot be undone."
 msgstr "მართლა გნებავთ, წაშალოთ \"%1\"? ეს ქმედება შეუქცევადია."
 
-#: panelplugins/plotpanel/plotpanelplugin.cpp:637
-#, fuzzy, kde-format
-#| msgid "&Worksheet"
+#: panelplugins/plotpanel/plotpanelplugin.cpp:639
+#, kde-format
 msgid "Open in Worksheet"
-msgstr "Cantor-ის სამუშაო ფურცელი"
+msgstr "გახსნა სამუშაო ფურცელში"
 
 #: panelplugins/tocpanel/tocpanelplugin.cpp:207
 #, kde-format

@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: cantor\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-10-05 00:40+0000\n"
-"PO-Revision-Date: 2026-09-17 12:16+0300\n"
+"POT-Creation-Date: 2026-10-06 00:40+0000\n"
+"PO-Revision-Date: 2026-10-05 20:59+0300\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian <trans-uk@lists.fedoraproject.org>\n"
 "Language: uk\n"
@@ -63,7 +63,7 @@ msgstr "Складне креслення"
 #. i18n: ectx: property (text), widget (QLabel, label_2)
 #: assistants/advancedplot/advancedplotdialog.ui:24
 #: backends/qalculate/plotassistant/qalculateplotassistant.cpp:24
-#: panelplugins/plotpanel/plotpanelplugin.cpp:290
+#: panelplugins/plotpanel/plotpanelplugin.cpp:292
 #: panelplugins/tocpanel/tocpanelplugin.cpp:384
 #: panelplugins/tocpanel/tocpanelplugin.cpp:1300
 #: worksheethierarchymanager.cpp:364 worksheethierarchymanager.cpp:1125
@@ -511,7 +511,7 @@ msgstr ""
 #: backends/maxima/settings.ui:36 backends/octave/settings.ui:36
 #: backends/python/settings.ui:36 backends/qalculate/settings.ui:36
 #: backends/R/settings.ui:21 backends/sage/settings.ui:36
-#: backends/scilab/settings.ui:21 cantor.cpp:802
+#: backends/scilab/settings.ui:21 cantor.cpp:809
 #, kde-format
 msgid "General"
 msgstr "Загальне"
@@ -1022,8 +1022,8 @@ msgid "The integration of plots will be disabled."
 msgstr "Інтегрування графіків вимкнено."
 
 #: backends/octave/octavesession.cpp:390 backends/sage/sagesession.cpp:358
-#: backends/sage/sagesession.cpp:369 cantor.cpp:246 cantor.cpp:248
-#: cantor.cpp:457 cantor.cpp:464 lib/session.cpp:334 main.cpp:48 main.cpp:105
+#: backends/sage/sagesession.cpp:369 cantor.cpp:247 cantor.cpp:249
+#: cantor.cpp:464 cantor.cpp:471 lib/session.cpp:334 main.cpp:48 main.cpp:105
 #: markdownentry.cpp:1168 textentry.cpp:862 worksheet.cpp:1639
 #, kde-format
 msgid "Cantor"
@@ -2612,37 +2612,37 @@ msgstr ""
 msgid "Plot Integration:"
 msgstr "Інтеграція графіків:"
 
-#: cantor.cpp:122
+#: cantor.cpp:123
 #, kde-format
 msgid "The file %1 is already opened."
 msgstr "Файл %1 вже відкрито."
 
-#: cantor.cpp:122 cantor.cpp:348
+#: cantor.cpp:123 cantor.cpp:355
 #, kde-format
 msgid "Open file"
 msgstr "Відкриття файла"
 
-#: cantor.cpp:164
+#: cantor.cpp:165
 #, kde-format
 msgid "Download Examples"
 msgstr "Отримати приклади"
 
-#: cantor.cpp:167
+#: cantor.cpp:168
 #, kde-format
 msgid "&Open Example"
 msgstr "&Відкрити приклад"
 
-#: cantor.cpp:172
+#: cantor.cpp:173
 #, kde-format
 msgid "Go to previous worksheet"
 msgstr "Перейти до попереднього робочого аркуша"
 
-#: cantor.cpp:184
+#: cantor.cpp:185
 #, kde-format
 msgid "Go to next worksheet"
 msgstr "Перейти до наступного робочого аркуша"
 
-#: cantor.cpp:347
+#: cantor.cpp:354
 #, kde-format
 msgid ""
 "All supported files (*.cws *ipynb);;Cantor Worksheet (*.cws);;Jupyter "
@@ -2651,7 +2651,7 @@ msgstr ""
 "усі підтримувані файли (*.cws *ipynb);;робочий аркуш Cantor (*.cws);;"
 "нотатник Jupyter (*.ipynb)"
 
-#: cantor.cpp:415
+#: cantor.cpp:422
 #, kde-format
 msgid ""
 "<h1>No Backend Found</h1>\n"
@@ -2686,17 +2686,17 @@ msgstr[3] ""
 " <ul>    <li>змінити параметри у діалоговому вікні налаштування</li> "
 "<li>встановити пакунки цієї програми: </li>   %2 </ul> </div>"
 
-#: cantor.cpp:435
+#: cantor.cpp:442
 #, kde-format
 msgid "Error"
 msgstr "Помилка"
 
-#: cantor.cpp:457
+#: cantor.cpp:464
 #, kde-format
 msgid "Backend %1 is not installed"
 msgstr "Модуль %1 не встановлено"
 
-#: cantor.cpp:464
+#: cantor.cpp:471
 #, kde-format
 msgid ""
 "%1 backend installed, but inactive. Please check installation and Cantor "
@@ -2705,60 +2705,60 @@ msgstr ""
 "Модуль %1 встановлено, але не задіяно. Будь ласка, перевірте, чи належним "
 "чином його встановлено і чи правильно визначено параметри Cantor."
 
-#: cantor.cpp:493
+#: cantor.cpp:500
 #, kde-format
 msgid "Session %1"
 msgstr "Сеанс %1"
 
-#: cantor.cpp:511
+#: cantor.cpp:518
 #, kde-format
 msgid "Failed to find the Cantor Part with error %1"
 msgstr "Не вдалося знайти модуль Cantor. Помилка %1"
 
-#: cantor.cpp:571 cantor_part.cpp:686
+#: cantor.cpp:578 cantor_part.cpp:686
 #, kde-format
 msgid "Calculating..."
 msgstr "Обчислення…"
 
-#: cantor.cpp:574 cantor_part.cpp:697 cantor_part.cpp:765
+#: cantor.cpp:581 cantor_part.cpp:697 cantor_part.cpp:765
 #, kde-format
 msgid "Ready"
 msgstr "Виконано"
 
-#: cantor.cpp:621
+#: cantor.cpp:628
 #, kde-format
 msgid "Changed"
 msgstr "Змінено"
 
-#: cantor.cpp:707
+#: cantor.cpp:714
 #, kde-format
 msgid "Multiple unsaved Worksheets are opened. Do you want to close them?"
 msgstr ""
 "Відкрито декілька робочих аркушів, зміни у яких не збережено. Хочете закрити "
 "їх усі?"
 
-#: cantor.cpp:708
+#: cantor.cpp:715
 #, kde-format
 msgid "Close Cantor"
 msgstr "Закрити Cantor"
 
-#: cantor.cpp:727
+#: cantor.cpp:734
 #, kde-format
 msgid "The current project has been modified. Do you want to save it?"
 msgstr "До поточного проєкту було внесено зміни. Хочете зберегти їх?"
 
-#: cantor.cpp:728
+#: cantor.cpp:735
 #, kde-format
 msgid "Save Project"
 msgstr "Зберегти проєкт"
 
-#: cantor.cpp:774 commandentry.cpp:166 commandentry.cpp:197
+#: cantor.cpp:781 commandentry.cpp:166 commandentry.cpp:197
 #: horizontalruleentry.cpp:336
 #, kde-format
 msgid "Default"
 msgstr "Типовий"
 
-#: cantor.cpp:803
+#: cantor.cpp:810
 #, kde-format
 msgid "Table of Contents"
 msgstr "Зміст"
@@ -4090,64 +4090,57 @@ msgstr "усі підтримувані файли"
 msgid "All files"
 msgstr "усі файли"
 
-#: panelplugins/plotpanel/plotpanelplugin.cpp:140
-#, fuzzy, kde-format
-#| msgid "Plots"
+#: panelplugins/plotpanel/plotpanelplugin.cpp:142
+#, kde-format
 msgid "Plots panel"
-msgstr "Креслення"
+msgstr "Панель креслень"
 
-#: panelplugins/plotpanel/plotpanelplugin.cpp:151
-#, fuzzy, kde-format
-#| msgid "&Previous"
+#: panelplugins/plotpanel/plotpanelplugin.cpp:153
+#, kde-format
 msgid "Previous Plot"
-msgstr "&Попередній"
-
-#: panelplugins/plotpanel/plotpanelplugin.cpp:152
-#, fuzzy, kde-format
-#| msgid "Delete Plot"
-msgid "Next Plot"
-msgstr "Вилучити креслення"
+msgstr "Попереднє креслення"
 
 #: panelplugins/plotpanel/plotpanelplugin.cpp:154
 #, kde-format
+msgid "Next Plot"
+msgstr "Наступне креслення"
+
+#: panelplugins/plotpanel/plotpanelplugin.cpp:156
+#, kde-format
 msgid "Group Plots by Source Cell"
-msgstr ""
+msgstr "Групувати креслення за коміркою-джерелом"
 
-#: panelplugins/plotpanel/plotpanelplugin.cpp:157
-#, fuzzy, kde-format
-#| msgid "Animate Worksheet"
+#: panelplugins/plotpanel/plotpanelplugin.cpp:159
+#, kde-format
 msgid "Animate Previews"
-msgstr "Анімувати робочий аркуш"
-
-#: panelplugins/plotpanel/plotpanelplugin.cpp:161
-#, fuzzy, kde-format
-#| msgid "Copy result"
-msgid "Copy Plot"
-msgstr "Копіювати результат"
-
-#: panelplugins/plotpanel/plotpanelplugin.cpp:162
-#: worksheethierarchymanager.cpp:1129
-#, fuzzy, kde-format
-#| msgid "Save Project"
-msgid "Save Plot"
-msgstr "Зберегти проєкт"
+msgstr "Анімувати попередній перегляд"
 
 #: panelplugins/plotpanel/plotpanelplugin.cpp:163
-#: worksheethierarchymanager.cpp:1175
-#, fuzzy, kde-format
-#| msgid "Save Project"
-msgid "Save All Plots"
-msgstr "Зберегти проєкт"
+#, kde-format
+msgid "Copy Plot"
+msgstr "Копіювати креслення"
 
 #: panelplugins/plotpanel/plotpanelplugin.cpp:164
-#: panelplugins/plotpanel/plotpanelplugin.cpp:576
+#: worksheethierarchymanager.cpp:1129
+#, kde-format
+msgid "Save Plot"
+msgstr "Зберегти креслення"
+
+#: panelplugins/plotpanel/plotpanelplugin.cpp:165
+#: worksheethierarchymanager.cpp:1175
+#, kde-format
+msgid "Save All Plots"
+msgstr "Зберегти усі креслення"
+
+#: panelplugins/plotpanel/plotpanelplugin.cpp:166
+#: panelplugins/plotpanel/plotpanelplugin.cpp:578
 #: panelplugins/tocpanel/tocpanelplugin.cpp:1288
 #, kde-format
 msgid "Rename Plot"
 msgstr "Перейменувати креслення"
 
-#: panelplugins/plotpanel/plotpanelplugin.cpp:165
-#: panelplugins/plotpanel/plotpanelplugin.cpp:591
+#: panelplugins/plotpanel/plotpanelplugin.cpp:167
+#: panelplugins/plotpanel/plotpanelplugin.cpp:593
 #: panelplugins/tocpanel/tocpanelplugin.cpp:388
 #: panelplugins/tocpanel/tocpanelplugin.cpp:1296
 #: panelplugins/tocpanel/tocpanelplugin.cpp:1304
@@ -4155,47 +4148,45 @@ msgstr "Перейменувати креслення"
 msgid "Delete Plot"
 msgstr "Вилучити креслення"
 
-#: panelplugins/plotpanel/plotpanelplugin.cpp:169
-#: panelplugins/plotpanel/plotpanelplugin.cpp:170
-#, fuzzy, kde-format
-#| msgid "Hierarchy Fonts"
+#: panelplugins/plotpanel/plotpanelplugin.cpp:171
+#: panelplugins/plotpanel/plotpanelplugin.cpp:172
+#, kde-format
 msgid "Search plots"
-msgstr "Шрифти ієрархії"
+msgstr "Шукати креслення"
 
-#: panelplugins/plotpanel/plotpanelplugin.cpp:176
-#, fuzzy, kde-format
-#| msgid "Integrate Plots into the Worksheet"
+#: panelplugins/plotpanel/plotpanelplugin.cpp:178
+#, kde-format
 msgid "Plots in the current worksheet"
-msgstr "Інтегрувати графіки до робочого аркуша"
+msgstr "Креслення на поточному робочому аркуші"
 
-#: panelplugins/plotpanel/plotpanelplugin.cpp:189
+#: panelplugins/plotpanel/plotpanelplugin.cpp:191
 #, kde-format
 msgid "No plots match the search"
-msgstr ""
-
-#: panelplugins/plotpanel/plotpanelplugin.cpp:310
-#, fuzzy, kde-format
-#| msgid "Error: %1"
-msgid "Source: %1"
-msgstr "Помилка: %1"
+msgstr "Немає креслень, які відповідають критеріям пошуку"
 
 #: panelplugins/plotpanel/plotpanelplugin.cpp:312
-#, fuzzy, kde-format
-#| msgid "Error: %1"
-msgid "Format: %1"
-msgstr "Помилка: %1"
+#, kde-format
+msgid "Source: %1"
+msgstr "Джерело: %1"
 
 #: panelplugins/plotpanel/plotpanelplugin.cpp:314
 #, kde-format
+msgid "Format: %1"
+msgstr "Формат: %1"
+
+#: panelplugins/plotpanel/plotpanelplugin.cpp:316
+#, kde-format
 msgid "Preview unavailable; open the plot in the worksheet for details."
 msgstr ""
+"Попередній перегляд є недоступним; відкрийте креслення на робочому аркуші, "
+"щоб дізнатися більше."
 
-#: panelplugins/plotpanel/plotpanelplugin.cpp:577
+#: panelplugins/plotpanel/plotpanelplugin.cpp:579
 #, kde-format
 msgid "Plot name (leave empty to use the default name):"
-msgstr ""
+msgstr "Назва креслення (не заповнюйте, щоб використати типову):"
 
-#: panelplugins/plotpanel/plotpanelplugin.cpp:589
+#: panelplugins/plotpanel/plotpanelplugin.cpp:591
 #: panelplugins/tocpanel/tocpanelplugin.cpp:368
 #: panelplugins/tocpanel/tocpanelplugin.cpp:387
 #: panelplugins/tocpanel/tocpanelplugin.cpp:1261
@@ -4205,11 +4196,10 @@ msgid "Do you really want to delete \"%1\"? This action cannot be undone."
 msgstr ""
 "Хочете вилучити «%1»?  Наслідки виконання цієї дії не можна буде скасувати."
 
-#: panelplugins/plotpanel/plotpanelplugin.cpp:637
-#, fuzzy, kde-format
-#| msgid "Animate Worksheet"
+#: panelplugins/plotpanel/plotpanelplugin.cpp:639
+#, kde-format
 msgid "Open in Worksheet"
-msgstr "Анімувати робочий аркуш"
+msgstr "Відкрити на робочому аркуші"
 
 #: panelplugins/tocpanel/tocpanelplugin.cpp:207
 #, kde-format

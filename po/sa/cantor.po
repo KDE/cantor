@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: cantor\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-10-05 00:40+0000\n"
+"POT-Creation-Date: 2026-10-06 00:40+0000\n"
 "PO-Revision-Date: 2024-12-25 19:37+0530\n"
 "Last-Translator: kali <shreekantkalwar@gmail.com>\n"
 "Language-Team: Sanskrit <kde-i18n-doc@kde.org>\n"
@@ -62,7 +62,7 @@ msgstr "उन्नत प्लॉटिंग"
 #. i18n: ectx: property (text), widget (QLabel, label_2)
 #: assistants/advancedplot/advancedplotdialog.ui:24
 #: backends/qalculate/plotassistant/qalculateplotassistant.cpp:24
-#: panelplugins/plotpanel/plotpanelplugin.cpp:290
+#: panelplugins/plotpanel/plotpanelplugin.cpp:292
 #: panelplugins/tocpanel/tocpanelplugin.cpp:384
 #: panelplugins/tocpanel/tocpanelplugin.cpp:1300
 #: worksheethierarchymanager.cpp:364 worksheethierarchymanager.cpp:1125
@@ -501,7 +501,7 @@ msgstr ""
 #: backends/maxima/settings.ui:36 backends/octave/settings.ui:36
 #: backends/python/settings.ui:36 backends/qalculate/settings.ui:36
 #: backends/R/settings.ui:21 backends/sage/settings.ui:36
-#: backends/scilab/settings.ui:21 cantor.cpp:802
+#: backends/scilab/settings.ui:21 cantor.cpp:809
 #, kde-format
 msgid "General"
 msgstr "सामान्य"
@@ -992,8 +992,8 @@ msgid "The integration of plots will be disabled."
 msgstr "भूखण्डानां एकीकरणं अक्षमं भविष्यति।"
 
 #: backends/octave/octavesession.cpp:390 backends/sage/sagesession.cpp:358
-#: backends/sage/sagesession.cpp:369 cantor.cpp:246 cantor.cpp:248
-#: cantor.cpp:457 cantor.cpp:464 lib/session.cpp:334 main.cpp:48 main.cpp:105
+#: backends/sage/sagesession.cpp:369 cantor.cpp:247 cantor.cpp:249
+#: cantor.cpp:464 cantor.cpp:471 lib/session.cpp:334 main.cpp:48 main.cpp:105
 #: markdownentry.cpp:1168 textentry.cpp:862 worksheet.cpp:1639
 #, kde-format
 msgid "Cantor"
@@ -2540,37 +2540,37 @@ msgstr "Scilab आरभ्यतुं असफलः, कृपया Scilab 
 msgid "Plot Integration:"
 msgstr "कथानक एकीकरण :"
 
-#: cantor.cpp:122
+#: cantor.cpp:123
 #, kde-format
 msgid "The file %1 is already opened."
 msgstr "%1 इति सञ्चिका पूर्वमेव उद्घाटिता अस्ति ।"
 
-#: cantor.cpp:122 cantor.cpp:348
+#: cantor.cpp:123 cantor.cpp:355
 #, kde-format
 msgid "Open file"
 msgstr "सञ्चिकां उद्घाटयन्तु"
 
-#: cantor.cpp:164
+#: cantor.cpp:165
 #, kde-format
 msgid "Download Examples"
 msgstr "उदाहरणानि डाउनलोड् कुर्वन्तु"
 
-#: cantor.cpp:167
+#: cantor.cpp:168
 #, kde-format
 msgid "&Open Example"
 msgstr "&उदाहरणं उद्घाटयतु"
 
-#: cantor.cpp:172
+#: cantor.cpp:173
 #, kde-format
 msgid "Go to previous worksheet"
 msgstr "पूर्वकार्यपत्रं गच्छन्तु"
 
-#: cantor.cpp:184
+#: cantor.cpp:185
 #, kde-format
 msgid "Go to next worksheet"
 msgstr "अग्रिमकार्यपत्रं गच्छन्तु"
 
-#: cantor.cpp:347
+#: cantor.cpp:354
 #, kde-format
 msgid ""
 "All supported files (*.cws *ipynb);;Cantor Worksheet (*.cws);;Jupyter "
@@ -2579,7 +2579,7 @@ msgstr ""
 "सर्वाणि समर्थितसञ्चिकाः (*.cws *ipynb);;Cantor Worksheet (*.cws);;Jupyter "
 "Notebook (*.ipynb)"
 
-#: cantor.cpp:415
+#: cantor.cpp:422
 #, kde-format
 msgid ""
 "<h1>No Backend Found</h1>\n"
@@ -2602,76 +2602,76 @@ msgstr[1] ""
 "config संवादे सेटिंग्स् परिवर्तयन्;</li><li> निम्नलिखितकार्यक्रमेषु एकस्य कृते संकुलं संस्थापनम् ।"
 "</li> %2</ul></div> "
 
-#: cantor.cpp:435
+#: cantor.cpp:442
 #, kde-format
 msgid "Error"
 msgstr "त्रुटि"
 
-#: cantor.cpp:457
+#: cantor.cpp:464
 #, kde-format
 msgid "Backend %1 is not installed"
 msgstr "पृष्ठभागः %1 संस्थापितः नास्ति"
 
-#: cantor.cpp:464
+#: cantor.cpp:471
 #, kde-format
 msgid ""
 "%1 backend installed, but inactive. Please check installation and Cantor "
 "settings"
 msgstr "%1 पृष्ठभागः संस्थापितः, परन्तु निष्क्रियः । कृपया संस्थापनं Cantor सेटिंग्स् च पश्यन्तु"
 
-#: cantor.cpp:493
+#: cantor.cpp:500
 #, kde-format
 msgid "Session %1"
 msgstr "सत्र %1"
 
-#: cantor.cpp:511
+#: cantor.cpp:518
 #, kde-format
 msgid "Failed to find the Cantor Part with error %1"
 msgstr "%1 त्रुटिना सह Cantor Part अन्वेष्टुं असफलम्"
 
-#: cantor.cpp:571 cantor_part.cpp:686
+#: cantor.cpp:578 cantor_part.cpp:686
 #, kde-format
 msgid "Calculating..."
 msgstr "गणना कर..."
 
-#: cantor.cpp:574 cantor_part.cpp:697 cantor_part.cpp:765
+#: cantor.cpp:581 cantor_part.cpp:697 cantor_part.cpp:765
 #, kde-format
 msgid "Ready"
 msgstr "आत्त"
 
-#: cantor.cpp:621
+#: cantor.cpp:628
 #, kde-format
 msgid "Changed"
 msgstr "परिवर्तितः"
 
-#: cantor.cpp:707
+#: cantor.cpp:714
 #, kde-format
 msgid "Multiple unsaved Worksheets are opened. Do you want to close them?"
 msgstr ""
 "अनेकाः असरक्षिताः Worksheets उद्घाटिताः भवन्ति । किं भवन्तः तान् पिधातुम् इच्छन्ति ?"
 
-#: cantor.cpp:708
+#: cantor.cpp:715
 #, kde-format
 msgid "Close Cantor"
 msgstr "कैंटरं बन्दं कुर्वन्तु"
 
-#: cantor.cpp:727
+#: cantor.cpp:734
 #, kde-format
 msgid "The current project has been modified. Do you want to save it?"
 msgstr "वर्तमान परियोजनायां परिवर्तनं कृतम् अस्ति । किं त्वं तत् रक्षितुम् इच्छसि ?"
 
-#: cantor.cpp:728
+#: cantor.cpp:735
 #, kde-format
 msgid "Save Project"
 msgstr "परियोजना रक्षतु"
 
-#: cantor.cpp:774 commandentry.cpp:166 commandentry.cpp:197
+#: cantor.cpp:781 commandentry.cpp:166 commandentry.cpp:197
 #: horizontalruleentry.cpp:336
 #, kde-format
 msgid "Default"
 msgstr "मूलभूतम्‌"
 
-#: cantor.cpp:803
+#: cantor.cpp:810
 #, kde-format
 msgid "Table of Contents"
 msgstr ""
@@ -4008,64 +4008,64 @@ msgstr "सर्वाणि समर्थितसञ्चिकाः"
 msgid "All files"
 msgstr "सर्वाणि सञ्चिकानि"
 
-#: panelplugins/plotpanel/plotpanelplugin.cpp:140
+#: panelplugins/plotpanel/plotpanelplugin.cpp:142
 #, fuzzy, kde-format
 #| msgid "Plots"
 msgid "Plots panel"
 msgstr "कथानकम्"
 
-#: panelplugins/plotpanel/plotpanelplugin.cpp:151
+#: panelplugins/plotpanel/plotpanelplugin.cpp:153
 #, fuzzy, kde-format
 #| msgid "&Previous"
 msgid "Previous Plot"
 msgstr "&पूर्वतनम्‌"
 
-#: panelplugins/plotpanel/plotpanelplugin.cpp:152
+#: panelplugins/plotpanel/plotpanelplugin.cpp:154
 #, fuzzy, kde-format
 #| msgid "Delete"
 msgid "Next Plot"
 msgstr "लुप्"
 
-#: panelplugins/plotpanel/plotpanelplugin.cpp:154
+#: panelplugins/plotpanel/plotpanelplugin.cpp:156
 #, kde-format
 msgid "Group Plots by Source Cell"
 msgstr ""
 
-#: panelplugins/plotpanel/plotpanelplugin.cpp:157
+#: panelplugins/plotpanel/plotpanelplugin.cpp:159
 #, fuzzy, kde-format
 #| msgid "Animations"
 msgid "Animate Previews"
 msgstr "एनिमेशन"
 
-#: panelplugins/plotpanel/plotpanelplugin.cpp:161
+#: panelplugins/plotpanel/plotpanelplugin.cpp:163
 #, fuzzy, kde-format
 #| msgid "Copy result"
 msgid "Copy Plot"
 msgstr "परिणामं प्रतिलिख्यताम्"
 
-#: panelplugins/plotpanel/plotpanelplugin.cpp:162
+#: panelplugins/plotpanel/plotpanelplugin.cpp:164
 #: worksheethierarchymanager.cpp:1129
 #, fuzzy, kde-format
 #| msgid "Save Project"
 msgid "Save Plot"
 msgstr "परियोजना रक्षतु"
 
-#: panelplugins/plotpanel/plotpanelplugin.cpp:163
+#: panelplugins/plotpanel/plotpanelplugin.cpp:165
 #: worksheethierarchymanager.cpp:1175
 #, fuzzy, kde-format
 #| msgid "Save Project"
 msgid "Save All Plots"
 msgstr "परियोजना रक्षतु"
 
-#: panelplugins/plotpanel/plotpanelplugin.cpp:164
-#: panelplugins/plotpanel/plotpanelplugin.cpp:576
+#: panelplugins/plotpanel/plotpanelplugin.cpp:166
+#: panelplugins/plotpanel/plotpanelplugin.cpp:578
 #: panelplugins/tocpanel/tocpanelplugin.cpp:1288
 #, kde-format
 msgid "Rename Plot"
 msgstr ""
 
-#: panelplugins/plotpanel/plotpanelplugin.cpp:165
-#: panelplugins/plotpanel/plotpanelplugin.cpp:591
+#: panelplugins/plotpanel/plotpanelplugin.cpp:167
+#: panelplugins/plotpanel/plotpanelplugin.cpp:593
 #: panelplugins/tocpanel/tocpanelplugin.cpp:388
 #: panelplugins/tocpanel/tocpanelplugin.cpp:1296
 #: panelplugins/tocpanel/tocpanelplugin.cpp:1304
@@ -4074,47 +4074,47 @@ msgstr ""
 msgid "Delete Plot"
 msgstr "लुप्"
 
-#: panelplugins/plotpanel/plotpanelplugin.cpp:169
-#: panelplugins/plotpanel/plotpanelplugin.cpp:170
+#: panelplugins/plotpanel/plotpanelplugin.cpp:171
+#: panelplugins/plotpanel/plotpanelplugin.cpp:172
 #, fuzzy, kde-format
 #| msgid "Search/Filter"
 msgid "Search plots"
 msgstr "अन्वेषण/छननम्"
 
-#: panelplugins/plotpanel/plotpanelplugin.cpp:176
+#: panelplugins/plotpanel/plotpanelplugin.cpp:178
 #, fuzzy, kde-format
 #| msgid "Integrate Plots into the Worksheet"
 msgid "Plots in the current worksheet"
 msgstr "Worksheet मध्ये Plots एकीकृत्य स्थापयन्तु"
 
-#: panelplugins/plotpanel/plotpanelplugin.cpp:189
+#: panelplugins/plotpanel/plotpanelplugin.cpp:191
 #, kde-format
 msgid "No plots match the search"
 msgstr ""
 
-#: panelplugins/plotpanel/plotpanelplugin.cpp:310
+#: panelplugins/plotpanel/plotpanelplugin.cpp:312
 #, fuzzy, kde-format
 #| msgid "Error: %1"
 msgid "Source: %1"
 msgstr "त्रुटिः %1"
 
-#: panelplugins/plotpanel/plotpanelplugin.cpp:312
+#: panelplugins/plotpanel/plotpanelplugin.cpp:314
 #, fuzzy, kde-format
 #| msgid "Error: %1"
 msgid "Format: %1"
 msgstr "त्रुटिः %1"
 
-#: panelplugins/plotpanel/plotpanelplugin.cpp:314
+#: panelplugins/plotpanel/plotpanelplugin.cpp:316
 #, kde-format
 msgid "Preview unavailable; open the plot in the worksheet for details."
 msgstr ""
 
-#: panelplugins/plotpanel/plotpanelplugin.cpp:577
+#: panelplugins/plotpanel/plotpanelplugin.cpp:579
 #, kde-format
 msgid "Plot name (leave empty to use the default name):"
 msgstr ""
 
-#: panelplugins/plotpanel/plotpanelplugin.cpp:589
+#: panelplugins/plotpanel/plotpanelplugin.cpp:591
 #: panelplugins/tocpanel/tocpanelplugin.cpp:368
 #: panelplugins/tocpanel/tocpanelplugin.cpp:387
 #: panelplugins/tocpanel/tocpanelplugin.cpp:1261
@@ -4123,7 +4123,7 @@ msgstr ""
 msgid "Do you really want to delete \"%1\"? This action cannot be undone."
 msgstr ""
 
-#: panelplugins/plotpanel/plotpanelplugin.cpp:637
+#: panelplugins/plotpanel/plotpanelplugin.cpp:639
 #, fuzzy, kde-format
 #| msgid "&Worksheet"
 msgid "Open in Worksheet"

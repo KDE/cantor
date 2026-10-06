@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-10-05 00:40+0000\n"
+"POT-Creation-Date: 2026-10-06 00:40+0000\n"
 "PO-Revision-Date: 2026-03-14 06:33+0100\n"
 "Last-Translator: Łukasz Wojniłowicz <lukasz.wojnilowicz@gmail.com>\n"
 "Language-Team: pl\n"
@@ -64,7 +64,7 @@ msgstr "Rozbudowane rysowanie wykresów"
 #. i18n: ectx: property (text), widget (QLabel, label_2)
 #: assistants/advancedplot/advancedplotdialog.ui:24
 #: backends/qalculate/plotassistant/qalculateplotassistant.cpp:24
-#: panelplugins/plotpanel/plotpanelplugin.cpp:290
+#: panelplugins/plotpanel/plotpanelplugin.cpp:292
 #: panelplugins/tocpanel/tocpanelplugin.cpp:384
 #: panelplugins/tocpanel/tocpanelplugin.cpp:1300
 #: worksheethierarchymanager.cpp:364 worksheethierarchymanager.cpp:1125
@@ -507,7 +507,7 @@ msgstr ""
 #: backends/maxima/settings.ui:36 backends/octave/settings.ui:36
 #: backends/python/settings.ui:36 backends/qalculate/settings.ui:36
 #: backends/R/settings.ui:21 backends/sage/settings.ui:36
-#: backends/scilab/settings.ui:21 cantor.cpp:802
+#: backends/scilab/settings.ui:21 cantor.cpp:809
 #, kde-format
 msgid "General"
 msgstr "Ogólne"
@@ -1009,8 +1009,8 @@ msgid "The integration of plots will be disabled."
 msgstr "Integracja wykresów zostanie wyłączona."
 
 #: backends/octave/octavesession.cpp:390 backends/sage/sagesession.cpp:358
-#: backends/sage/sagesession.cpp:369 cantor.cpp:246 cantor.cpp:248
-#: cantor.cpp:457 cantor.cpp:464 lib/session.cpp:334 main.cpp:48 main.cpp:105
+#: backends/sage/sagesession.cpp:369 cantor.cpp:247 cantor.cpp:249
+#: cantor.cpp:464 cantor.cpp:471 lib/session.cpp:334 main.cpp:48 main.cpp:105
 #: markdownentry.cpp:1168 textentry.cpp:862 worksheet.cpp:1639
 #, kde-format
 msgid "Cantor"
@@ -2573,37 +2573,37 @@ msgstr "Nie udało się uruchomić Scilab. Sprawdź czy jest wgrane."
 msgid "Plot Integration:"
 msgstr "Integracja wykresów:"
 
-#: cantor.cpp:122
+#: cantor.cpp:123
 #, kde-format
 msgid "The file %1 is already opened."
 msgstr "Plik %1 jest już otwarty."
 
-#: cantor.cpp:122 cantor.cpp:348
+#: cantor.cpp:123 cantor.cpp:355
 #, kde-format
 msgid "Open file"
 msgstr "Otwórz plik"
 
-#: cantor.cpp:164
+#: cantor.cpp:165
 #, kde-format
 msgid "Download Examples"
 msgstr "Pobierz przykłady"
 
-#: cantor.cpp:167
+#: cantor.cpp:168
 #, kde-format
 msgid "&Open Example"
 msgstr "&Otwórz przykład"
 
-#: cantor.cpp:172
+#: cantor.cpp:173
 #, kde-format
 msgid "Go to previous worksheet"
 msgstr "Przejdź do poprzedniego arkusza pracy"
 
-#: cantor.cpp:184
+#: cantor.cpp:185
 #, kde-format
 msgid "Go to next worksheet"
 msgstr "Przejdź do następnego arkusza pracy"
 
-#: cantor.cpp:347
+#: cantor.cpp:354
 #, kde-format
 msgid ""
 "All supported files (*.cws *ipynb);;Cantor Worksheet (*.cws);;Jupyter "
@@ -2612,7 +2612,7 @@ msgstr ""
 "Wszystkie obsługiwane pliki (*.cws *ipynb);;Arkusze pracy Cantora (*.cws);;"
 "Zeszyty Jupytera (*.ipynb)"
 
-#: cantor.cpp:415
+#: cantor.cpp:422
 #, kde-format
 msgid ""
 "<h1>No Backend Found</h1>\n"
@@ -2644,17 +2644,17 @@ msgstr[2] ""
 "<li>Zainstalowania jednego z następujących programów:</li>     %2   </ul> </"
 "div> "
 
-#: cantor.cpp:435
+#: cantor.cpp:442
 #, kde-format
 msgid "Error"
 msgstr "Błąd"
 
-#: cantor.cpp:457
+#: cantor.cpp:464
 #, kde-format
 msgid "Backend %1 is not installed"
 msgstr "Silnik %1 nie jest wgrany"
 
-#: cantor.cpp:464
+#: cantor.cpp:471
 #, kde-format
 msgid ""
 "%1 backend installed, but inactive. Please check installation and Cantor "
@@ -2663,59 +2663,59 @@ msgstr ""
 "Wgrano silnik %1, lecz nie został on włączony. Sprawdź swoją instalację oraz "
 "ustawienia Cantora"
 
-#: cantor.cpp:493
+#: cantor.cpp:500
 #, kde-format
 msgid "Session %1"
 msgstr "Posiedzenie %1"
 
-#: cantor.cpp:511
+#: cantor.cpp:518
 #, kde-format
 msgid "Failed to find the Cantor Part with error %1"
 msgstr "Nie można znaleźć modułu Cantor, kod błędu %1."
 
-#: cantor.cpp:571 cantor_part.cpp:686
+#: cantor.cpp:578 cantor_part.cpp:686
 #, kde-format
 msgid "Calculating..."
 msgstr "Obliczanie..."
 
-#: cantor.cpp:574 cantor_part.cpp:697 cantor_part.cpp:765
+#: cantor.cpp:581 cantor_part.cpp:697 cantor_part.cpp:765
 #, kde-format
 msgid "Ready"
 msgstr "Gotowy"
 
-#: cantor.cpp:621
+#: cantor.cpp:628
 #, kde-format
 msgid "Changed"
 msgstr "Zmieniony"
 
-#: cantor.cpp:707
+#: cantor.cpp:714
 #, kde-format
 msgid "Multiple unsaved Worksheets are opened. Do you want to close them?"
 msgstr ""
 "Otwartych jest wiele niezapisanych arkuszy pracy. Czy chcesz je zamknąć?"
 
-#: cantor.cpp:708
+#: cantor.cpp:715
 #, kde-format
 msgid "Close Cantor"
 msgstr "Zamknij Cantor"
 
-#: cantor.cpp:727
+#: cantor.cpp:734
 #, kde-format
 msgid "The current project has been modified. Do you want to save it?"
 msgstr "Bieżący projekt uległ zmianie. Czy chcesz go zapisać?"
 
-#: cantor.cpp:728
+#: cantor.cpp:735
 #, kde-format
 msgid "Save Project"
 msgstr "Zapisz projekt"
 
-#: cantor.cpp:774 commandentry.cpp:166 commandentry.cpp:197
+#: cantor.cpp:781 commandentry.cpp:166 commandentry.cpp:197
 #: horizontalruleentry.cpp:336
 #, kde-format
 msgid "Default"
 msgstr "Domyślne"
 
-#: cantor.cpp:803
+#: cantor.cpp:810
 #, kde-format
 msgid "Table of Contents"
 msgstr ""
@@ -4054,64 +4054,64 @@ msgstr "Wszystkie obsługiwane pliki"
 msgid "All files"
 msgstr "Wszystkie pliki"
 
-#: panelplugins/plotpanel/plotpanelplugin.cpp:140
+#: panelplugins/plotpanel/plotpanelplugin.cpp:142
 #, fuzzy, kde-format
 #| msgid "Plots"
 msgid "Plots panel"
 msgstr "Wykresy"
 
-#: panelplugins/plotpanel/plotpanelplugin.cpp:151
+#: panelplugins/plotpanel/plotpanelplugin.cpp:153
 #, fuzzy, kde-format
 #| msgid "&Previous"
 msgid "Previous Plot"
 msgstr "&Poprzedni"
 
-#: panelplugins/plotpanel/plotpanelplugin.cpp:152
+#: panelplugins/plotpanel/plotpanelplugin.cpp:154
 #, fuzzy, kde-format
 #| msgid "Delete"
 msgid "Next Plot"
 msgstr "Usuń"
 
-#: panelplugins/plotpanel/plotpanelplugin.cpp:154
+#: panelplugins/plotpanel/plotpanelplugin.cpp:156
 #, kde-format
 msgid "Group Plots by Source Cell"
 msgstr ""
 
-#: panelplugins/plotpanel/plotpanelplugin.cpp:157
+#: panelplugins/plotpanel/plotpanelplugin.cpp:159
 #, fuzzy, kde-format
 #| msgid "Animate Worksheet"
 msgid "Animate Previews"
 msgstr "Animuj arkusz pracy"
 
-#: panelplugins/plotpanel/plotpanelplugin.cpp:161
+#: panelplugins/plotpanel/plotpanelplugin.cpp:163
 #, fuzzy, kde-format
 #| msgid "Copy result"
 msgid "Copy Plot"
 msgstr "Skopiuj wynik"
 
-#: panelplugins/plotpanel/plotpanelplugin.cpp:162
+#: panelplugins/plotpanel/plotpanelplugin.cpp:164
 #: worksheethierarchymanager.cpp:1129
 #, fuzzy, kde-format
 #| msgid "Save Project"
 msgid "Save Plot"
 msgstr "Zapisz projekt"
 
-#: panelplugins/plotpanel/plotpanelplugin.cpp:163
+#: panelplugins/plotpanel/plotpanelplugin.cpp:165
 #: worksheethierarchymanager.cpp:1175
 #, fuzzy, kde-format
 #| msgid "Save Project"
 msgid "Save All Plots"
 msgstr "Zapisz projekt"
 
-#: panelplugins/plotpanel/plotpanelplugin.cpp:164
-#: panelplugins/plotpanel/plotpanelplugin.cpp:576
+#: panelplugins/plotpanel/plotpanelplugin.cpp:166
+#: panelplugins/plotpanel/plotpanelplugin.cpp:578
 #: panelplugins/tocpanel/tocpanelplugin.cpp:1288
 #, kde-format
 msgid "Rename Plot"
 msgstr ""
 
-#: panelplugins/plotpanel/plotpanelplugin.cpp:165
-#: panelplugins/plotpanel/plotpanelplugin.cpp:591
+#: panelplugins/plotpanel/plotpanelplugin.cpp:167
+#: panelplugins/plotpanel/plotpanelplugin.cpp:593
 #: panelplugins/tocpanel/tocpanelplugin.cpp:388
 #: panelplugins/tocpanel/tocpanelplugin.cpp:1296
 #: panelplugins/tocpanel/tocpanelplugin.cpp:1304
@@ -4120,47 +4120,47 @@ msgstr ""
 msgid "Delete Plot"
 msgstr "Usuń"
 
-#: panelplugins/plotpanel/plotpanelplugin.cpp:169
-#: panelplugins/plotpanel/plotpanelplugin.cpp:170
+#: panelplugins/plotpanel/plotpanelplugin.cpp:171
+#: panelplugins/plotpanel/plotpanelplugin.cpp:172
 #, fuzzy, kde-format
 #| msgid "Hierarchy Fonts"
 msgid "Search plots"
 msgstr "Czcionki hierarchii"
 
-#: panelplugins/plotpanel/plotpanelplugin.cpp:176
+#: panelplugins/plotpanel/plotpanelplugin.cpp:178
 #, fuzzy, kde-format
 #| msgid "Integrate Plots into the Worksheet"
 msgid "Plots in the current worksheet"
 msgstr "Zintegruj wykresy do arkusza pracy"
 
-#: panelplugins/plotpanel/plotpanelplugin.cpp:189
+#: panelplugins/plotpanel/plotpanelplugin.cpp:191
 #, kde-format
 msgid "No plots match the search"
 msgstr ""
 
-#: panelplugins/plotpanel/plotpanelplugin.cpp:310
+#: panelplugins/plotpanel/plotpanelplugin.cpp:312
 #, fuzzy, kde-format
 #| msgid "Error: %1"
 msgid "Source: %1"
 msgstr "Błąd: %1"
 
-#: panelplugins/plotpanel/plotpanelplugin.cpp:312
+#: panelplugins/plotpanel/plotpanelplugin.cpp:314
 #, fuzzy, kde-format
 #| msgid "Error: %1"
 msgid "Format: %1"
 msgstr "Błąd: %1"
 
-#: panelplugins/plotpanel/plotpanelplugin.cpp:314
+#: panelplugins/plotpanel/plotpanelplugin.cpp:316
 #, kde-format
 msgid "Preview unavailable; open the plot in the worksheet for details."
 msgstr ""
 
-#: panelplugins/plotpanel/plotpanelplugin.cpp:577
+#: panelplugins/plotpanel/plotpanelplugin.cpp:579
 #, kde-format
 msgid "Plot name (leave empty to use the default name):"
 msgstr ""
 
-#: panelplugins/plotpanel/plotpanelplugin.cpp:589
+#: panelplugins/plotpanel/plotpanelplugin.cpp:591
 #: panelplugins/tocpanel/tocpanelplugin.cpp:368
 #: panelplugins/tocpanel/tocpanelplugin.cpp:387
 #: panelplugins/tocpanel/tocpanelplugin.cpp:1261
@@ -4169,7 +4169,7 @@ msgstr ""
 msgid "Do you really want to delete \"%1\"? This action cannot be undone."
 msgstr ""
 
-#: panelplugins/plotpanel/plotpanelplugin.cpp:637
+#: panelplugins/plotpanel/plotpanelplugin.cpp:639
 #, fuzzy, kde-format
 #| msgid "Animate Worksheet"
 msgid "Open in Worksheet"

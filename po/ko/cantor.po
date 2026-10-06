@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-10-05 00:40+0000\n"
+"POT-Creation-Date: 2026-10-06 00:40+0000\n"
 "PO-Revision-Date: 2026-05-26 21:25+0200\n"
 "Last-Translator: Shinjo Park <kde@peremen.name>\n"
 "Language-Team: Korean <kde-kr@kde.org>\n"
@@ -60,7 +60,7 @@ msgstr "고급 그래프 그리기"
 #. i18n: ectx: property (text), widget (QLabel, label_2)
 #: assistants/advancedplot/advancedplotdialog.ui:24
 #: backends/qalculate/plotassistant/qalculateplotassistant.cpp:24
-#: panelplugins/plotpanel/plotpanelplugin.cpp:290
+#: panelplugins/plotpanel/plotpanelplugin.cpp:292
 #: panelplugins/tocpanel/tocpanelplugin.cpp:384
 #: panelplugins/tocpanel/tocpanelplugin.cpp:1300
 #: worksheethierarchymanager.cpp:364 worksheethierarchymanager.cpp:1125
@@ -499,7 +499,7 @@ msgstr ""
 #: backends/maxima/settings.ui:36 backends/octave/settings.ui:36
 #: backends/python/settings.ui:36 backends/qalculate/settings.ui:36
 #: backends/R/settings.ui:21 backends/sage/settings.ui:36
-#: backends/scilab/settings.ui:21 cantor.cpp:802
+#: backends/scilab/settings.ui:21 cantor.cpp:809
 #, kde-format
 msgid "General"
 msgstr "일반"
@@ -989,8 +989,8 @@ msgid "The integration of plots will be disabled."
 msgstr "플롯 통합이 비활성화됩니다."
 
 #: backends/octave/octavesession.cpp:390 backends/sage/sagesession.cpp:358
-#: backends/sage/sagesession.cpp:369 cantor.cpp:246 cantor.cpp:248
-#: cantor.cpp:457 cantor.cpp:464 lib/session.cpp:334 main.cpp:48 main.cpp:105
+#: backends/sage/sagesession.cpp:369 cantor.cpp:247 cantor.cpp:249
+#: cantor.cpp:464 cantor.cpp:471 lib/session.cpp:334 main.cpp:48 main.cpp:105
 #: markdownentry.cpp:1168 textentry.cpp:862 worksheet.cpp:1639
 #, kde-format
 msgid "Cantor"
@@ -2535,37 +2535,37 @@ msgstr "Scilab을 시작할 수 없습니다. 설치 상태를 확인하십시�
 msgid "Plot Integration:"
 msgstr "플롯 통합:"
 
-#: cantor.cpp:122
+#: cantor.cpp:123
 #, kde-format
 msgid "The file %1 is already opened."
 msgstr "파일 %1이(가) 이미 열려 있습니다."
 
-#: cantor.cpp:122 cantor.cpp:348
+#: cantor.cpp:123 cantor.cpp:355
 #, kde-format
 msgid "Open file"
 msgstr "파일 열기"
 
-#: cantor.cpp:164
+#: cantor.cpp:165
 #, kde-format
 msgid "Download Examples"
 msgstr "예제 다운로드"
 
-#: cantor.cpp:167
+#: cantor.cpp:168
 #, kde-format
 msgid "&Open Example"
 msgstr "예제 열기(&O)"
 
-#: cantor.cpp:172
+#: cantor.cpp:173
 #, kde-format
 msgid "Go to previous worksheet"
 msgstr "이전 워크시트로 이동"
 
-#: cantor.cpp:184
+#: cantor.cpp:185
 #, kde-format
 msgid "Go to next worksheet"
 msgstr "다음 워크시트로 이동"
 
-#: cantor.cpp:347
+#: cantor.cpp:354
 #, kde-format
 msgid ""
 "All supported files (*.cws *ipynb);;Cantor Worksheet (*.cws);;Jupyter "
@@ -2574,7 +2574,7 @@ msgstr ""
 "모든 지원하는 파일 (*.cws *ipynb);;Cantor 워크시트 (*.cws);;Jupyter 노트북 "
 "(*.ipynb)"
 
-#: cantor.cpp:415
+#: cantor.cpp:422
 #, kde-format
 msgid ""
 "<h1>No Backend Found</h1>\n"
@@ -2594,17 +2594,17 @@ msgstr[0] ""
 "  <ul><li>설정 대화 상자의 설정 변경</li> <li>다음 중 하나 이상의 패키지 설"
 "치:</li> %2 </ul></div>"
 
-#: cantor.cpp:435
+#: cantor.cpp:442
 #, kde-format
 msgid "Error"
 msgstr "오류"
 
-#: cantor.cpp:457
+#: cantor.cpp:464
 #, kde-format
 msgid "Backend %1 is not installed"
 msgstr "%1 백엔드가 설치되지 않음"
 
-#: cantor.cpp:464
+#: cantor.cpp:471
 #, kde-format
 msgid ""
 "%1 backend installed, but inactive. Please check installation and Cantor "
@@ -2613,58 +2613,58 @@ msgstr ""
 "%1 백엔드가 설치되었지만 비활성화되어 있습니다. 설치 상태와 Cantor 설정을 확"
 "인하십시오"
 
-#: cantor.cpp:493
+#: cantor.cpp:500
 #, kde-format
 msgid "Session %1"
 msgstr "세션 %1"
 
-#: cantor.cpp:511
+#: cantor.cpp:518
 #, kde-format
 msgid "Failed to find the Cantor Part with error %1"
 msgstr "Cantor 부분을 찾을 수 없습니다. 오류 %1"
 
-#: cantor.cpp:571 cantor_part.cpp:686
+#: cantor.cpp:578 cantor_part.cpp:686
 #, kde-format
 msgid "Calculating..."
 msgstr "계산 중..."
 
-#: cantor.cpp:574 cantor_part.cpp:697 cantor_part.cpp:765
+#: cantor.cpp:581 cantor_part.cpp:697 cantor_part.cpp:765
 #, kde-format
 msgid "Ready"
 msgstr "준비"
 
-#: cantor.cpp:621
+#: cantor.cpp:628
 #, kde-format
 msgid "Changed"
 msgstr "변경됨"
 
-#: cantor.cpp:707
+#: cantor.cpp:714
 #, kde-format
 msgid "Multiple unsaved Worksheets are opened. Do you want to close them?"
 msgstr "저장하지 않은 워크시트가 열려 있습니다. 닫으시겠습니까?"
 
-#: cantor.cpp:708
+#: cantor.cpp:715
 #, kde-format
 msgid "Close Cantor"
 msgstr "Cantor 닫기"
 
-#: cantor.cpp:727
+#: cantor.cpp:734
 #, kde-format
 msgid "The current project has been modified. Do you want to save it?"
 msgstr "현재 프로젝트가 수정되었습니다. 저장하시겠습니까?"
 
-#: cantor.cpp:728
+#: cantor.cpp:735
 #, kde-format
 msgid "Save Project"
 msgstr "프로젝트 저장"
 
-#: cantor.cpp:774 commandentry.cpp:166 commandentry.cpp:197
+#: cantor.cpp:781 commandentry.cpp:166 commandentry.cpp:197
 #: horizontalruleentry.cpp:336
 #, kde-format
 msgid "Default"
 msgstr "기본값"
 
-#: cantor.cpp:803
+#: cantor.cpp:810
 #, kde-format
 msgid "Table of Contents"
 msgstr ""
@@ -3997,64 +3997,64 @@ msgstr "모든 지원하는 파일"
 msgid "All files"
 msgstr "모든 파일"
 
-#: panelplugins/plotpanel/plotpanelplugin.cpp:140
+#: panelplugins/plotpanel/plotpanelplugin.cpp:142
 #, fuzzy, kde-format
 #| msgid "Plots"
 msgid "Plots panel"
 msgstr "플롯"
 
-#: panelplugins/plotpanel/plotpanelplugin.cpp:151
+#: panelplugins/plotpanel/plotpanelplugin.cpp:153
 #, fuzzy, kde-format
 #| msgid "&Previous"
 msgid "Previous Plot"
 msgstr "이전(&P)"
 
-#: panelplugins/plotpanel/plotpanelplugin.cpp:152
+#: panelplugins/plotpanel/plotpanelplugin.cpp:154
 #, fuzzy, kde-format
 #| msgid "Delete"
 msgid "Next Plot"
 msgstr "삭제"
 
-#: panelplugins/plotpanel/plotpanelplugin.cpp:154
+#: panelplugins/plotpanel/plotpanelplugin.cpp:156
 #, kde-format
 msgid "Group Plots by Source Cell"
 msgstr ""
 
-#: panelplugins/plotpanel/plotpanelplugin.cpp:157
+#: panelplugins/plotpanel/plotpanelplugin.cpp:159
 #, fuzzy, kde-format
 #| msgid "Animate Worksheet"
 msgid "Animate Previews"
 msgstr "워크시트 애니메이션"
 
-#: panelplugins/plotpanel/plotpanelplugin.cpp:161
+#: panelplugins/plotpanel/plotpanelplugin.cpp:163
 #, fuzzy, kde-format
 #| msgid "Copy result"
 msgid "Copy Plot"
 msgstr "결과 복사"
 
-#: panelplugins/plotpanel/plotpanelplugin.cpp:162
+#: panelplugins/plotpanel/plotpanelplugin.cpp:164
 #: worksheethierarchymanager.cpp:1129
 #, fuzzy, kde-format
 #| msgid "Save Project"
 msgid "Save Plot"
 msgstr "프로젝트 저장"
 
-#: panelplugins/plotpanel/plotpanelplugin.cpp:163
+#: panelplugins/plotpanel/plotpanelplugin.cpp:165
 #: worksheethierarchymanager.cpp:1175
 #, fuzzy, kde-format
 #| msgid "Save Project"
 msgid "Save All Plots"
 msgstr "프로젝트 저장"
 
-#: panelplugins/plotpanel/plotpanelplugin.cpp:164
-#: panelplugins/plotpanel/plotpanelplugin.cpp:576
+#: panelplugins/plotpanel/plotpanelplugin.cpp:166
+#: panelplugins/plotpanel/plotpanelplugin.cpp:578
 #: panelplugins/tocpanel/tocpanelplugin.cpp:1288
 #, kde-format
 msgid "Rename Plot"
 msgstr ""
 
-#: panelplugins/plotpanel/plotpanelplugin.cpp:165
-#: panelplugins/plotpanel/plotpanelplugin.cpp:591
+#: panelplugins/plotpanel/plotpanelplugin.cpp:167
+#: panelplugins/plotpanel/plotpanelplugin.cpp:593
 #: panelplugins/tocpanel/tocpanelplugin.cpp:388
 #: panelplugins/tocpanel/tocpanelplugin.cpp:1296
 #: panelplugins/tocpanel/tocpanelplugin.cpp:1304
@@ -4063,47 +4063,47 @@ msgstr ""
 msgid "Delete Plot"
 msgstr "삭제"
 
-#: panelplugins/plotpanel/plotpanelplugin.cpp:169
-#: panelplugins/plotpanel/plotpanelplugin.cpp:170
+#: panelplugins/plotpanel/plotpanelplugin.cpp:171
+#: panelplugins/plotpanel/plotpanelplugin.cpp:172
 #, fuzzy, kde-format
 #| msgid "Hierarchy Fonts"
 msgid "Search plots"
 msgstr "계층 구조 글꼴"
 
-#: panelplugins/plotpanel/plotpanelplugin.cpp:176
+#: panelplugins/plotpanel/plotpanelplugin.cpp:178
 #, fuzzy, kde-format
 #| msgid "Integrate Plots into the Worksheet"
 msgid "Plots in the current worksheet"
 msgstr "워크시트에 플롯 통합"
 
-#: panelplugins/plotpanel/plotpanelplugin.cpp:189
+#: panelplugins/plotpanel/plotpanelplugin.cpp:191
 #, kde-format
 msgid "No plots match the search"
 msgstr ""
 
-#: panelplugins/plotpanel/plotpanelplugin.cpp:310
+#: panelplugins/plotpanel/plotpanelplugin.cpp:312
 #, fuzzy, kde-format
 #| msgid "Error: %1"
 msgid "Source: %1"
 msgstr "오류: %1"
 
-#: panelplugins/plotpanel/plotpanelplugin.cpp:312
+#: panelplugins/plotpanel/plotpanelplugin.cpp:314
 #, fuzzy, kde-format
 #| msgid "Error: %1"
 msgid "Format: %1"
 msgstr "오류: %1"
 
-#: panelplugins/plotpanel/plotpanelplugin.cpp:314
+#: panelplugins/plotpanel/plotpanelplugin.cpp:316
 #, kde-format
 msgid "Preview unavailable; open the plot in the worksheet for details."
 msgstr ""
 
-#: panelplugins/plotpanel/plotpanelplugin.cpp:577
+#: panelplugins/plotpanel/plotpanelplugin.cpp:579
 #, kde-format
 msgid "Plot name (leave empty to use the default name):"
 msgstr ""
 
-#: panelplugins/plotpanel/plotpanelplugin.cpp:589
+#: panelplugins/plotpanel/plotpanelplugin.cpp:591
 #: panelplugins/tocpanel/tocpanelplugin.cpp:368
 #: panelplugins/tocpanel/tocpanelplugin.cpp:387
 #: panelplugins/tocpanel/tocpanelplugin.cpp:1261
@@ -4112,7 +4112,7 @@ msgstr ""
 msgid "Do you really want to delete \"%1\"? This action cannot be undone."
 msgstr ""
 
-#: panelplugins/plotpanel/plotpanelplugin.cpp:637
+#: panelplugins/plotpanel/plotpanelplugin.cpp:639
 #, fuzzy, kde-format
 #| msgid "Animate Worksheet"
 msgid "Open in Worksheet"
