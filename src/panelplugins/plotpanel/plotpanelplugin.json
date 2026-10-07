@@ -1,9 +1,31 @@
 {
     "KPlugin": {
         "Description": "A panel for previewing plots in the current worksheet",
+        "Description[ca@valencia]": "Un quadro per a la previsualització de gràfiques al full de treball actual",
+        "Description[ca]": "Un plafó per a la previsualització de gràfiques al full de treball actual",
+        "Description[cs]": "Panel pro náhled grafů v aktuálním listu",
+        "Description[es]": "Un panel de vista previa de gráficos en la hoja de trabajo actual",
+        "Description[ka]": "პანელი მიმდინარე სამუშაო ფურცელზე არსებული გრაფიკების მიმოხილვისთვის",
+        "Description[nl]": "Een paneel voor het bekijken van een voorbeeld van grafieken in het huidige werkblad",
+        "Description[pt_BR]": "Um painel para visualizar gráficos na planilha atual",
+        "Description[ru]": "Панель для предварительного просмотра графиков текущего документа",
+        "Description[sl]": "Podokno za predogled grafov v trenutnem delovnem listu",
+        "Description[tr]": "Geçerli çalışma sayfasındaki çizimleri önizlemek için bir panel",
+        "Description[uk]": "Панель для попереднього перегляду креслень на поточному робочому аркуші",
         "Icon": "office-chart-line",
         "License": "GPL",
-        "Name": "Plots"
+        "Name": "Plots",
+        "Name[ca@valencia]": "Gràfiques",
+        "Name[ca]": "Gràfiques",
+        "Name[cs]": "Grafy",
+        "Name[es]": "Gráficos",
+        "Name[ka]": "გრაფიკები",
+        "Name[nl]": "Plots",
+        "Name[pt_BR]": "Gráficos",
+        "Name[ru]": "Графики",
+        "Name[sl]": "Grafi",
+        "Name[tr]": "Çizimler",
+        "Name[uk]": "Креслення"
     },
     "RequiredExtensions": ""
 }
