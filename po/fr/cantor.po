@@ -13,7 +13,7 @@ msgstr ""
 "Project-Id-Version: cantor\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-10-06 00:40+0000\n"
-"PO-Revision-Date: 2026-09-18 08:56+0200\n"
+"PO-Revision-Date: 2026-10-07 10:19+0200\n"
 "Last-Translator: Xavier Besnard <xavier.besnard@kde.org>\n"
 "Language-Team: fr\n"
 "Language: fr\n"
@@ -23,7 +23,7 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 "X-Accelerator-Marker: &\n"
 "X-Environment: kde\n"
-"X-Generator: Lokalize 26.08.0\n"
+"X-Generator: Lokalize 26.08.1\n"
 "X-Text-Markup: kde4\n"
 
 #, kde-format
@@ -4111,53 +4111,46 @@ msgid "All files"
 msgstr "Tous les fichiers"
 
 #: panelplugins/plotpanel/plotpanelplugin.cpp:142
-#, fuzzy, kde-format
-#| msgid "Plots"
+#, kde-format
 msgid "Plots panel"
-msgstr "Graphes"
+msgstr "Panneau de tracés"
 
 #: panelplugins/plotpanel/plotpanelplugin.cpp:153
-#, fuzzy, kde-format
-#| msgid "&Previous"
+#, kde-format
 msgid "Previous Plot"
-msgstr "&Précédent"
+msgstr "Tracé précédent"
 
 #: panelplugins/plotpanel/plotpanelplugin.cpp:154
-#, fuzzy, kde-format
-#| msgid "Delete Plot"
+#, kde-format
 msgid "Next Plot"
-msgstr "Supprimer un tracé"
+msgstr "Tracé suivant"
 
 #: panelplugins/plotpanel/plotpanelplugin.cpp:156
 #, kde-format
 msgid "Group Plots by Source Cell"
-msgstr ""
+msgstr "Regrouper les tracés par cellule source"
 
 #: panelplugins/plotpanel/plotpanelplugin.cpp:159
-#, fuzzy, kde-format
-#| msgid "Animate Worksheet"
+#, kde-format
 msgid "Animate Previews"
-msgstr "Animer une feuille de calcul"
+msgstr "Animer les aperçus"
 
 #: panelplugins/plotpanel/plotpanelplugin.cpp:163
-#, fuzzy, kde-format
-#| msgid "Copy result"
+#, kde-format
 msgid "Copy Plot"
-msgstr "Copier le résultat"
+msgstr "Copier le tracé"
 
 #: panelplugins/plotpanel/plotpanelplugin.cpp:164
 #: worksheethierarchymanager.cpp:1129
-#, fuzzy, kde-format
-#| msgid "Save Project"
+#, kde-format
 msgid "Save Plot"
-msgstr "Enregistrer le projet"
+msgstr "Enregistrer le tracé"
 
 #: panelplugins/plotpanel/plotpanelplugin.cpp:165
 #: worksheethierarchymanager.cpp:1175
-#, fuzzy, kde-format
-#| msgid "Save Project"
+#, kde-format
 msgid "Save All Plots"
-msgstr "Enregistrer le projet"
+msgstr "Enregistrer tous les tracés"
 
 #: panelplugins/plotpanel/plotpanelplugin.cpp:166
 #: panelplugins/plotpanel/plotpanelplugin.cpp:578
@@ -4177,43 +4170,41 @@ msgstr "Supprimer un tracé"
 
 #: panelplugins/plotpanel/plotpanelplugin.cpp:171
 #: panelplugins/plotpanel/plotpanelplugin.cpp:172
-#, fuzzy, kde-format
-#| msgid "Hierarchy Fonts"
+#, kde-format
 msgid "Search plots"
-msgstr "Polices hiérarchiques"
+msgstr "Rechercher des tracés"
 
 #: panelplugins/plotpanel/plotpanelplugin.cpp:178
-#, fuzzy, kde-format
-#| msgid "Integrate Plots into the Worksheet"
+#, kde-format
 msgid "Plots in the current worksheet"
-msgstr "Intégrer des graphes dans la feuille de calcul"
+msgstr "Tracés dans la feuille de calcul courante"
 
 #: panelplugins/plotpanel/plotpanelplugin.cpp:191
 #, kde-format
 msgid "No plots match the search"
-msgstr ""
+msgstr "Aucun tracé ne correspond à la recherche."
 
 #: panelplugins/plotpanel/plotpanelplugin.cpp:312
-#, fuzzy, kde-format
-#| msgid "Error: %1"
+#, kde-format
 msgid "Source: %1"
-msgstr "Erreur : %1"
+msgstr "Source : %1"
 
 #: panelplugins/plotpanel/plotpanelplugin.cpp:314
-#, fuzzy, kde-format
-#| msgid "Error: %1"
+#, kde-format
 msgid "Format: %1"
-msgstr "Erreur : %1"
+msgstr "Format : %1"
 
 #: panelplugins/plotpanel/plotpanelplugin.cpp:316
 #, kde-format
 msgid "Preview unavailable; open the plot in the worksheet for details."
 msgstr ""
+"Aperçu indisponible. Veuillez ouvrir le tracé dans la feuille de calcul pour "
+"plus de détails."
 
 #: panelplugins/plotpanel/plotpanelplugin.cpp:579
 #, kde-format
 msgid "Plot name (leave empty to use the default name):"
-msgstr ""
+msgstr "Nom du tracé (Veuillez laisser vide pour utiliser le nom par défaut) :"
 
 #: panelplugins/plotpanel/plotpanelplugin.cpp:591
 #: panelplugins/tocpanel/tocpanelplugin.cpp:368
@@ -4227,10 +4218,9 @@ msgstr ""
 "action."
 
 #: panelplugins/plotpanel/plotpanelplugin.cpp:639
-#, fuzzy, kde-format
-#| msgid "Animate Worksheet"
+#, kde-format
 msgid "Open in Worksheet"
-msgstr "Animer une feuille de calcul"
+msgstr "Ouvrir dans une feuille de calcul"
 
 #: panelplugins/tocpanel/tocpanelplugin.cpp:207
 #, kde-format
