@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: cantor\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-10-06 00:40+0000\n"
-"PO-Revision-Date: 2026-09-29 17:44+0200\n"
+"PO-Revision-Date: 2026-10-09 16:10+0200\n"
 "Last-Translator: Paolo Zamponi <feus73@gmail.com>\n"
 "Language-Team: Italian <kde-i18n-it@kde.org>\n"
 "Language: it\n"
@@ -4061,53 +4061,46 @@ msgid "All files"
 msgstr "Tutti i file"
 
 #: panelplugins/plotpanel/plotpanelplugin.cpp:142
-#, fuzzy, kde-format
-#| msgid "Plots"
+#, kde-format
 msgid "Plots panel"
-msgstr "Plots"
+msgstr "Pannello dei grafici"
 
 #: panelplugins/plotpanel/plotpanelplugin.cpp:153
-#, fuzzy, kde-format
-#| msgid "&Previous"
+#, kde-format
 msgid "Previous Plot"
-msgstr "&Precedente"
+msgstr "Grafico precedente"
 
 #: panelplugins/plotpanel/plotpanelplugin.cpp:154
-#, fuzzy, kde-format
-#| msgid "Delete Plot"
+#, kde-format
 msgid "Next Plot"
-msgstr "Elimina grafico"
+msgstr "Grafico successivo"
 
 #: panelplugins/plotpanel/plotpanelplugin.cpp:156
 #, kde-format
 msgid "Group Plots by Source Cell"
-msgstr ""
+msgstr "Raggruppa i grafici per cella di origine"
 
 #: panelplugins/plotpanel/plotpanelplugin.cpp:159
-#, fuzzy, kde-format
-#| msgid "Animate Worksheet"
+#, kde-format
 msgid "Animate Previews"
-msgstr "Anima il foglio di lavoro"
+msgstr "Anima le anteprime"
 
 #: panelplugins/plotpanel/plotpanelplugin.cpp:163
-#, fuzzy, kde-format
-#| msgid "Copy result"
+#, kde-format
 msgid "Copy Plot"
-msgstr "Copia risultato"
+msgstr "Copia grafico"
 
 #: panelplugins/plotpanel/plotpanelplugin.cpp:164
 #: worksheethierarchymanager.cpp:1129
-#, fuzzy, kde-format
-#| msgid "Save Project"
+#, kde-format
 msgid "Save Plot"
-msgstr "Salva progetto"
+msgstr "Salva grafico"
 
 #: panelplugins/plotpanel/plotpanelplugin.cpp:165
 #: worksheethierarchymanager.cpp:1175
-#, fuzzy, kde-format
-#| msgid "Save Project"
+#, kde-format
 msgid "Save All Plots"
-msgstr "Salva progetto"
+msgstr "Salva tutti i grafici"
 
 #: panelplugins/plotpanel/plotpanelplugin.cpp:166
 #: panelplugins/plotpanel/plotpanelplugin.cpp:578
@@ -4127,43 +4120,41 @@ msgstr "Elimina grafico"
 
 #: panelplugins/plotpanel/plotpanelplugin.cpp:171
 #: panelplugins/plotpanel/plotpanelplugin.cpp:172
-#, fuzzy, kde-format
-#| msgid "Hierarchy Fonts"
+#, kde-format
 msgid "Search plots"
-msgstr "Gerarchia dei caratteri"
+msgstr "Cerca grafico"
 
 #: panelplugins/plotpanel/plotpanelplugin.cpp:178
-#, fuzzy, kde-format
-#| msgid "Integrate Plots into the Worksheet"
+#, kde-format
 msgid "Plots in the current worksheet"
-msgstr "Integra grafici nel foglio di lavoro"
+msgstr "Grafici nel foglio di lavoro corrente"
 
 #: panelplugins/plotpanel/plotpanelplugin.cpp:191
 #, kde-format
 msgid "No plots match the search"
-msgstr ""
+msgstr "Nessun grafico corrisponde alla ricerca"
 
 #: panelplugins/plotpanel/plotpanelplugin.cpp:312
-#, fuzzy, kde-format
-#| msgid "Error: %1"
+#, kde-format
 msgid "Source: %1"
-msgstr "Errore: %1"
+msgstr "Sorgente: %1"
 
 #: panelplugins/plotpanel/plotpanelplugin.cpp:314
-#, fuzzy, kde-format
-#| msgid "Error: %1"
+#, kde-format
 msgid "Format: %1"
-msgstr "Errore: %1"
+msgstr "Formato: %1"
 
 #: panelplugins/plotpanel/plotpanelplugin.cpp:316
 #, kde-format
 msgid "Preview unavailable; open the plot in the worksheet for details."
 msgstr ""
+"Anteprima non disponibile. Per i dettagli apri il grafico nel foglio di "
+"lavoro."
 
 #: panelplugins/plotpanel/plotpanelplugin.cpp:579
 #, kde-format
 msgid "Plot name (leave empty to use the default name):"
-msgstr ""
+msgstr "Nome del grafico (lascialo vuoto per usare quello predefinito)"
 
 #: panelplugins/plotpanel/plotpanelplugin.cpp:591
 #: panelplugins/tocpanel/tocpanelplugin.cpp:368
@@ -4175,10 +4166,9 @@ msgid "Do you really want to delete \"%1\"? This action cannot be undone."
 msgstr "Vuoi davvero eliminare «%1»? Questa azione non può essere annullata."
 
 #: panelplugins/plotpanel/plotpanelplugin.cpp:639
-#, fuzzy, kde-format
-#| msgid "Animate Worksheet"
+#, kde-format
 msgid "Open in Worksheet"
-msgstr "Anima il foglio di lavoro"
+msgstr "Aprilo in un foglio di lavoro"
 
 #: panelplugins/tocpanel/tocpanelplugin.cpp:207
 #, kde-format

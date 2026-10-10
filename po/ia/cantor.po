@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: cantor\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-10-06 00:40+0000\n"
-"PO-Revision-Date: 2026-09-21 14:36+0200\n"
+"PO-Revision-Date: 2026-10-09 15:32+0200\n"
 "Last-Translator: giovanni <g.sora@tiscali.it>\n"
 "Language-Team: Interlingua <kde-i18n-doc@kde.org>\n"
 "Language: ia\n"
@@ -4073,53 +4073,46 @@ msgid "All files"
 msgstr "Omne files"
 
 #: panelplugins/plotpanel/plotpanelplugin.cpp:142
-#, fuzzy, kde-format
-#| msgid "Plots"
+#, kde-format
 msgid "Plots panel"
-msgstr "Plots (Tracias)"
+msgstr "Pannello de Plots (Tracias)"
 
 #: panelplugins/plotpanel/plotpanelplugin.cpp:153
-#, fuzzy, kde-format
-#| msgid "&Previous"
+#, kde-format
 msgid "Previous Plot"
-msgstr "&Previe"
+msgstr "Previe Plot (tracia)"
 
 #: panelplugins/plotpanel/plotpanelplugin.cpp:154
-#, fuzzy, kde-format
-#| msgid "Delete Plot"
+#, kde-format
 msgid "Next Plot"
-msgstr "Dele Tracia (Plot)"
+msgstr "Proxime Tracia (Plot)"
 
 #: panelplugins/plotpanel/plotpanelplugin.cpp:156
 #, kde-format
 msgid "Group Plots by Source Cell"
-msgstr ""
+msgstr "Gruppa Plots (tracias) per cella de fonte"
 
 #: panelplugins/plotpanel/plotpanelplugin.cpp:159
-#, fuzzy, kde-format
-#| msgid "Animate Worksheet"
+#, kde-format
 msgid "Animate Previews"
-msgstr "Folio de Travalio Animate"
+msgstr "Vistas preliminar Animate"
 
 #: panelplugins/plotpanel/plotpanelplugin.cpp:163
-#, fuzzy, kde-format
-#| msgid "Copy result"
+#, kde-format
 msgid "Copy Plot"
-msgstr "Copia resultato"
+msgstr "Copia Plot (Tracia)"
 
 #: panelplugins/plotpanel/plotpanelplugin.cpp:164
 #: worksheethierarchymanager.cpp:1129
-#, fuzzy, kde-format
-#| msgid "Save Project"
+#, kde-format
 msgid "Save Plot"
-msgstr "Salveguarda projecto"
+msgstr "Salveguarda tracia (plot) "
 
 #: panelplugins/plotpanel/plotpanelplugin.cpp:165
 #: worksheethierarchymanager.cpp:1175
-#, fuzzy, kde-format
-#| msgid "Save Project"
+#, kde-format
 msgid "Save All Plots"
-msgstr "Salveguarda projecto"
+msgstr "Salveguarda tote plots (tracias)"
 
 #: panelplugins/plotpanel/plotpanelplugin.cpp:166
 #: panelplugins/plotpanel/plotpanelplugin.cpp:578
@@ -4139,43 +4132,41 @@ msgstr "Dele Tracia (Plot)"
 
 #: panelplugins/plotpanel/plotpanelplugin.cpp:171
 #: panelplugins/plotpanel/plotpanelplugin.cpp:172
-#, fuzzy, kde-format
-#| msgid "Hierarchy Fonts"
+#, kde-format
 msgid "Search plots"
-msgstr "Fonts de hierarchia"
+msgstr "Cerca plots (tracias)"
 
 #: panelplugins/plotpanel/plotpanelplugin.cpp:178
-#, fuzzy, kde-format
-#| msgid "Integrate Plots into the Worksheet"
+#, kde-format
 msgid "Plots in the current worksheet"
-msgstr "Integra Plots (tracias) in le folio de travalio"
+msgstr "Plots (tracias) in le folio de travalio currente"
 
 #: panelplugins/plotpanel/plotpanelplugin.cpp:191
 #, kde-format
 msgid "No plots match the search"
-msgstr ""
+msgstr "Necub plots (tracias) corresponde al cerca"
 
 #: panelplugins/plotpanel/plotpanelplugin.cpp:312
-#, fuzzy, kde-format
-#| msgid "Error: %1"
+#, kde-format
 msgid "Source: %1"
-msgstr "Error: %1"
+msgstr "Fonte: %1"
 
 #: panelplugins/plotpanel/plotpanelplugin.cpp:314
-#, fuzzy, kde-format
-#| msgid "Error: %1"
+#, kde-format
 msgid "Format: %1"
-msgstr "Error: %1"
+msgstr "Formato: %1"
 
 #: panelplugins/plotpanel/plotpanelplugin.cpp:316
 #, kde-format
 msgid "Preview unavailable; open the plot in the worksheet for details."
 msgstr ""
+"Vista preliminar non disponibile, aperi le plot (tracia) in le folio de "
+"travalio per detalios."
 
 #: panelplugins/plotpanel/plotpanelplugin.cpp:579
 #, kde-format
 msgid "Plot name (leave empty to use the default name):"
-msgstr ""
+msgstr "Nomine del plot (tracia) (lassa vacue per usar le nomine predefinite):"
 
 #: panelplugins/plotpanel/plotpanelplugin.cpp:591
 #: panelplugins/tocpanel/tocpanelplugin.cpp:368
@@ -4188,10 +4179,9 @@ msgstr ""
 "Tu realmente tu vole deler \"%1?. Iste action non pote esser annullate."
 
 #: panelplugins/plotpanel/plotpanelplugin.cpp:639
-#, fuzzy, kde-format
-#| msgid "Animate Worksheet"
+#, kde-format
 msgid "Open in Worksheet"
-msgstr "Folio de Travalio Animate"
+msgstr "Aperi in Folio de Travalio"
 
 #: panelplugins/tocpanel/tocpanelplugin.cpp:207
 #, kde-format
