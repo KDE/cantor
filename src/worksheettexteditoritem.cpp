@@ -407,31 +407,35 @@ void WorksheetTextEditorItem::populateMenu(QMenu* menu, QPointF globalPos)
     auto* cut = KStandardAction::cut(this, &WorksheetTextEditorItem::cut, menu);
     auto* copy = KStandardAction::copy(this, &WorksheetTextEditorItem::copy, menu);
     auto* paste = KStandardAction::paste(this, &WorksheetTextEditorItem::paste, menu);
-    KTextEditor::View* view = m_view;
-    bool hasSelection = m_view->selectionRange().isValid();
-    if(!hasSelection)
+
+    if(!m_view->selectionRange().isValid())
     {
         cut->setEnabled(false);
         copy->setEnabled(false);
     }
+
     if(QApplication::clipboard()->text().isEmpty())
         paste->setEnabled(false);
+
     bool actionAdded = false;
     if(isEditable())
     {
         menu->addAction(cut);
         actionAdded = true;
     }
+
     if(!m_dragEnabled && flags() & Qt::TextSelectableByMouse)
     {
         menu->addAction(copy);
         actionAdded = true;
     }
+
     if(isEditable())
     {
         menu->addAction(paste);
         actionAdded = true;
     }
+
     if(actionAdded)
         menu->addSeparator();
 
@@ -891,14 +895,12 @@ bool WorksheetTextEditorItem::eventFilter(QObject* object, QEvent* event)
                         if (m_customCompleter && m_customCompleter->isVisible())
                             m_customCompleter->hide();
                         return true;
-
                     case Qt::Key_Backspace:
                     {
-                        bool textDeleted = false;
                         KTextEditor::Range selection = m_view->selectionRange();
                         if (selection.isValid())
                         {
-                            textDeleted = m_document->removeText(selection);
+                            m_document->removeText(selection);
                             m_view->removeSelection();
                         }
                         else
@@ -907,13 +909,13 @@ bool WorksheetTextEditorItem::eventFilter(QObject* object, QEvent* event)
                             if (cursor.column() > 0)
                             {
                                 KTextEditor::Range range(cursor.line(), cursor.column() - 1, cursor.line(), cursor.column());
-                                textDeleted = m_document->removeText(range);
+                                m_document->removeText(range);
                             }
                             else if (cursor.line() > 0)
                             {
                                 int prevLineLength = m_document->lineLength(cursor.line() - 1);
                                 KTextEditor::Range range(cursor.line() - 1, prevLineLength, cursor.line(), 0);
-                                textDeleted = m_document->removeText(range);
+                                m_document->removeText(range);
                             }
                         }
                         if (m_customCompleter && m_customCompleter->isVisible())

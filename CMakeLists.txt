@@ -45,17 +45,13 @@ find_package(KF6 ${KF_MIN_VERSION} REQUIRED
     Config
     Crash
     Completion
-    NewStuffCore
     NewStuff
     IconThemes
     TextEditor
-    CoreAddons
     Archive
     Parts
     SyntaxHighlighting
     TextWidgets
-    WidgetsAddons
-    KIO
     XmlGui
     I18n
 )

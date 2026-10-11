@@ -109,7 +109,7 @@ void Session::runFirstExpression()
 
 }
 
-void Session::finishFirstExpression(bool setDoneAfterUpdate)
+void Session::finishFirstExpression(bool /* setDoneAfterUpdate */)
 {
     if (d->expressionQueue.isEmpty()) {
         changeStatus(Done);

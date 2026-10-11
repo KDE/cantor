@@ -1,4 +1,4 @@
-/*
+    /*
     SPDX-License-Identifier: GPL-2.0-or-later
     SPDX-FileCopyrightText: 2009 Alexander Rieder <alexanderrieder@gmail.com>
 */
@@ -204,7 +204,7 @@ QString SageVariableManagementExtension::removeVariable(const QString& name)
     return QStringLiteral("del %1").arg(name);
 }
 
-QString SageVariableManagementExtension::saveVariables(const QString& fileName)
+QString SageVariableManagementExtension::saveVariables(const QString& /* fileName */)
 {
     return QStringLiteral("# Cantor: saveVariables is not fully supported in Sage backend, use save() on individual objects");
 }

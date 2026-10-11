@@ -31,7 +31,7 @@ CantorCompletionModel::~CantorCompletionModel()
     m_debounceTimer->stop();
 }
 
-void CantorCompletionModel::completionInvoked(KTextEditor::View* view, const KTextEditor::Range& range, InvocationType invocationType)
+void CantorCompletionModel::completionInvoked(KTextEditor::View* view, const KTextEditor::Range& range, InvocationType /* type */)
 {
     m_completionContextObject.clear();
     if (range.start().column() > 0)

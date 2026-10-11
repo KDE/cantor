@@ -278,9 +278,11 @@ void LoadedExpression::loadFromJupyter(const QJsonObject& cell)
 
                 QTemporaryFile file;
                 file.setAutoRemove(false);
-                file.open();
-                file.write(bytes);
-                file.close();
+                if (file.open())
+                {
+                    file.write(bytes);
+                    file.close();
+                }
 
                 result = new Cantor::AnimationResult(QUrl::fromLocalFile(file.fileName()), text);
             }

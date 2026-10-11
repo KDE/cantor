@@ -190,11 +190,16 @@ bool LatexRenderer::renderWithLatex()
         delete d->texFile;
 
     d->texFile=new QTemporaryFile(dir + QDir::separator() + QLatin1String("cantor_tex-XXXXXX.tex"));
-    d->texFile->open();
+    if (!d->texFile->open())
+    {
+        setErrorMessage(QStringLiteral("failed to open temp file for rendering"));
+        return false;
+    }
 
-    KColorScheme scheme(QPalette::Active);
-    const QColor backgroundColor=scheme.background().color();
-    const QColor foregroundColor=scheme.foreground().color();
+    // TODO:
+    // KColorScheme scheme(QPalette::Active);
+    // const QColor backgroundColor=scheme.background().color();
+    // const QColor foregroundColor=scheme.foreground().color();
 
     QString expressionTex=tex;
 

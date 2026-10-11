@@ -37,8 +37,10 @@ void DynamicHighlighter::updateAllHighlights()
 {
     clearAllHighlights();
     if (m_variableModel)
+    {
         handleVariablesAdded(m_variableModel->variableNames());
         handleFunctionsAdded(m_variableModel->functions());
+    }
 }
 
 void DynamicHighlighter::clearAllHighlights()
