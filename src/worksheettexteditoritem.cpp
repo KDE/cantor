@@ -888,6 +888,8 @@ bool WorksheetTextEditorItem::eventFilter(QObject* object, QEvent* event)
                             QApplication::sendEvent(m_view, event);
                             return true;
                         }
+                        // Enter/Return accepts the selected completion
+                        [[fallthrough]];
                     case Qt::Key_Tab:
                         onCompleterItemSelected();
                         return true;
@@ -925,6 +927,8 @@ bool WorksheetTextEditorItem::eventFilter(QObject* object, QEvent* event)
                     case Qt::Key_Space:
                         if (m_customCompleter && m_customCompleter->isVisible())
                             m_customCompleter->hide();
+                        // Continue with normal text insertion for the space.
+                        [[fallthrough]];
                     default:
                     {
                         QString text = keyEvent->text();
