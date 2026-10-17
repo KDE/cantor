@@ -319,7 +319,34 @@ void MaximaExpression::parseOutput(const QString& out)
     {
         // For plots we set Done status in imageChanged
         if (!m_isPlot || m_plotResult)
+        {
+            // When there are no results and the expression is not internal, stderr data
+            // for a syntax error may not have arrived yet (Maxima >= 5.48 writes errors
+            // to stderr). Process pending events to give stderr a chance to be delivered
+            // before checking for errors.
+            if (results().isEmpty() && !isInternal())
+            {
+                QCoreApplication::processEvents();
+
+                if (!m_errorBuffer.isEmpty())
+                {
+                    if (isHelpRequest() || m_isHelpRequestAdditional)
+                    {
+                        auto* result = new Cantor::HelpResult(QLatin1Char(' ') + m_errorBuffer.trimmed());
+                        setResult(result);
+                    }
+                    else
+                    {
+                        QString err = m_errorBuffer.trimmed().replace(QLatin1String("\n\n"), QLatin1String("\n"));
+                        clearResults();
+                        setErrorMessage(err);
+                        setStatus(Cantor::Expression::Error);
+                        return;
+                    }
+                }
+            }
             setStatus(Cantor::Expression::Done);
+        }
     }
     else
     {
