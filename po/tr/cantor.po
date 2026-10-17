@@ -13,7 +13,7 @@ msgstr ""
 "Project-Id-Version: kdeedu-kde4\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-10-06 00:40+0000\n"
-"PO-Revision-Date: 2026-10-05 17:27+0300\n"
+"PO-Revision-Date: 2026-10-16 20:02+0300\n"
 "Last-Translator: Emir SARI <emir_sari@icloud.com>\n"
 "Language-Team: Turkish <kde-l10n-tr@kde.org>\n"
 "Language: tr\n"
@@ -1678,7 +1678,7 @@ msgstr "%1 bir sayı olmalıdır."
 #: backends/qalculate/qalculateexpression.cpp:250
 #, kde-format
 msgid "%1 must be a integer."
-msgstr "%1 bir tamsayı olmalıdır."
+msgstr "%1 bir tam sayı olmalıdır."
 
 #: backends/qalculate/qalculateexpression.cpp:251
 #, kde-format
@@ -1745,7 +1745,7 @@ msgstr "değer"
 #: backends/qalculate/qalculatesyntaxhelpobject.cpp:147
 #, kde-format
 msgid "integer"
-msgstr "tamsayı"
+msgstr "tam sayı"
 
 #: backends/qalculate/qalculatesyntaxhelpobject.cpp:148
 #, kde-format
