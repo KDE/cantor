@@ -5,6 +5,8 @@
 
 #include "rcallbacks.h"
 
+#undef warning // R's remapping macro conflicts with Qt's message logger.
+
 #include "rserver.h"
 
 #include <QDebug>
@@ -69,6 +71,15 @@ enum OutputType { NormalOutput=0, ErrorOutput=1 };
 void onWriteConsoleEx(const char* text, int size, int otype)
 {
     const QString string=QString::fromUtf8(text, size);
+    if (!currentExpression)
+    {
+        // Internal variable queries can produce output without a user expression.
+        if (otype == NormalOutput)
+            qDebug().noquote() << string;
+        else
+            qWarning().noquote() << string;
+        return;
+    }
     if (otype==NormalOutput)
     {
         currentExpression->std_buffer+=string;
@@ -81,6 +92,11 @@ void onWriteConsoleEx(const char* text, int size, int otype)
 void onShowMessage(const char* text)
 {
     const QString string=QString::fromUtf8(text);
+    if (!currentExpression)
+    {
+        qWarning().noquote() << string;
+        return;
+    }
     currentExpression->std_buffer+=string;
 }
 
