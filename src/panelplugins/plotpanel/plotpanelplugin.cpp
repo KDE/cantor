@@ -415,7 +415,7 @@ void PlotPanelPlugin::updateFilter(const QString& text)
 
     updateItemLabels();
     if (!m_plotList->currentItem() || m_plotList->currentItem()->isHidden())
-        m_plotList->setCurrentItem(firstVisibleItem());
+        m_plotList->setCurrentItem(nullptr);
     updateEmptyState();
     updateActionState();
 }
@@ -450,25 +450,12 @@ void PlotPanelPlugin::updateSelection()
         m_plotList->scrollToItem(item, QAbstractItemView::PositionAtCenter);
     }
     else if (!m_plotList->currentItem() || m_plotList->currentItem()->isHidden())
-        m_plotList->setCurrentItem(firstVisibleItem());
+        m_plotList->setCurrentItem(nullptr);
 }
 
 QListWidgetItem* PlotPanelPlugin::currentPlotItem() const
 {
     return m_plotList ? m_plotList->currentItem() : nullptr;
-}
-
-QListWidgetItem* PlotPanelPlugin::firstVisibleItem() const
-{
-    if (!m_plotList)
-        return nullptr;
-    for (int row = 0; row < m_plotList->count(); ++row)
-    {
-        auto* item = m_plotList->item(row);
-        if (!item->isHidden())
-            return item;
-    }
-    return nullptr;
 }
 
 void PlotPanelPlugin::updateCurrentPlot()

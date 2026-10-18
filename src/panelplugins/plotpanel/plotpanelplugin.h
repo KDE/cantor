@@ -89,7 +89,6 @@ private:
     void updateItemLabels();
     void selectRelativePlot(int direction);
     QListWidgetItem* currentPlotItem() const;
-    QListWidgetItem* firstVisibleItem() const;
 
     QPointer<QWidget> m_containerWidget;
     QPointer<QListWidget> m_plotList;
