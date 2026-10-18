@@ -60,6 +60,11 @@ QString rTypeName(SEXP value)
 
 QString rDimensions(SEXP value)
 {
+    if (value == R_NilValue)
+        return QStringLiteral("0");
+    if (!Rf_isVector(value))
+        return QString();
+
     if (Rf_inherits(value, "data.frame"))
     {
         const qsizetype rows = XLENGTH(value) == 0 ? 0 : XLENGTH(VECTOR_ELT(value, 0));
@@ -142,8 +147,6 @@ QString rElementValue(SEXP value, R_xlen_t index)
         case VECSXP:
         {
             SEXP item = VECTOR_ELT(value, index);
-            if (XLENGTH(item) == 1)
-                return rElementValue(item, 0);
             return rCompactValue(item, 1);
         }
         default:
@@ -164,7 +167,9 @@ QString rCompactValue(SEXP value, int depth)
     constexpr R_xlen_t maximumItems = 8;
     constexpr qsizetype maximumLength = 180;
 
-    if (depth > 3)
+    if (value == R_NilValue)
+        return QStringLiteral("NULL");
+    if (depth > 3 || !Rf_isVector(value))
         return QStringLiteral("<%1>").arg(rTypeName(value));
 
     const R_xlen_t length = XLENGTH(value);
@@ -1057,4 +1062,3 @@ void RServer::previewVariable(const QByteArray& referenceData, qsizetype offset,
     sendStatusChanged(0); // Idle
     sendExpressionFinished(RServer::SuccessCode, QStringLiteral("__CANTOR_VARIABLE_PREVIEW__") + QString::fromLatin1(output), QStringList());
 }
-
