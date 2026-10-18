@@ -85,7 +85,6 @@ void LoadedExpression::loadFromXml(const QDomElement& xml, const KZip& file)
         };
 
         const QString& type = resultElement.attribute(QLatin1String("type"));
-        qDebug() << "type" << type;
         if (type == QLatin1String("text"))
         {
             const QString& format = resultElement.attribute(QLatin1String("format"));

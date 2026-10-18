@@ -598,7 +598,6 @@ bool TextEntry::evaluate(EvaluationOption evalOp)
 
 void TextEntry::updateEntry()
 {
-    qDebug() << "update Entry";
     QTextCursor cursor = m_textItem->document()->find(QString(QChar::ObjectReplacementCharacter));
     while(!cursor.isNull())
     {

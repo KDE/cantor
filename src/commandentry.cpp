@@ -968,7 +968,7 @@ bool CommandEntry::evaluate(EvaluationOption evalOp)
 
         if(cmd.isEmpty()) {
             removeResults();
-            for (auto* item : m_informationItems) 
+            for (auto* item : m_informationItems)
                 item->deleteLater();
             m_informationItems.clear();
             recalculateSize();
@@ -1001,7 +1001,6 @@ void CommandEntry::interruptEvaluation()
 
 void CommandEntry::updateEntry()
 {
-    qDebug() << "update Entry";
     auto* expr = expression();
     if (expr == nullptr || expr->results().isEmpty())
         return;
@@ -1449,18 +1448,18 @@ KWorksheetCursor CommandEntry::search(const QString& pattern, unsigned flags,
                                       KTextEditor::SearchOptions options,
                                       const KWorksheetCursor& pos)
 {
-    if (!(flags & SearchCommand) || (pos.isValid() && pos.entry() != this)) 
+    if (!(flags & SearchCommand) || (pos.isValid() && pos.entry() != this))
         return KWorksheetCursor();
 
     KTextEditor::Cursor startCursor;
-    if (pos.isValid() && pos.textItem() == m_commandItem) 
+    if (pos.isValid() && pos.textItem() == m_commandItem)
         startCursor = pos.cursor();
-    else if (options & KTextEditor::Backwards) 
+    else if (options & KTextEditor::Backwards)
         startCursor = m_commandItem->document()->documentEnd();
 
     KTextEditor::Range foundRange = m_commandItem->search(pattern, options, startCursor);
 
-    if (foundRange.isValid()) 
+    if (foundRange.isValid())
         return KWorksheetCursor(this, m_commandItem, foundRange.start(), foundRange);
 
     return KWorksheetCursor();
@@ -1500,9 +1499,9 @@ void CommandEntry::layOutForWidth(qreal entry_zone_x, qreal w, bool force)
     qreal promptY = 0;
     qreal editorY = 0;
 
-    if (singleLineHeight > promptItemHeight) 
+    if (singleLineHeight > promptItemHeight)
         promptY = (singleLineHeight - promptItemHeight) / 2.0;
-    else 
+    else
         editorY = (promptItemHeight - singleLineHeight) / 2.0;
 
     m_promptItem->setPos(0, promptY);
@@ -1698,7 +1697,7 @@ void CommandEntry::addToExecution()
 
     if (m_activeExecutionTextColor.isValid())
         m_commandItem->setDefaultTextColor(m_activeExecutionTextColor);
-    else 
+    else
         m_commandItem->setDefaultTextColor(QColor());
 }
 

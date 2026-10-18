@@ -1054,7 +1054,6 @@ WorksheetEntry* Worksheet::appendEntry(const int type, bool focus)
 
     if (entry)
     {
-        qDebug() << "Entry Appended";
         entry->setPrevious(lastEntry());
         if (lastEntry())
             lastEntry()->setNext(entry);
