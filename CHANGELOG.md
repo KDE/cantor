@@ -1,5 +1,25 @@
 # Changelog
 
+## 26.12
+### New features
+    * Improve and extend the table of contents panel
+    * New actions for cells to evaluate all entries below and above
+    * Copy&paste of cells
+    * Duplication of cells
+    * Merging and splitting of cells
+    * Allow to resize plot image results
+    * Plot preview panel
+
+## Bug fixes:
+    * Fixed save to latex
+
+## 26.08
+## Bug fixes:
+    * [R] Fix compilation with R 4.6
+    * [maxima] Fix Maxima backend for stderr I/O changes in Maxima 5.48
+    * [maxima] Fix the execution of the prompt for help requests.
+
+
 ## 26.04
     * Switched to the more powerfull KTextEditor framework for command entries
     * Use PDF to render LaTeX results in command and LaTex entries
