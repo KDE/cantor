@@ -81,26 +81,15 @@ WorksheetTextEditorItem::WorksheetTextEditorItem(EditorMode initialMode, Workshe
         m_themeDefaultBackgroundColor = defaultTheme.editorColor(KSyntaxHighlighting::Theme::BackgroundColor);
     }
 
-    bool isEditable = (m_mode == EditorMode::Editable);
+    const bool isEditable = (m_mode == EditorMode::Editable);
     m_document->setReadWrite(isEditable);
     if(isEditable)
     {
-        m_completionModel = new CantorCompletionModel(this);
-        m_view->registerCompletionModel(m_completionModel);
-        connect(m_completionModel, &CantorCompletionModel::modelIsReady, this, &WorksheetTextEditorItem::showCustomCompleter);
-
-        auto* currentSession = session();
-        auto* model = currentSession ? currentSession->variableModel() : nullptr;
-        if (model) {
-            connect(model, &Cantor::DefaultVariableModel::initialModelPopulated, this, [this]() {
-                if (m_view && m_document)
-                {
-                    KTextEditor::Range range = m_document->wordRangeAt(m_view->cursorPosition());
-                    m_completionModel->completionInvoked(m_view, range, KTextEditor::CodeCompletionModel::AutomaticInvocation);
-                }
-            });
-        }
-        connect(this, &WorksheetTextEditorItem::sizeChanged, parentEntry, &WorksheetEntry::recalculateSize);
+        // defer connection after initial creation/load was completed
+        QTimer::singleShot(0, this, [this, parentEntry] ()
+        {
+            connect(this, &WorksheetTextEditorItem::sizeChanged, parentEntry, &WorksheetEntry::recalculateSize);
+        });
     }
 
     connect(m_document, &KTextEditor::Document::textChanged, this, &WorksheetTextEditorItem::testSize);
@@ -119,8 +108,9 @@ WorksheetTextEditorItem::WorksheetTextEditorItem(EditorMode initialMode, Workshe
         auto cursor = m_view->cursorPosition();
         if (!cursor.isValid())
             return;
-        int lineLength = m_document->lineLength(cursor.line());
-        QString textLine = m_document->text(KTextEditor::Range(cursor.line(), 0, cursor.line(), lineLength));
+
+        const int lineLength = m_document->lineLength(cursor.line());
+        const QString textLine = m_document->text(KTextEditor::Range(cursor.line(), 0, cursor.line(), lineLength));
 
         static QRegularExpression urlRegex(QStringLiteral("https?://[^\\s]+"));
         auto match = urlRegex.match(textLine);
@@ -139,9 +129,8 @@ WorksheetTextEditorItem::WorksheetTextEditorItem(EditorMode initialMode, Workshe
             m_view->setFocus();
     });
 
-    QRectF viewRect = m_view->contentsRect();
+    const auto& viewRect = m_view->contentsRect();
     m_size = QSizeF(viewRect.width(), viewRect.height());
-
 
     if (m_view->isVisible())
         m_view->setFocus();
@@ -274,7 +263,7 @@ QRectF WorksheetTextEditorItem::cursorRect() const
         return QRectF();
 
     const int lineHeight = m_view->fontMetrics().height();
-    const KTextEditor::Range selection = m_view->selectionRange();
+    const auto& selection = m_view->selectionRange();
 
     if (!selection.isValid() || selection.isEmpty())
     {
@@ -567,7 +556,7 @@ KTextEditor::Range WorksheetTextEditorItem::search(const QString& pattern, KText
     else
         searchRange = KTextEditor::Range::invalid();
 
-    QList<KTextEditor::Range> matches = m_document->searchText(searchRange, pattern, options);
+    const auto& matches = m_document->searchText(searchRange, pattern, options);
 
     if (matches.isEmpty())
         return KTextEditor::Range::invalid();
@@ -580,7 +569,7 @@ bool WorksheetTextEditorItem::replace(const QString& replacement)
     if (!isEditable() || !m_view->selection())
         return false;
 
-    KTextEditor::Range selection = m_view->selectionRange();
+    const auto& selection = m_view->selectionRange();
     if (selection.isValid() && !selection.isEmpty())
     {
         m_document->replaceText(selection, replacement);
@@ -598,7 +587,7 @@ void WorksheetTextEditorItem::replaceAll(const QString& pattern, const QString& 
 
     KTextEditor::Cursor searchStartCursor(0, 0);
     while (true) {
-        KTextEditor::Range foundRange = search(pattern, options, searchStartCursor);
+        const auto& foundRange = search(pattern, options, searchStartCursor);
         if (!foundRange.isValid())
             break;
         m_document->replaceText(foundRange, replacement);
@@ -713,8 +702,7 @@ void WorksheetTextEditorItem::increaseFontSize()
     if (!m_view)
         return;
 
-    QFontDatabase fdb;
-    const QList<int> sizes = fdb.pointSizes(m_currentFont.family());
+    const auto& sizes = QFontDatabase::pointSizes(m_currentFont.family());
     if (sizes.isEmpty())
     {
         setFontSize(m_currentFontPointSize + 1);
@@ -739,8 +727,7 @@ void WorksheetTextEditorItem::decreaseFontSize()
     if (!m_view)
         return;
 
-    QFontDatabase fdb;
-    const QList<int> sizes = fdb.pointSizes(m_currentFont.family());
+    const auto& sizes = QFontDatabase::pointSizes(m_currentFont.family());
     if (sizes.isEmpty())
     {
         if (m_currentFontPointSize > 1)
@@ -1135,6 +1122,25 @@ void WorksheetTextEditorItem::focusInEvent(QFocusEvent* event)
     QGraphicsProxyWidget::focusInEvent(event);
     worksheet()->updateFocusedTextItem(this);
     Q_EMIT receivedFocus(this);
+
+    if(m_document->isReadWrite() && !m_completionModel)
+    {
+        m_completionModel = new CantorCompletionModel(this);
+        m_view->registerCompletionModel(m_completionModel);
+        connect(m_completionModel, &CantorCompletionModel::modelIsReady, this, &WorksheetTextEditorItem::showCustomCompleter);
+
+        auto* currentSession = session();
+        auto* model = currentSession ? currentSession->variableModel() : nullptr;
+        if (model) {
+            connect(model, &Cantor::DefaultVariableModel::initialModelPopulated, this, [this]() {
+                if (m_view && m_document)
+                {
+                    KTextEditor::Range range = m_document->wordRangeAt(m_view->cursorPosition());
+                    m_completionModel->completionInvoked(m_view, range, KTextEditor::CodeCompletionModel::AutomaticInvocation);
+                }
+            });
+        }
+    }
 }
 
 void WorksheetTextEditorItem::focusOutEvent(QFocusEvent* event)
@@ -1216,7 +1222,7 @@ void WorksheetTextEditorItem::dragMoveEvent(QGraphicsSceneDragDropEvent* event)
     {
         QPoint localPos = mapFromScene(event->scenePos()).toPoint();
 
-        KTextEditor::Cursor cursor = m_view->coordinatesToCursor(localPos);
+        const auto& cursor = m_view->coordinatesToCursor(localPos);
         if(cursor.isValid())
         {
             m_view->setCursorPosition(cursor);
@@ -1229,7 +1235,7 @@ void WorksheetTextEditorItem::dropEvent(QGraphicsSceneDragDropEvent* event)
 {
     if (isEditable())
     {
-        KTextEditor::Cursor cursor = m_view->cursorPosition();
+        const auto& cursor = m_view->cursorPosition();
         if (event->mimeData()->hasText())
         {
             QString text = event->mimeData()->text();
@@ -1413,14 +1419,11 @@ Cantor::Session* WorksheetTextEditorItem::session()
 QKeyEvent* WorksheetTextEditorItem::eventForStandardAction(KStandardAction::StandardAction actionID)
 {
     auto* action = KStandardAction::create(actionID, this, &WorksheetTextEditorItem::copy, this);
-    QKeySequence keySeq = action->shortcut();
-
-    int code = keySeq[0];
-    const int ModMask = Qt::ShiftModifier | Qt::ControlModifier |
-    Qt::AltModifier | Qt::MetaModifier;
-    const int KeyMask = ~ModMask;
-    QKeyEvent* event = new QKeyEvent(QEvent::KeyPress, code & KeyMask,QFlags<Qt::KeyboardModifier>(code & ModMask));
+    auto keySeq = action->shortcut();
     delete action;
+
+    const auto& keyCombination = keySeq[0];
+    auto* event = new QKeyEvent(QEvent::KeyPress, keyCombination.key(), keyCombination.keyboardModifiers());
     return event;
 }
 
