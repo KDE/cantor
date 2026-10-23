@@ -47,6 +47,11 @@ void RSession::login()
     m_process = new QProcess(this);
     m_process->setProcessChannelMode(QProcess::SeparateChannels);
 
+    // Forward server's stderr to our stderr for debugging
+    connect(m_process, &QProcess::readyReadStandardError, this, [this]() {
+        qDebug().noquote() << "[rserver]" << m_process->readAllStandardError();
+    });
+
     // Server writes socket name to stdout
     m_process->setReadChannel(QProcess::StandardOutput);
 
@@ -307,6 +312,8 @@ void RSession::handleExpressionFinished(QDataStream& stream)
 
     QString text = RProtocol::readString(stream);
     QStringList files = RProtocol::readStringList(stream);
+
+    qDebug() << "handleExpressionFinished: returnCode=" << returnCode << "text=" << text << "files=" << files;
 
     auto* expr = expressionQueue().first();
     if (expr->status() == Cantor::Expression::Interrupted)
