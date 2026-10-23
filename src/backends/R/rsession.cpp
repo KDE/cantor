@@ -7,10 +7,16 @@
 #include "rsession.h"
 #include "rexpression.h"
 #include "rvariablemodel.h"
+#include "rserver/rprotocol.h"
 #include <defaultvariablemodel.h>
 
 #include <QTimer>
 #include <QDebug>
+#include <QDataStream>
+#include <QLocalSocket>
+#include <QStandardPaths>
+#include <QFileInfo>
+#include <QDir>
 #include <KProcess>
 #include <KLocalizedString>
 
@@ -20,7 +26,7 @@
 
 RSession::RSession(Cantor::Backend* backend) : Session(backend, nullptr, new KeywordsManager(QStringLiteral("R Script"))),
 m_process(nullptr),
-m_rServer(nullptr)
+m_socket(nullptr)
 {
     setVariableModel(new RVariableModel(this));
 }
@@ -39,7 +45,11 @@ void RSession::login()
     Q_EMIT loginStarted();
 
     m_process = new QProcess(this);
-    m_process->setProcessChannelMode(QProcess::ForwardedErrorChannel);
+    m_process->setProcessChannelMode(QProcess::SeparateChannels);
+
+    // Server writes socket name to stdout
+    m_process->setReadChannel(QProcess::StandardOutput);
+
 #ifdef Q_OS_WIN
     m_process->start(QStandardPaths::findExecutable(QLatin1String("cantor_rserver.exe")));
 #else
@@ -56,22 +66,50 @@ void RSession::login()
         return;
     }
 
-    m_process->waitForReadyRead();
-    qDebug()<<m_process->readAllStandardOutput();
+    // Read socket name from server stdout
+    if (!m_process->waitForReadyRead(5000))
+    {
+        changeStatus(Session::Disable);
+        Q_EMIT error(i18n("R server did not respond."));
+        Q_EMIT loginDone();
+        m_process->kill();
+        delete m_process;
+        m_process = nullptr;
+        return;
+    }
 
-    m_rServer = new org::kde::Cantor::R(QString::fromLatin1("org.kde.Cantor.R-%1").arg(m_process->processId()),  QLatin1String("/"), QDBusConnection::sessionBus(), this);
+    QString socketName = QString::fromUtf8(m_process->readLine()).trimmed();
+    qDebug() << "Connecting to socket:" << socketName;
 
-    // set the current working directory to the project directory
+    // Connect to server
+    m_socket = new QLocalSocket(this);
+    connect(m_socket, &QLocalSocket::readyRead, this, &RSession::readFromServer);
+    connect(m_socket, &QLocalSocket::errorOccurred, this, &RSession::socketError);
+
+    m_socket->connectToServer(socketName);
+    if (!m_socket->waitForConnected(5000))
+    {
+        changeStatus(Session::Disable);
+        Q_EMIT error(i18n("Failed to connect to R server: %1", m_socket->errorString()));
+        Q_EMIT loginDone();
+        m_process->kill();
+        delete m_socket;
+        m_socket = nullptr;
+        delete m_process;
+        m_process = nullptr;
+        return;
+    }
+
+    // Set working directory
     const auto& path = worksheetPath();
     if (!path.isEmpty())
     {
         const auto& dir = QFileInfo(path).absoluteDir().absolutePath();
-        m_rServer->runCommand(QLatin1String("setwd(\"") + dir + QLatin1String("\")"), true);
+        // Send setwd command (will be implemented in runFirstExpression)
+        auto* expr = evaluateExpression(QLatin1String("setwd(\"") + dir + QLatin1String("\")"),
+                                       Cantor::Expression::DeleteOnFinish, true);
+        Q_UNUSED(expr);
     }
-
-    connect(m_rServer, &org::kde::Cantor::R::statusChanged, this, &RSession::serverChangedStatus);
-    connect(m_rServer,  &org::kde::Cantor::R::expressionFinished, this, &RSession::expressionFinished);
-    connect(m_rServer, &org::kde::Cantor::R::inputRequested, this, &RSession::inputRequested);
 
     changeStatus(Session::Done);
     Q_EMIT loginDone();
@@ -86,6 +124,13 @@ void RSession::logout()
 
     if(!expressionQueue().isEmpty())
         interrupt();
+
+    if (m_socket)
+    {
+        m_socket->disconnectFromServer();
+        m_socket->deleteLater();
+        m_socket = nullptr;
+    }
 
     m_process->kill();
     m_process->deleteLater();
@@ -105,7 +150,7 @@ void RSession::interrupt()
             const int pid = m_process->processId();
             kill(pid, SIGINT);
 #else
-            ; //TODO: interrupt the process on windows
+            ; //TODO: send interrupt message to server
 #endif
         }
         for (auto* expression : expressionQueue())
@@ -130,38 +175,6 @@ Cantor::Expression* RSession::evaluateExpression(const QString& cmd, Cantor::Exp
     return expr;
 }
 
-void RSession::serverChangedStatus(int status)
-{
-    qDebug()<<"changed status to "<<status;
-    if(status==0)
-    {
-        if(expressionQueue().isEmpty())
-            changeStatus(Cantor::Session::Done);
-    }
-    else
-        changeStatus(Cantor::Session::Running);
-}
-
-void RSession::expressionFinished(int returnCode, const QString& text, const QStringList& files)
-{
-    if (!expressionQueue().isEmpty())
-    {
-        auto* expr = expressionQueue().first();
-        if (expr->status() == Cantor::Expression::Interrupted)
-            return;
-
-        static_cast<RExpression*>(expr)->showFilesAsResult(files);
-
-        if(returnCode==RExpression::SuccessCode)
-            expr->parseOutput(text);
-        else if (returnCode==RExpression::ErrorCode)
-            expr->parseError(text);
-
-        qDebug()<<"done running "<<expr<<" "<<expr->command();
-        finishFirstExpression();
-    }
-}
-
 void RSession::runFirstExpression()
 {
     if (expressionQueue().isEmpty())
@@ -171,8 +184,17 @@ void RSession::runFirstExpression()
     qDebug()<<"running expression: "<<expr->command();
 
     expr->setStatus(Cantor::Expression::Computing);
-    m_rServer->runCommand(expr->internalCommand(), expr->isInternal());
     changeStatus(Cantor::Session::Running);
+
+    // Send RunCommand message
+    QByteArray data;
+    QDataStream stream(&data, QIODevice::WriteOnly);
+    stream.setVersion(QDataStream::Qt_6_0);
+
+    RProtocol::writeString(stream, expr->internalCommand());
+    stream << static_cast<quint8>(expr->isInternal() ? 1 : 0);
+
+    sendMessage(static_cast<quint8>(RProtocol::ClientMessage::RunCommand), data);
 }
 
 void RSession::sendInputToServer(const QString& input)
@@ -180,13 +202,133 @@ void RSession::sendInputToServer(const QString& input)
     QString s = input;
     if(!input.endsWith(QLatin1Char('\n')))
         s += QLatin1Char('\n');
-    m_rServer->answerRequest(s);
+
+    QByteArray data;
+    QDataStream stream(&data, QIODevice::WriteOnly);
+    stream.setVersion(QDataStream::Qt_6_0);
+    RProtocol::writeString(stream, s);
+
+    sendMessage(static_cast<quint8>(RProtocol::ClientMessage::AnswerRequest), data);
 }
 
-void RSession::inputRequested(QString info)
+void RSession::sendMessage(quint8 msgType, const QByteArray& data)
+{
+    if (!m_socket || m_socket->state() != QLocalSocket::ConnectedState)
+        return;
+
+    QByteArray message;
+    QDataStream stream(&message, QIODevice::WriteOnly);
+    stream.setVersion(QDataStream::Qt_6_0);
+
+    // Message format: length(quint32) | type(quint8) | data
+    stream << static_cast<quint32>(data.size() + 1); // +1 for type byte
+    stream << msgType;
+    stream.writeRawData(data.constData(), data.size());
+
+    m_socket->write(message);
+    m_socket->flush();
+}
+
+void RSession::readFromServer()
+{
+    m_receiveBuffer.append(m_socket->readAll());
+
+    // Process complete messages
+    while (m_receiveBuffer.size() >= 5) // At least length + type
+    {
+        QDataStream stream(m_receiveBuffer);
+        stream.setVersion(QDataStream::Qt_6_0);
+
+        quint32 messageLen;
+        stream >> messageLen;
+
+        if (m_receiveBuffer.size() < static_cast<int>(messageLen + 4)) // +4 for length field
+            break; // Wait for complete message
+
+        quint8 msgType;
+        stream >> msgType;
+
+        // Process message based on type
+        switch (static_cast<RProtocol::ServerMessage>(msgType))
+        {
+            case RProtocol::ServerMessage::StatusChanged:
+                handleStatusChanged(stream);
+                break;
+            case RProtocol::ServerMessage::ExpressionFinished:
+                handleExpressionFinished(stream);
+                break;
+            case RProtocol::ServerMessage::InputRequested:
+                handleInputRequested(stream);
+                break;
+            default:
+                qWarning() << "Unknown message type:" << msgType;
+                break;
+        }
+
+        // Remove processed message
+        m_receiveBuffer.remove(0, messageLen + 4);
+    }
+}
+
+void RSession::handleStatusChanged(QDataStream& stream)
+{
+    quint8 status;
+    stream >> status;
+
+    qDebug() << "Status changed:" << status;
+
+    if (status == static_cast<quint8>(RProtocol::Status::Idle))
+    {
+        if (expressionQueue().isEmpty())
+            changeStatus(Cantor::Session::Done);
+    }
+    else
+    {
+        changeStatus(Cantor::Session::Running);
+    }
+}
+
+void RSession::handleExpressionFinished(QDataStream& stream)
 {
     if (expressionQueue().isEmpty())
         return;
 
+    quint8 returnCode;
+    stream >> returnCode;
+
+    QString text = RProtocol::readString(stream);
+    QStringList files = RProtocol::readStringList(stream);
+
+    auto* expr = expressionQueue().first();
+    if (expr->status() == Cantor::Expression::Interrupted)
+        return;
+
+    static_cast<RExpression*>(expr)->showFilesAsResult(files);
+
+    if (returnCode == static_cast<quint8>(RProtocol::ReturnCode::Success))
+        expr->parseOutput(text);
+    else
+        expr->parseError(text);
+
+    qDebug()<<"done running "<<expr<<" "<<expr->command();
+    finishFirstExpression();
+}
+
+void RSession::handleInputRequested(QDataStream& stream)
+{
+    if (expressionQueue().isEmpty())
+        return;
+
+    QString info = RProtocol::readString(stream);
     Q_EMIT expressionQueue().first()->needsAdditionalInformation(info);
+}
+
+void RSession::socketError()
+{
+    qWarning() << "Socket error:" << m_socket->errorString();
+    if (m_socket->state() == QLocalSocket::UnconnectedState)
+    {
+        changeStatus(Cantor::Session::Done);
+        Q_EMIT error(i18n("Lost connection to R server"));
+    }
 }

@@ -47,6 +47,19 @@ void setupCallbacks(RServer* r)
     server=r;
     currentExpression=nullptr;
 
+#ifdef Q_OS_WIN
+    // Windows uses RStartup structure
+    R_DefParams(&RK_R_Params);
+    RK_R_Params.R_Quiet = Rboolean::FALSE;
+    RK_R_Params.R_Interactive = Rboolean::TRUE;
+    RK_R_Params.ReadConsole = onReadConsole;
+    RK_R_Params.WriteConsole = nullptr;
+    RK_R_Params.WriteConsoleEx = onWriteConsoleEx;
+    RK_R_Params.ShowMessage = onShowMessage;
+    RK_R_Params.Busy = onBusy;
+    // Note: R_SetParams() will be called after R initialization
+#else
+    // Unix (Linux/macOS) uses function pointers
     R_Outputfile=nullptr;
     R_Consolefile=nullptr;
 
@@ -56,7 +69,16 @@ void setupCallbacks(RServer* r)
     ptr_R_Busy=onBusy;
     ptr_R_ReadConsole=onReadConsole;
     ptr_R_ShowFiles=onShowFiles;
+#endif
 }
+
+#ifdef Q_OS_WIN
+void connectCallbacks()
+{
+    // On Windows, activate callbacks after R initialization
+    R_SetParams(&RK_R_Params);
+}
+#endif
 
 void setCurrentExpression(Expression* expr)
 {

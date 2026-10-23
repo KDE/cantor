@@ -1,11 +1,8 @@
 include_directories(${R_INCLUDEDIR})
 LINK_DIRECTORIES(${R_SHAREDLIBDIR})
 
-if(NOT WIN32)
-# rserver is using RInterface.h which is Unix only
-# see https://colinfay.me/writing-r-extensions/linking-guis-and-other-front-ends-to-r.html
+# Build rserver on all platforms now (not just Unix)
 add_subdirectory(rserver)
-endif()
 
 set( RBackend_SRCS
   rbackend.cpp
@@ -19,17 +16,13 @@ set( RBackend_SRCS
 
 kconfig_add_kcfg_files(RBackend_SRCS rserver/settings.kcfgc)
 
-set(network_xml rserver/org.kde.Cantor.R.xml)
-find_package(Qt6 REQUIRED COMPONENTS DBus)
-qt_add_dbus_interface(RBackend_SRCS ${network_xml} rserver_interface )
-
 ki18n_wrap_ui(RBackend_SRCS settings.ui)
 
 add_backend(rbackend ${RBackend_SRCS})
 
 set_target_properties( cantor_rbackend PROPERTIES INSTALL_RPATH_USE_LINK_PATH false)
 
-target_link_libraries( cantor_rbackend ${R_USED_LIBS} Qt6::DBus KF6::SyntaxHighlighting)
+target_link_libraries( cantor_rbackend ${R_USED_LIBS} Qt6::Network KF6::SyntaxHighlighting)
 
 if (ENABLE_EMBEDDED_DOCUMENTATION)
     target_link_libraries(cantor_rbackend cantor_help)

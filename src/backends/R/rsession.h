@@ -7,13 +7,14 @@
 #define _RSESSION_H
 
 #include <QStringList>
+#include <QLocalSocket>
 
 #include "session.h"
-#include "rserver_interface.h"
 
 class RExpression;
 class RVariableModel;
 class QProcess;
+class QDataStream;
 
 namespace Cantor {
   class DefaultVariableModel;
@@ -38,14 +39,20 @@ class RSession : public Cantor::Session
 
   Q_SIGNALS:
     void modelUpdateFinished(const QString& result);
-  protected Q_SLOTS:
-    void serverChangedStatus(int status);
-    void expressionFinished(int returnCode, const QString& text, const QStringList& files);
-    void inputRequested(QString info);
+
+  private Q_SLOTS:
+    void readFromServer();
+    void socketError();
 
   private:
+    void sendMessage(quint8 msgType, const QByteArray& data);
+    void handleStatusChanged(QDataStream& stream);
+    void handleExpressionFinished(QDataStream& stream);
+    void handleInputRequested(QDataStream& stream);
+
     QProcess* m_process;
-    org::kde::Cantor::R* m_rServer;
+    QLocalSocket* m_socket;
+    QByteArray m_receiveBuffer;
 };
 
 #endif /* _RSESSION_H */
