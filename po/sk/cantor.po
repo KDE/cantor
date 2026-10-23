@@ -4031,53 +4031,46 @@ msgid "All files"
 msgstr "Všetky súbory"
 
 #: panelplugins/plotpanel/plotpanelplugin.cpp:142
-#, fuzzy, kde-format
-#| msgid "Plots"
+#, kde-format
 msgid "Plots panel"
-msgstr "Grafy"
+msgstr "Panel grafov"
 
 #: panelplugins/plotpanel/plotpanelplugin.cpp:153
-#, fuzzy, kde-format
-#| msgid "&Previous"
+#, kde-format
 msgid "Previous Plot"
-msgstr "&Predchádzajúci"
+msgstr "Predchádzajúci graf"
 
 #: panelplugins/plotpanel/plotpanelplugin.cpp:154
-#, fuzzy, kde-format
-#| msgid "Delete Plot"
+#, kde-format
 msgid "Next Plot"
-msgstr "Vymazať graf"
+msgstr "Nasledujúci graf"
 
 #: panelplugins/plotpanel/plotpanelplugin.cpp:156
 #, kde-format
 msgid "Group Plots by Source Cell"
-msgstr ""
+msgstr "Zoskupiť grafy podľa zdrojovej bunky"
 
 #: panelplugins/plotpanel/plotpanelplugin.cpp:159
-#, fuzzy, kde-format
-#| msgid "Animate Worksheet"
+#, kde-format
 msgid "Animate Previews"
-msgstr "Animovať pracovný zošit"
+msgstr "Animovať náhľady"
 
 #: panelplugins/plotpanel/plotpanelplugin.cpp:163
-#, fuzzy, kde-format
-#| msgid "Copy result"
+#, kde-format
 msgid "Copy Plot"
-msgstr "Kopírovať výsledok"
+msgstr "Kopírovať graf"
 
 #: panelplugins/plotpanel/plotpanelplugin.cpp:164
 #: worksheethierarchymanager.cpp:1129
-#, fuzzy, kde-format
-#| msgid "Save Project"
+#, kde-format
 msgid "Save Plot"
-msgstr "Uloženie projektu"
+msgstr "Uložiť graf"
 
 #: panelplugins/plotpanel/plotpanelplugin.cpp:165
 #: worksheethierarchymanager.cpp:1175
-#, fuzzy, kde-format
-#| msgid "Save Project"
+#, kde-format
 msgid "Save All Plots"
-msgstr "Uloženie projektu"
+msgstr "Uložiť všetky grafy"
 
 #: panelplugins/plotpanel/plotpanelplugin.cpp:166
 #: panelplugins/plotpanel/plotpanelplugin.cpp:565
@@ -4097,43 +4090,41 @@ msgstr "Vymazať graf"
 
 #: panelplugins/plotpanel/plotpanelplugin.cpp:171
 #: panelplugins/plotpanel/plotpanelplugin.cpp:172
-#, fuzzy, kde-format
-#| msgid "Search/Filter"
+#, kde-format
 msgid "Search plots"
-msgstr "Filter hľadania"
+msgstr "Hľadať grafy"
 
 #: panelplugins/plotpanel/plotpanelplugin.cpp:178
-#, fuzzy, kde-format
-#| msgid "Integrate Plots into the Worksheet"
+#, kde-format
 msgid "Plots in the current worksheet"
-msgstr "Integrovať grafy do pracovného listu"
+msgstr "Grafy v aktuálnom pracovnom liste"
 
 #: panelplugins/plotpanel/plotpanelplugin.cpp:191
 #, kde-format
 msgid "No plots match the search"
-msgstr ""
+msgstr "Hľadaniu nezodpovedajú žiadne grafy"
 
 #: panelplugins/plotpanel/plotpanelplugin.cpp:312
-#, fuzzy, kde-format
-#| msgid "Error: %1"
+#, kde-format
 msgid "Source: %1"
-msgstr "Chyba: %1"
+msgstr "Zdroj: %1"
 
 #: panelplugins/plotpanel/plotpanelplugin.cpp:314
-#, fuzzy, kde-format
-#| msgid "Error: %1"
+#, kde-format
 msgid "Format: %1"
-msgstr "Chyba: %1"
+msgstr "Formát: %1"
 
 #: panelplugins/plotpanel/plotpanelplugin.cpp:316
 #, kde-format
 msgid "Preview unavailable; open the plot in the worksheet for details."
 msgstr ""
+"Náhľad nie je k dispozícii; podrobnosti nájdete po otvorení grafu v "
+"pracovnom liste."
 
 #: panelplugins/plotpanel/plotpanelplugin.cpp:566
 #, kde-format
 msgid "Plot name (leave empty to use the default name):"
-msgstr ""
+msgstr "Názov grafu (nechajte prázdne pre predvolený názov):"
 
 #: panelplugins/plotpanel/plotpanelplugin.cpp:578
 #: panelplugins/tocpanel/tocpanelplugin.cpp:368
@@ -4145,10 +4136,9 @@ msgid "Do you really want to delete \"%1\"? This action cannot be undone."
 msgstr "Naozaj chcete odstrániť \"%1\"? Túto akciu nemožno vrátiť späť."
 
 #: panelplugins/plotpanel/plotpanelplugin.cpp:626
-#, fuzzy, kde-format
-#| msgid "Animate Worksheet"
+#, kde-format
 msgid "Open in Worksheet"
-msgstr "Animovať pracovný zošit"
+msgstr "Otvoriť v pracovnom liste"
 
 #: panelplugins/tocpanel/tocpanelplugin.cpp:207
 #, kde-format
@@ -4867,7 +4857,7 @@ msgstr "Neplatná schéma Jupyter notebook: %1"
 #, kde-format
 msgid ""
 "The results of the selected cells will be deleted. Do you want to continue?"
-msgstr ""
+msgstr "Výsledky vybraných buniek budú vymazané. Chcete pokračovať?"
 
 #: worksheet.cpp:2370
 #, kde-format
