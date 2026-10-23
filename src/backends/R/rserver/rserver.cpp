@@ -116,7 +116,9 @@ void RServer::readFromClient()
     if (!m_client)
         return;
 
-    m_receiveBuffer.append(m_client->readAll());
+    QByteArray newData = m_client->readAll();
+    qDebug() << "RServer: received" << newData.size() << "bytes from client";
+    m_receiveBuffer.append(newData);
 
     // Process complete messages
     while (m_receiveBuffer.size() >= 5) // At least length + type
@@ -127,11 +129,15 @@ void RServer::readFromClient()
         quint32 messageLen;
         stream >> messageLen;
 
+        qDebug() << "RServer: message length:" << messageLen << "buffer size:" << m_receiveBuffer.size();
+
         if (m_receiveBuffer.size() < static_cast<int>(messageLen + 4)) // +4 for length field
             break; // Wait for complete message
 
         quint8 msgType;
         stream >> msgType;
+
+        qDebug() << "RServer: message type:" << msgType;
 
         // Process message based on type
         switch (static_cast<RProtocol::ClientMessage>(msgType))
