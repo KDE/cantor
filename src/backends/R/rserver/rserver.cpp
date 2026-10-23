@@ -210,7 +210,7 @@ void RServer::handleRunCommand(QDataStream& stream)
     {
         case PARSE_OK:
             qDebug()<<"RServer: PARSING" << cmd << "went OK";
-            for (i = 0; i < length(cmdexpr); ++i) {
+            for (i = 0; i < Rf_length(cmdexpr); ++i) {
                 result = R_tryEval(VECTOR_ELT(cmdexpr, i), nullptr, &errorOccurred);
                 if (errorOccurred)
                 {
