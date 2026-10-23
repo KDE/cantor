@@ -26,6 +26,10 @@ struct Expression {
 #define R_INTERFACE_PTRS
 #include <R_ext/Parse.h>
 
+// R defines macros that clash with C++ standard library
+#undef length
+#undef isNull
+
 //This File implements the necessary callbacks for R
 //The information gathered will be pushed back to the RThread
 
