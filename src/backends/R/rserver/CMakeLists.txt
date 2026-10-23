@@ -9,9 +9,6 @@ set( RServer_SRCS
 kconfig_add_kcfg_files(RServer_SRCS settings.kcfgc)
 install(FILES rserver.kcfg DESTINATION ${KDE_INSTALL_KCFGDIR})
 
-qt_add_dbus_adaptor(RServer_SRCS org.kde.Cantor.R.xml rserver.h RServer)
-
-
 add_custom_command(OUTPUT renvvars.h COMMAND ${R_EXECUTABLE} --slave --file=${CMAKE_CURRENT_SOURCE_DIR}/tools/envvars.r > ${CMAKE_CURRENT_BINARY_DIR}/renvvars.h)
 add_custom_target(renvvars DEPENDS renvvars.h)
 
@@ -22,7 +19,36 @@ add_definitions(-DENABLE_LEGACY_NONAPI)
 
 add_executable( cantor_rserver ${RServer_SRCS} )
 set_target_properties( cantor_rserver PROPERTIES INSTALL_RPATH_USE_LINK_PATH false)
-target_link_libraries( cantor_rserver cantorlibs ${R_LIBRARIES} KF6::KIOCore)
+target_link_libraries( cantor_rserver cantorlibs ${R_LIBRARIES} Qt6::Network KF6::KIOCore)
 add_dependencies(cantor_rserver renvvars rautoloads)
+
+# Windows-specific: 64MB stack size (same as R on Windows)
+IF(WIN32)
+    IF(MSVC)
+        SET_TARGET_PROPERTIES(cantor_rserver PROPERTIES LINK_FLAGS /STACK:64000000)
+    ELSE(MSVC)
+        SET_TARGET_PROPERTIES(cantor_rserver PROPERTIES LINK_FLAGS -Wl,--stack,64000000)
+    ENDIF(MSVC)
+ENDIF(WIN32)
+
+# macOS-specific: CoreFoundation framework and code signing
+IF(APPLE)
+    TARGET_LINK_LIBRARIES(cantor_rserver "-framework CoreFoundation")
+    # Add entitlements for loading external R library and JIT
+    # ADD_CUSTOM_COMMAND(TARGET cantor_rserver POST_BUILD
+    #     COMMAND codesign -d --force --options runtime --verbose=4 -s -
+    #         --entitlements "${CMAKE_CURRENT_SOURCE_DIR}/cantor_rserver.entitlements"
+    #         ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/cantor_rserver
+    #     WORKING_DIRECTORY ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}
+    #     COMMENT "Adding entitlements for cantor_rserver to link to external R lib...")
+ENDIF(APPLE)
+
+IF(MSVC)
+# When compiling with MSVC, we have to create a .lib file for R.dll, first
+FIND_PACKAGE(Python3 COMPONENTS Interpreter REQUIRED)
+ADD_CUSTOM_TARGET(R_lib COMMAND ${Python3_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/../GenLibFile.py ${LIBR_SO} ${CMAKE_BINARY_DIR} ${CMAKE_SYSTEM_PROCESSOR}
+                        COMMENT "Generate .lib file for R.dll")
+ADD_DEPENDENCIES(cantor_rserver R_lib)
+ENDIF(MSVC)
 
 install(TARGETS cantor_rserver ${KDE_INSTALL_TARGETS_DEFAULT_ARGS} )

@@ -6,8 +6,17 @@
 #ifndef _RCALLBACKS_H
 #define _RCALLBACKS_H
 
+#include <QString>
+
 class RServer;
-class Expression;
+
+// Expression structure for current command - shared between rserver and rcallbacks
+struct Expression {
+    QString cmd;
+    bool hasOtherResults;
+    QString err_buffer;
+    QString std_buffer;
+};
 
 //R includes
 #include <R.h>
@@ -22,6 +31,10 @@ class Expression;
 
 void setupCallbacks(RServer* server);
 void setCurrentExpression(Expression* expression);
+
+#ifdef Q_OS_WIN
+void connectCallbacks();
+#endif
 
 void onWriteConsoleEx(const char* text, int size,int otype);
 void onShowMessage(const char* text);
