@@ -177,6 +177,8 @@ Cantor::Expression* RSession::evaluateExpression(const QString& cmd, Cantor::Exp
 
 void RSession::runFirstExpression()
 {
+    qDebug() << "RSession::runFirstExpression called, queue size:" << expressionQueue().size();
+
     if (expressionQueue().isEmpty())
         return;
 
@@ -194,6 +196,7 @@ void RSession::runFirstExpression()
     RProtocol::writeString(stream, expr->internalCommand());
     stream << static_cast<quint8>(expr->isInternal() ? 1 : 0);
 
+    qDebug() << "RSession: sending command:" << expr->internalCommand();
     sendMessage(static_cast<quint8>(RProtocol::ClientMessage::RunCommand), data);
 }
 
@@ -214,7 +217,10 @@ void RSession::sendInputToServer(const QString& input)
 void RSession::sendMessage(quint8 msgType, const QByteArray& data)
 {
     if (!m_socket || m_socket->state() != QLocalSocket::ConnectedState)
+    {
+        qWarning() << "RSession: socket not connected, cannot send message";
         return;
+    }
 
     QByteArray message;
     QDataStream stream(&message, QIODevice::WriteOnly);
@@ -225,8 +231,11 @@ void RSession::sendMessage(quint8 msgType, const QByteArray& data)
     stream << msgType;
     stream.writeRawData(data.constData(), data.size());
 
-    m_socket->write(message);
+    qDebug() << "RSession: sending message type:" << msgType << "size:" << message.size();
+
+    qint64 written = m_socket->write(message);
     m_socket->flush();
+    qDebug() << "RSession: wrote" << written << "bytes";
 }
 
 void RSession::readFromServer()
