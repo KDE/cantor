@@ -405,10 +405,19 @@ void RServer::newPlotDevice()
 {
     static int deviceNum = 0;
 
-    // Use PNG format with screen resolution
-    const int dpi = QGuiApplication::primaryScreen()->physicalDotsPerInchX();
-    int w = RServerSettings::self()->plotWidth() / 2.54 * dpi;  // cm to pixels
-    int h = RServerSettings::self()->plotHeight() / 2.54 * dpi;
+    auto getPlotSize = []() -> std::pair<int,int> {
+        if (!RServerSettings::self())
+            return {514, 343};
+        int dpi = 96;
+        QScreen* screen = QGuiApplication::primaryScreen();
+        if (screen)
+            dpi = screen->physicalDotsPerInchX();
+        return {
+            static_cast<int>(RServerSettings::self()->plotWidth() / 2.54 * dpi),
+            static_cast<int>(RServerSettings::self()->plotHeight() / 2.54 * dpi)
+        };
+    };
+    auto [w, h] = getPlotSize();
 
     m_curPlotFile = QString::fromLatin1("%1/Rplot%2.png").arg(m_tmpDir, QString::number(deviceNum++));
 
