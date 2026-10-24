@@ -353,11 +353,16 @@ void RServer::sendInputRequested(const QString& prompt)
 
 QString RServer::requestInput(const QString& prompt)
 {
+    m_requestCache.clear();
     sendInputRequested(prompt);
 
-    // TODO: Implement proper event loop waiting for answer
-    // For now, this is a placeholder
-    return m_requestCache;
+    // Wait for answer from client (process events until it arrives)
+    while (m_requestCache.isEmpty())
+        QCoreApplication::processEvents(QEventLoop::WaitForMoreEvents);
+
+    QString result = m_requestCache;
+    m_requestCache.clear();
+    return result;
 }
 
 void RServer::addFileToOutput(const QString& file)
