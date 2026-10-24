@@ -29,6 +29,7 @@ struct Expression {
 // R defines macros that clash with C++ standard library
 #undef length
 #undef isNull
+#undef warning
 
 //This File implements the necessary callbacks for R
 //The information gathered will be pushed back to the RThread
