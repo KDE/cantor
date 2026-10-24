@@ -281,10 +281,12 @@ void RServer::handleRunCommand(QDataStream& stream)
     // Check for plot files
     QFileInfo f(m_curPlotFile);
     qDebug()<<"RServer: file:" << m_curPlotFile << "exists:" << f.exists() << "size:" << f.size();
-    if (f.exists() && f.size() > 0)
+    if (f.exists())
     {
-        m_expressionFiles << f.filePath();
-        newPlotDevice();  // Set up next plot file
+        newPlotDevice();  // Closes current device (flushes file) and opens new one
+        f.refresh();      // Re-check size after flush
+        if (f.size() > 0)
+            m_expressionFiles << f.filePath();
     }
 
     sendStatusChanged(0); // Idle
@@ -419,11 +421,11 @@ void RServer::newPlotDevice()
     };
     auto [w, h] = getPlotSize();
 
-    m_curPlotFile = QString::fromLatin1("%1/Rplot%2.png").arg(m_tmpDir, QString::number(deviceNum++));
-
+    // Close current device (flushes to disk) before opening new one
     if (m_isInitialized)
         runInternalCommand(QLatin1String("dev.off()"));
 
+    m_curPlotFile = QString::fromLatin1("%1/Rplot%2.png").arg(m_tmpDir, QString::number(deviceNum++));
     runInternalCommand(QString::fromLatin1("png(\"%1\", width = %2, height = %3)").arg(m_curPlotFile).arg(w).arg(h));
 }
 
