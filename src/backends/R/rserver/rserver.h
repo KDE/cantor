@@ -40,6 +40,8 @@ class RServer : public QObject
     void sendStatusChanged(int status);
     void sendExpressionFinished(int returnCode, const QString& text, const QStringList& files);
     void sendInputRequested(const QString& prompt);
+    void newPlotDevice();
+    void runInternalCommand(const QString& cmd);
 
   private:
     bool m_isInitialized;

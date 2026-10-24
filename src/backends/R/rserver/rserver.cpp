@@ -206,6 +206,8 @@ void RServer::handleRunCommand(QDataStream& stream)
 
     cmdexpr = PROTECT(R_ParseVector(cmdSexp, -1, &status, R_NilValue));
 
+    qDebug() << "RServer: ParseStatus:" << status << "(PARSE_OK=" << PARSE_OK << ")";
+
     switch (status)
     {
         case PARSE_OK:
@@ -282,11 +284,8 @@ void RServer::handleRunCommand(QDataStream& stream)
     if (f.exists() && f.size() > 0)
     {
         m_expressionFiles << f.filePath();
-        // Would call newPlotDevice() here if implementing full plot support
+        newPlotDevice();  // Set up next plot file
     }
-
-    // Add any other files
-    m_expressionFiles << m_expressionFiles;
 
     sendStatusChanged(0); // Idle
     sendExpressionFinished(returnCode, returnText, m_expressionFiles);
@@ -377,22 +376,63 @@ void RServer::initR()
     const char *R_argv_opt[] = {"--vanilla", "--slave"};
     int R_argc = (sizeof(R_argv) - sizeof(R_argv_opt)) / sizeof(R_argv[0]);
 
-    setupCallbacks(this);
-
+    // Initialize R first
     Rf_initEmbeddedR(R_argc, (char**) R_argv);
     R_ReplDLLinit();
 
+    // Set up callbacks AFTER R initialization - they get overwritten otherwise
+    setupCallbacks(this);
 #ifdef Q_OS_WIN
-    // On Windows, activate callbacks after R initialization
     connectCallbacks();
 #endif
 
-    // Set gui editor for R
-    // Note: runCommand not available yet, would need to execute directly
-    // For now, skip autorun scripts during initialization
+    // Set up plot device for inline plots
+    if (RServerSettings::self()->integratePlots())
+    {
+        qDebug() << "RServer: integrating plots";
+        newPlotDevice();
+    }
+
+    m_isInitialized = true;
 }
 
 void RServer::endR()
 {
    Rf_endEmbeddedR(0);
+}
+
+void RServer::newPlotDevice()
+{
+    static int deviceNum = 0;
+
+    // Use PNG format with screen resolution
+    const int dpi = QGuiApplication::primaryScreen()->physicalDotsPerInchX();
+    int w = RServerSettings::self()->plotWidth() / 2.54 * dpi;  // cm to pixels
+    int h = RServerSettings::self()->plotHeight() / 2.54 * dpi;
+
+    m_curPlotFile = QString::fromLatin1("%1/Rplot%2.png").arg(m_tmpDir, QString::number(deviceNum++));
+
+    if (m_isInitialized)
+        runInternalCommand(QLatin1String("dev.off()"));
+
+    runInternalCommand(QString::fromLatin1("png(\"%1\", width = %2, height = %3)").arg(m_curPlotFile).arg(w).arg(h));
+}
+
+void RServer::runInternalCommand(const QString& cmd)
+{
+    ParseStatus status;
+    SEXP cmdSexp, cmdexpr = R_NilValue;
+    int errorOccurred;
+    QByteArray memBuf = cmd.toUtf8();
+
+    PROTECT(cmdSexp = allocVector(STRSXP, 1));
+    SET_STRING_ELT(cmdSexp, 0, mkChar(memBuf.data()));
+    cmdexpr = PROTECT(R_ParseVector(cmdSexp, -1, &status, R_NilValue));
+
+    if (status == PARSE_OK) {
+        for (int i = 0; i < Rf_length(cmdexpr); ++i) {
+            R_tryEval(VECTOR_ELT(cmdexpr, i), nullptr, &errorOccurred);
+        }
+    }
+    UNPROTECT(2);
 }
