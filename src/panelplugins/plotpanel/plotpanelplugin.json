@@ -13,6 +13,7 @@
         "Description[nl]": "Een paneel voor het bekijken van een voorbeeld van grafieken in het huidige werkblad",
         "Description[pt_BR]": "Um painel para visualizar gráficos na planilha atual",
         "Description[ru]": "Панель для предварительного просмотра графиков текущего документа",
+        "Description[sk]": "Panel na náhľad grafov v aktuálnom pracovnom liste",
         "Description[sl]": "Podokno za predogled grafov v trenutnem delovnem listu",
         "Description[tr]": "Geçerli çalışma sayfasındaki çizimleri önizlemek için bir panel",
         "Description[uk]": "Панель для попереднього перегляду креслень на поточному робочому аркуші",
@@ -31,6 +32,7 @@
         "Name[nl]": "Plots",
         "Name[pt_BR]": "Gráficos",
         "Name[ru]": "Графики",
+        "Name[sk]": "Grafy",
         "Name[sl]": "Grafi",
         "Name[tr]": "Çizimler",
         "Name[uk]": "Креслення"
