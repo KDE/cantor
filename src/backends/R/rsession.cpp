@@ -228,11 +228,13 @@ void RSession::runFirstExpression()
     stream << static_cast<quint8>(expr->isInternal() ? 1 : 0);
 
     // Include plot settings so rserver uses current values
-    stream << static_cast<quint8>(RServerSettings::self()->inlinePlotFormat());
-    stream << RServerSettings::self()->plotWidth();
-    stream << RServerSettings::self()->plotHeight();
+    quint8 plotFormat = static_cast<quint8>(RServerSettings::self()->inlinePlotFormat());
+    double plotWidth = RServerSettings::self()->plotWidth();
+    double plotHeight = RServerSettings::self()->plotHeight();
+    stream << plotFormat << plotWidth << plotHeight;
 
-    qDebug() << "RSession: sending command:" << expr->internalCommand();
+    qDebug() << "RSession: sending command:" << expr->internalCommand()
+             << "plotFormat:" << plotFormat << "size:" << plotWidth << "x" << plotHeight;
     sendMessage(static_cast<quint8>(RProtocol::ClientMessage::RunCommand), data);
 }
 

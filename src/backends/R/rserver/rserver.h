@@ -60,7 +60,7 @@ class RServer : public QObject
     QMap<QString, QStringList> m_parsedNamespaceConstants;
 
     // Plot settings (received from client with each command)
-    quint8 m_plotFormat{2};   // 0=pdf, 1=svg, 2=png
+    quint8 m_plotFormat{0};   // 0=pdf, 1=svg, 2=png
     double m_plotWidth{12.0}; // cm
     double m_plotHeight{8.0}; // cm
 };

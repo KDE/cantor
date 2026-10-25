@@ -172,6 +172,7 @@ void RServer::handleRunCommand(QDataStream& stream)
     m_plotFormat = plotFormat;
     m_plotWidth = plotWidth;
     m_plotHeight = plotHeight;
+    qDebug() << "RServer: received plotFormat:" << m_plotFormat << "size:" << m_plotWidth << "x" << m_plotHeight;
 
     m_expressionFiles.clear();
     qDebug()<<"RServer: running" << (internal ? "internal " : "") << "command" << cmd;
