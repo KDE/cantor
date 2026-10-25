@@ -1,24 +1,22 @@
 /*
     SPDX-License-Identifier: GPL-2.0-or-later
     SPDX-FileCopyrightText: 2009 Alexander Rieder <alexanderrieder@gmail.com>
-    SPDX-FileCopyrightText: 2018-2022 Alexander Semke <alexander.semke@web.de>
+    SPDX-FileCopyrightText: 2018-2026 Alexander Semke <alexander.semke@web.de>
 */
 
 #include "rexpression.h"
 
-#include "textresult.h"
-#include "imageresult.h"
 #include "helpresult.h"
+#include "imageresult.h"
 #include "rsession.h"
+#include "textresult.h"
 
-#include <QDebug>
-#include <QProcess>
-#include <KLocalizedString>
-#include <QMimeType>
-#include <QMimeDatabase>
-#include <QRegularExpression>
 #include <QFile>
 #include <QImage>
+#include <QMimeDatabase>
+#include <QProcess>
+
+#include <KLocalizedString>
 
 RExpression::RExpression( Cantor::Session* session, bool internal ) : Cantor::Expression(session, internal)
 {

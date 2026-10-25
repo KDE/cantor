@@ -2,8 +2,7 @@
     SPDX-License-Identifier: GPL-2.0-or-later
     SPDX-FileCopyrightText: 2009 Alexander Rieder <alexanderrieder@gmail.com>
     SPDX-FileCopyrightText: 2010 Oleksiy Protas <elfy.ua@gmail.com>
-    SPDX-FileCopyrightText: 2023 by Alexander Semke (alexander.semke@web.de)
-    SPDX-FileCopyrightText: 2025 The Cantor Team
+    SPDX-FileCopyrightText: 2023-2026 by Alexander Semke (alexander.semke@web.de)
 */
 
 #include "rserver.h"
@@ -11,15 +10,10 @@
 #include "rcallbacks.h"
 #include "settings.h"
 
-#include <QGuiApplication>
 #include <QScreen>
-#include <QDataStream>
+#include <QDir>
 #include <QLocalServer>
 #include <QLocalSocket>
-#include <QDir>
-#include <QFile>
-#include <QFileInfo>
-#include <QDebug>
 
 #include <KIO/DeleteJob>
 #include <KLocalizedString>
@@ -38,10 +32,7 @@
 #define R_INTERFACE_PTRS
 #include <R_ext/Parse.h>
 
-RServer::RServer() :
-    m_isInitialized(false),
-    m_server(nullptr),
-    m_client(nullptr)
+RServer::RServer()
 {
     m_tmpDir = QDir::tempPath() + QString::fromLatin1("/cantor_rserver-%1").arg(
 #ifdef Q_OS_WIN
@@ -88,9 +79,7 @@ RServer::~RServer()
     KIO::del(QUrl::fromLocalFile(m_tmpDir));
 
     if (m_server)
-    {
         m_server->close();
-    }
 }
 
 void RServer::newConnection()

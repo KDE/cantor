@@ -1,7 +1,7 @@
 /*
     SPDX-License-Identifier: GPL-2.0-or-later
     SPDX-FileCopyrightText: 2009 Alexander Rieder <alexanderrieder@gmail.com>
-    SPDX-FileCopyrightText: 2018 Alexander Semke <alexander.semke@web.de>
+    SPDX-FileCopyrightText: 2018-2026 Alexander Semke <alexander.semke@web.de>
 */
 
 #include "rsession.h"
@@ -19,6 +19,7 @@
 #include <QDir>
 #include <QFile>
 #include <QCoreApplication>
+
 #include <KProcess>
 #include <KLocalizedString>
 
@@ -26,9 +27,7 @@
 #include <signal.h>
 #endif
 
-RSession::RSession(Cantor::Backend* backend) : Session(backend, nullptr, new KeywordsManager(QStringLiteral("R Script"))),
-m_process(nullptr),
-m_socket(nullptr)
+RSession::RSession(Cantor::Backend* backend) : Session(backend, nullptr, new KeywordsManager(QStringLiteral("R Script")))
 {
     setVariableModel(new RVariableModel(this));
 }

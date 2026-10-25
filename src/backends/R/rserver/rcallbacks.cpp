@@ -4,11 +4,9 @@
 */
 
 #include "rcallbacks.h"
-
 #include "rserver.h"
 
 #include <QDebug>
-#include <QStringList>
 
 #include <R_ext/Rdynload.h>
 #include <R_ext/Callbacks.h>

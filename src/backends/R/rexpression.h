@@ -1,7 +1,7 @@
 /*
     SPDX-License-Identifier: GPL-2.0-or-later
     SPDX-FileCopyrightText: 2009 Alexander Rieder <alexanderrieder@gmail.com>
-    SPDX-FileCopyrightText: 2018-2022 Alexander Semke <alexander.semke@web.de>
+    SPDX-FileCopyrightText: 2018-2026 Alexander Semke <alexander.semke@web.de>
 */
 
 #ifndef _REXPRESSION_H
@@ -15,8 +15,8 @@ class RExpression : public Cantor::Expression
 {
   Q_OBJECT
   public:
-    enum ServerReturnCode{SuccessCode=0, ErrorCode, InterruptedCode};
-    explicit RExpression( Cantor::Session*, bool internal = false);
+    enum ServerReturnCode{SuccessCode = 0, ErrorCode, InterruptedCode};
+    explicit RExpression(Cantor::Session*, bool internal = false);
     ~RExpression() override = default;
 
     void evaluate() override;

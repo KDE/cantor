@@ -1,30 +1,23 @@
 /*
     SPDX-License-Identifier: GPL-2.0-or-later
     SPDX-FileCopyrightText: 2009 Alexander Rieder <alexanderrieder@gmail.com>
+    SPDX-FileCopyrightText: 2018-2026 Alexander Semke <alexander.semke@web.de>
 */
 
 #ifndef _RSESSION_H
 #define _RSESSION_H
 
-#include <QStringList>
-#include <QLocalSocket>
-
 #include "session.h"
 
-class RExpression;
-class RVariableModel;
+class QLocalSocket;
 class QProcess;
 class QDataStream;
-
-namespace Cantor {
-  class DefaultVariableModel;
-}
 
 class RSession : public Cantor::Session
 {
   Q_OBJECT
   public:
-    explicit RSession( Cantor::Backend* backend);
+    explicit RSession(Cantor::Backend*);
     ~RSession() override;
 
     void login() override;
@@ -46,13 +39,13 @@ class RSession : public Cantor::Session
 
   private:
     void sendMessage(quint8 msgType, const QByteArray& data);
-    void handleStatusChanged(QDataStream& stream);
-    void handleExpressionFinished(QDataStream& stream);
-    void handleInputRequested(QDataStream& stream);
-    void handlePartialOutput(QDataStream& stream);
+    void handleStatusChanged(QDataStream&);
+    void handleExpressionFinished(QDataStream&);
+    void handleInputRequested(QDataStream&);
+    void handlePartialOutput(QDataStream&);
 
-    QProcess* m_process;
-    QLocalSocket* m_socket;
+    QProcess* m_process{nullptr};
+    QLocalSocket* m_socket{nullptr};
     QByteArray m_receiveBuffer;
 };
 

@@ -1,25 +1,24 @@
 /*
     SPDX-License-Identifier: GPL-2.0-or-later
     SPDX-FileCopyrightText: 2009 Alexander Rieder <alexanderrieder@gmail.com>
-    SPDX-FileCopyrightText: 2025 The Cantor Team
+    SPDX-FileCopyrightText: 2026 Alexander Semke <alexander.semke@web.de>
 */
 
 #ifndef _RSERVER_H
 #define _RSERVER_H
 
 #include <QObject>
-#include <QLocalServer>
-#include <QLocalSocket>
-#include <QString>
-#include <QStringList>
 #include <QMap>
+
+class QLocalSocket;
+class QLocalServer;
 
 class RServer : public QObject
 {
   Q_OBJECT
 
   public:
-    enum ReturnCode { SuccessCode=0, ErrorCode};
+    enum ReturnCode {SuccessCode = 0, ErrorCode};
     RServer();
     ~RServer() override;
 
@@ -37,25 +36,25 @@ class RServer : public QObject
     void flushPartialOutput();
 
   private:
-    void handleRunCommand(QDataStream& stream);
-    void handleAnswerRequest(QDataStream& stream);
+    void handleRunCommand(QDataStream&);
+    void handleAnswerRequest(QDataStream&);
     void sendMessage(quint8 msgType, const QByteArray& data);
     void sendStatusChanged(int status);
     void sendExpressionFinished(int returnCode, const QString& text, const QStringList& files);
     void sendInputRequested(const QString& prompt);
     void newPlotDevice();
-    void runInternalCommand(const QString& cmd);
+    void runInternalCommand(const QString&);
     void listSymbols();
 
   private:
-    bool m_isInitialized;
+    bool m_isInitialized{false};
     QString m_requestCache;
     QString m_tmpDir;
     QString m_curPlotFile;
     QString m_partialOutputBuffer;
     QStringList m_expressionFiles;
-    QLocalServer* m_server;
-    QLocalSocket* m_client;
+    QLocalServer* m_server{nullptr};
+    QLocalSocket* m_client{nullptr};
     QByteArray m_receiveBuffer;
     QMap<QString, QStringList> m_parsedNamespaceFunctions;
     QMap<QString, QStringList> m_parsedNamespaceConstants;
