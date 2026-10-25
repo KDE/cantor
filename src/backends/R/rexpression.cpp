@@ -57,7 +57,7 @@ QString RExpression::formatHelpText(const QString& text)
             html += QStringLiteral("<h4 style=\"color: #2277dd; margin: 12px 0 6px 0;\"><b>%1</b></h4>").arg(section.toHtmlEscaped());
             if (section == QLatin1String("Examples") || section == QLatin1String("Usage"))
             {
-                html += QLatin1String("<pre style=\"background-color: #e8f4fc; padding: 8px; border-radius: 4px;\">");
+                html += QLatin1String("<pre style=\"background-color: #d0d0d0; color: #000000; padding: 8px; border-radius: 4px;\">");
                 inExample = true;
             }
             continue;
