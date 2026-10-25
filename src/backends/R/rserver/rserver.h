@@ -58,6 +58,11 @@ class RServer : public QObject
     QByteArray m_receiveBuffer;
     QMap<QString, QStringList> m_parsedNamespaceFunctions;
     QMap<QString, QStringList> m_parsedNamespaceConstants;
+
+    // Plot settings (received from client with each command)
+    quint8 m_plotFormat{2};   // 0=pdf, 1=svg, 2=png
+    double m_plotWidth{12.0}; // cm
+    double m_plotHeight{8.0}; // cm
 };
 
 #endif /* _RSERVER_H */

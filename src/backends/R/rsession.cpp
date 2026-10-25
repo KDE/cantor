@@ -8,6 +8,7 @@
 #include "rexpression.h"
 #include "rvariablemodel.h"
 #include "rserver/rprotocol.h"
+#include "settings.h"
 #include <defaultvariablemodel.h>
 
 #include <QTimer>
@@ -218,13 +219,18 @@ void RSession::runFirstExpression()
     expr->setStatus(Cantor::Expression::Computing);
     changeStatus(Cantor::Session::Running);
 
-    // Send RunCommand message
+    // Send RunCommand message with current plot settings
     QByteArray data;
     QDataStream stream(&data, QIODevice::WriteOnly);
     stream.setVersion(QDataStream::Qt_6_0);
 
     RProtocol::writeString(stream, expr->internalCommand());
     stream << static_cast<quint8>(expr->isInternal() ? 1 : 0);
+
+    // Include plot settings so rserver uses current values
+    stream << static_cast<quint8>(RServerSettings::self()->inlinePlotFormat());
+    stream << RServerSettings::self()->plotWidth();
+    stream << RServerSettings::self()->plotHeight();
 
     qDebug() << "RSession: sending command:" << expr->internalCommand();
     sendMessage(static_cast<quint8>(RProtocol::ClientMessage::RunCommand), data);

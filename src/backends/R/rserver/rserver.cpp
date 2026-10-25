@@ -166,6 +166,14 @@ void RServer::handleRunCommand(QDataStream& stream)
     stream >> internalFlag;
     bool internal = (internalFlag != 0);
 
+    // Read plot settings from client (always current)
+    quint8 plotFormat;
+    double plotWidth, plotHeight;
+    stream >> plotFormat >> plotWidth >> plotHeight;
+    m_plotFormat = plotFormat;
+    m_plotWidth = plotWidth;
+    m_plotHeight = plotHeight;
+
     m_expressionFiles.clear();
     qDebug()<<"RServer: running" << (internal ? "internal " : "") << "command" << cmd;
 
@@ -515,29 +523,25 @@ void RServer::newPlotDevice()
     if (m_isInitialized)
         runInternalCommand(QLatin1String("graphics.off()"));
 
-    // Use configured plot format (0=pdf, 1=svg, 2=png)
-    int format = RServerSettings::self() ? RServerSettings::self()->inlinePlotFormat() : 2;
-    double widthCm = RServerSettings::self() ? RServerSettings::self()->plotWidth() : 12.0;
-    double heightCm = RServerSettings::self() ? RServerSettings::self()->plotHeight() : 8.0;
-
+    // Use plot settings received from client
     QString ext, cmd;
-    switch (format)
+    switch (m_plotFormat)
     {
         case 0: // PDF - uses inches (1 inch = 2.54 cm)
             ext = QLatin1String("pdf");
             m_curPlotFile = QString::fromLatin1("%1/Rplot%2.%3").arg(m_tmpDir, QString::number(deviceNum++), ext);
             cmd = QString::fromLatin1("pdf(\"%1\", width = %2, height = %3)")
                 .arg(m_curPlotFile)
-                .arg(widthCm / 2.54)
-                .arg(heightCm / 2.54);
+                .arg(m_plotWidth / 2.54)
+                .arg(m_plotHeight / 2.54);
             break;
         case 1: // SVG - uses inches
             ext = QLatin1String("svg");
             m_curPlotFile = QString::fromLatin1("%1/Rplot%2.%3").arg(m_tmpDir, QString::number(deviceNum++), ext);
             cmd = QString::fromLatin1("svg(\"%1\", width = %2, height = %3)")
                 .arg(m_curPlotFile)
-                .arg(widthCm / 2.54)
-                .arg(heightCm / 2.54);
+                .arg(m_plotWidth / 2.54)
+                .arg(m_plotHeight / 2.54);
             break;
         default: // PNG - uses pixels
         {
@@ -547,8 +551,8 @@ void RServer::newPlotDevice()
             QScreen* screen = QGuiApplication::primaryScreen();
             if (screen)
                 dpi = screen->physicalDotsPerInchX();
-            int w = static_cast<int>(widthCm / 2.54 * dpi);
-            int h = static_cast<int>(heightCm / 2.54 * dpi);
+            int w = static_cast<int>(m_plotWidth / 2.54 * dpi);
+            int h = static_cast<int>(m_plotHeight / 2.54 * dpi);
 #ifdef Q_OS_MACOS
             // On macOS, use cairo type for headless operation (quartz requires display)
             cmd = QString::fromLatin1("png(\"%1\", width = %2, height = %3, type = \"cairo\")").arg(m_curPlotFile).arg(w).arg(h);
