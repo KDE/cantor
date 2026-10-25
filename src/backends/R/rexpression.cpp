@@ -25,9 +25,85 @@ RExpression::RExpression( Cantor::Session* session, bool internal ) : Cantor::Ex
 
 }
 
+QString RExpression::formatHelpText(const QString& text)
+{
+    // Convert R's plain-text help to styled HTML
+    QString html;
+    html.reserve(text.size() * 2);
+
+    const QStringList lines = text.split(QLatin1Char('\n'));
+    static const QRegularExpression sectionHeader(QStringLiteral("^([A-Z][A-Za-z ]+):[ ]*$"));
+    static const QRegularExpression underlinedHeader(QStringLiteral("^_+([^_]+)_+$"));
+    bool inExample = false;
+
+    html += QLatin1String("<div style=\"font-family: sans-serif; line-height: 1.4;\">");
+
+    for (int i = 0; i < lines.size(); ++i)
+    {
+        const QString& line = lines[i];
+        QString escaped = line.toHtmlEscaped();
+
+        // Check for section headers like "Description:", "Usage:", "Arguments:", "Examples:"
+        auto match = sectionHeader.match(line);
+        if (match.hasMatch())
+        {
+            if (inExample)
+            {
+                html += QLatin1String("</pre>");
+                inExample = false;
+            }
+            QString section = match.captured(1);
+            html += QStringLiteral("<h4 style=\"color: #2a5db0; margin: 12px 0 6px 0;\">%1</h4>").arg(section.toHtmlEscaped());
+            if (section == QLatin1String("Examples") || section == QLatin1String("Usage"))
+            {
+                html += QLatin1String("<pre style=\"background: #f5f5f5; padding: 8px; border-radius: 4px; overflow-x: auto;\">");
+                inExample = true;
+            }
+            continue;
+        }
+
+        // Check for underlined headers like _Details_
+        match = underlinedHeader.match(line);
+        if (match.hasMatch())
+        {
+            if (inExample)
+            {
+                html += QLatin1String("</pre>");
+                inExample = false;
+            }
+            html += QStringLiteral("<h4 style=\"color: #2a5db0; margin: 12px 0 6px 0;\"><i>%1</i></h4>").arg(match.captured(1).toHtmlEscaped());
+            continue;
+        }
+
+        if (inExample)
+            html += escaped + QLatin1Char('\n');
+        else
+        {
+            // Regular paragraph text - preserve spacing but allow wrapping
+            if (line.trimmed().isEmpty())
+                html += QLatin1String("<br/>");
+            else
+                html += QStringLiteral("<p style=\"margin: 4px 0; white-space: pre-wrap;\">%1</p>").arg(escaped);
+        }
+    }
+
+    if (inExample)
+        html += QLatin1String("</pre>");
+    html += QLatin1String("</div>");
+    return html;
+}
+
 void RExpression::evaluate()
 {
-    const auto& cmd = command();
+    QString cmd = command();
+
+    // help.start() launches R's HTTP server which doesn't work properly in embedded mode
+    if (cmd.trimmed() == QStringLiteral("help.start()") || cmd.trimmed() == QStringLiteral("help.start ()"))
+    {
+        setErrorMessage(i18n("help.start() is not supported in embedded R mode. Use help(topic) or ?topic instead."));
+        setStatus(Cantor::Expression::Error);
+        return;
+    }
 
     //check whether we need to interpret the current command as a help command.
     //see https://www.r-project.org/help.html for the list of different ways to get help in R.
@@ -38,6 +114,7 @@ void RExpression::evaluate()
         || cmd.startsWith(QStringLiteral("help.search(")) )
         setIsHelpRequest(true);
 
+    setCommand(cmd);
     session()->enqueueExpression(this);
 }
 
@@ -58,7 +135,7 @@ void RExpression::parseOutput(const QString& text)
     else if (!text.trimmed().isEmpty())
     {
         if(isHelpRequest())
-            addResult(new Cantor::HelpResult(text));
+            addResult(new Cantor::HelpResult(formatHelpText(text), true));
         else
             addResult(new Cantor::TextResult(text));
     }
@@ -138,7 +215,7 @@ void RExpression::showFilesAsResult(const QStringList& files)
                 content.remove(QLatin1String("_\b"));
 
             if(isHelpRequest())
-                addResult(new Cantor::HelpResult(content));
+                addResult(new Cantor::HelpResult(formatHelpText(content), true));
             else
                 addResult(new Cantor::TextResult(content));
         }

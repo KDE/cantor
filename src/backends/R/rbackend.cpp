@@ -96,15 +96,23 @@ QUrl RBackend::helpUrl() const
 
 QString RBackend::defaultHelp() const
 {
-    //description of R's help system taken from https://www.r-project.org/help.html
-    //@translators: don't translate R's keywords here ("help", etc.) which are put inside <i></i>
-    return i18n("<h1>R' Help System: <i>help()</i> and <i>?</i>:</h1><br>"
-    "The <i>help()</i> function and <i>?</i> help operator in R provide access to the documentation pages for R functions, data sets, and other objects, both for packages in the standard R distribution and for contributed packages.<br><br>"
-    "To access documentation for the standard <i>lm</i> (linear model) function, for example, enter the command <b><i>help(lm)</i></b> or <i>help(\"lm\")</i>, or <i>?lm</i> or <i>?\"lm\"</i> (i.e., the quotes are optional).<br><br>"
-    "To access help for a function in a package that’s not currently loaded, specify in addition the name of the package: For example, to obtain documentation for the <i>rlm()</i> (robust linear model) function in the MASS package, <i>help(rlm, package=\"MASS\")</i>.<br><br>"
-    "Standard names in R consist of upper- and lower-case letters, numerals (0-9), underscores (_), and periods (.), and must begin with a letter or a period. To obtain help for an object with a non-standard name (such as the help operator <i>?</i>), the name must be quoted: for example, <i>help('?')</i> or <i>?\"?\"</i>.<br><br>"
-    "You may also use the <i>help()</i> function to access information about a package in your library — for example, <i>help(package=\"MASS\")</i> — which displays an index of available help pages for the package along with some other information.<br><br>"
-    "Help pages for functions usually include a section with executable examples illustrating how the functions work. You can execute these examples in the current R session via the <i>example()</i> command: e.g., <i>example(lm)</i>.");
+    //description of R’s help system taken from https://www.r-project.org/help.html
+    //@translators: don’t translate R’s keywords here ("help", etc.) which are put inside <code></code>
+    return i18n("<div style=\"font-family: sans-serif; line-height: 1.4;\">"
+    "<h3 style=\"color: #2a5db0; margin: 12px 0 6px 0;\">R Help System</h3>"
+    "<p style=\"margin: 4px 0;\">The <code>help()</code> function and <code>?</code> help operator in R provide access to the documentation pages for R functions, data sets, and other objects.</p>"
+    "<h4 style=\"color: #2a5db0; margin: 12px 0 6px 0;\">Examples</h4>"
+    "<pre style=\"background: #f5f5f5; padding: 8px; border-radius: 4px;\">"
+    "help(lm)      # help for linear model function\n"
+    "?lm           # same as above\n"
+    "?\"?\"          # help for the ? operator\n"
+    "example(lm)   # run examples for lm</pre>"
+    "<h4 style=\"color: #2a5db0; margin: 12px 0 6px 0;\">Package Help</h4>"
+    "<p style=\"margin: 4px 0;\">To access help for a function in a package that’s not currently loaded, specify the package name:</p>"
+    "<pre style=\"background: #f5f5f5; padding: 8px; border-radius: 4px;\">"
+    "help(rlm, package=\"MASS\")\n"
+    "help(package=\"MASS\")       # package index</pre>"
+    "</div>");
 }
 
 QString RBackend::description() const

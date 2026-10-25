@@ -28,6 +28,8 @@ class RExpression : public Cantor::Expression
     void addInformation(const QString&) override;
 
   private:
+    QString formatHelpText(const QString& text);
+
     bool m_isHelpRequest{false};
     QString m_partialOutput;
     Cantor::TextResult* m_partialResult{nullptr};
