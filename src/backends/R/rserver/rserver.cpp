@@ -169,10 +169,17 @@ void RServer::handleRunCommand(QDataStream& stream)
     quint8 plotFormat;
     double plotWidth, plotHeight;
     stream >> plotFormat >> plotWidth >> plotHeight;
-    m_plotFormat = plotFormat;
-    m_plotWidth = plotWidth;
-    m_plotHeight = plotHeight;
-    qDebug() << "RServer: received plotFormat:" << m_plotFormat << "size:" << m_plotWidth << "x" << m_plotHeight;
+    qDebug() << "RServer: received plotFormat:" << plotFormat << "size:" << plotWidth << "x" << plotHeight;
+
+    // Recreate plot device if settings changed
+    if (plotFormat != m_plotFormat || plotWidth != m_plotWidth || plotHeight != m_plotHeight)
+    {
+        m_plotFormat = plotFormat;
+        m_plotWidth = plotWidth;
+        m_plotHeight = plotHeight;
+        if (RServerSettings::self()->integratePlots())
+            newPlotDevice();
+    }
 
     m_expressionFiles.clear();
     qDebug()<<"RServer: running" << (internal ? "internal " : "") << "command" << cmd;
