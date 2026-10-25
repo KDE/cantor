@@ -124,7 +124,7 @@ int onReadConsole(const char* prompt, unsigned char* buf, int buflen, int hist)
     Q_UNUSED(hist);
     qDebug()<<"RServer: "<<"readConsole: "<<prompt;
 
-    QString input=server->requestInput(QLatin1String(prompt));
+    QString input=server->requestInput(QString::fromUtf8(prompt));
     if (!input.endsWith(QLatin1Char('\n')))
         input.append(QLatin1Char('\n'));
 
