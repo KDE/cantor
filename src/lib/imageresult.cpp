@@ -69,6 +69,13 @@ ImageResult::ImageResult(const QUrl &url, const QString& alt) :  d(new ImageResu
                 return;
             }
 
+            int numPages = document->numPages();
+            qDebug() << "PDF numPages:" << numPages << "for" << url.toLocalFile();
+            if (numPages == 0) {
+                qDebug() << "PDF has no pages, skipping:" << url.toLocalFile();
+                return;
+            }
+
             auto page = document->page(0);
             if (!page) {
                 qDebug() << "Failed to process the first page in the PDF file.";
