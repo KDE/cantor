@@ -816,6 +816,12 @@ void WorksheetTextEditorItem::selectionChanged()
 
 void WorksheetTextEditorItem::testSize()
 {
+    if (worksheet()->isLoadingFromFile())
+    {
+        resetScrollPosition();
+        return;
+    }
+
     qreal currentContentWidth = m_view->contentsRect().width();
     if (currentContentWidth <= 0)
         return;

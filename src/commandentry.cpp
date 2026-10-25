@@ -1562,17 +1562,27 @@ void CommandEntry::collapseResults()
     if (m_resultsCollapsed)
         return;
 
+    const bool loading = worksheet()->isLoadingFromFile();
     for(auto* item : m_informationItems) {
-        fadeOutItem(item, nullptr);
+        if (!loading)
+            fadeOutItem(item, nullptr);
         item->hide();
     }
 
     for(auto* item : m_resultItems) {
-        fadeOutItem(item->graphicsObject(), nullptr);
+        if (!loading)
+            fadeOutItem(item->graphicsObject(), nullptr);
         item->graphicsObject()->hide();
     }
 
     m_resultsCollapsed = true;
+
+    if (loading)
+    {
+        m_controlElement.isCollapsed = true;
+        setHidePrompt();
+        return;
+    }
 
     if (worksheet()->animationsEnabled())
     {

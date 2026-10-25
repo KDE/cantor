@@ -234,6 +234,7 @@ class WorksheetEntry : public QGraphicsObject
   private:
     QSizeF m_size;
     qreal m_entry_zone_x{0.};
+    bool m_layoutDirty{false};
     WorksheetEntry* m_prev{nullptr};
     WorksheetEntry* m_next{nullptr};
     Q_PROPERTY(QSizeF size READ size WRITE setSize)

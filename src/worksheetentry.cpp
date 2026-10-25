@@ -625,7 +625,9 @@ qreal WorksheetEntry::setGeometry(qreal x, qreal x1, qreal y, qreal w)
 {
     setPos(x, y);
     m_entry_zone_x = x1;
-    layOutForWidth(x1, w);
+    const bool forceLayout = m_layoutDirty;
+    m_layoutDirty = false;
+    layOutForWidth(x1, w, forceLayout);
 
     recalculateControlGeometry();
 
@@ -634,11 +636,23 @@ qreal WorksheetEntry::setGeometry(qreal x, qreal x1, qreal y, qreal w)
 
 void WorksheetEntry::recalculateSize()
 {
+    const bool loading = worksheet()->isLoadingFromFile();
+    if (loading)
+    {
+        // Force the final layout even if the available width is unchanged.
+        m_layoutDirty = true;
+        if (type() == CommandEntry::Type)
+            return;
+    }
+
     qreal oldHeight = size().height();
     layOutForWidth(m_entry_zone_x, size().width(), true);
     const bool heightChanged = oldHeight != size().height();
     if (heightChanged)
         recalculateControlGeometry();
+
+    if (loading)
+        return;
 
     // only perform worksheet geometry updates if the entry is added to the worksheet
     if (worksheet()->isValidEntry(this))

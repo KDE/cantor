@@ -48,6 +48,7 @@
 #include <QActionGroup>
 #include <QFile>
 #include <QScopedValueRollback>
+#include <QScopeGuard>
 #include <QWheelEvent>
 
 #include <KMessageBox>
@@ -352,6 +353,10 @@ void Worksheet::setViewSize(qreal w, qreal h, qreal s, bool forceUpdate)
 
 void Worksheet::updateLayout()
 {
+    // File loaders update the layout after restoring all entries.
+    if (m_isLoadingFromFile)
+        return;
+
     QScopedValueRollback<bool> layoutGuard(m_layoutUpdateInProgress, true);
     bool cursorRectVisible = false;
     bool atEnd = worksheetView()->isAtEnd();
@@ -455,6 +460,9 @@ void Worksheet::followHierarchyFromView()
 
 void Worksheet::updateEntrySize(WorksheetEntry* entry)
 {
+    if (m_isLoadingFromFile)
+        return;
+
     // only update the worksheet size for an entry which is in the worksheet
     if (!isValidEntry(entry))
         return;
@@ -1851,6 +1859,12 @@ bool Worksheet::loadCantorWorksheet(const KZip& archive)
     if (!m_readOnly)
         initSession(b);
 
+    const bool animationState = m_animationsEnabled;
+    m_animationsEnabled = false;
+    auto animationGuard = qScopeGuard([this, animationState]() {
+        m_animationsEnabled = animationState;
+    });
+
     qDebug()<<"loading entries";
     QDomElement expressionChild = root.firstChildElement();
     while (!expressionChild.isNull()) {
@@ -1877,6 +1891,8 @@ bool Worksheet::loadCantorWorksheet(const KZip& archive)
     //Set the Highlighting, depending on the current state
     //If the session isn't logged in, use the default
 
+    m_animationsEnabled = animationState;
+    animationGuard.dismiss();
     Q_EMIT loaded();
     return true;
 }
@@ -2036,6 +2052,12 @@ bool Worksheet::loadJupyterNotebook(const QJsonDocument& doc)
     if (!m_readOnly)
         initSession(backend);
 
+    const bool animationState = m_animationsEnabled;
+    m_animationsEnabled = false;
+    auto animationGuard = qScopeGuard([this, animationState]() {
+        m_animationsEnabled = animationState;
+    });
+
     qDebug() << "loading jupyter entries";
 
     WorksheetEntry* entry = nullptr;
@@ -2118,7 +2140,8 @@ bool Worksheet::loadJupyterNotebook(const QJsonDocument& doc)
     updateHierarchyLayout();
     updateLayout();
 
-
+    m_animationsEnabled = animationState;
+    animationGuard.dismiss();
     Q_EMIT loaded();
     return true;
 }
