@@ -80,13 +80,20 @@ IF(R_EXECUTABLE)
     #MESSAGE(STATUS "Yes, ${R_LAPACK_LIBRARY} exists")
     SET(R_LIBRARIES ${R_LIBRARIES} ${R_LAPACK_LIBRARY})
     IF(NOT WIN32)
-      # Query gfortran to get the libgfortran.so path
+      # Query gfortran to get the libgfortran path
       FIND_PROGRAM(_GFORTRAN_EXECUTABLE NAMES gfortran)
       IF(_GFORTRAN_EXECUTABLE)
-        EXECUTE_PROCESS(COMMAND ${_GFORTRAN_EXECUTABLE} -print-file-name=libgfortran.so
-                        OUTPUT_VARIABLE _libgfortran_path
-                        OUTPUT_STRIP_TRAILING_WHITESPACE
-                       )
+        IF(APPLE)
+          EXECUTE_PROCESS(COMMAND ${_GFORTRAN_EXECUTABLE} -print-file-name=libgfortran.dylib
+                          OUTPUT_VARIABLE _libgfortran_path
+                          OUTPUT_STRIP_TRAILING_WHITESPACE
+                         )
+        ELSE()
+          EXECUTE_PROCESS(COMMAND ${_GFORTRAN_EXECUTABLE} -print-file-name=libgfortran.so
+                          OUTPUT_VARIABLE _libgfortran_path
+                          OUTPUT_STRIP_TRAILING_WHITESPACE
+                         )
+        ENDIF()
       ENDIF()
       IF(EXISTS ${_libgfortran_path})
         SET(GFORTRAN_LIBRARY ${_libgfortran_path})
