@@ -23,7 +23,8 @@ enum class ClientMessage : quint8 {
 enum class ServerMessage : quint8 {
     StatusChanged = 1,
     ExpressionFinished = 2,
-    InputRequested = 3
+    InputRequested = 3,
+    PartialOutput = 4
 };
 
 // Server status

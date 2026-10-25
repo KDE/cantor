@@ -30,6 +30,7 @@ class CANTOR_EXPORT TextResult : public Result
 
     QString toHtml() override;
     QVariant data() override;
+    void setData(const QString& data);
 
     QString plain();
 

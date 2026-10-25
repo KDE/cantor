@@ -90,13 +90,21 @@ enum OutputType { NormalOutput=0, ErrorOutput=1 };
 
 void onWriteConsoleEx(const char* text, int size, int otype)
 {
+    if (!currentExpression)
+        return;  // Ignore output when no expression is active (e.g., during internal commands)
+
     const QString string=QString::fromUtf8(text, size);
     if (otype==NormalOutput)
     {
         currentExpression->std_buffer+=string;
-    }else
+        server->queuePartialOutput(string);
+    }
+    else
     {
+        // For stderr: show as progress during execution, but also buffer
+        // for potential error display at end
         currentExpression->err_buffer+=string;
+        server->queuePartialOutput(string);
     }
 }
 
@@ -117,13 +125,19 @@ int onReadConsole(const char* prompt, unsigned char* buf, int buflen, int hist)
     qDebug()<<"RServer: "<<"readConsole: "<<prompt;
 
     QString input=server->requestInput(QLatin1String(prompt));
+    if (!input.endsWith(QLatin1Char('\n')))
+        input.append(QLatin1Char('\n'));
+
+    qDebug()<<"RServer: "<<"got input:"<<input<<"length:"<<input.size()<<"buflen:"<<buflen;
 
     if(input.size()>buflen)
         input.truncate(buflen);
 
-    strcpy( (char*) buf, input.toStdString().c_str());
+    QByteArray utf8 = input.toUtf8();
+    strcpy((char*) buf, utf8.constData());
 
-    return input.size();
+    qDebug()<<"RServer: "<<"returning:"<<utf8.size();
+    return utf8.size();
 }
 
 int  onShowFiles(int nfile, const char** file, const char** headers, const char* wtitle, Rboolean del, const char* pager)

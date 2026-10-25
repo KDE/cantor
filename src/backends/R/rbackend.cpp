@@ -10,6 +10,10 @@
 #include "settings.h"
 #include "rsettingswidget.h"
 
+#include <QDir>
+#include <QFile>
+#include <QCoreApplication>
+#include <QStandardPaths>
 #include <KPluginFactory>
 
 RBackend::RBackend(QObject* parent,const QList<QVariant>& args) : Cantor::Backend(parent, args)
@@ -56,10 +60,20 @@ Cantor::Backend::Capabilities RBackend::capabilities() const
 
 bool RBackend::requirementsFullfilled(QString* const reason) const
 {
+    QString path;
 #ifdef Q_OS_WIN
-    const QString& path = QStandardPaths::findExecutable(QLatin1String("cantor_rserver.exe"));
+    path = QStandardPaths::findExecutable(QLatin1String("cantor_rserver.exe"));
+#elif defined(Q_OS_MACOS)
+    path = QStandardPaths::findExecutable(QLatin1String("cantor_rserver"));
+    if (path.isEmpty()) {
+        QDir appDir(QCoreApplication::applicationDirPath());
+        appDir.cdUp(); appDir.cdUp(); appDir.cdUp(); // MacOS -> Contents -> cantor.app -> bin
+        QString bundlePath = appDir.filePath(QLatin1String("cantor_rserver.app/Contents/MacOS/cantor_rserver"));
+        if (QFile::exists(bundlePath))
+            path = bundlePath;
+    }
 #else
-    const QString& path = QStandardPaths::findExecutable(QLatin1String("cantor_rserver"));
+    path = QStandardPaths::findExecutable(QLatin1String("cantor_rserver"));
 #endif
     return Cantor::Backend::checkExecutable(QLatin1String("Cantor RServer"), path, reason);
 }

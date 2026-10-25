@@ -71,6 +71,12 @@ QVariant TextResult::data()
     return QVariant(d->data);
 }
 
+void TextResult::setData(const QString& data)
+{
+    d->data = rtrim(data);
+    d->plain = d->data;
+}
+
 QString TextResult::plain()
 {
     return d->plain;

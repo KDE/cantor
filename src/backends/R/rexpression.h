@@ -9,6 +9,8 @@
 
 #include "expression.h"
 
+namespace Cantor { class TextResult; }
+
 class RExpression : public Cantor::Expression
 {
   Q_OBJECT
@@ -20,12 +22,15 @@ class RExpression : public Cantor::Expression
     void evaluate() override;
     void interrupt() override;
     void parseOutput(const QString&) override;
+    void parsePartialOutput(const QString&);
     void showFilesAsResult(const QStringList&);
 
     void addInformation(const QString&) override;
 
   private:
     bool m_isHelpRequest{false};
+    QString m_partialOutput;
+    Cantor::TextResult* m_partialResult{nullptr};
 };
 
 #endif /* _REXPRESSION_H */

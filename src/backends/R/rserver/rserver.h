@@ -12,6 +12,7 @@
 #include <QLocalSocket>
 #include <QString>
 #include <QStringList>
+#include <QMap>
 
 class RServer : public QObject
 {
@@ -27,11 +28,13 @@ class RServer : public QObject
 
     QString requestInput(const QString& prompt);
     void addFileToOutput(const QString& file);
+    void queuePartialOutput(const QString& text);
 
   private Q_SLOTS:
     void newConnection();
     void readFromClient();
     void clientDisconnected();
+    void flushPartialOutput();
 
   private:
     void handleRunCommand(QDataStream& stream);
@@ -42,16 +45,20 @@ class RServer : public QObject
     void sendInputRequested(const QString& prompt);
     void newPlotDevice();
     void runInternalCommand(const QString& cmd);
+    void listSymbols();
 
   private:
     bool m_isInitialized;
     QString m_requestCache;
     QString m_tmpDir;
     QString m_curPlotFile;
+    QString m_partialOutputBuffer;
     QStringList m_expressionFiles;
     QLocalServer* m_server;
     QLocalSocket* m_client;
     QByteArray m_receiveBuffer;
+    QMap<QString, QStringList> m_parsedNamespaceFunctions;
+    QMap<QString, QStringList> m_parsedNamespaceConstants;
 };
 
 #endif /* _RSERVER_H */

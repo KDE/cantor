@@ -49,6 +49,7 @@ class RSession : public Cantor::Session
     void handleStatusChanged(QDataStream& stream);
     void handleExpressionFinished(QDataStream& stream);
     void handleInputRequested(QDataStream& stream);
+    void handlePartialOutput(QDataStream& stream);
 
     QProcess* m_process;
     QLocalSocket* m_socket;

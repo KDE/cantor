@@ -181,6 +181,13 @@ void RServer::handleRunCommand(QDataStream& stream)
 
     sendStatusChanged(1); // Busy
 
+    // Handle special internal commands
+    if (internal && cmd == QLatin1String("%model update"))
+    {
+        listSymbols();
+        return;
+    }
+
     Expression expr;
     expr.cmd = cmd;
     expr.hasOtherResults = false;
@@ -245,27 +252,68 @@ void RServer::handleRunCommand(QDataStream& stream)
         qDebug()<<"RServer: done running";
         qDebug()<<"RServer: result:" << result << "std:" << expr.std_buffer << "err:" << expr.err_buffer;
 
-        // If the command didn't print anything on its own, print the result
-        if (result && expr.std_buffer.isEmpty() && expr.err_buffer.isEmpty())
+        // Check if result is a ggplot object (needs print() to render)
+        bool isGgplot = false;
+        if (result)
+        {
+            SEXP classAttr = Rf_getAttrib(result, R_ClassSymbol);
+            if (classAttr != R_NilValue)
+            {
+                for (int i = 0; i < Rf_length(classAttr); i++)
+                {
+                    const char* className = CHAR(STRING_ELT(classAttr, i));
+                    if (strcmp(className, "ggplot") == 0 || strcmp(className, "gg") == 0)
+                    {
+                        isGgplot = true;
+                        break;
+                    }
+                }
+            }
+        }
+
+        // Print ggplot objects first (they need print() to render to the device)
+        if (result && expr.std_buffer.isEmpty() && isGgplot)
+        {
+            qDebug()<<"RServer: printing ggplot result...";
+            Rf_PrintValue(result);
+        }
+
+        setCurrentExpression(nullptr);
+
+        // Now flush plot device and check if a plot was generated
+        QString plotFile = m_curPlotFile;
+        newPlotDevice();
+        QFileInfo f(plotFile);
+        bool hasPlot = f.exists() && f.size() > 0;
+        qDebug()<<"RServer: file:" << plotFile << "exists:" << f.exists() << "size:" << f.size();
+        if (hasPlot)
+            m_expressionFiles << plotFile;
+
+        // Print non-ggplot results if no plot was generated and nothing printed yet
+        if (result && expr.std_buffer.isEmpty() && !isGgplot && !hasPlot)
         {
             qDebug()<<"RServer: printing result...";
+            setCurrentExpression(&expr);  // Re-enable output capture
             SEXP count = PROTECT(R_tryEval(lang2(install("length"), result), nullptr, &errorOccurred));
             if (*INTEGER(count) == 0)
                 qDebug()<<"RServer: no result, so show nothing";
             else
                 Rf_PrintValue(result);
             UNPROTECT(1);
+            setCurrentExpression(nullptr);
         }
 
-        setCurrentExpression(nullptr);
-
-        if (!expr.err_buffer.isEmpty())
+        // R uses stderr for progress messages (e.g., package installation), not just errors.
+        // Only treat as error if there's no stdout and only stderr, or if R signaled an error.
+        if (expr.std_buffer.isEmpty() && !expr.err_buffer.isEmpty())
         {
+            // Likely an actual error - no output, only error messages
             returnCode = ErrorCode;
             returnText = expr.err_buffer;
         }
         else
         {
+            // Success - show stdout (stderr was shown as progress)
             returnCode = SuccessCode;
             returnText = expr.std_buffer;
         }
@@ -276,18 +324,8 @@ void RServer::handleRunCommand(QDataStream& stream)
         returnText = i18n("Error Parsing Command");
     }
 
-    setCurrentExpression(nullptr);
-
-    // Check for plot files
-    QFileInfo f(m_curPlotFile);
-    qDebug()<<"RServer: file:" << m_curPlotFile << "exists:" << f.exists() << "size:" << f.size();
-    if (f.exists())
-    {
-        newPlotDevice();  // Closes current device (flushes file) and opens new one
-        f.refresh();      // Re-check size after flush
-        if (f.size() > 0)
-            m_expressionFiles << f.filePath();
-    }
+    // Flush any pending partial output before sending finished
+    flushPartialOutput();
 
     sendStatusChanged(0); // Idle
     sendExpressionFinished(returnCode, returnText, m_expressionFiles);
@@ -351,14 +389,68 @@ void RServer::sendInputRequested(const QString& prompt)
     sendMessage(static_cast<quint8>(RProtocol::ServerMessage::InputRequested), data);
 }
 
+void RServer::queuePartialOutput(const QString& text)
+{
+    m_partialOutputBuffer += text;
+    // Flush immediately - R_tryEval blocks so queued invocations won't fire mid-command
+    flushPartialOutput();
+}
+
+void RServer::flushPartialOutput()
+{
+    if (m_partialOutputBuffer.isEmpty())
+        return;
+
+    QByteArray data;
+    QDataStream stream(&data, QIODevice::WriteOnly);
+    stream.setVersion(QDataStream::Qt_6_0);
+    RProtocol::writeString(stream, m_partialOutputBuffer);
+
+    sendMessage(static_cast<quint8>(RProtocol::ServerMessage::PartialOutput), data);
+    m_partialOutputBuffer.clear();
+}
+
 QString RServer::requestInput(const QString& prompt)
 {
     m_requestCache.clear();
     sendInputRequested(prompt);
 
-    // Wait for answer from client (process events until it arrives)
+    // Wait for answer from client - read directly since we're blocking R's event loop
+    // Only process AnswerRequest messages here, leave others in buffer
     while (m_requestCache.isEmpty())
-        QCoreApplication::processEvents(QEventLoop::WaitForMoreEvents);
+    {
+        if (m_client && m_client->waitForReadyRead(100))
+        {
+            QByteArray newData = m_client->readAll();
+            qDebug() << "RServer::requestInput: received" << newData.size() << "bytes";
+
+            // Parse just this message - expect AnswerRequest
+            if (newData.size() >= 5)
+            {
+                QDataStream stream(newData);
+                stream.setVersion(QDataStream::Qt_6_0);
+
+                quint32 messageLen;
+                stream >> messageLen;
+
+                quint8 msgType;
+                stream >> msgType;
+
+                qDebug() << "RServer::requestInput: msgType=" << msgType;
+
+                if (static_cast<RProtocol::ClientMessage>(msgType) == RProtocol::ClientMessage::AnswerRequest)
+                {
+                    handleAnswerRequest(stream);
+                }
+                else
+                {
+                    // Not an answer - shouldn't happen, but put back in buffer
+                    qWarning() << "RServer::requestInput: unexpected message type" << msgType;
+                    m_receiveBuffer.prepend(newData);
+                }
+            }
+        }
+    }
 
     QString result = m_requestCache;
     m_requestCache.clear();
@@ -394,6 +486,7 @@ void RServer::initR()
 #endif
 
     // Set up plot device for inline plots
+    qDebug() << "RServer: integratePlots setting:" << RServerSettings::self()->integratePlots();
     if (RServerSettings::self()->integratePlots())
     {
         qDebug() << "RServer: integrating plots";
@@ -428,10 +521,17 @@ void RServer::newPlotDevice()
 
     // Close current device (flushes to disk) before opening new one
     if (m_isInitialized)
-        runInternalCommand(QLatin1String("dev.off()"));
+        runInternalCommand(QLatin1String("graphics.off()"));
 
     m_curPlotFile = QString::fromLatin1("%1/Rplot%2.png").arg(m_tmpDir, QString::number(deviceNum++));
-    runInternalCommand(QString::fromLatin1("png(\"%1\", width = %2, height = %3)").arg(m_curPlotFile).arg(w).arg(h));
+#ifdef Q_OS_MACOS
+    // On macOS, use cairo type for headless operation (quartz requires display)
+    QString pngCmd = QString::fromLatin1("png(\"%1\", width = %2, height = %3, type = \"cairo\")").arg(m_curPlotFile).arg(w).arg(h);
+#else
+    QString pngCmd = QString::fromLatin1("png(\"%1\", width = %2, height = %3)").arg(m_curPlotFile).arg(w).arg(h);
+#endif
+    qDebug() << "RServer: newPlotDevice command:" << pngCmd;
+    runInternalCommand(pngCmd);
 }
 
 void RServer::runInternalCommand(const QString& cmd)
@@ -448,7 +548,92 @@ void RServer::runInternalCommand(const QString& cmd)
     if (status == PARSE_OK) {
         for (int i = 0; i < Rf_length(cmdexpr); ++i) {
             R_tryEval(VECTOR_ELT(cmdexpr, i), nullptr, &errorOccurred);
+            if (errorOccurred)
+                qDebug() << "RServer: runInternalCommand error in:" << cmd;
         }
+    } else {
+        qDebug() << "RServer: runInternalCommand parse error:" << status << "for:" << cmd;
     }
     UNPROTECT(2);
+}
+
+void RServer::listSymbols()
+{
+    const QChar recordSep(30);
+    const QChar unitSep(31);
+
+    sendStatusChanged(1); // Busy
+
+    QStringList vars, values, funcs, constants;
+    int errorOccurred;
+
+    // Get user namespace objects (ls())
+    SEXP usr = PROTECT(R_tryEval(lang1(install("ls")), nullptr, &errorOccurred));
+    for (int i = 0; i < Rf_length(usr); i++)
+    {
+        SEXP object = STRING_ELT(usr, i);
+        const QString name = QString::fromUtf8(Rf_translateCharUTF8(object));
+        SEXP value = Rf_findVar(Rf_installChar(object), R_GlobalEnv);
+
+        if (Rf_isFunction(value))
+            funcs << name;
+        else if (RServerSettings::variableManagement())
+        {
+            int convertStatus;
+            SEXP valueAsString = PROTECT(R_tryEval(Rf_lang2(Rf_install("toString"), value), nullptr, &convertStatus));
+            if (convertStatus == 0)
+            {
+                vars << name;
+                values << QString::fromUtf8(Rf_translateCharUTF8(Rf_asChar(valueAsString)));
+            }
+            UNPROTECT(1);
+        }
+        else
+            vars << name;
+    }
+    UNPROTECT(1);
+
+    // Get functions/constants from loaded packages
+    SEXP packages = PROTECT(R_tryEval(lang1(install("search")), nullptr, &errorOccurred));
+    for (int i = 1; i < Rf_length(packages); i++) // Skip #0 (user env)
+    {
+        QString packageName = QString::fromUtf8(Rf_translateCharUTF8(STRING_ELT(packages, i)));
+
+        if (!m_parsedNamespaceFunctions.contains(packageName))
+        {
+            QStringList pkgFuncs, pkgConsts;
+
+            SEXP f = PROTECT(R_tryEval(Rf_lang2(Rf_install("ls"), Rf_ScalarInteger(i + 1)), nullptr, &errorOccurred));
+            for (int j = 0; j < Rf_length(f); j++)
+            {
+                SEXP object = STRING_ELT(f, j);
+                const QString name = QString::fromUtf8(Rf_translateCharUTF8(object));
+                SEXP value = Rf_installChar(object);
+
+                int err2 = 0;
+                // Eval typeof to avoid crash on certain symbols
+                SEXP test = PROTECT(R_tryEval(Rf_lang2(Rf_install("typeof"), value), nullptr, &err2));
+                Q_UNUSED(test);
+
+                SEXP resultIs = PROTECT(R_tryEval(Rf_lang2(Rf_install("is.function"), value), nullptr, &err2));
+                if (QString::fromUtf8(Rf_translateCharUTF8(Rf_asChar(resultIs))) == QLatin1String("TRUE"))
+                    pkgFuncs << name;
+                else
+                    pkgConsts << name;
+                UNPROTECT(2);
+            }
+            UNPROTECT(1);
+
+            m_parsedNamespaceFunctions[packageName] = pkgFuncs;
+            m_parsedNamespaceConstants[packageName] = pkgConsts;
+        }
+
+        funcs += m_parsedNamespaceFunctions[packageName];
+        constants += m_parsedNamespaceConstants[packageName];
+    }
+    UNPROTECT(1);
+
+    const QString output = vars.join(recordSep) + unitSep + values.join(recordSep) + unitSep + funcs.join(recordSep) + unitSep + constants.join(recordSep);
+    sendStatusChanged(0); // Idle
+    sendExpressionFinished(SuccessCode, output, QStringList());
 }

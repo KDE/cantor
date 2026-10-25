@@ -17,6 +17,8 @@
 #include <QStandardPaths>
 #include <QFileInfo>
 #include <QDir>
+#include <QFile>
+#include <QCoreApplication>
 #include <KProcess>
 #include <KLocalizedString>
 
@@ -55,11 +57,35 @@ void RSession::login()
     // Server writes socket name to stdout
     m_process->setReadChannel(QProcess::StandardOutput);
 
+    // Find the rserver executable
+    QString rserverPath;
 #ifdef Q_OS_WIN
-    m_process->start(QStandardPaths::findExecutable(QLatin1String("cantor_rserver.exe")));
+    rserverPath = QStandardPaths::findExecutable(QLatin1String("cantor_rserver.exe"));
+#elif defined(Q_OS_MACOS)
+    // On macOS, also check in app bundle next to cantor.app
+    rserverPath = QStandardPaths::findExecutable(QLatin1String("cantor_rserver"));
+    if (rserverPath.isEmpty()) {
+        QDir appDir(QCoreApplication::applicationDirPath());
+        appDir.cdUp(); appDir.cdUp(); appDir.cdUp(); // MacOS -> Contents -> cantor.app -> bin
+        QString bundlePath = appDir.filePath(QLatin1String("cantor_rserver.app/Contents/MacOS/cantor_rserver"));
+        if (QFile::exists(bundlePath))
+            rserverPath = bundlePath;
+    }
 #else
-    m_process->start(QStandardPaths::findExecutable(QLatin1String("cantor_rserver")));
+    rserverPath = QStandardPaths::findExecutable(QLatin1String("cantor_rserver"));
 #endif
+
+    if (rserverPath.isEmpty())
+    {
+        changeStatus(Session::Disable);
+        Q_EMIT error(i18n("Failed to find cantor_rserver executable."));
+        Q_EMIT loginDone();
+        delete m_process;
+        m_process = nullptr;
+        return;
+    }
+
+    m_process->start(rserverPath);
 
     if (!m_process->waitForStarted())
     {
@@ -274,6 +300,9 @@ void RSession::readFromServer()
             case RProtocol::ServerMessage::InputRequested:
                 handleInputRequested(stream);
                 break;
+            case RProtocol::ServerMessage::PartialOutput:
+                handlePartialOutput(stream);
+                break;
             default:
                 qWarning() << "Unknown message type:" << msgType;
                 break;
@@ -313,9 +342,11 @@ void RSession::handleExpressionFinished(QDataStream& stream)
     QString text = RProtocol::readString(stream);
     QStringList files = RProtocol::readStringList(stream);
 
-    qDebug() << "handleExpressionFinished: returnCode=" << returnCode << "text=" << text << "files=" << files;
-
     auto* expr = expressionQueue().first();
+    const bool isInternal = expr->isInternal();
+    qDebug() << "handleExpressionFinished: returnCode=" << returnCode
+             << "text=" << (isInternal ? text.left(80) + QLatin1String("...") : text)
+             << "files=" << files;
     if (expr->status() == Cantor::Expression::Interrupted)
         return;
 
@@ -347,4 +378,13 @@ void RSession::socketError()
         changeStatus(Cantor::Session::Done);
         Q_EMIT error(i18n("Lost connection to R server"));
     }
+}
+
+void RSession::handlePartialOutput(QDataStream& stream)
+{
+    if (expressionQueue().isEmpty())
+        return;
+
+    QString text = RProtocol::readString(stream);
+    static_cast<RExpression*>(expressionQueue().first())->parsePartialOutput(text);
 }
