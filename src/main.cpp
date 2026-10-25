@@ -40,6 +40,22 @@ int main(int argc, char **argv)
     if (!QCoreApplication::libraryPaths().contains(path))
         QCoreApplication::addLibraryPath(path);
 
+    // Also check relative to executable for development builds
+    const QString devPath = QCoreApplication::applicationDirPath();
+    qDebug() << "Adding dev path for plugins:" << devPath;
+    if (!QCoreApplication::libraryPaths().contains(devPath))
+        QCoreApplication::addLibraryPath(devPath);
+
+    // On macOS, also check parent of .app bundle (for build_debug/bin/)
+    QDir appDir(QCoreApplication::applicationDirPath());
+    appDir.cdUp(); appDir.cdUp(); appDir.cdUp(); // MacOS -> Contents -> cantor.app -> bin
+    const QString bundleParent = appDir.absolutePath();
+    qDebug() << "Adding bundle parent path for plugins:" << bundleParent;
+    if (!QCoreApplication::libraryPaths().contains(bundleParent))
+        QCoreApplication::addLibraryPath(bundleParent);
+
+    qDebug() << "All library paths:" << QCoreApplication::libraryPaths();
+
     KCrash::initialize();
 
     KLocalizedString::setApplicationDomain("cantor");
