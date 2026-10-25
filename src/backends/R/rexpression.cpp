@@ -28,6 +28,7 @@ RExpression::RExpression( Cantor::Session* session, bool internal ) : Cantor::Ex
 QString RExpression::formatHelpText(const QString& text)
 {
     // Convert R's plain-text help to styled HTML
+    // Use semi-transparent backgrounds to work with both light and dark themes
     QString html;
     html.reserve(text.size() * 2);
 
@@ -36,7 +37,7 @@ QString RExpression::formatHelpText(const QString& text)
     static const QRegularExpression underlinedHeader(QStringLiteral("^_+([^_]+)_+$"));
     bool inExample = false;
 
-    html += QLatin1String("<div style=\"font-family: sans-serif; line-height: 1.4;\">");
+    html += QLatin1String("<div style=\"line-height: 1.4;\">");
 
     for (int i = 0; i < lines.size(); ++i)
     {
@@ -53,10 +54,10 @@ QString RExpression::formatHelpText(const QString& text)
                 inExample = false;
             }
             QString section = match.captured(1);
-            html += QStringLiteral("<h4 style=\"color: #2a5db0; margin: 12px 0 6px 0;\">%1</h4>").arg(section.toHtmlEscaped());
+            html += QStringLiteral("<h4 style=\"color: #2277dd; margin: 12px 0 6px 0;\"><b>%1</b></h4>").arg(section.toHtmlEscaped());
             if (section == QLatin1String("Examples") || section == QLatin1String("Usage"))
             {
-                html += QLatin1String("<pre style=\"background: #f5f5f5; padding: 8px; border-radius: 4px; overflow-x: auto;\">");
+                html += QLatin1String("<pre style=\"background-color: #e8f4fc; padding: 8px; border-radius: 4px;\">");
                 inExample = true;
             }
             continue;
@@ -71,7 +72,7 @@ QString RExpression::formatHelpText(const QString& text)
                 html += QLatin1String("</pre>");
                 inExample = false;
             }
-            html += QStringLiteral("<h4 style=\"color: #2a5db0; margin: 12px 0 6px 0;\"><i>%1</i></h4>").arg(match.captured(1).toHtmlEscaped());
+            html += QStringLiteral("<h4 style=\"color: #2277dd; margin: 12px 0 6px 0;\"><b><i>%1</i></b></h4>").arg(match.captured(1).toHtmlEscaped());
             continue;
         }
 

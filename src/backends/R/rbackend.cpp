@@ -98,18 +98,18 @@ QString RBackend::defaultHelp() const
 {
     //description of R’s help system taken from https://www.r-project.org/help.html
     //@translators: don’t translate R’s keywords here ("help", etc.) which are put inside <code></code>
-    return i18n("<div style=\"font-family: sans-serif; line-height: 1.4;\">"
-    "<h3 style=\"color: #2a5db0; margin: 12px 0 6px 0;\">R Help System</h3>"
+    return i18n("<div style=\"line-height: 1.4;\">"
+    "<h3 style=\"color: #2277dd; margin: 12px 0 6px 0;\"><b>R Help System</b></h3>"
     "<p style=\"margin: 4px 0;\">The <code>help()</code> function and <code>?</code> help operator in R provide access to the documentation pages for R functions, data sets, and other objects.</p>"
-    "<h4 style=\"color: #2a5db0; margin: 12px 0 6px 0;\">Examples</h4>"
-    "<pre style=\"background: #f5f5f5; padding: 8px; border-radius: 4px;\">"
+    "<h4 style=\"color: #2277dd; margin: 12px 0 6px 0;\"><b>Examples</b></h4>"
+    "<pre style=\"background-color: #e8f4fc; padding: 8px; border-radius: 4px;\">"
     "help(lm)      # help for linear model function\n"
     "?lm           # same as above\n"
     "?\"?\"          # help for the ? operator\n"
     "example(lm)   # run examples for lm</pre>"
-    "<h4 style=\"color: #2a5db0; margin: 12px 0 6px 0;\">Package Help</h4>"
+    "<h4 style=\"color: #2277dd; margin: 12px 0 6px 0;\"><b>Package Help</b></h4>"
     "<p style=\"margin: 4px 0;\">To access help for a function in a package that’s not currently loaded, specify the package name:</p>"
-    "<pre style=\"background: #f5f5f5; padding: 8px; border-radius: 4px;\">"
+    "<pre style=\"background-color: #e8f4fc; padding: 8px; border-radius: 4px;\">"
     "help(rlm, package=\"MASS\")\n"
     "help(package=\"MASS\")       # package index</pre>"
     "</div>");
