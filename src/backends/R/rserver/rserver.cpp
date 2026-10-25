@@ -163,10 +163,11 @@ void RServer::readFromClient()
 
 void RServer::clientDisconnected()
 {
-    qDebug() << "Client disconnected";
+    qDebug() << "Client disconnected, shutting down";
     m_client->deleteLater();
     m_client = nullptr;
     m_receiveBuffer.clear();
+    QCoreApplication::quit();
 }
 
 void RServer::handleRunCommand(QDataStream& stream)
@@ -412,6 +413,14 @@ void RServer::flushPartialOutput()
 
 QString RServer::requestInput(const QString& prompt)
 {
+    if (!m_client)
+    {
+        // Client disconnected, exit R
+        qDebug() << "RServer::requestInput: no client, exiting";
+        QCoreApplication::quit();
+        return QString();
+    }
+
     m_requestCache.clear();
     sendInputRequested(prompt);
 
@@ -419,7 +428,15 @@ QString RServer::requestInput(const QString& prompt)
     // Only process AnswerRequest messages here, leave others in buffer
     while (m_requestCache.isEmpty())
     {
-        if (m_client && m_client->waitForReadyRead(100))
+        if (!m_client)
+        {
+            // Client disconnected while waiting
+            qDebug() << "RServer::requestInput: client disconnected, exiting";
+            QCoreApplication::quit();
+            return QString();
+        }
+
+        if (m_client->waitForReadyRead(100))
         {
             QByteArray newData = m_client->readAll();
             qDebug() << "RServer::requestInput: received" << newData.size() << "bytes";
