@@ -19,7 +19,7 @@ add_definitions(-DENABLE_LEGACY_NONAPI)
 
 add_executable( cantor_rserver ${RServer_SRCS} )
 set_target_properties( cantor_rserver PROPERTIES INSTALL_RPATH_USE_LINK_PATH false)
-target_link_libraries( cantor_rserver cantorlibs ${R_LIBRARIES} Qt6::Network KF6::KIOCore)
+target_link_libraries( cantor_rserver cantorlibs ${R_LIBRARIES} Qt6::Network)
 add_dependencies(cantor_rserver renvvars rautoloads)
 
 # Windows-specific: 64MB stack size (same as R on Windows)

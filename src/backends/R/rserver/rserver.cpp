@@ -15,7 +15,6 @@
 #include <QLocalServer>
 #include <QLocalSocket>
 
-#include <KIO/DeleteJob>
 #include <KLocalizedString>
 
 #ifdef Q_OS_WIN
@@ -76,7 +75,7 @@ RServer::RServer()
 RServer::~RServer()
 {
     //delete the directory with old plots
-    KIO::del(QUrl::fromLocalFile(m_tmpDir));
+    QDir(m_tmpDir).removeRecursively();
 
     if (m_server)
         m_server->close();
