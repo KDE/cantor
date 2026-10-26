@@ -1,6 +1,6 @@
 /*
     SPDX-License-Identifier: GPL-2.0-or-later
-    SPDX-FileCopyrightText: 2025 The Cantor Team
+    SPDX-FileCopyrightText: 2026 Alexander Semke <alexander.semke@web.de>
 */
 
 #ifndef RPROTOCOL_H
