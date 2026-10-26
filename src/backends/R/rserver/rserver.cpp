@@ -507,7 +507,7 @@ void RServer::initR()
 #endif
 
     // Log R version info for debugging
-    qDebug() << "RServer: R version:" << R_MAJOR << "." << R_MINOR << "(" << R_VERSION_STRING << ")";
+    qDebug() << "RServer: R version:" << R_MAJOR << "." << R_MINOR;
     qDebug() << "RServer: R_HOME:" << qgetenv("R_HOME");
 
     // Set up plot device for inline plots
