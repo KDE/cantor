@@ -12,6 +12,7 @@
 
 #include <QScreen>
 #include <QDir>
+#include <QLocale>
 #include <QLocalServer>
 #include <QLocalSocket>
 
@@ -22,6 +23,8 @@
 #else
 #include <unistd.h>
 #endif
+
+#include <locale.h>
 
 //R includes
 #include <R.h>
@@ -503,6 +506,10 @@ void RServer::initR()
     Rf_initEmbeddedR(R_argc, (char**) R_argv);
     R_ReplDLLinit();
 
+    // Set C locale for numeric output - R's PDF device uses the locale for number formatting
+    // and PDF parsers expect period as decimal separator
+    setlocale(LC_NUMERIC, "C");
+
     // Set up callbacks AFTER R initialization - they get overwritten otherwise
     setupCallbacks(this);
 #ifdef Q_OS_WIN
@@ -537,6 +544,9 @@ void RServer::newPlotDevice()
     if (m_isInitialized)
         runInternalCommand(QLatin1String("graphics.off()"));
 
+    // Use C locale for number formatting (R/PDF requires period as decimal separator)
+    QLocale cLocale = QLocale::c();
+
     // Use plot settings received from client
     QString ext, cmd;
     switch (m_plotFormat)
@@ -546,16 +556,16 @@ void RServer::newPlotDevice()
             m_curPlotFile = QString::fromLatin1("%1/Rplot%2.%3").arg(m_tmpDir, QString::number(deviceNum++), ext);
             cmd = QString::fromLatin1("pdf(\"%1\", width = %2, height = %3)")
                 .arg(m_curPlotFile)
-                .arg(m_plotWidth / 2.54)
-                .arg(m_plotHeight / 2.54);
+                .arg(cLocale.toString(m_plotWidth / 2.54, 'f', 5))
+                .arg(cLocale.toString(m_plotHeight / 2.54, 'f', 5));
             break;
         case 1: // SVG - uses inches
             ext = QLatin1String("svg");
             m_curPlotFile = QString::fromLatin1("%1/Rplot%2.%3").arg(m_tmpDir, QString::number(deviceNum++), ext);
             cmd = QString::fromLatin1("svg(\"%1\", width = %2, height = %3)")
                 .arg(m_curPlotFile)
-                .arg(m_plotWidth / 2.54)
-                .arg(m_plotHeight / 2.54);
+                .arg(cLocale.toString(m_plotWidth / 2.54, 'f', 5))
+                .arg(cLocale.toString(m_plotHeight / 2.54, 'f', 5));
             break;
         default: // PNG - uses pixels
         {
