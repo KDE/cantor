@@ -46,7 +46,7 @@ ENDIF(APPLE)
 IF(MSVC)
 # When compiling with MSVC, we have to create a .lib file for R.dll, first
 FIND_PACKAGE(Python3 COMPONENTS Interpreter REQUIRED)
-ADD_CUSTOM_TARGET(R_lib_rserver COMMAND ${Python3_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/../GenLibFile.py ${LIBR_SO} ${CMAKE_BINARY_DIR} ${CMAKE_SYSTEM_PROCESSOR}
+ADD_CUSTOM_TARGET(R_lib_rserver COMMAND ${Python3_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/../GenLibFile.py ${R_R_LIBRARY} ${CMAKE_BINARY_DIR} ${CMAKE_SYSTEM_PROCESSOR}
                         COMMENT "Generate .lib file for R.dll (rserver)")
 ADD_DEPENDENCIES(cantor_rserver R_lib_rserver)
 ENDIF(MSVC)
