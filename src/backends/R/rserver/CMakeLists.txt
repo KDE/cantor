@@ -19,12 +19,7 @@ add_definitions(-DENABLE_LEGACY_NONAPI)
 
 add_executable( cantor_rserver ${RServer_SRCS} )
 set_target_properties( cantor_rserver PROPERTIES INSTALL_RPATH_USE_LINK_PATH false)
-IF(MSVC)
-    # On MSVC, use generated .lib import library instead of DLL
-    target_link_libraries( cantor_rserver cantorlibs ${CMAKE_BINARY_DIR}/R.lib Qt6::Network)
-ELSE()
-    target_link_libraries( cantor_rserver cantorlibs ${R_LIBRARIES} Qt6::Network)
-ENDIF()
+target_link_libraries( cantor_rserver cantorlibs ${R_LIBRARIES} Qt6::Network)
 add_dependencies(cantor_rserver renvvars rautoloads)
 
 # Windows-specific: 64MB stack size (same as R on Windows)
@@ -51,9 +46,14 @@ ENDIF(APPLE)
 IF(MSVC)
 # When compiling with MSVC, we have to create a .lib file for R.dll, first
 FIND_PACKAGE(Python3 COMPONENTS Interpreter REQUIRED)
-ADD_CUSTOM_TARGET(R_lib_rserver COMMAND ${Python3_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/../GenLibFile.py ${R_R_LIBRARY} ${CMAKE_BINARY_DIR} ${CMAKE_SYSTEM_PROCESSOR}
-                        COMMENT "Generate .lib file for R.dll (rserver)")
+set(R_IMPORT_LIB ${CMAKE_BINARY_DIR}/R.lib)
+ADD_CUSTOM_COMMAND(OUTPUT ${R_IMPORT_LIB}
+    COMMAND ${Python3_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/../GenLibFile.py ${R_R_LIBRARY} ${CMAKE_BINARY_DIR} ${CMAKE_SYSTEM_PROCESSOR}
+    COMMENT "Generate .lib file for R.dll (rserver)")
+ADD_CUSTOM_TARGET(R_lib_rserver DEPENDS ${R_IMPORT_LIB})
 ADD_DEPENDENCIES(cantor_rserver R_lib_rserver)
+# Replace DLL with import lib in link libraries
+set_property(TARGET cantor_rserver PROPERTY LINK_LIBRARIES cantorlibs ${R_IMPORT_LIB} Qt6::Network)
 ENDIF(MSVC)
 
 install(TARGETS cantor_rserver ${KDE_INSTALL_TARGETS_DEFAULT_ARGS} )
