@@ -3,20 +3,19 @@
     SPDX-FileCopyrightText: 2009 Alexander Rieder <alexanderrieder@gmail.com>
 */
 
-#include "rcallbacks.h"
-#include "rserver.h"
-
-#include <QDebug>
+// Include R headers BEFORE Qt to avoid conflicts with 'private' keyword
+#ifdef Q_OS_WIN
+#include <winsock2.h>
+#include <windows.h>
+#undef ERROR     // clashes with R
+#define Win32    // needed for R includes
+#endif
 
 #include <R_ext/Rdynload.h>
 #include <R_ext/Callbacks.h>
 #include <Rinternals.h>
 
 #ifdef Q_OS_WIN
-#include <winsock2.h>
-#include <windows.h>
-#undef ERROR     // clashes with R
-#define Win32    // needed for R includes
 #include <R_ext/RStartup.h>
 #include <R_ext/Utils.h>
 #include <R_ext/libextern.h>
@@ -33,6 +32,10 @@ extern "C" {
 #include <Rinterface.h>
 #endif
 
+#include "rcallbacks.h"
+#include "rserver.h"
+
+#include <QDebug>
 #include <stdio.h>
 
 RServer* server;
@@ -48,8 +51,8 @@ void setupCallbacks(RServer* r)
 #ifdef Q_OS_WIN
     // Windows uses RStartup structure
     R_DefParams(&RK_R_Params);
-    RK_R_Params.R_Quiet = Rboolean::FALSE;
-    RK_R_Params.R_Interactive = Rboolean::TRUE;
+    RK_R_Params.R_Quiet = (Rboolean)0;      // FALSE
+    RK_R_Params.R_Interactive = (Rboolean)1; // TRUE
     RK_R_Params.ReadConsole = onReadConsole;
     RK_R_Params.WriteConsole = nullptr;
     RK_R_Params.WriteConsoleEx = onWriteConsoleEx;
