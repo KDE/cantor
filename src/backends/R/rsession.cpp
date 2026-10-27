@@ -164,10 +164,14 @@ void RSession::logout()
     }
 
     m_process->kill();
+    // Wait for process to terminate before deleting, otherwise QProcess warns
+    // "Destroyed while process is still running" and may crash
+    m_process->waitForFinished(1000);
     m_process->deleteLater();
     m_process = nullptr;
 
     Session::logout();
+    qDebug()<<"logout done";
 }
 
 void RSession::interrupt()
