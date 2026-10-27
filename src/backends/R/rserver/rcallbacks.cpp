@@ -3,19 +3,20 @@
     SPDX-FileCopyrightText: 2009 Alexander Rieder <alexanderrieder@gmail.com>
 */
 
-// Include R headers BEFORE Qt to avoid conflicts with 'private' keyword
-#ifdef Q_OS_WIN
-#include <winsock2.h>
-#include <windows.h>
-#undef ERROR     // clashes with R
-#define Win32    // needed for R includes
-#endif
+#include "rcallbacks.h"
+#include "rserver.h"
+
+#include <QDebug>
 
 #include <R_ext/Rdynload.h>
 #include <R_ext/Callbacks.h>
 #include <Rinternals.h>
 
 #ifdef Q_OS_WIN
+#include <winsock2.h>
+#include <windows.h>
+#undef ERROR     // clashes with R
+#define Win32    // needed for R includes
 #include <R_ext/RStartup.h>
 #include <R_ext/Utils.h>
 #include <R_ext/libextern.h>
@@ -32,10 +33,6 @@ extern "C" {
 #include <Rinterface.h>
 #endif
 
-#include "rcallbacks.h"
-#include "rserver.h"
-
-#include <QDebug>
 #include <stdio.h>
 
 RServer* server;

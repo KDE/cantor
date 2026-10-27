@@ -6,6 +6,21 @@
 #ifndef _RCALLBACKS_H
 #define _RCALLBACKS_H
 
+//R includes - must come before Qt to avoid macro conflicts
+// R_LEGACY_RCOMPLEX avoids non-standard definition in Complex.h that trips up MSVC
+#define R_LEGACY_RCOMPLEX
+#include <R.h>
+#include <Rembedded.h>
+#include <Rversion.h>
+#include <Rdefines.h>
+#define R_INTERFACE_PTRS
+#include <R_ext/Parse.h>
+
+// R defines macros that clash with C++ standard library - undef before Qt
+#undef length
+#undef isNull
+#undef warning
+
 #include <QString>
 
 class RServer;
@@ -17,19 +32,6 @@ struct Expression {
     QString err_buffer;
     QString std_buffer;
 };
-
-//R includes
-#include <R.h>
-#include <Rembedded.h>
-#include <Rversion.h>
-#include <Rdefines.h>
-#define R_INTERFACE_PTRS
-#include <R_ext/Parse.h>
-
-// R defines macros that clash with C++ standard library
-#undef length
-#undef isNull
-#undef warning
 
 //This File implements the necessary callbacks for R
 //The information gathered will be pushed back to the RThread
