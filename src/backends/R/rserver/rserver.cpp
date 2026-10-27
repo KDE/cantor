@@ -289,11 +289,11 @@ void RServer::handleRunCommand(QDataStream& stream)
         QString plotFile = m_curPlotFile;
         newPlotDevice();
         QFileInfo f(plotFile);
-        // R 4.6+ creates PDF files with ~3-4KB header structure even with no plot.
-        // Real plots are much larger. Use 5KB threshold for PDF, 100 bytes for others.
-        qint64 minSize = plotFile.endsWith(QLatin1String(".pdf")) ? 5000 : 100;
+        // R 4.6+ creates PDF files with ~3.6KB header structure even with no plot.
+        // Real plots are larger. Use 4KB threshold for PDF, 100 bytes for others.
+        qint64 minSize = plotFile.endsWith(QLatin1String(".pdf")) ? 4000 : 100;
         bool hasPlot = f.exists() && f.size() > minSize;
-        qDebug()<<"RServer: file:" << plotFile << "exists:" << f.exists() << "size:" << f.size();
+        qDebug()<<"RServer: file:" << plotFile << "exists:" << f.exists() << "size:" << f.size() << "minSize:" << minSize << "hasPlot:" << hasPlot;
         if (hasPlot)
             m_expressionFiles << plotFile;
 
