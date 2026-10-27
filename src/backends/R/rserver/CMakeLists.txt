@@ -19,7 +19,12 @@ add_definitions(-DENABLE_LEGACY_NONAPI)
 
 add_executable( cantor_rserver ${RServer_SRCS} )
 set_target_properties( cantor_rserver PROPERTIES INSTALL_RPATH_USE_LINK_PATH false)
-target_link_libraries( cantor_rserver cantorlibs ${R_LIBRARIES} Qt6::Network)
+IF(MSVC)
+    # On MSVC, use generated .lib import library instead of DLL
+    target_link_libraries( cantor_rserver cantorlibs ${CMAKE_BINARY_DIR}/R.lib Qt6::Network)
+ELSE()
+    target_link_libraries( cantor_rserver cantorlibs ${R_LIBRARIES} Qt6::Network)
+ENDIF()
 add_dependencies(cantor_rserver renvvars rautoloads)
 
 # Windows-specific: 64MB stack size (same as R on Windows)
