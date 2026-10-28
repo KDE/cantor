@@ -61,6 +61,12 @@ void RSession::login()
     QString rserverPath;
 #ifdef Q_OS_WIN
     rserverPath = QStandardPaths::findExecutable(QLatin1String("cantor_rserver.exe"));
+    if (rserverPath.isEmpty()) {
+        // Also check in same directory as the current executable (for CI/tests)
+        QString localPath = QCoreApplication::applicationDirPath() + QLatin1String("/cantor_rserver.exe");
+        if (QFile::exists(localPath))
+            rserverPath = localPath;
+    }
 #elif defined(Q_OS_MACOS)
     // On macOS, also check in app bundle next to cantor.app
     rserverPath = QStandardPaths::findExecutable(QLatin1String("cantor_rserver"));
