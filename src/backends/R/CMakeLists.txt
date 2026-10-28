@@ -36,7 +36,7 @@ add_custom_target(R_lib COMMAND ${Python3_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR
 add_dependencies(cantor_rbackend R_lib)
 endif(MSVC)
 
-if(BUILD_TESTING)
+if(BUILD_TESTING AND NOT WIN32)
   add_executable( testr testr.cpp)
   add_test(NAME testr COMMAND testr)
   ecm_mark_as_test(testr)
@@ -45,6 +45,6 @@ if(BUILD_TESTING)
     cantorlibs
     cantortest
   )
-endif(BUILD_TESTING)
+endif()
 
 install( FILES cantor_r.knsrc  DESTINATION  ${KDE_INSTALL_KNSRCDIR} )
