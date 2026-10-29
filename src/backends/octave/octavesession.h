@@ -34,6 +34,7 @@ class OctaveSession : public Cantor::Session
 
         bool isIntegratedPlotsEnabled() const;
         QString plotFilePrefixPath() const;
+        void sendInputToProcess(const QString&);
 
     private:
         const static QRegularExpression PROMPT_UNCHANGEABLE_COMMAND;

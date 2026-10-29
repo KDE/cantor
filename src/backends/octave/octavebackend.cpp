@@ -39,6 +39,7 @@ Cantor::Backend::Capabilities OctaveBackend::capabilities() const
         Completion         |
         SyntaxHelp         |
         IntegratedPlots    |
+        InteractiveMode    |
         VariableDimension;
 
     if (OctaveSettings::self()->variableManagement())

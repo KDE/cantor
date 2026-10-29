@@ -506,6 +506,35 @@ void TestOctave::testCantorPlot3d()
     QVERIFY(e->errorMessage().isNull());
 }
 
+void TestOctave::testInputCommand()
+{
+    auto* e = session()->evaluateExpression(QLatin1String("x = input('Enter a number: ')"));
+    QVERIFY(e != nullptr);
+
+    waitForSignal(e, SIGNAL(needsAdditionalInformation(QString)));
+    e->addInformation(QLatin1String("42"));
+
+    waitForSignal(e, SIGNAL(statusChanged(Cantor::Expression::Status)));
+    QCOMPARE(e->status(), Cantor::Expression::Done);
+    QVERIFY(e->result() != nullptr);
+    QVERIFY(e->result()->data().toString().contains(QLatin1String("42")));
+}
+
+void TestOctave::testYesOrNoCommand()
+{
+    auto* e = session()->evaluateExpression(QLatin1String("result = yes_or_no('Continue? ')"));
+    QVERIFY(e != nullptr);
+
+    waitForSignal(e, SIGNAL(needsAdditionalInformation(QString)));
+    e->addInformation(QLatin1String("yes"));
+
+    waitForSignal(e, SIGNAL(statusChanged(Cantor::Expression::Status)));
+    QCOMPARE(e->status(), Cantor::Expression::Done);
+    QVERIFY(e->result() != nullptr);
+    // yes_or_no returns 1 for yes
+    QVERIFY(e->result()->data().toString().contains(QLatin1String("1")));
+}
+
 void TestOctave::testInvalidSyntax()
 {
     auto* e = evalExp( QLatin1String("2+2*+.") );

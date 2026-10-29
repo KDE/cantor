@@ -61,6 +61,10 @@ private Q_SLOTS:
     void testCantorPlot2d();
     void testCantorPlot3d();
 
+    // interactive input
+    void testInputCommand();
+    void testYesOrNoCommand();
+
     void testLoginLogout();
     void testRestartWhileRunning();
 private:

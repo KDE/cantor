@@ -326,7 +326,21 @@ void OctaveSession::readOutput()
             m_output.clear();
         }
         else
+        {
             m_output += line;
+            // Check if Octave is waiting for user input
+            if (!expressionQueue().isEmpty()) {
+                auto* expr = dynamic_cast<OctaveExpression*>(expressionQueue().first());
+                if (expr && expr->isInputRequest()) {
+                    QString trimmed = m_output.trimmed();
+                    if (trimmed.endsWith(QLatin1String(": ")) ||
+                        trimmed.endsWith(QLatin1String("? "))) {
+                        Q_EMIT expr->needsAdditionalInformation(trimmed);
+                        m_output.clear();
+                    }
+                }
+            }
+        }
     }
 }
 
@@ -390,4 +404,15 @@ void OctaveSession::checkWritableTempFolder() {
             i18n("Cantor")
         );
     }
+}
+
+void OctaveSession::sendInputToProcess(const QString& input)
+{
+    if (!m_process)
+        return;
+
+    QString s = input;
+    if (!s.endsWith(QLatin1Char('\n')))
+        s += QLatin1Char('\n');
+    m_process->write(s.toLocal8Bit());
 }

@@ -26,7 +26,10 @@ public:
 
     void parseOutput(const QString&) override;
     void parseError(const QString&) override;
+    void addInformation(const QString&) override;
     void imageChanged();
+
+    bool isInputRequest() const { return m_isInputRequest; }
 
     const static QStringList plotExtensions;
 
@@ -34,6 +37,7 @@ private:
     QString m_resultString;
     bool m_finished = false;
     bool m_plotPending = false;
+    bool m_isInputRequest = false;
     QString m_plotFilename;
 };
 

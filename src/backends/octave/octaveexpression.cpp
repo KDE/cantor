@@ -24,6 +24,10 @@
 
 #include <KLocalizedString>
 
+// Pattern to detect Octave commands that request user input
+static const QRegularExpression inputCommandPattern(
+    QStringLiteral("\\b(input|yes_or_no|menu|keyboard)\\s*\\("));
+
 static const QString printCommandTemplate = QString::fromLatin1("print(\"%1\", \"-S%2,%3\")");
 
 static const QStringList plotCommands({
@@ -66,6 +70,11 @@ void OctaveExpression::evaluate()
 
     m_finished = false;
     m_plotPending = false;
+
+    // Detect commands that may request user input
+    const QString& cmd = command();
+    m_isInputRequest = inputCommandPattern.match(cmd).hasMatch()
+        || cmd.trimmed() == QLatin1String("pause");
 
     session()->enqueueExpression(this);
 }
@@ -219,6 +228,12 @@ void OctaveExpression::parseError(const QString& error)
     }
     else
         Expression::parseError(error);
+}
+
+void OctaveExpression::addInformation(const QString& information)
+{
+    Cantor::Expression::addInformation(information);
+    static_cast<OctaveSession*>(session())->sendInputToProcess(information);
 }
 
 void OctaveExpression::imageChanged()
