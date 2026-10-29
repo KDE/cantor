@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kdeorg\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-10-27 00:55+0000\n"
+"POT-Creation-Date: 2026-10-29 00:48+0000\n"
 "PO-Revision-Date: 2024-04-22 16:04\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Simplified\n"
@@ -974,7 +974,7 @@ msgstr "绘图集成将被禁用。"
 
 #: backends/octave/octavesession.cpp:390 backends/sage/sagesession.cpp:358
 #: backends/sage/sagesession.cpp:369 cantor.cpp:247 cantor.cpp:249
-#: cantor.cpp:464 cantor.cpp:471 lib/session.cpp:334 main.cpp:48 main.cpp:105
+#: cantor.cpp:464 cantor.cpp:471 lib/session.cpp:334 main.cpp:64 main.cpp:121
 #: markdownentry.cpp:1168 textentry.cpp:861 worksheet.cpp:1646
 #, kde-format
 msgid "Cantor"
@@ -2240,7 +2240,7 @@ msgctxt "@info:placeholder"
 msgid "Select a Qt Help file..."
 msgstr "选择 Qt Help 文件..."
 
-#: backends/R/rbackend.cpp:80
+#: backends/R/rbackend.cpp:94
 #, kde-format
 msgctxt ""
 "the url to the documentation of R, please check if there is a translated "
@@ -2248,49 +2248,27 @@ msgctxt ""
 msgid "https://cran.r-project.org/manuals.html"
 msgstr "https://cran.r-project.org/manuals.html"
 
-#: backends/R/rbackend.cpp:87
+#: backends/R/rbackend.cpp:101
 #, kde-format
 msgid ""
-"<h1>R' Help System: <i>help()</i> and <i>?</i>:</h1><br>The <i>help()</i> "
-"function and <i>?</i> help operator in R provide access to the documentation "
-"pages for R functions, data sets, and other objects, both for packages in "
-"the standard R distribution and for contributed packages.<br><br>To access "
-"documentation for the standard <i>lm</i> (linear model) function, for "
-"example, enter the command <b><i>help(lm)</i></b> or <i>help(\"lm\")</i>, or "
-"<i>?lm</i> or <i>?\"lm\"</i> (i.e., the quotes are optional).<br><br>To "
+"<div style=\"line-height: 1.4;\"><h3 style=\"color: #2277dd; margin: 12px 0 "
+"6px 0;\"><b>R Help System</b></h3><p style=\"margin: 4px 0;\">The "
+"<code>help()</code> function and <code>?</code> help operator in R provide "
+"access to the documentation pages for R functions, data sets, and other "
+"objects.</p><h4 style=\"color: #2277dd; margin: 12px 0 6px 0;\"><b>Examples</"
+"b></h4><pre style=\"background-color: #d0d0d0; color: #000000; padding: 8px; "
+"border-radius: 4px;\">help(lm)      # help for linear model function\n"
+"?lm           # same as above\n"
+"?\"?\"          # help for the ? operator\n"
+"example(lm)   # run examples for lm</pre><h4 style=\"color: #2277dd; margin: "
+"12px 0 6px 0;\"><b>Package Help</b></h4><p style=\"margin: 4px 0;\">To "
 "access help for a function in a package that’s not currently loaded, specify "
-"in addition the name of the package: For example, to obtain documentation "
-"for the <i>rlm()</i> (robust linear model) function in the MASS package, "
-"<i>help(rlm, package=\"MASS\")</i>.<br><br>Standard names in R consist of "
-"upper- and lower-case letters, numerals (0-9), underscores (_), and periods "
-"(.), and must begin with a letter or a period. To obtain help for an object "
-"with a non-standard name (such as the help operator <i>?</i>), the name must "
-"be quoted: for example, <i>help('?')</i> or <i>?\"?\"</i>.<br><br>You may "
-"also use the <i>help()</i> function to access information about a package in "
-"your library — for example, <i>help(package=\"MASS\")</i> — which displays "
-"an index of available help pages for the package along with some other "
-"information.<br><br>Help pages for functions usually include a section with "
-"executable examples illustrating how the functions work. You can execute "
-"these examples in the current R session via the <i>example()</i> command: e."
-"g., <i>example(lm)</i>."
+"the package name:</p><pre style=\"background-color: #d0d0d0; color: #000000; "
+"padding: 8px; border-radius: 4px;\">help(rlm, package=\"MASS\")\n"
+"help(package=\"MASS\")       # package index</pre></div>"
 msgstr ""
-"<h1>R 帮助系统：<i>help()</i> 函数与 <i>?</i> 操作符：</h1><br>R 中的 "
-"<i>help()</i> 函数和 <i>?</i> 操作符可用于访问 R 函数的文档页面、数据集以及其"
-"他对象的文档。这些功能既适用于标准 R 发行版中的包，也适用于用户贡献的包。"
-"<br><br>例如，若要访问标准函数 <i>lm</i>（线性模型）的文档，请输入命令 "
-"<b><i>help(lm)</i></b> 或 <i>help(\"lm\")</i>，或者 <i>?lm</i> 或 <i>?\"lm"
-"\"</i>（即，引号是可选的）。<br><br>若要访问尚未加载包中的函数帮助信息，需额"
-"外指定包名。例如，若要获取 MASS 包中 <i>rlm()</i>（稳健线性模型）函数的文档，"
-"请输入 <i>help(rlm, package=\"MASS\")</i>。<br><br>R 中的标准名称由大写字母、"
-"小写字母、数字（0-9）、下划线（_）和点（.）组成，且必须以字母或点开头。若要获"
-"取非标准名称对象（例如帮助操作符 <i>?</i>）的帮助信息，必须将名称用引号括起"
-"来：例如 <i>help('?')</i> 或 <i>?\"?\"</i>。<br><br>您还可以使用 <i>help()</"
-"i> 函数访问您库中包的信息——例如 <i>help(package=\"MASS\")</i>——这将显示该包可"
-"用的帮助页面索引以及一些其他相关信息。<br><br>函数帮助页面通常包含一个包含可"
-"执行示例的部分，用于说明函数的工作原理。您可以通过 <i>example()</i> 命令在当"
-"前 R 会话中执行这些示例：例如 <i>example(lm)</i>。"
 
-#: backends/R/rbackend.cpp:98
+#: backends/R/rbackend.cpp:120
 #, kde-format
 msgid ""
 "<b>R</b> is a language and environment for statistical computing and "
@@ -2306,7 +2284,14 @@ msgstr ""
 "和绘图技术，并且具备高扩展性。S 语言通常是一种用于研究统计方法的利器，而 R 语"
 "言则为人们提供一个开放源码的学术选择。"
 
-#: backends/R/rexpression.cpp:101 backends/R/rexpression.cpp:102
+#: backends/R/rexpression.cpp:102
+#, kde-format
+msgid ""
+"help.start() is not supported in embedded R mode. Use help(topic) or ?topic "
+"instead."
+msgstr ""
+
+#: backends/R/rexpression.cpp:203 backends/R/rexpression.cpp:204
 #, kde-format
 msgid "Error opening file %1"
 msgstr "打开文件 %1 出错"
@@ -2316,7 +2301,7 @@ msgstr "打开文件 %1 出错"
 msgid "R script file (*.R)"
 msgstr "R 脚本文件 (*.R)"
 
-#: backends/R/rserver/rserver.cpp:364
+#: backends/R/rserver/rserver.cpp:335
 #, kde-format
 msgid "Error Parsing Command"
 msgstr "解析命令出错"
@@ -2327,10 +2312,31 @@ msgstr "解析命令出错"
 msgid "Url to the local R documentation"
 msgstr "本地 R 文档 URL"
 
-#: backends/R/rsession.cpp:52
+#: backends/R/rsession.cpp:87
+#, kde-format
+msgid "Failed to find cantor_rserver executable."
+msgstr ""
+
+#: backends/R/rsession.cpp:99
 #, kde-format
 msgid "Failed to start R, please check R installation."
 msgstr "启动 R 失败，请检查 R 安装。"
+
+#: backends/R/rsession.cpp:110
+#, kde-format
+msgid "R server did not respond."
+msgstr ""
+
+#: backends/R/rsession.cpp:130
+#, fuzzy, kde-format
+#| msgid "Failed to start Cantor python server."
+msgid "Failed to connect to R server: %1"
+msgstr "无法启动 Cantor python 服务器。"
+
+#: backends/R/rsession.cpp:396
+#, kde-format
+msgid "Lost connection to R server"
+msgstr ""
 
 #: backends/R/rsettingswidget.cpp:30
 #, kde-format
@@ -3046,7 +3052,7 @@ msgstr "Cantor 部件"
 msgid "(C) 2009-2015 Alexander Rieder"
 msgstr "(C) 2009-2015 Alexander Rieder"
 
-#: cantor_part.cpp:463 main.cpp:63
+#: cantor_part.cpp:463 main.cpp:79
 #, kde-format
 msgid "Alexander Rieder"
 msgstr "Alexander Rieder"
@@ -3750,93 +3756,93 @@ msgstr ""
 "您为图形包 %1 选择了支持，但由于缺少所需条件，无法激活该支持，因此将禁用对该"
 "包的一体化功能。%2"
 
-#: main.cpp:54
+#: main.cpp:70
 #, kde-format
 msgid "KDE Frontend to mathematical applications"
 msgstr "数学应用程序的 KDE 前端"
 
-#: main.cpp:56
+#: main.cpp:72
 #, kde-format
 msgid "(C) 2016 Filipe Saraiva<br/>(C) 2009-2015 Alexander Rieder"
 msgstr "(C) 2016 Filipe Saraiva<br/>(C) 2009-2015 Alexander Rieder"
 
-#: main.cpp:60
+#: main.cpp:76
 #, kde-format
 msgid "Filipe Saraiva"
 msgstr "Filipe Saraiva"
 
-#: main.cpp:60
+#: main.cpp:76
 #, kde-format
 msgid "Maintainer<br/>Qt5/KF5 port, Scilab and Python backends"
 msgstr "维护者<br/>Qt5/KF5 移植，Scilab 和 Python 后端"
 
-#: main.cpp:61
+#: main.cpp:77
 #, kde-format
 msgid "Nikita Sirgienko"
 msgstr "Nikita Sirgienko"
 
-#: main.cpp:61 main.cpp:62
+#: main.cpp:77 main.cpp:78
 #, kde-format
 msgctxt "@info:credit"
 msgid "Developer"
 msgstr "开发人员"
 
-#: main.cpp:62
+#: main.cpp:78
 #, kde-format
 msgid "Alexander Semke"
 msgstr "Alexander Semke"
 
-#: main.cpp:63
+#: main.cpp:79
 #, kde-format
 msgid "Original author<br/>Maintainer (2009 - 2015)"
 msgstr "原作者<br/>维护者 (2009-2015)"
 
-#: main.cpp:64
+#: main.cpp:80
 #, kde-format
 msgid "Aleix Pol Gonzalez"
 msgstr "Aleix Pol Gonzalez"
 
-#: main.cpp:64
+#: main.cpp:80
 #, kde-format
 msgid "KAlgebra backend"
 msgstr "KAlgebra 后端"
 
-#: main.cpp:65
+#: main.cpp:81
 #, kde-format
 msgid "Miha Čančula"
 msgstr "Miha Čančula"
 
-#: main.cpp:65
+#: main.cpp:81
 #, kde-format
 msgid "Octave backend"
 msgstr "Octave 后端"
 
-#: main.cpp:66
+#: main.cpp:82
 #, kde-format
 msgid "Martin Küttler"
 msgstr "Martin Küttler"
 
-#: main.cpp:66
+#: main.cpp:82
 #, kde-format
 msgid "Interface"
 msgstr "界面"
 
-#: main.cpp:68 main.cpp:69
+#: main.cpp:84 main.cpp:85
 #, kde-format
 msgid "Cantor icon"
 msgstr "Cantor 图标"
 
-#: main.cpp:74
+#: main.cpp:90
 #, kde-format
 msgid "Use  backend <backend>"
 msgstr "使用后端 <backend>"
 
-#: main.cpp:76
+#: main.cpp:92
 #, kde-format
 msgid "Documents to open."
 msgstr "要打开的文档。"
 
-#: main.cpp:105
+#: main.cpp:121
 #, kde-format
 msgid "Couldn't open the file %1"
 msgstr "无法打开文件 %1"
@@ -5208,3 +5214,45 @@ msgstr ""
 #, kde-format
 msgid "Select Color"
 msgstr "选择颜色"
+
+#~ msgid ""
+#~ "<h1>R' Help System: <i>help()</i> and <i>?</i>:</h1><br>The <i>help()</i> "
+#~ "function and <i>?</i> help operator in R provide access to the "
+#~ "documentation pages for R functions, data sets, and other objects, both "
+#~ "for packages in the standard R distribution and for contributed packages."
+#~ "<br><br>To access documentation for the standard <i>lm</i> (linear model) "
+#~ "function, for example, enter the command <b><i>help(lm)</i></b> or "
+#~ "<i>help(\"lm\")</i>, or <i>?lm</i> or <i>?\"lm\"</i> (i.e., the quotes "
+#~ "are optional).<br><br>To access help for a function in a package that’s "
+#~ "not currently loaded, specify in addition the name of the package: For "
+#~ "example, to obtain documentation for the <i>rlm()</i> (robust linear "
+#~ "model) function in the MASS package, <i>help(rlm, package=\"MASS\")</i>."
+#~ "<br><br>Standard names in R consist of upper- and lower-case letters, "
+#~ "numerals (0-9), underscores (_), and periods (.), and must begin with a "
+#~ "letter or a period. To obtain help for an object with a non-standard name "
+#~ "(such as the help operator <i>?</i>), the name must be quoted: for "
+#~ "example, <i>help('?')</i> or <i>?\"?\"</i>.<br><br>You may also use the "
+#~ "<i>help()</i> function to access information about a package in your "
+#~ "library — for example, <i>help(package=\"MASS\")</i> — which displays an "
+#~ "index of available help pages for the package along with some other "
+#~ "information.<br><br>Help pages for functions usually include a section "
+#~ "with executable examples illustrating how the functions work. You can "
+#~ "execute these examples in the current R session via the <i>example()</i> "
+#~ "command: e.g., <i>example(lm)</i>."
+#~ msgstr ""
+#~ "<h1>R 帮助系统：<i>help()</i> 函数与 <i>?</i> 操作符：</h1><br>R 中的 "
+#~ "<i>help()</i> 函数和 <i>?</i> 操作符可用于访问 R 函数的文档页面、数据集以"
+#~ "及其他对象的文档。这些功能既适用于标准 R 发行版中的包，也适用于用户贡献的"
+#~ "包。<br><br>例如，若要访问标准函数 <i>lm</i>（线性模型）的文档，请输入命"
+#~ "令 <b><i>help(lm)</i></b> 或 <i>help(\"lm\")</i>，或者 <i>?lm</i> 或 <i>?"
+#~ "\"lm\"</i>（即，引号是可选的）。<br><br>若要访问尚未加载包中的函数帮助信"
+#~ "息，需额外指定包名。例如，若要获取 MASS 包中 <i>rlm()</i>（稳健线性模型）"
+#~ "函数的文档，请输入 <i>help(rlm, package=\"MASS\")</i>。<br><br>R 中的标准"
+#~ "名称由大写字母、小写字母、数字（0-9）、下划线（_）和点（.）组成，且必须以"
+#~ "字母或点开头。若要获取非标准名称对象（例如帮助操作符 <i>?</i>）的帮助信"
+#~ "息，必须将名称用引号括起来：例如 <i>help('?')</i> 或 <i>?\"?\"</i>。"
+#~ "<br><br>您还可以使用 <i>help()</i> 函数访问您库中包的信息——例如 "
+#~ "<i>help(package=\"MASS\")</i>——这将显示该包可用的帮助页面索引以及一些其他"
+#~ "相关信息。<br><br>函数帮助页面通常包含一个包含可执行示例的部分，用于说明函"
+#~ "数的工作原理。您可以通过 <i>example()</i> 命令在当前 R 会话中执行这些示"
+#~ "例：例如 <i>example(lm)</i>。"
