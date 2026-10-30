@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: cantor\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-10-29 00:48+0000\n"
-"PO-Revision-Date: 2026-10-05 06:28+0200\n"
+"PO-Revision-Date: 2026-10-29 03:57+0100\n"
 "Last-Translator: Temuri Doghonadze <temuri.doghonadze@gmail.com>\n"
 "Language-Team: Georgian <kde-i18n-doc@kde.org>\n"
 "Language: ka\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 3.9\n"
+"X-Generator: Poedit 3.10\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -2322,6 +2322,23 @@ msgid ""
 "padding: 8px; border-radius: 4px;\">help(rlm, package=\"MASS\")\n"
 "help(package=\"MASS\")       # package index</pre></div>"
 msgstr ""
+"<div style=\"line-height: 1.4;\"><h3 style=\"color: #2277dd; margin: 12px 0 "
+"6px 0;\"><b>R-ის დახმარების სისტემა</b></h3><p style=\"margin: 4px 0;"
+"\">ფუნქცია <code>help()</code> და <code>?</code> დახმარების ოპერატორი R-ში "
+"გაწვდით წვდომას დოკუმენტაციის გვერდებთან R-ის ფუნქციებისთვის, მონაცემთა "
+"ნარებებისთვის და სხვა ობიექტებისთვის.</p><h4 style=\"color: #2277dd; margin: "
+"12px 0 6px 0;\"><b>მაგ:</b></h4><pre style=\"background-color: #d0d0d0; "
+"color: #000000; padding: 8px; border-radius: 4px;\">help(lm)      # "
+"დახმარება წრფივი მოდელის ფუნქციისთვის\n"
+"?lm           # იგივე, რაც მაღლა\n"
+"?\"?\"          # იგივე, რაც ოპერატორი ?\n"
+"example(lm)   # მაგალითების გაშვება lm-ისთვის</pre><h4 style=\"color: "
+"#2277dd; margin: 12px 0 6px 0;\"><b>პაკეტის დახმარება</b></h4><p style="
+"\"margin: 4px 0;\">იმისათვის, რომ მიიღოთ წვდომა დახმარებაზე ფუნქციისთვის "
+"პაკეტიდან, რომელიც ამჟამად ჩატვირთული არაა, მიუთითეთ პაკეტის სახელი:</p><pre "
+"style=\"background-color: #d0d0d0; color: #000000; padding: 8px; border-"
+"radius: 4px;\">help(rlm, package=\"MASS\")\n"
+"help(package=\"MASS\")       # პაკეტის ინდექსი</pre></div>"
 
 #: backends/R/rbackend.cpp:120
 #, kde-format
@@ -2348,6 +2365,8 @@ msgid ""
 "help.start() is not supported in embedded R mode. Use help(topic) or ?topic "
 "instead."
 msgstr ""
+"help.start() ჩაშენებული R-ის რეჟიმში მხარდაჭერილი არაა. მის მაგიერ "
+"გამოიყენეთ help(topic), ან ?topic ."
 
 #: backends/R/rexpression.cpp:203 backends/R/rexpression.cpp:204
 #, kde-format
@@ -2373,7 +2392,7 @@ msgstr "ბმული R-ის ლოკალურ დოკუმენტ�
 #: backends/R/rsession.cpp:87
 #, kde-format
 msgid "Failed to find cantor_rserver executable."
-msgstr ""
+msgstr "გამშვები ფაილის cantor_rserver აღმოჩენა შეუძლებელია."
 
 #: backends/R/rsession.cpp:99
 #, kde-format
@@ -2383,18 +2402,17 @@ msgstr "R-ის გაშვება შეუძლებელია. შე
 #: backends/R/rsession.cpp:110
 #, kde-format
 msgid "R server did not respond."
-msgstr ""
+msgstr "R-ის სერვერმა არ გვიპასუხა."
 
 #: backends/R/rsession.cpp:130
-#, fuzzy, kde-format
-#| msgid "Failed to start Cantor python server."
+#, kde-format
 msgid "Failed to connect to R server: %1"
-msgstr "Cantor -ის python სერვერს გაშვების შეცდომა."
+msgstr "R-ის სერვერთან დაკავშირება ჩავარდა: %1"
 
 #: backends/R/rsession.cpp:396
 #, kde-format
 msgid "Lost connection to R server"
-msgstr ""
+msgstr "R-ის სერვერთან კავშირი დაიკარგა"
 
 #: backends/R/rsettingswidget.cpp:30
 #, kde-format

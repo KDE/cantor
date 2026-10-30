@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: cantor\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-10-29 00:48+0000\n"
-"PO-Revision-Date: 2026-10-14 16:55+0200\n"
+"PO-Revision-Date: 2026-10-29 12:12+0100\n"
 "Last-Translator: Josep M. Ferrer <txemaq@gmail.com>\n"
 "Language-Team: Catalan <kde-i18n-ca@kde.org>\n"
 "Language: ca\n"
@@ -2327,6 +2327,7 @@ msgctxt ""
 msgid "https://cran.r-project.org/manuals.html"
 msgstr "https://cran.r-project.org/manuals.html"
 
+# skip-rule: t-int_sp, t-sp_in
 #: backends/R/rbackend.cpp:101
 #, kde-format
 msgid ""
@@ -2346,6 +2347,23 @@ msgid ""
 "padding: 8px; border-radius: 4px;\">help(rlm, package=\"MASS\")\n"
 "help(package=\"MASS\")       # package index</pre></div>"
 msgstr ""
+"<div style=\"line-height: 1.4;\"><h3 style=\"color: #2277dd; margin: 12px 0 "
+"6px 0;\"><b>Sistema d'ajuda de l'R</b></h3><p style=\"margin: 4px 0;\">La "
+"funció <code>help()</code> i l'operador d'ajuda <code>?</code> a l'R "
+"proporcionen accés a les pàgines de documentació de les funcions, conjunts "
+"de dades i altres objectes de l'R.</p><h4 style=\"color: #2277dd; margin: "
+"12px 0 6px 0;\"><b>Exemples</b></h4><pre style=\"background-color: #d0d0d0; "
+"color: #000000; padding: 8px; border-radius: 4px;\">help(lm)      # ajuda de "
+"la funció de model linea\n"
+"?lm           # el mateix que a dalt\n"
+"?\"?\"          # ajuda de l'operador ?\n"
+"exemple(lm)   # executa exemples de «lm»</pre><h4 style=\"color: #2277dd; "
+"margin: 12px 0 6px 0;\"><b>Ajuda de paquets</b></h4><p style=\"margin: 4px 0;"
+"\">Per a accedir a l'ajuda d'una funció d'un paquet que actualment no està "
+"carregat, especifiqueu el nom del paquet:</p><pre style=\"background-color: "
+"#d0d0d0; color: #000000; padding: 8px; border-radius: 4px;\">help(rlm, "
+"package=\"MASS\")\n"
+"help(package=\"MASS\")       # índex de paquets</pre></div>"
 
 #: backends/R/rbackend.cpp:120
 #, kde-format
@@ -2366,12 +2384,15 @@ msgstr ""
 "sovint el vehicle escollit per a la recerca en metodologia estadística, i "
 "l'R ofereix una via de codi obert per a participar en aquesta activitat."
 
+# skip-rule: t-int_sp, t-sp_in
 #: backends/R/rexpression.cpp:102
 #, kde-format
 msgid ""
 "help.start() is not supported in embedded R mode. Use help(topic) or ?topic "
 "instead."
 msgstr ""
+"help.start() no s'admet en el mode R incrustat. En el seu lloc feu servir "
+"«help(tema)» o ?tema."
 
 #: backends/R/rexpression.cpp:203 backends/R/rexpression.cpp:204
 #, kde-format
@@ -2397,7 +2418,7 @@ msgstr "URL a la documentació local de l'R"
 #: backends/R/rsession.cpp:87
 #, kde-format
 msgid "Failed to find cantor_rserver executable."
-msgstr ""
+msgstr "Ha fallat en trobar l'executable «cantor_rserver»."
 
 #: backends/R/rsession.cpp:99
 #, kde-format
@@ -2407,18 +2428,17 @@ msgstr "Ha fallat en iniciar l'R. Verifiqueu la instal·lació de l'R."
 #: backends/R/rsession.cpp:110
 #, kde-format
 msgid "R server did not respond."
-msgstr ""
+msgstr "El servidor R no ha contestat."
 
 #: backends/R/rsession.cpp:130
-#, fuzzy, kde-format
-#| msgid "Failed to start Cantor python server."
+#, kde-format
 msgid "Failed to connect to R server: %1"
-msgstr "Ha fallat en iniciar el servidor de Python del Cantor."
+msgstr "Ha fallat en connectar amb el servidor R: %1"
 
 #: backends/R/rsession.cpp:396
 #, kde-format
 msgid "Lost connection to R server"
-msgstr ""
+msgstr "S'ha perdut la connexió amb el servidor R"
 
 #: backends/R/rsettingswidget.cpp:30
 #, kde-format

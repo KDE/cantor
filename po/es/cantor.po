@@ -9,14 +9,14 @@ msgstr ""
 "Project-Id-Version: cantor\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-10-29 00:48+0000\n"
-"PO-Revision-Date: 2026-10-05 11:41+0100\n"
+"PO-Revision-Date: 2026-10-29 12:30+0100\n"
 "Last-Translator: Eloy Cuadra <ecuadra@eloihr.net>\n"
 "Language-Team: Spanish <kde-l10n-es@kde.org>\n"
 "Language: es\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Lokalize 26.08.1\n"
+"X-Generator: Lokalize 26.08.2\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 
 #, kde-format
@@ -2340,6 +2340,23 @@ msgid ""
 "padding: 8px; border-radius: 4px;\">help(rlm, package=\"MASS\")\n"
 "help(package=\"MASS\")       # package index</pre></div>"
 msgstr ""
+"<div style=\"line-height: 1.4;\"><h3 style=\"color: #2277dd; margin: 12px 0 "
+"6px 0;\"><b>Sistema de ayuda de R</b></h3><p style=\"margin: 4px 0;\">La "
+"función <code>help()</code> y el operador de ayuda <code>?</code> de R "
+"proporcionan acceso a las páginas de documentación de las funciones, "
+"conjuntos de datos y otros objetos de R.</p><h4 style=\"color: #2277dd; "
+"margin: 12px 0 6px 0;\"><b>Ejemplos</b></h4><pre style=\"background-color: "
+"#d0d0d0; color: #000000; padding: 8px; border-radius: 4px;\">help(lm)      # "
+"ayuda de la función de modelo lineal\n"
+"?lm           # igual que lo anterior\n"
+"?\"?\"          # ayuda del operador ?\n"
+"example(lm)   # ejecuta ejemplos de lm</pre><h4 style=\"color: #2277dd; "
+"margin: 12px 0 6px 0;\"><b>Ayuda de paquetes</b></h4><p style=\"margin: 4px "
+"0;\">Para acceder a la ayuda de una función de un paquete que no está "
+"cargado, indique el nombre del paquete:</p><pre style=\"background-color: "
+"#d0d0d0; color: #000000; padding: 8px; border-radius: 4px;\">help(rlm, "
+"package=\"MASS\")\n"
+"help(package=\"MASS\")       # índice del paquete</pre></div>"
 
 #: backends/R/rbackend.cpp:120
 #, kde-format
@@ -2367,6 +2384,8 @@ msgid ""
 "help.start() is not supported in embedded R mode. Use help(topic) or ?topic "
 "instead."
 msgstr ""
+"help.start() no está implementada en el modo incrustado de R. En su lugar, "
+"use help(tema) o ?tema."
 
 #: backends/R/rexpression.cpp:203 backends/R/rexpression.cpp:204
 #, kde-format
@@ -2392,7 +2411,7 @@ msgstr "URL a la documentación de R local"
 #: backends/R/rsession.cpp:87
 #, kde-format
 msgid "Failed to find cantor_rserver executable."
-msgstr ""
+msgstr "No se ha encontrado el ejecutable cantor_rserver."
 
 #: backends/R/rsession.cpp:99
 #, kde-format
@@ -2402,18 +2421,17 @@ msgstr "No se ha podido iniciar R. Compruebe la instalación de R."
 #: backends/R/rsession.cpp:110
 #, kde-format
 msgid "R server did not respond."
-msgstr ""
+msgstr "El servidor R no ha respondido."
 
 #: backends/R/rsession.cpp:130
-#, fuzzy, kde-format
-#| msgid "Failed to start Cantor python server."
+#, kde-format
 msgid "Failed to connect to R server: %1"
-msgstr "No se ha podido iniciar el servidor Python de Cantor."
+msgstr "No se ha conectar al servidor R: %1"
 
 #: backends/R/rsession.cpp:396
 #, kde-format
 msgid "Lost connection to R server"
-msgstr ""
+msgstr "Se ha perdido la conexión al servidor R"
 
 #: backends/R/rsettingswidget.cpp:30
 #, kde-format
@@ -5370,55 +5388,3 @@ msgstr ""
 #, kde-format
 msgid "Select Color"
 msgstr "Seleccionar color"
-
-#~ msgid ""
-#~ "<h1>R' Help System: <i>help()</i> and <i>?</i>:</h1><br>The <i>help()</i> "
-#~ "function and <i>?</i> help operator in R provide access to the "
-#~ "documentation pages for R functions, data sets, and other objects, both "
-#~ "for packages in the standard R distribution and for contributed packages."
-#~ "<br><br>To access documentation for the standard <i>lm</i> (linear model) "
-#~ "function, for example, enter the command <b><i>help(lm)</i></b> or "
-#~ "<i>help(\"lm\")</i>, or <i>?lm</i> or <i>?\"lm\"</i> (i.e., the quotes "
-#~ "are optional).<br><br>To access help for a function in a package that’s "
-#~ "not currently loaded, specify in addition the name of the package: For "
-#~ "example, to obtain documentation for the <i>rlm()</i> (robust linear "
-#~ "model) function in the MASS package, <i>help(rlm, package=\"MASS\")</i>."
-#~ "<br><br>Standard names in R consist of upper- and lower-case letters, "
-#~ "numerals (0-9), underscores (_), and periods (.), and must begin with a "
-#~ "letter or a period. To obtain help for an object with a non-standard name "
-#~ "(such as the help operator <i>?</i>), the name must be quoted: for "
-#~ "example, <i>help('?')</i> or <i>?\"?\"</i>.<br><br>You may also use the "
-#~ "<i>help()</i> function to access information about a package in your "
-#~ "library — for example, <i>help(package=\"MASS\")</i> — which displays an "
-#~ "index of available help pages for the package along with some other "
-#~ "information.<br><br>Help pages for functions usually include a section "
-#~ "with executable examples illustrating how the functions work. You can "
-#~ "execute these examples in the current R session via the <i>example()</i> "
-#~ "command: e.g., <i>example(lm)</i>."
-#~ msgstr ""
-#~ "<h1>Sistema de ayuda de R: <i>help()</i> y <i>?</i>:</h1><br>La función "
-#~ "<i>help()</i> y el operador de ayuda <i>?</i> de R proporcionan acceso a "
-#~ "las páginas de documentación de las funciones, conjuntos de datos y otros "
-#~ "objetos de R, tanto de paquetes de la distribución estándar de R como "
-#~ "para los paquetes de contribuciones.<br><br>Para acceder a la "
-#~ "documentación de la función estándar <i>lm</i> (modo lineal), por "
-#~ "ejemplo, introduzca la orden <b><i>help(lm)</i></b> o <i>help(\"lm\")</"
-#~ "i>, o también <i>?lm</i> o <i>?\"lm\"</i> (es decir, las comillas son "
-#~ "opcionales).<br><br>Para acceder a la ayuda de una función de un paquete "
-#~ "que no está cargado actualmente, indique de forma adicional el nombre del "
-#~ "paquete. Por ejemplo, para obtener la documentación de la función "
-#~ "<i>rlm()</i> (modelo lineal robusto) del paquete MASS, use <i>help(rlm, "
-#~ "package=\"MASS\")</i>.<br><br>Los nombres estándares de R constan de "
-#~ "letras en mayúscula y minúscula, números (del 0 al 9), signos de "
-#~ "subrayado (_) y puntos (.), y deben empezar por una letra o un punto. "
-#~ "Para obtener ayuda sobre un objeto que tenga un nombre no estándar (como "
-#~ "el operador de ayuda <i>?</i>), dicho nombre debe estar entre comillas. "
-#~ "Por ejemplo, <i>help('?')</i> o <i>?\"?\"</i>.<br><br>También puede usar "
-#~ "la función <i>help()</i> para acceder a información sobre un paquete de "
-#~ "su biblioteca (por ejemplo, <i>help(package=\"MASS\")</i>), que muestra "
-#~ "un índice con las páginas de ayuda disponibles para el paquete junto a "
-#~ "más información.<br><br>Las páginas de ayuda de las funciones suelen "
-#~ "incluir una sección con ejemplos ejecutables que ilustran el "
-#~ "funcionamiento de la función. Puede ejecutar dichos ejemplos en la sesión "
-#~ "actual de R usando la orden <i>example()</i>; por ejemplo, "
-#~ "<i>example(lm)</i>."

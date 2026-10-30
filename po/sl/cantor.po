@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-10-29 00:48+0000\n"
-"PO-Revision-Date: 2026-10-05 06:55+0200\n"
+"PO-Revision-Date: 2026-10-29 07:27+0100\n"
 "Last-Translator: Matjaž Jeran <matjaz.jeran@amis.net>\n"
 "Language-Team: Slovenian <lugos-slo@lugos.si>\n"
 "Language: sl\n"
@@ -19,7 +19,7 @@ msgstr ""
 "Plural-Forms: nplurals=4; plural=(n%100==1 ? 1 : n%100==2 ? 2 : n%100==3 || n"
 "%100==4 ? 3 : 0);\n"
 "Translator: Andrej Mernik <andrejm@ubuntu.si>\n"
-"X-Generator: Poedit 3.9\n"
+"X-Generator: Poedit 3.10\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -2319,6 +2319,21 @@ msgid ""
 "padding: 8px; border-radius: 4px;\">help(rlm, package=\"MASS\")\n"
 "help(package=\"MASS\")       # package index</pre></div>"
 msgstr ""
+"<div style=\"line-height: 1.4;\"><h3 style=\"color: #2277dd; margin: 12px 0 "
+"6px 0;\"><b>R Help System</b></h3><p style=\"margin: 4px 0;\">The "
+"<code>help()</code> function and <code>?</code> help operator in R provide "
+"access to the documentation pages for R functions, data sets, and other "
+"objects.</p><h4 style=\"color: #2277dd; margin: 12px 0 6px 0;\"><b>Examples</"
+"b></h4><pre style=\"background-color: #d0d0d0; color: #000000; padding: 8px; "
+"border-radius: 4px;\">help(lm)      # help for linear model function\n"
+"?lm           # same as above\n"
+"?\"?\"          # help for the ? operator\n"
+"example(lm)   # run examples for lm</pre><h4 style=\"color: #2277dd; margin: "
+"12px 0 6px 0;\"><b>Package Help</b></h4><p style=\"margin: 4px 0;\">To "
+"access help for a function in a package that’s not currently loaded, specify "
+"the package name:</p><pre style=\"background-color: #d0d0d0; color: #000000; "
+"padding: 8px; border-radius: 4px;\">help(rlm, package=\"MASS\")\n"
+"help(package=\"MASS\")       # package index</pre></div>"
 
 #: backends/R/rbackend.cpp:120
 #, kde-format
@@ -2345,6 +2360,8 @@ msgid ""
 "help.start() is not supported in embedded R mode. Use help(topic) or ?topic "
 "instead."
 msgstr ""
+"Funkcija help.start() v vgrajenem načinu R ni podprta. Namesto tega "
+"uporabite help(topic) ali ?topic."
 
 #: backends/R/rexpression.cpp:203 backends/R/rexpression.cpp:204
 #, kde-format
@@ -2368,10 +2385,9 @@ msgid "Url to the local R documentation"
 msgstr "Url do lokalne dokumentacije za R"
 
 #: backends/R/rsession.cpp:87
-#, fuzzy, kde-format
-#| msgid "Path to Cantor python server executable"
+#, kde-format
 msgid "Failed to find cantor_rserver executable."
-msgstr "Pot do izvedljive datoteke Cantor python server"
+msgstr "Izvedljive datoteke cantor_rserver ni bilo mogoče najti."
 
 #: backends/R/rsession.cpp:99
 #, kde-format
@@ -2381,18 +2397,17 @@ msgstr "R-a ni bilo mogoče zagnati, preverite namestitev programa R."
 #: backends/R/rsession.cpp:110
 #, kde-format
 msgid "R server did not respond."
-msgstr ""
+msgstr "Strežnik R se ne odziva"
 
 #: backends/R/rsession.cpp:130
-#, fuzzy, kde-format
-#| msgid "Failed to start Cantor python server."
+#, kde-format
 msgid "Failed to connect to R server: %1"
-msgstr "Ni bilo mogoče pognati Cantorjevega Pythonovega strežnika."
+msgstr "Povezava s strežnikom R ni uspela: %1"
 
 #: backends/R/rsession.cpp:396
 #, kde-format
 msgid "Lost connection to R server"
-msgstr ""
+msgstr "Izgubljena povezava s strežnikom R"
 
 #: backends/R/rsettingswidget.cpp:30
 #, kde-format
@@ -4113,7 +4128,7 @@ msgstr "Grafi v trenutnem delovnem listu"
 #: panelplugins/plotpanel/plotpanelplugin.cpp:191
 #, kde-format
 msgid "No plots match the search"
-msgstr "Noben graf ne ustreza iskanju."
+msgstr "Noben graf ne ustreza iskanju"
 
 #: panelplugins/plotpanel/plotpanelplugin.cpp:312
 #, kde-format

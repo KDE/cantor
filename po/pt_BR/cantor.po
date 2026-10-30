@@ -13,7 +13,7 @@ msgstr ""
 "Project-Id-Version: cantor\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-10-29 00:48+0000\n"
-"PO-Revision-Date: 2026-10-05 09:15-0300\n"
+"PO-Revision-Date: 2026-10-29 10:40-0300\n"
 "Last-Translator: Marcus Gama <marcus.gama@gmail.com>\n"
 "Language-Team: Portuguese <kde-i18n-pt_BR@kde.org>\n"
 "Language: pt_BR\n"
@@ -21,7 +21,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"X-Generator: Lokalize 26.08.1\n"
+"X-Generator: Lokalize 26.08.2\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -2346,6 +2346,23 @@ msgid ""
 "padding: 8px; border-radius: 4px;\">help(rlm, package=\"MASS\")\n"
 "help(package=\"MASS\")       # package index</pre></div>"
 msgstr ""
+"<div style=\"line-height: 1.4;\"><h3 style=\"color: #2277dd; margin: 12px 0 "
+"6px 0;\"><b>Sistema de Ajuda do R</b></h3><p style=\"margin: 4px 0;\">A "
+"função <code>help()</code> e o operador de ajuda <code>?</code> no R "
+"fornecem acesso às páginas de documentação de funções, conjuntos de dados e "
+"outros objetos do R.</p><h4 style=\"color: #2277dd; margin: 12px 0 6px 0;"
+"\"><b>Exemplos</b></h4><pre style=\"background-color: #d0d0d0; color: "
+"#000000; padding: 8px; border-radius: 4px;\">help(lm)      # ajuda para a "
+"função de modelo linear\n"
+"?lm           # o mesmo que o anterior\n"
+"?\"?\"           # ajuda para o operador ?\n"
+"example(lm)   # executa exemplos para lm</pre><h4 style=\"color: #2277dd; "
+"margin: 12px 0 6px 0;\"><b>Ajuda de Pacotes</b></h4><p style=\"margin: 4px 0;"
+"\">Para acessar a ajuda de uma função em um pacote que não está carregado no "
+"momento, especifique o nome do pacote:</p><pre style=\"background-color: "
+"#d0d0d0; color: #000000; padding: 8px; border-radius: 4px;\">help(rlm, "
+"package=\"MASS\")\n"
+"help(package=\"MASS\")       # índice do pacote</pre></div>"
 
 #: backends/R/rbackend.cpp:120
 #, kde-format
@@ -2373,6 +2390,8 @@ msgid ""
 "help.start() is not supported in embedded R mode. Use help(topic) or ?topic "
 "instead."
 msgstr ""
+"help.start() não é suportado no modo R incorporado. Em vez disso, utilize "
+"help(tópico) ou ?tópico."
 
 #: backends/R/rexpression.cpp:203 backends/R/rexpression.cpp:204
 #, kde-format
@@ -2396,10 +2415,9 @@ msgid "Url to the local R documentation"
 msgstr "URL para a documentação R local"
 
 #: backends/R/rsession.cpp:87
-#, fuzzy, kde-format
-#| msgid "Path to Cantor python server executable"
+#, kde-format
 msgid "Failed to find cantor_rserver executable."
-msgstr "Caminho para o executável python do servidor do Cantor"
+msgstr "Não foi possível encontrar o executável cantor_rserver."
 
 #: backends/R/rsession.cpp:99
 #, kde-format
@@ -2409,18 +2427,17 @@ msgstr "Falha ao iniciar o R, verifique a instalação do R."
 #: backends/R/rsession.cpp:110
 #, kde-format
 msgid "R server did not respond."
-msgstr ""
+msgstr "O servidor R não respondeu."
 
 #: backends/R/rsession.cpp:130
-#, fuzzy, kde-format
-#| msgid "Failed to start Cantor python server."
+#, kde-format
 msgid "Failed to connect to R server: %1"
-msgstr "Falha ao iniciar o servidor de Python do Cantor."
+msgstr "Falha ao conectar ao servidor R: %1"
 
 #: backends/R/rsession.cpp:396
 #, kde-format
 msgid "Lost connection to R server"
-msgstr ""
+msgstr "Conexão com o servidor R perdida"
 
 #: backends/R/rsettingswidget.cpp:30
 #, kde-format

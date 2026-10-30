@@ -12,8 +12,8 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-10-29 00:48+0000\n"
-"PO-Revision-Date: 2026-10-05 07:41+0200\n"
-"Last-Translator: Alexander Yavorskiy <kekcuha@gmail.com>\n"
+"PO-Revision-Date: 2026-10-29 07:44+0200\n"
+"Last-Translator: Alexander Yavorsky <kekcuha@gmail.com>\n"
 "Language-Team: Russian <kde-russian@lists.kde.ru>\n"
 "Language: ru\n"
 "MIME-Version: 1.0\n"
@@ -2355,6 +2355,21 @@ msgid ""
 "padding: 8px; border-radius: 4px;\">help(rlm, package=\"MASS\")\n"
 "help(package=\"MASS\")       # package index</pre></div>"
 msgstr ""
+"<div style=\"line-height: 1.4;\"><h3 style=\"color: #2277dd; margin: 12px 0 "
+"6px 0;\"><b>Справочная система R</b></h3><p style=\"margin: 4px 0;\">Функция "
+"<code>help()</code> и оператор справки <code>?</code> в R открывают страницы "
+"документации по функциям, наборам данных и другим объектам R.</p><h4 style="
+"\"color: #2277dd; margin: 12px 0 6px 0;\"><b>Примеры</b></h4><pre style="
+"\"background-color: #d0d0d0; color: #000000; padding: 8px; border-radius: "
+"4px;\">help(lm)      # справка по функции линейной модели\n"
+"?lm           # то же самое\n"
+"?\"?\"          # справка по оператору ?\n"
+"example(lm)   # запуск примеров для lm</pre><h4 style=\"color: #2277dd; "
+"margin: 12px 0 6px 0;\"><b>Справка по пакетам</b></h4><p style=\"margin: 4px "
+"0;\">Чтобы открыть справку по функции из пакета, который сейчас не загружен, "
+"укажите имя пакета:</p><pre style=\"background-color: #d0d0d0; color: "
+"#000000; padding: 8px; border-radius: 4px;\">help(rlm, package=\"MASS\")\n"
+"help(package=\"MASS\")       # указатель пакета</pre></div>"
 
 #: backends/R/rbackend.cpp:120
 #, kde-format
@@ -2382,6 +2397,8 @@ msgid ""
 "help.start() is not supported in embedded R mode. Use help(topic) or ?topic "
 "instead."
 msgstr ""
+"Во встроенном режиме R функция help.start() не поддерживается. Используйте "
+"help(тема) или ?тема."
 
 #: backends/R/rexpression.cpp:203 backends/R/rexpression.cpp:204
 #, kde-format
@@ -2405,10 +2422,9 @@ msgid "Url to the local R documentation"
 msgstr "URL-адрес локальной документации R"
 
 #: backends/R/rsession.cpp:87
-#, fuzzy, kde-format
-#| msgid "Path to Cantor python server executable"
+#, kde-format
 msgid "Failed to find cantor_rserver executable."
-msgstr "Путь к исполняемому файлу Python-сервера Cantor"
+msgstr "Не удалось найти исполняемый файл cantor_rserver."
 
 #: backends/R/rsession.cpp:99
 #, kde-format
@@ -2418,18 +2434,17 @@ msgstr "Не удалось выполнить запуск R. Проверьт�
 #: backends/R/rsession.cpp:110
 #, kde-format
 msgid "R server did not respond."
-msgstr ""
+msgstr "Сервер R не ответил."
 
 #: backends/R/rsession.cpp:130
-#, fuzzy, kde-format
-#| msgid "Failed to start Cantor python server."
+#, kde-format
 msgid "Failed to connect to R server: %1"
-msgstr "Не удалось запустить Python-сервер Cantor."
+msgstr "Не удалось подключиться к серверу R: %1"
 
 #: backends/R/rsession.cpp:396
 #, kde-format
 msgid "Lost connection to R server"
-msgstr ""
+msgstr "Потеряно соединение с сервером R"
 
 #: backends/R/rsettingswidget.cpp:30
 #, kde-format

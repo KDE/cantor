@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: cantor\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-10-29 00:48+0000\n"
-"PO-Revision-Date: 2026-10-05 20:59+0300\n"
+"PO-Revision-Date: 2026-10-29 16:06+0200\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian <trans-uk@lists.fedoraproject.org>\n"
 "Language: uk\n"
@@ -2354,6 +2354,21 @@ msgid ""
 "padding: 8px; border-radius: 4px;\">help(rlm, package=\"MASS\")\n"
 "help(package=\"MASS\")       # package index</pre></div>"
 msgstr ""
+"<div style=\"line-height: 1.4;\"><h3 style=\"color: #2277dd; margin: 12px 0 "
+"6px 0;\"><b>Система довідки R</b></h3><p style=\"margin: 4px 0;\">Функція "
+"<code>help()</code> і довідковий оператор <code>?</code> у R надають доступ "
+"до сторінок документації щодо функцій Rs, наборів даних та інших об'єктів.</"
+"p><h4 style=\"color: #2277dd; margin: 12px 0 6px 0;\"><b>Приклади</b></"
+"h4><pre style=\"background-color: #d0d0d0; color: #000000; padding: 8px; "
+"border-radius: 4px;\">help(lm)      # довідка щодо функції лінійної моделі\n"
+"?lm           # те саме, що і вище\n"
+"?\"?\"          # довідка щодо оператора ?\n"
+"example(lm)   # запустити приклади для lm</pre><h4 style=\"color: #2277dd; "
+"margin: 12px 0 6px 0;\"><b>Довідка з пакунків</b></h4><p style=\"margin: 4px "
+"0;\">Щоб дізнатися більше про функцію у пакунку, який ще не завантажено, "
+"вкажіть назву пакунка:</p><pre style=\"background-color: #d0d0d0; color: "
+"#000000; padding: 8px; border-radius: 4px;\">help(rlm, package=\"MASS\")\n"
+"help(package=\"MASS\")       # покажчик пакунка</pre></div>"
 
 #: backends/R/rbackend.cpp:120
 #, kde-format
@@ -2381,6 +2396,8 @@ msgid ""
 "help.start() is not supported in embedded R mode. Use help(topic) or ?topic "
 "instead."
 msgstr ""
+"Підтримки help.start() у вбудованому режимі R не передбачено. Скористайтеся "
+"натомість help(запит) або ?запит."
 
 #: backends/R/rexpression.cpp:203 backends/R/rexpression.cpp:204
 #, kde-format
@@ -2404,10 +2421,9 @@ msgid "Url to the local R documentation"
 msgstr "Адреса локальної документації до R"
 
 #: backends/R/rsession.cpp:87
-#, fuzzy, kde-format
-#| msgid "Path to Cantor python server executable"
+#, kde-format
 msgid "Failed to find cantor_rserver executable."
-msgstr "Шлях до виконуваного файла сервера python Cantor"
+msgstr "Не вдалося знайти виконуваний файл cantor_rserver."
 
 #: backends/R/rsession.cpp:99
 #, kde-format
@@ -2419,18 +2435,17 @@ msgstr ""
 #: backends/R/rsession.cpp:110
 #, kde-format
 msgid "R server did not respond."
-msgstr ""
+msgstr "Сервер R не надіслав відповіді."
 
 #: backends/R/rsession.cpp:130
-#, fuzzy, kde-format
-#| msgid "Failed to start Cantor python server."
+#, kde-format
 msgid "Failed to connect to R server: %1"
-msgstr "Не вдалося запустити сервер Python Cantor."
+msgstr "Не вдалося встановити з'єднання з сервером R: %1"
 
 #: backends/R/rsession.cpp:396
 #, kde-format
 msgid "Lost connection to R server"
-msgstr ""
+msgstr "Втрачено з'єднання з сервером R"
 
 #: backends/R/rsettingswidget.cpp:30
 #, kde-format
