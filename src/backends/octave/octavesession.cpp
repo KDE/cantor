@@ -331,13 +331,11 @@ void OctaveSession::readOutput()
             // Check if Octave is waiting for user input
             if (!expressionQueue().isEmpty()) {
                 auto* expr = dynamic_cast<OctaveExpression*>(expressionQueue().first());
-                if (expr && expr->isInputRequest()) {
-                    QString trimmed = m_output.trimmed();
-                    if (trimmed.endsWith(QLatin1String(": ")) ||
-                        trimmed.endsWith(QLatin1String("? "))) {
-                        Q_EMIT expr->needsAdditionalInformation(trimmed);
-                        m_output.clear();
-                    }
+                if (expr && expr->isInputRequest() && !expr->isWaitingForInput()) {
+                    // Emit immediately - Octave printed the prompt and is waiting
+                    expr->setWaitingForInput(true);
+                    Q_EMIT expr->needsAdditionalInformation(m_output.trimmed());
+                    m_output.clear();
                 }
             }
         }

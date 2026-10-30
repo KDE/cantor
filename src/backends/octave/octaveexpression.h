@@ -30,6 +30,8 @@ public:
     void imageChanged();
 
     bool isInputRequest() const { return m_isInputRequest; }
+    bool isWaitingForInput() const { return m_waitingForInput; }
+    void setWaitingForInput(bool waiting) { m_waitingForInput = waiting; }
 
     const static QStringList plotExtensions;
 
@@ -38,6 +40,7 @@ private:
     bool m_finished = false;
     bool m_plotPending = false;
     bool m_isInputRequest = false;
+    bool m_waitingForInput = false;
     QString m_plotFilename;
 };
 

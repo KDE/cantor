@@ -516,6 +516,7 @@ void TestOctave::testInputCommand()
 
     waitForSignal(e, SIGNAL(statusChanged(Cantor::Expression::Status)));
     QCOMPARE(e->status(), Cantor::Expression::Done);
+    QCOMPARE(e->results().size(), 1);
     QVERIFY(e->result() != nullptr);
     QVERIFY(e->result()->data().toString().contains(QLatin1String("42")));
 }
@@ -530,6 +531,7 @@ void TestOctave::testYesOrNoCommand()
 
     waitForSignal(e, SIGNAL(statusChanged(Cantor::Expression::Status)));
     QCOMPARE(e->status(), Cantor::Expression::Done);
+    QCOMPARE(e->results().size(), 1);
     QVERIFY(e->result() != nullptr);
     // yes_or_no returns 1 for yes
     QVERIFY(e->result()->data().toString().contains(QLatin1String("1")));
