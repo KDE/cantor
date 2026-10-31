@@ -133,10 +133,11 @@ class CANTOR_EXPORT Result
  * Returns PdfResult for .pdf files (supports re-rendering at different resolutions),
  * ImageResult for other image formats.
  * @param filePath path to the plot file
- * @param displaySize optional display size hint
+ * @param plotWidthCm plot width in centimeters (0 = no size hint)
+ * @param plotHeightCm plot height in centimeters (0 = no size hint)
  * @return the created result (caller takes ownership)
  */
-CANTOR_EXPORT Result* createPlotResult(const QString& filePath, const QSize& displaySize = QSize());
+CANTOR_EXPORT Result* createPlotResult(const QString& filePath, double plotWidthCm = 0, double plotHeightCm = 0);
 
 }
 

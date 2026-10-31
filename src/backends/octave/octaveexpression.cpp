@@ -20,7 +20,6 @@
 #include <QDir>
 #include <QFileSystemWatcher>
 #include <QRegularExpression>
-#include <QScreen>
 
 #include <KLocalizedString>
 
@@ -246,12 +245,7 @@ void OctaveExpression::imageChanged()
         return;
     }
 
-    // Set display size based on configured plot dimensions (cm to pixels)
-    const int dpi = QGuiApplication::primaryScreen()->physicalDotsPerInchX();
-    int w = OctaveSettings::plotWidth() / 2.54 * dpi;
-    int h = OctaveSettings::plotHeight() / 2.54 * dpi;
-
-    auto* newResult = Cantor::createPlotResult(m_plotFilename, QSize(w, h));
+    auto* newResult = Cantor::createPlotResult(m_plotFilename, OctaveSettings::plotWidth(), OctaveSettings::plotHeight());
 
     bool found = false;
     for (int i = 0; i < results().size(); i++)

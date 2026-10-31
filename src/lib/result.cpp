@@ -11,6 +11,8 @@
 using namespace Cantor;
 
 #include <QFile>
+#include <QGuiApplication>
+#include <QScreen>
 #include <QUrl>
 #include <QJsonObject>
 #include <QRegularExpression>
@@ -149,9 +151,16 @@ void Cantor::Result::loadXmlResultMetadata(const QDomElement& element)
     d->displayName = element.attribute(QLatin1String("result-title")).trimmed();
 }
 
-Result* Cantor::createPlotResult(const QString& filePath, const QSize& displaySize)
+Result* Cantor::createPlotResult(const QString& filePath, double plotWidthCm, double plotHeightCm)
 {
     QUrl url = QUrl::fromLocalFile(filePath);
+
+    // Convert cm to pixels using screen DPI
+    QSize displaySize;
+    if (plotWidthCm > 0 && plotHeightCm > 0) {
+        const int dpi = qGuiApp->primaryScreen()->physicalDotsPerInchX();
+        displaySize = QSize(plotWidthCm / 2.54 * dpi, plotHeightCm / 2.54 * dpi);
+    }
 
     if (filePath.endsWith(QLatin1String(".pdf"), Qt::CaseInsensitive)) {
         QFile file(filePath);

@@ -11,6 +11,7 @@
 #include "result.h"
 #include "animationresult.h"
 #include "helpresult.h"
+#include "settings.h"
 
 #include <QDebug>
 #include <KLocalizedString>
@@ -225,7 +226,7 @@ void SageExpression::evalFinished()
         else
         {
             qDebug()<<"adding image";
-            addResult( Cantor::createPlotResult(m_imagePath) );
+            addResult( Cantor::createPlotResult(m_imagePath, SageSettings::plotWidth(), SageSettings::plotHeight()) );
         }
     }
     setStatus(Cantor::Expression::Done);

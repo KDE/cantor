@@ -142,7 +142,7 @@ void PythonExpression::imageChanged()
     if(m_tempFile->size() <= 0)
         return;
 
-    auto* newResult = Cantor::createPlotResult(m_tempFile->fileName());
+    auto* newResult = Cantor::createPlotResult(m_tempFile->fileName(), PythonSettings::plotWidth(), PythonSettings::plotHeight());
     if (!newResult)
         return;
 

@@ -21,7 +21,6 @@
 #include <QFileInfo>
 #include <QImage>
 #include <QRegularExpression>
-#include <QScreen>
 #include <QTemporaryFile>
 #include <QTimer>
 #include <QUrl>
@@ -621,7 +620,7 @@ void MaximaExpression::loadPlotResult()
         return;
     }
 
-    auto* plotResult = Cantor::createPlotResult(m_tempFile->fileName());
+    auto* plotResult = Cantor::createPlotResult(m_tempFile->fileName(), MaximaSettings::plotWidth(), MaximaSettings::plotHeight());
     if (!plotResult || (plotResult->type() == Cantor::ImageResult::Type && plotResult->data().value<QImage>().isNull() && m_plotResultLoadAttempts < 10))
     {
         delete plotResult;

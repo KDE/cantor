@@ -11,6 +11,7 @@
 #include "result.h"
 #include "rsession.h"
 #include "textresult.h"
+#include "rserver/settings.h"
 
 #include <QFile>
 #include <QImage>
@@ -175,7 +176,7 @@ void RExpression::showFilesAsResult(const QStringList& files)
         if(type.name() == QLatin1String("application/pdf")
             || type.name().contains(QLatin1String("image")))
         {
-            auto* result = Cantor::createPlotResult(file);
+            auto* result = Cantor::createPlotResult(file, RServerSettings::self()->plotWidth(), RServerSettings::self()->plotHeight());
             if (!result)
                 continue;
             if (result->type() == Cantor::ImageResult::Type && result->data().value<QImage>().isNull()) {
