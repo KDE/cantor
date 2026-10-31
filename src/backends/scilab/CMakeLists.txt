@@ -15,7 +15,6 @@ ki18n_wrap_ui(ScilabBackend_SRCS settings.ui)
 add_backend(scilabbackend ${ScilabBackend_SRCS})
 
 target_link_libraries(cantor_scilabbackend
-  KF6::KIOCore
   KF6::SyntaxHighlighting
 )
 

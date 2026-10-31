@@ -8,6 +8,7 @@
 
 # Temporary files
 *~
+.DS_Store
 
 # Folder to compile source code
 build*

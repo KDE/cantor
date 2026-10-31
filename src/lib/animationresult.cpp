@@ -12,8 +12,6 @@ using namespace Cantor;
 #include <KZip>
 #include <QMimeDatabase>
 #include <QDebug>
-#include <KIO/Job>
-#include <KIO/FileCopyJob>
 #include <QMovie>
 
 class Cantor::AnimationResultPrivate
@@ -117,5 +115,5 @@ void AnimationResult::saveAdditionalData(KZip* archive)
 void AnimationResult::save(const QString& filename)
 {
     //just copy over the file..
-    KIO::file_copy(d->url, QUrl::fromLocalFile(filename), -1, KIO::HideProgressInfo);
+    QFile::copy(d->url.toLocalFile(), filename);
 }

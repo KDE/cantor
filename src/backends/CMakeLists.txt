@@ -23,7 +23,7 @@ if (ENABLE_EMBEDDED_DOCUMENTATION)
 
     add_library(cantor_help STATIC ${cantor_HELP})
     set_target_properties(cantor_help PROPERTIES POSITION_INDEPENDENT_CODE ON)
-    target_link_libraries(cantor_help KF6::SyntaxHighlighting KF6::I18n KF6::IconWidgets KF6::NewStuffWidgets KF6::KIOWidgets Qt6::Help)
+    target_link_libraries(cantor_help KF6::ConfigCore KF6::KIOWidgets KF6::WidgetsAddons KF6::SyntaxHighlighting KF6::I18n KF6::IconWidgets KF6::NewStuffWidgets Qt6::Help)
 endif()
 
 if(NOT WIN32)

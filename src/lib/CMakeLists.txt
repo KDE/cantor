@@ -68,10 +68,10 @@ generate_export_header(cantorlibs BASE_NAME cantor)
 
 target_link_libraries( cantorlibs
   KF6::Completion
+  KF6::CoreAddons
   KF6::IconThemes
-  KF6::KIOCore
-  KF6::KIOFileWidgets
   KF6::KIOWidgets
+  KF6::KIOFileWidgets
   KF6::Archive
   KF6::ConfigCore
   KF6::ConfigGui

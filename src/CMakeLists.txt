@@ -112,8 +112,8 @@ kcoreaddons_add_plugin(cantorpart
 
 add_dependencies(cantorpart discount_project)
 target_include_directories(cantorpart PRIVATE ${CMAKE_BINARY_DIR}/thirdparty/src/discount_project)
-target_link_libraries(cantorpart KF6::Parts KF6::NewStuffWidgets KF6::TextEditor KF6::TextWidgets
-                     KF6::KIOCore KF6::KIOFileWidgets KF6::KIOWidgets Discount::Lib
+target_link_libraries(cantorpart KF6::Parts KF6::NewStuffWidgets KF6::KIOWidgets KF6::KIOFileWidgets KF6::TextEditor KF6::TextWidgets
+                     Discount::Lib
                      Qt6::PrintSupport cantorlibs cantor_config LibXslt::LibXslt LibXml2::LibXml2)
 
 if(BUILD_TESTING)

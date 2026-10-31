@@ -28,15 +28,13 @@
 #include <KMessageBox>
 #include <KParts/GUIActivateEvent>
 #include <KPluginFactory>
-#include <KIO/OpenUrlJob>
-#include <KIO/JobUiDelegate>
-#include <KIO/JobUiDelegateFactory>
 #include <KStandardAction>
 #include <KToggleAction>
 #include <KSelectAction>
 #include <KXMLGUIFactory>
 #include <KZip>
 
+#include <QDesktopServices>
 #include <QElapsedTimer>
 #include <QFile>
 #include <QFileDialog>
@@ -792,10 +790,7 @@ void CantorPart::documentationRequested(const QString& keyword) {
 void CantorPart::showBackendHelp()
 {
     auto* backend = m_worksheet->session()->backend();
-    auto* job = new KIO::OpenUrlJob(backend->helpUrl());
-    job->setUiDelegate(KIO::createDefaultJobUiDelegate(KJobUiDelegate::AutoHandlingEnabled, widget()));
-    job->start();
-    delete job;
+    QDesktopServices::openUrl(backend->helpUrl());
 }
 
 Worksheet* CantorPart::worksheet()

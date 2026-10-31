@@ -24,11 +24,9 @@ add_backend(octavebackend ${OctaveBackend_SRCS})
 
 
 target_link_libraries(cantor_octavebackend
-  KF6::KIOCore
   KF6::ConfigCore
   KF6::ConfigGui
   KF6::SyntaxHighlighting
-
 )
 
 if (ENABLE_EMBEDDED_DOCUMENTATION)

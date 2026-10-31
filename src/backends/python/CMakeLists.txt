@@ -20,7 +20,6 @@ kconfig_add_kcfg_files(PythonBackend_SRCS settings.kcfgc)
 add_backend(pythonbackend ${PythonBackend_SRCS} ${PythonBackend_RSCS})
 target_link_libraries(cantor_pythonbackend
   cantorlibs
-  KF6::KIOCore
   KF6::ConfigCore
   KF6::ConfigGui
   KF6::SyntaxHighlighting
