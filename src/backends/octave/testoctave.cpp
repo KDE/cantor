@@ -478,7 +478,8 @@ void TestOctave::testPlot()
     QVERIFY(e != nullptr);
 
     QVERIFY(e->result() != nullptr);
-    QCOMPARE(e->result()->type(), (int)Cantor::ImageResult::Type );
+    // Default format is PDF, so expect PdfResult
+    QCOMPARE(e->result()->type(), (int)Cantor::PdfResult::Type );
     QVERIFY(!e->result()->data().isNull());
     QVERIFY(e->errorMessage().isNull());
 }
@@ -489,7 +490,7 @@ void TestOctave::testCantorPlot2d()
     QVERIFY(e != nullptr);
 
     QVERIFY(e->result() != nullptr);
-    QCOMPARE(e->result()->type(), (int)Cantor::ImageResult::Type );
+    QCOMPARE(e->result()->type(), (int)Cantor::PdfResult::Type );
     QVERIFY(!e->result()->data().isNull());
     QVERIFY(e->errorMessage().isNull());
 }
@@ -500,7 +501,7 @@ void TestOctave::testCantorPlot3d()
     QVERIFY(e != nullptr);
 
     QVERIFY(e->result() != nullptr);
-    QCOMPARE(e->result()->type(), (int)Cantor::ImageResult::Type );
+    QCOMPARE(e->result()->type(), (int)Cantor::PdfResult::Type );
     QVERIFY(!e->result()->data().isNull());
     QVERIFY(e->errorMessage().isNull());
 }
