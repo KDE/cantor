@@ -14,12 +14,9 @@
 #include "settings.h"
 #include "textresult.h"
 
-#include <QApplication>
-#include <QDebug>
 #include <QFile>
-#include <QDir>
 #include <QFileSystemWatcher>
-#include <QRegularExpression>
+#include <QScreen>
 
 #include <KLocalizedString>
 

@@ -15,15 +15,12 @@
 #include "helpresult.h"
 #include "settings.h"
 
-#include <QApplication>
-#include <QDebug>
 #include <QDir>
 #include <QFileInfo>
 #include <QImage>
-#include <QRegularExpression>
+#include <QScreen>
 #include <QTemporaryFile>
 #include <QTimer>
-#include <QUrl>
 
 #include <KLocalizedString>
 
