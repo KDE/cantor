@@ -11,6 +11,7 @@
 #include "expression.h"
 #include "result.h"
 #include "imageresult.h"
+#include "pdfresult.h"
 #include "textresult.h"
 
 #include <QDebug>
@@ -87,7 +88,7 @@ void TestSage::testPlot()
     QVERIFY(e != nullptr);
     QCOMPARE(e->results().size(), 1);
 
-    QVERIFY(e->results().at(0)->type() == Cantor::ImageResult::Type);
+    QVERIFY(e->results().at(0)->type() == Cantor::PdfResult::Type);
     QVERIFY(!e->results().at(0)->data().isNull());
 }
 

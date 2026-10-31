@@ -12,6 +12,7 @@
 #include "result.h"
 #include "textresult.h"
 #include "imageresult.h"
+#include "pdfresult.h"
 #include "syntaxhelpobject.h"
 #include "defaultvariablemodel.h"
 
@@ -101,7 +102,7 @@ void TestMaxima::testPlot()
 
     QVERIFY( e!=nullptr );
     QVERIFY( e->result()!=nullptr );
-    QCOMPARE( e->result()->type(), (int)Cantor::ImageResult::Type );
+    QCOMPARE( e->result()->type(), (int)Cantor::PdfResult::Type );
     QVERIFY( !e->result()->data().isNull() );
     QVERIFY( e->errorMessage().isNull() );
 }
@@ -121,7 +122,7 @@ void TestMaxima::testPlotMultiline()
 
     QVERIFY(e != nullptr);
     QVERIFY(e->result() != nullptr);
-    QCOMPARE(e->result()->type(), (int)Cantor::ImageResult::Type);
+    QCOMPARE(e->result()->type(), (int)Cantor::PdfResult::Type);
     QVERIFY(!e->result()->data().isNull());
     QVERIFY(e->errorMessage().isNull());
 }
@@ -143,7 +144,7 @@ void TestMaxima::testPlotWithWhitespaces()
 
     QVERIFY(e != nullptr);
     QVERIFY(e->result() != nullptr);
-    QCOMPARE(e->result()->type(), (int)Cantor::ImageResult::Type);
+    QCOMPARE(e->result()->type(), (int)Cantor::PdfResult::Type);
     QVERIFY(!e->result()->data().isNull());
     QVERIFY(e->errorMessage().isNull());
 }
@@ -167,7 +168,7 @@ void TestMaxima::testPlotWithAnotherTextResults()
 
     QCOMPARE(e->results().at(0)->data().toString(), QLatin1String("4"));
 
-    QCOMPARE( e->results().at(1)->type(), (int)Cantor::ImageResult::Type );
+    QCOMPARE( e->results().at(1)->type(), (int)Cantor::PdfResult::Type );
     QVERIFY( !e->results().at(1)->data().isNull() );
 
     QCOMPARE(e->results().at(2)->data().toString(), QLatin1String("16"));
@@ -188,7 +189,7 @@ void TestMaxima::testDraw()
     if(!e->result())
         waitForSignal(e, SIGNAL(gotResult()));
 
-    QCOMPARE( e->result()->type(), (int)Cantor::ImageResult::Type );
+    QCOMPARE( e->result()->type(), (int)Cantor::PdfResult::Type );
     QVERIFY( !e->result()->data().isNull() );
     QVERIFY( e->errorMessage().isNull() );
 }
@@ -225,7 +226,7 @@ void TestMaxima::testDrawMultiline()
     if(!e->result())
         waitForSignal(e, SIGNAL(gotResult()));
 
-    QCOMPARE(e->result()->type(), (int)Cantor::ImageResult::Type);
+    QCOMPARE(e->result()->type(), (int)Cantor::PdfResult::Type);
     QVERIFY(!e->result()->data().isNull());
     QVERIFY(e->errorMessage().isNull());
 }
@@ -252,7 +253,7 @@ void TestMaxima::testDrawWithAnotherTextResults()
 
     QCOMPARE(e->results().at(0)->data().toString(), QLatin1String("4"));
 
-    QCOMPARE( e->results().at(1)->type(), (int)Cantor::ImageResult::Type );
+    QCOMPARE( e->results().at(1)->type(), (int)Cantor::PdfResult::Type );
     QVERIFY( !e->results().at(1)->data().isNull() );
 
     QCOMPARE(e->results().at(2)->data().toString(), QLatin1String("16"));

@@ -10,6 +10,7 @@
 #include "expression.h"
 #include "result.h"
 #include "imageresult.h"
+#include "pdfresult.h"
 #include "helpresult.h"
 #include "syntaxhelpobject.h"
 #include "defaultvariablemodel.h"
@@ -184,7 +185,7 @@ void TestR::testSimplePlot()
     QVERIFY(e != nullptr);
     QCOMPARE(e->status(), Cantor::Expression::Status::Done);
     QVERIFY(e->result() != nullptr);
-    QCOMPARE(e->result()->type(), (int)Cantor::ImageResult::Type);
+    QCOMPARE(e->result()->type(), (int)Cantor::PdfResult::Type);
 }
 
 void TestR::testComplexPlot()
@@ -235,7 +236,7 @@ void TestR::testComplexPlot()
     QVERIFY(e != nullptr);
     QCOMPARE(e->status(), Cantor::Expression::Status::Done);
     QVERIFY(e->result() != nullptr);
-    QCOMPARE(e->result()->type(), (int)Cantor::ImageResult::Type);
+    QCOMPARE(e->result()->type(), (int)Cantor::PdfResult::Type);
     evalExp(QLatin1String("rm(cars, trucks, g_range)"));
 }
 
