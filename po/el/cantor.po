@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-10-29 00:48+0000\n"
+"POT-Creation-Date: 2026-10-31 00:46+0000\n"
 "PO-Revision-Date: 2023-07-25 19:54+0300\n"
 "Last-Translator: Theofilos Intzoglou <int.teo@gmail.com>\n"
 "Language-Team: Greek <kde-i18n-el@kde.org>\n"
@@ -966,7 +966,7 @@ msgstr ""
 msgid "Executable:"
 msgstr "Εκτελέσιμο:"
 
-#: backends/octave/octavebackend.cpp:64
+#: backends/octave/octavebackend.cpp:65
 #, kde-format
 msgctxt ""
 "the url to the documentation of Octave, please check if there is a "
@@ -974,7 +974,7 @@ msgctxt ""
 msgid "https://octave.org/doc/interpreter/"
 msgstr "https://octave.org/doc/interpreter/"
 
-#: backends/octave/octavebackend.cpp:69
+#: backends/octave/octavebackend.cpp:70
 #, kde-format
 msgid ""
 "<b>GNU Octave</b> is a high-level language, primarily intended for numerical "
@@ -988,7 +988,7 @@ msgstr ""
 "και για την εκτέλεση άλλων αριθμητικών πειραμάτων χρησιμοποιώντας μια γλώσσα "
 "συμβατή με τη Matlab."
 
-#: backends/octave/octaveexpression.cpp:230
+#: backends/octave/octaveexpression.cpp:245
 #, kde-format
 msgid "Invalid image file generated."
 msgstr "Δημιουργήθηκε άκυρη μορφή εικόνας."
@@ -1008,17 +1008,17 @@ msgstr ""
 msgid "Syntax Error"
 msgstr "Συντακτικό σφάλμα"
 
-#: backends/octave/octavesession.cpp:385
+#: backends/octave/octavesession.cpp:397
 #, kde-format
 msgid "Plot integration test failed."
 msgstr "Αποτυχία της δοκιμής ενσωμάτωσης γραφικών παραστάσεων."
 
-#: backends/octave/octavesession.cpp:389
+#: backends/octave/octavesession.cpp:401
 #, kde-format
 msgid "The integration of plots will be disabled."
 msgstr "Η ενσωμάτωση των γραφικών παραστάσεων θα απενεργοποιηθεί."
 
-#: backends/octave/octavesession.cpp:390 backends/sage/sagesession.cpp:358
+#: backends/octave/octavesession.cpp:402 backends/sage/sagesession.cpp:358
 #: backends/sage/sagesession.cpp:369 cantor.cpp:247 cantor.cpp:249
 #: cantor.cpp:464 cantor.cpp:471 lib/session.cpp:334 main.cpp:64 main.cpp:121
 #: markdownentry.cpp:1168 textentry.cpp:861 worksheet.cpp:1646

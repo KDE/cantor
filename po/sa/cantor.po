@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: cantor\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-10-29 00:48+0000\n"
+"POT-Creation-Date: 2026-10-31 00:46+0000\n"
 "PO-Revision-Date: 2024-12-25 19:37+0530\n"
 "Last-Translator: kali <shreekantkalwar@gmail.com>\n"
 "Language-Team: Sanskrit <kde-i18n-doc@kde.org>\n"
@@ -941,7 +941,7 @@ msgstr "मक्सिमा अल्पकाले एव द्विवा
 msgid "Executable:"
 msgstr "निष्पादनीयः :"
 
-#: backends/octave/octavebackend.cpp:64
+#: backends/octave/octavebackend.cpp:65
 #, kde-format
 msgctxt ""
 "the url to the documentation of Octave, please check if there is a "
@@ -949,7 +949,7 @@ msgctxt ""
 msgid "https://octave.org/doc/interpreter/"
 msgstr "https://octave.org/doc/interpreter/ इति वृत्तान्तः ।"
 
-#: backends/octave/octavebackend.cpp:69
+#: backends/octave/octavebackend.cpp:70
 #, kde-format
 msgid ""
 "<b>GNU Octave</b> is a high-level language, primarily intended for numerical "
@@ -961,7 +961,7 @@ msgstr ""
 "रेखीय-अरेखीय-समस्यानां संख्यात्मकरूपेण समाधानार्थं, तथा च अधिकतया Matlab-सङ्गत-भाषायाः "
 "उपयोगेन अन्येषां संख्यात्मक-प्रयोगानाम् अङ्गीकरणाय च सुविधाजनकं आदेशपङ्क्ति-अन्तरफलकं प्रदाति"
 
-#: backends/octave/octaveexpression.cpp:230
+#: backends/octave/octaveexpression.cpp:245
 #, kde-format
 msgid "Invalid image file generated."
 msgstr "अमान्यप्रतिबिम्बसञ्चिका उत्पन्ना।"
@@ -981,17 +981,17 @@ msgstr "Octave आरम्भं कर्तुं असफलम्, कृ�
 msgid "Syntax Error"
 msgstr "वाक्य रचना त्रुटिः"
 
-#: backends/octave/octavesession.cpp:385
+#: backends/octave/octavesession.cpp:397
 #, kde-format
 msgid "Plot integration test failed."
 msgstr "प्लॉट् एकीकरणपरीक्षा असफलः अभवत्।"
 
-#: backends/octave/octavesession.cpp:389
+#: backends/octave/octavesession.cpp:401
 #, kde-format
 msgid "The integration of plots will be disabled."
 msgstr "भूखण्डानां एकीकरणं अक्षमं भविष्यति।"
 
-#: backends/octave/octavesession.cpp:390 backends/sage/sagesession.cpp:358
+#: backends/octave/octavesession.cpp:402 backends/sage/sagesession.cpp:358
 #: backends/sage/sagesession.cpp:369 cantor.cpp:247 cantor.cpp:249
 #: cantor.cpp:464 cantor.cpp:471 lib/session.cpp:334 main.cpp:64 main.cpp:121
 #: markdownentry.cpp:1168 textentry.cpp:861 worksheet.cpp:1646

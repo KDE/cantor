@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kdeedu\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-10-29 00:48+0000\n"
+"POT-Creation-Date: 2026-10-31 00:46+0000\n"
 "PO-Revision-Date: 2014-01-31 20:51+0100\n"
 "Last-Translator: Samir Ribić <megaribi@epn.ba>\n"
 "Language-Team: Bosnian <bs@li.org>\n"
@@ -947,7 +947,7 @@ msgstr ""
 msgid "Executable:"
 msgstr ""
 
-#: backends/octave/octavebackend.cpp:64
+#: backends/octave/octavebackend.cpp:65
 #, fuzzy, kde-format
 #| msgctxt ""
 #| "the url to the documentation of Octave, please check if there is a "
@@ -959,7 +959,7 @@ msgctxt ""
 msgid "https://octave.org/doc/interpreter/"
 msgstr "http://www.gnu.org/software/octave/doc/interpreter/"
 
-#: backends/octave/octavebackend.cpp:69
+#: backends/octave/octavebackend.cpp:70
 #, fuzzy, kde-format
 #| msgid ""
 #| "GNU Octave is a high-level language, primarily intended for numerical "
@@ -979,7 +979,7 @@ msgstr ""
 "numeričkih eksperimenata koristeći jezik koji je kompatibilan sa većinom "
 "Matlab."
 
-#: backends/octave/octaveexpression.cpp:230
+#: backends/octave/octaveexpression.cpp:245
 #, kde-format
 msgid "Invalid image file generated."
 msgstr ""
@@ -1000,17 +1000,17 @@ msgstr ""
 msgid "Syntax Error"
 msgstr "Sintaksna greška"
 
-#: backends/octave/octavesession.cpp:385
+#: backends/octave/octavesession.cpp:397
 #, kde-format
 msgid "Plot integration test failed."
 msgstr ""
 
-#: backends/octave/octavesession.cpp:389
+#: backends/octave/octavesession.cpp:401
 #, kde-format
 msgid "The integration of plots will be disabled."
 msgstr ""
 
-#: backends/octave/octavesession.cpp:390 backends/sage/sagesession.cpp:358
+#: backends/octave/octavesession.cpp:402 backends/sage/sagesession.cpp:358
 #: backends/sage/sagesession.cpp:369 cantor.cpp:247 cantor.cpp:249
 #: cantor.cpp:464 cantor.cpp:471 lib/session.cpp:334 main.cpp:64 main.cpp:121
 #: markdownentry.cpp:1168 textentry.cpp:861 worksheet.cpp:1646

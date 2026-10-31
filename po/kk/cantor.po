@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-10-29 00:48+0000\n"
+"POT-Creation-Date: 2026-10-31 00:46+0000\n"
 "PO-Revision-Date: 2013-11-01 23:02+0600\n"
 "Last-Translator: Sairan Kikkarin <sairan@computer.org>\n"
 "Language-Team: Kazakh <kde-i18n-doc@kde.org>\n"
@@ -941,7 +941,7 @@ msgstr "Maxima қысқа мерзімде екі мәрте қирады. Әр�
 msgid "Executable:"
 msgstr ""
 
-#: backends/octave/octavebackend.cpp:64
+#: backends/octave/octavebackend.cpp:65
 #, fuzzy, kde-format
 #| msgctxt ""
 #| "the url to the documentation of Octave, please check if there is a "
@@ -953,7 +953,7 @@ msgctxt ""
 msgid "https://octave.org/doc/interpreter/"
 msgstr "http://www.gnu.org/software/octave/doc/interpreter/"
 
-#: backends/octave/octavebackend.cpp:69
+#: backends/octave/octavebackend.cpp:70
 #, fuzzy, kde-format
 #| msgid ""
 #| "GNU Octave is a high-level language, primarily intended for numerical "
@@ -972,7 +972,7 @@ msgstr ""
 "сызықтық емес теңдеу және басқа да сандық есептердің шешімін ыңғайлы "
 "командалық жолы интерфейсімен шығарып беретін тіл."
 
-#: backends/octave/octaveexpression.cpp:230
+#: backends/octave/octaveexpression.cpp:245
 #, kde-format
 msgid "Invalid image file generated."
 msgstr ""
@@ -993,17 +993,17 @@ msgstr ""
 msgid "Syntax Error"
 msgstr "Синтаксис қатесі"
 
-#: backends/octave/octavesession.cpp:385
+#: backends/octave/octavesession.cpp:397
 #, kde-format
 msgid "Plot integration test failed."
 msgstr ""
 
-#: backends/octave/octavesession.cpp:389
+#: backends/octave/octavesession.cpp:401
 #, kde-format
 msgid "The integration of plots will be disabled."
 msgstr ""
 
-#: backends/octave/octavesession.cpp:390 backends/sage/sagesession.cpp:358
+#: backends/octave/octavesession.cpp:402 backends/sage/sagesession.cpp:358
 #: backends/sage/sagesession.cpp:369 cantor.cpp:247 cantor.cpp:249
 #: cantor.cpp:464 cantor.cpp:471 lib/session.cpp:334 main.cpp:64 main.cpp:121
 #: markdownentry.cpp:1168 textentry.cpp:861 worksheet.cpp:1646

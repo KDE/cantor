@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: cantor\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-10-29 00:48+0000\n"
-"PO-Revision-Date: 2026-10-09 15:32+0200\n"
+"POT-Creation-Date: 2026-10-31 00:46+0000\n"
+"PO-Revision-Date: 2026-10-30 12:21+0100\n"
 "Last-Translator: giovanni <g.sora@tiscali.it>\n"
 "Language-Team: Interlingua <kde-i18n-doc@kde.org>\n"
 "Language: ia\n"
@@ -959,7 +959,7 @@ msgstr ""
 msgid "Executable:"
 msgstr "Executabile:"
 
-#: backends/octave/octavebackend.cpp:64
+#: backends/octave/octavebackend.cpp:65
 #, kde-format
 msgctxt ""
 "the url to the documentation of Octave, please check if there is a "
@@ -967,7 +967,7 @@ msgctxt ""
 msgid "https://octave.org/doc/interpreter/"
 msgstr "https://octave.org/doc/interpreter/"
 
-#: backends/octave/octavebackend.cpp:69
+#: backends/octave/octavebackend.cpp:70
 #, kde-format
 msgid ""
 "<b>GNU Octave</b> is a high-level language, primarily intended for numerical "
@@ -981,7 +981,7 @@ msgstr ""
 "executar altere experimentos usante un linguage que es supertoto compatibile "
 "con Mathlab."
 
-#: backends/octave/octaveexpression.cpp:230
+#: backends/octave/octaveexpression.cpp:245
 #, kde-format
 msgid "Invalid image file generated."
 msgstr "Invalide file de imagine generate"
@@ -1002,17 +1002,17 @@ msgstr ""
 msgid "Syntax Error"
 msgstr "Error de syntaxe."
 
-#: backends/octave/octavesession.cpp:385
+#: backends/octave/octavesession.cpp:397
 #, kde-format
 msgid "Plot integration test failed."
 msgstr "Test de Integration de tracia (plot) falleva."
 
-#: backends/octave/octavesession.cpp:389
+#: backends/octave/octavesession.cpp:401
 #, kde-format
 msgid "The integration of plots will be disabled."
 msgstr "Le integration de tracis (plots) essera dishabilitate."
 
-#: backends/octave/octavesession.cpp:390 backends/sage/sagesession.cpp:358
+#: backends/octave/octavesession.cpp:402 backends/sage/sagesession.cpp:358
 #: backends/sage/sagesession.cpp:369 cantor.cpp:247 cantor.cpp:249
 #: cantor.cpp:464 cantor.cpp:471 lib/session.cpp:334 main.cpp:64 main.cpp:121
 #: markdownentry.cpp:1168 textentry.cpp:861 worksheet.cpp:1646
@@ -2339,6 +2339,23 @@ msgid ""
 "padding: 8px; border-radius: 4px;\">help(rlm, package=\"MASS\")\n"
 "help(package=\"MASS\")       # package index</pre></div>"
 msgstr ""
+"<div style=\"line-height: 1.4;\"><h3 style=\"color: #2277dd; margin: 12px 0 "
+"6px 0;\"><b>Systema de adjuta de R</b></h3><p style=\"margin: 4px 0;\">Le "
+"function <code>help()</code> e le operator de adjuta <code>?</code> in R "
+"provide accesso al paginas de documentation pro functiones de R, insimules "
+"de datos, e altere objectos.</p><h4 style=\"color: #2277dd; margin: 12px 0 "
+"6px 0;\"><b>Exemplos</b></h4><pre style=\"background-color: #d0d0d0; color: "
+"#000000; padding: 8px; border-radius: 4px;\">help(lm)      # adjuta pro le "
+"function de modello linear\n"
+"?lm           # identic al precedentes\n"
+"?\"?\"          # adjuta pro le operator ?\n"
+"example(lm)   # executar exemplos pro lm</pre><h4 style=\"color: #2277dd; "
+"margin: 12px 0 6px 0;\"><b>Adjuta de pacchetto</b></h4><p style=\"margin: "
+"4px 0;\">Pro acceder al adjuta pro un function in un pacchetto que non es "
+"cargate actualmente, specifica le nomine del pacchetto:</p><pre style="
+"\"background-color: #d0d0d0; color: #000000; padding: 8px; border-radius: "
+"4px;\">help(rlm, package=\"MASS\")\n"
+"help(package=\"MASS\")       # indice del pacchetto</pre></div>"
 
 #: backends/R/rbackend.cpp:120
 #, kde-format
@@ -2365,6 +2382,8 @@ msgid ""
 "help.start() is not supported in embedded R mode. Use help(topic) or ?topic "
 "instead."
 msgstr ""
+"help.start() non es supportate in modo R incorporate. Usa help(topic) o ?"
+"topic in su loco."
 
 #: backends/R/rexpression.cpp:203 backends/R/rexpression.cpp:204
 #, kde-format
@@ -2390,7 +2409,7 @@ msgstr "Url al documentation local de R"
 #: backends/R/rsession.cpp:87
 #, kde-format
 msgid "Failed to find cantor_rserver executable."
-msgstr ""
+msgstr "Falleva a  trovar cantor_rserver  executabile."
 
 #: backends/R/rsession.cpp:99
 #, kde-format
@@ -2400,18 +2419,17 @@ msgstr "Falleva a startar R, pro favor verifica le installation de R."
 #: backends/R/rsession.cpp:110
 #, kde-format
 msgid "R server did not respond."
-msgstr ""
+msgstr "Servitor de R non responde."
 
 #: backends/R/rsession.cpp:130
-#, fuzzy, kde-format
-#| msgid "Failed to start Cantor python server."
+#, kde-format
 msgid "Failed to connect to R server: %1"
-msgstr "Fallev a startar servitor de Python de Cantor."
+msgstr "Falleva a connecter al servitor de R: %1"
 
 #: backends/R/rsession.cpp:396
 #, kde-format
 msgid "Lost connection to R server"
-msgstr ""
+msgstr "Connexion perdite a servitor de R"
 
 #: backends/R/rsettingswidget.cpp:30
 #, kde-format
