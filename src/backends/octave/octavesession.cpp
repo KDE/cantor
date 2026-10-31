@@ -1,6 +1,6 @@
 /*
     SPDX-FileCopyrightText: 2010 Miha Čančula <miha.cancula@gmail.com>
-    SPDX-FileCopyrightText: 2017-2023 by Alexander Semke (alexander.semke@web.de)
+    SPDX-FileCopyrightText: 2017-2026 by Alexander Semke (alexander.semke@web.de)
 
     SPDX-License-Identifier: GPL-2.0-or-later
 */
@@ -255,7 +255,11 @@ void OctaveSession::runFirstExpression()
 
     const auto& command = expression->internalCommand();
     if (isDoNothingCommand(command))
+    {
+        // Set to Computing first so setStatus(Done) triggers the signal
+        expression->setStatus(Cantor::Expression::Computing);
         expression->setStatus(Cantor::Expression::Done);
+    }
     else
     {
         expression->setStatus(Cantor::Expression::Computing);
@@ -295,7 +299,8 @@ void OctaveSession::readOutput()
             const int promptNumber = match.captured(1).toInt();
             // Add all text before prompt, if exists
             m_output += line.left(match.capturedStart(0));
-            if (!expressionQueue().isEmpty())
+            if (!expressionQueue().isEmpty()
+                && expressionQueue().first()->status() == Cantor::Expression::Computing)
             {
                 const QString& command = expressionQueue().first()->command();
                 if (m_previousPromptNumber + 1 == promptNumber || isSpecialOctaveCommand(command))

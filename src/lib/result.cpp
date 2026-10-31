@@ -1,12 +1,16 @@
 /*
     SPDX-License-Identifier: GPL-2.0-or-later
     SPDX-FileCopyrightText: 2009 Alexander Rieder <alexanderrieder@gmail.com>
+    SPDX-FileCopyrightText: 2024-2026 by Alexander Semke (alexander.semke@web.de)
 */
 
 #include "result.h"
+#include "imageresult.h"
+#include "pdfresult.h"
 #include "jupyterutils.h"
 using namespace Cantor;
 
+#include <QFile>
 #include <QUrl>
 #include <QJsonObject>
 #include <QRegularExpression>
@@ -143,4 +147,24 @@ void Cantor::Result::loadXmlResultMetadata(const QDomElement& element)
         d->resultId = storedResultId;
 
     d->displayName = element.attribute(QLatin1String("result-title")).trimmed();
+}
+
+Result* Cantor::createPlotResult(const QString& filePath, const QSize& displaySize)
+{
+    QUrl url = QUrl::fromLocalFile(filePath);
+
+    if (filePath.endsWith(QLatin1String(".pdf"), Qt::CaseInsensitive)) {
+        QFile file(filePath);
+        if (!file.open(QIODevice::ReadOnly))
+            return nullptr;
+        auto* result = new PdfResult(url, file.readAll());
+        if (displaySize.isValid())
+            result->setDisplaySize(displaySize);
+        return result;
+    }
+
+    auto* result = new ImageResult(url);
+    if (displaySize.isValid())
+        result->setDisplaySize(displaySize);
+    return result;
 }

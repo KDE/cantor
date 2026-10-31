@@ -1,6 +1,7 @@
 /*
     SPDX-License-Identifier: GPL-2.0-or-later
     SPDX-FileCopyrightText: 2009 Alexander Rieder <alexanderrieder@gmail.com>
+    SPDX-FileCopyrightText: 2024-2026 by Alexander Semke (alexander.semke@web.de)
 */
 
 #ifndef _RESULT_H
@@ -10,6 +11,7 @@
 #include <QDomElement>
 #include <QJsonArray>
 #include <QString>
+#include <QSize>
 #include "cantor_export.h"
 
 class KZip;
@@ -125,6 +127,16 @@ class CANTOR_EXPORT Result
   private:
     ResultPrivate* d;
 };
+
+/**
+ * Factory function to create the appropriate result type for a plot file.
+ * Returns PdfResult for .pdf files (supports re-rendering at different resolutions),
+ * ImageResult for other image formats.
+ * @param filePath path to the plot file
+ * @param displaySize optional display size hint
+ * @return the created result (caller takes ownership)
+ */
+CANTOR_EXPORT Result* createPlotResult(const QString& filePath, const QSize& displaySize = QSize());
 
 }
 

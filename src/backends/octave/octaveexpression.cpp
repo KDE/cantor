@@ -1,6 +1,6 @@
 /*
     SPDX-FileCopyrightText: 2010 Miha Čančula <miha.cancula@gmail.com>
-    SPDX-FileCopyrightText: 2018-2022 by Alexander Semke (alexander.semke@web.de)
+    SPDX-FileCopyrightText: 2018-2026 by Alexander Semke (alexander.semke@web.de)
 
     SPDX-License-Identifier: GPL-2.0-or-later
 */
@@ -10,7 +10,7 @@
 #include "defaultvariablemodel.h"
 #include <helpresult.h>
 #include "imageresult.h"
-#include "pdfresult.h"
+#include "result.h"
 #include "settings.h"
 #include "textresult.h"
 
@@ -186,7 +186,7 @@ QString OctaveExpression::internalCommand()
     }
 
     // Remove "\n" in the beginning of the command, if present
-    while(tmpCmd[0] == QLatin1Char('\n'))
+    while(!tmpCmd.isEmpty() && tmpCmd[0] == QLatin1Char('\n'))
         tmpCmd.remove(0, 1);
 
     cmd = std::move(tmpCmd);
@@ -238,8 +238,7 @@ void OctaveExpression::addInformation(const QString& information)
 
 void OctaveExpression::imageChanged()
 {
-    QFile file(m_plotFilename);
-    if(!file.open(QIODevice::ReadOnly)/* || file.size() <= 0*/)
+    if (!QFile::exists(m_plotFilename))
     {
         m_plotPending = false;
         setResult(new Cantor::TextResult(i18n("Invalid image file generated.")));
@@ -247,9 +246,12 @@ void OctaveExpression::imageChanged()
         return;
     }
 
-    const QUrl& url = QUrl::fromLocalFile(m_plotFilename);
-    QByteArray pdfData = file.readAll();
-    auto* newResult = new Cantor::PdfResult(url, pdfData);
+    // Set display size based on configured plot dimensions (cm to pixels)
+    const int dpi = QGuiApplication::primaryScreen()->physicalDotsPerInchX();
+    int w = OctaveSettings::plotWidth() / 2.54 * dpi;
+    int h = OctaveSettings::plotHeight() / 2.54 * dpi;
+
+    auto* newResult = Cantor::createPlotResult(m_plotFilename, QSize(w, h));
 
     bool found = false;
     for (int i = 0; i < results().size(); i++)
