@@ -8,7 +8,7 @@
 
 #include "sagesession.h"
 #include "textresult.h"
-#include "imageresult.h"
+#include "result.h"
 #include "animationresult.h"
 #include "helpresult.h"
 
@@ -225,7 +225,7 @@ void SageExpression::evalFinished()
         else
         {
             qDebug()<<"adding image";
-            addResult( new Cantor::ImageResult(QUrl::fromLocalFile(m_imagePath ), i18n("Result of %1" , command() ) ) );
+            addResult( Cantor::createPlotResult(m_imagePath) );
         }
     }
     setStatus(Cantor::Expression::Done);

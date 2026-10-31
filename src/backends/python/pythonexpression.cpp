@@ -8,7 +8,7 @@
 #include <config-cantorlib.h>
 
 #include "textresult.h"
-#include "imageresult.h"
+#include "result.h"
 #include "helpresult.h"
 #include "session.h"
 #include "settings.h"
@@ -142,7 +142,10 @@ void PythonExpression::imageChanged()
     if(m_tempFile->size() <= 0)
         return;
 
-    auto* newResult = new Cantor::ImageResult(QUrl::fromLocalFile(m_tempFile->fileName()));
+    auto* newResult = Cantor::createPlotResult(m_tempFile->fileName());
+    if (!newResult)
+        return;
+
     if (result() == nullptr)
         setResult(newResult);
     else

@@ -8,6 +8,7 @@
 
 #include "helpresult.h"
 #include "imageresult.h"
+#include "result.h"
 #include "rsession.h"
 #include "textresult.h"
 
@@ -171,19 +172,13 @@ void RExpression::showFilesAsResult(const QStringList& files)
     {
         QMimeDatabase db;
         auto type = db.mimeTypeForUrl(QUrl(file));
-        if(type.name() == QLatin1String("application/pdf"))
+        if(type.name() == QLatin1String("application/pdf")
+            || type.name().contains(QLatin1String("image")))
         {
-            auto* result = new Cantor::ImageResult(QUrl::fromLocalFile(file));
-            if (result->data().value<QImage>().isNull()) {
-                delete result;
+            auto* result = Cantor::createPlotResult(file);
+            if (!result)
                 continue;
-            }
-            addResult(result);
-        }
-        else if (type.name().contains(QLatin1String("image")))
-        {
-            auto* result = new Cantor::ImageResult(QUrl::fromLocalFile(file));
-            if (result->data().value<QImage>().isNull()) {
+            if (result->type() == Cantor::ImageResult::Type && result->data().value<QImage>().isNull()) {
                 delete result;
                 continue;
             }

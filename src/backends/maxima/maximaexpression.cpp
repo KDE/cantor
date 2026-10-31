@@ -11,6 +11,7 @@
 #include "maximasession.h"
 #include "textresult.h"
 #include "imageresult.h"
+#include "result.h"
 #include "helpresult.h"
 #include "settings.h"
 
@@ -620,8 +621,8 @@ void MaximaExpression::loadPlotResult()
         return;
     }
 
-    auto* plotResult = new Cantor::ImageResult(QUrl::fromLocalFile(m_tempFile->fileName()));
-    if (plotResult->data().value<QImage>().isNull() && m_plotResultLoadAttempts < 10)
+    auto* plotResult = Cantor::createPlotResult(m_tempFile->fileName());
+    if (!plotResult || (plotResult->type() == Cantor::ImageResult::Type && plotResult->data().value<QImage>().isNull() && m_plotResultLoadAttempts < 10))
     {
         delete plotResult;
         ++m_plotResultLoadAttempts;

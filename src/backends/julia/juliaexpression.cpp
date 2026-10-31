@@ -6,7 +6,7 @@
 #include "settings.h"
 #include "juliasession.h"
 #include "textresult.h"
-#include "imageresult.h"
+#include "result.h"
 
 #include <QFileInfo>
 
@@ -69,7 +69,7 @@ void JuliaExpression::finalize(const QString& output, const QString& error, bool
     } else {
         if (!m_plot_filename.isEmpty() && QFileInfo(m_plot_filename).exists()) {
             // If we have plot in result, show it
-            setResult(new Cantor::ImageResult(QUrl::fromLocalFile(m_plot_filename)));
+            setResult(Cantor::createPlotResult(m_plot_filename));
         } else {
             if (!output.isEmpty())
                 setResult(new Cantor::TextResult(output));
