@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kdeedu-kde4\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-10-31 00:46+0000\n"
+"POT-Creation-Date: 2026-11-01 00:50+0000\n"
 "PO-Revision-Date: 2026-10-16 20:02+0300\n"
 "Last-Translator: Emir SARI <emir_sari@icloud.com>\n"
 "Language-Team: Turkish <kde-l10n-tr@kde.org>\n"
@@ -449,7 +449,7 @@ msgid "Failed to start Julia, please check Julia installation."
 msgstr "Julia başlatılamadı, lütfen Julia kurulumunu denetleyin."
 
 #: backends/julia/juliasession.cpp:115 backends/julia/juliasession.cpp:124
-#: backends/maxima/maximasession.cpp:322 cantor_part.cpp:1016
+#: backends/maxima/maximasession.cpp:322 cantor_part.cpp:1011
 #: lib/session.cpp:264 lib/session.cpp:266 worksheet.cpp:1564
 #: worksheet.cpp:1592 worksheet.cpp:1607 worksheet.cpp:1623
 #, kde-format
@@ -883,29 +883,29 @@ msgstr ""
 msgid "Path to the Maxima executable"
 msgstr "Maxima yürütülebilirinin yolu"
 
-#: backends/maxima/maximaexpression.cpp:92
+#: backends/maxima/maximaexpression.cpp:89
 #: backends/python/pythonexpression.cpp:61
 #: backends/qalculate/qalculateexpression.cpp:629
 #, kde-format
 msgid "Failed to create a temporary file for writing."
 msgstr "Yazma için geçici dosya oluşturulamadı."
 
-#: backends/maxima/maximaexpression.cpp:120
+#: backends/maxima/maximaexpression.cpp:117
 #, kde-format
 msgid "Error: Too many */"
 msgstr "Hata: Çok fazla */"
 
-#: backends/maxima/maximaexpression.cpp:133
+#: backends/maxima/maximaexpression.cpp:130
 #, kde-format
 msgid "Error: Too many /*"
 msgstr "Hata: Çok fazla /*"
 
-#: backends/maxima/maximaexpression.cpp:139
+#: backends/maxima/maximaexpression.cpp:136
 #, kde-format
 msgid "Error: expected \" before ;"
 msgstr "Hata: ; öncesinde \" bekleniyordu"
 
-#: backends/maxima/maximaexpression.cpp:471
+#: backends/maxima/maximaexpression.cpp:468
 #, kde-format
 msgid "Waiting for the plot result"
 msgstr "Çizim sonucu bekleniyor"
@@ -974,7 +974,7 @@ msgstr ""
 "olarak çözmek ve diğer sayısal deneyleri yapmak için çoğunlukla Matlab ile "
 "uyumlu güçlü bir komut satırı arayüzü sunar."
 
-#: backends/octave/octaveexpression.cpp:245
+#: backends/octave/octaveexpression.cpp:240
 #, kde-format
 msgid "Invalid image file generated."
 msgstr "Geçersiz görsel dosyası oluşturuldu."
@@ -989,22 +989,22 @@ msgstr "Octave betiği dosyası (*.m)"
 msgid "Failed to start Octave, please check Octave installation."
 msgstr "Octave başlatılamadı, lütfen Octave kurulumunu denetleyin."
 
-#: backends/octave/octavesession.cpp:276 backends/sage/sageexpression.cpp:49
+#: backends/octave/octavesession.cpp:280 backends/sage/sageexpression.cpp:50
 #, kde-format
 msgid "Syntax Error"
 msgstr "Sözdizim Hatası"
 
-#: backends/octave/octavesession.cpp:397
+#: backends/octave/octavesession.cpp:402
 #, kde-format
 msgid "Plot integration test failed."
 msgstr "Çizim tümleştirmesi sınaması başarısız."
 
-#: backends/octave/octavesession.cpp:401
+#: backends/octave/octavesession.cpp:406
 #, kde-format
 msgid "The integration of plots will be disabled."
 msgstr "Çizimlerin tümleştirilmesi devre dışı bırakılacak."
 
-#: backends/octave/octavesession.cpp:402 backends/sage/sagesession.cpp:358
+#: backends/octave/octavesession.cpp:407 backends/sage/sagesession.cpp:358
 #: backends/sage/sagesession.cpp:369 cantor.cpp:247 cantor.cpp:249
 #: cantor.cpp:464 cantor.cpp:471 lib/session.cpp:334 main.cpp:64 main.cpp:121
 #: markdownentry.cpp:1168 textentry.cpp:861 worksheet.cpp:1646
@@ -2343,14 +2343,14 @@ msgstr ""
 "üzerine yapılan araştırmalarda kullanılan bir araçtır, R dili ise buna açık "
 "kaynaklı bir çözüm getirmektedir."
 
-#: backends/R/rexpression.cpp:102
+#: backends/R/rexpression.cpp:104
 #, kde-format
 msgid ""
 "help.start() is not supported in embedded R mode. Use help(topic) or ?topic "
 "instead."
 msgstr ""
 
-#: backends/R/rexpression.cpp:203 backends/R/rexpression.cpp:204
+#: backends/R/rexpression.cpp:199 backends/R/rexpression.cpp:200
 #, kde-format
 msgid "Error opening file %1"
 msgstr "%1 dosyası açılırken hata"
@@ -2438,12 +2438,12 @@ msgstr "Sage yürütülebilirinin yolu"
 msgid "Enable LaTeX typesetting for Sage backend"
 msgstr "Sage arka ucu için LaTeX dizgisini etkinleştir"
 
-#: backends/sage/sageexpression.cpp:223 backends/sage/sageexpression.cpp:228
+#: backends/sage/sageexpression.cpp:224
 #, kde-format
 msgid "Result of %1"
 msgstr "%1 sonucu"
 
-#: backends/sage/sageexpression.cpp:236
+#: backends/sage/sageexpression.cpp:237
 #, kde-format
 msgid ""
 "%1\n"
@@ -2662,12 +2662,12 @@ msgstr "Oturum %1"
 msgid "Failed to find the Cantor Part with error %1"
 msgstr "Cantor parçacığı bulunamadı, hata %1"
 
-#: cantor.cpp:578 cantor_part.cpp:686
+#: cantor.cpp:578 cantor_part.cpp:684
 #, kde-format
 msgid "Calculating..."
 msgstr "Hesaplanıyor…"
 
-#: cantor.cpp:581 cantor_part.cpp:697 cantor_part.cpp:765
+#: cantor.cpp:581 cantor_part.cpp:695 cantor_part.cpp:763
 #, kde-format
 msgid "Ready"
 msgstr "Hazır"
@@ -2967,33 +2967,33 @@ msgstr "Alt paragraf için yatık hiyerarşi yazıtipi"
 msgid "Hierarchy font bold for subparagraph"
 msgstr "Alt paragraf için kalın hiyerarşi yazıtipi"
 
-#: cantor_part.cpp:172
+#: cantor_part.cpp:170
 #, kde-format
 msgid "Save Plain Text"
 msgstr "Düz Metin Kaydet"
 
-#: cantor_part.cpp:213 cantor_part.cpp:585
+#: cantor_part.cpp:211 cantor_part.cpp:583
 #, kde-format
 msgid "Export to PDF"
 msgstr "PDF Olarak Dışa Aktar"
 
-#: cantor_part.cpp:217 cantor_part.cpp:597 worksheet.cpp:1667
+#: cantor_part.cpp:215 cantor_part.cpp:595 worksheet.cpp:1667
 #: worksheet.cpp:1673 worksheet.cpp:1684
 #, kde-format
 msgid "Export to LaTeX"
 msgstr "LaTex Olarak Dışa Aktar"
 
-#: cantor_part.cpp:232 cantor_part.cpp:693 worksheet.cpp:2488
+#: cantor_part.cpp:230 cantor_part.cpp:691 worksheet.cpp:2488
 #, kde-format
 msgid "Evaluate Worksheet"
 msgstr "Çalışma Sayfasını Değerlendir"
 
-#: cantor_part.cpp:238 worksheet.cpp:2496
+#: cantor_part.cpp:236 worksheet.cpp:2496
 #, kde-format
 msgid "Zoom"
 msgstr "Yakınlaştır"
 
-#: cantor_part.cpp:245
+#: cantor_part.cpp:243
 #, kde-format
 msgctxt ""
 "Zoom percentage value %1 will be replaced by the actual zoom factor value, "
@@ -3002,104 +3002,104 @@ msgctxt ""
 msgid "%1%"
 msgstr "%%1"
 
-#: cantor_part.cpp:260
+#: cantor_part.cpp:258
 #, kde-format
 msgid "Typeset using LaTeX"
 msgstr "LaTeX Kullanan Dizgi"
 
-#: cantor_part.cpp:265
+#: cantor_part.cpp:263
 #, kde-format
 msgid "Syntax Highlighting"
 msgstr "Sözdizim Vurgulama"
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_CompletionDefault)
-#: cantor_part.cpp:270 settings.ui:46
+#: cantor_part.cpp:268 settings.ui:46
 #, kde-format
 msgid "Completion"
 msgstr "Tamamlama"
 
-#: cantor_part.cpp:275
+#: cantor_part.cpp:273
 #, kde-format
 msgid "Line Numbers"
 msgstr "Satır Numaraları"
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_AnimationDefault)
-#: cantor_part.cpp:280 settings.ui:158
+#: cantor_part.cpp:278 settings.ui:158
 #, kde-format
 msgid "Animations"
 msgstr "Canlandırmalar"
 
-#: cantor_part.cpp:287
+#: cantor_part.cpp:285
 #, kde-format
 msgid "Embedded Math"
 msgstr "Gömülü Matematik"
 
-#: cantor_part.cpp:293
+#: cantor_part.cpp:291
 #, kde-format
 msgid "Restart Backend"
 msgstr "Arka Ucu Yeniden Başlat"
 
-#: cantor_part.cpp:299 worksheetentry.cpp:1028
+#: cantor_part.cpp:297 worksheetentry.cpp:1028
 #, kde-format
 msgid "Evaluate Entry"
 msgstr "Girdiyi Değerlendir"
 
-#: cantor_part.cpp:305
+#: cantor_part.cpp:303
 #, kde-format
 msgid "Insert Command Entry"
 msgstr "Komut Girdisi Ekle"
 
-#: cantor_part.cpp:311
+#: cantor_part.cpp:309
 #, kde-format
 msgid "Insert Text Entry"
 msgstr "Metin Girdisi Ekle"
 
-#: cantor_part.cpp:317
+#: cantor_part.cpp:315
 #, kde-format
 msgid "Insert Markdown Entry"
 msgstr "Markdown Girdisi Ekle"
 
-#: cantor_part.cpp:323
+#: cantor_part.cpp:321
 #, kde-format
 msgid "Insert LaTeX Entry"
 msgstr "LaTeX Girdisi Ekle"
 
-#: cantor_part.cpp:328
+#: cantor_part.cpp:326
 #, kde-format
 msgid "Insert Page Break"
 msgstr "Sayfa Sonu Ekle"
 
-#: cantor_part.cpp:333 markdownentry.cpp:126
+#: cantor_part.cpp:331 markdownentry.cpp:126
 #, kde-format
 msgid "Insert Image"
 msgstr "Görsel Ekle"
 
-#: cantor_part.cpp:338
+#: cantor_part.cpp:336
 #, kde-format
 msgid "Collapse All Results"
 msgstr "Tüm Sonuçları Daralt"
 
-#: cantor_part.cpp:343
+#: cantor_part.cpp:341
 #, kde-format
 msgid "Expand All Results"
 msgstr "Tüm Sonuçları Genişlet"
 
-#: cantor_part.cpp:348
+#: cantor_part.cpp:346
 #, kde-format
 msgid "Delete All Results"
 msgstr "Tüm Sonuçları Sil"
 
-#: cantor_part.cpp:353
+#: cantor_part.cpp:351
 #, kde-format
 msgid "Delete current Entry"
 msgstr "Geçerli Girdiyi Sil"
 
-#: cantor_part.cpp:359 worksheet.cpp:2215 worksheet.cpp:2216 worksheet.cpp:2515
+#: cantor_part.cpp:357 worksheet.cpp:2215 worksheet.cpp:2216 worksheet.cpp:2515
 #, kde-format
 msgid "Merge Cells"
 msgstr "Hücreleri Birleştir"
 
-#: cantor_part.cpp:365 worksheet.cpp:2386
+#: cantor_part.cpp:363 worksheet.cpp:2386
 #, kde-format
 msgid "Split Cell"
 msgstr "Hücreyi Böl"
@@ -3109,67 +3109,67 @@ msgstr "Hücreyi Böl"
 #. collection->addAction(QLatin1String("file_publish_worksheet"), publishWorksheet);
 #. connect(publishWorksheet, &QAction::triggered, this, SLOT(publishWorksheet()));
 #.
-#: cantor_part.cpp:386
+#: cantor_part.cpp:384
 #, kde-format
 msgid "Show Script Editor"
 msgstr "Betik Düzenleyicisini Göster"
 
-#: cantor_part.cpp:391
+#: cantor_part.cpp:389
 #, kde-format
 msgid "Show Completion"
 msgstr "Tamamlamayı Göster"
 
-#: cantor_part.cpp:457
+#: cantor_part.cpp:455
 #, kde-format
 msgid "CantorPart"
 msgstr "CantorPart"
 
-#: cantor_part.cpp:459
+#: cantor_part.cpp:457
 #, kde-format
 msgid "(C) 2009-2015 Alexander Rieder"
 msgstr "© 2009–2015 Alexander Rieder"
 
-#: cantor_part.cpp:463 main.cpp:79
+#: cantor_part.cpp:461 main.cpp:79
 #, kde-format
 msgid "Alexander Rieder"
 msgstr "Alexander Rieder"
 
-#: cantor_part.cpp:515
+#: cantor_part.cpp:513
 #, kde-format
 msgid "Cantor Worksheet (*.cws)"
 msgstr "Cantor Çalışma Sayfası (*.cws)"
 
-#: cantor_part.cpp:516
+#: cantor_part.cpp:514
 #, kde-format
 msgid "Jupyter Notebook (*.ipynb)"
 msgstr "Jupyter Defteri (*.ipynb)"
 
-#: cantor_part.cpp:532
+#: cantor_part.cpp:530
 #, kde-format
 msgid "Save as"
 msgstr "Farklı Kaydet"
 
-#: cantor_part.cpp:578 panelplugins/variablemgr/variablemanagerwidget.cpp:189
+#: cantor_part.cpp:576 panelplugins/variablemgr/variablemanagerwidget.cpp:189
 #, kde-format
 msgid "Save"
 msgstr "Kaydet"
 
-#: cantor_part.cpp:578 textresultitem.cpp:208
+#: cantor_part.cpp:576 textresultitem.cpp:208
 #, kde-format
 msgid "Text Files (*.txt)"
 msgstr "Metin dosyaları (*.txt)"
 
-#: cantor_part.cpp:585
+#: cantor_part.cpp:583
 #, kde-format
 msgid "PDF Files (*.pdf)"
 msgstr "PDF dosyaları (*.pdf)"
 
-#: cantor_part.cpp:597
+#: cantor_part.cpp:595
 #, kde-format
 msgid "TeX Files (*.tex)"
 msgstr "TeX dosyaları (*.tex)"
 
-#: cantor_part.cpp:642
+#: cantor_part.cpp:640
 #, kde-format
 msgid ""
 "All the available calculation results will be lost. Do you really want to "
@@ -3178,65 +3178,65 @@ msgstr ""
 "Tüm kullanılabilir hesaplama sonuçları kaybolacak. %1 programını gerçekten "
 "yeniden başlatmak istiyor musunuz?"
 
-#: cantor_part.cpp:643
+#: cantor_part.cpp:641
 #, kde-format
 msgid "Restart %1?"
 msgstr "%1 Yeniden Başlatılsın mı?"
 
-#: cantor_part.cpp:683 worksheet.cpp:2491
+#: cantor_part.cpp:681 worksheet.cpp:2491
 #, kde-format
 msgid "Interrupt"
 msgstr "Yarıda Kes"
 
-#: cantor_part.cpp:709
+#: cantor_part.cpp:707
 #, kde-format
 msgid "Session Error: %1"
 msgstr "Oturum hatası: %1"
 
-#: cantor_part.cpp:755
+#: cantor_part.cpp:753
 #, kde-format
 msgid "Initialization complete"
 msgstr "İlklendirme tamamlandı"
 
-#: cantor_part.cpp:760
+#: cantor_part.cpp:758
 #, kde-format
 msgid "Initializing..."
 msgstr "İlklendiriliyor…"
 
-#: cantor_part.cpp:818
+#: cantor_part.cpp:813
 #, kde-format
 msgid "[read-only]"
 msgstr "[saltokunur]"
 
-#: cantor_part.cpp:933
+#: cantor_part.cpp:928
 #, kde-format
 msgid "Do you want to upload current Worksheet to public web server?"
 msgstr ""
 "Geçerli çalışma sayfasını genel bir web sunucusuna karşıya yüklemek istiyor "
 "musunuz?"
 
-#: cantor_part.cpp:934
+#: cantor_part.cpp:929
 #, kde-format
 msgid "Question - Cantor"
 msgstr "Soru — Cantor"
 
-#: cantor_part.cpp:935
+#: cantor_part.cpp:930
 #, kde-format
 msgctxt "@action:button"
 msgid "Upload"
 msgstr "Karşıya Yükle"
 
-#: cantor_part.cpp:943
+#: cantor_part.cpp:938
 #, kde-format
 msgid "The Worksheet is not saved. You should save it before uploading."
 msgstr "Çalışma sayfası kaydedilmedi. Karşıya yüklemeden önce kaydetmelisiniz."
 
-#: cantor_part.cpp:944
+#: cantor_part.cpp:939
 #, kde-format
 msgid "Warning - Cantor"
 msgstr "Uyarı — Cantor"
 
-#: cantor_part.cpp:1016
+#: cantor_part.cpp:1011
 #, kde-format
 msgid "This backend does not support scripts."
 msgstr "Bu arka uç betikleri desteklemiyor."

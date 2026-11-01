@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: cantor\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-10-31 00:46+0000\n"
+"POT-Creation-Date: 2026-11-01 00:50+0000\n"
 "PO-Revision-Date: 2026-08-17 15:18+0530\n"
 "Last-Translator: Kishore G <kishore96@gmail.com>\n"
 "Language-Team: Tamil <kde-l10n-ta@kde.org>\n"
@@ -438,7 +438,7 @@ msgid "Failed to start Julia, please check Julia installation."
 msgstr ""
 
 #: backends/julia/juliasession.cpp:115 backends/julia/juliasession.cpp:124
-#: backends/maxima/maximasession.cpp:322 cantor_part.cpp:1016
+#: backends/maxima/maximasession.cpp:322 cantor_part.cpp:1011
 #: lib/session.cpp:264 lib/session.cpp:266 worksheet.cpp:1564
 #: worksheet.cpp:1592 worksheet.cpp:1607 worksheet.cpp:1623
 #, kde-format
@@ -820,29 +820,29 @@ msgstr ""
 msgid "Path to the Maxima executable"
 msgstr ""
 
-#: backends/maxima/maximaexpression.cpp:92
+#: backends/maxima/maximaexpression.cpp:89
 #: backends/python/pythonexpression.cpp:61
 #: backends/qalculate/qalculateexpression.cpp:629
 #, kde-format
 msgid "Failed to create a temporary file for writing."
 msgstr ""
 
-#: backends/maxima/maximaexpression.cpp:120
+#: backends/maxima/maximaexpression.cpp:117
 #, kde-format
 msgid "Error: Too many */"
 msgstr "சிக்கல்: அதிகப்படியான */"
 
-#: backends/maxima/maximaexpression.cpp:133
+#: backends/maxima/maximaexpression.cpp:130
 #, kde-format
 msgid "Error: Too many /*"
 msgstr "சிக்கல்: அதிகப்படியான /*"
 
-#: backends/maxima/maximaexpression.cpp:139
+#: backends/maxima/maximaexpression.cpp:136
 #, kde-format
 msgid "Error: expected \" before ;"
 msgstr ""
 
-#: backends/maxima/maximaexpression.cpp:471
+#: backends/maxima/maximaexpression.cpp:468
 #, kde-format
 msgid "Waiting for the plot result"
 msgstr "வரைபடத்திற்கு காத்திருக்கிறது"
@@ -905,7 +905,7 @@ msgid ""
 "numerical experiments using a language that is mostly compatible with Matlab."
 msgstr ""
 
-#: backends/octave/octaveexpression.cpp:245
+#: backends/octave/octaveexpression.cpp:240
 #, kde-format
 msgid "Invalid image file generated."
 msgstr "செல்லுபடியாகாத படக்கோப்பு உருவாக்கப்பட்டது."
@@ -920,22 +920,22 @@ msgstr "Octave சிறுநிரல் கோப்பு (*.m)"
 msgid "Failed to start Octave, please check Octave installation."
 msgstr ""
 
-#: backends/octave/octavesession.cpp:276 backends/sage/sageexpression.cpp:49
+#: backends/octave/octavesession.cpp:280 backends/sage/sageexpression.cpp:50
 #, kde-format
 msgid "Syntax Error"
 msgstr "இலக்கணப் பிழை"
 
-#: backends/octave/octavesession.cpp:397
+#: backends/octave/octavesession.cpp:402
 #, kde-format
 msgid "Plot integration test failed."
 msgstr "வரைபட சோதனை தோல்வியடைந்தது."
 
-#: backends/octave/octavesession.cpp:401
+#: backends/octave/octavesession.cpp:406
 #, kde-format
 msgid "The integration of plots will be disabled."
 msgstr "வரைபட ஒருங்கிணைப்பு முடக்கப்படும்."
 
-#: backends/octave/octavesession.cpp:402 backends/sage/sagesession.cpp:358
+#: backends/octave/octavesession.cpp:407 backends/sage/sagesession.cpp:358
 #: backends/sage/sagesession.cpp:369 cantor.cpp:247 cantor.cpp:249
 #: cantor.cpp:464 cantor.cpp:471 lib/session.cpp:334 main.cpp:64 main.cpp:121
 #: markdownentry.cpp:1168 textentry.cpp:861 worksheet.cpp:1646
@@ -2223,14 +2223,14 @@ msgid ""
 "provides an Open Source route to participation in that activity."
 msgstr ""
 
-#: backends/R/rexpression.cpp:102
+#: backends/R/rexpression.cpp:104
 #, kde-format
 msgid ""
 "help.start() is not supported in embedded R mode. Use help(topic) or ?topic "
 "instead."
 msgstr ""
 
-#: backends/R/rexpression.cpp:203 backends/R/rexpression.cpp:204
+#: backends/R/rexpression.cpp:199 backends/R/rexpression.cpp:200
 #, kde-format
 msgid "Error opening file %1"
 msgstr "%1 கோப்பைத் திறப்பதில் சிக்கல்"
@@ -2315,12 +2315,12 @@ msgstr ""
 msgid "Enable LaTeX typesetting for Sage backend"
 msgstr ""
 
-#: backends/sage/sageexpression.cpp:223 backends/sage/sageexpression.cpp:228
+#: backends/sage/sageexpression.cpp:224
 #, kde-format
 msgid "Result of %1"
 msgstr ""
 
-#: backends/sage/sageexpression.cpp:236
+#: backends/sage/sageexpression.cpp:237
 #, kde-format
 msgid ""
 "%1\n"
@@ -2523,12 +2523,12 @@ msgstr "அமர்வு %1"
 msgid "Failed to find the Cantor Part with error %1"
 msgstr "%1 சிக்கலால் கேண்ட்டொர்"
 
-#: cantor.cpp:578 cantor_part.cpp:686
+#: cantor.cpp:578 cantor_part.cpp:684
 #, kde-format
 msgid "Calculating..."
 msgstr "கணிக்கிறது..."
 
-#: cantor.cpp:581 cantor_part.cpp:697 cantor_part.cpp:765
+#: cantor.cpp:581 cantor_part.cpp:695 cantor_part.cpp:763
 #, kde-format
 msgid "Ready"
 msgstr "தயார்"
@@ -2824,33 +2824,33 @@ msgstr ""
 msgid "Hierarchy font bold for subparagraph"
 msgstr ""
 
-#: cantor_part.cpp:172
+#: cantor_part.cpp:170
 #, kde-format
 msgid "Save Plain Text"
 msgstr "வெறும் உரையாக செமி"
 
-#: cantor_part.cpp:213 cantor_part.cpp:585
+#: cantor_part.cpp:211 cantor_part.cpp:583
 #, kde-format
 msgid "Export to PDF"
 msgstr "PDF-ஆக ஏற்றுமதி செய்"
 
-#: cantor_part.cpp:217 cantor_part.cpp:597 worksheet.cpp:1667
+#: cantor_part.cpp:215 cantor_part.cpp:595 worksheet.cpp:1667
 #: worksheet.cpp:1673 worksheet.cpp:1684
 #, kde-format
 msgid "Export to LaTeX"
 msgstr "LaTeX-ஆக ஏற்றுமதி செய்"
 
-#: cantor_part.cpp:232 cantor_part.cpp:693 worksheet.cpp:2488
+#: cantor_part.cpp:230 cantor_part.cpp:691 worksheet.cpp:2488
 #, kde-format
 msgid "Evaluate Worksheet"
 msgstr "பணித்தாளை செயல்படுத்து"
 
-#: cantor_part.cpp:238 worksheet.cpp:2496
+#: cantor_part.cpp:236 worksheet.cpp:2496
 #, kde-format
 msgid "Zoom"
 msgstr "உருப்பெருக்கம்"
 
-#: cantor_part.cpp:245
+#: cantor_part.cpp:243
 #, kde-format
 msgctxt ""
 "Zoom percentage value %1 will be replaced by the actual zoom factor value, "
@@ -2859,106 +2859,106 @@ msgctxt ""
 msgid "%1%"
 msgstr "%1%"
 
-#: cantor_part.cpp:260
+#: cantor_part.cpp:258
 #, kde-format
 msgid "Typeset using LaTeX"
 msgstr "LaTeX கொண்டு அச்சுக்கோர்"
 
-#: cantor_part.cpp:265
+#: cantor_part.cpp:263
 #, kde-format
 msgid "Syntax Highlighting"
 msgstr "நிரலிலக்கணத்தை முன்னிலைப்படுத்து"
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_CompletionDefault)
-#: cantor_part.cpp:270 settings.ui:46
+#: cantor_part.cpp:268 settings.ui:46
 #, kde-format
 msgid "Completion"
 msgstr "நிறைவு"
 
-#: cantor_part.cpp:275
+#: cantor_part.cpp:273
 #, kde-format
 msgid "Line Numbers"
 msgstr "வரியேண்கள்"
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_AnimationDefault)
-#: cantor_part.cpp:280 settings.ui:158
+#: cantor_part.cpp:278 settings.ui:158
 #, kde-format
 msgid "Animations"
 msgstr "அசைவூட்டங்கள்"
 
-#: cantor_part.cpp:287
+#: cantor_part.cpp:285
 #, kde-format
 msgid "Embedded Math"
 msgstr "உட்பொதிந்த கணிதக் காட்சி"
 
-#: cantor_part.cpp:293
+#: cantor_part.cpp:291
 #, kde-format
 msgid "Restart Backend"
 msgstr "பின்நிலையை மீள்துவக்கு"
 
-#: cantor_part.cpp:299 worksheetentry.cpp:1028
+#: cantor_part.cpp:297 worksheetentry.cpp:1028
 #, kde-format
 msgid "Evaluate Entry"
 msgstr "பதிவை செயல்படுத்து"
 
-#: cantor_part.cpp:305
+#: cantor_part.cpp:303
 #, kde-format
 msgid "Insert Command Entry"
 msgstr "கட்டளைப் பதிவை நுழை"
 
-#: cantor_part.cpp:311
+#: cantor_part.cpp:309
 #, kde-format
 msgid "Insert Text Entry"
 msgstr "உரைப்பதிவை நுழை"
 
-#: cantor_part.cpp:317
+#: cantor_part.cpp:315
 #, kde-format
 msgid "Insert Markdown Entry"
 msgstr "Markdown பதிவை நுழை"
 
-#: cantor_part.cpp:323
+#: cantor_part.cpp:321
 #, kde-format
 msgid "Insert LaTeX Entry"
 msgstr "LaTeX பதிவை நுழை"
 
-#: cantor_part.cpp:328
+#: cantor_part.cpp:326
 #, kde-format
 msgid "Insert Page Break"
 msgstr "பக்கமுறிவை நுழை"
 
-#: cantor_part.cpp:333 markdownentry.cpp:126
+#: cantor_part.cpp:331 markdownentry.cpp:126
 #, kde-format
 msgid "Insert Image"
 msgstr "படத்தை நுழை"
 
-#: cantor_part.cpp:338
+#: cantor_part.cpp:336
 #, kde-format
 msgid "Collapse All Results"
 msgstr "அனைத்து விடைகளையும் சுருக்கு"
 
-#: cantor_part.cpp:343
+#: cantor_part.cpp:341
 #, kde-format
 msgid "Expand All Results"
 msgstr "அனைத்து விடைகளையும் விரிவுபடுத்து"
 
-#: cantor_part.cpp:348
+#: cantor_part.cpp:346
 #, fuzzy, kde-format
 #| msgid "Remove All Results"
 msgid "Delete All Results"
 msgstr "அனைத்து விடைகளையும் நீக்கு"
 
-#: cantor_part.cpp:353
+#: cantor_part.cpp:351
 #, fuzzy, kde-format
 #| msgid "Remove current Entry"
 msgid "Delete current Entry"
 msgstr "தற்போதைய பதிவை நீக்கு"
 
-#: cantor_part.cpp:359 worksheet.cpp:2215 worksheet.cpp:2216 worksheet.cpp:2515
+#: cantor_part.cpp:357 worksheet.cpp:2215 worksheet.cpp:2216 worksheet.cpp:2515
 #, kde-format
 msgid "Merge Cells"
 msgstr ""
 
-#: cantor_part.cpp:365 worksheet.cpp:2386
+#: cantor_part.cpp:363 worksheet.cpp:2386
 #, kde-format
 msgid "Split Cell"
 msgstr ""
@@ -2968,130 +2968,130 @@ msgstr ""
 #. collection->addAction(QLatin1String("file_publish_worksheet"), publishWorksheet);
 #. connect(publishWorksheet, &QAction::triggered, this, SLOT(publishWorksheet()));
 #.
-#: cantor_part.cpp:386
+#: cantor_part.cpp:384
 #, kde-format
 msgid "Show Script Editor"
 msgstr "சிறுநிரல் திருத்தியை காட்டு"
 
-#: cantor_part.cpp:391
+#: cantor_part.cpp:389
 #, kde-format
 msgid "Show Completion"
 msgstr "உரைநிறைவைக் காட்டு"
 
-#: cantor_part.cpp:457
+#: cantor_part.cpp:455
 #, kde-format
 msgid "CantorPart"
 msgstr ""
 
-#: cantor_part.cpp:459
+#: cantor_part.cpp:457
 #, kde-format
 msgid "(C) 2009-2015 Alexander Rieder"
 msgstr ""
 
-#: cantor_part.cpp:463 main.cpp:79
+#: cantor_part.cpp:461 main.cpp:79
 #, kde-format
 msgid "Alexander Rieder"
 msgstr ""
 
-#: cantor_part.cpp:515
+#: cantor_part.cpp:513
 #, kde-format
 msgid "Cantor Worksheet (*.cws)"
 msgstr "கேண்ட்டொர் பணித்தாள் (*.cws)"
 
-#: cantor_part.cpp:516
+#: cantor_part.cpp:514
 #, kde-format
 msgid "Jupyter Notebook (*.ipynb)"
 msgstr "ஜுப்பிட்டர் பணித்தாள் (*.ipynb)"
 
-#: cantor_part.cpp:532
+#: cantor_part.cpp:530
 #, kde-format
 msgid "Save as"
 msgstr "இப்படி சேமி"
 
-#: cantor_part.cpp:578 panelplugins/variablemgr/variablemanagerwidget.cpp:189
+#: cantor_part.cpp:576 panelplugins/variablemgr/variablemanagerwidget.cpp:189
 #, kde-format
 msgid "Save"
 msgstr "சேமி"
 
-#: cantor_part.cpp:578 textresultitem.cpp:208
+#: cantor_part.cpp:576 textresultitem.cpp:208
 #, kde-format
 msgid "Text Files (*.txt)"
 msgstr "உரை கோப்புகள் (*.txt)"
 
-#: cantor_part.cpp:585
+#: cantor_part.cpp:583
 #, kde-format
 msgid "PDF Files (*.pdf)"
 msgstr "PDF கோப்புகள் (*.pdf)"
 
-#: cantor_part.cpp:597
+#: cantor_part.cpp:595
 #, kde-format
 msgid "TeX Files (*.tex)"
 msgstr "TeX கோப்புகள் (*.tex)"
 
-#: cantor_part.cpp:642
+#: cantor_part.cpp:640
 #, kde-format
 msgid ""
 "All the available calculation results will be lost. Do you really want to "
 "restart %1?"
 msgstr "அனைத்து விடைகளையும் இழப்பீர்கள். உறுதியாக %1 தனை மீள்துவக்க வேண்டுமா?"
 
-#: cantor_part.cpp:643
+#: cantor_part.cpp:641
 #, kde-format
 msgid "Restart %1?"
 msgstr "%1 தனை மீள்துவக்கலாமா?"
 
-#: cantor_part.cpp:683 worksheet.cpp:2491
+#: cantor_part.cpp:681 worksheet.cpp:2491
 #, kde-format
 msgid "Interrupt"
 msgstr "குறுக்கிடு"
 
-#: cantor_part.cpp:709
+#: cantor_part.cpp:707
 #, kde-format
 msgid "Session Error: %1"
 msgstr "அமர்வில் சிக்கல்: %1"
 
-#: cantor_part.cpp:755
+#: cantor_part.cpp:753
 #, kde-format
 msgid "Initialization complete"
 msgstr "துவக்கம் முடிந்தது"
 
-#: cantor_part.cpp:760
+#: cantor_part.cpp:758
 #, kde-format
 msgid "Initializing..."
 msgstr "துவக்கப்படுகிறது..."
 
-#: cantor_part.cpp:818
+#: cantor_part.cpp:813
 #, kde-format
 msgid "[read-only]"
 msgstr "[படித்தல் மட்டும்]"
 
-#: cantor_part.cpp:933
+#: cantor_part.cpp:928
 #, kde-format
 msgid "Do you want to upload current Worksheet to public web server?"
 msgstr "தற்போதைய பணித்தாளை உறுதியாக பொது சேவையகத்திற்கு பதிவேற்ற வேண்டுமா?"
 
-#: cantor_part.cpp:934
+#: cantor_part.cpp:929
 #, kde-format
 msgid "Question - Cantor"
 msgstr "கேள்வி - கேண்ட்டொர்"
 
-#: cantor_part.cpp:935
+#: cantor_part.cpp:930
 #, kde-format
 msgctxt "@action:button"
 msgid "Upload"
 msgstr ""
 
-#: cantor_part.cpp:943
+#: cantor_part.cpp:938
 #, kde-format
 msgid "The Worksheet is not saved. You should save it before uploading."
 msgstr "இப்பணித்தாள் சேமிக்கப்பட்டிருக்கவில்லை. பதிவேற்றுமுன் இதை சேமிக்க வேண்டும்."
 
-#: cantor_part.cpp:944
+#: cantor_part.cpp:939
 #, kde-format
 msgid "Warning - Cantor"
 msgstr "எச்சரிக்கை - கேண்ட்டொர்"
 
-#: cantor_part.cpp:1016
+#: cantor_part.cpp:1011
 #, kde-format
 msgid "This backend does not support scripts."
 msgstr "இப்பின்நிலை சிறுநிரல்களை ஆதரிக்காது."
