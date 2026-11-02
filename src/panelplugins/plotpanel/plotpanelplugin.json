@@ -1,6 +1,7 @@
 {
     "KPlugin": {
         "Description": "A panel for previewing plots in the current worksheet",
+        "Description[ar]": "لوحة لمعاينة الرسوم البيانية في ورقة العمل الحالية",
         "Description[ca@valencia]": "Un quadro per a la previsualització de gràfiques al full de treball actual",
         "Description[ca]": "Un plafó per a la previsualització de gràfiques al full de treball actual",
         "Description[cs]": "Panel pro náhled grafů v aktuálním listu",
@@ -20,6 +21,7 @@
         "Icon": "office-chart-line",
         "License": "GPL",
         "Name": "Plots",
+        "Name[ar]": "الرسوم البيانية",
         "Name[ca@valencia]": "Gràfiques",
         "Name[ca]": "Gràfiques",
         "Name[cs]": "Grafy",
