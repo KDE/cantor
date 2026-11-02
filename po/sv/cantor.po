@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: mathematik\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-11-01 00:50+0000\n"
-"PO-Revision-Date: 2026-09-17 21:29+0200\n"
+"PO-Revision-Date: 2026-11-01 10:08+0100\n"
 "Last-Translator: Stefan Asserhäll <stefan.asserhall@gmail.com>\n"
 "Language-Team: Swedish <kde-i18n-doc@kde.org>\n"
 "Language: sv\n"
@@ -2318,6 +2318,21 @@ msgid ""
 "padding: 8px; border-radius: 4px;\">help(rlm, package=\"MASS\")\n"
 "help(package=\"MASS\")       # package index</pre></div>"
 msgstr ""
+"<div style=\"line-height: 1.4;\"><h3 style=\"color: #2277dd; margin: 12px 0 "
+"6px 0;\"><b>Hjälpsystem i R</b></h3><p style=\"margin: 4px 0;\">Funktionen "
+"<code>help()</code> och operatorn <code>?</code> i R ger åtkomst till "
+"dokumentationssidor för R-funktioner, datamängder och andra objekt.</p><h4 "
+"style=\"color: #2277dd; margin: 12px 0 6px 0;\"><b>Examples</b></h4><pre "
+"style=\"background-color: #d0d0d0; color: #000000; padding: 8px; border-"
+"radius: 4px;\">help(lm)      # hjälp om funktionen linear model\n"
+"?lm           # samma som ovan\n"
+"?\"?\"          # hjälp om operatorn ?\n"
+"example(lm)   # kör exempel för lm</pre><h4 style=\"color: #2277dd; margin: "
+"12px 0 6px 0;\"><b>Pakethjälp</b></h4><p style=\"margin: 4px 0;\">För att "
+"komma åt hjälp om en funktion i ett paket som för närvarande inte är inläst, "
+"ange paketnamnet:</p><pre style=\"background-color: #d0d0d0; color: #000000; "
+"padding: 8px; border-radius: 4px;\">help(rlm, package=\"MASS\")\n"
+"help(package=\"MASS\")       # paketindex</pre></div>"
 
 #: backends/R/rbackend.cpp:120
 #, kde-format
@@ -2344,6 +2359,8 @@ msgid ""
 "help.start() is not supported in embedded R mode. Use help(topic) or ?topic "
 "instead."
 msgstr ""
+"help.start() stöds inte i inbäddat R-läge. Använd help(ämne) eller ?ämne "
+"istället."
 
 #: backends/R/rexpression.cpp:199 backends/R/rexpression.cpp:200
 #, kde-format
@@ -2367,10 +2384,9 @@ msgid "Url to the local R documentation"
 msgstr "Webbadress till den lokala dokumentationen av R"
 
 #: backends/R/rsession.cpp:87
-#, fuzzy, kde-format
-#| msgid "Path to Cantor python server executable"
+#, kde-format
 msgid "Failed to find cantor_rserver executable."
-msgstr "Sökväg till körbar fil för Cantor python-server"
+msgstr "Misslyckades hitta det körbara programmet cantor_rserver."
 
 #: backends/R/rsession.cpp:99
 #, kde-format
@@ -2380,18 +2396,17 @@ msgstr "Misslyckades starta R. Kontrollera R:s installation."
 #: backends/R/rsession.cpp:110
 #, kde-format
 msgid "R server did not respond."
-msgstr ""
+msgstr "R-servern svarade inte."
 
 #: backends/R/rsession.cpp:130
-#, fuzzy, kde-format
-#| msgid "Failed to start Cantor python server."
+#, kde-format
 msgid "Failed to connect to R server: %1"
-msgstr "Misslyckades starta Cantor Python-server."
+msgstr "Misslyckades ansluta till R-servern: %1"
 
 #: backends/R/rsession.cpp:396
 #, kde-format
 msgid "Lost connection to R server"
-msgstr ""
+msgstr "Förlorade kontakt med R-servern"
 
 #: backends/R/rsettingswidget.cpp:30
 #, kde-format
@@ -4032,53 +4047,46 @@ msgid "All files"
 msgstr "Alla filer"
 
 #: panelplugins/plotpanel/plotpanelplugin.cpp:142
-#, fuzzy, kde-format
-#| msgid "Plots"
+#, kde-format
 msgid "Plots panel"
-msgstr "Diagram"
+msgstr "Diagrampanel"
 
 #: panelplugins/plotpanel/plotpanelplugin.cpp:153
-#, fuzzy, kde-format
-#| msgid "&Previous"
+#, kde-format
 msgid "Previous Plot"
-msgstr "&Föregående"
+msgstr "Föregående diagram"
 
 #: panelplugins/plotpanel/plotpanelplugin.cpp:154
-#, fuzzy, kde-format
-#| msgid "Delete Plot"
+#, kde-format
 msgid "Next Plot"
-msgstr "Ta bort diagram"
+msgstr "Nästa diagram"
 
 #: panelplugins/plotpanel/plotpanelplugin.cpp:156
 #, kde-format
 msgid "Group Plots by Source Cell"
-msgstr ""
+msgstr "Gruppera diagram enligt källcell"
 
 #: panelplugins/plotpanel/plotpanelplugin.cpp:159
-#, fuzzy, kde-format
-#| msgid "Animate Worksheet"
+#, kde-format
 msgid "Animate Previews"
-msgstr "Animera arbetsblad"
+msgstr "Animerade förhandsgranskningar"
 
 #: panelplugins/plotpanel/plotpanelplugin.cpp:163
-#, fuzzy, kde-format
-#| msgid "Copy result"
+#, kde-format
 msgid "Copy Plot"
-msgstr "Kopiera resultat"
+msgstr "Kopiera diagram"
 
 #: panelplugins/plotpanel/plotpanelplugin.cpp:164
 #: worksheethierarchymanager.cpp:1129
-#, fuzzy, kde-format
-#| msgid "Save Project"
+#, kde-format
 msgid "Save Plot"
-msgstr "Spara projekt"
+msgstr "Spara diagram"
 
 #: panelplugins/plotpanel/plotpanelplugin.cpp:165
 #: worksheethierarchymanager.cpp:1175
-#, fuzzy, kde-format
-#| msgid "Save Project"
+#, kde-format
 msgid "Save All Plots"
-msgstr "Spara projekt"
+msgstr "Spara alla diagram"
 
 #: panelplugins/plotpanel/plotpanelplugin.cpp:166
 #: panelplugins/plotpanel/plotpanelplugin.cpp:565
@@ -4098,43 +4106,41 @@ msgstr "Ta bort diagram"
 
 #: panelplugins/plotpanel/plotpanelplugin.cpp:171
 #: panelplugins/plotpanel/plotpanelplugin.cpp:172
-#, fuzzy, kde-format
-#| msgid "Hierarchy Fonts"
+#, kde-format
 msgid "Search plots"
-msgstr "Hierarkiska teckensnitt"
+msgstr "Sök efter diagram"
 
 #: panelplugins/plotpanel/plotpanelplugin.cpp:178
-#, fuzzy, kde-format
-#| msgid "Integrate Plots into the Worksheet"
+#, kde-format
 msgid "Plots in the current worksheet"
-msgstr "Integrera diagram på arbetsblad"
+msgstr "Diagram på nuvarande arbetsblad"
 
 #: panelplugins/plotpanel/plotpanelplugin.cpp:191
 #, kde-format
 msgid "No plots match the search"
-msgstr ""
+msgstr "Inga diagram motsvarar sökningen"
 
 #: panelplugins/plotpanel/plotpanelplugin.cpp:312
-#, fuzzy, kde-format
-#| msgid "Error: %1"
+#, kde-format
 msgid "Source: %1"
-msgstr "Fel: %1"
+msgstr "Källa: %1"
 
 #: panelplugins/plotpanel/plotpanelplugin.cpp:314
-#, fuzzy, kde-format
-#| msgid "Error: %1"
+#, kde-format
 msgid "Format: %1"
-msgstr "Fel: %1"
+msgstr "Format: %1"
 
 #: panelplugins/plotpanel/plotpanelplugin.cpp:316
 #, kde-format
 msgid "Preview unavailable; open the plot in the worksheet for details."
 msgstr ""
+"Förhandsgranskning inte tillgänglig. Öppna diagrammet i arbetsbladet för "
+"detaljerad information."
 
 #: panelplugins/plotpanel/plotpanelplugin.cpp:566
 #, kde-format
 msgid "Plot name (leave empty to use the default name):"
-msgstr ""
+msgstr "Diagramnamn (lämna tomt för att använda standardnamnet):"
 
 #: panelplugins/plotpanel/plotpanelplugin.cpp:578
 #: panelplugins/tocpanel/tocpanelplugin.cpp:368
@@ -4146,10 +4152,9 @@ msgid "Do you really want to delete \"%1\"? This action cannot be undone."
 msgstr "Vill du verkligen ta bort \"%1\"? Åtgärden kan inte ångras."
 
 #: panelplugins/plotpanel/plotpanelplugin.cpp:626
-#, fuzzy, kde-format
-#| msgid "Animate Worksheet"
+#, kde-format
 msgid "Open in Worksheet"
-msgstr "Animera arbetsblad"
+msgstr "Öppna i arbetsblad"
 
 #: panelplugins/tocpanel/tocpanelplugin.cpp:207
 #, kde-format
