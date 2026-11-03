@@ -3612,8 +3612,7 @@ msgid "Original Size"
 msgstr "Tamaño orixinal"
 
 #: imageresultitem.cpp:192 worksheethierarchymanager.cpp:1106
-#, fuzzy, kde-format
-#| msgid "%1 files (*.%2)"
+#, kde-format
 msgctxt "%1 and %2 are file extensions"
 msgid "%1 files (*.%2)"
 msgstr "Ficheiros %1 (*.%2)"
