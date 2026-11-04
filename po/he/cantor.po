@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: cantor\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-11-01 00:50+0000\n"
-"PO-Revision-Date: 2026-10-09 10:24+0300\n"
+"PO-Revision-Date: 2026-11-03 20:33+0200\n"
 "Last-Translator: Yaron Shahrabani <sh.yaron@gmail.com>\n"
 "Language-Team: צוות התרגום של KDE ישראל\n"
 "Language: he\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=4; plural=(n == 1) ? 0 : ((n == 2) ? 1 : ((n > 10 && "
 "n % 10 == 0) ? 2 : 3));\n"
-"X-Generator: Lokalize 26.08.0\n"
+"X-Generator: Lokalize 26.08.1\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -2312,6 +2312,8 @@ msgid ""
 "help.start() is not supported in embedded R mode. Use help(topic) or ?topic "
 "instead."
 msgstr ""
+"אין תמיכה ב־help.start()‎ במצב R מוטמע. יש להשתמש ב־‪help(נושא)‬‎ או ‎?topic "
+"(סימן שאלה ואז הנושא) במקום."
 
 #: backends/R/rexpression.cpp:199 backends/R/rexpression.cpp:200
 #, kde-format
@@ -2337,7 +2339,7 @@ msgstr "כתובת לתיעוד ה־R המקומי"
 #: backends/R/rsession.cpp:87
 #, kde-format
 msgid "Failed to find cantor_rserver executable."
-msgstr ""
+msgstr "איתור קובץ ההפעלה cantor_rserver נכשל."
 
 #: backends/R/rsession.cpp:99
 #, kde-format
@@ -2347,18 +2349,17 @@ msgstr "הפעלת R נכשלה, נא לבדוק שההתקנה של R תקינ�
 #: backends/R/rsession.cpp:110
 #, kde-format
 msgid "R server did not respond."
-msgstr ""
+msgstr "שרת R לא הגיב."
 
 #: backends/R/rsession.cpp:130
-#, fuzzy, kde-format
-#| msgid "Failed to start Cantor python server."
+#, kde-format
 msgid "Failed to connect to R server: %1"
-msgstr "הפעלת שרת ה־Python של Cantor נכשלה."
+msgstr "ההתחברות לשרת ה־R נכשלה: %1"
 
 #: backends/R/rsession.cpp:396
 #, kde-format
 msgid "Lost connection to R server"
-msgstr ""
+msgstr "החיבור לשרת ה־R נכשל"
 
 #: backends/R/rsettingswidget.cpp:30
 #, kde-format

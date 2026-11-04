@@ -13,7 +13,7 @@ msgstr ""
 "Project-Id-Version: kdeedu-kde4\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-11-01 00:50+0000\n"
-"PO-Revision-Date: 2026-10-16 20:02+0300\n"
+"PO-Revision-Date: 2026-11-03 21:35+0300\n"
 "Last-Translator: Emir SARI <emir_sari@icloud.com>\n"
 "Language-Team: Turkish <kde-l10n-tr@kde.org>\n"
 "Language: tr\n"
@@ -2322,6 +2322,21 @@ msgid ""
 "padding: 8px; border-radius: 4px;\">help(rlm, package=\"MASS\")\n"
 "help(package=\"MASS\")       # package index</pre></div>"
 msgstr ""
+"<div style=\"line-height: 1.4;\"><h3 style=\"color: #2277dd; margin: 12px 0 "
+"6px 0;\"><b>R Yardım Sistemi</b></h3><p style=\"margin: 4px 0;\">R’deki "
+"<code>help()</code> işlevi ve <code>?</code> yardım işleci, R işlevleri, "
+"veri kümeleri ve diğer nesneler için olan belgelendirmeye erişim sağlar.</"
+"p><h4 style=\"color: #2277dd; margin: 12px 0 6px 0;\"><b>Örnekler</b></"
+"h4><pre style=\"background-color: #d0d0d0; color: #000000; padding: 8px; "
+"border-radius: 4px;\">help(lm)      # doğrusal model işlevi yardımı\n"
+"?lm           # yukarıdakinin aynısı\n"
+"?\"?\"          # ? işleci yardımı\n"
+"example(lm)   # lm için çalıştırma örnekleri</pre><h4 style=\"color: "
+"#2277dd; margin: 12px 0 6px 0;\"><b>Package Help</b></h4><p style=\"margin: "
+"4px 0;\">Şu anda yüklü olan bir paketteki bir işlevin yardımına erişmek için "
+"paket adını belirtin:</p><pre style=\"background-color: #d0d0d0; color: "
+"#000000; padding: 8px; border-radius: 4px;\">help(rlm, package=\"MASS\")\n"
+"help(package=\"MASS\")       # paket indeksi</pre></div>"
 
 #: backends/R/rbackend.cpp:120
 #, kde-format
@@ -2349,6 +2364,8 @@ msgid ""
 "help.start() is not supported in embedded R mode. Use help(topic) or ?topic "
 "instead."
 msgstr ""
+"help.start(), gömülü R kipinde desteklenmez. Yerine help(konu) veya ?konu "
+"kullanın."
 
 #: backends/R/rexpression.cpp:199 backends/R/rexpression.cpp:200
 #, kde-format
@@ -2374,7 +2391,7 @@ msgstr "Yerel R belgelendirmesi URL’si"
 #: backends/R/rsession.cpp:87
 #, kde-format
 msgid "Failed to find cantor_rserver executable."
-msgstr ""
+msgstr "cantor_rserver yürütülebiliri bulunamadı."
 
 #: backends/R/rsession.cpp:99
 #, kde-format
@@ -2384,18 +2401,17 @@ msgstr "R başlatılamadı, lütfen R kurulumunu denetleyin."
 #: backends/R/rsession.cpp:110
 #, kde-format
 msgid "R server did not respond."
-msgstr ""
+msgstr "R sunucusu yanıt vermedi."
 
 #: backends/R/rsession.cpp:130
-#, fuzzy, kde-format
-#| msgid "Failed to start Cantor python server."
+#, kde-format
 msgid "Failed to connect to R server: %1"
-msgstr "Cantor Python sunucusu başlatılamadı."
+msgstr "R sunucusuna bağlanılamadı: %1"
 
 #: backends/R/rsession.cpp:396
 #, kde-format
 msgid "Lost connection to R server"
-msgstr ""
+msgstr "R sunucusuna olan bağlantı koptu."
 
 #: backends/R/rsettingswidget.cpp:30
 #, kde-format
