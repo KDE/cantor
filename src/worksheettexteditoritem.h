@@ -187,7 +187,8 @@ protected:
     void paint(QPainter*, const QStyleOptionGraphicsItem*, QWidget*) override;
     QPainterPath shape() const override;
 private:
-    QKeyEvent* eventForStandardAction(KStandardAction::StandardAction);
+    QAction* editingActionForKey(QKeyEvent*) const;
+    void triggerEditorAction(const QString& name);
     Cantor::Session* session();
     QListWidget* m_customCompleter{nullptr};
 
