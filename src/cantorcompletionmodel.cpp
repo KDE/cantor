@@ -1,6 +1,4 @@
 #include "cantorcompletionmodel.h"
-#include "worksheettexteditoritem.h"
-#include "worksheet.h"
 #include "lib/session.h"
 #include "lib/keywordsmanager.h"
 #include "lib/defaultvariablemodel.h"
@@ -10,16 +8,14 @@
 #include <KTextEditor/Document>
 #include <QTimer>
 #include <QSet>
+#include <QScopeGuard>
 #include <algorithm>
 
-CantorCompletionModel::CantorCompletionModel(WorksheetTextEditorItem* parent)
+CantorCompletionModel::CantorCompletionModel(Cantor::Session* session, QObject* parent)
     : KTextEditor::CodeCompletionModel(parent),
-      m_session(nullptr),
+      m_session(session),
       m_pendingView(nullptr)
 {
-    if (parent && parent->worksheet())
-        m_session = parent->worksheet()->session();
-
     m_debounceTimer = new QTimer(this);
     m_debounceTimer->setSingleShot(true);
     m_debounceTimer->setInterval(200);
@@ -33,11 +29,14 @@ CantorCompletionModel::~CantorCompletionModel()
 
 void CantorCompletionModel::completionInvoked(KTextEditor::View* view, const KTextEditor::Range& range, InvocationType /* type */)
 {
+    abortCompletion();
+    if (!view || !range.isValid())
+        return;
+
     m_completionContextObject.clear();
     if (range.start().column() > 0)
     {
-        KTextEditor::Cursor precedingCursor(range.start().line(),
-                                            range.start().column() - 1);
+        KTextEditor::Cursor precedingCursor(range.start().line(), range.start().column() - 1);
         const QChar precedingChar = view->document()->characterAt(precedingCursor);
 
         if (precedingChar == QLatin1Char('.'))
@@ -49,29 +48,35 @@ void CantorCompletionModel::completionInvoked(KTextEditor::View* view, const KTe
     }
 
     m_pendingView = view;
-    m_pendingRange = range;
+    m_pendingDocument = view->document();
+    m_pendingCursor = view->cursorPosition();
+    m_pendingRevision = m_pendingDocument->revision();
     m_debounceTimer->start();
+}
+
+bool CantorCompletionModel::isCompletionRequestCurrent() const
+{
+    return m_pendingView && m_pendingDocument && m_pendingView->document() == m_pendingDocument && m_pendingView->cursorPosition() == m_pendingCursor && m_pendingDocument->revision() == m_pendingRevision;
+}
+
+void CantorCompletionModel::updateCompletion(KTextEditor::View* view)
+{
+    completionInvoked(view, completionRange(view, view->cursorPosition()), UserInvocation);
+    // Update local symbols immediately; debounce backend queries.
+    if (m_completionContextObject.isEmpty())
+    {
+        m_debounceTimer->stop();
+        startCompletionRequest();
+    }
 }
 
 void CantorCompletionModel::startCompletionRequest()
 {
-    if (!m_pendingView || !m_session)
+    if (!isCompletionRequestCurrent() || !m_session)
         return;
 
     KTextEditor::Cursor currentPos = m_pendingView->cursorPosition();
-    if (currentPos.line() != m_pendingRange.start().line())
-        return;
 
-    if (currentPos.column() > 0)
-    {
-        QChar lastChar = m_pendingView->document()->characterAt(KTextEditor::Cursor(currentPos.line(), currentPos.column() - 1));
-        if (!lastChar.isLetterOrNumber() && lastChar != QLatin1Char('_') && lastChar != QLatin1Char('.'))
-            return;
-    }
-    else
-        return;
-
-    // Member completion branch
     if (!m_completionContextObject.isEmpty())
     {
         const QString command = QStringLiteral(R"python(
@@ -86,12 +91,21 @@ void CantorCompletionModel::startCompletionRequest()
                 pass
         )python").arg(m_completionContextObject);
 
-        auto* expr = m_session->evaluateExpression(command,
-                                                   Cantor::Expression::DeleteOnFinish,
-                                                   true);
-        if (expr)
-            connect(expr, &Cantor::Expression::statusChanged, this, &CantorCompletionModel::handleMemberCompletionResult);
+        const quint64 requestId = m_requestId;
+        QPointer<Cantor::Expression> expr = m_session->evaluateExpression(command, Cantor::Expression::DeleteOnFinish, true);
+        if (requestId != m_requestId)
+            return;
         m_completionContextObject.clear();
+        if (expr)
+        {
+            m_memberCompletionConnection = connect(expr, &Cantor::Expression::statusChanged, this, [this, expr, requestId](Cantor::Expression::Status status) {
+                // Disconnecting alone does not discard signals already queued.
+                if (requestId == m_requestId && expr)
+                    handleMemberCompletionResult(expr, status);
+            });
+            // Handle backends that finish before the signal is connected.
+            handleMemberCompletionResult(expr, expr->status());
+        }
         return;
     }
 
@@ -159,26 +173,11 @@ void CantorCompletionModel::startCompletionRequest()
     Q_EMIT modelIsReady(m_matches);
 }
 
-void CantorCompletionModel::handleMemberCompletionResult(Cantor::Expression::Status status)
+void CantorCompletionModel::handleMemberCompletionResult(Cantor::Expression* expr, Cantor::Expression::Status status)
 {
-    if (status != Cantor::Expression::Done)
+    if (status != Cantor::Expression::Done || !isCompletionRequestCurrent())
         return;
 
-    if (m_pendingView && m_pendingView->cursorPosition().line() != m_pendingRange.start().line())
-        return;
-
-    if (m_pendingView)
-    {
-        KTextEditor::Cursor currentPos = m_pendingView->cursorPosition();
-        if (currentPos.column() > 0)
-        {
-            QChar lastChar = m_pendingView->document()->characterAt(KTextEditor::Cursor(currentPos.line(), currentPos.column() - 1));
-            if (!lastChar.isLetterOrNumber() && lastChar != QLatin1Char('_') && lastChar != QLatin1Char('.'))
-                return;
-        }
-    }
-
-    auto* expr = qobject_cast<Cantor::Expression*>(sender());
     if (!expr || expr->results().isEmpty())
         return;
 
@@ -229,39 +228,35 @@ QVariant CantorCompletionModel::data(const QModelIndex& index, int role) const
 
 void CantorCompletionModel::executeCompletionItem(KTextEditor::View* view, const KTextEditor::Range&, const QModelIndex& index) const
 {
-    if (!index.isValid() || !view)
-        return;
-
-    const CompletionItem& item = m_matches.at(index.row());
-    QString textToInsert = item.name;
-
-    if (item.isFunction)
-        textToInsert += QStringLiteral("()");
-    else if (item.isKeyword || item.isAttribute || item.isVariable)
-        textToInsert += QLatin1Char(' ');
-
-    KTextEditor::Range rangeToReplace = view->document()->wordRangeAt(view->cursorPosition());
-    view->document()->replaceText(rangeToReplace, textToInsert);
-
-    if (item.isFunction)
-    {
-        KTextEditor::Cursor newCursorPos = rangeToReplace.start();
-        newCursorPos.setColumn(newCursorPos.column() + item.name.length() + 1);
-        view->setCursorPosition(newCursorPos);
-    }
+    if (index.isValid())
+        insertCompletionItem(view, index.row());
 }
 
 void CantorCompletionModel::executeCompletionItem(KTextEditor::View* view, int row)
 {
+    insertCompletionItem(view, row);
+}
+
+void CantorCompletionModel::insertCompletionItem(KTextEditor::View* view, int row) const
+{
     if (!view || row < 0 || row >= m_matches.count())
         return;
 
-    const CompletionItem& item = m_matches.at(row);
+    const CompletionItem item = m_matches.at(row);
+    abortCompletion();
+
+    // Custom completion insertion bypasses KTextEditor's guard against retriggering.
+    const bool automaticInvocation = view->isAutomaticInvocationEnabled();
+    view->setAutomaticInvocationEnabled(false);
+    const auto restoreAutomaticInvocation = qScopeGuard([view, automaticInvocation] {
+        view->setAutomaticInvocationEnabled(automaticInvocation);
+    });
+
     QString textToInsert = item.name;
 
     if (item.isFunction)
         textToInsert += QStringLiteral("()");
-    else if (item.isKeyword || item.isAttribute || item.isVariable)
+    else if (item.isKeyword)
         textToInsert += QLatin1Char(' ');
 
     KTextEditor::Range rangeToReplace = view->document()->wordRangeAt(view->cursorPosition());
@@ -292,8 +287,9 @@ bool CantorCompletionModel::shouldStartCompletion(KTextEditor::View*, const QStr
     return false;
 }
 
-void CantorCompletionModel::abortCompletion()
+void CantorCompletionModel::abortCompletion() const
 {
-    if (m_debounceTimer && m_debounceTimer->isActive())
-        m_debounceTimer->stop();
+    m_debounceTimer->stop();
+    ++m_requestId;
+    disconnect(m_memberCompletionConnection);
 }

@@ -6,12 +6,12 @@
 #include <KTextEditor/CodeCompletionModel>
 #include <KTextEditor/CodeCompletionModelControllerInterface>
 #include <KTextEditor/Range>
+#include <QPointer>
 
 namespace Cantor {
     class Session;
 }
 
-class WorksheetTextEditorItem;
 class QTimer;
 
 class CantorCompletionModel : public KTextEditor::CodeCompletionModel,
@@ -29,7 +29,7 @@ public:
         bool isVariable = false;
     };
 
-    explicit CantorCompletionModel(WorksheetTextEditorItem* parent);
+    explicit CantorCompletionModel(Cantor::Session* session, QObject* parent = nullptr);
     ~CantorCompletionModel() override;
 
     void completionInvoked(KTextEditor::View*, const KTextEditor::Range&, InvocationType) override;
@@ -39,24 +39,32 @@ public:
 
     KTextEditor::Range completionRange(KTextEditor::View*, const KTextEditor::Cursor&) override;
     bool shouldStartCompletion(KTextEditor::View*, const QString&, bool, const KTextEditor::Cursor&) override;
-    void abortCompletion();
+    void updateCompletion(KTextEditor::View*);
+    void abortCompletion() const;
 
 Q_SIGNALS:
     void modelIsReady(const QList<CantorCompletionModel::CompletionItem>&);
 
 private Q_SLOTS:
     void startCompletionRequest();
-    void handleMemberCompletionResult(Cantor::Expression::Status);
 
 private:
+    void handleMemberCompletionResult(Cantor::Expression*, Cantor::Expression::Status);
+    bool isCompletionRequestCurrent() const;
+    void insertCompletionItem(KTextEditor::View*, int row) const;
+
     Cantor::Session* m_session{nullptr};
 
     QList<CompletionItem> m_matches;
     QString m_completionContextObject;
 
     QTimer* m_debounceTimer{nullptr};
-    KTextEditor::View* m_pendingView{nullptr};
-    KTextEditor::Range m_pendingRange;
+    QPointer<KTextEditor::View> m_pendingView;
+    QPointer<KTextEditor::Document> m_pendingDocument;
+    KTextEditor::Cursor m_pendingCursor;
+    qint64 m_pendingRevision{-1};
+    mutable quint64 m_requestId{0};
+    QMetaObject::Connection m_memberCompletionConnection;
 };
 
 #endif // CANTOR_COMPLETION_MODEL_H

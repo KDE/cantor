@@ -24,6 +24,9 @@
 #include <QMimeData>
 #include <QColorDialog>
 #include <QFontDatabase>
+#include <QScopedValueRollback>
+#include <QScopeGuard>
+#include <algorithm>
 
 WorksheetTextEditorItem::WorksheetTextEditorItem(EditorMode initialMode, WorksheetEntry* parentEntry, QGraphicsItem* parent)
     : QGraphicsProxyWidget(parent),m_mode(initialMode)
@@ -93,14 +96,20 @@ WorksheetTextEditorItem::WorksheetTextEditorItem(EditorMode initialMode, Workshe
     }
 
     connect(m_document, &KTextEditor::Document::textChanged, this, &WorksheetTextEditorItem::testSize);
-    connect(m_document, &KTextEditor::Document::textChanged, this, [this]()
+    connect(m_view, &KTextEditor::View::selectionChanged, this, &WorksheetTextEditorItem::selectionChanged);
+    connect(QApplication::clipboard(), &QClipboard::dataChanged, this, &WorksheetTextEditorItem::clipboardChanged);
+    connect(m_document, &KTextEditor::Document::readWriteChanged, this, [this]()
     {
-        bool canUndo = m_document->isModified();
-        Q_EMIT undoAvailable(canUndo);
-        Q_EMIT redoAvailable(canUndo);
-        Q_EMIT copyAvailable(canUndo);
-        Q_EMIT cutAvailable(canUndo);
-        Q_EMIT pasteAvailable(canUndo);
+        selectionChanged();
+        clipboardChanged();
+    });
+    connect(m_view->actionCollection()->action(QStringLiteral("edit_undo")), &QAction::changed, this, [this]()
+    {
+        Q_EMIT undoAvailable(isUndoAvailable());
+    });
+    connect(m_view->actionCollection()->action(QStringLiteral("edit_redo")), &QAction::changed, this, [this]()
+    {
+        Q_EMIT redoAvailable(isRedoAvailable());
     });
 
     connect(m_view, &KTextEditor::View::cursorPositionChanged, this, [this]()
@@ -330,17 +339,18 @@ void WorksheetTextEditorItem::setFocusAt(int pos, qreal x)
 
 bool WorksheetTextEditorItem::isEditable() const
 {
-    return m_mode == Editable;
+    return m_document && m_document->isReadWrite();
 }
 
 void WorksheetTextEditorItem::setReadOnly(bool readOnly)
 {
+    m_mode = readOnly ? ReadOnly : Editable;
     m_document->setReadWrite(!readOnly);
 }
 
 bool WorksheetTextEditorItem::isReadOnly() const
 {
-    return m_document->isReadWrite();
+    return !isEditable();
 }
 
 void WorksheetTextEditorItem::setDoubleClickBehaviour(DoubleClickEventBehaviour behaviour)
@@ -397,14 +407,9 @@ void WorksheetTextEditorItem::populateMenu(QMenu* menu, QPointF globalPos)
     auto* copy = KStandardAction::copy(this, &WorksheetTextEditorItem::copy, menu);
     auto* paste = KStandardAction::paste(this, &WorksheetTextEditorItem::paste, menu);
 
-    if(!m_view->selectionRange().isValid())
-    {
-        cut->setEnabled(false);
-        copy->setEnabled(false);
-    }
-
-    if(QApplication::clipboard()->text().isEmpty())
-        paste->setEnabled(false);
+    cut->setEnabled(isCutAvailable());
+    copy->setEnabled(isCopyAvailable());
+    paste->setEnabled(isPasteAvailable());
 
     bool actionAdded = false;
     if(isEditable())
@@ -413,7 +418,7 @@ void WorksheetTextEditorItem::populateMenu(QMenu* menu, QPointF globalPos)
         actionAdded = true;
     }
 
-    if(!m_dragEnabled && flags() & Qt::TextSelectableByMouse)
+    if(!m_dragEnabled)
     {
         menu->addAction(copy);
         actionAdded = true;
@@ -517,17 +522,19 @@ WorksheetEntry* WorksheetTextEditorItem::worksheetEntry()
 
 bool WorksheetTextEditorItem::isUndoAvailable() const
 {
-    return m_document && m_document->isModified();
+    const auto* action = m_view->actionCollection()->action(QStringLiteral("edit_undo"));
+    return isEditable() && action && action->isEnabled();
 }
 
 bool WorksheetTextEditorItem::isRedoAvailable() const
 {
-    return false;
+    const auto* action = m_view->actionCollection()->action(QStringLiteral("edit_redo"));
+    return isEditable() && action && action->isEnabled();
 }
 
 bool WorksheetTextEditorItem::isCutAvailable() const
 {
-    return m_view && m_view->selection();
+    return isEditable() && m_view && m_view->selection();
 }
 
 bool WorksheetTextEditorItem::isCopyAvailable() const
@@ -753,65 +760,33 @@ void WorksheetTextEditorItem::decreaseFontSize()
 
 void WorksheetTextEditorItem::undo()
 {
-    if (m_document)
-        QMetaObject::invokeMethod(m_document, "undo");
+    triggerEditorAction(QStringLiteral("edit_undo"));
 }
 
 void WorksheetTextEditorItem::redo()
 {
-    if (m_document)
-        QMetaObject::invokeMethod(m_document, "redo");
+    triggerEditorAction(QStringLiteral("edit_redo"));
 }
 
 void WorksheetTextEditorItem::cut()
 {
-    copy();
-    KTextEditor::Range rangeText = m_view->selectionRange();
-    m_document->removeText(rangeText);
+    triggerEditorAction(QStringLiteral("edit_cut"));
 }
 
 void WorksheetTextEditorItem::copy()
 {
-    KTextEditor::Range range;
-    if (m_view->selectionRange().isValid())
-        range = m_view->selectionRange();
-    else
-    {
-        int lastLine = m_document->lines() - 1;
-        int lastColumn = m_document->lineLength(lastLine);
-        range = KTextEditor::Range(0, 0, lastLine, lastColumn);
-    }
-
-    QString text = m_document->text(range);
-    text.replace(QChar::ParagraphSeparator, QLatin1Char('\n'));
-    text.replace(QChar::LineSeparator, QLatin1Char('\n'));
-
-    QApplication::clipboard()->setText(text);
+    triggerEditorAction(QStringLiteral("edit_copy"));
 }
 
 void WorksheetTextEditorItem::paste()
 {
-    KTextEditor::Range selection = m_view->selectionRange();
-    const QString textToPaste = QGuiApplication::clipboard()->text();
-
-    if (selection.isValid() && !selection.isEmpty())
-        m_document->replaceText(selection, textToPaste);
-    else
-    {
-        KTextEditor::Cursor cursor = m_view->cursorPosition();
-        m_document->insertText(cursor, textToPaste);
-    }
+    triggerEditorAction(QStringLiteral("edit_paste"));
 }
 
 void WorksheetTextEditorItem::selectionChanged()
 {
-    bool hasSelection = m_view->selectionRange().isValid();
-    Q_EMIT copyAvailable(hasSelection);
-
-    if(isEditable())
-        Q_EMIT cutAvailable(hasSelection);
-    if (isEditable())
-    Q_EMIT pasteAvailable(!QApplication::clipboard()->text().isEmpty());
+    Q_EMIT copyAvailable(isCopyAvailable());
+    Q_EMIT cutAvailable(isCutAvailable());
 }
 
 void WorksheetTextEditorItem::testSize()
@@ -842,147 +817,124 @@ void WorksheetTextEditorItem::testSize()
 
 void WorksheetTextEditorItem::clipboardChanged()
 {
-    if(isEditable())
-        Q_EMIT pasteAvailable(!QApplication::clipboard()->text().isEmpty());
+    Q_EMIT pasteAvailable(isPasteAvailable());
 }
 
 bool WorksheetTextEditorItem::eventFilter(QObject* object, QEvent* event)
 {
+    if (object == m_customCompleter && event->type() == QEvent::Hide && m_completionModel)
+        m_completionModel->abortCompletion();
+
+    if (event->type() == QEvent::ShortcutOverride)
+    {
+        auto* keyEvent = static_cast<QKeyEvent*>(event);
+        // Reserve deletion keys for forwarding while the popup owns focus.
+        const bool popupDeletion = object == m_customCompleter && m_customCompleter->isVisible() && !(keyEvent->modifiers() & ~Qt::ShiftModifier) && (keyEvent->key() == Qt::Key_Backspace || keyEvent->key() == Qt::Key_Delete);
+        if (editingActionForKey(keyEvent) || popupDeletion)
+        {
+            event->accept();
+            return true;
+        }
+    }
+
     if (event->type() == QEvent::KeyPress)
     {
-        if (object == m_customCompleter)
+        auto* keyEvent = static_cast<QKeyEvent*>(event);
+        if (auto* action = editingActionForKey(keyEvent))
         {
-            if (m_customCompleter->isVisible())
+            triggerEditorAction(action->objectName());
+            keyEvent->accept();
+            return true;
+        }
+
+        if (object == m_customCompleter && m_customCompleter->isVisible())
+        {
+            if (keyEvent->modifiers() == Qt::NoModifier)
             {
-                QKeyEvent* keyEvent = static_cast<QKeyEvent*>(event);
-                int key = keyEvent->key();
-                switch (key)
+                switch (keyEvent->key())
                 {
                     case Qt::Key_Up:
                     case Qt::Key_Down:
                     {
-                        int count = m_customCompleter->count();
+                        const int count = m_customCompleter->count();
                         if (count > 0)
                         {
-                            int currentRow = m_customCompleter->currentRow();
-                            currentRow += (keyEvent->key() == Qt::Key_Up) ? -1 : 1;
-                            m_customCompleter->setCurrentRow((currentRow + count) % count);
+                            const int step = keyEvent->key() == Qt::Key_Up ? -1 : 1;
+                            m_customCompleter->setCurrentRow((m_customCompleter->currentRow() + step + count) % count);
                         }
                         return true;
                     }
                     case Qt::Key_Enter:
                     case Qt::Key_Return:
-                        if (m_completionModel)
-                            m_completionModel->abortCompletion();
-                        if (keyEvent->modifiers() & Qt::ShiftModifier)
-                        {
-                            m_customCompleter->hide();
-                            m_view->setFocus();
-                            QApplication::sendEvent(m_view, event);
-                            return true;
-                        }
-                        // Enter/Return accepts the selected completion
-                        [[fallthrough]];
                     case Qt::Key_Tab:
                         onCompleterItemSelected();
                         return true;
                     case Qt::Key_Escape:
-                        if (m_customCompleter && m_customCompleter->isVisible())
-                            m_customCompleter->hide();
+                        hideCompleterAndResetFocus();
                         return true;
-                    case Qt::Key_Backspace:
-                    {
-                        KTextEditor::Range selection = m_view->selectionRange();
-                        if (selection.isValid())
-                        {
-                            m_document->removeText(selection);
-                            m_view->removeSelection();
-                        }
-                        else
-                        {
-                            KTextEditor::Cursor cursor = m_view->cursorPosition();
-                            if (cursor.column() > 0)
-                            {
-                                KTextEditor::Range range(cursor.line(), cursor.column() - 1, cursor.line(), cursor.column());
-                                m_document->removeText(range);
-                            }
-                            else if (cursor.line() > 0)
-                            {
-                                int prevLineLength = m_document->lineLength(cursor.line() - 1);
-                                KTextEditor::Range range(cursor.line() - 1, prevLineLength, cursor.line(), 0);
-                                m_document->removeText(range);
-                            }
-                        }
-                        if (m_customCompleter && m_customCompleter->isVisible())
-                            m_customCompleter->hide();
-                        return true;
-                    }
-                    case Qt::Key_Space:
-                        if (m_customCompleter && m_customCompleter->isVisible())
-                            m_customCompleter->hide();
-                        // Continue with normal text insertion for the space.
-                        [[fallthrough]];
                     default:
-                    {
-                        QString text = keyEvent->text();
-                        if (!text.isEmpty())
-                        {
-                            m_document->insertText(m_view->cursorPosition(), text);
-                            QChar c = text.at(0);
-                            bool isIdentifierPart = c.isLetterOrNumber() || c == QLatin1Char('_') || c == QLatin1Char('.');
-
-                            if (!isIdentifierPart)
-                            {
-                                m_customCompleter->hide();
-                                m_completionModel->abortCompletion();
-                            }
-                            else
-                            {
-                                KTextEditor::Range range = m_view->document()->wordRangeAt(m_view->cursorPosition());
-                                m_completionModel->completionInvoked(m_view, range, KTextEditor::CodeCompletionModel::AutomaticInvocation);
-                            }
-
-                            return true;
-                        }
-                    }
+                        break;
                 }
             }
+
+            // Forward shortcuts to avoid inserting their control characters as text.
+            const bool plainKey = !(keyEvent->modifiers() & (Qt::ControlModifier | Qt::AltModifier | Qt::MetaModifier));
+            const QString text = keyEvent->text();
+            const bool wordInput = !text.isEmpty() && std::all_of(text.cbegin(), text.cend(), [](QChar ch) { return ch.isLetterOrNumber() || ch == QLatin1Char('_'); });
+            if (plainKey && (wordInput || keyEvent->key() == Qt::Key_Backspace || keyEvent->key() == Qt::Key_Delete))
+            {
+                updateCompletionForKey(keyEvent);
+                return true;
+            }
+            hideCompleterAndResetFocus();
+            QApplication::sendEvent(worksheetView()->viewport(), keyEvent);
+            return true;
         }
 
-        else if (object == m_view)
+        if (object == m_view)
         {
-            QKeyEvent* keyEvent = static_cast<QKeyEvent*>(event);
-
-            if (keyEvent->key() == Qt::Key_Enter || keyEvent->key() == Qt::Key_Return)
-            {
-                if (m_completionModel)
-                    m_completionModel->abortCompletion();
-            }
-
-            bool completionActive = m_view->isCompletionActive();
-            bool customCompleterVisible = m_customCompleter && m_customCompleter->isVisible();
-
-            if (completionActive || customCompleterVisible)
-            {
-                if (completionActive)
-                    m_view->abortCompletion();
-
-                if (customCompleterVisible)
-                {
-                    if (m_customCompleter && m_customCompleter->isVisible())
-                        m_customCompleter->hide();
-                }
-            }
+            if (m_forwardingCompletionKey)
+                return false;
+            if (m_completionModel && (keyEvent->key() == Qt::Key_Enter || keyEvent->key() == Qt::Key_Return || keyEvent->key() == Qt::Key_Escape))
+                m_completionModel->abortCompletion();
+            if (m_view->isCompletionActive())
+                m_view->abortCompletion();
+            if (m_customCompleter && m_customCompleter->isVisible())
+                m_customCompleter->hide();
             return false;
         }
     }
     else if (event->type() == QEvent::MouseButtonPress)
     {
+        if (m_completionModel)
+            m_completionModel->abortCompletion();
         if (m_customCompleter && m_customCompleter->isVisible())
             m_customCompleter->hide();
     }
 
     return QGraphicsProxyWidget::eventFilter(object, event);
+}
+
+void WorksheetTextEditorItem::updateCompletionForKey(QKeyEvent* event)
+{
+    const auto previousRange = m_document->wordRangeAt(m_view->cursorPosition());
+    {
+        const QScopedValueRollback<bool> forwarding(m_forwardingCompletionKey, true);
+        const bool automaticInvocation = m_view->isAutomaticInvocationEnabled();
+        m_view->setAutomaticInvocationEnabled(false);
+        const auto restoreAutomaticInvocation = qScopeGuard([this, automaticInvocation] {
+            m_view->setAutomaticInvocationEnabled(automaticInvocation);
+        });
+        // Refresh completion after the editor updates both text and cursor.
+        keyPressEvent(event);
+    }
+
+    const auto cursor = m_view->cursorPosition();
+    const auto range = m_document->wordRangeAt(cursor);
+    if (!range.isValid() || range.isEmpty() || range.start() != previousRange.start() || cursor <= range.start())
+        hideCompleterAndResetFocus();
+    else
+        m_completionModel->updateCompletion(m_view);
 }
 
 void WorksheetTextEditorItem::keyPressEvent(QKeyEvent* event)
@@ -1013,6 +965,13 @@ void WorksheetTextEditorItem::keyPressEvent(QKeyEvent* event)
                 entry->moveToNext();
         }
 
+        event->accept();
+        return;
+    }
+
+    if (auto* action = editingActionForKey(event))
+    {
+        triggerEditorAction(action->objectName());
         event->accept();
         return;
     }
@@ -1131,27 +1090,22 @@ void WorksheetTextEditorItem::focusInEvent(QFocusEvent* event)
 
     if(m_document->isReadWrite() && !m_completionModel)
     {
-        m_completionModel = new CantorCompletionModel(this);
+        m_completionModel = new CantorCompletionModel(session(), this);
         m_view->registerCompletionModel(m_completionModel);
         connect(m_completionModel, &CantorCompletionModel::modelIsReady, this, &WorksheetTextEditorItem::showCustomCompleter);
-
-        auto* currentSession = session();
-        auto* model = currentSession ? currentSession->variableModel() : nullptr;
-        if (model) {
-            connect(model, &Cantor::DefaultVariableModel::initialModelPopulated, this, [this]() {
-                if (m_view && m_document)
-                {
-                    KTextEditor::Range range = m_document->wordRangeAt(m_view->cursorPosition());
-                    m_completionModel->completionInvoked(m_view, range, KTextEditor::CodeCompletionModel::AutomaticInvocation);
-                }
-            });
-        }
     }
 }
 
 void WorksheetTextEditorItem::focusOutEvent(QFocusEvent* event)
 {
-    QApplication::activePopupWidget() ;
+    // The popup temporarily takes focus from the editor.
+    if (event->reason() != Qt::PopupFocusReason)
+    {
+        if (m_completionModel)
+            m_completionModel->abortCompletion();
+        if (m_customCompleter)
+            m_customCompleter->hide();
+    }
     QGraphicsProxyWidget::focusOutEvent(event);
     Q_EMIT cursorPositionChanged(KTextEditor::Cursor::invalid());
 }
@@ -1256,8 +1210,7 @@ void WorksheetTextEditorItem::showCustomCompleter(const QList<CantorCompletionMo
 {
     if (matches.isEmpty())
     {
-        if (m_customCompleter && m_customCompleter->isVisible())
-            m_customCompleter->hide();
+        hideCompleterAndResetFocus();
         return;
     }
 
@@ -1271,26 +1224,32 @@ void WorksheetTextEditorItem::showCustomCompleter(const QList<CantorCompletionMo
         connect(m_customCompleter, &QListWidget::itemActivated, this, &WorksheetTextEditorItem::onCompleterItemSelected);
     }
 
+    const QString selected = m_customCompleter->isVisible() && m_customCompleter->currentItem() ? m_customCompleter->currentItem()->text() : QString();
+    m_customCompleter->setUpdatesEnabled(false);
     m_customCompleter->clear();
+    int selectedRow = 0;
     for (const auto& item : matches)
     {
+        if (item.name == selected)
+            selectedRow = m_customCompleter->count();
         m_customCompleter->addItem(item.name);
     }
-    m_customCompleter->setCurrentRow(0);
+    m_customCompleter->setCurrentRow(selectedRow);
+    m_customCompleter->setUpdatesEnabled(true);
 
     QRectF localCursorRect = cursorRect();
     QPointF scenePos = mapToScene(localCursorRect.bottomLeft());
     QPoint globalPos = worksheetView()->viewport()->mapToGlobal(worksheetView()->mapFromScene(scenePos));
 
-    m_customCompleter->move(globalPos);
-    m_customCompleter->show();
+    if (!m_customCompleter->isVisible())
+    {
+        m_customCompleter->move(globalPos);
+        m_customCompleter->show();
+    }
 }
 
 void WorksheetTextEditorItem::onCompleterItemSelected()
 {
-    if (m_completionModel)
-        m_completionModel->abortCompletion();
-
     if (!m_customCompleter || !m_customCompleter->currentItem() || !m_completionModel)
         return;
 
@@ -1298,9 +1257,7 @@ void WorksheetTextEditorItem::onCompleterItemSelected()
 
     m_completionModel->executeCompletionItem(m_view, currentIndex);
 
-    if (m_customCompleter && m_customCompleter->isVisible())
-        m_customCompleter->hide();
-    m_view->setFocus();
+    hideCompleterAndResetFocus();
 }
 
 void WorksheetTextEditorItem::hideCompleterAndResetFocus()
@@ -1322,12 +1279,10 @@ bool WorksheetTextEditorItem::sceneEvent(QEvent* event)
             kev->accept();
             return true;
         }
-        if (kev->matches(QKeySequence::SelectAll))
+        if (editingActionForKey(kev))
         {
-             kev->accept();
-             KTextEditor::Range fullRange(KTextEditor::Cursor(0, 0), m_view->document()->documentEnd());
-             m_view->setSelection(fullRange);
-             return true;
+            kev->accept();
+            return true;
         }
         QKeySequence sqe(kev->key() | kev->modifiers());
         if(worksheet()->isShortcut(sqe))
@@ -1422,15 +1377,27 @@ Cantor::Session* WorksheetTextEditorItem::session()
     return worksheet()->session();
 }
 
-QKeyEvent* WorksheetTextEditorItem::eventForStandardAction(KStandardAction::StandardAction actionID)
+QAction* WorksheetTextEditorItem::editingActionForKey(QKeyEvent* event) const
 {
-    auto* action = KStandardAction::create(actionID, this, &WorksheetTextEditorItem::copy, this);
-    auto keySeq = action->shortcut();
-    delete action;
+    const QKeySequence sequence(event->keyCombination());
+    const auto* collection = m_view->actionCollection();
+    for (const auto* name : {"edit_copy", "edit_cut", "edit_paste", "edit_select_all", "edit_undo", "edit_redo"})
+    {
+        auto* action = collection->action(QLatin1String(name));
+        if (action && action->shortcuts().contains(sequence))
+            return action;
+    }
+    return nullptr;
+}
 
-    const auto& keyCombination = keySeq[0];
-    auto* event = new QKeyEvent(QEvent::KeyPress, keyCombination.key(), keyCombination.keyboardModifiers());
-    return event;
+void WorksheetTextEditorItem::triggerEditorAction(const QString& name)
+{
+    if (m_completionModel)
+        m_completionModel->abortCompletion();
+    if (m_customCompleter && m_customCompleter->isVisible())
+        hideCompleterAndResetFocus();
+    if (auto* action = m_view->actionCollection()->action(name))
+        action->trigger();
 }
 
 void WorksheetTextEditorItem::resetScrollPosition()
