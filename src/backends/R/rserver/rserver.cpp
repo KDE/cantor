@@ -446,6 +446,14 @@ QString RServer::requestInput(const QString& prompt)
             return QString();
         }
 
+        // Check socket state before waiting - socket may be disconnecting
+        if (m_client->state() != QLocalSocket::ConnectedState)
+        {
+            qDebug() << "RServer::requestInput: socket not connected, exiting";
+            QCoreApplication::quit();
+            return QString();
+        }
+
         if (m_client->waitForReadyRead(100))
         {
             QByteArray newData = m_client->readAll();
