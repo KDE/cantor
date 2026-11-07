@@ -93,14 +93,20 @@ WorksheetTextEditorItem::WorksheetTextEditorItem(EditorMode initialMode, Workshe
     }
 
     connect(m_document, &KTextEditor::Document::textChanged, this, &WorksheetTextEditorItem::testSize);
-    connect(m_document, &KTextEditor::Document::textChanged, this, [this]()
+    connect(m_view, &KTextEditor::View::selectionChanged, this, &WorksheetTextEditorItem::selectionChanged);
+    connect(QApplication::clipboard(), &QClipboard::dataChanged, this, &WorksheetTextEditorItem::clipboardChanged);
+    connect(m_document, &KTextEditor::Document::readWriteChanged, this, [this]()
     {
-        bool canUndo = m_document->isModified();
-        Q_EMIT undoAvailable(canUndo);
-        Q_EMIT redoAvailable(canUndo);
-        Q_EMIT copyAvailable(canUndo);
-        Q_EMIT cutAvailable(canUndo);
-        Q_EMIT pasteAvailable(canUndo);
+        selectionChanged();
+        clipboardChanged();
+    });
+    connect(m_view->actionCollection()->action(QStringLiteral("edit_undo")), &QAction::changed, this, [this]()
+    {
+        Q_EMIT undoAvailable(isUndoAvailable());
+    });
+    connect(m_view->actionCollection()->action(QStringLiteral("edit_redo")), &QAction::changed, this, [this]()
+    {
+        Q_EMIT redoAvailable(isRedoAvailable());
     });
 
     connect(m_view, &KTextEditor::View::cursorPositionChanged, this, [this]()
@@ -330,17 +336,18 @@ void WorksheetTextEditorItem::setFocusAt(int pos, qreal x)
 
 bool WorksheetTextEditorItem::isEditable() const
 {
-    return m_mode == Editable;
+    return m_document && m_document->isReadWrite();
 }
 
 void WorksheetTextEditorItem::setReadOnly(bool readOnly)
 {
+    m_mode = readOnly ? ReadOnly : Editable;
     m_document->setReadWrite(!readOnly);
 }
 
 bool WorksheetTextEditorItem::isReadOnly() const
 {
-    return m_document->isReadWrite();
+    return !isEditable();
 }
 
 void WorksheetTextEditorItem::setDoubleClickBehaviour(DoubleClickEventBehaviour behaviour)
@@ -397,14 +404,9 @@ void WorksheetTextEditorItem::populateMenu(QMenu* menu, QPointF globalPos)
     auto* copy = KStandardAction::copy(this, &WorksheetTextEditorItem::copy, menu);
     auto* paste = KStandardAction::paste(this, &WorksheetTextEditorItem::paste, menu);
 
-    if(!m_view->selectionRange().isValid())
-    {
-        cut->setEnabled(false);
-        copy->setEnabled(false);
-    }
-
-    if(QApplication::clipboard()->text().isEmpty())
-        paste->setEnabled(false);
+    cut->setEnabled(isCutAvailable());
+    copy->setEnabled(isCopyAvailable());
+    paste->setEnabled(isPasteAvailable());
 
     bool actionAdded = false;
     if(isEditable())
@@ -413,7 +415,7 @@ void WorksheetTextEditorItem::populateMenu(QMenu* menu, QPointF globalPos)
         actionAdded = true;
     }
 
-    if(!m_dragEnabled && flags() & Qt::TextSelectableByMouse)
+    if(!m_dragEnabled)
     {
         menu->addAction(copy);
         actionAdded = true;
@@ -517,17 +519,19 @@ WorksheetEntry* WorksheetTextEditorItem::worksheetEntry()
 
 bool WorksheetTextEditorItem::isUndoAvailable() const
 {
-    return m_document && m_document->isModified();
+    const auto* action = m_view->actionCollection()->action(QStringLiteral("edit_undo"));
+    return isEditable() && action && action->isEnabled();
 }
 
 bool WorksheetTextEditorItem::isRedoAvailable() const
 {
-    return false;
+    const auto* action = m_view->actionCollection()->action(QStringLiteral("edit_redo"));
+    return isEditable() && action && action->isEnabled();
 }
 
 bool WorksheetTextEditorItem::isCutAvailable() const
 {
-    return m_view && m_view->selection();
+    return isEditable() && m_view && m_view->selection();
 }
 
 bool WorksheetTextEditorItem::isCopyAvailable() const
@@ -753,65 +757,33 @@ void WorksheetTextEditorItem::decreaseFontSize()
 
 void WorksheetTextEditorItem::undo()
 {
-    if (m_document)
-        QMetaObject::invokeMethod(m_document, "undo");
+    triggerEditorAction(QStringLiteral("edit_undo"));
 }
 
 void WorksheetTextEditorItem::redo()
 {
-    if (m_document)
-        QMetaObject::invokeMethod(m_document, "redo");
+    triggerEditorAction(QStringLiteral("edit_redo"));
 }
 
 void WorksheetTextEditorItem::cut()
 {
-    copy();
-    KTextEditor::Range rangeText = m_view->selectionRange();
-    m_document->removeText(rangeText);
+    triggerEditorAction(QStringLiteral("edit_cut"));
 }
 
 void WorksheetTextEditorItem::copy()
 {
-    KTextEditor::Range range;
-    if (m_view->selectionRange().isValid())
-        range = m_view->selectionRange();
-    else
-    {
-        int lastLine = m_document->lines() - 1;
-        int lastColumn = m_document->lineLength(lastLine);
-        range = KTextEditor::Range(0, 0, lastLine, lastColumn);
-    }
-
-    QString text = m_document->text(range);
-    text.replace(QChar::ParagraphSeparator, QLatin1Char('\n'));
-    text.replace(QChar::LineSeparator, QLatin1Char('\n'));
-
-    QApplication::clipboard()->setText(text);
+    triggerEditorAction(QStringLiteral("edit_copy"));
 }
 
 void WorksheetTextEditorItem::paste()
 {
-    KTextEditor::Range selection = m_view->selectionRange();
-    const QString textToPaste = QGuiApplication::clipboard()->text();
-
-    if (selection.isValid() && !selection.isEmpty())
-        m_document->replaceText(selection, textToPaste);
-    else
-    {
-        KTextEditor::Cursor cursor = m_view->cursorPosition();
-        m_document->insertText(cursor, textToPaste);
-    }
+    triggerEditorAction(QStringLiteral("edit_paste"));
 }
 
 void WorksheetTextEditorItem::selectionChanged()
 {
-    bool hasSelection = m_view->selectionRange().isValid();
-    Q_EMIT copyAvailable(hasSelection);
-
-    if(isEditable())
-        Q_EMIT cutAvailable(hasSelection);
-    if (isEditable())
-    Q_EMIT pasteAvailable(!QApplication::clipboard()->text().isEmpty());
+    Q_EMIT copyAvailable(isCopyAvailable());
+    Q_EMIT cutAvailable(isCutAvailable());
 }
 
 void WorksheetTextEditorItem::testSize()
@@ -842,14 +814,31 @@ void WorksheetTextEditorItem::testSize()
 
 void WorksheetTextEditorItem::clipboardChanged()
 {
-    if(isEditable())
-        Q_EMIT pasteAvailable(!QApplication::clipboard()->text().isEmpty());
+    Q_EMIT pasteAvailable(isPasteAvailable());
 }
 
 bool WorksheetTextEditorItem::eventFilter(QObject* object, QEvent* event)
 {
+    if (event->type() == QEvent::ShortcutOverride)
+    {
+        auto* keyEvent = static_cast<QKeyEvent*>(event);
+        if (editingActionForKey(keyEvent))
+        {
+            event->accept();
+            return true;
+        }
+    }
+
     if (event->type() == QEvent::KeyPress)
     {
+        auto* keyEvent = static_cast<QKeyEvent*>(event);
+        if (auto* action = editingActionForKey(keyEvent))
+        {
+            triggerEditorAction(action->objectName());
+            keyEvent->accept();
+            return true;
+        }
+
         if (object == m_customCompleter)
         {
             if (m_customCompleter->isVisible())
@@ -1013,6 +1002,13 @@ void WorksheetTextEditorItem::keyPressEvent(QKeyEvent* event)
                 entry->moveToNext();
         }
 
+        event->accept();
+        return;
+    }
+
+    if (auto* action = editingActionForKey(event))
+    {
+        triggerEditorAction(action->objectName());
         event->accept();
         return;
     }
@@ -1322,12 +1318,10 @@ bool WorksheetTextEditorItem::sceneEvent(QEvent* event)
             kev->accept();
             return true;
         }
-        if (kev->matches(QKeySequence::SelectAll))
+        if (editingActionForKey(kev))
         {
-             kev->accept();
-             KTextEditor::Range fullRange(KTextEditor::Cursor(0, 0), m_view->document()->documentEnd());
-             m_view->setSelection(fullRange);
-             return true;
+            kev->accept();
+            return true;
         }
         QKeySequence sqe(kev->key() | kev->modifiers());
         if(worksheet()->isShortcut(sqe))
@@ -1422,15 +1416,27 @@ Cantor::Session* WorksheetTextEditorItem::session()
     return worksheet()->session();
 }
 
-QKeyEvent* WorksheetTextEditorItem::eventForStandardAction(KStandardAction::StandardAction actionID)
+QAction* WorksheetTextEditorItem::editingActionForKey(QKeyEvent* event) const
 {
-    auto* action = KStandardAction::create(actionID, this, &WorksheetTextEditorItem::copy, this);
-    auto keySeq = action->shortcut();
-    delete action;
+    const QKeySequence sequence(event->keyCombination());
+    const auto* collection = m_view->actionCollection();
+    for (const auto* name : {"edit_copy", "edit_cut", "edit_paste", "edit_select_all", "edit_undo", "edit_redo"})
+    {
+        auto* action = collection->action(QLatin1String(name));
+        if (action && action->shortcuts().contains(sequence))
+            return action;
+    }
+    return nullptr;
+}
 
-    const auto& keyCombination = keySeq[0];
-    auto* event = new QKeyEvent(QEvent::KeyPress, keyCombination.key(), keyCombination.keyboardModifiers());
-    return event;
+void WorksheetTextEditorItem::triggerEditorAction(const QString& name)
+{
+    if (m_completionModel)
+        m_completionModel->abortCompletion();
+    if (m_customCompleter && m_customCompleter->isVisible())
+        hideCompleterAndResetFocus();
+    if (auto* action = m_view->actionCollection()->action(name))
+        action->trigger();
 }
 
 void WorksheetTextEditorItem::resetScrollPosition()
