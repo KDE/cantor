@@ -1,9 +1,13 @@
 [KNewStuff3]
 Name=Documentation
 Name[ar]=التّوثيق
+Name[ca]=Documentació
+Name[ca@valencia]=Documentació
 Name[cs]=Dokumentace
 Name[de]=Dokumentation
 Name[el]=Τεκμηρίωση
+Name[en_GB]=Documentation
+Name[eo]=Dokumentado
 Name[es]=Documentación
 Name[eu]=Dokumentazioa
 Name[fi]=Ohjeistus
