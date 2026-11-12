@@ -13,7 +13,7 @@ msgstr ""
 "Project-Id-Version: kdeedu-kde4\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-11-08 02:52+0000\n"
-"PO-Revision-Date: 2026-11-03 21:35+0300\n"
+"PO-Revision-Date: 2026-11-10 21:38+0300\n"
 "Last-Translator: Emir SARI <emir_sari@icloud.com>\n"
 "Language-Team: Turkish <kde-l10n-tr@kde.org>\n"
 "Language: tr\n"
@@ -21,7 +21,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"X-Generator: Lokalize 26.08.0\n"
+"X-Generator: Lokalize 26.08.2\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -1163,7 +1163,7 @@ msgstr "X değişkeni"
 #: backends/qalculate/plotassistant/qalculateplotdialog.ui:134
 #, kde-format
 msgid "Style"
-msgstr "Biçem"
+msgstr "Stil"
 
 #. i18n: ectx: property (text), item, widget (KComboBox, styleBox)
 #. i18n: ectx: property (text), item, widget (KComboBox, kcfg_plotStyle)
@@ -1652,7 +1652,7 @@ msgstr "Çizimlerde pürüzsüzleştirme kipi."
 #: backends/qalculate/qalculatebackend.kcfg:125
 #, kde-format
 msgid "Style of plots."
-msgstr "Çizimlerin biçemi."
+msgstr "Çizimlerin stili."
 
 #. i18n: ectx: label, entry (plotLegend), group (QalculateBackend)
 #: backends/qalculate/qalculatebackend.kcfg:138
@@ -1872,7 +1872,7 @@ msgid ""
 "Plot style. One of lines, points, points_lines, boxes, histogram, steps, "
 "candlesticks, dots"
 msgstr ""
-"Çizim biçemi. lines, points, points_lines, boxes, histogram, steps, "
+"Çizim stili. lines, points, points_lines, boxes, histogram, steps, "
 "candlesticks veya dots olabilir"
 
 #: backends/qalculate/qalculatesyntaxhelpobject.cpp:230
@@ -2149,7 +2149,7 @@ msgstr "Izgarayı göster:"
 #: backends/qalculate/settings.ui:570
 #, kde-format
 msgid "Plot Style:"
-msgstr "Çizim biçemi:"
+msgstr "Çizim stili:"
 
 #: backends/qthelpconfig.cpp:44
 #, kde-format
@@ -2836,7 +2836,7 @@ msgstr ""
 #: cantor.kcfg:74
 #, kde-format
 msgid "Use old style Cantor entries placement style"
-msgstr "Eski tarz Cantor girdileri yerleştirme biçemini kullan"
+msgstr "Eski tarz Cantor girdileri yerleştirme stilini kullan"
 
 #. i18n: ectx: label, entry (ShowMathRenderError), group (Cantor)
 #: cantor.kcfg:78
@@ -3535,27 +3535,27 @@ msgstr "Hiyerarşi Düzeyini Ayarla"
 #: horizontalruleentry.cpp:20
 #, kde-format
 msgid "Solid Line Style"
-msgstr "Katı Çizgi Biçemi"
+msgstr "Katı Çizgi Stili"
 
 #: horizontalruleentry.cpp:20
 #, kde-format
 msgid "Dash Line Style"
-msgstr "Tireli Çizgi Biçemi"
+msgstr "Tireli Çizgi Stili"
 
 #: horizontalruleentry.cpp:20
 #, kde-format
 msgid "Dot Line Style"
-msgstr "Noktalı Çizgi Biçemi"
+msgstr "Noktalı Çizgi Stili"
 
 #: horizontalruleentry.cpp:20
 #, kde-format
 msgid "Dash Dot Line Style"
-msgstr "Tireli Noktalı Çizgi Biçemi"
+msgstr "Tireli Noktalı Çizgi Stili"
 
 #: horizontalruleentry.cpp:20
 #, kde-format
 msgid "Dash Dot Dot Line Style"
-msgstr "Tireli Noktalı Noktalı Çizgi Biçemi"
+msgstr "Tireli Noktalı Noktalı Çizgi Stili"
 
 #: horizontalruleentry.cpp:305
 #, kde-format
@@ -3585,7 +3585,7 @@ msgstr "Çizgi Rengi"
 #: horizontalruleentry.cpp:359
 #, kde-format
 msgid "Line Style"
-msgstr "Çizgi Biçemi"
+msgstr "Çizgi Stili"
 
 #: imageentry.cpp:60 imageentry.cpp:456
 #, kde-format
