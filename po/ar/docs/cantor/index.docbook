@@ -1,0 +1,1579 @@
+<?xml version="1.0" ?>
+<!DOCTYPE book PUBLIC "-//KDE//DTD DocBook XML V4.5-Based Variant V1.1//EN" "dtd/kdedbx45.dtd" [
+
+  <!ENTITY latex "L<superscript
+>A</superscript
+>T<subscript
+>E</subscript
+>X">
+  <!ENTITY % addindex "IGNORE">
+  <!ENTITY % Arabic "INCLUDE">
+]>
+<book id="cantor" lang="&language;">
+
+<bookinfo>
+<title
+>دليل كانتور</title>
+
+<authorgroup>
+<author
+><personname
+> <firstname
+>Alexander</firstname
+> <surname
+>Rieder</surname
+> </personname
+> <email
+>alexanderrieder@gmail.com</email
+> </author>
+<othercredit role="translator"
+><firstname
+>زايد</firstname
+><surname
+>السعيدي</surname
+><affiliation
+><address
+><email
+>zayed.alsaidi@gmail.com</email
+></address
+></affiliation
+><contrib
+>التّرجمة العربيّة</contrib
+></othercredit
+> 
+</authorgroup>
+
+<copyright>
+<year
+>2009</year>
+<holder
+>ألكسندر ريدر</holder>
+</copyright>
+<legalnotice
+>&FDLNotice;</legalnotice>
+
+<date
+>2023-11-29</date>
+<releaseinfo
+>تطبيقات 23.08</releaseinfo>
+
+<abstract>
+<para
+>كانتور هو تطبيق يهدف إلى توفير عرض ورقة عمل جميل لحزم الرياضيات الحرة الأخرى. </para>
+</abstract>
+
+<keywordset>
+<keyword
+>كيدي</keyword>
+<keyword
+>kdeedu</keyword>
+<keyword
+>رياضيات</keyword>
+<keyword
+>رياضيات</keyword>
+<keyword
+>إحصائيّات</keyword>
+<keyword
+>كانتور</keyword>
+<keyword
+>جوليا</keyword>
+<keyword
+>Lua</keyword>
+<keyword
+>ماكسيما</keyword>
+<keyword
+>أوكتاف</keyword>
+<keyword
+>بيثون</keyword>
+<keyword
+>Qalculate</keyword>
+<keyword
+>R</keyword>
+<keyword
+>ساج</keyword>
+<keyword
+>سايلاب</keyword>
+</keywordset>
+
+</bookinfo>
+
+<chapter id="introduction">
+<title
+>مقدمة</title>
+
+<para
+>كانتور هو تطبيق يتيح لك استخدام تطبيقاتك الرياضية المفضلة من خلال واجهة ورقة عمل أنيقة ومتكاملة مع &kde;. يوفر حوارات للمساعدة في المهام الشائعة ويسمح لك بمشاركة أوراق عملك مع الآخرين. </para>
+</chapter>
+
+<chapter id="using-kapp">
+<title
+>استخدام كانتور</title>
+
+<para
+>لقطة شاشة: <screenshot>
+<screeninfo
+>هذه لقطة شاشة لـ كانتور</screeninfo>
+	<mediaobject>
+	  <imageobject>
+	    <imagedata fileref="screenshot.png" format="PNG"/>
+	  </imageobject>
+	  <textobject>
+	    <phrase
+>لقطة شاشة</phrase>
+	  </textobject>
+	</mediaobject>
+</screenshot>
+</para>
+
+
+<sect1 id="kapp-features">
+<title
+>ميزات كانتور</title>
+<itemizedlist>
+  <listitem
+><para
+>عرض ورقة عمل بديهي لتقييم التعبيرات.</para
+></listitem>
+  <listitem
+><para
+>نتائج رسم الرسوم البيانية معروضة داخل ورقة العمل.</para
+></listitem>
+  <listitem
+><para
+>هيكل سهل قائم على الملحقات للسماح بإضافة أنظمة خلفية مختلفة.</para
+></listitem>
+  <listitem
+><para
+>تكامل GetHotNewStuff للسماح بتنزيل (أو رفع) أوراق عمل أمثلة.</para
+></listitem>
+  <listitem
+><para
+>تنضيد الصيغ الرياضية باستخدام &latex;.</para
+></listitem>
+  <listitem
+><para
+>تمييز بناء الجملة مدرك للنظام الخلفي.</para
+></listitem>
+  <listitem
+><para
+>حوارات مساعدة قائمة على الملحقات للمساعدة في المهام الشائعة، مثل تكامل دالة أو إدخال مصفوفة.</para
+></listitem>
+</itemizedlist>
+</sect1>
+
+<sect1 id="backends">
+<title
+>الأنظمة الخلفية لـ كانتور</title>
+<para
+>يقدم لك كانتور عدة خيارات للأنظمة الخلفية التي ترغب في استخدامها معه. يعتمد الاختيار على ما تريد تحقيقه. </para>
+<para
+>حاليًا، الخلفيات التالية متاحة: <variablelist>
+    <varlistentry>
+      <term
+>ساج:</term>
+      <listitem>
+	<para
+>Sage هو نظام برمجيات رياضيات مفتوح المصدر مجاني مرخص تحت GPL. يجمع قوة العديد من الحزم مفتوحة المصدر الموجودة ضمن واجهة مشتركة قائمة على Python. انظر <ulink url="https://sagemath.org"
+>https://sagemath.org</ulink
+> لمزيد من المعلومات. </para>
+	</listitem>
+    </varlistentry>
+    <varlistentry>
+      <term
+>ماكسيما:</term>
+      <listitem>
+	<para
+>Maxima هو نظام لمعالجة التعبيرات الرمزية والعددية، بما في ذلك التفاضل والتكامل ومتسلسلات تايلور وتحويلات لابلاس والمعادلات التفاضلية العادية وأنظمة المعادلات الخطية ومتعددات الحدود والمجموعات والقوائم والمتجهات والمصفوفات والموترات. ينتج Maxima نتائج عددية عالية الدقة باستخدام الكسور الدقيقة والأعداد الصحيحة ذات الدقة العشوائية وأرقام الفاصلة العائمة ذات الدقة المتغيرة. يمكن لـ Maxima رسم الدوال والبيانات في بعدين وثلاثة أبعاد. انظر <ulink url="http://maxima.sourceforge.net"
+>http://maxima.sourceforge.net</ulink
+> لمزيد من المعلومات. </para>
+      </listitem>
+    </varlistentry>
+    <varlistentry>
+      <term
+>R:</term>
+      <listitem>
+	<para
+>R هي لغة وبيئة للحوسبة الإحصائية والرسوميات، مشابهة للغة والبيئة S. توفر مجموعة واسعة من التقنيات الإحصائية (النمذجة الخطية وغير الخطية، الاختبارات الإحصائية الكلاسيكية، تحليل السلاسل الزمنية، التصنيف، التجميع، علم البيانات، ...) والرسومية، وهي قابلة للتوسع بشكل كبير. غالبًا ما تكون لغة S هي الخيار المفضل للبحث في المنهجية الإحصائية، وتوفر R مسارًا مفتوح المصدر لذلك. انظر <ulink url="https://www.r-project.org"
+>https://www.r-project.org</ulink
+> لمزيد من المعلومات. </para>
+      </listitem>
+    </varlistentry>
+    <varlistentry>
+      <term
+>جوليا:</term>
+      <listitem>
+	<para
+>Julia هي لغة برمجة ديناميكية عالية المستوى وعالية الأداء للأغراض العامة للحوسبة التقنية، مع بناء جملة مألوف لمستخدمي بيئات الحوسبة التقنية الأخرى. توفر مترجمًا متطورًا، وتنفيذًا موزعًا متوازيًا، ودقة عددية، ومكتبة دوال رياضية واسعة. انظر <ulink url="https://julialang.org/"
+>موقع Julia</ulink
+> لمزيد من المعلومات. </para>
+      </listitem>
+    </varlistentry>
+    <varlistentry>
+      <term
+>جبرك</term>
+      <listitem>
+	<para
+>&kalgebra; هي آلة حاسبة رسومية قائمة على MathML، تأتي مع مشروع تعليم &kde;. انظر <ulink url="https://edu.kde.org/kalgebra/"
+>https://edu.kde.org/kalgebra/</ulink
+> لمزيد من المعلومات. </para>
+      </listitem>
+    </varlistentry>
+    <varlistentry>
+      <term
+>Qalculate!:</term>
+      <listitem>
+  <para
+>Qalculate! ليس مجرد نسخة برمجية عادية لأرخص آلة حاسبة متاحة. يهدف Qalculate! إلى الاستفادة الكاملة من الواجهة الفائقة والقوة والمرونة للحواسيب الحديثة. محور الاهتمام في Qalculate! هو إدخال التعبير. بدلًا من إدخال كل رقم في تعبير رياضي بشكل منفصل، يمكنك كتابة التعبير بأكمله مباشرة وتعديله لاحقًا. تفسير التعبيرات مرن ومتسامح مع الأخطاء، وإذا أخطأت مع ذلك، سيخبرك Qalculate! بذلك. التعبيرات غير القابلة للحل بالكامل ليست أخطاء. سيبسط Qalculate! قدر الإمكان ويجيب بتعبير. بالإضافة إلى الأرقام والعوامل الحسابية، يمكن أن يحتوي التعبير على أي مجموعة من المتغيرات والوحدات والدوال. انظر <ulink url="https://qalculate.github.io/"
+>https://qalculate.github.io/</ulink
+> لمزيد من المعلومات. </para>
+  </listitem>
+    </varlistentry>
+    <varlistentry>
+      <term
+>Python2 وPython3:</term>
+      <listitem>
+  <para
+>بيثون هي لغة برمجة ديناميكية قوية بشكل لافت، تُستخدم في نطاق واسع من مجالات التطبيقات. هناك عدة حزم بيثون للبرمجة العلمية. </para>
+  <para
+>يُوزَّع بايثون تحت رخصة مؤسسة برمجيات بايثون (متوافقة مع GPL). انظر <ulink url="https://www.python.org/"
+>الموقع الرسمي</ulink
+> لمزيد من المعلومات. </para>
+  <note>
+    <para
+>يُضيف هذا الملحق عنصرًا إضافيًا إلى القائمة الرئيسة لـ كانتور، <guimenu
+>حزمة</guimenu
+>. العنصر الوحيد في هذه القائمة هو <menuchoice
+><guimenu
+>حزمة</guimenu
+><guimenuitem
+>استيراد حزمة</guimenuitem
+></menuchoice
+>. يمكن استخدام هذا العنصر لاستيراد حزم بايثون إلى ورقة العمل. </para>
+  </note>
+    </listitem>
+    </varlistentry>
+    <varlistentry>
+      <term
+>سايلاب:</term>
+      <listitem>
+  <para
+>Scilab هو برنامج حر، حزمة حسابية رقمية متعددة المنصات ولغة برمجة عالية المستوى موجهة رقميًا. </para>
+  <para
+>يُوزَّع Scilab بموجب رخصة CeCILL (متوافقة مع GPL). انظر <ulink url="https://www.scilab.org/"
+>https://www.scilab.org/</ulink
+> لمزيد من المعلومات. </para>
+  <warning>
+    <para
+>تحتاج إلى تثبيت Scilab إصدار 5.5 أو أعلى في نظامك لجعل هذا الملحق قابلًا للاستخدام. </para>
+  </warning>
+  </listitem>
+    </varlistentry>
+    <varlistentry>
+      <term
+>أوكتاف:</term>
+      <listitem>
+  <para
+>&GNU; Octave هي لغة عالية المستوى، مخصصة أساسًا للحسابات العددية. توفر واجهة سطر أوامر ملائمة لحل المسائل الخطية وغير الخطية عدديًا، ولإجراء تجارب عددية أخرى باستخدام لغة متوافقة غالبًا مع <ulink url="https://www.mathworks.com/products/matlab.html"
+>MATLAB</ulink
+>. انظر <ulink url="https://octave.org/"
+>https://octave.org/</ulink
+> لمزيد من المعلومات. </para>
+      </listitem>
+    </varlistentry>
+    <varlistentry>
+      <term
+>لوا:</term>
+      <listitem>
+  <para
+>Lua هي لغة برمجة سريعة وخفيفة، ذات صياغة إجرائية بسيطة. هناك العديد من المكتبات في Lua تستهدف الرياضيات والعلوم. </para>
+  <para
+>انظر <ulink url="https://www.lua.org/"
+>https://www.lua.org/</ulink
+> لمزيد من المعلومات. </para>
+  <para
+>يدعم هذا الملحق <ulink url="https://luajit.org/"
+>LuaJIT 2</ulink
+>. </para>
+      </listitem>
+    </varlistentry>
+  </variablelist>
+</para>
+</sect1>
+
+<sect1 id="workspace">
+<title
+>مساحة عمل كانتور</title>
+<para>
+<screenshot>
+  <screeninfo
+>لقطة شاشة لمساحة عمل كانتور</screeninfo>
+  <mediaobject>
+    <imageobject>
+      <imagedata fileref="screenshot.png" format="PNG"/>
+    </imageobject>
+    <textobject>
+      <phrase
+>لقطة شاشة لمساحة عمل كانتور</phrase>
+    </textobject>
+  </mediaobject>
+</screenshot>
+</para>
+<para
+>تتكون واجهة ورقة العمل في كانتور من ثلاثة أجزاء: <orderedlist>
+    <listitem
+><para
+>شريط اللسانيات، حيث يمكنك التبديل بين أوراق العمل المفتوحة.</para
+></listitem>
+    <listitem
+><para
+>لوحة مساعدة، حيث تُعرض المساعدة لأمر معين إذا أدخلت <userinput
+>?? <replaceable
+>أمر</replaceable
+></userinput
+> أو <userinput
+>describe(<replaceable
+>أمر</replaceable
+>)</userinput
+> أو <userinput
+>example(<replaceable
+>أمر</replaceable
+>)</userinput
+> (الواجهة الخلفية <application
+>Maxima</application
+>).</para
+></listitem>
+    <listitem
+><para
+>لوحة مدير المتغيرات حيث يمكنك رؤية قائمة بجميع المتغيرات المتاحة في ورقة العمل الحالية. تظهر لوحتا المساعدة ومدير المتغيرات كلسانيتين في شريط جانبي لنافذة كانتور. يمكن استخدام مدير المتغيرات للواجهات الخلفية Maxima (إذا فُعِّل في صفحة <guilabel
+>Maxima</guilabel
+> ضمن <menuchoice
+><guimenu
+>الإعدادات</guimenu
+><guimenuitem
+>اضبط كانتور...</guimenuitem
+></menuchoice
+>) و&kalgebra; وOctave وPython2 وPython3 وQalculate وScilab فقط.</para
+></listitem>
+    <listitem
+><para
+>ورقة العمل نفسها.</para
+></listitem>
+  </orderedlist>
+</para>
+<sect2 id="worksheet">
+<title
+>ورقة العمل</title>
+<para
+>ورقة العمل هي المنطقة الأساسية للعمل مع كانتور. باستخدامها، يمكنك إدخال التعبيرات، والسماح للواجهة الخلفية بإجراء الحسابات، وعرض النتائج. تعتمد الأوامر التي تقبلها أوراق العمل على الواجهة الخلفية المختارة، لذا يجب تعلم بناء الجملة المناسب للواجهة الخلفية (ينقلك زر <guibutton
+>إظهار المساعدة</guibutton
+> إليها مباشرة). إذا كنت تعرف الأمر ولكنك تحتاج إلى معلومات إضافية، يمكنك كتابة "? <replaceable
+>أمر</replaceable
+>"، وستظهر المساعدة السياقية على يمين ورقة العمل. إذا أردت رؤية بعض أوراق العمل النموذجية، يمكنك الذهاب إلى عنصر القائمة <menuchoice
+><guimenu
+>ملف</guimenu
+><guimenuitem
+>نزّل أوراق عمل نموذجية</guimenuitem
+></menuchoice
+>، وتنزيل أوراق العمل التي نشرها مستخدمون آخرون. </para>
+<para
+>للتحكم في كل إدخال أمر في ورقة العمل، يمكنك استخدام أزرار التحكم التي تظهر في الجزء الأيمن من ورقة العمل عند تحريك مؤشر الفأرة فوق حقل الإدخال. هناك ثلاثة إجراءات أساسية لكل إدخال: <guilabel
+>قيّم الإدخال</guilabel
+> لتحديث نتيجة الحسابات للإدخال، و<guilabel
+>اسحب الإدخال</guilabel
+> لنقل الإدخال إلى مكان آخر في ورقة العمل الحالية، و<guilabel
+>أزل الإدخال</guilabel
+> لإزالة الإدخال من ورقة العمل الحالية. </para>
+<para
+>يمكن تغيير إعدادات الخط ومحاذاة إدخالات ورقة العمل باستخدام شريط الأدوات فوق ورقة العمل. </para>
+<sect3 id="worksheet-settings">
+  <title
+>إعدادات</title>
+  <para
+>تتيح لك قائمة <guimenu
+>الإعدادات</guimenu
+> تغيير بعض إعدادات مظهر ورقة العمل الحالية. </para>
+  <variablelist>
+    <varlistentry>
+      <term
+>نضّد باستخدام LaTeX</term>
+      <listitem>
+	<para
+>يغير هذا الإعداد طريقة عرض النتائج لك. إذا فُعِّل، يُمرَّر النتيجة عبر نظام &latex;، لإنتاج صيغ جذابة بصريًا. على سبيل المثال، يصبح <quote
+>3*x^2*sqrt(2)*x+2/3</quote
+> <inlinemediaobject>
+	      <imageobject>
+		<imagedata fileref="latex_formula.png" format="PNG"/>
+	      </imageobject>
+	      <textobject
+><phrase
+>3*x^2*sqrt(2)*x+2/3</phrase
+></textobject>
+	  </inlinemediaobject>
+	</para>
+      </listitem>
+    </varlistentry>
+    <varlistentry>
+      <term
+>إبراز الصّياغة</term>
+      <listitem>
+	<para
+>يزيد تمييز بناء الجملة من قابلية قراءة الكود، من خلال تمييز الكلمات المفتاحية، أو مطابقة الأقواس بألوان مختلفة. </para>
+      </listitem>
+    </varlistentry>
+    <varlistentry>
+      <term
+>الإكمال</term>
+      <listitem>
+	<para
+>عند تفعيل هذا، سيعرض كانتور الإكمالات المحتملة للأمر الذي تكتبه حاليًا عند الضغط على مفتاح Tab. إذا بقي خيار واحد فقط، فسيدرج باقي الأمر لك. </para>
+      </listitem>
+    </varlistentry>
+  <varlistentry>
+    <term
+>أرقام الأسطر</term>
+    <listitem>
+      <para
+>تتحكم هذه الإعدادات فيما إذا كان يجب أن يكون للتعابير المختلفة رقم في المقدمة. يتيح لك ذلك استدعاء النتائج الأقدم - في ماكسيما، على سبيل المثال، يتم ذلك باستخدام الأمر <quote
+>%O1</quote
+>. </para>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term
+>ورقة عمل متحركة</term>
+    <listitem>
+      <para
+>تتحكم هذه الإعدادات فيما إذا كانت الرسوم المتحركة المختلفة ستُستخدم لتسليط الضوء على التغييرات في ورقة العمل. </para>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term
+>رياضيات مضمنة</term>
+    <listitem>
+      <para
+>تتحكم هذه الإعدادات فيما إذا كان عرض التعابير الرياضية داخل <literal
+>$$..$$</literal
+> في إدخالات النص و&Markdown; مُفعّلًا افتراضيًا (يتطلب تثبيت <application
+>pdflatex</application
+>). </para>
+    </listitem>
+  </varlistentry>
+  </variablelist>
+</sect3>
+</sect2>
+</sect1>
+<sect1 id="assistant-dlgs">
+<title
+>حوارات المساعد</title>
+<para
+>هناك عدة حوارات مساعد مُطبّقة في كانتور لتخفيف بعض العمليات الأساسية. </para>
+<para
+>يمكن الوصول إلى هذه الحوارات باستخدام عناصر القائمة الرئيسة. لكل خلفية حوارات مساعد خاصة بها. </para>
+<sect2 id="create-matrix-dlg">
+<title
+>حوار إنشاء المصفوفة</title>
+<screenshot>
+  <screeninfo
+>لقطة شاشة لحوار إنشاء المصفوفة في كانتور</screeninfo>
+  <mediaobject>
+    <imageobject>
+      <imagedata fileref="create-dlg.png" format="PNG"/>
+    </imageobject>
+    <textobject>
+      <phrase
+>لقطة شاشة لحوار إنشاء المصفوفة في كانتور</phrase>
+    </textobject>
+  </mediaobject>
+</screenshot>
+<para
+>يمكن استخدام هذا الحوار لإدخال المصفوفات. يمكنك تحديد أبعاد المصفوفة وعناصرها. </para>
+<para
+>من الممكن التنقل بين الخلايا بسرعة أثناء الإدخال باستخدام مفتاح &Tab;. </para>
+</sect2>
+<sect2 id="compute-invert-dlg">
+<title
+>حوار عمليات المصفوفة</title>
+<screenshot>
+  <screeninfo
+>لقطة شاشة لحوار إدخال المصفوفة في كانتور</screeninfo>
+  <mediaobject>
+    <imageobject>
+      <imagedata fileref="matrix-dlg.png" format="PNG"/>
+    </imageobject>
+    <textobject>
+      <phrase
+>لقطة شاشة لحوار إدخال المصفوفة في كانتور</phrase>
+    </textobject>
+  </mediaobject>
+</screenshot>
+<para
+>يسمح هذا الحوار بإدخال اسم المصفوفة لحساب متجهاتها الذاتية أو قيمها الذاتية أو قلب المصفوفة. تُستخدم القيمة المبدئية (<userinput
+>%</userinput
+>) للإشارة إلى النتيجة السابقة للحساب أو الإدخال. </para>
+</sect2>
+<sect2 id="calculate-derivative-dlg">
+<title
+>حوار التفاضل</title>
+<screenshot>
+  <screeninfo
+>لقطة شاشة لحوار التفاضل في كانتور</screeninfo>
+  <mediaobject>
+    <imageobject>
+      <imagedata fileref="differentiate-dlg.png" format="PNG"/>
+    </imageobject>
+    <textobject>
+      <phrase
+>لقطة شاشة لحوار التفاضل في كانتور</phrase>
+    </textobject>
+  </mediaobject>
+</screenshot>
+<para
+>يسمح هذا الحوار بإدخال تعبير الدالة المراد تفاضلها، واسم المتغير، ورتبة المشتقة. </para>
+</sect2>
+<sect2 id="calculate-integral-dlg">
+<title
+>حوار التكامل</title>
+<screenshot>
+  <screeninfo
+>لقطة شاشة لحوار التكامل في كانتور</screeninfo>
+  <mediaobject>
+    <imageobject>
+      <imagedata fileref="integrate-dlg.png" format="PNG"/>
+    </imageobject>
+    <textobject>
+      <phrase
+>لقطة شاشة لحوار التكامل في كانتور</phrase>
+    </textobject>
+  </mediaobject>
+</screenshot>
+<para
+>يسمح هذا الحوار بإدخال تعبير الدالة المراد تكاملها، واسم المتغير، وحدود التكامل (للتكامل المحدد). </para>
+</sect2>
+<sect2 id="calculate-solve-dlg">
+<title
+>حوار حل المعادلات</title>
+<screenshot>
+  <screeninfo
+>لقطة شاشة لحوار حل المعادلات في كانتور</screeninfo>
+  <mediaobject>
+    <imageobject>
+      <imagedata fileref="solve-equations-dlg.png" format="PNG"/>
+    </imageobject>
+    <textobject>
+      <phrase
+>لقطة شاشة لحوار حل المعادلات في كانتور</phrase>
+    </textobject>
+  </mediaobject>
+</screenshot>
+<para
+>يسمح هذا الحوار بإدخال المعادلات المراد حلها (كل معادلة في سطر منفصل) والمتغيرات المراد تحديدها (مفصولة بفاصلة). </para>
+</sect2>
+<sect2 id="package-import-dlg">
+<title
+>حوار استيراد الحزمة</title>
+<screenshot>
+  <screeninfo
+>لقطة شاشة لحوار استيراد الحزمة في كانتور</screeninfo>
+  <mediaobject>
+    <imageobject>
+      <imagedata fileref="import-dlg.png" format="PNG"/>
+    </imageobject>
+    <textobject>
+      <phrase
+>لقطة شاشة لحوار استيراد الحزمة في كانتور</phrase>
+    </textobject>
+  </mediaobject>
+</screenshot>
+<para
+>يسمح هذا الحوار بإدخال اسم الحزمة المراد استيرادها (&eg; <userinput
+>numpy</userinput
+> للبايثون). </para>
+</sect2>
+<sect2 id="plot-dlg">
+<title
+>حوار الرسم البياني</title>
+<screenshot>
+  <screeninfo
+>لقطة شاشة لحوار الرسم البياني في كانتور (تبويب الدوال)</screeninfo>
+  <mediaobject>
+    <imageobject>
+      <imagedata fileref="plot-dlg1.png" format="PNG"/>
+    </imageobject>
+    <textobject>
+      <phrase
+>لقطة شاشة لحوار الرسم البياني في كانتور (تبويب الدوال)</phrase>
+    </textobject>
+  </mediaobject>
+</screenshot>
+<para
+>تُقسَّم خيارات هذا الحوار إلى مجموعتين باستخدام التبويبات. يسمح تبويب <guilabel
+>الدوال</guilabel
+> بإدخال الدوال المراد رسمها. </para>
+<para
+>لإدخال دالة جديدة، انقر على <guibutton
+>إضافة</guibutton
+>. انقر مرتين على خلية <guilabel
+>العنوان</guilabel
+> وأدخل العنوان، ثم انقر مرتين على خلية <guilabel
+>التعبير</guilabel
+> وأدخل تعبير الدالة. </para>
+<screenshot>
+  <screeninfo
+>لقطة شاشة لحوار الرسم البياني في كانتور (تبويب الخيارات)</screeninfo>
+  <mediaobject>
+    <imageobject>
+      <imagedata fileref="plot-dlg2.png" format="PNG"/>
+    </imageobject>
+    <textobject>
+      <phrase
+>لقطة شاشة لحوار الرسم البياني في كانتور (تبويب الخيارات)</phrase>
+    </textobject>
+  </mediaobject>
+</screenshot>
+<para
+>يُستخدم تبويب <guilabel
+>الخيارات</guilabel
+> لتحديد خيارات الرسم البياني والأسطورة. يمكنك ضبط كل خيار رسم بياني تقريبًا للحصول على مظهر جميل لشكلك. </para>
+</sect2>
+<sect2 id="plot2d-dlg">
+<title
+>حوار رسم ثنائي الأبعاد</title>
+<screenshot>
+  <screeninfo
+>لقطة شاشة لحوار رسم ثنائي الأبعاد في كانتور</screeninfo>
+  <mediaobject>
+    <imageobject>
+      <imagedata fileref="plot2d-dlg.png" format="PNG"/>
+    </imageobject>
+    <textobject>
+      <phrase
+>لقطة شاشة لحوار رسم ثنائي الأبعاد في كانتور</phrase>
+    </textobject>
+  </mediaobject>
+</screenshot>
+<para
+>يسمح هذا الحوار بإدخال تعبير الدالة ومتغيرها وحدود هذا المتغير. </para>
+</sect2>
+<sect2 id="plot3d-dlg">
+<title
+>حوار رسم ثلاثي الأبعاد</title>
+<screenshot>
+  <screeninfo
+>لقطة شاشة لحوار رسم ثلاثي الأبعاد في كانتور</screeninfo>
+  <mediaobject>
+    <imageobject>
+      <imagedata fileref="plot3d-dlg.png" format="PNG"/>
+    </imageobject>
+    <textobject>
+      <phrase
+>لقطة شاشة لحوار رسم ثلاثي الأبعاد في كانتور</phrase>
+    </textobject>
+  </mediaobject>
+</screenshot>
+<para
+>يسمح هذا الحوار بإدخال تعبير الدالة ومتغيراتها وحدود كل متغير. </para>
+</sect2>
+</sect1>
+</chapter>
+
+<chapter id="commands">
+<title
+>مرجع الأوامر</title>
+
+<sect1 id="kapp-mainwindow">
+<title
+>النافذة الرئيسة لـ كانتور</title>
+
+<para
+>يحتوي كانتور على عناصر القائمة الشائعة في &kde;، لمزيد من المعلومات اقرأ فصل <ulink url="help:/fundamentals/menus.html"
+>القائمة</ulink
+> من أساسيات &kde;. </para>
+
+<para
+>فيما يلي قائمة بعناصر القائمة الإضافية أو الخاصة في كانتور. يُرجى ملاحظة أن بعض القوائم تظهر فقط للخلفيات التي تملك تطبيقًا مطابقًا. </para>
+
+<sect2 id="file-menu">
+<title
+>قائمة ملف</title>
+<para>
+<variablelist>
+<varlistentry>
+<term
+><menuchoice
+><shortcut
+> <keycombo action="simul"
+>&Ctrl;<keycap
+>N</keycap
+></keycombo
+> </shortcut
+> <guimenu
+>ملف</guimenu
+> <guimenuitem
+>جديد</guimenuitem
+> </menuchoice
+></term>
+<listitem
+><para
+><action
+>ينشئ ورقة عمل جديدة بالخلفية المبدئية.</action
+></para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><menuchoice
+><guimenu
+>ملف</guimenu
+> <guisubmenu
+>جديد</guisubmenu
+> <guimenuitem
+><replaceable
+>الخلفية</replaceable
+></guimenuitem
+> </menuchoice
+></term>
+<listitem
+><para
+><action
+>ينشئ ورقة عمل جديدة بالخلفية المختارة.</action
+></para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><menuchoice
+><shortcut
+> <keycombo action="simul"
+>&Ctrl;<keycap
+>O</keycap
+></keycombo
+> </shortcut
+> <guimenu
+>ملف</guimenu
+> <guimenuitem
+>افتح...</guimenuitem
+> </menuchoice
+></term>
+<listitem
+><para
+><action
+>يفتح ورقة عمل جديدة مدعومة باستخدام حوار الملفات.</action
+></para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><menuchoice
+><guimenu
+>ملف</guimenu
+> <guisubmenu
+>افتح الأخير</guisubmenu
+> </menuchoice
+></term>
+<listitem
+><para
+><action
+>اختر ورقة عمل من قائمة الملفات المستخدمة مؤخرًا.</action
+></para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><menuchoice
+><guimenu
+>ملف</guimenu
+> <guimenuitem
+>تنزيل أوراق عمل أمثلة</guimenuitem
+> </menuchoice
+></term>
+<listitem
+><para
+><action
+>يفتح الحوار لتنزيل الأمثلة المرفوعة من قبل مستخدمي كانتور الآخرين باستخدام <ulink url="https://userbase.kde.org/Special:MyLanguage/Glossary#Get_Hot_New_Stuff"
+>GetHotNewStuff</ulink
+>.</action
+></para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><menuchoice
+><guimenu
+>ملف</guimenu
+> <guimenuitem
+>فتح مثال</guimenuitem
+> </menuchoice
+></term>
+<listitem
+><para
+><action
+>يفتح الحوار لاختيار مثال لتحميله.</action
+> يجب تنزيل الأمثلة مسبقًا باستخدام <menuchoice
+><guimenu
+>ملف</guimenu
+> <guimenuitem
+>تنزيل أوراق عمل أمثلة</guimenuitem
+></menuchoice
+>.</para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><menuchoice
+><guimenu
+>ملف</guimenu
+> <guimenuitem
+>حفظ كنص عادي</guimenuitem
+> </menuchoice
+></term>
+<listitem
+><para
+><action
+>يسمح بحفظ ورقة العمل الحالية كمستند نص عادي.</action
+></para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><menuchoice
+><guimenu
+>ملف</guimenu
+> <guimenuitem
+>تصدير إلى تخ</guimenuitem
+> </menuchoice
+></term>
+<listitem
+><para
+><action
+>يسمح بحفظ ورقة العمل الحالية كمستند &latex;.</action
+></para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><menuchoice
+><guimenu
+>ملف</guimenu
+> <guimenuitem
+>نشر ورقة العمل</guimenuitem
+> </menuchoice
+></term>
+<listitem
+><para
+><action
+>يفتح الحوار لنشر ورقة العمل الحالية وجعلها متاحة لمستخدمي كانتور الآخرين عبر <ulink url="https://userbase.kde.org/Special:MyLanguage/Glossary#Get_Hot_New_Stuff"
+>GetHotNewStuff</ulink
+>.</action
+></para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><menuchoice
+><guimenu
+>ملف</guimenu
+> <guimenuitem
+>تشغيل سكريبت</guimenuitem
+> </menuchoice
+></term>
+<listitem
+><para
+><action
+>يسمح بتحميل وتشغيل السكريبتات الدفعية للخلفية الحالية.</action
+></para
+></listitem>
+</varlistentry>
+</variablelist>
+</para>
+
+</sect2>
+
+<sect2 id="view-menu">
+<title
+>قائمة عرض</title>
+<para>
+<variablelist>
+<varlistentry>
+<term
+><menuchoice
+><guimenu
+>عرض</guimenu
+><guisubmenu
+>لوحات</guisubmenu
+></menuchoice
+></term>
+<listitem
+><para
+>يسمح لك بتبديل رؤية بعض الألسنة في الشريط الجانبي. الخيارات هي: <variablelist>
+  <varlistentry>
+  <term
+><guimenuitem
+>مُتصفح الملفات</guimenuitem
+></term>
+  <listitem
+><para
+><action
+>يبدّل</action
+> رؤية لسان <guilabel
+>متصفح الملفات</guilabel
+> في الشريط الجانبي.</para
+></listitem>
+  </varlistentry>
+
+  <varlistentry>
+  <term
+><guimenuitem
+>مساعدة</guimenuitem
+></term>
+  <listitem
+><para
+><action
+>يبدّل</action
+> رؤية لسان <guilabel
+>مساعدة</guilabel
+> في الشريط الجانبي.</para
+></listitem>
+  </varlistentry>
+
+  <varlistentry>
+  <term
+><guimenuitem
+>مدير المتغيرات</guimenuitem
+></term>
+  <listitem
+><para
+><action
+>يبدّل</action
+> رؤية لسان <guilabel
+>مدير المتغيرات</guilabel
+> في الشريط الجانبي.</para
+></listitem>
+  </varlistentry>
+</variablelist
+></para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><menuchoice
+><shortcut
+> <keycombo action="simul"
+>&Ctrl;<keycap
+>+</keycap
+></keycombo
+> </shortcut
+> <guimenu
+>عرض</guimenu
+> <guimenuitem
+>قرب</guimenuitem
+> </menuchoice
+></term>
+<listitem
+><para
+><action
+>تكبير</action
+> ورقة العمل الحالية بنسبة 10%.</para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><menuchoice
+><shortcut
+> <keycombo action="simul"
+>&Ctrl;<keycap
+>-</keycap
+></keycombo
+> </shortcut
+> <guimenu
+>عرض</guimenu
+> <guimenuitem
+>بعد</guimenuitem
+> </menuchoice
+></term>
+<listitem
+><para
+><action
+>تصغير</action
+> ورقة العمل الحالية بنسبة 10%.</para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><menuchoice
+><guimenu
+>عرض</guimenu
+> <guimenuitem
+>إظهار محرر السكريبت</guimenuitem
+> </menuchoice
+></term>
+<listitem
+><para
+><action
+>يفتح نافذة محرر السكريبت الدفعي للخلفية الحالية.</action
+></para
+></listitem>
+</varlistentry>
+</variablelist>
+</para>
+</sect2>
+
+<sect2 id="worsheet-menu">
+<title
+>قائمة ورقة العمل</title>
+<para>
+<variablelist>
+<varlistentry>
+<term
+><menuchoice
+><shortcut
+> <keycombo action="simul"
+>&Ctrl;<keycap
+>E</keycap
+></keycombo
+> </shortcut
+> <guimenu
+>ورقة العمل</guimenu
+> <guimenuitem
+>تقييم ورقة العمل</guimenuitem
+> </menuchoice
+></term>
+<listitem
+><para
+><action
+>يُشغّل</action
+> تقييم ورقة العمل بأكملها.</para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><menuchoice
+><shortcut
+> <keycombo action="simul"
+>&Shift;&Enter;</keycombo
+> </shortcut
+> <guimenu
+>ورقة العمل</guimenu
+> <guimenuitem
+>قيّم المدخلة</guimenuitem
+> </menuchoice
+></term>
+<listitem
+><para
+><action
+>يُحفّز</action
+> تقييم المدخلة الحالية.</para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><menuchoice
+><shortcut
+> <keycombo action="simul"
+>&Ctrl;&Enter;</keycombo
+> </shortcut
+> <guimenu
+>ورقة العمل</guimenu
+> <guimenuitem
+>أدرج مدخلة أمر</guimenuitem
+> </menuchoice
+></term>
+<listitem
+><para
+><action
+>يُدرج مدخلة أمر جديدة أسفل موضع المؤشر الحالي.</action
+></para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><menuchoice
+><guimenu
+>ورقة العمل</guimenu
+> <guimenuitem
+>أدرج مدخلة نص</guimenuitem
+> </menuchoice
+></term>
+<listitem
+><para
+><action
+>يُدرج مدخلة نص جديدة أسفل موضع المؤشر الحالي.</action
+></para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><menuchoice
+><guimenu
+>ورقة العمل</guimenu
+> <guimenuitem
+>أدرج مدخلة ماركداون</guimenuitem
+> </menuchoice
+></term>
+<listitem
+><para
+><action
+>يُدرج مدخلة &Markdown; أسفل موضع المؤشر الحالي.</action
+>.</para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><menuchoice
+><guimenu
+>ورقة العمل</guimenu
+> <guimenuitem
+>أدرج مدخلة لاتخ</guimenuitem
+> </menuchoice
+></term>
+<listitem
+><para
+><action
+>يُدرج مدخلة &latex; أسفل موضع المؤشر الحالي.</action
+>.</para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><menuchoice
+><guimenu
+>ورقة العمل</guimenu
+> <guimenuitem
+>أدرج صورة</guimenuitem
+> </menuchoice
+></term>
+<listitem
+><para
+><action
+>يُدرج صورة أسفل موضع المؤشر الحالي.</action
+></para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><menuchoice
+><guimenu
+>ورقة العمل</guimenu
+> <guimenuitem
+>أدرج فاصل صفحة</guimenuitem
+> </menuchoice
+></term>
+<listitem
+><para
+><action
+>يُدرج فاصل صفحة أسفل موضع المؤشر الحالي.</action
+></para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><menuchoice
+><guimenu
+>ورقة العمل</guimenu
+> <guimenuitem
+>اطوِ كل النتائج</guimenuitem
+> </menuchoice
+></term>
+<listitem
+><para
+><action
+>اطوِ كل نتائج مدخلة الأمر.</action
+></para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><menuchoice
+><guimenu
+>ورقة العمل</guimenu
+> <guimenuitem
+>وسّع كل النتائج</guimenuitem
+> </menuchoice
+></term>
+<listitem
+><para
+><action
+>وسّع كل نتائج مدخلة الأمر.</action
+></para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><menuchoice
+><guimenu
+>ورقة العمل</guimenu
+> <guimenuitem
+>أزل كل النتائج</guimenuitem
+> </menuchoice
+></term>
+<listitem
+><para
+><action
+>أزل كل نتائج مدخلة الأمر.</action
+></para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><menuchoice
+><shortcut
+> <keycombo action="simul"
+>&Shift;&Del;</keycombo
+> </shortcut
+> <guimenu
+>ورقة العمل</guimenu
+> <guimenuitem
+>أزل المدخلة الحالية</guimenuitem
+> </menuchoice
+></term>
+<listitem
+><para
+><action
+>يزيل</action
+> المدخلة الحالية من ورقة العمل.</para
+></listitem>
+</varlistentry>
+</variablelist>
+</para>
+</sect2>
+
+<sect2 id="linear-algebra-menu">
+<title
+>قائمة الجبر الخطي</title>
+<para>
+<variablelist>
+<varlistentry>
+<term
+><menuchoice
+><guimenu
+>الجبر الخطي</guimenu
+> <guimenuitem
+>أنشئ مصفوفة</guimenuitem
+> </menuchoice
+></term>
+<listitem
+><para
+><action
+>يفتح</action
+> <link linkend="create-matrix-dlg"
+>حوار مساعد إنشاء المصفوفة</link
+>.</para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><menuchoice
+><guimenu
+>الجبر الخطي</guimenu
+> <guimenuitem
+>احسب القيم الذاتية</guimenuitem
+> </menuchoice
+></term>
+<listitem
+><para
+><action
+>يفتح</action
+> <link linkend="compute-invert-dlg"
+>حوار مساعد إدخال اسم المصفوفة</link
+> لحساب قيمها الذاتية وأبعاد تعددات القيم الذاتية بالترتيب الموافق. </para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><menuchoice
+><guimenu
+>الجبر الخطي</guimenu
+> <guimenuitem
+>احسب المتجهات الذاتية</guimenuitem
+> </menuchoice
+></term>
+<listitem
+><para
+><action
+>يفتح</action
+> <link linkend="compute-invert-dlg"
+>حوار مساعد إدخال اسم المصفوفة</link
+> لحساب قيمها الذاتية وأبعاد تعددات القيم الذاتية والمتجهات الذاتية بالترتيب الموافق. </para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><menuchoice
+><guimenu
+>الجبر الخطي</guimenu
+> <guimenuitem
+>اعكس المصفوفة</guimenuitem
+> </menuchoice
+></term>
+<listitem
+><para
+><action
+>يفتح</action
+> <link linkend="compute-invert-dlg"
+>حوار مساعد إدخال اسم المصفوفة</link
+> لإيجاد معكوس المصفوفة. </para
+></listitem>
+</varlistentry>
+</variablelist>
+</para>
+</sect2>
+
+<sect2 id="calculate-menu">
+<title
+>قائمة الحساب</title>
+<para>
+<variablelist>
+<varlistentry>
+<term
+><menuchoice
+><guimenu
+>حساب</guimenu
+> <guimenuitem
+>اشتق</guimenuitem
+> </menuchoice
+></term>
+<listitem
+><para
+><action
+>يفتح</action
+> <link linkend="calculate-derivative-dlg"
+>حوار وسائط الاشتقاق</link
+>. </para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><menuchoice
+><guimenu
+>حساب</guimenu
+> <guimenuitem
+>تكامل</guimenuitem
+> </menuchoice
+></term>
+<listitem
+><para
+><action
+>يفتح</action
+> <link linkend="calculate-integral-dlg"
+>حوار وسائط التكامل</link
+>. </para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><menuchoice
+><guimenu
+>حساب</guimenu
+> <guimenuitem
+>حل المعادلات</guimenuitem
+> </menuchoice
+></term>
+<listitem
+><para
+><action
+>يفتح</action
+> <link linkend="calculate-solve-dlg"
+>حوار إدخال الوسائط</link
+> لحل المعادلات الخطية وغير الخطية. </para
+></listitem>
+</varlistentry>
+</variablelist>
+</para>
+</sect2>
+
+<sect2 id="package-menu">
+<title
+>قائمة الحزمة</title>
+<para>
+<variablelist>
+<varlistentry>
+<term
+><menuchoice
+><guimenu
+>حزمة</guimenu
+> <guimenuitem
+>استورد حزمة</guimenuitem
+> </menuchoice
+></term>
+<listitem
+><para
+><action
+>يفتح</action
+> <link linkend="package-import-dlg"
+>حوار استيراد الحزمة</link
+>. </para
+></listitem>
+</varlistentry>
+</variablelist>
+</para>
+</sect2>
+
+<sect2 id="plot-menu">
+<title
+>قائمة الرسم</title>
+<para>
+<variablelist>
+<varlistentry>
+<term
+><menuchoice
+><guimenu
+>رسم</guimenu
+> <guimenuitem
+>رسم</guimenuitem
+> </menuchoice
+></term>
+<listitem
+><para
+><action
+>يفتح</action
+> <link linkend="plot-dlg"
+>حوار معاملات الرسم</link
+>. </para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><menuchoice
+><guimenu
+>رسم</guimenu
+> <guimenuitem
+>رسم ثنائي الأبعاد</guimenuitem
+> </menuchoice
+></term>
+<listitem
+><para
+><action
+>يفتح</action
+> <link linkend="plot2d-dlg"
+>حوار معاملات الرسم</link
+>. </para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><menuchoice
+><guimenu
+>رسم</guimenu
+> <guimenuitem
+>رسم ثلاثي الأبعاد</guimenuitem
+> </menuchoice
+></term>
+<listitem
+><para
+><action
+>يفتح</action
+> <link linkend="plot3d-dlg"
+>حوار معاملات الرسم</link
+>. </para
+></listitem>
+</varlistentry>
+</variablelist>
+</para>
+</sect2>
+
+<sect2 id="settings-help-menu">
+<title
+>قائمة الإعدادات والمساعدة</title>
+<para
+>يحتوي كانتور على عناصر القائمة الشائعة <guimenu
+>إعدادات</guimenu
+> و<guimenu
+>مساعدة</guimenu
+> في &kde;، لمزيد من المعلومات اقرأ الأقسام حول <ulink url="help:/fundamentals/menus.html#menus-settings"
+>قائمة الإعدادات</ulink
+> و<ulink url="help:/fundamentals/menus.html#menus-help"
+>قائمة المساعدة</ulink
+> من أساسيات &kde;. </para>
+
+</sect2>
+
+</sect1>
+</chapter>
+
+<chapter id="faq">
+<title
+>أسئلة وأجوبة</title>
+
+<qandaset id="faqlist">
+<qandaentry>
+  <question
+><para
+>عنصر القائمة <guimenuitem
+>تنضيد باستخدام لاتخ</guimenuitem
+> غير متوفر</para
+></question>
+  <answer
+><para
+>لا تدعم كل الخلفيات كل خيار. الإصدار الحالي يدعم مخرجات &latex; لخلفيات Maxima وQalculate! وSage.</para
+></answer>
+</qandaentry>
+<qandaentry>
+  <question
+><para
+>لقد ثبت Sage/Maxima أو غيره من أنظمة CAS المدعومة، لكن الخلفية المناسبة لا تظهر.</para
+></question>
+  <answer>
+    <para
+>أحد التفسيرات المحتملة هو أن كانتور لم يكتشف الموقع بشكل صحيح. اذهب إلى حوار <menuchoice
+><guimenu
+>إعدادات</guimenu
+><guimenuitem
+>اضبط كانتور...</guimenuitem
+></menuchoice
+> وغيّر <guilabel
+>المسار</guilabel
+> إلى التطبيق المناسب في صفحة الخلفية. </para>
+  </answer>
+</qandaentry>
+<qandaentry>
+  <question
+><para
+>يا له من اسم غريب - ما علاقته بالرياضيات؟</para
+></question>
+  <answer
+><para
+>سُمي كانتور تيمنًا بعالم الرياضيات الألماني <ulink url="https://en.wikipedia.org/wiki/Georg_Cantor"
+>جورج كانتور</ulink
+>، مبتكر نظرية المجموعات.</para
+></answer>
+</qandaentry>
+</qandaset>
+</chapter>
+
+<chapter id="credits">
+
+<title
+>الحقوق والترخيص</title>
+
+<para
+>كانتور </para>
+<para
+>حقوق نشر البرنامج 2009-2011 Alexander Rieder <email
+>alexanderrieder@gmail.com</email
+> </para>
+
+<para
+>حقوق نشر التوثيق &copy; 2009-2011 Alexander Rieder <email
+>alexanderrieder@gmail.com</email
+> </para>
+
+<para
+>الترجمة: زايد السعيدي <email
+>zayed.alsaidi@gmail.com</email
+></para
+> &underFDL; &underGPL; </chapter>
+
+&documentation.index;
+</book>
+
+<!--
+Local Variables:
+mode: xml
+sgml-minimize-attributes:nil
+sgml-general-insert-case:lower
+sgml-indent-step:0
+sgml-indent-data:nil
+End:
+
+vim:tabstop=2:shiftwidth=2:expandtab
+kate: space-indent on; indent-width 2; tab-width 2; indent-mode none;
+-->
