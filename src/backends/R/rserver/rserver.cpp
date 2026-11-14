@@ -505,9 +505,13 @@ void RServer::initR()
 
     for (int i = 0; R_VARS[i] != nullptr; i+= 2) {
         // Only set if not already defined by user (allows user's R_HOME etc. to take precedence)
-        if (qEnvironmentVariableIsEmpty(R_VARS[i]))
+        // qgetenv returns empty QByteArray if not set, so check if it's truly unset
+        if (!qEnvironmentVariableIsSet(R_VARS[i]))
             qputenv(R_VARS[i], R_VARS[i+1]);
     }
+
+    // Debug: log R_HOME before initialization
+    qDebug() << "RServer: R_HOME before init:" << qgetenv("R_HOME");
 
     const char *R_argv[] = {"Cantor", "--no-save", "--no-readline", "", ""};
     const char *R_argv_opt[] = {"--vanilla", "--slave"};
