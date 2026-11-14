@@ -503,8 +503,11 @@ void RServer::initR()
     //Setup environment variables
     #include "renvvars.h"
 
-    for (int i = 0; R_VARS[i] != nullptr; i+= 2)
-        qputenv(R_VARS[i], R_VARS[i+1]);
+    for (int i = 0; R_VARS[i] != nullptr; i+= 2) {
+        // Only set if not already defined by user (allows user's R_HOME etc. to take precedence)
+        if (qEnvironmentVariableIsEmpty(R_VARS[i]))
+            qputenv(R_VARS[i], R_VARS[i+1]);
+    }
 
     const char *R_argv[] = {"Cantor", "--no-save", "--no-readline", "", ""};
     const char *R_argv_opt[] = {"--vanilla", "--slave"};
