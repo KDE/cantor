@@ -20,6 +20,9 @@ ki18n_wrap_ui(RBackend_SRCS settings.ui)
 
 add_backend(rbackend ${RBackend_SRCS})
 
+# Ensure rbackend waits for rserver's settings.h to be generated (race condition fix)
+add_dependencies(cantor_rbackend cantor_rserver)
+
 set_target_properties( cantor_rbackend PROPERTIES INSTALL_RPATH_USE_LINK_PATH false)
 
 target_link_libraries( cantor_rbackend ${R_USED_LIBS} Qt6::Network KF6::SyntaxHighlighting)
