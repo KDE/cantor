@@ -11,7 +11,7 @@
     * Plot preview panel
     * [Octave] Support for for interactive mode commands like input() and yes_or_no() (BUG: 432892)
     * [R] Switched from DBus to local socket for IPC
-    * [R] Partial output streaming during the exution of commands (e.g. during package installation, etc.)
+    * [R] Partial output streaming during the execution of commands (e.g. during package installation, etc.)
     * [R] HTML formatting for R's help system in the help panel
 
 ## Bug fixes:
