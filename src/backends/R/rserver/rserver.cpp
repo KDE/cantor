@@ -497,7 +497,40 @@ void RServer::addFileToOutput(const QString& file)
     m_expressionFiles.append(file);
 }
 
-// Keep existing initR() implementation
+// Validate R_HOME points to a valid R installation
+// Returns empty string if valid, error message otherwise
+static QString validateRHome(const QString& rHome)
+{
+    if (rHome.isEmpty())
+        return QStringLiteral("R_HOME is not set");
+
+    QDir dir(rHome);
+    if (!dir.exists())
+        return QStringLiteral("R_HOME directory does not exist: %1").arg(rHome);
+
+    // Check for essential R components
+#ifdef Q_OS_WIN
+    // Windows: R_HOME/bin/x64/R.dll or R_HOME/bin/R.dll
+    bool hasRDll = QFile::exists(rHome + QLatin1String("/bin/x64/R.dll"))
+                || QFile::exists(rHome + QLatin1String("/bin/R.dll"));
+    if (!hasRDll)
+        return QStringLiteral("R.dll not found in R_HOME/bin: %1").arg(rHome);
+#else
+    // Unix: R_HOME/lib/libR.so or R_HOME/lib/libR.dylib
+    bool hasRLib = QFile::exists(rHome + QLatin1String("/lib/libR.so"))
+                || QFile::exists(rHome + QLatin1String("/lib/libR.dylib"));
+    if (!hasRLib)
+        return QStringLiteral("R library not found in R_HOME/lib: %1").arg(rHome);
+#endif
+
+    // Check for base package (required for R to function)
+    QString basePath = rHome + QLatin1String("/library/base");
+    if (!QDir(basePath).exists())
+        return QStringLiteral("R base package not found at: %1").arg(basePath);
+
+    return QString(); // Valid
+}
+
 void RServer::initR()
 {
     //Setup environment variables
@@ -510,14 +543,27 @@ void RServer::initR()
             qputenv(R_VARS[i], R_VARS[i+1]);
     }
 
-    // Debug: log R_HOME before initialization
-    qDebug() << "RServer: R_HOME before init:" << qgetenv("R_HOME");
+    QString rHome = QString::fromLocal8Bit(qgetenv("R_HOME"));
+    qDebug() << "RServer: R_HOME before init:" << rHome;
 
-    const char *R_argv[] = {"Cantor", "--no-save", "--no-readline", "", ""};
-    const char *R_argv_opt[] = {"--vanilla", "--slave"};
-    int R_argc = (sizeof(R_argv) - sizeof(R_argv_opt)) / sizeof(R_argv[0]);
+    // Validate R_HOME before calling Rf_initEmbeddedR (which may exit() on failure)
+    QString validationError = validateRHome(rHome);
+    if (!validationError.isEmpty())
+    {
+        // Print error to stderr for the session to capture
+        fprintf(stderr, "FATAL: %s\n", validationError.toUtf8().constData());
+        fprintf(stderr, "Please set R_HOME to your R installation directory (e.g., C:\\Program Files\\R\\R-4.x.x)\n");
+        fflush(stderr);
+        // Exit with error code so the session knows initialization failed
+        exit(1);
+    }
 
-    // Initialize R first
+    // --quiet suppresses the R startup banner that would otherwise go to stdout
+    // and interfere with our socket name output
+    const char *R_argv[] = {"Cantor", "--no-save", "--no-readline", "--quiet", nullptr};
+    int R_argc = 4;
+
+    // Initialize R
     Rf_initEmbeddedR(R_argc, (char**) R_argv);
     R_ReplDLLinit();
 

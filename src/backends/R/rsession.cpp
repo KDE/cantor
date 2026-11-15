@@ -103,9 +103,36 @@ void RSession::login()
         return;
     }
 
-    // Read socket name from server stdout
+    // Read socket name from server stdout (rserver prints it after successful R init)
+    // If R initialization fails, rserver exits without printing socket name
     if (!m_process->waitForReadyRead(5000))
     {
+        // Check if process exited (R init failed)
+        m_process->waitForFinished(100);
+        if (m_process->state() == QProcess::NotRunning)
+        {
+            // Process exited - R initialization failed
+            // Read any remaining stderr
+            QString stderrOutput = QString::fromUtf8(m_process->readAllStandardError());
+
+            changeStatus(Session::Disable);
+            if (stderrOutput.contains(QLatin1String("FATAL:")))
+            {
+                // Extract the FATAL error message (first two lines after FATAL:)
+                int idx = stderrOutput.indexOf(QLatin1String("FATAL:"));
+                QString fatalMsg = stderrOutput.mid(idx).section(QLatin1Char('\n'), 0, 1).trimmed();
+                Q_EMIT error(fatalMsg);
+            }
+            else
+            {
+                Q_EMIT error(i18n("R initialization failed. Please check that R is installed and R_HOME is set correctly."));
+            }
+            Q_EMIT loginDone();
+            delete m_process;
+            m_process = nullptr;
+            return;
+        }
+
         changeStatus(Session::Disable);
         Q_EMIT error(i18n("R server did not respond."));
         Q_EMIT loginDone();
