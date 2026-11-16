@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: cantor\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-11-08 00:09+0000\n"
+"POT-Creation-Date: 2026-11-16 03:58+0000\n"
 "PO-Revision-Date: 2026-04-13 21:20+0200\n"
 "Last-Translator: Alexander Becker <alex-at-kde-l10n-de@freenet.de>\n"
 "Language-Team: German <kde-i18n-de@kde.org>\n"
@@ -2375,18 +2375,25 @@ msgid "Failed to start R, please check R installation."
 msgstr ""
 "R kann nicht gestartet werden, bitte überprüfen Sie die R-Installation."
 
-#: backends/R/rsession.cpp:110
+#: backends/R/rsession.cpp:128
+#, kde-format
+msgid ""
+"R initialization failed. Please check that R is installed and R_HOME is set "
+"correctly."
+msgstr ""
+
+#: backends/R/rsession.cpp:137
 #, kde-format
 msgid "R server did not respond."
 msgstr ""
 
-#: backends/R/rsession.cpp:130
+#: backends/R/rsession.cpp:157
 #, fuzzy, kde-format
 #| msgid "Failed to start Cantor python server."
 msgid "Failed to connect to R server: %1"
 msgstr "Der Python-Server für Cantor kann nicht gestartet werden."
 
-#: backends/R/rsession.cpp:396
+#: backends/R/rsession.cpp:423
 #, kde-format
 msgid "Lost connection to R server"
 msgstr ""

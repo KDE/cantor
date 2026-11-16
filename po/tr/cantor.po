@@ -12,8 +12,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kdeedu-kde4\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-11-08 00:09+0000\n"
-"PO-Revision-Date: 2026-11-03 21:35+0300\n"
+"POT-Creation-Date: 2026-11-16 03:58+0000\n"
+"PO-Revision-Date: 2026-11-15 20:03+0300\n"
 "Last-Translator: Emir SARI <emir_sari@icloud.com>\n"
 "Language-Team: Turkish <kde-l10n-tr@kde.org>\n"
 "Language: tr\n"
@@ -21,7 +21,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"X-Generator: Lokalize 26.08.0\n"
+"X-Generator: Lokalize 26.08.2\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -2398,17 +2398,24 @@ msgstr "cantor_rserver yürütülebiliri bulunamadı."
 msgid "Failed to start R, please check R installation."
 msgstr "R başlatılamadı, lütfen R kurulumunu denetleyin."
 
-#: backends/R/rsession.cpp:110
+#: backends/R/rsession.cpp:128
+#, kde-format
+msgid ""
+"R initialization failed. Please check that R is installed and R_HOME is set "
+"correctly."
+msgstr ""
+
+#: backends/R/rsession.cpp:137
 #, kde-format
 msgid "R server did not respond."
 msgstr "R sunucusu yanıt vermedi."
 
-#: backends/R/rsession.cpp:130
+#: backends/R/rsession.cpp:157
 #, kde-format
 msgid "Failed to connect to R server: %1"
 msgstr "R sunucusuna bağlanılamadı: %1"
 
-#: backends/R/rsession.cpp:396
+#: backends/R/rsession.cpp:423
 #, kde-format
 msgid "Lost connection to R server"
 msgstr "R sunucusuna olan bağlantı koptu."
@@ -3318,7 +3325,7 @@ msgstr "Metin Rengi"
 #: commandentry.cpp:218
 #, kde-format
 msgid "Font"
-msgstr "Yazıtipi"
+msgstr "Yazı Tipi"
 
 #: commandentry.cpp:221
 #, kde-format
@@ -5015,7 +5022,7 @@ msgstr "Metin &Vurgulaması…"
 #, kde-format
 msgctxt "@action"
 msgid "&Font"
-msgstr "&Yazıtipi"
+msgstr "&Yazı Tipi"
 
 #: worksheet.cpp:2770
 #, kde-format

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: cantor\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-11-08 00:09+0000\n"
+"POT-Creation-Date: 2026-11-16 03:58+0000\n"
 "PO-Revision-Date: 2026-10-29 03:57+0100\n"
 "Last-Translator: Temuri Doghonadze <temuri.doghonadze@gmail.com>\n"
 "Language-Team: Georgian <kde-i18n-doc@kde.org>\n"
@@ -2399,17 +2399,24 @@ msgstr "გამშვები ფაილის cantor_rserver აღმო�
 msgid "Failed to start R, please check R installation."
 msgstr "R-ის გაშვება შეუძლებელია. შეამოწმეთ R-ის ფაილები."
 
-#: backends/R/rsession.cpp:110
+#: backends/R/rsession.cpp:128
+#, kde-format
+msgid ""
+"R initialization failed. Please check that R is installed and R_HOME is set "
+"correctly."
+msgstr ""
+
+#: backends/R/rsession.cpp:137
 #, kde-format
 msgid "R server did not respond."
 msgstr "R-ის სერვერმა არ გვიპასუხა."
 
-#: backends/R/rsession.cpp:130
+#: backends/R/rsession.cpp:157
 #, kde-format
 msgid "Failed to connect to R server: %1"
 msgstr "R-ის სერვერთან დაკავშირება ჩავარდა: %1"
 
-#: backends/R/rsession.cpp:396
+#: backends/R/rsession.cpp:423
 #, kde-format
 msgid "Lost connection to R server"
 msgstr "R-ის სერვერთან კავშირი დაიკარგა"
