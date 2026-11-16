@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: cantor\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-11-08 02:52+0000\n"
+"POT-Creation-Date: 2026-11-16 00:59+0000\n"
 "PO-Revision-Date: 2025-09-25 13:01+0300\n"
 "Last-Translator: Toms Trasuns <toms.trasuns@posteo.net>\n"
 "Language-Team: Latvian <kde-i18n-doc@kde.org>\n"
@@ -2383,18 +2383,25 @@ msgstr "Ceļš uz Octave izpildfailu"
 msgid "Failed to start R, please check R installation."
 msgstr "Neizdevās palaist R. Pārbaudiet R instalāciju."
 
-#: backends/R/rsession.cpp:110
+#: backends/R/rsession.cpp:128
+#, kde-format
+msgid ""
+"R initialization failed. Please check that R is installed and R_HOME is set "
+"correctly."
+msgstr ""
+
+#: backends/R/rsession.cpp:137
 #, kde-format
 msgid "R server did not respond."
 msgstr ""
 
-#: backends/R/rsession.cpp:130
+#: backends/R/rsession.cpp:157
 #, fuzzy, kde-format
 #| msgid "Failed to start Cantor python server."
 msgid "Failed to connect to R server: %1"
 msgstr "Neizdevās palaist „Cantor“ „Python“ serveri."
 
-#: backends/R/rsession.cpp:396
+#: backends/R/rsession.cpp:423
 #, kde-format
 msgid "Lost connection to R server"
 msgstr ""

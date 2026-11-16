@@ -12,8 +12,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kdeedu-kde4\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-11-08 02:52+0000\n"
-"PO-Revision-Date: 2026-11-10 21:38+0300\n"
+"POT-Creation-Date: 2026-11-16 00:59+0000\n"
+"PO-Revision-Date: 2026-11-15 20:03+0300\n"
 "Last-Translator: Emir SARI <emir_sari@icloud.com>\n"
 "Language-Team: Turkish <kde-l10n-tr@kde.org>\n"
 "Language: tr\n"
@@ -2398,17 +2398,24 @@ msgstr "cantor_rserver yürütülebiliri bulunamadı."
 msgid "Failed to start R, please check R installation."
 msgstr "R başlatılamadı, lütfen R kurulumunu denetleyin."
 
-#: backends/R/rsession.cpp:110
+#: backends/R/rsession.cpp:128
+#, kde-format
+msgid ""
+"R initialization failed. Please check that R is installed and R_HOME is set "
+"correctly."
+msgstr ""
+
+#: backends/R/rsession.cpp:137
 #, kde-format
 msgid "R server did not respond."
 msgstr "R sunucusu yanıt vermedi."
 
-#: backends/R/rsession.cpp:130
+#: backends/R/rsession.cpp:157
 #, kde-format
 msgid "Failed to connect to R server: %1"
 msgstr "R sunucusuna bağlanılamadı: %1"
 
-#: backends/R/rsession.cpp:396
+#: backends/R/rsession.cpp:423
 #, kde-format
 msgid "Lost connection to R server"
 msgstr "R sunucusuna olan bağlantı koptu."
@@ -2856,132 +2863,132 @@ msgstr "Metin sonucu için görünür satırlar sınırı"
 msgid ""
 "Whether the hierarchy font settings have been migrated to complete fonts"
 msgstr ""
-"Hiyerarşi yazıtipi ayarlarının yazıtiplerini tamamlamak üzere aktarılıp "
+"Hiyerarşi yazı tipi ayarlarının yazı tiplerini tamamlamak üzere aktarılıp "
 "aktarılmadığı"
 
 #. i18n: ectx: label, entry (ChapterFontFamily), group (Cantor)
 #: cantor.kcfg:90
 #, kde-format
 msgid "Hierarchy font for chapter"
-msgstr "Fasıl için hiyerarşi yazıtipi"
+msgstr "Fasıl için hiyerarşi yazı tipi"
 
 #. i18n: ectx: label, entry (ChapterFontSize), group (Cantor)
 #: cantor.kcfg:94
 #, kde-format
 msgid "Hierarchy font size for chapter"
-msgstr "Fasıl için hiyerarşi yazıtipi puntosu"
+msgstr "Fasıl için hiyerarşi yazı tipi puntosu"
 
 #. i18n: ectx: label, entry (ChapterFontItalic), group (Cantor)
 #: cantor.kcfg:98
 #, kde-format
 msgid "Hierarchy font italic for chapter"
-msgstr "Fasıl için yatık hiyerarşi yazıtipi"
+msgstr "Fasıl için yatık hiyerarşi yazı tipi"
 
 #. i18n: ectx: label, entry (ChapterFontBold), group (Cantor)
 #: cantor.kcfg:102
 #, kde-format
 msgid "Hierarchy font bold for chapter"
-msgstr "Fasıl için kalık hiyerarşi yazıtipi"
+msgstr "Fasıl için kalık hiyerarşi yazı tipi"
 
 #. i18n: ectx: label, entry (SubchapterFontFamily), group (Cantor)
 #: cantor.kcfg:106
 #, kde-format
 msgid "Hierarchy font for subchapter"
-msgstr "Alt fasıl için hiyerarşi yazıtipi"
+msgstr "Alt fasıl için hiyerarşi yazı tipi"
 
 #. i18n: ectx: label, entry (SubchapterFontSize), group (Cantor)
 #: cantor.kcfg:110
 #, kde-format
 msgid "Hierarchy font size for subchapter"
-msgstr "Alt fasıl için hiyerarşi yazıtipi puntosu"
+msgstr "Alt fasıl için hiyerarşi yazı tipi puntosu"
 
 #. i18n: ectx: label, entry (SubchapterFontItalic), group (Cantor)
 #: cantor.kcfg:114
 #, kde-format
 msgid "Hierarchy font italic for subchapter"
-msgstr "Alt fasıl için yatık hiyerarşi yazıtipi"
+msgstr "Alt fasıl için yatık hiyerarşi yazı tipi"
 
 #. i18n: ectx: label, entry (SubchapterFontBold), group (Cantor)
 #: cantor.kcfg:118
 #, kde-format
 msgid "Hierarchy font bold for subchapter"
-msgstr "Alt fasıl için kalın hiyerarşi yazıtipi"
+msgstr "Alt fasıl için kalın hiyerarşi yazı tipi"
 
 #. i18n: ectx: label, entry (SectionFontFamily), group (Cantor)
 #. i18n: ectx: label, entry (SectionFontSize), group (Cantor)
 #: cantor.kcfg:122 cantor.kcfg:126
 #, kde-format
 msgid "Hierarchy font for section"
-msgstr "Bölüm için hiyerarşi yazıtipi"
+msgstr "Bölüm için hiyerarşi yazı tipi"
 
 #. i18n: ectx: label, entry (SectionFontItalic), group (Cantor)
 #: cantor.kcfg:130
 #, kde-format
 msgid "Hierarchy font italic for section"
-msgstr "Bölüm için yatık hiyerarşi yazıtipi"
+msgstr "Bölüm için yatık hiyerarşi yazı tipi"
 
 #. i18n: ectx: label, entry (SectionFontBold), group (Cantor)
 #: cantor.kcfg:134
 #, kde-format
 msgid "Hierarchy font bold for section"
-msgstr "Bölüm için kalın hiyerarşi yazıtipi"
+msgstr "Bölüm için kalın hiyerarşi yazı tipi"
 
 #. i18n: ectx: label, entry (SubsectionFontFamily), group (Cantor)
 #. i18n: ectx: label, entry (SubsectionFontSize), group (Cantor)
 #: cantor.kcfg:138 cantor.kcfg:142
 #, kde-format
 msgid "Hierarchy font for subsection"
-msgstr "Alt bölüm için hiyerarşi yazıtipi"
+msgstr "Alt bölüm için hiyerarşi yazı tipi"
 
 #. i18n: ectx: label, entry (SubsectionFontItalic), group (Cantor)
 #: cantor.kcfg:146
 #, kde-format
 msgid "Hierarchy font italic for subsection"
-msgstr "Alt bölüm için yatık hiyerarşi yazıtipi"
+msgstr "Alt bölüm için yatık hiyerarşi yazı tipi"
 
 #. i18n: ectx: label, entry (SubsectionFontBold), group (Cantor)
 #: cantor.kcfg:150
 #, kde-format
 msgid "Hierarchy font bold for subsection"
-msgstr "Alt bölüm için kalın hiyerarşi yazıtipi"
+msgstr "Alt bölüm için kalın hiyerarşi yazı tipi"
 
 #. i18n: ectx: label, entry (ParagraphFontFamily), group (Cantor)
 #. i18n: ectx: label, entry (ParagraphFontSize), group (Cantor)
 #: cantor.kcfg:154 cantor.kcfg:158
 #, kde-format
 msgid "Hierarchy font for paragraph"
-msgstr "Paragraf için hiyerarşi yazıtipi"
+msgstr "Paragraf için hiyerarşi yazı tipi"
 
 #. i18n: ectx: label, entry (ParagraphFontItalic), group (Cantor)
 #: cantor.kcfg:162
 #, kde-format
 msgid "Hierarchy font italic for paragraph"
-msgstr "Paragraf için yatık hiyerarşi yazıtipi"
+msgstr "Paragraf için yatık hiyerarşi yazı tipi"
 
 #. i18n: ectx: label, entry (ParagraphFontBold), group (Cantor)
 #: cantor.kcfg:166
 #, kde-format
 msgid "Hierarchy font bold for paragraph"
-msgstr "Paragraf için kalın hiyerarşi yazıtipi"
+msgstr "Paragraf için kalın hiyerarşi yazı tipi"
 
 #. i18n: ectx: label, entry (SubparagraphFontFamily), group (Cantor)
 #. i18n: ectx: label, entry (SubparagraphFontSize), group (Cantor)
 #: cantor.kcfg:170 cantor.kcfg:174
 #, kde-format
 msgid "Hierarchy font for subparagraph"
-msgstr "Alt paragraf için hiyerarşi yazıtipi"
+msgstr "Alt paragraf için hiyerarşi yazı tipi"
 
 #. i18n: ectx: label, entry (SubparagraphFontItalic), group (Cantor)
 #: cantor.kcfg:178
 #, kde-format
 msgid "Hierarchy font italic for subparagraph"
-msgstr "Alt paragraf için yatık hiyerarşi yazıtipi"
+msgstr "Alt paragraf için yatık hiyerarşi yazı tipi"
 
 #. i18n: ectx: label, entry (SubparagraphFontBold), group (Cantor)
 #: cantor.kcfg:182
 #, kde-format
 msgid "Hierarchy font bold for subparagraph"
-msgstr "Alt paragraf için kalın hiyerarşi yazıtipi"
+msgstr "Alt paragraf için kalın hiyerarşi yazı tipi"
 
 #: cantor_part.cpp:170
 #, kde-format
@@ -3318,7 +3325,7 @@ msgstr "Metin Rengi"
 #: commandentry.cpp:218
 #, kde-format
 msgid "Font"
-msgstr "Yazıtipi"
+msgstr "Yazı Tipi"
 
 #: commandentry.cpp:221
 #, kde-format
@@ -3501,7 +3508,7 @@ msgstr "Alt Paragraf"
 #: formating.ui:207 formating.ui:230
 #, kde-format
 msgid "&Font:"
-msgstr "&Yazıtipi:"
+msgstr "&Yazı tipi:"
 
 #. i18n: ectx: property (text), widget (QLabel, visibleItemsLabel)
 #: formating.ui:253
@@ -5015,13 +5022,13 @@ msgstr "Metin &Vurgulaması…"
 #, kde-format
 msgctxt "@action"
 msgid "&Font"
-msgstr "&Yazıtipi"
+msgstr "&Yazı Tipi"
 
 #: worksheet.cpp:2770
 #, kde-format
 msgctxt "@action"
 msgid "Font &Size"
-msgstr "Yazıtipi Puntosu"
+msgstr "Yazı Tipi Puntosu"
 
 #: worksheet.cpp:2776
 #, kde-format

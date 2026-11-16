@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-11-08 02:52+0000\n"
+"POT-Creation-Date: 2026-11-16 00:59+0000\n"
 "PO-Revision-Date: 2026-11-11 22:59+0200\n"
 "Last-Translator: Alexander Yavorsky <kekcuha@gmail.com>\n"
 "Language-Team: Russian <kde-russian@lists.kde.ru>\n"
@@ -2431,17 +2431,24 @@ msgstr "Не удалось найти исполняемый файл cantor_rs
 msgid "Failed to start R, please check R installation."
 msgstr "Не удалось выполнить запуск R. Проверьте корректность установки."
 
-#: backends/R/rsession.cpp:110
+#: backends/R/rsession.cpp:128
+#, kde-format
+msgid ""
+"R initialization failed. Please check that R is installed and R_HOME is set "
+"correctly."
+msgstr ""
+
+#: backends/R/rsession.cpp:137
 #, kde-format
 msgid "R server did not respond."
 msgstr "Сервер R не ответил."
 
-#: backends/R/rsession.cpp:130
+#: backends/R/rsession.cpp:157
 #, kde-format
 msgid "Failed to connect to R server: %1"
 msgstr "Не удалось подключиться к серверу R: %1"
 
-#: backends/R/rsession.cpp:396
+#: backends/R/rsession.cpp:423
 #, kde-format
 msgid "Lost connection to R server"
 msgstr "Потеряно соединение с сервером R"

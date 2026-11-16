@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-11-08 02:52+0000\n"
+"POT-Creation-Date: 2026-11-16 00:59+0000\n"
 "PO-Revision-Date: 2026-05-26 21:25+0200\n"
 "Last-Translator: Shinjo Park <kde@peremen.name>\n"
 "Language-Team: Korean <kde-kr@kde.org>\n"
@@ -2353,18 +2353,25 @@ msgstr "Octave 실행 파일의 경로"
 msgid "Failed to start R, please check R installation."
 msgstr "R을 시작할 수 없습니다. 설치 상태를 확인하십시오."
 
-#: backends/R/rsession.cpp:110
+#: backends/R/rsession.cpp:128
+#, kde-format
+msgid ""
+"R initialization failed. Please check that R is installed and R_HOME is set "
+"correctly."
+msgstr ""
+
+#: backends/R/rsession.cpp:137
 #, kde-format
 msgid "R server did not respond."
 msgstr ""
 
-#: backends/R/rsession.cpp:130
+#: backends/R/rsession.cpp:157
 #, fuzzy, kde-format
 #| msgid "Failed to start Cantor python server."
 msgid "Failed to connect to R server: %1"
 msgstr "Cantor Python 서버를 시작할 수 없습니다."
 
-#: backends/R/rsession.cpp:396
+#: backends/R/rsession.cpp:423
 #, kde-format
 msgid "Lost connection to R server"
 msgstr ""

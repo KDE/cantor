@@ -5,16 +5,16 @@
 # Luiz Fernando Ranghetti <elchevive@opensuse.org>, 2009, 2010, 2011, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024.
 # André Marcelo Alvarenga <alvarenga@kde.org>, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2018, 2019, 2020.
 # Aracele Torres <araceletorres@gmail.com>, 2010, 2011.
-# SPDX-FileCopyrightText: 2011, 2025-2026 Marcus Gama <marcus.gama@gmail.com>
+# SPDX-FileCopyrightText: 2011, 2025-2026 Marcus Gama <marcus.gama@kde.org>
 # Geraldo Simiao <geraldosimiao@fedoraproject.org>, 2023.
 # SPDX-FileCopyrightText: 2025 Guilherme Marçal Silva <guimarcalsilva@gmail.com>
 msgid ""
 msgstr ""
 "Project-Id-Version: cantor\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-11-08 02:52+0000\n"
+"POT-Creation-Date: 2026-11-16 00:59+0000\n"
 "PO-Revision-Date: 2026-10-29 10:40-0300\n"
-"Last-Translator: Marcus Gama <marcus.gama@gmail.com>\n"
+"Last-Translator: Marcus Gama <marcus.gama@kde.org>\n"
 "Language-Team: Brazilian Portuguese <kde-i18n-pt_BR@kde.org>\n"
 "Language: pt_BR\n"
 "MIME-Version: 1.0\n"
@@ -2424,17 +2424,24 @@ msgstr "Não foi possível encontrar o executável cantor_rserver."
 msgid "Failed to start R, please check R installation."
 msgstr "Falha ao iniciar o R, verifique a instalação do R."
 
-#: backends/R/rsession.cpp:110
+#: backends/R/rsession.cpp:128
+#, kde-format
+msgid ""
+"R initialization failed. Please check that R is installed and R_HOME is set "
+"correctly."
+msgstr ""
+
+#: backends/R/rsession.cpp:137
 #, kde-format
 msgid "R server did not respond."
 msgstr "O servidor R não respondeu."
 
-#: backends/R/rsession.cpp:130
+#: backends/R/rsession.cpp:157
 #, kde-format
 msgid "Failed to connect to R server: %1"
 msgstr "Falha ao conectar ao servidor R: %1"
 
-#: backends/R/rsession.cpp:396
+#: backends/R/rsession.cpp:423
 #, kde-format
 msgid "Lost connection to R server"
 msgstr "Conexão com o servidor R perdida"
