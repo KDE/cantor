@@ -13,7 +13,7 @@ msgstr ""
 "Project-Id-Version: cantor\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-11-16 00:59+0000\n"
-"PO-Revision-Date: 2026-10-29 10:40-0300\n"
+"PO-Revision-Date: 2026-11-16 07:56-0300\n"
 "Last-Translator: Marcus Gama <marcus.gama@kde.org>\n"
 "Language-Team: Brazilian Portuguese <kde-i18n-pt_BR@kde.org>\n"
 "Language: pt_BR\n"
@@ -2430,6 +2430,8 @@ msgid ""
 "R initialization failed. Please check that R is installed and R_HOME is set "
 "correctly."
 msgstr ""
+"A inicialização do R falhou. Verifique se o R está instalado e se a variável "
+"R_HOME está definida corretamente."
 
 #: backends/R/rsession.cpp:137
 #, kde-format

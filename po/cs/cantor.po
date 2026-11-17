@@ -12,7 +12,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-11-16 00:59+0000\n"
-"PO-Revision-Date: 2026-10-30 01:04+0100\n"
+"PO-Revision-Date: 2026-11-16 12:21+0100\n"
 "Last-Translator: Libor Filípek <libor.filipek@gmail.com>\n"
 "Language-Team: Czech <kde-i18n-doc@kde.org>\n"
 "Language: cs\n"
@@ -20,7 +20,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
-"X-Generator: Poedit 3.10\n"
+"X-Generator: Lokalize 26.08.3\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -2414,6 +2414,8 @@ msgid ""
 "R initialization failed. Please check that R is installed and R_HOME is set "
 "correctly."
 msgstr ""
+"Inicializace R se nezdařila. Zkontrolujte, zda je nainstalován R a zda je "
+"správně nastaveno proměnná R_HOME."
 
 #: backends/R/rsession.cpp:137
 #, kde-format
