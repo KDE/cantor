@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: cantor\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-11-16 03:58+0000\n"
-"PO-Revision-Date: 2026-10-29 12:12+0100\n"
+"PO-Revision-Date: 2026-11-16 09:55+0100\n"
 "Last-Translator: Josep M. Ferrer <txemaq@gmail.com>\n"
 "Language-Team: Catalan <kde-i18n-ca@kde.org>\n"
 "Language: ca@valencia\n"
@@ -2433,6 +2433,8 @@ msgid ""
 "R initialization failed. Please check that R is installed and R_HOME is set "
 "correctly."
 msgstr ""
+"Ha fallat la inicialització d'R. Comproveu que R estiga instal·lat i que "
+"R_HOME estiga definida correctament."
 
 #: backends/R/rsession.cpp:137
 #, kde-format
@@ -2762,7 +2764,7 @@ msgstr "Predeterminat"
 #: cantor.cpp:810
 #, kde-format
 msgid "Table of Contents"
-msgstr "Taula de contingut"
+msgstr "Índex de continguts"
 
 #. i18n: ectx: label, entry (DefaultBackend), group (Cantor)
 #: cantor.kcfg:10
@@ -4215,7 +4217,7 @@ msgstr "Obri en el full de treball"
 #: panelplugins/tocpanel/tocpanelplugin.cpp:207
 #, kde-format
 msgid "Search Table of Contents"
-msgstr "Busca en la taula de contingut"
+msgstr "Busca en l'índex de continguts"
 
 #: panelplugins/tocpanel/tocpanelplugin.cpp:347
 #, kde-format
@@ -4253,7 +4255,7 @@ msgstr "Suprimix l'ordre"
 #: panelplugins/tocpanel/tocpanelplugin.cpp:455
 #, kde-format
 msgid "No visible items in the Table of Contents"
-msgstr "No hi ha elements visibles a la taula de contingut"
+msgstr "No hi ha elements visibles a l'índex de continguts"
 
 #: panelplugins/tocpanel/tocpanelplugin.cpp:456
 #, kde-format
