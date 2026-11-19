@@ -13,7 +13,7 @@ msgstr ""
 "Project-Id-Version: cantor\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-11-16 00:59+0000\n"
-"PO-Revision-Date: 2026-11-01 18:40+0100\n"
+"PO-Revision-Date: 2026-11-17 19:38+0100\n"
 "Last-Translator: Xavier Besnard <xavier.besnard@kde.org>\n"
 "Language-Team: fr\n"
 "Language: fr\n"
@@ -23,7 +23,7 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 "X-Accelerator-Marker: &\n"
 "X-Environment: kde\n"
-"X-Generator: Lokalize 26.08.1\n"
+"X-Generator: Lokalize 26.08.3\n"
 "X-Text-Markup: kde4\n"
 
 #, kde-format
@@ -2452,6 +2452,8 @@ msgid ""
 "R initialization failed. Please check that R is installed and R_HOME is set "
 "correctly."
 msgstr ""
+"Impossible de réinitialiser R. Veuillez vérifier que R est bien installé et "
+"que la variable « R_HOME » est correctement définie."
 
 #: backends/R/rsession.cpp:137
 #, kde-format
