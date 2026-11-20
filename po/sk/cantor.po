@@ -2315,6 +2315,23 @@ msgid ""
 "padding: 8px; border-radius: 4px;\">help(rlm, package=\"MASS\")\n"
 "help(package=\"MASS\")       # package index</pre></div>"
 msgstr ""
+"<div style=\"line-height: 1.4;\"><h3 style=\"color: #2277dd; margin: 12px 0 "
+"6px 0;\"><b>Systém pomocníka R</b></h3><p style=\"margin: 4px 0;\">Funkcia "
+"<code>help()</code> a operátor pomocníka <code>?</code> v R poskytujú "
+"prístup k stránkam dokumentácie funkcií R, dátových množín a ďalších "
+"objektov.</p><h4 style=\"color: #2277dd; margin: 12px 0 6px 0;"
+"\"><b>Príklady</b></h4><pre style=\"background-color: #d0d0d0; color: "
+"#000000; padding: 8px; border-radius: 4px;\">help(lm)      # pomocník pre "
+"funkciu lineárneho modelu\n"
+"?lm           # to isté ako vyššie\n"
+"?\"?\"          # pomocník pre operátor ?\n"
+"example(lm)   # spustiť príklady pre lm</pre><h4 style=\"color: #2277dd; "
+"margin: 12px 0 6px 0;\"><b>Pomocník balíkov</b></h4><p style=\"margin: 4px 0;"
+"\">Ak chcete získať pomocníka k funkcii z balíka, ktorý práve nie je "
+"načítaný, zadajte názov balíka:</p><pre style=\"background-color: #d0d0d0; "
+"color: #000000; padding: 8px; border-radius: 4px;\">help(rlm, package=\"MASS"
+"\")\n"
+"help(package=\"MASS\")       # index balíka</pre></div>"
 
 #: backends/R/rbackend.cpp:120
 #, kde-format
@@ -2341,6 +2358,8 @@ msgid ""
 "help.start() is not supported in embedded R mode. Use help(topic) or ?topic "
 "instead."
 msgstr ""
+"help.start() nie je podporované vo vloženom režime R. Namiesto toho použite "
+"help(téma) alebo ?téma."
 
 #: backends/R/rexpression.cpp:199 backends/R/rexpression.cpp:200
 #, kde-format
@@ -2364,9 +2383,9 @@ msgid "Url to the local R documentation"
 msgstr "URL k miestnej dokumentácii R"
 
 #: backends/R/rsession.cpp:87
-#, fuzzy, kde-format
+#, kde-format
 msgid "Failed to find cantor_rserver executable."
-msgstr "Cesta k spustiteľnému súboru Octave"
+msgstr "Nepodarilo sa nájsť spustiteľný súbor cantor_rserver."
 
 #: backends/R/rsession.cpp:99
 #, kde-format
@@ -2379,22 +2398,23 @@ msgid ""
 "R initialization failed. Please check that R is installed and R_HOME is set "
 "correctly."
 msgstr ""
+"Inicializácia R zlyhala. Skontrolujte, či je R nainštalované a či je R_HOME "
+"správne nastavené."
 
 #: backends/R/rsession.cpp:137
 #, kde-format
 msgid "R server did not respond."
-msgstr ""
+msgstr "Server R neodpovedal."
 
 #: backends/R/rsession.cpp:157
-#, fuzzy, kde-format
-#| msgid "Failed to start Cantor python server."
+#, kde-format
 msgid "Failed to connect to R server: %1"
-msgstr "Nepodarilo sa spustiť Cantor python server."
+msgstr "Nepodarilo sa pripojiť k serveru R: %1"
 
 #: backends/R/rsession.cpp:423
 #, kde-format
 msgid "Lost connection to R server"
-msgstr ""
+msgstr "Spojenie so serverom R sa stratilo"
 
 #: backends/R/rsettingswidget.cpp:30
 #, kde-format
