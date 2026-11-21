@@ -531,17 +531,64 @@ static QString validateRHome(const QString& rHome)
     return QString(); // Valid
 }
 
+// Try to find R installation on Windows via registry or standard paths
+#ifdef Q_OS_WIN
+static QString detectRHomeWindows()
+{
+    // First check standard R installation paths
+    QStringList standardPaths = {
+        QStringLiteral("C:/Program Files/R"),
+        QStringLiteral("C:/R"),
+    };
+
+    for (const QString& basePath : standardPaths)
+    {
+        QDir dir(basePath);
+        if (!dir.exists())
+            continue;
+
+        // Look for R-x.y.z directories, pick the newest
+        QStringList rDirs = dir.entryList(QStringList() << QStringLiteral("R-*"), QDir::Dirs, QDir::Name | QDir::Reversed);
+        for (const QString& rDir : rDirs)
+        {
+            QString candidate = basePath + QLatin1Char('/') + rDir;
+            // Verify it's a valid R installation
+            if (QFile::exists(candidate + QLatin1String("/bin/x64/R.dll"))
+                || QFile::exists(candidate + QLatin1String("/bin/R.dll")))
+            {
+                qDebug() << "RServer: detected R installation at" << candidate;
+                return candidate;
+            }
+        }
+    }
+
+    return QString();
+}
+#endif
+
 void RServer::initR()
 {
-    //Setup environment variables
+#ifdef Q_OS_WIN
+    // On Windows, don't use build-time renvvars.h - it contains paths from the CI build machine.
+    // Instead, auto-detect R installation at runtime.
+    if (!qEnvironmentVariableIsSet("R_HOME"))
+    {
+        QString detectedRHome = detectRHomeWindows();
+        if (!detectedRHome.isEmpty())
+        {
+            qputenv("R_HOME", detectedRHome.toLocal8Bit());
+            qDebug() << "RServer: auto-detected R_HOME:" << detectedRHome;
+        }
+    }
+#else
+    // On Unix/macOS, use build-time defaults from renvvars.h (typically correct for the system)
     #include "renvvars.h"
-
     for (int i = 0; R_VARS[i] != nullptr; i+= 2) {
         // Only set if not already defined by user (allows user's R_HOME etc. to take precedence)
-        // qgetenv returns empty QByteArray if not set, so check if it's truly unset
         if (!qEnvironmentVariableIsSet(R_VARS[i]))
             qputenv(R_VARS[i], R_VARS[i+1]);
     }
+#endif
 
     QString rHome = QString::fromLocal8Bit(qgetenv("R_HOME"));
     qDebug() << "RServer: R_HOME before init:" << rHome;
@@ -552,7 +599,13 @@ void RServer::initR()
     {
         // Print error to stderr for the session to capture
         fprintf(stderr, "FATAL: %s\n", validationError.toUtf8().constData());
-        fprintf(stderr, "Please set R_HOME to your R installation directory (e.g., C:\\Program Files\\R\\R-4.x.x)\n");
+#ifdef Q_OS_WIN
+        fprintf(stderr, "R was not found. Please install R from https://cran.r-project.org/\n");
+        fprintf(stderr, "Standard installation location: C:\\Program Files\\R\\R-4.x.x\n");
+        fprintf(stderr, "Or set the R_HOME environment variable to your R installation.\n");
+#else
+        fprintf(stderr, "Please set R_HOME to your R installation directory.\n");
+#endif
         fflush(stderr);
         // Exit with error code so the session knows initialization failed
         exit(1);
