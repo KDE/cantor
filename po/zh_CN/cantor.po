@@ -2335,10 +2335,9 @@ msgid "R server did not respond."
 msgstr ""
 
 #: backends/R/rsession.cpp:157
-#, fuzzy, kde-format
-#| msgid "Failed to start Cantor python server."
+#, kde-format
 msgid "Failed to connect to R server: %1"
-msgstr "无法启动 Cantor python 服务器。"
+msgstr ""
 
 #: backends/R/rsession.cpp:423
 #, kde-format
@@ -3958,22 +3957,19 @@ msgid "All files"
 msgstr "所有文件"
 
 #: panelplugins/plotpanel/plotpanelplugin.cpp:142
-#, fuzzy, kde-format
-#| msgid "Plots"
+#, kde-format
 msgid "Plots panel"
-msgstr "绘图"
+msgstr ""
 
 #: panelplugins/plotpanel/plotpanelplugin.cpp:153
-#, fuzzy, kde-format
-#| msgid "&Previous"
+#, kde-format
 msgid "Previous Plot"
-msgstr "上一个(&P)"
+msgstr ""
 
 #: panelplugins/plotpanel/plotpanelplugin.cpp:154
-#, fuzzy, kde-format
-#| msgid "Text Color"
+#, kde-format
 msgid "Next Plot"
-msgstr "文本颜色"
+msgstr ""
 
 #: panelplugins/plotpanel/plotpanelplugin.cpp:156
 #, kde-format
@@ -3981,30 +3977,26 @@ msgid "Group Plots by Source Cell"
 msgstr ""
 
 #: panelplugins/plotpanel/plotpanelplugin.cpp:159
-#, fuzzy, kde-format
-#| msgid "Animations"
+#, kde-format
 msgid "Animate Previews"
-msgstr "动画"
+msgstr ""
 
 #: panelplugins/plotpanel/plotpanelplugin.cpp:163
-#, fuzzy, kde-format
-#| msgid "Copy result"
+#, kde-format
 msgid "Copy Plot"
-msgstr "复制结果"
+msgstr ""
 
 #: panelplugins/plotpanel/plotpanelplugin.cpp:164
 #: worksheethierarchymanager.cpp:1129
-#, fuzzy, kde-format
-#| msgid "Save Project"
+#, kde-format
 msgid "Save Plot"
-msgstr "保存项目"
+msgstr ""
 
 #: panelplugins/plotpanel/plotpanelplugin.cpp:165
 #: worksheethierarchymanager.cpp:1175
-#, fuzzy, kde-format
-#| msgid "Save Project"
+#, kde-format
 msgid "Save All Plots"
-msgstr "保存项目"
+msgstr ""
 
 #: panelplugins/plotpanel/plotpanelplugin.cpp:166
 #: panelplugins/plotpanel/plotpanelplugin.cpp:565
@@ -4024,16 +4016,14 @@ msgstr ""
 
 #: panelplugins/plotpanel/plotpanelplugin.cpp:171
 #: panelplugins/plotpanel/plotpanelplugin.cpp:172
-#, fuzzy, kde-format
-#| msgid "Search/Filter"
+#, kde-format
 msgid "Search plots"
-msgstr "搜索/过滤"
+msgstr ""
 
 #: panelplugins/plotpanel/plotpanelplugin.cpp:178
-#, fuzzy, kde-format
-#| msgid "Integrate Plots into the Worksheet"
+#, kde-format
 msgid "Plots in the current worksheet"
-msgstr "将绘图整合到工作表"
+msgstr ""
 
 #: panelplugins/plotpanel/plotpanelplugin.cpp:191
 #, kde-format
@@ -4041,16 +4031,14 @@ msgid "No plots match the search"
 msgstr ""
 
 #: panelplugins/plotpanel/plotpanelplugin.cpp:312
-#, fuzzy, kde-format
-#| msgid "Error: %1"
+#, kde-format
 msgid "Source: %1"
-msgstr "错误：%1"
+msgstr ""
 
 #: panelplugins/plotpanel/plotpanelplugin.cpp:314
-#, fuzzy, kde-format
-#| msgid "Error: %1"
+#, kde-format
 msgid "Format: %1"
-msgstr "错误：%1"
+msgstr ""
 
 #: panelplugins/plotpanel/plotpanelplugin.cpp:316
 #, kde-format
@@ -4072,10 +4060,9 @@ msgid "Do you really want to delete \"%1\"? This action cannot be undone."
 msgstr ""
 
 #: panelplugins/plotpanel/plotpanelplugin.cpp:626
-#, fuzzy, kde-format
-#| msgid "&Worksheet"
+#, kde-format
 msgid "Open in Worksheet"
-msgstr "工作表(&W)"
+msgstr ""
 
 #: panelplugins/tocpanel/tocpanelplugin.cpp:207
 #, kde-format
@@ -5221,45 +5208,3 @@ msgstr ""
 #, kde-format
 msgid "Select Color"
 msgstr "选择颜色"
-
-#~ msgid ""
-#~ "<h1>R' Help System: <i>help()</i> and <i>?</i>:</h1><br>The <i>help()</i> "
-#~ "function and <i>?</i> help operator in R provide access to the "
-#~ "documentation pages for R functions, data sets, and other objects, both "
-#~ "for packages in the standard R distribution and for contributed packages."
-#~ "<br><br>To access documentation for the standard <i>lm</i> (linear model) "
-#~ "function, for example, enter the command <b><i>help(lm)</i></b> or "
-#~ "<i>help(\"lm\")</i>, or <i>?lm</i> or <i>?\"lm\"</i> (i.e., the quotes "
-#~ "are optional).<br><br>To access help for a function in a package that’s "
-#~ "not currently loaded, specify in addition the name of the package: For "
-#~ "example, to obtain documentation for the <i>rlm()</i> (robust linear "
-#~ "model) function in the MASS package, <i>help(rlm, package=\"MASS\")</i>."
-#~ "<br><br>Standard names in R consist of upper- and lower-case letters, "
-#~ "numerals (0-9), underscores (_), and periods (.), and must begin with a "
-#~ "letter or a period. To obtain help for an object with a non-standard name "
-#~ "(such as the help operator <i>?</i>), the name must be quoted: for "
-#~ "example, <i>help('?')</i> or <i>?\"?\"</i>.<br><br>You may also use the "
-#~ "<i>help()</i> function to access information about a package in your "
-#~ "library — for example, <i>help(package=\"MASS\")</i> — which displays an "
-#~ "index of available help pages for the package along with some other "
-#~ "information.<br><br>Help pages for functions usually include a section "
-#~ "with executable examples illustrating how the functions work. You can "
-#~ "execute these examples in the current R session via the <i>example()</i> "
-#~ "command: e.g., <i>example(lm)</i>."
-#~ msgstr ""
-#~ "<h1>R 帮助系统：<i>help()</i> 函数与 <i>?</i> 操作符：</h1><br>R 中的 "
-#~ "<i>help()</i> 函数和 <i>?</i> 操作符可用于访问 R 函数的文档页面、数据集以"
-#~ "及其他对象的文档。这些功能既适用于标准 R 发行版中的包，也适用于用户贡献的"
-#~ "包。<br><br>例如，若要访问标准函数 <i>lm</i>（线性模型）的文档，请输入命"
-#~ "令 <b><i>help(lm)</i></b> 或 <i>help(\"lm\")</i>，或者 <i>?lm</i> 或 <i>?"
-#~ "\"lm\"</i>（即，引号是可选的）。<br><br>若要访问尚未加载包中的函数帮助信"
-#~ "息，需额外指定包名。例如，若要获取 MASS 包中 <i>rlm()</i>（稳健线性模型）"
-#~ "函数的文档，请输入 <i>help(rlm, package=\"MASS\")</i>。<br><br>R 中的标准"
-#~ "名称由大写字母、小写字母、数字（0-9）、下划线（_）和点（.）组成，且必须以"
-#~ "字母或点开头。若要获取非标准名称对象（例如帮助操作符 <i>?</i>）的帮助信"
-#~ "息，必须将名称用引号括起来：例如 <i>help('?')</i> 或 <i>?\"?\"</i>。"
-#~ "<br><br>您还可以使用 <i>help()</i> 函数访问您库中包的信息——例如 "
-#~ "<i>help(package=\"MASS\")</i>——这将显示该包可用的帮助页面索引以及一些其他"
-#~ "相关信息。<br><br>函数帮助页面通常包含一个包含可执行示例的部分，用于说明函"
-#~ "数的工作原理。您可以通过 <i>example()</i> 命令在当前 R 会话中执行这些示"
-#~ "例：例如 <i>example(lm)</i>。"
