@@ -13,7 +13,7 @@ msgstr ""
 "Project-Id-Version: kdeedu-kde4\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-11-16 00:59+0000\n"
-"PO-Revision-Date: 2026-11-16 19:01+0300\n"
+"PO-Revision-Date: 2026-11-23 18:11+0300\n"
 "Last-Translator: Emir SARI <emir_sari@icloud.com>\n"
 "Language-Team: Turkish <kde-l10n-tr@kde.org>\n"
 "Language: tr\n"
@@ -336,7 +336,7 @@ msgstr ""
 #: backendchooser.ui:37
 #, kde-format
 msgid "Make this the default backend"
-msgstr "Bunu öntanımlı arka uç yap"
+msgstr "Bunu varsayılan arka uç yap"
 
 #: backends/julia/juliabackend.cpp:55
 #, kde-format
@@ -413,7 +413,7 @@ msgstr "Çizimlerin integralini çalışma sayfasına koy"
 #: backends/sage/sagebackend.kcfg:29
 #, kde-format
 msgid "Default plot width"
-msgstr "Öntanımlı çizim genişliği"
+msgstr "Varsayılan çizim genişliği"
 
 #. i18n: ectx: label, entry (plotHeight), group (SageBackend)
 #. i18n: ectx: label, entry (plotHeight), group (JuliaBackend)
@@ -425,7 +425,7 @@ msgstr "Öntanımlı çizim genişliği"
 #: backends/sage/sagebackend.kcfg:33
 #, kde-format
 msgid "Default plot height"
-msgstr "Öntanımlı çizim yüksekliği"
+msgstr "Varsayılan çizim yüksekliği"
 
 #. i18n: ectx: label, entry (plotExtenstionGraphicPackage), group (JuliaBackend)
 #: backends/julia/juliabackend.kcfg:43
@@ -853,7 +853,7 @@ msgstr ""
 "duyarlı değildir. Çoğu konu adı, işlev adından ibarettir."
 "<br><br><i>example()</i>, tüm tanınan konu adlarının bir listesini döndürür."
 "<br><br>Örnekleri içeren dosyanın adı global seçenek değişkeni "
-"<i>manual_demo</i> tarafından verilir, öntanımlı olarak <i>\"manual.demo\"</"
+"<i>manual_demo</i> tarafından verilir, varsayılan olarak <i>\"manual.demo\"</"
 "i>dur.<br><br><i>example</i>, argümanını alıntılar. <i>example</i>, bir "
 "örnek bulunamamışsa veya argüman yoksa <i>done</i> döndürür; bu durumda "
 "<i>example</i>, tanınan tüm konuların bir listesini döndürür."
@@ -1760,7 +1760,7 @@ msgstr "sayı"
 #: backends/qalculate/qalculatesyntaxhelpobject.cpp:150
 #, kde-format
 msgid "default: %1"
-msgstr "öntanımlı: %1"
+msgstr "varsayılan: %1"
 
 #: backends/qalculate/qalculatesyntaxhelpobject.cpp:210
 #, kde-format
@@ -2728,7 +2728,7 @@ msgstr "Projeyi Kaydet"
 #: horizontalruleentry.cpp:336
 #, kde-format
 msgid "Default"
-msgstr "Öntanımlı"
+msgstr "Varsayılan"
 
 #: cantor.cpp:810
 #, kde-format
@@ -2739,67 +2739,67 @@ msgstr "İçindekiler"
 #: cantor.kcfg:10
 #, kde-format
 msgid "The Backend that is used by default"
-msgstr "Öntanımlı olarak kullanılan arka uç"
+msgstr "Varsayılan olarak kullanılan arka uç"
 
 #. i18n: ectx: label, entry (DefaultTheme), group (Cantor)
 #: cantor.kcfg:14
 #, kde-format
 msgid "Default editor color theme"
-msgstr "Öntanımlı düzenleyici renk teması"
+msgstr "Varsayılan düzenleyici renk teması"
 
 #. i18n: ectx: label, entry (TypesetDefault), group (Cantor)
 #: cantor.kcfg:18
 #, kde-format
 msgid "Do Typesetting by default"
-msgstr "Öntanımlı olarak dizgi yap"
+msgstr "Varsayılan olarak dizgi yap"
 
 #. i18n: ectx: label, entry (HighlightDefault), group (Cantor)
 #: cantor.kcfg:22
 #, kde-format
 msgid "Do Syntax Highlighting by default"
-msgstr "Öntanımlı olarak sözdizim vurgulaması yap"
+msgstr "Varsayılan olarak sözdizim vurgulaması yap"
 
 #. i18n: ectx: label, entry (CompletionDefault), group (Cantor)
 #: cantor.kcfg:26
 #, kde-format
 msgid "Enable Completions by default"
-msgstr "Öntanımlı olarak tamamlamayı etkinleştir"
+msgstr "Varsayılan olarak tamamlamayı etkinleştir"
 
 #. i18n: ectx: label, entry (ExpressionNumberingDefault), group (Cantor)
 #: cantor.kcfg:30
 #, kde-format
 msgid "Enable Numbering of Expressions by default"
-msgstr "Öntanımlı olarak ifade numaralandırmayı etkinleştir"
+msgstr "Varsayılan olarak ifade numaralandırmayı etkinleştir"
 
 #. i18n: ectx: label, entry (ShowTocChaptersDefault), group (Cantor)
 #: cantor.kcfg:34
 #, kde-format
 msgid "Show chapters in the Worksheet Structure Navigator by default"
-msgstr "Öntanımlı olarak fasılları çalışma sayfası yapısı gezgininde göster"
+msgstr "Varsayılan olarak fasılları çalışma sayfası yapısı gezgininde göster"
 
 #. i18n: ectx: label, entry (ShowTocSectionsDefault), group (Cantor)
 #: cantor.kcfg:38
 #, kde-format
 msgid "Show sections in the Worksheet Structure Navigator by default"
-msgstr "Öntanımlı olarak bölümleri çalışma sayfası yapısı gezgininde göster"
+msgstr "Varsayılan olarak bölümleri çalışma sayfası yapısı gezgininde göster"
 
 #. i18n: ectx: label, entry (ShowTocCommandEntriesDefault), group (Cantor)
 #: cantor.kcfg:42
 #, kde-format
 msgid "Show command entries in the Worksheet Structure Navigator by default"
-msgstr "Öntanımlı olarak girdileri çalışma sayfası yapısı gezgininde göster"
+msgstr "Varsayılan olarak girdileri çalışma sayfası yapısı gezgininde göster"
 
 #. i18n: ectx: label, entry (ShowTocPlotsDefault), group (Cantor)
 #: cantor.kcfg:46
 #, kde-format
 msgid "Show plots in the Worksheet Structure Navigator by default"
-msgstr "Öntanımlı olarak çizimleri çalışma sayfası yapısı gezgininde göster"
+msgstr "Varsayılan olarak çizimleri çalışma sayfası yapısı gezgininde göster"
 
 #. i18n: ectx: label, entry (AnimationDefault), group (Cantor)
 #: cantor.kcfg:50
 #, kde-format
 msgid "Animate changes in the Worksheet by default"
-msgstr "Öntanımlı olarak değişiklikleri çalışma sayfasında canlandır"
+msgstr "Varsayılan olarak değişiklikleri çalışma sayfasında canlandır"
 
 #. i18n: ectx: label, entry (EmbeddedMathDefault), group (Cantor)
 #: cantor.kcfg:54
@@ -2808,7 +2808,7 @@ msgid ""
 "Enable rendering math expressions inside $$..$$ in Text and Markdown entries "
 "by default (needs pdflatex installed)"
 msgstr ""
-"Öntanımlı olarak matematik ifadelerini metin ve Markdown girdilerinde $$.$$ "
+"Varsayılan olarak matematik ifadelerini metin ve Markdown girdilerinde $$.$$ "
 "içinde sunmayı etkinleştir (pdflatex kurulu olmasını gerektirir)"
 
 #. i18n: ectx: label, entry (WarnAboutEntryDelete), group (Cantor)
@@ -3357,7 +3357,7 @@ msgstr "Seç"
 #: commandentry.cpp:251
 #, kde-format
 msgid "Reset to Default"
-msgstr "Öntanımlılara Sıfırla"
+msgstr "Varsayılanlara Sıfırla"
 
 #: commandentry.cpp:338
 #, kde-format
@@ -4156,7 +4156,7 @@ msgstr ""
 #: panelplugins/plotpanel/plotpanelplugin.cpp:566
 #, kde-format
 msgid "Plot name (leave empty to use the default name):"
-msgstr "Çizim adı (öntanımlı adı kullanmak için boş bırakın):"
+msgstr "Çizim adı (varsayılan adı kullanmak için boş bırakın):"
 
 #: panelplugins/plotpanel/plotpanelplugin.cpp:578
 #: panelplugins/tocpanel/tocpanelplugin.cpp:368
@@ -4251,7 +4251,7 @@ msgstr "Çizimleri Göster"
 #: panelplugins/tocpanel/tocpanelplugin.cpp:1056
 #, kde-format
 msgid "Reset to Defaults"
-msgstr "Öntanımlılara Sıfırla"
+msgstr "Varsayılanlara Sıfırla"
 
 #: panelplugins/tocpanel/tocpanelplugin.cpp:1179
 #, kde-format
@@ -4503,20 +4503,20 @@ msgstr ""
 #: settings.ui:69
 #, kde-format
 msgid "Default Backend:"
-msgstr "Öntanımlı arka uç:"
+msgstr "Varsayılan arka uç:"
 
 #. i18n: ectx: property (toolTip), widget (QLabel, label_theme)
 #. i18n: ectx: property (toolTip), widget (KComboBox, kcfg_DefaultTheme)
 #: settings.ui:76 settings.ui:129
 #, kde-format
 msgid "Default editor color theme for new worksheets"
-msgstr "Yeni çalışma sayfaları için öntanımlı düzenleyici renk teması"
+msgstr "Yeni çalışma sayfaları için varsayılan düzenleyici renk teması"
 
 #. i18n: ectx: property (text), widget (QLabel, label_theme)
 #: settings.ui:79
 #, kde-format
 msgid "Default Theme:"
-msgstr "Öntanımlı tema:"
+msgstr "Varsayılan tema:"
 
 #. i18n: ectx: property (toolTip), widget (QSpinBox, kcfg_VisibleLinesLimit)
 #: settings.ui:86

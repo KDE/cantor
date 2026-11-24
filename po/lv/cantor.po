@@ -4,20 +4,20 @@
 #
 # Einars Sprugis <einars8@gmail.com>, 2010, 2011, 2012.
 # Maris Nartiss <maris.kde@gmail.com>, 2010.
-# SPDX-FileCopyrightText: 2024, 2025 Toms Trasuns <toms.trasuns@posteo.net>
+# SPDX-FileCopyrightText: 2024-2026 Toms Trasuns <toms.trasuns@posteo.net>
 msgid ""
 msgstr ""
 "Project-Id-Version: cantor\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-11-16 00:59+0000\n"
-"PO-Revision-Date: 2025-09-25 13:01+0300\n"
+"PO-Revision-Date: 2026-11-22 12:39+0200\n"
 "Last-Translator: Toms Trasuns <toms.trasuns@posteo.net>\n"
 "Language-Team: Latvian <kde-i18n-doc@kde.org>\n"
 "Language: lv\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Lokalize 25.08.0\n"
+"X-Generator: Lokalize 26.08.3\n"
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n != 0 ? 1 : "
 "2);\n"
 
@@ -888,7 +888,7 @@ msgstr "Ceļš uz „Maxima“ izpilddatni"
 #: backends/qalculate/qalculateexpression.cpp:629
 #, kde-format
 msgid "Failed to create a temporary file for writing."
-msgstr ""
+msgstr "Neizdevās izveidot pagaidu datni rakstīšanai."
 
 #: backends/maxima/maximaexpression.cpp:117
 #, kde-format
@@ -2324,6 +2324,22 @@ msgid ""
 "padding: 8px; border-radius: 4px;\">help(rlm, package=\"MASS\")\n"
 "help(package=\"MASS\")       # package index</pre></div>"
 msgstr ""
+"<div style=\"line-height: 1.4;\"><h3 style=\"color: #2277dd; margin: 12px 0 "
+"6px 0;\"><b>R palīdzības sistēma</b></h3><p style=\"margin: 4px 0;\"> R "
+"<code>help()</code> funkcija un <code>?</code> palīdzības operators sniedz "
+"piekļuvi pie R funkciju, datu kopu un citu objektu dokumentācijas lapām.</"
+"p><h4 style=\"color: #2277dd; margin: 12px 0 6px 0;\"><b>Piemēri</b></"
+"h4><pre style=\"background-color: #d0d0d0; color: #000000; padding: 8px; "
+"border-radius: 4px;\">help(lm)      # palīdzība lineārā modeļa funkcijai\n"
+"?lm           # tas pats\n"
+"?\"?\"          # palīdzība par ? operatoru\n"
+"example(lm)   # palaist „lm“ piemērus</pre><h4 style=\"color: #2277dd; "
+"margin: 12px 0 6px 0;\"><b>Package Help</b></h4><p style=\"margin: 4px 0;"
+"\">Lai piekļūtu palīdzībai funkcijai, kas ir šobrīd vēl neielādētā pakotnē, "
+"precizējiet pakotnes nosaukumu:</p><pre style=\"background-color: #d0d0d0; "
+"color: #000000; padding: 8px; border-radius: 4px;\">help(rlm, package=\"MASS"
+"\")\n"
+"help(package=\"MASS\")       # pakotnes indekss</pre></div>"
 
 #: backends/R/rbackend.cpp:120
 #, kde-format
@@ -2350,6 +2366,8 @@ msgid ""
 "help.start() is not supported in embedded R mode. Use help(topic) or ?topic "
 "instead."
 msgstr ""
+"„help.start()“ nav atbalstīts iegultajā R režīmā. Tā vietā lietojiet "
+"„help(jautājums)“ vai „?jautājums“."
 
 #: backends/R/rexpression.cpp:199 backends/R/rexpression.cpp:200
 #, kde-format
@@ -2373,10 +2391,9 @@ msgid "Url to the local R documentation"
 msgstr "URL uz lokālo R dokumentāciju"
 
 #: backends/R/rsession.cpp:87
-#, fuzzy, kde-format
-#| msgid "Path to the Octave executable"
+#, kde-format
 msgid "Failed to find cantor_rserver executable."
-msgstr "Ceļš uz Octave izpildfailu"
+msgstr "Neizdevās atrast „cantor_rserver“ izpilddatni."
 
 #: backends/R/rsession.cpp:99
 #, kde-format
@@ -2389,27 +2406,28 @@ msgid ""
 "R initialization failed. Please check that R is installed and R_HOME is set "
 "correctly."
 msgstr ""
+"R inicializācija neizdevās. Pārbaudiet, vai R ir ieinstalēts un vai ir "
+"pareizi norādīts R_HOME ceļš."
 
 #: backends/R/rsession.cpp:137
 #, kde-format
 msgid "R server did not respond."
-msgstr ""
+msgstr "R serveris neatbildēja."
 
 #: backends/R/rsession.cpp:157
-#, fuzzy, kde-format
-#| msgid "Failed to start Cantor python server."
+#, kde-format
 msgid "Failed to connect to R server: %1"
-msgstr "Neizdevās palaist „Cantor“ „Python“ serveri."
+msgstr "Neizdevās savienoties ar R serveri: %1"
 
 #: backends/R/rsession.cpp:423
 #, kde-format
 msgid "Lost connection to R server"
-msgstr ""
+msgstr "Zaudēts savienojums ar R serveri"
 
 #: backends/R/rsettingswidget.cpp:30
 #, kde-format
 msgid "Double click to open file selection dialog"
-msgstr "Dubultklikšķis, lai atvērtu datnes izvēles lodziņu"
+msgstr "Dubultklikšķis atver datnes atlasīšanas lodziņu"
 
 #: backends/R/rsettingswidget.cpp:69
 #, kde-format
@@ -2719,7 +2737,7 @@ msgstr "Noklusējums"
 #: cantor.cpp:810
 #, kde-format
 msgid "Table of Contents"
-msgstr ""
+msgstr "Satura rādītājs"
 
 #. i18n: ectx: label, entry (DefaultBackend), group (Cantor)
 #: cantor.kcfg:10
@@ -2731,7 +2749,7 @@ msgstr "Pēc noklusējuma izmantotā aizmugursistēma"
 #: cantor.kcfg:14
 #, kde-format
 msgid "Default editor color theme"
-msgstr ""
+msgstr "Noklusējuma redaktora krāsu motīvs"
 
 #. i18n: ectx: label, entry (TypesetDefault), group (Cantor)
 #: cantor.kcfg:18
@@ -2759,36 +2777,34 @@ msgstr "Ieslēgt izteiksmju numurēšanu pēc noklusējuma"
 
 #. i18n: ectx: label, entry (ShowTocChaptersDefault), group (Cantor)
 #: cantor.kcfg:34
-#, fuzzy, kde-format
-#| msgid "Animate changes in the Worksheet by default"
+#, kde-format
 msgid "Show chapters in the Worksheet Structure Navigator by default"
-msgstr "Animēt izmaiņas darblapā pēc noklusējuma"
+msgstr "Pēc noklusējumā rādīt darblapas struktūras navigatora nodaļas"
 
 #. i18n: ectx: label, entry (ShowTocSectionsDefault), group (Cantor)
 #: cantor.kcfg:38
-#, fuzzy, kde-format
-#| msgid "Animate changes in the Worksheet by default"
+#, kde-format
 msgid "Show sections in the Worksheet Structure Navigator by default"
-msgstr "Animēt izmaiņas darblapā pēc noklusējuma"
+msgstr "Pēc noklusējumā rādīt darblapas struktūras navigatora iedaļas"
 
 #. i18n: ectx: label, entry (ShowTocCommandEntriesDefault), group (Cantor)
 #: cantor.kcfg:42
-#, fuzzy, kde-format
-#| msgid "Animate changes in the Worksheet by default"
+#, kde-format
 msgid "Show command entries in the Worksheet Structure Navigator by default"
-msgstr "Animēt izmaiņas darblapā pēc noklusējuma"
+msgstr ""
+"Pēc noklusējumā rādīt darblapas struktūras navigatora komandu ierakstus"
 
 #. i18n: ectx: label, entry (ShowTocPlotsDefault), group (Cantor)
 #: cantor.kcfg:46
 #, kde-format
 msgid "Show plots in the Worksheet Structure Navigator by default"
-msgstr ""
+msgstr "Pēc noklusējumā darblapas struktūras navigatorā rādīt grafikus"
 
 #. i18n: ectx: label, entry (AnimationDefault), group (Cantor)
 #: cantor.kcfg:50
 #, kde-format
 msgid "Animate changes in the Worksheet by default"
-msgstr "Animēt izmaiņas darblapā pēc noklusējuma"
+msgstr "Pēc noklusējuma animēt izmaiņas darblapā"
 
 #. i18n: ectx: label, entry (EmbeddedMathDefault), group (Cantor)
 #: cantor.kcfg:54
@@ -2852,7 +2868,7 @@ msgstr "Ierobežot teksta rezultātos redzamo rindu skaitu"
 #, kde-format
 msgid ""
 "Whether the hierarchy font settings have been migrated to complete fonts"
-msgstr ""
+msgstr "Vai hierarhijas fontu iestatījumi ir migrēti uz pilnīgiem fontiem"
 
 #. i18n: ectx: label, entry (ChapterFontFamily), group (Cantor)
 #: cantor.kcfg:90
@@ -3108,12 +3124,12 @@ msgstr "Dzēst pašreizējo ierakstu"
 #: cantor_part.cpp:357 worksheet.cpp:2215 worksheet.cpp:2216 worksheet.cpp:2515
 #, kde-format
 msgid "Merge Cells"
-msgstr ""
+msgstr "Apvienot šūnas"
 
 #: cantor_part.cpp:363 worksheet.cpp:2386
 #, kde-format
 msgid "Split Cell"
-msgstr ""
+msgstr "Sadalīt šūnas"
 
 #. i18n("Publish Worksheet"), collection);
 #. publishWorksheet->setIcon(QIcon::fromTheme(QLatin1String("get-hot-new-stuff")));
@@ -3439,17 +3455,15 @@ msgstr "&Reģistrjutīgs"
 
 #. i18n: ectx: property (text), widget (QLabel, hierarchyEntriesLabel)
 #: formating.ui:35
-#, fuzzy, kde-format
-#| msgid "Hierarchy Entry"
+#, kde-format
 msgid "Hierarchy Entries:"
-msgstr "Hierarhijas ieraksts"
+msgstr "Hierarhijas ieraksti:"
 
 #. i18n: ectx: property (text), widget (QLabel, hierarchyLevelLabel)
 #: formating.ui:50
-#, fuzzy, kde-format
-#| msgid "Set Hierarchy Level"
+#, kde-format
 msgid "Hierarchy level:"
-msgstr "Iestatiet hierarhijas līmeni"
+msgstr "Hierarhijas līmenis:"
 
 #. i18n: ectx: property (text), item, widget (QComboBox, hierarchyLevelComboBox)
 #: formating.ui:61 hierarchyentry.cpp:22
@@ -3495,43 +3509,38 @@ msgstr "Apakšrindkopa"
 #. i18n: ectx: property (text), widget (QLabel, lSubparagraphFont)
 #: formating.ui:115 formating.ui:138 formating.ui:161 formating.ui:184
 #: formating.ui:207 formating.ui:230
-#, fuzzy, kde-format
-#| msgctxt "@action"
-#| msgid "&Font"
+#, kde-format
 msgid "&Font:"
-msgstr "&Fonts"
+msgstr "&Fonts:"
 
 #. i18n: ectx: property (text), widget (QLabel, visibleItemsLabel)
 #: formating.ui:253
 #, kde-format
 msgid "Visible Items:"
-msgstr ""
+msgstr "Redzamie vienumi:"
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_ShowTocChaptersDefault)
 #: formating.ui:262
-#, fuzzy, kde-format
-#| msgid "Chapter"
+#, kde-format
 msgid "Chapters"
-msgstr "Nodaļa"
+msgstr "Nodaļas"
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_ShowTocSectionsDefault)
 #: formating.ui:269
-#, fuzzy, kde-format
-#| msgid "Section"
+#, kde-format
 msgid "Sections"
-msgstr "Iedaļa"
+msgstr "Iedaļas"
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_ShowTocCommandEntriesDefault)
 #: formating.ui:276
-#, fuzzy, kde-format
-#| msgid "Commands"
+#, kde-format
 msgid "Command entries"
-msgstr "Komandas"
+msgstr "Komandu ieraksti"
 
 #: hierarchyentry.cpp:55
 #, kde-format
 msgid "Set Hierarchy Level"
-msgstr "Iestatiet hierarhijas līmeni"
+msgstr "Iestatīt hierarhijas līmeni"
 
 #: horizontalruleentry.cpp:20
 #, kde-format
@@ -3615,8 +3624,7 @@ msgid "%1 files (*.%2)"
 msgstr "%1 datnes (*.%2)"
 
 #: imageresultitem.cpp:195
-#, fuzzy, kde-format
-#| msgid "PDF Files (*.pdf)"
+#, kde-format
 msgid "PDF files (*.pdf)"
 msgstr "PDF datnes (*.pdf)"
 
@@ -4056,110 +4064,99 @@ msgid "All files"
 msgstr "Visas datnes"
 
 #: panelplugins/plotpanel/plotpanelplugin.cpp:142
-#, fuzzy, kde-format
-#| msgid "Plots"
+#, kde-format
 msgid "Plots panel"
-msgstr "Grafiki"
+msgstr "Grafiku panelis"
 
 #: panelplugins/plotpanel/plotpanelplugin.cpp:153
-#, fuzzy, kde-format
-#| msgid "&Previous"
+#, kde-format
 msgid "Previous Plot"
-msgstr "&Iepriekšējais"
+msgstr "Iepriekšējais grafiks"
 
 #: panelplugins/plotpanel/plotpanelplugin.cpp:154
-#, fuzzy, kde-format
-#| msgid "Delete"
+#, kde-format
 msgid "Next Plot"
-msgstr "Dzēst"
+msgstr "Nākamais grafiks"
 
 #: panelplugins/plotpanel/plotpanelplugin.cpp:156
 #, kde-format
 msgid "Group Plots by Source Cell"
-msgstr ""
+msgstr "Grupēt grafikus pēc avota šūnas"
 
 #: panelplugins/plotpanel/plotpanelplugin.cpp:159
-#, fuzzy, kde-format
-#| msgid "Animate Worksheet"
+#, kde-format
 msgid "Animate Previews"
-msgstr "Animēt darblapu"
+msgstr "Animēt priekšskatījumus"
 
 #: panelplugins/plotpanel/plotpanelplugin.cpp:163
-#, fuzzy, kde-format
-#| msgid "Copy result"
+#, kde-format
 msgid "Copy Plot"
-msgstr "Kopēt rezultātu"
+msgstr "Kopēt grafiku"
 
 #: panelplugins/plotpanel/plotpanelplugin.cpp:164
 #: worksheethierarchymanager.cpp:1129
-#, fuzzy, kde-format
-#| msgid "Save Project"
+#, kde-format
 msgid "Save Plot"
-msgstr "Saglabāt projektu"
+msgstr "Saglabāt grafiku"
 
 #: panelplugins/plotpanel/plotpanelplugin.cpp:165
 #: worksheethierarchymanager.cpp:1175
-#, fuzzy, kde-format
-#| msgid "Save Project"
+#, kde-format
 msgid "Save All Plots"
-msgstr "Saglabāt projektu"
+msgstr "Saglabāt visus grafikus"
 
 #: panelplugins/plotpanel/plotpanelplugin.cpp:166
 #: panelplugins/plotpanel/plotpanelplugin.cpp:565
 #: panelplugins/tocpanel/tocpanelplugin.cpp:1288
 #, kde-format
 msgid "Rename Plot"
-msgstr ""
+msgstr "Pārdēvēt grafiku"
 
 #: panelplugins/plotpanel/plotpanelplugin.cpp:167
 #: panelplugins/plotpanel/plotpanelplugin.cpp:580
 #: panelplugins/tocpanel/tocpanelplugin.cpp:388
 #: panelplugins/tocpanel/tocpanelplugin.cpp:1296
 #: panelplugins/tocpanel/tocpanelplugin.cpp:1304
-#, fuzzy, kde-format
-#| msgid "Delete"
+#, kde-format
 msgid "Delete Plot"
-msgstr "Dzēst"
+msgstr "Dzēst grafiku"
 
 #: panelplugins/plotpanel/plotpanelplugin.cpp:171
 #: panelplugins/plotpanel/plotpanelplugin.cpp:172
-#, fuzzy, kde-format
-#| msgid "Search/Filter"
+#, kde-format
 msgid "Search plots"
-msgstr "Meklēt/filtrēt"
+msgstr "Meklēt grafikus"
 
 #: panelplugins/plotpanel/plotpanelplugin.cpp:178
-#, fuzzy, kde-format
-#| msgid "Integrate Plots into the Worksheet"
+#, kde-format
 msgid "Plots in the current worksheet"
-msgstr "Integrēt grafikus darblapā"
+msgstr "Grafiki šajā darblapā"
 
 #: panelplugins/plotpanel/plotpanelplugin.cpp:191
 #, kde-format
 msgid "No plots match the search"
-msgstr ""
+msgstr "Meklēšana neatrada nevienu atbilstošu grafiku"
 
 #: panelplugins/plotpanel/plotpanelplugin.cpp:312
-#, fuzzy, kde-format
-#| msgid "Error: %1"
+#, kde-format
 msgid "Source: %1"
-msgstr "Kļūda: %1"
+msgstr "Avots: %1"
 
 #: panelplugins/plotpanel/plotpanelplugin.cpp:314
-#, fuzzy, kde-format
-#| msgid "Error: %1"
+#, kde-format
 msgid "Format: %1"
-msgstr "Kļūda: %1"
+msgstr "Formāts: %1"
 
 #: panelplugins/plotpanel/plotpanelplugin.cpp:316
 #, kde-format
 msgid "Preview unavailable; open the plot in the worksheet for details."
 msgstr ""
+"Priekšskatījums nav pieejams. Lai uzzinātu vairāk, atveriet grafiku darblapā."
 
 #: panelplugins/plotpanel/plotpanelplugin.cpp:566
 #, kde-format
 msgid "Plot name (leave empty to use the default name):"
-msgstr ""
+msgstr "Grafika nosaukums (atstājiet tukšu, lai lietotu noklusējumu):"
 
 #: panelplugins/plotpanel/plotpanelplugin.cpp:578
 #: panelplugins/tocpanel/tocpanelplugin.cpp:368
@@ -4168,23 +4165,22 @@ msgstr ""
 #: panelplugins/tocpanel/tocpanelplugin.cpp:1303
 #, kde-format
 msgid "Do you really want to delete \"%1\"? This action cannot be undone."
-msgstr ""
+msgstr "Vai tiešām vēlaties dzēst „%1“? Šo darbību atsaukt nevarēs."
 
 #: panelplugins/plotpanel/plotpanelplugin.cpp:626
-#, fuzzy, kde-format
-#| msgid "Animate Worksheet"
+#, kde-format
 msgid "Open in Worksheet"
-msgstr "Animēt darblapu"
+msgstr "Atvērt darblapā"
 
 #: panelplugins/tocpanel/tocpanelplugin.cpp:207
 #, kde-format
 msgid "Search Table of Contents"
-msgstr ""
+msgstr "Meklēt satura rādītājā"
 
 #: panelplugins/tocpanel/tocpanelplugin.cpp:347
 #, kde-format
 msgid "Heading"
-msgstr ""
+msgstr "Virsraksts"
 
 #: panelplugins/tocpanel/tocpanelplugin.cpp:350
 #, kde-format
@@ -4192,13 +4188,14 @@ msgid ""
 "Do you really want to delete the heading \"%1\"? Its contents will be kept. "
 "This action cannot be undone."
 msgstr ""
+"Vai tiešām vēlaties dzēst virsrakstu „%1“? Tā saturs tik paturēts? Šo "
+"darbību atcelt vairs nevarēs."
 
 #: panelplugins/tocpanel/tocpanelplugin.cpp:351
 #: worksheethierarchymanager.cpp:1392
-#, fuzzy, kde-format
-#| msgid "Delete Entry"
+#, kde-format
 msgid "Delete Heading"
-msgstr "Dzēst ierakstu"
+msgstr "Dzēst virsrakstu"
 
 #: panelplugins/tocpanel/tocpanelplugin.cpp:365
 #: panelplugins/tocpanel/tocpanelplugin.cpp:1258 worksheet.cpp:2398
@@ -4211,129 +4208,114 @@ msgstr "Komanda"
 #: panelplugins/tocpanel/tocpanelplugin.cpp:369
 #: panelplugins/tocpanel/tocpanelplugin.cpp:1252
 #: panelplugins/tocpanel/tocpanelplugin.cpp:1262
-#, fuzzy, kde-format
-#| msgid "Delete Command Entry Results"
+#, kde-format
 msgid "Delete Command"
-msgstr "Dzēst komandu ieraksta rezultātus"
+msgstr "Dzēst komandu"
 
 #: panelplugins/tocpanel/tocpanelplugin.cpp:455
 #, kde-format
 msgid "No visible items in the Table of Contents"
-msgstr ""
+msgstr "Satura rādītājs nesatur redzamus ierakstus"
 
 #: panelplugins/tocpanel/tocpanelplugin.cpp:456
 #, kde-format
 msgid "No matching items"
-msgstr ""
+msgstr "Nav atbilstošu ierakstu"
 
 #: panelplugins/tocpanel/tocpanelplugin.cpp:1016
 #, kde-format
 msgid "Visible Items"
-msgstr ""
+msgstr "Redzami ieraksti"
 
 #: panelplugins/tocpanel/tocpanelplugin.cpp:1018
-#, fuzzy, kde-format
-#| msgid "Chapter"
+#, kde-format
 msgid "Show Chapters"
-msgstr "Nodaļa"
+msgstr "Rādīt nodaļas"
 
 #: panelplugins/tocpanel/tocpanelplugin.cpp:1027
-#, fuzzy, kde-format
-#| msgid "Show Completion"
+#, kde-format
 msgid "Show Sections"
-msgstr "Rādīt pabeigšanu"
+msgstr "Rādīt iedaļas"
 
 #: panelplugins/tocpanel/tocpanelplugin.cpp:1036
-#, fuzzy, kde-format
-#| msgid "Insert Command Entry"
+#, kde-format
 msgid "Show Command Entries"
-msgstr "Ievietot komandu ierakstu"
+msgstr "Rādīt komandu ierakstus"
 
 #: panelplugins/tocpanel/tocpanelplugin.cpp:1045
-#, fuzzy, kde-format
-#| msgid "Show Results"
+#, kde-format
 msgid "Show Plots"
-msgstr "Rādīt rezultātus"
+msgstr "Rādīt grafikus"
 
 #: panelplugins/tocpanel/tocpanelplugin.cpp:1056
-#, fuzzy, kde-format
-#| msgid "Reset to Default"
+#, kde-format
 msgid "Reset to Defaults"
 msgstr "Atiestatīt uz noklusējumu"
 
 #: panelplugins/tocpanel/tocpanelplugin.cpp:1179
 #, kde-format
 msgid "Go to Heading"
-msgstr ""
+msgstr "Iet uz virsrakstu"
 
 #: panelplugins/tocpanel/tocpanelplugin.cpp:1189
-#, fuzzy, kde-format
-#| msgid "Unnamed"
+#, kde-format
 msgid "Rename"
-msgstr "Nenosaukts"
+msgstr "Pārdēvēt"
 
 #: panelplugins/tocpanel/tocpanelplugin.cpp:1200
 #, kde-format
 msgid "Promote Heading"
-msgstr ""
+msgstr "Paaugstināt virsrakstu"
 
 #: panelplugins/tocpanel/tocpanelplugin.cpp:1207
 #, kde-format
 msgid "Demote Heading"
-msgstr ""
+msgstr "Pazemināt virsrakstu"
 
 #: panelplugins/tocpanel/tocpanelplugin.cpp:1216
-#, fuzzy, kde-format
-#| msgid "Delete current Entry"
+#, kde-format
 msgid "Delete Heading Only"
-msgstr "Dzēst pašreizējo ierakstu"
+msgstr "Dzēst tikai virsrakstu"
 
 #: panelplugins/tocpanel/tocpanelplugin.cpp:1223
-#, fuzzy, kde-format
-#| msgid "Delete Command Entry Results"
+#, kde-format
 msgid "Delete Section and Contents"
-msgstr "Dzēst komandu ieraksta rezultātus"
+msgstr "Dzēst iedaļu un saturu"
 
 #: panelplugins/tocpanel/tocpanelplugin.cpp:1234
-#, fuzzy, kde-format
-#| msgid "Command"
+#, kde-format
 msgid "Go to Command"
-msgstr "Komanda"
+msgstr "Iet uz komandu"
 
 #: panelplugins/tocpanel/tocpanelplugin.cpp:1244
-#, fuzzy, kde-format
-#| msgid "Command"
+#, kde-format
 msgid "Rename Command"
-msgstr "Komanda"
+msgstr "Pārdēvēt komandu"
 
 #: panelplugins/tocpanel/tocpanelplugin.cpp:1278
 #, kde-format
 msgid "Go to Plot"
-msgstr ""
+msgstr "Iet uz grafiku"
 
 #: panelplugins/tocpanel/tocpanelplugin.cpp:1319
-#, fuzzy, kde-format
-#| msgid "Completion"
+#, kde-format
 msgid "Collapse Section"
-msgstr "Pabeigšana"
+msgstr "Sakļaut iedaļu"
 
 #: panelplugins/tocpanel/tocpanelplugin.cpp:1331
-#, fuzzy, kde-format
-#| msgid "Section"
+#, kde-format
 msgid "Expand Section"
-msgstr "Iedaļa"
+msgstr "Izvērst iedaļu"
 
 #: panelplugins/tocpanel/tocpanelplugin.cpp:1349
-#, fuzzy, kde-format
-#| msgid "Expand All Results"
+#, kde-format
 msgid "Expand All"
-msgstr "Izvērst visus rezultātus"
+msgstr "Izvērst visu"
 
 #: panelplugins/tocpanel/tocpanelplugin.cpp:1356
-#, fuzzy, kde-format
-#| msgid "Collapse All Results"
+#, kde-format
 msgid "Collapse All"
-msgstr "Sakļaut visus rezultātus"
+msgstr "Sakļaut visu"
 
 #. i18n: ectx: property (text), widget (QLabel, label)
 #: panelplugins/variablemgr/newvardlg.ui:17
@@ -4446,12 +4428,12 @@ msgstr "Nav atrasts"
 #: searchbar.cpp:224
 #, kde-format
 msgid "Reached end of document, continuing from top..."
-msgstr ""
+msgstr "Sasniegtas dokumenta beigas, turpina no sākuma..."
 
 #: searchbar.cpp:339
 #, kde-format
 msgid "Reached beginning of document, continuing from bottom..."
-msgstr ""
+msgstr "Sasniegts dokumenta sākums, turpina no beigām..."
 
 #: searchbar.cpp:433
 #, kde-format
@@ -4527,14 +4509,13 @@ msgstr "Noklusējuma aizmugursistēma:"
 #: settings.ui:76 settings.ui:129
 #, kde-format
 msgid "Default editor color theme for new worksheets"
-msgstr ""
+msgstr "Noklusējuma redaktora krāsu motīvs jaunām darblapām"
 
 #. i18n: ectx: property (text), widget (QLabel, label_theme)
 #: settings.ui:79
-#, fuzzy, kde-format
-#| msgid "Default Backend:"
+#, kde-format
 msgid "Default Theme:"
-msgstr "Noklusējuma aizmugursistēma:"
+msgstr "Noklusējuma motīvs:"
 
 #. i18n: ectx: property (toolTip), widget (QSpinBox, kcfg_VisibleLinesLimit)
 #: settings.ui:86
@@ -4791,7 +4772,7 @@ msgstr "Kļūda, ielādējot „latex.xsl“ stila lapu"
 #: worksheet.cpp:1684
 #, kde-format
 msgid "Cannot create temporary archive."
-msgstr ""
+msgstr "Nevar izveidot pagaidu arhīvu."
 
 #: worksheet.cpp:1726
 #, kde-format
@@ -4822,10 +4803,9 @@ msgid "The selected file is not a valid Cantor project file."
 msgstr "Atlasītā datne nav derīga „Cantor“ projekta datne."
 
 #: worksheet.cpp:1801
-#, fuzzy, kde-format
-#| msgid "The selected file is not a valid Cantor project file."
+#, kde-format
 msgid "The selected file is a corrupt Cantor project file."
-msgstr "Atlasītā datne nav derīga „Cantor“ projekta datne."
+msgstr "Atlasītā datne ir bojāta „Cantor“ projekta datne."
 
 #: worksheet.cpp:1817
 #, kde-format
@@ -4916,7 +4896,7 @@ msgstr "Nederīga „Jupyter“ piezīmju grāmatas shēma: %1"
 #, kde-format
 msgid ""
 "The results of the selected cells will be deleted. Do you want to continue?"
-msgstr ""
+msgstr "Atlasīto šūnu rezultāti tiks dzēsti. Vai vēlaties turpināt?"
 
 #: worksheet.cpp:2393
 #, kde-format
@@ -5270,18 +5250,17 @@ msgstr "Gaiši pelēks"
 #: worksheetentry.cpp:515
 #, kde-format
 msgid "Selected Entry and All Above"
-msgstr ""
+msgstr "Atlasītais ieraksts un visi virs tā"
 
 #: worksheetentry.cpp:520
-#, fuzzy, kde-format
-#| msgid "Delete Entry"
+#, kde-format
 msgid "Selected Entry"
-msgstr "Dzēst ierakstu"
+msgstr "Atlasītais ieraksts"
 
 #: worksheetentry.cpp:525
 #, kde-format
 msgid "Selected Entry and All Below"
-msgstr ""
+msgstr "Atlasītais ieraksts un visi zem tā"
 
 #: worksheetentry.cpp:543
 #, kde-format
@@ -5294,23 +5273,19 @@ msgid "Move Down"
 msgstr "Pārvietot lejup"
 
 #: worksheetentry.cpp:558
-#, fuzzy, kde-format
-#| msgctxt "@title:window"
-#| msgid "Modify Entry"
+#, kde-format
 msgid "Copy Entry"
-msgstr "Ieraksta rediģēšana"
+msgstr "Kopēt ierakstu"
 
 #: worksheetentry.cpp:562
-#, fuzzy, kde-format
-#| msgid "Text Entry Before"
+#, kde-format
 msgid "Paste Entry Below"
-msgstr "Teksta ieraksts pirms šī"
+msgstr "Ielīmēt ierakstu zemāk"
 
 #: worksheetentry.cpp:567
-#, fuzzy, kde-format
-#| msgid "Delete Entry"
+#, kde-format
 msgid "Duplicate Entry Below"
-msgstr "Dzēst ierakstu"
+msgstr "Dublēt ierakstu zemāk"
 
 #: worksheetentry.cpp:573
 #, kde-format
@@ -5336,12 +5311,12 @@ msgstr "Vilkt ierakstu"
 #: worksheethierarchymanager.cpp:380
 #, kde-format
 msgid "%1 %2"
-msgstr ""
+msgstr "%1 %2"
 
 #: worksheethierarchymanager.cpp:374
 #, kde-format
 msgid "%1 %2.%3"
-msgstr ""
+msgstr "%1 %2.%3"
 
 #: worksheethierarchymanager.cpp:1375
 #, kde-format
@@ -5349,12 +5324,13 @@ msgid ""
 "Do you really want to delete the heading \"%1\" and all entries in this "
 "section? This action cannot be undone."
 msgstr ""
+"Vai tiešām vēlaties dzēst virsrakstu „%1“ un visus ierakstus šajā iedaļā? Šo "
+"darbību atcelt vairs nevarēs."
 
 #: worksheethierarchymanager.cpp:1381
-#, fuzzy, kde-format
-#| msgid "Section"
+#, kde-format
 msgid "Delete Section"
-msgstr "Iedaļa"
+msgstr "Dzēst iedaļu"
 
 #: worksheethierarchymanager.cpp:1385
 #, kde-format
@@ -5362,12 +5338,13 @@ msgid ""
 "Do you really want to delete only the heading \"%1\"? The contents of the "
 "section will remain in the worksheet. This action cannot be undone."
 msgstr ""
+"Vai tiešām vēlaties dzēst tikai virsrakstu „%1“? Iedaļas saturs saglabāsies "
+"darblapā. Šo darbību atsaukt nevarēs."
 
 #: worksheettextitem.cpp:912 worksheettextitem.cpp:929
-#, fuzzy, kde-format
-#| msgid "Text Color"
+#, kde-format
 msgid "Select Color"
-msgstr "Teksta krāsa"
+msgstr "Atlasīt krāsu"
 
 #~ msgid ""
 #~ "<h1>R' Help System: <i>help()</i> and <i>?</i>:</h1><br>The <i>help()</i> "
